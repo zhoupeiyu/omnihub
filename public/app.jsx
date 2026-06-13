@@ -180,7 +180,26 @@ function toHHMM(iso) {
   return d.toLocaleTimeString("zh-CN", { hour: "2-digit", minute: "2-digit", hour12: false });
 }
 
-/** 按发布日期把条目分组成时间线，返回 [{ key, label, items }]（保持原顺序，倒序在前） */
+/** 把发布时间向下取整到「分钟」作为同一时间点的判定键；无效时间返回 0 */
+function toMinuteKey(iso) {
+  const ms = new Date(iso).getTime();
+  if (isNaN(ms)) return 0;
+  return Math.floor(ms / 60000);
+}
+
+/** 复刻 AI HOT 的排序：时间倒序在前；同一时间点（同一分钟）内按打分从高到低 */
+function sortByTimeThenScore(items) {
+  return [...items].sort((a, b) => {
+    const minuteB = toMinuteKey(b.publishedAt);
+    const minuteA = toMinuteKey(a.publishedAt);
+    if (minuteB !== minuteA) return minuteB - minuteA;
+    const scoreB = typeof b.score === "number" ? b.score : -1;
+    const scoreA = typeof a.score === "number" ? a.score : -1;
+    return scoreB - scoreA;
+  });
+}
+
+/** 按发布日期把条目分组成时间线，返回 [{ key, label, items }]（保持传入顺序） */
 function groupByDate(items) {
   const today = new Date(); today.setHours(0, 0, 0, 0);
   const yesterday = new Date(today); yesterday.setDate(yesterday.getDate() - 1);
@@ -238,6 +257,7 @@ function FeedView({ query }) {
     || it.title.toLowerCase().includes(q) || (it.summary || "").toLowerCase().includes(q));
   if (rich && catFilter) visible = visible.filter((it) => it.category === catFilter);
   if (rich && onlySelected) visible = visible.filter((it) => it.selected);
+  if (rich) visible = sortByTimeThenScore(visible);
 
   const hot = rich
     ? [...items].filter((it) => typeof it.score === "number").sort((a, b) => b.score - a.score).slice(0, 3)
@@ -282,9 +302,15 @@ function FeedView({ query }) {
           {status === "ok" && rich && groups && groups.map((g) => (
             <div className="feed-day" key={g.key}>
               <div className="feed-day-label">{g.label}</div>
-              {g.items.map((it, i) => (
-                <FeedItem key={i} item={{ ...it, displayTime: toHHMM(it.publishedAt) }} showRank={false} />
-              ))}
+              <div className="timeline">
+                {g.items.map((it, i) => (
+                  <div className="tl-row" key={i}>
+                    <div className="tl-time">{toHHMM(it.publishedAt)}</div>
+                    <div className="tl-rail"><span className="tl-dot" /></div>
+                    <FeedItem item={{ ...it, time: "" }} showRank={false} />
+                  </div>
+                ))}
+              </div>
             </div>
           ))}
           {status === "ok" && !rich && visible.map((item, idx) => (
