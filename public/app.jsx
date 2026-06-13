@@ -258,7 +258,7 @@ function FeedView({ query }) {
   if (rich) visible = sortByTimeThenScore(visible);
 
   const hot = rich
-    ? [...items].filter((it) => typeof it.score === "number").sort((a, b) => b.score - a.score).slice(0, 3)
+    ? [...items].filter((it) => typeof it.score === "number").sort((a, b) => b.score - a.score).slice(0, 10)
     : [];
   const topTags = rich ? (() => {
     const counts = {};
