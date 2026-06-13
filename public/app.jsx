@@ -1,0 +1,586 @@
+/// 主应用 —— 登录态管理 + 五大模块（收藏/提示词/AI对话/信息流/工具箱），业务数据走服务器
+const { useState: useAppState, useEffect: useAppEffect, useMemo: useAppMemo } = React;
+
+const SEARCH_PLACEHOLDERS = {
+  favorites: "搜索收藏的网站……",
+  prompts: "搜索提示词……",
+  chat: "搜索……",
+  feed: "搜索资讯……",
+  tools: "搜索……",
+};
+
+const GREETINGS = [
+  { until: 6, text: "夜深了，注意休息" },
+  { until: 9, text: "早上好" },
+  { until: 12, text: "上午好" },
+  { until: 14, text: "中午好" },
+  { until: 18, text: "下午好" },
+  { until: 24, text: "晚上好" },
+];
+
+function getGreeting(hour) {
+  const matched = GREETINGS.find((g) => hour < g.until);
+  return matched ? matched.text : "你好";
+}
+
+const LUNAR_DAY_NAMES = [
+  "初一", "初二", "初三", "初四", "初五", "初六", "初七", "初八", "初九", "初十",
+  "十一", "十二", "十三", "十四", "十五", "十六", "十七", "十八", "十九", "二十",
+  "廿一", "廿二", "廿三", "廿四", "廿五", "廿六", "廿七", "廿八", "廿九", "三十",
+];
+
+/** 用浏览器内置的中国农历日历计算农历日期，如「五月廿八」；不支持时返回空串 */
+function getLunarDate(date) {
+  try {
+    const parts = new Intl.DateTimeFormat("zh-CN-u-ca-chinese", { month: "long", day: "numeric" }).formatToParts(date);
+    const month = (parts.find((p) => p.type === "month") || {}).value || "";
+    const day = Number((parts.find((p) => p.type === "day") || {}).value || 0);
+    if (!month || !day) return "";
+    return month + (LUNAR_DAY_NAMES[day - 1] || "");
+  } catch (err) {
+    return "";
+  }
+}
+
+function formatToday(now) {
+  const week = ["日", "一", "二", "三", "四", "五", "六"][now.getDay()];
+  const lunar = getLunarDate(now);
+  const base = `${now.getMonth() + 1} 月 ${now.getDate()} 日 星期${week}`;
+  return lunar ? `${base} · 农历${lunar}` : base;
+}
+
+/** 收藏模块 */
+function FavoritesView({ favorites, query, category, onAdd, onEdit, onDelete }) {
+  const visible = favorites.filter((fav) => {
+    const inCategory = category === "全部" || fav.category === category;
+    const q = query.toLowerCase();
+    const inQuery = !q || fav.name.toLowerCase().includes(q)
+      || fav.url.toLowerCase().includes(q) || (fav.desc || "").toLowerCase().includes(q);
+    return inCategory && inQuery;
+  });
+
+  const groups = (category === "全部" ? FAV_CATEGORIES : [category])
+    .map((cat) => ({ cat, items: visible.filter((f) => f.category === cat) }))
+    .filter((g) => g.items.length > 0);
+
+  return (
+    <div>
+      {groups.length === 0 && (
+        <div>
+          <SectionHead icon={<IconBookmark />} title="网站收藏" count={0}>
+            <button className="btn btn-primary" onClick={onAdd}><IconPlus />添加网站</button>
+          </SectionHead>
+          <EmptyState message="没有找到相关收藏" hint="试试其他关键词，或点右上角「添加网站」" />
+        </div>
+      )}
+      {groups.map((group, gi) => (
+        <section key={group.cat}>
+          <SectionHead icon={<IconBookmark />} title={group.cat} count={group.items.length}>
+            {gi === 0 && <button className="btn btn-primary" onClick={onAdd}><IconPlus />添加网站</button>}
+          </SectionHead>
+          <div className="fav-grid">
+            {group.items.map((fav) => (
+              <FavCardV2 key={fav.id} fav={fav} onEdit={onEdit} onDelete={onDelete} />
+            ))}
+          </div>
+        </section>
+      ))}
+    </div>
+  );
+}
+
+/** 提示词灵感库模块（模型/标签/收藏/归档筛选 + 导出） */
+function PromptsView({ prompts, query, category, onAdd, onDelete, onCopy, onOpen, onTryRun, onToggleFavorite }) {
+  const [modelFilter, setModelFilter] = useAppState("");
+  const [tagFilter, setTagFilter] = useAppState("");
+  const [onlyFavorite, setOnlyFavorite] = useAppState(false);
+  const [showArchived, setShowArchived] = useAppState(false);
+
+  const models = useAppMemo(
+    () => [...new Set(prompts.map((p) => p.model).filter(Boolean))],
+    [prompts]
+  );
+  const tags = useAppMemo(
+    () => [...new Set(prompts.flatMap((p) => (p.tags || "").split(",").map((t) => t.trim()).filter(Boolean)))],
+    [prompts]
+  );
+
+  const visible = prompts.filter((p) => {
+    if (Boolean(p.archived) !== showArchived) return false;
+    if (onlyFavorite && !p.favorite) return false;
+    if (category !== "全部" && p.category !== category) return false;
+    if (modelFilter && p.model !== modelFilter) return false;
+    if (tagFilter && !(p.tags || "").split(",").map((t) => t.trim()).includes(tagFilter)) return false;
+    const q = query.toLowerCase();
+    return !q || p.title.toLowerCase().includes(q) || p.text.toLowerCase().includes(q)
+      || (p.note || "").toLowerCase().includes(q) || (p.tags || "").toLowerCase().includes(q);
+  });
+
+  // 「全部」视图下按分类分组；分类外的（自定义分类）归到末尾「其他」组
+  const knownCats = PROMPT_CATEGORIES.filter((c) => visible.some((p) => p.category === c));
+  const otherCats = [...new Set(visible.map((p) => p.category).filter((c) => !PROMPT_CATEGORIES.includes(c)))];
+  const promptGroups = [...knownCats, ...otherCats]
+    .map((cat) => ({ cat, items: visible.filter((p) => p.category === cat) }))
+    .filter((g) => g.items.length > 0);
+
+  function renderCard(p) {
+    return (
+      <PromptCard key={p.id} prompt={p}
+        onCopy={onCopy} onDelete={onDelete} onOpen={onOpen}
+        onTryRun={onTryRun} onToggleFavorite={onToggleFavorite} />
+    );
+  }
+
+  return (
+    <div>
+      <div className="prompt-toolbar">
+        {models.length > 0 && (
+          <select className="select-mini" value={modelFilter} onChange={(e) => setModelFilter(e.target.value)}>
+            <option value="">全部模型</option>
+            {models.map((m) => <option key={m} value={m}>{m}</option>)}
+          </select>
+        )}
+        <button className={"filter-chip" + (onlyFavorite ? " active" : "")}
+          onClick={() => setOnlyFavorite(!onlyFavorite)}>⭐ 只看收藏</button>
+        <button className={"filter-chip" + (showArchived ? " active" : "")}
+          onClick={() => setShowArchived(!showArchived)}>已归档</button>
+        {tags.map((t) => (
+          <button key={t} className={"filter-chip" + (tagFilter === t ? " active" : "")}
+            onClick={() => setTagFilter(tagFilter === t ? "" : t)}>{t}</button>
+        ))}
+        <div className="toolbar-actions">
+          <button className="btn" title="导出全部为 JSON"
+            onClick={() => { window.location.href = "/api/prompts/export"; }}>
+            <IconDownload style={{ width: 14, height: 14 }} />导出
+          </button>
+          <button className="btn btn-primary" onClick={onAdd}><IconPlus />新建灵感</button>
+        </div>
+      </div>
+      {visible.length === 0 ? (
+        <EmptyState message={showArchived ? "归档箱是空的" : "还没有匹配的灵感"}
+          hint={showArchived ? "在详情抽屉里点「归档」的会出现在这里" : "点击右上角「新建灵感」开始收集"} />
+      ) : category === "全部" ? (
+        promptGroups.map((group) => (
+          <section className="prompt-group" key={group.cat}>
+            <SectionHead title={group.cat} count={group.items.length} />
+            <div className="prompt-grid">{group.items.map(renderCard)}</div>
+          </section>
+        ))
+      ) : (
+        <div className="prompt-grid">{visible.map(renderCard)}</div>
+      )}
+    </div>
+  );
+}
+
+/** 把 ISO 时间格式化为本地 HH:MM */
+function toHHMM(iso) {
+  const d = new Date(iso);
+  if (isNaN(d.getTime())) return "";
+  return d.toLocaleTimeString("zh-CN", { hour: "2-digit", minute: "2-digit", hour12: false });
+}
+
+/** 按发布日期把条目分组成时间线，返回 [{ key, label, items }]（保持原顺序，倒序在前） */
+function groupByDate(items) {
+  const today = new Date(); today.setHours(0, 0, 0, 0);
+  const yesterday = new Date(today); yesterday.setDate(yesterday.getDate() - 1);
+  const groups = [];
+  const index = {};
+  for (const it of items) {
+    const d = new Date(it.publishedAt);
+    const valid = !isNaN(d.getTime());
+    const dayStart = valid ? new Date(d.getFullYear(), d.getMonth(), d.getDate()) : null;
+    const key = valid ? `${d.getFullYear()}-${d.getMonth() + 1}-${d.getDate()}` : "unknown";
+    let label;
+    if (!valid) label = "更早";
+    else if (dayStart.getTime() === today.getTime()) label = "今天";
+    else if (dayStart.getTime() === yesterday.getTime()) label = "昨天";
+    else label = `${d.getMonth() + 1} 月 ${d.getDate()} 日`;
+    if (index[key] === undefined) { index[key] = groups.length; groups.push({ key, label, items: [] }); }
+    groups[index[key]].items.push(it);
+  }
+  return groups;
+}
+
+/** 信息流模块：多来源聚合；AI 资讯（富源）复刻 AI HOT 的精选分/分类/时间线/热点 */
+function FeedView({ query }) {
+  const [sources, setSources] = useAppState([]);
+  const [activeSource, setActiveSource] = useAppState("");
+  const [sourceInfo, setSourceInfo] = useAppState(null);
+  const [items, setItems] = useAppState([]);
+  const [catFilter, setCatFilter] = useAppState("");
+  const [onlySelected, setOnlySelected] = useAppState(false);
+  const [status, setStatus] = useAppState("loading"); // loading | ok | error
+  const [errMsg, setErrMsg] = useAppState("");
+
+  useAppEffect(() => {
+    api("/api/feed/sources")
+      .then((list) => {
+        setSources(list);
+        if (list.length) { setActiveSource(list[0].id); setSourceInfo(list[0]); }
+        else setStatus("ok");
+      })
+      .catch((err) => { setErrMsg(err.message); setStatus("error"); });
+  }, []);
+
+  function load(id) {
+    setStatus("loading");
+    api("/api/feed/" + id)
+      .then((data) => { setItems(data); setStatus("ok"); })
+      .catch((err) => { setErrMsg(err.message); setStatus("error"); });
+  }
+
+  useAppEffect(() => { if (activeSource) load(activeSource); }, [activeSource]);
+
+  const rich = Boolean(sourceInfo && sourceInfo.rich);
+  const q = query.toLowerCase();
+  let visible = items.filter((it) => !q
+    || it.title.toLowerCase().includes(q) || (it.summary || "").toLowerCase().includes(q));
+  if (rich && catFilter) visible = visible.filter((it) => it.category === catFilter);
+  if (rich && onlySelected) visible = visible.filter((it) => it.selected);
+
+  const hot = rich
+    ? [...items].filter((it) => typeof it.score === "number").sort((a, b) => b.score - a.score).slice(0, 3)
+    : [];
+  const groups = rich ? groupByDate(visible) : null;
+
+  function switchSource(s) {
+    setActiveSource(s.id); setSourceInfo(s); setCatFilter(""); setOnlySelected(false);
+  }
+
+  return (
+    <div>
+      <SectionHead icon={<IconRss />} title="信息流" count={status === "ok" ? visible.length : null}>
+        <button className="btn" onClick={() => activeSource && load(activeSource)} disabled={status === "loading"}>
+          <IconRefresh />刷新
+        </button>
+      </SectionHead>
+      <div className="feed-sources">
+        {sources.map((s) => (
+          <button key={s.id} title={s.desc}
+            className={"feed-source" + (activeSource === s.id ? " active" : "")}
+            onClick={() => switchSource(s)}>
+            {s.name}<span className="src-cat">{s.category}</span>
+          </button>
+        ))}
+      </div>
+      {rich && status === "ok" && (
+        <div className="filter-bar">
+          {AI_FEED_CATS.map((c) => (
+            <button key={c.id} className={"filter-chip" + (catFilter === c.id ? " active" : "")}
+              onClick={() => setCatFilter(c.id)}>{c.name}</button>
+          ))}
+          <button className={"filter-chip" + (onlySelected ? " active" : "")}
+            onClick={() => setOnlySelected(!onlySelected)}>⭐ 只看精选</button>
+        </div>
+      )}
+      <div className="feed-layout">
+        <div className="feed-list">
+          {status === "loading" && <EmptyState message="正在加载…" />}
+          {status === "error" && <EmptyState message={errMsg || "加载失败"} hint="点右上角「刷新」重试" />}
+          {status === "ok" && visible.length === 0 && <EmptyState message="暂无内容" />}
+          {status === "ok" && rich && groups && groups.map((g) => (
+            <div className="feed-day" key={g.key}>
+              <div className="feed-day-label">{g.label}</div>
+              {g.items.map((it, i) => (
+                <FeedItem key={i} item={{ ...it, displayTime: toHHMM(it.publishedAt) }} showRank={false} />
+              ))}
+            </div>
+          ))}
+          {status === "ok" && !rich && visible.map((item, idx) => (
+            <FeedItem key={idx} item={item} rank={idx + 1} showRank={true} />
+          ))}
+        </div>
+        <div className="feed-side">
+          {rich && hot.length > 0 && (
+            <div className="hot-card">
+              <div className="hot-title">🔥 当前热点</div>
+              {hot.map((it, i) => (
+                <a className="hot-item" key={i} href={it.url || "#"} target="_blank" rel="noopener noreferrer">
+                  <span className={"hot-rank r" + (i + 1)}>{i + 1}</span>
+                  <span className="hot-text">{it.title}</span>
+                  <span className="hot-score">{it.score}</span>
+                </a>
+              ))}
+            </div>
+          )}
+          <QuoteCardV2 />
+        </div>
+      </div>
+    </div>
+  );
+}
+
+/** 工具箱模块 */
+function ToolsView({ showToast }) {
+  return (
+    <div>
+      <SectionHead icon={<IconWrench />} title="工具箱" count={6} />
+      <div className="tool-grid">
+        <PasswordTool showToast={showToast} />
+        <TimestampTool showToast={showToast} />
+        <WordCountTool />
+        <ColorTool showToast={showToast} />
+        <DiceTool />
+        <FocusTimerTool showToast={showToast} />
+      </div>
+    </div>
+  );
+}
+
+/** 登录后的主界面 */
+function Workspace({ user, onLogout, showToast, toast }) {
+  const [skin, setSkin] = useAppState(() => loadStored("skin", "minimal"));
+  const [theme, setTheme] = useAppState(() => loadStored("theme", "light"));
+  const [section, setSection] = useAppState("favorites");
+  const [favorites, setFavorites] = useAppState([]);
+  const [prompts, setPrompts] = useAppState([]);
+  const [query, setQuery] = useAppState("");
+  const [favCategory, setFavCategory] = useAppState("全部");
+  const [promptCategory, setPromptCategory] = useAppState("全部");
+  const [modal, setModal] = useAppState(null); // null | "add-fav" | "add-prompt" | "ai-settings" | {type:"detail", prompt}
+  const [chatPrefill, setChatPrefill] = useAppState("");
+  const [chatMessages, setChatMessages] = useAppState([]);
+  const [hasAiConfig, setHasAiConfig] = useAppState(user.hasAiConfig);
+  const [now, setNow] = useAppState(() => new Date());
+
+  useAppEffect(() => {
+    document.documentElement.setAttribute("data-skin", skin);
+    document.documentElement.setAttribute("data-theme", theme);
+    saveStored("skin", skin);
+    saveStored("theme", theme);
+  }, [skin, theme]);
+
+  useAppEffect(() => {
+    api("/api/favorites").then(setFavorites).catch((err) => showToast(err.message));
+    api("/api/prompts").then(setPrompts).catch((err) => showToast(err.message));
+  }, []);
+
+  useAppEffect(() => {
+    // 不再显示时分，每 10 分钟刷新一次足够跨过日期与问候语的变化点
+    const timer = setInterval(() => setNow(new Date()), 600000);
+    return () => clearInterval(timer);
+  }, []);
+
+  function copyPrompt(text) {
+    navigator.clipboard.writeText(text)
+      .then(() => showToast("提示词已复制"))
+      .catch(() => showToast("复制失败，请手动选择"));
+  }
+
+  /** 新建或编辑收藏（id 为空表示新建） */
+  function saveFavorite(data, id) {
+    if (id) {
+      api(`/api/favorites/${id}`, { method: "PUT", body: data })
+        .then(() => {
+          setFavorites((prev) => prev.map((f) => f.id === id ? { ...f, ...data } : f));
+          setModal(null);
+          showToast("已保存修改");
+        })
+        .catch((err) => showToast(err.message));
+      return;
+    }
+    api("/api/favorites", { method: "POST", body: data })
+      .then(({ id: newId }) => {
+        setFavorites([...favorites, { id: newId, ...data }]);
+        setModal(null);
+        showToast(`已收藏「${data.name}」`);
+      })
+      .catch((err) => showToast(err.message));
+  }
+
+  function deleteFavorite(id) {
+    const target = favorites.find((f) => f.id === id);
+    api(`/api/favorites/${id}`, { method: "DELETE" })
+      .then(() => {
+        setFavorites(favorites.filter((f) => f.id !== id));
+        if (target) showToast(`已删除「${target.name}」`);
+      })
+      .catch((err) => showToast(err.message));
+  }
+
+  /** 新建或编辑保存（抽屉调用，错误抛回抽屉内显示） */
+  function savePrompt(form, id) {
+    if (id) {
+      return api(`/api/prompts/${id}`, { method: "PUT", body: form }).then((result) => {
+        setPrompts((prev) => prev.map((p) => p.id === id
+          ? { ...p, ...form, snsUrlNormalized: result.snsUrlNormalized || "", snsType: result.snsType || "" }
+          : p));
+        setModal(null);
+        showToast("已保存修改");
+      });
+    }
+    return api("/api/prompts", { method: "POST", body: form }).then((result) => {
+      setPrompts((prev) => [
+        { ...form, id: result.id, favorite: 0, archived: 0, snsUrlNormalized: result.snsUrlNormalized, snsType: result.snsType },
+        ...prev,
+      ]);
+      setModal(null);
+      showToast(`已收藏「${form.title}」`);
+    });
+  }
+
+  /** 局部更新（收藏 / 归档切换） */
+  function patchPrompt(target, patch, toastText) {
+    api(`/api/prompts/${target.id}`, { method: "PUT", body: patch })
+      .then(() => {
+        setPrompts((prev) => prev.map((p) => p.id === target.id ? { ...p, ...patch } : p));
+        setModal((m) => m && m.type === "drawer" && m.prompt && m.prompt.id === target.id
+          ? { ...m, prompt: { ...m.prompt, ...patch } }
+          : m);
+        if (toastText) showToast(toastText);
+      })
+      .catch((err) => showToast(err.message));
+  }
+
+  function togglePromptFavorite(p) {
+    patchPrompt(p, { favorite: p.favorite ? 0 : 1 });
+  }
+
+  function togglePromptArchive(p) {
+    patchPrompt(p, { archived: p.archived ? 0 : 1 }, p.archived ? "已恢复" : "已归档");
+    setModal(null);
+  }
+
+  function deletePrompt(id) {
+    const target = prompts.find((p) => p.id === id);
+    api(`/api/prompts/${id}`, { method: "DELETE" })
+      .then(() => {
+        setPrompts(prompts.filter((p) => p.id !== id));
+        if (target) showToast(`已删除「${target.title}」`);
+      })
+      .catch((err) => showToast(err.message));
+  }
+
+  /** 提示词「试跑」：带着内容跳到 AI 对话 */
+  function tryRunPrompt(prompt) {
+    setChatPrefill(prompt.text);
+    setModal(null);
+    setSection("chat");
+  }
+
+  function handleLogout() {
+    api("/api/logout", { method: "POST" }).finally(onLogout);
+  }
+
+  const favCounts = {};
+  ["全部", ...FAV_CATEGORIES].forEach((c) => {
+    favCounts[c] = c === "全部" ? favorites.length : favorites.filter((f) => f.category === c).length;
+  });
+  const promptCounts = {};
+  ["全部", ...PROMPT_CATEGORIES].forEach((c) => {
+    promptCounts[c] = c === "全部" ? prompts.length : prompts.filter((p) => p.category === c).length;
+  });
+
+  let sideCategories = null, activeCategory = null, onCategoryChange = null, counts = {};
+  if (section === "favorites") {
+    sideCategories = ["全部", ...FAV_CATEGORIES]; activeCategory = favCategory;
+    onCategoryChange = setFavCategory; counts = favCounts;
+  } else if (section === "prompts") {
+    sideCategories = ["全部", ...PROMPT_CATEGORIES]; activeCategory = promptCategory;
+    onCategoryChange = setPromptCategory; counts = promptCounts;
+  }
+
+  return (
+    <div>
+      <Header query={query} onQueryChange={setQuery}
+        searchPlaceholder={SEARCH_PLACEHOLDERS[section]}
+        greeting={`${getGreeting(now.getHours())}，${user.username}`}
+        dateText={formatToday(now)} />
+      <div className="layout">
+        <SideNav section={section}
+          onSectionChange={(s) => { setSection(s); setQuery(""); }}
+          categories={sideCategories} activeCategory={activeCategory}
+          onCategoryChange={onCategoryChange} counts={counts}
+          user={user}
+          skin={skin} onSkinChange={setSkin}
+          theme={theme} onThemeToggle={() => setTheme(theme === "light" ? "dark" : "light")}
+          onOpenAiSettings={() => setModal("ai-settings")}
+          onLogout={handleLogout} />
+        <main className="main">
+          {section === "favorites" && (
+            <FavoritesView favorites={favorites} query={query} category={favCategory}
+              onAdd={() => setModal({ type: "fav", fav: null })}
+              onEdit={(fav) => setModal({ type: "fav", fav })}
+              onDelete={deleteFavorite} />
+          )}
+          {section === "prompts" && (
+            <PromptsView prompts={prompts} query={query} category={promptCategory}
+              onAdd={() => setModal({ type: "drawer", prompt: null, mode: "create" })}
+              onDelete={deletePrompt}
+              onCopy={copyPrompt}
+              onOpen={(p) => setModal({ type: "drawer", prompt: p, mode: "view" })}
+              onTryRun={tryRunPrompt}
+              onToggleFavorite={togglePromptFavorite} />
+          )}
+          {section === "chat" && (
+            <ChatView messages={chatMessages} onMessagesChange={setChatMessages}
+              prefill={chatPrefill} onPrefillUsed={() => setChatPrefill("")}
+              hasAiConfig={hasAiConfig}
+              onOpenAiSettings={() => setModal("ai-settings")}
+              showToast={showToast} />
+          )}
+          {section === "feed" && <FeedView query={query} />}
+          {section === "tools" && <ToolsView showToast={showToast} />}
+        </main>
+      </div>
+      {modal && modal.type === "fav" && (
+        <AddFavModalV2 key={modal.fav ? modal.fav.id : "new"} editing={modal.fav}
+          onClose={() => setModal(null)} onSubmit={saveFavorite} />
+      )}
+      {modal === "ai-settings" && (
+        <AiSettingsModal onClose={() => setModal(null)} onSaved={() => setHasAiConfig(true)} showToast={showToast} />
+      )}
+      {modal && modal.type === "drawer" && (
+        <PromptDrawer key={modal.prompt ? modal.prompt.id : "new"}
+          prompt={modal.prompt} initialMode={modal.mode}
+          onClose={() => setModal(null)} onSave={savePrompt}
+          onCopy={copyPrompt} onTryRun={tryRunPrompt}
+          onToggleFavorite={togglePromptFavorite}
+          onToggleArchive={togglePromptArchive}
+          showToast={showToast} />
+      )}
+      <BackToTop />
+      <ToastV2 message={toast} />
+    </div>
+  );
+}
+
+/** 应用根：检查登录态，未登录显示登录页 */
+function App() {
+  const [user, setUser] = useAppState(null);
+  const [checking, setChecking] = useAppState(true);
+  const [toast, setToast] = useAppState("");
+
+  function showToast(message) {
+    setToast(message);
+    setTimeout(() => setToast(""), 2600);
+  }
+
+  useAppEffect(() => {
+    // 登录页也应用本机皮肤偏好
+    document.documentElement.setAttribute("data-skin", loadStored("skin", "minimal"));
+    document.documentElement.setAttribute("data-theme", loadStored("theme", "light"));
+    api("/api/me")
+      .then(setUser)
+      .catch(() => setUser(null))
+      .finally(() => setChecking(false));
+  }, []);
+
+  function handleLoggedIn() {
+    api("/api/me").then(setUser).catch(() => setUser(null));
+  }
+
+  if (checking) return null;
+  if (!user) {
+    return (
+      <div>
+        <AuthView onLoggedIn={handleLoggedIn} />
+        <ToastV2 message={toast} />
+      </div>
+    );
+  }
+  return <Workspace key={user.id} user={user} onLogout={() => setUser(null)} showToast={showToast} toast={toast} />;
+}
+
+ReactDOM.createRoot(document.getElementById("root")).render(<App />);

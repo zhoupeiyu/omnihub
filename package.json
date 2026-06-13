@@ -1,0 +1,13 @@
+{
+  "name": "omnihub",
+  "version": "1.0.0",
+  "description": "万象台 OmniHub —— 个人聚合主页：网站收藏 / 提示词库 / 信息流 / 工具箱 / AI 对话",
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "start": "node server.js"
+  },
+  "engines": {
+    "node": ">=22.5.0"
+  }
+}
