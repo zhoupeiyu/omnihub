@@ -228,7 +228,6 @@ function FeedView({ query }) {
   const [sourceInfo, setSourceInfo] = useAppState(null);
   const [items, setItems] = useAppState([]);
   const [catFilter, setCatFilter] = useAppState("");
-  const [onlySelected, setOnlySelected] = useAppState(false);
   const [status, setStatus] = useAppState("loading"); // loading | ok | error
   const [errMsg, setErrMsg] = useAppState("");
 
@@ -255,17 +254,21 @@ function FeedView({ query }) {
   const q = query.toLowerCase();
   let visible = items.filter((it) => !q
     || it.title.toLowerCase().includes(q) || (it.summary || "").toLowerCase().includes(q));
-  if (rich && catFilter) visible = visible.filter((it) => it.category === catFilter);
-  if (rich && onlySelected) visible = visible.filter((it) => it.selected);
+  if (rich && catFilter) visible = visible.filter((it) => (it.tags || []).includes(catFilter));
   if (rich) visible = sortByTimeThenScore(visible);
 
   const hot = rich
     ? [...items].filter((it) => typeof it.score === "number").sort((a, b) => b.score - a.score).slice(0, 3)
     : [];
+  const topTags = rich ? (() => {
+    const counts = {};
+    items.forEach((it) => (it.tags || []).forEach((t) => { counts[t] = (counts[t] || 0) + 1; }));
+    return Object.keys(counts).sort((a, b) => counts[b] - counts[a]).slice(0, 10);
+  })() : [];
   const groups = rich ? groupByDate(visible) : null;
 
   function switchSource(s) {
-    setActiveSource(s.id); setSourceInfo(s); setCatFilter(""); setOnlySelected(false);
+    setActiveSource(s.id); setSourceInfo(s); setCatFilter("");
   }
 
   return (
@@ -284,14 +287,14 @@ function FeedView({ query }) {
           </button>
         ))}
       </div>
-      {rich && status === "ok" && (
+      {rich && status === "ok" && topTags.length > 0 && (
         <div className="filter-bar">
-          {AI_FEED_CATS.map((c) => (
-            <button key={c.id} className={"filter-chip" + (catFilter === c.id ? " active" : "")}
-              onClick={() => setCatFilter(c.id)}>{c.name}</button>
+          <button className={"filter-chip" + (catFilter === "" ? " active" : "")}
+            onClick={() => setCatFilter("")}>全部</button>
+          {topTags.map((t) => (
+            <button key={t} className={"filter-chip" + (catFilter === t ? " active" : "")}
+              onClick={() => setCatFilter(t)}>{t}</button>
           ))}
-          <button className={"filter-chip" + (onlySelected ? " active" : "")}
-            onClick={() => setOnlySelected(!onlySelected)}>⭐ 只看精选</button>
         </div>
       )}
       <div className="feed-layout">

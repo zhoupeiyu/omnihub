@@ -244,23 +244,29 @@ function FeedCardV2({ item, rank }) {
 
 /** 信息流条目（标题点击打开原文）；富源额外显示精选分与分类 */
 function FeedItem({ item, rank, showRank }) {
-  const catName = item.category ? (AI_FEED_CAT_NAMES[item.category] || item.category) : "";
+  const tags = Array.isArray(item.tags) ? item.tags : [];
   return (
     <a className="feed-card" href={item.url || "#"} target="_blank" rel="noopener noreferrer">
       {showRank && <div className={"feed-rank" + (rank <= 3 ? " hot" : "")}>{rank}</div>}
       <div className="feed-body">
+        {item.origin && <div className="feed-source">{item.origin}</div>}
         <div className="feed-title-row">
           <h3 className="feed-title">{item.title}</h3>
+          {item.selected && <span className="feed-pick" title="编辑精选">★ 精选</span>}
           {typeof item.score === "number" && (
-            <span className={"feed-score" + (item.selected ? " selected" : "")} title={item.selected ? "精选" : "评分"}>{item.score}</span>
+            <span className={"feed-score" + (item.selected ? " selected" : "")} title={item.selected ? "精选评分" : "评分"}>{item.score}</span>
           )}
         </div>
         {item.summary && <p className="feed-summary">{item.summary}</p>}
-        <div className="feed-meta">
-          {catName && <span className="tag-chip">{catName}</span>}
-          {item.origin && <span className="feed-origin">{item.origin}</span>}
-          {(item.displayTime || item.time) && <span>{item.displayTime || item.time}</span>}
-        </div>
+        {(tags.length > 0 || item.duplicateCount > 0) && (
+          <div className="feed-tags">
+            {tags.map((t, i) => <span className="tag-chip" key={i}>{t}</span>)}
+            {item.duplicateCount > 0 && <span className="feed-related">关联讨论 {item.duplicateCount} 条</span>}
+          </div>
+        )}
+        {item.reason && (
+          <div className="feed-reason"><span className="feed-reason-label">推荐理由</span>{item.reason}</div>
+        )}
       </div>
       <IconArrowUpRight className="feed-arrow" />
     </a>
