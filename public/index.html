@@ -513,9 +513,12 @@ section[id] { scroll-margin-top: 84px; }
 }
 .feed-score.selected { color: var(--text-2); background: var(--bg-sunken); border-color: var(--border); }
 .feed-pick-corner {
-  position: absolute; top: 8px; right: 10px; z-index: 1;
-  font-size: 12px; line-height: 1; color: oklch(72% 0.13 85);
+  position: absolute; top: 0; right: 0; z-index: 1;
+  display: grid; place-items: center; width: 24px; height: 24px;
+  border-radius: 0 var(--radius-sm) 0 9px;
+  background: oklch(72% 0.13 85 / 0.16); color: oklch(58% 0.12 85);
 }
+.feed-pick-corner svg { width: 12px; height: 12px; }
 /* 多标签 + 关联讨论 */
 .feed-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 8px; align-items: center; }
 .feed-tags .tag-chip {

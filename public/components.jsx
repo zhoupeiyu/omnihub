@@ -248,7 +248,7 @@ function FeedItem({ item, rank, showRank }) {
   return (
     <a className="feed-card" href={item.url || "#"} target="_blank" rel="noopener noreferrer">
       {showRank && <div className={"feed-rank" + (rank <= 3 ? " hot" : "")}>{rank}</div>}
-      {item.selected && <span className="feed-pick-corner" title="精选">★</span>}
+      {item.selected && <span className="feed-pick-corner" title="精选"><IconSparkle /></span>}
       <div className="feed-body">
         <div className="feed-title-row">
           <h3 className="feed-title">{item.title}</h3>
