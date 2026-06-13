@@ -510,10 +510,14 @@ section[id] { scroll-margin-top: 84px; }
   padding: 0 6px; border-radius: 5px; color: var(--text-3); line-height: 1.7;
   background: var(--bg-sunken); border: var(--border-w) solid var(--border);
 }
-.feed-score.selected { color: #fff; background: linear-gradient(135deg, #10b981, #059669); border-color: transparent; }
-.feed-score-star { margin-right: 3px; }
+.feed-score.selected { color: var(--text-2); background: var(--bg-sunken); border-color: var(--border); }
+.feed-score-star { margin-right: 3px; color: oklch(72% 0.13 85); }
 /* 多标签 + 关联讨论 */
 .feed-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 8px; align-items: center; }
+.feed-tags .tag-chip {
+  background: var(--bg-sunken); color: var(--text-3); font-weight: 500;
+  border: var(--border-w) solid var(--border);
+}
 .feed-related {
   font-size: 11px; color: var(--text-3); padding: 1px 8px; border-radius: 6px; white-space: nowrap;
   border: var(--border-w) dashed var(--border);
@@ -715,8 +719,8 @@ section[id] { scroll-margin-top: 84px; }
   border: var(--border-w) solid var(--border); background: transparent; color: var(--text-3);
   transition: all .15s;
 }
-.filter-chip:hover { color: var(--accent); border-color: var(--accent); }
-.filter-chip.active { background: var(--accent); color: var(--accent-contrast); border-color: var(--accent); }
+.filter-chip:hover { color: var(--text-1); border-color: var(--text-3); }
+.filter-chip.active { background: var(--text-2); color: var(--bg); border-color: var(--text-2); }
 .star-btn {
   border: none; background: none; padding: 2px; display: grid; place-items: center;
   color: var(--text-3); transition: color .15s, transform .15s; cursor: pointer;
