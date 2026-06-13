@@ -252,13 +252,13 @@ function FeedItem({ item, rank, showRank }) {
       <div className="feed-body">
         <div className="feed-title-row">
           <h3 className="feed-title">{item.title}</h3>
-          {typeof item.score === "number" && (
-            <span className={"feed-score" + (item.selected ? " selected" : "")} title={item.selected ? "精选评分" : "评分"}>{item.score}</span>
-          )}
         </div>
         {item.summary && <p className="feed-summary">{item.summary}</p>}
-        {(tags.length > 0 || item.duplicateCount > 0 || item.origin) && (
+        {(tags.length > 0 || item.duplicateCount > 0 || item.origin || typeof item.score === "number") && (
           <div className="feed-tags">
+            {typeof item.score === "number" && (
+              <span className="feed-score" title={item.selected ? "精选评分" : "评分"}>{item.score}</span>
+            )}
             {tags.map((t, i) => <span className="tag-chip" key={i}>{t}</span>)}
             {item.duplicateCount > 0 && <span className="feed-related">关联讨论 {item.duplicateCount} 条</span>}
             {item.origin && <span className="feed-origin">{item.origin}</span>}
