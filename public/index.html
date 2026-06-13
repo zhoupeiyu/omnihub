@@ -487,6 +487,7 @@ section[id] { scroll-margin-top: 84px; }
 @media (max-width: 1020px) { .feed-layout { grid-template-columns: 1fr; } }
 .feed-list { display: flex; flex-direction: column; gap: 7px; }
 .feed-card {
+  position: relative;
   display: flex; gap: 11px; align-items: flex-start;
   padding: 11px 13px; border-radius: var(--radius-sm);
   border: var(--border-w) solid var(--border);
@@ -502,7 +503,7 @@ section[id] { scroll-margin-top: 84px; }
 }
 .feed-rank.hot { color: var(--accent); }
 .feed-body { flex: 1; min-width: 0; }
-.feed-title-row { display: flex; align-items: flex-start; gap: 8px; }
+.feed-title-row { display: flex; align-items: flex-start; gap: 8px; padding-right: 16px; }
 .feed-title { flex: 1; min-width: 0; font-weight: 600; font-size: 13.5px; line-height: 1.5; transition: color .18s; }
 .feed-card:hover .feed-title { color: var(--accent); }
 .feed-score {
@@ -511,7 +512,10 @@ section[id] { scroll-margin-top: 84px; }
   background: var(--bg-sunken); border: var(--border-w) solid var(--border);
 }
 .feed-score.selected { color: var(--text-2); background: var(--bg-sunken); border-color: var(--border); }
-.feed-score-star { margin-right: 3px; color: oklch(72% 0.13 85); }
+.feed-pick-corner {
+  position: absolute; top: 8px; right: 10px; z-index: 1;
+  font-size: 12px; line-height: 1; color: oklch(72% 0.13 85);
+}
 /* 多标签 + 关联讨论 */
 .feed-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 8px; align-items: center; }
 .feed-tags .tag-chip {
