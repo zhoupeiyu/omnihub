@@ -53,10 +53,10 @@ function SideNav({ section, onSectionChange, categories, activeCategory, onCateg
                    user, skin, onSkinChange, theme, onThemeToggle, onOpenAiSettings, onLogout }) {
   const [settingsOpen, setSettingsOpen] = useState(false);
   const modules = [
-    { id: "favorites", label: "网站收藏", icon: <IconBookmark /> },
-    { id: "prompts", label: "提示词", icon: <IconSparkle /> },
-    { id: "chat", label: "AI 对话", icon: <IconSend /> },
     { id: "feed", label: "信息流", icon: <IconRss /> },
+    { id: "prompts", label: "提示词", icon: <IconSparkle /> },
+    { id: "favorites", label: "网站收藏", icon: <IconBookmark /> },
+    { id: "chat", label: "AI 对话", icon: <IconSend /> },
     { id: "tools", label: "工具箱", icon: <IconWrench /> },
   ];
   return (

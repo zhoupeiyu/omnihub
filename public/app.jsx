@@ -358,7 +358,7 @@ function ToolsView({ showToast }) {
 function Workspace({ user, onLogout, showToast, toast }) {
   const [skin, setSkin] = useAppState(() => loadStored("skin", "minimal"));
   const [theme, setTheme] = useAppState(() => loadStored("theme", "light"));
-  const [section, setSection] = useAppState("favorites");
+  const [section, setSection] = useAppState("feed");
   const [favorites, setFavorites] = useAppState([]);
   const [prompts, setPrompts] = useAppState([]);
   const [query, setQuery] = useAppState("");
