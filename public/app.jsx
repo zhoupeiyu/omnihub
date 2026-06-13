@@ -230,6 +230,7 @@ function FeedView({ query }) {
   const [catFilter, setCatFilter] = useAppState("");
   const [status, setStatus] = useAppState("loading"); // loading | ok | error
   const [errMsg, setErrMsg] = useAppState("");
+  const [preview, setPreview] = useAppState(null); // 图片放大预览的 src
 
   useAppEffect(() => {
     api("/api/feed/sources")
@@ -309,14 +310,14 @@ function FeedView({ query }) {
                   <div className="tl-row" key={i}>
                     <div className="tl-time">{toHHMM(it.publishedAt)}</div>
                     <div className="tl-rail"><span className="tl-dot" /></div>
-                    <FeedItem item={{ ...it, time: "" }} showRank={false} />
+                    <FeedItem item={{ ...it, time: "" }} showRank={false} onPreview={setPreview} />
                   </div>
                 ))}
               </div>
             </div>
           ))}
           {status === "ok" && !rich && visible.map((item, idx) => (
-            <FeedItem key={idx} item={item} rank={idx + 1} showRank={true} />
+            <FeedItem key={idx} item={item} rank={idx + 1} showRank={true} onPreview={setPreview} />
           ))}
         </div>
         <div className="feed-side">
@@ -334,6 +335,7 @@ function FeedView({ query }) {
           )}
         </div>
       </div>
+      {preview && <ImageLightbox src={preview} onClose={() => setPreview(null)} />}
     </div>
   );
 }

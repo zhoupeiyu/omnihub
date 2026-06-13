@@ -258,8 +258,37 @@ function FeedCardV2({ item, rank }) {
 }
 
 /** 信息流条目（标题点击打开原文）；富源额外显示精选分与分类 */
-function FeedItem({ item, rank, showRank }) {
+/** 信息流头像：有头像图用图，加载失败或无图回退到首字母色块 */
+function FeedAvatar({ avatar, name }) {
+  const [failed, setFailed] = useState(false);
+  if (avatar && !failed) {
+    return <img className="feed-avatar" src={avatar} alt="" loading="lazy" onError={() => setFailed(true)} />;
+  }
+  return (
+    <span className="feed-avatar feed-avatar-fallback" style={{ background: getAvatarColor(name || "?") }}>
+      {(name || "?").charAt(0).toUpperCase()}
+    </span>
+  );
+}
+
+/** 图片放大悬浮层：点击遮罩、关闭按钮或按 Esc 关闭 */
+function ImageLightbox({ src, onClose }) {
+  useEffect(() => {
+    const onKey = (e) => { if (e.key === "Escape") onClose(); };
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, [onClose]);
+  return (
+    <div className="lightbox" onClick={onClose}>
+      <img className="lightbox-img" src={src} alt="" onClick={(e) => e.stopPropagation()} />
+      <button className="lightbox-close" onClick={onClose} title="关闭">✕</button>
+    </div>
+  );
+}
+
+function FeedItem({ item, rank, showRank, onPreview }) {
   const tags = Array.isArray(item.tags) ? item.tags : [];
+  const images = Array.isArray(item.images) ? item.images : [];
   return (
     <a className="feed-card" href={item.url || "#"} target="_blank" rel="noopener noreferrer">
       {showRank && <div className={"feed-rank" + (rank <= 3 ? " hot" : "")}>{rank}</div>}
@@ -276,11 +305,25 @@ function FeedItem({ item, rank, showRank }) {
           <h3 className="feed-title">{item.title}</h3>
         </div>
         {item.summary && <p className="feed-summary">{item.summary}</p>}
+        {images.length > 0 && (
+          <div className="feed-imgs">
+            {images.slice(0, 4).map((src, i) => (
+              <img className="feed-img" key={i} src={src} alt="" loading="lazy"
+                onClick={(e) => { e.preventDefault(); e.stopPropagation(); if (onPreview) onPreview(src); }}
+                onError={(e) => { e.currentTarget.style.display = "none"; }} />
+            ))}
+          </div>
+        )}
         {(tags.length > 0 || item.duplicateCount > 0 || item.origin) && (
           <div className="feed-tags">
             {tags.map((t, i) => <span className="tag-chip" key={i}>{t}</span>)}
             {item.duplicateCount > 0 && <span className="feed-related">关联讨论 {item.duplicateCount} 条</span>}
-            {item.origin && <span className="feed-origin">{item.origin}</span>}
+            {item.origin && (
+              <span className="feed-origin">
+                <FeedAvatar avatar={item.avatar} name={item.authorName || item.origin} />
+                {item.origin}
+              </span>
+            )}
           </div>
         )}
         {item.reason && (
@@ -369,6 +412,6 @@ function ToastV2({ message }) {
 Object.assign(window, {
   IconArrowUpRight, IconArrowUp, IconSparkle, IconUpload, IconUser, IconLogout, IconSend, IconSettings,
   Favicon, Header, SideNav, SectionHead,
-  FavCardV2, AddFavModalV2, FeedCardV2, FeedItem,
+  FavCardV2, AddFavModalV2, FeedCardV2, FeedItem, ImageLightbox,
   EmptyState, BackToTop, ToastV2,
 });
