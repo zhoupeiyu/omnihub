@@ -507,15 +507,11 @@ section[id] { scroll-margin-top: 84px; }
 .feed-card:hover .feed-title { color: var(--accent); }
 .feed-score {
   flex-shrink: 0; font-family: var(--font-mono); font-size: 10px; font-weight: 700;
-  padding: 0 5px; border-radius: 5px; color: var(--text-3); line-height: 1.7;
+  padding: 0 6px; border-radius: 5px; color: var(--text-3); line-height: 1.7;
   background: var(--bg-sunken); border: var(--border-w) solid var(--border);
 }
-.feed-score.selected { color: var(--accent); background: var(--accent-soft); border-color: transparent; }
-.feed-pick {
-  flex-shrink: 0; font-size: 9px; line-height: 1.9; padding: 0 4px;
-  border-radius: 5px; white-space: nowrap;
-  color: #fff; background: linear-gradient(135deg, #10b981, #059669);
-}
+.feed-score.selected { color: #fff; background: linear-gradient(135deg, #10b981, #059669); border-color: transparent; }
+.feed-score-star { margin-right: 3px; }
 /* 多标签 + 关联讨论 */
 .feed-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 8px; align-items: center; }
 .feed-related {
