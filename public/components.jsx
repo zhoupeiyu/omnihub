@@ -248,22 +248,24 @@ function FeedItem({ item, rank, showRank }) {
   return (
     <a className="feed-card" href={item.url || "#"} target="_blank" rel="noopener noreferrer">
       {showRank && <div className={"feed-rank" + (rank <= 3 ? " hot" : "")}>{rank}</div>}
-      {item.selected && <span className="feed-pick-corner" title="精选"><IconSparkle /></span>}
+      {(typeof item.score === "number" || item.selected) && (
+        <div className="feed-corner">
+          {typeof item.score === "number" && (
+            <span className="feed-score" title={item.selected ? "精选评分" : "评分"}>{item.score}</span>
+          )}
+          {item.selected && <span className="feed-pick-corner" title="精选"><IconSparkle /></span>}
+        </div>
+      )}
       <div className="feed-body">
         <div className="feed-title-row">
           <h3 className="feed-title">{item.title}</h3>
         </div>
         {item.summary && <p className="feed-summary">{item.summary}</p>}
-        {(tags.length > 0 || item.duplicateCount > 0 || item.origin || typeof item.score === "number") && (
+        {(tags.length > 0 || item.duplicateCount > 0 || item.origin) && (
           <div className="feed-tags">
             {tags.map((t, i) => <span className="tag-chip" key={i}>{t}</span>)}
             {item.duplicateCount > 0 && <span className="feed-related">关联讨论 {item.duplicateCount} 条</span>}
-            <span className="feed-meta-right">
-              {typeof item.score === "number" && (
-                <span className="feed-score" title={item.selected ? "精选评分" : "评分"}>{item.score} 分</span>
-              )}
-              {item.origin && <span className="feed-origin">{item.origin}</span>}
-            </span>
+            {item.origin && <span className="feed-origin">{item.origin}</span>}
           </div>
         )}
         {item.reason && (
