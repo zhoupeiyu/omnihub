@@ -332,7 +332,6 @@ function FeedView({ query }) {
               ))}
             </div>
           )}
-          <QuoteCardV2 />
         </div>
       </div>
     </div>

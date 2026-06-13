@@ -6,6 +6,7 @@ const dIcon2Base = { fill: "none", stroke: "currentColor", strokeWidth: 1.8, str
 const IconArrowUpRight = (props) => (<svg {...dIcon2Base} {...props}><path d="M7 17L17 7M17 7H8M17 7v9" /></svg>);
 const IconArrowUp = (props) => (<svg {...dIcon2Base} {...props}><path d="M12 19V5M5 12l7-7 7 7" /></svg>);
 const IconSparkle = (props) => (<svg {...dIcon2Base} {...props}><path d="M12 3l1.9 5.1L19 10l-5.1 1.9L12 17l-1.9-5.1L5 10l5.1-1.9z" /><path d="M19 17l.8 2.2L22 20l-2.2.8L19 23l-.8-2.2L16 20l2.2-.8z" /></svg>);
+const IconWoodFish = (props) => (<svg {...dIcon2Base} {...props}><path d="M4 13.5C4 9.4 7.6 7 12 7s8 2.4 8 6.5S16.4 18 12 18 4 17.6 4 13.5Z" /><path d="M9.5 13.5h5" /><path d="M12 7V4.5" /></svg>);
 const IconUpload = (props) => (<svg {...dIcon2Base} {...props}><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M17 8l-5-5-5 5M12 3v12" /></svg>);
 const IconUser = (props) => (<svg {...dIcon2Base} {...props}><circle cx="12" cy="8" r="4" /><path d="M4 21c0-4 3.6-6 8-6s8 2 8 6" /></svg>);
 const IconLogout = (props) => (<svg {...dIcon2Base} {...props}><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4M16 17l5-5-5-5M21 12H9" /></svg>);
@@ -115,6 +116,7 @@ function SideNav({ section, onSectionChange, categories, activeCategory, onCateg
             </button>
           </div>
         )}
+        <WoodFish />
         <div className="user-strip">
           <span className="user-avatar">{user.username.charAt(0).toUpperCase()}</span>
           <span className="user-name" title={user.username}>{user.username}</span>
@@ -276,16 +278,19 @@ function FeedItem({ item, rank, showRank }) {
   );
 }
 
-/** 每日一言卡片 */
-function QuoteCardV2() {
+/** 木鱼组件：侧边栏底部「敲木鱼」——敲一下功德 +1、播放动画，并换一句好话
+ *  替代原「每日一言 + 换一句」，句子与换句逻辑保持一致（hitokoto） */
+function WoodFish() {
   const [quote, setQuote] = useState(null);
+  const [merit, setMerit] = useState(() => Number(localStorage.getItem("omnihub_merit") || 0));
+  const [knocking, setKnocking] = useState(false);
+  const [pops, setPops] = useState([]);
 
   function pickFallback() {
     setQuote(FALLBACK_QUOTES[Math.floor(Math.random() * FALLBACK_QUOTES.length)]);
   }
 
   function fetchQuote() {
-    setQuote(null);
     fetch("https://v1.hitokoto.cn/?c=d&c=i&c=k")
       .then((res) => res.json())
       .then((json) => setQuote({ text: json.hitokoto, from: json.from || "一言" }))
@@ -294,15 +299,29 @@ function QuoteCardV2() {
 
   useEffect(fetchQuote, []);
 
+  function knockWoodFish() {
+    setKnocking(true);
+    setTimeout(() => setKnocking(false), 160);
+    const next = merit + 1;
+    setMerit(next);
+    try { localStorage.setItem("omnihub_merit", String(next)); } catch (err) { /* 忽略存储失败 */ }
+    const popId = Date.now() + Math.random();
+    setPops((list) => [...list, popId]);
+    setTimeout(() => setPops((list) => list.filter((id) => id !== popId)), 900);
+    fetchQuote();
+  }
+
   return (
-    <aside className="quote-card">
-      <span className="quote-mark">“</span>
-      <p className="quote-text">{quote ? quote.text : "正在取一句好话……"}</p>
-      <p className="quote-from">—— {quote ? quote.from : ""}</p>
-      <div style={{ marginTop: 12, textAlign: "right" }}>
-        <button className="btn btn-ghost" onClick={fetchQuote}><IconRefresh />换一句</button>
-      </div>
-    </aside>
+    <div className="woodfish-box">
+      <p className="woodfish-quote">{quote ? quote.text : "正在取一句好话……"}</p>
+      {quote && <p className="woodfish-from">—— {quote.from}</p>}
+      <button className={"woodfish-btn" + (knocking ? " knock" : "")}
+        onClick={knockWoodFish} title="敲一下，功德 +1">
+        <span className="woodfish-icon"><IconWoodFish /></span>
+        <span className="woodfish-merit">功德 {merit}</span>
+        {pops.map((id) => <span className="merit-pop" key={id}>功德 +1</span>)}
+      </button>
+    </div>
   );
 }
 
@@ -342,6 +361,6 @@ function ToastV2({ message }) {
 Object.assign(window, {
   IconArrowUpRight, IconArrowUp, IconSparkle, IconUpload, IconUser, IconLogout, IconSend, IconSettings,
   Favicon, Header, SideNav, SectionHead,
-  FavCardV2, AddFavModalV2, FeedCardV2, FeedItem, QuoteCardV2,
+  FavCardV2, AddFavModalV2, FeedCardV2, FeedItem,
   EmptyState, BackToTop, ToastV2,
 });

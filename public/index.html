@@ -545,7 +545,7 @@ section[id] { scroll-margin-top: 84px; }
 .feed-day + .feed-day { margin-top: 14px; }
 .feed-day-label {
   font-size: 12px; font-weight: 700; color: var(--text-2);
-  padding: 15px 2px 8px; position: sticky; top: 50px; z-index: 1;
+  padding: 4px 2px 8px; position: sticky; top: 50px; z-index: 1;
   background: var(--bg);
 }
 .feed-day .feed-card { margin-bottom: 0; }
@@ -581,7 +581,8 @@ section[id] { scroll-margin-top: 84px; }
 }
 .feed-meta { display: flex; gap: 8px; margin-top: 5px; font-size: 11px; color: var(--text-3); flex-wrap: wrap; align-items: center; }
 .feed-heat { font-family: var(--font-mono); font-size: 11px; color: var(--text-3); flex-shrink: 0; padding-top: 2px; }
-.feed-side { display: flex; flex-direction: column; gap: 12px; }
+.feed-side { display: flex; flex-direction: column; gap: 12px; margin-top: 31px; }
+@media (max-width: 1020px) { .feed-side { margin-top: 0; } }
 .hot-card {
   padding: 14px 16px; border-radius: var(--radius);
   border: var(--border-w) solid var(--border);
@@ -606,6 +607,42 @@ section[id] { scroll-margin-top: 84px; }
   display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
 .hot-item:hover .hot-text { color: var(--accent); }
 .hot-score { flex-shrink: 0; font-family: var(--font-mono); font-size: 11px; font-weight: 700; color: var(--accent); margin-top: 1px; }
+
+/* 木鱼（侧边栏底部，个人信息上方） */
+.woodfish-box {
+  margin: 0 10px 8px; padding: 10px 11px; border-radius: var(--radius-sm);
+  background: var(--bg-sunken); border: var(--border-w) solid var(--border);
+}
+.woodfish-quote {
+  font-size: 11.5px; line-height: 1.6; color: var(--text-2);
+  display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden;
+}
+.woodfish-from { font-size: 10px; color: var(--text-3); margin-top: 3px; text-align: right; }
+.woodfish-btn {
+  position: relative; width: 100%; margin-top: 9px;
+  display: flex; align-items: center; justify-content: center; gap: 6px;
+  padding: 7px; border-radius: var(--radius-sm); cursor: pointer;
+  border: var(--border-w) solid var(--border); background: var(--surface);
+  color: var(--text-2); font-size: 12px; font-weight: 600;
+  transition: transform .12s ease, background .15s, color .15s, border-color .15s;
+}
+.woodfish-btn:hover { background: var(--accent-soft); color: var(--accent); border-color: var(--accent); }
+.woodfish-btn.knock { transform: scale(0.93); }
+.woodfish-icon { display: grid; place-items: center; }
+.woodfish-icon svg { width: 17px; height: 17px; }
+.woodfish-btn.knock .woodfish-icon { animation: woodfish-bop .16s ease; }
+@keyframes woodfish-bop { 50% { transform: translateY(2px) scale(0.88); } }
+.woodfish-merit { font-family: var(--font-mono); }
+.merit-pop {
+  position: absolute; left: 50%; top: 2px; transform: translateX(-50%);
+  font-size: 12px; font-weight: 700; color: oklch(62% 0.16 150); pointer-events: none;
+  animation: merit-float .9s ease-out forwards;
+}
+@keyframes merit-float {
+  0% { opacity: 0; transform: translateX(-50%) translateY(4px) scale(.8); }
+  20% { opacity: 1; }
+  100% { opacity: 0; transform: translateX(-50%) translateY(-26px) scale(1.05); }
+}
 
 .quote-card {
   padding: 14px 16px; border-radius: var(--radius);
