@@ -618,30 +618,27 @@ section[id] { scroll-margin-top: 84px; }
   display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden;
 }
 .woodfish-from { font-size: 10px; color: var(--text-3); margin-top: 3px; text-align: right; }
-.woodfish-btn {
-  position: relative; width: 100%; margin-top: 9px;
-  display: flex; align-items: center; justify-content: center; gap: 6px;
-  padding: 7px; border-radius: var(--radius-sm); cursor: pointer;
-  border: var(--border-w) solid var(--border); background: var(--surface);
-  color: var(--text-2); font-size: 12px; font-weight: 600;
-  transition: transform .12s ease, background .15s, color .15s, border-color .15s;
+.woodfish-tap {
+  position: relative; width: 100%; margin-top: 8px;
+  display: flex; align-items: center; justify-content: center;
+  padding: 4px; background: none; border: none; cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
 }
-.woodfish-btn:hover { background: var(--accent-soft); color: var(--accent); border-color: var(--accent); }
-.woodfish-btn.knock { transform: scale(0.93); }
-.woodfish-icon { display: grid; place-items: center; }
-.woodfish-icon svg { width: 17px; height: 17px; }
-.woodfish-btn.knock .woodfish-icon { animation: woodfish-bop .16s ease; }
-@keyframes woodfish-bop { 50% { transform: translateY(2px) scale(0.88); } }
-.woodfish-merit { font-family: var(--font-mono); }
+.woodfish-icon { display: grid; place-items: center; transition: transform .14s ease; }
+.woodfish-icon svg { width: 46px; height: 46px; filter: drop-shadow(0 2px 4px oklch(0% 0 0 / .18)); }
+.woodfish-tap:hover .woodfish-icon { transform: scale(1.04); }
+.woodfish-tap.knock .woodfish-icon { animation: woodfish-bop .16s ease; }
+@keyframes woodfish-bop { 40% { transform: scale(0.86) translateY(2px); } }
 .merit-pop {
-  position: absolute; left: 50%; top: 2px; transform: translateX(-50%);
-  font-size: 12px; font-weight: 700; color: oklch(62% 0.16 150); pointer-events: none;
-  animation: merit-float .9s ease-out forwards;
+  position: absolute; left: 50%; top: -2px; transform: translateX(-50%);
+  font-size: 13px; font-weight: 700; color: oklch(62% 0.16 150); pointer-events: none;
+  white-space: nowrap; text-shadow: 0 1px 2px oklch(0% 0 0 / .15);
+  animation: merit-float .85s ease-out forwards;
 }
 @keyframes merit-float {
-  0% { opacity: 0; transform: translateX(-50%) translateY(4px) scale(.8); }
-  20% { opacity: 1; }
-  100% { opacity: 0; transform: translateX(-50%) translateY(-26px) scale(1.05); }
+  0% { opacity: 0; transform: translateX(-50%) translateY(6px) scale(.7); }
+  25% { opacity: 1; }
+  100% { opacity: 0; transform: translateX(-50%) translateY(-34px) scale(1.1); }
 }
 
 .quote-card {

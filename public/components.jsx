@@ -6,7 +6,20 @@ const dIcon2Base = { fill: "none", stroke: "currentColor", strokeWidth: 1.8, str
 const IconArrowUpRight = (props) => (<svg {...dIcon2Base} {...props}><path d="M7 17L17 7M17 7H8M17 7v9" /></svg>);
 const IconArrowUp = (props) => (<svg {...dIcon2Base} {...props}><path d="M12 19V5M5 12l7-7 7 7" /></svg>);
 const IconSparkle = (props) => (<svg {...dIcon2Base} {...props}><path d="M12 3l1.9 5.1L19 10l-5.1 1.9L12 17l-1.9-5.1L5 10l5.1-1.9z" /><path d="M19 17l.8 2.2L22 20l-2.2.8L19 23l-.8-2.2L16 20l2.2-.8z" /></svg>);
-const IconWoodFish = (props) => (<svg {...dIcon2Base} {...props}><path d="M4 13.5C4 9.4 7.6 7 12 7s8 2.4 8 6.5S16.4 18 12 18 4 17.6 4 13.5Z" /><path d="M9.5 13.5h5" /><path d="M12 7V4.5" /></svg>);
+const IconWoodFish = (props) => (
+  <svg viewBox="0 0 64 64" fill="none" {...props}>
+    <defs>
+      <linearGradient id="wf-body" x1="10" y1="24" x2="40" y2="58" gradientUnits="userSpaceOnUse">
+        <stop stopColor="#e0ad6a" /><stop offset="1" stopColor="#965f24" />
+      </linearGradient>
+    </defs>
+    <ellipse cx="27" cy="41" rx="24" ry="18" fill="url(#wf-body)" />
+    <path d="M8 37c9-6 29-6 40 5-9-8-31-8-40-5Z" fill="#43290f" />
+    <path d="M11 43c8 3 22 3 32-1" stroke="#7a4f25" strokeWidth="2" opacity=".45" />
+    <rect x="42.5" y="13" width="4.6" height="19" rx="2.3" fill="#d9b483" transform="rotate(40 44.8 22.5)" />
+    <circle cx="43" cy="30" r="5" fill="#e2c197" />
+  </svg>
+);
 const IconUpload = (props) => (<svg {...dIcon2Base} {...props}><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M17 8l-5-5-5 5M12 3v12" /></svg>);
 const IconUser = (props) => (<svg {...dIcon2Base} {...props}><circle cx="12" cy="8" r="4" /><path d="M4 21c0-4 3.6-6 8-6s8 2 8 6" /></svg>);
 const IconLogout = (props) => (<svg {...dIcon2Base} {...props}><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4M16 17l5-5-5-5M21 12H9" /></svg>);
@@ -282,7 +295,6 @@ function FeedItem({ item, rank, showRank }) {
  *  替代原「每日一言 + 换一句」，句子与换句逻辑保持一致（hitokoto） */
 function WoodFish() {
   const [quote, setQuote] = useState(null);
-  const [merit, setMerit] = useState(() => Number(localStorage.getItem("omnihub_merit") || 0));
   const [knocking, setKnocking] = useState(false);
   const [pops, setPops] = useState([]);
 
@@ -302,14 +314,9 @@ function WoodFish() {
   function knockWoodFish() {
     setKnocking(true);
     setTimeout(() => setKnocking(false), 160);
-    setMerit((prev) => {
-      const next = prev + 1;
-      try { localStorage.setItem("omnihub_merit", String(next)); } catch (err) { /* 忽略存储失败 */ }
-      return next;
-    });
     const popId = Date.now() + Math.random();
     setPops((list) => [...list, popId]);
-    setTimeout(() => setPops((list) => list.filter((id) => id !== popId)), 900);
+    setTimeout(() => setPops((list) => list.filter((id) => id !== popId)), 850);
     fetchQuote();
   }
 
@@ -317,10 +324,9 @@ function WoodFish() {
     <div className="woodfish-box">
       <p className="woodfish-quote">{quote ? quote.text : "正在取一句好话……"}</p>
       {quote && <p className="woodfish-from">—— {quote.from}</p>}
-      <button className={"woodfish-btn" + (knocking ? " knock" : "")}
-        onClick={knockWoodFish} title="敲一下，功德 +1">
+      <button className={"woodfish-tap" + (knocking ? " knock" : "")}
+        onClick={knockWoodFish} title="敲一下木鱼">
         <span className="woodfish-icon"><IconWoodFish /></span>
-        <span className="woodfish-merit">功德 {merit}</span>
         {pops.map((id) => <span className="merit-pop" key={id}>功德 +1</span>)}
       </button>
     </div>
