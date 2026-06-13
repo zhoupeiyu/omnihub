@@ -273,27 +273,26 @@ function FeedView({ query }) {
 
   return (
     <div>
-      <SectionHead icon={<IconRss />} title="信息流" count={status === "ok" ? visible.length : null}>
-        <button className="btn" onClick={() => activeSource && load(activeSource)} disabled={status === "loading"}>
+      <div className="feed-toolbar">
+        <div className="filter-bar">
+          {rich && status === "ok" && topTags.length > 0 &&
+            ["", ...topTags].map((t) => (
+              <button key={t || "all"} className={"filter-chip" + (catFilter === t ? " active" : "")}
+                onClick={() => setCatFilter(t)}>{t || "全部"}</button>
+            ))}
+        </div>
+        <button className="btn feed-refresh" onClick={() => activeSource && load(activeSource)} disabled={status === "loading"}>
           <IconRefresh />刷新
         </button>
-      </SectionHead>
-      <div className="feed-sources">
-        {sources.map((s) => (
-          <button key={s.id} title={s.desc}
-            className={"feed-source" + (activeSource === s.id ? " active" : "")}
-            onClick={() => switchSource(s)}>
-            {s.name}<span className="src-cat">{s.category}</span>
-          </button>
-        ))}
       </div>
-      {rich && status === "ok" && topTags.length > 0 && (
-        <div className="filter-bar">
-          <button className={"filter-chip" + (catFilter === "" ? " active" : "")}
-            onClick={() => setCatFilter("")}>全部</button>
-          {topTags.map((t) => (
-            <button key={t} className={"filter-chip" + (catFilter === t ? " active" : "")}
-              onClick={() => setCatFilter(t)}>{t}</button>
+      {sources.length > 1 && (
+        <div className="feed-sources">
+          {sources.map((s) => (
+            <button key={s.id} title={s.desc}
+              className={"feed-source" + (activeSource === s.id ? " active" : "")}
+              onClick={() => switchSource(s)}>
+              {s.name}<span className="src-cat">{s.category}</span>
+            </button>
           ))}
         </div>
       )}
