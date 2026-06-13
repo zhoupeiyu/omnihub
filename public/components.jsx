@@ -302,9 +302,11 @@ function WoodFish() {
   function knockWoodFish() {
     setKnocking(true);
     setTimeout(() => setKnocking(false), 160);
-    const next = merit + 1;
-    setMerit(next);
-    try { localStorage.setItem("omnihub_merit", String(next)); } catch (err) { /* 忽略存储失败 */ }
+    setMerit((prev) => {
+      const next = prev + 1;
+      try { localStorage.setItem("omnihub_merit", String(next)); } catch (err) { /* 忽略存储失败 */ }
+      return next;
+    });
     const popId = Date.now() + Math.random();
     setPops((list) => [...list, popId]);
     setTimeout(() => setPops((list) => list.filter((id) => id !== popId)), 900);
