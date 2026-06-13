@@ -506,18 +506,16 @@ section[id] { scroll-margin-top: 84px; }
 .feed-title { flex: 1; min-width: 0; font-weight: 600; font-size: 13.5px; line-height: 1.5; transition: color .18s; }
 .feed-card:hover .feed-title { color: var(--accent); }
 .feed-score {
-  flex-shrink: 0; font-family: var(--font-mono); font-size: 11px; font-weight: 700;
-  padding: 1px 7px; border-radius: 7px; color: var(--text-3);
+  flex-shrink: 0; font-family: var(--font-mono); font-size: 10px; font-weight: 700;
+  padding: 0 5px; border-radius: 5px; color: var(--text-3); line-height: 1.7;
   background: var(--bg-sunken); border: var(--border-w) solid var(--border);
 }
 .feed-score.selected { color: var(--accent); background: var(--accent-soft); border-color: transparent; }
 .feed-pick {
-  flex-shrink: 0; font-size: 10.5px; font-weight: 700; line-height: 1.4;
-  padding: 2px 7px; border-radius: 7px; white-space: nowrap;
+  flex-shrink: 0; font-size: 9px; line-height: 1.9; padding: 0 4px;
+  border-radius: 5px; white-space: nowrap;
   color: #fff; background: linear-gradient(135deg, #10b981, #059669);
 }
-/* 来源行（标题上方） */
-.feed-source { font-size: 11px; color: var(--text-3); margin-bottom: 4px; font-family: var(--font-mono); }
 /* 多标签 + 关联讨论 */
 .feed-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 8px; align-items: center; }
 .feed-related {
@@ -533,7 +531,10 @@ section[id] { scroll-margin-top: 84px; }
 .feed-reason-label {
   display: inline-block; font-weight: 700; color: var(--accent); margin-right: 6px; font-size: 11.5px;
 }
-.feed-origin { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; max-width: 200px; }
+.feed-origin {
+  overflow: hidden; text-overflow: ellipsis; white-space: nowrap; max-width: 240px;
+  font-size: 11px; color: var(--text-3); margin-left: auto; padding-left: 6px;
+}
 
 /* 时间线：按日期分组 */
 .feed-day { margin-bottom: 4px; }
@@ -576,8 +577,6 @@ section[id] { scroll-margin-top: 84px; }
 }
 .feed-meta { display: flex; gap: 8px; margin-top: 5px; font-size: 11px; color: var(--text-3); flex-wrap: wrap; align-items: center; }
 .feed-heat { font-family: var(--font-mono); font-size: 11px; color: var(--text-3); flex-shrink: 0; padding-top: 2px; }
-.feed-arrow { width: 13px; height: 13px; flex-shrink: 0; color: var(--text-3); margin-top: 3px; transition: transform .18s, color .18s; }
-.feed-card:hover .feed-arrow { transform: translate(2px, -2px); color: var(--accent); }
 .feed-side { display: flex; flex-direction: column; gap: 12px; }
 .hot-card {
   padding: 14px 16px; border-radius: var(--radius);

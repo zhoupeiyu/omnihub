@@ -249,26 +249,25 @@ function FeedItem({ item, rank, showRank }) {
     <a className="feed-card" href={item.url || "#"} target="_blank" rel="noopener noreferrer">
       {showRank && <div className={"feed-rank" + (rank <= 3 ? " hot" : "")}>{rank}</div>}
       <div className="feed-body">
-        {item.origin && <div className="feed-source">{item.origin}</div>}
         <div className="feed-title-row">
           <h3 className="feed-title">{item.title}</h3>
-          {item.selected && <span className="feed-pick" title="编辑精选">★ 精选</span>}
+          {item.selected && <span className="feed-pick" title="精选">★</span>}
           {typeof item.score === "number" && (
             <span className={"feed-score" + (item.selected ? " selected" : "")} title={item.selected ? "精选评分" : "评分"}>{item.score}</span>
           )}
         </div>
         {item.summary && <p className="feed-summary">{item.summary}</p>}
-        {(tags.length > 0 || item.duplicateCount > 0) && (
+        {(tags.length > 0 || item.duplicateCount > 0 || item.origin) && (
           <div className="feed-tags">
             {tags.map((t, i) => <span className="tag-chip" key={i}>{t}</span>)}
             {item.duplicateCount > 0 && <span className="feed-related">关联讨论 {item.duplicateCount} 条</span>}
+            {item.origin && <span className="feed-origin">{item.origin}</span>}
           </div>
         )}
         {item.reason && (
           <div className="feed-reason"><span className="feed-reason-label">推荐理由</span>{item.reason}</div>
         )}
       </div>
-      <IconArrowUpRight className="feed-arrow" />
     </a>
   );
 }
