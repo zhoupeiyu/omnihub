@@ -641,14 +641,33 @@ section[id] { scroll-margin-top: 84px; }
 
 /* 木鱼（侧边栏底部，个人信息上方） */
 .woodfish-box {
-  margin: 2px 0 8px; padding: 11px 12px; border-radius: var(--radius-sm);
+  position: relative; margin: 2px 0 8px; padding: 16px 13px 12px; border-radius: var(--radius-sm);
   background: var(--bg-sunken); border: var(--border-w) solid var(--border);
 }
+.wf-quote-mark {
+  position: absolute; top: 3px; left: 10px;
+  font-family: Georgia, "Times New Roman", serif; font-size: 30px; line-height: 1;
+  color: var(--text-3); opacity: .3;
+}
 .woodfish-quote {
-  font-size: 11.5px; line-height: 1.6; color: var(--text-2);
+  position: relative; font-size: 12px; line-height: 1.7; color: var(--text-2); padding-left: 3px;
   display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden;
 }
-.woodfish-from { font-size: 10px; color: var(--text-3); margin-top: 3px; text-align: right; }
+.woodfish-from {
+  font-size: 10px; color: var(--text-3); margin-top: 6px; text-align: right;
+}
+.woodfish-from::before { content: "—— "; opacity: .7; }
+/* 敲击波纹扩散 */
+.wf-ripple {
+  position: absolute; left: 50%; top: 50%; width: 40px; height: 40px;
+  margin: -20px 0 0 -20px; border-radius: 50%;
+  border: 2px solid oklch(72% 0.13 85); pointer-events: none;
+  animation: wf-ripple .6s ease-out forwards;
+}
+@keyframes wf-ripple {
+  from { transform: scale(.45); opacity: .55; }
+  to { transform: scale(2.3); opacity: 0; }
+}
 .woodfish-tap {
   position: relative; width: 100%; margin-top: 8px;
   display: flex; align-items: center; justify-content: center;

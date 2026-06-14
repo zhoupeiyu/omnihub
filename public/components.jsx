@@ -370,12 +370,33 @@ function FeedItem({ item, rank, showRank, onPreview }) {
   );
 }
 
-/** 木鱼组件：侧边栏底部「敲木鱼」——敲一下功德 +1、播放动画，并换一句好话
- *  替代原「每日一言 + 换一句」，句子与换句逻辑保持一致（hitokoto） */
+/** 木鱼敲击音效：用 Web Audio 合成一声短促的「笃」（无需音频文件） */
+function playWoodFishSound() {
+  try {
+    const Ctx = window.AudioContext || window.webkitAudioContext;
+    if (!Ctx) return;
+    const ctx = playWoodFishSound._ctx || (playWoodFishSound._ctx = new Ctx());
+    if (ctx.state === "suspended") ctx.resume();
+    const osc = ctx.createOscillator();
+    const gain = ctx.createGain();
+    osc.connect(gain); gain.connect(ctx.destination);
+    osc.type = "sine";
+    const t = ctx.currentTime;
+    osc.frequency.setValueAtTime(640, t);
+    osc.frequency.exponentialRampToValueAtTime(150, t + 0.12);
+    gain.gain.setValueAtTime(0.0001, t);
+    gain.gain.exponentialRampToValueAtTime(0.32, t + 0.006);
+    gain.gain.exponentialRampToValueAtTime(0.0001, t + 0.22);
+    osc.start(t); osc.stop(t + 0.24);
+  } catch (err) { /* 音频不可用时静默 */ }
+}
+
+/** 木鱼组件：侧边栏底部「敲木鱼」——敲一下功德 +1、波纹+音效，并换一句好话 */
 function WoodFish() {
   const [quote, setQuote] = useState(null);
   const [knocking, setKnocking] = useState(false);
   const [pops, setPops] = useState([]);
+  const [ripples, setRipples] = useState([]);
 
   function pickFallback() {
     setQuote(FALLBACK_QUOTES[Math.floor(Math.random() * FALLBACK_QUOTES.length)]);
@@ -393,18 +414,23 @@ function WoodFish() {
   function knockWoodFish() {
     setKnocking(true);
     setTimeout(() => setKnocking(false), 160);
-    const popId = Date.now() + Math.random();
-    setPops((list) => [...list, popId]);
-    setTimeout(() => setPops((list) => list.filter((id) => id !== popId)), 850);
+    playWoodFishSound();
+    const id = Date.now() + Math.random();
+    setPops((list) => [...list, id]);
+    setRipples((list) => [...list, id]);
+    setTimeout(() => setPops((list) => list.filter((x) => x !== id)), 850);
+    setTimeout(() => setRipples((list) => list.filter((x) => x !== id)), 620);
     fetchQuote();
   }
 
   return (
     <div className="woodfish-box">
+      <span className="wf-quote-mark">“</span>
       <p className="woodfish-quote">{quote ? quote.text : "正在取一句好话……"}</p>
-      {quote && <p className="woodfish-from">—— {quote.from}</p>}
+      {quote && <p className="woodfish-from">{quote.from}</p>}
       <button className={"woodfish-tap" + (knocking ? " knock" : "")}
         onClick={knockWoodFish} title="敲一下木鱼">
+        {ripples.map((id) => <span className="wf-ripple" key={id} />)}
         <span className="woodfish-icon"><IconWoodFish /></span>
         {pops.map((id) => <span className="merit-pop" key={id}>功德 +1</span>)}
       </button>
