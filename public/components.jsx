@@ -415,7 +415,7 @@ function QuoteCard({ quote, merit }) {
 }
 
 /** 悬浮木鱼：可拖动、吸附屏幕左右边，点击敲响（功德 +1 + 波纹 + 音效 + 换句） */
-const WF_SIZE = 52; // 木鱼悬浮区尺寸
+const WF_SIZE = 50; // 木鱼悬浮区尺寸
 
 function FloatingWoodFish({ onKnock }) {
   const [pos, setPos] = useState(null); // {x, y} 像素；null 时等首帧计算
@@ -436,7 +436,7 @@ function FloatingWoodFish({ onKnock }) {
       minX: sb.left + 6,
       maxX: sb.right - WF_SIZE - 6,
       minY,
-      maxY: Math.max(minY, cardTop - WF_SIZE - 12),
+      maxY: Math.max(minY, cardTop - WF_SIZE - 8),
     };
   }
   function clamp(x, y) {
@@ -451,7 +451,7 @@ function FloatingWoodFish({ onKnock }) {
       const b = getBounds();
       if (!b) return;
       let saved = null;
-      try { saved = JSON.parse(localStorage.getItem("omnihub_wf_pos3") || "null"); } catch (err) { /* 忽略 */ }
+      try { saved = JSON.parse(localStorage.getItem("omnihub_wf_pos4") || "null"); } catch (err) { /* 忽略 */ }
       if (saved && typeof saved.x === "number") setPos(clamp(saved.x, saved.y));
       else setPos({ x: Math.round((b.minX + b.maxX) / 2), y: b.maxY });
     };
@@ -486,7 +486,7 @@ function FloatingWoodFish({ onKnock }) {
       document.removeEventListener("pointerup", onUp);
       if (!moved) { knock(); return; }
       setPos((p) => {
-        try { localStorage.setItem("omnihub_wf_pos3", JSON.stringify(p)); } catch (err) { /* 忽略 */ }
+        try { localStorage.setItem("omnihub_wf_pos4", JSON.stringify(p)); } catch (err) { /* 忽略 */ }
         return p;
       });
     }

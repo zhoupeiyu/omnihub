@@ -1,0 +1,38 @@
+<svg width="256" height="256" viewBox="0 0 256 256" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="title desc">
+  <title id="title">OmniHub logo mark</title>
+  <desc id="desc">A six-facet kaleidoscope hub mark for 万象台 OmniHub</desc>
+  <defs>
+    <linearGradient id="ink" x1="42" y1="28" x2="210" y2="229" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#123F43"/>
+      <stop offset="1" stop-color="#061719"/>
+    </linearGradient>
+    <linearGradient id="teal" x1="43" y1="70" x2="185" y2="181" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#35D4C8"/>
+      <stop offset="1" stop-color="#0E8B87"/>
+    </linearGradient>
+    <linearGradient id="mist" x1="78" y1="53" x2="191" y2="210" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#E7F6EF"/>
+      <stop offset="1" stop-color="#B7E0D5"/>
+    </linearGradient>
+    <linearGradient id="warm" x1="144" y1="62" x2="207" y2="138" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#4ED7C9"/>
+      <stop offset="1" stop-color="#EE6B5C"/>
+    </linearGradient>
+    <mask id="center-hole">
+      <rect width="256" height="256" fill="white"/>
+      <path d="M128 82L168 105V151L128 174L88 151V105L128 82Z" fill="black"/>
+    </mask>
+  </defs>
+
+  <g mask="url(#center-hole)">
+    <path d="M128 24L218 76L168 105L128 82L88 105L38 76L128 24Z" fill="url(#mist)"/>
+    <path d="M218 76V180L168 151V105L218 76Z" fill="url(#warm)"/>
+    <path d="M218 180L128 232V174L168 151L218 180Z" fill="url(#mist)"/>
+    <path d="M128 232L38 180L88 151L128 174L168 151L218 180L128 232Z" fill="url(#ink)" opacity="0.96"/>
+    <path d="M38 180V76L88 105V151L38 180Z" fill="url(#teal)"/>
+    <path d="M38 76L128 24L88 105L38 76Z" fill="url(#ink)" opacity="0.98"/>
+  </g>
+
+  <path d="M128 96L156 112V144L128 160L100 144V112L128 96Z" fill="#0B2D32"/>
+  <path d="M128 113L141 121V135L128 143L115 135V121L128 113Z" fill="#45D6C9"/>
+</svg>
