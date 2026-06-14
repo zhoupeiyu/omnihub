@@ -436,7 +436,7 @@ function FloatingWoodFish({ onKnock }) {
       minX: sb.left + 6,
       maxX: sb.right - WF_SIZE - 6,
       minY,
-      maxY: Math.max(minY, cardTop - WF_SIZE - 8),
+      maxY: Math.max(minY, cardTop - WF_SIZE - 38),
     };
   }
   function clamp(x, y) {
@@ -451,9 +451,9 @@ function FloatingWoodFish({ onKnock }) {
       const b = getBounds();
       if (!b) return;
       let saved = null;
-      try { saved = JSON.parse(localStorage.getItem("omnihub_wf_pos4") || "null"); } catch (err) { /* 忽略 */ }
+      try { saved = JSON.parse(localStorage.getItem("omnihub_wf_pos5") || "null"); } catch (err) { /* 忽略 */ }
       if (saved && typeof saved.x === "number") setPos(clamp(saved.x, saved.y));
-      else setPos({ x: Math.round((b.minX + b.maxX) / 2), y: b.maxY });
+      else setPos({ x: b.minX, y: b.maxY });
     };
     relocate();
     let ro = null;
@@ -486,7 +486,7 @@ function FloatingWoodFish({ onKnock }) {
       document.removeEventListener("pointerup", onUp);
       if (!moved) { knock(); return; }
       setPos((p) => {
-        try { localStorage.setItem("omnihub_wf_pos4", JSON.stringify(p)); } catch (err) { /* 忽略 */ }
+        try { localStorage.setItem("omnihub_wf_pos5", JSON.stringify(p)); } catch (err) { /* 忽略 */ }
         return p;
       });
     }
