@@ -373,6 +373,7 @@ function Workspace({ user, onUserChange, showToast, toast }) {
   const [chatMessages, setChatMessages] = useAppState([]);
   const [hasAiConfig, setHasAiConfig] = useAppState(user ? user.hasAiConfig : false);
   const [now, setNow] = useAppState(() => new Date());
+  const [quote, setQuote] = useAppState(null);
 
   useAppEffect(() => {
     document.documentElement.setAttribute("data-skin", skin);
@@ -392,6 +393,15 @@ function Workspace({ user, onUserChange, showToast, toast }) {
     const timer = setInterval(() => setNow(new Date()), 600000);
     return () => clearInterval(timer);
   }, []);
+
+  /** 取一句好话（敲木鱼时调用换句；侧边栏一言卡片展示） */
+  function pickQuote() {
+    fetch("https://v1.hitokoto.cn/?c=d&c=i&c=k")
+      .then((r) => r.json())
+      .then((j) => setQuote({ text: j.hitokoto, from: j.from || "一言" }))
+      .catch(() => setQuote(FALLBACK_QUOTES[Math.floor(Math.random() * FALLBACK_QUOTES.length)]));
+  }
+  useAppEffect(() => { pickQuote(); }, []);
 
   function copyPrompt(text) {
     navigator.clipboard.writeText(text)
@@ -523,7 +533,7 @@ function Workspace({ user, onUserChange, showToast, toast }) {
           onSectionChange={(s) => { setSection(s); setQuery(""); }}
           categories={sideCategories} activeCategory={activeCategory}
           onCategoryChange={onCategoryChange} counts={counts}
-          user={user}
+          user={user} quote={quote}
           skin={skin} onSkinChange={setSkin}
           theme={theme} onThemeToggle={() => setTheme(theme === "light" ? "dark" : "light")}
           onOpenAiSettings={() => setModal("ai-settings")}
@@ -576,6 +586,7 @@ function Workspace({ user, onUserChange, showToast, toast }) {
         <AuthView onClose={() => setAuthOpen(false)}
           onLoggedIn={(u) => { onUserChange(u); setAuthOpen(false); }} />
       )}
+      <FloatingWoodFish onKnock={pickQuote} />
       <BackToTop />
       <ToastV2 message={toast} />
     </div>

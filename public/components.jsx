@@ -64,7 +64,7 @@ function Header({ query, onQueryChange, searchPlaceholder, greeting, dateText })
 
 /** 侧边栏：模块导航 + 分类（带计数）+ 左下角「用户信息 + 设置」 */
 function SideNav({ section, onSectionChange, categories, activeCategory, onCategoryChange, counts,
-                   user, skin, onSkinChange, theme, onThemeToggle, onOpenAiSettings, onLogin, onLogout }) {
+                   user, quote, skin, onSkinChange, theme, onThemeToggle, onOpenAiSettings, onLogin, onLogout }) {
   const [settingsOpen, setSettingsOpen] = useState(false);
   const [panelStyle, setPanelStyle] = useState(null);
   const gearRef = React.useRef(null);
@@ -163,7 +163,7 @@ function SideNav({ section, onSectionChange, categories, activeCategory, onCateg
             )}
           </div>
         ), document.body)}
-        <WoodFish />
+        <QuoteCard quote={quote} />
         {user ? (
           <div className="user-strip">
             <span className="user-avatar">{user.username.charAt(0).toUpperCase()}</span>
@@ -391,27 +391,31 @@ function playWoodFishSound() {
   } catch (err) { /* 音频不可用时静默 */ }
 }
 
-/** 木鱼组件：侧边栏底部「敲木鱼」——敲一下功德 +1、波纹+音效，并换一句好话 */
-function WoodFish() {
-  const [quote, setQuote] = useState(null);
+/** 侧边栏底部·每日一言卡片（仅展示句子，换句由悬浮木鱼触发） */
+function QuoteCard({ quote }) {
+  return (
+    <div className="woodfish-box">
+      <span className="wf-quote-mark">“</span>
+      <p className="woodfish-quote">{quote ? quote.text : "正在取一句好话……"}</p>
+      {quote && <p className="woodfish-from">{quote.from}</p>}
+    </div>
+  );
+}
+
+/** 悬浮木鱼：可拖动、吸附屏幕左右边，点击敲响（功德 +1 + 波纹 + 音效 + 换句） */
+function FloatingWoodFish({ onKnock }) {
+  const [pos, setPos] = useState(() => {
+    try {
+      const saved = JSON.parse(localStorage.getItem("omnihub_wf_pos") || "null");
+      if (saved && (saved.side === "left" || saved.side === "right")) return saved;
+    } catch (err) { /* 忽略 */ }
+    return { side: "right", top: 0.66 };
+  });
   const [knocking, setKnocking] = useState(false);
   const [pops, setPops] = useState([]);
   const [ripples, setRipples] = useState([]);
 
-  function pickFallback() {
-    setQuote(FALLBACK_QUOTES[Math.floor(Math.random() * FALLBACK_QUOTES.length)]);
-  }
-
-  function fetchQuote() {
-    fetch("https://v1.hitokoto.cn/?c=d&c=i&c=k")
-      .then((res) => res.json())
-      .then((json) => setQuote({ text: json.hitokoto, from: json.from || "一言" }))
-      .catch(pickFallback);
-  }
-
-  useEffect(fetchQuote, []);
-
-  function knockWoodFish() {
+  function knock() {
     setKnocking(true);
     setTimeout(() => setKnocking(false), 160);
     playWoodFishSound();
@@ -420,20 +424,47 @@ function WoodFish() {
     setRipples((list) => [...list, id]);
     setTimeout(() => setPops((list) => list.filter((x) => x !== id)), 850);
     setTimeout(() => setRipples((list) => list.filter((x) => x !== id)), 620);
-    fetchQuote();
+    if (onKnock) onKnock();
   }
 
+  function onPointerDown(e) {
+    e.preventDefault();
+    const startX = e.clientX, startY = e.clientY;
+    const el = e.currentTarget;
+    let moved = false;
+    function onMove(ev) {
+      if (!moved && (Math.abs(ev.clientX - startX) > 4 || Math.abs(ev.clientY - startY) > 4)) moved = true;
+      if (moved) {
+        el.style.left = (ev.clientX - 26) + "px";
+        el.style.top = (ev.clientY - 26) + "px";
+        el.style.right = "auto"; el.style.bottom = "auto";
+      }
+    }
+    function onUp(ev) {
+      document.removeEventListener("pointermove", onMove);
+      document.removeEventListener("pointerup", onUp);
+      if (!moved) { knock(); return; }
+      const side = ev.clientX < window.innerWidth / 2 ? "left" : "right";
+      const top = Math.min(0.9, Math.max(0.05, (ev.clientY - 26) / window.innerHeight));
+      const next = { side, top };
+      setPos(next);
+      try { localStorage.setItem("omnihub_wf_pos", JSON.stringify(next)); } catch (err) { /* 忽略 */ }
+      el.style.left = ""; el.style.top = ""; el.style.right = ""; el.style.bottom = "";
+    }
+    document.addEventListener("pointermove", onMove);
+    document.addEventListener("pointerup", onUp);
+  }
+
+  const style = pos.side === "left"
+    ? { left: "12px", top: (pos.top * 100) + "%" }
+    : { right: "12px", top: (pos.top * 100) + "%" };
+
   return (
-    <div className="woodfish-box">
-      <span className="wf-quote-mark">“</span>
-      <p className="woodfish-quote">{quote ? quote.text : "正在取一句好话……"}</p>
-      {quote && <p className="woodfish-from">{quote.from}</p>}
-      <button className={"woodfish-tap" + (knocking ? " knock" : "")}
-        onClick={knockWoodFish} title="敲一下木鱼">
-        {ripples.map((id) => <span className="wf-ripple" key={id} />)}
-        <span className="woodfish-icon"><IconWoodFish /></span>
-        {pops.map((id) => <span className="merit-pop" key={id}>功德 +1</span>)}
-      </button>
+    <div className={"wf-float" + (knocking ? " knock" : "")} style={style}
+      onPointerDown={onPointerDown} title="敲木鱼（可拖动）">
+      {ripples.map((id) => <span className="wf-ripple" key={id} />)}
+      <span className="woodfish-icon"><IconWoodFish /></span>
+      {pops.map((id) => <span className="merit-pop" key={id}>功德 +1</span>)}
     </div>
   );
 }
@@ -474,6 +505,6 @@ function ToastV2({ message }) {
 Object.assign(window, {
   IconArrowUpRight, IconArrowUp, IconSparkle, IconUpload, IconUser, IconLogout, IconSend, IconSettings,
   Favicon, Header, SideNav, SectionHead,
-  FavCardV2, AddFavModalV2, FeedCardV2, FeedItem, ImageLightbox,
+  FavCardV2, AddFavModalV2, FeedCardV2, FeedItem, ImageLightbox, FloatingWoodFish,
   EmptyState, BackToTop, ToastV2,
 });
