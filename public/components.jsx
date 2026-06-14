@@ -111,7 +111,8 @@ function SideNav({ section, onSectionChange, categories, activeCategory, onCateg
         </React.Fragment>
       )}
       <div className="sidebar-foot">
-        <div className={"skin-panel" + (settingsOpen ? " open" : "")} style={panelStyle || undefined}>
+        {ReactDOM.createPortal((
+          <div className={"skin-panel" + (settingsOpen ? " open" : "")} style={panelStyle || undefined}>
             {user && (
               <button className="skin-option" onClick={() => { setSettingsOpen(false); onOpenAiSettings(); }}>
                 <IconSettings style={{ width: 15, height: 15 }} />AI 设置
@@ -145,7 +146,8 @@ function SideNav({ section, onSectionChange, categories, activeCategory, onCateg
                 <IconUser style={{ width: 15, height: 15 }} />登录 / 注册
               </button>
             )}
-        </div>
+          </div>
+        ), document.body)}
         <WoodFish />
         {user ? (
           <div className="user-strip">
