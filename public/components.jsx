@@ -66,6 +66,15 @@ function Header({ query, onQueryChange, searchPlaceholder, greeting, dateText })
 function SideNav({ section, onSectionChange, categories, activeCategory, onCategoryChange, counts,
                    user, skin, onSkinChange, theme, onThemeToggle, onOpenAiSettings, onLogin, onLogout }) {
   const [settingsOpen, setSettingsOpen] = useState(false);
+  const [panelStyle, setPanelStyle] = useState(null);
+  const gearRef = React.useRef(null);
+  function toggleSettings() {
+    if (!settingsOpen && gearRef.current) {
+      const r = gearRef.current.getBoundingClientRect();
+      setPanelStyle({ left: (r.right + 10) + "px", bottom: (window.innerHeight - r.bottom) + "px" });
+    }
+    setSettingsOpen((v) => !v);
+  }
   const allModules = [
     { id: "feed", label: "信息流", icon: <IconRss /> },
     { id: "prompts", label: "提示词", icon: <IconSparkle /> },
@@ -102,8 +111,7 @@ function SideNav({ section, onSectionChange, categories, activeCategory, onCateg
         </React.Fragment>
       )}
       <div className="sidebar-foot">
-        {settingsOpen && (
-          <div className="skin-panel">
+        <div className={"skin-panel" + (settingsOpen ? " open" : "")} style={panelStyle || undefined}>
             {user && (
               <button className="skin-option" onClick={() => { setSettingsOpen(false); onOpenAiSettings(); }}>
                 <IconSettings style={{ width: 15, height: 15 }} />AI 设置
@@ -137,15 +145,14 @@ function SideNav({ section, onSectionChange, categories, activeCategory, onCateg
                 <IconUser style={{ width: 15, height: 15 }} />登录 / 注册
               </button>
             )}
-          </div>
-        )}
+        </div>
         <WoodFish />
         {user ? (
           <div className="user-strip">
             <span className="user-avatar">{user.username.charAt(0).toUpperCase()}</span>
             <span className="user-name" title={user.username}>{user.username}</span>
-            <button className={"strip-btn" + (settingsOpen ? " open" : "")} title="设置"
-              onClick={() => setSettingsOpen(!settingsOpen)}>
+            <button ref={gearRef} className={"strip-btn" + (settingsOpen ? " open" : "")} title="设置"
+              onClick={toggleSettings}>
               <IconSettings />
             </button>
           </div>
@@ -153,8 +160,8 @@ function SideNav({ section, onSectionChange, categories, activeCategory, onCateg
           <div className="user-strip">
             <span className="user-avatar user-avatar-guest" onClick={onLogin} title="登录 / 注册"><IconUser /></span>
             <span className="user-name guest-name" onClick={onLogin}>请登录</span>
-            <button className={"strip-btn" + (settingsOpen ? " open" : "")} title="设置"
-              onClick={() => setSettingsOpen(!settingsOpen)}>
+            <button ref={gearRef} className={"strip-btn" + (settingsOpen ? " open" : "")} title="设置"
+              onClick={toggleSettings}>
               <IconSettings />
             </button>
           </div>

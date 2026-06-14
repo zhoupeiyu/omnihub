@@ -757,10 +757,23 @@ section[id] { scroll-margin-top: 84px; }
 
 /* ---------- 皮肤切换面板（侧边栏底部弹出） ---------- */
 .skin-panel {
-  position: absolute; bottom: 100%; left: 0; right: 0; z-index: 45; margin-bottom: 8px;
+  position: fixed; z-index: 60; width: 212px;
   background: var(--raised); border: var(--border-w) solid var(--border);
   border-radius: var(--radius); box-shadow: var(--shadow-pop);
-  padding: 10px; animation: popIn .22s cubic-bezier(.2,1.2,.4,1);
+  padding: 10px;
+  opacity: 0; visibility: hidden; transform: translateX(-6px) scale(.96);
+  transform-origin: left bottom;
+  transition: opacity .16s ease, transform .16s ease, visibility .16s;
+}
+.skin-panel.open { opacity: 1; visibility: visible; transform: none; }
+/* 指向左侧设置按钮的小箭头（双层做描边效果） */
+.skin-panel::after {
+  content: ""; position: absolute; left: -8px; bottom: 11px;
+  border: 8px solid transparent; border-right-color: var(--border);
+}
+.skin-panel::before {
+  content: ""; position: absolute; left: -6px; bottom: 12px; z-index: 1;
+  border: 7px solid transparent; border-right-color: var(--raised);
 }
 .skin-option {
   display: flex; align-items: center; gap: 10px; width: 100%;
@@ -905,10 +918,15 @@ section[id] { scroll-margin-top: 84px; }
 }
 .auth-close:hover { background: var(--bg-sunken); color: var(--text); }
 /* 侧边栏底部·游客登录入口（与用户条同构：空白头像 + 请登录） */
-.user-avatar-guest { background: var(--bg-sunken); color: var(--text-3); cursor: pointer; transition: color .15s; }
-.user-avatar-guest svg { width: 15px; height: 15px; }
-.guest-name { cursor: pointer; transition: color .15s; }
+.user-avatar-guest {
+  background: var(--bg-sunken); color: var(--text-3); cursor: pointer; transition: color .15s, border-color .15s;
+  border: var(--border-w) dashed var(--border);
+}
+.user-avatar-guest svg { width: 14px; height: 14px; }
+.guest-name { flex: 0 1 auto; margin-left: -3px; cursor: pointer; transition: color .15s; }
+.user-strip:has(.guest-name) .strip-btn { margin-left: auto; }
 .user-avatar-guest:hover, .guest-name:hover { color: var(--accent); }
+.user-avatar-guest:hover { border-color: var(--accent); }
 .auth-brand { display: flex; align-items: center; gap: 12px; margin-bottom: 6px; }
 .auth-brand h1 { font-family: var(--font-display); font-weight: var(--display-weight); font-size: 22px; }
 .auth-sub { color: var(--text-3); font-size: 13px; margin-bottom: 20px; }
