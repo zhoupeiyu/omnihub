@@ -892,11 +892,28 @@ section[id] { scroll-margin-top: 84px; }
 /* ---------- 登录 / 注册页 ---------- */
 .auth-wrap { min-height: 100vh; display: grid; place-items: center; padding: 24px; }
 .auth-card {
+  position: relative;
   width: min(380px, 100%);
   background: var(--surface); border: var(--border-w) solid var(--border);
   border-radius: var(--radius-lg); box-shadow: var(--shadow-pop);
   padding: 30px 28px;
 }
+.auth-close {
+  position: absolute; top: 14px; right: 14px; width: 28px; height: 28px; line-height: 1;
+  border: none; background: transparent; color: var(--text-3); cursor: pointer;
+  border-radius: 8px; font-size: 15px; transition: background .15s, color .15s;
+}
+.auth-close:hover { background: var(--bg-sunken); color: var(--text); }
+/* 侧边栏底部·游客登录入口 */
+.login-entry {
+  display: flex; align-items: center; justify-content: center; gap: 7px;
+  width: 100%; padding: 9px; border-radius: var(--radius-sm); cursor: pointer;
+  border: var(--border-w) solid var(--border); background: var(--surface);
+  color: var(--text-2); font-size: 13px; font-weight: 650;
+  transition: background .15s, color .15s, border-color .15s;
+}
+.login-entry:hover { background: var(--accent); color: var(--accent-contrast); border-color: var(--accent); }
+.login-entry svg { width: 15px; height: 15px; }
 .auth-brand { display: flex; align-items: center; gap: 12px; margin-bottom: 6px; }
 .auth-brand h1 { font-family: var(--font-display); font-weight: var(--display-weight); font-size: 22px; }
 .auth-sub { color: var(--text-3); font-size: 13px; margin-bottom: 20px; }

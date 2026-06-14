@@ -22,8 +22,9 @@ function AuthView({ onLoggedIn }) {
   }
 
   return (
-    <div className="auth-wrap">
-      <div className="auth-card">
+    <div className="modal-overlay" onClick={onClose}>
+      <div className="auth-card" onClick={(e) => e.stopPropagation()}>
+        {onClose && <button className="auth-close" onClick={onClose} title="关闭">✕</button>}
         <div className="auth-brand">
           <div className="logo-mark">万</div>
           <h1>万象台</h1>

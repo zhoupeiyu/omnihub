@@ -64,15 +64,17 @@ function Header({ query, onQueryChange, searchPlaceholder, greeting, dateText })
 
 /** 侧边栏：模块导航 + 分类（带计数）+ 左下角「用户信息 + 设置」 */
 function SideNav({ section, onSectionChange, categories, activeCategory, onCategoryChange, counts,
-                   user, skin, onSkinChange, theme, onThemeToggle, onOpenAiSettings, onLogout }) {
+                   user, skin, onSkinChange, theme, onThemeToggle, onOpenAiSettings, onLogin, onLogout }) {
   const [settingsOpen, setSettingsOpen] = useState(false);
-  const modules = [
+  const allModules = [
     { id: "feed", label: "信息流", icon: <IconRss /> },
     { id: "prompts", label: "提示词", icon: <IconSparkle /> },
     { id: "favorites", label: "网站收藏", icon: <IconBookmark /> },
     { id: "chat", label: "AI 对话", icon: <IconSend /> },
     { id: "tools", label: "工具箱", icon: <IconWrench /> },
   ];
+  // 游客仅可见无需账号的模块（信息流 / 工具箱）
+  const modules = user ? allModules : allModules.filter((m) => m.id === "feed" || m.id === "tools");
   return (
     <aside className="sidebar">
       <p className="side-label">模块</p>
@@ -100,7 +102,7 @@ function SideNav({ section, onSectionChange, categories, activeCategory, onCateg
         </React.Fragment>
       )}
       <div className="sidebar-foot">
-        {settingsOpen && (
+        {user && settingsOpen && (
           <div className="skin-panel">
             <button className="skin-option" onClick={() => { setSettingsOpen(false); onOpenAiSettings(); }}>
               <IconSettings style={{ width: 15, height: 15 }} />AI 设置
@@ -130,14 +132,20 @@ function SideNav({ section, onSectionChange, categories, activeCategory, onCateg
           </div>
         )}
         <WoodFish />
-        <div className="user-strip">
-          <span className="user-avatar">{user.username.charAt(0).toUpperCase()}</span>
-          <span className="user-name" title={user.username}>{user.username}</span>
-          <button className={"strip-btn" + (settingsOpen ? " open" : "")} title="设置"
-            onClick={() => setSettingsOpen(!settingsOpen)}>
-            <IconSettings />
+        {user ? (
+          <div className="user-strip">
+            <span className="user-avatar">{user.username.charAt(0).toUpperCase()}</span>
+            <span className="user-name" title={user.username}>{user.username}</span>
+            <button className={"strip-btn" + (settingsOpen ? " open" : "")} title="设置"
+              onClick={() => setSettingsOpen(!settingsOpen)}>
+              <IconSettings />
+            </button>
+          </div>
+        ) : (
+          <button className="login-entry" onClick={onLogin}>
+            <IconUser />登录 / 注册
           </button>
-        </div>
+        )}
       </div>
     </aside>
   );

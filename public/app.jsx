@@ -357,8 +357,8 @@ function ToolsView({ showToast }) {
   );
 }
 
-/** 登录后的主界面 */
-function Workspace({ user, onLogout, showToast, toast }) {
+/** 主界面（登录用户与游客共用；游客 user 为 null） */
+function Workspace({ user, onUserChange, showToast, toast }) {
   const [skin, setSkin] = useAppState(() => loadStored("skin", "minimal"));
   const [theme, setTheme] = useAppState(() => loadStored("theme", "light"));
   const [section, setSection] = useAppState("feed");
@@ -368,9 +368,10 @@ function Workspace({ user, onLogout, showToast, toast }) {
   const [favCategory, setFavCategory] = useAppState("全部");
   const [promptCategory, setPromptCategory] = useAppState("全部");
   const [modal, setModal] = useAppState(null); // null | "add-fav" | "add-prompt" | "ai-settings" | {type:"detail", prompt}
+  const [authOpen, setAuthOpen] = useAppState(false); // 登录/注册弹窗
   const [chatPrefill, setChatPrefill] = useAppState("");
   const [chatMessages, setChatMessages] = useAppState([]);
-  const [hasAiConfig, setHasAiConfig] = useAppState(user.hasAiConfig);
+  const [hasAiConfig, setHasAiConfig] = useAppState(user ? user.hasAiConfig : false);
   const [now, setNow] = useAppState(() => new Date());
 
   useAppEffect(() => {
@@ -381,6 +382,7 @@ function Workspace({ user, onLogout, showToast, toast }) {
   }, [skin, theme]);
 
   useAppEffect(() => {
+    if (!user) return; // 游客不加载个人数据（收藏 / 提示词）
     api("/api/favorites").then(setFavorites).catch((err) => showToast(err.message));
     api("/api/prompts").then(setPrompts).catch((err) => showToast(err.message));
   }, []);
@@ -489,7 +491,7 @@ function Workspace({ user, onLogout, showToast, toast }) {
   }
 
   function handleLogout() {
-    api("/api/logout", { method: "POST" }).finally(onLogout);
+    api("/api/logout", { method: "POST" }).finally(() => onUserChange(null));
   }
 
   const favCounts = {};
@@ -514,7 +516,7 @@ function Workspace({ user, onLogout, showToast, toast }) {
     <div>
       <Header query={query} onQueryChange={setQuery}
         searchPlaceholder={SEARCH_PLACEHOLDERS[section]}
-        greeting={`${getGreeting(now.getHours())}，${user.username}`}
+        greeting={user ? `${getGreeting(now.getHours())}，${user.username}` : getGreeting(now.getHours())}
         dateText={formatToday(now)} />
       <div className="layout">
         <SideNav section={section}
@@ -525,15 +527,16 @@ function Workspace({ user, onLogout, showToast, toast }) {
           skin={skin} onSkinChange={setSkin}
           theme={theme} onThemeToggle={() => setTheme(theme === "light" ? "dark" : "light")}
           onOpenAiSettings={() => setModal("ai-settings")}
+          onLogin={() => setAuthOpen(true)}
           onLogout={handleLogout} />
         <main className="main">
-          {section === "favorites" && (
+          {section === "favorites" && user && (
             <FavoritesView favorites={favorites} query={query} category={favCategory}
               onAdd={() => setModal({ type: "fav", fav: null })}
               onEdit={(fav) => setModal({ type: "fav", fav })}
               onDelete={deleteFavorite} />
           )}
-          {section === "prompts" && (
+          {section === "prompts" && user && (
             <PromptsView prompts={prompts} query={query} category={promptCategory}
               onAdd={() => setModal({ type: "drawer", prompt: null, mode: "create" })}
               onDelete={deletePrompt}
@@ -542,7 +545,7 @@ function Workspace({ user, onLogout, showToast, toast }) {
               onTryRun={tryRunPrompt}
               onToggleFavorite={togglePromptFavorite} />
           )}
-          {section === "chat" && (
+          {section === "chat" && user && (
             <ChatView messages={chatMessages} onMessagesChange={setChatMessages}
               prefill={chatPrefill} onPrefillUsed={() => setChatPrefill("")}
               hasAiConfig={hasAiConfig}
@@ -569,13 +572,17 @@ function Workspace({ user, onLogout, showToast, toast }) {
           onToggleArchive={togglePromptArchive}
           showToast={showToast} />
       )}
+      {authOpen && (
+        <AuthView onClose={() => setAuthOpen(false)}
+          onLoggedIn={(u) => { onUserChange(u); setAuthOpen(false); }} />
+      )}
       <BackToTop />
       <ToastV2 message={toast} />
     </div>
   );
 }
 
-/** 应用根：检查登录态，未登录显示登录页 */
+/** 应用根：检查登录态；登录与游客都进入主界面（不强制登录） */
 function App() {
   const [user, setUser] = useAppState(null);
   const [checking, setChecking] = useAppState(true);
@@ -596,20 +603,9 @@ function App() {
       .finally(() => setChecking(false));
   }, []);
 
-  function handleLoggedIn() {
-    api("/api/me").then(setUser).catch(() => setUser(null));
-  }
-
   if (checking) return null;
-  if (!user) {
-    return (
-      <div>
-        <AuthView onLoggedIn={handleLoggedIn} />
-        <ToastV2 message={toast} />
-      </div>
-    );
-  }
-  return <Workspace key={user.id} user={user} onLogout={() => setUser(null)} showToast={showToast} toast={toast} />;
+  // 不强制登录：游客（user 为 null）也进入主界面，仅个人相关功能需要登录
+  return <Workspace key={user ? user.id : "guest"} user={user} onUserChange={setUser} showToast={showToast} toast={toast} />;
 }
 
 ReactDOM.createRoot(document.getElementById("root")).render(<App />);
