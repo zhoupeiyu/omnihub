@@ -16,7 +16,7 @@ const IconWoodFish = (props) => (
     <ellipse cx="27" cy="41" rx="24" ry="18" fill="url(#wf-body)" />
     <path d="M8 37c9-6 29-6 40 5-9-8-31-8-40-5Z" fill="#43290f" />
     <path d="M11 43c8 3 22 3 32-1" stroke="#7a4f25" strokeWidth="2" opacity=".45" />
-    <line x1="44" y1="27" x2="57" y2="40" stroke="#caa06e" strokeWidth="4.8" strokeLinecap="round" />
+    <line x1="44" y1="27" x2="59" y2="36" stroke="#caa06e" strokeWidth="4.8" strokeLinecap="round" />
     <circle cx="44" cy="27" r="5" fill="#e2c197" />
   </svg>
 );
@@ -414,6 +414,17 @@ function FloatingWoodFish({ onKnock }) {
   const [knocking, setKnocking] = useState(false);
   const [pops, setPops] = useState([]);
   const [ripples, setRipples] = useState([]);
+
+  // 首次（无保存位置）默认定位到侧边栏「每日一言」卡片的正上方
+  useEffect(() => {
+    let saved = null;
+    try { saved = localStorage.getItem("omnihub_wf_pos2"); } catch (err) { /* 忽略 */ }
+    if (saved) return;
+    const card = document.querySelector(".woodfish-box");
+    if (!card) return;
+    const top = Math.max(0.04, (card.getBoundingClientRect().top - 66 - 10) / window.innerHeight);
+    setPos({ side: "left", top });
+  }, []);
 
   function knock() {
     setKnocking(true);
