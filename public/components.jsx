@@ -416,18 +416,21 @@ function FloatingWoodFish({ onKnock }) {
   const [ripples, setRipples] = useState([]);
 
   // 首次（无保存位置）默认定位到侧边栏「每日一言」卡片的正上方
+  // 卡片高度会随句子加载变化，用 ResizeObserver 监听并实时重定位，避免重叠
   useEffect(() => {
-    let saved = null;
-    try { saved = localStorage.getItem("omnihub_wf_pos2"); } catch (err) { /* 忽略 */ }
-    if (saved) return;
+    try { if (localStorage.getItem("omnihub_wf_pos2")) return; } catch (err) { /* 忽略 */ }
+    const card = document.querySelector(".woodfish-box");
+    if (!card) return;
     const place = () => {
-      const card = document.querySelector(".woodfish-box");
-      if (!card) return;
+      try { if (localStorage.getItem("omnihub_wf_pos2")) return; } catch (err) { /* 忽略 */ }
       const top = Math.max(0.04, (card.getBoundingClientRect().top - 66 - 16) / window.innerHeight);
       setPos({ side: "left", top });
     };
-    const timer = setTimeout(place, 120);
-    return () => clearTimeout(timer);
+    place();
+    let ro = null;
+    if (window.ResizeObserver) { ro = new ResizeObserver(place); ro.observe(card); }
+    const stop = setTimeout(() => { if (ro) ro.disconnect(); }, 4000);
+    return () => { if (ro) ro.disconnect(); clearTimeout(stop); };
   }, []);
 
   function knock() {
