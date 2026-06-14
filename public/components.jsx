@@ -258,17 +258,11 @@ function FeedCardV2({ item, rank }) {
 }
 
 /** 信息流条目（标题点击打开原文）；富源额外显示精选分与分类 */
-/** 信息流头像：有头像图用图，加载失败或无图回退到首字母色块 */
-function FeedAvatar({ avatar, name }) {
+/** 信息流头像：仅当有真实头像且加载成功时显示，否则不渲染 */
+function FeedAvatar({ avatar }) {
   const [failed, setFailed] = useState(false);
-  if (avatar && !failed) {
-    return <img className="feed-avatar" src={avatar} alt="" loading="lazy" onError={() => setFailed(true)} />;
-  }
-  return (
-    <span className="feed-avatar feed-avatar-fallback" style={{ background: getAvatarColor(name || "?") }}>
-      {(name || "?").charAt(0).toUpperCase()}
-    </span>
-  );
+  if (!avatar || failed) return null;
+  return <img className="feed-avatar" src={avatar} alt="" loading="lazy" onError={() => setFailed(true)} />;
 }
 
 /** 图片放大悬浮层：点击遮罩、关闭按钮或按 Esc 关闭 */
@@ -320,7 +314,7 @@ function FeedItem({ item, rank, showRank, onPreview }) {
             {item.duplicateCount > 0 && <span className="feed-related">关联讨论 {item.duplicateCount} 条</span>}
             {item.origin && (
               <span className="feed-origin">
-                <FeedAvatar avatar={item.avatar} name={item.authorName || item.origin} />
+                <FeedAvatar avatar={item.avatar} />
                 {item.origin}
               </span>
             )}

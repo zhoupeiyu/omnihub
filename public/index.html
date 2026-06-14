@@ -541,17 +541,14 @@ section[id] { scroll-margin-top: 84px; }
   font-size: 10px; color: var(--text-3); margin-left: auto; padding-left: 6px;
 }
 .feed-avatar { width: 15px; height: 15px; border-radius: 50%; flex-shrink: 0; object-fit: cover; }
-.feed-avatar-fallback {
-  display: inline-grid; place-items: center; color: #fff; font-size: 8px; font-weight: 700;
-}
 /* 配图缩略图 */
-.feed-imgs { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 9px; }
+.feed-imgs { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 10px; }
 .feed-img {
-  width: 96px; height: 72px; object-fit: cover; border-radius: var(--radius-sm);
+  width: 188px; height: 132px; object-fit: cover; border-radius: var(--radius-sm);
   border: var(--border-w) solid var(--border); cursor: zoom-in; background: var(--bg-sunken);
   transition: transform .15s ease, border-color .15s ease;
 }
-.feed-img:hover { transform: scale(1.03); border-color: var(--accent); }
+.feed-img:hover { transform: scale(1.02); border-color: var(--accent); }
 /* 图片放大悬浮层 */
 .lightbox {
   position: fixed; inset: 0; z-index: 1000;
