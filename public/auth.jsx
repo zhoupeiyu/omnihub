@@ -1,7 +1,7 @@
 /// 登录 / 注册页
 const { useState: useAuthState } = React;
 
-function AuthView({ onLoggedIn }) {
+function AuthView({ onLoggedIn, onClose }) {
   const [mode, setMode] = useAuthState("login"); // login | register
   const [username, setUsername] = useAuthState("");
   const [password, setPassword] = useAuthState("");
