@@ -73,7 +73,8 @@ function Header({ query, onQueryChange, searchPlaceholder, greeting, dateText })
 
 /** 侧边栏：模块导航 + 分类（带计数）+ 左下角「用户信息 + 设置」 */
 function SideNav({ section, onSectionChange, categories, activeCategory, onCategoryChange, counts,
-                   user, quote, merit, skin, onSkinChange, theme, onThemeToggle, onOpenAiSettings, onLogin, onLogout }) {
+                   user, quote, merit, skin, onSkinChange, theme, onThemeToggle,
+                   woodFishEnabled, onWoodFishToggle, onOpenAiSettings, onLogin, onLogout }) {
   const [settingsOpen, setSettingsOpen] = useState(false);
   const [panelStyle, setPanelStyle] = useState(null);
   const gearRef = React.useRef(null);
@@ -146,6 +147,12 @@ function SideNav({ section, onSectionChange, categories, activeCategory, onCateg
               <IconMoon style={{ width: 15, height: 15 }} />深色模式
               <span className="menu-right">
                 <span className={"mini-switch" + (theme === "dark" ? " on" : "")}></span>
+              </span>
+            </button>
+            <button className="skin-option" onClick={onWoodFishToggle}>
+              <IconTimer style={{ width: 15, height: 15 }} />悬浮木鱼
+              <span className="menu-right">
+                <span className={"mini-switch" + (woodFishEnabled ? " on" : "")}></span>
               </span>
             </button>
             <div className="skin-row">

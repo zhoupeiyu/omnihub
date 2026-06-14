@@ -65,9 +65,19 @@ const IconDice = (props) => (
 const IconTimer = (props) => (
   <svg {...dIconBase} {...props}><path d="M10 2h4" /><path d="M12 14l3-3" /><circle cx="12" cy="14" r="8" /></svg>
 );
+const IconFilePdf = (props) => (
+  <svg {...dIconBase} {...props}><path d="M14 2H7a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V7z" /><path d="M14 2v5h5" /><path d="M8 16h1.4a1.6 1.6 0 0 0 0-3.2H8v4.2" /><path d="M12.5 16.8v-4h1.1a2 2 0 0 1 0 4h-1.1z" /><path d="M17 12.8h-2v4" /></svg>
+);
+const IconUpload = (props) => (
+  <svg {...dIconBase} {...props}><path d="M12 16V4" /><path d="M7 9l5-5 5 5" /><path d="M20 16v3a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2v-3" /></svg>
+);
+const IconDownload = (props) => (
+  <svg {...dIconBase} {...props}><path d="M12 4v12" /><path d="M7 11l5 5 5-5" /><path d="M20 20H4" /></svg>
+);
 
 Object.assign(window, {
   IconBookmark, IconRss, IconWrench, IconSun, IconMoon, IconPlus, IconTrash,
   IconX, IconRefresh, IconCopy, IconCheck, IconSearch, IconPalette, IconKey,
-  IconClock, IconType, IconDroplet, IconDice, IconTimer,
+  IconClock, IconType, IconDroplet, IconDice, IconTimer, IconFilePdf,
+  IconUpload, IconDownload,
 });

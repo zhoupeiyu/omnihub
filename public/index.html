@@ -752,10 +752,12 @@ section[id] { scroll-margin-top: 84px; }
   transition: box-shadow .2s ease, border-color .2s ease;
 }
 .tool-card:hover { box-shadow: var(--shadow-pop); }
+.tool-card-wide { grid-column: span 2; }
 .tool-head { display: flex; align-items: center; gap: 10px; }
 .tool-head svg { width: 17px; height: 17px; color: var(--accent); }
 .tool-head h3 { font-family: var(--font-display); font-weight: var(--display-weight); font-size: 15px; }
 .tool-row { display: flex; gap: 8px; align-items: center; }
+.tool-split { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; }
 .tool-output {
   font-family: var(--font-mono); font-size: 13.5px;
   padding: 10px 13px; border-radius: var(--radius-sm);
@@ -765,6 +767,11 @@ section[id] { scroll-margin-top: 84px; }
   font-variant-numeric: tabular-nums;
 }
 .tool-label { font-size: 12px; color: var(--text-3); font-weight: 600; }
+.tool-error {
+  color: oklch(55% 0.18 28); background: oklch(96% 0.04 28);
+  border: var(--border-w) solid oklch(86% 0.08 28);
+  border-radius: var(--radius-sm); padding: 9px 11px; font-size: 12.5px; line-height: 1.55;
+}
 .range { accent-color: var(--accent); flex: 1; }
 .stat-row { display: flex; gap: 9px; }
 .stat-box {
@@ -781,6 +788,47 @@ section[id] { scroll-margin-top: 84px; }
   border-radius: var(--radius-sm); background: var(--accent-soft); color: var(--accent);
   display: grid; place-items: center;
 }
+.pdf-drop {
+  min-height: 86px; border-radius: var(--radius-sm);
+  border: 1.5px dashed color-mix(in oklch, var(--accent) 42%, var(--border));
+  background: color-mix(in oklch, var(--accent-soft) 44%, var(--surface));
+  display: flex; align-items: center; gap: 12px; padding: 13px;
+  cursor: pointer; transition: border-color .18s, background .18s;
+}
+.pdf-drop:hover { border-color: var(--accent); background: color-mix(in oklch, var(--accent-soft) 62%, var(--surface)); }
+.pdf-drop svg { width: 24px; height: 24px; color: var(--accent); flex-shrink: 0; }
+.pdf-drop strong { display: block; font-size: 13.5px; color: var(--text); margin-bottom: 4px; word-break: break-all; }
+.pdf-drop span { display: block; font-size: 12px; color: var(--text-3); }
+.pdf-preset-row { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; }
+.preset-btn {
+  position: relative; text-align: left; border-radius: var(--radius-sm);
+  border: var(--border-w) solid var(--border); background: var(--bg-sunken);
+  color: var(--text); padding: 10px; cursor: pointer; transition: border-color .18s, background .18s;
+}
+.preset-btn:hover, .preset-btn.active { border-color: var(--accent); background: var(--accent-soft); }
+.preset-btn:disabled { cursor: not-allowed; opacity: .65; }
+.preset-btn strong { display: block; font-size: 13px; margin-bottom: 3px; }
+.preset-btn span { display: block; font-size: 11.5px; color: var(--text-3); }
+.preset-btn em {
+  position: absolute; right: 8px; top: 8px; font-style: normal; font-size: 10px;
+  color: var(--accent); opacity: .75;
+}
+.progress-track {
+  height: 8px; border-radius: 99px; background: var(--bg-sunken);
+  border: var(--border-w) solid var(--border); overflow: hidden;
+}
+.progress-track span {
+  display: block; height: 100%; border-radius: inherit; background: var(--accent);
+  transition: width .25s ease;
+}
+.progress-track.ratio span { background: oklch(62% 0.16 165); }
+.ratio-wrap {
+  border-radius: var(--radius-sm); border: var(--border-w) solid var(--border);
+  background: var(--bg-sunken); padding: 10px; display: grid; gap: 8px;
+}
+.ratio-head, .file-compare { display: flex; justify-content: space-between; gap: 10px; align-items: center; }
+.ratio-head span, .file-compare span { color: var(--text-3); font-size: 12px; }
+.ratio-head strong { font-family: var(--font-mono); color: var(--accent); }
 
 /* ---------- 弹窗 ---------- */
 .modal-overlay {
@@ -1099,6 +1147,8 @@ section[id] { scroll-margin-top: 84px; }
   .brand-title { font-size: 15px; }
   .brand-sub { display: none; }
   .search-wrap { width: 100%; }
+  .tool-card-wide { grid-column: span 1; }
+  .tool-split, .pdf-preset-row { grid-template-columns: 1fr; }
 }
 </style>
 </head>

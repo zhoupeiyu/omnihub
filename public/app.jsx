@@ -344,10 +344,11 @@ function FeedView({ query }) {
 function ToolsView({ showToast }) {
   return (
     <div>
-      <SectionHead icon={<IconWrench />} title="工具箱" count={6} />
+      <SectionHead icon={<IconWrench />} title="工具箱" count={7} />
       <div className="tool-grid">
         <PasswordTool showToast={showToast} />
         <TimestampTool showToast={showToast} />
+        <PdfCompressTool showToast={showToast} />
         <WordCountTool />
         <ColorTool showToast={showToast} />
         <DiceTool />
@@ -375,6 +376,7 @@ function Workspace({ user, onUserChange, showToast, toast }) {
   const [now, setNow] = useAppState(() => new Date());
   const [quote, setQuote] = useAppState(null);
   const [merit, setMerit] = useAppState(() => Number(localStorage.getItem("omnihub_merit") || 0));
+  const [woodFishEnabled, setWoodFishEnabled] = useAppState(() => loadStored("woodFishEnabled", false));
 
   useAppEffect(() => {
     document.documentElement.setAttribute("data-skin", skin);
@@ -382,6 +384,10 @@ function Workspace({ user, onUserChange, showToast, toast }) {
     saveStored("skin", skin);
     saveStored("theme", theme);
   }, [skin, theme]);
+
+  useAppEffect(() => {
+    saveStored("woodFishEnabled", woodFishEnabled);
+  }, [woodFishEnabled]);
 
   useAppEffect(() => {
     if (!user) return; // 游客不加载个人数据（收藏 / 提示词）
@@ -547,6 +553,8 @@ function Workspace({ user, onUserChange, showToast, toast }) {
           user={user} quote={quote} merit={merit}
           skin={skin} onSkinChange={setSkin}
           theme={theme} onThemeToggle={() => setTheme(theme === "light" ? "dark" : "light")}
+          woodFishEnabled={woodFishEnabled}
+          onWoodFishToggle={() => setWoodFishEnabled((enabled) => !enabled)}
           onOpenAiSettings={() => setModal("ai-settings")}
           onLogin={() => setAuthOpen(true)}
           onLogout={handleLogout} />
@@ -597,7 +605,7 @@ function Workspace({ user, onUserChange, showToast, toast }) {
         <AuthView onClose={() => setAuthOpen(false)}
           onLoggedIn={(u) => { onUserChange(u); setAuthOpen(false); }} />
       )}
-      <FloatingWoodFish onKnock={knockWoodFish} />
+      {woodFishEnabled && <FloatingWoodFish onKnock={knockWoodFish} />}
       <BackToTop />
       <ToastV2 message={toast} />
     </div>

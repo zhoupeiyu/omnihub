@@ -8,6 +8,28 @@ function copyText(text, showToast) {
     .catch(() => showToast("复制失败，请手动选择"));
 }
 
+function formatBytes(bytes) {
+  if (!Number.isFinite(bytes) || bytes < 0) return "-";
+  const units = ["B", "KB", "MB", "GB"];
+  let value = bytes;
+  let unit = 0;
+  while (value >= 1024 && unit < units.length - 1) {
+    value /= 1024;
+    unit++;
+  }
+  return `${value >= 10 || unit === 0 ? value.toFixed(0) : value.toFixed(1)} ${units[unit]}`;
+}
+
+function formatDateTimeLocal(date) {
+  const pad = (n) => String(n).padStart(2, "0");
+  return `${date.getFullYear()}-${pad(date.getMonth() + 1)}-${pad(date.getDate())}T${pad(date.getHours())}:${pad(date.getMinutes())}:${pad(date.getSeconds())}`;
+}
+
+function formatDateReadable(date) {
+  if (!(date instanceof Date) || Number.isNaN(date.getTime())) return "无法识别";
+  return date.toLocaleString("zh-CN", { hour12: false });
+}
+
 /** 工具 1：随机密码生成器 */
 function PasswordTool({ showToast }) {
   const [length, setLength] = useState(16);
@@ -53,43 +75,63 @@ function PasswordTool({ showToast }) {
 /** 工具 2：时间戳转换 */
 function TimestampTool({ showToast }) {
   const [now, setNow] = useState(Date.now());
-  const [input, setInput] = useState("");
+  const [dateInput, setDateInput] = useState(() => formatDateTimeLocal(new Date()));
+  const [stampInput, setStampInput] = useState(String(Math.floor(Date.now() / 1000)));
 
   useToolEffect(() => {
     const timer = setInterval(() => setNow(Date.now()), 1000);
     return () => clearInterval(timer);
   }, []);
 
-  function convert(raw) {
-    const trimmed = raw.trim();
-    if (!trimmed) return "";
-    if (/^\d+$/.test(trimmed)) {
-      const ms = trimmed.length <= 10 ? Number(trimmed) * 1000 : Number(trimmed);
-      const date = new Date(ms);
-      return isNaN(date.getTime()) ? "无法识别" : date.toLocaleString("zh-CN", { hour12: false });
-    }
-    const date = new Date(trimmed.replace(/-/g, "/"));
-    return isNaN(date.getTime()) ? "无法识别" : `${Math.floor(date.getTime() / 1000)}（秒）`;
+  function parseLocalDate(value) {
+    if (!value) return null;
+    const date = new Date(value);
+    return Number.isNaN(date.getTime()) ? null : date;
+  }
+
+  function parseTimestamp(value) {
+    const trimmed = value.trim();
+    if (!/^-?\d+$/.test(trimmed)) return null;
+    const num = Number(trimmed);
+    if (!Number.isFinite(num)) return null;
+    return new Date(Math.abs(num) < 100000000000 ? num * 1000 : num);
   }
 
   const nowSec = Math.floor(now / 1000);
-  const result = convert(input);
+  const date = parseLocalDate(dateInput);
+  const timestampDate = parseTimestamp(stampInput);
+  const seconds = date ? Math.floor(date.getTime() / 1000) : null;
+  const millis = date ? date.getTime() : null;
 
   return (
     <div className="tool-card">
       <div className="tool-head"><IconClock /><h3>时间戳转换</h3></div>
       <div className="tool-output">
-        <span>当前 {nowSec}</span>
+        <span>当前 {nowSec} 秒 / {now} 毫秒</span>
         <button className="btn btn-icon btn-ghost" onClick={() => copyText(String(nowSec), showToast)} title="复制"><IconCopy /></button>
       </div>
-      <input className="input" placeholder="输入时间戳或日期，如 2026-06-12 18:00"
-        value={input} onChange={(e) => setInput(e.target.value)} />
-      {result && (
+      <label className="tool-label">日期转时间戳</label>
+      <input className="input" type="datetime-local" step="1" value={dateInput}
+        onChange={(e) => setDateInput(e.target.value)} />
+      <div className="tool-split">
         <div className="tool-output">
-          <span>{result}</span>
-          <button className="btn btn-icon btn-ghost" onClick={() => copyText(result, showToast)} title="复制"><IconCopy /></button>
+          <span>{seconds != null ? `${seconds} 秒` : "无法识别"}</span>
+          {seconds != null && <button className="btn btn-icon btn-ghost" onClick={() => copyText(String(seconds), showToast)} title="复制"><IconCopy /></button>}
         </div>
-      )}
+        <div className="tool-output">
+          <span>{millis != null ? `${millis} 毫秒` : "无法识别"}</span>
+          {millis != null && <button className="btn btn-icon btn-ghost" onClick={() => copyText(String(millis), showToast)} title="复制"><IconCopy /></button>}
+        </div>
+      </div>
+      <label className="tool-label">时间戳转日期</label>
+      <input className="input" inputMode="numeric" placeholder="秒或毫秒，如 1781268000 / 1781268000000"
+        value={stampInput} onChange={(e) => setStampInput(e.target.value)} />
+      <div className="tool-output">
+        <span>{formatDateReadable(timestampDate)}</span>
+        {timestampDate && !Number.isNaN(timestampDate.getTime()) && (
+          <button className="btn btn-icon btn-ghost" onClick={() => copyText(formatDateReadable(timestampDate), showToast)} title="复制"><IconCopy /></button>
+        )}
+      </div>
     </div>
   );
 }
@@ -240,6 +282,174 @@ function FocusTimerTool({ showToast }) {
   );
 }
 
+const PDF_PRESETS = [
+  { id: "screen", label: "高压缩", desc: "体积优先", hint: "适合传输" },
+  { id: "ebook", label: "推荐", desc: "均衡清晰度", hint: "默认" },
+  { id: "printer", label: "高质量", desc: "细节优先", hint: "温和压缩" },
+];
+
+function PdfCompressTool({ showToast }) {
+  const [file, setFile] = useState(null);
+  const [preset, setPreset] = useState("ebook");
+  const [job, setJob] = useState(null);
+  const [progress, setProgress] = useState(0);
+  const [busy, setBusy] = useState(false);
+  const [error, setError] = useState("");
+  const pollRef = useToolRef(null);
+  const fileInputRef = useToolRef(null);
+
+  useToolEffect(() => () => clearInterval(pollRef.current), []);
+
+  function resetJob() {
+    clearInterval(pollRef.current);
+    setJob(null);
+    setProgress(0);
+    setBusy(false);
+    setError("");
+  }
+
+  function selectFile(nextFile) {
+    resetJob();
+    if (!nextFile) { setFile(null); return; }
+    if (nextFile.type && nextFile.type !== "application/pdf") {
+      setFile(null);
+      setError("请选择 PDF 文件");
+      return;
+    }
+    if (!nextFile.name.toLowerCase().endsWith(".pdf")) {
+      setFile(null);
+      setError("请选择 PDF 文件");
+      return;
+    }
+    setFile(nextFile);
+  }
+
+  function uploadJob() {
+    return new Promise((resolve, reject) => {
+      const xhr = new XMLHttpRequest();
+      const body = new FormData();
+      body.append("pdf", file);
+      body.append("preset", preset);
+      xhr.open("POST", "/api/tools/pdf-compress");
+      xhr.responseType = "json";
+      xhr.upload.onprogress = (event) => {
+        if (!event.lengthComputable) return;
+        setProgress(Math.max(4, Math.round((event.loaded / event.total) * 32)));
+      };
+      xhr.onload = () => {
+        const payload = xhr.response || {};
+        if (xhr.status >= 200 && xhr.status < 300) resolve(payload);
+        else reject(new Error(payload.error || `上传失败（${xhr.status}）`));
+      };
+      xhr.onerror = () => reject(new Error("上传失败，请检查本地服务"));
+      xhr.send(body);
+    });
+  }
+
+  function pollJob(id) {
+    clearInterval(pollRef.current);
+    pollRef.current = setInterval(() => {
+      api(`/api/tools/pdf-compress/${id}`)
+        .then((payload) => {
+          setJob(payload);
+          setProgress(payload.progress || 0);
+          if (payload.status === "done") {
+            clearInterval(pollRef.current);
+            setBusy(false);
+            showToast("PDF 压缩完成");
+          } else if (payload.status === "error") {
+            clearInterval(pollRef.current);
+            setBusy(false);
+            setError(payload.error || "压缩失败");
+          }
+        })
+        .catch((err) => {
+          clearInterval(pollRef.current);
+          setBusy(false);
+          setError(err.message);
+        });
+    }, 600);
+  }
+
+  function startCompress() {
+    if (!file) { setError("先选择一个 PDF 文件"); return; }
+    resetJob();
+    setBusy(true);
+    setProgress(3);
+    uploadJob()
+      .then((payload) => {
+        setJob(payload);
+        setProgress(Math.max(35, payload.progress || 35));
+        pollJob(payload.id);
+      })
+      .catch((err) => {
+        setBusy(false);
+        setError(err.message);
+      });
+  }
+
+  const done = job && job.status === "done" && job.result;
+  const ratio = done ? job.result.compressionRatio : 0;
+  const presetInfo = PDF_PRESETS.find((item) => item.id === preset) || PDF_PRESETS[1];
+
+  return (
+    <div className="tool-card tool-card-wide">
+      <div className="tool-head"><IconFilePdf /><h3>PDF 压缩</h3></div>
+      <div className="pdf-drop" onClick={() => fileInputRef.current && fileInputRef.current.click()}>
+        <input ref={fileInputRef} type="file" accept="application/pdf" hidden
+          onChange={(e) => selectFile(e.target.files && e.target.files[0])} />
+        <IconUpload />
+        <div>
+          <strong>{file ? file.name : "选择本地 PDF 文件"}</strong>
+          <span>{file ? `${formatBytes(file.size)} · ${file.type || "application/pdf"}` : "压缩过程只在本机服务临时处理"}</span>
+        </div>
+      </div>
+      <div className="pdf-preset-row">
+        {PDF_PRESETS.map((item) => (
+          <button key={item.id} className={"preset-btn" + (preset === item.id ? " active" : "")}
+            onClick={() => { setPreset(item.id); resetJob(); }} disabled={busy}>
+            <strong>{item.label}</strong>
+            <span>{item.desc}</span>
+            <em>{item.hint}</em>
+          </button>
+        ))}
+      </div>
+      <div className="tool-output">
+        <span>{busy ? `正在压缩：${job ? job.phase : "上传中"}` : done ? `已节省 ${formatBytes(job.result.savedBytes)} · 压缩率 ${ratio}%` : `当前预设：${presetInfo.label} · ${presetInfo.desc}`}</span>
+      </div>
+      <div className="progress-track" aria-label="压缩进度">
+        <span style={{ width: `${Math.max(0, Math.min(100, progress))}%` }}></span>
+      </div>
+      {done && (
+        <div className="ratio-wrap">
+          <div className="ratio-head">
+            <span>压缩率</span>
+            <strong>{ratio}%</strong>
+          </div>
+          <div className="progress-track ratio"><span style={{ width: `${Math.max(0, Math.min(100, ratio))}%` }}></span></div>
+          <div className="file-compare">
+            <span>原始 {formatBytes(job.file.size)}</span>
+            <span>压缩后 {formatBytes(job.result.outputBytes)}</span>
+          </div>
+        </div>
+      )}
+      {error && <div className="tool-error">{error}</div>}
+      <div className="tool-row">
+        <button className="btn btn-primary" style={{ flex: 1, justifyContent: "center" }}
+          onClick={startCompress} disabled={!file || busy}>
+          <IconFilePdf />{busy ? "压缩中……" : "开始压缩"}
+        </button>
+        {done && (
+          <a className="btn" href={job.result.downloadUrl} download={job.result.outputName}>
+            <IconDownload />保存本地
+          </a>
+        )}
+      </div>
+    </div>
+  );
+}
+
 Object.assign(window, {
   PasswordTool, TimestampTool, WordCountTool, ColorTool, DiceTool, FocusTimerTool,
+  PdfCompressTool,
 });

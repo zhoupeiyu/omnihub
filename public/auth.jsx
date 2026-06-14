@@ -26,7 +26,9 @@ function AuthView({ onLoggedIn, onClose }) {
       <div className="auth-card" onClick={(e) => e.stopPropagation()}>
         {onClose && <button className="auth-close" onClick={onClose} title="关闭">✕</button>}
         <div className="auth-brand">
-          <div className="logo-mark">万</div>
+          <div className="logo-mark" aria-hidden="true">
+            <img src="/assets/omnihub-logo.svg" alt="" />
+          </div>
           <h1>万象台</h1>
         </div>
         <p className="auth-sub">登录后，你的收藏、提示词和 AI 配置都跟着账号走</p>

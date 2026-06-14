@@ -54,7 +54,8 @@ node server.js
 
 ### 网站收藏 / 工具箱
 - 收藏：分类分区 + 计数、搜索、favicon 自动获取、一句话描述、增删改（含改分类）
-- 工具箱：密码生成、时间戳、字数统计、颜色转换、随机决定、专注倒计时（全离线）
+- 工具箱：密码生成、时间戳双向转换、PDF 压缩、字数统计、颜色转换、随机决定、专注倒计时
+- PDF 压缩走本机服务端 Ghostscript，支持高压缩 / 推荐 / 高质量三档、压缩进度、压缩率和下载保存；部署机器需安装 `ghostscript` 或设置 `GS_PATH`
 - 4 套皮肤 × 明暗主题，本机记忆
 
 ## 文件结构
@@ -68,7 +69,8 @@ omnihub/
 │   ├── api.js         # REST 路由（认证/收藏/提示词/信息流/AI 配置与对话）
 │   ├── ai.js          # AI 代理：转发到用户配置的 OpenAI 兼容接口
 │   ├── sns.js         # SNS 链接平台识别与 URL 规范化
-│   └── feed.js        # 信息流：RSS 来源白名单 + 拉取解析 + 磁盘缓存降级
+│   ├── feed.js        # 信息流：RSS 来源白名单 + 拉取解析 + 磁盘缓存降级
+│   └── pdf_tools.js   # PDF 压缩任务：上传、Ghostscript 压缩、进度与下载
 ├── public/            # 前端（React + Babel，无构建）
 │   ├── index.html     # 样式系统（4 皮肤 × 2 主题）+ 页面入口
 │   ├── api.js         # fetch 封装
@@ -77,7 +79,7 @@ omnihub/
 │   ├── chat.jsx       # AI 对话 + AI 设置弹窗
 │   ├── components.jsx # 顶栏/侧边栏/收藏卡片等
 │   ├── prompts.jsx    # 提示词卡片/详情/添加（含图片压缩）
-│   ├── tools.jsx      # 6 个小工具
+│   ├── tools.jsx      # 工具箱：时间戳 / PDF 压缩 / 密码等
 │   ├── data.jsx       # 本机偏好与静态数据
 │   └── icons.jsx      # SVG 图标库
 ├── scripts/mock_ai.js # 本地模拟 AI 接口（离线自测用：node scripts/mock_ai.js）
@@ -96,6 +98,8 @@ omnihub/
 | GET | /api/prompts/export | 全部灵感 JSON 导出 |
 | GET | /api/feed/sources | 信息流来源列表（含分类） |
 | GET | /api/feed/:id | 拉取指定来源条目（代理 RSS + 缓存降级） |
+| POST / GET | /api/tools/pdf-compress(/:id) | PDF 压缩任务创建与进度查询 |
+| GET | /api/tools/pdf-compress/:id/download | 下载压缩后的 PDF |
 | GET / PUT | /api/ai-config | AI 配置（Key 只回传掩码） |
 | POST | /api/ai/chat | 多轮对话转发（一次性返回） |
 | POST | /api/ai/chat/stream | 多轮对话转发（SSE 流式） |
