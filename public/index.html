@@ -668,20 +668,19 @@ section[id] { scroll-margin-top: 84px; }
   from { transform: scale(.45); opacity: .55; }
   to { transform: scale(2.3); opacity: 0; }
 }
-/* 悬浮木鱼球（可拖动） */
+/* 悬浮木鱼（可拖动，无背景，仅图标） */
 .wf-float {
-  position: fixed; z-index: 80; width: 52px; height: 52px;
+  position: fixed; z-index: 80; width: 66px; height: 66px;
   display: grid; place-items: center; cursor: grab;
-  background: var(--raised); border: var(--border-w) solid var(--border);
-  border-radius: 50%; box-shadow: var(--shadow-pop);
   touch-action: none; user-select: none; -webkit-user-select: none;
-  backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
-  transition: box-shadow .2s ease;
 }
-.wf-float:hover { box-shadow: var(--shadow-pop), 0 0 0 4px var(--accent-soft); }
 .wf-float:active { cursor: grabbing; }
 .wf-float .woodfish-icon { display: grid; place-items: center; }
-.wf-float .woodfish-icon svg { width: 30px; height: 30px; transition: transform .14s ease; }
+.wf-float .woodfish-icon svg {
+  width: 60px; height: 60px; transition: transform .14s ease;
+  filter: drop-shadow(0 3px 7px oklch(0% 0 0 / .32));
+}
+.wf-float:hover .woodfish-icon svg { transform: scale(1.06); }
 .wf-float.knock .woodfish-icon svg { animation: woodfish-bop .16s ease; }
 .woodfish-tap {
   position: relative; width: 100%; margin-top: 8px;

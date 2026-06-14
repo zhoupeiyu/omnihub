@@ -16,8 +16,8 @@ const IconWoodFish = (props) => (
     <ellipse cx="27" cy="41" rx="24" ry="18" fill="url(#wf-body)" />
     <path d="M8 37c9-6 29-6 40 5-9-8-31-8-40-5Z" fill="#43290f" />
     <path d="M11 43c8 3 22 3 32-1" stroke="#7a4f25" strokeWidth="2" opacity=".45" />
-    <rect x="42.5" y="13" width="4.6" height="19" rx="2.3" fill="#d9b483" transform="rotate(40 44.8 22.5)" />
-    <circle cx="43" cy="30" r="5" fill="#e2c197" />
+    <line x1="44" y1="27" x2="57" y2="40" stroke="#caa06e" strokeWidth="4.8" strokeLinecap="round" />
+    <circle cx="44" cy="27" r="5" fill="#e2c197" />
   </svg>
 );
 const IconUpload = (props) => (<svg {...dIcon2Base} {...props}><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M17 8l-5-5-5 5M12 3v12" /></svg>);
@@ -406,10 +406,10 @@ function QuoteCard({ quote }) {
 function FloatingWoodFish({ onKnock }) {
   const [pos, setPos] = useState(() => {
     try {
-      const saved = JSON.parse(localStorage.getItem("omnihub_wf_pos") || "null");
+      const saved = JSON.parse(localStorage.getItem("omnihub_wf_pos2") || "null");
       if (saved && (saved.side === "left" || saved.side === "right")) return saved;
     } catch (err) { /* 忽略 */ }
-    return { side: "right", top: 0.66 };
+    return { side: "left", top: 0.82 };
   });
   const [knocking, setKnocking] = useState(false);
   const [pops, setPops] = useState([]);
@@ -421,9 +421,10 @@ function FloatingWoodFish({ onKnock }) {
     playWoodFishSound();
     const id = Date.now() + Math.random();
     setPops((list) => [...list, id]);
-    setRipples((list) => [...list, id]);
+    const rids = [0, 1, 2, 3].map((i) => ({ id: id + "_" + i, delay: i * 0.11 }));
+    setRipples((list) => [...list, ...rids]);
     setTimeout(() => setPops((list) => list.filter((x) => x !== id)), 850);
-    setTimeout(() => setRipples((list) => list.filter((x) => x !== id)), 620);
+    setTimeout(() => setRipples((list) => list.filter((r) => !rids.some((x) => x.id === r.id))), 1100);
     if (onKnock) onKnock();
   }
 
@@ -448,7 +449,7 @@ function FloatingWoodFish({ onKnock }) {
       const top = Math.min(0.9, Math.max(0.05, (ev.clientY - 26) / window.innerHeight));
       const next = { side, top };
       setPos(next);
-      try { localStorage.setItem("omnihub_wf_pos", JSON.stringify(next)); } catch (err) { /* 忽略 */ }
+      try { localStorage.setItem("omnihub_wf_pos2", JSON.stringify(next)); } catch (err) { /* 忽略 */ }
       el.style.left = ""; el.style.top = ""; el.style.right = ""; el.style.bottom = "";
     }
     document.addEventListener("pointermove", onMove);
@@ -462,7 +463,7 @@ function FloatingWoodFish({ onKnock }) {
   return (
     <div className={"wf-float" + (knocking ? " knock" : "")} style={style}
       onPointerDown={onPointerDown} title="敲木鱼（可拖动）">
-      {ripples.map((id) => <span className="wf-ripple" key={id} />)}
+      {ripples.map((r) => <span className="wf-ripple" key={r.id} style={{ animationDelay: r.delay + "s" }} />)}
       <span className="woodfish-icon"><IconWoodFish /></span>
       {pops.map((id) => <span className="merit-pop" key={id}>功德 +1</span>)}
     </div>
