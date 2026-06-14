@@ -420,10 +420,14 @@ function FloatingWoodFish({ onKnock }) {
     let saved = null;
     try { saved = localStorage.getItem("omnihub_wf_pos2"); } catch (err) { /* 忽略 */ }
     if (saved) return;
-    const card = document.querySelector(".woodfish-box");
-    if (!card) return;
-    const top = Math.max(0.04, (card.getBoundingClientRect().top - 66 - 10) / window.innerHeight);
-    setPos({ side: "left", top });
+    const place = () => {
+      const card = document.querySelector(".woodfish-box");
+      if (!card) return;
+      const top = Math.max(0.04, (card.getBoundingClientRect().top - 66 - 16) / window.innerHeight);
+      setPos({ side: "left", top });
+    };
+    const timer = setTimeout(place, 120);
+    return () => clearTimeout(timer);
   }, []);
 
   function knock() {
