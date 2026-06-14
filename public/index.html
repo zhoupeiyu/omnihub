@@ -3,6 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" href="/assets/omnihub-logo.svg" type="image/svg+xml">
+<link rel="mask-icon" href="/assets/omnihub-logo.svg" color="#123F43">
 <title>万象台 OmniHub</title>
 <style>
 /* ============================================================
@@ -207,12 +209,14 @@ section[id] { scroll-margin-top: 84px; }
 }
 .header-inner { width: 100%; height: 50px; display: flex; align-items: center; gap: 12px; padding: 0 20px; }
 .logo-mark {
-  width: 30px; height: 30px; border-radius: var(--radius-sm); flex-shrink: 0;
-  background: var(--accent); color: var(--accent-contrast);
+  width: 34px; height: 34px; border-radius: 10px; flex-shrink: 0;
+  background: color-mix(in oklch, var(--surface) 84%, var(--accent-soft));
   display: grid; place-items: center;
-  font-family: var(--font-display); font-weight: 800; font-size: 15px;
   box-shadow: var(--shadow-card);
+  border: var(--border-w) solid color-mix(in oklch, var(--border) 72%, transparent);
+  overflow: hidden;
 }
+.logo-mark img { width: 27px; height: 27px; display: block; }
 .brand-title { font-family: var(--font-display); font-weight: var(--display-weight); font-size: 15.5px; white-space: nowrap; }
 .brand-sub { display: none; }
 
@@ -677,27 +681,25 @@ section[id] { scroll-margin-top: 84px; }
   touch-action: none; user-select: none; -webkit-user-select: none;
 }
 .wf-float:active { cursor: grabbing; }
+/* 参照电子木鱼：木鱼为基准，敲击时缩小；木槌右下角为支点旋转落锤 */
 .wf-body {
-  position: absolute; left: 1px; bottom: 0; width: 62px; height: auto; display: block;
+  position: absolute; left: 0; bottom: 0; width: 62px; height: auto; display: block;
   filter: drop-shadow(0 3px 7px oklch(0% 0 0 / .32)); -webkit-user-drag: none; user-drag: none;
 }
-/* 木槌：锤头朝木鱼、手持端在右上，平时抬起，敲击时落锤击打 */
 .wf-mallet {
-  position: absolute; left: 24px; top: -6px; width: 44px; height: auto; display: block;
-  transform-origin: 86% 50%; transform: rotate(-40deg); pointer-events: none;
+  position: absolute; left: 31px; top: -9px; width: 44px; height: auto; display: block;
+  transform-origin: 100% 100%; transform: rotate(0deg); pointer-events: none;
   filter: drop-shadow(0 2px 4px oklch(0% 0 0 / .3)); -webkit-user-drag: none; user-drag: none;
 }
-.wf-float.knock .wf-mallet { animation: mallet-hit .34s ease; }
+.wf-float.knock .wf-mallet { animation: mallet-hit .22s cubic-bezier(.5,.35,.15,1.4); }
 @keyframes mallet-hit {
-  0% { transform: rotate(-40deg); }
-  45% { transform: rotate(-8deg); }
-  72% { transform: rotate(-24deg); }
-  100% { transform: rotate(-40deg); }
+  0% { transform: rotate(0deg); }
+  50% { transform: rotate(28deg); }
+  100% { transform: rotate(0deg); }
 }
-.wf-float.knock .wf-body { animation: wf-body-bop .32s ease; }
+.wf-float.knock .wf-body { animation: wf-body-bop .2s cubic-bezier(.5,.35,.15,1.4); }
 @keyframes wf-body-bop {
-  0%, 100% { transform: translateY(0) scale(1); }
-  45% { transform: translateY(3px) scale(.95); }
+  50% { transform: scale(.92); }
 }
 .woodfish-tap {
   position: relative; width: 100%; margin-top: 8px;
