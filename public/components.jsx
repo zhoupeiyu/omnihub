@@ -102,11 +102,13 @@ function SideNav({ section, onSectionChange, categories, activeCategory, onCateg
         </React.Fragment>
       )}
       <div className="sidebar-foot">
-        {user && settingsOpen && (
+        {settingsOpen && (
           <div className="skin-panel">
-            <button className="skin-option" onClick={() => { setSettingsOpen(false); onOpenAiSettings(); }}>
-              <IconSettings style={{ width: 15, height: 15 }} />AI 设置
-            </button>
+            {user && (
+              <button className="skin-option" onClick={() => { setSettingsOpen(false); onOpenAiSettings(); }}>
+                <IconSettings style={{ width: 15, height: 15 }} />AI 设置
+              </button>
+            )}
             <button className="skin-option" onClick={onThemeToggle}>
               <IconMoon style={{ width: 15, height: 15 }} />深色模式
               <span className="menu-right">
@@ -126,9 +128,15 @@ function SideNav({ section, onSectionChange, categories, activeCategory, onCateg
               </span>
             </div>
             <div className="menu-divider"></div>
-            <button className="skin-option" onClick={onLogout}>
-              <IconLogout style={{ width: 15, height: 15 }} />退出登录
-            </button>
+            {user ? (
+              <button className="skin-option" onClick={onLogout}>
+                <IconLogout style={{ width: 15, height: 15 }} />退出登录
+              </button>
+            ) : (
+              <button className="skin-option" onClick={() => { setSettingsOpen(false); onLogin(); }}>
+                <IconUser style={{ width: 15, height: 15 }} />登录 / 注册
+              </button>
+            )}
           </div>
         )}
         <WoodFish />
@@ -142,9 +150,14 @@ function SideNav({ section, onSectionChange, categories, activeCategory, onCateg
             </button>
           </div>
         ) : (
-          <button className="login-entry" onClick={onLogin}>
-            <IconUser />登录 / 注册
-          </button>
+          <div className="user-strip">
+            <span className="user-avatar user-avatar-guest" onClick={onLogin} title="登录 / 注册"><IconUser /></span>
+            <span className="user-name guest-name" onClick={onLogin}>请登录</span>
+            <button className={"strip-btn" + (settingsOpen ? " open" : "")} title="设置"
+              onClick={() => setSettingsOpen(!settingsOpen)}>
+              <IconSettings />
+            </button>
+          </div>
         )}
       </div>
     </aside>

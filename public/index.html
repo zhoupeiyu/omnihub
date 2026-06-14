@@ -904,16 +904,11 @@ section[id] { scroll-margin-top: 84px; }
   border-radius: 8px; font-size: 15px; transition: background .15s, color .15s;
 }
 .auth-close:hover { background: var(--bg-sunken); color: var(--text); }
-/* 侧边栏底部·游客登录入口 */
-.login-entry {
-  display: flex; align-items: center; justify-content: center; gap: 7px;
-  width: 100%; padding: 9px; border-radius: var(--radius-sm); cursor: pointer;
-  border: var(--border-w) solid var(--border); background: var(--surface);
-  color: var(--text-2); font-size: 13px; font-weight: 650;
-  transition: background .15s, color .15s, border-color .15s;
-}
-.login-entry:hover { background: var(--accent); color: var(--accent-contrast); border-color: var(--accent); }
-.login-entry svg { width: 15px; height: 15px; }
+/* 侧边栏底部·游客登录入口（与用户条同构：空白头像 + 请登录） */
+.user-avatar-guest { background: var(--bg-sunken); color: var(--text-3); cursor: pointer; transition: color .15s; }
+.user-avatar-guest svg { width: 15px; height: 15px; }
+.guest-name { cursor: pointer; transition: color .15s; }
+.user-avatar-guest:hover, .guest-name:hover { color: var(--accent); }
 .auth-brand { display: flex; align-items: center; gap: 12px; margin-bottom: 6px; }
 .auth-brand h1 { font-family: var(--font-display); font-weight: var(--display-weight); font-size: 22px; }
 .auth-sub { color: var(--text-3); font-size: 13px; margin-bottom: 20px; }
