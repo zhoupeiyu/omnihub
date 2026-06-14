@@ -564,12 +564,17 @@ section[id] { scroll-margin-top: 84px; }
 .lightbox-close:hover { background: oklch(100% 0 0 / .3); }
 
 /* 时间线：按日期分组 */
-.feed-day { margin-bottom: 4px; }
-.feed-day + .feed-day { margin-top: 14px; }
+.feed-day { margin-bottom: 0; }
+.feed-day + .feed-day { margin-top: 3px; }
 .feed-day-label {
+  position: relative;
   font-size: 12px; font-weight: 700; color: var(--text-2);
-  padding: 4px 2px 8px; position: sticky; top: 50px; z-index: 1;
-  background: var(--bg);
+  padding: 6px 2px 8px; z-index: 1; background: var(--bg);
+}
+/* 日期标签处补一段竖线，连接上下两天的时间线（首个分组除外） */
+.feed-day:not(:first-child) .feed-day-label::before {
+  content: ""; position: absolute; top: -3px; bottom: 0; left: 59px;
+  width: 2px; transform: translateX(-50%); background: var(--border);
 }
 .feed-day .feed-card { margin-bottom: 0; }
 
@@ -585,8 +590,8 @@ section[id] { scroll-margin-top: 84px; }
   content: ""; position: absolute; top: 0; bottom: 0; left: 50%;
   width: 2px; transform: translateX(-50%); background: var(--border);
 }
-.tl-row:first-child .tl-rail::before { top: 7px; }
-.tl-row:last-child .tl-rail::before { bottom: calc(100% - 7px); }
+.feed-day:first-child .tl-row:first-child .tl-rail::before { top: 7px; }
+.feed-day:last-child .tl-row:last-child .tl-rail::before { bottom: calc(100% - 7px); }
 .tl-dot {
   position: relative; z-index: 1; margin-top: 3px;
   width: 9px; height: 9px; border-radius: 50%;
