@@ -77,6 +77,19 @@ function SideNav({ section, onSectionChange, categories, activeCategory, onCateg
     }
     setSettingsOpen((v) => !v);
   }
+
+  // 点击弹窗与设置按钮以外的区域时收起设置弹窗
+  useEffect(() => {
+    if (!settingsOpen) return;
+    function onDocMouseDown(e) {
+      if (gearRef.current && gearRef.current.contains(e.target)) return;
+      const panel = document.querySelector(".skin-panel");
+      if (panel && panel.contains(e.target)) return;
+      setSettingsOpen(false);
+    }
+    document.addEventListener("mousedown", onDocMouseDown);
+    return () => document.removeEventListener("mousedown", onDocMouseDown);
+  }, [settingsOpen]);
   const allModules = [
     { id: "feed", label: "信息流", icon: <IconRss /> },
     { id: "prompts", label: "提示词", icon: <IconSparkle /> },
