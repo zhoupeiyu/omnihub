@@ -677,24 +677,22 @@ section[id] { scroll-margin-top: 84px; }
   touch-action: none; user-select: none; -webkit-user-select: none;
 }
 .wf-float:active { cursor: grabbing; }
-.wf-float .wf-body { display: grid; place-items: center; }
-.wf-float .wf-body svg {
-  width: 60px; height: 60px;
-  filter: drop-shadow(0 3px 7px oklch(0% 0 0 / .32));
+.wf-body {
+  position: absolute; left: 1px; bottom: 0; width: 62px; height: auto; display: block;
+  filter: drop-shadow(0 3px 7px oklch(0% 0 0 / .32)); -webkit-user-drag: none; user-drag: none;
 }
-.wf-float:hover .wf-body svg { transform: scale(1.05); transition: transform .14s ease; }
-/* 木槌：锤头落在木鱼右侧约 3/4 处，手持端在右上、平时抬起，敲击时落锤 */
+/* 木槌：锤头朝木鱼、手持端在右上，平时抬起，敲击时落锤击打 */
 .wf-mallet {
-  position: absolute; left: 33px; top: 8px; width: 30px; height: 30px;
-  transform-origin: 83% 19%; transform: rotate(-30deg); pointer-events: none;
+  position: absolute; left: 24px; top: -6px; width: 44px; height: auto; display: block;
+  transform-origin: 86% 50%; transform: rotate(-40deg); pointer-events: none;
+  filter: drop-shadow(0 2px 4px oklch(0% 0 0 / .3)); -webkit-user-drag: none; user-drag: none;
 }
-.wf-mallet svg { width: 30px; height: 30px; filter: drop-shadow(0 2px 3px oklch(0% 0 0 / .3)); }
 .wf-float.knock .wf-mallet { animation: mallet-hit .34s ease; }
 @keyframes mallet-hit {
-  0% { transform: rotate(-30deg); }
-  45% { transform: rotate(10deg); }
-  70% { transform: rotate(-4deg); }
-  100% { transform: rotate(-30deg); }
+  0% { transform: rotate(-40deg); }
+  45% { transform: rotate(-8deg); }
+  72% { transform: rotate(-24deg); }
+  100% { transform: rotate(-40deg); }
 }
 .wf-float.knock .wf-body { animation: wf-body-bop .32s ease; }
 @keyframes wf-body-bop {

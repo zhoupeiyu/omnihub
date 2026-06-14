@@ -498,8 +498,8 @@ function FloatingWoodFish({ onKnock }) {
     <div className={"wf-float" + (knocking ? " knock" : "")} style={{ left: pos.x + "px", top: pos.y + "px" }}
       onPointerDown={onPointerDown} title="敲木鱼（可拖动）">
       {ripples.map((r) => <span className="wf-ripple" key={r.id} style={{ animationDelay: r.delay + "s" }} />)}
-      <span className="wf-body"><IconWoodFish /></span>
-      <span className="wf-mallet"><IconMallet /></span>
+      <img className="wf-body" src="assets/woodfish/muyu.webp" alt="木鱼" draggable="false" />
+      <img className="wf-mallet" src="assets/woodfish/hammer.png" alt="" draggable="false" />
       {pops.map((id) => <span className="merit-pop" key={id}>功德 +1</span>)}
     </div>
   );
