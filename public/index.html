@@ -659,7 +659,7 @@ section[id] { scroll-margin-top: 84px; }
 .woodfish-from::before { content: "—— "; opacity: .7; }
 /* 敲击波纹扩散 */
 .wf-ripple {
-  position: absolute; left: 50%; top: 50%; width: 34px; height: 34px;
+  position: absolute; left: 50%; top: 57%; width: 34px; height: 34px;
   margin: -17px 0 0 -17px; border-radius: 50%;
   border: 1.5px solid oklch(72% 0.13 85); pointer-events: none;
   /* 加速扩散：越往外圈间距越大（越稀），配合透明度递减 */
@@ -677,13 +677,30 @@ section[id] { scroll-margin-top: 84px; }
   touch-action: none; user-select: none; -webkit-user-select: none;
 }
 .wf-float:active { cursor: grabbing; }
-.wf-float .woodfish-icon { display: grid; place-items: center; }
-.wf-float .woodfish-icon svg {
-  width: 60px; height: 60px; transition: transform .14s ease;
+.wf-float .wf-body { display: grid; place-items: center; }
+.wf-float .wf-body svg {
+  width: 60px; height: 60px;
   filter: drop-shadow(0 3px 7px oklch(0% 0 0 / .32));
 }
-.wf-float:hover .woodfish-icon svg { transform: scale(1.06); }
-.wf-float.knock .woodfish-icon svg { animation: woodfish-bop .32s cubic-bezier(.34,1.56,.64,1); }
+.wf-float:hover .wf-body svg { transform: scale(1.05); transition: transform .14s ease; }
+/* 木槌：浮在木鱼右上，平时抬起，敲击时落下击打 */
+.wf-mallet {
+  position: absolute; top: 0; right: 2px; width: 28px; height: 28px;
+  transform-origin: 26% 26%; transform: rotate(-34deg); pointer-events: none;
+}
+.wf-mallet svg { width: 28px; height: 28px; filter: drop-shadow(0 2px 3px oklch(0% 0 0 / .3)); }
+.wf-float.knock .wf-mallet { animation: mallet-hit .32s ease; }
+@keyframes mallet-hit {
+  0% { transform: rotate(-34deg); }
+  45% { transform: rotate(8deg); }
+  70% { transform: rotate(-6deg); }
+  100% { transform: rotate(-34deg); }
+}
+.wf-float.knock .wf-body { animation: wf-body-bop .32s ease; }
+@keyframes wf-body-bop {
+  0%, 100% { transform: translateY(0) scale(1); }
+  45% { transform: translateY(3px) scale(.95); }
+}
 .woodfish-tap {
   position: relative; width: 100%; margin-top: 8px;
   display: flex; align-items: center; justify-content: center;

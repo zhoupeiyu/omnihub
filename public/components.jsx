@@ -6,18 +6,25 @@ const dIcon2Base = { fill: "none", stroke: "currentColor", strokeWidth: 1.8, str
 const IconArrowUpRight = (props) => (<svg {...dIcon2Base} {...props}><path d="M7 17L17 7M17 7H8M17 7v9" /></svg>);
 const IconArrowUp = (props) => (<svg {...dIcon2Base} {...props}><path d="M12 19V5M5 12l7-7 7 7" /></svg>);
 const IconSparkle = (props) => (<svg {...dIcon2Base} {...props}><path d="M12 3l1.9 5.1L19 10l-5.1 1.9L12 17l-1.9-5.1L5 10l5.1-1.9z" /><path d="M19 17l.8 2.2L22 20l-2.2.8L19 23l-.8-2.2L16 20l2.2-.8z" /></svg>);
+/** 木鱼身（居中，不含木槌） */
 const IconWoodFish = (props) => (
   <svg viewBox="0 0 64 64" fill="none" {...props}>
     <defs>
-      <linearGradient id="wf-body" x1="10" y1="24" x2="40" y2="58" gradientUnits="userSpaceOnUse">
+      <linearGradient id="wf-body" x1="12" y1="18" x2="44" y2="56" gradientUnits="userSpaceOnUse">
         <stop stopColor="#e0ad6a" /><stop offset="1" stopColor="#965f24" />
       </linearGradient>
     </defs>
-    <ellipse cx="27" cy="41" rx="24" ry="18" fill="url(#wf-body)" />
-    <path d="M8 37c9-6 29-6 40 5-9-8-31-8-40-5Z" fill="#43290f" />
-    <path d="M11 43c8 3 22 3 32-1" stroke="#7a4f25" strokeWidth="2" opacity=".45" />
-    <line x1="44" y1="27" x2="59" y2="36" stroke="#caa06e" strokeWidth="4.8" strokeLinecap="round" />
-    <circle cx="44" cy="27" r="5" fill="#e2c197" />
+    <ellipse cx="32" cy="37" rx="27" ry="20" fill="url(#wf-body)" />
+    <path d="M9 33c10-7 34-7 46 6-10-9-36-9-46-6Z" fill="#43290f" />
+    <path d="M13 39c9 3 25 3 37-1" stroke="#7a4f25" strokeWidth="2.2" opacity=".45" />
+  </svg>
+);
+
+/** 木槌（独立，便于单独做敲击动画） */
+const IconMallet = (props) => (
+  <svg viewBox="0 0 44 44" fill="none" {...props}>
+    <line x1="11" y1="11" x2="34" y2="34" stroke="#caa06e" strokeWidth="5.5" strokeLinecap="round" />
+    <circle cx="11" cy="11" r="6.5" fill="#e2c197" />
   </svg>
 );
 const IconUpload = (props) => (<svg {...dIcon2Base} {...props}><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M17 8l-5-5-5 5M12 3v12" /></svg>);
@@ -482,7 +489,8 @@ function FloatingWoodFish({ onKnock }) {
     <div className={"wf-float" + (knocking ? " knock" : "")} style={style}
       onPointerDown={onPointerDown} title="敲木鱼（可拖动）">
       {ripples.map((r) => <span className="wf-ripple" key={r.id} style={{ animationDelay: r.delay + "s" }} />)}
-      <span className="woodfish-icon"><IconWoodFish /></span>
+      <span className="wf-body"><IconWoodFish /></span>
+      <span className="wf-mallet"><IconMallet /></span>
       {pops.map((id) => <span className="merit-pop" key={id}>功德 +1</span>)}
     </div>
   );
