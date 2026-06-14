@@ -503,12 +503,15 @@ section[id] { scroll-margin-top: 84px; }
 }
 .feed-rank.hot { color: var(--accent); }
 .feed-body { flex: 1; min-width: 0; }
-.feed-title-row { display: flex; align-items: flex-start; gap: 8px; padding-right: 30px; }
+.feed-title-row { display: flex; align-items: flex-start; gap: 8px; padding-right: 38px; }
 .feed-title { flex: 1; min-width: 0; font-weight: 650; font-size: 14.5px; line-height: 1.5; transition: color .18s; }
 .feed-card:hover .feed-title { color: var(--accent); }
-.feed-corner { position: absolute; top: 9px; right: 12px; z-index: 1; display: flex; align-items: center; }
+.feed-corner { position: absolute; top: 0; right: 0; z-index: 1; display: flex; align-items: center; }
 .feed-score {
-  flex-shrink: 0; font-family: var(--font-mono); font-size: 10.5px; font-weight: 700; color: var(--text-3);
+  display: grid; place-items: center; min-width: 26px; height: 21px; padding: 0 8px;
+  border-radius: 0 var(--radius-sm) 0 8px;
+  background: var(--bg-sunken); color: var(--text-2);
+  font-family: var(--font-mono); font-size: 11px; font-weight: 700;
 }
 /* 多标签 + 关联讨论 */
 .feed-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 8px; align-items: center; }
@@ -524,7 +527,7 @@ section[id] { scroll-margin-top: 84px; }
 .feed-reason {
   margin-top: 9px; padding: 8px 11px; font-size: 12px; line-height: 1.65;
   color: var(--text-2); background: var(--accent-soft);
-  border-left: 3px solid var(--accent); border-radius: 0 8px 8px 0;
+  border-left: 2px solid oklch(82% 0.05 258); border-radius: 0 8px 8px 0;
 }
 .feed-reason-label {
   display: inline-block; font-weight: 700; color: var(--accent); margin-right: 6px; font-size: 11.5px;
