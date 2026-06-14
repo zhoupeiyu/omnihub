@@ -659,14 +659,16 @@ section[id] { scroll-margin-top: 84px; }
 .woodfish-from::before { content: "—— "; opacity: .7; }
 /* 敲击波纹扩散 */
 .wf-ripple {
-  position: absolute; left: 50%; top: 50%; width: 40px; height: 40px;
-  margin: -20px 0 0 -20px; border-radius: 50%;
-  border: 2px solid oklch(72% 0.13 85); pointer-events: none;
-  animation: wf-ripple 1.1s ease-out forwards;
+  position: absolute; left: 50%; top: 50%; width: 34px; height: 34px;
+  margin: -17px 0 0 -17px; border-radius: 50%;
+  border: 1.5px solid oklch(72% 0.13 85); pointer-events: none;
+  /* 加速扩散：越往外圈间距越大（越稀），配合透明度递减 */
+  animation: wf-ripple 1.4s cubic-bezier(.3,0,.6,.4) forwards;
 }
 @keyframes wf-ripple {
-  from { transform: scale(.45); opacity: .55; }
-  to { transform: scale(2.3); opacity: 0; }
+  0% { transform: scale(.28); opacity: .6; }
+  60% { opacity: .28; }
+  100% { transform: scale(3.4); opacity: 0; }
 }
 /* 悬浮木鱼（可拖动，无背景，仅图标） */
 .wf-float {
