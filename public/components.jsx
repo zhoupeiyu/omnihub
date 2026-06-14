@@ -50,7 +50,9 @@ function Header({ query, onQueryChange, searchPlaceholder, greeting, dateText })
   return (
     <header className="header-bar">
       <div className="header-inner">
-        <div className="logo-mark">万</div>
+        <div className="logo-mark" aria-hidden="true">
+          <img src="/assets/omnihub-logo.svg" alt="" />
+        </div>
         <div>
           <div className="brand-title">万象台</div>
           <div className="brand-sub">OMNIHUB</div>
@@ -410,7 +412,7 @@ function QuoteCard({ quote }) {
 }
 
 /** 悬浮木鱼：可拖动、吸附屏幕左右边，点击敲响（功德 +1 + 波纹 + 音效 + 换句） */
-const WF_SIZE = 64; // 木鱼悬浮区尺寸
+const WF_SIZE = 52; // 木鱼悬浮区尺寸
 
 function FloatingWoodFish({ onKnock }) {
   const [pos, setPos] = useState(null); // {x, y} 像素；null 时等首帧计算
