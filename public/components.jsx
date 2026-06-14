@@ -435,14 +435,14 @@ function FloatingWoodFish({ onKnock }) {
 
   function knock() {
     setKnocking(true);
-    setTimeout(() => setKnocking(false), 160);
+    setTimeout(() => setKnocking(false), 340);
     playWoodFishSound();
     const id = Date.now() + Math.random();
     setPops((list) => [...list, id]);
     const rids = [0, 1, 2, 3].map((i) => ({ id: id + "_" + i, delay: i * 0.11 }));
     setRipples((list) => [...list, ...rids]);
     setTimeout(() => setPops((list) => list.filter((x) => x !== id)), 850);
-    setTimeout(() => setRipples((list) => list.filter((r) => !rids.some((x) => x.id === r.id))), 1100);
+    setTimeout(() => setRipples((list) => list.filter((r) => !rids.some((x) => x.id === r.id))), 1600);
     if (onKnock) onKnock();
   }
 

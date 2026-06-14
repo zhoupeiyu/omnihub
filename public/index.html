@@ -662,7 +662,7 @@ section[id] { scroll-margin-top: 84px; }
   position: absolute; left: 50%; top: 50%; width: 40px; height: 40px;
   margin: -20px 0 0 -20px; border-radius: 50%;
   border: 2px solid oklch(72% 0.13 85); pointer-events: none;
-  animation: wf-ripple .6s ease-out forwards;
+  animation: wf-ripple 1.1s ease-out forwards;
 }
 @keyframes wf-ripple {
   from { transform: scale(.45); opacity: .55; }
@@ -681,7 +681,7 @@ section[id] { scroll-margin-top: 84px; }
   filter: drop-shadow(0 3px 7px oklch(0% 0 0 / .32));
 }
 .wf-float:hover .woodfish-icon svg { transform: scale(1.06); }
-.wf-float.knock .woodfish-icon svg { animation: woodfish-bop .16s ease; }
+.wf-float.knock .woodfish-icon svg { animation: woodfish-bop .32s cubic-bezier(.34,1.56,.64,1); }
 .woodfish-tap {
   position: relative; width: 100%; margin-top: 8px;
   display: flex; align-items: center; justify-content: center;
@@ -691,8 +691,13 @@ section[id] { scroll-margin-top: 84px; }
 .woodfish-icon { display: grid; place-items: center; transition: transform .14s ease; }
 .woodfish-icon svg { width: 46px; height: 46px; filter: drop-shadow(0 2px 4px oklch(0% 0 0 / .18)); }
 .woodfish-tap:hover .woodfish-icon { transform: scale(1.04); }
-.woodfish-tap.knock .woodfish-icon { animation: woodfish-bop .16s ease; }
-@keyframes woodfish-bop { 40% { transform: scale(0.86) translateY(2px); } }
+.woodfish-tap.knock .woodfish-icon { animation: woodfish-bop .32s ease; }
+@keyframes woodfish-bop {
+  0% { transform: scale(1) translateY(0); }
+  35% { transform: scale(0.8) translateY(6px); }
+  65% { transform: scale(1.05) translateY(-1px); }
+  100% { transform: scale(1) translateY(0); }
+}
 .merit-pop {
   position: absolute; left: 50%; top: -2px; transform: translateX(-50%);
   font-size: 13px; font-weight: 700; color: oklch(78% 0.15 80); pointer-events: none;
