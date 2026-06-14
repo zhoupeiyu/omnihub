@@ -20,11 +20,11 @@ const IconWoodFish = (props) => (
   </svg>
 );
 
-/** 木槌（独立，便于单独做敲击动画） */
+/** 木槌（独立图层）：锤头在左下作敲击端，柄向右上（手持端） */
 const IconMallet = (props) => (
-  <svg viewBox="0 0 44 44" fill="none" {...props}>
-    <line x1="11" y1="11" x2="34" y2="34" stroke="#caa06e" strokeWidth="5.5" strokeLinecap="round" />
-    <circle cx="11" cy="11" r="6.5" fill="#e2c197" />
+  <svg viewBox="0 0 48 48" fill="none" {...props}>
+    <line x1="16" y1="32" x2="40" y2="9" stroke="#caa06e" strokeWidth="6" strokeLinecap="round" />
+    <circle cx="16" cy="32" r="7.5" fill="#e2c197" />
   </svg>
 );
 const IconUpload = (props) => (<svg {...dIcon2Base} {...props}><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M17 8l-5-5-5 5M12 3v12" /></svg>);
@@ -410,32 +410,51 @@ function QuoteCard({ quote }) {
 }
 
 /** 悬浮木鱼：可拖动、吸附屏幕左右边，点击敲响（功德 +1 + 波纹 + 音效 + 换句） */
+const WF_SIZE = 64; // 木鱼悬浮区尺寸
+
 function FloatingWoodFish({ onKnock }) {
-  const [pos, setPos] = useState(() => {
-    try {
-      const saved = JSON.parse(localStorage.getItem("omnihub_wf_pos2") || "null");
-      if (saved && (saved.side === "left" || saved.side === "right")) return saved;
-    } catch (err) { /* 忽略 */ }
-    return { side: "left", top: 0.82 };
-  });
+  const [pos, setPos] = useState(null); // {x, y} 像素；null 时等首帧计算
   const [knocking, setKnocking] = useState(false);
   const [pops, setPops] = useState([]);
   const [ripples, setRipples] = useState([]);
 
-  // 首次（无保存位置）默认定位到侧边栏「每日一言」卡片的正上方
-  // 卡片高度会随句子加载变化，用 ResizeObserver 监听并实时重定位，避免重叠
-  useEffect(() => {
-    try { if (localStorage.getItem("omnihub_wf_pos2")) return; } catch (err) { /* 忽略 */ }
+  // 允许的拖动范围：仅限侧边栏宽度内，纵向在「导航下方」到「一言卡片上方」之间
+  function getBounds() {
+    const sidebar = document.querySelector(".sidebar");
+    if (!sidebar) return null;
+    const sb = sidebar.getBoundingClientRect();
+    const navs = sidebar.querySelectorAll("nav");
+    const navBottom = navs.length ? navs[navs.length - 1].getBoundingClientRect().bottom : sb.top + 80;
     const card = document.querySelector(".woodfish-box");
-    if (!card) return;
-    const place = () => {
-      try { if (localStorage.getItem("omnihub_wf_pos2")) return; } catch (err) { /* 忽略 */ }
-      const top = Math.max(0.04, (card.getBoundingClientRect().top - 66 - 16) / window.innerHeight);
-      setPos({ side: "left", top });
+    const cardTop = card ? card.getBoundingClientRect().top : sb.bottom - 150;
+    const minY = navBottom + 10;
+    return {
+      minX: sb.left + 6,
+      maxX: sb.right - WF_SIZE - 6,
+      minY,
+      maxY: Math.max(minY, cardTop - WF_SIZE - 12),
     };
-    place();
+  }
+  function clamp(x, y) {
+    const b = getBounds();
+    if (!b) return { x, y };
+    return { x: Math.min(b.maxX, Math.max(b.minX, x)), y: Math.min(b.maxY, Math.max(b.minY, y)) };
+  }
+
+  // 默认定位到一言卡片正上方（侧边栏内居中）；卡片高度变化时重算
+  useEffect(() => {
+    const relocate = () => {
+      const b = getBounds();
+      if (!b) return;
+      let saved = null;
+      try { saved = JSON.parse(localStorage.getItem("omnihub_wf_pos3") || "null"); } catch (err) { /* 忽略 */ }
+      if (saved && typeof saved.x === "number") setPos(clamp(saved.x, saved.y));
+      else setPos({ x: Math.round((b.minX + b.maxX) / 2), y: b.maxY });
+    };
+    relocate();
     let ro = null;
-    if (window.ResizeObserver) { ro = new ResizeObserver(place); ro.observe(card); }
+    const card = document.querySelector(".woodfish-box");
+    if (window.ResizeObserver && card) { ro = new ResizeObserver(relocate); ro.observe(card); }
     const stop = setTimeout(() => { if (ro) ro.disconnect(); }, 4000);
     return () => { if (ro) ro.disconnect(); clearTimeout(stop); };
   }, []);
@@ -446,47 +465,37 @@ function FloatingWoodFish({ onKnock }) {
     playWoodFishSound();
     const id = Date.now() + Math.random();
     setPops((list) => [...list, id]);
-    const rids = [0, 1, 2, 3, 4].map((i) => ({ id: id + "_" + i, delay: i * 0.14 }));
+    const rids = [0, 1, 2].map((i) => ({ id: id + "_" + i, delay: i * 0.05 }));
     setRipples((list) => [...list, ...rids]);
     setTimeout(() => setPops((list) => list.filter((x) => x !== id)), 850);
-    setTimeout(() => setRipples((list) => list.filter((r) => !rids.some((x) => x.id === r.id))), 2100);
+    setTimeout(() => setRipples((list) => list.filter((r) => !rids.some((x) => x.id === r.id))), 950);
     if (onKnock) onKnock();
   }
 
   function onPointerDown(e) {
     e.preventDefault();
     const startX = e.clientX, startY = e.clientY;
-    const el = e.currentTarget;
     let moved = false;
     function onMove(ev) {
       if (!moved && (Math.abs(ev.clientX - startX) > 4 || Math.abs(ev.clientY - startY) > 4)) moved = true;
-      if (moved) {
-        el.style.left = (ev.clientX - 26) + "px";
-        el.style.top = (ev.clientY - 26) + "px";
-        el.style.right = "auto"; el.style.bottom = "auto";
-      }
+      if (moved) setPos(clamp(ev.clientX - WF_SIZE / 2, ev.clientY - WF_SIZE / 2));
     }
-    function onUp(ev) {
+    function onUp() {
       document.removeEventListener("pointermove", onMove);
       document.removeEventListener("pointerup", onUp);
       if (!moved) { knock(); return; }
-      const side = ev.clientX < window.innerWidth / 2 ? "left" : "right";
-      const top = Math.min(0.9, Math.max(0.05, (ev.clientY - 26) / window.innerHeight));
-      const next = { side, top };
-      setPos(next);
-      try { localStorage.setItem("omnihub_wf_pos2", JSON.stringify(next)); } catch (err) { /* 忽略 */ }
-      el.style.left = ""; el.style.top = ""; el.style.right = ""; el.style.bottom = "";
+      setPos((p) => {
+        try { localStorage.setItem("omnihub_wf_pos3", JSON.stringify(p)); } catch (err) { /* 忽略 */ }
+        return p;
+      });
     }
     document.addEventListener("pointermove", onMove);
     document.addEventListener("pointerup", onUp);
   }
 
-  const style = pos.side === "left"
-    ? { left: "12px", top: (pos.top * 100) + "%" }
-    : { right: "12px", top: (pos.top * 100) + "%" };
-
+  if (!pos) return null;
   return (
-    <div className={"wf-float" + (knocking ? " knock" : "")} style={style}
+    <div className={"wf-float" + (knocking ? " knock" : "")} style={{ left: pos.x + "px", top: pos.y + "px" }}
       onPointerDown={onPointerDown} title="敲木鱼（可拖动）">
       {ripples.map((r) => <span className="wf-ripple" key={r.id} style={{ animationDelay: r.delay + "s" }} />)}
       <span className="wf-body"><IconWoodFish /></span>
