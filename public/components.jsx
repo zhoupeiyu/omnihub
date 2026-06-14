@@ -71,7 +71,9 @@ function SideNav({ section, onSectionChange, categories, activeCategory, onCateg
   function toggleSettings() {
     if (!settingsOpen && gearRef.current) {
       const r = gearRef.current.getBoundingClientRect();
-      setPanelStyle({ left: (r.right + 10) + "px", bottom: (window.innerHeight - r.bottom) + "px" });
+      const sidebar = gearRef.current.closest(".sidebar");
+      const rightEdge = sidebar ? sidebar.getBoundingClientRect().right : r.right;
+      setPanelStyle({ left: (rightEdge + 8) + "px", bottom: (window.innerHeight - r.bottom) + "px" });
     }
     setSettingsOpen((v) => !v);
   }
