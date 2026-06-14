@@ -374,6 +374,7 @@ function Workspace({ user, onUserChange, showToast, toast }) {
   const [hasAiConfig, setHasAiConfig] = useAppState(user ? user.hasAiConfig : false);
   const [now, setNow] = useAppState(() => new Date());
   const [quote, setQuote] = useAppState(null);
+  const [merit, setMerit] = useAppState(() => Number(localStorage.getItem("omnihub_merit") || 0));
 
   useAppEffect(() => {
     document.documentElement.setAttribute("data-skin", skin);
@@ -402,6 +403,16 @@ function Workspace({ user, onUserChange, showToast, toast }) {
       .catch(() => setQuote(FALLBACK_QUOTES[Math.floor(Math.random() * FALLBACK_QUOTES.length)]));
   }
   useAppEffect(() => { pickQuote(); }, []);
+
+  /** 敲木鱼：功德 +1（本地累计持久化）并换一句好话 */
+  function knockWoodFish() {
+    setMerit((m) => {
+      const next = m + 1;
+      try { localStorage.setItem("omnihub_merit", String(next)); } catch (err) { /* 忽略 */ }
+      return next;
+    });
+    pickQuote();
+  }
 
   function copyPrompt(text) {
     navigator.clipboard.writeText(text)
@@ -533,7 +544,7 @@ function Workspace({ user, onUserChange, showToast, toast }) {
           onSectionChange={(s) => { setSection(s); setQuery(""); }}
           categories={sideCategories} activeCategory={activeCategory}
           onCategoryChange={onCategoryChange} counts={counts}
-          user={user} quote={quote}
+          user={user} quote={quote} merit={merit}
           skin={skin} onSkinChange={setSkin}
           theme={theme} onThemeToggle={() => setTheme(theme === "light" ? "dark" : "light")}
           onOpenAiSettings={() => setModal("ai-settings")}
@@ -586,7 +597,7 @@ function Workspace({ user, onUserChange, showToast, toast }) {
         <AuthView onClose={() => setAuthOpen(false)}
           onLoggedIn={(u) => { onUserChange(u); setAuthOpen(false); }} />
       )}
-      <FloatingWoodFish onKnock={pickQuote} />
+      <FloatingWoodFish onKnock={knockWoodFish} />
       <BackToTop />
       <ToastV2 message={toast} />
     </div>

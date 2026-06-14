@@ -73,7 +73,7 @@ function Header({ query, onQueryChange, searchPlaceholder, greeting, dateText })
 
 /** 侧边栏：模块导航 + 分类（带计数）+ 左下角「用户信息 + 设置」 */
 function SideNav({ section, onSectionChange, categories, activeCategory, onCategoryChange, counts,
-                   user, quote, skin, onSkinChange, theme, onThemeToggle, onOpenAiSettings, onLogin, onLogout }) {
+                   user, quote, merit, skin, onSkinChange, theme, onThemeToggle, onOpenAiSettings, onLogin, onLogout }) {
   const [settingsOpen, setSettingsOpen] = useState(false);
   const [panelStyle, setPanelStyle] = useState(null);
   const gearRef = React.useRef(null);
@@ -172,7 +172,7 @@ function SideNav({ section, onSectionChange, categories, activeCategory, onCateg
             )}
           </div>
         ), document.body)}
-        <QuoteCard quote={quote} />
+        <QuoteCard quote={quote} merit={merit} />
         {user ? (
           <div className="user-strip">
             <span className="user-avatar">{user.username.charAt(0).toUpperCase()}</span>
@@ -401,12 +401,15 @@ function playWoodFishSound() {
 }
 
 /** 侧边栏底部·每日一言卡片（仅展示句子，换句由悬浮木鱼触发） */
-function QuoteCard({ quote }) {
+function QuoteCard({ quote, merit }) {
   return (
     <div className="woodfish-box">
       <span className="wf-quote-mark">“</span>
       <p className="woodfish-quote">{quote ? quote.text : "正在取一句好话……"}</p>
-      {quote && <p className="woodfish-from">{quote.from}</p>}
+      <div className="wf-foot">
+        <span className="wf-merit">功德 {merit}</span>
+        {quote && <span className="woodfish-from">—— {quote.from}</span>}
+      </div>
     </div>
   );
 }
@@ -418,7 +421,6 @@ function FloatingWoodFish({ onKnock }) {
   const [pos, setPos] = useState(null); // {x, y} 像素；null 时等首帧计算
   const [knocking, setKnocking] = useState(false);
   const [pops, setPops] = useState([]);
-  const [ripples, setRipples] = useState([]);
 
   // 允许的拖动范围：仅限侧边栏宽度内，纵向在「导航下方」到「一言卡片上方」之间
   function getBounds() {
@@ -467,10 +469,7 @@ function FloatingWoodFish({ onKnock }) {
     playWoodFishSound();
     const id = Date.now() + Math.random();
     setPops((list) => [...list, id]);
-    const rids = [0, 1, 2].map((i) => ({ id: id + "_" + i, delay: i * 0.05 }));
-    setRipples((list) => [...list, ...rids]);
     setTimeout(() => setPops((list) => list.filter((x) => x !== id)), 850);
-    setTimeout(() => setRipples((list) => list.filter((r) => !rids.some((x) => x.id === r.id))), 950);
     if (onKnock) onKnock();
   }
 
@@ -499,7 +498,6 @@ function FloatingWoodFish({ onKnock }) {
   return (
     <div className={"wf-float" + (knocking ? " knock" : "")} style={{ left: pos.x + "px", top: pos.y + "px" }}
       onPointerDown={onPointerDown} title="敲木鱼（可拖动）">
-      {ripples.map((r) => <span className="wf-ripple" key={r.id} style={{ animationDelay: r.delay + "s" }} />)}
       <img className="wf-body" src="assets/woodfish/muyu.webp" alt="木鱼" draggable="false" />
       <img className="wf-mallet" src="assets/woodfish/hammer.png" alt="" draggable="false" />
       {pops.map((id) => <span className="merit-pop" key={id}>功德 +1</span>)}

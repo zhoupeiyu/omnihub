@@ -657,10 +657,12 @@ section[id] { scroll-margin-top: 84px; }
   position: relative; font-size: 12px; line-height: 1.7; color: var(--text-2); padding-left: 3px;
   display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden;
 }
+.wf-foot { display: flex; align-items: center; justify-content: space-between; gap: 8px; margin-top: 8px; }
+.wf-merit { flex-shrink: 0; font-family: var(--font-mono); font-size: 10.5px; color: var(--text-3); }
 .woodfish-from {
-  font-size: 10px; color: var(--text-3); margin-top: 6px; text-align: right;
+  min-width: 0; font-size: 10px; color: var(--text-3);
+  overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
 }
-.woodfish-from::before { content: "—— "; opacity: .7; }
 /* 敲击波纹扩散 */
 .wf-ripple {
   position: absolute; left: 50%; top: 57%; width: 34px; height: 34px;
