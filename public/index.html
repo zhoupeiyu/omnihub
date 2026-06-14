@@ -503,19 +503,13 @@ section[id] { scroll-margin-top: 84px; }
 }
 .feed-rank.hot { color: var(--accent); }
 .feed-body { flex: 1; min-width: 0; }
-.feed-title-row { display: flex; align-items: flex-start; gap: 8px; padding-right: 48px; }
+.feed-title-row { display: flex; align-items: flex-start; gap: 8px; padding-right: 30px; }
 .feed-title { flex: 1; min-width: 0; font-weight: 650; font-size: 14.5px; line-height: 1.5; transition: color .18s; }
 .feed-card:hover .feed-title { color: var(--accent); }
-.feed-corner { position: absolute; top: 0; right: 0; z-index: 1; display: flex; align-items: center; gap: 5px; }
+.feed-corner { position: absolute; top: 9px; right: 12px; z-index: 1; display: flex; align-items: center; }
 .feed-score {
   flex-shrink: 0; font-family: var(--font-mono); font-size: 10.5px; font-weight: 700; color: var(--text-3);
 }
-.feed-pick-corner {
-  display: grid; place-items: center; width: 18px; height: 18px;
-  border-radius: 0 var(--radius-sm) 0 7px;
-  background: oklch(72% 0.13 85 / 0.16); color: oklch(58% 0.12 85);
-}
-.feed-pick-corner svg { width: 9px; height: 9px; }
 /* 多标签 + 关联讨论 */
 .feed-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 8px; align-items: center; }
 .feed-tags .tag-chip {

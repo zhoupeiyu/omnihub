@@ -286,12 +286,9 @@ function FeedItem({ item, rank, showRank, onPreview }) {
   return (
     <a className="feed-card" href={item.url || "#"} target="_blank" rel="noopener noreferrer">
       {showRank && <div className={"feed-rank" + (rank <= 3 ? " hot" : "")}>{rank}</div>}
-      {(typeof item.score === "number" || item.selected) && (
+      {typeof item.score === "number" && (
         <div className="feed-corner">
-          {typeof item.score === "number" && (
-            <span className="feed-score" title={item.selected ? "精选评分" : "评分"}>{item.score}</span>
-          )}
-          {item.selected && <span className="feed-pick-corner" title="精选"><IconSparkle /></span>}
+          <span className="feed-score" title="评分">{item.score}</span>
         </div>
       )}
       <div className="feed-body">
