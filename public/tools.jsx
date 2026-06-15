@@ -348,7 +348,7 @@ function PdfCompressTool({ showToast }) {
         else if (xhr.status === 413) reject(new Error(`上传失败：PDF 超过 ${formatBytes(PDF_UPLOAD_LIMIT_BYTES)} 限制`));
         else reject(new Error(payload.error || `上传失败（${xhr.status}）`));
       };
-      xhr.onerror = () => reject(new Error("上传失败，请检查本地服务"));
+      xhr.onerror = () => reject(new Error("上传连接中断：请刷新页面后重试，或确认当前地址是 https://omnihub.noxhub.org"));
       xhr.send(body);
     });
   }
