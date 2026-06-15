@@ -31,7 +31,7 @@ function AuthView({ onLoggedIn, onClose }) {
           </div>
           <h1>万象台</h1>
         </div>
-        <p className="auth-sub">登录后，你的收藏、提示词和 AI 配置都跟着账号走</p>
+        <p className="auth-sub">登录后会按账号权限开放对应功能</p>
         <div className="auth-tabs">
           <button className={"auth-tab" + (mode === "login" ? " active" : "")}
             onClick={() => { setMode("login"); setError(""); }}>登录</button>

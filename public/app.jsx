@@ -383,6 +383,7 @@ function Workspace({ user, onUserChange, showToast, toast }) {
   const [quote, setQuote] = useAppState(null);
   const [merit, setMerit] = useAppState(() => Number(localStorage.getItem("omnihub_merit") || 0));
   const [woodFishEnabled, setWoodFishEnabled] = useAppState(() => loadStored("woodFishEnabled", false));
+  const canUseFullApp = Boolean(user && user.fullAccess);
 
   useAppEffect(() => {
     document.documentElement.setAttribute("data-skin", skin);
@@ -396,10 +397,17 @@ function Workspace({ user, onUserChange, showToast, toast }) {
   }, [woodFishEnabled]);
 
   useAppEffect(() => {
-    if (!user) return; // 游客不加载个人数据（收藏 / 提示词）
+    if (!canUseFullApp) return; // 非白名单不加载内部个人数据（收藏 / 提示词）
     api("/api/favorites").then(setFavorites).catch((err) => showToast(err.message));
     api("/api/prompts").then(setPrompts).catch((err) => showToast(err.message));
-  }, []);
+  }, [canUseFullApp]);
+
+  useAppEffect(() => {
+    if (!canUseFullApp && section !== "feed") {
+      setSection("feed");
+      setQuery("");
+    }
+  }, [canUseFullApp, section]);
 
   useAppEffect(() => {
     // 不再显示时分，每 10 分钟刷新一次足够跨过日期与问候语的变化点
@@ -565,13 +573,13 @@ function Workspace({ user, onUserChange, showToast, toast }) {
           onLogin={() => setAuthOpen(true)}
           onLogout={handleLogout} />
         <main className="main">
-          {section === "favorites" && user && (
+          {section === "favorites" && canUseFullApp && (
             <FavoritesView favorites={favorites} query={query} category={favCategory}
               onAdd={() => setModal({ type: "fav", fav: null })}
               onEdit={(fav) => setModal({ type: "fav", fav })}
               onDelete={deleteFavorite} />
           )}
-          {section === "prompts" && user && (
+          {section === "prompts" && canUseFullApp && (
             <PromptsView prompts={prompts} query={query} category={promptCategory}
               onAdd={() => setModal({ type: "drawer", prompt: null, mode: "create" })}
               onDelete={deletePrompt}
@@ -580,7 +588,7 @@ function Workspace({ user, onUserChange, showToast, toast }) {
               onTryRun={tryRunPrompt}
               onToggleFavorite={togglePromptFavorite} />
           )}
-          {section === "chat" && user && (
+          {section === "chat" && canUseFullApp && (
             <ChatView messages={chatMessages} onMessagesChange={setChatMessages}
               prefill={chatPrefill} onPrefillUsed={() => setChatPrefill("")}
               hasAiConfig={hasAiConfig}
@@ -588,14 +596,14 @@ function Workspace({ user, onUserChange, showToast, toast }) {
               showToast={showToast} />
           )}
           {section === "feed" && <FeedView query={query} />}
-          {section === "tools" && <ToolsView showToast={showToast} />}
+          {section === "tools" && canUseFullApp && <ToolsView showToast={showToast} />}
         </main>
       </div>
       {modal && modal.type === "fav" && (
         <AddFavModalV2 key={modal.fav ? modal.fav.id : "new"} editing={modal.fav}
           onClose={() => setModal(null)} onSubmit={saveFavorite} />
       )}
-      {modal === "ai-settings" && (
+      {modal === "ai-settings" && canUseFullApp && (
         <AiSettingsModal onClose={() => setModal(null)} onSaved={() => setHasAiConfig(true)} showToast={showToast} />
       )}
       {modal && modal.type === "drawer" && (

@@ -107,8 +107,9 @@ function SideNav({ section, onSectionChange, categories, activeCategory, onCateg
     { id: "chat", label: "AI 对话", icon: <IconSend /> },
     { id: "tools", label: "工具箱", icon: <IconWrench /> },
   ];
-  // 游客仅可见无需账号的模块（信息流 / 工具箱）
-  const modules = user ? allModules : allModules.filter((m) => m.id === "feed" || m.id === "tools");
+  // 非白名单账号按游客权限处理，仅可见公开信息流
+  const canUseFullApp = Boolean(user && user.fullAccess);
+  const modules = canUseFullApp ? allModules : allModules.filter((m) => m.id === "feed");
   return (
     <aside className="sidebar">
       <p className="side-label">模块</p>
@@ -138,7 +139,7 @@ function SideNav({ section, onSectionChange, categories, activeCategory, onCateg
       <div className="sidebar-foot">
         {ReactDOM.createPortal((
           <div className={"skin-panel" + (settingsOpen ? " open" : "")} style={panelStyle || undefined}>
-            {user && (
+            {canUseFullApp && (
               <button className="skin-option" onClick={() => { setSettingsOpen(false); onOpenAiSettings(); }}>
                 <IconSettings style={{ width: 15, height: 15 }} />AI 设置
               </button>
