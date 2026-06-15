@@ -387,24 +387,15 @@ function FeedItem({ item, rank, showRank, onPreview }) {
   );
 }
 
-/** 木鱼敲击音效：用 Web Audio 合成一声短促的「笃」（无需音频文件） */
+/** 木鱼敲击音效：使用真实木鱼采样，连点时从头重放 */
 function playWoodFishSound() {
   try {
-    const Ctx = window.AudioContext || window.webkitAudioContext;
-    if (!Ctx) return;
-    const ctx = playWoodFishSound._ctx || (playWoodFishSound._ctx = new Ctx());
-    if (ctx.state === "suspended") ctx.resume();
-    const osc = ctx.createOscillator();
-    const gain = ctx.createGain();
-    osc.connect(gain); gain.connect(ctx.destination);
-    osc.type = "sine";
-    const t = ctx.currentTime;
-    osc.frequency.setValueAtTime(640, t);
-    osc.frequency.exponentialRampToValueAtTime(150, t + 0.12);
-    gain.gain.setValueAtTime(0.0001, t);
-    gain.gain.exponentialRampToValueAtTime(0.32, t + 0.006);
-    gain.gain.exponentialRampToValueAtTime(0.0001, t + 0.22);
-    osc.start(t); osc.stop(t + 0.24);
+    const audio = playWoodFishSound._audio || (playWoodFishSound._audio = new Audio("assets/woodfish/sound.mp3"));
+    audio.preload = "auto";
+    audio.volume = 0.9;
+    audio.pause();
+    audio.currentTime = 0;
+    audio.play().catch(() => {});
   } catch (err) { /* 音频不可用时静默 */ }
 }
 
