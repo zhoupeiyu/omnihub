@@ -692,18 +692,18 @@ section[id] { scroll-margin-top: 84px; }
 }
 .wf-mallet {
   position: absolute; width: 42px; height: auto; display: block;
-  /* 锤头位于图片左侧约 20%，让锤头对准鼠标光标点 */
+  /* 锤头位于图片左侧约 20%，让锤头对准鼠标光标点；角度保持旧版木槌姿态 */
   transform-origin: 20% 35%;
-  transform: translate(-20%, -35%) rotate(-18deg);
+  transform: translate(-20%, -35%) rotate(0deg);
   pointer-events: none;
   filter: drop-shadow(0 2px 4px oklch(0% 0 0 / .35)); -webkit-user-drag: none; user-drag: none;
   z-index: 1;
 }
 .wf-float.knock .wf-mallet { animation: mallet-hit .22s cubic-bezier(.5,.35,.15,1.4); }
 @keyframes mallet-hit {
-  0% { transform: translate(-20%, -35%) rotate(-18deg); }
-  50% { transform: translate(-20%, -35%) rotate(38deg); }
-  100% { transform: translate(-20%, -35%) rotate(-18deg); }
+  0% { transform: translate(-20%, -35%) rotate(0deg); }
+  50% { transform: translate(-20%, -35%) rotate(28deg); }
+  100% { transform: translate(-20%, -35%) rotate(0deg); }
 }
 .wf-float.knock .wf-body { animation: wf-body-bop .2s cubic-bezier(.5,.35,.15,1.4); }
 @keyframes wf-body-bop {
