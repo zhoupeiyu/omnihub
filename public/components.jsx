@@ -429,6 +429,9 @@ function FloatingWoodFish({ onKnock }) {
   const [pos, setPos] = useState(null); // {x, y} 像素；null 时等首帧计算
   const [knocking, setKnocking] = useState(false);
   const [pops, setPops] = useState([]);
+  const [hover, setHover] = useState(false);            // 鼠标是否悬停在木鱼上
+  const [cursor, setCursor] = useState({ x: 24, y: 24 }); // 木锤跟随的相对坐标
+  const [dragging, setDragging] = useState(false);       // 拖动中：木锤暂时隐藏
 
   // 允许的拖动范围：仅限侧边栏宽度内，纵向在「导航下方」到「一言卡片上方」之间
   function getBounds() {
@@ -486,13 +489,17 @@ function FloatingWoodFish({ onKnock }) {
     const startX = e.clientX, startY = e.clientY;
     let moved = false;
     function onMove(ev) {
-      if (!moved && (Math.abs(ev.clientX - startX) > 4 || Math.abs(ev.clientY - startY) > 4)) moved = true;
+      if (!moved && (Math.abs(ev.clientX - startX) > 4 || Math.abs(ev.clientY - startY) > 4)) {
+        moved = true;
+        setDragging(true);
+      }
       if (moved) setPos(clamp(ev.clientX - WF_SIZE / 2, ev.clientY - WF_SIZE / 2));
     }
     function onUp() {
       document.removeEventListener("pointermove", onMove);
       document.removeEventListener("pointerup", onUp);
       if (!moved) { knock(); return; }
+      setDragging(false);
       setPos((p) => {
         try { localStorage.setItem("omnihub_wf_pos5", JSON.stringify(p)); } catch (err) { /* 忽略 */ }
         return p;
@@ -502,12 +509,28 @@ function FloatingWoodFish({ onKnock }) {
     document.addEventListener("pointerup", onUp);
   }
 
+  function onMouseMove(e) {
+    if (dragging) return;
+    const rect = e.currentTarget.getBoundingClientRect();
+    setCursor({ x: e.clientX - rect.left, y: e.clientY - rect.top });
+  }
+
   if (!pos) return null;
+  const showMallet = hover && !dragging;
   return (
-    <div className={"wf-float" + (knocking ? " knock" : "")} style={{ left: pos.x + "px", top: pos.y + "px" }}
-      onPointerDown={onPointerDown} title="敲木鱼（可拖动）">
+    <div className={"wf-float" + (knocking ? " knock" : "") + (showMallet ? " hover" : "")}
+      style={{ left: pos.x + "px", top: pos.y + "px" }}
+      onPointerDown={onPointerDown}
+      onMouseEnter={() => setHover(true)}
+      onMouseLeave={() => setHover(false)}
+      onMouseMove={onMouseMove}
+      title="敲木鱼（可拖动）">
       <img className="wf-body" src="assets/woodfish/muyu.webp" alt="木鱼" draggable="false" />
-      <img className="wf-mallet" src="assets/woodfish/hammer.png" alt="" draggable="false" />
+      {showMallet && (
+        <img className="wf-mallet" src="assets/woodfish/hammer.png" alt=""
+          draggable="false"
+          style={{ left: cursor.x + "px", top: cursor.y + "px" }} />
+      )}
       {pops.map((id) => <span className="merit-pop" key={id}>功德 +1</span>)}
     </div>
   );
