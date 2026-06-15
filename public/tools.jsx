@@ -339,6 +339,7 @@ function PdfCompressTool({ showToast }) {
       xhr.onload = () => {
         const payload = xhr.response || {};
         if (xhr.status >= 200 && xhr.status < 300) resolve(payload);
+        else if (xhr.status === 413) reject(new Error("上传失败：PDF 超过服务器上传限制"));
         else reject(new Error(payload.error || `上传失败（${xhr.status}）`));
       };
       xhr.onerror = () => reject(new Error("上传失败，请检查本地服务"));
@@ -391,6 +392,12 @@ function PdfCompressTool({ showToast }) {
   const done = job && job.status === "done" && job.result;
   const ratio = done ? job.result.compressionRatio : 0;
   const presetInfo = PDF_PRESETS.find((item) => item.id === preset) || PDF_PRESETS[1];
+  const selectedFileMeta = file ? [
+    ["大小", formatBytes(file.size)],
+    ["类型", file.type || "application/pdf"],
+    ["修改时间", file.lastModified ? formatDateReadable(new Date(file.lastModified)) : "-"],
+    ["输出名", file.name.replace(/\.pdf$/i, "_compressed.pdf")],
+  ] : [];
 
   return (
     <div className="tool-card tool-card-wide">
@@ -404,6 +411,16 @@ function PdfCompressTool({ showToast }) {
           <span>{file ? `${formatBytes(file.size)} · ${file.type || "application/pdf"}` : "压缩过程只在本机服务临时处理"}</span>
         </div>
       </div>
+      {file && (
+        <div className="pdf-file-meta">
+          {selectedFileMeta.map(([label, value]) => (
+            <div key={label}>
+              <span>{label}</span>
+              <strong>{value}</strong>
+            </div>
+          ))}
+        </div>
+      )}
       <div className="pdf-preset-row">
         {PDF_PRESETS.map((item) => (
           <button key={item.id} className={"preset-btn" + (preset === item.id ? " active" : "")}
@@ -421,15 +438,21 @@ function PdfCompressTool({ showToast }) {
         <span style={{ width: `${Math.max(0, Math.min(100, progress))}%` }}></span>
       </div>
       {done && (
-        <div className="ratio-wrap">
-          <div className="ratio-head">
-            <span>压缩率</span>
-            <strong>{ratio}%</strong>
+        <div className="pdf-result-panel">
+          <div>
+            <span>压缩结果</span>
+            <strong>{job.result.outputName}</strong>
           </div>
-          <div className="progress-track ratio"><span style={{ width: `${Math.max(0, Math.min(100, ratio))}%` }}></span></div>
-          <div className="file-compare">
-            <span>原始 {formatBytes(job.file.size)}</span>
-            <span>压缩后 {formatBytes(job.result.outputBytes)}</span>
+          <div className="ratio-wrap">
+            <div className="ratio-head">
+              <span>压缩率</span>
+              <strong>{ratio}%</strong>
+            </div>
+            <div className="progress-track ratio"><span style={{ width: `${Math.max(0, Math.min(100, ratio))}%` }}></span></div>
+            <div className="file-compare">
+              <span>原始 {formatBytes(job.file.size)}</span>
+              <span>压缩后 {formatBytes(job.result.outputBytes)}</span>
+            </div>
           </div>
         </div>
       )}
@@ -440,8 +463,8 @@ function PdfCompressTool({ showToast }) {
           <IconFilePdf />{busy ? "压缩中……" : "开始压缩"}
         </button>
         {done && (
-          <a className="btn" href={job.result.downloadUrl} download={job.result.outputName}>
-            <IconDownload />保存本地
+          <a className="btn btn-primary" href={job.result.downloadUrl} download={job.result.outputName}>
+            <IconDownload />下载压缩后的 PDF
           </a>
         )}
       </div>

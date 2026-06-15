@@ -743,6 +743,15 @@ section[id] { scroll-margin-top: 84px; }
 
 /* ---------- 工具箱 ---------- */
 .tool-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(285px, 1fr)); gap: 10px; }
+.tools-board {
+  display: grid; grid-template-columns: minmax(640px, 1fr) minmax(340px, 420px);
+  gap: 12px; align-items: start;
+}
+.tools-main, .tools-aside { display: grid; gap: 12px; align-items: start; min-width: 0; }
+.tools-quick-grid {
+  display: grid; grid-template-columns: repeat(2, minmax(260px, 1fr));
+  gap: 12px; align-items: start;
+}
 .tool-card {
   padding: 13px 14px; border-radius: var(--radius-sm);
   border: var(--border-w) solid var(--border);
@@ -752,7 +761,7 @@ section[id] { scroll-margin-top: 84px; }
   transition: box-shadow .2s ease, border-color .2s ease;
 }
 .tool-card:hover { box-shadow: var(--shadow-pop); }
-.tool-card-wide { grid-column: span 2; }
+.tool-card-wide { min-height: 0; }
 .tool-head { display: flex; align-items: center; gap: 10px; }
 .tool-head svg { width: 17px; height: 17px; color: var(--accent); }
 .tool-head h3 { font-family: var(--font-display); font-weight: var(--display-weight); font-size: 15px; }
@@ -789,7 +798,7 @@ section[id] { scroll-margin-top: 84px; }
   display: grid; place-items: center;
 }
 .pdf-drop {
-  min-height: 86px; border-radius: var(--radius-sm);
+  min-height: 104px; border-radius: var(--radius-sm);
   border: 1.5px dashed color-mix(in oklch, var(--accent) 42%, var(--border));
   background: color-mix(in oklch, var(--accent-soft) 44%, var(--surface));
   display: flex; align-items: center; gap: 12px; padding: 13px;
@@ -799,6 +808,20 @@ section[id] { scroll-margin-top: 84px; }
 .pdf-drop svg { width: 24px; height: 24px; color: var(--accent); flex-shrink: 0; }
 .pdf-drop strong { display: block; font-size: 13.5px; color: var(--text); margin-bottom: 4px; word-break: break-all; }
 .pdf-drop span { display: block; font-size: 12px; color: var(--text-3); }
+.pdf-file-meta {
+  display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 8px;
+}
+.pdf-file-meta > div {
+  min-width: 0; border-radius: var(--radius-sm); border: var(--border-w) solid var(--border);
+  background: var(--bg-sunken); padding: 9px 10px;
+}
+.pdf-file-meta span {
+  display: block; color: var(--text-3); font-size: 11px; margin-bottom: 4px;
+}
+.pdf-file-meta strong {
+  display: block; color: var(--text); font-size: 12.5px; font-weight: 650;
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
 .pdf-preset-row { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; }
 .preset-btn {
   position: relative; text-align: left; border-radius: var(--radius-sm);
@@ -825,6 +848,17 @@ section[id] { scroll-margin-top: 84px; }
 .ratio-wrap {
   border-radius: var(--radius-sm); border: var(--border-w) solid var(--border);
   background: var(--bg-sunken); padding: 10px; display: grid; gap: 8px;
+}
+.pdf-result-panel {
+  display: grid; gap: 9px; padding: 11px;
+  border-radius: var(--radius-sm); border: var(--border-w) solid color-mix(in oklch, var(--accent) 46%, var(--border));
+  background: color-mix(in oklch, var(--accent-soft) 36%, var(--surface));
+}
+.pdf-result-panel > div:first-child span {
+  display: block; color: var(--text-3); font-size: 11px; margin-bottom: 4px;
+}
+.pdf-result-panel > div:first-child strong {
+  display: block; color: var(--text); font-size: 13px; word-break: break-all;
 }
 .ratio-head, .file-compare { display: flex; justify-content: space-between; gap: 10px; align-items: center; }
 .ratio-head span, .file-compare span { color: var(--text-3); font-size: 12px; }
@@ -1140,6 +1174,7 @@ section[id] { scroll-margin-top: 84px; }
 /* ---------- 响应式 ---------- */
 @media (max-width: 1000px) {
   .header-greet { display: none; }
+  .tools-board { grid-template-columns: 1fr; }
 }
 @media (max-width: 860px) {
   .sidebar { display: none; }
@@ -1147,8 +1182,9 @@ section[id] { scroll-margin-top: 84px; }
   .brand-title { font-size: 15px; }
   .brand-sub { display: none; }
   .search-wrap { width: 100%; }
-  .tool-card-wide { grid-column: span 1; }
-  .tool-split, .pdf-preset-row { grid-template-columns: 1fr; }
+  .tool-card-wide { min-height: 0; }
+  .tool-split, .pdf-preset-row, .pdf-file-meta { grid-template-columns: 1fr; }
+  .tools-quick-grid { grid-template-columns: 1fr; }
 }
 </style>
 </head>

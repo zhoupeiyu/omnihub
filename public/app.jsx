@@ -345,14 +345,20 @@ function ToolsView({ showToast }) {
   return (
     <div>
       <SectionHead icon={<IconWrench />} title="工具箱" count={7} />
-      <div className="tool-grid">
-        <PasswordTool showToast={showToast} />
-        <TimestampTool showToast={showToast} />
-        <PdfCompressTool showToast={showToast} />
-        <WordCountTool />
-        <ColorTool showToast={showToast} />
-        <DiceTool />
-        <FocusTimerTool showToast={showToast} />
+      <div className="tools-board">
+        <div className="tools-main">
+          <PdfCompressTool showToast={showToast} />
+          <div className="tools-quick-grid">
+            <PasswordTool showToast={showToast} />
+            <ColorTool showToast={showToast} />
+            <DiceTool />
+            <FocusTimerTool showToast={showToast} />
+          </div>
+        </div>
+        <div className="tools-aside">
+          <TimestampTool showToast={showToast} />
+          <WordCountTool />
+        </div>
       </div>
     </div>
   );
