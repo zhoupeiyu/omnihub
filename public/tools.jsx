@@ -287,6 +287,7 @@ const PDF_PRESETS = [
   { id: "ebook", label: "推荐", desc: "均衡清晰度", hint: "默认" },
   { id: "printer", label: "高质量", desc: "细节优先", hint: "温和压缩" },
 ];
+const PDF_UPLOAD_LIMIT_BYTES = 300 * 1024 * 1024;
 
 function PdfCompressTool({ showToast }) {
   const [file, setFile] = useState(null);
@@ -321,6 +322,11 @@ function PdfCompressTool({ showToast }) {
       setError("请选择 PDF 文件");
       return;
     }
+    if (nextFile.size > PDF_UPLOAD_LIMIT_BYTES) {
+      setFile(nextFile);
+      setError(`PDF 太大了，当前最多支持 ${formatBytes(PDF_UPLOAD_LIMIT_BYTES)}`);
+      return;
+    }
     setFile(nextFile);
   }
 
@@ -339,7 +345,7 @@ function PdfCompressTool({ showToast }) {
       xhr.onload = () => {
         const payload = xhr.response || {};
         if (xhr.status >= 200 && xhr.status < 300) resolve(payload);
-        else if (xhr.status === 413) reject(new Error("上传失败：PDF 超过服务器上传限制"));
+        else if (xhr.status === 413) reject(new Error(`上传失败：PDF 超过 ${formatBytes(PDF_UPLOAD_LIMIT_BYTES)} 限制`));
         else reject(new Error(payload.error || `上传失败（${xhr.status}）`));
       };
       xhr.onerror = () => reject(new Error("上传失败，请检查本地服务"));
@@ -408,7 +414,7 @@ function PdfCompressTool({ showToast }) {
         <IconUpload />
         <div>
           <strong>{file ? file.name : "选择本地 PDF 文件"}</strong>
-          <span>{file ? `${formatBytes(file.size)} · ${file.type || "application/pdf"}` : "压缩过程只在本机服务临时处理"}</span>
+          <span>{file ? `${formatBytes(file.size)} · ${file.type || "application/pdf"}` : `上传到你的服务器压缩，单个 PDF 上限 ${formatBytes(PDF_UPLOAD_LIMIT_BYTES)}`}</span>
         </div>
       </div>
       {file && (
@@ -459,7 +465,7 @@ function PdfCompressTool({ showToast }) {
       {error && <div className="tool-error">{error}</div>}
       <div className="tool-row">
         <button className="btn btn-primary" style={{ flex: 1, justifyContent: "center" }}
-          onClick={startCompress} disabled={!file || busy}>
+          onClick={startCompress} disabled={!file || file.size > PDF_UPLOAD_LIMIT_BYTES || busy}>
           <IconFilePdf />{busy ? "压缩中……" : "开始压缩"}
         </button>
         {done && (
