@@ -551,7 +551,7 @@ function Workspace({ user, onUserChange, showToast, toast }) {
     return () => clearInterval(timer);
   }, []);
 
-  /** 取一句好话（敲木鱼时调用换句；侧边栏一言卡片展示） */
+  /** 取一句好话（首次进入与木鱼每敲 10 次时换句；侧边栏一言卡片展示） */
   function pickQuote() {
     fetch("https://v1.hitokoto.cn/?c=d&c=i&c=k")
       .then((r) => r.json())
@@ -560,14 +560,14 @@ function Workspace({ user, onUserChange, showToast, toast }) {
   }
   useAppEffect(() => { pickQuote(); }, []);
 
-  /** 敲木鱼：功德 +1（本地累计持久化）并换一句好话 */
+  /** 敲木鱼：功德 +1（本地累计持久化）；每 10 次换一句好话 */
   function knockWoodFish() {
     setMerit((m) => {
       const next = m + 1;
       try { localStorage.setItem("omnihub_merit", String(next)); } catch (err) { /* 忽略 */ }
+      if (next % 10 === 0) pickQuote();
       return next;
     });
-    pickQuote();
   }
 
   function copyPrompt(text) {
