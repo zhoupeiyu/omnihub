@@ -425,8 +425,8 @@ function FeedView({ query }) {
           ))}
         </div>
       )}
-      <div className="feed-layout">
-        <div className="feed-list">
+      <div className={"feed-layout" + (isLoading && !hasCachedItems ? " feed-layout-loading" : "")}>
+        <div className={"feed-list" + (isLoading && !hasCachedItems ? " feed-list-loading" : "")}>
           {isLoading && !hasCachedItems && (
             <div className="feed-loading-empty"><RoseFourLoader label="正在加载" /></div>
           )}
