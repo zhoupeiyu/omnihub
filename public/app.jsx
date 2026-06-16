@@ -1,5 +1,5 @@
 /// 主应用 —— 登录态管理 + 五大模块（收藏/提示词/AI对话/信息流/工具箱），业务数据走服务器
-const { useState: useAppState, useEffect: useAppEffect, useMemo: useAppMemo } = React;
+const { useState: useAppState, useEffect: useAppEffect, useMemo: useAppMemo, useRef: useAppRef } = React;
 
 const SEARCH_PLACEHOLDERS = {
   favorites: "搜索收藏的网站……",
@@ -221,14 +221,110 @@ function groupByDate(items) {
   return groups;
 }
 
+const ROSE_FOUR = {
+  particleCount: 78,
+  trailSpan: 0.32,
+  durationMs: 5400,
+  rotationDurationMs: 28000,
+  pulseDurationMs: 4500,
+  strokeWidth: 4.6,
+  roseA: 9.2,
+  roseABoost: 0.6,
+  roseBreathBase: 0.72,
+  roseBreathBoost: 0.28,
+  roseScale: 3.25,
+};
+const MIN_FEED_LOADING_MS = 450;
+
+function normalizeProgress(progress) {
+  return ((progress % 1) + 1) % 1;
+}
+
+function roseFourPoint(progress, detailScale) {
+  const t = progress * Math.PI * 2;
+  const a = ROSE_FOUR.roseA + detailScale * ROSE_FOUR.roseABoost;
+  const r = a * (ROSE_FOUR.roseBreathBase + detailScale * ROSE_FOUR.roseBreathBoost) * Math.cos(4 * t);
+  return {
+    x: 50 + Math.cos(t) * r * ROSE_FOUR.roseScale,
+    y: 50 + Math.sin(t) * r * ROSE_FOUR.roseScale,
+  };
+}
+
+function RoseFourLoader({ label }) {
+  const groupRef = useAppRef(null);
+  const pathRef = useAppRef(null);
+  const particlesRef = useAppRef([]);
+
+  useAppEffect(() => {
+    let frame = 0;
+    const startedAt = performance.now();
+
+    function getDetailScale(time) {
+      const pulseProgress = (time % ROSE_FOUR.pulseDurationMs) / ROSE_FOUR.pulseDurationMs;
+      const pulseAngle = pulseProgress * Math.PI * 2;
+      return 0.52 + ((Math.sin(pulseAngle + 0.55) + 1) / 2) * 0.48;
+    }
+
+    function buildPath(detailScale, steps = 320) {
+      return Array.from({ length: steps + 1 }, (_, index) => {
+        const point = roseFourPoint(index / steps, detailScale);
+        return `${index === 0 ? "M" : "L"} ${point.x.toFixed(2)} ${point.y.toFixed(2)}`;
+      }).join(" ");
+    }
+
+    function render(now) {
+      const time = now - startedAt;
+      const progress = (time % ROSE_FOUR.durationMs) / ROSE_FOUR.durationMs;
+      const detailScale = getDetailScale(time);
+      const rotation = -((time % ROSE_FOUR.rotationDurationMs) / ROSE_FOUR.rotationDurationMs) * 360;
+
+      if (groupRef.current) groupRef.current.setAttribute("transform", `rotate(${rotation} 50 50)`);
+      if (pathRef.current) pathRef.current.setAttribute("d", buildPath(detailScale));
+      particlesRef.current.forEach((node, index) => {
+        if (!node) return;
+        const tailOffset = index / (ROSE_FOUR.particleCount - 1);
+        const point = roseFourPoint(normalizeProgress(progress - tailOffset * ROSE_FOUR.trailSpan), detailScale);
+        const fade = Math.pow(1 - tailOffset, 0.56);
+        node.setAttribute("cx", point.x.toFixed(2));
+        node.setAttribute("cy", point.y.toFixed(2));
+        node.setAttribute("r", (0.9 + fade * 2.7).toFixed(2));
+        node.setAttribute("opacity", (0.04 + fade * 0.96).toFixed(3));
+      });
+
+      frame = requestAnimationFrame(render);
+    }
+
+    frame = requestAnimationFrame(render);
+    return () => cancelAnimationFrame(frame);
+  }, []);
+
+  return (
+    <div className="rose-four-loader" role="status" aria-live="polite">
+      <svg className="rose-four-svg" viewBox="0 0 100 100" fill="none" aria-hidden="true">
+        <g ref={groupRef}>
+          <path ref={pathRef}
+            stroke="currentColor" strokeWidth={ROSE_FOUR.strokeWidth}
+            strokeLinecap="round" strokeLinejoin="round" opacity="0.12" />
+          {Array.from({ length: ROSE_FOUR.particleCount }, (_, index) => (
+            <circle key={index} ref={(node) => { particlesRef.current[index] = node; }} fill="currentColor" />
+          ))}
+        </g>
+      </svg>
+      {label && <span className="rose-four-label">{label}</span>}
+    </div>
+  );
+}
+
 /** 信息流模块：多来源聚合；AI 资讯（富源）复刻 AI HOT 的精选分/分类/时间线/热点 */
 function FeedView({ query }) {
   const [sources, setSources] = useAppState([]);
   const [activeSource, setActiveSource] = useAppState("");
   const [sourceInfo, setSourceInfo] = useAppState(null);
-  const [items, setItems] = useAppState([]);
+  const [itemsBySource, setItemsBySource] = useAppState({});
   const [catFilter, setCatFilter] = useAppState("");
-  const [status, setStatus] = useAppState("loading"); // loading | ok | error
+  const [sourcesStatus, setSourcesStatus] = useAppState("loading"); // loading | ok | error
+  const [statusBySource, setStatusBySource] = useAppState({});
+  const [loadingSource, setLoadingSource] = useAppState("");
   const [errMsg, setErrMsg] = useAppState("");
   const [preview, setPreview] = useAppState(null); // 图片放大预览的 src
 
@@ -236,21 +332,53 @@ function FeedView({ query }) {
     api("/api/feed/sources")
       .then((list) => {
         setSources(list);
+        setSourcesStatus("ok");
         if (list.length) { setActiveSource(list[0].id); setSourceInfo(list[0]); }
-        else setStatus("ok");
       })
-      .catch((err) => { setErrMsg(err.message); setStatus("error"); });
+      .catch((err) => { setErrMsg(err.message); setSourcesStatus("error"); });
   }, []);
 
   function load(id) {
-    setStatus("loading");
+    if (!id) return;
+    const startedAt = Date.now();
+    setErrMsg("");
+    setLoadingSource(id);
+    setStatusBySource((prev) => ({
+      ...prev,
+      [id]: itemsBySource[id] ? "refreshing" : "loading",
+    }));
+    function finish(update) {
+      const wait = Math.max(0, MIN_FEED_LOADING_MS - (Date.now() - startedAt));
+      window.setTimeout(() => {
+        update();
+        setLoadingSource((current) => current === id ? "" : current);
+      }, wait);
+    }
     api("/api/feed/" + id)
-      .then((data) => { setItems(data); setStatus("ok"); })
-      .catch((err) => { setErrMsg(err.message); setStatus("error"); });
+      .then((data) => {
+        finish(() => {
+          setItemsBySource((prev) => ({ ...prev, [id]: data }));
+          setStatusBySource((prev) => ({ ...prev, [id]: "ok" }));
+        });
+      })
+      .catch((err) => {
+        finish(() => {
+          setErrMsg(err.message);
+          setStatusBySource((prev) => ({ ...prev, [id]: "error" }));
+        });
+      });
   }
 
-  useAppEffect(() => { if (activeSource) load(activeSource); }, [activeSource]);
+  useAppEffect(() => {
+    if (!activeSource) return;
+    if (itemsBySource[activeSource]) return;
+    load(activeSource);
+  }, [activeSource]);
 
+  const items = activeSource ? (itemsBySource[activeSource] || []) : [];
+  const sourceStatus = activeSource ? (statusBySource[activeSource] || "loading") : sourcesStatus;
+  const isLoading = sourcesStatus === "loading" || sourceStatus === "loading" || loadingSource === activeSource;
+  const hasCachedItems = items.length > 0;
   const rich = Boolean(sourceInfo && sourceInfo.rich);
   const q = query.toLowerCase();
   let visible = items.filter((it) => !q
@@ -276,14 +404,14 @@ function FeedView({ query }) {
     <div>
       <div className="feed-toolbar">
         <div className="filter-bar">
-          {rich && status === "ok" && topTags.length > 0 &&
+          {rich && topTags.length > 0 &&
             ["", ...topTags].map((t) => (
               <button key={t || "all"} className={"filter-chip" + (catFilter === t ? " active" : "")}
                 onClick={() => setCatFilter(t)}>{t || "全部"}</button>
             ))}
         </div>
-        <button className="btn feed-refresh" onClick={() => activeSource && load(activeSource)} disabled={status === "loading"}>
-          <IconRefresh />刷新
+        <button className="btn feed-refresh" onClick={() => activeSource && load(activeSource)} disabled={isLoading}>
+          <IconRefresh />{isLoading && hasCachedItems ? "刷新中" : "刷新"}
         </button>
       </div>
       {sources.length > 1 && (
@@ -299,10 +427,18 @@ function FeedView({ query }) {
       )}
       <div className="feed-layout">
         <div className="feed-list">
-          {status === "loading" && <EmptyState message="正在加载…" />}
-          {status === "error" && <EmptyState message={errMsg || "加载失败"} hint="点右上角「刷新」重试" />}
-          {status === "ok" && visible.length === 0 && <EmptyState message="暂无内容" />}
-          {status === "ok" && rich && groups && groups.map((g) => (
+          {isLoading && !hasCachedItems && (
+            <div className="feed-loading-empty"><RoseFourLoader label="正在加载" /></div>
+          )}
+          {isLoading && hasCachedItems && (
+            <div className="feed-refresh-banner"><RoseFourLoader label="正在刷新" /></div>
+          )}
+          {sourceStatus === "error" && !hasCachedItems && <EmptyState message={errMsg || "加载失败"} hint="点右上角「刷新」重试" />}
+          {sourceStatus === "error" && hasCachedItems && (
+            <div className="feed-inline-error">刷新失败，已保留当前内容：{errMsg || "请稍后重试"}</div>
+          )}
+          {!isLoading && sourceStatus !== "error" && visible.length === 0 && <EmptyState message="暂无内容" />}
+          {rich && groups && groups.map((g) => (
             <div className="feed-day" key={g.key}>
               <div className="feed-day-label">{g.label}</div>
               <div className="timeline">
@@ -316,7 +452,7 @@ function FeedView({ query }) {
               </div>
             </div>
           ))}
-          {status === "ok" && !rich && visible.map((item, idx) => (
+          {!rich && visible.map((item, idx) => (
             <FeedItem key={idx} item={item} rank={idx + 1} showRank={true} onPreview={setPreview} />
           ))}
         </div>
