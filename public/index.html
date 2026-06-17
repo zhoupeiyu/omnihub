@@ -523,8 +523,22 @@ section[id] { scroll-margin-top: 84px; }
   place-items: center;
   align-self: center;
   width: fit-content;
+  height: 70px;
+  box-sizing: border-box;
   padding: 6px 0;
   color: var(--accent);
+  overflow: hidden;
+  opacity: 1;
+  transform: scale(1);
+  transform-origin: top center;
+}
+.feed-refresh-banner.closing {
+  height: 0;
+  padding-top: 0;
+  padding-bottom: 0;
+  margin-bottom: -7px;
+  opacity: 0;
+  transform: scale(.72);
 }
 .feed-refresh-banner .rose-four-loader {
   display: grid;

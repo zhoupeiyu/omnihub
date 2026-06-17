@@ -235,6 +235,7 @@ const ROSE_FOUR = {
   roseScale: 3.25,
 };
 const MIN_FEED_LOADING_MS = 450;
+const REFRESH_COLLAPSE_MS = 2000;
 
 function normalizeProgress(progress) {
   return ((progress % 1) + 1) % 1;
@@ -327,6 +328,9 @@ function FeedView({ query }) {
   const [loadingSource, setLoadingSource] = useAppState("");
   const [errMsg, setErrMsg] = useAppState("");
   const [preview, setPreview] = useAppState(null); // 图片放大预览的 src
+  const [showRefreshIndicator, setShowRefreshIndicator] = useAppState(false);
+  const [refreshIndicatorClosing, setRefreshIndicatorClosing] = useAppState(false);
+  const [refreshCollapseProgress, setRefreshCollapseProgress] = useAppState(0);
 
   useAppEffect(() => {
     api("/api/feed/sources")
@@ -379,12 +383,44 @@ function FeedView({ query }) {
   const sourceStatus = activeSource ? (statusBySource[activeSource] || "loading") : sourcesStatus;
   const isLoading = sourcesStatus === "loading" || sourceStatus === "loading" || loadingSource === activeSource;
   const hasCachedItems = items.length > 0;
+  const refreshIsActive = isLoading && hasCachedItems;
+  const shouldShowRefreshIndicator = refreshIsActive || showRefreshIndicator;
   const rich = Boolean(sourceInfo && sourceInfo.rich);
   const q = query.toLowerCase();
   let visible = items.filter((it) => !q
     || it.title.toLowerCase().includes(q) || (it.summary || "").toLowerCase().includes(q));
   if (rich && catFilter) visible = visible.filter((it) => (it.tags || []).includes(catFilter));
   if (rich) visible = sortByTimeThenScore(visible);
+
+  useAppEffect(() => {
+    if (!hasCachedItems) {
+      setShowRefreshIndicator(false);
+      setRefreshIndicatorClosing(false);
+      setRefreshCollapseProgress(0);
+      return;
+    }
+    if (refreshIsActive) {
+      setShowRefreshIndicator(true);
+      setRefreshIndicatorClosing(false);
+      setRefreshCollapseProgress(0);
+      return;
+    }
+    if (!showRefreshIndicator) return;
+    setRefreshIndicatorClosing(true);
+    const startedAt = Date.now();
+    const timer = window.setInterval(() => {
+      const progress = Math.min(1, (Date.now() - startedAt) / REFRESH_COLLAPSE_MS);
+      setRefreshCollapseProgress(progress);
+      if (progress < 1) {
+        return;
+      }
+      window.clearInterval(timer);
+      setShowRefreshIndicator(false);
+      setRefreshIndicatorClosing(false);
+      setRefreshCollapseProgress(0);
+    }, 16);
+    return () => clearInterval(timer);
+  }, [hasCachedItems, refreshIsActive, showRefreshIndicator]);
 
   const hot = rich
     ? [...items].filter((it) => typeof it.score === "number").sort((a, b) => b.score - a.score).slice(0, 10)
@@ -430,8 +466,19 @@ function FeedView({ query }) {
           {isLoading && !hasCachedItems && (
             <div className="feed-loading-empty"><RoseFourLoader label="正在加载" /></div>
           )}
-          {isLoading && hasCachedItems && (
-            <div className="feed-refresh-banner"><RoseFourLoader /></div>
+          {shouldShowRefreshIndicator && hasCachedItems && (
+            <div
+              className={"feed-refresh-banner" + (refreshIndicatorClosing ? " closing" : "")}
+              style={{
+                height: 70 * (1 - refreshCollapseProgress),
+                paddingTop: 6 * (1 - refreshCollapseProgress),
+                paddingBottom: 6 * (1 - refreshCollapseProgress),
+                marginBottom: -7 * refreshCollapseProgress,
+                opacity: 1 - refreshCollapseProgress,
+                transform: `scale(${1 - 0.28 * refreshCollapseProgress})`,
+              }}>
+              <RoseFourLoader />
+            </div>
           )}
           {sourceStatus === "error" && !hasCachedItems && <EmptyState message={errMsg || "加载失败"} hint="点右上角「刷新」重试" />}
           {sourceStatus === "error" && hasCachedItems && (
