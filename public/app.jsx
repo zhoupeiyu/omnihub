@@ -431,7 +431,7 @@ function FeedView({ query }) {
             <div className="feed-loading-empty"><RoseFourLoader label="正在加载" /></div>
           )}
           {isLoading && hasCachedItems && (
-            <div className="feed-refresh-banner"><RoseFourLoader label="正在刷新" /></div>
+            <div className="feed-refresh-banner"><RoseFourLoader /></div>
           )}
           {sourceStatus === "error" && !hasCachedItems && <EmptyState message={errMsg || "加载失败"} hint="点右上角「刷新」重试" />}
           {sourceStatus === "error" && hasCachedItems && (

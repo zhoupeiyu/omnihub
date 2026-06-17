@@ -507,7 +507,7 @@ section[id] { scroll-margin-top: 84px; }
   background: var(--surface);
   box-shadow: var(--shadow-card);
 }
-.feed-refresh-banner, .feed-inline-error {
+.feed-inline-error {
   display: flex;
   align-items: center;
   min-height: 44px;
@@ -519,16 +519,17 @@ section[id] { scroll-margin-top: 84px; }
   box-shadow: var(--shadow-card);
 }
 .feed-refresh-banner {
+  display: grid;
+  place-items: center;
   align-self: center;
-  justify-content: center;
   width: fit-content;
-  min-width: 118px;
-  padding: 10px 16px;
+  padding: 6px 0;
+  color: var(--accent);
 }
 .feed-refresh-banner .rose-four-loader {
+  display: grid;
   grid-template-columns: 1fr;
-  justify-items: center;
-  gap: 8px;
+  gap: 0;
 }
 .feed-refresh-banner .rose-four-svg {
   width: 58px;
