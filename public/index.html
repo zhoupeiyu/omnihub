@@ -267,14 +267,39 @@ section[id] { scroll-margin-top: 84px; }
 /* ---------- 布局：侧边栏 + 主区 ---------- */
 .layout { width: 100%; display: flex; }
 .sidebar {
-  position: sticky; top: 50px; height: calc(100vh - 50px); width: 196px; flex-shrink: 0;
+  position: sticky; top: 50px; height: calc(100vh - 50px); width: 224px; flex-shrink: 0;
   background: var(--sidebar-bg);
   backdrop-filter: var(--glass); -webkit-backdrop-filter: var(--glass);
   border-right: var(--border-w) solid var(--border);
-  padding: 12px 10px; overflow-y: auto;
-  transition: background .35s ease;
+  padding: 12px 10px; overflow-y: auto; overflow-x: hidden;
+  transition: background .35s ease,
+    width .36s cubic-bezier(.3, 1, .3, 1),
+    padding .36s cubic-bezier(.3, 1, .3, 1),
+    transform .36s cubic-bezier(.3, 1, .3, 1),
+    opacity .26s ease;
   display: flex; flex-direction: column;
 }
+.sidebar.collapsed {
+  width: 0; padding-left: 0; padding-right: 0;
+  transform: translateX(-12px);
+  opacity: 0;
+  pointer-events: none;
+  border-right-color: transparent;
+}
+/* 顶栏左侧的侧栏开合按钮（固定位置） */
+.header-toggle {
+  width: 32px; height: 32px; border-radius: 8px;
+  display: grid; place-items: center;
+  border: var(--border-w) solid transparent; background: transparent; color: var(--text-2);
+  cursor: pointer; flex-shrink: 0; margin-right: 2px;
+  transition: color .18s ease, background .18s ease, border-color .18s ease;
+}
+.header-toggle:hover { color: var(--accent); background: var(--bg-sunken); border-color: var(--border); }
+.header-toggle svg {
+  width: 18px; height: 18px;
+  transition: transform .36s cubic-bezier(.3, 1, .3, 1);
+}
+.header-toggle.collapsed svg { transform: rotate(180deg); }
 .sidebar-foot {
   margin-top: auto; position: relative;
   padding-top: 10px; border-top: var(--border-w) solid var(--border);
@@ -710,7 +735,7 @@ section[id] { scroll-margin-top: 84px; }
 }
 .feed-summary {
   font-size: 12.5px; color: var(--text-3); line-height: 1.65; margin-top: 4px;
-  display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;
+  word-break: break-word;
 }
 .feed-meta { display: flex; gap: 8px; margin-top: 5px; font-size: 11px; color: var(--text-3); flex-wrap: wrap; align-items: center; }
 .feed-heat { font-family: var(--font-mono); font-size: 11px; color: var(--text-3); flex-shrink: 0; padding-top: 2px; }
@@ -779,6 +804,13 @@ section[id] { scroll-margin-top: 84px; }
   position: fixed; z-index: 80; width: 52px; height: 50px;
   display: grid; place-items: center; cursor: grab;
   touch-action: none; user-select: none; -webkit-user-select: none;
+  transition: opacity .3s ease, transform .36s cubic-bezier(.3, 1, .3, 1), filter .3s ease;
+}
+.wf-float.hidden {
+  opacity: 0;
+  transform: translateX(-14px) scale(.72);
+  filter: blur(4px);
+  pointer-events: none;
 }
 .wf-float:active { cursor: grabbing; }
 /* 鼠标进入木鱼时隐藏系统光标，由木锤代替 */
@@ -1289,6 +1321,180 @@ section[id] { scroll-margin-top: 84px; }
   .tool-card-wide { min-height: 0; }
   .tool-split, .pdf-preset-row, .pdf-file-meta { grid-template-columns: 1fr; }
   .tools-quick-grid { grid-template-columns: 1fr; }
+}
+
+/* ============================================================
+   动效合集（参考 transitions.dev）
+   1) 数字 pop-in：每位数字 blur+translateY 进入，stagger
+   2) Skeleton → 内容 cross-fade：信息流加载占位
+   3) Tab 滑动 pill：active 指示器跨 tab 平滑滑动
+   4) Accordion grid-rows：grid-rows 0fr→1fr 折叠
+   5) 文字 blur swap：换句/状态切换的 blur 交叉淡入
+   ============================================================ */
+
+/* 1) 数字 pop-in */
+.anim-num {
+  display: inline-flex; align-items: baseline;
+  font-variant-numeric: tabular-nums;
+}
+.anim-num-digit {
+  display: inline-block;
+  animation: numPop .36s cubic-bezier(.2, 1.1, .35, 1) backwards;
+}
+@keyframes numPop {
+  0%   { opacity: 0; filter: blur(4px); transform: scale(.55); }
+  60%  { opacity: 1; filter: blur(0);   transform: scale(1.18); }
+  100% { opacity: 1; filter: blur(0);   transform: scale(1); }
+}
+
+/* 2) Skeleton 占位 + 交叉淡入 */
+.feed-skeleton-list {
+  display: flex; flex-direction: column; gap: 7px;
+  animation: skeletonFade .35s ease;
+}
+.feed-skeleton-card {
+  display: flex; gap: 11px; padding: 11px 13px;
+  border-radius: var(--radius-sm); border: var(--border-w) solid var(--border);
+  background: var(--surface); box-shadow: var(--shadow-card);
+}
+.feed-skeleton-rank {
+  width: 20px; height: 18px; border-radius: 4px; flex-shrink: 0;
+  background: var(--bg-sunken);
+}
+.feed-skeleton-body { flex: 1; display: flex; flex-direction: column; gap: 8px; }
+.sk-line {
+  height: 12px; border-radius: 6px;
+  background: linear-gradient(90deg,
+    var(--bg-sunken) 0%,
+    color-mix(in oklch, var(--bg-sunken) 70%, var(--surface)) 50%,
+    var(--bg-sunken) 100%);
+  background-size: 200% 100%;
+  animation: skShimmer 1.4s ease-in-out infinite;
+}
+.sk-line.lg { height: 15px; width: 78%; }
+.sk-line.sm { height: 10px; width: 42%; }
+@keyframes skShimmer {
+  0%   { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+@keyframes skeletonFade {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+.feed-skeleton-list.leaving {
+  animation: skeletonLeave .28s ease forwards;
+}
+@keyframes skeletonLeave {
+  from { opacity: 1; filter: blur(0); }
+  to   { opacity: 0; filter: blur(6px); }
+}
+.feed-content-enter {
+  animation: feedContentEnter .32s ease both;
+}
+@keyframes feedContentEnter {
+  from { opacity: 0; filter: blur(6px); transform: translateY(6px); }
+  to   { opacity: 1; filter: blur(0);   transform: none; }
+}
+
+/* 3) Tab 滑动 pill */
+.tabs-pill-wrap {
+  position: relative;
+  display: flex; gap: 8px; flex-wrap: wrap;
+  isolation: isolate;
+}
+.tabs-pill-indicator {
+  position: absolute; top: 0; left: 0;
+  border-radius: var(--radius-sm);
+  background: var(--accent);
+  pointer-events: none;
+  z-index: -1;
+  opacity: 0;
+  transition:
+    transform .42s cubic-bezier(.4, 1.2, .3, 1),
+    width .42s cubic-bezier(.4, 1.2, .3, 1),
+    height .42s cubic-bezier(.4, 1.2, .3, 1),
+    opacity .2s ease,
+    border-radius .25s ease;
+}
+.tabs-pill-indicator.ready { opacity: 1; }
+.tabs-pill-indicator.pill-chip {
+  border-radius: 99px;
+  background: var(--text-2);
+}
+/* 当 pill 接管 active 配色，原 active 状态退去背景，只保留前景色变化 */
+.tabs-pill-wrap .feed-source.active {
+  background: transparent;
+  border-color: transparent;
+  color: var(--accent-contrast);
+}
+.tabs-pill-wrap .feed-source.active .src-cat {
+  background: oklch(100% 0 0 / .25); color: var(--accent-contrast);
+}
+.tabs-pill-wrap .feed-source {
+  position: relative; z-index: 1;
+  transition: color .22s ease;
+}
+.tabs-pill-wrap.pill-chip-mode .filter-chip.active {
+  background: transparent;
+  border-color: transparent;
+  color: var(--bg);
+}
+.tabs-pill-wrap.pill-chip-mode .filter-chip {
+  position: relative; z-index: 1;
+  transition: color .22s ease;
+}
+
+/* 4) Accordion（grid-rows 0fr → 1fr）+ chevron 旋转 */
+.collapsible {
+  border: var(--border-w) solid var(--border);
+  border-radius: var(--radius-sm);
+  background: var(--surface);
+  overflow: hidden;
+}
+.collapsible-head {
+  display: flex; align-items: center; gap: 8px; width: 100%;
+  padding: 8px 12px;
+  border: none; background: transparent; color: var(--text);
+  font-size: 12.5px; font-weight: 650; text-align: left; cursor: pointer;
+}
+.collapsible-head .chev {
+  margin-left: auto; width: 14px; height: 14px;
+  color: var(--text-3);
+  transition: transform .28s cubic-bezier(.4, 1.2, .3, 1);
+}
+.collapsible.open .collapsible-head .chev { transform: rotate(90deg); color: var(--accent); }
+.collapsible-grid {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows .32s cubic-bezier(.4, 1, .3, 1);
+}
+.collapsible.open .collapsible-grid { grid-template-rows: 1fr; }
+.collapsible-inner {
+  overflow: hidden;
+  min-height: 0;
+}
+.collapsible-body {
+  padding: 4px 12px 10px;
+  display: flex; gap: 6px; flex-wrap: wrap;
+}
+
+/* 5) 文字 blur swap */
+.blur-text {
+  display: inline-block;
+  transition:
+    opacity .28s ease,
+    filter .28s ease,
+    transform .28s ease;
+}
+.blur-text.is-leaving {
+  opacity: 0;
+  filter: blur(8px);
+  transform: translateY(-3px);
+}
+.blur-text.is-entering {
+  opacity: 0;
+  filter: blur(8px);
+  transform: translateY(4px);
 }
 </style>
 </head>

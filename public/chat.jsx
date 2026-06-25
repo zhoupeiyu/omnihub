@@ -179,7 +179,7 @@ function ChatView({ messages, onMessagesChange, prefill, onPrefillUsed, hasAiCon
             <div>
               <div className="empty-icon"><IconSparkle /></div>
               <p style={{ fontWeight: 600, color: "var(--text-2)" }}>
-                {hasAiConfig ? "随便聊点什么，或从提示词库点「试跑」开始" : "先到「AI 设置」填入你的 API Key 才能开聊"}
+                <BlurText value={hasAiConfig ? "随便聊点什么，或从提示词库点「试跑」开始" : "先到「AI 设置」填入你的 API Key 才能开聊"} />
               </p>
               {!hasAiConfig && (
                 <button className="btn btn-primary" style={{ marginTop: 14 }} onClick={onOpenAiSettings}>

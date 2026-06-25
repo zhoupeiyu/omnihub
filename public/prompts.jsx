@@ -292,25 +292,29 @@ function PromptDrawer({ prompt, initialMode, onClose, onSave, onCopy, onTryRun, 
                 )}
               </div>
               <div className="field-block">
-                <label>成功原因</label>
-                <textarea className="input" rows="2" style={{ resize: "vertical" }} value={form.successNotes}
-                  placeholder="为什么效果好（可选）" onChange={(e) => setField("successNotes", e.target.value)} />
-              </div>
-              <div className="field-block">
-                <label>失败点</label>
-                <textarea className="input" rows="2" style={{ resize: "vertical" }} value={form.failureNotes}
-                  placeholder="踩过的坑（可选）" onChange={(e) => setField("failureNotes", e.target.value)} />
-              </div>
-              <div className="field-block">
-                <label>复现技巧</label>
-                <textarea className="input" rows="2" style={{ resize: "vertical" }} value={form.reproTips}
-                  placeholder="参数、步骤等（可选）" onChange={(e) => setField("reproTips", e.target.value)} />
-              </div>
-              <div className="field-block">
                 <label>备注</label>
                 <textarea className="input" rows="2" style={{ resize: "vertical" }} value={form.note}
                   placeholder="其他想记的（可选）" onChange={(e) => setField("note", e.target.value)} />
               </div>
+              <Collapsible title="复盘笔记（可选）" defaultOpen={Boolean(form.successNotes || form.failureNotes || form.reproTips)}>
+                <div style={{ width: "100%" }}>
+                  <div className="field-block">
+                    <label>成功原因</label>
+                    <textarea className="input" rows="2" style={{ resize: "vertical" }} value={form.successNotes}
+                      placeholder="为什么效果好" onChange={(e) => setField("successNotes", e.target.value)} />
+                  </div>
+                  <div className="field-block">
+                    <label>失败点</label>
+                    <textarea className="input" rows="2" style={{ resize: "vertical" }} value={form.failureNotes}
+                      placeholder="踩过的坑" onChange={(e) => setField("failureNotes", e.target.value)} />
+                  </div>
+                  <div className="field-block" style={{ marginBottom: 4 }}>
+                    <label>复现技巧</label>
+                    <textarea className="input" rows="2" style={{ resize: "vertical" }} value={form.reproTips}
+                      placeholder="参数、步骤等" onChange={(e) => setField("reproTips", e.target.value)} />
+                  </div>
+                </div>
+              </Collapsible>
               {error && <p className="auth-error">{error}</p>}
             </div>
           )}

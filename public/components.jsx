@@ -1,5 +1,175 @@
 /// 展示组件 —— 顶栏（搜索/AI设置/皮肤/明暗/退出）、侧边栏、收藏卡片、弹窗、信息流等
-const { useState, useEffect } = React;
+const { useState, useEffect, useRef: useCmpRef, useLayoutEffect: useCmpLayoutEffect, useMemo: useCmpMemo } = React;
+
+/* 全局滚动锁：任意 modal/drawer/lightbox 出现时锁 body 滚动，避免背后页面被滚动 */
+(function setupScrollLock() {
+  if (typeof window === "undefined" || window._omnihubScrollLockReady) return;
+  window._omnihubScrollLockReady = true;
+  const update = () => {
+    const hasOverlay = document.querySelector(".modal-overlay, .drawer-overlay, .lightbox");
+    if (hasOverlay) {
+      if (!document.body.dataset.scrollLocked) {
+        document.body.dataset.scrollLocked = "1";
+        document.body.dataset.prevOverflow = document.body.style.overflow || "";
+        document.body.style.overflow = "hidden";
+      }
+    } else if (document.body.dataset.scrollLocked) {
+      document.body.style.overflow = document.body.dataset.prevOverflow || "";
+      delete document.body.dataset.scrollLocked;
+      delete document.body.dataset.prevOverflow;
+    }
+  };
+  new MutationObserver(update).observe(document.body, { childList: true, subtree: true });
+  update();
+})();
+
+/* ============================================================
+   通用动效组件（参考 transitions.dev）
+   ============================================================ */
+
+/** 数字 pop-in：只对真正变化的位重挂载触发动画，未变的位保持静止避免连续敲击抖动 */
+function AnimatedNumber({ value, className }) {
+  const str = String(value == null ? "" : value);
+  // 从右往左对齐：同位置上字符相同就稳定，变化时 key 含一个递增序号让它重新挂载
+  const prevRef = useCmpRef("");
+  const seqRef = useCmpRef([]);
+  const prev = prevRef.current;
+  const prevLen = prev.length;
+  const len = str.length;
+  const nextSeq = [];
+  for (let i = 0; i < len; i++) {
+    const fromRight = len - 1 - i;
+    const ch = str[i];
+    const prevIndex = prevLen - 1 - fromRight;
+    const oldCh = prevIndex >= 0 ? prev[prevIndex] : null;
+    const oldSeq = prevIndex >= 0 ? (seqRef.current[prevIndex] || 0) : 0;
+    nextSeq.push(oldCh === ch ? oldSeq : (oldSeq + 1));
+  }
+  prevRef.current = str;
+  seqRef.current = nextSeq;
+  return (
+    <span className={"anim-num" + (className ? " " + className : "")}>
+      {str.split("").map((ch, i) => {
+        const seq = nextSeq[i];
+        return (
+          <span key={i + ":" + ch + ":" + seq} className="anim-num-digit">{ch}</span>
+        );
+      })}
+    </span>
+  );
+}
+
+/** 文字 blur swap：value 变化时旧文先 blur 出，新文 blur 入 */
+function BlurText({ value, as, className, style }) {
+  const Tag = as || "span";
+  const [display, setDisplay] = useState(value);
+  const [phase, setPhase] = useState("idle"); // idle | leaving | entering
+  const pendingRef = useCmpRef(value);
+  useEffect(() => {
+    if (value === display) return;
+    pendingRef.current = value;
+    setPhase("leaving");
+    const t1 = setTimeout(() => {
+      setDisplay(pendingRef.current);
+      setPhase("entering");
+      requestAnimationFrame(() => requestAnimationFrame(() => setPhase("idle")));
+    }, 220);
+    return () => clearTimeout(t1);
+  }, [value]);
+  const cls = "blur-text"
+    + (phase === "leaving" ? " is-leaving" : "")
+    + (phase === "entering" ? " is-entering" : "")
+    + (className ? " " + className : "");
+  return <Tag className={cls} style={style}>{display}</Tag>;
+}
+
+/** 折叠面板：grid-rows 0fr↔1fr + chevron 旋转 */
+function Collapsible({ title, defaultOpen, children }) {
+  const [open, setOpen] = useState(Boolean(defaultOpen));
+  return (
+    <div className={"collapsible" + (open ? " open" : "")}>
+      <button className="collapsible-head" onClick={() => setOpen((v) => !v)} aria-expanded={open}>
+        {title}
+        <svg className="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+          strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+          <path d="M9 18l6-6-6-6" />
+        </svg>
+      </button>
+      <div className="collapsible-grid">
+        <div className="collapsible-inner">
+          <div className="collapsible-body">{children}</div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+/**
+ * 滑动 pill 容器：测量子项 active 项位置，跟随平移指示器。
+ * children 由外层渲染（保留原有 .feed-source / .filter-chip 等结构）。
+ * activeKey 用于触发位置重测；pillVariant: "block"|"chip" 控制圆角与配色。
+ */
+function PillTabs({ activeKey, pillVariant, className, children }) {
+  const wrapRef = useCmpRef(null);
+  const [rect, setRect] = useState(null);
+  useCmpLayoutEffect(() => {
+    if (!wrapRef.current) return;
+    const measure = () => {
+      const el = wrapRef.current && wrapRef.current.querySelector(".active");
+      if (!el) { setRect(null); return; }
+      const parent = wrapRef.current.getBoundingClientRect();
+      const r = el.getBoundingClientRect();
+      setRect({
+        x: r.left - parent.left,
+        y: r.top - parent.top,
+        w: r.width,
+        h: r.height,
+      });
+    };
+    measure();
+    const ro = window.ResizeObserver ? new ResizeObserver(measure) : null;
+    if (ro) ro.observe(wrapRef.current);
+    window.addEventListener("resize", measure);
+    return () => {
+      if (ro) ro.disconnect();
+      window.removeEventListener("resize", measure);
+    };
+  }, [activeKey, children]);
+  const indicatorStyle = rect
+    ? { transform: `translate(${rect.x}px, ${rect.y}px)`, width: rect.w + "px", height: rect.h + "px" }
+    : { opacity: 0 };
+  const cls = "tabs-pill-wrap"
+    + (pillVariant === "chip" ? " pill-chip-mode" : "")
+    + (className ? " " + className : "");
+  return (
+    <div ref={wrapRef} className={cls}>
+      <span className={"tabs-pill-indicator"
+        + (rect ? " ready" : "")
+        + (pillVariant === "chip" ? " pill-chip" : "")}
+        style={indicatorStyle} />
+      {children}
+    </div>
+  );
+}
+
+/** 信息流加载骨架占位（与 feed-card 同尺寸）*/
+function FeedSkeleton({ count, leaving }) {
+  const n = count || 6;
+  return (
+    <div className={"feed-skeleton-list" + (leaving ? " leaving" : "")}>
+      {Array.from({ length: n }, (_, i) => (
+        <div className="feed-skeleton-card" key={i}>
+          <div className="feed-skeleton-rank" />
+          <div className="feed-skeleton-body">
+            <div className="sk-line lg" />
+            <div className="sk-line" style={{ width: "92%" }} />
+            <div className="sk-line sm" />
+          </div>
+        </div>
+      ))}
+    </div>
+  );
+}
 
 /* 补充图标（沿用 1.8px 描边规范） */
 const dIcon2Base = { fill: "none", stroke: "currentColor", strokeWidth: 1.8, strokeLinecap: "round", strokeLinejoin: "round", viewBox: "0 0 24 24" };
@@ -46,10 +216,19 @@ function Favicon({ url, name, onStatusChange }) {
 }
 
 /** 顶栏：品牌 + 问候/时间 + 全局搜索（操作按钮都在侧边栏左下角） */
-function Header({ query, onQueryChange, searchPlaceholder, greeting, dateText }) {
+function Header({ query, onQueryChange, searchPlaceholder, greeting, dateText, sidebarCollapsed, onToggleSidebar }) {
   return (
     <header className="header-bar">
       <div className="header-inner">
+        <button className={"header-toggle" + (sidebarCollapsed ? " collapsed" : "")}
+          onClick={onToggleSidebar}
+          title={sidebarCollapsed ? "展开侧栏" : "收起侧栏"}>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8"
+            strokeLinecap="round" strokeLinejoin="round">
+            <rect x="3" y="4" width="18" height="16" rx="2" />
+            <path d="M9 4v16" />
+          </svg>
+        </button>
         <div className="logo-mark" aria-hidden="true">
           <img src="/assets/omnihub-logo.svg" alt="" />
         </div>
@@ -74,7 +253,8 @@ function Header({ query, onQueryChange, searchPlaceholder, greeting, dateText })
 /** 侧边栏：模块导航 + 分类（带计数）+ 左下角「用户信息 + 设置」 */
 function SideNav({ section, onSectionChange, categories, activeCategory, onCategoryChange, counts,
                    user, quote, merit, skin, onSkinChange, theme, onThemeToggle,
-                   woodFishEnabled, onWoodFishToggle, onOpenAiSettings, onLogin, onLogout }) {
+                   woodFishEnabled, onWoodFishToggle, onOpenAiSettings, onLogin, onLogout,
+                   collapsed }) {
   const [settingsOpen, setSettingsOpen] = useState(false);
   const [panelStyle, setPanelStyle] = useState(null);
   const gearRef = React.useRef(null);
@@ -100,6 +280,11 @@ function SideNav({ section, onSectionChange, categories, activeCategory, onCateg
     document.addEventListener("mousedown", onDocMouseDown);
     return () => document.removeEventListener("mousedown", onDocMouseDown);
   }, [settingsOpen]);
+
+  // 侧栏收起时同步关闭设置面板
+  useEffect(() => {
+    if (collapsed) setSettingsOpen(false);
+  }, [collapsed]);
   const allModules = [
     { id: "feed", label: "信息流", icon: <IconRss /> },
     { id: "prompts", label: "提示词", icon: <IconSparkle /> },
@@ -111,12 +296,12 @@ function SideNav({ section, onSectionChange, categories, activeCategory, onCateg
   const canUseFullApp = Boolean(user && user.fullAccess);
   const modules = canUseFullApp ? allModules : allModules.filter((m) => m.id === "feed");
   return (
-    <aside className="sidebar">
+    <aside className={"sidebar" + (collapsed ? " collapsed" : "")} aria-hidden={collapsed}>
       <p className="side-label">模块</p>
       <nav>
         {modules.map((m) => (
           <button key={m.id} className={"nav-item" + (section === m.id ? " active" : "")}
-            onClick={() => onSectionChange(m.id)}>
+            onClick={() => onSectionChange(m.id)} tabIndex={collapsed ? -1 : 0}>
             {m.icon}{m.label}
           </button>
         ))}
@@ -127,7 +312,7 @@ function SideNav({ section, onSectionChange, categories, activeCategory, onCateg
           <nav>
             {categories.map((c) => (
               <button key={c} className={"nav-item" + (activeCategory === c ? " active" : "")}
-                onClick={() => onCategoryChange(c)}>
+                onClick={() => onCategoryChange(c)} tabIndex={collapsed ? -1 : 0}>
                 <span className="nav-dot"></span>
                 {c}
                 <span className="nav-count">{counts[c] != null ? counts[c] : ""}</span>
@@ -210,7 +395,9 @@ function SectionHead({ icon, title, count, children }) {
   return (
     <div className="section-head">
       <h2 className="section-title">{icon}{title}</h2>
-      {count != null && <span className="badge-count">{count}</span>}
+      {count != null && (
+        <span className="badge-count"><AnimatedNumber value={count} /></span>
+      )}
       <div className="section-actions">{children}</div>
     </div>
   );
@@ -347,10 +534,14 @@ function FeedItem({ item, rank, showRank, onPreview }) {
   const images = Array.isArray(item.images) ? item.images : [];
   return (
     <a className="feed-card" href={item.url || "#"} target="_blank" rel="noopener noreferrer">
-      {showRank && <div className={"feed-rank" + (rank <= 3 ? " hot" : "")}>{rank}</div>}
+      {showRank && (
+        <div className={"feed-rank" + (rank <= 3 ? " hot" : "")}>
+          <AnimatedNumber value={rank} />
+        </div>
+      )}
       {typeof item.score === "number" && (
         <div className="feed-corner">
-          <span className="feed-score" title="评分">{item.score}</span>
+          <span className="feed-score" title="评分"><AnimatedNumber value={item.score} /></span>
         </div>
       )}
       <div className="feed-body">
@@ -404,10 +595,14 @@ function QuoteCard({ quote, merit }) {
   return (
     <div className="woodfish-box">
       <span className="wf-quote-mark">“</span>
-      <p className="woodfish-quote">{quote ? quote.text : "正在取一句好话……"}</p>
+      <p className="woodfish-quote">
+        <BlurText value={quote ? quote.text : "正在取一句好话……"} />
+      </p>
       <div className="wf-foot">
-        <span className="wf-merit">功德 {merit}</span>
-        {quote && <span className="woodfish-from">—— {quote.from}</span>}
+        <span className="wf-merit">功德 <AnimatedNumber value={merit} /></span>
+        {quote && (
+          <span className="woodfish-from">—— <BlurText value={quote.from} /></span>
+        )}
       </div>
     </div>
   );
@@ -416,7 +611,7 @@ function QuoteCard({ quote, merit }) {
 /** 悬浮木鱼：可拖动、吸附屏幕左右边，点击敲响（功德 +1 + 波纹 + 音效 + 换句） */
 const WF_SIZE = 50; // 木鱼悬浮区尺寸
 
-function FloatingWoodFish({ onKnock }) {
+function FloatingWoodFish({ onKnock, hidden }) {
   const [pos, setPos] = useState(null); // {x, y} 像素；null 时等首帧计算
   const [knocking, setKnocking] = useState(false);
   const [pops, setPops] = useState([]);
@@ -507,14 +702,15 @@ function FloatingWoodFish({ onKnock }) {
   }
 
   if (!pos) return null;
-  const showMallet = hover && !dragging;
+  const showMallet = hover && !dragging && !hidden;
   return (
-    <div className={"wf-float" + (knocking ? " knock" : "") + (showMallet ? " hover" : "")}
+    <div className={"wf-float" + (knocking ? " knock" : "") + (showMallet ? " hover" : "") + (hidden ? " hidden" : "")}
       style={{ left: pos.x + "px", top: pos.y + "px" }}
-      onPointerDown={onPointerDown}
+      onPointerDown={hidden ? undefined : onPointerDown}
       onMouseEnter={() => setHover(true)}
       onMouseLeave={() => setHover(false)}
       onMouseMove={onMouseMove}
+      aria-hidden={hidden}
       title="敲木鱼（可拖动）">
       <img className="wf-body" src="assets/woodfish/muyu.webp" alt="木鱼" draggable="false" />
       {showMallet && (
@@ -565,4 +761,5 @@ Object.assign(window, {
   Favicon, Header, SideNav, SectionHead,
   FavCardV2, AddFavModalV2, FeedCardV2, FeedItem, ImageLightbox, FloatingWoodFish,
   EmptyState, BackToTop, ToastV2,
+  AnimatedNumber, BlurText, Collapsible, PillTabs, FeedSkeleton,
 });

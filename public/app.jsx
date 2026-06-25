@@ -144,10 +144,14 @@ function PromptsView({ prompts, query, category, onAdd, onDelete, onCopy, onOpen
           onClick={() => setOnlyFavorite(!onlyFavorite)}>⭐ 只看收藏</button>
         <button className={"filter-chip" + (showArchived ? " active" : "")}
           onClick={() => setShowArchived(!showArchived)}>已归档</button>
-        {tags.map((t) => (
-          <button key={t} className={"filter-chip" + (tagFilter === t ? " active" : "")}
-            onClick={() => setTagFilter(tagFilter === t ? "" : t)}>{t}</button>
-        ))}
+        {tags.length > 0 && (
+          <PillTabs activeKey={tagFilter} pillVariant="chip">
+            {tags.map((t) => (
+              <button key={t} className={"filter-chip" + (tagFilter === t ? " active" : "")}
+                onClick={() => setTagFilter(tagFilter === t ? "" : t)}>{t}</button>
+            ))}
+          </PillTabs>
+        )}
         <div className="toolbar-actions">
           <button className="btn" title="导出全部为 JSON"
             onClick={() => { window.location.href = "/api/prompts/export"; }}>
@@ -440,18 +444,21 @@ function FeedView({ query }) {
     <div>
       <div className="feed-toolbar">
         <div className="filter-bar">
-          {rich && topTags.length > 0 &&
-            ["", ...topTags].map((t) => (
-              <button key={t || "all"} className={"filter-chip" + (catFilter === t ? " active" : "")}
-                onClick={() => setCatFilter(t)}>{t || "全部"}</button>
-            ))}
+          {rich && topTags.length > 0 && (
+            <PillTabs activeKey={catFilter} pillVariant="chip">
+              {["", ...topTags].map((t) => (
+                <button key={t || "all"} className={"filter-chip" + (catFilter === t ? " active" : "")}
+                  onClick={() => setCatFilter(t)}>{t || "全部"}</button>
+              ))}
+            </PillTabs>
+          )}
         </div>
         <button className="btn feed-refresh" onClick={() => activeSource && load(activeSource)} disabled={isLoading}>
-          <IconRefresh />{isLoading && hasCachedItems ? "刷新中" : "刷新"}
+          <IconRefresh /><BlurText value={isLoading && hasCachedItems ? "刷新中" : "刷新"} />
         </button>
       </div>
       {sources.length > 1 && (
-        <div className="feed-sources">
+        <PillTabs activeKey={activeSource} className="feed-sources">
           {sources.map((s) => (
             <button key={s.id} title={s.desc}
               className={"feed-source" + (activeSource === s.id ? " active" : "")}
@@ -459,12 +466,12 @@ function FeedView({ query }) {
               {s.name}<span className="src-cat">{s.category}</span>
             </button>
           ))}
-        </div>
+        </PillTabs>
       )}
       <div className={"feed-layout" + (isLoading && !hasCachedItems ? " feed-layout-loading" : "")}>
         <div className={"feed-list" + (isLoading && !hasCachedItems ? " feed-list-loading" : "")}>
           {isLoading && !hasCachedItems && (
-            <div className="feed-loading-empty"><RoseFourLoader label="正在加载" /></div>
+            <FeedSkeleton count={6} />
           )}
           {shouldShowRefreshIndicator && hasCachedItems && (
             <div
@@ -485,23 +492,31 @@ function FeedView({ query }) {
             <div className="feed-inline-error">刷新失败，已保留当前内容：{errMsg || "请稍后重试"}</div>
           )}
           {!isLoading && sourceStatus !== "error" && visible.length === 0 && <EmptyState message="暂无内容" />}
-          {rich && groups && groups.map((g) => (
-            <div className="feed-day" key={g.key}>
-              <div className="feed-day-label">{g.label}</div>
-              <div className="timeline">
-                {g.items.map((it, i) => (
-                  <div className="tl-row" key={i}>
-                    <div className="tl-time">{toHHMM(it.publishedAt)}</div>
-                    <div className="tl-rail"><span className="tl-dot" /></div>
-                    <FeedItem item={{ ...it, time: "" }} showRank={false} onPreview={setPreview} />
+          {rich && groups && (
+            <div className="feed-content-enter" key={"rich:" + activeSource + ":" + groups.length}>
+              {groups.map((g) => (
+                <div className="feed-day" key={g.key}>
+                  <div className="feed-day-label">{g.label}</div>
+                  <div className="timeline">
+                    {g.items.map((it, i) => (
+                      <div className="tl-row" key={i}>
+                        <div className="tl-time">{toHHMM(it.publishedAt)}</div>
+                        <div className="tl-rail"><span className="tl-dot" /></div>
+                        <FeedItem item={{ ...it, time: "" }} showRank={false} onPreview={setPreview} />
+                      </div>
+                    ))}
                   </div>
-                ))}
-              </div>
+                </div>
+              ))}
             </div>
-          ))}
-          {!rich && visible.map((item, idx) => (
-            <FeedItem key={idx} item={item} rank={idx + 1} showRank={true} onPreview={setPreview} />
-          ))}
+          )}
+          {!rich && visible.length > 0 && (
+            <div className="feed-content-enter" key={"flat:" + activeSource + ":" + visible.length}>
+              {visible.map((item, idx) => (
+                <FeedItem key={idx} item={item} rank={idx + 1} showRank={true} onPreview={setPreview} />
+              ))}
+            </div>
+          )}
         </div>
         <div className="feed-side">
           {rich && hot.length > 0 && (
@@ -566,6 +581,7 @@ function Workspace({ user, onUserChange, showToast, toast }) {
   const [quote, setQuote] = useAppState(null);
   const [merit, setMerit] = useAppState(() => Number(localStorage.getItem("omnihub_merit") || 0));
   const [woodFishEnabled, setWoodFishEnabled] = useAppState(() => loadStored("woodFishEnabled", false));
+  const [sidebarCollapsed, setSidebarCollapsed] = useAppState(() => loadStored("sidebarCollapsed", false));
   const canUseFullApp = Boolean(user && user.fullAccess);
 
   useAppEffect(() => {
@@ -578,6 +594,10 @@ function Workspace({ user, onUserChange, showToast, toast }) {
   useAppEffect(() => {
     saveStored("woodFishEnabled", woodFishEnabled);
   }, [woodFishEnabled]);
+
+  useAppEffect(() => {
+    saveStored("sidebarCollapsed", sidebarCollapsed);
+  }, [sidebarCollapsed]);
 
   useAppEffect(() => {
     if (!canUseFullApp) return; // 非白名单不加载内部个人数据（收藏 / 提示词）
@@ -741,7 +761,9 @@ function Workspace({ user, onUserChange, showToast, toast }) {
       <Header query={query} onQueryChange={setQuery}
         searchPlaceholder={SEARCH_PLACEHOLDERS[section]}
         greeting={user ? `${getGreeting(now.getHours())}，${user.username}` : getGreeting(now.getHours())}
-        dateText={formatToday(now)} />
+        dateText={formatToday(now)}
+        sidebarCollapsed={sidebarCollapsed}
+        onToggleSidebar={() => setSidebarCollapsed((v) => !v)} />
       <div className="layout">
         <SideNav section={section}
           onSectionChange={(s) => { setSection(s); setQuery(""); }}
@@ -754,7 +776,8 @@ function Workspace({ user, onUserChange, showToast, toast }) {
           onWoodFishToggle={() => setWoodFishEnabled((enabled) => !enabled)}
           onOpenAiSettings={() => setModal("ai-settings")}
           onLogin={() => setAuthOpen(true)}
-          onLogout={handleLogout} />
+          onLogout={handleLogout}
+          collapsed={sidebarCollapsed} />
         <main className="main">
           {section === "favorites" && canUseFullApp && (
             <FavoritesView favorites={favorites} query={query} category={favCategory}
@@ -802,7 +825,7 @@ function Workspace({ user, onUserChange, showToast, toast }) {
         <AuthView onClose={() => setAuthOpen(false)}
           onLoggedIn={(u) => { onUserChange(u); setAuthOpen(false); }} />
       )}
-      {woodFishEnabled && <FloatingWoodFish onKnock={knockWoodFish} />}
+      {woodFishEnabled && <FloatingWoodFish onKnock={knockWoodFish} hidden={sidebarCollapsed} />}
       <BackToTop />
       <ToastV2 message={toast} />
     </div>
