@@ -61,23 +61,34 @@
       "url": "/assets/repository-guides/media-27a487f0af6aeab73c7999ac.webp",
       "alt": "yamadashy/repomix 官方演示 1",
       "sourceUrl": "https://github.com/yamadashy/repomix/blob/0b3f82b401bbc520fd1aca67c06d24e40a868d3e/README.md?plain=1#L134",
-      "originalUrl": "https://raw.githubusercontent.com/yamadashy/repomix/0b3f82b401bbc520fd1aca67c06d24e40a868d3e/website/client/src/public/images/docs/repomix-file-usage-1.png"
+      "originalUrl": "https://raw.githubusercontent.com/yamadashy/repomix/0b3f82b401bbc520fd1aca67c06d24e40a868d3e/website/client/src/public/images/docs/repomix-file-usage-1.png",
+      "animated": false
     },
     {
       "url": "/assets/repository-guides/media-03008839a2d80c061ec84024.webp",
       "alt": "yamadashy/repomix 官方演示 2",
       "sourceUrl": "https://github.com/yamadashy/repomix/blob/0b3f82b401bbc520fd1aca67c06d24e40a868d3e/README.md?plain=1#L140",
-      "originalUrl": "https://raw.githubusercontent.com/yamadashy/repomix/0b3f82b401bbc520fd1aca67c06d24e40a868d3e/website/client/src/public/images/docs/repomix-file-usage-2.png"
+      "originalUrl": "https://raw.githubusercontent.com/yamadashy/repomix/0b3f82b401bbc520fd1aca67c06d24e40a868d3e/website/client/src/public/images/docs/repomix-file-usage-2.png",
+      "animated": false
     },
     {
       "url": "/assets/repository-guides/media-bbecdf86b2585133a5d12c84.webp",
       "alt": "yamadashy/repomix 官方演示 3",
       "sourceUrl": "https://github.com/yamadashy/repomix/blob/0b3f82b401bbc520fd1aca67c06d24e40a868d3e/README.md?plain=1#L161",
-      "originalUrl": "https://raw.githubusercontent.com/yamadashy/repomix/0b3f82b401bbc520fd1aca67c06d24e40a868d3e/website/client/src/public/images/docs/browser-extension.png"
+      "originalUrl": "https://raw.githubusercontent.com/yamadashy/repomix/0b3f82b401bbc520fd1aca67c06d24e40a868d3e/website/client/src/public/images/docs/browser-extension.png",
+      "animated": false
+    },
+    {
+      "url": "/assets/repository-guides/media-30ac38c71744e9446b870766.webp",
+      "alt": "Repomix",
+      "sourceUrl": "https://github.com/yamadashy/repomix/blob/0b3f82b401bbc520fd1aca67c06d24e40a868d3e/README.md#L31",
+      "originalUrl": "https://raw.githubusercontent.com/yamadashy/repomix/0b3f82b401bbc520fd1aca67c06d24e40a868d3e/website/client/src/public/images/repomix-title.png",
+      "animated": false
     }
   ],
   "generatedBy": "claude-opus-5-5",
   "documentHash": "931e65b67840532775fa2a3cc862e479e8f55624d371f44bf127a34dd29d947b",
   "mediaStatus": "archived",
-  "mediaFailures": []
+  "mediaFailures": [],
+  "mediaReferences": []
 }

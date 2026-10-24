@@ -60,11 +60,13 @@
       "url": "/assets/repository-guides/media-23818b1dfb9f48c924446190.webp",
       "alt": "collabs-inc/collab-public 官方演示 1",
       "sourceUrl": "https://github.com/collabs-inc/collab-public/blob/476b8efc942ee5f430a9b8bf832b8560a8cf76c2/README.md?plain=1#L5",
-      "originalUrl": "https://raw.githubusercontent.com/collabs-inc/collab-public/476b8efc942ee5f430a9b8bf832b8560a8cf76c2/screenshot.png"
+      "originalUrl": "https://raw.githubusercontent.com/collabs-inc/collab-public/476b8efc942ee5f430a9b8bf832b8560a8cf76c2/screenshot.png",
+      "animated": false
     }
   ],
   "generatedBy": "claude-opus-5-5",
   "documentHash": "ba46180ed771fb0127fb24e5b8ed54c449edaba1b408ef14f9c889f8816a58f1",
   "mediaStatus": "archived",
-  "mediaFailures": []
+  "mediaFailures": [],
+  "mediaReferences": []
 }

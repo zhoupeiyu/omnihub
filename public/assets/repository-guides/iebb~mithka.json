@@ -52,8 +52,25 @@
       "url": "https://github.com/iebb/mithka/blob/fdbafb122778f6a0ba19adb36fd682f1526d9230/README.zh-CN.md"
     }
   ],
-  "media": [],
+  "media": [
+    {
+      "url": "/assets/repository-guides/media-8cd89f723ca8e788f59d2256.webp",
+      "alt": "Mithka — an independent Telegram client",
+      "sourceUrl": "https://github.com/iebb/mithka/blob/fdbafb122778f6a0ba19adb36fd682f1526d9230/README.md#L3",
+      "originalUrl": "https://raw.githubusercontent.com/iebb/mithka/fdbafb122778f6a0ba19adb36fd682f1526d9230/docs/images/mithka-github-banner.png",
+      "animated": false
+    },
+    {
+      "url": "/assets/repository-guides/media-a3e9d765a315f45873265625.webp",
+      "alt": "Mithka desktop, iPad, and iPhone Duo layout mockups",
+      "sourceUrl": "https://github.com/iebb/mithka/blob/fdbafb122778f6a0ba19adb36fd682f1526d9230/README.md#L12",
+      "originalUrl": "https://raw.githubusercontent.com/iebb/mithka/fdbafb122778f6a0ba19adb36fd682f1526d9230/docs/images/mithka-github-devices.png",
+      "animated": false
+    }
+  ],
   "generatedBy": "claude-opus-5-5",
   "documentHash": "8bccb0b3a1604262ff4e074675bd2a53396ec9413a6fbdb777e3fd5eb2d9e41e",
-  "mediaStatus": "none_in_official_documents"
+  "mediaStatus": "archived",
+  "mediaFailures": [],
+  "mediaReferences": []
 }

@@ -78,20 +78,48 @@
       "url": "/assets/repository-guides/media-1aae1b40f383a2eb824f3663.webp",
       "alt": "HKUDS/CLI-Anything 官方演示 1",
       "sourceUrl": "https://github.com/HKUDS/CLI-Anything/blob/34f519533bc175d2fe287ab8316b0dd99bb9cc43/README.md?plain=1#L987",
-      "originalUrl": "https://raw.githubusercontent.com/HKUDS/CLI-Anything/34f519533bc175d2fe287ab8316b0dd99bb9cc43/assets/demos/drawio-demo.gif"
+      "originalUrl": "https://raw.githubusercontent.com/HKUDS/CLI-Anything/34f519533bc175d2fe287ab8316b0dd99bb9cc43/assets/demos/drawio-demo.gif",
+      "animated": true
+    },
+    {
+      "url": "/assets/repository-guides/media-ba8895950b5e72610ee82a16.webp",
+      "alt": "项目介绍",
+      "sourceUrl": "https://github.com/HKUDS/CLI-Anything/blob/34f519533bc175d2fe287ab8316b0dd99bb9cc43/README.md#L1",
+      "originalUrl": "https://raw.githubusercontent.com/HKUDS/CLI-Anything/34f519533bc175d2fe287ab8316b0dd99bb9cc43/assets/icon.png",
+      "animated": false
+    },
+    {
+      "url": "/assets/repository-guides/media-ecb83d8e7d49f2166211101a.webp",
+      "alt": "FreeCAD Curiosity rover demo driven by preview, live preview, and trajectory history",
+      "sourceUrl": "https://github.com/HKUDS/CLI-Anything/blob/34f519533bc175d2fe287ab8316b0dd99bb9cc43/README.md#L959",
+      "originalUrl": "https://raw.githubusercontent.com/HKUDS/CLI-Anything/34f519533bc175d2fe287ab8316b0dd99bb9cc43/assets/demos/freecad-curiosity-preview-trajectory.gif",
+      "animated": true
+    },
+    {
+      "url": "/assets/repository-guides/media-478cc1c699dda4a5cfb9ed62.webp",
+      "alt": "Blender orbital relay drone demo driven by preview, live preview, and trajectory history",
+      "sourceUrl": "https://github.com/HKUDS/CLI-Anything/blob/34f519533bc175d2fe287ab8316b0dd99bb9cc43/README.md#L973",
+      "originalUrl": "https://raw.githubusercontent.com/HKUDS/CLI-Anything/34f519533bc175d2fe287ab8316b0dd99bb9cc43/assets/demos/blender-orbital-relay-drone-preview-trajectory.gif",
+      "animated": true
+    },
+    {
+      "url": "/assets/repository-guides/media-b069bef8573d8ee297baba6e.webp",
+      "alt": "Slay the Spire II CLI gameplay demo",
+      "sourceUrl": "https://github.com/HKUDS/CLI-Anything/blob/34f519533bc175d2fe287ab8316b0dd99bb9cc43/README.md#L1006",
+      "originalUrl": "https://raw.githubusercontent.com/HKUDS/CLI-Anything/34f519533bc175d2fe287ab8316b0dd99bb9cc43/assets/demos/slay-the-spire-ii-gameplay.gif",
+      "animated": true
+    },
+    {
+      "url": "/assets/repository-guides/media-ae165ffd51ea658bdfa64732.webp",
+      "alt": "Video frame before captioning",
+      "sourceUrl": "https://github.com/HKUDS/CLI-Anything/blob/34f519533bc175d2fe287ab8316b0dd99bb9cc43/README.md#L1023",
+      "originalUrl": "https://raw.githubusercontent.com/HKUDS/CLI-Anything/34f519533bc175d2fe287ab8316b0dd99bb9cc43/assets/demos/videocaptioner-before.png",
+      "animated": false
     }
   ],
   "generatedBy": "claude-opus-5-5",
   "documentHash": "10f784d0e7e1e5dd0ac149f629640b5cf3f6118d71adc1576ed444eaf0f4fbe0",
   "mediaStatus": "archived",
-  "mediaFailures": [
-    {
-      "sourceUrl": "https://github.com/HKUDS/CLI-Anything/blob/34f519533bc175d2fe287ab8316b0dd99bb9cc43/README.md#L959",
-      "reason": "media_too_large"
-    },
-    {
-      "sourceUrl": "https://github.com/HKUDS/CLI-Anything/blob/34f519533bc175d2fe287ab8316b0dd99bb9cc43/README.md#L1037",
-      "reason": "media_too_large"
-    }
-  ]
+  "mediaFailures": [],
+  "mediaReferences": []
 }

@@ -65,23 +65,58 @@
       "url": "/assets/repository-guides/media-9fd1d527ab735258f3c88eac.webp",
       "alt": "yanliudesign/mono-color-skill 官方演示 1",
       "sourceUrl": "https://github.com/yanliudesign/mono-color-skill/blob/c8ff70597ddedcd65f21a0b528f6a70c35690b0a/README.md?plain=1#L27",
-      "originalUrl": "https://raw.githubusercontent.com/yanliudesign/mono-color-skill/c8ff70597ddedcd65f21a0b528f6a70c35690b0a/examples/example-cycling.png"
+      "originalUrl": "https://raw.githubusercontent.com/yanliudesign/mono-color-skill/c8ff70597ddedcd65f21a0b528f6a70c35690b0a/examples/example-cycling.png",
+      "animated": false
     },
     {
       "url": "/assets/repository-guides/media-f44a42bd777f1acfd422093e.webp",
       "alt": "yanliudesign/mono-color-skill 官方演示 2",
       "sourceUrl": "https://github.com/yanliudesign/mono-color-skill/blob/c8ff70597ddedcd65f21a0b528f6a70c35690b0a/README.md?plain=1#L31",
-      "originalUrl": "https://raw.githubusercontent.com/yanliudesign/mono-color-skill/c8ff70597ddedcd65f21a0b528f6a70c35690b0a/examples/example-sardines.png"
+      "originalUrl": "https://raw.githubusercontent.com/yanliudesign/mono-color-skill/c8ff70597ddedcd65f21a0b528f6a70c35690b0a/examples/example-sardines.png",
+      "animated": false
     },
     {
       "url": "/assets/repository-guides/media-065e29572d79870754103321.webp",
       "alt": "yanliudesign/mono-color-skill 官方演示 3",
       "sourceUrl": "https://github.com/yanliudesign/mono-color-skill/blob/c8ff70597ddedcd65f21a0b528f6a70c35690b0a/README.md?plain=1#L39",
-      "originalUrl": "https://raw.githubusercontent.com/yanliudesign/mono-color-skill/c8ff70597ddedcd65f21a0b528f6a70c35690b0a/examples/example-night-photography.png"
+      "originalUrl": "https://raw.githubusercontent.com/yanliudesign/mono-color-skill/c8ff70597ddedcd65f21a0b528f6a70c35690b0a/examples/example-night-photography.png",
+      "animated": false
+    },
+    {
+      "url": "/assets/repository-guides/media-f5cf6fa050e96678d4f71ae6.webp",
+      "alt": "Visual reference 01",
+      "sourceUrl": "https://github.com/yanliudesign/mono-color-skill/blob/c8ff70597ddedcd65f21a0b528f6a70c35690b0a/README.md#L49",
+      "originalUrl": "https://raw.githubusercontent.com/yanliudesign/mono-color-skill/c8ff70597ddedcd65f21a0b528f6a70c35690b0a/examples/reference-01.png",
+      "animated": false
+    },
+    {
+      "url": "/assets/repository-guides/media-c6315f6c0c2cdb4cf6d08135.webp",
+      "alt": "Cobalt and orange zebra field-study editorial print",
+      "sourceUrl": "https://github.com/yanliudesign/mono-color-skill/blob/c8ff70597ddedcd65f21a0b528f6a70c35690b0a/README.md#L27",
+      "originalUrl": "https://raw.githubusercontent.com/yanliudesign/mono-color-skill/c8ff70597ddedcd65f21a0b528f6a70c35690b0a/examples/example-zebra.png",
+      "animated": false
+    },
+    {
+      "url": "/assets/repository-guides/media-b1ae65251ee9d2ecae35ca1f.webp",
+      "alt": "Visual reference 02",
+      "sourceUrl": "https://github.com/yanliudesign/mono-color-skill/blob/c8ff70597ddedcd65f21a0b528f6a70c35690b0a/README.md#L49",
+      "originalUrl": "https://raw.githubusercontent.com/yanliudesign/mono-color-skill/c8ff70597ddedcd65f21a0b528f6a70c35690b0a/examples/reference-02.png",
+      "animated": false
     }
   ],
   "generatedBy": "claude-opus-5-5",
   "documentHash": "21e4052c6826a73b31673c73ad101a879376425d0bbf97913c8311c8974b083b",
   "mediaStatus": "archived",
-  "mediaFailures": []
+  "mediaFailures": [
+    {
+      "sourceUrl": "https://github.com/yanliudesign/mono-color-skill/blob/c8ff70597ddedcd65f21a0b528f6a70c35690b0a/README.md#L96",
+      "reason": "unsupported_media_format"
+    }
+  ],
+  "mediaReferences": [
+    {
+      "label": "Cobalt",
+      "url": "https://github.com/yanliudesign/mono-color-skill/blob/c8ff70597ddedcd65f21a0b528f6a70c35690b0a/README.md#L96"
+    }
+  ]
 }

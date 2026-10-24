@@ -70,23 +70,48 @@
       "url": "/assets/repository-guides/media-beef1e37e8f3568de2f62249.webp",
       "alt": "nesquena/hermes-webui 官方演示 1",
       "sourceUrl": "https://github.com/nesquena/hermes-webui/blob/dd5451903686d480c9813cc350097cd07285dfa1/README.md?plain=1#L21",
-      "originalUrl": "https://github.com/user-attachments/assets/4ef3a59c-7a66-4705-b4e7-cb9148fe4c47"
+      "originalUrl": "https://github.com/user-attachments/assets/4ef3a59c-7a66-4705-b4e7-cb9148fe4c47",
+      "animated": false
     },
     {
       "url": "/assets/repository-guides/media-1eaee53d0de3783fdd398152.webp",
       "alt": "nesquena/hermes-webui 官方演示 2",
       "sourceUrl": "https://github.com/nesquena/hermes-webui/blob/dd5451903686d480c9813cc350097cd07285dfa1/README.md?plain=1#L34",
-      "originalUrl": "https://raw.githubusercontent.com/nesquena/hermes-webui/dd5451903686d480c9813cc350097cd07285dfa1/docs/images/ui-workspace.png"
+      "originalUrl": "https://raw.githubusercontent.com/nesquena/hermes-webui/dd5451903686d480c9813cc350097cd07285dfa1/docs/images/ui-workspace.png",
+      "animated": false
     },
     {
       "url": "/assets/repository-guides/media-8b8eda4f37b275c83248afdc.webp",
       "alt": "nesquena/hermes-webui 官方演示 3",
       "sourceUrl": "https://github.com/nesquena/hermes-webui/blob/dd5451903686d480c9813cc350097cd07285dfa1/README.md?plain=1#L38",
-      "originalUrl": "https://raw.githubusercontent.com/nesquena/hermes-webui/dd5451903686d480c9813cc350097cd07285dfa1/docs/images/ui-sessions.png"
+      "originalUrl": "https://raw.githubusercontent.com/nesquena/hermes-webui/dd5451903686d480c9813cc350097cd07285dfa1/docs/images/ui-sessions.png",
+      "animated": false
+    },
+    {
+      "url": "/assets/repository-guides/media-67ffce2a0074a085cc1c70e5.webp",
+      "alt": "image",
+      "sourceUrl": "https://github.com/nesquena/hermes-webui/blob/dd5451903686d480c9813cc350097cd07285dfa1/README.md#L16",
+      "originalUrl": "https://github.com/user-attachments/assets/9a72cdf3-a5b4-45ed-a836-a715ce46287e",
+      "animated": false
+    },
+    {
+      "url": "/assets/repository-guides/media-0b6a305b818fe908f02249f2.webp",
+      "alt": "image",
+      "sourceUrl": "https://github.com/nesquena/hermes-webui/blob/dd5451903686d480c9813cc350097cd07285dfa1/README.md#L50",
+      "originalUrl": "https://github.com/user-attachments/assets/7e9544a7-ba47-4fc7-8142-1d9d16b17065",
+      "animated": false
+    },
+    {
+      "url": "/assets/repository-guides/media-ebd3fa62cee62e2959b0ab09.webp",
+      "alt": "Customize your settings, configure a password",
+      "sourceUrl": "https://github.com/nesquena/hermes-webui/blob/dd5451903686d480c9813cc350097cd07285dfa1/README.md#L25",
+      "originalUrl": "https://github.com/user-attachments/assets/941f3156-21e3-41fd-bcc8-f975d5000cb8",
+      "animated": false
     }
   ],
   "generatedBy": "claude-opus-5-5",
   "documentHash": "f8fe143747e1a44fe49ee0596d8b779ae9637533114cbe1ad5d4653d75d0c542",
   "mediaStatus": "archived",
-  "mediaFailures": []
+  "mediaFailures": [],
+  "mediaReferences": []
 }

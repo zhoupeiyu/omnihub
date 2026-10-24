@@ -77,13 +77,22 @@
       "url": "/assets/repository-guides/media-7946a11d15bde49a4bb9bf2a.webp",
       "alt": "databricks-industry-solutions/pixels 官方演示 1",
       "sourceUrl": "https://github.com/databricks-industry-solutions/pixels/blob/347c349d9c75e6d9d8c362c6b12712243a59fefb/README.md?plain=1#L21",
-      "originalUrl": "https://raw.githubusercontent.com/databricks-industry-solutions/pixels/347c349d9c75e6d9d8c362c6b12712243a59fefb/images/DICOM-analyze-with-SQL.png"
+      "originalUrl": "https://raw.githubusercontent.com/databricks-industry-solutions/pixels/347c349d9c75e6d9d8c362c6b12712243a59fefb/images/DICOM-analyze-with-SQL.png",
+      "animated": false
     },
     {
       "url": "/assets/repository-guides/media-312cba0e61ccecfb3700b4af.webp",
       "alt": "databricks-industry-solutions/pixels 官方演示 2",
       "sourceUrl": "https://github.com/databricks-industry-solutions/pixels/blob/347c349d9c75e6d9d8c362c6b12712243a59fefb/README.md?plain=1#L26",
-      "originalUrl": "https://raw.githubusercontent.com/databricks-industry-solutions/pixels/347c349d9c75e6d9d8c362c6b12712243a59fefb/images/pixels-dashboard.png"
+      "originalUrl": "https://raw.githubusercontent.com/databricks-industry-solutions/pixels/347c349d9c75e6d9d8c362c6b12712243a59fefb/images/pixels-dashboard.png",
+      "animated": false
+    },
+    {
+      "url": "/assets/repository-guides/media-14a29e4eda0e3384ae17e1cd.webp",
+      "alt": "image",
+      "sourceUrl": "https://github.com/databricks-industry-solutions/pixels/blob/347c349d9c75e6d9d8c362c6b12712243a59fefb/README.md#L54",
+      "originalUrl": "https://github.com/user-attachments/assets/be8c2b13-db58-4a71-9f37-d8919db81b85",
+      "animated": false
     }
   ],
   "generatedBy": "claude-opus-5-5",
@@ -92,7 +101,13 @@
   "mediaFailures": [
     {
       "sourceUrl": "https://github.com/databricks-industry-solutions/pixels/blob/347c349d9c75e6d9d8c362c6b12712243a59fefb/README.md#L17",
-      "reason": "response_too_large"
+      "reason": "conversion_failed"
+    }
+  ],
+  "mediaReferences": [
+    {
+      "label": "MONAI_AUTOSEG",
+      "url": "https://github.com/databricks-industry-solutions/pixels/blob/347c349d9c75e6d9d8c362c6b12712243a59fefb/README.md#L17"
     }
   ]
 }

@@ -61,11 +61,13 @@
       "url": "/assets/repository-guides/media-29f07f37b42ca061c9d1273a.webp",
       "alt": "reconurge/flowsint 官方演示 1",
       "sourceUrl": "https://github.com/reconurge/flowsint/blob/4c05849bc6ca5055ad187d056ef26e61b3bc2fea/README.md?plain=1#L14",
-      "originalUrl": "https://github.com/user-attachments/assets/01eb128e-bef4-486e-9276-c4da58f829ae"
+      "originalUrl": "https://github.com/user-attachments/assets/01eb128e-bef4-486e-9276-c4da58f829ae",
+      "animated": false
     }
   ],
   "generatedBy": "claude-opus-5-5",
   "documentHash": "f3d9611a410e9ff8b5c5b946421fa6d261367f59a1696ffe30ab479cd31e9cb6",
   "mediaStatus": "archived",
-  "mediaFailures": []
+  "mediaFailures": [],
+  "mediaReferences": []
 }

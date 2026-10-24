@@ -57,14 +57,25 @@
     "ccc grep 依赖 cocoindex 的 code_match 功能，在该功能正式发布前需要本地构建的 cocoindex。"
   ],
   "references": [],
-  "media": [],
+  "media": [
+    {
+      "url": "/assets/repository-guides/media-0a08ebfa7396a9fa65e95fc3.webp",
+      "alt": "cocoindex code",
+      "sourceUrl": "https://github.com/cocoindex-io/cocoindex-code/blob/8ec0ff3510be526e699028db5b64e10a0a8359b3/README.md#L2",
+      "originalUrl": "https://github.com/user-attachments/assets/d05961b4-0b7b-42ea-834a-59c3c01717ca",
+      "animated": false
+    },
+    {
+      "url": "/assets/repository-guides/media-de7ae687099a2b2fa2400bbe.webp",
+      "alt": "effect",
+      "sourceUrl": "https://github.com/cocoindex-io/cocoindex-code/blob/8ec0ff3510be526e699028db5b64e10a0a8359b3/README.md#L8",
+      "originalUrl": "https://github.com/user-attachments/assets/cb3a4cae-0e1f-49c4-890b-7bb93317ab60",
+      "animated": true
+    }
+  ],
   "generatedBy": "claude-opus-5-5",
   "documentHash": "6dbd4e9d33a5ccac4894d59a7124ea273a9de2fadccefdf935cd4c884fd3e070",
-  "mediaStatus": "unavailable",
-  "mediaFailures": [
-    {
-      "sourceUrl": "https://github.com/cocoindex-io/cocoindex-code/blob/8ec0ff3510be526e699028db5b64e10a0a8359b3/README.md#L8",
-      "reason": "media_too_large"
-    }
-  ]
+  "mediaStatus": "archived",
+  "mediaFailures": [],
+  "mediaReferences": []
 }

@@ -72,11 +72,13 @@
       "url": "/assets/repository-guides/media-3b5a9962f444d02f808cffba.webp",
       "alt": "multica-ai/multica 官方演示 1",
       "sourceUrl": "https://github.com/multica-ai/multica/blob/43b0571f992567a919c7f1f699ff160922594b94/README.md?plain=1#L44",
-      "originalUrl": "https://raw.githubusercontent.com/multica-ai/multica/43b0571f992567a919c7f1f699ff160922594b94/apps/docs/public/images/docs/workspace-overview.webp"
+      "originalUrl": "https://raw.githubusercontent.com/multica-ai/multica/43b0571f992567a919c7f1f699ff160922594b94/apps/docs/public/images/docs/workspace-overview.webp",
+      "animated": false
     }
   ],
   "generatedBy": "claude-opus-5-5",
   "documentHash": "e8187aac3f9d98d87de66baf9bb9b76efffe1c171d20ebc427f8bb690b26b243",
   "mediaStatus": "archived",
-  "mediaFailures": []
+  "mediaFailures": [],
+  "mediaReferences": []
 }

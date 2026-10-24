@@ -71,23 +71,48 @@
       "url": "/assets/repository-guides/media-7ee0826db14943813a40d3bd.webp",
       "alt": "Easel 账号画像配置",
       "sourceUrl": "https://github.com/ZJU-REAL/Easel/blob/4b9c03cf2129b6155595b66fc1e604546a3aa4ad/README.md?plain=1#L98",
-      "originalUrl": "https://raw.githubusercontent.com/ZJU-REAL/Easel/4b9c03cf2129b6155595b66fc1e604546a3aa4ad/assets/readme/features/profile.png"
+      "originalUrl": "https://raw.githubusercontent.com/ZJU-REAL/Easel/4b9c03cf2129b6155595b66fc1e604546a3aa4ad/assets/readme/features/profile.png",
+      "animated": false
     },
     {
       "url": "/assets/repository-guides/media-1e39d89f42da093c380996cd.webp",
       "alt": "Easel 多平台热点雷达",
       "sourceUrl": "https://github.com/ZJU-REAL/Easel/blob/4b9c03cf2129b6155595b66fc1e604546a3aa4ad/README.md?plain=1#L103",
-      "originalUrl": "https://raw.githubusercontent.com/ZJU-REAL/Easel/4b9c03cf2129b6155595b66fc1e604546a3aa4ad/assets/readme/features/discover.png"
+      "originalUrl": "https://raw.githubusercontent.com/ZJU-REAL/Easel/4b9c03cf2129b6155595b66fc1e604546a3aa4ad/assets/readme/features/discover.png",
+      "animated": false
     },
     {
       "url": "/assets/repository-guides/media-acda46ebb8704d8595f23739.webp",
       "alt": "Easel 多平台发布中心",
       "sourceUrl": "https://github.com/ZJU-REAL/Easel/blob/4b9c03cf2129b6155595b66fc1e604546a3aa4ad/README.md?plain=1#L115",
-      "originalUrl": "https://raw.githubusercontent.com/ZJU-REAL/Easel/4b9c03cf2129b6155595b66fc1e604546a3aa4ad/assets/readme/features/publish.png"
+      "originalUrl": "https://raw.githubusercontent.com/ZJU-REAL/Easel/4b9c03cf2129b6155595b66fc1e604546a3aa4ad/assets/readme/features/publish.png",
+      "animated": false
+    },
+    {
+      "url": "/assets/repository-guides/media-760c5d5fd9c9a629aaa27af1.webp",
+      "alt": "Easel",
+      "sourceUrl": "https://github.com/ZJU-REAL/Easel/blob/4b9c03cf2129b6155595b66fc1e604546a3aa4ad/README.md#L10",
+      "originalUrl": "https://raw.githubusercontent.com/ZJU-REAL/Easel/4b9c03cf2129b6155595b66fc1e604546a3aa4ad/assets/readme/brand.png",
+      "animated": false
+    },
+    {
+      "url": "/assets/repository-guides/media-2f3e52971daa397c4739d2a5.webp",
+      "alt": "SpatialEvo 论文解读卡片",
+      "sourceUrl": "https://github.com/ZJU-REAL/Easel/blob/4b9c03cf2129b6155595b66fc1e604546a3aa4ad/README.md#L129",
+      "originalUrl": "https://raw.githubusercontent.com/ZJU-REAL/Easel/4b9c03cf2129b6155595b66fc1e604546a3aa4ad/assets/readme/showcase/spatialevo-cards-strip.jpg",
+      "animated": false
+    },
+    {
+      "url": "/assets/repository-guides/media-3dbf5cb3dbd209e996b2d5c8.webp",
+      "alt": "外门弟子整顿修仙界",
+      "sourceUrl": "https://github.com/ZJU-REAL/Easel/blob/4b9c03cf2129b6155595b66fc1e604546a3aa4ad/README.md#L149",
+      "originalUrl": "https://raw.githubusercontent.com/ZJU-REAL/Easel/4b9c03cf2129b6155595b66fc1e604546a3aa4ad/assets/readme/showcase/novel-xiuxian.png",
+      "animated": false
     }
   ],
   "generatedBy": "claude-opus-5-5",
   "documentHash": "50297f17d183c37f262ecba10ede3992509bddd2099878ad5d298b6b617f87f6",
   "mediaStatus": "archived",
-  "mediaFailures": []
+  "mediaFailures": [],
+  "mediaReferences": []
 }

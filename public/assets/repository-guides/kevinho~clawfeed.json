@@ -65,14 +65,18 @@
     "在生产环境部署时，应设置 ALLOWED_ORIGINS、SESSION_SECRET 等安全相关变量，并为 SQLite 数据目录做持久化。"
   ],
   "references": [],
-  "media": [],
+  "media": [
+    {
+      "url": "/assets/repository-guides/media-5c8d287b0a33c7a027f6783d.webp",
+      "alt": "Dashboard",
+      "sourceUrl": "https://github.com/kevinho/clawfeed/blob/38b43f0c3d5c781acbc3173a3a4a47f480cb18a5/README.md#L13",
+      "originalUrl": "https://raw.githubusercontent.com/kevinho/clawfeed/38b43f0c3d5c781acbc3173a3a4a47f480cb18a5/docs/demo.gif",
+      "animated": true
+    }
+  ],
   "generatedBy": "claude-opus-5-5",
   "documentHash": "03776e0322421091062a2d2d62a3d201142aecab257db2704c20a0d1c36041c4",
-  "mediaStatus": "unavailable",
-  "mediaFailures": [
-    {
-      "sourceUrl": "https://github.com/kevinho/clawfeed/blob/38b43f0c3d5c781acbc3173a3a4a47f480cb18a5/README.md#L13",
-      "reason": "media_too_large"
-    }
-  ]
+  "mediaStatus": "archived",
+  "mediaFailures": [],
+  "mediaReferences": []
 }

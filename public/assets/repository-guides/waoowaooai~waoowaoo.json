@@ -62,8 +62,18 @@
       "url": "https://github.com/waooAI/waoowaoo/blob/dfec20e32298ed675050329e4a41477024148399/README_zh.md"
     }
   ],
-  "media": [],
+  "media": [
+    {
+      "url": "/assets/repository-guides/media-f3b7df9ae04d9836578189b5.webp",
+      "alt": "项目介绍",
+      "sourceUrl": "https://github.com/waooAI/waoowaoo/blob/dfec20e32298ed675050329e4a41477024148399/README.md#L16",
+      "originalUrl": "https://github.com/user-attachments/assets/0f4ff766-f059-4554-9193-caf34b081c7b",
+      "animated": false
+    }
+  ],
   "generatedBy": "claude-opus-5-5",
   "documentHash": "cff8fa599334b5b2465726253d499aa3a8fe65da9ed9dbd30ae6dd542f8ee08d",
-  "mediaStatus": "none_in_official_documents"
+  "mediaStatus": "archived",
+  "mediaFailures": [],
+  "mediaReferences": []
 }

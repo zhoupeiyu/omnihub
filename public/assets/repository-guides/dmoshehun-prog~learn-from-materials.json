@@ -77,23 +77,58 @@
       "url": "/assets/repository-guides/media-9785b26399d22dd5b8bfb55b.webp",
       "alt": "首次使用引导：学习模块、出处、自检与本地笔记的说明",
       "sourceUrl": "https://github.com/dmoshehun-prog/learn-from-materials/blob/c3c9d10786e51d27845600122d091706fa3ea142/README_CN.md?plain=1#L65",
-      "originalUrl": "https://raw.githubusercontent.com/dmoshehun-prog/learn-from-materials/c3c9d10786e51d27845600122d091706fa3ea142/assets/showcase/01-onboarding-cn.png"
+      "originalUrl": "https://raw.githubusercontent.com/dmoshehun-prog/learn-from-materials/c3c9d10786e51d27845600122d091706fa3ea142/assets/showcase/01-onboarding-cn.png",
+      "animated": false
     },
     {
       "url": "/assets/repository-guides/media-c8c70c81b344b0e7a6a603cb.webp",
       "alt": "金融市场展望报告的内容导学：PDF 页段、核心思想、关键框架和行动要点",
       "sourceUrl": "https://github.com/dmoshehun-prog/learn-from-materials/blob/c3c9d10786e51d27845600122d091706fa3ea142/README_CN.md?plain=1#L89",
-      "originalUrl": "https://raw.githubusercontent.com/dmoshehun-prog/learn-from-materials/c3c9d10786e51d27845600122d091706fa3ea142/assets/showcase/06-market-outlook-guided-content-cn.png"
+      "originalUrl": "https://raw.githubusercontent.com/dmoshehun-prog/learn-from-materials/c3c9d10786e51d27845600122d091706fa3ea142/assets/showcase/06-market-outlook-guided-content-cn.png",
+      "animated": false
     },
     {
       "url": "/assets/repository-guides/media-22f5f1a35864736486232652.webp",
       "alt": "《埃隆·马斯克传》框架关系图的编号节点与连线",
       "sourceUrl": "https://github.com/dmoshehun-prog/learn-from-materials/blob/c3c9d10786e51d27845600122d091706fa3ea142/README_CN.md?plain=1#L77",
-      "originalUrl": "https://raw.githubusercontent.com/dmoshehun-prog/learn-from-materials/c3c9d10786e51d27845600122d091706fa3ea142/assets/showcase/04-musk-framework-relationships-cn.png"
+      "originalUrl": "https://raw.githubusercontent.com/dmoshehun-prog/learn-from-materials/c3c9d10786e51d27845600122d091706fa3ea142/assets/showcase/04-musk-framework-relationships-cn.png",
+      "animated": false
+    },
+    {
+      "url": "/assets/repository-guides/media-290f34241d42acee753ebd22.webp",
+      "alt": "First-run learning guide explaining themes, modules, sources, self-check and local notes",
+      "sourceUrl": "https://github.com/dmoshehun-prog/learn-from-materials/blob/c3c9d10786e51d27845600122d091706fa3ea142/README.md#L64",
+      "originalUrl": "https://raw.githubusercontent.com/dmoshehun-prog/learn-from-materials/c3c9d10786e51d27845600122d091706fa3ea142/assets/showcase/01-onboarding.png",
+      "animated": false
+    },
+    {
+      "url": "/assets/repository-guides/media-6476d603a7b59e9d0725a4ff.webp",
+      "alt": "Financial market outlook learning-page cover with a central thesis",
+      "sourceUrl": "https://github.com/dmoshehun-prog/learn-from-materials/blob/c3c9d10786e51d27845600122d091706fa3ea142/README.md#L84",
+      "originalUrl": "https://raw.githubusercontent.com/dmoshehun-prog/learn-from-materials/c3c9d10786e51d27845600122d091706fa3ea142/assets/showcase/05-market-outlook-overview.png",
+      "animated": false
+    },
+    {
+      "url": "/assets/repository-guides/media-7c6ad28295e635ed8fc8cb9d.webp",
+      "alt": "Attention Is All You Need learning-page cover about Transformer sequence modeling",
+      "sourceUrl": "https://github.com/dmoshehun-prog/learn-from-materials/blob/c3c9d10786e51d27845600122d091706fa3ea142/README.md#L96",
+      "originalUrl": "https://raw.githubusercontent.com/dmoshehun-prog/learn-from-materials/c3c9d10786e51d27845600122d091706fa3ea142/assets/showcase/07-attention-paper-overview.png",
+      "animated": false
     }
   ],
   "generatedBy": "claude-opus-5-5",
   "documentHash": "a4b46524f289694de4641903a4e288e8d5f8ac2c979ca513a3ae3773a7ff3f7e",
   "mediaStatus": "archived",
-  "mediaFailures": []
+  "mediaFailures": [
+    {
+      "sourceUrl": "https://github.com/dmoshehun-prog/learn-from-materials/blob/c3c9d10786e51d27845600122d091706fa3ea142/README.md#L4",
+      "reason": "unsupported_media_format"
+    }
+  ],
+  "mediaReferences": [
+    {
+      "label": "Icon",
+      "url": "https://github.com/dmoshehun-prog/learn-from-materials/blob/c3c9d10786e51d27845600122d091706fa3ea142/README.md#L4"
+    }
+  ]
 }

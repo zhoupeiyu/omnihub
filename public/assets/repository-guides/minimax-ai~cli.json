@@ -73,8 +73,22 @@
   "mediaStatus": "unavailable",
   "mediaFailures": [
     {
+      "sourceUrl": "https://github.com/MiniMax-AI/cli/blob/06e47c70b76f419196678367dae62acca4c94076/README.md#L1",
+      "reason": "unsupported_media_host"
+    },
+    {
       "sourceUrl": "https://github.com/MiniMax-AI/cli/blob/06e47c70b76f419196678367dae62acca4c94076/README.md#L28",
       "reason": "unsupported_media_host"
+    }
+  ],
+  "mediaReferences": [
+    {
+      "label": "MiniMax",
+      "url": "https://github.com/MiniMax-AI/cli/blob/06e47c70b76f419196678367dae62acca4c94076/README.md#L1"
+    },
+    {
+      "label": "MiniMax",
+      "url": "https://github.com/MiniMax-AI/cli/blob/06e47c70b76f419196678367dae62acca4c94076/README.md#L28"
     }
   ]
 }

@@ -2,15 +2,30 @@
 <link rel="stylesheet" href="/repository-tab.css">
 <div class="catalogue-layout" id="catalogue-layout">
 <div id="main" class="catalogue-content">
-  <nav id="repository-breadcrumb" class="repository-breadcrumb" aria-label="仓库位置"></nav>
-  <div class="page-heading"><div><h1 id="page-title">仓库库</h1><p id="page-description">按用途、细分类别和工具形态，找到这次用得上的收藏。</p></div><div class="library-total"><strong id="total-count">—</strong><span>个已收藏仓库</span></div></div>
-  <div class="mobile-navigation"><label for="mobile-section">分类</label><select id="mobile-section" aria-label="仓库分类"></select></div>
-  <div class="search-bar"><label class="search-field"><span id="search-icon" aria-hidden="true"></span><input id="search" type="search" autocomplete="off" placeholder="搜索仓库名称、用途、想解决的问题…" aria-label="搜索全部仓库"></label><button id="search-all" class="text-button" hidden>搜索全部仓库</button></div>
+  <header class="page-heading">
+    <div class="heading-copy"><h1 id="page-title">仓库库</h1><span class="library-total"><strong id="total-count">—</strong><span>个仓库</span></span></div>
+    <div class="search-bar"><label class="search-field"><span id="search-icon" aria-hidden="true"></span><input id="search" type="search" autocomplete="off" placeholder="搜索名称、用途或关键词" aria-label="搜索全部仓库" aria-keyshortcuts="/"></label><span class="search-shortcut" aria-hidden="true"><kbd>/</kbd></span><button id="search-all" class="text-button" hidden>搜索全部</button></div>
+  </header>
+  <div class="topic-navigation">
+    <div id="topic-tabs" class="topic-tabs" role="tablist" aria-label="仓库专题"></div>
+    <div class="topic-scroll-controls" id="topic-scroll-controls" hidden>
+      <button type="button" id="topics-prev" aria-label="向前浏览专题"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m14 6-6 6 6 6"/></svg></button>
+      <button type="button" id="topics-next" aria-label="向后浏览专题"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m10 6 6 6-6 6"/></svg></button>
+    </div>
+  </div>
+  <section id="repository-panel" role="tabpanel" aria-label="仓库专题内容" tabindex="0">
   <div id="use-chips" class="use-chips" role="group" aria-label="细分用途"></div>
-  <div id="overview"></div>
-  <div class="results-toolbar"><div><h2 id="results-title">从一个用途开始</h2><span id="result-count" role="status" aria-live="polite"></span></div><div class="filters"><select id="use-filter" aria-label="细分用途"><option value="all">全部细分用途</option></select><select id="form-filter" aria-label="仓库形态"><option value="all">全部形态</option></select><select id="sort" aria-label="排列方式"><option value="default">专题顺序</option><option value="name">名称 A–Z</option></select><button id="clear" class="text-button" hidden>清除筛选</button></div></div>
+  <div class="results-toolbar">
+    <div class="results-heading"><h2 id="results-title">从一个用途开始</h2><span id="result-count" role="status" aria-live="polite"></span></div>
+    <div class="results-controls"><div class="filters"><select id="group-filter" aria-label="分组方式"><option value="owner">按作者分组</option><option value="none">不分组</option></select><select id="use-filter" aria-label="细分用途"><option value="all">全部细分用途</option></select><select id="form-filter" aria-label="仓库形态"><option value="all">全部形态</option></select><select id="sort" aria-label="排列方式"><option value="default">专题顺序</option><option value="name">名称 A–Z</option></select><button id="clear" class="text-button" hidden>清除筛选</button></div>
+    <div class="view-switch" role="group" aria-label="浏览视图">
+      <button type="button" data-view="cards" aria-label="卡片视图" title="卡片视图" aria-pressed="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg></button>
+      <button type="button" data-view="list" aria-label="列表视图" title="列表视图" aria-pressed="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M9 5h12M9 12h12M9 19h12M3 5h1M3 12h1M3 19h1"/></svg></button>
+    </div></div>
+  </div>
   <div id="results" aria-busy="true"><div class="empty-state"><h2>正在取回你的仓库…</h2></div></div>
-  <footer class="page-footer" id="coverage"></footer>
+  <div id="results-end" class="results-end" role="status" aria-live="polite" hidden></div>
+  </section>
 </div>
-<div id="repo-detail-layer" class="detail-drawer-layer" hidden><div id="repo-detail-backdrop" class="detail-drawer-backdrop" aria-hidden="true"></div><section id="repo-dialog" class="repository-detail detail-drawer" role="dialog" aria-label="仓库详情" aria-modal="true" hidden tabindex="-1"><header class="detail-drawer-header"><span class="detail-drawer-label">仓库详情</span><div class="detail-drawer-actions"><button id="close-detail" class="detail-drawer-close" aria-label="关闭详情" title="关闭详情（Esc）"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="m6 6 12 12M18 6 6 18"/></svg></button></div></header><div id="detail-content" class="detail-drawer-body"></div></section></div>
+<div id="repo-detail-layer" class="detail-drawer-layer" hidden><div id="repo-detail-backdrop" class="detail-drawer-backdrop" aria-hidden="true"></div><section id="repo-dialog" class="repository-detail detail-drawer" role="dialog" aria-label="仓库详情" aria-modal="true" hidden tabindex="-1"><div id="resize-detail" class="detail-resize-handle" role="separator" aria-orientation="vertical" aria-label="调整详情宽度" aria-controls="repo-dialog" tabindex="0" title="拖动或按左右方向键调整宽度，双击或按 Enter 恢复默认"></div><header class="detail-drawer-header"><span class="detail-drawer-label">仓库详情</span><div class="detail-drawer-actions"><button id="close-detail" class="detail-drawer-close" aria-label="关闭详情" title="关闭详情（Esc）"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="m6 6 12 12M18 6 6 18"/></svg></button></div></header><div id="detail-content" class="detail-drawer-body"></div></section></div>
 </div>

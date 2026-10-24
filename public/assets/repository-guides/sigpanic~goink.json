@@ -68,23 +68,48 @@
       "url": "/assets/repository-guides/media-dbb6eb76427be690d7335236.webp",
       "alt": "写作与 Diff 审批",
       "sourceUrl": "https://github.com/sigpanic/goink/blob/1a444c47697a61c9c39ce4e67a746af9dff8b9b6/README.md?plain=1#L173",
-      "originalUrl": "https://raw.githubusercontent.com/sigpanic/goink/1a444c47697a61c9c39ce4e67a746af9dff8b9b6/assets/write-demo.png"
+      "originalUrl": "https://raw.githubusercontent.com/sigpanic/goink/1a444c47697a61c9c39ce4e67a746af9dff8b9b6/assets/write-demo.png",
+      "animated": false
     },
     {
       "url": "/assets/repository-guides/media-20b8fa76b50dca922fa911b8.webp",
       "alt": "大纲与章节计划",
       "sourceUrl": "https://github.com/sigpanic/goink/blob/1a444c47697a61c9c39ce4e67a746af9dff8b9b6/README.md?plain=1#L176",
-      "originalUrl": "https://raw.githubusercontent.com/sigpanic/goink/1a444c47697a61c9c39ce4e67a746af9dff8b9b6/assets/outline-demo.png"
+      "originalUrl": "https://raw.githubusercontent.com/sigpanic/goink/1a444c47697a61c9c39ce4e67a746af9dff8b9b6/assets/outline-demo.png",
+      "animated": false
     },
     {
       "url": "/assets/repository-guides/media-37f2057197f1b569c295334a.webp",
       "alt": "Skill 技能系统",
       "sourceUrl": "https://github.com/sigpanic/goink/blob/1a444c47697a61c9c39ce4e67a746af9dff8b9b6/README.md?plain=1#L146",
-      "originalUrl": "https://raw.githubusercontent.com/sigpanic/goink/1a444c47697a61c9c39ce4e67a746af9dff8b9b6/assets/skill-demo.png"
+      "originalUrl": "https://raw.githubusercontent.com/sigpanic/goink/1a444c47697a61c9c39ce4e67a746af9dff8b9b6/assets/skill-demo.png",
+      "animated": false
+    },
+    {
+      "url": "/assets/repository-guides/media-49f9b14e4f2de191c0d9ff30.webp",
+      "alt": "故事弧线",
+      "sourceUrl": "https://github.com/sigpanic/goink/blob/1a444c47697a61c9c39ce4e67a746af9dff8b9b6/README.md#L89",
+      "originalUrl": "https://raw.githubusercontent.com/sigpanic/goink/1a444c47697a61c9c39ce4e67a746af9dff8b9b6/assets/arc-demo.png",
+      "animated": false
+    },
+    {
+      "url": "/assets/repository-guides/media-f344c5c1675b7ac8c6bea7fa.webp",
+      "alt": "风格蒸馏",
+      "sourceUrl": "https://github.com/sigpanic/goink/blob/1a444c47697a61c9c39ce4e67a746af9dff8b9b6/README.md#L156",
+      "originalUrl": "https://raw.githubusercontent.com/sigpanic/goink/1a444c47697a61c9c39ce4e67a746af9dff8b9b6/assets/extract-demo.png",
+      "animated": false
+    },
+    {
+      "url": "/assets/repository-guides/media-fa6254d7d445b0adebd563d8.webp",
+      "alt": "支付宝赞赏",
+      "sourceUrl": "https://github.com/sigpanic/goink/blob/1a444c47697a61c9c39ce4e67a746af9dff8b9b6/README.md#L239",
+      "originalUrl": "https://raw.githubusercontent.com/sigpanic/goink/1a444c47697a61c9c39ce4e67a746af9dff8b9b6/assets/zfb.jpg",
+      "animated": false
     }
   ],
   "generatedBy": "claude-opus-5-5",
   "documentHash": "15f0ba1bfa7cb714d5594ee0e8f7a90de413340d9895ecef55cd15a370e252f0",
   "mediaStatus": "archived",
-  "mediaFailures": []
+  "mediaFailures": [],
+  "mediaReferences": []
 }

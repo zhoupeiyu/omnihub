@@ -58,8 +58,18 @@
     "scripts/validate_skill.py 只是轻量检查，不能替代人工审核。"
   ],
   "references": [],
-  "media": [],
+  "media": [
+    {
+      "url": "/assets/repository-guides/media-6a3802e8f6b488c1e275b8ec.webp",
+      "alt": "SOUL.md Grader Skill repository card",
+      "sourceUrl": "https://github.com/cobibean/soul-grader-skill/blob/56fdda5c57e26fcef84835f55ae1e8b6efa80e0a/README.md#L2",
+      "originalUrl": "https://raw.githubusercontent.com/cobibean/soul-grader-skill/56fdda5c57e26fcef84835f55ae1e8b6efa80e0a/assets/readme/soul-grader-repo-card.png",
+      "animated": false
+    }
+  ],
   "generatedBy": "claude-opus-5-5",
   "documentHash": "c40f4e62f4045c662c3309c8ada0ba6e39c1bb089564d13cb10c8d2ee043f671",
-  "mediaStatus": "none_in_official_documents"
+  "mediaStatus": "archived",
+  "mediaFailures": [],
+  "mediaReferences": []
 }

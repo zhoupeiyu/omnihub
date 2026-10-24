@@ -67,14 +67,18 @@
     "官方建议每一步确认后再继续，避免在分镜、线稿或标注未定稿时浪费渲染时间。"
   ],
   "references": [],
-  "media": [],
+  "media": [
+    {
+      "url": "/assets/repository-guides/media-556960428d60d7a8c9d98002.webp",
+      "alt": "猴子山抢香蕉：SRT 白板动画演示",
+      "sourceUrl": "https://github.com/geeklee/srt-whiteboard-animation/blob/696a7243c0e6ffb6827676e539c2ca5ebae2bf6b/README.md#L11",
+      "originalUrl": "https://raw.githubusercontent.com/geeklee/srt-whiteboard-animation/696a7243c0e6ffb6827676e539c2ca5ebae2bf6b/examples/scene-01-monkey-mountain-stream.gif",
+      "animated": true
+    }
+  ],
   "generatedBy": "claude-opus-5-5",
   "documentHash": "40e76f8cf16efd4e6db032053f932fe5923a5af02bcff6df9732627f0197526b",
-  "mediaStatus": "unavailable",
-  "mediaFailures": [
-    {
-      "sourceUrl": "https://github.com/geeklee/srt-whiteboard-animation/blob/696a7243c0e6ffb6827676e539c2ca5ebae2bf6b/README.md#L11",
-      "reason": "media_too_large"
-    }
-  ]
+  "mediaStatus": "archived",
+  "mediaFailures": [],
+  "mediaReferences": []
 }

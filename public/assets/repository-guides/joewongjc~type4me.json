@@ -69,23 +69,58 @@
       "url": "/assets/repository-guides/media-e97fc0e71d0bd87b477be327.webp",
       "alt": "模式快捷键设置",
       "sourceUrl": "https://github.com/joewongjc/type4me/blob/2760429662e614ea9b9ed2e85eb18417ed416974/README.md?plain=1#L115",
-      "originalUrl": "https://raw.githubusercontent.com/joewongjc/type4me/2760429662e614ea9b9ed2e85eb18417ed416974/docs/screenshots/screenshot-modes.png"
+      "originalUrl": "https://raw.githubusercontent.com/joewongjc/type4me/2760429662e614ea9b9ed2e85eb18417ed416974/docs/screenshots/screenshot-modes.png",
+      "animated": false
     },
     {
       "url": "/assets/repository-guides/media-47931b15552ef2c87630d12f.webp",
       "alt": "Ask Anything 会话历史",
       "sourceUrl": "https://github.com/joewongjc/type4me/blob/2760429662e614ea9b9ed2e85eb18417ed416974/README.md?plain=1#L255",
-      "originalUrl": "https://raw.githubusercontent.com/joewongjc/type4me/2760429662e614ea9b9ed2e85eb18417ed416974/docs/screenshots/screenshot-askit.png"
+      "originalUrl": "https://raw.githubusercontent.com/joewongjc/type4me/2760429662e614ea9b9ed2e85eb18417ed416974/docs/screenshots/screenshot-askit.png",
+      "animated": false
     },
     {
       "url": "/assets/repository-guides/media-846dee043edf254612a4e2b3.webp",
       "alt": "词汇管理",
       "sourceUrl": "https://github.com/joewongjc/type4me/blob/2760429662e614ea9b9ed2e85eb18417ed416974/README.md?plain=1#L491",
-      "originalUrl": "https://raw.githubusercontent.com/joewongjc/type4me/2760429662e614ea9b9ed2e85eb18417ed416974/docs/screenshots/screenshot-vocabulary.png"
+      "originalUrl": "https://raw.githubusercontent.com/joewongjc/type4me/2760429662e614ea9b9ed2e85eb18417ed416974/docs/screenshots/screenshot-vocabulary.png",
+      "animated": false
+    },
+    {
+      "url": "/assets/repository-guides/media-a1d12aebfbc916f12e0b5507.webp",
+      "alt": "界面预览",
+      "sourceUrl": "https://github.com/joewongjc/type4me/blob/2760429662e614ea9b9ed2e85eb18417ed416974/README.md#L56",
+      "originalUrl": "https://raw.githubusercontent.com/joewongjc/type4me/2760429662e614ea9b9ed2e85eb18417ed416974/docs/images/screenshot-1.webp",
+      "animated": false
+    },
+    {
+      "url": "/assets/repository-guides/media-537462552ef0179224833dff.webp",
+      "alt": "Intelli Sense 偏好与历史",
+      "sourceUrl": "https://github.com/joewongjc/type4me/blob/2760429662e614ea9b9ed2e85eb18417ed416974/README.md#L180",
+      "originalUrl": "https://raw.githubusercontent.com/joewongjc/type4me/2760429662e614ea9b9ed2e85eb18417ed416974/docs/screenshots/screenshot-intelli-sense-history.png",
+      "animated": false
+    },
+    {
+      "url": "/assets/repository-guides/media-f7945cafda0f6f56f3d67b16.webp",
+      "alt": "Type4Me 语音改口（原型示意图）",
+      "sourceUrl": "https://github.com/joewongjc/type4me/blob/2760429662e614ea9b9ed2e85eb18417ed416974/README.md#L664",
+      "originalUrl": "https://raw.githubusercontent.com/joewongjc/type4me/2760429662e614ea9b9ed2e85eb18417ed416974/docs/screenshots/prototype-revise.png",
+      "animated": false
     }
   ],
   "generatedBy": "claude-opus-5-5",
   "documentHash": "62eb79d36f4dbf490dcf0cdcca1d472e48ecb1b169d81541216bb0982dc7fb21",
   "mediaStatus": "archived",
-  "mediaFailures": []
+  "mediaFailures": [
+    {
+      "sourceUrl": "https://github.com/joewongjc/type4me/blob/2760429662e614ea9b9ed2e85eb18417ed416974/README.md#L12",
+      "reason": "unsupported_media_format"
+    }
+  ],
+  "mediaReferences": [
+    {
+      "label": "Type4Me - macOS 语音输入法",
+      "url": "https://github.com/joewongjc/type4me/blob/2760429662e614ea9b9ed2e85eb18417ed416974/README.md#L12"
+    }
+  ]
 }

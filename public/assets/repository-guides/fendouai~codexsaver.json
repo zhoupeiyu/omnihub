@@ -67,8 +67,28 @@
     "worker 产出的补丁仍需 Codex 或人工审查后再采用。"
   ],
   "references": [],
-  "media": [],
+  "media": [
+    {
+      "url": "/assets/repository-guides/media-58191abc8e9919c5cb9cdaf2.webp",
+      "alt": "CodexSaver",
+      "sourceUrl": "https://github.com/fendouai/CodexSaver/blob/fe44dc105070c1f40eef29d9be76438edeab9987/README.md#L9",
+      "originalUrl": "https://raw.githubusercontent.com/fendouai/CodexSaver/fe44dc105070c1f40eef29d9be76438edeab9987/CodexSaver.png",
+      "animated": false
+    }
+  ],
   "generatedBy": "claude-opus-5-5",
   "documentHash": "5ea294a238e575a2dcf7d50409568abe78bf8fe7c37c06f646a938f81a4c6b1a",
-  "mediaStatus": "none_in_official_documents"
+  "mediaStatus": "archived",
+  "mediaFailures": [
+    {
+      "sourceUrl": "https://github.com/fendouai/CodexSaver/blob/fe44dc105070c1f40eef29d9be76438edeab9987/README.md#L792",
+      "reason": "unsupported_media_format"
+    }
+  ],
+  "mediaReferences": [
+    {
+      "label": "Five-task benchmark",
+      "url": "https://github.com/fendouai/CodexSaver/blob/fe44dc105070c1f40eef29d9be76438edeab9987/README.md#L792"
+    }
+  ]
 }

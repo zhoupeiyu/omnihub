@@ -68,8 +68,28 @@
     "MuAPI 任务默认最长轮询 1800 秒，可在 shorts_generator/config.py 或环境变量中调整。"
   ],
   "references": [],
-  "media": [],
+  "media": [
+    {
+      "url": "/assets/repository-guides/media-cc592a3b4b54d9b222d1c64b.webp",
+      "alt": "longshorts",
+      "sourceUrl": "https://github.com/Anil-matcha/AI-Youtube-Shorts-Generator/blob/a57bb938ba50bf9654c2d5ca2af1295163454349/README.md#L17",
+      "originalUrl": "https://github.com/user-attachments/assets/3f5d1abf-bf3b-475f-8abf-5e253003453a",
+      "animated": false
+    }
+  ],
   "generatedBy": "claude-opus-5-5",
   "documentHash": "6b52c0084c2e88b9442f8da64e9ed67abf2a910bf321b3df7b712da29e2f9023",
-  "mediaStatus": "none_in_official_documents"
+  "mediaStatus": "archived",
+  "mediaFailures": [
+    {
+      "sourceUrl": "https://github.com/Anil-matcha/AI-Youtube-Shorts-Generator/blob/a57bb938ba50bf9654c2d5ca2af1295163454349/README.md#L10",
+      "reason": "unsupported_media_host"
+    }
+  ],
+  "mediaReferences": [
+    {
+      "label": "AI YouTube Shorts Generator",
+      "url": "https://github.com/Anil-matcha/AI-Youtube-Shorts-Generator/blob/a57bb938ba50bf9654c2d5ca2af1295163454349/README.md#L10"
+    }
+  ]
 }

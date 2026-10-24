@@ -68,5 +68,17 @@
   "media": [],
   "generatedBy": "claude-opus-5-5",
   "documentHash": "2406f2a097c817d719d4d4b411f3d4f25aa2dbe13c7ff5dfbe97a1cabd0218bc",
-  "mediaStatus": "none_in_official_documents"
+  "mediaStatus": "unavailable",
+  "mediaFailures": [
+    {
+      "sourceUrl": "https://github.com/kingskuan/Claudebot-vibe/blob/20ff99cefa91f10f257be5daa39e20204d6ec492/README.md#L11",
+      "reason": "unsupported_media_host"
+    }
+  ],
+  "mediaReferences": [
+    {
+      "label": "Deploy on Railway",
+      "url": "https://github.com/kingskuan/Claudebot-vibe/blob/20ff99cefa91f10f257be5daa39e20204d6ec492/README.md#L11"
+    }
+  ]
 }

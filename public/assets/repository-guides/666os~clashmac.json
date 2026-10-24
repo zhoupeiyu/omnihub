@@ -68,23 +68,37 @@
       "url": "/assets/repository-guides/media-734832cb2e63127adc1b6682.webp",
       "alt": "666OS/ClashMac 官方演示 1",
       "sourceUrl": "https://github.com/666OS/ClashMac/blob/6bd4eee77ac3face93d6ba38fdc505e15a4e376e/README.md?plain=1#L29",
-      "originalUrl": "https://raw.githubusercontent.com/666OS/ClashMac/6bd4eee77ac3face93d6ba38fdc505e15a4e376e/assets/dashboard_b.jpg"
+      "originalUrl": "https://raw.githubusercontent.com/666OS/ClashMac/6bd4eee77ac3face93d6ba38fdc505e15a4e376e/assets/dashboard_b.jpg",
+      "animated": false
     },
     {
       "url": "/assets/repository-guides/media-1af78654dfee4200199c8cb2.webp",
       "alt": "666OS/ClashMac 官方演示 2",
       "sourceUrl": "https://github.com/666OS/ClashMac/blob/6bd4eee77ac3face93d6ba38fdc505e15a4e376e/README.md?plain=1#L32",
-      "originalUrl": "https://raw.githubusercontent.com/666OS/ClashMac/6bd4eee77ac3face93d6ba38fdc505e15a4e376e/assets/Route_b.jpg"
+      "originalUrl": "https://raw.githubusercontent.com/666OS/ClashMac/6bd4eee77ac3face93d6ba38fdc505e15a4e376e/assets/Route_b.jpg",
+      "animated": false
     },
     {
       "url": "/assets/repository-guides/media-d743fd76e72e672e437263a9.webp",
       "alt": "666OS/ClashMac 官方演示 3",
       "sourceUrl": "https://github.com/666OS/ClashMac/blob/6bd4eee77ac3face93d6ba38fdc505e15a4e376e/README.md?plain=1#L38",
-      "originalUrl": "https://raw.githubusercontent.com/666OS/ClashMac/6bd4eee77ac3face93d6ba38fdc505e15a4e376e/assets/menu_b.jpg"
+      "originalUrl": "https://raw.githubusercontent.com/666OS/ClashMac/6bd4eee77ac3face93d6ba38fdc505e15a4e376e/assets/menu_b.jpg",
+      "animated": false
     }
   ],
   "generatedBy": "claude-opus-5-5",
   "documentHash": "f51c5f0c4388f36c06db5aaf27c9600da3c3339d1d43800de06ce819a5979e0b",
   "mediaStatus": "archived",
-  "mediaFailures": []
+  "mediaFailures": [
+    {
+      "sourceUrl": "https://github.com/666OS/ClashMac/blob/6bd4eee77ac3face93d6ba38fdc505e15a4e376e/README.md#L35",
+      "reason": "media_http_404"
+    }
+  ],
+  "mediaReferences": [
+    {
+      "label": "Topology",
+      "url": "https://github.com/666OS/ClashMac/blob/6bd4eee77ac3face93d6ba38fdc505e15a4e376e/README.md#L35"
+    }
+  ]
 }

@@ -75,7 +75,19 @@
   "mediaStatus": "unavailable",
   "mediaFailures": [
     {
+      "sourceUrl": "https://github.com/zhashut/goread/blob/618a6acfc12a2a50db881caab4353656b4c5c564/README.md#L4",
+      "reason": "unsupported_media_format"
+    },
+    {
+      "sourceUrl": "https://github.com/zhashut/goread/blob/618a6acfc12a2a50db881caab4353656b4c5c564/README.md#L23",
+      "reason": "unsupported_media_host"
+    },
+    {
       "sourceUrl": "https://github.com/zhashut/goread/blob/618a6acfc12a2a50db881caab4353656b4c5c564/README.zh.md#L20",
+      "reason": "unsupported_media_host"
+    },
+    {
+      "sourceUrl": "https://github.com/zhashut/goread/blob/618a6acfc12a2a50db881caab4353656b4c5c564/README.md#L24",
       "reason": "unsupported_media_host"
     },
     {
@@ -83,8 +95,82 @@
       "reason": "unsupported_media_host"
     },
     {
+      "sourceUrl": "https://github.com/zhashut/goread/blob/618a6acfc12a2a50db881caab4353656b4c5c564/README.md#L25",
+      "reason": "unsupported_media_host"
+    },
+    {
       "sourceUrl": "https://github.com/zhashut/goread/blob/618a6acfc12a2a50db881caab4353656b4c5c564/README.zh.md#L22",
       "reason": "unsupported_media_host"
+    },
+    {
+      "sourceUrl": "https://github.com/zhashut/goread/blob/618a6acfc12a2a50db881caab4353656b4c5c564/README.md#L26",
+      "reason": "unsupported_media_host"
+    },
+    {
+      "sourceUrl": "https://github.com/zhashut/goread/blob/618a6acfc12a2a50db881caab4353656b4c5c564/README.zh.md#L23",
+      "reason": "unsupported_media_host"
+    },
+    {
+      "sourceUrl": "https://github.com/zhashut/goread/blob/618a6acfc12a2a50db881caab4353656b4c5c564/README.md#L27",
+      "reason": "unsupported_media_host"
+    },
+    {
+      "sourceUrl": "https://github.com/zhashut/goread/blob/618a6acfc12a2a50db881caab4353656b4c5c564/README.zh.md#L24",
+      "reason": "unsupported_media_host"
+    },
+    {
+      "sourceUrl": "https://github.com/zhashut/goread/blob/618a6acfc12a2a50db881caab4353656b4c5c564/README.md#L28",
+      "reason": "unsupported_media_host"
+    }
+  ],
+  "mediaReferences": [
+    {
+      "label": "GoRead Icon",
+      "url": "https://github.com/zhashut/goread/blob/618a6acfc12a2a50db881caab4353656b4c5c564/README.md#L4"
+    },
+    {
+      "label": "GoRead界面截图",
+      "url": "https://github.com/zhashut/goread/blob/618a6acfc12a2a50db881caab4353656b4c5c564/README.md#L23"
+    },
+    {
+      "label": "GoRead界面截图",
+      "url": "https://github.com/zhashut/goread/blob/618a6acfc12a2a50db881caab4353656b4c5c564/README.zh.md#L20"
+    },
+    {
+      "label": "GoRead界面截图",
+      "url": "https://github.com/zhashut/goread/blob/618a6acfc12a2a50db881caab4353656b4c5c564/README.md#L24"
+    },
+    {
+      "label": "GoRead界面截图",
+      "url": "https://github.com/zhashut/goread/blob/618a6acfc12a2a50db881caab4353656b4c5c564/README.zh.md#L21"
+    },
+    {
+      "label": "GoRead界面截图",
+      "url": "https://github.com/zhashut/goread/blob/618a6acfc12a2a50db881caab4353656b4c5c564/README.md#L25"
+    },
+    {
+      "label": "GoRead界面截图",
+      "url": "https://github.com/zhashut/goread/blob/618a6acfc12a2a50db881caab4353656b4c5c564/README.zh.md#L22"
+    },
+    {
+      "label": "GoRead界面截图",
+      "url": "https://github.com/zhashut/goread/blob/618a6acfc12a2a50db881caab4353656b4c5c564/README.md#L26"
+    },
+    {
+      "label": "GoRead界面截图",
+      "url": "https://github.com/zhashut/goread/blob/618a6acfc12a2a50db881caab4353656b4c5c564/README.zh.md#L23"
+    },
+    {
+      "label": "GoRead界面截图",
+      "url": "https://github.com/zhashut/goread/blob/618a6acfc12a2a50db881caab4353656b4c5c564/README.md#L27"
+    },
+    {
+      "label": "GoRead界面截图",
+      "url": "https://github.com/zhashut/goread/blob/618a6acfc12a2a50db881caab4353656b4c5c564/README.zh.md#L24"
+    },
+    {
+      "label": "GoRead界面截图",
+      "url": "https://github.com/zhashut/goread/blob/618a6acfc12a2a50db881caab4353656b4c5c564/README.md#L28"
     }
   ]
 }

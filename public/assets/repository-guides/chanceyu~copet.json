@@ -66,7 +66,15 @@
       "url": "/assets/repository-guides/media-28b1ee288dd7e546aa4eb23e.webp",
       "alt": "ChanceYu/CoPet 官方演示 1",
       "sourceUrl": "https://github.com/ChanceYu/CoPet/blob/e75658a22705c2f698289a0ff67e9fb652770e94/README.zh.md?plain=1#L8",
-      "originalUrl": "https://raw.githubusercontent.com/ChanceYu/CoPet/e75658a22705c2f698289a0ff67e9fb652770e94/public/banner.zh.png"
+      "originalUrl": "https://raw.githubusercontent.com/ChanceYu/CoPet/e75658a22705c2f698289a0ff67e9fb652770e94/public/banner.zh.png",
+      "animated": false
+    },
+    {
+      "url": "/assets/repository-guides/media-64d71a3ba637f749f21a7563.webp",
+      "alt": "CoPet",
+      "sourceUrl": "https://github.com/ChanceYu/CoPet/blob/e75658a22705c2f698289a0ff67e9fb652770e94/README.md#L8",
+      "originalUrl": "https://raw.githubusercontent.com/ChanceYu/CoPet/e75658a22705c2f698289a0ff67e9fb652770e94/public/banner.png",
+      "animated": false
     }
   ],
   "generatedBy": "claude-opus-5-5",
@@ -74,12 +82,102 @@
   "mediaStatus": "archived",
   "mediaFailures": [
     {
-      "sourceUrl": "https://github.com/ChanceYu/CoPet/blob/e75658a22705c2f698289a0ff67e9fb652770e94/README.zh.md#L18",
+      "sourceUrl": "https://github.com/ChanceYu/CoPet/blob/e75658a22705c2f698289a0ff67e9fb652770e94/README.md#L18",
       "reason": "non_demo_dimensions"
     },
     {
-      "sourceUrl": "https://github.com/ChanceYu/CoPet/blob/e75658a22705c2f698289a0ff67e9fb652770e94/README.zh.md#L20",
+      "sourceUrl": "https://github.com/ChanceYu/CoPet/blob/e75658a22705c2f698289a0ff67e9fb652770e94/README.md#L19",
       "reason": "non_demo_dimensions"
+    },
+    {
+      "sourceUrl": "https://github.com/ChanceYu/CoPet/blob/e75658a22705c2f698289a0ff67e9fb652770e94/README.md#L20",
+      "reason": "non_demo_dimensions"
+    },
+    {
+      "sourceUrl": "https://github.com/ChanceYu/CoPet/blob/e75658a22705c2f698289a0ff67e9fb652770e94/README.md#L21",
+      "reason": "non_demo_dimensions"
+    },
+    {
+      "sourceUrl": "https://github.com/ChanceYu/CoPet/blob/e75658a22705c2f698289a0ff67e9fb652770e94/README.md#L22",
+      "reason": "non_demo_dimensions"
+    },
+    {
+      "sourceUrl": "https://github.com/ChanceYu/CoPet/blob/e75658a22705c2f698289a0ff67e9fb652770e94/README.md#L25",
+      "reason": "non_demo_dimensions"
+    },
+    {
+      "sourceUrl": "https://github.com/ChanceYu/CoPet/blob/e75658a22705c2f698289a0ff67e9fb652770e94/README.md#L26",
+      "reason": "non_demo_dimensions"
+    },
+    {
+      "sourceUrl": "https://github.com/ChanceYu/CoPet/blob/e75658a22705c2f698289a0ff67e9fb652770e94/README.md#L27",
+      "reason": "non_demo_dimensions"
+    },
+    {
+      "sourceUrl": "https://github.com/ChanceYu/CoPet/blob/e75658a22705c2f698289a0ff67e9fb652770e94/README.md#L28",
+      "reason": "non_demo_dimensions"
+    },
+    {
+      "sourceUrl": "https://github.com/ChanceYu/CoPet/blob/e75658a22705c2f698289a0ff67e9fb652770e94/README.md#L29",
+      "reason": "non_demo_dimensions"
+    },
+    {
+      "sourceUrl": "https://github.com/ChanceYu/CoPet/blob/e75658a22705c2f698289a0ff67e9fb652770e94/README.md#L32",
+      "reason": "non_demo_dimensions"
+    },
+    {
+      "sourceUrl": "https://github.com/ChanceYu/CoPet/blob/e75658a22705c2f698289a0ff67e9fb652770e94/README.md#L33",
+      "reason": "non_demo_dimensions"
+    }
+  ],
+  "mediaReferences": [
+    {
+      "label": "CoPet Neo",
+      "url": "https://github.com/ChanceYu/CoPet/blob/e75658a22705c2f698289a0ff67e9fb652770e94/README.md#L18"
+    },
+    {
+      "label": "CoPet Nia",
+      "url": "https://github.com/ChanceYu/CoPet/blob/e75658a22705c2f698289a0ff67e9fb652770e94/README.md#L19"
+    },
+    {
+      "label": "CoPet Mecha",
+      "url": "https://github.com/ChanceYu/CoPet/blob/e75658a22705c2f698289a0ff67e9fb652770e94/README.md#L20"
+    },
+    {
+      "label": "DJ Fuzz",
+      "url": "https://github.com/ChanceYu/CoPet/blob/e75658a22705c2f698289a0ff67e9fb652770e94/README.md#L21"
+    },
+    {
+      "label": "Lucky Dog",
+      "url": "https://github.com/ChanceYu/CoPet/blob/e75658a22705c2f698289a0ff67e9fb652770e94/README.md#L22"
+    },
+    {
+      "label": "Azure Dragon",
+      "url": "https://github.com/ChanceYu/CoPet/blob/e75658a22705c2f698289a0ff67e9fb652770e94/README.md#L25"
+    },
+    {
+      "label": "Waddly Duck",
+      "url": "https://github.com/ChanceYu/CoPet/blob/e75658a22705c2f698289a0ff67e9fb652770e94/README.md#L26"
+    },
+    {
+      "label": "Cloud Goat",
+      "url": "https://github.com/ChanceYu/CoPet/blob/e75658a22705c2f698289a0ff67e9fb652770e94/README.md#L27"
+    },
+    {
+      "label": "Goku",
+      "url": "https://github.com/ChanceYu/CoPet/blob/e75658a22705c2f698289a0ff67e9fb652770e94/README.md#L28"
+    },
+    {
+      "label": "Chestnut Horse",
+      "url": "https://github.com/ChanceYu/CoPet/blob/e75658a22705c2f698289a0ff67e9fb652770e94/README.md#L29"
+    },
+    {
+      "label": "Clever Monkey",
+      "url": "https://github.com/ChanceYu/CoPet/blob/e75658a22705c2f698289a0ff67e9fb652770e94/README.md#L32"
+    },
+    {
+      "label": "Orange Cat",
+      "url": "https://github.com/ChanceYu/CoPet/blob/e75658a22705c2f698289a0ff67e9fb652770e94/README.md#L33"
     }
   ]
 }

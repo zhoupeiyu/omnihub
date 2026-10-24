@@ -62,8 +62,36 @@
     "仓库 license 字段为 NOASSERTION。"
   ],
   "references": [],
-  "media": [],
+  "media": [
+    {
+      "url": "/assets/repository-guides/media-d4e66e430aa7fd2402d674c1.webp",
+      "alt": "Awesome Claude Code",
+      "sourceUrl": "https://github.com/hesreallyhim/awesome-claude-code/blob/e1ad6945d76dbd3a6faebf713aaedff4017d82cd/README.md#L1",
+      "originalUrl": "https://raw.githubusercontent.com/hesreallyhim/awesome-claude-code/e1ad6945d76dbd3a6faebf713aaedff4017d82cd/assets/awesome-claude-code-banner.png",
+      "animated": false
+    }
+  ],
   "generatedBy": "claude-opus-5-5",
   "documentHash": "6ab722f7a401152c02ed98eb9fd7f4f7b8cf259a2abdb5b056c3a7c4632b22a3",
-  "mediaStatus": "none_in_official_documents"
+  "mediaStatus": "archived",
+  "mediaFailures": [
+    {
+      "sourceUrl": "https://github.com/hesreallyhim/awesome-claude-code/blob/e1ad6945d76dbd3a6faebf713aaedff4017d82cd/README.md#L21",
+      "reason": "unsupported_media_format"
+    },
+    {
+      "sourceUrl": "https://github.com/hesreallyhim/awesome-claude-code/blob/e1ad6945d76dbd3a6faebf713aaedff4017d82cd/README.md#L33",
+      "reason": "unsupported_media_format"
+    }
+  ],
+  "mediaReferences": [
+    {
+      "label": "Featured Claude Code Projects",
+      "url": "https://github.com/hesreallyhim/awesome-claude-code/blob/e1ad6945d76dbd3a6faebf713aaedff4017d82cd/README.md#L21"
+    },
+    {
+      "label": "Recently Added Resources",
+      "url": "https://github.com/hesreallyhim/awesome-claude-code/blob/e1ad6945d76dbd3a6faebf713aaedff4017d82cd/README.md#L33"
+    }
+  ]
 }

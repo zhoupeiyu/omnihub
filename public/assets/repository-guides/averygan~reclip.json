@@ -50,11 +50,13 @@
       "url": "/assets/repository-guides/media-58ec4588f6642210fbe32848.webp",
       "alt": "averygan/reclip 官方演示 1",
       "sourceUrl": "https://github.com/averygan/reclip/blob/1d161d15a4fe93d9b3371377f0a421dc3e965b10/README.md?plain=1#L10",
-      "originalUrl": "https://raw.githubusercontent.com/averygan/reclip/1d161d15a4fe93d9b3371377f0a421dc3e965b10/assets/preview-mp3.png"
+      "originalUrl": "https://raw.githubusercontent.com/averygan/reclip/1d161d15a4fe93d9b3371377f0a421dc3e965b10/assets/preview-mp3.png",
+      "animated": false
     }
   ],
   "generatedBy": "claude-opus-5-5",
   "documentHash": "9d6fbe406f7bdb470b8071d9b9f93b21319ab2b35106ea437adc446541fff43d",
   "mediaStatus": "archived",
-  "mediaFailures": []
+  "mediaFailures": [],
+  "mediaReferences": []
 }

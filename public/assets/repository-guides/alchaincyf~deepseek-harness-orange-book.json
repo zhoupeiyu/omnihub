@@ -58,17 +58,44 @@
       "url": "/assets/repository-guides/media-c7f8c5b1a79be4afe6ba7fb4.webp",
       "alt": "60秒能力演示预览：开机 · PTC · 创造模式 · 拆开",
       "sourceUrl": "https://github.com/alchaincyf/deepseek-harness-orange-book/blob/6242955ec87f37479cc0c9164e163692f9ea7ab0/README.md?plain=1#L31",
-      "originalUrl": "https://raw.githubusercontent.com/alchaincyf/deepseek-harness-orange-book/6242955ec87f37479cc0c9164e163692f9ea7ab0/launch-film-60s-preview.jpg"
+      "originalUrl": "https://raw.githubusercontent.com/alchaincyf/deepseek-harness-orange-book/6242955ec87f37479cc0c9164e163692f9ea7ab0/launch-film-60s-preview.jpg",
+      "animated": false
     },
     {
       "url": "/assets/repository-guides/media-a688a362716fdfff27ac56cb.webp",
       "alt": "杂志编辑风幻灯片预览：封面 · 事件流 · 创造模式 · 结论",
       "sourceUrl": "https://github.com/alchaincyf/deepseek-harness-orange-book/blob/6242955ec87f37479cc0c9164e163692f9ea7ab0/README.md?plain=1#L43",
-      "originalUrl": "https://raw.githubusercontent.com/alchaincyf/deepseek-harness-orange-book/6242955ec87f37479cc0c9164e163692f9ea7ab0/magazine-deck-preview.jpg"
+      "originalUrl": "https://raw.githubusercontent.com/alchaincyf/deepseek-harness-orange-book/6242955ec87f37479cc0c9164e163692f9ea7ab0/magazine-deck-preview.jpg",
+      "animated": false
+    },
+    {
+      "url": "/assets/repository-guides/media-78362c150876f36345063d41.webp",
+      "alt": "DeepSeek Harness 橙皮书封面",
+      "sourceUrl": "https://github.com/alchaincyf/deepseek-harness-orange-book/blob/6242955ec87f37479cc0c9164e163692f9ea7ab0/README.md#L4",
+      "originalUrl": "https://raw.githubusercontent.com/alchaincyf/deepseek-harness-orange-book/6242955ec87f37479cc0c9164e163692f9ea7ab0/banner.png",
+      "animated": false
+    },
+    {
+      "url": "/assets/repository-guides/media-0cc9a175b4ea8c2bee7b780b.webp",
+      "alt": "DeepSeek Harness橙皮书 · 15秒发布动画",
+      "sourceUrl": "https://github.com/alchaincyf/deepseek-harness-orange-book/blob/6242955ec87f37479cc0c9164e163692f9ea7ab0/README.md#L18",
+      "originalUrl": "https://raw.githubusercontent.com/alchaincyf/deepseek-harness-orange-book/6242955ec87f37479cc0c9164e163692f9ea7ab0/launch-film.gif",
+      "animated": true
     }
   ],
   "generatedBy": "claude-opus-5-5",
   "documentHash": "efe821f49f1472022e9b9105ea296a0815f80d703860045102db28e5d29826f0",
   "mediaStatus": "archived",
-  "mediaFailures": []
+  "mediaFailures": [
+    {
+      "sourceUrl": "https://github.com/alchaincyf/deepseek-harness-orange-book/blob/6242955ec87f37479cc0c9164e163692f9ea7ab0/README.md#L149",
+      "reason": "unsupported_media_host"
+    }
+  ],
+  "mediaReferences": [
+    {
+      "label": "CC BY-NC-SA 4.0",
+      "url": "https://github.com/alchaincyf/deepseek-harness-orange-book/blob/6242955ec87f37479cc0c9164e163692f9ea7ab0/README.md#L149"
+    }
+  ]
 }

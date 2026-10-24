@@ -60,23 +60,34 @@
       "url": "/assets/repository-guides/media-b04da6a090081df076d506d9.webp",
       "alt": "微信 4.1.13 的「转发到其他应用」菜单：Dukou 的五条入口和系统自带的共享服务排在一起",
       "sourceUrl": "https://github.com/qzz0518/Dukou/blob/28f38d7ebb0f107d7bc8cc6ef367753c44250bef/README.md?plain=1#L16",
-      "originalUrl": "https://raw.githubusercontent.com/qzz0518/Dukou/28f38d7ebb0f107d7bc8cc6ef367753c44250bef/Resources/Screenshots/wechat-forward.png"
+      "originalUrl": "https://raw.githubusercontent.com/qzz0518/Dukou/28f38d7ebb0f107d7bc8cc6ef367753c44250bef/Resources/Screenshots/wechat-forward.png",
+      "animated": false
     },
     {
       "url": "/assets/repository-guides/media-71d14d75d25ad38ac616f849.webp",
       "alt": "Dukou 总览：入口开关、快捷微信转发、暂存架与记录",
       "sourceUrl": "https://github.com/qzz0518/Dukou/blob/28f38d7ebb0f107d7bc8cc6ef367753c44250bef/README.md?plain=1#L20",
-      "originalUrl": "https://raw.githubusercontent.com/qzz0518/Dukou/28f38d7ebb0f107d7bc8cc6ef367753c44250bef/Resources/Screenshots/overview.png"
+      "originalUrl": "https://raw.githubusercontent.com/qzz0518/Dukou/28f38d7ebb0f107d7bc8cc6ef367753c44250bef/Resources/Screenshots/overview.png",
+      "animated": false
     },
     {
       "url": "/assets/repository-guides/media-bcc8e57d1a1edc007a791331.webp",
       "alt": "快捷朋友圈转发设置，以及导出 ZIP 里自带的离线 HTML 聊天预览",
       "sourceUrl": "https://github.com/qzz0518/Dukou/blob/28f38d7ebb0f107d7bc8cc6ef367753c44250bef/README.md?plain=1#L24",
-      "originalUrl": "https://raw.githubusercontent.com/qzz0518/Dukou/28f38d7ebb0f107d7bc8cc6ef367753c44250bef/Resources/Screenshots/backup-preview.png"
+      "originalUrl": "https://raw.githubusercontent.com/qzz0518/Dukou/28f38d7ebb0f107d7bc8cc6ef367753c44250bef/Resources/Screenshots/backup-preview.png",
+      "animated": false
+    },
+    {
+      "url": "/assets/repository-guides/media-7025002b30527c318f2dffeb.webp",
+      "alt": "Dukou 图标",
+      "sourceUrl": "https://github.com/qzz0518/Dukou/blob/28f38d7ebb0f107d7bc8cc6ef367753c44250bef/README.md#L2",
+      "originalUrl": "https://raw.githubusercontent.com/qzz0518/Dukou/28f38d7ebb0f107d7bc8cc6ef367753c44250bef/Resources/Screenshots/app-icon-rounded.png",
+      "animated": false
     }
   ],
   "generatedBy": "claude-opus-5-5",
   "documentHash": "1df6c0663b9de79eadb177f8c686c3d3a6ba2bebf57413c9cb00a1e20a1d7726",
   "mediaStatus": "archived",
-  "mediaFailures": []
+  "mediaFailures": [],
+  "mediaReferences": []
 }

@@ -71,23 +71,48 @@
       "url": "/assets/repository-guides/media-a8630dab0c0b9453b4cafff3.webp",
       "alt": "liseami/ChunUI 官方演示 1",
       "sourceUrl": "https://github.com/liseami/ChunUI/blob/b240cbbdb9c6d7afc9f02d9ce4ddff5a25ce73bb/README.md?plain=1#L10",
-      "originalUrl": "https://raw.githubusercontent.com/liseami/ChunUI/b240cbbdb9c6d7afc9f02d9ce4ddff5a25ce73bb/docs/screenshots/gallery-home.jpg"
+      "originalUrl": "https://raw.githubusercontent.com/liseami/ChunUI/b240cbbdb9c6d7afc9f02d9ce4ddff5a25ce73bb/docs/screenshots/gallery-home.jpg",
+      "animated": false
     },
     {
       "url": "/assets/repository-guides/media-32ca5dd6f7b2f4211cf1908f.webp",
       "alt": "liseami/ChunUI 官方演示 2",
       "sourceUrl": "https://github.com/liseami/ChunUI/blob/b240cbbdb9c6d7afc9f02d9ce4ddff5a25ce73bb/README.md?plain=1#L10",
-      "originalUrl": "https://raw.githubusercontent.com/liseami/ChunUI/b240cbbdb9c6d7afc9f02d9ce4ddff5a25ce73bb/docs/screenshots/buttons.jpg"
+      "originalUrl": "https://raw.githubusercontent.com/liseami/ChunUI/b240cbbdb9c6d7afc9f02d9ce4ddff5a25ce73bb/docs/screenshots/buttons.jpg",
+      "animated": false
     },
     {
       "url": "/assets/repository-guides/media-2d50c1f8cc859b1145aa8444.webp",
       "alt": "liseami/ChunUI 官方演示 3",
       "sourceUrl": "https://github.com/liseami/ChunUI/blob/b240cbbdb9c6d7afc9f02d9ce4ddff5a25ce73bb/README.md?plain=1#L10",
-      "originalUrl": "https://raw.githubusercontent.com/liseami/ChunUI/b240cbbdb9c6d7afc9f02d9ce4ddff5a25ce73bb/docs/screenshots/ai-effects.jpg"
+      "originalUrl": "https://raw.githubusercontent.com/liseami/ChunUI/b240cbbdb9c6d7afc9f02d9ce4ddff5a25ce73bb/docs/screenshots/ai-effects.jpg",
+      "animated": false
+    },
+    {
+      "url": "/assets/repository-guides/media-c2adbe3a25823bac0836c7a7.webp",
+      "alt": "Cards & Tags",
+      "sourceUrl": "https://github.com/liseami/ChunUI/blob/b240cbbdb9c6d7afc9f02d9ce4ddff5a25ce73bb/README.md#L10",
+      "originalUrl": "https://raw.githubusercontent.com/liseami/ChunUI/b240cbbdb9c6d7afc9f02d9ce4ddff5a25ce73bb/docs/screenshots/cards-tags.jpg",
+      "animated": false
+    },
+    {
+      "url": "/assets/repository-guides/media-5444795aa506141cf3dfaa43.webp",
+      "alt": "Ambient",
+      "sourceUrl": "https://github.com/liseami/ChunUI/blob/b240cbbdb9c6d7afc9f02d9ce4ddff5a25ce73bb/README.md#L10",
+      "originalUrl": "https://raw.githubusercontent.com/liseami/ChunUI/b240cbbdb9c6d7afc9f02d9ce4ddff5a25ce73bb/docs/screenshots/ambient.jpg",
+      "animated": false
+    },
+    {
+      "url": "/assets/repository-guides/media-51c2475d4655f82670e3961c.webp",
+      "alt": "Shader Zoo",
+      "sourceUrl": "https://github.com/liseami/ChunUI/blob/b240cbbdb9c6d7afc9f02d9ce4ddff5a25ce73bb/README.md#L10",
+      "originalUrl": "https://raw.githubusercontent.com/liseami/ChunUI/b240cbbdb9c6d7afc9f02d9ce4ddff5a25ce73bb/docs/screenshots/shader-zoo.jpg",
+      "animated": false
     }
   ],
   "generatedBy": "claude-opus-5-5",
   "documentHash": "4cfa96bac584f29fe5dfcfbd6d87bcdcf8e404ac818b656dba4bc0d1f8f75da4",
   "mediaStatus": "archived",
-  "mediaFailures": []
+  "mediaFailures": [],
+  "mediaReferences": []
 }

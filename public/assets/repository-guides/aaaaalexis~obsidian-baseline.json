@@ -57,23 +57,41 @@
       "url": "/assets/repository-guides/media-1da3c9cceead68edbd249f3d.webp",
       "alt": "svnaxis/obsidian-baseline 官方演示 1",
       "sourceUrl": "https://github.com/svnaxis/obsidian-baseline/blob/8c56e831e1abb1d3841c4ffdecbe06b5182fbc68/README.md?plain=1#L35",
-      "originalUrl": "https://raw.githubusercontent.com/svnaxis/obsidian-baseline/8c56e831e1abb1d3841c4ffdecbe06b5182fbc68/img/elements.png"
+      "originalUrl": "https://raw.githubusercontent.com/svnaxis/obsidian-baseline/8c56e831e1abb1d3841c4ffdecbe06b5182fbc68/img/elements.png",
+      "animated": false
     },
     {
       "url": "/assets/repository-guides/media-a8d392aa733623ace8b940c6.webp",
       "alt": "svnaxis/obsidian-baseline 官方演示 2",
       "sourceUrl": "https://github.com/svnaxis/obsidian-baseline/blob/8c56e831e1abb1d3841c4ffdecbe06b5182fbc68/README.md?plain=1#L39",
-      "originalUrl": "https://raw.githubusercontent.com/svnaxis/obsidian-baseline/8c56e831e1abb1d3841c4ffdecbe06b5182fbc68/img/colors.png"
+      "originalUrl": "https://raw.githubusercontent.com/svnaxis/obsidian-baseline/8c56e831e1abb1d3841c4ffdecbe06b5182fbc68/img/colors.png",
+      "animated": false
     },
     {
       "url": "/assets/repository-guides/media-0ba3303b46da412381dbd9e3.webp",
       "alt": "svnaxis/obsidian-baseline 官方演示 3",
       "sourceUrl": "https://github.com/svnaxis/obsidian-baseline/blob/8c56e831e1abb1d3841c4ffdecbe06b5182fbc68/README.md?plain=1#L43",
-      "originalUrl": "https://raw.githubusercontent.com/svnaxis/obsidian-baseline/8c56e831e1abb1d3841c4ffdecbe06b5182fbc68/img/mobile.png"
+      "originalUrl": "https://raw.githubusercontent.com/svnaxis/obsidian-baseline/8c56e831e1abb1d3841c4ffdecbe06b5182fbc68/img/mobile.png",
+      "animated": false
+    },
+    {
+      "url": "/assets/repository-guides/media-e0d615f4aa14f433a4b09a25.webp",
+      "alt": "项目介绍",
+      "sourceUrl": "https://github.com/svnaxis/obsidian-baseline/blob/8c56e831e1abb1d3841c4ffdecbe06b5182fbc68/README.md#L3",
+      "originalUrl": "https://raw.githubusercontent.com/svnaxis/obsidian-baseline/8c56e831e1abb1d3841c4ffdecbe06b5182fbc68/img/hero.png",
+      "animated": false
+    },
+    {
+      "url": "/assets/repository-guides/media-129b747198a2098f16f943e5.webp",
+      "alt": "[Alternate checkboxes](https://github.com/damiankorcz/Alternative-Checkboxes-Reference-Set)",
+      "sourceUrl": "https://github.com/svnaxis/obsidian-baseline/blob/8c56e831e1abb1d3841c4ffdecbe06b5182fbc68/README.md#L155",
+      "originalUrl": "https://raw.githubusercontent.com/svnaxis/obsidian-baseline/8c56e831e1abb1d3841c4ffdecbe06b5182fbc68/img/checkbox.png",
+      "animated": false
     }
   ],
   "generatedBy": "claude-opus-5-5",
   "documentHash": "9d637663651e5d5ee29cc6c184d8c672abd778540915fe507ce61b0825ddd198",
   "mediaStatus": "archived",
-  "mediaFailures": []
+  "mediaFailures": [],
+  "mediaReferences": []
 }

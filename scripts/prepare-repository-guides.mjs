@@ -1,14 +1,15 @@
 // Produces local, resumable derived guides. Never imports the database or deploys.
-import {readFile,writeFile,mkdir,rename,stat,mkdtemp,rm} from 'node:fs/promises';
+import {readFile,writeFile,mkdir,rename,stat} from 'node:fs/promises';
 import path from 'node:path';
-import {tmpdir} from 'node:os';
 import {execFile} from 'node:child_process';
 import {promisify} from 'node:util';
 import {fileURLToPath} from 'node:url';
 import {randomUUID} from 'node:crypto';
 import {loadContentModelConfig} from '../lib/content-model.js';
 import {getRepositoryGuide} from '../public/repository-guides.js';
-import {hash,repositoryKey,guideFilename,fetchGithubJson,fetchMediaBytes,boundedResponse,extractDocument,selectEvidence,compileGuideBatch,sanitizeGuideCommands,unavailableGuide,GUIDE_PROMPT} from '../lib/repository-guide-pipeline.js';
+import {hash,repositoryKey,guideFilename,fetchGithubJson,boundedResponse,extractDocument,selectEvidence,compileGuideBatch,sanitizeGuideCommands,unavailableGuide,GUIDE_PROMPT} from '../lib/repository-guide-pipeline.js';
+
+import {archiveRepositoryMedia} from '../lib/repository-guide-media.js';
 
 const exec=promisify(execFile),root=path.resolve(path.dirname(fileURLToPath(import.meta.url)),'..');
 const option=(name,fallback)=>{const i=process.argv.indexOf(name);return i<0?fallback:process.argv[i+1];};
@@ -232,34 +233,19 @@ if(mode==='media') {
   }
   const selected=limit?records.slice(0,limit):records;
   await pool(selected,async guide=>{
-    const media=[],failures=[];
+    const media=[],failures=[],mediaReferences=[];
     const previous=await json(outputPath(guide.key));
     for(const item of guide.selectedMedia) {
       const archived=previous?.media?.find(m=>m.originalUrl===item.url);
       if(archived && /^\/assets\/repository-guides\/media-[a-f0-9]{24}\.webp$/.test(archived.url)) {
         try {await stat(path.join(outputDirectory,path.basename(archived.url)));media.push({...archived,sourceUrl:item.sourceUrl});continue;} catch { /* Retry missing local media. */ }
       }
-      const temp=await mkdtemp(path.join(tmpdir(),'omnihub-guide-media-'));
       try {
-        const {bytes,extension}=await fetchMediaBytes(item.url);
-        const input=path.join(temp,`source.${extension}`),output=path.join(temp,'preview.webp');
-        await writeFile(input,bytes);
-        const probe=await exec('ffprobe',['-v','error','-select_streams','v:0','-show_entries','stream=width,height','-of','json',input],{maxBuffer:65536,timeout:15000});
-        const dimensions=JSON.parse(probe.stdout).streams?.[0];
-        if(!dimensions || dimensions.width<300||dimensions.height<160||dimensions.width/dimensions.height>5.5||dimensions.height/dimensions.width>5.5||dimensions.width*dimensions.height>60_000_000)throw new Error('non_demo_dimensions');
-        const args=extension==='gif'?['-quiet','-lossy','-q','75',input,'-o',output]:['-quiet','-q','80',input,'-o',output];
-        if(extension!=='gif' && dimensions.width>1800)args.splice(0,0,'-resize','1800','0');
-        await exec(extension==='gif'?'gif2webp':'cwebp',args,{maxBuffer:65536,timeout:20000});
-        const converted=await readFile(output),name=`media-${hash(converted).slice(0,24)}.webp`;
-        if(converted.length>2_000_000)throw new Error('media_too_large');
-        await saveBytes(path.join(outputDirectory,name),converted);
-        const alt=/[\u3400-\u9fff]/.test(item.alt||'')?item.alt.slice(0,100):`${guide.canonicalKey||guide.key} 官方演示 ${media.length+1}`;
-        media.push({url:`/assets/repository-guides/${name}`,alt,sourceUrl:item.sourceUrl,originalUrl:item.url});
-      } catch(error) {failures.push({sourceUrl:item.sourceUrl,reason:safeFailure(error)});}
-      finally {await rm(temp,{recursive:true,force:true});}
+        media.push(await archiveRepositoryMedia(item, outputDirectory));
+      } catch(error) {failures.push({sourceUrl:item.sourceUrl,reason:safeFailure(error)});mediaReferences.push({label:item.alt||item.heading||'原文演示',url:item.sourceUrl});}
     }
     const {selectedMedia,...published}=guide;
-    published.media=media;published.mediaStatus=media.length?'archived':'unavailable';published.mediaFailures=failures;
+    published.media=media;published.mediaStatus=media.length?'archived':'unavailable';published.mediaFailures=failures;published.mediaReferences=mediaReferences;
     await save(outputPath(guide.key),published);
     progress(mode,guide.key,`${media.length}/${guide.selectedMedia.length}`,selected.length);
   });

@@ -54,14 +54,108 @@
     "多用户权限和网页嵌入聊天组件仅 Docker 版提供。"
   ],
   "references": [],
-  "media": [],
+  "media": [
+    {
+      "url": "/assets/repository-guides/media-4f8c292c53e4c3f6fe274fae.webp",
+      "alt": "Watch the video",
+      "sourceUrl": "https://github.com/Mintplex-Labs/anything-llm/blob/fb299da0767060400212ca8b2a365dc92234dae5/README.md#L50",
+      "originalUrl": "https://raw.githubusercontent.com/Mintplex-Labs/anything-llm/fb299da0767060400212ca8b2a365dc92234dae5/images/youtube.png",
+      "animated": false
+    }
+  ],
   "generatedBy": "claude-opus-5-5",
   "documentHash": "1ddced19c04258cdf3cf932a48f5cb3f39769624a5ea9d835b6bac5f2f35e5d0",
-  "mediaStatus": "unavailable",
+  "mediaStatus": "archived",
   "mediaFailures": [
     {
       "sourceUrl": "https://github.com/Mintplex-Labs/anything-llm/blob/fb299da0767060400212ca8b2a365dc92234dae5/README.md#L45",
-      "reason": "response_too_large"
+      "reason": "conversion_failed"
+    },
+    {
+      "sourceUrl": "https://github.com/Mintplex-Labs/anything-llm/blob/fb299da0767060400212ca8b2a365dc92234dae5/README.md#L186",
+      "reason": "non_demo_dimensions"
+    },
+    {
+      "sourceUrl": "https://github.com/Mintplex-Labs/anything-llm/blob/fb299da0767060400212ca8b2a365dc92234dae5/README.md#L186",
+      "reason": "non_demo_dimensions"
+    },
+    {
+      "sourceUrl": "https://github.com/Mintplex-Labs/anything-llm/blob/fb299da0767060400212ca8b2a365dc92234dae5/README.md#L186",
+      "reason": "unsupported_media_host"
+    },
+    {
+      "sourceUrl": "https://github.com/Mintplex-Labs/anything-llm/blob/fb299da0767060400212ca8b2a365dc92234dae5/README.md#L186",
+      "reason": "unsupported_media_host"
+    },
+    {
+      "sourceUrl": "https://github.com/Mintplex-Labs/anything-llm/blob/fb299da0767060400212ca8b2a365dc92234dae5/README.md#L186",
+      "reason": "unsupported_media_host"
+    },
+    {
+      "sourceUrl": "https://github.com/Mintplex-Labs/anything-llm/blob/fb299da0767060400212ca8b2a365dc92234dae5/README.md#L190",
+      "reason": "unsupported_media_host"
+    },
+    {
+      "sourceUrl": "https://github.com/Mintplex-Labs/anything-llm/blob/fb299da0767060400212ca8b2a365dc92234dae5/README.md#L190",
+      "reason": "unsupported_media_host"
+    },
+    {
+      "sourceUrl": "https://github.com/Mintplex-Labs/anything-llm/blob/fb299da0767060400212ca8b2a365dc92234dae5/README.md#L190",
+      "reason": "unsupported_media_host"
+    },
+    {
+      "sourceUrl": "https://github.com/Mintplex-Labs/anything-llm/blob/fb299da0767060400212ca8b2a365dc92234dae5/README.md#L190",
+      "reason": "unsupported_media_host"
+    },
+    {
+      "sourceUrl": "https://github.com/Mintplex-Labs/anything-llm/blob/fb299da0767060400212ca8b2a365dc92234dae5/README.md#L194",
+      "reason": "unsupported_media_host"
+    }
+  ],
+  "mediaReferences": [
+    {
+      "label": "Chatting",
+      "url": "https://github.com/Mintplex-Labs/anything-llm/blob/fb299da0767060400212ca8b2a365dc92234dae5/README.md#L45"
+    },
+    {
+      "label": "Deploy on Docker",
+      "url": "https://github.com/Mintplex-Labs/anything-llm/blob/fb299da0767060400212ca8b2a365dc92234dae5/README.md#L186"
+    },
+    {
+      "label": "Deploy on AWS",
+      "url": "https://github.com/Mintplex-Labs/anything-llm/blob/fb299da0767060400212ca8b2a365dc92234dae5/README.md#L186"
+    },
+    {
+      "label": "Deploy on GCP",
+      "url": "https://github.com/Mintplex-Labs/anything-llm/blob/fb299da0767060400212ca8b2a365dc92234dae5/README.md#L186"
+    },
+    {
+      "label": "Deploy on DigitalOcean",
+      "url": "https://github.com/Mintplex-Labs/anything-llm/blob/fb299da0767060400212ca8b2a365dc92234dae5/README.md#L186"
+    },
+    {
+      "label": "Deploy on Render.com",
+      "url": "https://github.com/Mintplex-Labs/anything-llm/blob/fb299da0767060400212ca8b2a365dc92234dae5/README.md#L186"
+    },
+    {
+      "label": "Deploy on Railway",
+      "url": "https://github.com/Mintplex-Labs/anything-llm/blob/fb299da0767060400212ca8b2a365dc92234dae5/README.md#L190"
+    },
+    {
+      "label": "Deploy on RepoCloud",
+      "url": "https://github.com/Mintplex-Labs/anything-llm/blob/fb299da0767060400212ca8b2a365dc92234dae5/README.md#L190"
+    },
+    {
+      "label": "Deploy on Northflank",
+      "url": "https://github.com/Mintplex-Labs/anything-llm/blob/fb299da0767060400212ca8b2a365dc92234dae5/README.md#L190"
+    },
+    {
+      "label": "Deploy on Sealos",
+      "url": "https://github.com/Mintplex-Labs/anything-llm/blob/fb299da0767060400212ca8b2a365dc92234dae5/README.md#L190"
+    },
+    {
+      "label": "Deploy on Easypanel",
+      "url": "https://github.com/Mintplex-Labs/anything-llm/blob/fb299da0767060400212ca8b2a365dc92234dae5/README.md#L194"
     }
   ]
 }

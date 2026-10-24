@@ -58,5 +58,81 @@
   "media": [],
   "generatedBy": "claude-opus-5-5",
   "documentHash": "b961d84ef9e116c9818896b06263bd9f37954db252cecb013626a6f8b9ecf060",
-  "mediaStatus": "none_in_official_documents"
+  "mediaStatus": "unavailable",
+  "mediaFailures": [
+    {
+      "sourceUrl": "https://github.com/GoogleChrome/modern-web-guidance/blob/84ae7251ee919239d5ea85aef25897983f26601e/README.md#L16",
+      "reason": "unsupported_media_format"
+    },
+    {
+      "sourceUrl": "https://github.com/GoogleChrome/modern-web-guidance/blob/84ae7251ee919239d5ea85aef25897983f26601e/README.md#L34",
+      "reason": "unsupported_media_format"
+    },
+    {
+      "sourceUrl": "https://github.com/GoogleChrome/modern-web-guidance/blob/84ae7251ee919239d5ea85aef25897983f26601e/README.md#L45",
+      "reason": "unsupported_media_format"
+    },
+    {
+      "sourceUrl": "https://github.com/GoogleChrome/modern-web-guidance/blob/84ae7251ee919239d5ea85aef25897983f26601e/README.md#L365",
+      "reason": "unsupported_media_format"
+    },
+    {
+      "sourceUrl": "https://github.com/GoogleChrome/modern-web-guidance/blob/84ae7251ee919239d5ea85aef25897983f26601e/README.md#L446",
+      "reason": "unsupported_media_format"
+    },
+    {
+      "sourceUrl": "https://github.com/GoogleChrome/modern-web-guidance/blob/84ae7251ee919239d5ea85aef25897983f26601e/README.md#L493",
+      "reason": "unsupported_media_format"
+    },
+    {
+      "sourceUrl": "https://github.com/GoogleChrome/modern-web-guidance/blob/84ae7251ee919239d5ea85aef25897983f26601e/README.md#L504",
+      "reason": "unsupported_media_format"
+    },
+    {
+      "sourceUrl": "https://github.com/GoogleChrome/modern-web-guidance/blob/84ae7251ee919239d5ea85aef25897983f26601e/README.md#L516",
+      "reason": "unsupported_media_format"
+    },
+    {
+      "sourceUrl": "https://github.com/GoogleChrome/modern-web-guidance/blob/84ae7251ee919239d5ea85aef25897983f26601e/README.md#L526",
+      "reason": "unsupported_media_format"
+    }
+  ],
+  "mediaReferences": [
+    {
+      "label": "<img src=\"https://github.com/GoogleChrome/modern-web-guidance/raw/main/.github/img/terminal.svg\" width=\"24\" height=\"24\" style=\"vertical-align: middle; margin-ri",
+      "url": "https://github.com/GoogleChrome/modern-web-guidance/blob/84ae7251ee919239d5ea85aef25897983f26601e/README.md#L16"
+    },
+    {
+      "label": "<img src=\"https://github.com/GoogleChrome/modern-web-guidance/raw/main/.github/img/lightbulb.svg\" width=\"24\" height=\"24\" style=\"vertical-align: middle; margin-r",
+      "url": "https://github.com/GoogleChrome/modern-web-guidance/blob/84ae7251ee919239d5ea85aef25897983f26601e/README.md#L34"
+    },
+    {
+      "label": "<img src=\"https://github.com/GoogleChrome/modern-web-guidance/raw/main/.github/img/package.svg\" width=\"24\" height=\"24\" style=\"vertical-align: middle; margin-rig",
+      "url": "https://github.com/GoogleChrome/modern-web-guidance/blob/84ae7251ee919239d5ea85aef25897983f26601e/README.md#L45"
+    },
+    {
+      "label": "<img src=\"https://github.com/GoogleChrome/modern-web-guidance/raw/main/.github/img/cpu.svg\" width=\"24\" height=\"24\" style=\"vertical-align: middle; margin-right: ",
+      "url": "https://github.com/GoogleChrome/modern-web-guidance/blob/84ae7251ee919239d5ea85aef25897983f26601e/README.md#L365"
+    },
+    {
+      "label": "<img src=\"https://github.com/GoogleChrome/modern-web-guidance/raw/main/.github/img/refresh-cw.svg\" width=\"24\" height=\"24\" style=\"vertical-align: middle; margin-",
+      "url": "https://github.com/GoogleChrome/modern-web-guidance/blob/84ae7251ee919239d5ea85aef25897983f26601e/README.md#L446"
+    },
+    {
+      "label": "<img src=\"https://github.com/GoogleChrome/modern-web-guidance/raw/main/.github/img/boxes.svg\" width=\"24\" height=\"24\" style=\"vertical-align: middle; margin-right",
+      "url": "https://github.com/GoogleChrome/modern-web-guidance/blob/84ae7251ee919239d5ea85aef25897983f26601e/README.md#L493"
+    },
+    {
+      "label": "<img src=\"https://github.com/GoogleChrome/modern-web-guidance/raw/main/.github/img/lock.svg\" width=\"24\" height=\"24\" style=\"vertical-align: middle; margin-right:",
+      "url": "https://github.com/GoogleChrome/modern-web-guidance/blob/84ae7251ee919239d5ea85aef25897983f26601e/README.md#L504"
+    },
+    {
+      "label": "<img src=\"https://github.com/GoogleChrome/modern-web-guidance/raw/main/.github/img/users.svg\" width=\"24\" height=\"24\" style=\"vertical-align: middle; margin-right",
+      "url": "https://github.com/GoogleChrome/modern-web-guidance/blob/84ae7251ee919239d5ea85aef25897983f26601e/README.md#L516"
+    },
+    {
+      "label": "<img src=\"https://github.com/GoogleChrome/modern-web-guidance/raw/main/.github/img/file-text.svg\" width=\"24\" height=\"24\" style=\"vertical-align: middle; margin-r",
+      "url": "https://github.com/GoogleChrome/modern-web-guidance/blob/84ae7251ee919239d5ea85aef25897983f26601e/README.md#L526"
+    }
+  ]
 }

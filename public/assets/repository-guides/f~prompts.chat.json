@@ -60,5 +60,17 @@
   "media": [],
   "generatedBy": "claude-opus-5-5",
   "documentHash": "580241073020148096fb32d9731c9068ec5110b06d92c6e7f32816d2076d94d2",
-  "mediaStatus": "none_in_official_documents"
+  "mediaStatus": "unavailable",
+  "mediaFailures": [
+    {
+      "sourceUrl": "https://github.com/f/prompts.chat/blob/f78a1c5136fa080155d928e0d7e2b4a41ddef03e/README.md#L87",
+      "reason": "unsupported_media_host"
+    }
+  ],
+  "mediaReferences": [
+    {
+      "label": "Promi",
+      "url": "https://github.com/f/prompts.chat/blob/f78a1c5136fa080155d928e0d7e2b4a41ddef03e/README.md#L87"
+    }
+  ]
 }

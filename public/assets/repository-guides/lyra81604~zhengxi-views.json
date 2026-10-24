@@ -62,23 +62,48 @@
       "url": "/assets/repository-guides/media-4e9061d33e55459bb120cff3.webp",
       "alt": "WorkBuddy 自动化任务配置",
       "sourceUrl": "https://github.com/lyra81604/zhengxi-views/blob/304ac3e404a4c5f5c85d927840fefb028bebb536/README.md?plain=1#L60",
-      "originalUrl": "https://raw.githubusercontent.com/lyra81604/zhengxi-views/304ac3e404a4c5f5c85d927840fefb028bebb536/assets/recommended-usage/01-workbuddy-automation-config.jpg"
+      "originalUrl": "https://raw.githubusercontent.com/lyra81604/zhengxi-views/304ac3e404a4c5f5c85d927840fefb028bebb536/assets/recommended-usage/01-workbuddy-automation-config.jpg",
+      "animated": false
     },
     {
       "url": "/assets/repository-guides/media-e1671d7b5dde636c2b40ea1a.webp",
       "alt": "郑希视角分析",
       "sourceUrl": "https://github.com/lyra81604/zhengxi-views/blob/304ac3e404a4c5f5c85d927840fefb028bebb536/README.md?plain=1#L69",
-      "originalUrl": "https://raw.githubusercontent.com/lyra81604/zhengxi-views/304ac3e404a4c5f5c85d927840fefb028bebb536/assets/recommended-usage/05-zhengxi-view-analysis.jpg"
+      "originalUrl": "https://raw.githubusercontent.com/lyra81604/zhengxi-views/304ac3e404a4c5f5c85d927840fefb028bebb536/assets/recommended-usage/05-zhengxi-view-analysis.jpg",
+      "animated": false
     },
     {
       "url": "/assets/repository-guides/media-d0fcb197a73d289ca0f06c59.webp",
       "alt": "按郑希方法框架推演",
       "sourceUrl": "https://github.com/lyra81604/zhengxi-views/blob/304ac3e404a4c5f5c85d927840fefb028bebb536/README.md?plain=1#L70",
-      "originalUrl": "https://raw.githubusercontent.com/lyra81604/zhengxi-views/304ac3e404a4c5f5c85d927840fefb028bebb536/assets/recommended-usage/06-method-deduction.jpg"
+      "originalUrl": "https://raw.githubusercontent.com/lyra81604/zhengxi-views/304ac3e404a4c5f5c85d927840fefb028bebb536/assets/recommended-usage/06-method-deduction.jpg",
+      "animated": false
+    },
+    {
+      "url": "/assets/repository-guides/media-6b69ce1910bf62c0cc6ad9f3.webp",
+      "alt": "每日全球科技行情分析报告",
+      "sourceUrl": "https://github.com/lyra81604/zhengxi-views/blob/304ac3e404a4c5f5c85d927840fefb028bebb536/README.md#L61",
+      "originalUrl": "https://raw.githubusercontent.com/lyra81604/zhengxi-views/304ac3e404a4c5f5c85d927840fefb028bebb536/assets/recommended-usage/02-daily-tech-market-report.jpg",
+      "animated": false
+    },
+    {
+      "url": "/assets/repository-guides/media-6f2d5d50dd1bfeb0fd50818c.webp",
+      "alt": "热点报告聚合与摘要",
+      "sourceUrl": "https://github.com/lyra81604/zhengxi-views/blob/304ac3e404a4c5f5c85d927840fefb028bebb536/README.md#L62",
+      "originalUrl": "https://raw.githubusercontent.com/lyra81604/zhengxi-views/304ac3e404a4c5f5c85d927840fefb028bebb536/assets/recommended-usage/03-hot-reports.jpg",
+      "animated": false
+    },
+    {
+      "url": "/assets/repository-guides/media-93a649fa00e8b51c3566194f.webp",
+      "alt": "黄金与关键事件分析",
+      "sourceUrl": "https://github.com/lyra81604/zhengxi-views/blob/304ac3e404a4c5f5c85d927840fefb028bebb536/README.md#L68",
+      "originalUrl": "https://raw.githubusercontent.com/lyra81604/zhengxi-views/304ac3e404a4c5f5c85d927840fefb028bebb536/assets/recommended-usage/04-gold-section.jpg",
+      "animated": false
     }
   ],
   "generatedBy": "claude-opus-5-5",
   "documentHash": "4be2b963763cee746830d29fe4c9e5b58d69ac539804e742c246d6ad5ce51f5e",
   "mediaStatus": "archived",
-  "mediaFailures": []
+  "mediaFailures": [],
+  "mediaReferences": []
 }

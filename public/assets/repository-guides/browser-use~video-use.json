@@ -57,14 +57,28 @@
     "README 还提到 Browser Use Cloud 和 Browser Use Box 等托管选项，但未给出具体使用说明。"
   ],
   "references": [],
-  "media": [],
+  "media": [
+    {
+      "url": "/assets/repository-guides/media-45d248472fc03e89c662f3d6.webp",
+      "alt": "video-use",
+      "sourceUrl": "https://github.com/browser-use/video-use/blob/b877063835e6ea6e457124da7e28a0ae26691dc3/README.md#L2",
+      "originalUrl": "https://raw.githubusercontent.com/browser-use/video-use/b877063835e6ea6e457124da7e28a0ae26691dc3/static/video-use-banner.png",
+      "animated": false
+    }
+  ],
   "generatedBy": "claude-opus-5-5",
   "documentHash": "612bca23557cfc4501e80d3ce4babbe086dba77a70fa3a74ae5c0170393ece8f",
-  "mediaStatus": "unavailable",
+  "mediaStatus": "archived",
   "mediaFailures": [
     {
       "sourceUrl": "https://github.com/browser-use/video-use/blob/b877063835e6ea6e457124da7e28a0ae26691dc3/README.md#L76",
       "reason": "unsupported_media_format"
+    }
+  ],
+  "mediaReferences": [
+    {
+      "label": "timeline_view composite — filmstrip + speaker track + waveform + word labels + silence-gap cut candidates",
+      "url": "https://github.com/browser-use/video-use/blob/b877063835e6ea6e457124da7e28a0ae26691dc3/README.md#L76"
     }
   ]
 }

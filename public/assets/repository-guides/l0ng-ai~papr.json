@@ -58,11 +58,13 @@
       "url": "/assets/repository-guides/media-b17433b57070757d7f07e341.webp",
       "alt": "l0ng-ai/papr 官方演示 1",
       "sourceUrl": "https://github.com/l0ng-ai/papr/blob/955498b7c557442bca8699e4973ed499ee3cbef1/README.md?plain=1#L9",
-      "originalUrl": "https://raw.githubusercontent.com/l0ng-ai/papr/955498b7c557442bca8699e4973ed499ee3cbef1/docs/screenshot.webp"
+      "originalUrl": "https://raw.githubusercontent.com/l0ng-ai/papr/955498b7c557442bca8699e4973ed499ee3cbef1/docs/screenshot.webp",
+      "animated": false
     }
   ],
   "generatedBy": "claude-opus-5-5",
   "documentHash": "1b7e9b42cc71f0de4aaf639c2210ea3fcba1de463c7554f43a0fabdeaef33028",
   "mediaStatus": "archived",
-  "mediaFailures": []
+  "mediaFailures": [],
+  "mediaReferences": []
 }

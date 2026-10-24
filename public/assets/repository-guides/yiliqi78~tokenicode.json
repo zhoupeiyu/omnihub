@@ -72,23 +72,48 @@
       "url": "/assets/repository-guides/media-66e377909bf121497504ade6.webp",
       "alt": "yiliqi78/TOKENICODE 官方演示 1",
       "sourceUrl": "https://github.com/yiliqi78/TOKENICODE/blob/7a0f195bd53ac25b9007209efb3af9f1e48a7722/README.md?plain=1#L34",
-      "originalUrl": "https://raw.githubusercontent.com/yiliqi78/TOKENICODE/7a0f195bd53ac25b9007209efb3af9f1e48a7722/screenshots/main-interface.png?v=2"
+      "originalUrl": "https://raw.githubusercontent.com/yiliqi78/TOKENICODE/7a0f195bd53ac25b9007209efb3af9f1e48a7722/screenshots/main-interface.png?v=2",
+      "animated": false
     },
     {
       "url": "/assets/repository-guides/media-1d80a447ec4b87573758790b.webp",
       "alt": "yiliqi78/TOKENICODE 官方演示 2",
       "sourceUrl": "https://github.com/yiliqi78/TOKENICODE/blob/7a0f195bd53ac25b9007209efb3af9f1e48a7722/README.md?plain=1#L194",
-      "originalUrl": "https://raw.githubusercontent.com/yiliqi78/TOKENICODE/7a0f195bd53ac25b9007209efb3af9f1e48a7722/screenshots/streaming-chat.png?v=2"
+      "originalUrl": "https://raw.githubusercontent.com/yiliqi78/TOKENICODE/7a0f195bd53ac25b9007209efb3af9f1e48a7722/screenshots/streaming-chat.png?v=2",
+      "animated": false
     },
     {
       "url": "/assets/repository-guides/media-037fa2c367dd11aecc8aeb50.webp",
       "alt": "yiliqi78/TOKENICODE 官方演示 3",
       "sourceUrl": "https://github.com/yiliqi78/TOKENICODE/blob/7a0f195bd53ac25b9007209efb3af9f1e48a7722/README.md?plain=1#L206",
-      "originalUrl": "https://raw.githubusercontent.com/yiliqi78/TOKENICODE/7a0f195bd53ac25b9007209efb3af9f1e48a7722/screenshots/plan-mode.png?v=2"
+      "originalUrl": "https://raw.githubusercontent.com/yiliqi78/TOKENICODE/7a0f195bd53ac25b9007209efb3af9f1e48a7722/screenshots/plan-mode.png?v=2",
+      "animated": false
+    },
+    {
+      "url": "/assets/repository-guides/media-66e377909bf121497504ade6.webp",
+      "alt": "Main Interface",
+      "sourceUrl": "https://github.com/yiliqi78/TOKENICODE/blob/7a0f195bd53ac25b9007209efb3af9f1e48a7722/README.md#L34",
+      "originalUrl": "https://raw.githubusercontent.com/yiliqi78/TOKENICODE/7a0f195bd53ac25b9007209efb3af9f1e48a7722/screenshots/main-interface.png",
+      "animated": false
+    },
+    {
+      "url": "/assets/repository-guides/media-1d80a447ec4b87573758790b.webp",
+      "alt": "Streaming Chat",
+      "sourceUrl": "https://github.com/yiliqi78/TOKENICODE/blob/7a0f195bd53ac25b9007209efb3af9f1e48a7722/README.md#L194",
+      "originalUrl": "https://raw.githubusercontent.com/yiliqi78/TOKENICODE/7a0f195bd53ac25b9007209efb3af9f1e48a7722/screenshots/streaming-chat.png",
+      "animated": false
+    },
+    {
+      "url": "/assets/repository-guides/media-d1ecc05f71e5bea373e84a81.webp",
+      "alt": "Session Management",
+      "sourceUrl": "https://github.com/yiliqi78/TOKENICODE/blob/7a0f195bd53ac25b9007209efb3af9f1e48a7722/README.md#L197",
+      "originalUrl": "https://raw.githubusercontent.com/yiliqi78/TOKENICODE/7a0f195bd53ac25b9007209efb3af9f1e48a7722/screenshots/%E6%96%87%E4%BB%B6%E7%AE%A1%E7%90%86.png",
+      "animated": false
     }
   ],
   "generatedBy": "claude-opus-5-5",
   "documentHash": "43a5120523088429a9942b710d9348d3957e1adaf740235f319a1ae3438e34d7",
   "mediaStatus": "archived",
-  "mediaFailures": []
+  "mediaFailures": [],
+  "mediaReferences": []
 }

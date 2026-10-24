@@ -69,11 +69,13 @@
       "url": "/assets/repository-guides/media-2e64ba5b6b5a14d1fc088cab.webp",
       "alt": "34306/vphone-aio 官方演示 1",
       "sourceUrl": "https://github.com/34306/vphone-aio/blob/1db79dccd95391d6247c41f3cc4eac523567f295/README.md?plain=1#L49",
-      "originalUrl": "https://raw.githubusercontent.com/34306/vphone-aio/1db79dccd95391d6247c41f3cc4eac523567f295/preview.png"
+      "originalUrl": "https://raw.githubusercontent.com/34306/vphone-aio/1db79dccd95391d6247c41f3cc4eac523567f295/preview.png",
+      "animated": false
     }
   ],
   "generatedBy": "claude-opus-5-5",
   "documentHash": "a6a6ba2249a44c8cd6972cc1091e04a66b795808b27bcdfb8dbdcbbc97137d19",
   "mediaStatus": "archived",
-  "mediaFailures": []
+  "mediaFailures": [],
+  "mediaReferences": []
 }

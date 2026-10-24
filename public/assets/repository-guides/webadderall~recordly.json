@@ -68,11 +68,44 @@
       "url": "https://github.com/webadderallorg/Recordly/blob/18884285b11b3603fc4ccede89add40e0e4a9bd6/README.zh-CN.md"
     }
   ],
-  "media": [],
+  "media": [
+    {
+      "url": "/assets/repository-guides/media-38d2f14a3d3749da16be56b4.webp",
+      "alt": "MP4 to GIF export (4)",
+      "sourceUrl": "https://github.com/webadderallorg/Recordly/blob/18884285b11b3603fc4ccede89add40e0e4a9bd6/README.md#L16",
+      "originalUrl": "https://github.com/user-attachments/assets/e6d68606-5fc0-4f70-99cd-7521982dc13b",
+      "animated": true
+    },
+    {
+      "url": "/assets/repository-guides/media-ec22c972fa8327632bebb809.webp",
+      "alt": "Recordly cursor and zoom demo video",
+      "sourceUrl": "https://github.com/webadderallorg/Recordly/blob/18884285b11b3603fc4ccede89add40e0e4a9bd6/README.md#L49",
+      "originalUrl": "https://raw.githubusercontent.com/webadderallorg/Recordly/18884285b11b3603fc4ccede89add40e0e4a9bd6/docs/media/feature1.gif",
+      "animated": true
+    },
+    {
+      "url": "/assets/repository-guides/media-a86359c5d09f7951f4d65fa2.webp",
+      "alt": "Recordly webcam overlay demo video",
+      "sourceUrl": "https://github.com/webadderallorg/Recordly/blob/18884285b11b3603fc4ccede89add40e0e4a9bd6/README.md#L56",
+      "originalUrl": "https://raw.githubusercontent.com/webadderallorg/Recordly/18884285b11b3603fc4ccede89add40e0e4a9bd6/docs/media/feature2.gif",
+      "animated": true
+    },
+    {
+      "url": "/assets/repository-guides/media-08e48b7af0aa821648b76c0e.webp",
+      "alt": "timeline editor",
+      "sourceUrl": "https://github.com/webadderallorg/Recordly/blob/18884285b11b3603fc4ccede89add40e0e4a9bd6/README.md#L63",
+      "originalUrl": "https://github.com/user-attachments/assets/3692bd8f-7b8d-4a93-b696-d17c828487ea",
+      "animated": false
+    }
+  ],
   "generatedBy": "claude-opus-5-5",
   "documentHash": "5df4d643f48e576c1c5bf95344aa287714ec78bf6956a528fb5a5b4b31190c86",
-  "mediaStatus": "unavailable",
+  "mediaStatus": "archived",
   "mediaFailures": [
+    {
+      "sourceUrl": "https://github.com/webadderallorg/Recordly/blob/18884285b11b3603fc4ccede89add40e0e4a9bd6/README.md#L21",
+      "reason": "non_demo_dimensions"
+    },
     {
       "sourceUrl": "https://github.com/webadderallorg/Recordly/blob/18884285b11b3603fc4ccede89add40e0e4a9bd6/README.md#L156",
       "reason": "unsupported_media_host"
@@ -82,8 +115,26 @@
       "reason": "unsupported_media_host"
     },
     {
-      "sourceUrl": "https://github.com/webadderallorg/Recordly/blob/18884285b11b3603fc4ccede89add40e0e4a9bd6/README.md#L49",
-      "reason": "response_too_large"
+      "sourceUrl": "https://github.com/webadderallorg/Recordly/blob/18884285b11b3603fc4ccede89add40e0e4a9bd6/README.md#L164",
+      "reason": "unsupported_media_host"
+    }
+  ],
+  "mediaReferences": [
+    {
+      "label": "CodeRabbit Typemark",
+      "url": "https://github.com/webadderallorg/Recordly/blob/18884285b11b3603fc4ccede89add40e0e4a9bd6/README.md#L21"
+    },
+    {
+      "label": "Recordly recording interface screenshot",
+      "url": "https://github.com/webadderallorg/Recordly/blob/18884285b11b3603fc4ccede89add40e0e4a9bd6/README.md#L156"
+    },
+    {
+      "label": "Recordly editor screenshot",
+      "url": "https://github.com/webadderallorg/Recordly/blob/18884285b11b3603fc4ccede89add40e0e4a9bd6/README.md#L160"
+    },
+    {
+      "label": "Recordly timeline screenshot",
+      "url": "https://github.com/webadderallorg/Recordly/blob/18884285b11b3603fc4ccede89add40e0e4a9bd6/README.md#L164"
     }
   ]
 }

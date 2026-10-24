@@ -71,23 +71,48 @@
       "url": "/assets/repository-guides/media-8b2677ddbee7c3b83ec28190.webp",
       "alt": "ykdojo/claude-code-tips 官方演示 1",
       "sourceUrl": "https://github.com/ykdojo/claude-code-tips/blob/577ac89252195d61283b334c4b9d292b52c82203/README.md?plain=1#L76",
-      "originalUrl": "https://raw.githubusercontent.com/ykdojo/claude-code-tips/577ac89252195d61283b334c4b9d292b52c82203/scripts/color-preview.png"
+      "originalUrl": "https://raw.githubusercontent.com/ykdojo/claude-code-tips/577ac89252195d61283b334c4b9d292b52c82203/scripts/color-preview.png",
+      "animated": false
     },
     {
       "url": "/assets/repository-guides/media-8ea2fae15549300a5bb95245.webp",
       "alt": "ykdojo/claude-code-tips 官方演示 2",
       "sourceUrl": "https://github.com/ykdojo/claude-code-tips/blob/577ac89252195d61283b334c4b9d292b52c82203/README.md?plain=1#L179",
-      "originalUrl": "https://raw.githubusercontent.com/ykdojo/claude-code-tips/577ac89252195d61283b334c4b9d292b52c82203/assets/voice-transcription-mistakes.png"
+      "originalUrl": "https://raw.githubusercontent.com/ykdojo/claude-code-tips/577ac89252195d61283b334c4b9d292b52c82203/assets/voice-transcription-mistakes.png",
+      "animated": false
     },
     {
       "url": "/assets/repository-guides/media-ba6c5306ca1af487e7fa199f.webp",
       "alt": "ykdojo/claude-code-tips 官方演示 3",
       "sourceUrl": "https://github.com/ykdojo/claude-code-tips/blob/577ac89252195d61283b334c4b9d292b52c82203/README.md?plain=1#L449",
-      "originalUrl": "https://raw.githubusercontent.com/ykdojo/claude-code-tips/577ac89252195d61283b334c4b9d292b52c82203/assets/multitasking-terminal-tabs.png"
+      "originalUrl": "https://raw.githubusercontent.com/ykdojo/claude-code-tips/577ac89252195d61283b334c4b9d292b52c82203/assets/multitasking-terminal-tabs.png",
+      "animated": false
+    },
+    {
+      "url": "/assets/repository-guides/media-f374e97bc7e9af7c54978d2b.webp",
+      "alt": "Demo video thumbnail",
+      "sourceUrl": "https://github.com/ykdojo/claude-code-tips/blob/577ac89252195d61283b334c4b9d292b52c82203/README.md#L7",
+      "originalUrl": "https://raw.githubusercontent.com/ykdojo/claude-code-tips/577ac89252195d61283b334c4b9d292b52c82203/assets/demo-thumbnail.png",
+      "animated": false
+    },
+    {
+      "url": "/assets/repository-guides/media-070229dbc22d4a1417a6b355.webp",
+      "alt": "Direct approach",
+      "sourceUrl": "https://github.com/ykdojo/claude-code-tips/blob/577ac89252195d61283b334c4b9d292b52c82203/README.md#L195",
+      "originalUrl": "https://raw.githubusercontent.com/ykdojo/claude-code-tips/577ac89252195d61283b334c4b9d292b52c82203/assets/breakdown-direct.png",
+      "animated": false
+    },
+    {
+      "url": "/assets/repository-guides/media-ce6d5f2f2d00e6443895ee44.webp",
+      "alt": "Git worktrees diagram showing parallel branch work in separate directories",
+      "sourceUrl": "https://github.com/ykdojo/claude-code-tips/blob/577ac89252195d61283b334c4b9d292b52c82203/README.md#L474",
+      "originalUrl": "https://raw.githubusercontent.com/ykdojo/claude-code-tips/577ac89252195d61283b334c4b9d292b52c82203/assets/git-worktrees.png",
+      "animated": false
     }
   ],
   "generatedBy": "claude-opus-5-5",
   "documentHash": "890f99880048168a0ab12d0f52f9d214990422a29c31dc490d85b97b60a58a78",
   "mediaStatus": "archived",
-  "mediaFailures": []
+  "mediaFailures": [],
+  "mediaReferences": []
 }

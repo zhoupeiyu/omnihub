@@ -71,23 +71,48 @@
       "url": "/assets/repository-guides/media-a70e673faeab4f9cd6dd9b19.webp",
       "alt": "ABeehive/Annado 官方演示 1",
       "sourceUrl": "https://github.com/ABeehive/Annado/blob/a67c744468c5aa24a21a7533ba78bd5bd30f5460/README.md?plain=1#L5",
-      "originalUrl": "https://raw.githubusercontent.com/ABeehive/Annado/a67c744468c5aa24a21a7533ba78bd5bd30f5460/docs/images/today.png"
+      "originalUrl": "https://raw.githubusercontent.com/ABeehive/Annado/a67c744468c5aa24a21a7533ba78bd5bd30f5460/docs/images/today.png",
+      "animated": false
     },
     {
       "url": "/assets/repository-guides/media-392f0eb7348f066c1f62d07b.webp",
       "alt": "ABeehive/Annado 官方演示 2",
       "sourceUrl": "https://github.com/ABeehive/Annado/blob/a67c744468c5aa24a21a7533ba78bd5bd30f5460/README.md?plain=1#L24",
-      "originalUrl": "https://raw.githubusercontent.com/ABeehive/Annado/a67c744468c5aa24a21a7533ba78bd5bd30f5460/docs/images/markdown-side-by-side.png"
+      "originalUrl": "https://raw.githubusercontent.com/ABeehive/Annado/a67c744468c5aa24a21a7533ba78bd5bd30f5460/docs/images/markdown-side-by-side.png",
+      "animated": false
     },
     {
       "url": "/assets/repository-guides/media-f20b81280d09f9b8d782b888.webp",
       "alt": "ABeehive/Annado 官方演示 3",
       "sourceUrl": "https://github.com/ABeehive/Annado/blob/a67c744468c5aa24a21a7533ba78bd5bd30f5460/README.md?plain=1#L324",
-      "originalUrl": "https://raw.githubusercontent.com/ABeehive/Annado/a67c744468c5aa24a21a7533ba78bd5bd30f5460/docs/images/quick-add.png"
+      "originalUrl": "https://raw.githubusercontent.com/ABeehive/Annado/a67c744468c5aa24a21a7533ba78bd5bd30f5460/docs/images/quick-add.png",
+      "animated": false
+    },
+    {
+      "url": "/assets/repository-guides/media-3766518fe78c58fc575ff9dd.webp",
+      "alt": "Anytime view with project groups",
+      "sourceUrl": "https://github.com/ABeehive/Annado/blob/a67c744468c5aa24a21a7533ba78bd5bd30f5460/README.md#L47",
+      "originalUrl": "https://raw.githubusercontent.com/ABeehive/Annado/a67c744468c5aa24a21a7533ba78bd5bd30f5460/docs/images/anytime.png",
+      "animated": false
+    },
+    {
+      "url": "/assets/repository-guides/media-dcc1009632290dba0ae4fe04.webp",
+      "alt": "Expanded task with a checklist",
+      "sourceUrl": "https://github.com/ABeehive/Annado/blob/a67c744468c5aa24a21a7533ba78bd5bd30f5460/README.md#L80",
+      "originalUrl": "https://raw.githubusercontent.com/ABeehive/Annado/a67c744468c5aa24a21a7533ba78bd5bd30f5460/docs/images/checklist.png",
+      "animated": false
+    },
+    {
+      "url": "/assets/repository-guides/media-c0fcbf94020b36ee114a27e0.webp",
+      "alt": "Date picker with quick-select chips and natural language input",
+      "sourceUrl": "https://github.com/ABeehive/Annado/blob/a67c744468c5aa24a21a7533ba78bd5bd30f5460/README.md#L153",
+      "originalUrl": "https://raw.githubusercontent.com/ABeehive/Annado/a67c744468c5aa24a21a7533ba78bd5bd30f5460/docs/images/date-picker.png",
+      "animated": false
     }
   ],
   "generatedBy": "claude-opus-5-5",
   "documentHash": "471e808ae152db36d3872e909650b8ad233a215e3a41d7d37fbf5ad486711439",
   "mediaStatus": "archived",
-  "mediaFailures": []
+  "mediaFailures": [],
+  "mediaReferences": []
 }

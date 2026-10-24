@@ -53,8 +53,25 @@
     "在线阅读依赖第三方平台 WorkBuddy 的链接。"
   ],
   "references": [],
-  "media": [],
+  "media": [
+    {
+      "url": "/assets/repository-guides/media-48b1aff0a866e7f608991abe.webp",
+      "alt": "obsidian-ai-orange-book Hero Animation",
+      "sourceUrl": "https://github.com/alchaincyf/obsidian-ai-orange-book/blob/75f553df86a7ed70f22aef701f4400b869a8d71d/README.md#L6",
+      "originalUrl": "https://raw.githubusercontent.com/alchaincyf/obsidian-ai-orange-book/75f553df86a7ed70f22aef701f4400b869a8d71d/assets/hero.gif",
+      "animated": true
+    },
+    {
+      "url": "/assets/repository-guides/media-5f254e1cf96e6183c49a44c6.webp",
+      "alt": "封面",
+      "sourceUrl": "https://github.com/alchaincyf/obsidian-ai-orange-book/blob/75f553df86a7ed70f22aef701f4400b869a8d71d/README.md#L11",
+      "originalUrl": "https://raw.githubusercontent.com/alchaincyf/obsidian-ai-orange-book/75f553df86a7ed70f22aef701f4400b869a8d71d/screenshots/cover.png",
+      "animated": false
+    }
+  ],
   "generatedBy": "claude-opus-5-5",
   "documentHash": "16220ed121cc547cf918a61fcdcf178e1d96e46e4f7dcaf0ee2ab2bf533e9a03",
-  "mediaStatus": "none_in_official_documents"
+  "mediaStatus": "archived",
+  "mediaFailures": [],
+  "mediaReferences": []
 }

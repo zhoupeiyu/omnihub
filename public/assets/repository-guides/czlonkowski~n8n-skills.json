@@ -72,8 +72,18 @@
       "url": "https://github.com/czlonkowski/n8n-skills/blob/19cd793f4789e3ef9c657ccf26e097f641a77df0/docs/INSTALLATION.md"
     }
   ],
-  "media": [],
+  "media": [
+    {
+      "url": "/assets/repository-guides/media-354ea7ab0370fa566b871c19.webp",
+      "alt": "n8n Skills Introduction",
+      "sourceUrl": "https://github.com/czlonkowski/n8n-skills/blob/19cd793f4789e3ef9c657ccf26e097f641a77df0/README.md#L12",
+      "originalUrl": "https://raw.githubusercontent.com/czlonkowski/n8n-skills/19cd793f4789e3ef9c657ccf26e097f641a77df0/skills.png",
+      "animated": false
+    }
+  ],
   "generatedBy": "claude-opus-5-5",
   "documentHash": "ccbefc92a0b6c4c37d281f809d2f25a4a2895f0ea8ac34b73d60a26430a1532f",
-  "mediaStatus": "none_in_official_documents"
+  "mediaStatus": "archived",
+  "mediaFailures": [],
+  "mediaReferences": []
 }

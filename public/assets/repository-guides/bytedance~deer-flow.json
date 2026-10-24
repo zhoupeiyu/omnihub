@@ -70,14 +70,36 @@
       "url": "https://github.com/bytedance/deer-flow/blob/5b83cb502c967e2952d32155a21c01ee739f1660/README_zh.md"
     }
   ],
-  "media": [],
+  "media": [
+    {
+      "url": "/assets/repository-guides/media-bcae47f6d83361b06ecf1efb.webp",
+      "alt": "image",
+      "sourceUrl": "https://github.com/bytedance/deer-flow/blob/5b83cb502c967e2952d32155a21c01ee739f1660/README.md#L26",
+      "originalUrl": "https://github.com/user-attachments/assets/077edef4-d560-41af-bb0d-d0a5f14fcc20",
+      "animated": false
+    }
+  ],
   "generatedBy": "claude-opus-5-5",
   "documentHash": "434cb2c6f9101f049275d81f9b35aec573391eb8a05fdf0d58628effa7bcd952",
-  "mediaStatus": "unavailable",
+  "mediaStatus": "archived",
   "mediaFailures": [
+    {
+      "sourceUrl": "https://github.com/bytedance/deer-flow/blob/5b83cb502c967e2952d32155a21c01ee739f1660/README.md#L45",
+      "reason": "unsupported_media_host"
+    },
     {
       "sourceUrl": "https://github.com/bytedance/deer-flow/blob/5b83cb502c967e2952d32155a21c01ee739f1660/README.md#L2294",
       "reason": "unsupported_media_format"
+    }
+  ],
+  "mediaReferences": [
+    {
+      "label": "InfoQuest_banner",
+      "url": "https://github.com/bytedance/deer-flow/blob/5b83cb502c967e2952d32155a21c01ee739f1660/README.md#L45"
+    },
+    {
+      "label": "DeerFlow TUI",
+      "url": "https://github.com/bytedance/deer-flow/blob/5b83cb502c967e2952d32155a21c01ee739f1660/README.md#L2294"
     }
   ]
 }

@@ -64,23 +64,48 @@
       "url": "/assets/repository-guides/media-17845c431661a655c4e1365f.webp",
       "alt": "首页 - 八字排盘",
       "sourceUrl": "https://github.com/miounet11/life-kline/blob/7abf184df370452ee8279d72c8b45bc09e19913b/README.md?plain=1#L61",
-      "originalUrl": "https://raw.githubusercontent.com/miounet11/life-kline/7abf184df370452ee8279d72c8b45bc09e19913b/assets/screenshot-home.jpg"
+      "originalUrl": "https://raw.githubusercontent.com/miounet11/life-kline/7abf184df370452ee8279d72c8b45bc09e19913b/assets/screenshot-home.jpg",
+      "animated": false
     },
     {
       "url": "/assets/repository-guides/media-03e6df2701e9c97d58777fa8.webp",
       "alt": "人生K线图",
       "sourceUrl": "https://github.com/miounet11/life-kline/blob/7abf184df370452ee8279d72c8b45bc09e19913b/README.md?plain=1#L62",
-      "originalUrl": "https://raw.githubusercontent.com/miounet11/life-kline/7abf184df370452ee8279d72c8b45bc09e19913b/assets/screenshot-kline.jpg"
+      "originalUrl": "https://raw.githubusercontent.com/miounet11/life-kline/7abf184df370452ee8279d72c8b45bc09e19913b/assets/screenshot-kline.jpg",
+      "animated": false
     },
     {
       "url": "/assets/repository-guides/media-2b0b7be4917e4ab5167ede14.webp",
       "alt": "命理分析报告",
       "sourceUrl": "https://github.com/miounet11/life-kline/blob/7abf184df370452ee8279d72c8b45bc09e19913b/README.md?plain=1#L69",
-      "originalUrl": "https://raw.githubusercontent.com/miounet11/life-kline/7abf184df370452ee8279d72c8b45bc09e19913b/assets/screenshot-analysis.jpg"
+      "originalUrl": "https://raw.githubusercontent.com/miounet11/life-kline/7abf184df370452ee8279d72c8b45bc09e19913b/assets/screenshot-analysis.jpg",
+      "animated": false
+    },
+    {
+      "url": "/assets/repository-guides/media-f8bb2500e801cbb0a991888f.webp",
+      "alt": "仪表盘",
+      "sourceUrl": "https://github.com/miounet11/life-kline/blob/7abf184df370452ee8279d72c8b45bc09e19913b/README.md#L70",
+      "originalUrl": "https://raw.githubusercontent.com/miounet11/life-kline/7abf184df370452ee8279d72c8b45bc09e19913b/assets/screenshot-dashboard.jpg",
+      "animated": false
+    },
+    {
+      "url": "/assets/repository-guides/media-a427df47ba515736744c9df3.webp",
+      "alt": "命运案例库",
+      "sourceUrl": "https://github.com/miounet11/life-kline/blob/7abf184df370452ee8279d72c8b45bc09e19913b/README.md#L77",
+      "originalUrl": "https://raw.githubusercontent.com/miounet11/life-kline/7abf184df370452ee8279d72c8b45bc09e19913b/assets/screenshot-cases.jpg",
+      "animated": false
+    },
+    {
+      "url": "/assets/repository-guides/media-b3575beafcefe91869d86f60.webp",
+      "alt": "知识殿堂",
+      "sourceUrl": "https://github.com/miounet11/life-kline/blob/7abf184df370452ee8279d72c8b45bc09e19913b/README.md#L78",
+      "originalUrl": "https://raw.githubusercontent.com/miounet11/life-kline/7abf184df370452ee8279d72c8b45bc09e19913b/assets/screenshot-knowledge.jpg",
+      "animated": false
     }
   ],
   "generatedBy": "claude-opus-5-5",
   "documentHash": "ed810b9c6cba591f9ec753aa0b761aa67f6f55330fbff1a59449d483f89c926d",
   "mediaStatus": "archived",
-  "mediaFailures": []
+  "mediaFailures": [],
+  "mediaReferences": []
 }

@@ -72,11 +72,23 @@
       "url": "/assets/repository-guides/media-ed041c2be71ff74693b1c6d2.webp",
       "alt": "oil-subtitle 本地字幕编辑器：左侧预览字幕与章节进度，右侧逐句校对",
       "sourceUrl": "https://github.com/oil-oil/oil-subtitle/blob/1186fa618bbaf5fcf5898fee5cd6dfe79240403d/README.md?plain=1#L16",
-      "originalUrl": "https://raw.githubusercontent.com/oil-oil/oil-subtitle/1186fa618bbaf5fcf5898fee5cd6dfe79240403d/assets/readme/subtitle-editor.png"
+      "originalUrl": "https://raw.githubusercontent.com/oil-oil/oil-subtitle/1186fa618bbaf5fcf5898fee5cd6dfe79240403d/assets/readme/subtitle-editor.png",
+      "animated": false
     }
   ],
   "generatedBy": "claude-opus-5-5",
   "documentHash": "7dd4f82cbc4d6592923994bc37770eb085ab3bed1b1bf72842d5edc838c5795c",
   "mediaStatus": "archived",
-  "mediaFailures": []
+  "mediaFailures": [
+    {
+      "sourceUrl": "https://github.com/oil-oil/oil-subtitle/blob/1186fa618bbaf5fcf5898fee5cd6dfe79240403d/README.md#L4",
+      "reason": "unsupported_media_format"
+    }
+  ],
+  "mediaReferences": [
+    {
+      "label": "oil-subtitle 将本地视频转换为可校对并烧录的中文字幕",
+      "url": "https://github.com/oil-oil/oil-subtitle/blob/1186fa618bbaf5fcf5898fee5cd6dfe79240403d/README.md#L4"
+    }
+  ]
 }

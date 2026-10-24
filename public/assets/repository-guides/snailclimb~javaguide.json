@@ -64,5 +64,25 @@
   "media": [],
   "generatedBy": "claude-opus-5-5",
   "documentHash": "b57846f9955a275ad42d5e96c1e1808c51fa01abe94d422418b887c827dd043f",
-  "mediaStatus": "none_in_official_documents"
+  "mediaStatus": "unavailable",
+  "mediaFailures": [
+    {
+      "sourceUrl": "https://github.com/Snailclimb/JavaGuide/blob/31f891d3053dc2af6c2fd1a0b94af233496a718c/README.md#L278",
+      "reason": "unsupported_media_host"
+    },
+    {
+      "sourceUrl": "https://github.com/Snailclimb/JavaGuide/blob/31f891d3053dc2af6c2fd1a0b94af233496a718c/README.md#L479",
+      "reason": "unsupported_media_host"
+    }
+  ],
+  "mediaReferences": [
+    {
+      "label": "JavaGuide 官方公众号",
+      "url": "https://github.com/Snailclimb/JavaGuide/blob/31f891d3053dc2af6c2fd1a0b94af233496a718c/README.md#L278"
+    },
+    {
+      "label": "JavaGuide 公众号",
+      "url": "https://github.com/Snailclimb/JavaGuide/blob/31f891d3053dc2af6c2fd1a0b94af233496a718c/README.md#L479"
+    }
+  ]
 }

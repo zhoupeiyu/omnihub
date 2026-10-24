@@ -910,8 +910,6 @@ function Workspace({ user, onUserChange, showToast, toast }) {
   const [theme, setTheme] = useAppState(() => loadStored("theme", "dark"));
   const [section, setSection] = useWorkspaceSection("repositories");
   const [feedMode, setFeedMode] = useAppState(readFeedMode);
-  const [repositoryNavigation, setRepositoryNavigation] = useAppState(null);
-  const [repositoryTarget, setRepositoryTarget] = useAppState(null);
   const [repositories, setRepositories] = useAppState([]);
   const [knowledgeLibrary, setKnowledgeLibrary] = useAppState([]);
   const [promptLibrary, setPromptLibrary] = useAppState([]);
@@ -1449,11 +1447,6 @@ function Workspace({ user, onUserChange, showToast, toast }) {
           }}
           moduleCounts={visibleModuleCounts}
           categories={null} activeCategory={null}
-          repositoryNavigation={section === "repositories" ? repositoryNavigation : null}
-          onRepositoryNavigate={(id) => {
-            setRepositoryTarget({id, requestedAt:Date.now()});
-            if (window.matchMedia("(max-width: 860px)").matches) setSidebarCollapsed(true);
-          }}
           feedNavigation={section === "feed" && canUseFullApp ? {current:feedMode,items:[
             {id:"aihot",title:"AIHOT 资讯"},
             {id:"following",title:"监听动态"},
@@ -1483,7 +1476,7 @@ function Workspace({ user, onUserChange, showToast, toast }) {
             onQueryChange={(value) => setSectionQueries(previous => ({...previous, [`${user?.id || 'guest'}:repositories`]:value}))}
             userKey={user?.id || "guest"} active={section === "repositories"}
             onRepositoriesLoaded={rows => {setRepositories(rows); setModuleCounts(previous => ({...previous,repositories:rows.length}));}}
-            onNavigationChange={setRepositoryNavigation} navigationTarget={repositoryTarget} onCorrectClassification={onCorrectClassification} />
+            onCorrectClassification={onCorrectClassification} />
           {sectionNeedsData && !sectionDataReady && <div className="knowledge-loading" role="status">
             {dataLoad.status === 'error'
               ? <><p>{dataLoad.error || '内容加载失败，请重试'}</p><button className="btn" onClick={retryPublicInbox}>重新加载</button></>

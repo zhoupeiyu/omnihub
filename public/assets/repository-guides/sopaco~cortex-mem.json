@@ -72,11 +72,48 @@
       "url": "/assets/repository-guides/media-82a253c54a7c5f6b420335f9.webp",
       "alt": "sopaco/cortex-mem 官方演示 1",
       "sourceUrl": "https://github.com/sopaco/cortex-mem/blob/82a1c83c4b1c2d03d69d825309040f370dc16635/README.md?plain=1#L250",
-      "originalUrl": "https://raw.githubusercontent.com/sopaco/cortex-mem/82a1c83c4b1c2d03d69d825309040f370dc16635/assets/snapshots/insights/snapshot_dashboard.png"
+      "originalUrl": "https://raw.githubusercontent.com/sopaco/cortex-mem/82a1c83c4b1c2d03d69d825309040f370dc16635/assets/snapshots/insights/snapshot_dashboard.png",
+      "animated": false
+    },
+    {
+      "url": "/assets/repository-guides/media-2fed713e9a5be01b63c0a00c.webp",
+      "alt": "项目介绍",
+      "sourceUrl": "https://github.com/sopaco/cortex-mem/blob/82a1c83c4b1c2d03d69d825309040f370dc16635/README.md#L2",
+      "originalUrl": "https://raw.githubusercontent.com/sopaco/cortex-mem/82a1c83c4b1c2d03d69d825309040f370dc16635/assets/intro/TopBanner.webp",
+      "animated": false
+    },
+    {
+      "url": "/assets/repository-guides/media-483bb3ac64d5e8e9b96d5a72.webp",
+      "alt": "Layered Context Loading",
+      "sourceUrl": "https://github.com/sopaco/cortex-mem/blob/82a1c83c4b1c2d03d69d825309040f370dc16635/README.md#L35",
+      "originalUrl": "https://raw.githubusercontent.com/sopaco/cortex-mem/82a1c83c4b1c2d03d69d825309040f370dc16635/assets/intro/highlight_style_modern.jpg",
+      "animated": false
+    },
+    {
+      "url": "/assets/repository-guides/media-b5bfb4d6a382c0ec0c8cf1c6.webp",
+      "alt": "Cortex Memory vs OpenViking/OpenClaw",
+      "sourceUrl": "https://github.com/sopaco/cortex-mem/blob/82a1c83c4b1c2d03d69d825309040f370dc16635/README.md#L382",
+      "originalUrl": "https://raw.githubusercontent.com/sopaco/cortex-mem/82a1c83c4b1c2d03d69d825309040f370dc16635/assets/benchmark/cortex_mem_vs_openclaw_3.png",
+      "animated": false
+    },
+    {
+      "url": "/assets/repository-guides/media-71930ad81bf3df436359cf10.webp",
+      "alt": "项目介绍",
+      "sourceUrl": "https://github.com/sopaco/cortex-mem/blob/82a1c83c4b1c2d03d69d825309040f370dc16635/README.md#L3",
+      "originalUrl": "https://raw.githubusercontent.com/sopaco/cortex-mem/82a1c83c4b1c2d03d69d825309040f370dc16635/assets/benchmark/cortex_mem_vs_openclaw_1.png",
+      "animated": false
+    },
+    {
+      "url": "/assets/repository-guides/media-586afb37083bd96080e85a0e.webp",
+      "alt": "architecture_style_modern",
+      "sourceUrl": "https://github.com/sopaco/cortex-mem/blob/82a1c83c4b1c2d03d69d825309040f370dc16635/README.md#L35",
+      "originalUrl": "https://raw.githubusercontent.com/sopaco/cortex-mem/82a1c83c4b1c2d03d69d825309040f370dc16635/assets/intro/architecture_style_modern.jpg",
+      "animated": false
     }
   ],
   "generatedBy": "claude-opus-5-5",
   "documentHash": "d3757676aa8eaaf99d805d6d270b5f93bd27fa62a0bb892145b49ff716e4553c",
   "mediaStatus": "archived",
-  "mediaFailures": []
+  "mediaFailures": [],
+  "mediaReferences": []
 }

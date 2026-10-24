@@ -66,8 +66,18 @@
     "“Karpathy 92”只表示由 Karpathy 分享的 HN 2025 RSS 起步清单，不表示他逐一审阅或背书。"
   ],
   "references": [],
-  "media": [],
+  "media": [
+    {
+      "url": "/assets/repository-guides/media-842d58b5931657ccac6a988e.webp",
+      "alt": "Source Library editorial map",
+      "sourceUrl": "https://github.com/1229119561Weike/source-library-research-kit/blob/ceeaa80962059dc99f22d57977f6f51e93effb4d/README.md#L18",
+      "originalUrl": "https://raw.githubusercontent.com/1229119561Weike/source-library-research-kit/ceeaa80962059dc99f22d57977f6f51e93effb4d/assets/source-shelf-editorial.png",
+      "animated": false
+    }
+  ],
   "generatedBy": "claude-opus-5-5",
   "documentHash": "bc3d92bfee853de64bce3de9745be1f0f2245e71aad84427980aacc0c7f29417",
-  "mediaStatus": "none_in_official_documents"
+  "mediaStatus": "archived",
+  "mediaFailures": [],
+  "mediaReferences": []
 }

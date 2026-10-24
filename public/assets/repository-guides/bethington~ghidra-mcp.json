@@ -76,23 +76,48 @@
       "url": "/assets/repository-guides/media-886f213be69330c96f8646c9.webp",
       "alt": "bethington/ghidra-mcp 官方演示 1",
       "sourceUrl": "https://github.com/bethington/ghidra-mcp/blob/d66702c63b7149453d0686e58f7fb29f3140d5d3/docs/INSTALL_GUI.md?plain=1#L58",
-      "originalUrl": "https://raw.githubusercontent.com/bethington/ghidra-mcp/d66702c63b7149453d0686e58f7fb29f3140d5d3/docs/images/install/02-file-menu-install-extensions.png"
+      "originalUrl": "https://raw.githubusercontent.com/bethington/ghidra-mcp/d66702c63b7149453d0686e58f7fb29f3140d5d3/docs/images/install/02-file-menu-install-extensions.png",
+      "animated": false
     },
     {
       "url": "/assets/repository-guides/media-d733937fd34457dce584a325.webp",
       "alt": "bethington/ghidra-mcp 官方演示 2",
       "sourceUrl": "https://github.com/bethington/ghidra-mcp/blob/d66702c63b7149453d0686e58f7fb29f3140d5d3/docs/INSTALL_GUI.md?plain=1#L98",
-      "originalUrl": "https://raw.githubusercontent.com/bethington/ghidra-mcp/d66702c63b7149453d0686e58f7fb29f3140d5d3/docs/images/install/07-utility-plugins-ghidramcp.png"
+      "originalUrl": "https://raw.githubusercontent.com/bethington/ghidra-mcp/d66702c63b7149453d0686e58f7fb29f3140d5d3/docs/images/install/07-utility-plugins-ghidramcp.png",
+      "animated": false
     },
     {
       "url": "/assets/repository-guides/media-4e77804b6e71ca2d3fce5b8f.webp",
       "alt": "bethington/ghidra-mcp 官方演示 3",
       "sourceUrl": "https://github.com/bethington/ghidra-mcp/blob/d66702c63b7149453d0686e58f7fb29f3140d5d3/docs/INSTALL_GUI.md?plain=1#L114",
-      "originalUrl": "https://raw.githubusercontent.com/bethington/ghidra-mcp/d66702c63b7149453d0686e58f7fb29f3140d5d3/docs/images/install/09-server-status.png"
+      "originalUrl": "https://raw.githubusercontent.com/bethington/ghidra-mcp/d66702c63b7149453d0686e58f7fb29f3140d5d3/docs/images/install/09-server-status.png",
+      "animated": false
+    },
+    {
+      "url": "/assets/repository-guides/media-3cfd72d637129b4dca7e3f75.webp",
+      "alt": "Ghidra project window with an empty project",
+      "sourceUrl": "https://github.com/bethington/ghidra-mcp/blob/d66702c63b7149453d0686e58f7fb29f3140d5d3/docs/INSTALL_GUI.md#L54",
+      "originalUrl": "https://raw.githubusercontent.com/bethington/ghidra-mcp/d66702c63b7149453d0686e58f7fb29f3140d5d3/docs/images/install/01-project-window.png",
+      "animated": false
+    },
+    {
+      "url": "/assets/repository-guides/media-7c8674b4c15ac7061413e2e9.webp",
+      "alt": "Install Extensions dialog before adding GhidraMCP",
+      "sourceUrl": "https://github.com/bethington/ghidra-mcp/blob/d66702c63b7149453d0686e58f7fb29f3140d5d3/docs/INSTALL_GUI.md#L65",
+      "originalUrl": "https://raw.githubusercontent.com/bethington/ghidra-mcp/d66702c63b7149453d0686e58f7fb29f3140d5d3/docs/images/install/03-install-extensions-dialog.png",
+      "animated": false
+    },
+    {
+      "url": "/assets/repository-guides/media-c5b2715e593f2a03d7e0e36a.webp",
+      "alt": "CodeBrowser File menu with Configure",
+      "sourceUrl": "https://github.com/bethington/ghidra-mcp/blob/d66702c63b7149453d0686e58f7fb29f3140d5d3/docs/INSTALL_GUI.md#L90",
+      "originalUrl": "https://raw.githubusercontent.com/bethington/ghidra-mcp/d66702c63b7149453d0686e58f7fb29f3140d5d3/docs/images/install/05-codebrowser-file-configure.png",
+      "animated": false
     }
   ],
   "generatedBy": "claude-opus-5-5",
   "documentHash": "2bd121a2dcd05a36dc260e69d725dea79d8947659f18969219fe8ee3a4e6ac42",
   "mediaStatus": "archived",
-  "mediaFailures": []
+  "mediaFailures": [],
+  "mediaReferences": []
 }

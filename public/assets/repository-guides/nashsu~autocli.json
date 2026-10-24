@@ -77,17 +77,27 @@
       "url": "/assets/repository-guides/media-e509f072addb8344deda964e.webp",
       "alt": "nashsu/AutoCLI 官方演示 1",
       "sourceUrl": "https://github.com/nashsu/AutoCLI/blob/c0969e2c83b29a7528452b1ba555085deca8e00d/README.md?plain=1#L181",
-      "originalUrl": "https://raw.githubusercontent.com/nashsu/AutoCLI/c0969e2c83b29a7528452b1ba555085deca8e00d/assets/chrome_extension_demo.jpg"
+      "originalUrl": "https://raw.githubusercontent.com/nashsu/AutoCLI/c0969e2c83b29a7528452b1ba555085deca8e00d/assets/chrome_extension_demo.jpg",
+      "animated": false
     },
     {
       "url": "/assets/repository-guides/media-dadebab0a5c5774e2ab91f44.webp",
       "alt": "nashsu/AutoCLI 官方演示 2",
       "sourceUrl": "https://github.com/nashsu/AutoCLI/blob/c0969e2c83b29a7528452b1ba555085deca8e00d/README.md?plain=1#L187",
-      "originalUrl": "https://raw.githubusercontent.com/nashsu/AutoCLI/c0969e2c83b29a7528452b1ba555085deca8e00d/assets/autocli_use.jpg"
+      "originalUrl": "https://raw.githubusercontent.com/nashsu/AutoCLI/c0969e2c83b29a7528452b1ba555085deca8e00d/assets/autocli_use.jpg",
+      "animated": false
+    },
+    {
+      "url": "/assets/repository-guides/media-de35fca42ebc8b12afc476fa.webp",
+      "alt": "autocli",
+      "sourceUrl": "https://github.com/nashsu/AutoCLI/blob/c0969e2c83b29a7528452b1ba555085deca8e00d/README.md#L7",
+      "originalUrl": "https://raw.githubusercontent.com/nashsu/AutoCLI/c0969e2c83b29a7528452b1ba555085deca8e00d/assets/title_screen.jpg",
+      "animated": false
     }
   ],
   "generatedBy": "claude-opus-5-5",
   "documentHash": "cf67982036e4c0f00da28d890d499997852060ed56eda4685b2b35e59ba98b3b",
   "mediaStatus": "archived",
-  "mediaFailures": []
+  "mediaFailures": [],
+  "mediaReferences": []
 }

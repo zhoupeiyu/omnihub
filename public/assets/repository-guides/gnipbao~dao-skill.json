@@ -65,8 +65,18 @@
     "创建远程仓库、发布、推送或写入受保护目录前，应先获得明确授权。"
   ],
   "references": [],
-  "media": [],
+  "media": [
+    {
+      "url": "/assets/repository-guides/media-9b7b59a11a18900cc194d920.webp",
+      "alt": "道 · Skill — 老子骑青牛",
+      "sourceUrl": "https://github.com/gnipbao/dao-skill/blob/1cae835995c0ff4d9a33a6fec82cca0a54b7cd05/README.md#L2",
+      "originalUrl": "https://raw.githubusercontent.com/gnipbao/dao-skill/1cae835995c0ff4d9a33a6fec82cca0a54b7cd05/assets/dao-skill-banner.png",
+      "animated": false
+    }
+  ],
   "generatedBy": "claude-opus-5-5",
   "documentHash": "2028227ab09b0ef3b6f1918377441d9f2caf2e94204dae84c036de431c9cb82d",
-  "mediaStatus": "none_in_official_documents"
+  "mediaStatus": "archived",
+  "mediaFailures": [],
+  "mediaReferences": []
 }

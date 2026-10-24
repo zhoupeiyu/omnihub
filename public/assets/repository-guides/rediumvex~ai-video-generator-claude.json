@@ -63,8 +63,18 @@
     "克隆和安装脚本是两种安装方式，选择其一即可，避免重复安装。"
   ],
   "references": [],
-  "media": [],
+  "media": [
+    {
+      "url": "/assets/repository-guides/media-23793b8d1edd26b8f2cb1d55.webp",
+      "alt": "telegram-cloud-document-4-5974547813680291996",
+      "sourceUrl": "https://github.com/rediumvex/ai-video-generator-claude/blob/ffdad7d515f6579780749d1a90d9ed0945e3a4ac/README.md#L1",
+      "originalUrl": "https://github.com/user-attachments/assets/d3ebcec5-91ec-4e4e-9117-8774f5e8b34d",
+      "animated": false
+    }
+  ],
   "generatedBy": "claude-opus-5-5",
   "documentHash": "921a9f55a7e4d5e21aec5dbfe4e983f0f354545ffc2a6f1f512725f67ed8a3ae",
-  "mediaStatus": "none_in_official_documents"
+  "mediaStatus": "archived",
+  "mediaFailures": [],
+  "mediaReferences": []
 }

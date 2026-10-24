@@ -73,11 +73,20 @@
       "url": "/assets/repository-guides/media-b17b73467039d43c4db37b45.webp",
       "alt": "DSH Desktop 中文对话界面",
       "sourceUrl": "https://github.com/anywhere-labs/dsh-desktop/blob/1030515b4358b39633c80d5857cab6114b9e3ba8/README.md?plain=1#L20",
-      "originalUrl": "https://raw.githubusercontent.com/anywhere-labs/dsh-desktop/1030515b4358b39633c80d5857cab6114b9e3ba8/assets/desktop-chat-zh.png"
+      "originalUrl": "https://raw.githubusercontent.com/anywhere-labs/dsh-desktop/1030515b4358b39633c80d5857cab6114b9e3ba8/assets/desktop-chat-zh.png",
+      "animated": false
+    },
+    {
+      "url": "/assets/repository-guides/media-55f8bb135538463cb91f2815.webp",
+      "alt": "DSH Desktop：基于 DeepSeek Harness 构建的开源桌面客户端",
+      "sourceUrl": "https://github.com/anywhere-labs/dsh-desktop/blob/1030515b4358b39633c80d5857cab6114b9e3ba8/README.md#L2",
+      "originalUrl": "https://raw.githubusercontent.com/anywhere-labs/dsh-desktop/1030515b4358b39633c80d5857cab6114b9e3ba8/assets/desktop-hero-zh.png",
+      "animated": false
     }
   ],
   "generatedBy": "claude-opus-5-5",
   "documentHash": "f7b31e0b7a8c62c1ccdfaf1c57624885fa3a0e9e1e600de77361025615e2c93b",
   "mediaStatus": "archived",
-  "mediaFailures": []
+  "mediaFailures": [],
+  "mediaReferences": []
 }

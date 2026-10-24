@@ -61,17 +61,20 @@
       "url": "/assets/repository-guides/media-b94d2eb4be80bcae630c95bd.webp",
       "alt": "拉片报告",
       "sourceUrl": "https://github.com/eternityspring/reelbench-skills/blob/1b51af897b6a57556b85dfe96e0427e231b4b613/README.md?plain=1#L54",
-      "originalUrl": "https://raw.githubusercontent.com/eternityspring/reelbench-skills/1b51af897b6a57556b85dfe96e0427e231b4b613/skills/video-shots/assets/report.png"
+      "originalUrl": "https://raw.githubusercontent.com/eternityspring/reelbench-skills/1b51af897b6a57556b85dfe96e0427e231b4b613/skills/video-shots/assets/report.png",
+      "animated": false
     },
     {
       "url": "/assets/repository-guides/media-fbf99de477d52ec0bbde28cf.webp",
       "alt": "窄屏下的镜头表",
       "sourceUrl": "https://github.com/eternityspring/reelbench-skills/blob/1b51af897b6a57556b85dfe96e0427e231b4b613/README.md?plain=1#L60",
-      "originalUrl": "https://raw.githubusercontent.com/eternityspring/reelbench-skills/1b51af897b6a57556b85dfe96e0427e231b4b613/skills/video-shots/assets/report-mobile.png"
+      "originalUrl": "https://raw.githubusercontent.com/eternityspring/reelbench-skills/1b51af897b6a57556b85dfe96e0427e231b4b613/skills/video-shots/assets/report-mobile.png",
+      "animated": false
     }
   ],
   "generatedBy": "claude-opus-5-5",
   "documentHash": "a727442b54443c1dac97cc9e318d98c5802359fca163d177b89fe557f3359b34",
   "mediaStatus": "archived",
-  "mediaFailures": []
+  "mediaFailures": [],
+  "mediaReferences": []
 }

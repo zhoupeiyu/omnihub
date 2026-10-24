@@ -71,8 +71,18 @@
       "url": "https://github.com/alexanderradahl/mac-developer-bridge/blob/fea70d1a3c5524164f2159f6063ba685fef91324/DEPLOY.md"
     }
   ],
-  "media": [],
+  "media": [
+    {
+      "url": "/assets/repository-guides/media-c975a9eda9af3c264c2a438b.webp",
+      "alt": "Mac Developer Bridge showing ChatGPT reasoning through MCP into shell, PTY sessions, Codex history, and a live Mac",
+      "sourceUrl": "https://github.com/alexanderradahl/mac-developer-bridge/blob/fea70d1a3c5524164f2159f6063ba685fef91324/README.md#L10",
+      "originalUrl": "https://raw.githubusercontent.com/alexanderradahl/mac-developer-bridge/fea70d1a3c5524164f2159f6063ba685fef91324/docs/assets/mac-developer-bridge-workflow.png",
+      "animated": false
+    }
+  ],
   "generatedBy": "claude-opus-5-5",
   "documentHash": "f5b927fa753e4e4efdf26a18f39d918c8526c980893538038542ff5e69ef6000",
-  "mediaStatus": "none_in_official_documents"
+  "mediaStatus": "archived",
+  "mediaFailures": [],
+  "mediaReferences": []
 }

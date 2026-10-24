@@ -53,17 +53,34 @@
       "url": "/assets/repository-guides/media-1d3ffccfeea468b43c423151.webp",
       "alt": "聊天记录-机器人收藏",
       "sourceUrl": "https://github.com/vigorX777/content-collector-skill/blob/88edfb4673169f554ae71f73d1b88a4a3186fa47/README.md?plain=1#L20",
-      "originalUrl": "https://raw.githubusercontent.com/vigorX777/content-collector-skill/88edfb4673169f554ae71f73d1b88a4a3186fa47/assets/chat-demo.png"
+      "originalUrl": "https://raw.githubusercontent.com/vigorX777/content-collector-skill/88edfb4673169f554ae71f73d1b88a4a3186fa47/assets/chat-demo.png",
+      "animated": false
     },
     {
       "url": "/assets/repository-guides/media-6e8857f2be12da521808602f.webp",
       "alt": "内容收藏库-多维表格",
       "sourceUrl": "https://github.com/vigorX777/content-collector-skill/blob/88edfb4673169f554ae71f73d1b88a4a3186fa47/README.md?plain=1#L21",
-      "originalUrl": "https://raw.githubusercontent.com/vigorX777/content-collector-skill/88edfb4673169f554ae71f73d1b88a4a3186fa47/assets/bitable-demo.png"
+      "originalUrl": "https://raw.githubusercontent.com/vigorX777/content-collector-skill/88edfb4673169f554ae71f73d1b88a4a3186fa47/assets/bitable-demo.png",
+      "animated": false
+    },
+    {
+      "url": "/assets/repository-guides/media-506003d1b46df56a8758fe90.webp",
+      "alt": "一键收藏总结提醒",
+      "sourceUrl": "https://github.com/vigorX777/content-collector-skill/blob/88edfb4673169f554ae71f73d1b88a4a3186fa47/README.md#L6",
+      "originalUrl": "https://raw.githubusercontent.com/vigorX777/content-collector-skill/88edfb4673169f554ae71f73d1b88a4a3186fa47/assets/cover.png",
+      "animated": false
+    },
+    {
+      "url": "/assets/repository-guides/media-28ace15d08752553561a5a55.webp",
+      "alt": "自动化流程",
+      "sourceUrl": "https://github.com/vigorX777/content-collector-skill/blob/88edfb4673169f554ae71f73d1b88a4a3186fa47/README.md#L27",
+      "originalUrl": "https://raw.githubusercontent.com/vigorX777/content-collector-skill/88edfb4673169f554ae71f73d1b88a4a3186fa47/assets/workflow.png",
+      "animated": false
     }
   ],
   "generatedBy": "claude-opus-5-5",
   "documentHash": "a239a13d91fdebf34edbd11963042adeab27e7ed56f8a4ebf72ac59357212a14",
   "mediaStatus": "archived",
-  "mediaFailures": []
+  "mediaFailures": [],
+  "mediaReferences": []
 }

@@ -69,11 +69,13 @@
       "url": "/assets/repository-guides/media-c55203cde0948fec63685b99.webp",
       "alt": "ParthJadhav/app-store-screenshots 官方演示 1",
       "sourceUrl": "https://github.com/ParthJadhav/app-store-screenshots/blob/8bd752043f33c54e69c2e77dd169fc3fbca8a4e4/README.md?plain=1#L5",
-      "originalUrl": "https://raw.githubusercontent.com/ParthJadhav/app-store-screenshots/8bd752043f33c54e69c2e77dd169fc3fbca8a4e4/example.png"
+      "originalUrl": "https://raw.githubusercontent.com/ParthJadhav/app-store-screenshots/8bd752043f33c54e69c2e77dd169fc3fbca8a4e4/example.png",
+      "animated": false
     }
   ],
   "generatedBy": "claude-opus-5-5",
   "documentHash": "038c76e79d7d435c85c7ce787d68535840c9c1d194ff3036bf15eac209b61c0d",
   "mediaStatus": "archived",
-  "mediaFailures": []
+  "mediaFailures": [],
+  "mediaReferences": []
 }

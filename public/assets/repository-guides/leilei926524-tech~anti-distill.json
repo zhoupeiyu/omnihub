@@ -56,8 +56,32 @@
     "安装命令中的 <repo-url> 为占位符，不能直接复制运行。"
   ],
   "references": [],
-  "media": [],
+  "media": [
+    {
+      "url": "/assets/repository-guides/media-581785a991fefa633a2bfd4b.webp",
+      "alt": "Try Online",
+      "sourceUrl": "https://github.com/leilei926524-tech/anti-distill/blob/21e6aa9c72a03a5456eeb4cd63234a2fa2935387/README.md#L130",
+      "originalUrl": "https://raw.githubusercontent.com/shesl-tinkerland/socialistic-cards/main/anti-distill-11e494.png",
+      "animated": false
+    },
+    {
+      "url": "/assets/repository-guides/media-56fac60ab8541c3165253357.webp",
+      "alt": "community",
+      "sourceUrl": "https://github.com/leilei926524-tech/anti-distill/blob/21e6aa9c72a03a5456eeb4cd63234a2fa2935387/README.md#L243",
+      "originalUrl": "https://raw.githubusercontent.com/leilei926524-tech/anti-distill/21e6aa9c72a03a5456eeb4cd63234a2fa2935387/assets/community-qr.jpg",
+      "animated": false
+    },
+    {
+      "url": "/assets/repository-guides/media-e8842951f2bc75673b59593d.webp",
+      "alt": "contact",
+      "sourceUrl": "https://github.com/leilei926524-tech/anti-distill/blob/21e6aa9c72a03a5456eeb4cd63234a2fa2935387/README.md#L261",
+      "originalUrl": "https://raw.githubusercontent.com/leilei926524-tech/anti-distill/21e6aa9c72a03a5456eeb4cd63234a2fa2935387/assets/contact-qr.jpg",
+      "animated": false
+    }
+  ],
   "generatedBy": "claude-opus-5-5",
   "documentHash": "db6dc2334d2aee0085091278bdf5c8b99e5a76ac8a5f61c1a4b3c6ca8e67af71",
-  "mediaStatus": "none_in_official_documents"
+  "mediaStatus": "archived",
+  "mediaFailures": [],
+  "mediaReferences": []
 }

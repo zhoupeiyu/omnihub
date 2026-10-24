@@ -57,8 +57,83 @@
     "连接 GitHub、Notion 等外部服务时，需要设置连接权限，以及代理可执行的操作范围（Allowed、Ask first、Off）。"
   ],
   "references": [],
-  "media": [],
+  "media": [
+    {
+      "url": "/assets/repository-guides/media-880cdda394e4e7877669173e.webp",
+      "alt": "Paperclip is the app people use to manage AI agents for work.",
+      "sourceUrl": "https://github.com/paperclipai/paperclip/blob/0d3e7bf6ac69c6a41995e62e7a38ca99dcbc8dfd/README.md#L2",
+      "originalUrl": "https://raw.githubusercontent.com/paperclipai/paperclip/0d3e7bf6ac69c6a41995e62e7a38ca99dcbc8dfd/doc/assets/banner.jpg",
+      "animated": false
+    },
+    {
+      "url": "/assets/repository-guides/media-5533e7ae9ff6f7ef6475aebb.webp",
+      "alt": "The four pillars of Paperclip",
+      "sourceUrl": "https://github.com/paperclipai/paperclip/blob/0d3e7bf6ac69c6a41995e62e7a38ca99dcbc8dfd/README.md#L99",
+      "originalUrl": "https://raw.githubusercontent.com/paperclipai/paperclip/0d3e7bf6ac69c6a41995e62e7a38ca99dcbc8dfd/doc/assets/four-pillars-light.png",
+      "animated": false
+    }
+  ],
   "generatedBy": "claude-opus-5-5",
   "documentHash": "19bbd5aaa6dd343bbabb736f089cc977bf2d5520a0b0a9d09d5a7a54cb900d8f",
-  "mediaStatus": "none_in_official_documents"
+  "mediaStatus": "archived",
+  "mediaFailures": [
+    {
+      "sourceUrl": "https://github.com/paperclipai/paperclip/blob/0d3e7bf6ac69c6a41995e62e7a38ca99dcbc8dfd/README.md#L59",
+      "reason": "unsupported_media_format"
+    },
+    {
+      "sourceUrl": "https://github.com/paperclipai/paperclip/blob/0d3e7bf6ac69c6a41995e62e7a38ca99dcbc8dfd/README.md#L60",
+      "reason": "unsupported_media_format"
+    },
+    {
+      "sourceUrl": "https://github.com/paperclipai/paperclip/blob/0d3e7bf6ac69c6a41995e62e7a38ca99dcbc8dfd/README.md#L61",
+      "reason": "unsupported_media_format"
+    },
+    {
+      "sourceUrl": "https://github.com/paperclipai/paperclip/blob/0d3e7bf6ac69c6a41995e62e7a38ca99dcbc8dfd/README.md#L65",
+      "reason": "unsupported_media_format"
+    },
+    {
+      "sourceUrl": "https://github.com/paperclipai/paperclip/blob/0d3e7bf6ac69c6a41995e62e7a38ca99dcbc8dfd/README.md#L66",
+      "reason": "unsupported_media_format"
+    },
+    {
+      "sourceUrl": "https://github.com/paperclipai/paperclip/blob/0d3e7bf6ac69c6a41995e62e7a38ca99dcbc8dfd/README.md#L67",
+      "reason": "unsupported_media_format"
+    },
+    {
+      "sourceUrl": "https://github.com/paperclipai/paperclip/blob/0d3e7bf6ac69c6a41995e62e7a38ca99dcbc8dfd/README.md#L68",
+      "reason": "unsupported_media_format"
+    }
+  ],
+  "mediaReferences": [
+    {
+      "label": "Codex",
+      "url": "https://github.com/paperclipai/paperclip/blob/0d3e7bf6ac69c6a41995e62e7a38ca99dcbc8dfd/README.md#L59"
+    },
+    {
+      "label": "Cursor and Cursor Cloud",
+      "url": "https://github.com/paperclipai/paperclip/blob/0d3e7bf6ac69c6a41995e62e7a38ca99dcbc8dfd/README.md#L60"
+    },
+    {
+      "label": "Gemini CLI",
+      "url": "https://github.com/paperclipai/paperclip/blob/0d3e7bf6ac69c6a41995e62e7a38ca99dcbc8dfd/README.md#L61"
+    },
+    {
+      "label": "Pi",
+      "url": "https://github.com/paperclipai/paperclip/blob/0d3e7bf6ac69c6a41995e62e7a38ca99dcbc8dfd/README.md#L65"
+    },
+    {
+      "label": "Hermes and Hermes Gateway",
+      "url": "https://github.com/paperclipai/paperclip/blob/0d3e7bf6ac69c6a41995e62e7a38ca99dcbc8dfd/README.md#L66"
+    },
+    {
+      "label": "Grok Build",
+      "url": "https://github.com/paperclipai/paperclip/blob/0d3e7bf6ac69c6a41995e62e7a38ca99dcbc8dfd/README.md#L67"
+    },
+    {
+      "label": "Kimi Code",
+      "url": "https://github.com/paperclipai/paperclip/blob/0d3e7bf6ac69c6a41995e62e7a38ca99dcbc8dfd/README.md#L68"
+    }
+  ]
 }

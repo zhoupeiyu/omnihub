@@ -72,23 +72,52 @@
       "url": "/assets/repository-guides/media-5e8ba300fc66a48ad8f0b94a.webp",
       "alt": "calesthio/OpenMontage 官方演示 1",
       "sourceUrl": "https://github.com/calesthio/OpenMontage/blob/08e2151fa02de28a5d6a312b3d575692bf147ad7/README.md?plain=1#L162",
-      "originalUrl": "https://raw.githubusercontent.com/calesthio/OpenMontage/08e2151fa02de28a5d6a312b3d575692bf147ad7/docs/images/backlot/board-live.png"
+      "originalUrl": "https://raw.githubusercontent.com/calesthio/OpenMontage/08e2151fa02de28a5d6a312b3d575692bf147ad7/docs/images/backlot/board-live.png",
+      "animated": false
     },
     {
       "url": "/assets/repository-guides/media-d55fdb006cf73c6d4118cbe4.webp",
       "alt": "calesthio/OpenMontage 官方演示 2",
       "sourceUrl": "https://github.com/calesthio/OpenMontage/blob/08e2151fa02de28a5d6a312b3d575692bf147ad7/README.md?plain=1#L166",
-      "originalUrl": "https://raw.githubusercontent.com/calesthio/OpenMontage/08e2151fa02de28a5d6a312b3d575692bf147ad7/docs/images/backlot/storyboard.png"
+      "originalUrl": "https://raw.githubusercontent.com/calesthio/OpenMontage/08e2151fa02de28a5d6a312b3d575692bf147ad7/docs/images/backlot/storyboard.png",
+      "animated": false
     },
     {
       "url": "/assets/repository-guides/media-053d08653dea06447d92caac.webp",
       "alt": "calesthio/OpenMontage 官方演示 3",
       "sourceUrl": "https://github.com/calesthio/OpenMontage/blob/08e2151fa02de28a5d6a312b3d575692bf147ad7/README.md?plain=1#L170",
-      "originalUrl": "https://raw.githubusercontent.com/calesthio/OpenMontage/08e2151fa02de28a5d6a312b3d575692bf147ad7/docs/images/backlot/script-gate.png"
+      "originalUrl": "https://raw.githubusercontent.com/calesthio/OpenMontage/08e2151fa02de28a5d6a312b3d575692bf147ad7/docs/images/backlot/script-gate.png",
+      "animated": false
+    },
+    {
+      "url": "/assets/repository-guides/media-72ff847cfbe361d11842efd4.webp",
+      "alt": "Backlot library",
+      "sourceUrl": "https://github.com/calesthio/OpenMontage/blob/08e2151fa02de28a5d6a312b3d575692bf147ad7/README.md#L174",
+      "originalUrl": "https://raw.githubusercontent.com/calesthio/OpenMontage/08e2151fa02de28a5d6a312b3d575692bf147ad7/docs/images/backlot/library.png",
+      "animated": false
     }
   ],
   "generatedBy": "claude-opus-5-5",
   "documentHash": "0431403a913bb4a132e090f4dbd0343852473aa62d67a3a3912294129482906b",
   "mediaStatus": "archived",
-  "mediaFailures": []
+  "mediaFailures": [
+    {
+      "sourceUrl": "https://github.com/calesthio/OpenMontage/blob/08e2151fa02de28a5d6a312b3d575692bf147ad7/README.md#L4",
+      "reason": "unsupported_media_format"
+    },
+    {
+      "sourceUrl": "https://github.com/calesthio/OpenMontage/blob/08e2151fa02de28a5d6a312b3d575692bf147ad7/README.md#L38",
+      "reason": "unsupported_media_format"
+    }
+  ],
+  "mediaReferences": [
+    {
+      "label": "Monty the Clapper — the official mascot of OpenMontage",
+      "url": "https://github.com/calesthio/OpenMontage/blob/08e2151fa02de28a5d6a312b3d575692bf147ad7/README.md#L4"
+    },
+    {
+      "label": "🏆 #1 Repository of the Day on GitHub Trending",
+      "url": "https://github.com/calesthio/OpenMontage/blob/08e2151fa02de28a5d6a312b3d575692bf147ad7/README.md#L38"
+    }
+  ]
 }

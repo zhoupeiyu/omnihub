@@ -61,8 +61,113 @@
       "url": "https://github.com/titanwings/distilly/blob/b830d3dcbde006370f141155795b89021e3a947b/docs/lang/README_ZH.md"
     }
   ],
-  "media": [],
+  "media": [
+    {
+      "url": "/assets/repository-guides/media-a25fef6ecdf929f8de2e0c83.webp",
+      "alt": "Distilly — Distill how they think into Person Profiles for Agents",
+      "sourceUrl": "https://github.com/titanwings/distilly/blob/b830d3dcbde006370f141155795b89021e3a947b/README.md#L3",
+      "originalUrl": "https://raw.githubusercontent.com/titanwings/distilly/b830d3dcbde006370f141155795b89021e3a947b/docs/social-preview-distilly-v7.png",
+      "animated": false
+    },
+    {
+      "url": "/assets/repository-guides/media-16f95ba1f827fb592badcd03.webp",
+      "alt": "Hermes Agent",
+      "sourceUrl": "https://github.com/titanwings/distilly/blob/b830d3dcbde006370f141155795b89021e3a947b/README.md#L119",
+      "originalUrl": "https://raw.githubusercontent.com/titanwings/distilly/b830d3dcbde006370f141155795b89021e3a947b/docs/assets/hosts/hermes-agent-wordmark.png",
+      "animated": false
+    },
+    {
+      "url": "/assets/repository-guides/media-389391d9484af8beb62517f2.webp",
+      "alt": "Codex",
+      "sourceUrl": "https://github.com/titanwings/distilly/blob/b830d3dcbde006370f141155795b89021e3a947b/README.md#L121",
+      "originalUrl": "https://raw.githubusercontent.com/titanwings/distilly/b830d3dcbde006370f141155795b89021e3a947b/docs/assets/hosts/codex-mark-light.png",
+      "animated": false
+    },
+    {
+      "url": "/assets/repository-guides/media-bf32884db3a1b865f10e98fd.webp",
+      "alt": "Grok Build",
+      "sourceUrl": "https://github.com/titanwings/distilly/blob/b830d3dcbde006370f141155795b89021e3a947b/README.md#L126",
+      "originalUrl": "https://raw.githubusercontent.com/titanwings/distilly/b830d3dcbde006370f141155795b89021e3a947b/docs/assets/hosts/grok-build-mark-light.png",
+      "animated": false
+    }
+  ],
   "generatedBy": "claude-opus-5-5",
   "documentHash": "a931a82a3d58ab46587514923e9573a09a8b96fa31da31e91ee88e1ed4c33338",
-  "mediaStatus": "none_in_official_documents"
+  "mediaStatus": "archived",
+  "mediaFailures": [
+    {
+      "sourceUrl": "https://github.com/titanwings/distilly/blob/b830d3dcbde006370f141155795b89021e3a947b/README.md#L118",
+      "reason": "unsupported_media_format"
+    },
+    {
+      "sourceUrl": "https://github.com/titanwings/distilly/blob/b830d3dcbde006370f141155795b89021e3a947b/README.md#L141",
+      "reason": "non_demo_dimensions"
+    },
+    {
+      "sourceUrl": "https://github.com/titanwings/distilly/blob/b830d3dcbde006370f141155795b89021e3a947b/README.md#L142",
+      "reason": "non_demo_dimensions"
+    },
+    {
+      "sourceUrl": "https://github.com/titanwings/distilly/blob/b830d3dcbde006370f141155795b89021e3a947b/README.md#L120",
+      "reason": "unsupported_media_format"
+    },
+    {
+      "sourceUrl": "https://github.com/titanwings/distilly/blob/b830d3dcbde006370f141155795b89021e3a947b/README.md#L143",
+      "reason": "non_demo_dimensions"
+    },
+    {
+      "sourceUrl": "https://github.com/titanwings/distilly/blob/b830d3dcbde006370f141155795b89021e3a947b/README.md#L144",
+      "reason": "unsupported_media_format"
+    },
+    {
+      "sourceUrl": "https://github.com/titanwings/distilly/blob/b830d3dcbde006370f141155795b89021e3a947b/README.md#L124",
+      "reason": "unsupported_media_format"
+    },
+    {
+      "sourceUrl": "https://github.com/titanwings/distilly/blob/b830d3dcbde006370f141155795b89021e3a947b/README.md#L125",
+      "reason": "unsupported_media_format"
+    },
+    {
+      "sourceUrl": "https://github.com/titanwings/distilly/blob/b830d3dcbde006370f141155795b89021e3a947b/README.md#L127",
+      "reason": "unsupported_media_format"
+    }
+  ],
+  "mediaReferences": [
+    {
+      "label": "Claude Code",
+      "url": "https://github.com/titanwings/distilly/blob/b830d3dcbde006370f141155795b89021e3a947b/README.md#L118"
+    },
+    {
+      "label": "Lark",
+      "url": "https://github.com/titanwings/distilly/blob/b830d3dcbde006370f141155795b89021e3a947b/README.md#L141"
+    },
+    {
+      "label": "DingTalk",
+      "url": "https://github.com/titanwings/distilly/blob/b830d3dcbde006370f141155795b89021e3a947b/README.md#L142"
+    },
+    {
+      "label": "OpenClaw",
+      "url": "https://github.com/titanwings/distilly/blob/b830d3dcbde006370f141155795b89021e3a947b/README.md#L120"
+    },
+    {
+      "label": "Slack",
+      "url": "https://github.com/titanwings/distilly/blob/b830d3dcbde006370f141155795b89021e3a947b/README.md#L143"
+    },
+    {
+      "label": "X",
+      "url": "https://github.com/titanwings/distilly/blob/b830d3dcbde006370f141155795b89021e3a947b/README.md#L144"
+    },
+    {
+      "label": "DeepSeek Harness",
+      "url": "https://github.com/titanwings/distilly/blob/b830d3dcbde006370f141155795b89021e3a947b/README.md#L124"
+    },
+    {
+      "label": "Pi coding agent",
+      "url": "https://github.com/titanwings/distilly/blob/b830d3dcbde006370f141155795b89021e3a947b/README.md#L125"
+    },
+    {
+      "label": "OpenCode",
+      "url": "https://github.com/titanwings/distilly/blob/b830d3dcbde006370f141155795b89021e3a947b/README.md#L127"
+    }
+  ]
 }

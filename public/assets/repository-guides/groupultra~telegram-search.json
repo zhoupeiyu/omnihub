@@ -70,11 +70,23 @@
       "url": "/assets/repository-guides/media-a900333857779c5a3d77f968.webp",
       "alt": "groupultra/telegram-search 官方演示 1",
       "sourceUrl": "https://github.com/groupultra/telegram-search/blob/33f767108cf9420d37359d42e9031eb416170c3d/README.md?plain=1#L1",
-      "originalUrl": "https://raw.githubusercontent.com/groupultra/telegram-search/33f767108cf9420d37359d42e9031eb416170c3d/docs/assets/preview.png"
+      "originalUrl": "https://raw.githubusercontent.com/groupultra/telegram-search/33f767108cf9420d37359d42e9031eb416170c3d/docs/assets/preview.png",
+      "animated": false
     }
   ],
   "generatedBy": "claude-opus-5-5",
   "documentHash": "a604120fb5fab092c5b14ab31fb73eefeec6c188eb395b2880125f7e6326f3da",
   "mediaStatus": "archived",
-  "mediaFailures": []
+  "mediaFailures": [
+    {
+      "sourceUrl": "https://github.com/groupultra/telegram-search/blob/33f767108cf9420d37359d42e9031eb416170c3d/README.md#L213",
+      "reason": "unsupported_media_host"
+    }
+  ],
+  "mediaReferences": [
+    {
+      "label": "Alt",
+      "url": "https://github.com/groupultra/telegram-search/blob/33f767108cf9420d37359d42e9031eb416170c3d/README.md#L213"
+    }
+  ]
 }

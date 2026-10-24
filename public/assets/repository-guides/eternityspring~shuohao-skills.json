@@ -72,23 +72,48 @@
       "url": "/assets/repository-guides/media-edd70276f7b1f619018e3cd2.webp",
       "alt": "eternityspring/shuohao-skills 官方演示 1",
       "sourceUrl": "https://github.com/eternityspring/shuohao-skills/blob/ef4ac0c313c7eeb1f918db5f0f0eb319745900bc/README.md?plain=1#L64",
-      "originalUrl": "https://raw.githubusercontent.com/eternityspring/shuohao-skills/ef4ac0c313c7eeb1f918db5f0f0eb319745900bc/skills/novel-outline/assets/report.webp"
+      "originalUrl": "https://raw.githubusercontent.com/eternityspring/shuohao-skills/ef4ac0c313c7eeb1f918db5f0f0eb319745900bc/skills/novel-outline/assets/report.webp",
+      "animated": false
     },
     {
       "url": "/assets/repository-guides/media-8f18efb89a854c2bb712ad08.webp",
       "alt": "eternityspring/shuohao-skills 官方演示 2",
       "sourceUrl": "https://github.com/eternityspring/shuohao-skills/blob/ef4ac0c313c7eeb1f918db5f0f0eb319745900bc/README.md?plain=1#L68",
-      "originalUrl": "https://raw.githubusercontent.com/eternityspring/shuohao-skills/ef4ac0c313c7eeb1f918db5f0f0eb319745900bc/skills/novel-characters/assets/report.webp"
+      "originalUrl": "https://raw.githubusercontent.com/eternityspring/shuohao-skills/ef4ac0c313c7eeb1f918db5f0f0eb319745900bc/skills/novel-characters/assets/report.webp",
+      "animated": false
     },
     {
       "url": "/assets/repository-guides/media-265cf3a97d0d75e151b39cda.webp",
       "alt": "eternityspring/shuohao-skills 官方演示 3",
       "sourceUrl": "https://github.com/eternityspring/shuohao-skills/blob/ef4ac0c313c7eeb1f918db5f0f0eb319745900bc/README.md?plain=1#L80",
-      "originalUrl": "https://raw.githubusercontent.com/eternityspring/shuohao-skills/ef4ac0c313c7eeb1f918db5f0f0eb319745900bc/skills/novel-storyboard/assets/report.webp"
+      "originalUrl": "https://raw.githubusercontent.com/eternityspring/shuohao-skills/ef4ac0c313c7eeb1f918db5f0f0eb319745900bc/skills/novel-storyboard/assets/report.webp",
+      "animated": false
+    },
+    {
+      "url": "/assets/repository-guides/media-51448bdaf4de7eb98ddece4f.webp",
+      "alt": "ReelBench AI短剧工作台首屏",
+      "sourceUrl": "https://github.com/eternityspring/shuohao-skills/blob/ef4ac0c313c7eeb1f918db5f0f0eb319745900bc/README.md#L7",
+      "originalUrl": "https://raw.githubusercontent.com/eternityspring/shuohao-skills/ef4ac0c313c7eeb1f918db5f0f0eb319745900bc/assets/reelbench-first-screen.png",
+      "animated": false
+    },
+    {
+      "url": "/assets/repository-guides/media-ae43072ee1161dff8dbba463.webp",
+      "alt": "AI 短剧制作流程图",
+      "sourceUrl": "https://github.com/eternityspring/shuohao-skills/blob/ef4ac0c313c7eeb1f918db5f0f0eb319745900bc/README.md#L15",
+      "originalUrl": "https://raw.githubusercontent.com/eternityspring/shuohao-skills/ef4ac0c313c7eeb1f918db5f0f0eb319745900bc/assets/pipeline.webp",
+      "animated": false
+    },
+    {
+      "url": "/assets/repository-guides/media-edbd52ab81d283d2b9c353f2.webp",
+      "alt": "美术设定集报告",
+      "sourceUrl": "https://github.com/eternityspring/shuohao-skills/blob/ef4ac0c313c7eeb1f918db5f0f0eb319745900bc/README.md#L72",
+      "originalUrl": "https://raw.githubusercontent.com/eternityspring/shuohao-skills/ef4ac0c313c7eeb1f918db5f0f0eb319745900bc/skills/novel-art/assets/report.webp",
+      "animated": false
     }
   ],
   "generatedBy": "claude-opus-5-5",
   "documentHash": "2f7bc319ce325d96d21d4a0711384515ae469e4a821f8072bfd3a794fedc99c5",
   "mediaStatus": "archived",
-  "mediaFailures": []
+  "mediaFailures": [],
+  "mediaReferences": []
 }

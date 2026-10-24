@@ -62,5 +62,41 @@
   "media": [],
   "generatedBy": "claude-opus-5-5",
   "documentHash": "ffa491a42010cb97b4509ed781a8435b4850d0dc9b3583ac3feb0d491ce841a7",
-  "mediaStatus": "none_in_official_documents"
+  "mediaStatus": "unavailable",
+  "mediaFailures": [
+    {
+      "sourceUrl": "https://github.com/wquguru/harness-books/blob/fbf2b43e352443eea00eb9e4a32709a9f2c11a76/README.md#L14",
+      "reason": "unsupported_media_format"
+    },
+    {
+      "sourceUrl": "https://github.com/wquguru/harness-books/blob/fbf2b43e352443eea00eb9e4a32709a9f2c11a76/README.zh-CN.md#L14",
+      "reason": "unsupported_media_format"
+    },
+    {
+      "sourceUrl": "https://github.com/wquguru/harness-books/blob/fbf2b43e352443eea00eb9e4a32709a9f2c11a76/README.md#L24",
+      "reason": "unsupported_media_format"
+    },
+    {
+      "sourceUrl": "https://github.com/wquguru/harness-books/blob/fbf2b43e352443eea00eb9e4a32709a9f2c11a76/README.zh-CN.md#L24",
+      "reason": "unsupported_media_format"
+    }
+  ],
+  "mediaReferences": [
+    {
+      "label": "Harness Engineering: A Design Guide to Claude Code",
+      "url": "https://github.com/wquguru/harness-books/blob/fbf2b43e352443eea00eb9e4a32709a9f2c11a76/README.md#L14"
+    },
+    {
+      "label": "Harness Engineering：Claude Code 设计指南",
+      "url": "https://github.com/wquguru/harness-books/blob/fbf2b43e352443eea00eb9e4a32709a9f2c11a76/README.zh-CN.md#L14"
+    },
+    {
+      "label": "The Harness Design Philosophies of Claude Code and Codex",
+      "url": "https://github.com/wquguru/harness-books/blob/fbf2b43e352443eea00eb9e4a32709a9f2c11a76/README.md#L24"
+    },
+    {
+      "label": "Claude Code 和 Codex 的 Harness 设计哲学",
+      "url": "https://github.com/wquguru/harness-books/blob/fbf2b43e352443eea00eb9e4a32709a9f2c11a76/README.zh-CN.md#L24"
+    }
+  ]
 }

@@ -62,23 +62,48 @@
       "url": "/assets/repository-guides/media-9380cd8ab45f1350478b852e.webp",
       "alt": "outsourc-e/hermes-workspace 官方演示 1",
       "sourceUrl": "https://github.com/outsourc-e/hermes-workspace/blob/c631425d8baa933f8c61d8447040f4ec8b5f571c/README.md?plain=1#L66",
-      "originalUrl": "https://raw.githubusercontent.com/outsourc-e/hermes-workspace/c631425d8baa933f8c61d8447040f4ec8b5f571c/docs/screenshots/chat.png"
+      "originalUrl": "https://raw.githubusercontent.com/outsourc-e/hermes-workspace/c631425d8baa933f8c61d8447040f4ec8b5f571c/docs/screenshots/chat.png",
+      "animated": false
     },
     {
       "url": "/assets/repository-guides/media-243dec2e92cb9af4e46de2ee.webp",
       "alt": "outsourc-e/hermes-workspace 官方演示 2",
       "sourceUrl": "https://github.com/outsourc-e/hermes-workspace/blob/c631425d8baa933f8c61d8447040f4ec8b5f571c/README.md?plain=1#L70",
-      "originalUrl": "https://raw.githubusercontent.com/outsourc-e/hermes-workspace/c631425d8baa933f8c61d8447040f4ec8b5f571c/docs/screenshots/dashboard.png"
+      "originalUrl": "https://raw.githubusercontent.com/outsourc-e/hermes-workspace/c631425d8baa933f8c61d8447040f4ec8b5f571c/docs/screenshots/dashboard.png",
+      "animated": false
     },
     {
       "url": "/assets/repository-guides/media-22842a897b2a8f88323352c4.webp",
       "alt": "outsourc-e/hermes-workspace 官方演示 3",
       "sourceUrl": "https://github.com/outsourc-e/hermes-workspace/blob/c631425d8baa933f8c61d8447040f4ec8b5f571c/README.md?plain=1#L66",
-      "originalUrl": "https://raw.githubusercontent.com/outsourc-e/hermes-workspace/c631425d8baa933f8c61d8447040f4ec8b5f571c/docs/screenshots/conductor.png"
+      "originalUrl": "https://raw.githubusercontent.com/outsourc-e/hermes-workspace/c631425d8baa933f8c61d8447040f4ec8b5f571c/docs/screenshots/conductor.png",
+      "animated": false
+    },
+    {
+      "url": "/assets/repository-guides/media-533677f37090511ac6f67879.webp",
+      "alt": "Hermes Workspace",
+      "sourceUrl": "https://github.com/outsourc-e/hermes-workspace/blob/c631425d8baa933f8c61d8447040f4ec8b5f571c/README.md#L19",
+      "originalUrl": "https://raw.githubusercontent.com/outsourc-e/hermes-workspace/c631425d8baa933f8c61d8447040f4ec8b5f571c/docs/screenshots/splash.png",
+      "animated": false
+    },
+    {
+      "url": "/assets/repository-guides/media-823ef927fa83e58e706fd7ff.webp",
+      "alt": "Memory",
+      "sourceUrl": "https://github.com/outsourc-e/hermes-workspace/blob/c631425d8baa933f8c61d8447040f4ec8b5f571c/README.md#L70",
+      "originalUrl": "https://raw.githubusercontent.com/outsourc-e/hermes-workspace/c631425d8baa933f8c61d8447040f4ec8b5f571c/docs/screenshots/memory.png",
+      "animated": false
+    },
+    {
+      "url": "/assets/repository-guides/media-9f91eb67d16aedd910b2c260.webp",
+      "alt": "Terminal",
+      "sourceUrl": "https://github.com/outsourc-e/hermes-workspace/blob/c631425d8baa933f8c61d8447040f4ec8b5f571c/README.md#L74",
+      "originalUrl": "https://raw.githubusercontent.com/outsourc-e/hermes-workspace/c631425d8baa933f8c61d8447040f4ec8b5f571c/docs/screenshots/terminal.png",
+      "animated": false
     }
   ],
   "generatedBy": "claude-opus-5-5",
   "documentHash": "72114091d80b86f5ddef8f78428c055cbcf913ee5b823c8f52db596755b85e82",
   "mediaStatus": "archived",
-  "mediaFailures": []
+  "mediaFailures": [],
+  "mediaReferences": []
 }

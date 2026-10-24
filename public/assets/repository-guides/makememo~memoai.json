@@ -59,7 +59,19 @@
   "mediaStatus": "unavailable",
   "mediaFailures": [
     {
+      "sourceUrl": "https://github.com/Makememo/MemoAI/blob/4291638b657814f5d6fb4bf6b12a82e718be0bb9/README.md#L3",
+      "reason": "unsupported_media_host"
+    },
+    {
+      "sourceUrl": "https://github.com/Makememo/MemoAI/blob/4291638b657814f5d6fb4bf6b12a82e718be0bb9/README.md#L19",
+      "reason": "unsupported_media_host"
+    },
+    {
       "sourceUrl": "https://github.com/Makememo/MemoAI/blob/4291638b657814f5d6fb4bf6b12a82e718be0bb9/README.md#L35",
+      "reason": "unsupported_media_host"
+    },
+    {
+      "sourceUrl": "https://github.com/Makememo/MemoAI/blob/4291638b657814f5d6fb4bf6b12a82e718be0bb9/README.md#L50",
       "reason": "unsupported_media_host"
     },
     {
@@ -67,8 +79,50 @@
       "reason": "unsupported_media_host"
     },
     {
+      "sourceUrl": "https://github.com/Makememo/MemoAI/blob/4291638b657814f5d6fb4bf6b12a82e718be0bb9/README.md#L68",
+      "reason": "unsupported_media_host"
+    },
+    {
+      "sourceUrl": "https://github.com/Makememo/MemoAI/blob/4291638b657814f5d6fb4bf6b12a82e718be0bb9/README.md#L75",
+      "reason": "unsupported_media_host"
+    },
+    {
       "sourceUrl": "https://github.com/Makememo/MemoAI/blob/4291638b657814f5d6fb4bf6b12a82e718be0bb9/README.md#L82",
       "reason": "unsupported_media_host"
+    }
+  ],
+  "mediaReferences": [
+    {
+      "label": "项目介绍",
+      "url": "https://github.com/Makememo/MemoAI/blob/4291638b657814f5d6fb4bf6b12a82e718be0bb9/README.md#L3"
+    },
+    {
+      "label": "Memo AI",
+      "url": "https://github.com/Makememo/MemoAI/blob/4291638b657814f5d6fb4bf6b12a82e718be0bb9/README.md#L19"
+    },
+    {
+      "label": "naAivRZTJeEwPdo",
+      "url": "https://github.com/Makememo/MemoAI/blob/4291638b657814f5d6fb4bf6b12a82e718be0bb9/README.md#L35"
+    },
+    {
+      "label": "DMbBYOhKU2ySoxW",
+      "url": "https://github.com/Makememo/MemoAI/blob/4291638b657814f5d6fb4bf6b12a82e718be0bb9/README.md#L50"
+    },
+    {
+      "label": "Hq7rhZs5vMUOkVl",
+      "url": "https://github.com/Makememo/MemoAI/blob/4291638b657814f5d6fb4bf6b12a82e718be0bb9/README.md#L60"
+    },
+    {
+      "label": "LonDCxRMeGNHymZ",
+      "url": "https://github.com/Makememo/MemoAI/blob/4291638b657814f5d6fb4bf6b12a82e718be0bb9/README.md#L68"
+    },
+    {
+      "label": "XfLIBzcvK65CxEJ",
+      "url": "https://github.com/Makememo/MemoAI/blob/4291638b657814f5d6fb4bf6b12a82e718be0bb9/README.md#L75"
+    },
+    {
+      "label": "eKbMxynPEZHW6kD",
+      "url": "https://github.com/Makememo/MemoAI/blob/4291638b657814f5d6fb4bf6b12a82e718be0bb9/README.md#L82"
     }
   ]
 }

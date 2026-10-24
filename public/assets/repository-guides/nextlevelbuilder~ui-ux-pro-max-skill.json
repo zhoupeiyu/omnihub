@@ -68,8 +68,36 @@
     "uipro 提示 unknown command 'update' 或 'uninstall' 时，说明 CLI 版本过旧，需要先更新 npm 包。"
   ],
   "references": [],
-  "media": [],
+  "media": [
+    {
+      "url": "/assets/repository-guides/media-f69c1f14bc4475a1cd8fe44e.webp",
+      "alt": "UI UX Pro Max",
+      "sourceUrl": "https://github.com/nextlevelbuilder/ui-ux-pro-max-skill/blob/09170eec67eefd46a7ae85de61b40c194020f997/README.md#L30",
+      "originalUrl": "https://raw.githubusercontent.com/nextlevelbuilder/ui-ux-pro-max-skill/09170eec67eefd46a7ae85de61b40c194020f997/screenshots/website.png",
+      "animated": false
+    }
+  ],
   "generatedBy": "claude-opus-5-5",
   "documentHash": "13957904b9999d6e367ecbb13d4df1aeb0a945d84f2da8c69c3b22e0750d2d7f",
-  "mediaStatus": "none_in_official_documents"
+  "mediaStatus": "archived",
+  "mediaFailures": [
+    {
+      "sourceUrl": "https://github.com/nextlevelbuilder/ui-ux-pro-max-skill/blob/09170eec67eefd46a7ae85de61b40c194020f997/README.md#L52",
+      "reason": "unsupported_media_host"
+    },
+    {
+      "sourceUrl": "https://github.com/nextlevelbuilder/ui-ux-pro-max-skill/blob/09170eec67eefd46a7ae85de61b40c194020f997/README.md#L60",
+      "reason": "unsupported_media_host"
+    }
+  ],
+  "mediaReferences": [
+    {
+      "label": "3Dviz Pro Max",
+      "url": "https://github.com/nextlevelbuilder/ui-ux-pro-max-skill/blob/09170eec67eefd46a7ae85de61b40c194020f997/README.md#L52"
+    },
+    {
+      "label": "Harness Village: a fantasy village with camera navigation and animated creatures",
+      "url": "https://github.com/nextlevelbuilder/ui-ux-pro-max-skill/blob/09170eec67eefd46a7ae85de61b40c194020f997/README.md#L60"
+    }
+  ]
 }

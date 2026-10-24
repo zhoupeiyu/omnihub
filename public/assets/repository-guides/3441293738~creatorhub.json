@@ -69,23 +69,48 @@
       "url": "/assets/repository-guides/media-39123b273e4934745d1bed16.webp",
       "alt": "工作概览 · 抖音深色主题",
       "sourceUrl": "https://github.com/3441293738/creatorhub/blob/c588dd58e67dc7feed01d175edfd295e59e8f647/README.md?plain=1#L130",
-      "originalUrl": "https://raw.githubusercontent.com/3441293738/creatorhub/c588dd58e67dc7feed01d175edfd295e59e8f647/assets/screenshots/overview-douyin.png"
+      "originalUrl": "https://raw.githubusercontent.com/3441293738/creatorhub/c588dd58e67dc7feed01d175edfd295e59e8f647/assets/screenshots/overview-douyin.png",
+      "animated": false
     },
     {
       "url": "/assets/repository-guides/media-c369503f0a294fce4d6cc3ce.webp",
       "alt": "侧边抽屉配置作品监控与采集策略",
       "sourceUrl": "https://github.com/3441293738/creatorhub/blob/c588dd58e67dc7feed01d175edfd295e59e8f647/README.md?plain=1#L143",
-      "originalUrl": "https://raw.githubusercontent.com/3441293738/creatorhub/c588dd58e67dc7feed01d175edfd295e59e8f647/assets/screenshots/monitor-create.png"
+      "originalUrl": "https://raw.githubusercontent.com/3441293738/creatorhub/c588dd58e67dc7feed01d175edfd295e59e8f647/assets/screenshots/monitor-create.png",
+      "animated": false
     },
     {
       "url": "/assets/repository-guides/media-d2886aff2b1e956264f33896.webp",
       "alt": "发布编辑器与素材、文案实时预览",
       "sourceUrl": "https://github.com/3441293738/creatorhub/blob/c588dd58e67dc7feed01d175edfd295e59e8f647/README.md?plain=1#L150",
-      "originalUrl": "https://raw.githubusercontent.com/3441293738/creatorhub/c588dd58e67dc7feed01d175edfd295e59e8f647/assets/screenshots/publish-workflow.png"
+      "originalUrl": "https://raw.githubusercontent.com/3441293738/creatorhub/c588dd58e67dc7feed01d175edfd295e59e8f647/assets/screenshots/publish-workflow.png",
+      "animated": false
+    },
+    {
+      "url": "/assets/repository-guides/media-0879f76f6565935f0bf9c6cd.webp",
+      "alt": "小红书工作概览与任务状态",
+      "sourceUrl": "https://github.com/3441293738/creatorhub/blob/c588dd58e67dc7feed01d175edfd295e59e8f647/README.md#L138",
+      "originalUrl": "https://raw.githubusercontent.com/3441293738/creatorhub/c588dd58e67dc7feed01d175edfd295e59e8f647/assets/screenshots/overview-xiaohongshu.png",
+      "animated": false
+    },
+    {
+      "url": "/assets/repository-guides/media-877116844ff6a1770b8e6d27.webp",
+      "alt": "账号列表、搜索与操作入口",
+      "sourceUrl": "https://github.com/3441293738/creatorhub/blob/c588dd58e67dc7feed01d175edfd295e59e8f647/README.md#L139",
+      "originalUrl": "https://raw.githubusercontent.com/3441293738/creatorhub/c588dd58e67dc7feed01d175edfd295e59e8f647/assets/screenshots/accounts-list.png",
+      "animated": false
+    },
+    {
+      "url": "/assets/repository-guides/media-ffa7d51a28f21a3e8f06ffa4.webp",
+      "alt": "独立代理池标签与账号关联",
+      "sourceUrl": "https://github.com/3441293738/creatorhub/blob/c588dd58e67dc7feed01d175edfd295e59e8f647/README.md#L142",
+      "originalUrl": "https://raw.githubusercontent.com/3441293738/creatorhub/c588dd58e67dc7feed01d175edfd295e59e8f647/assets/screenshots/accounts-proxy.png",
+      "animated": false
     }
   ],
   "generatedBy": "claude-opus-5-5",
   "documentHash": "0c90491f70155cd4e9851a93a4435688adc7f67be96c8ec198baa0bee6379d67",
   "mediaStatus": "archived",
-  "mediaFailures": []
+  "mediaFailures": [],
+  "mediaReferences": []
 }

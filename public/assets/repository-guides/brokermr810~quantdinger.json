@@ -70,14 +70,25 @@
       "url": "https://github.com/OpenByteInc/QuantDinger/blob/78e952398ee64fec0cd7fa9dd58f84c9e1b919fb/docs/deployment/ADMIN_AND_SETTINGS_TROUBLESHOOTING_CN.md"
     }
   ],
-  "media": [],
+  "media": [
+    {
+      "url": "/assets/repository-guides/media-05cb31784fd0242b1cf6a5f7.webp",
+      "alt": "QuantDinger product demo at 2× speed",
+      "sourceUrl": "https://github.com/OpenByteInc/QuantDinger/blob/78e952398ee64fec0cd7fa9dd58f84c9e1b919fb/README.md#L84",
+      "originalUrl": "https://raw.githubusercontent.com/OpenByteInc/QuantDinger/78e952398ee64fec0cd7fa9dd58f84c9e1b919fb/docs/screenshots/quantdinger-v5-2x.gif",
+      "animated": true
+    },
+    {
+      "url": "/assets/repository-guides/media-795f74799b18362449bce77a.webp",
+      "alt": "QuantDinger v5 architecture covering clients, Agent Gateway, core platform, distributed runtime workers, Kafka, infrastructure, observability, and the closed-lo",
+      "sourceUrl": "https://github.com/OpenByteInc/QuantDinger/blob/78e952398ee64fec0cd7fa9dd58f84c9e1b919fb/README.md#L143",
+      "originalUrl": "https://raw.githubusercontent.com/OpenByteInc/QuantDinger/78e952398ee64fec0cd7fa9dd58f84c9e1b919fb/docs/screenshots/architecture-v5.png",
+      "animated": false
+    }
+  ],
   "generatedBy": "claude-opus-5-5",
   "documentHash": "ab7a312fb8b31d1801025437283b9e463eebea227de1809e8a153e73e61522c7",
-  "mediaStatus": "unavailable",
-  "mediaFailures": [
-    {
-      "sourceUrl": "https://github.com/OpenByteInc/QuantDinger/blob/78e952398ee64fec0cd7fa9dd58f84c9e1b919fb/README.md#L84",
-      "reason": "response_too_large"
-    }
-  ]
+  "mediaStatus": "archived",
+  "mediaFailures": [],
+  "mediaReferences": []
 }

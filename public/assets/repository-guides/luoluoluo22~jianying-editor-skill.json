@@ -69,5 +69,49 @@
   "media": [],
   "generatedBy": "claude-opus-5-5",
   "documentHash": "3640b69f2d2f4177cc29cd2696ba78b80ed844607615ac7f463a5563bb6a22f2",
-  "mediaStatus": "none_in_official_documents"
+  "mediaStatus": "unavailable",
+  "mediaFailures": [
+    {
+      "sourceUrl": "https://github.com/luoluoluo22/jianying-editor-skill/blob/32c56928ded4f9e2c2b80e099dc7abb793d2c30b/README.md#L2",
+      "reason": "media_http_404"
+    },
+    {
+      "sourceUrl": "https://github.com/luoluoluo22/jianying-editor-skill/blob/32c56928ded4f9e2c2b80e099dc7abb793d2c30b/README.md#L249",
+      "reason": "unsupported_media_host"
+    },
+    {
+      "sourceUrl": "https://github.com/luoluoluo22/jianying-editor-skill/blob/32c56928ded4f9e2c2b80e099dc7abb793d2c30b/README.md#L256",
+      "reason": "unsupported_media_host"
+    },
+    {
+      "sourceUrl": "https://github.com/luoluoluo22/jianying-editor-skill/blob/32c56928ded4f9e2c2b80e099dc7abb793d2c30b/README.md#L263",
+      "reason": "unsupported_media_host"
+    },
+    {
+      "sourceUrl": "https://github.com/luoluoluo22/jianying-editor-skill/blob/32c56928ded4f9e2c2b80e099dc7abb793d2c30b/README.md#L270",
+      "reason": "unsupported_media_host"
+    }
+  ],
+  "mediaReferences": [
+    {
+      "label": "封面图",
+      "url": "https://github.com/luoluoluo22/jianying-editor-skill/blob/32c56928ded4f9e2c2b80e099dc7abb793d2c30b/README.md#L2"
+    },
+    {
+      "label": "luoluoluo22",
+      "url": "https://github.com/luoluoluo22/jianying-editor-skill/blob/32c56928ded4f9e2c2b80e099dc7abb793d2c30b/README.md#L249"
+    },
+    {
+      "label": "twodogegg",
+      "url": "https://github.com/luoluoluo22/jianying-editor-skill/blob/32c56928ded4f9e2c2b80e099dc7abb793d2c30b/README.md#L256"
+    },
+    {
+      "label": "shaozheliu",
+      "url": "https://github.com/luoluoluo22/jianying-editor-skill/blob/32c56928ded4f9e2c2b80e099dc7abb793d2c30b/README.md#L263"
+    },
+    {
+      "label": "Maxinsomnia",
+      "url": "https://github.com/luoluoluo22/jianying-editor-skill/blob/32c56928ded4f9e2c2b80e099dc7abb793d2c30b/README.md#L270"
+    }
+  ]
 }

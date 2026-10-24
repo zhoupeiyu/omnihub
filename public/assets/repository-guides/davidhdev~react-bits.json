@@ -59,17 +59,38 @@
       "url": "/assets/repository-guides/media-7732b0d8c93653ac0eb98663.webp",
       "alt": "DavidHDev/react-bits 官方演示 1",
       "sourceUrl": "https://github.com/DavidHDev/react-bits/blob/e1bbb696fc53f7f91e694c529e4d68c899773b6e/README.md?plain=1#L26",
-      "originalUrl": "https://raw.githubusercontent.com/DavidHDev/react-bits/e1bbb696fc53f7f91e694c529e4d68c899773b6e/src/assets/common/gh-showcase.png"
+      "originalUrl": "https://raw.githubusercontent.com/DavidHDev/react-bits/e1bbb696fc53f7f91e694c529e4d68c899773b6e/src/assets/common/gh-showcase.png",
+      "animated": false
     },
     {
       "url": "/assets/repository-guides/media-753b6886bac9c07e6bc6654f.webp",
       "alt": "DavidHDev/react-bits 官方演示 2",
       "sourceUrl": "https://github.com/DavidHDev/react-bits/blob/e1bbb696fc53f7f91e694c529e4d68c899773b6e/README.md?plain=1#L48",
-      "originalUrl": "https://raw.githubusercontent.com/DavidHDev/react-bits/e1bbb696fc53f7f91e694c529e4d68c899773b6e/src/assets/common/tools-readme.webp"
+      "originalUrl": "https://raw.githubusercontent.com/DavidHDev/react-bits/e1bbb696fc53f7f91e694c529e4d68c899773b6e/src/assets/common/tools-readme.webp",
+      "animated": false
     }
   ],
   "generatedBy": "claude-opus-5-5",
   "documentHash": "b6266ad69d0c6a9dda901e11f9f9e92f4446e5f6d419dcfc5b6ceee9d992b6f6",
   "mediaStatus": "archived",
-  "mediaFailures": []
+  "mediaFailures": [
+    {
+      "sourceUrl": "https://github.com/DavidHDev/react-bits/blob/e1bbb696fc53f7f91e694c529e4d68c899773b6e/README.md#L130",
+      "reason": "unsupported_media_host"
+    },
+    {
+      "sourceUrl": "https://github.com/DavidHDev/react-bits/blob/e1bbb696fc53f7f91e694c529e4d68c899773b6e/README.md#L145",
+      "reason": "unsupported_media_host"
+    }
+  ],
+  "mediaReferences": [
+    {
+      "label": "Contributors",
+      "url": "https://github.com/DavidHDev/react-bits/blob/e1bbb696fc53f7f91e694c529e4d68c899773b6e/README.md#L130"
+    },
+    {
+      "label": "Repobeats analytics",
+      "url": "https://github.com/DavidHDev/react-bits/blob/e1bbb696fc53f7f91e694c529e4d68c899773b6e/README.md#L145"
+    }
+  ]
 }

@@ -62,23 +62,48 @@
       "url": "/assets/repository-guides/media-c2ded787d6bafd37a89f496a.webp",
       "alt": "kittors/CliRelay 官方演示 1",
       "sourceUrl": "https://github.com/kittors/CliRelay/blob/6477b9b747414dc15d001dd9669df6b312b19e24/README.md?plain=1#L174",
-      "originalUrl": "https://raw.githubusercontent.com/kittors/CliRelay/6477b9b747414dc15d001dd9669df6b312b19e24/docs/images/readme-showcase/dashboard.png"
+      "originalUrl": "https://raw.githubusercontent.com/kittors/CliRelay/6477b9b747414dc15d001dd9669df6b312b19e24/docs/images/readme-showcase/dashboard.png",
+      "animated": false
     },
     {
       "url": "/assets/repository-guides/media-0999ea83f4e93c9ef90632b4.webp",
       "alt": "kittors/CliRelay 官方演示 2",
       "sourceUrl": "https://github.com/kittors/CliRelay/blob/6477b9b747414dc15d001dd9669df6b312b19e24/README.md?plain=1#L184",
-      "originalUrl": "https://raw.githubusercontent.com/kittors/CliRelay/6477b9b747414dc15d001dd9669df6b312b19e24/docs/images/readme-showcase/ai-providers.png"
+      "originalUrl": "https://raw.githubusercontent.com/kittors/CliRelay/6477b9b747414dc15d001dd9669df6b312b19e24/docs/images/readme-showcase/ai-providers.png",
+      "animated": false
     },
     {
       "url": "/assets/repository-guides/media-faf5a20aff526593b1e15c67.webp",
       "alt": "kittors/CliRelay 官方演示 3",
       "sourceUrl": "https://github.com/kittors/CliRelay/blob/6477b9b747414dc15d001dd9669df6b312b19e24/README.md?plain=1#L178",
-      "originalUrl": "https://raw.githubusercontent.com/kittors/CliRelay/6477b9b747414dc15d001dd9669df6b312b19e24/docs/images/readme-showcase/request-logs.png"
+      "originalUrl": "https://raw.githubusercontent.com/kittors/CliRelay/6477b9b747414dc15d001dd9669df6b312b19e24/docs/images/readme-showcase/request-logs.png",
+      "animated": false
+    },
+    {
+      "url": "/assets/repository-guides/media-fb164d36a69ceb218e12a07c.webp",
+      "alt": "CliRelay portal landing page",
+      "sourceUrl": "https://github.com/kittors/CliRelay/blob/6477b9b747414dc15d001dd9669df6b312b19e24/README.md#L30",
+      "originalUrl": "https://raw.githubusercontent.com/kittors/CliRelay/6477b9b747414dc15d001dd9669df6b312b19e24/docs/images/readme-showcase/landing.png",
+      "animated": false
+    },
+    {
+      "url": "/assets/repository-guides/media-31deef3dd5c867567de78c6b.webp",
+      "alt": "Model plaza browsing models available to the tenant",
+      "sourceUrl": "https://github.com/kittors/CliRelay/blob/6477b9b747414dc15d001dd9669df6b312b19e24/README.md#L198",
+      "originalUrl": "https://raw.githubusercontent.com/kittors/CliRelay/6477b9b747414dc15d001dd9669df6b312b19e24/docs/images/readme-showcase/model-plaza.png",
+      "animated": false
+    },
+    {
+      "url": "/assets/repository-guides/media-1b041e82b79cc66f5fd5decd.webp",
+      "alt": "Tenant list with lifecycle and expiry",
+      "sourceUrl": "https://github.com/kittors/CliRelay/blob/6477b9b747414dc15d001dd9669df6b312b19e24/README.md#L212",
+      "originalUrl": "https://raw.githubusercontent.com/kittors/CliRelay/6477b9b747414dc15d001dd9669df6b312b19e24/docs/images/readme-showcase/tenants.png",
+      "animated": false
     }
   ],
   "generatedBy": "claude-opus-5-5",
   "documentHash": "5d989478f0dc47f64e441ae4f23f7501a8afb2621ac4848931b871008b0bb563",
   "mediaStatus": "archived",
-  "mediaFailures": []
+  "mediaFailures": [],
+  "mediaReferences": []
 }

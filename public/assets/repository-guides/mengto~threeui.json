@@ -62,11 +62,13 @@
       "url": "/assets/repository-guides/media-e146db14f834836426ab04c2.webp",
       "alt": "MengTo/threeui 官方演示 1",
       "sourceUrl": "https://github.com/MengTo/threeui/blob/68802d5428071ada5c20db8094b1649e6bb770ed/README.md?plain=1#L11",
-      "originalUrl": "https://raw.githubusercontent.com/MengTo/threeui/68802d5428071ada5c20db8094b1649e6bb770ed/assets/preview.jpg"
+      "originalUrl": "https://raw.githubusercontent.com/MengTo/threeui/68802d5428071ada5c20db8094b1649e6bb770ed/assets/preview.jpg",
+      "animated": false
     }
   ],
   "generatedBy": "claude-opus-5-5",
   "documentHash": "dfbad6f2a996638c641220699bbcdfebed02d05906b3a0e9e3bdea23ca74f2d3",
   "mediaStatus": "archived",
-  "mediaFailures": []
+  "mediaFailures": [],
+  "mediaReferences": []
 }

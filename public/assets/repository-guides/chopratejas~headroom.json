@@ -67,18 +67,36 @@
     "节省比例取决于内容的重复程度，短对话和普通文字收益很小；输出 token 的节省默认是估算值。"
   ],
   "references": [],
-  "media": [],
+  "media": [
+    {
+      "url": "/assets/repository-guides/media-17cd247982cc480aa6ddb8f4.webp",
+      "alt": "Headroom compressing a 10,144 token log dump to 1,260 tokens while preserving the FATAL line",
+      "sourceUrl": "https://github.com/headroomlabs-ai/headroom/blob/94bb055810dc1258bd248cd0a9d0e7c51df64844/README.md#L41",
+      "originalUrl": "https://raw.githubusercontent.com/headroomlabs-ai/headroom/94bb055810dc1258bd248cd0a9d0e7c51df64844/HeadroomDemo-Fast.gif",
+      "animated": true
+    }
+  ],
   "generatedBy": "claude-opus-5-5",
   "documentHash": "f6045b64a39da60e9071bd52acf041ccb5ca3081c2b9849d6ecdb12dd5f6b559",
-  "mediaStatus": "unavailable",
+  "mediaStatus": "archived",
   "mediaFailures": [
     {
-      "sourceUrl": "https://github.com/headroomlabs-ai/headroom/blob/94bb055810dc1258bd248cd0a9d0e7c51df64844/README.md#L41",
-      "reason": "media_too_large"
+      "sourceUrl": "https://github.com/headroomlabs-ai/headroom/blob/94bb055810dc1258bd248cd0a9d0e7c51df64844/README.md#L3",
+      "reason": "unsupported_media_format"
     },
     {
       "sourceUrl": "https://github.com/headroomlabs-ai/headroom/blob/94bb055810dc1258bd248cd0a9d0e7c51df64844/README.md#L598",
-      "reason": "response_too_large"
+      "reason": "conversion_failed"
+    }
+  ],
+  "mediaReferences": [
+    {
+      "label": "Headroom — the context compression layer for AI agents. A 55,957 token agent prompt compresses to the 24,340 tokens actually sent to the model, and the FATAL li",
+      "url": "https://github.com/headroomlabs-ai/headroom/blob/94bb055810dc1258bd248cd0a9d0e7c51df64844/README.md#L3"
+    },
+    {
+      "label": "headroom learn mining failed sessions and writing corrections",
+      "url": "https://github.com/headroomlabs-ai/headroom/blob/94bb055810dc1258bd248cd0a9d0e7c51df64844/README.md#L598"
     }
   ]
 }

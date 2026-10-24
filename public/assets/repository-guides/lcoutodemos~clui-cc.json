@@ -71,7 +71,8 @@
       "url": "/assets/repository-guides/media-0ea93500250509a192d02124.webp",
       "alt": "lcoutodemos/clui-cc 官方演示 1",
       "sourceUrl": "https://github.com/lcoutodemos/clui-cc/blob/58d18bb7a58fbe23e70f9f025b6a167008851913/README.md?plain=1#L55",
-      "originalUrl": "https://raw.githubusercontent.com/lcoutodemos/clui-cc/58d18bb7a58fbe23e70f9f025b6a167008851913/docs/shortcut.png"
+      "originalUrl": "https://raw.githubusercontent.com/lcoutodemos/clui-cc/58d18bb7a58fbe23e70f9f025b6a167008851913/docs/shortcut.png",
+      "animated": false
     }
   ],
   "generatedBy": "claude-opus-5-5",
@@ -81,6 +82,12 @@
     {
       "sourceUrl": "https://github.com/lcoutodemos/clui-cc/blob/58d18bb7a58fbe23e70f9f025b6a167008851913/README.md#L7",
       "reason": "unsupported_media_host"
+    }
+  ],
+  "mediaReferences": [
+    {
+      "label": "Watch the demo",
+      "url": "https://github.com/lcoutodemos/clui-cc/blob/58d18bb7a58fbe23e70f9f025b6a167008851913/README.md#L7"
     }
   ]
 }

@@ -84,12 +84,50 @@
       "reason": "unsupported_media_host"
     },
     {
+      "sourceUrl": "https://github.com/tonisives/clawtab/blob/e3a41005b740d981c16022f85387583a50abc4e9/README.md#L41",
+      "reason": "unsupported_media_host"
+    },
+    {
       "sourceUrl": "https://github.com/tonisives/clawtab/blob/e3a41005b740d981c16022f85387583a50abc4e9/README.md#L70",
+      "reason": "unsupported_media_host"
+    },
+    {
+      "sourceUrl": "https://github.com/tonisives/clawtab/blob/e3a41005b740d981c16022f85387583a50abc4e9/README.md#L149",
       "reason": "unsupported_media_host"
     },
     {
       "sourceUrl": "https://github.com/tonisives/clawtab/blob/e3a41005b740d981c16022f85387583a50abc4e9/README.md#L157",
       "reason": "unsupported_media_host"
+    },
+    {
+      "sourceUrl": "https://github.com/tonisives/clawtab/blob/e3a41005b740d981c16022f85387583a50abc4e9/README.md#L171",
+      "reason": "unsupported_media_host"
+    }
+  ],
+  "mediaReferences": [
+    {
+      "label": "ClawTab managing live agents in tmux",
+      "url": "https://github.com/tonisives/clawtab/blob/e3a41005b740d981c16022f85387583a50abc4e9/README.md#L9"
+    },
+    {
+      "label": "Two Codex agents working side by side in the same tmux window",
+      "url": "https://github.com/tonisives/clawtab/blob/e3a41005b740d981c16022f85387583a50abc4e9/README.md#L41"
+    },
+    {
+      "label": "Tmux status bar showing working and idle activity indicators across AI agent windows",
+      "url": "https://github.com/tonisives/clawtab/blob/e3a41005b740d981c16022f85387583a50abc4e9/README.md#L70"
+    },
+    {
+      "label": "cwtctl command groups for agents, jobs, panes, secrets, Telegram, and the daemon",
+      "url": "https://github.com/tonisives/clawtab/blob/e3a41005b740d981c16022f85387583a50abc4e9/README.md#L149"
+    },
+    {
+      "label": "ClawTab Mind Map with agent hubs and live terminal windows",
+      "url": "https://github.com/tonisives/clawtab/blob/e3a41005b740d981c16022f85387583a50abc4e9/README.md#L157"
+    },
+    {
+      "label": "ClawTab mobile app showing remote agent controls",
+      "url": "https://github.com/tonisives/clawtab/blob/e3a41005b740d981c16022f85387583a50abc4e9/README.md#L171"
     }
   ]
 }

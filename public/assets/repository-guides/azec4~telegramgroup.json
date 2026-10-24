@@ -48,8 +48,36 @@
     "仓库未声明许可证。"
   ],
   "references": [],
-  "media": [],
+  "media": [
+    {
+      "url": "/assets/repository-guides/media-642a697ee3cb2f8cbc75742e.webp",
+      "alt": "5. Telegram API 申请",
+      "sourceUrl": "https://github.com/AZeC4/TelegramGroup/blob/7f1f23f12b2e0f971b3ab01bd77a9d3c8d7e1063/README.md#L119",
+      "originalUrl": "https://raw.githubusercontent.com/AZeC4/img/master/img/524A4F31-204C-49B5-B96B-FA324435CD87.png",
+      "animated": false
+    }
+  ],
   "generatedBy": "claude-opus-5-5",
   "documentHash": "547e14de422fef3995b0223bd7099bc36effefc90a1bbca5f47f5854641b3175",
-  "mediaStatus": "none_in_official_documents"
+  "mediaStatus": "archived",
+  "mediaFailures": [
+    {
+      "sourceUrl": "https://github.com/AZeC4/TelegramGroup/blob/7f1f23f12b2e0f971b3ab01bd77a9d3c8d7e1063/README.md#L58",
+      "reason": "unsupported_media_host"
+    },
+    {
+      "sourceUrl": "https://github.com/AZeC4/TelegramGroup/blob/7f1f23f12b2e0f971b3ab01bd77a9d3c8d7e1063/README.md#L65",
+      "reason": "unsupported_media_host"
+    }
+  ],
+  "mediaReferences": [
+    {
+      "label": "1. Telegram iOS 苹果版官方原生客户端进入限制群（开车群）的方法",
+      "url": "https://github.com/AZeC4/TelegramGroup/blob/7f1f23f12b2e0f971b3ab01bd77a9d3c8d7e1063/README.md#L58"
+    },
+    {
+      "label": "1. Telegram iOS 苹果版官方原生客户端进入限制群（开车群）的方法",
+      "url": "https://github.com/AZeC4/TelegramGroup/blob/7f1f23f12b2e0f971b3ab01bd77a9d3c8d7e1063/README.md#L65"
+    }
+  ]
 }

@@ -71,5 +71,17 @@
   "media": [],
   "generatedBy": "claude-opus-5-5",
   "documentHash": "dfed4e263af158bcfe0007a0fa1b3395a526e5f0b9448118992e65319ecd93a3",
-  "mediaStatus": "none_in_official_documents"
+  "mediaStatus": "unavailable",
+  "mediaFailures": [
+    {
+      "sourceUrl": "https://github.com/CopilotKit/OpenBot/blob/2e096d685ff0f18b5e80fd72e4ad71edb1d0be43/README.md#L58",
+      "reason": "unsupported_media_format"
+    }
+  ],
+  "mediaReferences": [
+    {
+      "label": "You talk to the server, which sends the turn to a Bot over AG-UI. Every tool call the Bot makes comes back through the gateway, which resolves the target, decid",
+      "url": "https://github.com/CopilotKit/OpenBot/blob/2e096d685ff0f18b5e80fd72e4ad71edb1d0be43/README.md#L58"
+    }
+  ]
 }

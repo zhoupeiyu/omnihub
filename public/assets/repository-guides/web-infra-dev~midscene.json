@@ -55,8 +55,18 @@
     "Android、iOS、HarmonyOS 和桌面平台需按各自平台指南另行配置。"
   ],
   "references": [],
-  "media": [],
+  "media": [
+    {
+      "url": "/assets/repository-guides/media-50cfb9f83731c8b9279cf2b6.webp",
+      "alt": "Midscene.js",
+      "sourceUrl": "https://github.com/web-infra-dev/midscene/blob/1c2d8f7d0ab1d45d8d60e3ec476d90c6777f8a2b/README.md#L2",
+      "originalUrl": "https://github.com/user-attachments/assets/f60de3c1-dd6f-4213-97a1-85bf7c6e79e4",
+      "animated": false
+    }
+  ],
   "generatedBy": "claude-opus-5-5",
   "documentHash": "6d1717cd09e85670bdd496e8c6c494327cba5865d2896158f6063a89144fecc1",
-  "mediaStatus": "none_in_official_documents"
+  "mediaStatus": "archived",
+  "mediaFailures": [],
+  "mediaReferences": []
 }

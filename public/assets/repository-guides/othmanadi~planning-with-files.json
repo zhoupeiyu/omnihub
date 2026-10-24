@@ -62,14 +62,123 @@
       "url": "https://github.com/OthmanAdi/planning-with-files/blob/51c1caa27f9fefe259e45a7cc92fa79ee8787cd7/docs/installation.md"
     }
   ],
-  "media": [],
+  "media": [
+    {
+      "url": "/assets/repository-guides/media-53e08ef5b5dcfb70285d3045.webp",
+      "alt": "PWF: Every task. Every step. Three planning files on a brass-inlaid base beneath an engraved arch",
+      "sourceUrl": "https://github.com/OthmanAdi/planning-with-files/blob/51c1caa27f9fefe259e45a7cc92fa79ee8787cd7/README.md#L2",
+      "originalUrl": "https://raw.githubusercontent.com/OthmanAdi/planning-with-files/51c1caa27f9fefe259e45a7cc92fa79ee8787cd7/media/pwf-banner-v5.webp",
+      "animated": false
+    },
+    {
+      "url": "/assets/repository-guides/media-e0237733afe86e8264e13a93.webp",
+      "alt": "Illustrated workflow: planning files preserve the task state through a context reset",
+      "sourceUrl": "https://github.com/OthmanAdi/planning-with-files/blob/51c1caa27f9fefe259e45a7cc92fa79ee8787cd7/README.md#L67",
+      "originalUrl": "https://raw.githubusercontent.com/OthmanAdi/planning-with-files/51c1caa27f9fefe259e45a7cc92fa79ee8787cd7/media/pwf-context-story-v1.gif",
+      "animated": true
+    }
+  ],
   "generatedBy": "claude-opus-5-5",
   "documentHash": "91c588cf6d54c8a55c99fef6b01882b2ff83a57fa6f42c4d2c691d6d6f330d4f",
-  "mediaStatus": "unavailable",
+  "mediaStatus": "archived",
   "mediaFailures": [
     {
-      "sourceUrl": "https://github.com/OthmanAdi/planning-with-files/blob/51c1caa27f9fefe259e45a7cc92fa79ee8787cd7/README.md#L67",
-      "reason": "response_too_large"
+      "sourceUrl": "https://github.com/OthmanAdi/planning-with-files/blob/51c1caa27f9fefe259e45a7cc92fa79ee8787cd7/README.md#L707",
+      "reason": "unsupported_media_format"
+    },
+    {
+      "sourceUrl": "https://github.com/OthmanAdi/planning-with-files/blob/51c1caa27f9fefe259e45a7cc92fa79ee8787cd7/README.md#L724",
+      "reason": "unsupported_media_format"
+    },
+    {
+      "sourceUrl": "https://github.com/OthmanAdi/planning-with-files/blob/51c1caa27f9fefe259e45a7cc92fa79ee8787cd7/README.md#L803",
+      "reason": "unsupported_media_host"
+    },
+    {
+      "sourceUrl": "https://github.com/OthmanAdi/planning-with-files/blob/51c1caa27f9fefe259e45a7cc92fa79ee8787cd7/README.md#L811",
+      "reason": "unsupported_media_host"
+    },
+    {
+      "sourceUrl": "https://github.com/OthmanAdi/planning-with-files/blob/51c1caa27f9fefe259e45a7cc92fa79ee8787cd7/README.md#L812",
+      "reason": "unsupported_media_host"
+    },
+    {
+      "sourceUrl": "https://github.com/OthmanAdi/planning-with-files/blob/51c1caa27f9fefe259e45a7cc92fa79ee8787cd7/README.md#L813",
+      "reason": "unsupported_media_host"
+    },
+    {
+      "sourceUrl": "https://github.com/OthmanAdi/planning-with-files/blob/51c1caa27f9fefe259e45a7cc92fa79ee8787cd7/README.md#L814",
+      "reason": "unsupported_media_host"
+    },
+    {
+      "sourceUrl": "https://github.com/OthmanAdi/planning-with-files/blob/51c1caa27f9fefe259e45a7cc92fa79ee8787cd7/README.md#L815",
+      "reason": "unsupported_media_host"
+    },
+    {
+      "sourceUrl": "https://github.com/OthmanAdi/planning-with-files/blob/51c1caa27f9fefe259e45a7cc92fa79ee8787cd7/README.md#L816",
+      "reason": "unsupported_media_host"
+    },
+    {
+      "sourceUrl": "https://github.com/OthmanAdi/planning-with-files/blob/51c1caa27f9fefe259e45a7cc92fa79ee8787cd7/README.md#L817",
+      "reason": "unsupported_media_host"
+    },
+    {
+      "sourceUrl": "https://github.com/OthmanAdi/planning-with-files/blob/51c1caa27f9fefe259e45a7cc92fa79ee8787cd7/README.md#L818",
+      "reason": "unsupported_media_host"
+    },
+    {
+      "sourceUrl": "https://github.com/OthmanAdi/planning-with-files/blob/51c1caa27f9fefe259e45a7cc92fa79ee8787cd7/README.md#L819",
+      "reason": "unsupported_media_host"
+    }
+  ],
+  "mediaReferences": [
+    {
+      "label": "Eval results, with skill vs without: assertions passed 29 of 30 vs 2 of 30, 3-file pattern followed 5 of 5 vs 0 of 5, blind A/B wins 3 of 3 vs 0 of 3, average r",
+      "url": "https://github.com/OthmanAdi/planning-with-files/blob/51c1caa27f9fefe259e45a7cc92fa79ee8787cd7/README.md#L707"
+    },
+    {
+      "label": "Turns to resume after a context wipe, internal benchmark v1: 5.0 with planning-with-files, 13.3 for a raw agent with no planning method",
+      "url": "https://github.com/OthmanAdi/planning-with-files/blob/51c1caa27f9fefe259e45a7cc92fa79ee8787cd7/README.md#L724"
+    },
+    {
+      "label": "ClawHub Download History Chart",
+      "url": "https://github.com/OthmanAdi/planning-with-files/blob/51c1caa27f9fefe259e45a7cc92fa79ee8787cd7/README.md#L803"
+    },
+    {
+      "label": "@kaichen",
+      "url": "https://github.com/OthmanAdi/planning-with-files/blob/51c1caa27f9fefe259e45a7cc92fa79ee8787cd7/README.md#L811"
+    },
+    {
+      "label": "@fuahyo",
+      "url": "https://github.com/OthmanAdi/planning-with-files/blob/51c1caa27f9fefe259e45a7cc92fa79ee8787cd7/README.md#L812"
+    },
+    {
+      "label": "@lasmarois",
+      "url": "https://github.com/OthmanAdi/planning-with-files/blob/51c1caa27f9fefe259e45a7cc92fa79ee8787cd7/README.md#L813"
+    },
+    {
+      "label": "@aimasteracc",
+      "url": "https://github.com/OthmanAdi/planning-with-files/blob/51c1caa27f9fefe259e45a7cc92fa79ee8787cd7/README.md#L814"
+    },
+    {
+      "label": "@SaladDay",
+      "url": "https://github.com/OthmanAdi/planning-with-files/blob/51c1caa27f9fefe259e45a7cc92fa79ee8787cd7/README.md#L815"
+    },
+    {
+      "label": "@murphyXu",
+      "url": "https://github.com/OthmanAdi/planning-with-files/blob/51c1caa27f9fefe259e45a7cc92fa79ee8787cd7/README.md#L816"
+    },
+    {
+      "label": "@ZWkang",
+      "url": "https://github.com/OthmanAdi/planning-with-files/blob/51c1caa27f9fefe259e45a7cc92fa79ee8787cd7/README.md#L817"
+    },
+    {
+      "label": "@EListenX",
+      "url": "https://github.com/OthmanAdi/planning-with-files/blob/51c1caa27f9fefe259e45a7cc92fa79ee8787cd7/README.md#L818"
+    },
+    {
+      "label": "@lincolnwan",
+      "url": "https://github.com/OthmanAdi/planning-with-files/blob/51c1caa27f9fefe259e45a7cc92fa79ee8787cd7/README.md#L819"
     }
   ]
 }

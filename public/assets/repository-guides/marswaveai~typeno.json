@@ -69,14 +69,25 @@
       "url": "https://github.com/marswaveai/TypeNo/blob/cc4c3f1e40713f336e7f745e1be8cdb8d824902e/README_CN.md"
     }
   ],
-  "media": [],
+  "media": [
+    {
+      "url": "/assets/repository-guides/media-080e30204e1cf3dd1643e63c.webp",
+      "alt": "TypeNo hero image",
+      "sourceUrl": "https://github.com/marswaveai/TypeNo/blob/cc4c3f1e40713f336e7f745e1be8cdb8d824902e/README.md#L7",
+      "originalUrl": "https://raw.githubusercontent.com/marswaveai/TypeNo/cc4c3f1e40713f336e7f745e1be8cdb8d824902e/assets/hero.webp",
+      "animated": false
+    },
+    {
+      "url": "/assets/repository-guides/media-b364aca4a04e5c211b04268f.webp",
+      "alt": "Accessibility permission fix",
+      "sourceUrl": "https://github.com/marswaveai/TypeNo/blob/cc4c3f1e40713f336e7f745e1be8cdb8d824902e/README.md#L89",
+      "originalUrl": "https://raw.githubusercontent.com/marswaveai/TypeNo/cc4c3f1e40713f336e7f745e1be8cdb8d824902e/assets/accessibility-fix.gif",
+      "animated": true
+    }
+  ],
   "generatedBy": "claude-opus-5-5",
   "documentHash": "dfaa78dc8ae5780eaa7f29f604c97f93558d0ffce32a26a837cce9b9d9295127",
-  "mediaStatus": "unavailable",
-  "mediaFailures": [
-    {
-      "sourceUrl": "https://github.com/marswaveai/TypeNo/blob/cc4c3f1e40713f336e7f745e1be8cdb8d824902e/README.md#L89",
-      "reason": "media_too_large"
-    }
-  ]
+  "mediaStatus": "archived",
+  "mediaFailures": [],
+  "mediaReferences": []
 }

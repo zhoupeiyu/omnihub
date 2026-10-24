@@ -77,11 +77,20 @@
       "url": "/assets/repository-guides/media-678620797cef3431c86bf64d.webp",
       "alt": "Birdview 更改视图",
       "sourceUrl": "https://github.com/Qiuner/birdview/blob/11436ff3a6b1df70a3e17ea4e95e335a5304f730/README.zh.md?plain=1#L39",
-      "originalUrl": "https://raw.githubusercontent.com/Qiuner/birdview/11436ff3a6b1df70a3e17ea4e95e335a5304f730/docs/birdview-overview.zh.png"
+      "originalUrl": "https://raw.githubusercontent.com/Qiuner/birdview/11436ff3a6b1df70a3e17ea4e95e335a5304f730/docs/birdview-overview.zh.png",
+      "animated": false
+    },
+    {
+      "url": "/assets/repository-guides/media-c381987e0091d0e7f3c921b7.webp",
+      "alt": "Birdview activity view",
+      "sourceUrl": "https://github.com/Qiuner/birdview/blob/11436ff3a6b1df70a3e17ea4e95e335a5304f730/README.md#L39",
+      "originalUrl": "https://raw.githubusercontent.com/Qiuner/birdview/11436ff3a6b1df70a3e17ea4e95e335a5304f730/docs/birdview-overview.png",
+      "animated": false
     }
   ],
   "generatedBy": "claude-opus-5-5",
   "documentHash": "eff32c368b6eed599e82700b9b42edf65ff5089a6160033a460a7562176d3f6b",
   "mediaStatus": "archived",
-  "mediaFailures": []
+  "mediaFailures": [],
+  "mediaReferences": []
 }

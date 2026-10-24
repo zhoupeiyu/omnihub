@@ -49,5 +49,17 @@
   "media": [],
   "generatedBy": "claude-opus-5-5",
   "documentHash": "9d43476646e1d0ae0f082d40877e19ce14dbe0215dd32c3887e8aad731959b03",
-  "mediaStatus": "none_in_official_documents"
+  "mediaStatus": "unavailable",
+  "mediaFailures": [
+    {
+      "sourceUrl": "https://github.com/LottieFiles/motion-design-skill/blob/f9a8a041b85185ee4881b3471d3415e939aac772/README.md#L2",
+      "reason": "unsupported_media_host"
+    }
+  ],
+  "mediaReferences": [
+    {
+      "label": "dotLottie Animation",
+      "url": "https://github.com/LottieFiles/motion-design-skill/blob/f9a8a041b85185ee4881b3471d3415e939aac772/README.md#L2"
+    }
+  ]
 }

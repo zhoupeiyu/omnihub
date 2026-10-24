@@ -51,23 +51,48 @@
       "url": "/assets/repository-guides/media-aa455a48c4f97003c93e065d.webp",
       "alt": "TypeCellOS/BlockNote 官方演示 1",
       "sourceUrl": "https://github.com/TypeCellOS/BlockNote/blob/f64d5446e39d756ba576ab80f85a2f0ef4c2e1e4/README.md?plain=1#L69",
-      "originalUrl": "https://raw.githubusercontent.com/TypeCellOS/BlockNote/f64d5446e39d756ba576ab80f85a2f0ef4c2e1e4/.resources/slashmenu.gif"
+      "originalUrl": "https://raw.githubusercontent.com/TypeCellOS/BlockNote/f64d5446e39d756ba576ab80f85a2f0ef4c2e1e4/.resources/slashmenu.gif",
+      "animated": true
     },
     {
       "url": "/assets/repository-guides/media-3cb3bae059e2099458475cb4.webp",
       "alt": "TypeCellOS/BlockNote 官方演示 2",
       "sourceUrl": "https://github.com/TypeCellOS/BlockNote/blob/f64d5446e39d756ba576ab80f85a2f0ef4c2e1e4/README.md?plain=1#L61",
-      "originalUrl": "https://raw.githubusercontent.com/TypeCellOS/BlockNote/f64d5446e39d756ba576ab80f85a2f0ef4c2e1e4/.resources/dragdrop.gif"
+      "originalUrl": "https://raw.githubusercontent.com/TypeCellOS/BlockNote/f64d5446e39d756ba576ab80f85a2f0ef4c2e1e4/.resources/dragdrop.gif",
+      "animated": true
     },
     {
       "url": "/assets/repository-guides/media-44d4313b13ab06c7f7d220b3.webp",
       "alt": "TypeCellOS/BlockNote 官方演示 3",
       "sourceUrl": "https://github.com/TypeCellOS/BlockNote/blob/f64d5446e39d756ba576ab80f85a2f0ef4c2e1e4/README.md?plain=1#L77",
-      "originalUrl": "https://raw.githubusercontent.com/TypeCellOS/BlockNote/f64d5446e39d756ba576ab80f85a2f0ef4c2e1e4/.resources/collaboration.gif"
+      "originalUrl": "https://raw.githubusercontent.com/TypeCellOS/BlockNote/f64d5446e39d756ba576ab80f85a2f0ef4c2e1e4/.resources/collaboration.gif",
+      "animated": true
+    },
+    {
+      "url": "/assets/repository-guides/media-a75db9e51ff5d8ed60401c81.webp",
+      "alt": "Animations:",
+      "sourceUrl": "https://github.com/TypeCellOS/BlockNote/blob/f64d5446e39d756ba576ab80f85a2f0ef4c2e1e4/README.md#L53",
+      "originalUrl": "https://raw.githubusercontent.com/TypeCellOS/BlockNote/f64d5446e39d756ba576ab80f85a2f0ef4c2e1e4/.resources/animations.gif",
+      "animated": true
+    },
+    {
+      "url": "/assets/repository-guides/media-ce7eb2e761c917b7b737da3f.webp",
+      "alt": "Helpful placeholders:",
+      "sourceUrl": "https://github.com/TypeCellOS/BlockNote/blob/f64d5446e39d756ba576ab80f85a2f0ef4c2e1e4/README.md#L57",
+      "originalUrl": "https://raw.githubusercontent.com/TypeCellOS/BlockNote/f64d5446e39d756ba576ab80f85a2f0ef4c2e1e4/.resources/placeholders.gif",
+      "animated": true
+    },
+    {
+      "url": "/assets/repository-guides/media-f15d6e761b45d5312cd51839.webp",
+      "alt": "Nesting / indentation with tab and shift+tab:",
+      "sourceUrl": "https://github.com/TypeCellOS/BlockNote/blob/f64d5446e39d756ba576ab80f85a2f0ef4c2e1e4/README.md#L65",
+      "originalUrl": "https://raw.githubusercontent.com/TypeCellOS/BlockNote/f64d5446e39d756ba576ab80f85a2f0ef4c2e1e4/.resources/nesting.gif",
+      "animated": true
     }
   ],
   "generatedBy": "claude-opus-5-5",
   "documentHash": "bd1237b3f568a463fc23afab18583d63362b2e745ac049d17a37971111c08ce8",
   "mediaStatus": "archived",
-  "mediaFailures": []
+  "mediaFailures": [],
+  "mediaReferences": []
 }

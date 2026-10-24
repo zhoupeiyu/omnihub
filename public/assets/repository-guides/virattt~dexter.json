@@ -73,17 +73,20 @@
       "url": "/assets/repository-guides/media-ab82e51ab34f42d64d4df254.webp",
       "alt": "virattt/dexter 官方演示 1",
       "sourceUrl": "https://github.com/virattt/dexter/blob/534f6be455523c5926eba72bdaf4f914555be5c9/README.md?plain=1#L5",
-      "originalUrl": "https://github.com/user-attachments/assets/02418111-5f48-4a66-be5d-dc9bf9806284"
+      "originalUrl": "https://github.com/user-attachments/assets/02418111-5f48-4a66-be5d-dc9bf9806284",
+      "animated": false
     },
     {
       "url": "/assets/repository-guides/media-adc7ddccdc2476712478c1d7.webp",
       "alt": "virattt/dexter 官方演示 2",
       "sourceUrl": "https://github.com/virattt/dexter/blob/534f6be455523c5926eba72bdaf4f914555be5c9/README.md?plain=1#L45",
-      "originalUrl": "https://github.com/user-attachments/assets/2a6334f9-863f-4bd2-a56f-923e42f4711e"
+      "originalUrl": "https://github.com/user-attachments/assets/2a6334f9-863f-4bd2-a56f-923e42f4711e",
+      "animated": false
     }
   ],
   "generatedBy": "claude-opus-5-5",
   "documentHash": "982f4294335c2941b01297d00f4da6756a1b73dd9c02cdad705e58db767e3a09",
   "mediaStatus": "archived",
-  "mediaFailures": []
+  "mediaFailures": [],
+  "mediaReferences": []
 }

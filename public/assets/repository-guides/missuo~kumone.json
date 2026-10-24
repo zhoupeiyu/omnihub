@@ -67,23 +67,41 @@
       "url": "/assets/repository-guides/media-c26250a92657a35792dc0d03.webp",
       "alt": "推荐",
       "sourceUrl": "https://github.com/missuo/kumone/blob/b509c14025e6940bef4a69d189109c017e5b8c55/README_CN.md?plain=1#L23",
-      "originalUrl": "https://raw.githubusercontent.com/missuo/kumone/b509c14025e6940bef4a69d189109c017e5b8c55/docs/screenshot-home.png"
+      "originalUrl": "https://raw.githubusercontent.com/missuo/kumone/b509c14025e6940bef4a69d189109c017e5b8c55/docs/screenshot-home.png",
+      "animated": false
     },
     {
       "url": "/assets/repository-guides/media-3f7ddc090a485a5e30197309.webp",
       "alt": "沉浸播放页",
       "sourceUrl": "https://github.com/missuo/kumone/blob/b509c14025e6940bef4a69d189109c017e5b8c55/README_CN.md?plain=1#L24",
-      "originalUrl": "https://raw.githubusercontent.com/missuo/kumone/b509c14025e6940bef4a69d189109c017e5b8c55/docs/screenshot-nowplaying.png"
+      "originalUrl": "https://raw.githubusercontent.com/missuo/kumone/b509c14025e6940bef4a69d189109c017e5b8c55/docs/screenshot-nowplaying.png",
+      "animated": false
     },
     {
       "url": "/assets/repository-guides/media-73972b14e33845bb3def2802.webp",
       "alt": "歌词面板",
       "sourceUrl": "https://github.com/missuo/kumone/blob/b509c14025e6940bef4a69d189109c017e5b8c55/README_CN.md?plain=1#L28",
-      "originalUrl": "https://raw.githubusercontent.com/missuo/kumone/b509c14025e6940bef4a69d189109c017e5b8c55/docs/screenshot-lyrics.png"
+      "originalUrl": "https://raw.githubusercontent.com/missuo/kumone/b509c14025e6940bef4a69d189109c017e5b8c55/docs/screenshot-lyrics.png",
+      "animated": false
+    },
+    {
+      "url": "/assets/repository-guides/media-15f9544f8b1d1f455612bc04.webp",
+      "alt": "Kumone",
+      "sourceUrl": "https://github.com/missuo/kumone/blob/b509c14025e6940bef4a69d189109c017e5b8c55/README.md#L9",
+      "originalUrl": "https://raw.githubusercontent.com/missuo/kumone/b509c14025e6940bef4a69d189109c017e5b8c55/docs/icon.png",
+      "animated": false
+    },
+    {
+      "url": "/assets/repository-guides/media-14af8865d35447622efd0772.webp",
+      "alt": "Daily Recommendations",
+      "sourceUrl": "https://github.com/missuo/kumone/blob/b509c14025e6940bef4a69d189109c017e5b8c55/README.md#L27",
+      "originalUrl": "https://raw.githubusercontent.com/missuo/kumone/b509c14025e6940bef4a69d189109c017e5b8c55/docs/screenshot-daily.png",
+      "animated": false
     }
   ],
   "generatedBy": "claude-opus-5-5",
   "documentHash": "f7f383a41fb3a79840273d1e7e2151e70655738004afcfe7c2b8eeb32a9ab2c2",
   "mediaStatus": "archived",
-  "mediaFailures": []
+  "mediaFailures": [],
+  "mediaReferences": []
 }

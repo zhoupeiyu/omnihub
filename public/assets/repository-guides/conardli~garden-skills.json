@@ -60,22 +60,53 @@
       "url": "https://github.com/ConardLi/garden-skills/blob/aaf9a82f5efd73e87cc0998edc398e75bfc35901/README.zh-CN.md"
     }
   ],
-  "media": [],
+  "media": [
+    {
+      "url": "/assets/repository-guides/media-a839551f33d331a116705042.webp",
+      "alt": "Web Video Presentation Skill",
+      "sourceUrl": "https://github.com/ConardLi/garden-skills/blob/aaf9a82f5efd73e87cc0998edc398e75bfc35901/README.md#L12",
+      "originalUrl": "https://raw.githubusercontent.com/ConardLi/assets/main/imgs/web-video-presentation-skill.webp",
+      "animated": false
+    },
+    {
+      "url": "/assets/repository-guides/media-1ab561434bef434f4bbf4cbb.webp",
+      "alt": "creative-voltage preview",
+      "sourceUrl": "https://github.com/ConardLi/garden-skills/blob/aaf9a82f5efd73e87cc0998edc398e75bfc35901/README.md#L77",
+      "originalUrl": "https://raw.githubusercontent.com/ConardLi/assets/main/imgs/web-video/creative-voltage.webp",
+      "animated": false
+    },
+    {
+      "url": "/assets/repository-guides/media-c70f287851e4c233dde25697.webp",
+      "alt": "aesop preview",
+      "sourceUrl": "https://github.com/ConardLi/garden-skills/blob/aaf9a82f5efd73e87cc0998edc398e75bfc35901/README.md#L114",
+      "originalUrl": "https://raw.githubusercontent.com/ConardLi/assets/main/imgs/web-design/aesop.webp",
+      "animated": false
+    },
+    {
+      "url": "/assets/repository-guides/media-e45dee68dbbc1c1741e20d71.webp",
+      "alt": "Background replacement case",
+      "sourceUrl": "https://github.com/ConardLi/garden-skills/blob/aaf9a82f5efd73e87cc0998edc398e75bfc35901/README.md#L161",
+      "originalUrl": "https://raw.githubusercontent.com/ConardLi/gpt-image-2-101/main/public/case/editing-workflows/background-replacement/1-thumb.webp",
+      "animated": false
+    },
+    {
+      "url": "/assets/repository-guides/media-61faa1177be685b8c822585d.webp",
+      "alt": "Kb Retriever Skill",
+      "sourceUrl": "https://github.com/ConardLi/garden-skills/blob/aaf9a82f5efd73e87cc0998edc398e75bfc35901/README.md#L235",
+      "originalUrl": "https://raw.githubusercontent.com/ConardLi/assets/main/imgs/kb-retriever-skill.webp",
+      "animated": false
+    },
+    {
+      "url": "/assets/repository-guides/media-f25e0ecaef8456fb4d746449.webp",
+      "alt": "tufte",
+      "sourceUrl": "https://github.com/ConardLi/garden-skills/blob/aaf9a82f5efd73e87cc0998edc398e75bfc35901/README.md#L276",
+      "originalUrl": "https://raw.githubusercontent.com/ConardLi/assets/main/imgs/article/tufte.webp",
+      "animated": false
+    }
+  ],
   "generatedBy": "claude-opus-5-5",
   "documentHash": "7146f5c592f8471f0afab79efb39236616db1184c91cc65017e301df16d80f90",
-  "mediaStatus": "unavailable",
-  "mediaFailures": [
-    {
-      "sourceUrl": "https://github.com/ConardLi/garden-skills/blob/aaf9a82f5efd73e87cc0998edc398e75bfc35901/README.md#L84",
-      "reason": "unsupported_media_host"
-    },
-    {
-      "sourceUrl": "https://github.com/ConardLi/garden-skills/blob/aaf9a82f5efd73e87cc0998edc398e75bfc35901/README.md#L114",
-      "reason": "unsupported_media_host"
-    },
-    {
-      "sourceUrl": "https://github.com/ConardLi/garden-skills/blob/aaf9a82f5efd73e87cc0998edc398e75bfc35901/README.md#L188",
-      "reason": "unsupported_media_host"
-    }
-  ]
+  "mediaStatus": "archived",
+  "mediaFailures": [],
+  "mediaReferences": []
 }

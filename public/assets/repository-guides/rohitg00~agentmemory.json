@@ -74,7 +74,15 @@
       "url": "/assets/repository-guides/media-0cfd4fdd590a42d01268334a.webp",
       "alt": "rohitg00/agentmemory 官方演示 1",
       "sourceUrl": "https://github.com/rohitg00/agentmemory/blob/29ecfde4df5998d913991049629014baa024600a/README.md?plain=1#L1208",
-      "originalUrl": "https://raw.githubusercontent.com/rohitg00/agentmemory/29ecfde4df5998d913991049629014baa024600a/assets/iii-console/workers.png"
+      "originalUrl": "https://raw.githubusercontent.com/rohitg00/agentmemory/29ecfde4df5998d913991049629014baa024600a/assets/iii-console/workers.png",
+      "animated": false
+    },
+    {
+      "url": "/assets/repository-guides/media-ccbbe053da5d6d1cdd7c7892.webp",
+      "alt": "agentmemory: persistent memory for AI coding agents",
+      "sourceUrl": "https://github.com/rohitg00/agentmemory/blob/29ecfde4df5998d913991049629014baa024600a/README.md#L2",
+      "originalUrl": "https://raw.githubusercontent.com/rohitg00/agentmemory/29ecfde4df5998d913991049629014baa024600a/assets/banner.png",
+      "animated": false
     }
   ],
   "generatedBy": "claude-opus-5-5",
@@ -82,8 +90,102 @@
   "mediaStatus": "archived",
   "mediaFailures": [
     {
-      "sourceUrl": "https://github.com/rohitg00/agentmemory/blob/29ecfde4df5998d913991049629014baa024600a/README.md#L57",
-      "reason": "response_too_large"
+      "sourceUrl": "https://github.com/rohitg00/agentmemory/blob/29ecfde4df5998d913991049629014baa024600a/README.md#L145",
+      "reason": "unsupported_media_format"
+    },
+    {
+      "sourceUrl": "https://github.com/rohitg00/agentmemory/blob/29ecfde4df5998d913991049629014baa024600a/README.md#L323",
+      "reason": "unsupported_media_format"
+    },
+    {
+      "sourceUrl": "https://github.com/rohitg00/agentmemory/blob/29ecfde4df5998d913991049629014baa024600a/README.md#L900",
+      "reason": "unsupported_media_format"
+    },
+    {
+      "sourceUrl": "https://github.com/rohitg00/agentmemory/blob/29ecfde4df5998d913991049629014baa024600a/README.md#L933",
+      "reason": "unsupported_media_format"
+    },
+    {
+      "sourceUrl": "https://github.com/rohitg00/agentmemory/blob/29ecfde4df5998d913991049629014baa024600a/README.md#L1008",
+      "reason": "unsupported_media_format"
+    },
+    {
+      "sourceUrl": "https://github.com/rohitg00/agentmemory/blob/29ecfde4df5998d913991049629014baa024600a/README.md#L1045",
+      "reason": "unsupported_media_format"
+    },
+    {
+      "sourceUrl": "https://github.com/rohitg00/agentmemory/blob/29ecfde4df5998d913991049629014baa024600a/README.md#L1187",
+      "reason": "unsupported_media_format"
+    },
+    {
+      "sourceUrl": "https://github.com/rohitg00/agentmemory/blob/29ecfde4df5998d913991049629014baa024600a/README.md#L48",
+      "reason": "unsupported_media_format"
+    },
+    {
+      "sourceUrl": "https://github.com/rohitg00/agentmemory/blob/29ecfde4df5998d913991049629014baa024600a/README.md#L152",
+      "reason": "unsupported_media_host"
+    },
+    {
+      "sourceUrl": "https://github.com/rohitg00/agentmemory/blob/29ecfde4df5998d913991049629014baa024600a/README.md#L497",
+      "reason": "unsupported_media_format"
+    },
+    {
+      "sourceUrl": "https://github.com/rohitg00/agentmemory/blob/29ecfde4df5998d913991049629014baa024600a/README.md#L49",
+      "reason": "unsupported_media_format"
+    },
+    {
+      "sourceUrl": "https://github.com/rohitg00/agentmemory/blob/29ecfde4df5998d913991049629014baa024600a/README.md#L157",
+      "reason": "unsupported_media_host"
+    }
+  ],
+  "mediaReferences": [
+    {
+      "label": "Works with every agent",
+      "url": "https://github.com/rohitg00/agentmemory/blob/29ecfde4df5998d913991049629014baa024600a/README.md#L145"
+    },
+    {
+      "label": "vs Competitors",
+      "url": "https://github.com/rohitg00/agentmemory/blob/29ecfde4df5998d913991049629014baa024600a/README.md#L323"
+    },
+    {
+      "label": "Why agentmemory",
+      "url": "https://github.com/rohitg00/agentmemory/blob/29ecfde4df5998d913991049629014baa024600a/README.md#L900"
+    },
+    {
+      "label": "How It Works",
+      "url": "https://github.com/rohitg00/agentmemory/blob/29ecfde4df5998d913991049629014baa024600a/README.md#L933"
+    },
+    {
+      "label": "Search",
+      "url": "https://github.com/rohitg00/agentmemory/blob/29ecfde4df5998d913991049629014baa024600a/README.md#L1008"
+    },
+    {
+      "label": "MCP Server",
+      "url": "https://github.com/rohitg00/agentmemory/blob/29ecfde4df5998d913991049629014baa024600a/README.md#L1045"
+    },
+    {
+      "label": "Real-Time Viewer",
+      "url": "https://github.com/rohitg00/agentmemory/blob/29ecfde4df5998d913991049629014baa024600a/README.md#L1187"
+    },
+    {
+      "label": "95.2% retrieval R@5",
+      "url": "https://github.com/rohitg00/agentmemory/blob/29ecfde4df5998d913991049629014baa024600a/README.md#L48"
+    },
+    {
+      "label": "Claude Code",
+      "url": "https://github.com/rohitg00/agentmemory/blob/29ecfde4df5998d913991049629014baa024600a/README.md#L152"
+    },
+    {
+      "label": "Quick Start",
+      "url": "https://github.com/rohitg00/agentmemory/blob/29ecfde4df5998d913991049629014baa024600a/README.md#L497"
+    },
+    {
+      "label": "92% fewer tokens",
+      "url": "https://github.com/rohitg00/agentmemory/blob/29ecfde4df5998d913991049629014baa024600a/README.md#L49"
+    },
+    {
+      "label": "Codex CLI",
+      "url": "https://github.com/rohitg00/agentmemory/blob/29ecfde4df5998d913991049629014baa024600a/README.md#L157"
     }
   ]
 }

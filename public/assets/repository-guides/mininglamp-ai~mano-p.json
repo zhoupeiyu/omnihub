@@ -46,8 +46,63 @@
     "本地部署的详细说明官方尚未发布，部分阶段（模型、SDK、训练方法）按计划分批开源。"
   ],
   "references": [],
-  "media": [],
+  "media": [
+    {
+      "url": "/assets/repository-guides/media-99fd0fc48b9fd2a99b9a6ca5.webp",
+      "alt": "opensource_architecture.png",
+      "sourceUrl": "https://github.com/Mininglamp-AI/Mano-P/blob/87673eff8cf882c3547c8e45da145a4d5acf9c05/README.md#L41",
+      "originalUrl": "https://raw.githubusercontent.com/Mininglamp-AI/Mano-P/87673eff8cf882c3547c8e45da145a4d5acf9c05/pics/opensource_architecture_en.png",
+      "animated": false
+    },
+    {
+      "url": "/assets/repository-guides/media-a4e61cf613e457136c89e0d0.webp",
+      "alt": "GUI Agent Grounding Benchmark",
+      "sourceUrl": "https://github.com/Mininglamp-AI/Mano-P/blob/87673eff8cf882c3547c8e45da145a4d5acf9c05/README.md#L127",
+      "originalUrl": "https://raw.githubusercontent.com/Mininglamp-AI/Mano-P/87673eff8cf882c3547c8e45da145a4d5acf9c05/pics/GUI_Agent_Grounding_Benchmark.png",
+      "animated": false
+    },
+    {
+      "url": "/assets/repository-guides/media-78a8366b4fe0ffb9239c7272.webp",
+      "alt": "OS-World-Verified-Specialized-Model.png",
+      "sourceUrl": "https://github.com/Mininglamp-AI/Mano-P/blob/87673eff8cf882c3547c8e45da145a4d5acf9c05/README.md#L138",
+      "originalUrl": "https://raw.githubusercontent.com/Mininglamp-AI/Mano-P/87673eff8cf882c3547c8e45da145a4d5acf9c05/pics/OS-World-Verified-Specialized-Model.png",
+      "animated": false
+    },
+    {
+      "url": "/assets/repository-guides/media-f644fde746185314740ae9bf.webp",
+      "alt": "OS-World-Verified-All-Model.png",
+      "sourceUrl": "https://github.com/Mininglamp-AI/Mano-P/blob/87673eff8cf882c3547c8e45da145a4d5acf9c05/README.md#L142",
+      "originalUrl": "https://raw.githubusercontent.com/Mininglamp-AI/Mano-P/87673eff8cf882c3547c8e45da145a4d5acf9c05/pics/OS-World-Verified-All-Model.png",
+      "animated": false
+    },
+    {
+      "url": "/assets/repository-guides/media-1c46d946b379c43939ed9aaf.webp",
+      "alt": "WebRetriever.png",
+      "sourceUrl": "https://github.com/Mininglamp-AI/Mano-P/blob/87673eff8cf882c3547c8e45da145a4d5acf9c05/README.md#L146",
+      "originalUrl": "https://raw.githubusercontent.com/Mininglamp-AI/Mano-P/87673eff8cf882c3547c8e45da145a4d5acf9c05/pics/WebRetriever.png",
+      "animated": false
+    },
+    {
+      "url": "/assets/repository-guides/media-6b743e625136d8676bbeeaaa.webp",
+      "alt": "CL-bench.png",
+      "sourceUrl": "https://github.com/Mininglamp-AI/Mano-P/blob/87673eff8cf882c3547c8e45da145a4d5acf9c05/README.md#L934",
+      "originalUrl": "https://raw.githubusercontent.com/Mininglamp-AI/Mano-P/87673eff8cf882c3547c8e45da145a4d5acf9c05/pics/CL-bench.png",
+      "animated": false
+    }
+  ],
   "generatedBy": "claude-opus-5-5",
   "documentHash": "1c778701e5304c663970e6ec21cfba2d090ba3579faa428fef5b1183df30b4c9",
-  "mediaStatus": "none_in_official_documents"
+  "mediaStatus": "archived",
+  "mediaFailures": [
+    {
+      "sourceUrl": "https://github.com/Mininglamp-AI/Mano-P/blob/87673eff8cf882c3547c8e45da145a4d5acf9c05/README.md#L31",
+      "reason": "non_demo_dimensions"
+    }
+  ],
+  "mediaReferences": [
+    {
+      "label": "GUI Agent Grounding Benchmark",
+      "url": "https://github.com/Mininglamp-AI/Mano-P/blob/87673eff8cf882c3547c8e45da145a4d5acf9c05/README.md#L31"
+    }
+  ]
 }

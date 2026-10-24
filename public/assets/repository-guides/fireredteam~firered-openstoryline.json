@@ -67,8 +67,44 @@
     "通过 Codex 等其他 Agent 安装 Skills 的方式被官方标注为实验性。"
   ],
   "references": [],
-  "media": [],
+  "media": [
+    {
+      "url": "/assets/repository-guides/media-3e4d322f9bcefdad7bcdc2f2.webp",
+      "alt": "openstoryline architecture",
+      "sourceUrl": "https://github.com/FireRedTeam/FireRed-OpenStoryline/blob/c9e945215586f45c12a61c1951ee9a8e9c43a027/README.md#L67",
+      "originalUrl": "https://raw.githubusercontent.com/FireRedTeam/fireredteam.github.io/main/demos/firered_openstoryline/pics/structure.jpg",
+      "animated": false
+    }
+  ],
   "generatedBy": "claude-opus-5-5",
   "documentHash": "1143fa2960579dfd03a326cd575013379f727a03b056acfd8414bc3cd41730c5",
-  "mediaStatus": "none_in_official_documents"
+  "mediaStatus": "archived",
+  "mediaFailures": [
+    {
+      "sourceUrl": "https://github.com/FireRedTeam/FireRed-OpenStoryline/blob/c9e945215586f45c12a61c1951ee9a8e9c43a027/README.md#L3",
+      "reason": "unsupported_media_host"
+    },
+    {
+      "sourceUrl": "https://github.com/FireRedTeam/FireRed-OpenStoryline/blob/c9e945215586f45c12a61c1951ee9a8e9c43a027/README.md#L11",
+      "reason": "unsupported_media_host"
+    },
+    {
+      "sourceUrl": "https://github.com/FireRedTeam/FireRed-OpenStoryline/blob/c9e945215586f45c12a61c1951ee9a8e9c43a027/README.md#L29",
+      "reason": "unsupported_media_host"
+    }
+  ],
+  "mediaReferences": [
+    {
+      "label": "openstoryline",
+      "url": "https://github.com/FireRedTeam/FireRed-OpenStoryline/blob/c9e945215586f45c12a61c1951ee9a8e9c43a027/README.md#L3"
+    },
+    {
+      "label": "openstoryline",
+      "url": "https://github.com/FireRedTeam/FireRed-OpenStoryline/blob/c9e945215586f45c12a61c1951ee9a8e9c43a027/README.md#L11"
+    },
+    {
+      "label": "Featured｜HelloGitHub",
+      "url": "https://github.com/FireRedTeam/FireRed-OpenStoryline/blob/c9e945215586f45c12a61c1951ee9a8e9c43a027/README.md#L29"
+    }
+  ]
 }

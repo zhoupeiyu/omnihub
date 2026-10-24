@@ -67,22 +67,48 @@
       "url": "/assets/repository-guides/media-05a98e0445e76d65b2e0d27b.webp",
       "alt": "zhaohongxuan/obsidian-weread-plugin 官方演示 1",
       "sourceUrl": "https://github.com/zhaohongxuan/obsidian-weread-plugin/blob/b1210ca2740d85e4e3164766ae0c75080ead236d/README.md?plain=1#L11",
-      "originalUrl": "https://github.com/user-attachments/assets/41340794-9d48-44f2-9512-e1e7ae0672ff"
+      "originalUrl": "https://github.com/user-attachments/assets/41340794-9d48-44f2-9512-e1e7ae0672ff",
+      "animated": false
     },
     {
       "url": "/assets/repository-guides/media-43ad63f74638001a65c5829f.webp",
       "alt": "zhaohongxuan/obsidian-weread-plugin 官方演示 2",
       "sourceUrl": "https://github.com/zhaohongxuan/obsidian-weread-plugin/blob/b1210ca2740d85e4e3164766ae0c75080ead236d/README.md?plain=1#L62",
-      "originalUrl": "https://github.com/user-attachments/assets/dfcbdce1-b63d-4156-b18e-4aeef9e57c4f"
+      "originalUrl": "https://github.com/user-attachments/assets/dfcbdce1-b63d-4156-b18e-4aeef9e57c4f",
+      "animated": false
+    },
+    {
+      "url": "/assets/repository-guides/media-a7f42b7060a162d83b2e78ee.webp",
+      "alt": "image",
+      "sourceUrl": "https://github.com/zhaohongxuan/obsidian-weread-plugin/blob/b1210ca2740d85e4e3164766ae0c75080ead236d/README.md#L45",
+      "originalUrl": "https://github.com/user-attachments/assets/c9252fa6-6ac8-40ab-94db-f72138b63ad5",
+      "animated": false
+    },
+    {
+      "url": "/assets/repository-guides/media-71d0f627e451b944135ade69.webp",
+      "alt": "使用",
+      "sourceUrl": "https://github.com/zhaohongxuan/obsidian-weread-plugin/blob/b1210ca2740d85e4e3164766ae0c75080ead236d/README.md#L100",
+      "originalUrl": "https://user-images.githubusercontent.com/8613196/179385400-d556527f-8d73-4ca7-b348-62810df96fe2.png",
+      "animated": false
+    },
+    {
+      "url": "/assets/repository-guides/media-df29526b52fd2ed756da7e3d.webp",
+      "alt": "sync|50",
+      "sourceUrl": "https://github.com/zhaohongxuan/obsidian-weread-plugin/blob/b1210ca2740d85e4e3164766ae0c75080ead236d/README.md#L88",
+      "originalUrl": "https://raw.githubusercontent.com/zhaohongxuan/picgo/master/20220522222015.png",
+      "animated": false
+    },
+    {
+      "url": "/assets/repository-guides/media-0217bccc1b3c46cc316b9f29.webp",
+      "alt": "使用",
+      "sourceUrl": "https://github.com/zhaohongxuan/obsidian-weread-plugin/blob/b1210ca2740d85e4e3164766ae0c75080ead236d/README.md#L89",
+      "originalUrl": "https://raw.githubusercontent.com/zhaohongxuan/picgo/master/20220522221449.png",
+      "animated": false
     }
   ],
   "generatedBy": "claude-opus-5-5",
   "documentHash": "0db62bd8f65b06012beb54ab3204235ef9d5c0c39d1f3b262e090eebb8746827",
   "mediaStatus": "archived",
-  "mediaFailures": [
-    {
-      "sourceUrl": "https://github.com/zhaohongxuan/obsidian-weread-plugin/blob/b1210ca2740d85e4e3164766ae0c75080ead236d/README.md#L89",
-      "reason": "unsupported_media_host"
-    }
-  ]
+  "mediaFailures": [],
+  "mediaReferences": []
 }

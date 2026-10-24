@@ -72,11 +72,13 @@
       "url": "/assets/repository-guides/media-747d124a2aa34c3d8b8efd9f.webp",
       "alt": "Guizang Social Card Skill 效果展示",
       "sourceUrl": "https://github.com/op7418/guizang-social-card-skill/blob/cf4b810fac1c73fb65a2bb31d8c9278d82cbc4c5/README.md?plain=1#L22",
-      "originalUrl": "https://github.com/user-attachments/assets/d370abcc-1fc4-4de1-903a-09020a6556ce"
+      "originalUrl": "https://github.com/user-attachments/assets/d370abcc-1fc4-4de1-903a-09020a6556ce",
+      "animated": false
     }
   ],
   "generatedBy": "claude-opus-5-5",
   "documentHash": "d15bbc144338964f151a2520ac8691d4356cc470eb6d3148c69ceab61e0cd434",
   "mediaStatus": "archived",
-  "mediaFailures": []
+  "mediaFailures": [],
+  "mediaReferences": []
 }

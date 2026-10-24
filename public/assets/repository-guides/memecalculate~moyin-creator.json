@@ -61,23 +61,48 @@
       "url": "/assets/repository-guides/media-618a4bb932d7e5f1c0234bf2.webp",
       "alt": "MemeCalculate/moyin-creator 官方演示 1",
       "sourceUrl": "https://github.com/MemeCalculate/moyin-creator/blob/7e5c5655de94d49885e13c369f0a71212893a0aa/README.md?plain=1#L102",
-      "originalUrl": "https://github.com/user-attachments/assets/e42266c2-aaeb-4cc3-a734-65516774d495"
+      "originalUrl": "https://github.com/user-attachments/assets/e42266c2-aaeb-4cc3-a734-65516774d495",
+      "animated": false
     },
     {
       "url": "/assets/repository-guides/media-49873debfffe6454b720da9a.webp",
       "alt": "MemeCalculate/moyin-creator 官方演示 2",
       "sourceUrl": "https://github.com/MemeCalculate/moyin-creator/blob/7e5c5655de94d49885e13c369f0a71212893a0aa/README.md?plain=1#L108",
-      "originalUrl": "https://github.com/user-attachments/assets/763e6ced-43e2-4c7b-a5ea-b13535af5b2e"
+      "originalUrl": "https://github.com/user-attachments/assets/763e6ced-43e2-4c7b-a5ea-b13535af5b2e",
+      "animated": false
     },
     {
       "url": "/assets/repository-guides/media-346bda6392aa38c2ecd240b6.webp",
       "alt": "MemeCalculate/moyin-creator 官方演示 3",
       "sourceUrl": "https://github.com/MemeCalculate/moyin-creator/blob/7e5c5655de94d49885e13c369f0a71212893a0aa/README.md?plain=1#L119",
-      "originalUrl": "https://github.com/user-attachments/assets/94562cee-3827-4645-82fe-2123fdd86897"
+      "originalUrl": "https://github.com/user-attachments/assets/94562cee-3827-4645-82fe-2123fdd86897",
+      "animated": false
+    },
+    {
+      "url": "/assets/repository-guides/media-e7c44df2ce576da30ab9251a.webp",
+      "alt": "Memefast",
+      "sourceUrl": "https://github.com/MemeCalculate/moyin-creator/blob/7e5c5655de94d49885e13c369f0a71212893a0aa/README.md#L9",
+      "originalUrl": "https://github.com/user-attachments/assets/bd9d2127-32e3-460c-a304-dde83a7c6a1d",
+      "animated": false
+    },
+    {
+      "url": "/assets/repository-guides/media-83982a8fd1e20e8ef9a5d1f8.webp",
+      "alt": "685ccb3dcbc6205677b6b25456d9221",
+      "sourceUrl": "https://github.com/MemeCalculate/moyin-creator/blob/7e5c5655de94d49885e13c369f0a71212893a0aa/README.md#L88",
+      "originalUrl": "https://github.com/user-attachments/assets/43e29f00-0a3e-4910-864c-357b203d410f",
+      "animated": false
+    },
+    {
+      "url": "/assets/repository-guides/media-372b907de9388be4ca53776f.webp",
+      "alt": "8a5f019882995cd573b614d1e403ab3",
+      "sourceUrl": "https://github.com/MemeCalculate/moyin-creator/blob/7e5c5655de94d49885e13c369f0a71212893a0aa/README.md#L113",
+      "originalUrl": "https://github.com/user-attachments/assets/f301d91e-c826-499f-b3dd-79e69613a5e8",
+      "animated": false
     }
   ],
   "generatedBy": "claude-opus-5-5",
   "documentHash": "50d10012b1a5bda4eaa794fb3685b91ee14ed37be639183eb049c493183c1652",
   "mediaStatus": "archived",
-  "mediaFailures": []
+  "mediaFailures": [],
+  "mediaReferences": []
 }

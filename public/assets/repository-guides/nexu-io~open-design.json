@@ -73,23 +73,58 @@
       "url": "/assets/repository-guides/media-6c8c8538bc438c5200a6fa44.webp",
       "alt": "nexu-io/open-design 官方演示 1",
       "sourceUrl": "https://github.com/nexu-io/open-design/blob/53231d40b778d88eba23f35547bf99485d3ae9fc/README.md?plain=1#L46",
-      "originalUrl": "https://raw.githubusercontent.com/nexu-io/open-design/53231d40b778d88eba23f35547bf99485d3ae9fc/docs/screenshots/product-tour/home-workspace-2026-09-30-220844.png"
+      "originalUrl": "https://raw.githubusercontent.com/nexu-io/open-design/53231d40b778d88eba23f35547bf99485d3ae9fc/docs/screenshots/product-tour/home-workspace-2026-09-30-220844.png",
+      "animated": false
     },
     {
       "url": "/assets/repository-guides/media-569f046032939fc623806cc9.webp",
       "alt": "nexu-io/open-design 官方演示 2",
       "sourceUrl": "https://github.com/nexu-io/open-design/blob/53231d40b778d88eba23f35547bf99485d3ae9fc/README.md?plain=1#L71",
-      "originalUrl": "https://raw.githubusercontent.com/nexu-io/open-design/53231d40b778d88eba23f35547bf99485d3ae9fc/docs/screenshots/product-tour/studio-prototype-2026.webp"
+      "originalUrl": "https://raw.githubusercontent.com/nexu-io/open-design/53231d40b778d88eba23f35547bf99485d3ae9fc/docs/screenshots/product-tour/studio-prototype-2026.webp",
+      "animated": false
     },
     {
       "url": "/assets/repository-guides/media-19a4523bd11d3bd7cafe9bd3.webp",
       "alt": "nexu-io/open-design 官方演示 3",
       "sourceUrl": "https://github.com/nexu-io/open-design/blob/53231d40b778d88eba23f35547bf99485d3ae9fc/README.md?plain=1#L75",
-      "originalUrl": "https://raw.githubusercontent.com/nexu-io/open-design/53231d40b778d88eba23f35547bf99485d3ae9fc/docs/screenshots/product-tour/studio-slides-2026.png"
+      "originalUrl": "https://raw.githubusercontent.com/nexu-io/open-design/53231d40b778d88eba23f35547bf99485d3ae9fc/docs/screenshots/product-tour/studio-slides-2026.png",
+      "animated": false
+    },
+    {
+      "url": "/assets/repository-guides/media-f512ca40a6764338cdaa0a32.webp",
+      "alt": "OpenDesign hero banner — The First Collaborative Design Agent Workspace, with design systems, plugins, coding agents, and media providers",
+      "sourceUrl": "https://github.com/nexu-io/open-design/blob/53231d40b778d88eba23f35547bf99485d3ae9fc/README.md#L8",
+      "originalUrl": "https://raw.githubusercontent.com/nexu-io/open-design/53231d40b778d88eba23f35547bf99485d3ae9fc/docs/assets/readme-hero-design-agent.webp",
+      "animated": false
+    },
+    {
+      "url": "/assets/repository-guides/media-7b3192cd19e2647f25aa5b7b.webp",
+      "alt": "Web prototype dating-web",
+      "sourceUrl": "https://github.com/nexu-io/open-design/blob/53231d40b778d88eba23f35547bf99485d3ae9fc/README.md#L144",
+      "originalUrl": "https://raw.githubusercontent.com/nexu-io/open-design/53231d40b778d88eba23f35547bf99485d3ae9fc/docs/screenshots/skills/dating-web.png",
+      "animated": false
+    },
+    {
+      "url": "/assets/repository-guides/media-962cbc1501d20da264724dee.webp",
+      "alt": "Live dashboard",
+      "sourceUrl": "https://github.com/nexu-io/open-design/blob/53231d40b778d88eba23f35547bf99485d3ae9fc/README.md#L161",
+      "originalUrl": "https://raw.githubusercontent.com/nexu-io/open-design/53231d40b778d88eba23f35547bf99485d3ae9fc/docs/screenshots/skills/live-dashboard.png",
+      "animated": false
     }
   ],
   "generatedBy": "claude-opus-5-5",
   "documentHash": "4152e643139bc102dc4c997658c8c410a15f27491a0cbbc6bd012a64e23167b4",
   "mediaStatus": "archived",
-  "mediaFailures": []
+  "mediaFailures": [
+    {
+      "sourceUrl": "https://github.com/nexu-io/open-design/blob/53231d40b778d88eba23f35547bf99485d3ae9fc/README.md#L124",
+      "reason": "unsupported_media_host"
+    }
+  ],
+  "mediaReferences": [
+    {
+      "label": "The 26 coding-agent CLIs OpenDesign supports — DeepSeek Harness · Claude Code · Codex · OpenCode · Hermes · Antigravity · Vela · Grok Build · Kimi · Cursor Agen",
+      "url": "https://github.com/nexu-io/open-design/blob/53231d40b778d88eba23f35547bf99485d3ae9fc/README.md#L124"
+    }
+  ]
 }

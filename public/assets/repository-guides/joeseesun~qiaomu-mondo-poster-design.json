@@ -62,23 +62,48 @@
       "url": "/assets/repository-guides/media-d1d8bb63f9f997f054ce20ea.webp",
       "alt": "人类简史 - 文艺风公众号封面",
       "sourceUrl": "https://github.com/joeseesun/qiaomu-mondo-poster-design/blob/e82e411c403ca5a0327a85682c658ad155cd9cbb/README.md?plain=1#L61",
-      "originalUrl": "https://raw.githubusercontent.com/joeseesun/qiaomu-mondo-poster-design/e82e411c403ca5a0327a85682c658ad155cd9cbb/examples/usecase-wechat-sapiens.png"
+      "originalUrl": "https://raw.githubusercontent.com/joeseesun/qiaomu-mondo-poster-design/e82e411c403ca5a0327a85682c658ad155cd9cbb/examples/usecase-wechat-sapiens.png",
+      "animated": false
     },
     {
       "url": "/assets/repository-guides/media-de070e1a7232f9c43cb7dd89.webp",
       "alt": "小王子 - 韩系风小红书",
       "sourceUrl": "https://github.com/joeseesun/qiaomu-mondo-poster-design/blob/e82e411c403ca5a0327a85682c658ad155cd9cbb/README.md?plain=1#L83",
-      "originalUrl": "https://raw.githubusercontent.com/joeseesun/qiaomu-mondo-poster-design/e82e411c403ca5a0327a85682c658ad155cd9cbb/examples/usecase-xiaohongshu-prince.png"
+      "originalUrl": "https://raw.githubusercontent.com/joeseesun/qiaomu-mondo-poster-design/e82e411c403ca5a0327a85682c658ad155cd9cbb/examples/usecase-xiaohongshu-prince.png",
+      "animated": false
     },
     {
       "url": "/assets/repository-guides/media-e15e349b88cd0446f80d4805.webp",
       "alt": "三体 - Chip Kidd概念封面",
       "sourceUrl": "https://github.com/joeseesun/qiaomu-mondo-poster-design/blob/e82e411c403ca5a0327a85682c658ad155cd9cbb/README.md?plain=1#L112",
-      "originalUrl": "https://raw.githubusercontent.com/joeseesun/qiaomu-mondo-poster-design/e82e411c403ca5a0327a85682c658ad155cd9cbb/examples/usecase-book-cover.png"
+      "originalUrl": "https://raw.githubusercontent.com/joeseesun/qiaomu-mondo-poster-design/e82e411c403ca5a0327a85682c658ad155cd9cbb/examples/usecase-book-cover.png",
+      "animated": false
+    },
+    {
+      "url": "/assets/repository-guides/media-6df5cefd83501f43ee20a92d.webp",
+      "alt": "花样年华 - 日系风小红书",
+      "sourceUrl": "https://github.com/joeseesun/qiaomu-mondo-poster-design/blob/e82e411c403ca5a0327a85682c658ad155cd9cbb/README.md#L78",
+      "originalUrl": "https://raw.githubusercontent.com/joeseesun/qiaomu-mondo-poster-design/e82e411c403ca5a0327a85682c658ad155cd9cbb/examples/usecase-xiaohongshu-mood.png",
+      "animated": false
+    },
+    {
+      "url": "/assets/repository-guides/media-76ad8dd68601f39cc1a14d25.webp",
+      "alt": "AI与未来 - 科技文章配图",
+      "sourceUrl": "https://github.com/joeseesun/qiaomu-mondo-poster-design/blob/e82e411c403ca5a0327a85682c658ad155cd9cbb/README.md#L95",
+      "originalUrl": "https://raw.githubusercontent.com/joeseesun/qiaomu-mondo-poster-design/e82e411c403ca5a0327a85682c658ad155cd9cbb/examples/usecase-article-ai.png",
+      "animated": false
+    },
+    {
+      "url": "/assets/repository-guides/media-ce83db05532e08c0e2ad926c.webp",
+      "alt": "Pink Floyd - The Dark Side of the Moon",
+      "sourceUrl": "https://github.com/joeseesun/qiaomu-mondo-poster-design/blob/e82e411c403ca5a0327a85682c658ad155cd9cbb/README.md#L129",
+      "originalUrl": "https://raw.githubusercontent.com/joeseesun/qiaomu-mondo-poster-design/e82e411c403ca5a0327a85682c658ad155cd9cbb/examples/usecase-album-pinkfloyd.png",
+      "animated": false
     }
   ],
   "generatedBy": "claude-opus-5-5",
   "documentHash": "c28fc4722379df662bb68ec3206ab114dcae18612726b70d8f123d8030f7ef47",
   "mediaStatus": "archived",
-  "mediaFailures": []
+  "mediaFailures": [],
+  "mediaReferences": []
 }

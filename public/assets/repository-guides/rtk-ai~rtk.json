@@ -74,5 +74,17 @@
   "media": [],
   "generatedBy": "claude-opus-5-5",
   "documentHash": "8bd3a35d77e904ca8e72a70af0ef30c5140b96052d04bc492d1487461e424d90",
-  "mediaStatus": "none_in_official_documents"
+  "mediaStatus": "unavailable",
+  "mediaFailures": [
+    {
+      "sourceUrl": "https://github.com/rtk-ai/rtk/blob/234986584266ff328d7a66da2b9cd87410ae1774/README.md#L570",
+      "reason": "unsupported_media_host"
+    }
+  ],
+  "mediaReferences": [
+    {
+      "label": "StarMapper",
+      "url": "https://github.com/rtk-ai/rtk/blob/234986584266ff328d7a66da2b9cd87410ae1774/README.md#L570"
+    }
+  ]
 }

@@ -72,11 +72,53 @@
       "url": "/assets/repository-guides/media-7fef2801d2c67831c53abbaf.webp",
       "alt": "HKUDS/LightRAG 官方演示 1",
       "sourceUrl": "https://github.com/HKUDS/LightRAG/blob/453dce83d6d0354a06e46c8d4029a0895c4e054b/README.md?plain=1#L283",
-      "originalUrl": "https://raw.githubusercontent.com/HKUDS/LightRAG/453dce83d6d0354a06e46c8d4029a0895c4e054b/README.assets/iShot_2025-03-23_12.40.08.png"
+      "originalUrl": "https://raw.githubusercontent.com/HKUDS/LightRAG/453dce83d6d0354a06e46c8d4029a0895c4e054b/README.assets/iShot_2025-03-23_12.40.08.png",
+      "animated": false
+    },
+    {
+      "url": "/assets/repository-guides/media-6ec8ea545f7b03e8d4abe277.webp",
+      "alt": "LightRAG Diagram",
+      "sourceUrl": "https://github.com/HKUDS/LightRAG/blob/453dce83d6d0354a06e46c8d4029a0895c4e054b/README.md#L54",
+      "originalUrl": "https://raw.githubusercontent.com/HKUDS/LightRAG/453dce83d6d0354a06e46c8d4029a0895c4e054b/README.assets/b2aaf634151b4706892693ffb43d9093.png",
+      "animated": false
+    },
+    {
+      "url": "/assets/repository-guides/media-43511d5267c9a5872eca09b0.webp",
+      "alt": "LiteWrite",
+      "sourceUrl": "https://github.com/HKUDS/LightRAG/blob/453dce83d6d0354a06e46c8d4029a0895c4e054b/README.md#L63",
+      "originalUrl": "https://raw.githubusercontent.com/HKUDS/LightRAG/453dce83d6d0354a06e46c8d4029a0895c4e054b/assets/LiteWrite.png",
+      "animated": false
     }
   ],
   "generatedBy": "claude-opus-5-5",
   "documentHash": "7b394a331a17be0fe27b14800984c0abba94dba6f08e4f14f89a4e762cd350a5",
   "mediaStatus": "archived",
-  "mediaFailures": []
+  "mediaFailures": [
+    {
+      "sourceUrl": "https://github.com/HKUDS/LightRAG/blob/453dce83d6d0354a06e46c8d4029a0895c4e054b/README.md#L50",
+      "reason": "non_demo_dimensions"
+    },
+    {
+      "sourceUrl": "https://github.com/HKUDS/LightRAG/blob/453dce83d6d0354a06e46c8d4029a0895c4e054b/README.md#L110",
+      "reason": "unsupported_media_host"
+    },
+    {
+      "sourceUrl": "https://github.com/HKUDS/LightRAG/blob/453dce83d6d0354a06e46c8d4029a0895c4e054b/README.md#L112",
+      "reason": "unsupported_media_host"
+    }
+  ],
+  "mediaReferences": [
+    {
+      "label": "🚀 LightRAG: Simple and Fast Retrieval-Augmented Generation",
+      "url": "https://github.com/HKUDS/LightRAG/blob/453dce83d6d0354a06e46c8d4029a0895c4e054b/README.md#L50"
+    },
+    {
+      "label": "LightRAG Indexing Flowchart",
+      "url": "https://github.com/HKUDS/LightRAG/blob/453dce83d6d0354a06e46c8d4029a0895c4e054b/README.md#L110"
+    },
+    {
+      "label": "LightRAG Retrieval and Querying Flowchart",
+      "url": "https://github.com/HKUDS/LightRAG/blob/453dce83d6d0354a06e46c8d4029a0895c4e054b/README.md#L112"
+    }
+  ]
 }

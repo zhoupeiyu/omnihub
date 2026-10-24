@@ -58,23 +58,34 @@
       "url": "/assets/repository-guides/media-f8419c66e69d1fcb3f6e300a.webp",
       "alt": "zarazhangrui/codebase-to-course 官方演示 1",
       "sourceUrl": "https://github.com/zarazhangrui/codebase-to-course/blob/ff8837ecf8e9f6ce9874ffa42e42633394a52a00/README.md?plain=1#L27",
-      "originalUrl": "https://github.com/user-attachments/assets/fb9e7fac-05c1-4f98-b80c-46543ef81afc"
+      "originalUrl": "https://github.com/user-attachments/assets/fb9e7fac-05c1-4f98-b80c-46543ef81afc",
+      "animated": false
     },
     {
       "url": "/assets/repository-guides/media-5113be494012d2c9022c41dc.webp",
       "alt": "zarazhangrui/codebase-to-course 官方演示 2",
       "sourceUrl": "https://github.com/zarazhangrui/codebase-to-course/blob/ff8837ecf8e9f6ce9874ffa42e42633394a52a00/README.md?plain=1#L30",
-      "originalUrl": "https://github.com/user-attachments/assets/20fb403e-7dfd-4a47-989b-bbae86ca8041"
+      "originalUrl": "https://github.com/user-attachments/assets/20fb403e-7dfd-4a47-989b-bbae86ca8041",
+      "animated": true
     },
     {
       "url": "/assets/repository-guides/media-8531932021ce203d028657c9.webp",
       "alt": "zarazhangrui/codebase-to-course 官方演示 3",
       "sourceUrl": "https://github.com/zarazhangrui/codebase-to-course/blob/ff8837ecf8e9f6ce9874ffa42e42633394a52a00/README.md?plain=1#L33",
-      "originalUrl": "https://github.com/user-attachments/assets/57706496-9fa8-457a-8450-3da22789951c"
+      "originalUrl": "https://github.com/user-attachments/assets/57706496-9fa8-457a-8450-3da22789951c",
+      "animated": false
+    },
+    {
+      "url": "/assets/repository-guides/media-7821a6f6ef4f6e3370afb606.webp",
+      "alt": "Glossary tooltip",
+      "sourceUrl": "https://github.com/zarazhangrui/codebase-to-course/blob/ff8837ecf8e9f6ce9874ffa42e42633394a52a00/README.md#L36",
+      "originalUrl": "https://github.com/user-attachments/assets/ac2f160a-d73f-4779-97b2-a06fdb5f3227",
+      "animated": false
     }
   ],
   "generatedBy": "claude-opus-5-5",
   "documentHash": "dfce5b89aa6e0af49c96f010c498a8ea6e3c2c7a365d461d92a5b47c35fcffe1",
   "mediaStatus": "archived",
-  "mediaFailures": []
+  "mediaFailures": [],
+  "mediaReferences": []
 }

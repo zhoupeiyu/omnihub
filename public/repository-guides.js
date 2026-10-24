@@ -117,7 +117,7 @@ const safeMedia = value => Array.isArray(value) ? value.map(item => {
   const url = typeof item?.url === 'string' && LOCAL_MEDIA.test(item.url) ? item.url : '';
   const alt = text(item?.alt);
   const sourceUrl = safeHttps(item?.sourceUrl);
-  return url && alt && sourceUrl ? {url,alt,sourceUrl} : null;
+  return url && alt && sourceUrl ? {url,alt,sourceUrl,animated:item.animated === true} : null;
 }).filter(Boolean) : [];
 
 export function validateRepositoryGuide(value, expectedKey) {
@@ -144,7 +144,7 @@ export function validateRepositoryGuide(value, expectedKey) {
     schemaVersion:1, key, status:value.status, ...(reason ? {reason} : {}), checkedAt, tested:false,
     sourceUrl, summary, intro, requirements, platforms, steps, example,
     cautions:Array.isArray(value.cautions) ? value.cautions.map(text).filter(Boolean) : [],
-    references, media, ...(text(value.generatedBy) ? {generatedBy:text(value.generatedBy)} : {}),
+    references, media, mediaReferences:Array.isArray(value.mediaReferences) ? value.mediaReferences.map(safeLink).filter(Boolean).slice(0,12) : [], ...(text(value.generatedBy) ? {generatedBy:text(value.generatedBy)} : {}),
   };
 }
 
@@ -222,20 +222,34 @@ const guideStatus = guide => {
   return `<section class="detail-section guide-status guide-status-${escape(guide.status)}"><h3>${heading}</h3><p>${escape(guide.reason || '官方资料暂时不足，先保留原仓库介绍与入口。')}</p>${externalLink({url:guide.sourceUrl,label:'查看官方文档'})}</section>`;
 };
 
-const sourceAttribution = media => media.length ? '<p class="detail-hint">图片保留原始画面，仅以 WebP 随网站提供；每张图片的原始出处与版权说明见上方链接。</p>' : '';
+const sourceAttribution = media => media.length ? '<p class="detail-hint">素材来自仓库官方文档，原始出处与许可说明见上方链接。</p>' : '';
+
+export function renderRepositoryGuideMeta(guide, {readmeUrl = ''} = {}) {
+  const checkedAt = guide?.checkedAt;
+  const date = typeof checkedAt === 'string' && /^\d{4}-\d{2}-\d{2}$/.test(checkedAt)
+    ? `<time datetime="${checkedAt}">核对 ${checkedAt}</time>` : '';
+  return `${date}${externalLink({url:guide?.sourceUrl || readmeUrl,label:'官方文档'})}`;
+}
+
+export function renderRepositoryGuideSources(guide) {
+  if (!guide) return '';
+  const media = guide.media || [];
+  const references = [...(guide.references || []), ...media.map(item=>({url:item.sourceUrl,label:item.alt}))];
+  const unique = references.filter((item,index,items)=>item.url !== guide.sourceUrl && items.findIndex(other=>other.url === item.url) === index);
+  return `<p class="detail-source-note">${guide.status === 'unavailable' ? '保留收藏介绍，官方用法暂不可用。' : `${guide.generatedBy ? 'AI ' : ''}整理自官方文档，未实测。`}</p>${unique.length ? `<div class="guide-reference-links">${unique.map(externalLink).join('')}</div>` : ''}${sourceAttribution(media)}`;
+}
 
 export function renderRepositoryGuide(guide, {introFallback = ''} = {}) {
   if (!guide) return '';
   const media = guide.media || [];
+  const mediaReferences = guide.mediaReferences || [];
   const platforms = guide.platforms || [];
   const steps = guide.steps || [];
   const cautions = guide.cautions || [];
-  const references = guide.references || [];
   const firstPlatformSteps = platforms[0]?.steps?.length || 0;
   const intro = guide.intro || introFallback;
   return `<div class="repository-guide">
-    <p class="guide-provenance">${guide.status === 'unavailable' ? '保留收藏介绍 · 官方用法暂不可用' : `${guide.generatedBy ? 'AI ' : ''}整理自官方文档 · 未实测`} <span>核对于 ${escape(guide.checkedAt)}</span></p>
-    ${media.length ? `<section class="detail-section guide-gallery"><div class="guide-section-heading"><h3>实际界面</h3><span>官方截图 · 点击放大</span></div><div class="guide-images">${media.map((item,index) => `<a class="guide-image${index === 0 ? ' guide-image-main' : ''}" href="${escape(item.url)}" target="_blank" rel="noopener noreferrer" data-repo-media="${index}" aria-label="放大${escape(item.alt)}"><img src="${escape(item.url)}" alt="${escape(item.alt)}" loading="lazy" decoding="async"><span>${escape(item.alt)}</span></a>`).join('')}</div></section>` : ''}
+    ${media.length || mediaReferences.length ? `<section class="detail-section guide-gallery"><div class="guide-section-heading"><h3>演示与说明</h3><span>${media.length ? `${media.length} 张 · 点击放大` : '原文素材'}</span></div>${media.length ? `<div class="guide-images">${media.map((item,index) => `<a class="guide-image${index === 0 ? ' guide-image-main' : ''}" href="${escape(item.url)}" target="_blank" rel="noopener noreferrer" data-repo-media="${index}" aria-label="放大${escape(item.alt)}"><img src="${escape(item.url)}" alt="${escape(item.alt)}" loading="lazy" decoding="async">${item.animated ? '<b class="guide-animation-badge">动图</b>' : ''}<span title="${escape(item.alt)}">${escape(item.alt)}</span></a>`).join('')}</div>` : ''}${mediaReferences.length ? `<details class="guide-media-sources"><summary>${media.length ? '更多原文素材' : '查看原文演示与说明图'}</summary><div class="guide-reference-links">${mediaReferences.map(externalLink).join('')}</div></details>` : ''}</section>` : ''}
     ${guideStatus(guide)}
     <section class="detail-section guide-usage"><h3>${guide.status === 'unavailable' ? '仓库介绍' : '怎么用'}</h3>${intro ? `<p>${escape(intro)}</p>` : ''}${guide.requirements ? `<p class="guide-requirements"><strong>开始前</strong>${escape(guide.requirements)}</p>` : ''}
       ${platforms.length > 1 ? `<label class="guide-platform">使用客户端<select data-guide-platform aria-label="选择使用客户端">${platforms.map((platform,index) => `<option value="${index}">${escape(platform.label)}</option>`).join('')}</select></label>` : ''}
@@ -244,6 +258,5 @@ export function renderRepositoryGuide(guide, {introFallback = ''} = {}) {
       ${guide.alternative ? `<details class="guide-alternative"><summary>${escape(guide.alternative.label)}</summary>${stepsMarkup(guide.alternative.steps)}</details>` : ''}
     </section>
     ${cautions.length ? `<section class="detail-section guide-cautions"><h3>使用前留意</h3><ul>${cautions.map(text=>`<li>${escape(text)}</li>`).join('')}</ul></section>` : ''}
-    <section class="detail-section guide-references"><details><summary>官方文档与素材出处</summary><div class="guide-reference-links">${externalLink({url:guide.sourceUrl,label:'本次整理依据的 README'})}${references.map(externalLink).join('')}${media.map(item=>externalLink({url:item.sourceUrl,label:item.alt})).join('')}</div>${sourceAttribution(media)}</details></section>
   </div>`;
 }

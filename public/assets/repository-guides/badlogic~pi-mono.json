@@ -59,5 +59,7 @@
   "media": [],
   "generatedBy": "claude-opus-5-5",
   "documentHash": "fe13915e217f905739b64124cbb03b72758fa2081b7198cabeefaee4914a6f14",
-  "mediaStatus": "none_in_official_documents"
+  "mediaStatus": "none_in_official_documents",
+  "mediaFailures": [],
+  "mediaReferences": []
 }

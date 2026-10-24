@@ -73,23 +73,52 @@
       "url": "/assets/repository-guides/media-65c1579dcc892e40d04e556c.webp",
       "alt": "Open-LLM-VTuber/Open-LLM-VTuber 官方演示 1",
       "sourceUrl": "https://github.com/Open-LLM-VTuber/Open-LLM-VTuber/blob/992309c0aa19845960228f880013d4685fde93b5/README.md?plain=1#L58",
-      "originalUrl": "https://raw.githubusercontent.com/Open-LLM-VTuber/Open-LLM-VTuber/992309c0aa19845960228f880013d4685fde93b5/assets/i1.jpg"
+      "originalUrl": "https://raw.githubusercontent.com/Open-LLM-VTuber/Open-LLM-VTuber/992309c0aa19845960228f880013d4685fde93b5/assets/i1.jpg",
+      "animated": false
     },
     {
       "url": "/assets/repository-guides/media-2901b2f2734eccead300cb82.webp",
       "alt": "Open-LLM-VTuber/Open-LLM-VTuber 官方演示 2",
       "sourceUrl": "https://github.com/Open-LLM-VTuber/Open-LLM-VTuber/blob/992309c0aa19845960228f880013d4685fde93b5/README.md?plain=1#L58",
-      "originalUrl": "https://raw.githubusercontent.com/Open-LLM-VTuber/Open-LLM-VTuber/992309c0aa19845960228f880013d4685fde93b5/assets/i2.jpg"
+      "originalUrl": "https://raw.githubusercontent.com/Open-LLM-VTuber/Open-LLM-VTuber/992309c0aa19845960228f880013d4685fde93b5/assets/i2.jpg",
+      "animated": false
     },
     {
       "url": "/assets/repository-guides/media-944306e28ee18ca7c9cc5fbf.webp",
       "alt": "Open-LLM-VTuber/Open-LLM-VTuber 官方演示 3",
       "sourceUrl": "https://github.com/Open-LLM-VTuber/Open-LLM-VTuber/blob/992309c0aa19845960228f880013d4685fde93b5/README.md?plain=1#L60",
-      "originalUrl": "https://raw.githubusercontent.com/Open-LLM-VTuber/Open-LLM-VTuber/992309c0aa19845960228f880013d4685fde93b5/assets/i3.jpg"
+      "originalUrl": "https://raw.githubusercontent.com/Open-LLM-VTuber/Open-LLM-VTuber/992309c0aa19845960228f880013d4685fde93b5/assets/i3.jpg",
+      "animated": false
+    },
+    {
+      "url": "/assets/repository-guides/media-adb3d9482a2da88aa7adcd70.webp",
+      "alt": "👀 Demo",
+      "sourceUrl": "https://github.com/Open-LLM-VTuber/Open-LLM-VTuber/blob/992309c0aa19845960228f880013d4685fde93b5/README.md#L60",
+      "originalUrl": "https://raw.githubusercontent.com/Open-LLM-VTuber/Open-LLM-VTuber/992309c0aa19845960228f880013d4685fde93b5/assets/i4.jpg",
+      "animated": false
     }
   ],
   "generatedBy": "claude-opus-5-5",
   "documentHash": "4c2002678b704673b6cd413d523f09bacca80962cf205f26b7b6f6e1ce8d78b0",
   "mediaStatus": "archived",
-  "mediaFailures": []
+  "mediaFailures": [
+    {
+      "sourceUrl": "https://github.com/Open-LLM-VTuber/Open-LLM-VTuber/blob/992309c0aa19845960228f880013d4685fde93b5/README.md#L1",
+      "reason": "non_demo_dimensions"
+    },
+    {
+      "sourceUrl": "https://github.com/Open-LLM-VTuber/Open-LLM-VTuber/blob/992309c0aa19845960228f880013d4685fde93b5/README.CN.md#L2",
+      "reason": "non_demo_dimensions"
+    }
+  ],
+  "mediaReferences": [
+    {
+      "label": "项目介绍",
+      "url": "https://github.com/Open-LLM-VTuber/Open-LLM-VTuber/blob/992309c0aa19845960228f880013d4685fde93b5/README.md#L1"
+    },
+    {
+      "label": "项目介绍",
+      "url": "https://github.com/Open-LLM-VTuber/Open-LLM-VTuber/blob/992309c0aa19845960228f880013d4685fde93b5/README.CN.md#L2"
+    }
+  ]
 }

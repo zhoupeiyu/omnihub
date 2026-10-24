@@ -64,11 +64,37 @@
       "url": "/assets/repository-guides/media-9b4dc2680fdacef46a0075bb.webp",
       "alt": "alibaba/open-code-review 官方演示 1",
       "sourceUrl": "https://github.com/alibaba/open-code-review/blob/a758d9cbfb689937c7857ad64b2dd66adb58c0c2/README.md?plain=1#L132",
-      "originalUrl": "https://raw.githubusercontent.com/alibaba/open-code-review/a758d9cbfb689937c7857ad64b2dd66adb58c0c2/imgs/providers.jpg"
+      "originalUrl": "https://raw.githubusercontent.com/alibaba/open-code-review/a758d9cbfb689937c7857ad64b2dd66adb58c0c2/imgs/providers.jpg",
+      "animated": false
+    },
+    {
+      "url": "/assets/repository-guides/media-06f55101d4f64da6e4987701.webp",
+      "alt": "Highlights",
+      "sourceUrl": "https://github.com/alibaba/open-code-review/blob/a758d9cbfb689937c7857ad64b2dd66adb58c0c2/README.md#L51",
+      "originalUrl": "https://raw.githubusercontent.com/alibaba/open-code-review/a758d9cbfb689937c7857ad64b2dd66adb58c0c2/imgs/highlights-en.png",
+      "animated": false
+    },
+    {
+      "url": "/assets/repository-guides/media-e93065fc9b87211bc109ea37.webp",
+      "alt": "Benchmark",
+      "sourceUrl": "https://github.com/alibaba/open-code-review/blob/a758d9cbfb689937c7857ad64b2dd66adb58c0c2/README.md#L69",
+      "originalUrl": "https://raw.githubusercontent.com/alibaba/open-code-review/a758d9cbfb689937c7857ad64b2dd66adb58c0c2/imgs/benchmark-en.png",
+      "animated": false
     }
   ],
   "generatedBy": "claude-opus-5-5",
   "documentHash": "76228cb397c4e64a13fa03ee893ae8a46df310f7073bd690e7ad0dc6cfc1aa43",
   "mediaStatus": "archived",
-  "mediaFailures": []
+  "mediaFailures": [
+    {
+      "sourceUrl": "https://github.com/alibaba/open-code-review/blob/a758d9cbfb689937c7857ad64b2dd66adb58c0c2/README.md#L59",
+      "reason": "unsupported_media_host"
+    }
+  ],
+  "mediaReferences": [
+    {
+      "label": "Hugging Face",
+      "url": "https://github.com/alibaba/open-code-review/blob/a758d9cbfb689937c7857ad64b2dd66adb58c0c2/README.md#L59"
+    }
+  ]
 }

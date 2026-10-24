@@ -55,14 +55,18 @@
     "README 中的赞助内容属于第三方推广，不是本工具的功能。"
   ],
   "references": [],
-  "media": [],
+  "media": [
+    {
+      "url": "/assets/repository-guides/media-b5ab14a07940550dbfe35283.webp",
+      "alt": "ccusage terminal report screenshot",
+      "sourceUrl": "https://github.com/ccusage/ccusage/blob/f4cf1e97224a41cee56162573f3cea5e7ca6dd43/README.md#L21",
+      "originalUrl": "https://raw.githubusercontent.com/ccusage/ccusage/f4cf1e97224a41cee56162573f3cea5e7ca6dd43/docs/public/screenshot.png",
+      "animated": false
+    }
+  ],
   "generatedBy": "claude-opus-5-5",
   "documentHash": "71d127c0fc785511a3d686ec77eb7fb944e80b79385cfd26bf77a32944941cf6",
-  "mediaStatus": "unavailable",
-  "mediaFailures": [
-    {
-      "sourceUrl": "https://github.com/ccusage/ccusage/blob/f4cf1e97224a41cee56162573f3cea5e7ca6dd43/README.md#L21",
-      "reason": "unsupported_media_host"
-    }
-  ]
+  "mediaStatus": "archived",
+  "mediaFailures": [],
+  "mediaReferences": []
 }

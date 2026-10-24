@@ -68,23 +68,34 @@
       "url": "/assets/repository-guides/media-c4956beb94341c4d46bea1a9.webp",
       "alt": "任务管理",
       "sourceUrl": "https://github.com/Usagi-org/ai-goofish-monitor/blob/f85d140b6b45029d9a0925feb96dad733b41396d/README.md?plain=1#L22",
-      "originalUrl": "https://raw.githubusercontent.com/Usagi-org/ai-goofish-monitor/f85d140b6b45029d9a0925feb96dad733b41396d/static/img_1.png"
+      "originalUrl": "https://raw.githubusercontent.com/Usagi-org/ai-goofish-monitor/f85d140b6b45029d9a0925feb96dad733b41396d/static/img_1.png",
+      "animated": false
     },
     {
       "url": "/assets/repository-guides/media-9b3782f2d8571bb150a53253.webp",
       "alt": "结果查看",
       "sourceUrl": "https://github.com/Usagi-org/ai-goofish-monitor/blob/f85d140b6b45029d9a0925feb96dad733b41396d/README.md?plain=1#L23",
-      "originalUrl": "https://raw.githubusercontent.com/Usagi-org/ai-goofish-monitor/f85d140b6b45029d9a0925feb96dad733b41396d/static/img_2.png"
+      "originalUrl": "https://raw.githubusercontent.com/Usagi-org/ai-goofish-monitor/f85d140b6b45029d9a0925feb96dad733b41396d/static/img_2.png",
+      "animated": false
     },
     {
       "url": "/assets/repository-guides/media-888c59e9ce06dcceb4e3ec64.webp",
       "alt": "监控概览",
       "sourceUrl": "https://github.com/Usagi-org/ai-goofish-monitor/blob/f85d140b6b45029d9a0925feb96dad733b41396d/README.md?plain=1#L21",
-      "originalUrl": "https://raw.githubusercontent.com/Usagi-org/ai-goofish-monitor/f85d140b6b45029d9a0925feb96dad733b41396d/static/img.png"
+      "originalUrl": "https://raw.githubusercontent.com/Usagi-org/ai-goofish-monitor/f85d140b6b45029d9a0925feb96dad733b41396d/static/img.png",
+      "animated": false
+    },
+    {
+      "url": "/assets/repository-guides/media-31a5bfadba62d750f4d0e30a.webp",
+      "alt": "通知推送",
+      "sourceUrl": "https://github.com/Usagi-org/ai-goofish-monitor/blob/f85d140b6b45029d9a0925feb96dad733b41396d/README.md#L24",
+      "originalUrl": "https://raw.githubusercontent.com/Usagi-org/ai-goofish-monitor/f85d140b6b45029d9a0925feb96dad733b41396d/static/img_3.png",
+      "animated": false
     }
   ],
   "generatedBy": "claude-opus-5-5",
   "documentHash": "48962b661867744eb011aef43c4cb17c896a8357f5928ad4b143b4584a572ba1",
   "mediaStatus": "archived",
-  "mediaFailures": []
+  "mediaFailures": [],
+  "mediaReferences": []
 }

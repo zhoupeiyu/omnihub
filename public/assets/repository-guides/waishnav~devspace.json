@@ -71,11 +71,20 @@
       "url": "/assets/repository-guides/media-63b0c07a22318209e926d99f.webp",
       "alt": "Waishnav/devspace 官方演示 1",
       "sourceUrl": "https://github.com/Waishnav/devspace/blob/531d3f973f09f7b6b4993c9ff58f80a4514b9ba2/README.md?plain=1#L17",
-      "originalUrl": "https://raw.githubusercontent.com/Waishnav/devspace/main/docs/assets/devspace-screenshot.png"
+      "originalUrl": "https://raw.githubusercontent.com/Waishnav/devspace/main/docs/assets/devspace-screenshot.png",
+      "animated": false
+    },
+    {
+      "url": "/assets/repository-guides/media-63b0c07a22318209e926d99f.webp",
+      "alt": "DevSpace connected to ChatGPT",
+      "sourceUrl": "https://github.com/Waishnav/devspace/blob/531d3f973f09f7b6b4993c9ff58f80a4514b9ba2/README.md#L17",
+      "originalUrl": "https://raw.githubusercontent.com/Waishnav/devspace/531d3f973f09f7b6b4993c9ff58f80a4514b9ba2/docs/assets/devspace-screenshot.png",
+      "animated": false
     }
   ],
   "generatedBy": "claude-opus-5-5",
   "documentHash": "65f15c8bbf21ac50d053ee0b5b9308469abe8a2c12dd7d6314cb83f8c23d92e0",
   "mediaStatus": "archived",
-  "mediaFailures": []
+  "mediaFailures": [],
+  "mediaReferences": []
 }

@@ -53,8 +53,18 @@
     "仅支持 macOS 14.0 及以上，且必须先装好至少一个受支持的 CLI 才能对话。"
   ],
   "references": [],
-  "media": [],
+  "media": [
+    {
+      "url": "/assets/repository-guides/media-85be09da9adbb9cfbf3b66b8.webp",
+      "alt": "lil agents",
+      "sourceUrl": "https://github.com/ryanstephen/lil-agents/blob/6d639033852570fa6ffd640840cf9087486f1e44/README.md#L3",
+      "originalUrl": "https://raw.githubusercontent.com/ryanstephen/lil-agents/6d639033852570fa6ffd640840cf9087486f1e44/hero-thumbnail.png",
+      "animated": false
+    }
+  ],
   "generatedBy": "claude-opus-5-5",
   "documentHash": "b2a770f9f6a82f5c4ec7baa98aab96676b7fff6010fdd0ba115f36fb7e762c0f",
-  "mediaStatus": "none_in_official_documents"
+  "mediaStatus": "archived",
+  "mediaFailures": [],
+  "mediaReferences": []
 }

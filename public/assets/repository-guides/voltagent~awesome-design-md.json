@@ -56,5 +56,33 @@
   "media": [],
   "generatedBy": "claude-opus-5-5",
   "documentHash": "211e14edb394ae4eeead27a5bd4dd967426d22da6e8441de8dca1c43fece2f42",
-  "mediaStatus": "none_in_official_documents"
+  "mediaStatus": "unavailable",
+  "mediaFailures": [
+    {
+      "sourceUrl": "https://github.com/VoltAgent/awesome-design-md/blob/f6961238d5cddcf8042a74a70fc400ec67181abb/README.md#L59",
+      "reason": "unsupported_media_host"
+    },
+    {
+      "sourceUrl": "https://github.com/VoltAgent/awesome-design-md/blob/f6961238d5cddcf8042a74a70fc400ec67181abb/README.md#L67",
+      "reason": "unsupported_media_host"
+    },
+    {
+      "sourceUrl": "https://github.com/VoltAgent/awesome-design-md/blob/f6961238d5cddcf8042a74a70fc400ec67181abb/README.md#L74",
+      "reason": "unsupported_media_host"
+    }
+  ],
+  "mediaReferences": [
+    {
+      "label": "everyfeed",
+      "url": "https://github.com/VoltAgent/awesome-design-md/blob/f6961238d5cddcf8042a74a70fc400ec67181abb/README.md#L59"
+    },
+    {
+      "label": "launchkit",
+      "url": "https://github.com/VoltAgent/awesome-design-md/blob/f6961238d5cddcf8042a74a70fc400ec67181abb/README.md#L67"
+    },
+    {
+      "label": "mobilekit",
+      "url": "https://github.com/VoltAgent/awesome-design-md/blob/f6961238d5cddcf8042a74a70fc400ec67181abb/README.md#L74"
+    }
+  ]
 }

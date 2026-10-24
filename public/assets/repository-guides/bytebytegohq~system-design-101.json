@@ -45,8 +45,52 @@
     "提供的资料只包含部分目录，完整主题列表需在仓库 README 中查看。"
   ],
   "references": [],
-  "media": [],
+  "media": [
+    {
+      "url": "/assets/repository-guides/media-b3048cce81a2f84fbc6f1ca6.webp",
+      "alt": "项目介绍",
+      "sourceUrl": "https://github.com/ByteByteGoHq/system-design-101/blob/b28380a4710c5ec9638ec037d4168e288f334cba/README.md#L2",
+      "originalUrl": "https://raw.githubusercontent.com/ByteByteGoHq/system-design-101/b28380a4710c5ec9638ec037d4168e288f334cba/.github/banner.jpg",
+      "animated": false
+    }
+  ],
   "generatedBy": "claude-opus-5-5",
   "documentHash": "23b7cf98fbe6b465293555c22d527b74926f165be9a7fc5468e43d66922942e7",
-  "mediaStatus": "none_in_official_documents"
+  "mediaStatus": "archived",
+  "mediaFailures": [
+    {
+      "sourceUrl": "https://github.com/ByteByteGoHq/system-design-101/blob/b28380a4710c5ec9638ec037d4168e288f334cba/README.md#L452",
+      "reason": "unsupported_media_host"
+    },
+    {
+      "sourceUrl": "https://github.com/ByteByteGoHq/system-design-101/blob/b28380a4710c5ec9638ec037d4168e288f334cba/README.md#L452",
+      "reason": "unsupported_media_host"
+    },
+    {
+      "sourceUrl": "https://github.com/ByteByteGoHq/system-design-101/blob/b28380a4710c5ec9638ec037d4168e288f334cba/README.md#L452",
+      "reason": "unsupported_media_host"
+    },
+    {
+      "sourceUrl": "https://github.com/ByteByteGoHq/system-design-101/blob/b28380a4710c5ec9638ec037d4168e288f334cba/README.md#L452",
+      "reason": "unsupported_media_host"
+    }
+  ],
+  "mediaReferences": [
+    {
+      "label": "License",
+      "url": "https://github.com/ByteByteGoHq/system-design-101/blob/b28380a4710c5ec9638ec037d4168e288f334cba/README.md#L452"
+    },
+    {
+      "label": "License",
+      "url": "https://github.com/ByteByteGoHq/system-design-101/blob/b28380a4710c5ec9638ec037d4168e288f334cba/README.md#L452"
+    },
+    {
+      "label": "License",
+      "url": "https://github.com/ByteByteGoHq/system-design-101/blob/b28380a4710c5ec9638ec037d4168e288f334cba/README.md#L452"
+    },
+    {
+      "label": "License",
+      "url": "https://github.com/ByteByteGoHq/system-design-101/blob/b28380a4710c5ec9638ec037d4168e288f334cba/README.md#L452"
+    }
+  ]
 }

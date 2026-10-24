@@ -55,14 +55,28 @@
     "项目状态标注为 beta；OpenHands Cloud 是商业服务。"
   ],
   "references": [],
-  "media": [],
+  "media": [
+    {
+      "url": "/assets/repository-guides/media-bd72669f2224d88249c945ae.webp",
+      "alt": "image",
+      "sourceUrl": "https://github.com/OpenHands/OpenHands/blob/953c944eee62b8077a65436c2c8fd6b355342562/README.md#L159",
+      "originalUrl": "https://github.com/user-attachments/assets/cb6de6f5-ac30-4d04-a76a-b5c259f0c163",
+      "animated": false
+    }
+  ],
   "generatedBy": "claude-opus-5-5",
   "documentHash": "b7c1e6e52f95654bbf812ed442d28955392fa238c3fb50a49e3e2bb24b862159",
-  "mediaStatus": "unavailable",
+  "mediaStatus": "archived",
   "mediaFailures": [
     {
       "sourceUrl": "https://github.com/OpenHands/OpenHands/blob/953c944eee62b8077a65436c2c8fd6b355342562/README.md#L29",
       "reason": "unsupported_media_host"
+    }
+  ],
+  "mediaReferences": [
+    {
+      "label": "Agent Canvas automation preview",
+      "url": "https://github.com/OpenHands/OpenHands/blob/953c944eee62b8077a65436c2c8fd6b355342562/README.md#L29"
     }
   ]
 }

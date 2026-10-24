@@ -60,14 +60,44 @@
     "BEAM 评测分数依赖特定的数据格式、提示词和检索配置，与其他系统对比前应阅读评测方法说明。"
   ],
   "references": [],
-  "media": [],
+  "media": [
+    {
+      "url": "/assets/repository-guides/media-c8af8be51d7437f408c81adf.webp",
+      "alt": "Cognee Demo",
+      "sourceUrl": "https://github.com/topoteretes/cognee/blob/ba3631f2ed363a6ea50d649c34c56885af6b36fe/README.md#L61",
+      "originalUrl": "https://raw.githubusercontent.com/topoteretes/cognee/ba3631f2ed363a6ea50d649c34c56885af6b36fe/assets/cognee-demo.gif",
+      "animated": true
+    }
+  ],
   "generatedBy": "claude-opus-5-5",
   "documentHash": "c483ca4aa67c92ba906f810a85dae519c84034c2984ded304d6fbd92022c1726",
-  "mediaStatus": "unavailable",
+  "mediaStatus": "archived",
   "mediaFailures": [
     {
-      "sourceUrl": "https://github.com/topoteretes/cognee/blob/ba3631f2ed363a6ea50d649c34c56885af6b36fe/README.md#L61",
-      "reason": "media_too_large"
+      "sourceUrl": "https://github.com/topoteretes/cognee/blob/ba3631f2ed363a6ea50d649c34c56885af6b36fe/README.md#L171",
+      "reason": "unsupported_media_format"
+    },
+    {
+      "sourceUrl": "https://github.com/topoteretes/cognee/blob/ba3631f2ed363a6ea50d649c34c56885af6b36fe/README.md#L300",
+      "reason": "unsupported_media_host"
+    },
+    {
+      "sourceUrl": "https://github.com/topoteretes/cognee/blob/ba3631f2ed363a6ea50d649c34c56885af6b36fe/README.md#L177",
+      "reason": "unsupported_media_format"
+    }
+  ],
+  "mediaReferences": [
+    {
+      "label": "Text, code, and session guidance follow their ingestion paths into persistent Cognee memory",
+      "url": "https://github.com/topoteretes/cognee/blob/ba3631f2ed363a6ea50d649c34c56885af6b36fe/README.md#L171"
+    },
+    {
+      "label": "Watch Demo",
+      "url": "https://github.com/topoteretes/cognee/blob/ba3631f2ed363a6ea50d649c34c56885af6b36fe/README.md#L300"
+    },
+    {
+      "label": "Recall retrieves a document fact, a code symbol, and a learned release rule for an agent",
+      "url": "https://github.com/topoteretes/cognee/blob/ba3631f2ed363a6ea50d649c34c56885af6b36fe/README.md#L177"
     }
   ]
 }

@@ -54,8 +54,39 @@
     "模型表中 VibeVoice-TTS-1.5B 的在线试用标注为 Disabled。"
   ],
   "references": [],
-  "media": [],
+  "media": [
+    {
+      "url": "/assets/repository-guides/media-7997fd0e876ba932e0da93da.webp",
+      "alt": "DER",
+      "sourceUrl": "https://github.com/microsoft/VibeVoice/blob/1541f590c7099820f10ea012f48d2399282df69f/README.md#L98",
+      "originalUrl": "https://raw.githubusercontent.com/microsoft/VibeVoice/1541f590c7099820f10ea012f48d2399282df69f/Figures/DER.jpg",
+      "animated": false
+    },
+    {
+      "url": "/assets/repository-guides/media-ecaff2ec494f2fd9b8a17e61.webp",
+      "alt": "VibeVoice Results",
+      "sourceUrl": "https://github.com/microsoft/VibeVoice/blob/1541f590c7099820f10ea012f48d2399282df69f/README.md#L132",
+      "originalUrl": "https://raw.githubusercontent.com/microsoft/VibeVoice/1541f590c7099820f10ea012f48d2399282df69f/Figures/VibeVoice-TTS-results.jpg",
+      "animated": false
+    },
+    {
+      "url": "/assets/repository-guides/media-10f75fbea0e50ada6ec63bb1.webp",
+      "alt": "cpWER",
+      "sourceUrl": "https://github.com/microsoft/VibeVoice/blob/1541f590c7099820f10ea012f48d2399282df69f/README.md#L99",
+      "originalUrl": "https://raw.githubusercontent.com/microsoft/VibeVoice/1541f590c7099820f10ea012f48d2399282df69f/Figures/cpWER.jpg",
+      "animated": false
+    },
+    {
+      "url": "/assets/repository-guides/media-ec151c74a3ea5e0835e9183a.webp",
+      "alt": "tcpWER",
+      "sourceUrl": "https://github.com/microsoft/VibeVoice/blob/1541f590c7099820f10ea012f48d2399282df69f/README.md#L100",
+      "originalUrl": "https://raw.githubusercontent.com/microsoft/VibeVoice/1541f590c7099820f10ea012f48d2399282df69f/Figures/tcpWER.jpg",
+      "animated": false
+    }
+  ],
   "generatedBy": "claude-opus-5-5",
   "documentHash": "b1fe27ee5b77e30b4a82b76e0f279157ffddc43f782b094ffe07f90383e62537",
-  "mediaStatus": "none_in_official_documents"
+  "mediaStatus": "archived",
+  "mediaFailures": [],
+  "mediaReferences": []
 }

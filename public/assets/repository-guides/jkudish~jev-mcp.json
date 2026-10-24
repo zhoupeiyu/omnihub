@@ -58,8 +58,18 @@
     "各工具有数量和长度上限，例如 jev_find / jev_rerank 每次最多 250 个候选，单个候选文本截断到 2,000 字符；超出时需要拆分请求。"
   ],
   "references": [],
-  "media": [],
+  "media": [
+    {
+      "url": "/assets/repository-guides/media-d6385b083a3ef79e03bc04c4.webp",
+      "alt": "jev-mcp — Fast, cheap, typed judgments from TypeSafe",
+      "sourceUrl": "https://github.com/jkudish/jev-mcp/blob/fcd18d8609ba05a2f1988af91407d86377801ca0/README.md#L7",
+      "originalUrl": "https://raw.githubusercontent.com/jkudish/jev-mcp/fcd18d8609ba05a2f1988af91407d86377801ca0/.github/jev-mcp-og.png",
+      "animated": false
+    }
+  ],
   "generatedBy": "claude-opus-5-5",
   "documentHash": "9bddf1b0c902136f767d1849ff1aced7eec76eeb2ec0d1020504a57b4bedf5c8",
-  "mediaStatus": "none_in_official_documents"
+  "mediaStatus": "archived",
+  "mediaFailures": [],
+  "mediaReferences": []
 }

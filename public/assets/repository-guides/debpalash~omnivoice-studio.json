@@ -65,22 +65,48 @@
       "url": "/assets/repository-guides/media-bb8a60085f71e342d397c0c0.webp",
       "alt": "debpalash/VoiceStudio 官方演示 1",
       "sourceUrl": "https://github.com/debpalash/VoiceStudio/blob/0834c8be28460fc4e0518bdb31eb57c494b253b2/README.md?plain=1#L41",
-      "originalUrl": "https://raw.githubusercontent.com/debpalash/VoiceStudio/0834c8be28460fc4e0518bdb31eb57c494b253b2/docs/media/electron/voice-cloning.png"
+      "originalUrl": "https://raw.githubusercontent.com/debpalash/VoiceStudio/0834c8be28460fc4e0518bdb31eb57c494b253b2/docs/media/electron/voice-cloning.png",
+      "animated": false
     },
     {
       "url": "/assets/repository-guides/media-d42ef2912f1a62f49f35450f.webp",
       "alt": "debpalash/VoiceStudio 官方演示 2",
       "sourceUrl": "https://github.com/debpalash/VoiceStudio/blob/0834c8be28460fc4e0518bdb31eb57c494b253b2/README.md?plain=1#L42",
-      "originalUrl": "https://raw.githubusercontent.com/debpalash/VoiceStudio/0834c8be28460fc4e0518bdb31eb57c494b253b2/docs/media/electron/dubbing.png"
+      "originalUrl": "https://raw.githubusercontent.com/debpalash/VoiceStudio/0834c8be28460fc4e0518bdb31eb57c494b253b2/docs/media/electron/dubbing.png",
+      "animated": false
+    },
+    {
+      "url": "/assets/repository-guides/media-fe0870ca07fe36a212538707.webp",
+      "alt": "A tour of the Electron app: voice cloning, voice design, dubbing, and model management",
+      "sourceUrl": "https://github.com/debpalash/VoiceStudio/blob/0834c8be28460fc4e0518bdb31eb57c494b253b2/README.md#L23",
+      "originalUrl": "https://raw.githubusercontent.com/debpalash/VoiceStudio/0834c8be28460fc4e0518bdb31eb57c494b253b2/docs/media/electron/voicestudio.gif",
+      "animated": true
+    },
+    {
+      "url": "/assets/repository-guides/media-f454207ff59426bbc0766449.webp",
+      "alt": "Describe a voice in the Electron voice design workspace",
+      "sourceUrl": "https://github.com/debpalash/VoiceStudio/blob/0834c8be28460fc4e0518bdb31eb57c494b253b2/README.md#L46",
+      "originalUrl": "https://raw.githubusercontent.com/debpalash/VoiceStudio/0834c8be28460fc4e0518bdb31eb57c494b253b2/docs/media/electron/voice-design.png",
+      "animated": false
+    },
+    {
+      "url": "/assets/repository-guides/media-53dd8fcf45af88ebb87ab6fb.webp",
+      "alt": "Install and manage local speech models",
+      "sourceUrl": "https://github.com/debpalash/VoiceStudio/blob/0834c8be28460fc4e0518bdb31eb57c494b253b2/README.md#L47",
+      "originalUrl": "https://raw.githubusercontent.com/debpalash/VoiceStudio/0834c8be28460fc4e0518bdb31eb57c494b253b2/docs/media/electron/models.png",
+      "animated": false
+    },
+    {
+      "url": "/assets/repository-guides/media-212148207e1dbdd89f82825a.webp",
+      "alt": "VoiceStudio desktop workspace",
+      "sourceUrl": "https://github.com/debpalash/VoiceStudio/blob/0834c8be28460fc4e0518bdb31eb57c494b253b2/README.md#L52",
+      "originalUrl": "https://github.com/user-attachments/assets/b474497d-a453-49a3-a2dd-f023ec6b7659",
+      "animated": false
     }
   ],
   "generatedBy": "claude-opus-5-5",
   "documentHash": "3abe7a8ae925d000cca4064f70e0f880405642ef1d780ba0316a5d56a5a81d39",
   "mediaStatus": "archived",
-  "mediaFailures": [
-    {
-      "sourceUrl": "https://github.com/debpalash/VoiceStudio/blob/0834c8be28460fc4e0518bdb31eb57c494b253b2/README.md#L23",
-      "reason": "media_too_large"
-    }
-  ]
+  "mediaFailures": [],
+  "mediaReferences": []
 }

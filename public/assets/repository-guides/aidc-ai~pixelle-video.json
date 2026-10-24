@@ -70,11 +70,53 @@
       "url": "/assets/repository-guides/media-736e166069281b3568554a3a.webp",
       "alt": "Web UI界面",
       "sourceUrl": "https://github.com/ATH-MaaS/Pixelle-Video/blob/848b054e4fae40dabc62ec58e960b573e83793ac/README.md?plain=1#L31",
-      "originalUrl": "https://raw.githubusercontent.com/ATH-MaaS/Pixelle-Video/848b054e4fae40dabc62ec58e960b573e83793ac/resources/webui.png"
+      "originalUrl": "https://raw.githubusercontent.com/ATH-MaaS/Pixelle-Video/848b054e4fae40dabc62ec58e960b573e83793ac/resources/webui.png",
+      "animated": false
+    },
+    {
+      "url": "/assets/repository-guides/media-5368f6142d51815fd431169a.webp",
+      "alt": "视频生成流程图",
+      "sourceUrl": "https://github.com/ATH-MaaS/Pixelle-Video/blob/848b054e4fae40dabc62ec58e960b573e83793ac/README.md#L69",
+      "originalUrl": "https://raw.githubusercontent.com/ATH-MaaS/Pixelle-Video/848b054e4fae40dabc62ec58e960b573e83793ac/resources/flow.png",
+      "animated": false
+    },
+    {
+      "url": "/assets/repository-guides/media-1a7a8727957b11def3247044.webp",
+      "alt": "AniMaker pipeline",
+      "sourceUrl": "https://github.com/ATH-MaaS/Pixelle-Video/blob/848b054e4fae40dabc62ec58e960b573e83793ac/README.md#L470",
+      "originalUrl": "https://raw.githubusercontent.com/HITsz-TMG/Anim-Director/main/AniMaker/assets/pipeline.png",
+      "animated": false
     }
   ],
   "generatedBy": "claude-opus-5-5",
   "documentHash": "1a6e9c26be45d679eea7041208e0620727f83db82d5f3c710108a1246b654093",
   "mediaStatus": "archived",
-  "mediaFailures": []
+  "mediaFailures": [
+    {
+      "sourceUrl": "https://github.com/ATH-MaaS/Pixelle-Video/blob/848b054e4fae40dabc62ec58e960b573e83793ac/README.md#L467",
+      "reason": "unsupported_media_format"
+    },
+    {
+      "sourceUrl": "https://github.com/ATH-MaaS/Pixelle-Video/blob/848b054e4fae40dabc62ec58e960b573e83793ac/README.md#L468",
+      "reason": "unsupported_media_format"
+    },
+    {
+      "sourceUrl": "https://github.com/ATH-MaaS/Pixelle-Video/blob/848b054e4fae40dabc62ec58e960b573e83793ac/README.md#L469",
+      "reason": "unsupported_media_format"
+    }
+  ],
+  "mediaReferences": [
+    {
+      "label": "FilmAgent framework",
+      "url": "https://github.com/ATH-MaaS/Pixelle-Video/blob/848b054e4fae40dabc62ec58e960b573e83793ac/README.md#L467"
+    },
+    {
+      "label": "Anim-Director result",
+      "url": "https://github.com/ATH-MaaS/Pixelle-Video/blob/848b054e4fae40dabc62ec58e960b573e83793ac/README.md#L468"
+    },
+    {
+      "label": "Anim-Director result",
+      "url": "https://github.com/ATH-MaaS/Pixelle-Video/blob/848b054e4fae40dabc62ec58e960b573e83793ac/README.md#L469"
+    }
+  ]
 }

@@ -69,17 +69,58 @@
       "url": "/assets/repository-guides/media-2d5937caeb896a799bee40c1.webp",
       "alt": "Leonxlnx/taste-skill 官方演示 1",
       "sourceUrl": "https://github.com/Leonxlnx/taste-skill/blob/ce26fc25c0e5e8cab638f883de62d9a86ee5e45b/README.md?plain=1#L184",
-      "originalUrl": "https://raw.githubusercontent.com/Leonxlnx/taste-skill/ce26fc25c0e5e8cab638f883de62d9a86ee5e45b/examples/floria-top.webp"
+      "originalUrl": "https://raw.githubusercontent.com/Leonxlnx/taste-skill/ce26fc25c0e5e8cab638f883de62d9a86ee5e45b/examples/floria-top.webp",
+      "animated": false
     },
     {
       "url": "/assets/repository-guides/media-377329784db427e9fa0dc8e3.webp",
       "alt": "Leonxlnx/taste-skill 官方演示 2",
       "sourceUrl": "https://github.com/Leonxlnx/taste-skill/blob/ce26fc25c0e5e8cab638f883de62d9a86ee5e45b/README.md?plain=1#L185",
-      "originalUrl": "https://raw.githubusercontent.com/Leonxlnx/taste-skill/ce26fc25c0e5e8cab638f883de62d9a86ee5e45b/examples/floria-bottom.webp"
+      "originalUrl": "https://raw.githubusercontent.com/Leonxlnx/taste-skill/ce26fc25c0e5e8cab638f883de62d9a86ee5e45b/examples/floria-bottom.webp",
+      "animated": false
+    },
+    {
+      "url": "/assets/repository-guides/media-4f9c9c85843708151d40bb23.webp",
+      "alt": "Taste Skill - Anti-slop Agent Skills for premium frontends",
+      "sourceUrl": "https://github.com/Leonxlnx/taste-skill/blob/ce26fc25c0e5e8cab638f883de62d9a86ee5e45b/README.md#L2",
+      "originalUrl": "https://raw.githubusercontent.com/Leonxlnx/taste-skill/ce26fc25c0e5e8cab638f883de62d9a86ee5e45b/assets/readme-banner.webp",
+      "animated": false
+    },
+    {
+      "url": "/assets/repository-guides/media-7f2340cdd613bb36ea204ff6.webp",
+      "alt": "Visit tasteskill.dev",
+      "sourceUrl": "https://github.com/Leonxlnx/taste-skill/blob/ce26fc25c0e5e8cab638f883de62d9a86ee5e45b/README.md#L12",
+      "originalUrl": "https://raw.githubusercontent.com/Leonxlnx/taste-skill/ce26fc25c0e5e8cab638f883de62d9a86ee5e45b/assets/readme-buttons/btn-site.webp",
+      "animated": false
+    },
+    {
+      "url": "/assets/repository-guides/media-fef897e3d79a435fab7fd903.webp",
+      "alt": "MIT License",
+      "sourceUrl": "https://github.com/Leonxlnx/taste-skill/blob/ce26fc25c0e5e8cab638f883de62d9a86ee5e45b/README.md#L66",
+      "originalUrl": "https://raw.githubusercontent.com/Leonxlnx/taste-skill/ce26fc25c0e5e8cab638f883de62d9a86ee5e45b/assets/readme-buttons/btn-mit.webp",
+      "animated": false
+    },
+    {
+      "url": "/assets/repository-guides/media-19a487be340c86f7dd71a9e3.webp",
+      "alt": "Agent Skills compatible",
+      "sourceUrl": "https://github.com/Leonxlnx/taste-skill/blob/ce26fc25c0e5e8cab638f883de62d9a86ee5e45b/README.md#L68",
+      "originalUrl": "https://raw.githubusercontent.com/Leonxlnx/taste-skill/ce26fc25c0e5e8cab638f883de62d9a86ee5e45b/assets/readme-buttons/btn-agent-skills.webp",
+      "animated": false
     }
   ],
   "generatedBy": "claude-opus-5-5",
   "documentHash": "f73e51ff95ab550ff95d58f04695b1703b7e1ba73d1532322dc4a6f6e97d0907",
   "mediaStatus": "archived",
-  "mediaFailures": []
+  "mediaFailures": [
+    {
+      "sourceUrl": "https://github.com/Leonxlnx/taste-skill/blob/ce26fc25c0e5e8cab638f883de62d9a86ee5e45b/README.md#L199",
+      "reason": "unsupported_media_host"
+    }
+  ],
+  "mediaReferences": [
+    {
+      "label": "Kimi Open Source Friends",
+      "url": "https://github.com/Leonxlnx/taste-skill/blob/ce26fc25c0e5e8cab638f883de62d9a86ee5e45b/README.md#L199"
+    }
+  ]
 }

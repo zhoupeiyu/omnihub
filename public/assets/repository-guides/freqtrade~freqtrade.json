@@ -69,11 +69,38 @@
       "url": "/assets/repository-guides/media-d44131b9bd957a36fe375780.webp",
       "alt": "freqtrade/freqtrade 官方演示 1",
       "sourceUrl": "https://github.com/freqtrade/freqtrade/blob/f6a7b767a31720b2f34059dd7b166b28abef3f09/README.md?plain=1#L11",
-      "originalUrl": "https://raw.githubusercontent.com/freqtrade/freqtrade/develop/docs/assets/freqtrade-screenshot.png"
+      "originalUrl": "https://raw.githubusercontent.com/freqtrade/freqtrade/develop/docs/assets/freqtrade-screenshot.png",
+      "animated": false
+    },
+    {
+      "url": "/assets/repository-guides/media-d44131b9bd957a36fe375780.webp",
+      "alt": "freqtrade",
+      "sourceUrl": "https://github.com/freqtrade/freqtrade/blob/f6a7b767a31720b2f34059dd7b166b28abef3f09/README.md#L11",
+      "originalUrl": "https://raw.githubusercontent.com/freqtrade/freqtrade/f6a7b767a31720b2f34059dd7b166b28abef3f09/docs/assets/freqtrade-screenshot.png",
+      "animated": false
     }
   ],
   "generatedBy": "claude-opus-5-5",
   "documentHash": "7d28c0afc1a8de30c50a54127e6883f105d30af0f43e572ff18b326ce9e73fb7",
   "mediaStatus": "archived",
-  "mediaFailures": []
+  "mediaFailures": [
+    {
+      "sourceUrl": "https://github.com/freqtrade/freqtrade/blob/f6a7b767a31720b2f34059dd7b166b28abef3f09/README.md#L1",
+      "reason": "unsupported_media_format"
+    },
+    {
+      "sourceUrl": "https://github.com/freqtrade/freqtrade/blob/f6a7b767a31720b2f34059dd7b166b28abef3f09/README.md#L4",
+      "reason": "unsupported_media_host"
+    }
+  ],
+  "mediaReferences": [
+    {
+      "label": "freqtrade",
+      "url": "https://github.com/freqtrade/freqtrade/blob/f6a7b767a31720b2f34059dd7b166b28abef3f09/README.md#L1"
+    },
+    {
+      "label": "DOI",
+      "url": "https://github.com/freqtrade/freqtrade/blob/f6a7b767a31720b2f34059dd7b166b28abef3f09/README.md#L4"
+    }
+  ]
 }

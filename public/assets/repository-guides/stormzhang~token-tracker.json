@@ -71,23 +71,48 @@
       "url": "/assets/repository-guides/media-1625c76e25a0d7245547085b.webp",
       "alt": "stormzhang/token-tracker 官方演示 1",
       "sourceUrl": "https://github.com/stormzhang/token-tracker/blob/1b45c5640ad0909db9befff307c32b4ebac23a0b/README.md?plain=1#L11",
-      "originalUrl": "https://raw.githubusercontent.com/stormzhang/token-tracker/1b45c5640ad0909db9befff307c32b4ebac23a0b/assets/screenshot-daily.png"
+      "originalUrl": "https://raw.githubusercontent.com/stormzhang/token-tracker/1b45c5640ad0909db9befff307c32b4ebac23a0b/assets/screenshot-daily.png",
+      "animated": false
     },
     {
       "url": "/assets/repository-guides/media-f9568fe1e1dcbce8d04254bf.webp",
       "alt": "stormzhang/token-tracker 官方演示 2",
       "sourceUrl": "https://github.com/stormzhang/token-tracker/blob/1b45c5640ad0909db9befff307c32b4ebac23a0b/README.md?plain=1#L37",
-      "originalUrl": "https://raw.githubusercontent.com/stormzhang/token-tracker/1b45c5640ad0909db9befff307c32b4ebac23a0b/assets/screenshot-statusline-cc.png"
+      "originalUrl": "https://raw.githubusercontent.com/stormzhang/token-tracker/1b45c5640ad0909db9befff307c32b4ebac23a0b/assets/screenshot-statusline-cc.png",
+      "animated": false
     },
     {
       "url": "/assets/repository-guides/media-9cead6a00873e80669829fbb.webp",
       "alt": "stormzhang/token-tracker 官方演示 3",
       "sourceUrl": "https://github.com/stormzhang/token-tracker/blob/1b45c5640ad0909db9befff307c32b4ebac23a0b/README.md?plain=1#L90",
-      "originalUrl": "https://raw.githubusercontent.com/stormzhang/token-tracker/1b45c5640ad0909db9befff307c32b4ebac23a0b/assets/screenshot.png"
+      "originalUrl": "https://raw.githubusercontent.com/stormzhang/token-tracker/1b45c5640ad0909db9befff307c32b4ebac23a0b/assets/screenshot.png",
+      "animated": false
+    },
+    {
+      "url": "/assets/repository-guides/media-ba5a4cbbd6c0da9c0ee29165.webp",
+      "alt": "旧版 Codex 中的彩色 Hook 状态示例",
+      "sourceUrl": "https://github.com/stormzhang/token-tracker/blob/1b45c5640ad0909db9befff307c32b4ebac23a0b/README.md#L65",
+      "originalUrl": "https://raw.githubusercontent.com/stormzhang/token-tracker/1b45c5640ad0909db9befff307c32b4ebac23a0b/assets/screenshot-statusline-codex.png",
+      "animated": false
+    },
+    {
+      "url": "/assets/repository-guides/media-57601025b207d2f248cfff18.webp",
+      "alt": "支持的主题",
+      "sourceUrl": "https://github.com/stormzhang/token-tracker/blob/1b45c5640ad0909db9befff307c32b4ebac23a0b/README.md#L187",
+      "originalUrl": "https://raw.githubusercontent.com/stormzhang/token-tracker/1b45c5640ad0909db9befff307c32b4ebac23a0b/assets/screenshot-themes.png",
+      "animated": false
+    },
+    {
+      "url": "/assets/repository-guides/media-68655a7d0bf690ea6f0ad4bd.webp",
+      "alt": "Weekly",
+      "sourceUrl": "https://github.com/stormzhang/token-tracker/blob/1b45c5640ad0909db9befff307c32b4ebac23a0b/README.md#L94",
+      "originalUrl": "https://raw.githubusercontent.com/stormzhang/token-tracker/1b45c5640ad0909db9befff307c32b4ebac23a0b/assets/screenshot-weekly.png",
+      "animated": false
     }
   ],
   "generatedBy": "claude-opus-5-5",
   "documentHash": "ba0a4c79dc7e3adf7d3f31b773deceb5b58bb5302afba2881194fd98b8b18d68",
   "mediaStatus": "archived",
-  "mediaFailures": []
+  "mediaFailures": [],
+  "mediaReferences": []
 }

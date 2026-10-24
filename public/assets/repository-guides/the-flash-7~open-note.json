@@ -67,23 +67,48 @@
       "url": "/assets/repository-guides/media-fd2f39343535309f4b24f591.webp",
       "alt": "主界面",
       "sourceUrl": "https://github.com/The-Flash-7/open-note/blob/c8321f674c8a85ec0e4511dcacbd1669957be017/README.md?plain=1#L128",
-      "originalUrl": "https://raw.githubusercontent.com/The-Flash-7/open-note/c8321f674c8a85ec0e4511dcacbd1669957be017/.github/images/opennotemain.png"
+      "originalUrl": "https://raw.githubusercontent.com/The-Flash-7/open-note/c8321f674c8a85ec0e4511dcacbd1669957be017/.github/images/opennotemain.png",
+      "animated": false
     },
     {
       "url": "/assets/repository-guides/media-79e35275eb1cdd079320f0d8.webp",
       "alt": "Cici智能助手面板",
       "sourceUrl": "https://github.com/The-Flash-7/open-note/blob/c8321f674c8a85ec0e4511dcacbd1669957be017/README.md?plain=1#L132",
-      "originalUrl": "https://raw.githubusercontent.com/The-Flash-7/open-note/c8321f674c8a85ec0e4511dcacbd1669957be017/.github/images/cici_assistant_panel.png"
+      "originalUrl": "https://raw.githubusercontent.com/The-Flash-7/open-note/c8321f674c8a85ec0e4511dcacbd1669957be017/.github/images/cici_assistant_panel.png",
+      "animated": false
     },
     {
       "url": "/assets/repository-guides/media-f7b3f59c5c9ce195efa4914c.webp",
       "alt": "设置面板",
       "sourceUrl": "https://github.com/The-Flash-7/open-note/blob/c8321f674c8a85ec0e4511dcacbd1669957be017/README.md?plain=1#L144",
-      "originalUrl": "https://raw.githubusercontent.com/The-Flash-7/open-note/c8321f674c8a85ec0e4511dcacbd1669957be017/.github/images/settings_panel.png"
+      "originalUrl": "https://raw.githubusercontent.com/The-Flash-7/open-note/c8321f674c8a85ec0e4511dcacbd1669957be017/.github/images/settings_panel.png",
+      "animated": false
+    },
+    {
+      "url": "/assets/repository-guides/media-af88acc6589f2e96cb88d4cd.webp",
+      "alt": "海报",
+      "sourceUrl": "https://github.com/The-Flash-7/open-note/blob/c8321f674c8a85ec0e4511dcacbd1669957be017/README.md#L54",
+      "originalUrl": "https://raw.githubusercontent.com/The-Flash-7/open-note/c8321f674c8a85ec0e4511dcacbd1669957be017/.github/images/poster.jpg",
+      "animated": false
+    },
+    {
+      "url": "/assets/repository-guides/media-bad9e243f4828da6d028cfdc.webp",
+      "alt": "深色主题",
+      "sourceUrl": "https://github.com/The-Flash-7/open-note/blob/c8321f674c8a85ec0e4511dcacbd1669957be017/README.md#L136",
+      "originalUrl": "https://raw.githubusercontent.com/The-Flash-7/open-note/c8321f674c8a85ec0e4511dcacbd1669957be017/.github/images/dark_theme.png",
+      "animated": false
+    },
+    {
+      "url": "/assets/repository-guides/media-e773163393a3addfb42b1f04.webp",
+      "alt": "类目",
+      "sourceUrl": "https://github.com/The-Flash-7/open-note/blob/c8321f674c8a85ec0e4511dcacbd1669957be017/README.md#L140",
+      "originalUrl": "https://raw.githubusercontent.com/The-Flash-7/open-note/c8321f674c8a85ec0e4511dcacbd1669957be017/.github/images/category.png",
+      "animated": false
     }
   ],
   "generatedBy": "claude-opus-5-5",
   "documentHash": "ccd8983a4f5cbe637833abb4ae1a00b77c52225bd334d2a64d0676d2ccc43d40",
   "mediaStatus": "archived",
-  "mediaFailures": []
+  "mediaFailures": [],
+  "mediaReferences": []
 }

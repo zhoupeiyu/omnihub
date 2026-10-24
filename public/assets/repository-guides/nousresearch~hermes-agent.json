@@ -65,8 +65,18 @@
     "hermes claw migrate 会从 OpenClaw 导入 API key 等机密信息。如果不想迁移机密，可以使用 --preset user-data，迁移前也可以先用 --dry-run 预览。"
   ],
   "references": [],
-  "media": [],
+  "media": [
+    {
+      "url": "/assets/repository-guides/media-16f95ba1f827fb592badcd03.webp",
+      "alt": "Hermes Agent",
+      "sourceUrl": "https://github.com/NousResearch/hermes-agent/blob/ebb1f1e27985d6d89d2551b096af5d4eb4a7b37e/README.md#L2",
+      "originalUrl": "https://raw.githubusercontent.com/NousResearch/hermes-agent/ebb1f1e27985d6d89d2551b096af5d4eb4a7b37e/assets/banner.png",
+      "animated": false
+    }
+  ],
   "generatedBy": "claude-opus-5-5",
   "documentHash": "c8c3009b1cf6e8d6e48e96a9b4c549d9ab0c86fdaffd91b19f3e9d9b37d93d9d",
-  "mediaStatus": "none_in_official_documents"
+  "mediaStatus": "archived",
+  "mediaFailures": [],
+  "mediaReferences": []
 }

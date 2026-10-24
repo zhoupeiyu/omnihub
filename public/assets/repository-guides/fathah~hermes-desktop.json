@@ -69,23 +69,58 @@
       "url": "/assets/repository-guides/media-87b04aa23180c53a4c5ce605.webp",
       "alt": "fathah/hermes-desktop 官方演示 1",
       "sourceUrl": "https://github.com/fathah/hermes-desktop/blob/2ed89070bc6c9e8231a37bb55df8a7722a3776b8/README.md?plain=1#L108",
-      "originalUrl": "https://raw.githubusercontent.com/fathah/hermes-desktop/2ed89070bc6c9e8231a37bb55df8a7722a3776b8/previews/chat.png"
+      "originalUrl": "https://raw.githubusercontent.com/fathah/hermes-desktop/2ed89070bc6c9e8231a37bb55df8a7722a3776b8/previews/chat.png",
+      "animated": false
     },
     {
       "url": "/assets/repository-guides/media-8ca575ff55b986a21a99c6f6.webp",
       "alt": "fathah/hermes-desktop 官方演示 2",
       "sourceUrl": "https://github.com/fathah/hermes-desktop/blob/2ed89070bc6c9e8231a37bb55df8a7722a3776b8/README.md?plain=1#L113",
-      "originalUrl": "https://raw.githubusercontent.com/fathah/hermes-desktop/2ed89070bc6c9e8231a37bb55df8a7722a3776b8/previews/providers.png"
+      "originalUrl": "https://raw.githubusercontent.com/fathah/hermes-desktop/2ed89070bc6c9e8231a37bb55df8a7722a3776b8/previews/providers.png",
+      "animated": false
     },
     {
       "url": "/assets/repository-guides/media-56426ed52d3c428fefb4cec5.webp",
       "alt": "fathah/hermes-desktop 官方演示 3",
       "sourceUrl": "https://github.com/fathah/hermes-desktop/blob/2ed89070bc6c9e8231a37bb55df8a7722a3776b8/README.md?plain=1#L109",
-      "originalUrl": "https://raw.githubusercontent.com/fathah/hermes-desktop/2ed89070bc6c9e8231a37bb55df8a7722a3776b8/previews/profiles.png"
+      "originalUrl": "https://raw.githubusercontent.com/fathah/hermes-desktop/2ed89070bc6c9e8231a37bb55df8a7722a3776b8/previews/profiles.png",
+      "animated": false
+    },
+    {
+      "url": "/assets/repository-guides/media-b639fc81599a897e3cf0ac95.webp",
+      "alt": "HERMES DESKTOP",
+      "sourceUrl": "https://github.com/fathah/hermes-desktop/blob/2ed89070bc6c9e8231a37bb55df8a7722a3776b8/README.md#L1",
+      "originalUrl": "https://raw.githubusercontent.com/fathah/hermes-desktop/2ed89070bc6c9e8231a37bb55df8a7722a3776b8/assets/header.webp",
+      "animated": false
+    },
+    {
+      "url": "/assets/repository-guides/media-c29020173505867589baef6e.webp",
+      "alt": "Download Now",
+      "sourceUrl": "https://github.com/fathah/hermes-desktop/blob/2ed89070bc6c9e8231a37bb55df8a7722a3776b8/README.md#L72",
+      "originalUrl": "https://raw.githubusercontent.com/fathah/hermes-desktop/2ed89070bc6c9e8231a37bb55df8a7722a3776b8/previews/download.webp",
+      "animated": false
+    },
+    {
+      "url": "/assets/repository-guides/media-877a1a6b464e9a4f3376ff4f.webp",
+      "alt": "Models",
+      "sourceUrl": "https://github.com/fathah/hermes-desktop/blob/2ed89070bc6c9e8231a37bb55df8a7722a3776b8/README.md#L112",
+      "originalUrl": "https://raw.githubusercontent.com/fathah/hermes-desktop/2ed89070bc6c9e8231a37bb55df8a7722a3776b8/previews/models.png",
+      "animated": false
     }
   ],
   "generatedBy": "claude-opus-5-5",
   "documentHash": "f34e15acb9098e93dcf6f358a5f2abbe212285efe1b0aa6756f3d89826b54b5c",
   "mediaStatus": "archived",
-  "mediaFailures": []
+  "mediaFailures": [
+    {
+      "sourceUrl": "https://github.com/fathah/hermes-desktop/blob/2ed89070bc6c9e8231a37bb55df8a7722a3776b8/README.md#L45",
+      "reason": "unsupported_media_host"
+    }
+  ],
+  "mediaReferences": [
+    {
+      "label": "ko-fi",
+      "url": "https://github.com/fathah/hermes-desktop/blob/2ed89070bc6c9e8231a37bb55df8a7722a3776b8/README.md#L45"
+    }
+  ]
 }

@@ -68,8 +68,53 @@
     "Diffusers 示例目前不包含提示词扩展和分布式推理。"
   ],
   "references": [],
-  "media": [],
+  "media": [
+    {
+      "url": "/assets/repository-guides/media-2988e5d5a54743bec31ca33e.webp",
+      "alt": "(1) Text-to-Video Evaluation",
+      "sourceUrl": "https://github.com/Wan-Video/Wan2.1/blob/9737cba9c1c3c4d04b33fcad41c111989865d315/README.md#L575",
+      "originalUrl": "https://raw.githubusercontent.com/Wan-Video/Wan2.1/9737cba9c1c3c4d04b33fcad41c111989865d315/assets/t2v_res.jpg",
+      "animated": false
+    },
+    {
+      "url": "/assets/repository-guides/media-1a3ebb20cd9676f67bba4731.webp",
+      "alt": "(2) Image-to-Video Evaluation",
+      "sourceUrl": "https://github.com/Wan-Video/Wan2.1/blob/9737cba9c1c3c4d04b33fcad41c111989865d315/README.md#L584",
+      "originalUrl": "https://raw.githubusercontent.com/Wan-Video/Wan2.1/9737cba9c1c3c4d04b33fcad41c111989865d315/assets/i2v_res.png",
+      "animated": false
+    },
+    {
+      "url": "/assets/repository-guides/media-68e44d9b16af5c0f494470ec.webp",
+      "alt": "Computational Efficiency on Different GPUs",
+      "sourceUrl": "https://github.com/Wan-Video/Wan2.1/blob/9737cba9c1c3c4d04b33fcad41c111989865d315/README.md#L594",
+      "originalUrl": "https://raw.githubusercontent.com/Wan-Video/Wan2.1/9737cba9c1c3c4d04b33fcad41c111989865d315/assets/comp_effic.png",
+      "animated": false
+    },
+    {
+      "url": "/assets/repository-guides/media-044f1fccd88a83747285d501.webp",
+      "alt": "(1) 3D Variational Autoencoders",
+      "sourceUrl": "https://github.com/Wan-Video/Wan2.1/blob/9737cba9c1c3c4d04b33fcad41c111989865d315/README.md#L618",
+      "originalUrl": "https://raw.githubusercontent.com/Wan-Video/Wan2.1/9737cba9c1c3c4d04b33fcad41c111989865d315/assets/video_vae_res.jpg",
+      "animated": false
+    },
+    {
+      "url": "/assets/repository-guides/media-f505435b18c509ce52458b05.webp",
+      "alt": "(2) Video Diffusion DiT",
+      "sourceUrl": "https://github.com/Wan-Video/Wan2.1/blob/9737cba9c1c3c4d04b33fcad41c111989865d315/README.md#L627",
+      "originalUrl": "https://raw.githubusercontent.com/Wan-Video/Wan2.1/9737cba9c1c3c4d04b33fcad41c111989865d315/assets/video_dit_arch.jpg",
+      "animated": false
+    },
+    {
+      "url": "/assets/repository-guides/media-e0a5bc4b0a95ebd58918f001.webp",
+      "alt": "figure1",
+      "sourceUrl": "https://github.com/Wan-Video/Wan2.1/blob/9737cba9c1c3c4d04b33fcad41c111989865d315/README.md#L642",
+      "originalUrl": "https://raw.githubusercontent.com/Wan-Video/Wan2.1/9737cba9c1c3c4d04b33fcad41c111989865d315/assets/data_for_diff_stage.jpg",
+      "animated": false
+    }
+  ],
   "generatedBy": "claude-opus-5-5",
   "documentHash": "3bdaca69aa116222a49859dc21d4a735b60a580af7e1b81531085c87227e4486",
-  "mediaStatus": "none_in_official_documents"
+  "mediaStatus": "archived",
+  "mediaFailures": [],
+  "mediaReferences": []
 }

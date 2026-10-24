@@ -58,8 +58,18 @@
     "CaMeL guard 默认关闭。enforce 模式可能拦截正常的工具调用，可以先用 monitor 观察策略判断。"
   ],
   "references": [],
-  "media": [],
+  "media": [
+    {
+      "url": "/assets/repository-guides/media-16f95ba1f827fb592badcd03.webp",
+      "alt": "Hermes Agent",
+      "sourceUrl": "https://github.com/nativ3ai/hermes-agent-camel/blob/8652f98290836877d168fc1a8ce8280163ab8233/README.md#L2",
+      "originalUrl": "https://raw.githubusercontent.com/nativ3ai/hermes-agent-camel/8652f98290836877d168fc1a8ce8280163ab8233/assets/banner.png",
+      "animated": false
+    }
+  ],
   "generatedBy": "claude-opus-5-5",
   "documentHash": "e44eba4dae59de6cc756468ddac68e68b46b4c367c9f6798237daa8e437a54d5",
-  "mediaStatus": "none_in_official_documents"
+  "mediaStatus": "archived",
+  "mediaFailures": [],
+  "mediaReferences": []
 }

@@ -68,8 +68,18 @@
     "权重和代码按 Apache-2.0 许可发布。"
   ],
   "references": [],
-  "media": [],
+  "media": [
+    {
+      "url": "/assets/repository-guides/media-dfb5d5678cf68eed9f621df1.webp",
+      "alt": "VoxCPM2 Model Architecture",
+      "sourceUrl": "https://github.com/OpenBMB/VoxCPM/blob/f0c787f0937dc1c9a8f4f64d9a332d9c5da2e629/README.md#L389",
+      "originalUrl": "https://raw.githubusercontent.com/OpenBMB/VoxCPM/f0c787f0937dc1c9a8f4f64d9a332d9c5da2e629/assets/voxcpm2_model.png",
+      "animated": false
+    }
+  ],
   "generatedBy": "claude-opus-5-5",
   "documentHash": "f670fdf5f3faea03a71f717d25057b3bc100742edd9feb24d375443b091cc61f",
-  "mediaStatus": "none_in_official_documents"
+  "mediaStatus": "archived",
+  "mediaFailures": [],
+  "mediaReferences": []
 }

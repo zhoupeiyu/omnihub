@@ -74,23 +74,59 @@
       "url": "/assets/repository-guides/media-29a2b5892eb0b31740506728.webp",
       "alt": "JimLiu/baoyu-design 官方演示 1",
       "sourceUrl": "https://github.com/JimLiu/baoyu-design/blob/6530033592bf7fa58bc1a5a2a2ad278da45213a9/README.md?plain=1#L21",
-      "originalUrl": "https://raw.githubusercontent.com/JimLiu/baoyu-design/6530033592bf7fa58bc1a5a2a2ad278da45213a9/assets/screenshots/claude-reader-mac-app.webp"
+      "originalUrl": "https://raw.githubusercontent.com/JimLiu/baoyu-design/6530033592bf7fa58bc1a5a2a2ad278da45213a9/assets/screenshots/claude-reader-mac-app.webp",
+      "animated": false
     },
     {
       "url": "/assets/repository-guides/media-c76a4464c7493f19d342132e.webp",
       "alt": "JimLiu/baoyu-design 官方演示 2",
       "sourceUrl": "https://github.com/JimLiu/baoyu-design/blob/6530033592bf7fa58bc1a5a2a2ad278da45213a9/README.md?plain=1#L21",
-      "originalUrl": "https://raw.githubusercontent.com/JimLiu/baoyu-design/6530033592bf7fa58bc1a5a2a2ad278da45213a9/assets/screenshots/cursor-reader-mac-app.webp"
+      "originalUrl": "https://raw.githubusercontent.com/JimLiu/baoyu-design/6530033592bf7fa58bc1a5a2a2ad278da45213a9/assets/screenshots/cursor-reader-mac-app.webp",
+      "animated": false
     },
     {
       "url": "/assets/repository-guides/media-4649245018ad50320264ca3a.webp",
       "alt": "JimLiu/baoyu-design 官方演示 3",
       "sourceUrl": "https://github.com/JimLiu/baoyu-design/blob/6530033592bf7fa58bc1a5a2a2ad278da45213a9/README.md?plain=1#L234",
-      "originalUrl": "https://raw.githubusercontent.com/JimLiu/baoyu-design/6530033592bf7fa58bc1a5a2a2ad278da45213a9/assets/screenshots/figma-import-chakra-preview.webp"
+      "originalUrl": "https://raw.githubusercontent.com/JimLiu/baoyu-design/6530033592bf7fa58bc1a5a2a2ad278da45213a9/assets/screenshots/figma-import-chakra-preview.webp",
+      "animated": false
+    },
+    {
+      "url": "/assets/repository-guides/media-03bcbd4b81afa35390feea49.webp",
+      "alt": "Codex running baoyu-design",
+      "sourceUrl": "https://github.com/JimLiu/baoyu-design/blob/6530033592bf7fa58bc1a5a2a2ad278da45213a9/README.md#L21",
+      "originalUrl": "https://raw.githubusercontent.com/JimLiu/baoyu-design/6530033592bf7fa58bc1a5a2a2ad278da45213a9/assets/screenshots/codex-reader-mac-app.webp",
+      "animated": false
+    },
+    {
+      "url": "/assets/repository-guides/media-5840ba69132d5400ea9d5ed8.webp",
+      "alt": "Claude Design running the same Reader Mac App prompt",
+      "sourceUrl": "https://github.com/JimLiu/baoyu-design/blob/6530033592bf7fa58bc1a5a2a2ad278da45213a9/README.md#L21",
+      "originalUrl": "https://raw.githubusercontent.com/JimLiu/baoyu-design/6530033592bf7fa58bc1a5a2a2ad278da45213a9/assets/screenshots/claude-design-reader-mac-app.webp",
+      "animated": false
     }
   ],
   "generatedBy": "claude-opus-5-5",
   "documentHash": "fdb0b9daf69a83b1f41921408ea6156e5be7a11f09b626dfe1a3b2507ac70862",
   "mediaStatus": "archived",
-  "mediaFailures": []
+  "mediaFailures": [
+    {
+      "sourceUrl": "https://github.com/JimLiu/baoyu-design/blob/6530033592bf7fa58bc1a5a2a2ad278da45213a9/README.md#L274",
+      "reason": "unsupported_media_format"
+    },
+    {
+      "sourceUrl": "https://github.com/JimLiu/baoyu-design/blob/6530033592bf7fa58bc1a5a2a2ad278da45213a9/README.zh-CN.md#L275",
+      "reason": "unsupported_media_format"
+    }
+  ],
+  "mediaReferences": [
+    {
+      "label": "gen_pptx export pipeline",
+      "url": "https://github.com/JimLiu/baoyu-design/blob/6530033592bf7fa58bc1a5a2a2ad278da45213a9/README.md#L274"
+    },
+    {
+      "label": "gen_pptx 导出流水线",
+      "url": "https://github.com/JimLiu/baoyu-design/blob/6530033592bf7fa58bc1a5a2a2ad278da45213a9/README.zh-CN.md#L275"
+    }
+  ]
 }

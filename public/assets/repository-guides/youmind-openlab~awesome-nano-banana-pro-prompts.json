@@ -57,13 +57,41 @@
     "README 徽章标注 CC BY 4.0，但仓库元数据中的许可证为 NOASSERTION。"
   ],
   "references": [],
-  "media": [],
+  "media": [
+    {
+      "url": "/assets/repository-guides/media-6947c14ffba31a8c8c52f671.webp",
+      "alt": "Cover",
+      "sourceUrl": "https://github.com/YouMind-OpenLab/awesome-nano-banana-pro-prompts/blob/b34e81374ef7d5345fa57221019efd2e4c5e7efe/README.md#L33",
+      "originalUrl": "https://raw.githubusercontent.com/YouMind-OpenLab/awesome-nano-banana-pro-prompts/b34e81374ef7d5345fa57221019efd2e4c5e7efe/public/images/nano-banana-pro-prompts-cover-en.png",
+      "animated": false
+    }
+  ],
   "generatedBy": "claude-opus-5-5",
   "documentHash": "bf5c887207ef9bc0953e8a41d6ca242511b6bdbef93dbf4f376c3118ebb728f2",
-  "mediaStatus": "unavailable",
+  "mediaStatus": "archived",
   "mediaFailures": [
     {
+      "sourceUrl": "https://github.com/YouMind-OpenLab/awesome-nano-banana-pro-prompts/blob/b34e81374ef7d5345fa57221019efd2e4c5e7efe/README.md#L3",
+      "reason": "unsupported_media_host"
+    },
+    {
       "sourceUrl": "https://github.com/YouMind-OpenLab/awesome-nano-banana-pro-prompts/blob/b34e81374ef7d5345fa57221019efd2e4c5e7efe/README.md#L179",
+      "reason": "unsupported_media_host"
+    },
+    {
+      "sourceUrl": "https://github.com/YouMind-OpenLab/awesome-nano-banana-pro-prompts/blob/b34e81374ef7d5345fa57221019efd2e4c5e7efe/README.md#L185",
+      "reason": "unsupported_media_host"
+    },
+    {
+      "sourceUrl": "https://github.com/YouMind-OpenLab/awesome-nano-banana-pro-prompts/blob/b34e81374ef7d5345fa57221019efd2e4c5e7efe/README.md#L191",
+      "reason": "unsupported_media_host"
+    },
+    {
+      "sourceUrl": "https://github.com/YouMind-OpenLab/awesome-nano-banana-pro-prompts/blob/b34e81374ef7d5345fa57221019efd2e4c5e7efe/README.md#L197",
+      "reason": "unsupported_media_host"
+    },
+    {
+      "sourceUrl": "https://github.com/YouMind-OpenLab/awesome-nano-banana-pro-prompts/blob/b34e81374ef7d5345fa57221019efd2e4c5e7efe/README.md#L7",
       "reason": "unsupported_media_host"
     },
     {
@@ -71,8 +99,74 @@
       "reason": "unsupported_media_host"
     },
     {
-      "sourceUrl": "https://github.com/YouMind-OpenLab/awesome-nano-banana-pro-prompts/blob/b34e81374ef7d5345fa57221019efd2e4c5e7efe/README.md#L422",
+      "sourceUrl": "https://github.com/YouMind-OpenLab/awesome-nano-banana-pro-prompts/blob/b34e81374ef7d5345fa57221019efd2e4c5e7efe/README.md#L275",
       "reason": "unsupported_media_host"
+    },
+    {
+      "sourceUrl": "https://github.com/YouMind-OpenLab/awesome-nano-banana-pro-prompts/blob/b34e81374ef7d5345fa57221019efd2e4c5e7efe/README.md#L434",
+      "reason": "unsupported_media_host"
+    },
+    {
+      "sourceUrl": "https://github.com/YouMind-OpenLab/awesome-nano-banana-pro-prompts/blob/b34e81374ef7d5345fa57221019efd2e4c5e7efe/README.md#L440",
+      "reason": "unsupported_media_host"
+    },
+    {
+      "sourceUrl": "https://github.com/YouMind-OpenLab/awesome-nano-banana-pro-prompts/blob/b34e81374ef7d5345fa57221019efd2e4c5e7efe/README.md#L313",
+      "reason": "unsupported_media_host"
+    },
+    {
+      "sourceUrl": "https://github.com/YouMind-OpenLab/awesome-nano-banana-pro-prompts/blob/b34e81374ef7d5345fa57221019efd2e4c5e7efe/README.md#L319",
+      "reason": "unsupported_media_host"
+    }
+  ],
+  "mediaReferences": [
+    {
+      "label": "Nano Banana Pro Prompts",
+      "url": "https://github.com/YouMind-OpenLab/awesome-nano-banana-pro-prompts/blob/b34e81374ef7d5345fa57221019efd2e4c5e7efe/README.md#L3"
+    },
+    {
+      "label": "Wide quote card with portrait and Chinese/English customization - Image 1",
+      "url": "https://github.com/YouMind-OpenLab/awesome-nano-banana-pro-prompts/blob/b34e81374ef7d5345fa57221019efd2e4c5e7efe/README.md#L179"
+    },
+    {
+      "label": "Wide quote card with portrait and Chinese/English customization - Image 2",
+      "url": "https://github.com/YouMind-OpenLab/awesome-nano-banana-pro-prompts/blob/b34e81374ef7d5345fa57221019efd2e4c5e7efe/README.md#L185"
+    },
+    {
+      "label": "Wide quote card with portrait and Chinese/English customization - Image 3",
+      "url": "https://github.com/YouMind-OpenLab/awesome-nano-banana-pro-prompts/blob/b34e81374ef7d5345fa57221019efd2e4c5e7efe/README.md#L191"
+    },
+    {
+      "label": "Wide quote card with portrait and Chinese/English customization - Image 4",
+      "url": "https://github.com/YouMind-OpenLab/awesome-nano-banana-pro-prompts/blob/b34e81374ef7d5345fa57221019efd2e4c5e7efe/README.md#L197"
+    },
+    {
+      "label": "GPT Image 2 Prompts",
+      "url": "https://github.com/YouMind-OpenLab/awesome-nano-banana-pro-prompts/blob/b34e81374ef7d5345fa57221019efd2e4c5e7efe/README.md#L7"
+    },
+    {
+      "label": "Premium liquid glass Bento grid product infographic with 8 modules - Image 1",
+      "url": "https://github.com/YouMind-OpenLab/awesome-nano-banana-pro-prompts/blob/b34e81374ef7d5345fa57221019efd2e4c5e7efe/README.md#L269"
+    },
+    {
+      "label": "Premium liquid glass Bento grid product infographic with 8 modules - Image 2",
+      "url": "https://github.com/YouMind-OpenLab/awesome-nano-banana-pro-prompts/blob/b34e81374ef7d5345fa57221019efd2e4c5e7efe/README.md#L275"
+    },
+    {
+      "label": "Vintage Patent Document for an Invention - Image 3",
+      "url": "https://github.com/YouMind-OpenLab/awesome-nano-banana-pro-prompts/blob/b34e81374ef7d5345fa57221019efd2e4c5e7efe/README.md#L434"
+    },
+    {
+      "label": "Vintage Patent Document for an Invention - Image 4",
+      "url": "https://github.com/YouMind-OpenLab/awesome-nano-banana-pro-prompts/blob/b34e81374ef7d5345fa57221019efd2e4c5e7efe/README.md#L440"
+    },
+    {
+      "label": "Hand-drawn style header image prompt from photo - Image 1",
+      "url": "https://github.com/YouMind-OpenLab/awesome-nano-banana-pro-prompts/blob/b34e81374ef7d5345fa57221019efd2e4c5e7efe/README.md#L313"
+    },
+    {
+      "label": "Hand-drawn style header image prompt from photo - Image 2",
+      "url": "https://github.com/YouMind-OpenLab/awesome-nano-banana-pro-prompts/blob/b34e81374ef7d5345fa57221019efd2e4c5e7efe/README.md#L319"
     }
   ]
 }

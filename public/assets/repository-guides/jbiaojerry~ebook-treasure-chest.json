@@ -58,11 +58,27 @@
       "url": "/assets/repository-guides/media-72f6a88d7363c4332f0b80b6.webp",
       "alt": "搜索功能演示",
       "sourceUrl": "https://github.com/jbiaojerry/ebook-treasure-chest/blob/93cf3ffcf5a2e6814644d1747a101272557d7eac/README.md?plain=1#L31",
-      "originalUrl": "https://raw.githubusercontent.com/jbiaojerry/ebook-treasure-chest/93cf3ffcf5a2e6814644d1747a101272557d7eac/.github/search-demo.gif?v=2"
+      "originalUrl": "https://raw.githubusercontent.com/jbiaojerry/ebook-treasure-chest/93cf3ffcf5a2e6814644d1747a101272557d7eac/.github/search-demo.gif?v=2",
+      "animated": true
+    },
+    {
+      "url": "/assets/repository-guides/media-72f6a88d7363c4332f0b80b6.webp",
+      "alt": "搜索功能演示",
+      "sourceUrl": "https://github.com/jbiaojerry/ebook-treasure-chest/blob/93cf3ffcf5a2e6814644d1747a101272557d7eac/README.md#L31",
+      "originalUrl": "https://raw.githubusercontent.com/jbiaojerry/ebook-treasure-chest/93cf3ffcf5a2e6814644d1747a101272557d7eac/.github/search-demo.gif",
+      "animated": true
+    },
+    {
+      "url": "/assets/repository-guides/media-d4fbf7f54248206a65d52087.webp",
+      "alt": "赞赏码",
+      "sourceUrl": "https://github.com/jbiaojerry/ebook-treasure-chest/blob/93cf3ffcf5a2e6814644d1747a101272557d7eac/README.md#L45",
+      "originalUrl": "https://raw.githubusercontent.com/jbiaojerry/ebook-treasure-chest/93cf3ffcf5a2e6814644d1747a101272557d7eac/.github/%E8%B5%9E%E8%B5%8F%E7%A0%81.jpg",
+      "animated": false
     }
   ],
   "generatedBy": "claude-opus-5-5",
   "documentHash": "d28c840c2ea67a9ea042e73d18afb18767d427f114842083eab26f07d635cbbc",
   "mediaStatus": "archived",
-  "mediaFailures": []
+  "mediaFailures": [],
+  "mediaReferences": []
 }

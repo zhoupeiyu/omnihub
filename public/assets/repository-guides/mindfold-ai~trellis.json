@@ -73,5 +73,11 @@
       "sourceUrl": "https://github.com/mindfold-ai/Trellis/blob/f089cb3286071199e84118dee86b6d76aab032f1/README.md#L36",
       "reason": "response_too_large"
     }
+  ],
+  "mediaReferences": [
+    {
+      "label": "Trellis workflow demo",
+      "url": "https://github.com/mindfold-ai/Trellis/blob/f089cb3286071199e84118dee86b6d76aab032f1/README.md#L36"
+    }
   ]
 }

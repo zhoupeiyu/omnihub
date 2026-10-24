@@ -71,13 +71,43 @@
       "url": "/assets/repository-guides/media-439a187489c56bd33edc2494.webp",
       "alt": "Style A 电子杂志风效果展示",
       "sourceUrl": "https://github.com/op7418/guizang-ppt-skill/blob/c91369c449d34755d320a8b81d0734000d99d1ab/README.md?plain=1#L28",
-      "originalUrl": "https://github.com/user-attachments/assets/5dc316a2-401c-4e37-9123-ea081b6ae470"
+      "originalUrl": "https://github.com/user-attachments/assets/5dc316a2-401c-4e37-9123-ea081b6ae470",
+      "animated": false
     },
     {
       "url": "/assets/repository-guides/media-4b6ff78b62f601aca8d14e7a.webp",
       "alt": "Style B 瑞士国际主义效果展示",
       "sourceUrl": "https://github.com/op7418/guizang-ppt-skill/blob/c91369c449d34755d320a8b81d0734000d99d1ab/README.md?plain=1#L32",
-      "originalUrl": "https://github.com/user-attachments/assets/8960e78c-69bb-4b7e-aa95-6fad64b70314"
+      "originalUrl": "https://github.com/user-attachments/assets/8960e78c-69bb-4b7e-aa95-6fad64b70314",
+      "animated": false
+    },
+    {
+      "url": "/assets/repository-guides/media-828c7173822c7fe919671dc8.webp",
+      "alt": "墨水经典主题预览",
+      "sourceUrl": "https://github.com/op7418/guizang-ppt-skill/blob/c91369c449d34755d320a8b81d0734000d99d1ab/README.md#L337",
+      "originalUrl": "https://github.com/user-attachments/assets/df21dbcb-5fe4-4852-a91a-a9cf00aceeb4",
+      "animated": false
+    },
+    {
+      "url": "/assets/repository-guides/media-762f7a0cb542002dbb908b1a.webp",
+      "alt": "克莱因蓝瑞士主题预览",
+      "sourceUrl": "https://github.com/op7418/guizang-ppt-skill/blob/c91369c449d34755d320a8b81d0734000d99d1ab/README.md#L351",
+      "originalUrl": "https://github.com/user-attachments/assets/c02d02f7-ce6f-4e16-b8a6-778c96851f94",
+      "animated": false
+    },
+    {
+      "url": "/assets/repository-guides/media-9357ba24d1c96e7431ef8acf.webp",
+      "alt": "靛蓝瓷主题预览",
+      "sourceUrl": "https://github.com/op7418/guizang-ppt-skill/blob/c91369c449d34755d320a8b81d0734000d99d1ab/README.md#L338",
+      "originalUrl": "https://github.com/user-attachments/assets/99ce0fd2-72a6-4368-a75a-a8e21657a537",
+      "animated": false
+    },
+    {
+      "url": "/assets/repository-guides/media-d263fe2112a0cfae5f75d4fe.webp",
+      "alt": "柠檬黄瑞士主题预览",
+      "sourceUrl": "https://github.com/op7418/guizang-ppt-skill/blob/c91369c449d34755d320a8b81d0734000d99d1ab/README.md#L352",
+      "originalUrl": "https://github.com/user-attachments/assets/c310a8c4-5d28-450e-b49a-6ac5b6ba4785",
+      "animated": false
     }
   ],
   "generatedBy": "claude-opus-5-5",
@@ -87,6 +117,12 @@
     {
       "sourceUrl": "https://github.com/op7418/guizang-ppt-skill/blob/c91369c449d34755d320a8b81d0734000d99d1ab/README.md#L195",
       "reason": "media_http_404"
+    }
+  ],
+  "mediaReferences": [
+    {
+      "label": "演讲者视图示例：当前页、下一页、演讲备注、计时控制与观众屏状态",
+      "url": "https://github.com/op7418/guizang-ppt-skill/blob/c91369c449d34755d320a8b81d0734000d99d1ab/README.md#L195"
     }
   ]
 }

@@ -75,23 +75,48 @@
       "url": "/assets/repository-guides/media-6fc49a59cd39d95dd2009587.webp",
       "alt": "OpenClaw Control Center 总览横幅截图",
       "sourceUrl": "https://github.com/TianyiDataScience/openclaw-control-center/blob/5d1e3245d9540b676aca7069c3f900bb36d8d44f/README.zh-CN.md?plain=1#L5",
-      "originalUrl": "https://raw.githubusercontent.com/TianyiDataScience/openclaw-control-center/5d1e3245d9540b676aca7069c3f900bb36d8d44f/docs/assets/overview-hero-zh.png"
+      "originalUrl": "https://raw.githubusercontent.com/TianyiDataScience/openclaw-control-center/5d1e3245d9540b676aca7069c3f900bb36d8d44f/docs/assets/overview-hero-zh.png",
+      "animated": false
     },
     {
       "url": "/assets/repository-guides/media-0adff5a6601a6122a16a51e3.webp",
       "alt": "OpenClaw Control Center 中文协作页截图",
       "sourceUrl": "https://github.com/TianyiDataScience/openclaw-control-center/blob/5d1e3245d9540b676aca7069c3f900bb36d8d44f/README.zh-CN.md?plain=1#L63",
-      "originalUrl": "https://raw.githubusercontent.com/TianyiDataScience/openclaw-control-center/5d1e3245d9540b676aca7069c3f900bb36d8d44f/docs/assets/collaboration-zh.png"
+      "originalUrl": "https://raw.githubusercontent.com/TianyiDataScience/openclaw-control-center/5d1e3245d9540b676aca7069c3f900bb36d8d44f/docs/assets/collaboration-zh.png",
+      "animated": false
     },
     {
       "url": "/assets/repository-guides/media-2026e83e582ae903a3ef3fa0.webp",
       "alt": "OpenClaw Control Center 中文安全与更新状态截图",
       "sourceUrl": "https://github.com/TianyiDataScience/openclaw-control-center/blob/5d1e3245d9540b676aca7069c3f900bb36d8d44f/README.zh-CN.md?plain=1#L66",
-      "originalUrl": "https://raw.githubusercontent.com/TianyiDataScience/openclaw-control-center/5d1e3245d9540b676aca7069c3f900bb36d8d44f/docs/assets/settings-insights-zh.png"
+      "originalUrl": "https://raw.githubusercontent.com/TianyiDataScience/openclaw-control-center/5d1e3245d9540b676aca7069c3f900bb36d8d44f/docs/assets/settings-insights-zh.png",
+      "animated": false
+    },
+    {
+      "url": "/assets/repository-guides/media-568d0133f27719bb075b2cc4.webp",
+      "alt": "OpenClaw Control Center overview hero screenshot",
+      "sourceUrl": "https://github.com/TianyiDataScience/openclaw-control-center/blob/5d1e3245d9540b676aca7069c3f900bb36d8d44f/README.md#L5",
+      "originalUrl": "https://raw.githubusercontent.com/TianyiDataScience/openclaw-control-center/5d1e3245d9540b676aca7069c3f900bb36d8d44f/docs/assets/overview-hero-en.png",
+      "animated": false
+    },
+    {
+      "url": "/assets/repository-guides/media-8b0b10384b34e83b13d7cde3.webp",
+      "alt": "OpenClaw Control Center token attribution screenshot",
+      "sourceUrl": "https://github.com/TianyiDataScience/openclaw-control-center/blob/5d1e3245d9540b676aca7069c3f900bb36d8d44f/README.md#L51",
+      "originalUrl": "https://raw.githubusercontent.com/TianyiDataScience/openclaw-control-center/5d1e3245d9540b676aca7069c3f900bb36d8d44f/docs/assets/token-share-en.png",
+      "animated": false
+    },
+    {
+      "url": "/assets/repository-guides/media-00586248c8fd42eb616f67a7.webp",
+      "alt": "OpenClaw Control Center 中文 token 消耗归因截图",
+      "sourceUrl": "https://github.com/TianyiDataScience/openclaw-control-center/blob/5d1e3245d9540b676aca7069c3f900bb36d8d44f/README.zh-CN.md#L48",
+      "originalUrl": "https://raw.githubusercontent.com/TianyiDataScience/openclaw-control-center/5d1e3245d9540b676aca7069c3f900bb36d8d44f/docs/assets/token-share-zh.png",
+      "animated": false
     }
   ],
   "generatedBy": "claude-opus-5-5",
   "documentHash": "198de767d78adcdc092b02106be6f706e2f308ec3695d586183d711f9d3d6a3d",
   "mediaStatus": "archived",
-  "mediaFailures": []
+  "mediaFailures": [],
+  "mediaReferences": []
 }

@@ -74,23 +74,58 @@
       "url": "/assets/repository-guides/media-70f01d00f415c82baeb3399a.webp",
       "alt": "op7418/CodePilot 官方演示 1",
       "sourceUrl": "https://github.com/op7418/CodePilot/blob/1ae6d76de6993377dab961eacf04927babd99eb1/README_CN.md?plain=1#L14",
-      "originalUrl": "https://raw.githubusercontent.com/op7418/CodePilot/1ae6d76de6993377dab961eacf04927babd99eb1/apps/site/public/screenshots/zh/chat-window.webp"
+      "originalUrl": "https://raw.githubusercontent.com/op7418/CodePilot/1ae6d76de6993377dab961eacf04927babd99eb1/apps/site/public/screenshots/zh/chat-window.webp",
+      "animated": false
     },
     {
       "url": "/assets/repository-guides/media-fbc7b87f4658a427cedd030f.webp",
       "alt": "技能与扩展",
       "sourceUrl": "https://github.com/op7418/CodePilot/blob/1ae6d76de6993377dab961eacf04927babd99eb1/README_CN.md?plain=1#L21",
-      "originalUrl": "https://raw.githubusercontent.com/op7418/CodePilot/1ae6d76de6993377dab961eacf04927babd99eb1/apps/site/public/screenshots/zh/plugins-window.webp"
+      "originalUrl": "https://raw.githubusercontent.com/op7418/CodePilot/1ae6d76de6993377dab961eacf04927babd99eb1/apps/site/public/screenshots/zh/plugins-window.webp",
+      "animated": false
     },
     {
       "url": "/assets/repository-guides/media-3888f96e2edc8f67fbab7afd.webp",
       "alt": "连接 AI 服务",
       "sourceUrl": "https://github.com/op7418/CodePilot/blob/1ae6d76de6993377dab961eacf04927babd99eb1/README_CN.md?plain=1#L21",
-      "originalUrl": "https://raw.githubusercontent.com/op7418/CodePilot/1ae6d76de6993377dab961eacf04927babd99eb1/apps/site/public/screenshots/zh/providers-window.webp"
+      "originalUrl": "https://raw.githubusercontent.com/op7418/CodePilot/1ae6d76de6993377dab961eacf04927babd99eb1/apps/site/public/screenshots/zh/providers-window.webp",
+      "animated": false
+    },
+    {
+      "url": "/assets/repository-guides/media-53443169dfcc1e2c63c8645c.webp",
+      "alt": "CodePilot",
+      "sourceUrl": "https://github.com/op7418/CodePilot/blob/1ae6d76de6993377dab961eacf04927babd99eb1/README.md#L16",
+      "originalUrl": "https://raw.githubusercontent.com/op7418/CodePilot/1ae6d76de6993377dab961eacf04927babd99eb1/apps/site/public/screenshots/en/chat-window.webp",
+      "animated": false
+    },
+    {
+      "url": "/assets/repository-guides/media-4f0256638ef63cc79bc29753.webp",
+      "alt": "Skills and extensions",
+      "sourceUrl": "https://github.com/op7418/CodePilot/blob/1ae6d76de6993377dab961eacf04927babd99eb1/README.md#L23",
+      "originalUrl": "https://raw.githubusercontent.com/op7418/CodePilot/1ae6d76de6993377dab961eacf04927babd99eb1/apps/site/public/screenshots/en/plugins-window.webp",
+      "animated": false
+    },
+    {
+      "url": "/assets/repository-guides/media-cb8d3a1f5dedbbabd0585b98.webp",
+      "alt": "Connect AI services",
+      "sourceUrl": "https://github.com/op7418/CodePilot/blob/1ae6d76de6993377dab961eacf04927babd99eb1/README.md#L23",
+      "originalUrl": "https://raw.githubusercontent.com/op7418/CodePilot/1ae6d76de6993377dab961eacf04927babd99eb1/apps/site/public/screenshots/en/providers-window.webp",
+      "animated": false
     }
   ],
   "generatedBy": "claude-opus-5-5",
   "documentHash": "b794908fa04872f980e3420320a6e060a557cb0484aa06d118d2d5a5c107e465",
   "mediaStatus": "archived",
-  "mediaFailures": []
+  "mediaFailures": [
+    {
+      "sourceUrl": "https://github.com/op7418/CodePilot/blob/1ae6d76de6993377dab961eacf04927babd99eb1/README.md#L1",
+      "reason": "non_demo_dimensions"
+    }
+  ],
+  "mediaReferences": [
+    {
+      "label": "CodePilot",
+      "url": "https://github.com/op7418/CodePilot/blob/1ae6d76de6993377dab961eacf04927babd99eb1/README.md#L1"
+    }
+  ]
 }

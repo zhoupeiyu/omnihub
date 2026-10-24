@@ -62,23 +62,48 @@
       "url": "/assets/repository-guides/media-edc34e2b3269e9c2391aee5f.webp",
       "alt": "dsh-better-sidebar 工作台截图",
       "sourceUrl": "https://github.com/omdsh-dev/DSH-better-sidebar/blob/492661a3ea304ad151611de70e7412494be234da/README.md?plain=1#L29",
-      "originalUrl": "https://github.com/user-attachments/assets/991c4b70-d45a-461f-a8c8-0a28b4218e60"
+      "originalUrl": "https://github.com/user-attachments/assets/991c4b70-d45a-461f-a8c8-0a28b4218e60",
+      "animated": false
     },
     {
       "url": "/assets/repository-guides/media-5ea6ad97e1527d973113ec9c.webp",
       "alt": "文件资源管理器",
       "sourceUrl": "https://github.com/omdsh-dev/DSH-better-sidebar/blob/492661a3ea304ad151611de70e7412494be234da/README.md?plain=1#L175",
-      "originalUrl": "https://github.com/user-attachments/assets/a410bfd2-a8ba-43e6-873e-22417756e94d"
+      "originalUrl": "https://github.com/user-attachments/assets/a410bfd2-a8ba-43e6-873e-22417756e94d",
+      "animated": false
     },
     {
       "url": "/assets/repository-guides/media-37e229e00c8ad5ed8803e65d.webp",
       "alt": "文件变动",
       "sourceUrl": "https://github.com/omdsh-dev/DSH-better-sidebar/blob/492661a3ea304ad151611de70e7412494be234da/README.md?plain=1#L177",
-      "originalUrl": "https://github.com/user-attachments/assets/e7fc1220-305f-4bca-8583-e77ab4f4fa78"
+      "originalUrl": "https://github.com/user-attachments/assets/e7fc1220-305f-4bca-8583-e77ab4f4fa78",
+      "animated": false
+    },
+    {
+      "url": "/assets/repository-guides/media-666b6de83c57cb9d5e149a8d.webp",
+      "alt": "设置页「添加插件」弹窗：推荐插件目录 + 一键复制安装命令",
+      "sourceUrl": "https://github.com/omdsh-dev/DSH-better-sidebar/blob/492661a3ea304ad151611de70e7412494be234da/README.md#L327",
+      "originalUrl": "https://github.com/user-attachments/assets/d4385b7e-aab4-425d-a5c4-2da5da81a34e",
+      "animated": false
+    },
+    {
+      "url": "/assets/repository-guides/media-189734258b0e66d95692747c.webp",
+      "alt": "Markdown + Mermaid 预览",
+      "sourceUrl": "https://github.com/omdsh-dev/DSH-better-sidebar/blob/492661a3ea304ad151611de70e7412494be234da/README.md#L175",
+      "originalUrl": "https://github.com/user-attachments/assets/fe0e5182-55bb-45cc-b98b-a2877c2bdd38",
+      "animated": false
+    },
+    {
+      "url": "/assets/repository-guides/media-08cfac01515f139a7c233af2.webp",
+      "alt": "CodeMirror 代码编辑器",
+      "sourceUrl": "https://github.com/omdsh-dev/DSH-better-sidebar/blob/492661a3ea304ad151611de70e7412494be234da/README.md#L176",
+      "originalUrl": "https://github.com/user-attachments/assets/b44b488e-568c-4ee0-b96c-e9c906598a77",
+      "animated": false
     }
   ],
   "generatedBy": "claude-opus-5-5",
   "documentHash": "90b0e1e3fb1da7547941cb896d417ec423db202153713cadbe62a95497666160",
   "mediaStatus": "archived",
-  "mediaFailures": []
+  "mediaFailures": [],
+  "mediaReferences": []
 }

@@ -67,23 +67,27 @@
       "url": "/assets/repository-guides/media-cb3964415b2ed49b3566b34f.webp",
       "alt": "gnipbao/knowledge-cat-ppt-skill 官方演示 1",
       "sourceUrl": "https://github.com/gnipbao/knowledge-cat-ppt-skill/blob/889c3dc00b356607fa9af935eb807056c3394886/README.md?plain=1#L31",
-      "originalUrl": "https://raw.githubusercontent.com/gnipbao/knowledge-cat-ppt-skill/889c3dc00b356607fa9af935eb807056c3394886/docs/images/mode-native-pptx.png"
+      "originalUrl": "https://raw.githubusercontent.com/gnipbao/knowledge-cat-ppt-skill/889c3dc00b356607fa9af935eb807056c3394886/docs/images/mode-native-pptx.png",
+      "animated": false
     },
     {
       "url": "/assets/repository-guides/media-4c6ec8aab9f51113ec62ace4.webp",
       "alt": "gnipbao/knowledge-cat-ppt-skill 官方演示 2",
       "sourceUrl": "https://github.com/gnipbao/knowledge-cat-ppt-skill/blob/889c3dc00b356607fa9af935eb807056c3394886/README.md?plain=1#L31",
-      "originalUrl": "https://raw.githubusercontent.com/gnipbao/knowledge-cat-ppt-skill/889c3dc00b356607fa9af935eb807056c3394886/docs/images/mode-html-deck.png"
+      "originalUrl": "https://raw.githubusercontent.com/gnipbao/knowledge-cat-ppt-skill/889c3dc00b356607fa9af935eb807056c3394886/docs/images/mode-html-deck.png",
+      "animated": false
     },
     {
       "url": "/assets/repository-guides/media-c18164e51cf4681b68e02062.webp",
       "alt": "gnipbao/knowledge-cat-ppt-skill 官方演示 3",
       "sourceUrl": "https://github.com/gnipbao/knowledge-cat-ppt-skill/blob/889c3dc00b356607fa9af935eb807056c3394886/README.md?plain=1#L31",
-      "originalUrl": "https://raw.githubusercontent.com/gnipbao/knowledge-cat-ppt-skill/889c3dc00b356607fa9af935eb807056c3394886/docs/images/mode-image-first.png"
+      "originalUrl": "https://raw.githubusercontent.com/gnipbao/knowledge-cat-ppt-skill/889c3dc00b356607fa9af935eb807056c3394886/docs/images/mode-image-first.png",
+      "animated": false
     }
   ],
   "generatedBy": "claude-opus-5-5",
   "documentHash": "77c35f1334164a5c0840f6ba175c1a3f361643a15c080ab7491dcebac555c295",
   "mediaStatus": "archived",
-  "mediaFailures": []
+  "mediaFailures": [],
+  "mediaReferences": []
 }

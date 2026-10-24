@@ -72,17 +72,27 @@
       "url": "/assets/repository-guides/media-848597d05961b25e165a9822.webp",
       "alt": "shiyu-coder/Kronos 官方演示 1",
       "sourceUrl": "https://github.com/shiyu-coder/Kronos/blob/67b630e67f6a18c9e9be918d9b4337c960db1e9a/README.md?plain=1#L211",
-      "originalUrl": "https://raw.githubusercontent.com/shiyu-coder/Kronos/67b630e67f6a18c9e9be918d9b4337c960db1e9a/figures/prediction_example.png"
+      "originalUrl": "https://raw.githubusercontent.com/shiyu-coder/Kronos/67b630e67f6a18c9e9be918d9b4337c960db1e9a/figures/prediction_example.png",
+      "animated": false
     },
     {
       "url": "/assets/repository-guides/media-7f88b15ccdf4411f3e184c22.webp",
       "alt": "shiyu-coder/Kronos 官方演示 2",
       "sourceUrl": "https://github.com/shiyu-coder/Kronos/blob/67b630e67f6a18c9e9be918d9b4337c960db1e9a/README.md?plain=1#L299",
-      "originalUrl": "https://raw.githubusercontent.com/shiyu-coder/Kronos/67b630e67f6a18c9e9be918d9b4337c960db1e9a/figures/backtest_result_example.png"
+      "originalUrl": "https://raw.githubusercontent.com/shiyu-coder/Kronos/67b630e67f6a18c9e9be918d9b4337c960db1e9a/figures/backtest_result_example.png",
+      "animated": false
+    },
+    {
+      "url": "/assets/repository-guides/media-e1834d2751e595e6b2c6fc06.webp",
+      "alt": "📜 Introduction",
+      "sourceUrl": "https://github.com/shiyu-coder/Kronos/blob/67b630e67f6a18c9e9be918d9b4337c960db1e9a/README.md#L66",
+      "originalUrl": "https://raw.githubusercontent.com/shiyu-coder/Kronos/67b630e67f6a18c9e9be918d9b4337c960db1e9a/figures/overview.png",
+      "animated": false
     }
   ],
   "generatedBy": "claude-opus-5-5",
   "documentHash": "b815b608192afa4b805a11bcbb66268f3e3db55736218964944318da7865357e",
   "mediaStatus": "archived",
-  "mediaFailures": []
+  "mediaFailures": [],
+  "mediaReferences": []
 }

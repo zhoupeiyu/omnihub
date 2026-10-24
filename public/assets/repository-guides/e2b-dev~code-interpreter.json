@@ -55,8 +55,35 @@
     "代码在 E2B 云端沙箱中执行，需要注册账号并使用 API Key，请妥善保管 E2B_API_KEY。"
   ],
   "references": [],
-  "media": [],
+  "media": [
+    {
+      "url": "/assets/repository-guides/media-847d7cb109d0919afc7c4941.webp",
+      "alt": "E2B Code Interpreter Preview",
+      "sourceUrl": "https://github.com/e2b-dev/code-interpreter/blob/11d8a0fc64d284dec0403df31b09fd58a916516f/README.md#L5",
+      "originalUrl": "https://raw.githubusercontent.com/e2b-dev/code-interpreter/11d8a0fc64d284dec0403df31b09fd58a916516f/readme-assets/e2b-code-interpreter-light.png",
+      "animated": false
+    },
+    {
+      "url": "/assets/repository-guides/media-0db7fe1dd4478b55e0375d79.webp",
+      "alt": "E2B Code Interpreter Preview",
+      "sourceUrl": "https://github.com/e2b-dev/code-interpreter/blob/11d8a0fc64d284dec0403df31b09fd58a916516f/README.md#L6",
+      "originalUrl": "https://raw.githubusercontent.com/e2b-dev/code-interpreter/11d8a0fc64d284dec0403df31b09fd58a916516f/readme-assets/e2b-code-interpreter-dark.png",
+      "animated": false
+    }
+  ],
   "generatedBy": "claude-opus-5-5",
   "documentHash": "b7434c4b09c34ddbea23b2034840e79cc25f4f8f970ab61f491b69b9eac54865",
-  "mediaStatus": "none_in_official_documents"
+  "mediaStatus": "archived",
+  "mediaFailures": [
+    {
+      "sourceUrl": "https://github.com/e2b-dev/code-interpreter/blob/11d8a0fc64d284dec0403df31b09fd58a916516f/README.md#L20",
+      "reason": "media_http_404"
+    }
+  ],
+  "mediaReferences": [
+    {
+      "label": "Cover image",
+      "url": "https://github.com/e2b-dev/code-interpreter/blob/11d8a0fc64d284dec0403df31b09fd58a916516f/README.md#L20"
+    }
+  ]
 }

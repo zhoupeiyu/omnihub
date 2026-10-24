@@ -48,8 +48,18 @@
     "诗词数据来自 chinese-poetry 数据集；从源码构建时需拉取 Git submodules 才能获得数据。"
   ],
   "references": [],
-  "media": [],
+  "media": [
+    {
+      "url": "/assets/repository-guides/media-6bcf7bef0395a79d9f8eb1b8.webp",
+      "alt": "chinese-poetry",
+      "sourceUrl": "https://github.com/palemoky/chinese-poetry-api/blob/f17afe49ead6dce982602819dadcf6b6f9d5fd50/README.md#L3",
+      "originalUrl": "https://raw.githubusercontent.com/palemoky/chinese-poetry-api/f17afe49ead6dce982602819dadcf6b6f9d5fd50/docs/icon.png",
+      "animated": false
+    }
+  ],
   "generatedBy": "claude-opus-5-5",
   "documentHash": "59fc74d363f012e8b8702f7475e9ab2b1202dcfb7beaeb107ca6350302e8a9b1",
-  "mediaStatus": "none_in_official_documents"
+  "mediaStatus": "archived",
+  "mediaFailures": [],
+  "mediaReferences": []
 }

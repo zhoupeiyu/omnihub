@@ -72,8 +72,18 @@
       "url": "https://github.com/steipete/oracle/blob/180656be68c9f3d07c70bd36acdb8f6be8fe02e3/docs/install.md"
     }
   ],
-  "media": [],
+  "media": [
+    {
+      "url": "/assets/repository-guides/media-c521a1d318f8ec43fce47101.webp",
+      "alt": "Oracle CLI header banner",
+      "sourceUrl": "https://github.com/steipete/oracle/blob/180656be68c9f3d07c70bd36acdb8f6be8fe02e3/README.md#L4",
+      "originalUrl": "https://raw.githubusercontent.com/steipete/oracle/180656be68c9f3d07c70bd36acdb8f6be8fe02e3/README-header.png",
+      "animated": false
+    }
+  ],
   "generatedBy": "claude-opus-5-5",
   "documentHash": "41b3d9be445d102c5d41b86e79f13f02789518168f3afc5863edaecb022f20e1",
-  "mediaStatus": "none_in_official_documents"
+  "mediaStatus": "archived",
+  "mediaFailures": [],
+  "mediaReferences": []
 }

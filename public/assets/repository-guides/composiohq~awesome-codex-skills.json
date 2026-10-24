@@ -64,8 +64,18 @@
     "README 中的 Composio MCP Gateway 是商业产品推广，与技能本身的使用无关。"
   ],
   "references": [],
-  "media": [],
+  "media": [
+    {
+      "url": "/assets/repository-guides/media-79d71b7599d060432a79fa6c.webp",
+      "alt": "Composio banner",
+      "sourceUrl": "https://github.com/composio-community/awesome-codex-skills/blob/0930e1373789d2eda449039f7ac154b33031de89/README.md#L6",
+      "originalUrl": "https://raw.githubusercontent.com/composio-community/awesome-codex-skills/0930e1373789d2eda449039f7ac154b33031de89/codex_cover_image.png",
+      "animated": false
+    }
+  ],
   "generatedBy": "claude-opus-5-5",
   "documentHash": "a618d80a2f2c17a735a96fcea1f8d0f8c4a4235d5ca21e896a069a05f8455efd",
-  "mediaStatus": "none_in_official_documents"
+  "mediaStatus": "archived",
+  "mediaFailures": [],
+  "mediaReferences": []
 }

@@ -61,22 +61,49 @@
     "各代理读取 skills 的目录优先级不同，例如 Copilot CLI、Cursor 也会读取 ~/.claude/skills/。分配技能时注意，同一个技能可能被多个代理读取到。"
   ],
   "references": [],
-  "media": [],
+  "media": [
+    {
+      "url": "/assets/repository-guides/media-2df556d70b8c130d086e9502.webp",
+      "alt": "Skill Detail",
+      "sourceUrl": "https://github.com/crossoverJie/SkillDeck/blob/0bcc2c33d5e0ad66540d12685d06c2e089eb712c/README.md#L37",
+      "originalUrl": "https://raw.githubusercontent.com/crossoverJie/SkillDeck/0bcc2c33d5e0ad66540d12685d06c2e089eb712c/docs/screenshots/skill-detail.png",
+      "animated": false
+    },
+    {
+      "url": "/assets/repository-guides/media-ed5ea7e4a5e40451f005d57c.webp",
+      "alt": "Dashboard Overview",
+      "sourceUrl": "https://github.com/crossoverJie/SkillDeck/blob/0bcc2c33d5e0ad66540d12685d06c2e089eb712c/README.md#L32",
+      "originalUrl": "https://raw.githubusercontent.com/crossoverJie/images/main/images/images20260213123118.png",
+      "animated": false
+    },
+    {
+      "url": "/assets/repository-guides/media-71bef5febd758009ccb60b56.webp",
+      "alt": "Dashboard Registry",
+      "sourceUrl": "https://github.com/crossoverJie/SkillDeck/blob/0bcc2c33d5e0ad66540d12685d06c2e089eb712c/README.md#L33",
+      "originalUrl": "https://raw.githubusercontent.com/crossoverJie/images/main/images/images20260224114425.png",
+      "animated": false
+    },
+    {
+      "url": "/assets/repository-guides/media-a36ae264f4234e61b152e3ca.webp",
+      "alt": "skill install",
+      "sourceUrl": "https://github.com/crossoverJie/SkillDeck/blob/0bcc2c33d5e0ad66540d12685d06c2e089eb712c/README.md#L38",
+      "originalUrl": "https://raw.githubusercontent.com/crossoverJie/images/main/images/images20260213122805.png",
+      "animated": false
+    }
+  ],
   "generatedBy": "claude-opus-5-5",
   "documentHash": "c45b46ecb83d550924b1813464a8dbcaf4609a50f164e1e4ce6c052ba95b0c2a",
-  "mediaStatus": "unavailable",
+  "mediaStatus": "archived",
   "mediaFailures": [
     {
-      "sourceUrl": "https://github.com/crossoverJie/SkillDeck/blob/0bcc2c33d5e0ad66540d12685d06c2e089eb712c/README.md#L32",
-      "reason": "unsupported_media_host"
-    },
+      "sourceUrl": "https://github.com/crossoverJie/SkillDeck/blob/0bcc2c33d5e0ad66540d12685d06c2e089eb712c/README.md#L2",
+      "reason": "unsupported_media_format"
+    }
+  ],
+  "mediaReferences": [
     {
-      "sourceUrl": "https://github.com/crossoverJie/SkillDeck/blob/0bcc2c33d5e0ad66540d12685d06c2e089eb712c/README.md#L33",
-      "reason": "unsupported_media_host"
-    },
-    {
-      "sourceUrl": "https://github.com/crossoverJie/SkillDeck/blob/0bcc2c33d5e0ad66540d12685d06c2e089eb712c/README.md#L38",
-      "reason": "unsupported_media_host"
+      "label": "SkillDeck App Icon",
+      "url": "https://github.com/crossoverJie/SkillDeck/blob/0bcc2c33d5e0ad66540d12685d06c2e089eb712c/README.md#L2"
     }
   ]
 }

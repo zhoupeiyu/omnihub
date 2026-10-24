@@ -70,5 +70,17 @@
   "media": [],
   "generatedBy": "claude-opus-5-5",
   "documentHash": "33815901cc16e0f58779b717f44e6e266b92e21e08880217b1da7d1cc0087498",
-  "mediaStatus": "none_in_official_documents"
+  "mediaStatus": "unavailable",
+  "mediaFailures": [
+    {
+      "sourceUrl": "https://github.com/Felo-Inc/felo-skills/blob/b42c3c0183cef64275ddda7ed7c5518ef54f2b05/README.md#L4",
+      "reason": "unsupported_media_host"
+    }
+  ],
+  "mediaReferences": [
+    {
+      "label": "Felo AI",
+      "url": "https://github.com/Felo-Inc/felo-skills/blob/b42c3c0183cef64275ddda7ed7c5518ef54f2b05/README.md#L4"
+    }
+  ]
 }

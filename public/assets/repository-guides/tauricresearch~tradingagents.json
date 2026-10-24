@@ -74,23 +74,58 @@
       "url": "/assets/repository-guides/media-fc56e74f4fb2e230bcc7854e.webp",
       "alt": "TauricResearch/TradingAgents 官方演示 1",
       "sourceUrl": "https://github.com/TauricResearch/TradingAgents/blob/8b22d43d01d9ddda5d686d093d5385884622f3de/README.md?plain=1#L226",
-      "originalUrl": "https://raw.githubusercontent.com/TauricResearch/TradingAgents/8b22d43d01d9ddda5d686d093d5385884622f3de/assets/cli/cli_init.png"
+      "originalUrl": "https://raw.githubusercontent.com/TauricResearch/TradingAgents/8b22d43d01d9ddda5d686d093d5385884622f3de/assets/cli/cli_init.png",
+      "animated": false
     },
     {
       "url": "/assets/repository-guides/media-4d66aa1fc090988c443e310a.webp",
       "alt": "TauricResearch/TradingAgents 官方演示 2",
       "sourceUrl": "https://github.com/TauricResearch/TradingAgents/blob/8b22d43d01d9ddda5d686d093d5385884622f3de/README.md?plain=1#L232",
-      "originalUrl": "https://raw.githubusercontent.com/TauricResearch/TradingAgents/8b22d43d01d9ddda5d686d093d5385884622f3de/assets/cli/cli_news.png"
+      "originalUrl": "https://raw.githubusercontent.com/TauricResearch/TradingAgents/8b22d43d01d9ddda5d686d093d5385884622f3de/assets/cli/cli_news.png",
+      "animated": false
     },
     {
       "url": "/assets/repository-guides/media-43f13e48d53ca1628a1e3b01.webp",
       "alt": "TauricResearch/TradingAgents 官方演示 3",
       "sourceUrl": "https://github.com/TauricResearch/TradingAgents/blob/8b22d43d01d9ddda5d686d093d5385884622f3de/README.md?plain=1#L236",
-      "originalUrl": "https://raw.githubusercontent.com/TauricResearch/TradingAgents/8b22d43d01d9ddda5d686d093d5385884622f3de/assets/cli/cli_transaction.png"
+      "originalUrl": "https://raw.githubusercontent.com/TauricResearch/TradingAgents/8b22d43d01d9ddda5d686d093d5385884622f3de/assets/cli/cli_transaction.png",
+      "animated": false
+    },
+    {
+      "url": "/assets/repository-guides/media-91a7943536ff54a671b515d9.webp",
+      "alt": "项目介绍",
+      "sourceUrl": "https://github.com/TauricResearch/TradingAgents/blob/8b22d43d01d9ddda5d686d093d5385884622f3de/README.md#L2",
+      "originalUrl": "https://raw.githubusercontent.com/TauricResearch/TradingAgents/8b22d43d01d9ddda5d686d093d5385884622f3de/assets/TauricResearch.png",
+      "animated": false
+    },
+    {
+      "url": "/assets/repository-guides/media-9d647d4e71e414ad8a57d47d.webp",
+      "alt": "TradingAgents Framework",
+      "sourceUrl": "https://github.com/TauricResearch/TradingAgents/blob/8b22d43d01d9ddda5d686d093d5385884622f3de/README.md#L72",
+      "originalUrl": "https://raw.githubusercontent.com/TauricResearch/TradingAgents/8b22d43d01d9ddda5d686d093d5385884622f3de/assets/schema.png",
+      "animated": false
+    },
+    {
+      "url": "/assets/repository-guides/media-b3a9b1d2e274ba77306e9f85.webp",
+      "alt": "Researcher Team",
+      "sourceUrl": "https://github.com/TauricResearch/TradingAgents/blob/8b22d43d01d9ddda5d686d093d5385884622f3de/README.md#L95",
+      "originalUrl": "https://raw.githubusercontent.com/TauricResearch/TradingAgents/8b22d43d01d9ddda5d686d093d5385884622f3de/assets/researcher.png",
+      "animated": false
     }
   ],
   "generatedBy": "claude-opus-5-5",
   "documentHash": "c7bef0df9a7447fb5230dfdee87a17c6731f0ae6c2e543c9b285618eecdb856a",
   "mediaStatus": "archived",
-  "mediaFailures": []
+  "mediaFailures": [
+    {
+      "sourceUrl": "https://github.com/TauricResearch/TradingAgents/blob/8b22d43d01d9ddda5d686d093d5385884622f3de/README.md#L88",
+      "reason": "non_demo_dimensions"
+    }
+  ],
+  "mediaReferences": [
+    {
+      "label": "Analyst Team",
+      "url": "https://github.com/TauricResearch/TradingAgents/blob/8b22d43d01d9ddda5d686d093d5385884622f3de/README.md#L88"
+    }
+  ]
 }

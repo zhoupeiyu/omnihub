@@ -62,8 +62,36 @@
     "README 中的星号表示学习优先顺序，不是项目排名；Track A 约 8–10 周、Track B 约 16–22 周的时间估算仅供安排参考。"
   ],
   "references": [],
-  "media": [],
+  "media": [
+    {
+      "url": "/assets/repository-guides/media-c2edbb9f2f1b0376e24d9ffa.webp",
+      "alt": "AI Agent 學習地圖",
+      "sourceUrl": "https://github.com/WenyuChiou/awesome-agentic-ai-zh/blob/ea24e0006023ce8e0abf79e77ae773701c7fafa4/README.md#L66",
+      "originalUrl": "https://raw.githubusercontent.com/WenyuChiou/awesome-agentic-ai-zh/ea24e0006023ce8e0abf79e77ae773701c7fafa4/resources/diagrams/learning-map.png",
+      "animated": false
+    }
+  ],
   "generatedBy": "claude-opus-5-5",
   "documentHash": "3d20d54bfc84203ca9ea2c7a919157feb07dbe716d2a1d43e612828283b4657f",
-  "mediaStatus": "none_in_official_documents"
+  "mediaStatus": "archived",
+  "mediaFailures": [
+    {
+      "sourceUrl": "https://github.com/WenyuChiou/awesome-agentic-ai-zh/blob/ea24e0006023ce8e0abf79e77ae773701c7fafa4/README.md#L7",
+      "reason": "unsupported_media_format"
+    },
+    {
+      "sourceUrl": "https://github.com/WenyuChiou/awesome-agentic-ai-zh/blob/ea24e0006023ce8e0abf79e77ae773701c7fafa4/README.md#L122",
+      "reason": "unsupported_media_format"
+    }
+  ],
+  "mediaReferences": [
+    {
+      "label": "從 Stage 0–2 共用基礎分流到 CLI 與 Agent 路線，共用 Stage 5、8，再依需求選角色路線",
+      "url": "https://github.com/WenyuChiou/awesome-agentic-ai-zh/blob/ea24e0006023ce8e0abf79e77ae773701c7fafa4/README.md#L7"
+    },
+    {
+      "label": "研究、開發、教學、知識工作與日常使用是五種選擇，依需求選讀，不必全部走完",
+      "url": "https://github.com/WenyuChiou/awesome-agentic-ai-zh/blob/ea24e0006023ce8e0abf79e77ae773701c7fafa4/README.md#L122"
+    }
+  ]
 }

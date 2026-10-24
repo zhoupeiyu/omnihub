@@ -72,23 +72,48 @@
       "url": "/assets/repository-guides/media-a991df47f93ef03c6115b3b4.webp",
       "alt": "dodo-reach/hermes-desktop 官方演示 1",
       "sourceUrl": "https://github.com/dodo-reach/hermes-desktop/blob/3b772afa366d331f63a8b3bd8d66b5159fcab615/README.md?plain=1#L27",
-      "originalUrl": "https://raw.githubusercontent.com/dodo-reach/hermes-desktop/3b772afa366d331f63a8b3bd8d66b5159fcab615/assets/sessions.png"
+      "originalUrl": "https://raw.githubusercontent.com/dodo-reach/hermes-desktop/3b772afa366d331f63a8b3bd8d66b5159fcab615/assets/sessions.png",
+      "animated": false
     },
     {
       "url": "/assets/repository-guides/media-837832996e95452cd25ecb34.webp",
       "alt": "dodo-reach/hermes-desktop 官方演示 2",
       "sourceUrl": "https://github.com/dodo-reach/hermes-desktop/blob/3b772afa366d331f63a8b3bd8d66b5159fcab615/README.md?plain=1#L35",
-      "originalUrl": "https://raw.githubusercontent.com/dodo-reach/hermes-desktop/3b772afa366d331f63a8b3bd8d66b5159fcab615/assets/kanban.png"
+      "originalUrl": "https://raw.githubusercontent.com/dodo-reach/hermes-desktop/3b772afa366d331f63a8b3bd8d66b5159fcab615/assets/kanban.png",
+      "animated": false
     },
     {
       "url": "/assets/repository-guides/media-5e02f00ac5151abd3ce3c96b.webp",
       "alt": "dodo-reach/hermes-desktop 官方演示 3",
       "sourceUrl": "https://github.com/dodo-reach/hermes-desktop/blob/3b772afa366d331f63a8b3bd8d66b5159fcab615/README.md?plain=1#L30",
-      "originalUrl": "https://raw.githubusercontent.com/dodo-reach/hermes-desktop/3b772afa366d331f63a8b3bd8d66b5159fcab615/assets/terminal.png"
+      "originalUrl": "https://raw.githubusercontent.com/dodo-reach/hermes-desktop/3b772afa366d331f63a8b3bd8d66b5159fcab615/assets/terminal.png",
+      "animated": false
+    },
+    {
+      "url": "/assets/repository-guides/media-0b85ccaa6adae50ede8e1a2a.webp",
+      "alt": "Hermes Desktop Files view",
+      "sourceUrl": "https://github.com/dodo-reach/hermes-desktop/blob/3b772afa366d331f63a8b3bd8d66b5159fcab615/README.md#L38",
+      "originalUrl": "https://raw.githubusercontent.com/dodo-reach/hermes-desktop/3b772afa366d331f63a8b3bd8d66b5159fcab615/assets/files.png",
+      "animated": false
+    },
+    {
+      "url": "/assets/repository-guides/media-60bd2133c4ad02f16489c910.webp",
+      "alt": "Hermes Desktop Skills view",
+      "sourceUrl": "https://github.com/dodo-reach/hermes-desktop/blob/3b772afa366d331f63a8b3bd8d66b5159fcab615/README.md#L43",
+      "originalUrl": "https://raw.githubusercontent.com/dodo-reach/hermes-desktop/3b772afa366d331f63a8b3bd8d66b5159fcab615/assets/skills.png",
+      "animated": false
+    },
+    {
+      "url": "/assets/repository-guides/media-3c0e324c7acf5dd2f97e68c0.webp",
+      "alt": "Hermes Desktop Cron Jobs view",
+      "sourceUrl": "https://github.com/dodo-reach/hermes-desktop/blob/3b772afa366d331f63a8b3bd8d66b5159fcab615/README.md#L46",
+      "originalUrl": "https://raw.githubusercontent.com/dodo-reach/hermes-desktop/3b772afa366d331f63a8b3bd8d66b5159fcab615/assets/cron.png",
+      "animated": false
     }
   ],
   "generatedBy": "claude-opus-5-5",
   "documentHash": "f87a146656f9be7c86a8acfd0be471b824c21d2f195a88904aa74ee99a073fd8",
   "mediaStatus": "archived",
-  "mediaFailures": []
+  "mediaFailures": [],
+  "mediaReferences": []
 }

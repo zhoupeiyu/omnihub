@@ -67,8 +67,18 @@
     "--ai 品牌主色预测为实验性功能。"
   ],
   "references": [],
-  "media": [],
+  "media": [
+    {
+      "url": "/assets/repository-guides/media-fdf95b16b972d51a2890faf7.webp",
+      "alt": "Dembrandt: Any website to design tokens",
+      "sourceUrl": "https://github.com/dembrandt/dembrandt/blob/22cb9f9320f11b383094726646d3200698f232e4/README.md#L12",
+      "originalUrl": "https://raw.githubusercontent.com/dembrandt/dembrandt/22cb9f9320f11b383094726646d3200698f232e4/docs/images/banner.png",
+      "animated": false
+    }
+  ],
   "generatedBy": "claude-opus-5-5",
   "documentHash": "8ed38ec3a0291db73be682767f3cbe9fc2475aec0a35549c7e96369ca8dffb2b",
-  "mediaStatus": "none_in_official_documents"
+  "mediaStatus": "archived",
+  "mediaFailures": [],
+  "mediaReferences": []
 }

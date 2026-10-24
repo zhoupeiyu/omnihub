@@ -78,11 +78,20 @@
       "url": "/assets/repository-guides/media-450140e4d6e88916d66943bb.webp",
       "alt": "xr843/Master-skill 官方演示 1",
       "sourceUrl": "https://github.com/xr843/Master-skill/blob/77296f6f07228513b8c37dba822a77b17e520c37/README.md?plain=1#L211",
-      "originalUrl": "https://raw.githubusercontent.com/xr843/Master-skill/main/docs/assets/desktop-manager.png"
+      "originalUrl": "https://raw.githubusercontent.com/xr843/Master-skill/main/docs/assets/desktop-manager.png",
+      "animated": false
+    },
+    {
+      "url": "/assets/repository-guides/media-450140e4d6e88916d66943bb.webp",
+      "alt": "Master-skill Desktop Manager",
+      "sourceUrl": "https://github.com/xr843/Master-skill/blob/77296f6f07228513b8c37dba822a77b17e520c37/README.md#L211",
+      "originalUrl": "https://raw.githubusercontent.com/xr843/Master-skill/77296f6f07228513b8c37dba822a77b17e520c37/docs/assets/desktop-manager.png",
+      "animated": false
     }
   ],
   "generatedBy": "claude-opus-5-5",
   "documentHash": "43ecee26f17d29a587f9b7ef044f60b2e30fdb5cf445c4d409e7caa9c3329546",
   "mediaStatus": "archived",
-  "mediaFailures": []
+  "mediaFailures": [],
+  "mediaReferences": []
 }

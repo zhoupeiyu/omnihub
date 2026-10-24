@@ -72,23 +72,74 @@
       "url": "/assets/repository-guides/media-b08efc7a35bbdde8acf03d91.webp",
       "alt": "Tencent/WeKnora 官方演示 1",
       "sourceUrl": "https://github.com/Tencent/WeKnora/blob/bccb4b151bae403508da77fbb174efc79dc47c1a/README.md?plain=1#L230",
-      "originalUrl": "https://raw.githubusercontent.com/Tencent/WeKnora/bccb4b151bae403508da77fbb174efc79dc47c1a/docs/images/readme/spotlight-qa-light.webp"
+      "originalUrl": "https://raw.githubusercontent.com/Tencent/WeKnora/bccb4b151bae403508da77fbb174efc79dc47c1a/docs/images/readme/spotlight-qa-light.webp",
+      "animated": false
     },
     {
       "url": "/assets/repository-guides/media-6d9c5a36c71f73d318ffb22a.webp",
       "alt": "Tencent/WeKnora 官方演示 2",
       "sourceUrl": "https://github.com/Tencent/WeKnora/blob/bccb4b151bae403508da77fbb174efc79dc47c1a/README.md?plain=1#L274",
-      "originalUrl": "https://raw.githubusercontent.com/Tencent/WeKnora/bccb4b151bae403508da77fbb174efc79dc47c1a/docs/images/readme/spotlight-wiki-light.webp"
+      "originalUrl": "https://raw.githubusercontent.com/Tencent/WeKnora/bccb4b151bae403508da77fbb174efc79dc47c1a/docs/images/readme/spotlight-wiki-light.webp",
+      "animated": false
     },
     {
       "url": "/assets/repository-guides/media-c507fe75d94ceb732a270e35.webp",
       "alt": "Tencent/WeKnora 官方演示 3",
       "sourceUrl": "https://github.com/Tencent/WeKnora/blob/bccb4b151bae403508da77fbb174efc79dc47c1a/README.md?plain=1#L252",
-      "originalUrl": "https://raw.githubusercontent.com/Tencent/WeKnora/bccb4b151bae403508da77fbb174efc79dc47c1a/docs/images/readme/spotlight-sandbox-light.webp"
+      "originalUrl": "https://raw.githubusercontent.com/Tencent/WeKnora/bccb4b151bae403508da77fbb174efc79dc47c1a/docs/images/readme/spotlight-sandbox-light.webp",
+      "animated": false
+    },
+    {
+      "url": "/assets/repository-guides/media-bbbdefb808294887a47f5beb.webp",
+      "alt": "Local browser",
+      "sourceUrl": "https://github.com/Tencent/WeKnora/blob/bccb4b151bae403508da77fbb174efc79dc47c1a/README.md#L241",
+      "originalUrl": "https://raw.githubusercontent.com/Tencent/WeKnora/bccb4b151bae403508da77fbb174efc79dc47c1a/docs/images/readme/spotlight-browser-light.webp",
+      "animated": false
+    },
+    {
+      "url": "/assets/repository-guides/media-2de95e0293a608f82a720c2c.webp",
+      "alt": "Toolbox: MCP services and skills",
+      "sourceUrl": "https://github.com/Tencent/WeKnora/blob/bccb4b151bae403508da77fbb174efc79dc47c1a/README.md#L263",
+      "originalUrl": "https://raw.githubusercontent.com/Tencent/WeKnora/bccb4b151bae403508da77fbb174efc79dc47c1a/docs/images/readme/spotlight-toolbox-light.webp",
+      "animated": false
+    },
+    {
+      "url": "/assets/repository-guides/media-e5148f88e5209a53d8c043a0.webp",
+      "alt": "Observability",
+      "sourceUrl": "https://github.com/Tencent/WeKnora/blob/bccb4b151bae403508da77fbb174efc79dc47c1a/README.md#L285",
+      "originalUrl": "https://raw.githubusercontent.com/Tencent/WeKnora/bccb4b151bae403508da77fbb174efc79dc47c1a/docs/images/readme/spotlight-observability-light.webp",
+      "animated": false
     }
   ],
   "generatedBy": "claude-opus-5-5",
   "documentHash": "63733f25438fec7493a0ef3f87da9047ddc9f0534e95c332d4db02460fa2eef6",
   "mediaStatus": "archived",
-  "mediaFailures": []
+  "mediaFailures": [
+    {
+      "sourceUrl": "https://github.com/Tencent/WeKnora/blob/bccb4b151bae403508da77fbb174efc79dc47c1a/README.md#L5",
+      "reason": "unsupported_media_format"
+    },
+    {
+      "sourceUrl": "https://github.com/Tencent/WeKnora/blob/bccb4b151bae403508da77fbb174efc79dc47c1a/README.md#L53",
+      "reason": "unsupported_media_format"
+    },
+    {
+      "sourceUrl": "https://github.com/Tencent/WeKnora/blob/bccb4b151bae403508da77fbb174efc79dc47c1a/README.md#L79",
+      "reason": "unsupported_media_format"
+    }
+  ],
+  "mediaReferences": [
+    {
+      "label": "WeKnora: find the answers, and put knowledge to work. Tencent",
+      "url": "https://github.com/Tencent/WeKnora/blob/bccb4b151bae403508da77fbb174efc79dc47c1a/README.md#L5"
+    },
+    {
+      "label": "01 RAG: answers you can check, with hybrid search, multimodal parsing and citations. 02 Agent: tasks done with knowledge and tools, with multi-step reasoning, s",
+      "url": "https://github.com/Tencent/WeKnora/blob/bccb4b151bae403508da77fbb174efc79dc47c1a/README.md#L53"
+    },
+    {
+      "label": "Quick Start",
+      "url": "https://github.com/Tencent/WeKnora/blob/bccb4b151bae403508da77fbb174efc79dc47c1a/README.md#L79"
+    }
+  ]
 }

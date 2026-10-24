@@ -67,17 +67,20 @@
       "url": "/assets/repository-guides/media-54e51e8e050b933383a5c217.webp",
       "alt": "Forget-C/Jellyfish 官方演示 1",
       "sourceUrl": "https://github.com/Forget-C/Jellyfish/blob/a9678194ddf2d9be3ccbe78d4287d87d5089e123/README.md?plain=1#L38",
-      "originalUrl": "https://raw.githubusercontent.com/Forget-C/Jellyfish/a9678194ddf2d9be3ccbe78d4287d87d5089e123/docs/img/project.png"
+      "originalUrl": "https://raw.githubusercontent.com/Forget-C/Jellyfish/a9678194ddf2d9be3ccbe78d4287d87d5089e123/docs/img/project.png",
+      "animated": false
     },
     {
       "url": "/assets/repository-guides/media-b8d20128ee18949f14af0812.webp",
       "alt": "Forget-C/Jellyfish 官方演示 2",
       "sourceUrl": "https://github.com/Forget-C/Jellyfish/blob/a9678194ddf2d9be3ccbe78d4287d87d5089e123/README.md?plain=1#L38",
-      "originalUrl": "https://raw.githubusercontent.com/Forget-C/Jellyfish/a9678194ddf2d9be3ccbe78d4287d87d5089e123/docs/img/%E8%B5%84%E4%BA%A7%E7%AE%A1%E7%90%86.png"
+      "originalUrl": "https://raw.githubusercontent.com/Forget-C/Jellyfish/a9678194ddf2d9be3ccbe78d4287d87d5089e123/docs/img/%E8%B5%84%E4%BA%A7%E7%AE%A1%E7%90%86.png",
+      "animated": false
     }
   ],
   "generatedBy": "claude-opus-5-5",
   "documentHash": "5d66113b61661822991a218d5477b8736468d00459c836e055bd41c2a08a251c",
   "mediaStatus": "archived",
-  "mediaFailures": []
+  "mediaFailures": [],
+  "mediaReferences": []
 }

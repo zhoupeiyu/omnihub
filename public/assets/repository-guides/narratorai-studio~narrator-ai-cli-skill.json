@@ -63,8 +63,18 @@
       "url": "https://github.com/NarratorAI-Studio/narrator-ai-cli-skill/blob/4b17c6f2175bd532c92db778a847f8fb6bdd3177/README_CN.md"
     }
   ],
-  "media": [],
+  "media": [
+    {
+      "url": "/assets/repository-guides/media-cc12b82719db72a69f3a862b.webp",
+      "alt": "Contact us",
+      "sourceUrl": "https://github.com/NarratorAI-Studio/narrator-ai-cli-skill/blob/4b17c6f2175bd532c92db778a847f8fb6bdd3177/README.md#L168",
+      "originalUrl": "https://raw.githubusercontent.com/NarratorAI-Studio/narrator-ai-cli-skill/4b17c6f2175bd532c92db778a847f8fb6bdd3177/imgs/contact.png",
+      "animated": false
+    }
+  ],
   "generatedBy": "claude-opus-5-5",
   "documentHash": "7e944c4c30154d759301cb02f71c52f36ddd01a47b9bedaccfed3c9cb0361834",
-  "mediaStatus": "none_in_official_documents"
+  "mediaStatus": "archived",
+  "mediaFailures": [],
+  "mediaReferences": []
 }

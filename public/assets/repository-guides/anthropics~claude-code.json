@@ -53,14 +53,18 @@
     "仓库元数据中未标注开源许可证，使用条款以 Anthropic 商业服务条款为准。"
   ],
   "references": [],
-  "media": [],
+  "media": [
+    {
+      "url": "/assets/repository-guides/media-ade777f04b5ab24c4360f85a.webp",
+      "alt": "Claude Code",
+      "sourceUrl": "https://github.com/anthropics/claude-code/blob/525d3b35312636cf8c001ecb3df2be0324a48b43/README.md#L11",
+      "originalUrl": "https://raw.githubusercontent.com/anthropics/claude-code/525d3b35312636cf8c001ecb3df2be0324a48b43/demo.gif",
+      "animated": true
+    }
+  ],
   "generatedBy": "claude-opus-5-5",
   "documentHash": "aa0d8b80ac083e1591be0789273f447058cc9187b4331634a5614155da27778d",
-  "mediaStatus": "unavailable",
-  "mediaFailures": [
-    {
-      "sourceUrl": "https://github.com/anthropics/claude-code/blob/525d3b35312636cf8c001ecb3df2be0324a48b43/README.md#L11",
-      "reason": "response_too_large"
-    }
-  ]
+  "mediaStatus": "archived",
+  "mediaFailures": [],
+  "mediaReferences": []
 }

@@ -66,23 +66,48 @@
       "url": "/assets/repository-guides/media-9c94c38ce08a65ed1c687c2f.webp",
       "alt": "古风仙侠参数扩写示例",
       "sourceUrl": "https://github.com/liyue-aigc/female-portrait-director/blob/8cddecd6786d187688e8e89a1f606540186a962f/README_zh.md?plain=1#L143",
-      "originalUrl": "https://raw.githubusercontent.com/liyue-aigc/female-portrait-director/8cddecd6786d187688e8e89a1f606540186a962f/assets/examples/gufeng-director-output.jpg"
+      "originalUrl": "https://raw.githubusercontent.com/liyue-aigc/female-portrait-director/8cddecd6786d187688e8e89a1f606540186a962f/assets/examples/gufeng-director-output.jpg",
+      "animated": false
     },
     {
       "url": "/assets/repository-guides/media-3c1f8f95b656b43547d9ce71.webp",
       "alt": "咖啡馆窗边清纯生活照",
       "sourceUrl": "https://github.com/liyue-aigc/female-portrait-director/blob/8cddecd6786d187688e8e89a1f606540186a962f/README_zh.md?plain=1#L17",
-      "originalUrl": "https://raw.githubusercontent.com/liyue-aigc/female-portrait-director/8cddecd6786d187688e8e89a1f606540186a962f/assets/cases/01-clean-lifestyle.png"
+      "originalUrl": "https://raw.githubusercontent.com/liyue-aigc/female-portrait-director/8cddecd6786d187688e8e89a1f606540186a962f/assets/cases/01-clean-lifestyle.png",
+      "animated": false
     },
     {
       "url": "/assets/repository-guides/media-4c3ac1f8a807d53a7c38da86.webp",
       "alt": "商场外都市时尚街拍",
       "sourceUrl": "https://github.com/liyue-aigc/female-portrait-director/blob/8cddecd6786d187688e8e89a1f606540186a962f/README_zh.md?plain=1#L17",
-      "originalUrl": "https://raw.githubusercontent.com/liyue-aigc/female-portrait-director/8cddecd6786d187688e8e89a1f606540186a962f/assets/cases/02-urban-fashion.png"
+      "originalUrl": "https://raw.githubusercontent.com/liyue-aigc/female-portrait-director/8cddecd6786d187688e8e89a1f606540186a962f/assets/cases/02-urban-fashion.png",
+      "animated": false
+    },
+    {
+      "url": "/assets/repository-guides/media-42dc8e6a261461373ab95b02.webp",
+      "alt": "Red-and-gold gufeng xianxia portrait",
+      "sourceUrl": "https://github.com/liyue-aigc/female-portrait-director/blob/8cddecd6786d187688e8e89a1f606540186a962f/README.md#L17",
+      "originalUrl": "https://raw.githubusercontent.com/liyue-aigc/female-portrait-director/8cddecd6786d187688e8e89a1f606540186a962f/assets/cases/03-gufeng-xianxia.png",
+      "animated": false
+    },
+    {
+      "url": "/assets/repository-guides/media-82178d1f63eb52907fbcbd3d.webp",
+      "alt": "Golden-hour Hong Kong street portrait",
+      "sourceUrl": "https://github.com/liyue-aigc/female-portrait-director/blob/8cddecd6786d187688e8e89a1f606540186a962f/README.md#L19",
+      "originalUrl": "https://raw.githubusercontent.com/liyue-aigc/female-portrait-director/8cddecd6786d187688e8e89a1f606540186a962f/assets/cases/04-retro-hongkong-street.png",
+      "animated": false
+    },
+    {
+      "url": "/assets/repository-guides/media-bd3b248e31e4b3b39c495d06.webp",
+      "alt": "French effortless portrait on a Paris balcony",
+      "sourceUrl": "https://github.com/liyue-aigc/female-portrait-director/blob/8cddecd6786d187688e8e89a1f606540186a962f/README.md#L19",
+      "originalUrl": "https://raw.githubusercontent.com/liyue-aigc/female-portrait-director/8cddecd6786d187688e8e89a1f606540186a962f/assets/cases/05-french-lazy.png",
+      "animated": false
     }
   ],
   "generatedBy": "claude-opus-5-5",
   "documentHash": "02ac45e9faea1d38945f2a3588789f6ae86142023c6db4e79dc9874499011158",
   "mediaStatus": "archived",
-  "mediaFailures": []
+  "mediaFailures": [],
+  "mediaReferences": []
 }

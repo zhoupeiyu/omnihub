@@ -60,8 +60,49 @@
     "连续 8 次工具调用都没有新的成功观察时，Agent 会停止并请求恢复，该次运行会标记为失败。"
   ],
   "references": [],
-  "media": [],
+  "media": [
+    {
+      "url": "/assets/repository-guides/media-8b3d3a67c3522d39aaf55609.webp",
+      "alt": "Self-improving trading agent",
+      "sourceUrl": "https://github.com/HKUDS/Vibe-Trading/blob/18027a0c2b97bd41ac38a0e269799e485bb457d3/README.md#L295",
+      "originalUrl": "https://raw.githubusercontent.com/HKUDS/Vibe-Trading/18027a0c2b97bd41ac38a0e269799e485bb457d3/assets/feature-self-improving-trading-agent.png",
+      "animated": false
+    },
+    {
+      "url": "/assets/repository-guides/media-e290aafd08cf97a0bf8da7d4.webp",
+      "alt": "Multi-agent trading teams",
+      "sourceUrl": "https://github.com/HKUDS/Vibe-Trading/blob/18027a0c2b97bd41ac38a0e269799e485bb457d3/README.md#L304",
+      "originalUrl": "https://raw.githubusercontent.com/HKUDS/Vibe-Trading/18027a0c2b97bd41ac38a0e269799e485bb457d3/assets/feature-multi-agent-trading-teams.png",
+      "animated": false
+    },
+    {
+      "url": "/assets/repository-guides/media-9e2a2d0ab167e030345c07cc.webp",
+      "alt": "Cross-market data and backtesting",
+      "sourceUrl": "https://github.com/HKUDS/Vibe-Trading/blob/18027a0c2b97bd41ac38a0e269799e485bb457d3/README.md#L315",
+      "originalUrl": "https://raw.githubusercontent.com/HKUDS/Vibe-Trading/18027a0c2b97bd41ac38a0e269799e485bb457d3/assets/feature-cross-market-data-backtesting.png",
+      "animated": false
+    },
+    {
+      "url": "/assets/repository-guides/media-b5082dbb1cc135c7aae3d9fc.webp",
+      "alt": "Shadow Account",
+      "sourceUrl": "https://github.com/HKUDS/Vibe-Trading/blob/18027a0c2b97bd41ac38a0e269799e485bb457d3/README.md#L324",
+      "originalUrl": "https://raw.githubusercontent.com/HKUDS/Vibe-Trading/18027a0c2b97bd41ac38a0e269799e485bb457d3/assets/feature-shadow-account.png",
+      "animated": false
+    }
+  ],
   "generatedBy": "claude-opus-5-5",
   "documentHash": "8b3a6d765d62e3a757dd3bf3f1ba0d46f3c2294dc1cc6d7701f71b171b5ff87c",
-  "mediaStatus": "none_in_official_documents"
+  "mediaStatus": "archived",
+  "mediaFailures": [
+    {
+      "sourceUrl": "https://github.com/HKUDS/Vibe-Trading/blob/18027a0c2b97bd41ac38a0e269799e485bb457d3/README.md#L46",
+      "reason": "unsupported_media_format"
+    }
+  ],
+  "mediaReferences": [
+    {
+      "label": "pip install vibe-trading-ai",
+      "url": "https://github.com/HKUDS/Vibe-Trading/blob/18027a0c2b97bd41ac38a0e269799e485bb457d3/README.md#L46"
+    }
+  ]
 }

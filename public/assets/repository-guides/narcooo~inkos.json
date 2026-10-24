@@ -72,23 +72,106 @@
       "url": "/assets/repository-guides/media-08f73e5830f54950a65cf56e.webp",
       "alt": "InkOS Studio 开始创作入口",
       "sourceUrl": "https://github.com/Narcooo/inkos/blob/8fc2ae57080b9821257dee3e37cc677e2b6f389a/README.md?plain=1#L531",
-      "originalUrl": "https://raw.githubusercontent.com/Narcooo/inkos/8fc2ae57080b9821257dee3e37cc677e2b6f389a/assets/studio-dashboard.png"
+      "originalUrl": "https://raw.githubusercontent.com/Narcooo/inkos/8fc2ae57080b9821257dee3e37cc677e2b6f389a/assets/studio-dashboard.png",
+      "animated": false
     },
     {
       "url": "/assets/repository-guides/media-7792643db7634a2e2bb91e0e.webp",
       "alt": "InkOS Play Studio 开放世界界面",
       "sourceUrl": "https://github.com/Narcooo/inkos/blob/8fc2ae57080b9821257dee3e37cc677e2b6f389a/README.md?plain=1#L79",
-      "originalUrl": "https://raw.githubusercontent.com/Narcooo/inkos/8fc2ae57080b9821257dee3e37cc677e2b6f389a/assets/studio-play-1-5.png"
+      "originalUrl": "https://raw.githubusercontent.com/Narcooo/inkos/8fc2ae57080b9821257dee3e37cc677e2b6f389a/assets/studio-play-1-5.png",
+      "animated": false
     },
     {
       "url": "/assets/repository-guides/media-e45dffc28c9b33c777bbc0ce.webp",
       "alt": "InkOS 互动影游剧情树实测截图",
       "sourceUrl": "https://github.com/Narcooo/inkos/blob/8fc2ae57080b9821257dee3e37cc677e2b6f389a/README.md?plain=1#L78",
-      "originalUrl": "https://raw.githubusercontent.com/Narcooo/inkos/8fc2ae57080b9821257dee3e37cc677e2b6f389a/assets/interactive-film-e2e.png"
+      "originalUrl": "https://raw.githubusercontent.com/Narcooo/inkos/8fc2ae57080b9821257dee3e37cc677e2b6f389a/assets/interactive-film-e2e.png",
+      "animated": false
+    },
+    {
+      "url": "/assets/repository-guides/media-f401f0cab5ca736f499ce9e7.webp",
+      "alt": "短篇封面",
+      "sourceUrl": "https://github.com/Narcooo/inkos/blob/8fc2ae57080b9821257dee3e37cc677e2b6f389a/README.md#L536",
+      "originalUrl": "https://raw.githubusercontent.com/Narcooo/inkos/8fc2ae57080b9821257dee3e37cc677e2b6f389a/assets/inkos-short-demo-cover.png",
+      "animated": false
+    },
+    {
+      "url": "/assets/repository-guides/media-d40dfda331670b78bc63db92.webp",
+      "alt": "恋爱互动",
+      "sourceUrl": "https://github.com/Narcooo/inkos/blob/8fc2ae57080b9821257dee3e37cc677e2b6f389a/README.md#L541",
+      "originalUrl": "https://raw.githubusercontent.com/Narcooo/inkos/8fc2ae57080b9821257dee3e37cc677e2b6f389a/assets/play-openworld-romance.png",
+      "animated": false
+    },
+    {
+      "url": "/assets/repository-guides/media-5f8e0c8d0e18780406a57d1d.webp",
+      "alt": "侦探互动",
+      "sourceUrl": "https://github.com/Narcooo/inkos/blob/8fc2ae57080b9821257dee3e37cc677e2b6f389a/README.md#L546",
+      "originalUrl": "https://raw.githubusercontent.com/Narcooo/inkos/8fc2ae57080b9821257dee3e37cc677e2b6f389a/assets/play-openworld-detective.png",
+      "animated": false
     }
   ],
   "generatedBy": "claude-opus-5-5",
   "documentHash": "0484bef7483b115311a2708406ce8f8a93c8ac67f47499c21b2ebf6b1a80fdcc",
   "mediaStatus": "archived",
-  "mediaFailures": []
+  "mediaFailures": [
+    {
+      "sourceUrl": "https://github.com/Narcooo/inkos/blob/8fc2ae57080b9821257dee3e37cc677e2b6f389a/README.md#L3",
+      "reason": "unsupported_media_format"
+    },
+    {
+      "sourceUrl": "https://github.com/Narcooo/inkos/blob/8fc2ae57080b9821257dee3e37cc677e2b6f389a/README.md#L430",
+      "reason": "unsupported_media_format"
+    },
+    {
+      "sourceUrl": "https://github.com/Narcooo/inkos/blob/8fc2ae57080b9821257dee3e37cc677e2b6f389a/README.md#L471",
+      "reason": "unsupported_media_format"
+    },
+    {
+      "sourceUrl": "https://github.com/Narcooo/inkos/blob/8fc2ae57080b9821257dee3e37cc677e2b6f389a/README.md#L642",
+      "reason": "unsupported_media_host"
+    },
+    {
+      "sourceUrl": "https://github.com/Narcooo/inkos/blob/8fc2ae57080b9821257dee3e37cc677e2b6f389a/README.md#L649",
+      "reason": "unsupported_media_host"
+    },
+    {
+      "sourceUrl": "https://github.com/Narcooo/inkos/blob/8fc2ae57080b9821257dee3e37cc677e2b6f389a/README.md#L32",
+      "reason": "unsupported_media_host"
+    },
+    {
+      "sourceUrl": "https://github.com/Narcooo/inkos/blob/8fc2ae57080b9821257dee3e37cc677e2b6f389a/README.md#L436",
+      "reason": "unsupported_media_format"
+    }
+  ],
+  "mediaReferences": [
+    {
+      "label": "InkOS",
+      "url": "https://github.com/Narcooo/inkos/blob/8fc2ae57080b9821257dee3e37cc677e2b6f389a/README.md#L3"
+    },
+    {
+      "label": "InkOS 整体系统架构",
+      "url": "https://github.com/Narcooo/inkos/blob/8fc2ae57080b9821257dee3e37cc677e2b6f389a/README.md#L430"
+    },
+    {
+      "label": "InkOS 长期记忆与状态",
+      "url": "https://github.com/Narcooo/inkos/blob/8fc2ae57080b9821257dee3e37cc677e2b6f389a/README.md#L471"
+    },
+    {
+      "label": "Skills Download History",
+      "url": "https://github.com/Narcooo/inkos/blob/8fc2ae57080b9821257dee3e37cc677e2b6f389a/README.md#L642"
+    },
+    {
+      "label": "Repobeats analytics image",
+      "url": "https://github.com/Narcooo/inkos/blob/8fc2ae57080b9821257dee3e37cc677e2b6f389a/README.md#L649"
+    },
+    {
+      "label": "Kimi Open Source Friends",
+      "url": "https://github.com/Narcooo/inkos/blob/8fc2ae57080b9821257dee3e37cc677e2b6f389a/README.md#L32"
+    },
+    {
+      "label": "InkOS 章节生产管线",
+      "url": "https://github.com/Narcooo/inkos/blob/8fc2ae57080b9821257dee3e37cc677e2b6f389a/README.md#L436"
+    }
+  ]
 }

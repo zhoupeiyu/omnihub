@@ -59,23 +59,27 @@
       "url": "/assets/repository-guides/media-bd6dc5919fffa42bed2e5fe2.webp",
       "alt": "Stmol/ssh-keys-manager-macos-app 官方演示 1",
       "sourceUrl": "https://github.com/Stmol/ssh-keys-manager-macos-app/blob/2a6ee037376a351befe3e708b73f3e344166db43/README.md?plain=1#L17",
-      "originalUrl": "https://raw.githubusercontent.com/Stmol/ssh-keys-manager-macos-app/2a6ee037376a351befe3e708b73f3e344166db43/assets/screenshots/keys_tab.png"
+      "originalUrl": "https://raw.githubusercontent.com/Stmol/ssh-keys-manager-macos-app/2a6ee037376a351befe3e708b73f3e344166db43/assets/screenshots/keys_tab.png",
+      "animated": false
     },
     {
       "url": "/assets/repository-guides/media-73c7ecc11d11e486870f8b98.webp",
       "alt": "Stmol/ssh-keys-manager-macos-app 官方演示 2",
       "sourceUrl": "https://github.com/Stmol/ssh-keys-manager-macos-app/blob/2a6ee037376a351befe3e708b73f3e344166db43/README.md?plain=1#L73",
-      "originalUrl": "https://raw.githubusercontent.com/Stmol/ssh-keys-manager-macos-app/2a6ee037376a351befe3e708b73f3e344166db43/assets/screenshots/config_edit_host.png"
+      "originalUrl": "https://raw.githubusercontent.com/Stmol/ssh-keys-manager-macos-app/2a6ee037376a351befe3e708b73f3e344166db43/assets/screenshots/config_edit_host.png",
+      "animated": false
     },
     {
       "url": "/assets/repository-guides/media-d10cebe7cf3c4ae54b8f4995.webp",
       "alt": "Stmol/ssh-keys-manager-macos-app 官方演示 3",
       "sourceUrl": "https://github.com/Stmol/ssh-keys-manager-macos-app/blob/2a6ee037376a351befe3e708b73f3e344166db43/README.md?plain=1#L85",
-      "originalUrl": "https://raw.githubusercontent.com/Stmol/ssh-keys-manager-macos-app/2a6ee037376a351befe3e708b73f3e344166db43/assets/screenshots/settings_screen.png"
+      "originalUrl": "https://raw.githubusercontent.com/Stmol/ssh-keys-manager-macos-app/2a6ee037376a351befe3e708b73f3e344166db43/assets/screenshots/settings_screen.png",
+      "animated": false
     }
   ],
   "generatedBy": "claude-opus-5-5",
   "documentHash": "64c4eeab5c88f2b3ce7ff082219d75c1de5d0b38c4c8837d52a07e60e966eddf",
   "mediaStatus": "archived",
-  "mediaFailures": []
+  "mediaFailures": [],
+  "mediaReferences": []
 }

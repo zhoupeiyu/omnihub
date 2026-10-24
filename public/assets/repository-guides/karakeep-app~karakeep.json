@@ -59,5 +59,17 @@
   "media": [],
   "generatedBy": "claude-opus-5-5",
   "documentHash": "ecc3cd2eb9a38a919bea7ccb71cd9e83c2dfc01d03601a70879433e0d3f326d9",
-  "mediaStatus": "none_in_official_documents"
+  "mediaStatus": "unavailable",
+  "mediaFailures": [
+    {
+      "sourceUrl": "https://github.com/karakeep-app/karakeep/blob/f908b02e904a030604d56d8bcd871763474006c9/README.md#L111",
+      "reason": "unsupported_media_host"
+    }
+  ],
+  "mediaReferences": [
+    {
+      "label": "Buy Me A Coffee",
+      "url": "https://github.com/karakeep-app/karakeep/blob/f908b02e904a030604d56d8bcd871763474006c9/README.md#L111"
+    }
+  ]
 }

@@ -72,11 +72,111 @@
       "url": "/assets/repository-guides/media-c9292aa73377f7cb480efbac.webp",
       "alt": "cytostack/openwolf 官方演示 1",
       "sourceUrl": "https://github.com/cytostack/openwolf/blob/04b75ca9c40d10c345ae4f5157e033d7397f1b7a/README.md?plain=1#L27",
-      "originalUrl": "https://raw.githubusercontent.com/cytostack/openwolf/04b75ca9c40d10c345ae4f5157e033d7397f1b7a/assets/openwolf-dashboard.png"
+      "originalUrl": "https://raw.githubusercontent.com/cytostack/openwolf/04b75ca9c40d10c345ae4f5157e033d7397f1b7a/assets/openwolf-dashboard.png",
+      "animated": false
     }
   ],
   "generatedBy": "claude-opus-5-5",
   "documentHash": "f7e3df5a7a93cc819423990ac98940d7b2d3d10ed6eb9d9372d0299ae94e6163",
   "mediaStatus": "archived",
-  "mediaFailures": []
+  "mediaFailures": [
+    {
+      "sourceUrl": "https://github.com/cytostack/openwolf/blob/04b75ca9c40d10c345ae4f5157e033d7397f1b7a/README.md#L272",
+      "reason": "unsupported_media_host"
+    },
+    {
+      "sourceUrl": "https://github.com/cytostack/openwolf/blob/04b75ca9c40d10c345ae4f5157e033d7397f1b7a/README.md#L272",
+      "reason": "unsupported_media_host"
+    },
+    {
+      "sourceUrl": "https://github.com/cytostack/openwolf/blob/04b75ca9c40d10c345ae4f5157e033d7397f1b7a/README.md#L272",
+      "reason": "unsupported_media_host"
+    },
+    {
+      "sourceUrl": "https://github.com/cytostack/openwolf/blob/04b75ca9c40d10c345ae4f5157e033d7397f1b7a/README.md#L272",
+      "reason": "unsupported_media_host"
+    },
+    {
+      "sourceUrl": "https://github.com/cytostack/openwolf/blob/04b75ca9c40d10c345ae4f5157e033d7397f1b7a/README.md#L272",
+      "reason": "unsupported_media_host"
+    },
+    {
+      "sourceUrl": "https://github.com/cytostack/openwolf/blob/04b75ca9c40d10c345ae4f5157e033d7397f1b7a/README.md#L273",
+      "reason": "unsupported_media_host"
+    },
+    {
+      "sourceUrl": "https://github.com/cytostack/openwolf/blob/04b75ca9c40d10c345ae4f5157e033d7397f1b7a/README.md#L273",
+      "reason": "unsupported_media_host"
+    },
+    {
+      "sourceUrl": "https://github.com/cytostack/openwolf/blob/04b75ca9c40d10c345ae4f5157e033d7397f1b7a/README.md#L273",
+      "reason": "unsupported_media_host"
+    },
+    {
+      "sourceUrl": "https://github.com/cytostack/openwolf/blob/04b75ca9c40d10c345ae4f5157e033d7397f1b7a/README.md#L273",
+      "reason": "unsupported_media_host"
+    },
+    {
+      "sourceUrl": "https://github.com/cytostack/openwolf/blob/04b75ca9c40d10c345ae4f5157e033d7397f1b7a/README.md#L273",
+      "reason": "unsupported_media_host"
+    },
+    {
+      "sourceUrl": "https://github.com/cytostack/openwolf/blob/04b75ca9c40d10c345ae4f5157e033d7397f1b7a/README.md#L274",
+      "reason": "unsupported_media_host"
+    },
+    {
+      "sourceUrl": "https://github.com/cytostack/openwolf/blob/04b75ca9c40d10c345ae4f5157e033d7397f1b7a/README.md#L274",
+      "reason": "unsupported_media_host"
+    }
+  ],
+  "mediaReferences": [
+    {
+      "label": "Contributors",
+      "url": "https://github.com/cytostack/openwolf/blob/04b75ca9c40d10c345ae4f5157e033d7397f1b7a/README.md#L272"
+    },
+    {
+      "label": "Contributors",
+      "url": "https://github.com/cytostack/openwolf/blob/04b75ca9c40d10c345ae4f5157e033d7397f1b7a/README.md#L272"
+    },
+    {
+      "label": "Contributors",
+      "url": "https://github.com/cytostack/openwolf/blob/04b75ca9c40d10c345ae4f5157e033d7397f1b7a/README.md#L272"
+    },
+    {
+      "label": "Contributors",
+      "url": "https://github.com/cytostack/openwolf/blob/04b75ca9c40d10c345ae4f5157e033d7397f1b7a/README.md#L272"
+    },
+    {
+      "label": "Contributors",
+      "url": "https://github.com/cytostack/openwolf/blob/04b75ca9c40d10c345ae4f5157e033d7397f1b7a/README.md#L272"
+    },
+    {
+      "label": "Contributors",
+      "url": "https://github.com/cytostack/openwolf/blob/04b75ca9c40d10c345ae4f5157e033d7397f1b7a/README.md#L273"
+    },
+    {
+      "label": "Contributors",
+      "url": "https://github.com/cytostack/openwolf/blob/04b75ca9c40d10c345ae4f5157e033d7397f1b7a/README.md#L273"
+    },
+    {
+      "label": "Contributors",
+      "url": "https://github.com/cytostack/openwolf/blob/04b75ca9c40d10c345ae4f5157e033d7397f1b7a/README.md#L273"
+    },
+    {
+      "label": "Contributors",
+      "url": "https://github.com/cytostack/openwolf/blob/04b75ca9c40d10c345ae4f5157e033d7397f1b7a/README.md#L273"
+    },
+    {
+      "label": "Contributors",
+      "url": "https://github.com/cytostack/openwolf/blob/04b75ca9c40d10c345ae4f5157e033d7397f1b7a/README.md#L273"
+    },
+    {
+      "label": "Contributors",
+      "url": "https://github.com/cytostack/openwolf/blob/04b75ca9c40d10c345ae4f5157e033d7397f1b7a/README.md#L274"
+    },
+    {
+      "label": "Contributors",
+      "url": "https://github.com/cytostack/openwolf/blob/04b75ca9c40d10c345ae4f5157e033d7397f1b7a/README.md#L274"
+    }
+  ]
 }

@@ -68,8 +68,35 @@
       "url": "https://github.com/fishaudio/fish-speech/blob/214da3cd841bda85da2496b96cd3c4d7edb1337e/docs/README.zh.md"
     }
   ],
-  "media": [],
+  "media": [
+    {
+      "url": "/assets/repository-guides/media-2bfdcd9b04c47e74f70bbf37.webp",
+      "alt": "Highlights",
+      "sourceUrl": "https://github.com/fishaudio/fish-speech/blob/214da3cd841bda85da2496b96cd3c4d7edb1337e/README.md#L109",
+      "originalUrl": "https://raw.githubusercontent.com/fishaudio/fish-speech/214da3cd841bda85da2496b96cd3c4d7edb1337e/docs/assets/totalability.png",
+      "animated": false
+    },
+    {
+      "url": "/assets/repository-guides/media-03402743e62d43c4132379b0.webp",
+      "alt": "Native Multi-Speaker Generation",
+      "sourceUrl": "https://github.com/fishaudio/fish-speech/blob/214da3cd841bda85da2496b96cd3c4d7edb1337e/README.md#L151",
+      "originalUrl": "https://raw.githubusercontent.com/fishaudio/fish-speech/214da3cd841bda85da2496b96cd3c4d7edb1337e/docs/assets/chattemplate.png",
+      "animated": false
+    }
+  ],
   "generatedBy": "claude-opus-5-5",
   "documentHash": "cdc0b5e0046216b7337ec5ebf9e470614d8e863b5ce363401c60dc043b15aea4",
-  "mediaStatus": "none_in_official_documents"
+  "mediaStatus": "archived",
+  "mediaFailures": [
+    {
+      "sourceUrl": "https://github.com/fishaudio/fish-speech/blob/214da3cd841bda85da2496b96cd3c4d7edb1337e/README.md#L15",
+      "reason": "unsupported_media_host"
+    }
+  ],
+  "mediaReferences": [
+    {
+      "label": "项目介绍",
+      "url": "https://github.com/fishaudio/fish-speech/blob/214da3cd841bda85da2496b96cd3c4d7edb1337e/README.md#L15"
+    }
+  ]
 }

@@ -71,11 +71,30 @@
       "url": "/assets/repository-guides/media-ca4a95d819693af8d2449dff.webp",
       "alt": "Manavarya09/design-extract 官方演示 1",
       "sourceUrl": "https://github.com/Manavarya09/design-extract/blob/fed355b34a3613b7950659a1898cd763d6c8f9d1/README.md?plain=1#L23",
-      "originalUrl": "https://raw.githubusercontent.com/Manavarya09/design-extract/main/designlang.png"
+      "originalUrl": "https://raw.githubusercontent.com/Manavarya09/design-extract/main/designlang.png",
+      "animated": false
+    },
+    {
+      "url": "/assets/repository-guides/media-ca4a95d819693af8d2449dff.webp",
+      "alt": "designlang in action — extracts DTCG tokens, Tailwind config, Figma variables, brand book PDF",
+      "sourceUrl": "https://github.com/Manavarya09/design-extract/blob/fed355b34a3613b7950659a1898cd763d6c8f9d1/README.md#L23",
+      "originalUrl": "https://raw.githubusercontent.com/Manavarya09/design-extract/fed355b34a3613b7950659a1898cd763d6c8f9d1/designlang.png",
+      "animated": false
     }
   ],
   "generatedBy": "claude-opus-5-5",
   "documentHash": "35bdc940995fe491f0025890fc376f26d09ca25d48df5f748a7f06220ec06790",
   "mediaStatus": "archived",
-  "mediaFailures": []
+  "mediaFailures": [
+    {
+      "sourceUrl": "https://github.com/Manavarya09/design-extract/blob/fed355b34a3613b7950659a1898cd763d6c8f9d1/README.md#L26",
+      "reason": "unsupported_media_host"
+    }
+  ],
+  "mediaReferences": [
+    {
+      "label": "designlang on npm",
+      "url": "https://github.com/Manavarya09/design-extract/blob/fed355b34a3613b7950659a1898cd763d6c8f9d1/README.md#L26"
+    }
+  ]
 }

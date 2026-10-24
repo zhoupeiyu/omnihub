@@ -62,11 +62,23 @@
       "url": "/assets/repository-guides/media-4e27094d47ac207fe2de3f36.webp",
       "alt": "browser-use/jev-ultrafast 官方演示 1",
       "sourceUrl": "https://github.com/browser-use/jev-ultrafast/blob/1231850a0bf1a0c0341fe408ef1668dbbfdfac46/README.md?plain=1#L15",
-      "originalUrl": "https://raw.githubusercontent.com/browser-use/jev-ultrafast/1231850a0bf1a0c0341fe408ef1668dbbfdfac46/docs/demo.gif"
+      "originalUrl": "https://raw.githubusercontent.com/browser-use/jev-ultrafast/1231850a0bf1a0c0341fe408ef1668dbbfdfac46/docs/demo.gif",
+      "animated": true
     }
   ],
   "generatedBy": "claude-opus-5-5",
   "documentHash": "29f5276b3e6295cabe322cda598e354a9e053dbfd9d831d20f09d0cca279a379",
   "mediaStatus": "archived",
-  "mediaFailures": []
+  "mediaFailures": [
+    {
+      "sourceUrl": "https://github.com/browser-use/jev-ultrafast/blob/1231850a0bf1a0c0341fe408ef1668dbbfdfac46/README.md#L1",
+      "reason": "unsupported_media_format"
+    }
+  ],
+  "mediaReferences": [
+    {
+      "label": "Jev Ultrafast · Browser Use × TypeSafe",
+      "url": "https://github.com/browser-use/jev-ultrafast/blob/1231850a0bf1a0c0341fe408ef1668dbbfdfac46/README.md#L1"
+    }
+  ]
 }

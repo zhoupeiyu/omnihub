@@ -59,11 +59,23 @@
       "url": "/assets/repository-guides/media-5a2705c5cb93e12a223dffd9.webp",
       "alt": "DetachHead/rebased 官方演示 1",
       "sourceUrl": "https://github.com/DetachHead/rebased/blob/3f9618604fda6da593f8b86892b83d23b72ba48b/README.md?plain=1#L7",
-      "originalUrl": "https://raw.githubusercontent.com/DetachHead/rebased/3f9618604fda6da593f8b86892b83d23b72ba48b/screenshot.png"
+      "originalUrl": "https://raw.githubusercontent.com/DetachHead/rebased/3f9618604fda6da593f8b86892b83d23b72ba48b/screenshot.png",
+      "animated": false
     }
   ],
   "generatedBy": "claude-opus-5-5",
   "documentHash": "54c9a250dff5ea92ea8744a7b8e2bd2fe8f619bdb68b9a308714ae6ab34ce5dc",
   "mediaStatus": "archived",
-  "mediaFailures": []
+  "mediaFailures": [
+    {
+      "sourceUrl": "https://github.com/DetachHead/rebased/blob/3f9618604fda6da593f8b86892b83d23b72ba48b/README.md#L2",
+      "reason": "unsupported_media_format"
+    }
+  ],
+  "mediaReferences": [
+    {
+      "label": "项目介绍",
+      "url": "https://github.com/DetachHead/rebased/blob/3f9618604fda6da593f8b86892b83d23b72ba48b/README.md#L2"
+    }
+  ]
 }

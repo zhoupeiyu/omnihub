@@ -59,23 +59,58 @@
       "url": "/assets/repository-guides/media-3d6495c33f065f3912845507.webp",
       "alt": "freestylefly/awesome-gpt-image-2 官方演示 1",
       "sourceUrl": "https://github.com/freestylefly/awesome-gpt-image-2/blob/b93c18ad45397c828fcc39a1ed347830433b3de4/README.md?plain=1#L45",
-      "originalUrl": "https://raw.githubusercontent.com/freestylefly/awesome-gpt-image-2/b93c18ad45397c828fcc39a1ed347830433b3de4/data/images/site-preview.png"
+      "originalUrl": "https://raw.githubusercontent.com/freestylefly/awesome-gpt-image-2/b93c18ad45397c828fcc39a1ed347830433b3de4/data/images/site-preview.png",
+      "animated": false
     },
     {
       "url": "/assets/repository-guides/media-d854c521d39b9e9d0aa651f6.webp",
       "alt": "freestylefly/awesome-gpt-image-2 官方演示 2",
       "sourceUrl": "https://github.com/freestylefly/awesome-gpt-image-2/blob/b93c18ad45397c828fcc39a1ed347830433b3de4/README.md?plain=1#L259",
-      "originalUrl": "https://raw.githubusercontent.com/freestylefly/awesome-gpt-image-2/b93c18ad45397c828fcc39a1ed347830433b3de4/agents/skills/gpt-image-2-style-library/assets/city-life-system-map.png"
+      "originalUrl": "https://raw.githubusercontent.com/freestylefly/awesome-gpt-image-2/b93c18ad45397c828fcc39a1ed347830433b3de4/agents/skills/gpt-image-2-style-library/assets/city-life-system-map.png",
+      "animated": false
     },
     {
       "url": "/assets/repository-guides/media-57f1c910a95e6198b8bc9d39.webp",
       "alt": "freestylefly/awesome-gpt-image-2 官方演示 3",
       "sourceUrl": "https://github.com/freestylefly/awesome-gpt-image-2/blob/b93c18ad45397c828fcc39a1ed347830433b3de4/README.md?plain=1#L35",
-      "originalUrl": "https://raw.githubusercontent.com/freestylefly/awesome-gpt-image-2/b93c18ad45397c828fcc39a1ed347830433b3de4/docs/design/gpt-image-2-5/case532-preview.jpg"
+      "originalUrl": "https://raw.githubusercontent.com/freestylefly/awesome-gpt-image-2/b93c18ad45397c828fcc39a1ed347830433b3de4/docs/design/gpt-image-2-5/case532-preview.jpg",
+      "animated": false
+    },
+    {
+      "url": "/assets/repository-guides/media-9de99abf598844507c94e424.webp",
+      "alt": "UI and interfaces",
+      "sourceUrl": "https://github.com/freestylefly/awesome-gpt-image-2/blob/b93c18ad45397c828fcc39a1ed347830433b3de4/README.md#L104",
+      "originalUrl": "https://raw.githubusercontent.com/freestylefly/awesome-gpt-image-2/b93c18ad45397c828fcc39a1ed347830433b3de4/data/images/category-covers/ui.jpg",
+      "animated": false
+    },
+    {
+      "url": "/assets/repository-guides/media-a39f459019402488a7e62e54.webp",
+      "alt": "Urban Metabolism Atlas",
+      "sourceUrl": "https://github.com/freestylefly/awesome-gpt-image-2/blob/b93c18ad45397c828fcc39a1ed347830433b3de4/README.md#L376",
+      "originalUrl": "https://raw.githubusercontent.com/freestylefly/awesome-gpt-image-2/b93c18ad45397c828fcc39a1ed347830433b3de4/data/images/case1.jpg",
+      "animated": false
+    },
+    {
+      "url": "/assets/repository-guides/media-1f9d55ba1a30b2e40ad7b332.webp",
+      "alt": "Ailln AI",
+      "sourceUrl": "https://github.com/freestylefly/awesome-gpt-image-2/blob/b93c18ad45397c828fcc39a1ed347830433b3de4/README.md#L383",
+      "originalUrl": "https://raw.githubusercontent.com/freestylefly/awesome-gpt-image-2/b93c18ad45397c828fcc39a1ed347830433b3de4/data/images/case2.jpg",
+      "animated": false
     }
   ],
   "generatedBy": "claude-opus-5-5",
   "documentHash": "11c4202e08b10f7eb6a3e9967c9b9aa8e6bd5ee16e7d9d795216d3fcb1cb4d29",
   "mediaStatus": "archived",
-  "mediaFailures": []
+  "mediaFailures": [
+    {
+      "sourceUrl": "https://github.com/freestylefly/awesome-gpt-image-2/blob/b93c18ad45397c828fcc39a1ed347830433b3de4/README.md#L1",
+      "reason": "unsupported_media_format"
+    }
+  ],
+  "mediaReferences": [
+    {
+      "label": "GPT-Image2 Prompt System",
+      "url": "https://github.com/freestylefly/awesome-gpt-image-2/blob/b93c18ad45397c828fcc39a1ed347830433b3de4/README.md#L1"
+    }
+  ]
 }

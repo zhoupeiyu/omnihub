@@ -54,8 +54,46 @@
     "README 徽章标注目录内容采用 CC BY 4.0 许可，被收录的各项目各自适用自己的许可。"
   ],
   "references": [],
-  "media": [],
+  "media": [
+    {
+      "url": "/assets/repository-guides/media-16f95ba1f827fb592badcd03.webp",
+      "alt": "Hermes Agent",
+      "sourceUrl": "https://github.com/0xNyk/awesome-hermes-agent/blob/9c87ae281f7291702dc6eeb85305ec369578f24e/README.md#L3",
+      "originalUrl": "https://raw.githubusercontent.com/0xNyk/awesome-hermes-agent/9c87ae281f7291702dc6eeb85305ec369578f24e/assets/hermes-agent-banner.png",
+      "animated": false
+    },
+    {
+      "url": "/assets/repository-guides/media-536dbd543e6e211eb20f2567.webp",
+      "alt": "Hermes runtime and optional ecosystem layers",
+      "sourceUrl": "https://github.com/0xNyk/awesome-hermes-agent/blob/9c87ae281f7291702dc6eeb85305ec369578f24e/README.md#L31",
+      "originalUrl": "https://raw.githubusercontent.com/0xNyk/awesome-hermes-agent/9c87ae281f7291702dc6eeb85305ec369578f24e/assets/runtime-map.jpeg",
+      "animated": false
+    },
+    {
+      "url": "/assets/repository-guides/media-271412b940a5355d9d75807a.webp",
+      "alt": "Start with a working Hermes conversation before adding ecosystem layers",
+      "sourceUrl": "https://github.com/0xNyk/awesome-hermes-agent/blob/9c87ae281f7291702dc6eeb85305ec369578f24e/README.md#L74",
+      "originalUrl": "https://raw.githubusercontent.com/0xNyk/awesome-hermes-agent/9c87ae281f7291702dc6eeb85305ec369578f24e/assets/start-path.jpeg",
+      "animated": false
+    },
+    {
+      "url": "/assets/repository-guides/media-f9845f77e71b2fe57e1f7e93.webp",
+      "alt": "Hermes capability and permission trust-boundary checklist",
+      "sourceUrl": "https://github.com/0xNyk/awesome-hermes-agent/blob/9c87ae281f7291702dc6eeb85305ec369578f24e/README.md#L98",
+      "originalUrl": "https://raw.githubusercontent.com/0xNyk/awesome-hermes-agent/9c87ae281f7291702dc6eeb85305ec369578f24e/assets/trust-boundary.jpeg",
+      "animated": false
+    },
+    {
+      "url": "/assets/repository-guides/media-ef16971b8a968c546f98e9c5.webp",
+      "alt": "Editorial evidence behind production, beta, and experimental tags",
+      "sourceUrl": "https://github.com/0xNyk/awesome-hermes-agent/blob/9c87ae281f7291702dc6eeb85305ec369578f24e/README.md#L84",
+      "originalUrl": "https://raw.githubusercontent.com/0xNyk/awesome-hermes-agent/9c87ae281f7291702dc6eeb85305ec369578f24e/assets/maturity-notes.jpeg",
+      "animated": false
+    }
+  ],
   "generatedBy": "claude-opus-5-5",
   "documentHash": "09934d5e6e0f29ecdfe04245cc937ab77fba739e262aa5b779bcfd7ac25e5456",
-  "mediaStatus": "none_in_official_documents"
+  "mediaStatus": "archived",
+  "mediaFailures": [],
+  "mediaReferences": []
 }

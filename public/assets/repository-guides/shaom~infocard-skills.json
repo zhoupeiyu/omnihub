@@ -64,11 +64,20 @@
       "url": "/assets/repository-guides/media-54f9a3a5e6a453591b5b1240.webp",
       "alt": "shaom/infocard-skills 官方演示 1",
       "sourceUrl": "https://github.com/shaom/infocard-skills/blob/e1121078dc305e62316221c4bc8a445a9ea14cc5/README.md?plain=1#L46",
-      "originalUrl": "https://raw.githubusercontent.com/shaom/infocard-skills/e1121078dc305e62316221c4bc8a445a9ea14cc5/docs/assets/layout-showcase-4x3.png"
+      "originalUrl": "https://raw.githubusercontent.com/shaom/infocard-skills/e1121078dc305e62316221c4bc8a445a9ea14cc5/docs/assets/layout-showcase-4x3.png",
+      "animated": false
+    },
+    {
+      "url": "/assets/repository-guides/media-8dae6f4353fbd23e2e3c97af.webp",
+      "alt": "infocard-skills header",
+      "sourceUrl": "https://github.com/shaom/infocard-skills/blob/e1121078dc305e62316221c4bc8a445a9ea14cc5/README.md#L7",
+      "originalUrl": "https://raw.githubusercontent.com/shaom/infocard-skills/e1121078dc305e62316221c4bc8a445a9ea14cc5/docs/assets/project-header-3x1.png",
+      "animated": false
     }
   ],
   "generatedBy": "claude-opus-5-5",
   "documentHash": "277e9949ebacb874f0216f5f3861f4246516d12ccb81119c90424ea96d60201b",
   "mediaStatus": "archived",
-  "mediaFailures": []
+  "mediaFailures": [],
+  "mediaReferences": []
 }

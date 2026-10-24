@@ -60,8 +60,18 @@
       "url": "https://github.com/virgiliojr94/book-to-skill/blob/c108d25b0cb58e1bdc361f3de02ed9f37075152f/docs/install.md"
     }
   ],
-  "media": [],
+  "media": [
+    {
+      "url": "/assets/repository-guides/media-339386a319c042dbd31bc4c6.webp",
+      "alt": "Booklin, the book-to-skill wizard, holding an open book whose pages scatter into sparkles that settle into an ordered grid",
+      "sourceUrl": "https://github.com/virgiliojr94/book-to-skill/blob/c108d25b0cb58e1bdc361f3de02ed9f37075152f/README.md#L2",
+      "originalUrl": "https://raw.githubusercontent.com/virgiliojr94/book-to-skill/c108d25b0cb58e1bdc361f3de02ed9f37075152f/docs/assets/banner.webp",
+      "animated": false
+    }
+  ],
   "generatedBy": "claude-opus-5-5",
   "documentHash": "ada8c632cf514e79734e2aff2f7755cc6fa999a16873fba8913164332fa2fe38",
-  "mediaStatus": "none_in_official_documents"
+  "mediaStatus": "archived",
+  "mediaFailures": [],
+  "mediaReferences": []
 }

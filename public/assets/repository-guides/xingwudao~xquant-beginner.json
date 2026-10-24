@@ -62,8 +62,32 @@
     "README 说明在线开源版可能不是最新内容，最新书稿在 xquant.shop 的课堂页。该站点同时提供课程和组合商店等商业内容。"
   ],
   "references": [],
-  "media": [],
+  "media": [
+    {
+      "url": "/assets/repository-guides/media-59bfc7d15dca1afcfe59fa94.webp",
+      "alt": "公众号：刑无刀",
+      "sourceUrl": "https://github.com/xingwudao/xquant-beginner/blob/fc9a7c445d51ddbe76c7d59bec59f2eb89fe0ddc/README.md#L102",
+      "originalUrl": "https://raw.githubusercontent.com/xingwudao/xquant-beginner/fc9a7c445d51ddbe76c7d59bec59f2eb89fe0ddc/book/images/home/xingwudao.jpg",
+      "animated": false
+    },
+    {
+      "url": "/assets/repository-guides/media-bc7b1e34f7778542bc778c32.webp",
+      "alt": "公众号：i锐角",
+      "sourceUrl": "https://github.com/xingwudao/xquant-beginner/blob/fc9a7c445d51ddbe76c7d59bec59f2eb89fe0ddc/README.md#L111",
+      "originalUrl": "https://raw.githubusercontent.com/xingwudao/xquant-beginner/fc9a7c445d51ddbe76c7d59bec59f2eb89fe0ddc/book/images/home/iruijiao.jpg",
+      "animated": false
+    },
+    {
+      "url": "/assets/repository-guides/media-516f8bbb2f0477fb6ad80793.webp",
+      "alt": "XQuant-Shop 服务号",
+      "sourceUrl": "https://github.com/xingwudao/xquant-beginner/blob/fc9a7c445d51ddbe76c7d59bec59f2eb89fe0ddc/README.md#L122",
+      "originalUrl": "https://raw.githubusercontent.com/xingwudao/xquant-beginner/fc9a7c445d51ddbe76c7d59bec59f2eb89fe0ddc/book/images/home/xquant-shop.jpg",
+      "animated": false
+    }
+  ],
   "generatedBy": "claude-opus-5-5",
   "documentHash": "b93cee7b70baa96a882a38bd50ade9fe55ecb0981f404eaaf3438336ee13f8d5",
-  "mediaStatus": "none_in_official_documents"
+  "mediaStatus": "archived",
+  "mediaFailures": [],
+  "mediaReferences": []
 }

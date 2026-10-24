@@ -68,20 +68,34 @@
       "url": "/assets/repository-guides/media-1098f99b8c363c1a19d3bc63.webp",
       "alt": "digitalsamba/claude-code-video-toolkit 官方演示 1",
       "sourceUrl": "https://github.com/digitalsamba/claude-code-video-toolkit/blob/225c80a1c3a57c82d319ea6c73e0eff513787ae8/README.md?plain=1#L17",
-      "originalUrl": "https://raw.githubusercontent.com/digitalsamba/claude-code-video-toolkit/225c80a1c3a57c82d319ea6c73e0eff513787ae8/assets/readme-thumbs/q2-townhall-longarm-ad.jpg"
+      "originalUrl": "https://raw.githubusercontent.com/digitalsamba/claude-code-video-toolkit/225c80a1c3a57c82d319ea6c73e0eff513787ae8/assets/readme-thumbs/q2-townhall-longarm-ad.jpg",
+      "animated": false
+    },
+    {
+      "url": "/assets/repository-guides/media-3b1a1cc710e623792af46b77.webp",
+      "alt": "claude-code-video-toolkit — NARRATE ▸ SCORE ▸ GENERATE ▸ COMPOSE ▸ RENDER",
+      "sourceUrl": "https://github.com/digitalsamba/claude-code-video-toolkit/blob/225c80a1c3a57c82d319ea6c73e0eff513787ae8/README.md#L4",
+      "originalUrl": "https://raw.githubusercontent.com/digitalsamba/claude-code-video-toolkit/225c80a1c3a57c82d319ea6c73e0eff513787ae8/assets/banner/toolkit-banner.gif",
+      "animated": true
+    },
+    {
+      "url": "/assets/repository-guides/media-72fd0d3e0c6320feb7d591b4.webp",
+      "alt": "AI hallucinations explainer short",
+      "sourceUrl": "https://github.com/digitalsamba/claude-code-video-toolkit/blob/225c80a1c3a57c82d319ea6c73e0eff513787ae8/README.md#L17",
+      "originalUrl": "https://raw.githubusercontent.com/digitalsamba/claude-code-video-toolkit/225c80a1c3a57c82d319ea6c73e0eff513787ae8/assets/readme-thumbs/hallucinations-short.jpg",
+      "animated": false
+    },
+    {
+      "url": "/assets/repository-guides/media-ac443f998d41f865830d2719.webp",
+      "alt": "Why is the sky blue? short",
+      "sourceUrl": "https://github.com/digitalsamba/claude-code-video-toolkit/blob/225c80a1c3a57c82d319ea6c73e0eff513787ae8/README.md#L17",
+      "originalUrl": "https://raw.githubusercontent.com/digitalsamba/claude-code-video-toolkit/225c80a1c3a57c82d319ea6c73e0eff513787ae8/assets/readme-thumbs/sky-blue-short.jpg",
+      "animated": false
     }
   ],
   "generatedBy": "claude-opus-5-5",
   "documentHash": "582ded86d03265d253673b0b4b6d156007b1f5f11ca4ef13e1d7973be88ec312",
   "mediaStatus": "archived",
-  "mediaFailures": [
-    {
-      "sourceUrl": "https://github.com/digitalsamba/claude-code-video-toolkit/blob/225c80a1c3a57c82d319ea6c73e0eff513787ae8/README.md#L17",
-      "reason": "non_demo_dimensions"
-    },
-    {
-      "sourceUrl": "https://github.com/digitalsamba/claude-code-video-toolkit/blob/225c80a1c3a57c82d319ea6c73e0eff513787ae8/README.md#L17",
-      "reason": "non_demo_dimensions"
-    }
-  ]
+  "mediaFailures": [],
+  "mediaReferences": []
 }

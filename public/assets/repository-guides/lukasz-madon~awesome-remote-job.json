@@ -69,5 +69,17 @@
   "media": [],
   "generatedBy": "claude-opus-5-5",
   "documentHash": "1153e551e6a42eb51dfcd15c909f05aa1c27e72f60ce040fd15d3b9de31f1d58",
-  "mediaStatus": "none_in_official_documents"
+  "mediaStatus": "unavailable",
+  "mediaFailures": [
+    {
+      "sourceUrl": "https://github.com/lukasz-madon/awesome-remote-job/blob/d7c1d773841358f72212c4c1a123adff6af56c78/README.md#L631",
+      "reason": "unsupported_media_host"
+    }
+  ],
+  "mediaReferences": [
+    {
+      "label": "CC0",
+      "url": "https://github.com/lukasz-madon/awesome-remote-job/blob/d7c1d773841358f72212c4c1a123adff6af56c78/README.md#L631"
+    }
+  ]
 }

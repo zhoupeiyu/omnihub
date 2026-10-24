@@ -60,23 +60,48 @@
       "url": "/assets/repository-guides/media-b8647a50972333e1d5a736a8.webp",
       "alt": "yikart/AiToEarn 官方演示 1",
       "sourceUrl": "https://github.com/yikart/AiToEarn/blob/3581f511293236044e56fad67958cfcea0def6b5/README.md?plain=1#L115",
-      "originalUrl": "https://raw.githubusercontent.com/yikart/AiToEarn/3581f511293236044e56fad67958cfcea0def6b5/presentation/publish-cn.png"
+      "originalUrl": "https://raw.githubusercontent.com/yikart/AiToEarn/3581f511293236044e56fad67958cfcea0def6b5/presentation/publish-cn.png",
+      "animated": false
     },
     {
       "url": "/assets/repository-guides/media-e404e609d4241cc32872bc86.webp",
       "alt": "yikart/AiToEarn 官方演示 2",
       "sourceUrl": "https://github.com/yikart/AiToEarn/blob/3581f511293236044e56fad67958cfcea0def6b5/README.md?plain=1#L115",
-      "originalUrl": "https://raw.githubusercontent.com/yikart/AiToEarn/3581f511293236044e56fad67958cfcea0def6b5/presentation/channel-cn.png"
+      "originalUrl": "https://raw.githubusercontent.com/yikart/AiToEarn/3581f511293236044e56fad67958cfcea0def6b5/presentation/channel-cn.png",
+      "animated": false
     },
     {
       "url": "/assets/repository-guides/media-c95957616e9c422f00ccab24.webp",
       "alt": "获取 API Key",
       "sourceUrl": "https://github.com/yikart/AiToEarn/blob/3581f511293236044e56fad67958cfcea0def6b5/README.md?plain=1#L179",
-      "originalUrl": "https://raw.githubusercontent.com/yikart/AiToEarn/3581f511293236044e56fad67958cfcea0def6b5/presentation/app-screenshot/0.%20api-key/api-key-settings.png"
+      "originalUrl": "https://raw.githubusercontent.com/yikart/AiToEarn/3581f511293236044e56fad67958cfcea0def6b5/presentation/app-screenshot/0.%20api-key/api-key-settings.png",
+      "animated": false
+    },
+    {
+      "url": "/assets/repository-guides/media-d971c70c66a20abf564cf35b.webp",
+      "alt": "💰 Monetize —— 内容赚钱",
+      "sourceUrl": "https://github.com/yikart/AiToEarn/blob/3581f511293236044e56fad67958cfcea0def6b5/README.md#L104",
+      "originalUrl": "https://raw.githubusercontent.com/yikart/AiToEarn/3581f511293236044e56fad67958cfcea0def6b5/presentation/monetize-cn.png",
+      "animated": false
+    },
+    {
+      "url": "/assets/repository-guides/media-f74c6b4a893f9610bcea6095.webp",
+      "alt": "Engage 演示视频",
+      "sourceUrl": "https://github.com/yikart/AiToEarn/blob/3581f511293236044e56fad67958cfcea0def6b5/README.md#L137",
+      "originalUrl": "https://raw.githubusercontent.com/yikart/AiToEarn/3581f511293236044e56fad67958cfcea0def6b5/presentation/engage-thumbnail-cn.png",
+      "animated": false
+    },
+    {
+      "url": "/assets/repository-guides/media-337ac87c9cc1ab35a0465741.webp",
+      "alt": "Create 演示视频",
+      "sourceUrl": "https://github.com/yikart/AiToEarn/blob/3581f511293236044e56fad67958cfcea0def6b5/README.md#L155",
+      "originalUrl": "https://raw.githubusercontent.com/yikart/AiToEarn/3581f511293236044e56fad67958cfcea0def6b5/presentation/display-1.5.2png.png",
+      "animated": false
     }
   ],
   "generatedBy": "claude-opus-5-5",
   "documentHash": "57f39ba4383a392e8225e49b7f0e526c560b6219dedddeebe85220a6dae72dc1",
   "mediaStatus": "archived",
-  "mediaFailures": []
+  "mediaFailures": [],
+  "mediaReferences": []
 }

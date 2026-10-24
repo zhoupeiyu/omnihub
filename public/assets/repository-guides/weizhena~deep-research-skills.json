@@ -72,8 +72,18 @@
       "url": "https://github.com/Weizhena/Deep-Research-skills/blob/6ce38f60e3f8b22502c29873f96503a4e0c5addb/README.zh.md"
     }
   ],
-  "media": [],
+  "media": [
+    {
+      "url": "/assets/repository-guides/media-d34180ba595adc85195537db.webp",
+      "alt": "Deep Research Skills Workflow",
+      "sourceUrl": "https://github.com/Weizhena/Deep-Research-skills/blob/6ce38f60e3f8b22502c29873f96503a4e0c5addb/README.md#L11",
+      "originalUrl": "https://raw.githubusercontent.com/Weizhena/Deep-Research-skills/6ce38f60e3f8b22502c29873f96503a4e0c5addb/workflow.png",
+      "animated": false
+    }
+  ],
   "generatedBy": "claude-opus-5-5",
   "documentHash": "4d3d8acc039735203e8bc0576794a2b09dbb1ee5adc62e9d423be5d51f0de152",
-  "mediaStatus": "none_in_official_documents"
+  "mediaStatus": "archived",
+  "mediaFailures": [],
+  "mediaReferences": []
 }

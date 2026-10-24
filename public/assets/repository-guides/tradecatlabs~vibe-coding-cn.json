@@ -64,5 +64,17 @@
   "media": [],
   "generatedBy": "claude-opus-5-5",
   "documentHash": "daf0077c246497321c867895591b40defaadc112d64785b88958b93dbd8193ba",
-  "mediaStatus": "none_in_official_documents"
+  "mediaStatus": "unavailable",
+  "mediaFailures": [
+    {
+      "sourceUrl": "https://github.com/tradecatlabs/vibe-coding-cn/blob/81fc7ae599da7b7b0ce02ea0b069a2c88d288a4e/README.md#L8",
+      "reason": "unsupported_media_host"
+    }
+  ],
+  "mediaReferences": [
+    {
+      "label": "Vibe Coding 指南",
+      "url": "https://github.com/tradecatlabs/vibe-coding-cn/blob/81fc7ae599da7b7b0ce02ea0b069a2c88d288a4e/README.md#L8"
+    }
+  ]
 }

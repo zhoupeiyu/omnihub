@@ -57,8 +57,32 @@
     "项目采用 LGPL-3.0 许可证；源码构建时，MSRV 通常等于最新的 Rust 稳定版。"
   ],
   "references": [],
-  "media": [],
+  "media": [
+    {
+      "url": "/assets/repository-guides/media-e8e12dbf151985f75393fea8.webp",
+      "alt": "nautilus-trader",
+      "sourceUrl": "https://github.com/nautechsystems/nautilus_trader/blob/a1c04285ffe57052923751eb94a9a6377f54b3ad/README.md#L50",
+      "originalUrl": "https://github.com/nautechsystems/nautilus_trader/raw/develop/assets/nautilus-trader.png",
+      "animated": false
+    },
+    {
+      "url": "/assets/repository-guides/media-3fb8a80b46c2c0ed052b5086.webp",
+      "alt": "nautilus",
+      "sourceUrl": "https://github.com/nautechsystems/nautilus_trader/blob/a1c04285ffe57052923751eb94a9a6377f54b3ad/README.md#L65",
+      "originalUrl": "https://github.com/nautechsystems/nautilus_trader/raw/develop/assets/nautilus-art.png",
+      "animated": false
+    },
+    {
+      "url": "/assets/repository-guides/media-ab220474a5b453a0c89859c2.webp",
+      "alt": "Ferris",
+      "sourceUrl": "https://github.com/nautechsystems/nautilus_trader/blob/a1c04285ffe57052923751eb94a9a6377f54b3ad/README.md#L674",
+      "originalUrl": "https://github.com/nautechsystems/nautilus_trader/raw/develop/assets/ferris.png",
+      "animated": false
+    }
+  ],
   "generatedBy": "claude-opus-5-5",
   "documentHash": "2f214ae1f49e5e0a9d4519398af11dbadd7e51569e875afae110bd81568d117d",
-  "mediaStatus": "none_in_official_documents"
+  "mediaStatus": "archived",
+  "mediaFailures": [],
+  "mediaReferences": []
 }

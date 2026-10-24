@@ -68,13 +68,29 @@
       "url": "/assets/repository-guides/media-972439b00bacf48fe3857617.webp",
       "alt": "PKM-er/Blue-topaz-example 官方演示 1",
       "sourceUrl": "https://github.com/PKM-er/Blue-topaz-example/blob/96ecdaa485f0b4e4b8c22c7fea4394be1b882c83/README.md?plain=1#L66",
-      "originalUrl": "https://user-images.githubusercontent.com/42957010/165482190-91dc0585-9e75-406c-a7a3-1121c1fc88f7.png"
+      "originalUrl": "https://user-images.githubusercontent.com/42957010/165482190-91dc0585-9e75-406c-a7a3-1121c1fc88f7.png",
+      "animated": false
     },
     {
       "url": "/assets/repository-guides/media-d746bb7ab61ff6d8c0120d1f.webp",
       "alt": "PKM-er/Blue-topaz-example 官方演示 2",
       "sourceUrl": "https://github.com/PKM-er/Blue-topaz-example/blob/96ecdaa485f0b4e4b8c22c7fea4394be1b882c83/README.md?plain=1#L73",
-      "originalUrl": "https://user-images.githubusercontent.com/42957010/165482534-f0ef2dd2-cf3a-4347-b141-e8bbae63566d.png"
+      "originalUrl": "https://user-images.githubusercontent.com/42957010/165482534-f0ef2dd2-cf3a-4347-b141-e8bbae63566d.png",
+      "animated": false
+    },
+    {
+      "url": "/assets/repository-guides/media-3fc3f21ba78cd68d08afc368.webp",
+      "alt": "Home_middle3",
+      "sourceUrl": "https://github.com/PKM-er/Blue-topaz-example/blob/96ecdaa485f0b4e4b8c22c7fea4394be1b882c83/README.md#L23",
+      "originalUrl": "https://user-images.githubusercontent.com/42957010/211135782-62cfc6e6-fe78-4a4c-9b71-41f2926aedab.png",
+      "animated": false
+    },
+    {
+      "url": "/assets/repository-guides/media-c023c42722fb117714b368a3.webp",
+      "alt": "项目介绍",
+      "sourceUrl": "https://github.com/PKM-er/Blue-topaz-example/blob/96ecdaa485f0b4e4b8c22c7fea4394be1b882c83/README.md#L25",
+      "originalUrl": "https://user-images.githubusercontent.com/42957010/184872220-f9b52079-8695-46a7-b517-0588426aa7b5.jpg",
+      "animated": false
     }
   ],
   "generatedBy": "claude-opus-5-5",
@@ -82,8 +98,38 @@
   "mediaStatus": "archived",
   "mediaFailures": [
     {
+      "sourceUrl": "https://github.com/PKM-er/Blue-topaz-example/blob/96ecdaa485f0b4e4b8c22c7fea4394be1b882c83/README.md#L68",
+      "reason": "unsupported_media_host"
+    },
+    {
       "sourceUrl": "https://github.com/PKM-er/Blue-topaz-example/blob/96ecdaa485f0b4e4b8c22c7fea4394be1b882c83/README.md#L71",
       "reason": "unsupported_media_host"
+    },
+    {
+      "sourceUrl": "https://github.com/PKM-er/Blue-topaz-example/blob/96ecdaa485f0b4e4b8c22c7fea4394be1b882c83/README.md#L75",
+      "reason": "unsupported_media_host"
+    },
+    {
+      "sourceUrl": "https://github.com/PKM-er/Blue-topaz-example/blob/96ecdaa485f0b4e4b8c22c7fea4394be1b882c83/README.md#L77",
+      "reason": "unsupported_media_host"
+    }
+  ],
+  "mediaReferences": [
+    {
+      "label": "效果图",
+      "url": "https://github.com/PKM-er/Blue-topaz-example/blob/96ecdaa485f0b4e4b8c22c7fea4394be1b882c83/README.md#L68"
+    },
+    {
+      "label": "效果图",
+      "url": "https://github.com/PKM-er/Blue-topaz-example/blob/96ecdaa485f0b4e4b8c22c7fea4394be1b882c83/README.md#L71"
+    },
+    {
+      "label": "效果图",
+      "url": "https://github.com/PKM-er/Blue-topaz-example/blob/96ecdaa485f0b4e4b8c22c7fea4394be1b882c83/README.md#L75"
+    },
+    {
+      "label": "效果图",
+      "url": "https://github.com/PKM-er/Blue-topaz-example/blob/96ecdaa485f0b4e4b8c22c7fea4394be1b882c83/README.md#L77"
     }
   ]
 }

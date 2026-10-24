@@ -61,11 +61,13 @@
       "url": "/assets/repository-guides/media-5fa653a13e066ce67bec43f1.webp",
       "alt": "nico81/iContainer 官方演示 1",
       "sourceUrl": "https://github.com/nico81/iContainer/blob/ace075095f2cdd25dffe31d9c4d9b2bdd645f583/README.md?plain=1#L17",
-      "originalUrl": "https://raw.githubusercontent.com/nico81/iContainer/ace075095f2cdd25dffe31d9c4d9b2bdd645f583/docs/images/home-dark.png"
+      "originalUrl": "https://raw.githubusercontent.com/nico81/iContainer/ace075095f2cdd25dffe31d9c4d9b2bdd645f583/docs/images/home-dark.png",
+      "animated": false
     }
   ],
   "generatedBy": "claude-opus-5-5",
   "documentHash": "a273891fc9ebf640d9e09f5288199fa0260082d48fb723ad92cfda60c823b92b",
   "mediaStatus": "archived",
-  "mediaFailures": []
+  "mediaFailures": [],
+  "mediaReferences": []
 }

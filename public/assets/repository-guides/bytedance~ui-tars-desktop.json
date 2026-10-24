@@ -61,14 +61,35 @@
       "url": "https://github.com/bytedance/UI-TARS-desktop/blob/2ff41a9e515828c5bd5b276e493d73aa0bdf4a3a/README.zh-CN.md"
     }
   ],
-  "media": [],
+  "media": [
+    {
+      "url": "/assets/repository-guides/media-173aa16bdd6c5c7d76f36b04.webp",
+      "alt": "Agent TARS Banner",
+      "sourceUrl": "https://github.com/bytedance/UI-TARS-desktop/blob/2ff41a9e515828c5bd5b276e493d73aa0bdf4a3a/README.md#L2",
+      "originalUrl": "https://raw.githubusercontent.com/bytedance/UI-TARS-desktop/2ff41a9e515828c5bd5b276e493d73aa0bdf4a3a/images/tars.png",
+      "animated": false
+    },
+    {
+      "url": "/assets/repository-guides/media-3a35f9492895c32507d4cde7.webp",
+      "alt": "UI-TARS",
+      "sourceUrl": "https://github.com/bytedance/UI-TARS-desktop/blob/2ff41a9e515828c5bd5b276e493d73aa0bdf4a3a/README.md#L240",
+      "originalUrl": "https://raw.githubusercontent.com/bytedance/UI-TARS-desktop/2ff41a9e515828c5bd5b276e493d73aa0bdf4a3a/apps/ui-tars/resources/icon.png",
+      "animated": false
+    }
+  ],
   "generatedBy": "claude-opus-5-5",
   "documentHash": "a7597c504a39607cb738149d6a414a0c0aab3bee291e34b27c2784c4f88f3819",
-  "mediaStatus": "unavailable",
+  "mediaStatus": "archived",
   "mediaFailures": [
     {
       "sourceUrl": "https://github.com/bytedance/UI-TARS-desktop/blob/2ff41a9e515828c5bd5b276e493d73aa0bdf4a3a/README.md#L147",
       "reason": "unsupported_media_host"
+    }
+  ],
+  "mediaReferences": [
+    {
+      "label": "Agent TARS CLI",
+      "url": "https://github.com/bytedance/UI-TARS-desktop/blob/2ff41a9e515828c5bd5b276e493d73aa0bdf4a3a/README.md#L147"
     }
   ]
 }

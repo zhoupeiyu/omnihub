@@ -65,23 +65,48 @@
       "url": "/assets/repository-guides/media-bf9f5d7098bb77225c6f30f3.webp",
       "alt": "tutti-os/tutti 官方演示 1",
       "sourceUrl": "https://github.com/tutti-os/tutti/blob/8821cf4788f6a8fe5886942b2ab2890900c14997/README.md?plain=1#L76",
-      "originalUrl": "https://raw.githubusercontent.com/tutti-os/tutti/8821cf4788f6a8fe5886942b2ab2890900c14997/docs/assets/en/workspace-hero.jpg"
+      "originalUrl": "https://raw.githubusercontent.com/tutti-os/tutti/8821cf4788f6a8fe5886942b2ab2890900c14997/docs/assets/en/workspace-hero.jpg",
+      "animated": false
     },
     {
       "url": "/assets/repository-guides/media-6b6fc7ad5191b57a12c3fa0a.webp",
       "alt": "tutti-os/tutti 官方演示 2",
       "sourceUrl": "https://github.com/tutti-os/tutti/blob/8821cf4788f6a8fe5886942b2ab2890900c14997/README.md?plain=1#L123",
-      "originalUrl": "https://raw.githubusercontent.com/tutti-os/tutti/8821cf4788f6a8fe5886942b2ab2890900c14997/docs/assets/en/plus-reference.png"
+      "originalUrl": "https://raw.githubusercontent.com/tutti-os/tutti/8821cf4788f6a8fe5886942b2ab2890900c14997/docs/assets/en/plus-reference.png",
+      "animated": false
     },
     {
       "url": "/assets/repository-guides/media-a4ddc205a785db9cfc09cf13.webp",
       "alt": "tutti-os/tutti 官方演示 3",
       "sourceUrl": "https://github.com/tutti-os/tutti/blob/8821cf4788f6a8fe5886942b2ab2890900c14997/README.md?plain=1#L166",
-      "originalUrl": "https://raw.githubusercontent.com/tutti-os/tutti/8821cf4788f6a8fe5886942b2ab2890900c14997/docs/assets/en/goal-to-tasks.png"
+      "originalUrl": "https://raw.githubusercontent.com/tutti-os/tutti/8821cf4788f6a8fe5886942b2ab2890900c14997/docs/assets/en/goal-to-tasks.png",
+      "animated": false
+    },
+    {
+      "url": "/assets/repository-guides/media-92e36f3eafe593378e858cc3.webp",
+      "alt": "Tutti VM official website — a multi-user, multi-agent, real-time collaboration space",
+      "sourceUrl": "https://github.com/tutti-os/tutti/blob/8821cf4788f6a8fe5886942b2ab2890900c14997/README.md#L4",
+      "originalUrl": "https://raw.githubusercontent.com/tutti-os/tutti/8821cf4788f6a8fe5886942b2ab2890900c14997/docs/assets/en/tutti-vm-website.png",
+      "animated": false
+    },
+    {
+      "url": "/assets/repository-guides/media-6147fa3029581ff134bdb8b9.webp",
+      "alt": "Tutti is a real-time shared workspace for your agents",
+      "sourceUrl": "https://github.com/tutti-os/tutti/blob/8821cf4788f6a8fe5886942b2ab2890900c14997/README.md#L95",
+      "originalUrl": "https://raw.githubusercontent.com/tutti-os/tutti/8821cf4788f6a8fe5886942b2ab2890900c14997/docs/assets/en/why-tutti.png",
+      "animated": false
+    },
+    {
+      "url": "/assets/repository-guides/media-6ac3b6cc167ddbf57679f6e7.webp",
+      "alt": "Big @",
+      "sourceUrl": "https://github.com/tutti-os/tutti/blob/8821cf4788f6a8fe5886942b2ab2890900c14997/README.md#L113",
+      "originalUrl": "https://raw.githubusercontent.com/tutti-os/tutti/8821cf4788f6a8fe5886942b2ab2890900c14997/docs/assets/en/at-history.png",
+      "animated": false
     }
   ],
   "generatedBy": "claude-opus-5-5",
   "documentHash": "856109213c3ba251399a172cbdd954ac88f4e07ee389173cbb4998dbf2a3f272",
   "mediaStatus": "archived",
-  "mediaFailures": []
+  "mediaFailures": [],
+  "mediaReferences": []
 }

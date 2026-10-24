@@ -60,17 +60,20 @@
       "url": "/assets/repository-guides/media-974ddfcea2757c56aaccff51.webp",
       "alt": "yibie/skills-manager 官方演示 1",
       "sourceUrl": "https://github.com/yibie/skills-manager/blob/505d1ffe2f2364c378063db2ef2813183f948b5d/README.md?plain=1#L13",
-      "originalUrl": "https://raw.githubusercontent.com/yibie/skills-manager/505d1ffe2f2364c378063db2ef2813183f948b5d/docs/screenshots/control-center.png"
+      "originalUrl": "https://raw.githubusercontent.com/yibie/skills-manager/505d1ffe2f2364c378063db2ef2813183f948b5d/docs/screenshots/control-center.png",
+      "animated": false
     },
     {
       "url": "/assets/repository-guides/media-bcbd09cfeb58b687fadb3843.webp",
       "alt": "yibie/skills-manager 官方演示 2",
       "sourceUrl": "https://github.com/yibie/skills-manager/blob/505d1ffe2f2364c378063db2ef2813183f948b5d/README.md?plain=1#L16",
-      "originalUrl": "https://raw.githubusercontent.com/yibie/skills-manager/505d1ffe2f2364c378063db2ef2813183f948b5d/docs/screenshots/collection-detail.png"
+      "originalUrl": "https://raw.githubusercontent.com/yibie/skills-manager/505d1ffe2f2364c378063db2ef2813183f948b5d/docs/screenshots/collection-detail.png",
+      "animated": false
     }
   ],
   "generatedBy": "claude-opus-5-5",
   "documentHash": "1f00aed3be4f74429ff459bcf4486eec809c16683d466ff42cd8fc21f94f4bc3",
   "mediaStatus": "archived",
-  "mediaFailures": []
+  "mediaFailures": [],
+  "mediaReferences": []
 }

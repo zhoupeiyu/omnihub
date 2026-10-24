@@ -71,23 +71,34 @@
       "url": "/assets/repository-guides/media-3bd7d0ad5f7de5cc2ac3894e.webp",
       "alt": "EKKOLearnAI/ekko-studio 官方演示 1",
       "sourceUrl": "https://github.com/EKKOLearnAI/ekko-studio/blob/f918e0fb449f92dff67cdbebfe0cf72fd3978c7f/README.md?plain=1#L22",
-      "originalUrl": "https://raw.githubusercontent.com/EKKOLearnAI/ekko-studio/f918e0fb449f92dff67cdbebfe0cf72fd3978c7f/docs/screenshots/overview/workspace.png"
+      "originalUrl": "https://raw.githubusercontent.com/EKKOLearnAI/ekko-studio/f918e0fb449f92dff67cdbebfe0cf72fd3978c7f/docs/screenshots/overview/workspace.png",
+      "animated": false
     },
     {
       "url": "/assets/repository-guides/media-25310544b1d88d841ee9f0cf.webp",
       "alt": "EKKOLearnAI/ekko-studio 官方演示 2",
       "sourceUrl": "https://github.com/EKKOLearnAI/ekko-studio/blob/f918e0fb449f92dff67cdbebfe0cf72fd3978c7f/README.md?plain=1#L42",
-      "originalUrl": "https://raw.githubusercontent.com/EKKOLearnAI/ekko-studio/f918e0fb449f92dff67cdbebfe0cf72fd3978c7f/docs/screenshots/overview/workflow.png"
+      "originalUrl": "https://raw.githubusercontent.com/EKKOLearnAI/ekko-studio/f918e0fb449f92dff67cdbebfe0cf72fd3978c7f/docs/screenshots/overview/workflow.png",
+      "animated": false
     },
     {
       "url": "/assets/repository-guides/media-e473cd9f5ca5a7ca4052eb6a.webp",
       "alt": "EKKOLearnAI/ekko-studio 官方演示 3",
       "sourceUrl": "https://github.com/EKKOLearnAI/ekko-studio/blob/f918e0fb449f92dff67cdbebfe0cf72fd3978c7f/README.md?plain=1#L42",
-      "originalUrl": "https://raw.githubusercontent.com/EKKOLearnAI/ekko-studio/f918e0fb449f92dff67cdbebfe0cf72fd3978c7f/docs/screenshots/overview/agent-manager.png"
+      "originalUrl": "https://raw.githubusercontent.com/EKKOLearnAI/ekko-studio/f918e0fb449f92dff67cdbebfe0cf72fd3978c7f/docs/screenshots/overview/agent-manager.png",
+      "animated": false
+    },
+    {
+      "url": "/assets/repository-guides/media-d250e28d3dc75f8463f0e3f4.webp",
+      "alt": "Ekko Agent Skills browser showing the GitHub skill",
+      "sourceUrl": "https://github.com/EKKOLearnAI/ekko-studio/blob/f918e0fb449f92dff67cdbebfe0cf72fd3978c7f/README.md#L50",
+      "originalUrl": "https://raw.githubusercontent.com/EKKOLearnAI/ekko-studio/f918e0fb449f92dff67cdbebfe0cf72fd3978c7f/docs/screenshots/overview/skills.png",
+      "animated": false
     }
   ],
   "generatedBy": "claude-opus-5-5",
   "documentHash": "8d163f7731b834cffa28615a6c87baa21cf803d09a9c3a53b0d360100ea76af6",
   "mediaStatus": "archived",
-  "mediaFailures": []
+  "mediaFailures": [],
+  "mediaReferences": []
 }

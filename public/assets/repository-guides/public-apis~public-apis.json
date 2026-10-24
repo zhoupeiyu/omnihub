@@ -66,5 +66,25 @@
   "media": [],
   "generatedBy": "claude-opus-5-5",
   "documentHash": "078ba68ac522e0e3eab120393a79e9e4aa5b42ec60ce76fefe6d392b4195c6f7",
-  "mediaStatus": "none_in_official_documents"
+  "mediaStatus": "unavailable",
+  "mediaFailures": [
+    {
+      "sourceUrl": "https://github.com/public-apis/public-apis/blob/8939d468fa4580039c4e22cc4998eb3fef8130d1/README.md#L9",
+      "reason": "media_http_404"
+    },
+    {
+      "sourceUrl": "https://github.com/public-apis/public-apis/blob/8939d468fa4580039c4e22cc4998eb3fef8130d1/README.md#L45",
+      "reason": "unsupported_media_host"
+    }
+  ],
+  "mediaReferences": [
+    {
+      "label": "APILayer Banner",
+      "url": "https://github.com/public-apis/public-apis/blob/8939d468fa4580039c4e22cc4998eb3fef8130d1/README.md#L9"
+    },
+    {
+      "label": "Run In Postman",
+      "url": "https://github.com/public-apis/public-apis/blob/8939d468fa4580039c4e22cc4998eb3fef8130d1/README.md#L45"
+    }
+  ]
 }

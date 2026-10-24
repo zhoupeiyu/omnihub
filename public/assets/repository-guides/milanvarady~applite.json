@@ -59,11 +59,20 @@
       "url": "/assets/repository-guides/media-8ec217cfa2264526b64d9665.webp",
       "alt": "milanvarady/Applite 官方演示 1",
       "sourceUrl": "https://github.com/milanvarady/Applite/blob/cf9712ae57a23628f4946389192959eb7079c6be/README.md?plain=1#L70",
-      "originalUrl": "https://raw.githubusercontent.com/milanvarady/Applite/main/docs/screenshots/discover-light.png"
+      "originalUrl": "https://raw.githubusercontent.com/milanvarady/Applite/main/docs/screenshots/discover-light.png",
+      "animated": false
+    },
+    {
+      "url": "/assets/repository-guides/media-8ec217cfa2264526b64d9665.webp",
+      "alt": "Applite Discover page",
+      "sourceUrl": "https://github.com/milanvarady/Applite/blob/cf9712ae57a23628f4946389192959eb7079c6be/README.md#L70",
+      "originalUrl": "https://raw.githubusercontent.com/milanvarady/Applite/cf9712ae57a23628f4946389192959eb7079c6be/docs/screenshots/discover-light.png",
+      "animated": false
     }
   ],
   "generatedBy": "claude-opus-5-5",
   "documentHash": "a202e66b9b91eae0f11301f77396defa64b628b2c0b4cf0d291712a354668f8b",
   "mediaStatus": "archived",
-  "mediaFailures": []
+  "mediaFailures": [],
+  "mediaReferences": []
 }

@@ -71,17 +71,20 @@
       "url": "/assets/repository-guides/media-2c612bc31e7025d73046747c.webp",
       "alt": "tzengyuxio/claude-statusline 官方演示 1",
       "sourceUrl": "https://github.com/tzengyuxio/claude-statusline/blob/7dc647a9332dcbcb9f250bf1cf4882dea6e548cc/README.md?plain=1#L7",
-      "originalUrl": "https://raw.githubusercontent.com/tzengyuxio/claude-statusline/7dc647a9332dcbcb9f250bf1cf4882dea6e548cc/screenshot-dark.png"
+      "originalUrl": "https://raw.githubusercontent.com/tzengyuxio/claude-statusline/7dc647a9332dcbcb9f250bf1cf4882dea6e548cc/screenshot-dark.png",
+      "animated": false
     },
     {
       "url": "/assets/repository-guides/media-55cf17ea3cdc06aaf35d9403.webp",
       "alt": "tzengyuxio/claude-statusline 官方演示 2",
       "sourceUrl": "https://github.com/tzengyuxio/claude-statusline/blob/7dc647a9332dcbcb9f250bf1cf4882dea6e548cc/README.md?plain=1#L7",
-      "originalUrl": "https://raw.githubusercontent.com/tzengyuxio/claude-statusline/7dc647a9332dcbcb9f250bf1cf4882dea6e548cc/screenshot-light.png"
+      "originalUrl": "https://raw.githubusercontent.com/tzengyuxio/claude-statusline/7dc647a9332dcbcb9f250bf1cf4882dea6e548cc/screenshot-light.png",
+      "animated": false
     }
   ],
   "generatedBy": "claude-opus-5-5",
   "documentHash": "a41453e935d409f22846230537bbf7b1745ffcdadaef797f885f18ec394dc73a",
   "mediaStatus": "archived",
-  "mediaFailures": []
+  "mediaFailures": [],
+  "mediaReferences": []
 }

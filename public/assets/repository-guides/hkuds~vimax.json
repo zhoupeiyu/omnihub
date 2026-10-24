@@ -73,11 +73,13 @@
       "url": "/assets/repository-guides/media-5db773dcb0823af9ede3a43f.webp",
       "alt": "HKUDS/ViMax 官方演示 1",
       "sourceUrl": "https://github.com/HKUDS/ViMax/blob/fd4b72e7731be6e5f88486206d25ea59849b0285/readme.md?plain=1#L154",
-      "originalUrl": "https://raw.githubusercontent.com/HKUDS/ViMax/fd4b72e7731be6e5f88486206d25ea59849b0285/assets/vimax-web-ui.png"
+      "originalUrl": "https://raw.githubusercontent.com/HKUDS/ViMax/fd4b72e7731be6e5f88486206d25ea59849b0285/assets/vimax-web-ui.png",
+      "animated": false
     }
   ],
   "generatedBy": "claude-opus-5-5",
   "documentHash": "72c7e43a10bdb3e08799dfdf79ee3afb530bfdb5957e4d72b7a1f580c7f317d0",
   "mediaStatus": "archived",
-  "mediaFailures": []
+  "mediaFailures": [],
+  "mediaReferences": []
 }

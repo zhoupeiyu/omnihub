@@ -61,12 +61,38 @@
   "mediaStatus": "unavailable",
   "mediaFailures": [
     {
+      "sourceUrl": "https://github.com/tw93/Waza/blob/c3b74dd5845b39a80a79c36bb82b028947674a05/README.md#L2",
+      "reason": "unsupported_media_host"
+    },
+    {
       "sourceUrl": "https://github.com/tw93/Waza/blob/c3b74dd5845b39a80a79c36bb82b028947674a05/README.md#L84",
       "reason": "unsupported_media_host"
     },
     {
       "sourceUrl": "https://github.com/tw93/Waza/blob/c3b74dd5845b39a80a79c36bb82b028947674a05/README.md#L132",
       "reason": "unsupported_media_host"
+    },
+    {
+      "sourceUrl": "https://github.com/tw93/Waza/blob/c3b74dd5845b39a80a79c36bb82b028947674a05/README.md#L16",
+      "reason": "unsupported_media_format"
+    }
+  ],
+  "mediaReferences": [
+    {
+      "label": "项目介绍",
+      "url": "https://github.com/tw93/Waza/blob/c3b74dd5845b39a80a79c36bb82b028947674a05/README.md#L2"
+    },
+    {
+      "label": "Statusline",
+      "url": "https://github.com/tw93/Waza/blob/c3b74dd5845b39a80a79c36bb82b028947674a05/README.md#L84"
+    },
+    {
+      "label": "Optional Rules",
+      "url": "https://github.com/tw93/Waza/blob/c3b74dd5845b39a80a79c36bb82b028947674a05/README.md#L132"
+    },
+    {
+      "label": "项目介绍",
+      "url": "https://github.com/tw93/Waza/blob/c3b74dd5845b39a80a79c36bb82b028947674a05/README.md#L16"
     }
   ]
 }

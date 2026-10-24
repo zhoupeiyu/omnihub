@@ -65,8 +65,25 @@
     "/cso 依赖额外工具链，缺失时会显示 not assessed；README 中的产出效率数据为作者自述，非本指南验证结论。"
   ],
   "references": [],
-  "media": [],
+  "media": [
+    {
+      "url": "/assets/repository-guides/media-819027e92ded6cd060bc8367.webp",
+      "alt": "GitHub contributions 2026 — 1,237 contributions, massive acceleration in Jan-Mar",
+      "sourceUrl": "https://github.com/garrytan/gstack/blob/96764e80a641e28141ec8297223768029f5bf483/README.md#L15",
+      "originalUrl": "https://raw.githubusercontent.com/garrytan/gstack/96764e80a641e28141ec8297223768029f5bf483/docs/images/github-2026.png",
+      "animated": false
+    },
+    {
+      "url": "/assets/repository-guides/media-3d77bf21e343ce808f2845ad.webp",
+      "alt": "GitHub contributions 2013 — 772 contributions building Bookface at YC",
+      "sourceUrl": "https://github.com/garrytan/gstack/blob/96764e80a641e28141ec8297223768029f5bf483/README.md#L19",
+      "originalUrl": "https://raw.githubusercontent.com/garrytan/gstack/96764e80a641e28141ec8297223768029f5bf483/docs/images/github-2013.png",
+      "animated": false
+    }
+  ],
   "generatedBy": "claude-opus-5-5",
   "documentHash": "05817b9cbf01f9ee9a58e5b30e3cff804a3e829530855fd121adb2575bf9da44",
-  "mediaStatus": "none_in_official_documents"
+  "mediaStatus": "archived",
+  "mediaFailures": [],
+  "mediaReferences": []
 }

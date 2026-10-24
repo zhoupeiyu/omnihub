@@ -69,23 +69,48 @@
       "url": "/assets/repository-guides/media-c58f03f492a8e304489eadde.webp",
       "alt": "导演工作台",
       "sourceUrl": "https://github.com/shuyu-labs/BigBanana-AI-Director/blob/87bc1db714140efcd056111a7e7ef48e754f030a/README.md?plain=1#L96",
-      "originalUrl": "https://raw.githubusercontent.com/shuyu-labs/BigBanana-AI-Director/87bc1db714140efcd056111a7e7ef48e754f030a/images/%E5%AF%BC%E6%BC%94%E5%B7%A5%E4%BD%9C%E5%8F%B0.png"
+      "originalUrl": "https://raw.githubusercontent.com/shuyu-labs/BigBanana-AI-Director/87bc1db714140efcd056111a7e7ef48e754f030a/images/%E5%AF%BC%E6%BC%94%E5%B7%A5%E4%BD%9C%E5%8F%B0.png",
+      "animated": false
     },
     {
       "url": "/assets/repository-guides/media-4ce7737ba51cce2e17a8bc6a.webp",
       "alt": "镜头九宫格",
       "sourceUrl": "https://github.com/shuyu-labs/BigBanana-AI-Director/blob/87bc1db714140efcd056111a7e7ef48e754f030a/README.md?plain=1#L97",
-      "originalUrl": "https://raw.githubusercontent.com/shuyu-labs/BigBanana-AI-Director/87bc1db714140efcd056111a7e7ef48e754f030a/images/%E9%95%9C%E5%A4%B4%E4%B9%9D%E5%AE%AB%E6%A0%BC.png"
+      "originalUrl": "https://raw.githubusercontent.com/shuyu-labs/BigBanana-AI-Director/87bc1db714140efcd056111a7e7ef48e754f030a/images/%E9%95%9C%E5%A4%B4%E4%B9%9D%E5%AE%AB%E6%A0%BC.png",
+      "animated": false
     },
     {
       "url": "/assets/repository-guides/media-dff5053d3ed761916f7f037f.webp",
       "alt": "成片导出",
       "sourceUrl": "https://github.com/shuyu-labs/BigBanana-AI-Director/blob/87bc1db714140efcd056111a7e7ef48e754f030a/README.md?plain=1#L103",
-      "originalUrl": "https://raw.githubusercontent.com/shuyu-labs/BigBanana-AI-Director/87bc1db714140efcd056111a7e7ef48e754f030a/images/%E6%88%90%E7%89%87%E5%AF%BC%E5%87%BA.png"
+      "originalUrl": "https://raw.githubusercontent.com/shuyu-labs/BigBanana-AI-Director/87bc1db714140efcd056111a7e7ef48e754f030a/images/%E6%88%90%E7%89%87%E5%AF%BC%E5%87%BA.png",
+      "animated": false
+    },
+    {
+      "url": "/assets/repository-guides/media-c13e247177bccb0c9f7c3ffa.webp",
+      "alt": "项目管理",
+      "sourceUrl": "https://github.com/shuyu-labs/BigBanana-AI-Director/blob/87bc1db714140efcd056111a7e7ef48e754f030a/README.md#L78",
+      "originalUrl": "https://raw.githubusercontent.com/shuyu-labs/BigBanana-AI-Director/87bc1db714140efcd056111a7e7ef48e754f030a/images/%E9%A1%B9%E7%9B%AE%E7%AE%A1%E7%90%86.png",
+      "animated": false
+    },
+    {
+      "url": "/assets/repository-guides/media-dc8ff64e4d32deb627806cef.webp",
+      "alt": "导入整篇小说",
+      "sourceUrl": "https://github.com/shuyu-labs/BigBanana-AI-Director/blob/87bc1db714140efcd056111a7e7ef48e754f030a/README.md#L81",
+      "originalUrl": "https://raw.githubusercontent.com/shuyu-labs/BigBanana-AI-Director/87bc1db714140efcd056111a7e7ef48e754f030a/images/%E5%AF%BC%E5%85%A5%E6%95%B4%E7%AF%87%E5%B0%8F%E8%AF%B4.png",
+      "animated": false
+    },
+    {
+      "url": "/assets/repository-guides/media-4e9f55f34309e289e221cde0.webp",
+      "alt": "世界观",
+      "sourceUrl": "https://github.com/shuyu-labs/BigBanana-AI-Director/blob/87bc1db714140efcd056111a7e7ef48e754f030a/README.md#L84",
+      "originalUrl": "https://raw.githubusercontent.com/shuyu-labs/BigBanana-AI-Director/87bc1db714140efcd056111a7e7ef48e754f030a/images/%E4%B8%96%E7%95%8C%E8%A7%82.png",
+      "animated": false
     }
   ],
   "generatedBy": "claude-opus-5-5",
   "documentHash": "82f147043609b9373f25ed14399b6f214d7220bbef467331e2c25991734c85d2",
   "mediaStatus": "archived",
-  "mediaFailures": []
+  "mediaFailures": [],
+  "mediaReferences": []
 }

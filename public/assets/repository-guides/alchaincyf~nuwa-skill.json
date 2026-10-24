@@ -56,8 +56,35 @@
     "蒸馏过程需要代理并行调研大量资料，会消耗所用模型的调用额度。"
   ],
   "references": [],
-  "media": [],
+  "media": [
+    {
+      "url": "/assets/repository-guides/media-d0d907e796ccf0e830283e62.webp",
+      "alt": "nuwa-skill Hero Animation",
+      "sourceUrl": "https://github.com/alchaincyf/nuwa-skill/blob/fe0374687037c4cc51a65c1e0c145afe2981dc69/README.md#L6",
+      "originalUrl": "https://raw.githubusercontent.com/alchaincyf/nuwa-skill/fe0374687037c4cc51a65c1e0c145afe2981dc69/assets/hero.gif",
+      "animated": true
+    },
+    {
+      "url": "/assets/repository-guides/media-3250b34edbeb6b9ed6e3651e.webp",
+      "alt": "FanBox · Coding Agent 的驾驶舱",
+      "sourceUrl": "https://github.com/alchaincyf/nuwa-skill/blob/fe0374687037c4cc51a65c1e0c145afe2981dc69/README.md#L356",
+      "originalUrl": "https://raw.githubusercontent.com/alchaincyf/fanbox/master/assets/promo-banner.jpg",
+      "animated": false
+    }
+  ],
   "generatedBy": "claude-opus-5-5",
   "documentHash": "51533665c9e43ed3f1a3b831bb29acccc4b259cf540669c06f0c2a2ba350e5df",
-  "mediaStatus": "none_in_official_documents"
+  "mediaStatus": "archived",
+  "mediaFailures": [
+    {
+      "sourceUrl": "https://github.com/alchaincyf/nuwa-skill/blob/fe0374687037c4cc51a65c1e0c145afe2981dc69/README.md#L245",
+      "reason": "unsupported_media_format"
+    }
+  ],
+  "mediaReferences": [
+    {
+      "label": "达尔文.skill",
+      "url": "https://github.com/alchaincyf/nuwa-skill/blob/fe0374687037c4cc51a65c1e0c145afe2981dc69/README.md#L245"
+    }
+  ]
 }

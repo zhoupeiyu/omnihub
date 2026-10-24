@@ -71,11 +71,13 @@
       "url": "/assets/repository-guides/media-94bfe87869bc76701bc54218.webp",
       "alt": "iLab CONJURE WebUI 截图",
       "sourceUrl": "https://github.com/kadevin/ilab-conjure/blob/7be7a4b0a952ffad2c93c319036f147d6bc83da6/README.md?plain=1#L30",
-      "originalUrl": "https://raw.githubusercontent.com/kadevin/ilab-conjure/7be7a4b0a952ffad2c93c319036f147d6bc83da6/assets/UI_cn.webp"
+      "originalUrl": "https://raw.githubusercontent.com/kadevin/ilab-conjure/7be7a4b0a952ffad2c93c319036f147d6bc83da6/assets/UI_cn.webp",
+      "animated": false
     }
   ],
   "generatedBy": "claude-opus-5-5",
   "documentHash": "24db1ece5270d197817b9392be53f908a70d80e12f8d53ed36a5fa11abd3c3b4",
   "mediaStatus": "archived",
-  "mediaFailures": []
+  "mediaFailures": [],
+  "mediaReferences": []
 }

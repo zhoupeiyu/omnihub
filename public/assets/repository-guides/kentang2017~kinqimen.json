@@ -56,8 +56,18 @@
     "在线排盘页面由作者托管在 Streamlit 上，可用性和数据处理方式 README 未作说明。"
   ],
   "references": [],
-  "media": [],
+  "media": [
+    {
+      "url": "/assets/repository-guides/media-8e6849bc7fd8c9d1241f68e8.webp",
+      "alt": "banner",
+      "sourceUrl": "https://github.com/kentang2017/kinqimen/blob/e6680ac4ca0b0da5ce3fe637e05f9fc32066ec5a/README.md#L7",
+      "originalUrl": "https://raw.githubusercontent.com/kentang2017/kinqimen/e6680ac4ca0b0da5ce3fe637e05f9fc32066ec5a/assets/banner.png",
+      "animated": false
+    }
+  ],
   "generatedBy": "claude-opus-5-5",
   "documentHash": "b9aaacb9ddd63d08b88eedbe4da9d516bd05c6b990d6581a56091dd7c675bb23",
-  "mediaStatus": "none_in_official_documents"
+  "mediaStatus": "archived",
+  "mediaFailures": [],
+  "mediaReferences": []
 }

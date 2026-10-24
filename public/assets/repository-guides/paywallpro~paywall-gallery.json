@@ -75,11 +75,13 @@
       "url": "/assets/repository-guides/media-397117577572f19377e05b8f.webp",
       "alt": "paywallpro/paywall-gallery 官方演示 1",
       "sourceUrl": "https://github.com/paywallpro/paywall-gallery/blob/d5c81b7edcc6fb2786d58b13ba3f162325fd4db8/README.md?plain=1#L15",
-      "originalUrl": "https://raw.githubusercontent.com/paywallpro/paywall-gallery/d5c81b7edcc6fb2786d58b13ba3f162325fd4db8/assets/readme-hero.jpg"
+      "originalUrl": "https://raw.githubusercontent.com/paywallpro/paywall-gallery/d5c81b7edcc6fb2786d58b13ba3f162325fd4db8/assets/readme-hero.jpg",
+      "animated": false
     }
   ],
   "generatedBy": "claude-opus-5-5",
   "documentHash": "c819fb51e2d3845c2dcad49c820743da42b00d4f39b58b5273e9979bde1a07fa",
   "mediaStatus": "archived",
-  "mediaFailures": []
+  "mediaFailures": [],
+  "mediaReferences": []
 }

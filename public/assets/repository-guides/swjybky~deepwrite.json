@@ -66,23 +66,27 @@
       "url": "/assets/repository-guides/media-7ded7a26588c7293f67f81cb.webp",
       "alt": "DeepWrite 主工作台：左侧资源树、中间智能体对话、右侧内容编辑器",
       "sourceUrl": "https://github.com/swjybky/deepwrite/blob/9c6f314eab65df8a34cd9c5e783cfd916f3d6df1/README.md?plain=1#L9",
-      "originalUrl": "https://raw.githubusercontent.com/swjybky/deepwrite/9c6f314eab65df8a34cd9c5e783cfd916f3d6df1/docs/images/workspace-overview.png"
+      "originalUrl": "https://raw.githubusercontent.com/swjybky/deepwrite/9c6f314eab65df8a34cd9c5e783cfd916f3d6df1/docs/images/workspace-overview.png",
+      "animated": false
     },
     {
       "url": "/assets/repository-guides/media-75ae92e241a8495470c9e9d2.webp",
       "alt": "智能体协作写作与正文编辑",
       "sourceUrl": "https://github.com/swjybky/deepwrite/blob/9c6f314eab65df8a34cd9c5e783cfd916f3d6df1/README.md?plain=1#L33",
-      "originalUrl": "https://raw.githubusercontent.com/swjybky/deepwrite/9c6f314eab65df8a34cd9c5e783cfd916f3d6df1/docs/images/agent-manuscript.png"
+      "originalUrl": "https://raw.githubusercontent.com/swjybky/deepwrite/9c6f314eab65df8a34cd9c5e783cfd916f3d6df1/docs/images/agent-manuscript.png",
+      "animated": false
     },
     {
       "url": "/assets/repository-guides/media-1173138b1e509fdaccf0b5c3.webp",
       "alt": "智能体修改 Diff 与接受或拒绝操作",
       "sourceUrl": "https://github.com/swjybky/deepwrite/blob/9c6f314eab65df8a34cd9c5e783cfd916f3d6df1/README.md?plain=1#L51",
-      "originalUrl": "https://raw.githubusercontent.com/swjybky/deepwrite/9c6f314eab65df8a34cd9c5e783cfd916f3d6df1/docs/images/edit-diff.png"
+      "originalUrl": "https://raw.githubusercontent.com/swjybky/deepwrite/9c6f314eab65df8a34cd9c5e783cfd916f3d6df1/docs/images/edit-diff.png",
+      "animated": false
     }
   ],
   "generatedBy": "claude-opus-5-5",
   "documentHash": "0468c0d123a550ab089147dffc47d2704b51b9f15b4b20db47d5232f085a57fe",
   "mediaStatus": "archived",
-  "mediaFailures": []
+  "mediaFailures": [],
+  "mediaReferences": []
 }

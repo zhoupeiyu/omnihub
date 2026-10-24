@@ -61,11 +61,13 @@
       "url": "/assets/repository-guides/media-5cd47da08956c2964aa0ac35.webp",
       "alt": "LaoFeng-mouse/flyingmouse-format 官方演示 1",
       "sourceUrl": "https://github.com/LaoFeng-mouse/flyingmouse-format/blob/a7b9b15d32db80cecedae00e89289088656fb1ae/README.md?plain=1#L18",
-      "originalUrl": "https://raw.githubusercontent.com/LaoFeng-mouse/flyingmouse-format/a7b9b15d32db80cecedae00e89289088656fb1ae/public/assets/screenshots/home.png"
+      "originalUrl": "https://raw.githubusercontent.com/LaoFeng-mouse/flyingmouse-format/a7b9b15d32db80cecedae00e89289088656fb1ae/public/assets/screenshots/home.png",
+      "animated": false
     }
   ],
   "generatedBy": "claude-opus-5-5",
   "documentHash": "125c44f5839c7e2051ef5556788c8c772d1d14d9fd02a01ce5f1e0b3d5717e0e",
   "mediaStatus": "archived",
-  "mediaFailures": []
+  "mediaFailures": [],
+  "mediaReferences": []
 }

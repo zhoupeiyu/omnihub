@@ -66,8 +66,28 @@
     "指令默认使用 @ 作为标记，若应用中已用 @ 触发提及功能，建议另设标记；引擎不提供指令名称的补全 UI。"
   ],
   "references": [],
-  "media": [],
+  "media": [
+    {
+      "url": "/assets/repository-guides/media-ed5061c4a006d9612529ffd1.webp",
+      "alt": "Nodes",
+      "sourceUrl": "https://github.com/nodes-app/swift-markdown-engine/blob/16c2b0c30d8330d35f3a53b6b2e0d4cd03101b00/README.md#L395",
+      "originalUrl": "https://raw.githubusercontent.com/nodes-app/swift-markdown-engine/16c2b0c30d8330d35f3a53b6b2e0d4cd03101b00/media/nodes-app-icon.png",
+      "animated": false
+    }
+  ],
   "generatedBy": "claude-opus-5-5",
   "documentHash": "4c77a17c6d29a6f438418aff130075ce051e9be8ecb25e7f5ba0e7e298ef6a93",
-  "mediaStatus": "none_in_official_documents"
+  "mediaStatus": "archived",
+  "mediaFailures": [
+    {
+      "sourceUrl": "https://github.com/nodes-app/swift-markdown-engine/blob/16c2b0c30d8330d35f3a53b6b2e0d4cd03101b00/README.md#L31",
+      "reason": "media_http_404"
+    }
+  ],
+  "mediaReferences": [
+    {
+      "label": "alt",
+      "url": "https://github.com/nodes-app/swift-markdown-engine/blob/16c2b0c30d8330d35f3a53b6b2e0d4cd03101b00/README.md#L31"
+    }
+  ]
 }

@@ -69,23 +69,48 @@
       "url": "/assets/repository-guides/media-689b9adb583facd3328adca2.webp",
       "alt": "悬浮窗：聊天上方的 Jev 分析面板",
       "sourceUrl": "https://github.com/jev-chat/jev-chat-jarvis/blob/1af6f3d2d50df8ae1abd0c53790737cdaf45a0c3/README.md?plain=1#L57",
-      "originalUrl": "https://raw.githubusercontent.com/jev-chat/jev-chat-jarvis/1af6f3d2d50df8ae1abd0c53790737cdaf45a0c3/docs/images/overlay.png"
+      "originalUrl": "https://raw.githubusercontent.com/jev-chat/jev-chat-jarvis/1af6f3d2d50df8ae1abd0c53790737cdaf45a0c3/docs/images/overlay.png",
+      "animated": false
     },
     {
       "url": "/assets/repository-guides/media-40d69240ca4ca0aec1ab7545.webp",
       "alt": "设置页",
       "sourceUrl": "https://github.com/jev-chat/jev-chat-jarvis/blob/1af6f3d2d50df8ae1abd0c53790737cdaf45a0c3/README.md?plain=1#L58",
-      "originalUrl": "https://raw.githubusercontent.com/jev-chat/jev-chat-jarvis/1af6f3d2d50df8ae1abd0c53790737cdaf45a0c3/docs/images/settings.png"
+      "originalUrl": "https://raw.githubusercontent.com/jev-chat/jev-chat-jarvis/1af6f3d2d50df8ae1abd0c53790737cdaf45a0c3/docs/images/settings.png",
+      "animated": false
     },
     {
       "url": "/assets/repository-guides/media-23a3d88bd0a01a36cb1abb30.webp",
       "alt": "Jev Android 对话副驾关键流程：本机读取与 OCR、发送文字到用户配置的模型接口、展示候选并由用户决定是否发送",
       "sourceUrl": "https://github.com/jev-chat/jev-chat-jarvis/blob/1af6f3d2d50df8ae1abd0c53790737cdaf45a0c3/README.md?plain=1#L191",
-      "originalUrl": "https://raw.githubusercontent.com/jev-chat/jev-chat-jarvis/1af6f3d2d50df8ae1abd0c53790737cdaf45a0c3/assets/android-core-flow-illustrations/01-chat-copilot-flow.png"
+      "originalUrl": "https://raw.githubusercontent.com/jev-chat/jev-chat-jarvis/1af6f3d2d50df8ae1abd0c53790737cdaf45a0c3/assets/android-core-flow-illustrations/01-chat-copilot-flow.png",
+      "animated": false
+    },
+    {
+      "url": "/assets/repository-guides/media-55b5808f96511ab924c247b0.webp",
+      "alt": "1 群",
+      "sourceUrl": "https://github.com/jev-chat/jev-chat-jarvis/blob/1af6f3d2d50df8ae1abd0c53790737cdaf45a0c3/README.md#L266",
+      "originalUrl": "https://raw.githubusercontent.com/jev-chat/jev-chat-jarvis/1af6f3d2d50df8ae1abd0c53790737cdaf45a0c3/docs/images/group-1.png",
+      "animated": false
+    },
+    {
+      "url": "/assets/repository-guides/media-74f9e7726f4950e207070309.webp",
+      "alt": "蓝衣剑客",
+      "sourceUrl": "https://github.com/jev-chat/jev-chat-jarvis/blob/1af6f3d2d50df8ae1abd0c53790737cdaf45a0c3/README.md#L292",
+      "originalUrl": "https://raw.githubusercontent.com/jev-chat/jev-chat-jarvis/1af6f3d2d50df8ae1abd0c53790737cdaf45a0c3/docs/images/friends/lanyijianke.jpg",
+      "animated": false
+    },
+    {
+      "url": "/assets/repository-guides/media-023b0935953246ada6fc7462.webp",
+      "alt": "2 群",
+      "sourceUrl": "https://github.com/jev-chat/jev-chat-jarvis/blob/1af6f3d2d50df8ae1abd0c53790737cdaf45a0c3/README.md#L267",
+      "originalUrl": "https://raw.githubusercontent.com/jev-chat/jev-chat-jarvis/1af6f3d2d50df8ae1abd0c53790737cdaf45a0c3/docs/images/group-2.png",
+      "animated": false
     }
   ],
   "generatedBy": "claude-opus-5-5",
   "documentHash": "38a9c568410853cb90f12bd8e957e159c53037dd6a0d2933d2cfa3a0849bbf87",
   "mediaStatus": "archived",
-  "mediaFailures": []
+  "mediaFailures": [],
+  "mediaReferences": []
 }

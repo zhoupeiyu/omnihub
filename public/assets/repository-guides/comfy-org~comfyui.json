@@ -61,11 +61,13 @@
       "url": "/assets/repository-guides/media-a7907385d64907626313bb89.webp",
       "alt": "Comfy-Org/ComfyUI 官方演示 1",
       "sourceUrl": "https://github.com/Comfy-Org/ComfyUI/blob/651ca296a73cd21c12a57eb8741d52e40dc6528f/README.md?plain=1#L34",
-      "originalUrl": "https://github.com/user-attachments/assets/36e065e0-bfae-4456-8c7f-8369d5ea48a2"
+      "originalUrl": "https://github.com/user-attachments/assets/36e065e0-bfae-4456-8c7f-8369d5ea48a2",
+      "animated": false
     }
   ],
   "generatedBy": "claude-opus-5-5",
   "documentHash": "9e3730235b5e88ca5db52c62c0116235bd8064c4b2dffb81e410eebb64d0c555",
   "mediaStatus": "archived",
-  "mediaFailures": []
+  "mediaFailures": [],
+  "mediaReferences": []
 }

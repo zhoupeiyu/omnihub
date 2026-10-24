@@ -67,5 +67,15 @@
       "sourceUrl": "https://github.com/lajosdeme/watchtower/blob/790b222480b67ca5f0ec59b5ef0e1d3e790e985e/README.md#L86",
       "reason": "unsupported_media_host"
     }
+  ],
+  "mediaReferences": [
+    {
+      "label": "wt",
+      "url": "https://github.com/lajosdeme/watchtower/blob/790b222480b67ca5f0ec59b5ef0e1d3e790e985e/README.md#L5"
+    },
+    {
+      "label": "setup",
+      "url": "https://github.com/lajosdeme/watchtower/blob/790b222480b67ca5f0ec59b5ef0e1d3e790e985e/README.md#L86"
+    }
   ]
 }

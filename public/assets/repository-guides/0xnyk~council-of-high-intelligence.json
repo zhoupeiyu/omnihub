@@ -64,8 +64,53 @@
     "完整评议的轮次固定，耗时较长；简单或可逆的问题，官方建议改用 --quick、--duo 或直接查证。"
   ],
   "references": [],
-  "media": [],
+  "media": [
+    {
+      "url": "/assets/repository-guides/media-b1046c8dc68bdf6dba89e7b1.webp",
+      "alt": "Council of High Intelligence",
+      "sourceUrl": "https://github.com/0xNyk/council-of-high-intelligence/blob/fd9f4e5389ab590fa97d1112215f7f1462143240/README.md#L4",
+      "originalUrl": "https://raw.githubusercontent.com/0xNyk/council-of-high-intelligence/fd9f4e5389ab590fa97d1112215f7f1462143240/assets/header.jpeg",
+      "animated": false
+    },
+    {
+      "url": "/assets/repository-guides/media-02363a3acb8f81bb0b2ac4ba.webp",
+      "alt": "Decision field notes",
+      "sourceUrl": "https://github.com/0xNyk/council-of-high-intelligence/blob/fd9f4e5389ab590fa97d1112215f7f1462143240/README.md#L62",
+      "originalUrl": "https://raw.githubusercontent.com/0xNyk/council-of-high-intelligence/fd9f4e5389ab590fa97d1112215f7f1462143240/assets/decision-field-notes.jpeg",
+      "animated": false
+    },
+    {
+      "url": "/assets/repository-guides/media-476940529b7f34c825728c3e.webp",
+      "alt": "Council mode selector",
+      "sourceUrl": "https://github.com/0xNyk/council-of-high-intelligence/blob/fd9f4e5389ab590fa97d1112215f7f1462143240/README.md#L83",
+      "originalUrl": "https://raw.githubusercontent.com/0xNyk/council-of-high-intelligence/fd9f4e5389ab590fa97d1112215f7f1462143240/assets/mode-selector.jpeg",
+      "animated": false
+    },
+    {
+      "url": "/assets/repository-guides/media-c31a5768bc5e3c66ad562af6.webp",
+      "alt": "Verdict blueprint",
+      "sourceUrl": "https://github.com/0xNyk/council-of-high-intelligence/blob/fd9f4e5389ab590fa97d1112215f7f1462143240/README.md#L111",
+      "originalUrl": "https://raw.githubusercontent.com/0xNyk/council-of-high-intelligence/fd9f4e5389ab590fa97d1112215f7f1462143240/assets/verdict-blueprint.jpeg",
+      "animated": false
+    },
+    {
+      "url": "/assets/repository-guides/media-b55067ba8a92018c80b02a49.webp",
+      "alt": "Council outcome ledger",
+      "sourceUrl": "https://github.com/0xNyk/council-of-high-intelligence/blob/fd9f4e5389ab590fa97d1112215f7f1462143240/README.md#L131",
+      "originalUrl": "https://raw.githubusercontent.com/0xNyk/council-of-high-intelligence/fd9f4e5389ab590fa97d1112215f7f1462143240/assets/outcome-ledger.jpeg",
+      "animated": false
+    },
+    {
+      "url": "/assets/repository-guides/media-c5d27379dcf7762bc93dbf5a.webp",
+      "alt": "Council panel composition",
+      "sourceUrl": "https://github.com/0xNyk/council-of-high-intelligence/blob/fd9f4e5389ab590fa97d1112215f7f1462143240/README.md#L138",
+      "originalUrl": "https://raw.githubusercontent.com/0xNyk/council-of-high-intelligence/fd9f4e5389ab590fa97d1112215f7f1462143240/assets/panel-composition.jpeg",
+      "animated": false
+    }
+  ],
   "generatedBy": "claude-opus-5-5",
   "documentHash": "3f6a0e75bea29edb42b4553b96d8de8e3934f97681ebe42f42acd3ab0020fab0",
-  "mediaStatus": "none_in_official_documents"
+  "mediaStatus": "archived",
+  "mediaFailures": [],
+  "mediaReferences": []
 }

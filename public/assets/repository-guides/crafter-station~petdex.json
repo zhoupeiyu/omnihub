@@ -64,8 +64,18 @@
     "bun run dev 方式需要填写 .env.local，仅限维护者使用；外部贡献者应使用 dev:docker。"
   ],
   "references": [],
-  "media": [],
+  "media": [
+    {
+      "url": "/assets/repository-guides/media-5f246f72c622c6e260711399.webp",
+      "alt": "Petdex",
+      "sourceUrl": "https://github.com/crafter-station/petdex/blob/7e327034c27098bb7b701b834e34af81c2cfbdba/README.md#L3",
+      "originalUrl": "https://raw.githubusercontent.com/crafter-station/petdex/7e327034c27098bb7b701b834e34af81c2cfbdba/public/brand/petdex-desktop-icon.png",
+      "animated": false
+    }
+  ],
   "generatedBy": "claude-opus-5-5",
   "documentHash": "f05d6ad7468717353c75769d992b65574f70d1b9c6caef04f684b2cb41cb44b3",
-  "mediaStatus": "none_in_official_documents"
+  "mediaStatus": "archived",
+  "mediaFailures": [],
+  "mediaReferences": []
 }

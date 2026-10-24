@@ -73,17 +73,27 @@
       "url": "/assets/repository-guides/media-9ceaa96ca7a01492b3305774.webp",
       "alt": "diffusionstudio/lottie 官方演示 1",
       "sourceUrl": "https://github.com/diffusionstudio/lottie/blob/3c72912fad543897f90045ed4d355813837927fc/README.md?plain=1#L17",
-      "originalUrl": "https://raw.githubusercontent.com/diffusionstudio/lottie/3c72912fad543897f90045ed4d355813837927fc/assets/demo-1.gif"
+      "originalUrl": "https://raw.githubusercontent.com/diffusionstudio/lottie/3c72912fad543897f90045ed4d355813837927fc/assets/demo-1.gif",
+      "animated": true
     },
     {
       "url": "/assets/repository-guides/media-8bf64c68c82a196ac8c6ea22.webp",
       "alt": "diffusionstudio/lottie 官方演示 2",
       "sourceUrl": "https://github.com/diffusionstudio/lottie/blob/3c72912fad543897f90045ed4d355813837927fc/README.md?plain=1#L20",
-      "originalUrl": "https://raw.githubusercontent.com/diffusionstudio/lottie/3c72912fad543897f90045ed4d355813837927fc/assets/demo-2.gif"
+      "originalUrl": "https://raw.githubusercontent.com/diffusionstudio/lottie/3c72912fad543897f90045ed4d355813837927fc/assets/demo-2.gif",
+      "animated": true
+    },
+    {
+      "url": "/assets/repository-guides/media-c5ccc23279ee688649f08425.webp",
+      "alt": "Text to Lottie",
+      "sourceUrl": "https://github.com/diffusionstudio/lottie/blob/3c72912fad543897f90045ed4d355813837927fc/README.md#L2",
+      "originalUrl": "https://raw.githubusercontent.com/diffusionstudio/lottie/3c72912fad543897f90045ed4d355813837927fc/assets/header.gif",
+      "animated": true
     }
   ],
   "generatedBy": "claude-opus-5-5",
   "documentHash": "36166ee15fe4d135b56920b0a6d157082d96793a24362169d1d5e723bccac01a",
   "mediaStatus": "archived",
-  "mediaFailures": []
+  "mediaFailures": [],
+  "mediaReferences": []
 }

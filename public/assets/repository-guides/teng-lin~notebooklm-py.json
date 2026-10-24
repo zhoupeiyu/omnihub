@@ -82,5 +82,11 @@
       "sourceUrl": "https://github.com/teng-lin/notebooklm-py/blob/5d2fd5e29d1b99999a7d45230bfddca7bd1cbc81/README.md#L212",
       "reason": "unsupported_media_host"
     }
+  ],
+  "mediaReferences": [
+    {
+      "label": "Quick Start",
+      "url": "https://github.com/teng-lin/notebooklm-py/blob/5d2fd5e29d1b99999a7d45230bfddca7bd1cbc81/README.md#L212"
+    }
   ]
 }

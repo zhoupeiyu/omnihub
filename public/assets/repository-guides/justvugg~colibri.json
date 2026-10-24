@@ -75,23 +75,48 @@
       "url": "/assets/repository-guides/media-ba5c5ba4c27020274ba5a749.webp",
       "alt": "JustVugg/colibri 官方演示 1",
       "sourceUrl": "https://github.com/JustVugg/colibri/blob/ce370e87d7b623d7759b52ec2007d75fc5b0e87e/README.md?plain=1#L52",
-      "originalUrl": "https://raw.githubusercontent.com/JustVugg/colibri/ce370e87d7b623d7759b52ec2007d75fc5b0e87e/docs/media/colibri-dashboard.png"
+      "originalUrl": "https://raw.githubusercontent.com/JustVugg/colibri/ce370e87d7b623d7759b52ec2007d75fc5b0e87e/docs/media/colibri-dashboard.png",
+      "animated": false
     },
     {
       "url": "/assets/repository-guides/media-e059931973551a1430dd2341.webp",
       "alt": "JustVugg/colibri 官方演示 2",
       "sourceUrl": "https://github.com/JustVugg/colibri/blob/ce370e87d7b623d7759b52ec2007d75fc5b0e87e/README.md?plain=1#L59",
-      "originalUrl": "https://raw.githubusercontent.com/JustVugg/colibri/ce370e87d7b623d7759b52ec2007d75fc5b0e87e/docs/media/colibri-brio.png"
+      "originalUrl": "https://raw.githubusercontent.com/JustVugg/colibri/ce370e87d7b623d7759b52ec2007d75fc5b0e87e/docs/media/colibri-brio.png",
+      "animated": false
     },
     {
       "url": "/assets/repository-guides/media-c91718a975507c73d84ec398.webp",
       "alt": "JustVugg/colibri 官方演示 3",
       "sourceUrl": "https://github.com/JustVugg/colibri/blob/ce370e87d7b623d7759b52ec2007d75fc5b0e87e/README.md?plain=1#L81",
-      "originalUrl": "https://raw.githubusercontent.com/JustVugg/colibri/ce370e87d7b623d7759b52ec2007d75fc5b0e87e/docs/media/colibri-profiling.png"
+      "originalUrl": "https://raw.githubusercontent.com/JustVugg/colibri/ce370e87d7b623d7759b52ec2007d75fc5b0e87e/docs/media/colibri-profiling.png",
+      "animated": false
+    },
+    {
+      "url": "/assets/repository-guides/media-7028ecf9e8e3f197da13d2ac.webp",
+      "alt": "only ~5.4% of parameters are active per token",
+      "sourceUrl": "https://github.com/JustVugg/colibri/blob/ce370e87d7b623d7759b52ec2007d75fc5b0e87e/README.md#L159",
+      "originalUrl": "https://raw.githubusercontent.com/JustVugg/colibri/ce370e87d7b623d7759b52ec2007d75fc5b0e87e/docs/media/sparse.png",
+      "animated": false
+    },
+    {
+      "url": "/assets/repository-guides/media-841c03b606f9db92aa22d596.webp",
+      "alt": "route → union → place → overlap → learn",
+      "sourceUrl": "https://github.com/JustVugg/colibri/blob/ce370e87d7b623d7759b52ec2007d75fc5b0e87e/README.md#L222",
+      "originalUrl": "https://raw.githubusercontent.com/JustVugg/colibri/ce370e87d7b623d7759b52ec2007d75fc5b0e87e/docs/media/token-path.png",
+      "animated": false
+    },
+    {
+      "url": "/assets/repository-guides/media-ccd44c53c4e4634cc4f2edec.webp",
+      "alt": "VRAM / RAM / NVMe three-tier expert residency",
+      "sourceUrl": "https://github.com/JustVugg/colibri/blob/ce370e87d7b623d7759b52ec2007d75fc5b0e87e/README.md#L232",
+      "originalUrl": "https://raw.githubusercontent.com/JustVugg/colibri/ce370e87d7b623d7759b52ec2007d75fc5b0e87e/docs/media/tiers.png",
+      "animated": false
     }
   ],
   "generatedBy": "claude-opus-5-5",
   "documentHash": "95952d81da1cb03b310e24523ea93e1962e0bfc4d1849b40709325bc8ee22834",
   "mediaStatus": "archived",
-  "mediaFailures": []
+  "mediaFailures": [],
+  "mediaReferences": []
 }

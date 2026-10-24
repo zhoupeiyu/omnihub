@@ -48,8 +48,28 @@
     "仓库刻意不包含特定智能体的元数据，个别环境可能需要按其本地技能规则放置文件夹。"
   ],
   "references": [],
-  "media": [],
+  "media": [
+    {
+      "url": "/assets/repository-guides/media-497f5faa63e0eb450ec89cd6.webp",
+      "alt": "Brand to DESIGN.md Skill cover",
+      "sourceUrl": "https://github.com/shaom/brand-to-design-md-skill/blob/f7fe99e7a2985d4457d44bfab8399bb1cf1896c0/README.md#L3",
+      "originalUrl": "https://raw.githubusercontent.com/shaom/brand-to-design-md-skill/f7fe99e7a2985d4457d44bfab8399bb1cf1896c0/assets/brand-to-design-md-cover.png",
+      "animated": false
+    }
+  ],
   "generatedBy": "claude-opus-5-5",
   "documentHash": "256e43f8f36b7fd456c6a59387da0d75ff3649d6625971735f157783bda1de82",
-  "mediaStatus": "none_in_official_documents"
+  "mediaStatus": "archived",
+  "mediaFailures": [
+    {
+      "sourceUrl": "https://github.com/shaom/brand-to-design-md-skill/blob/f7fe99e7a2985d4457d44bfab8399bb1cf1896c0/README.md#L9",
+      "reason": "unsupported_media_host"
+    }
+  ],
+  "mediaReferences": [
+    {
+      "label": "Try brand-to-design-md on Socialistic",
+      "url": "https://github.com/shaom/brand-to-design-md-skill/blob/f7fe99e7a2985d4457d44bfab8399bb1cf1896c0/README.md#L9"
+    }
+  ]
 }

@@ -66,8 +66,18 @@
     "可视化 renderer 需要 Node.js 18 或更高版本。Cleanup Map 是证明记录的辅助材料，不能替代消费者证明和撤销路径。"
   ],
   "references": [],
-  "media": [],
+  "media": [
+    {
+      "url": "/assets/repository-guides/media-544ed310e388ea04be1e2d2e.webp",
+      "alt": "复杂的软件结构经过证据验证后，收敛为更小、更清晰的系统",
+      "sourceUrl": "https://github.com/tt-a1i/simplify-codebase/blob/5da55efcb52db690e7406f06f827a23b15da2706/README.md#L12",
+      "originalUrl": "https://raw.githubusercontent.com/tt-a1i/simplify-codebase/5da55efcb52db690e7406f06f827a23b15da2706/assets/hero.png",
+      "animated": false
+    }
+  ],
   "generatedBy": "claude-opus-5-5",
   "documentHash": "9632d473d57ef18e917f37fb18d51adc34c65232b9c3b53bd77c2397e8f3b284",
-  "mediaStatus": "none_in_official_documents"
+  "mediaStatus": "archived",
+  "mediaFailures": [],
+  "mediaReferences": []
 }

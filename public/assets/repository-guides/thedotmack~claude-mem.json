@@ -57,8 +57,28 @@
     "Windows 上如果提示无法识别 npm，需要先安装 Node.js 并把它加入 PATH，然后重启终端。"
   ],
   "references": [],
-  "media": [],
+  "media": [
+    {
+      "url": "/assets/repository-guides/media-b32f55db07da980f5888acd1.webp",
+      "alt": "Claude-Mem Preview",
+      "sourceUrl": "https://github.com/thedotmack/claude-mem/blob/939e85021b5574e4661749e267e3811bd5e8d0df/README.md#L89",
+      "originalUrl": "https://raw.githubusercontent.com/thedotmack/claude-mem/939e85021b5574e4661749e267e3811bd5e8d0df/docs/public/cm-preview.gif",
+      "animated": true
+    }
+  ],
   "generatedBy": "claude-opus-5-5",
   "documentHash": "4c41dfd9ab92f94372f46fffe70bab3146e39e9c1a7dcb79107bb9b6f55eb9cf",
-  "mediaStatus": "none_in_official_documents"
+  "mediaStatus": "archived",
+  "mediaFailures": [
+    {
+      "sourceUrl": "https://github.com/thedotmack/claude-mem/blob/939e85021b5574e4661749e267e3811bd5e8d0df/README.md#L15",
+      "reason": "unsupported_media_format"
+    }
+  ],
+  "mediaReferences": [
+    {
+      "label": "Greptile",
+      "url": "https://github.com/thedotmack/claude-mem/blob/939e85021b5574e4661749e267e3811bd5e8d0df/README.md#L15"
+    }
+  ]
 }

@@ -303,7 +303,7 @@ function ModuleRailButton({ tooltip, tooltipEnabled = true, buttonRef, children,
 }
 
 /** 侧边栏：模块导航 + 分类（带计数）+ 左下角「用户信息 + 账号/设置」 */
-function SideNav({ section, onSectionChange, categories, activeCategory, onCategoryChange, counts, moduleCounts = {}, repositoryNavigation, onRepositoryNavigate, feedNavigation, onFeedNavigate,
+function SideNav({ section, onSectionChange, categories, activeCategory, onCategoryChange, counts, moduleCounts = {}, feedNavigation, onFeedNavigate,
                    user, quote, merit, skin, onSkinChange, theme, onThemeToggle,
                    woodFishEnabled, onWoodFishToggle, onOpenAiSettings, onOpenAccountSettings, onLogin, onLogout,
                    collapsed, moduleLabels }) {
@@ -312,7 +312,7 @@ function SideNav({ section, onSectionChange, categories, activeCategory, onCateg
   const [panelStyle, setPanelStyle] = useState(null);
   const menuTriggerRef = React.useRef(null);
   const hidden = mobile && collapsed;
-  const hasContext = Boolean(repositoryNavigation || feedNavigation || categories?.length);
+  const hasContext = Boolean(feedNavigation || categories?.length);
   useEffect(() => {
     const media = window.matchMedia("(max-width: 860px)");
     const update = event => setMobile(event.matches);
@@ -432,19 +432,6 @@ function SideNav({ section, onSectionChange, categories, activeCategory, onCateg
       </div>
       </div>
       {hasContext && <div className="workspace-context" hidden={collapsed}>
-        {repositoryNavigation && <div className="repository-side-group">
-          <div className="context-heading"><strong>仓库库</strong><span>{moduleCounts.repositories}</span></div>
-          <p className="side-label">按用途找工具</p>
-          <nav aria-label="仓库分类">
-            {repositoryNavigation.items.map(item => <button key={item.id}
-              className={"nav-item repository-category" + (repositoryNavigation.current === item.id ? " active" : "")}
-              aria-current={repositoryNavigation.current === item.id ? "page" : undefined}
-              onClick={() => onRepositoryNavigate(item.id)}>
-              <span className="nav-dot" style={item.color ? {background:item.color} : undefined}></span>
-              {item.title}{item.count != null && <span className="nav-count">{item.count}</span>}
-            </button>)}
-          </nav>
-        </div>}
         {feedNavigation && <div className="repository-side-group feed-side-group">
           <div className="context-heading"><strong>资讯与监听</strong></div>
           <p className="side-label">内容视图</p>

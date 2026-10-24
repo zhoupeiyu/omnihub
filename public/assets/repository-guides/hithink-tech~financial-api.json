@@ -72,11 +72,13 @@
       "url": "/assets/repository-guides/media-0096ff3bf005fbad40223d5c.webp",
       "alt": "单股行情与趋势速览",
       "sourceUrl": "https://github.com/HiThink-Tech/Financial-API/blob/3bca7805a4127ece8d81961917e740d2effac6ec/README.md?plain=1#L214",
-      "originalUrl": "https://raw.githubusercontent.com/HiThink-Tech/Financial-API/3bca7805a4127ece8d81961917e740d2effac6ec/examples/inspirations/01-stock-overview/preview.jpg"
+      "originalUrl": "https://raw.githubusercontent.com/HiThink-Tech/Financial-API/3bca7805a4127ece8d81961917e740d2effac6ec/examples/inspirations/01-stock-overview/preview.jpg",
+      "animated": false
     }
   ],
   "generatedBy": "claude-opus-5-5",
   "documentHash": "456fa6a62440e154a9c62cdd95a2dfb6ffce22d8ae88a31c87a07568c736e5b3",
   "mediaStatus": "archived",
-  "mediaFailures": []
+  "mediaFailures": [],
+  "mediaReferences": []
 }

@@ -45,8 +45,39 @@
     "第 4、5 讲等项目涉及子代理的工具权限配置，建议先在测试仓库中试用。"
   ],
   "references": [],
-  "media": [],
+  "media": [
+    {
+      "url": "/assets/repository-guides/media-b023a701cbbb026d740d01c2.webp",
+      "alt": "Claude Code 实战 封面",
+      "sourceUrl": "https://github.com/huangjia2019/claude-code-engineering/blob/89fea03bf9d577c608bce49c66d942996e801b19/README.md#L9",
+      "originalUrl": "https://raw.githubusercontent.com/huangjia2019/claude-code-engineering/89fea03bf9d577c608bce49c66d942996e801b19/91-Pictures/Claude-Code%E5%AE%9E%E6%88%98-%E5%B0%81%E9%9D%A2.png",
+      "animated": false
+    },
+    {
+      "url": "/assets/repository-guides/media-05704dfb0604384d8b7dda48.webp",
+      "alt": "Designing AI Agents — Manning",
+      "sourceUrl": "https://github.com/huangjia2019/claude-code-engineering/blob/89fea03bf9d577c608bce49c66d942996e801b19/README.md#L48",
+      "originalUrl": "https://raw.githubusercontent.com/huangjia2019/claude-code-engineering/89fea03bf9d577c608bce49c66d942996e801b19/91-Pictures/manning-designing-ai-agents.png",
+      "animated": false
+    },
+    {
+      "url": "/assets/repository-guides/media-b50e00f4cea3893b5ef77335.webp",
+      "alt": "Agent 设计模式之美 — 极客时间",
+      "sourceUrl": "https://github.com/huangjia2019/claude-code-engineering/blob/89fea03bf9d577c608bce49c66d942996e801b19/README.md#L64",
+      "originalUrl": "https://raw.githubusercontent.com/huangjia2019/claude-code-engineering/89fea03bf9d577c608bce49c66d942996e801b19/91-Pictures/geektime-agent-design-patterns.png",
+      "animated": false
+    },
+    {
+      "url": "/assets/repository-guides/media-0ac1ae46884b843882c40b77.webp",
+      "alt": "Claude Code 工程化实战 Banner",
+      "sourceUrl": "https://github.com/huangjia2019/claude-code-engineering/blob/89fea03bf9d577c608bce49c66d942996e801b19/README.md#L98",
+      "originalUrl": "https://raw.githubusercontent.com/huangjia2019/claude-code-engineering/89fea03bf9d577c608bce49c66d942996e801b19/91-Pictures/%E8%AF%BE%E7%A8%8BBanner.png",
+      "animated": false
+    }
+  ],
   "generatedBy": "claude-opus-5-5",
   "documentHash": "3884c0b32057fafea75a275f6fc58300a5062d4952acb799a31abf4b8f9d144e",
-  "mediaStatus": "none_in_official_documents"
+  "mediaStatus": "archived",
+  "mediaFailures": [],
+  "mediaReferences": []
 }

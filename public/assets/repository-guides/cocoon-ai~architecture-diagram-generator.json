@@ -69,23 +69,27 @@
       "url": "/assets/repository-guides/media-9836db29c1bb5c16fa497ba4.webp",
       "alt": "Cocoon-AI/architecture-diagram-generator 官方演示 1",
       "sourceUrl": "https://github.com/Cocoon-AI/architecture-diagram-generator/blob/4b9087d55268c79a935105439dbcd37b630fc3f3/README.md?plain=1#L121",
-      "originalUrl": "https://raw.githubusercontent.com/Cocoon-AI/architecture-diagram-generator/4b9087d55268c79a935105439dbcd37b630fc3f3/examples/images/web-app.png"
+      "originalUrl": "https://raw.githubusercontent.com/Cocoon-AI/architecture-diagram-generator/4b9087d55268c79a935105439dbcd37b630fc3f3/examples/images/web-app.png",
+      "animated": false
     },
     {
       "url": "/assets/repository-guides/media-fe5919c52f197b0d6a1cefe5.webp",
       "alt": "Cocoon-AI/architecture-diagram-generator 官方演示 2",
       "sourceUrl": "https://github.com/Cocoon-AI/architecture-diagram-generator/blob/4b9087d55268c79a935105439dbcd37b630fc3f3/README.md?plain=1#L125",
-      "originalUrl": "https://raw.githubusercontent.com/Cocoon-AI/architecture-diagram-generator/4b9087d55268c79a935105439dbcd37b630fc3f3/examples/images/aws-serverless.png"
+      "originalUrl": "https://raw.githubusercontent.com/Cocoon-AI/architecture-diagram-generator/4b9087d55268c79a935105439dbcd37b630fc3f3/examples/images/aws-serverless.png",
+      "animated": false
     },
     {
       "url": "/assets/repository-guides/media-ee865ac3723129ff907277d2.webp",
       "alt": "Cocoon-AI/architecture-diagram-generator 官方演示 3",
       "sourceUrl": "https://github.com/Cocoon-AI/architecture-diagram-generator/blob/4b9087d55268c79a935105439dbcd37b630fc3f3/README.md?plain=1#L129",
-      "originalUrl": "https://raw.githubusercontent.com/Cocoon-AI/architecture-diagram-generator/4b9087d55268c79a935105439dbcd37b630fc3f3/examples/images/microservices.png"
+      "originalUrl": "https://raw.githubusercontent.com/Cocoon-AI/architecture-diagram-generator/4b9087d55268c79a935105439dbcd37b630fc3f3/examples/images/microservices.png",
+      "animated": false
     }
   ],
   "generatedBy": "claude-opus-5-5",
   "documentHash": "b9970a1dcaa1e669a23c2643a3931f08f7a7b4fb3ee658a116c854d5a0a7f163",
   "mediaStatus": "archived",
-  "mediaFailures": []
+  "mediaFailures": [],
+  "mediaReferences": []
 }

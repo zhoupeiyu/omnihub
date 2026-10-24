@@ -72,6 +72,20 @@
     {
       "sourceUrl": "https://github.com/Johnshall/Shadowrocket-ADBlock-Rules-Forever/blob/2b1461db10b540f856b69a9794aec3509e557d73/readme.md#L38",
       "reason": "unsupported_media_host"
+    },
+    {
+      "sourceUrl": "https://github.com/Johnshall/Shadowrocket-ADBlock-Rules-Forever/blob/2b1461db10b540f856b69a9794aec3509e557d73/readme.md#L328",
+      "reason": "unsupported_media_host"
+    }
+  ],
+  "mediaReferences": [
+    {
+      "label": "规则选择指南",
+      "url": "https://github.com/Johnshall/Shadowrocket-ADBlock-Rules-Forever/blob/2b1461db10b540f856b69a9794aec3509e557d73/readme.md#L38"
+    },
+    {
+      "label": "Stargazers over time",
+      "url": "https://github.com/Johnshall/Shadowrocket-ADBlock-Rules-Forever/blob/2b1461db10b540f856b69a9794aec3509e557d73/readme.md#L328"
     }
   ]
 }

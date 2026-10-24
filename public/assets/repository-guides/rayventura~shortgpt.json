@@ -49,5 +49,17 @@
   "media": [],
   "generatedBy": "claude-opus-5-5",
   "documentHash": "1acbaa17ea48a5c200ab19a7363f294583d73ee6aa4b44fe1d8ff7520fa3e88e",
-  "mediaStatus": "none_in_official_documents"
+  "mediaStatus": "unavailable",
+  "mediaFailures": [
+    {
+      "sourceUrl": "https://github.com/RayVentura/ShortGPT/blob/3df4e0f7a422bf7386565d498bf4521a2544c614/README.md#L47",
+      "reason": "unsupported_media_host"
+    }
+  ],
+  "mediaReferences": [
+    {
+      "label": "alt text",
+      "url": "https://github.com/RayVentura/ShortGPT/blob/3df4e0f7a422bf7386565d498bf4521a2544c614/README.md#L47"
+    }
+  ]
 }

@@ -71,8 +71,18 @@
       "url": "https://github.com/Ancienttwo/repo-harness/blob/151ba8f946f450b549c721fc8decb7702b956d21/README.zh-CN.md"
     }
   ],
-  "media": [],
+  "media": [
+    {
+      "url": "/assets/repository-guides/media-84a89c49d31cb1c77024f71c.webp",
+      "alt": "repo-harness hooks leading Codex and Claude forward with repo-local workflow state",
+      "sourceUrl": "https://github.com/Ancienttwo/repo-harness/blob/151ba8f946f450b549c721fc8decb7702b956d21/README.md#L7",
+      "originalUrl": "https://raw.githubusercontent.com/Ancienttwo/repo-harness/151ba8f946f450b549c721fc8decb7702b956d21/docs/images/repo-harness-hook-carrot.png",
+      "animated": false
+    }
+  ],
   "generatedBy": "claude-opus-5-5",
   "documentHash": "1f4a48ccd128d08bd237803bb784e1fa6368247b3272d46ea09318ea811abda2",
-  "mediaStatus": "none_in_official_documents"
+  "mediaStatus": "archived",
+  "mediaFailures": [],
+  "mediaReferences": []
 }

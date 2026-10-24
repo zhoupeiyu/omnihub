@@ -59,8 +59,18 @@
       "url": "https://github.com/paperswithbacktest/awesome-systematic-trading/blob/ddfee8bb548bd6914191cb8fdb695d533ae16b0d/README_zh.md"
     }
   ],
-  "media": [],
+  "media": [
+    {
+      "url": "/assets/repository-guides/media-ae7e4d470509362a90f04fb8.webp",
+      "alt": "项目介绍",
+      "sourceUrl": "https://github.com/paperswithbacktest/awesome-systematic-trading/blob/ddfee8bb548bd6914191cb8fdb695d533ae16b0d/README.md#L2",
+      "originalUrl": "https://raw.githubusercontent.com/paperswithbacktest/awesome-systematic-trading/ddfee8bb548bd6914191cb8fdb695d533ae16b0d/static/images/awesome-systematic-trading.jpeg",
+      "animated": false
+    }
+  ],
   "generatedBy": "claude-opus-5-5",
   "documentHash": "259e78193aa84df92728d2a83d8d0c2cf49adf28aca76ba3d35b95865b9e5d84",
-  "mediaStatus": "none_in_official_documents"
+  "mediaStatus": "archived",
+  "mediaFailures": [],
+  "mediaReferences": []
 }

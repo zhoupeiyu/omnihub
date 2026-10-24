@@ -54,8 +54,18 @@
     "OpenClaw 曾用名 ClawdBot、MoltBot，查找资料时需要注意名称变更。"
   ],
   "references": [],
-  "media": [],
+  "media": [
+    {
+      "url": "/assets/repository-guides/media-4fdf47194dac19d80ac619fd.webp",
+      "alt": "Image",
+      "sourceUrl": "https://github.com/hesamsheikh/awesome-openclaw-usecases/blob/659895e58e2105c6db8fbef39f446c8a786a480c/README.md#L3",
+      "originalUrl": "https://github.com/user-attachments/assets/4ae57dfb-4f18-4677-9136-43bf93017250",
+      "animated": false
+    }
+  ],
   "generatedBy": "claude-opus-5-5",
   "documentHash": "172fef155d838eeaece96192b01a076ba9090a8d37a74bdd0eaca66c514743a1",
-  "mediaStatus": "none_in_official_documents"
+  "mediaStatus": "archived",
+  "mediaFailures": [],
+  "mediaReferences": []
 }

@@ -64,5 +64,41 @@
   "media": [],
   "generatedBy": "claude-opus-5-5",
   "documentHash": "5bdbabcd0415f7e365cc31e6cb6da77286301c7bfd002b14e0accb2c7f17cd3f",
-  "mediaStatus": "none_in_official_documents"
+  "mediaStatus": "unavailable",
+  "mediaFailures": [
+    {
+      "sourceUrl": "https://github.com/addyosmani/agent-skills/blob/2686b620fc1fed2e8f60c704839c766b8594c6b6/README.md#L9",
+      "reason": "unsupported_media_host"
+    },
+    {
+      "sourceUrl": "https://github.com/addyosmani/agent-skills/blob/2686b620fc1fed2e8f60c704839c766b8594c6b6/README.md#L400",
+      "reason": "unsupported_media_host"
+    },
+    {
+      "sourceUrl": "https://github.com/addyosmani/agent-skills/blob/2686b620fc1fed2e8f60c704839c766b8594c6b6/README.md#L401",
+      "reason": "unsupported_media_host"
+    },
+    {
+      "sourceUrl": "https://github.com/addyosmani/agent-skills/blob/2686b620fc1fed2e8f60c704839c766b8594c6b6/README.md#L402",
+      "reason": "unsupported_media_host"
+    }
+  ],
+  "mediaReferences": [
+    {
+      "label": "Addy's Agent Skills",
+      "url": "https://github.com/addyosmani/agent-skills/blob/2686b620fc1fed2e8f60c704839c766b8594c6b6/README.md#L9"
+    },
+    {
+      "label": "Addy Osmani",
+      "url": "https://github.com/addyosmani/agent-skills/blob/2686b620fc1fed2e8f60c704839c766b8594c6b6/README.md#L400"
+    },
+    {
+      "label": "Federico Bartoli",
+      "url": "https://github.com/addyosmani/agent-skills/blob/2686b620fc1fed2e8f60c704839c766b8594c6b6/README.md#L401"
+    },
+    {
+      "label": "Joan León",
+      "url": "https://github.com/addyosmani/agent-skills/blob/2686b620fc1fed2e8f60c704839c766b8594c6b6/README.md#L402"
+    }
+  ]
 }

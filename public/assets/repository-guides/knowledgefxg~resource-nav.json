@@ -63,23 +63,27 @@
       "url": "/assets/repository-guides/media-5a0d1a42a5c77773be044f1e.webp",
       "alt": "前台首页：分类导航、搜索与资源卡片",
       "sourceUrl": "https://github.com/knowledgefxg/resource-nav/blob/9a31ccad510d8a8157310dbbd3e24319655f5c32/README.md?plain=1#L15",
-      "originalUrl": "https://raw.githubusercontent.com/knowledgefxg/resource-nav/9a31ccad510d8a8157310dbbd3e24319655f5c32/docs/screenshots/frontend.png"
+      "originalUrl": "https://raw.githubusercontent.com/knowledgefxg/resource-nav/9a31ccad510d8a8157310dbbd3e24319655f5c32/docs/screenshots/frontend.png",
+      "animated": false
     },
     {
       "url": "/assets/repository-guides/media-74760fe49d4a876473eb302c.webp",
       "alt": "后台分类管理：新增分类、层级与排序",
       "sourceUrl": "https://github.com/knowledgefxg/resource-nav/blob/9a31ccad510d8a8157310dbbd3e24319655f5c32/README.md?plain=1#L23",
-      "originalUrl": "https://raw.githubusercontent.com/knowledgefxg/resource-nav/9a31ccad510d8a8157310dbbd3e24319655f5c32/docs/screenshots/admin-categories.png"
+      "originalUrl": "https://raw.githubusercontent.com/knowledgefxg/resource-nav/9a31ccad510d8a8157310dbbd3e24319655f5c32/docs/screenshots/admin-categories.png",
+      "animated": false
     },
     {
       "url": "/assets/repository-guides/media-62b32ef317d195483b182be2.webp",
       "alt": "后台资源管理：新增链接、筛选与搜索",
       "sourceUrl": "https://github.com/knowledgefxg/resource-nav/blob/9a31ccad510d8a8157310dbbd3e24319655f5c32/README.md?plain=1#L23",
-      "originalUrl": "https://raw.githubusercontent.com/knowledgefxg/resource-nav/9a31ccad510d8a8157310dbbd3e24319655f5c32/docs/screenshots/admin-resources.png"
+      "originalUrl": "https://raw.githubusercontent.com/knowledgefxg/resource-nav/9a31ccad510d8a8157310dbbd3e24319655f5c32/docs/screenshots/admin-resources.png",
+      "animated": false
     }
   ],
   "generatedBy": "claude-opus-5-5",
   "documentHash": "aba5e8c861f441c3dcfa7d3334c7595f144c5c28ea10488905cd475f4e86bd12",
   "mediaStatus": "archived",
-  "mediaFailures": []
+  "mediaFailures": [],
+  "mediaReferences": []
 }

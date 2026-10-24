@@ -68,23 +68,27 @@
       "url": "/assets/repository-guides/media-0728bdf64981c3bdbd164377.webp",
       "alt": "Harries/skills-desktop 官方演示 1",
       "sourceUrl": "https://github.com/Harries/skills-desktop/blob/d7c9c2c1a2039efc07eb150c43590d8b84cf1efe/README.md?plain=1#L20",
-      "originalUrl": "https://raw.githubusercontent.com/Harries/skills-desktop/d7c9c2c1a2039efc07eb150c43590d8b84cf1efe/docs/images/myskills.png"
+      "originalUrl": "https://raw.githubusercontent.com/Harries/skills-desktop/d7c9c2c1a2039efc07eb150c43590d8b84cf1efe/docs/images/myskills.png",
+      "animated": false
     },
     {
       "url": "/assets/repository-guides/media-dddeb4170be93a65c1e2ccc1.webp",
       "alt": "Harries/skills-desktop 官方演示 2",
       "sourceUrl": "https://github.com/Harries/skills-desktop/blob/d7c9c2c1a2039efc07eb150c43590d8b84cf1efe/README.md?plain=1#L27",
-      "originalUrl": "https://raw.githubusercontent.com/Harries/skills-desktop/d7c9c2c1a2039efc07eb150c43590d8b84cf1efe/docs/images/maketplace.png"
+      "originalUrl": "https://raw.githubusercontent.com/Harries/skills-desktop/d7c9c2c1a2039efc07eb150c43590d8b84cf1efe/docs/images/maketplace.png",
+      "animated": false
     },
     {
       "url": "/assets/repository-guides/media-619ad1bc1a40dae57a0ea37d.webp",
       "alt": "Harries/skills-desktop 官方演示 3",
       "sourceUrl": "https://github.com/Harries/skills-desktop/blob/d7c9c2c1a2039efc07eb150c43590d8b84cf1efe/README.md?plain=1#L40",
-      "originalUrl": "https://raw.githubusercontent.com/Harries/skills-desktop/d7c9c2c1a2039efc07eb150c43590d8b84cf1efe/docs/images/setting.png"
+      "originalUrl": "https://raw.githubusercontent.com/Harries/skills-desktop/d7c9c2c1a2039efc07eb150c43590d8b84cf1efe/docs/images/setting.png",
+      "animated": false
     }
   ],
   "generatedBy": "claude-opus-5-5",
   "documentHash": "26213140fd3a89526e290b6212e560336b8fc519bb3a45b906a9b5c4d2b2b147",
   "mediaStatus": "archived",
-  "mediaFailures": []
+  "mediaFailures": [],
+  "mediaReferences": []
 }

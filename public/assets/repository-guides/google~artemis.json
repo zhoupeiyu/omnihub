@@ -70,22 +70,48 @@
       "url": "/assets/repository-guides/media-f35eb2f3922e2ca02da4b964.webp",
       "alt": "google/artemis 官方演示 1",
       "sourceUrl": "https://github.com/google/artemis/blob/351ca8422f7b5b54e80a9c1ce03a222e02415b6b/README.md?plain=1#L244",
-      "originalUrl": "https://raw.githubusercontent.com/google/artemis/351ca8422f7b5b54e80a9c1ce03a222e02415b6b/docs/assets/artemis-ui-showcase-en.png"
+      "originalUrl": "https://raw.githubusercontent.com/google/artemis/351ca8422f7b5b54e80a9c1ce03a222e02415b6b/docs/assets/artemis-ui-showcase-en.png",
+      "animated": false
     },
     {
       "url": "/assets/repository-guides/media-cfb3b0fefb909d5a05dcc02b.webp",
       "alt": "google/artemis 官方演示 2",
       "sourceUrl": "https://github.com/google/artemis/blob/351ca8422f7b5b54e80a9c1ce03a222e02415b6b/README.md?plain=1#L65",
-      "originalUrl": "https://raw.githubusercontent.com/google/artemis/351ca8422f7b5b54e80a9c1ce03a222e02415b6b/docs/assets/workflow-3-exec.png"
+      "originalUrl": "https://raw.githubusercontent.com/google/artemis/351ca8422f7b5b54e80a9c1ce03a222e02415b6b/docs/assets/workflow-3-exec.png",
+      "animated": false
+    },
+    {
+      "url": "/assets/repository-guides/media-509edb56f232776b6355f6ae.webp",
+      "alt": "ARTEMIS Banner",
+      "sourceUrl": "https://github.com/google/artemis/blob/351ca8422f7b5b54e80a9c1ce03a222e02415b6b/README.md#L2",
+      "originalUrl": "https://raw.githubusercontent.com/google/artemis/351ca8422f7b5b54e80a9c1ce03a222e02415b6b/docs/assets/artemis-banner.png",
+      "animated": false
+    },
+    {
+      "url": "/assets/repository-guides/media-5d9dbc5b9ed72442c39928fb.webp",
+      "alt": "Step 1: Prompt Input in Antigravity",
+      "sourceUrl": "https://github.com/google/artemis/blob/351ca8422f7b5b54e80a9c1ce03a222e02415b6b/README.md#L53",
+      "originalUrl": "https://raw.githubusercontent.com/google/artemis/351ca8422f7b5b54e80a9c1ce03a222e02415b6b/docs/assets/workflow-1-prompt.png",
+      "animated": false
+    },
+    {
+      "url": "/assets/repository-guides/media-73a213a58d4e5eb5cc013c19.webp",
+      "alt": "AndroidWorld Benchmark Comparison",
+      "sourceUrl": "https://github.com/google/artemis/blob/351ca8422f7b5b54e80a9c1ce03a222e02415b6b/README.md#L280",
+      "originalUrl": "https://raw.githubusercontent.com/google/artemis/351ca8422f7b5b54e80a9c1ce03a222e02415b6b/docs/assets/androidworld_leaderboard.png",
+      "animated": false
+    },
+    {
+      "url": "/assets/repository-guides/media-e5d636a2c4ce1fe07d4ee80a.webp",
+      "alt": "ARTEMIS System Architecture Diagram",
+      "sourceUrl": "https://github.com/google/artemis/blob/351ca8422f7b5b54e80a9c1ce03a222e02415b6b/README.md#L290",
+      "originalUrl": "https://raw.githubusercontent.com/google/artemis/351ca8422f7b5b54e80a9c1ce03a222e02415b6b/docs/assets/artemis_architecture_diagram.png",
+      "animated": false
     }
   ],
   "generatedBy": "claude-opus-5-5",
   "documentHash": "81f270ad4930dd28b5a7280f1a66afd70114fcbbbf268743c2ce31954691533a",
   "mediaStatus": "archived",
-  "mediaFailures": [
-    {
-      "sourceUrl": "https://github.com/google/artemis/blob/351ca8422f7b5b54e80a9c1ce03a222e02415b6b/README.md#L29",
-      "reason": "media_too_large"
-    }
-  ]
+  "mediaFailures": [],
+  "mediaReferences": []
 }

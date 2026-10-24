@@ -62,11 +62,30 @@
       "url": "/assets/repository-guides/media-9b61d73eddc5e59d3ff3e809.webp",
       "alt": "小黄轻手绘示例：抓住一个核心动作",
       "sourceUrl": "https://github.com/ChenShuo2004/cs-skills/blob/0b27495ba82a9297eb4028ee443edb69b7a0ef31/README.md?plain=1#L49",
-      "originalUrl": "https://raw.githubusercontent.com/ChenShuo2004/cs-skills/0b27495ba82a9297eb4028ee443edb69b7a0ef31/cs-xiaohuang-skill/assets/examples/01-cognitive-anchor.png"
+      "originalUrl": "https://raw.githubusercontent.com/ChenShuo2004/cs-skills/0b27495ba82a9297eb4028ee443edb69b7a0ef31/cs-xiaohuang-skill/assets/examples/01-cognitive-anchor.png",
+      "animated": false
+    },
+    {
+      "url": "/assets/repository-guides/media-a21cbba800e4011f9ba546ef.webp",
+      "alt": "CS Skills 工作流封面",
+      "sourceUrl": "https://github.com/ChenShuo2004/cs-skills/blob/0b27495ba82a9297eb4028ee443edb69b7a0ef31/README.md#L7",
+      "originalUrl": "https://raw.githubusercontent.com/ChenShuo2004/cs-skills/0b27495ba82a9297eb4028ee443edb69b7a0ef31/assets/chenshuo-skills-cover.png",
+      "animated": false
     }
   ],
   "generatedBy": "claude-opus-5-5",
   "documentHash": "f68ab99ed06abe7f4e22ad04bf34155f70971054bb45452be3df87d4390e4f5b",
   "mediaStatus": "archived",
-  "mediaFailures": []
+  "mediaFailures": [
+    {
+      "sourceUrl": "https://github.com/ChenShuo2004/cs-skills/blob/0b27495ba82a9297eb4028ee443edb69b7a0ef31/README.md#L17",
+      "reason": "unsupported_media_format"
+    }
+  ],
+  "mediaReferences": [
+    {
+      "label": "目标与素材 → cs-run → 专项执行 → 验证结果 → 按需发布",
+      "url": "https://github.com/ChenShuo2004/cs-skills/blob/0b27495ba82a9297eb4028ee443edb69b7a0ef31/README.md#L17"
+    }
+  ]
 }

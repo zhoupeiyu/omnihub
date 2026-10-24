@@ -65,23 +65,48 @@
       "url": "/assets/repository-guides/media-84cbcb3f25360a38b5d28963.webp",
       "alt": "uncSoft/cyberwriter-app 官方演示 1",
       "sourceUrl": "https://github.com/uncSoft/cyberwriter-app/blob/00a253ae20047a4fa572bef6a5eee57cb7550ab2/README.md?plain=1#L112",
-      "originalUrl": "https://raw.githubusercontent.com/uncSoft/cyberwriter-app/00a253ae20047a4fa572bef6a5eee57cb7550ab2/docs/screenshots/hero-split-view.png"
+      "originalUrl": "https://raw.githubusercontent.com/uncSoft/cyberwriter-app/00a253ae20047a4fa572bef6a5eee57cb7550ab2/docs/screenshots/hero-split-view.png",
+      "animated": false
     },
     {
       "url": "/assets/repository-guides/media-18103a8964e148055a546bd8.webp",
       "alt": "uncSoft/cyberwriter-app 官方演示 2",
       "sourceUrl": "https://github.com/uncSoft/cyberwriter-app/blob/00a253ae20047a4fa572bef6a5eee57cb7550ab2/README.md?plain=1#L23",
-      "originalUrl": "https://raw.githubusercontent.com/uncSoft/cyberwriter-app/00a253ae20047a4fa572bef6a5eee57cb7550ab2/docs/screenshots/ai-workspace.png"
+      "originalUrl": "https://raw.githubusercontent.com/uncSoft/cyberwriter-app/00a253ae20047a4fa572bef6a5eee57cb7550ab2/docs/screenshots/ai-workspace.png",
+      "animated": false
     },
     {
       "url": "/assets/repository-guides/media-c07e303eb2f0677e3e33376b.webp",
       "alt": "uncSoft/cyberwriter-app 官方演示 3",
       "sourceUrl": "https://github.com/uncSoft/cyberwriter-app/blob/00a253ae20047a4fa572bef6a5eee57cb7550ab2/README.md?plain=1#L55",
-      "originalUrl": "https://raw.githubusercontent.com/uncSoft/cyberwriter-app/00a253ae20047a4fa572bef6a5eee57cb7550ab2/docs/screenshots/graph-expanded.png"
+      "originalUrl": "https://raw.githubusercontent.com/uncSoft/cyberwriter-app/00a253ae20047a4fa572bef6a5eee57cb7550ab2/docs/screenshots/graph-expanded.png",
+      "animated": false
+    },
+    {
+      "url": "/assets/repository-guides/media-73c1e3b42a26312a361d87d3.webp",
+      "alt": "cyberWriter",
+      "sourceUrl": "https://github.com/uncSoft/cyberwriter-app/blob/00a253ae20047a4fa572bef6a5eee57cb7550ab2/README.md#L7",
+      "originalUrl": "https://raw.githubusercontent.com/uncSoft/cyberwriter-app/00a253ae20047a4fa572bef6a5eee57cb7550ab2/docs/screenshots/hero1.png",
+      "animated": false
+    },
+    {
+      "url": "/assets/repository-guides/media-7de93d00219d76c790623b64.webp",
+      "alt": "File Vault (Obsidian-compatible)",
+      "sourceUrl": "https://github.com/uncSoft/cyberwriter-app/blob/00a253ae20047a4fa572bef6a5eee57cb7550ab2/README.md#L42",
+      "originalUrl": "https://raw.githubusercontent.com/uncSoft/cyberwriter-app/00a253ae20047a4fa572bef6a5eee57cb7550ab2/docs/screenshots/vault-tags-graph.png",
+      "animated": false
+    },
+    {
+      "url": "/assets/repository-guides/media-b0d6297294080312b92df6c3.webp",
+      "alt": "Mermaid + LaTeX",
+      "sourceUrl": "https://github.com/uncSoft/cyberwriter-app/blob/00a253ae20047a4fa572bef6a5eee57cb7550ab2/README.md#L63",
+      "originalUrl": "https://raw.githubusercontent.com/uncSoft/cyberwriter-app/00a253ae20047a4fa572bef6a5eee57cb7550ab2/docs/screenshots/mermaid-latex.png",
+      "animated": false
     }
   ],
   "generatedBy": "claude-opus-5-5",
   "documentHash": "46da653036cd77e03d605eed7687210b45b7e5f0425263bd911cf97402480ff2",
   "mediaStatus": "archived",
-  "mediaFailures": []
+  "mediaFailures": [],
+  "mediaReferences": []
 }

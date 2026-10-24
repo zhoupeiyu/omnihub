@@ -59,17 +59,44 @@
       "url": "/assets/repository-guides/media-36691b95e47965e237700bfd.webp",
       "alt": "emanuele-f/PCAPdroid 官方演示 1",
       "sourceUrl": "https://github.com/emanuele-f/PCAPdroid/blob/66f7b3514540c20add8655a74dfee93d00a9563b/README.md?plain=1#L8",
-      "originalUrl": "https://raw.githubusercontent.com/emanuele-f/PCAPdroid/master/fastlane/metadata/android/en-US/images/phoneScreenshots/1.png"
+      "originalUrl": "https://raw.githubusercontent.com/emanuele-f/PCAPdroid/master/fastlane/metadata/android/en-US/images/phoneScreenshots/1.png",
+      "animated": false
     },
     {
       "url": "/assets/repository-guides/media-cbed0543f64c597d0a6005e7.webp",
       "alt": "emanuele-f/PCAPdroid 官方演示 2",
       "sourceUrl": "https://github.com/emanuele-f/PCAPdroid/blob/66f7b3514540c20add8655a74dfee93d00a9563b/README.md?plain=1#L9",
-      "originalUrl": "https://raw.githubusercontent.com/emanuele-f/PCAPdroid/master/fastlane/metadata/android/en-US/images/phoneScreenshots/2.png"
+      "originalUrl": "https://raw.githubusercontent.com/emanuele-f/PCAPdroid/master/fastlane/metadata/android/en-US/images/phoneScreenshots/2.png",
+      "animated": false
+    },
+    {
+      "url": "/assets/repository-guides/media-36691b95e47965e237700bfd.webp",
+      "alt": "PCAPdroid",
+      "sourceUrl": "https://github.com/emanuele-f/PCAPdroid/blob/66f7b3514540c20add8655a74dfee93d00a9563b/README.md#L8",
+      "originalUrl": "https://raw.githubusercontent.com/emanuele-f/PCAPdroid/66f7b3514540c20add8655a74dfee93d00a9563b/fastlane/metadata/android/en-US/images/phoneScreenshots/1.png",
+      "animated": false
+    },
+    {
+      "url": "/assets/repository-guides/media-cbed0543f64c597d0a6005e7.webp",
+      "alt": "PCAPdroid",
+      "sourceUrl": "https://github.com/emanuele-f/PCAPdroid/blob/66f7b3514540c20add8655a74dfee93d00a9563b/README.md#L9",
+      "originalUrl": "https://raw.githubusercontent.com/emanuele-f/PCAPdroid/66f7b3514540c20add8655a74dfee93d00a9563b/fastlane/metadata/android/en-US/images/phoneScreenshots/2.png",
+      "animated": false
     }
   ],
   "generatedBy": "claude-opus-5-5",
   "documentHash": "d5a2360b6fd6b902d7975175a9e0b29d8165d7d722883a5de504172ea6f92536",
   "mediaStatus": "archived",
-  "mediaFailures": []
+  "mediaFailures": [
+    {
+      "sourceUrl": "https://github.com/emanuele-f/PCAPdroid/blob/66f7b3514540c20add8655a74dfee93d00a9563b/README.md#L58",
+      "reason": "unsupported_media_host"
+    }
+  ],
+  "mediaReferences": [
+    {
+      "label": "Translation status",
+      "url": "https://github.com/emanuele-f/PCAPdroid/blob/66f7b3514540c20add8655a74dfee93d00a9563b/README.md#L58"
+    }
+  ]
 }

@@ -67,23 +67,48 @@
       "url": "/assets/repository-guides/media-8463efcd280cf3264da7d71b.webp",
       "alt": "暖色手绘教程风 21:9",
       "sourceUrl": "https://github.com/peggykangkang02/xialingguo-ip/blob/bdd8174660011fdfb97c0447f5f46443db91144c/README.md?plain=1#L57",
-      "originalUrl": "https://raw.githubusercontent.com/peggykangkang02/xialingguo-ip/bdd8174660011fdfb97c0447f5f46443db91144c/assets/style-samples/thumbs/warm-handdrawn.png"
+      "originalUrl": "https://raw.githubusercontent.com/peggykangkang02/xialingguo-ip/bdd8174660011fdfb97c0447f5f46443db91144c/assets/style-samples/thumbs/warm-handdrawn.png",
+      "animated": false
     },
     {
       "url": "/assets/repository-guides/media-1b09bd14bb4888162ab40fa6.webp",
       "alt": "产品主视觉风 21:9",
       "sourceUrl": "https://github.com/peggykangkang02/xialingguo-ip/blob/bdd8174660011fdfb97c0447f5f46443db91144c/README.md?plain=1#L58",
-      "originalUrl": "https://raw.githubusercontent.com/peggykangkang02/xialingguo-ip/bdd8174660011fdfb97c0447f5f46443db91144c/assets/style-samples/thumbs/product-main.png"
+      "originalUrl": "https://raw.githubusercontent.com/peggykangkang02/xialingguo-ip/bdd8174660011fdfb97c0447f5f46443db91144c/assets/style-samples/thumbs/product-main.png",
+      "animated": false
     },
     {
       "url": "/assets/repository-guides/media-cdc32e294f0173cdb0702264.webp",
       "alt": "黑金步骤爆款风 21:9",
       "sourceUrl": "https://github.com/peggykangkang02/xialingguo-ip/blob/bdd8174660011fdfb97c0447f5f46443db91144c/README.md?plain=1#L66",
-      "originalUrl": "https://raw.githubusercontent.com/peggykangkang02/xialingguo-ip/bdd8174660011fdfb97c0447f5f46443db91144c/assets/style-samples/thumbs/black-gold.png"
+      "originalUrl": "https://raw.githubusercontent.com/peggykangkang02/xialingguo-ip/bdd8174660011fdfb97c0447f5f46443db91144c/assets/style-samples/thumbs/black-gold.png",
+      "animated": false
+    },
+    {
+      "url": "/assets/repository-guides/media-cc8ba179a91f82155f9048fe.webp",
+      "alt": "深色科技爆发风 21:9",
+      "sourceUrl": "https://github.com/peggykangkang02/xialingguo-ip/blob/bdd8174660011fdfb97c0447f5f46443db91144c/README.md#L61",
+      "originalUrl": "https://raw.githubusercontent.com/peggykangkang02/xialingguo-ip/bdd8174660011fdfb97c0447f5f46443db91144c/assets/style-samples/thumbs/dark-tech.png",
+      "animated": false
+    },
+    {
+      "url": "/assets/repository-guides/media-2bf3a8423ba70dfbf0088397.webp",
+      "alt": "撕纸拼贴风 21:9",
+      "sourceUrl": "https://github.com/peggykangkang02/xialingguo-ip/blob/bdd8174660011fdfb97c0447f5f46443db91144c/README.md#L62",
+      "originalUrl": "https://raw.githubusercontent.com/peggykangkang02/xialingguo-ip/bdd8174660011fdfb97c0447f5f46443db91144c/assets/style-samples/thumbs/collage.png",
+      "animated": false
+    },
+    {
+      "url": "/assets/repository-guides/media-8714037e4b9b8d76e72d1ede.webp",
+      "alt": "编辑杂志风 21:9",
+      "sourceUrl": "https://github.com/peggykangkang02/xialingguo-ip/blob/bdd8174660011fdfb97c0447f5f46443db91144c/README.md#L65",
+      "originalUrl": "https://raw.githubusercontent.com/peggykangkang02/xialingguo-ip/bdd8174660011fdfb97c0447f5f46443db91144c/assets/style-samples/thumbs/editorial.png",
+      "animated": false
     }
   ],
   "generatedBy": "claude-opus-5-5",
   "documentHash": "9a9ab8f6467c44a0cac0c86f9825cb8ece2275833fc611edb0fc81b23f97fc57",
   "mediaStatus": "archived",
-  "mediaFailures": []
+  "mediaFailures": [],
+  "mediaReferences": []
 }

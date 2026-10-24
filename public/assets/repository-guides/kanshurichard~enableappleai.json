@@ -69,11 +69,13 @@
       "url": "/assets/repository-guides/media-99f599fe067c488363f73642.webp",
       "alt": "截屏2025-05-04 09 42 49",
       "sourceUrl": "https://github.com/kanshurichard/enableAppleAI/blob/3f38c39e969151e95564372e3397bdbafad07822/README.md?plain=1#L9",
-      "originalUrl": "https://github.com/user-attachments/assets/eeb7a4ef-2d6d-46d5-8305-dd2daaafcd04"
+      "originalUrl": "https://github.com/user-attachments/assets/eeb7a4ef-2d6d-46d5-8305-dd2daaafcd04",
+      "animated": false
     }
   ],
   "generatedBy": "claude-opus-5-5",
   "documentHash": "bc93e7e3e7a09b0cf275946560ac85a7a613febcd0f4e1f661604e988ff1deb8",
   "mediaStatus": "archived",
-  "mediaFailures": []
+  "mediaFailures": [],
+  "mediaReferences": []
 }

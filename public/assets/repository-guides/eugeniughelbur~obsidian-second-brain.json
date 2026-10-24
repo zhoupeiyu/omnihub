@@ -67,17 +67,27 @@
       "url": "/assets/repository-guides/media-db0b7e7b52a2ffa63b90fd49.webp",
       "alt": "eugeniughelbur/obsidian-second-brain 官方演示 1",
       "sourceUrl": "https://github.com/eugeniughelbur/obsidian-second-brain/blob/b0089f7666d0c1e3db41c9d587b6f3c997665235/README.md?plain=1#L59",
-      "originalUrl": "https://raw.githubusercontent.com/eugeniughelbur/obsidian-second-brain/b0089f7666d0c1e3db41c9d587b6f3c997665235/media/obsidian-save.gif"
+      "originalUrl": "https://raw.githubusercontent.com/eugeniughelbur/obsidian-second-brain/b0089f7666d0c1e3db41c9d587b6f3c997665235/media/obsidian-save.gif",
+      "animated": true
     },
     {
       "url": "/assets/repository-guides/media-65cc9597758914d689cf4bf0.webp",
       "alt": "eugeniughelbur/obsidian-second-brain 官方演示 2",
       "sourceUrl": "https://github.com/eugeniughelbur/obsidian-second-brain/blob/b0089f7666d0c1e3db41c9d587b6f3c997665235/README.md?plain=1#L646",
-      "originalUrl": "https://raw.githubusercontent.com/eugeniughelbur/obsidian-second-brain/b0089f7666d0c1e3db41c9d587b6f3c997665235/media/plugin-install.gif"
+      "originalUrl": "https://raw.githubusercontent.com/eugeniughelbur/obsidian-second-brain/b0089f7666d0c1e3db41c9d587b6f3c997665235/media/plugin-install.gif",
+      "animated": true
+    },
+    {
+      "url": "/assets/repository-guides/media-54ae82a0bc8f9689d78f4819.webp",
+      "alt": "obsidian-second-brain: one brain, eight platforms, 47 commands. A cross-platform skill for Obsidian that runs on Claude Code, Codex, Gemini, OpenCode, Antigravi",
+      "sourceUrl": "https://github.com/eugeniughelbur/obsidian-second-brain/blob/b0089f7666d0c1e3db41c9d587b6f3c997665235/README.md#L3",
+      "originalUrl": "https://raw.githubusercontent.com/eugeniughelbur/obsidian-second-brain/b0089f7666d0c1e3db41c9d587b6f3c997665235/media/banner.png",
+      "animated": false
     }
   ],
   "generatedBy": "claude-opus-5-5",
   "documentHash": "59e04ab842f3e63817f1dc0aa383d9a13e703cc3532404ec033ed5fba47585bf",
   "mediaStatus": "archived",
-  "mediaFailures": []
+  "mediaFailures": [],
+  "mediaReferences": []
 }

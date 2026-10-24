@@ -71,23 +71,58 @@
       "url": "/assets/repository-guides/media-5ba9f407ab09d019d4872cc0.webp",
       "alt": "tt-a1i/archify 官方演示 1",
       "sourceUrl": "https://github.com/tt-a1i/archify/blob/d5a1333d7447c866a765adac7d4d062f2f02e4d2/README.md?plain=1#L104",
-      "originalUrl": "https://raw.githubusercontent.com/tt-a1i/archify/d5a1333d7447c866a765adac7d4d062f2f02e4d2/docs/assets/archify-demo-route.png"
+      "originalUrl": "https://raw.githubusercontent.com/tt-a1i/archify/d5a1333d7447c866a765adac7d4d062f2f02e4d2/docs/assets/archify-demo-route.png",
+      "animated": false
     },
     {
       "url": "/assets/repository-guides/media-40a75adcc0cc719dd5ba0812.webp",
       "alt": "tt-a1i/archify 官方演示 2",
       "sourceUrl": "https://github.com/tt-a1i/archify/blob/d5a1333d7447c866a765adac7d4d062f2f02e4d2/README.md?plain=1#L104",
-      "originalUrl": "https://raw.githubusercontent.com/tt-a1i/archify/d5a1333d7447c866a765adac7d4d062f2f02e4d2/docs/assets/archify-demo-reach.png"
+      "originalUrl": "https://raw.githubusercontent.com/tt-a1i/archify/d5a1333d7447c866a765adac7d4d062f2f02e4d2/docs/assets/archify-demo-reach.png",
+      "animated": false
     },
     {
       "url": "/assets/repository-guides/media-a8d9ce5cf43df0ae4222401f.webp",
       "alt": "tt-a1i/archify 官方演示 3",
       "sourceUrl": "https://github.com/tt-a1i/archify/blob/d5a1333d7447c866a765adac7d4d062f2f02e4d2/README.md?plain=1#L164",
-      "originalUrl": "https://raw.githubusercontent.com/tt-a1i/archify/d5a1333d7447c866a765adac7d4d062f2f02e4d2/docs/assets/archify-menu.png"
+      "originalUrl": "https://raw.githubusercontent.com/tt-a1i/archify/d5a1333d7447c866a765adac7d4d062f2f02e4d2/docs/assets/archify-menu.png",
+      "animated": false
+    },
+    {
+      "url": "/assets/repository-guides/media-8447e8d8fb43aaee47c3211d.webp",
+      "alt": "MCO runtime architecture generated from the public mco-org/mco repository",
+      "sourceUrl": "https://github.com/tt-a1i/archify/blob/d5a1333d7447c866a765adac7d4d062f2f02e4d2/README.md#L113",
+      "originalUrl": "https://raw.githubusercontent.com/tt-a1i/archify/d5a1333d7447c866a765adac7d4d062f2f02e4d2/docs/assets/mco-runtime-share-card.png",
+      "animated": false
+    },
+    {
+      "url": "/assets/repository-guides/media-9205873ad6c6921dcd59e511.webp",
+      "alt": "A community-created four-day Shanghai CityWalk itinerary",
+      "sourceUrl": "https://github.com/tt-a1i/archify/blob/d5a1333d7447c866a765adac7d4d062f2f02e4d2/README.md#L129",
+      "originalUrl": "https://raw.githubusercontent.com/tt-a1i/archify/d5a1333d7447c866a765adac7d4d062f2f02e4d2/docs/assets/community/shanghai-citywalk.png",
+      "animated": false
+    },
+    {
+      "url": "/assets/repository-guides/media-dfab9fa298ad30a1f5e24ff3.webp",
+      "alt": "Dark theme",
+      "sourceUrl": "https://github.com/tt-a1i/archify/blob/d5a1333d7447c866a765adac7d4d062f2f02e4d2/README.md#L160",
+      "originalUrl": "https://raw.githubusercontent.com/tt-a1i/archify/d5a1333d7447c866a765adac7d4d062f2f02e4d2/docs/assets/archify-dark.png",
+      "animated": false
     }
   ],
   "generatedBy": "claude-opus-5-5",
   "documentHash": "344ac3ac6393fbac334771fc3275866b5519dd5e26d0f43cac77af8ead629df0",
   "mediaStatus": "archived",
-  "mediaFailures": []
+  "mediaFailures": [
+    {
+      "sourceUrl": "https://github.com/tt-a1i/archify/blob/d5a1333d7447c866a765adac7d4d062f2f02e4d2/README.md#L4",
+      "reason": "unsupported_media_format"
+    }
+  ],
+  "mediaReferences": [
+    {
+      "label": "Archify",
+      "url": "https://github.com/tt-a1i/archify/blob/d5a1333d7447c866a765adac7d4d062f2f02e4d2/README.md#L4"
+    }
+  ]
 }

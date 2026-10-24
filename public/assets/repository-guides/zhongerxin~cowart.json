@@ -72,23 +72,48 @@
       "url": "/assets/repository-guides/media-405df998e04ed2f5fd59310c.webp",
       "alt": "在 Codex 中打开 Cowart 画布",
       "sourceUrl": "https://github.com/zhongerxin/Cowart/blob/82dc322b64f5ca867fb2899fc563ba26c9837f02/README.md?plain=1#L92",
-      "originalUrl": "https://raw.githubusercontent.com/zhongerxin/Cowart/82dc322b64f5ca867fb2899fc563ba26c9837f02/assets/open-canvas.png"
+      "originalUrl": "https://raw.githubusercontent.com/zhongerxin/Cowart/82dc322b64f5ca867fb2899fc563ba26c9837f02/assets/open-canvas.png",
+      "animated": false
     },
     {
       "url": "/assets/repository-guides/media-2562f4c0ea4065d1a47054cd.webp",
       "alt": "使用 Cowart 生成并插入新图",
       "sourceUrl": "https://github.com/zhongerxin/Cowart/blob/82dc322b64f5ca867fb2899fc563ba26c9837f02/README.md?plain=1#L102",
-      "originalUrl": "https://raw.githubusercontent.com/zhongerxin/Cowart/82dc322b64f5ca867fb2899fc563ba26c9837f02/assets/generate-image.png"
+      "originalUrl": "https://raw.githubusercontent.com/zhongerxin/Cowart/82dc322b64f5ca867fb2899fc563ba26c9837f02/assets/generate-image.png",
+      "animated": false
     },
     {
       "url": "/assets/repository-guides/media-eab9c61868bdaa875ce8cccf.webp",
       "alt": "根据 Cowart 标注截图生成修订图",
       "sourceUrl": "https://github.com/zhongerxin/Cowart/blob/82dc322b64f5ca867fb2899fc563ba26c9837f02/README.md?plain=1#L112",
-      "originalUrl": "https://raw.githubusercontent.com/zhongerxin/Cowart/82dc322b64f5ca867fb2899fc563ba26c9837f02/assets/annotation-edit.png"
+      "originalUrl": "https://raw.githubusercontent.com/zhongerxin/Cowart/82dc322b64f5ca867fb2899fc563ba26c9837f02/assets/annotation-edit.png",
+      "animated": false
+    },
+    {
+      "url": "/assets/repository-guides/media-73498aff5064d75e13d0844a.webp",
+      "alt": "Cowart 封面",
+      "sourceUrl": "https://github.com/zhongerxin/Cowart/blob/82dc322b64f5ca867fb2899fc563ba26c9837f02/README.md#L15",
+      "originalUrl": "https://raw.githubusercontent.com/zhongerxin/Cowart/82dc322b64f5ca867fb2899fc563ba26c9837f02/assets/cover.png",
+      "animated": false
+    },
+    {
+      "url": "/assets/repository-guides/media-199459581a9571378801a5a2.webp",
+      "alt": "编辑 Cowart AI HTML",
+      "sourceUrl": "https://github.com/zhongerxin/Cowart/blob/82dc322b64f5ca867fb2899fc563ba26c9837f02/README.md#L122",
+      "originalUrl": "https://raw.githubusercontent.com/zhongerxin/Cowart/82dc322b64f5ca867fb2899fc563ba26c9837f02/assets/edit-html.png",
+      "animated": false
+    },
+    {
+      "url": "/assets/repository-guides/media-61b5bbcbb8d7b04ed7a7d5ba.webp",
+      "alt": "演示和切换 Cowart AI Slides",
+      "sourceUrl": "https://github.com/zhongerxin/Cowart/blob/82dc322b64f5ca867fb2899fc563ba26c9837f02/README.md#L132",
+      "originalUrl": "https://raw.githubusercontent.com/zhongerxin/Cowart/82dc322b64f5ca867fb2899fc563ba26c9837f02/assets/view-slides.png",
+      "animated": false
     }
   ],
   "generatedBy": "claude-opus-5-5",
   "documentHash": "7f6f2b4efaf2c8a82b6887f27efae61a5c4003bc0f9a53a1deda3d47bb977165",
   "mediaStatus": "archived",
-  "mediaFailures": []
+  "mediaFailures": [],
+  "mediaReferences": []
 }

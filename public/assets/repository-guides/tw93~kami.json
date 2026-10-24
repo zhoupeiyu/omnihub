@@ -60,23 +60,48 @@
       "url": "/assets/repository-guides/media-0c10c091f5b4976394894093.webp",
       "alt": "tw93/Kami 官方演示 1",
       "sourceUrl": "https://github.com/tw93/Kami/blob/5a7fa34e3804199e6fa28eea1c16057ece2f8f0f/README.md?plain=1#L36",
-      "originalUrl": "https://raw.githubusercontent.com/tw93/Kami/5a7fa34e3804199e6fa28eea1c16057ece2f8f0f/site/assets/demos/demo-tesla.png"
+      "originalUrl": "https://raw.githubusercontent.com/tw93/Kami/5a7fa34e3804199e6fa28eea1c16057ece2f8f0f/site/assets/demos/demo-tesla.png",
+      "animated": false
     },
     {
       "url": "/assets/repository-guides/media-e6aaaedaa7a00774a0c12a1b.webp",
       "alt": "tw93/Kami 官方演示 2",
       "sourceUrl": "https://github.com/tw93/Kami/blob/5a7fa34e3804199e6fa28eea1c16057ece2f8f0f/README.md?plain=1#L41",
-      "originalUrl": "https://raw.githubusercontent.com/tw93/Kami/5a7fa34e3804199e6fa28eea1c16057ece2f8f0f/site/assets/demos/demo-agent-slides.png"
+      "originalUrl": "https://raw.githubusercontent.com/tw93/Kami/5a7fa34e3804199e6fa28eea1c16057ece2f8f0f/site/assets/demos/demo-agent-slides.png",
+      "animated": false
     },
     {
       "url": "/assets/repository-guides/media-98cc665adcff48b2d522103c.webp",
       "alt": "tw93/Kami 官方演示 3",
       "sourceUrl": "https://github.com/tw93/Kami/blob/5a7fa34e3804199e6fa28eea1c16057ece2f8f0f/README.md?plain=1#L26",
-      "originalUrl": "https://raw.githubusercontent.com/tw93/Kami/5a7fa34e3804199e6fa28eea1c16057ece2f8f0f/site/assets/demos/demo-musk-resume.png"
+      "originalUrl": "https://raw.githubusercontent.com/tw93/Kami/5a7fa34e3804199e6fa28eea1c16057ece2f8f0f/site/assets/demos/demo-musk-resume.png",
+      "animated": false
+    },
+    {
+      "url": "/assets/repository-guides/media-1635a2b123faa56e3bee7580.webp",
+      "alt": "Kami landing page",
+      "sourceUrl": "https://github.com/tw93/Kami/blob/5a7fa34e3804199e6fa28eea1c16057ece2f8f0f/README.md#L140",
+      "originalUrl": "https://raw.githubusercontent.com/tw93/Kami/5a7fa34e3804199e6fa28eea1c16057ece2f8f0f/site/assets/showcase/kami-landing.png",
+      "animated": false
+    },
+    {
+      "url": "/assets/repository-guides/media-c9c7b378ec3f0a97c94ec112.webp",
+      "alt": "Kami print one-pager",
+      "sourceUrl": "https://github.com/tw93/Kami/blob/5a7fa34e3804199e6fa28eea1c16057ece2f8f0f/README.md#L31",
+      "originalUrl": "https://raw.githubusercontent.com/tw93/Kami/5a7fa34e3804199e6fa28eea1c16057ece2f8f0f/site/assets/demos/demo-kami-print.png",
+      "animated": false
+    },
+    {
+      "url": "/assets/repository-guides/media-63e6e1475135e7f27fbe8513.webp",
+      "alt": "Mole landing page",
+      "sourceUrl": "https://github.com/tw93/Kami/blob/5a7fa34e3804199e6fa28eea1c16057ece2f8f0f/README.md#L145",
+      "originalUrl": "https://raw.githubusercontent.com/tw93/Kami/5a7fa34e3804199e6fa28eea1c16057ece2f8f0f/site/assets/showcase/mole-landing.png",
+      "animated": false
     }
   ],
   "generatedBy": "claude-opus-5-5",
   "documentHash": "3e70de95cefa50c64f911ce79cf89888e63018c28d3c177ae7b737a5a35698a3",
   "mediaStatus": "archived",
-  "mediaFailures": []
+  "mediaFailures": [],
+  "mediaReferences": []
 }

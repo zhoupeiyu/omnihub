@@ -65,14 +65,63 @@
     "克隆或替换他人视频中的人物、文案和素材时，需要自行确认肖像权、版权和平台规则。"
   ],
   "references": [],
-  "media": [],
+  "media": [
+    {
+      "url": "/assets/repository-guides/media-ee9e4a7c924f087cde89ece7.webp",
+      "alt": "Stay tuned with us",
+      "sourceUrl": "https://github.com/hypit-ai/hypit/blob/e8f94006e1eed9b299448fe5bce6afa5646e2ba5/README.md#L185",
+      "originalUrl": "https://github.com/user-attachments/assets/cc929974-96b8-4166-b81d-008e130b0f24",
+      "animated": true
+    },
+    {
+      "url": "/assets/repository-guides/media-6e48511e3c990d662439b5c9.webp",
+      "alt": "Watcha",
+      "sourceUrl": "https://github.com/hypit-ai/hypit/blob/e8f94006e1eed9b299448fe5bce6afa5646e2ba5/README.md#L225",
+      "originalUrl": "https://raw.githubusercontent.com/hypit-ai/hypit/e8f94006e1eed9b299448fe5bce6afa5646e2ba5/docs/public/watcha-light.png",
+      "animated": false
+    },
+    {
+      "url": "/assets/repository-guides/media-60d9841600c9b5515dc031b4.webp",
+      "alt": "TokenDance",
+      "sourceUrl": "https://github.com/hypit-ai/hypit/blob/e8f94006e1eed9b299448fe5bce6afa5646e2ba5/README.md#L236",
+      "originalUrl": "https://raw.githubusercontent.com/hypit-ai/hypit/e8f94006e1eed9b299448fe5bce6afa5646e2ba5/docs/public/tokendance-light.png",
+      "animated": false
+    },
+    {
+      "url": "/assets/repository-guides/media-845291bf8e224c4966c6d8df.webp",
+      "alt": "AutoClaw",
+      "sourceUrl": "https://github.com/hypit-ai/hypit/blob/e8f94006e1eed9b299448fe5bce6afa5646e2ba5/README.md#L244",
+      "originalUrl": "https://raw.githubusercontent.com/hypit-ai/hypit/e8f94006e1eed9b299448fe5bce6afa5646e2ba5/docs/public/autoclaw.png",
+      "animated": false
+    },
+    {
+      "url": "/assets/repository-guides/media-799f8dce5259adb874297da3.webp",
+      "alt": "OpenAgents",
+      "sourceUrl": "https://github.com/hypit-ai/hypit/blob/e8f94006e1eed9b299448fe5bce6afa5646e2ba5/README.md#L250",
+      "originalUrl": "https://raw.githubusercontent.com/hypit-ai/hypit/e8f94006e1eed9b299448fe5bce6afa5646e2ba5/docs/public/openagents.png",
+      "animated": false
+    },
+    {
+      "url": "/assets/repository-guides/media-50a4a4b157a858dc5ed4e19f.webp",
+      "alt": "HiAPI",
+      "sourceUrl": "https://github.com/hypit-ai/hypit/blob/e8f94006e1eed9b299448fe5bce6afa5646e2ba5/README.md#L267",
+      "originalUrl": "https://raw.githubusercontent.com/hypit-ai/hypit/e8f94006e1eed9b299448fe5bce6afa5646e2ba5/docs/public/hiapi.png",
+      "animated": false
+    }
+  ],
   "generatedBy": "claude-opus-5-5",
   "documentHash": "c0f419fae5b0d55abd4db54b8ba4af2e651177880f44bfd447c52524678a001c",
-  "mediaStatus": "unavailable",
+  "mediaStatus": "archived",
   "mediaFailures": [
     {
       "sourceUrl": "https://github.com/hypit-ai/hypit/blob/e8f94006e1eed9b299448fe5bce6afa5646e2ba5/README.md#L55",
-      "reason": "response_too_large"
+      "reason": "media_too_large"
+    }
+  ],
+  "mediaReferences": [
+    {
+      "label": "SVML source and live video preview",
+      "url": "https://github.com/hypit-ai/hypit/blob/e8f94006e1eed9b299448fe5bce6afa5646e2ba5/README.md#L55"
     }
   ]
 }

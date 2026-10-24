@@ -61,5 +61,17 @@
   "media": [],
   "generatedBy": "claude-opus-5-5",
   "documentHash": "6a2d76954def8f7db2781e392f9cc858244ad746c8cdb79dc4646ec68eab7fca",
-  "mediaStatus": "none_in_official_documents"
+  "mediaStatus": "unavailable",
+  "mediaFailures": [
+    {
+      "sourceUrl": "https://github.com/JackyST0/awesome-agent-skills/blob/1526da6bdfa0cfa0e8f6c5a63e77c98425fc7233/README.md#L4",
+      "reason": "unsupported_media_format"
+    }
+  ],
+  "mediaReferences": [
+    {
+      "label": "Awesome Agent Skills",
+      "url": "https://github.com/JackyST0/awesome-agent-skills/blob/1526da6bdfa0cfa0e8f6c5a63e77c98425fc7233/README.md#L4"
+    }
+  ]
 }

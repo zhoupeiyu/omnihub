@@ -72,8 +72,44 @@
       "url": "https://github.com/dontbesilent2025/dbskill/blob/a0e6fa356c58eca1a6e804c319ea7aac3db4a9af/README.zh-TW.md"
     }
   ],
-  "media": [],
+  "media": [
+    {
+      "url": "/assets/repository-guides/media-44fa7768759fff414ecbfe54.webp",
+      "alt": "Claude Code 插件安装演示",
+      "sourceUrl": "https://github.com/dontbesilent2025/dbskill/blob/a0e6fa356c58eca1a6e804c319ea7aac3db4a9af/README.md#L108",
+      "originalUrl": "https://raw.githubusercontent.com/dontbesilent2025/dbskill/a0e6fa356c58eca1a6e804c319ea7aac3db4a9af/demo.gif",
+      "animated": true
+    }
+  ],
   "generatedBy": "claude-opus-5-5",
   "documentHash": "9305671f1adce330ed5a954fa73ddbabc05003dd2632ccbd33d08fba541a89da",
-  "mediaStatus": "none_in_official_documents"
+  "mediaStatus": "archived",
+  "mediaFailures": [
+    {
+      "sourceUrl": "https://github.com/dontbesilent2025/dbskill/blob/a0e6fa356c58eca1a6e804c319ea7aac3db4a9af/README.md#L19",
+      "reason": "unsupported_media_format"
+    },
+    {
+      "sourceUrl": "https://github.com/dontbesilent2025/dbskill/blob/a0e6fa356c58eca1a6e804c319ea7aac3db4a9af/README.md#L155",
+      "reason": "unsupported_media_format"
+    },
+    {
+      "sourceUrl": "https://github.com/dontbesilent2025/dbskill/blob/a0e6fa356c58eca1a6e804c319ea7aac3db4a9af/README.zh-TW.md#L19",
+      "reason": "unsupported_media_format"
+    }
+  ],
+  "mediaReferences": [
+    {
+      "label": "dbskill 动态编排图",
+      "url": "https://github.com/dontbesilent2025/dbskill/blob/a0e6fa356c58eca1a6e804c319ea7aac3db4a9af/README.md#L19"
+    },
+    {
+      "label": "dbskill 知识来源图",
+      "url": "https://github.com/dontbesilent2025/dbskill/blob/a0e6fa356c58eca1a6e804c319ea7aac3db4a9af/README.md#L155"
+    },
+    {
+      "label": "dbskill 動態編排圖",
+      "url": "https://github.com/dontbesilent2025/dbskill/blob/a0e6fa356c58eca1a6e804c319ea7aac3db4a9af/README.zh-TW.md#L19"
+    }
+  ]
 }

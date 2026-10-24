@@ -59,8 +59,18 @@
     "README 中的基准与成本对比数据来自项目方自测，可在 plur-bench 中复现，并非本指南验证结论。"
   ],
   "references": [],
-  "media": [],
+  "media": [
+    {
+      "url": "/assets/repository-guides/media-967be6b9ffa068d090854f8c.webp",
+      "alt": "PLUR — local-first shared memory for AI agents. Haiku + PLUR beats Opus without it, at ~10× less cost.",
+      "sourceUrl": "https://github.com/plur-ai/plur/blob/0594c62118435d0771bab5f2b99658983fa58304/README.md#L2",
+      "originalUrl": "https://raw.githubusercontent.com/plur-ai/plur/0594c62118435d0771bab5f2b99658983fa58304/assets/plur-banner.png",
+      "animated": false
+    }
+  ],
   "generatedBy": "claude-opus-5-5",
   "documentHash": "f425a4c8812e66571bc4e3385b8407aea2a4af4eabec25c7adf59a5bcf3cc696",
-  "mediaStatus": "none_in_official_documents"
+  "mediaStatus": "archived",
+  "mediaFailures": [],
+  "mediaReferences": []
 }

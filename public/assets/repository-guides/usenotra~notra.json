@@ -68,5 +68,33 @@
   "media": [],
   "generatedBy": "claude-opus-5-5",
   "documentHash": "a936a80e88f9cc409e06d42ae0ed75505e754960105e36a9be1265c0fe64887b",
-  "mediaStatus": "none_in_official_documents"
+  "mediaStatus": "unavailable",
+  "mediaFailures": [
+    {
+      "sourceUrl": "https://github.com/usenotra/notra/blob/3607e684b7736247ab53108bc526daaa0a14856a/README.md#L6",
+      "reason": "media_http_404"
+    },
+    {
+      "sourceUrl": "https://github.com/usenotra/notra/blob/3607e684b7736247ab53108bc526daaa0a14856a/README.md#L9",
+      "reason": "media_http_404"
+    },
+    {
+      "sourceUrl": "https://github.com/usenotra/notra/blob/3607e684b7736247ab53108bc526daaa0a14856a/README.md#L21",
+      "reason": "media_http_404"
+    }
+  ],
+  "mediaReferences": [
+    {
+      "label": "Notra",
+      "url": "https://github.com/usenotra/notra/blob/3607e684b7736247ab53108bc526daaa0a14856a/README.md#L6"
+    },
+    {
+      "label": "Vercel Open Source Program 2026",
+      "url": "https://github.com/usenotra/notra/blob/3607e684b7736247ab53108bc526daaa0a14856a/README.md#L9"
+    },
+    {
+      "label": "Notra landing page: track your brand’s visibility in AI answers",
+      "url": "https://github.com/usenotra/notra/blob/3607e684b7736247ab53108bc526daaa0a14856a/README.md#L21"
+    }
+  ]
 }

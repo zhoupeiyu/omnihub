@@ -74,23 +74,58 @@
       "url": "/assets/repository-guides/media-c2522bd7ad32a2ee67dc58b6.webp",
       "alt": "哥特虚空远征主题实机效果",
       "sourceUrl": "https://github.com/Fei-Away/Codex-Dream-Skin/blob/34335d27d54300eccb325cc652f6c93fef428b84/README.md?plain=1#L127",
-      "originalUrl": "https://raw.githubusercontent.com/Fei-Away/Codex-Dream-Skin/34335d27d54300eccb325cc652f6c93fef428b84/docs/images/presets/gothic-void-crusade-preview.jpg"
+      "originalUrl": "https://raw.githubusercontent.com/Fei-Away/Codex-Dream-Skin/34335d27d54300eccb325cc652f6c93fef428b84/docs/images/presets/gothic-void-crusade-preview.jpg",
+      "animated": false
     },
     {
       "url": "/assets/repository-guides/media-690c3c08c87b004cfbc344c4.webp",
       "alt": "在 DreamSkin.cc 在线 Studio 里调好的一套自定义背景效果",
       "sourceUrl": "https://github.com/Fei-Away/Codex-Dream-Skin/blob/34335d27d54300eccb325cc652f6c93fef428b84/README.md?plain=1#L95",
-      "originalUrl": "https://raw.githubusercontent.com/Fei-Away/Codex-Dream-Skin/34335d27d54300eccb325cc652f6c93fef428b84/docs/images/studio-custom-look.png"
+      "originalUrl": "https://raw.githubusercontent.com/Fei-Away/Codex-Dream-Skin/34335d27d54300eccb325cc652f6c93fef428b84/docs/images/studio-custom-look.png",
+      "animated": false
     },
     {
       "url": "/assets/repository-guides/media-a32085dd9c4b162b92bcb8da.webp",
       "alt": "社区主题「悟空（WUKONG）」在桌面模拟器里的实机效果",
       "sourceUrl": "https://github.com/Fei-Away/Codex-Dream-Skin/blob/34335d27d54300eccb325cc652f6c93fef428b84/README.md?plain=1#L81",
-      "originalUrl": "https://raw.githubusercontent.com/Fei-Away/Codex-Dream-Skin/34335d27d54300eccb325cc652f6c93fef428b84/docs/images/%E6%82%9F%E7%A9%BA.png"
+      "originalUrl": "https://raw.githubusercontent.com/Fei-Away/Codex-Dream-Skin/34335d27d54300eccb325cc652f6c93fef428b84/docs/images/%E6%82%9F%E7%A9%BA.png",
+      "animated": false
+    },
+    {
+      "url": "/assets/repository-guides/media-2e5587e3dd80952547cf01ed.webp",
+      "alt": "桥本有菜主题浅色实机效果",
+      "sourceUrl": "https://github.com/Fei-Away/Codex-Dream-Skin/blob/34335d27d54300eccb325cc652f6c93fef428b84/README.md#L138",
+      "originalUrl": "https://raw.githubusercontent.com/Fei-Away/Codex-Dream-Skin/34335d27d54300eccb325cc652f6c93fef428b84/docs/images/presets/arina-hashimoto-light.jpg",
+      "animated": false
+    },
+    {
+      "url": "/assets/repository-guides/media-28e9e9d871408605185acae0.webp",
+      "alt": "桥本有菜主题暗色实机效果",
+      "sourceUrl": "https://github.com/Fei-Away/Codex-Dream-Skin/blob/34335d27d54300eccb325cc652f6c93fef428b84/README.md#L143",
+      "originalUrl": "https://raw.githubusercontent.com/Fei-Away/Codex-Dream-Skin/34335d27d54300eccb325cc652f6c93fef428b84/docs/images/presets/arina-hashimoto-dark.jpg",
+      "animated": false
+    },
+    {
+      "url": "/assets/repository-guides/media-cd244cf96198f21ddc5969ff.webp",
+      "alt": "社区主题「DeepSeek-鲸鱼娘」在桌面模拟器里的实机效果",
+      "sourceUrl": "https://github.com/Fei-Away/Codex-Dream-Skin/blob/34335d27d54300eccb325cc652f6c93fef428b84/README.md#L85",
+      "originalUrl": "https://raw.githubusercontent.com/Fei-Away/Codex-Dream-Skin/34335d27d54300eccb325cc652f6c93fef428b84/docs/images/DeepSeek-%E9%B2%B8%E9%B1%BC%E5%A8%98.png",
+      "animated": false
     }
   ],
   "generatedBy": "claude-opus-5-5",
   "documentHash": "75350563de4df303dd127b3e88678317cd20e0ceb56ef2567720f7dec5f92438",
   "mediaStatus": "archived",
-  "mediaFailures": []
+  "mediaFailures": [
+    {
+      "sourceUrl": "https://github.com/Fei-Away/Codex-Dream-Skin/blob/34335d27d54300eccb325cc652f6c93fef428b84/README.md#L60",
+      "reason": "unsupported_media_format"
+    }
+  ],
+  "mediaReferences": [
+    {
+      "label": "DreamSkin.cc",
+      "url": "https://github.com/Fei-Away/Codex-Dream-Skin/blob/34335d27d54300eccb325cc652f6c93fef428b84/README.md#L60"
+    }
+  ]
 }

@@ -67,8 +67,57 @@
     "如果叠加了多种安装方式，需按官方顺序清理：先移除插件，再运行 ECC uninstall，然后删除手动复制的规则目录，最后只用一种方式重装。"
   ],
   "references": [],
-  "media": [],
+  "media": [
+    {
+      "url": "/assets/repository-guides/media-9a1698693816372f8103b1e5.webp",
+      "alt": "ECC - the agent harness operating system",
+      "sourceUrl": "https://github.com/affaan-m/ECC/blob/c70874fae9eb0e5ad0365beb7e2955899fd1d30f/README.md#L2",
+      "originalUrl": "https://raw.githubusercontent.com/affaan-m/ECC/c70874fae9eb0e5ad0365beb7e2955899fd1d30f/assets/hero.png",
+      "animated": false
+    },
+    {
+      "url": "/assets/repository-guides/media-71573ce10a658318713e4e6c.webp",
+      "alt": "The Shorthand Guide to ECC",
+      "sourceUrl": "https://github.com/affaan-m/ECC/blob/c70874fae9eb0e5ad0365beb7e2955899fd1d30f/README.md#L1150",
+      "originalUrl": "https://raw.githubusercontent.com/affaan-m/ECC/c70874fae9eb0e5ad0365beb7e2955899fd1d30f/assets/images/guides/shorthand-guide.png",
+      "animated": false
+    },
+    {
+      "url": "/assets/repository-guides/media-b08bf8bf3e589c35658f65c0.webp",
+      "alt": "The Longform Guide to ECC",
+      "sourceUrl": "https://github.com/affaan-m/ECC/blob/c70874fae9eb0e5ad0365beb7e2955899fd1d30f/README.md#L1157",
+      "originalUrl": "https://raw.githubusercontent.com/affaan-m/ECC/c70874fae9eb0e5ad0365beb7e2955899fd1d30f/assets/images/guides/longform-guide.png",
+      "animated": false
+    },
+    {
+      "url": "/assets/repository-guides/media-82c8188a9cb9fe0ab5b7adb3.webp",
+      "alt": "The Security Guide to ECC",
+      "sourceUrl": "https://github.com/affaan-m/ECC/blob/c70874fae9eb0e5ad0365beb7e2955899fd1d30f/README.md#L1164",
+      "originalUrl": "https://raw.githubusercontent.com/affaan-m/ECC/c70874fae9eb0e5ad0365beb7e2955899fd1d30f/assets/images/guides/security-guide.png",
+      "animated": false
+    }
+  ],
   "generatedBy": "claude-opus-5-5",
   "documentHash": "e4ce58161b3c1d67c0bf6b7b607328d3c92fdf5d74b86481b0df0bc4afd8e675",
-  "mediaStatus": "none_in_official_documents"
+  "mediaStatus": "archived",
+  "mediaFailures": [
+    {
+      "sourceUrl": "https://github.com/affaan-m/ECC/blob/c70874fae9eb0e5ad0365beb7e2955899fd1d30f/README.md#L80",
+      "reason": "unsupported_media_format"
+    },
+    {
+      "sourceUrl": "https://github.com/affaan-m/ECC/blob/c70874fae9eb0e5ad0365beb7e2955899fd1d30f/README.md#L87",
+      "reason": "unsupported_media_format"
+    }
+  ],
+  "mediaReferences": [
+    {
+      "label": "ECC Tools",
+      "url": "https://github.com/affaan-m/ECC/blob/c70874fae9eb0e5ad0365beb7e2955899fd1d30f/README.md#L80"
+    },
+    {
+      "label": "Install with Claude Code",
+      "url": "https://github.com/affaan-m/ECC/blob/c70874fae9eb0e5ad0365beb7e2955899fd1d30f/README.md#L87"
+    }
+  ]
 }

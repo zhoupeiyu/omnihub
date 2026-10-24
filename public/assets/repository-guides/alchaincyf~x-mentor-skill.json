@@ -57,8 +57,25 @@
     "方法论来自 6 位特定创作者的公开资料，属于经验总结，不保证增长效果。"
   ],
   "references": [],
-  "media": [],
+  "media": [
+    {
+      "url": "/assets/repository-guides/media-4031cf239686de1366d3772f.webp",
+      "alt": "x-mentor-skill Hero Animation",
+      "sourceUrl": "https://github.com/alchaincyf/x-mentor-skill/blob/f913c720135e54828dc1ea8f4fa256a5e32fe5bb/README.md#L6",
+      "originalUrl": "https://raw.githubusercontent.com/alchaincyf/x-mentor-skill/f913c720135e54828dc1ea8f4fa256a5e32fe5bb/assets/hero.gif",
+      "animated": true
+    },
+    {
+      "url": "/assets/repository-guides/media-2ca4034d906f8afd035503ce.webp",
+      "alt": "X导师.skill 路由逻辑",
+      "sourceUrl": "https://github.com/alchaincyf/x-mentor-skill/blob/f913c720135e54828dc1ea8f4fa256a5e32fe5bb/README.md#L96",
+      "originalUrl": "https://raw.githubusercontent.com/alchaincyf/x-mentor-skill/f913c720135e54828dc1ea8f4fa256a5e32fe5bb/%E5%B7%A5%E4%BD%9C%E9%80%BB%E8%BE%91.png",
+      "animated": false
+    }
+  ],
   "generatedBy": "claude-opus-5-5",
   "documentHash": "9753acb3e1a9d7c203ab837367459b223b51337418f70ca644c1eebf4d112142",
-  "mediaStatus": "none_in_official_documents"
+  "mediaStatus": "archived",
+  "mediaFailures": [],
+  "mediaReferences": []
 }

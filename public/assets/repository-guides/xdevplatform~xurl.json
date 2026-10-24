@@ -70,17 +70,20 @@
       "url": "/assets/repository-guides/media-56297552b0afb4633a9144ff.webp",
       "alt": "xdevplatform/xurl 官方演示 1",
       "sourceUrl": "https://github.com/xdevplatform/xurl/blob/18dcb447f090667171ff23666a05d6d387e2aa73/README.md?plain=1#L77",
-      "originalUrl": "https://raw.githubusercontent.com/xdevplatform/xurl/18dcb447f090667171ff23666a05d6d387e2aa73/assets/setup.png"
+      "originalUrl": "https://raw.githubusercontent.com/xdevplatform/xurl/18dcb447f090667171ff23666a05d6d387e2aa73/assets/setup.png",
+      "animated": false
     },
     {
       "url": "/assets/repository-guides/media-79bfca646bfca8c8d4ad42bd.webp",
       "alt": "xdevplatform/xurl 官方演示 2",
       "sourceUrl": "https://github.com/xdevplatform/xurl/blob/18dcb447f090667171ff23666a05d6d387e2aa73/README.md?plain=1#L78",
-      "originalUrl": "https://raw.githubusercontent.com/xdevplatform/xurl/18dcb447f090667171ff23666a05d6d387e2aa73/assets/callback.png"
+      "originalUrl": "https://raw.githubusercontent.com/xdevplatform/xurl/18dcb447f090667171ff23666a05d6d387e2aa73/assets/callback.png",
+      "animated": false
     }
   ],
   "generatedBy": "claude-opus-5-5",
   "documentHash": "8eff04def2cb6eaf95577995c2f4f005337b5a1173a2a4f08739595c29c1ee9c",
   "mediaStatus": "archived",
-  "mediaFailures": []
+  "mediaFailures": [],
+  "mediaReferences": []
 }

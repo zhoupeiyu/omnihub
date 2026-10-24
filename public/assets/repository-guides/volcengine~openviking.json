@@ -76,11 +76,61 @@
       "url": "/assets/repository-guides/media-9e91421a2968b5e7ae40ef67.webp",
       "alt": "volcengine/OpenViking 官方演示 1",
       "sourceUrl": "https://github.com/volcengine/OpenViking/blob/dd19acc14161847f546e3c12eb0e780899a9009a/README.md?plain=1#L50",
-      "originalUrl": "https://raw.githubusercontent.com/volcengine/OpenViking/dd19acc14161847f546e3c12eb0e780899a9009a/docs/images/studio-playground.png"
+      "originalUrl": "https://raw.githubusercontent.com/volcengine/OpenViking/dd19acc14161847f546e3c12eb0e780899a9009a/docs/images/studio-playground.png",
+      "animated": false
+    },
+    {
+      "url": "/assets/repository-guides/media-2d3fc14266d5c5fca1d1e787.webp",
+      "alt": "Managed SaaS",
+      "sourceUrl": "https://github.com/volcengine/OpenViking/blob/dd19acc14161847f546e3c12eb0e780899a9009a/README.md#L352",
+      "originalUrl": "https://raw.githubusercontent.com/volcengine/OpenViking/dd19acc14161847f546e3c12eb0e780899a9009a/docs/images/commercial-saas.png",
+      "animated": false
+    },
+    {
+      "url": "/assets/repository-guides/media-c624809e05c6d73a3b2f4e76.webp",
+      "alt": "Self-Managed",
+      "sourceUrl": "https://github.com/volcengine/OpenViking/blob/dd19acc14161847f546e3c12eb0e780899a9009a/README.md#L360",
+      "originalUrl": "https://raw.githubusercontent.com/volcengine/OpenViking/dd19acc14161847f546e3c12eb0e780899a9009a/docs/images/commercial-self-hosted.png",
+      "animated": false
     }
   ],
   "generatedBy": "claude-opus-5-5",
   "documentHash": "bccc8b518585d6d7b5ebb1bd7f2289ac8d39afd80ed4a814b7e462cadd29abf5",
   "mediaStatus": "archived",
-  "mediaFailures": []
+  "mediaFailures": [
+    {
+      "sourceUrl": "https://github.com/volcengine/OpenViking/blob/dd19acc14161847f546e3c12eb0e780899a9009a/README.md#L25",
+      "reason": "unsupported_media_host"
+    },
+    {
+      "sourceUrl": "https://github.com/volcengine/OpenViking/blob/dd19acc14161847f546e3c12eb0e780899a9009a/README.md#L116",
+      "reason": "unsupported_media_format"
+    },
+    {
+      "sourceUrl": "https://github.com/volcengine/OpenViking/blob/dd19acc14161847f546e3c12eb0e780899a9009a/README.md#L29",
+      "reason": "unsupported_media_format"
+    },
+    {
+      "sourceUrl": "https://github.com/volcengine/OpenViking/blob/dd19acc14161847f546e3c12eb0e780899a9009a/README.md#L32",
+      "reason": "unsupported_media_format"
+    }
+  ],
+  "mediaReferences": [
+    {
+      "label": "Deploy on Railway",
+      "url": "https://github.com/volcengine/OpenViking/blob/dd19acc14161847f546e3c12eb0e780899a9009a/README.md#L25"
+    },
+    {
+      "label": "Benchmark results. LoCoMo accuracy: OpenClaw 24.20% native vs 82.08% with OpenViking; Hermes 33.38% vs 82.86%; Claude Code 57.21% vs 80.32%. tau2-bench task suc",
+      "url": "https://github.com/volcengine/OpenViking/blob/dd19acc14161847f546e3c12eb0e780899a9009a/README.md#L116"
+    },
+    {
+      "label": "Lark",
+      "url": "https://github.com/volcengine/OpenViking/blob/dd19acc14161847f546e3c12eb0e780899a9009a/README.md#L29"
+    },
+    {
+      "label": "X",
+      "url": "https://github.com/volcengine/OpenViking/blob/dd19acc14161847f546e3c12eb0e780899a9009a/README.md#L32"
+    }
+  ]
 }

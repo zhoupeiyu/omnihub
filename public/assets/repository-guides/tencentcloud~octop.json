@@ -73,11 +73,20 @@
       "url": "/assets/repository-guides/media-81f91e5f101c30ecf8846336.webp",
       "alt": "TencentCloud/Octop 官方演示 1",
       "sourceUrl": "https://github.com/TencentCloud/Octop/blob/e473dd3c4a4741618ffde1a42a3492341a189e8e/README.md?plain=1#L431",
-      "originalUrl": "https://raw.githubusercontent.com/TencentCloud/Octop/e473dd3c4a4741618ffde1a42a3492341a189e8e/docs/assets/readme-chat.png"
+      "originalUrl": "https://raw.githubusercontent.com/TencentCloud/Octop/e473dd3c4a4741618ffde1a42a3492341a189e8e/docs/assets/readme-chat.png",
+      "animated": false
+    },
+    {
+      "url": "/assets/repository-guides/media-16f567d7e20e5d395e4b8812.webp",
+      "alt": "Octop Banner",
+      "sourceUrl": "https://github.com/TencentCloud/Octop/blob/e473dd3c4a4741618ffde1a42a3492341a189e8e/README.md#L2",
+      "originalUrl": "https://raw.githubusercontent.com/TencentCloud/Octop/e473dd3c4a4741618ffde1a42a3492341a189e8e/docs/assets/readme-banner.png",
+      "animated": false
     }
   ],
   "generatedBy": "claude-opus-5-5",
   "documentHash": "a7394d9830f08a86e2bcb1f4802a692c4c9dfabfcc8007b797db5587862df514",
   "mediaStatus": "archived",
-  "mediaFailures": []
+  "mediaFailures": [],
+  "mediaReferences": []
 }

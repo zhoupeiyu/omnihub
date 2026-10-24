@@ -70,11 +70,13 @@
       "url": "/assets/repository-guides/media-b7d65883657a5924e4578419.webp",
       "alt": "虾客漫首页预览",
       "sourceUrl": "https://github.com/phoenix-gh/mk-video-studio/blob/6e9733928c9d637e50fdabc404b17a445591a8d5/README.md?plain=1#L10",
-      "originalUrl": "https://raw.githubusercontent.com/phoenix-gh/mk-video-studio/6e9733928c9d637e50fdabc404b17a445591a8d5/docs/images/xiakeman-homepage.webp"
+      "originalUrl": "https://raw.githubusercontent.com/phoenix-gh/mk-video-studio/6e9733928c9d637e50fdabc404b17a445591a8d5/docs/images/xiakeman-homepage.webp",
+      "animated": false
     }
   ],
   "generatedBy": "claude-opus-5-5",
   "documentHash": "63b1ea5df54b3daac45fec8db00bc031c2dc51b012d6c1fe0625ad590ff4d3d6",
   "mediaStatus": "archived",
-  "mediaFailures": []
+  "mediaFailures": [],
+  "mediaReferences": []
 }

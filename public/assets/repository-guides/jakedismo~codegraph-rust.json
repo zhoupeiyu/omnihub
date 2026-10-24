@@ -72,8 +72,39 @@
       "url": "https://github.com/Jakedismo/codegraph-rust/blob/ce5bf27a2978983a9089d177447f296e4c6521bb/docs/INSTALLATION_GUIDE.md"
     }
   ],
-  "media": [],
+  "media": [
+    {
+      "url": "/assets/repository-guides/media-b3bd28aeb0fd74861cb275f4.webp",
+      "alt": "CodeGraph",
+      "sourceUrl": "https://github.com/Jakedismo/codegraph-rust/blob/ce5bf27a2978983a9089d177447f296e4c6521bb/README.md#L1",
+      "originalUrl": "https://raw.githubusercontent.com/Jakedismo/codegraph-rust/ce5bf27a2978983a9089d177447f296e4c6521bb/docs/assets/banner.png",
+      "animated": false
+    },
+    {
+      "url": "/assets/repository-guides/media-63c3430299b23f0eec07dcbd.webp",
+      "alt": "AgenticArchitectures",
+      "sourceUrl": "https://github.com/Jakedismo/codegraph-rust/blob/ce5bf27a2978983a9089d177447f296e4c6521bb/README.md#L120",
+      "originalUrl": "https://raw.githubusercontent.com/Jakedismo/codegraph-rust/ce5bf27a2978983a9089d177447f296e4c6521bb/docs/assets/agentic_architectures.jpeg",
+      "animated": false
+    },
+    {
+      "url": "/assets/repository-guides/media-4b35cc63c8a8d1210f344c6d.webp",
+      "alt": "Intelligence",
+      "sourceUrl": "https://github.com/Jakedismo/codegraph-rust/blob/ce5bf27a2978983a9089d177447f296e4c6521bb/README.md#L227",
+      "originalUrl": "https://raw.githubusercontent.com/Jakedismo/codegraph-rust/ce5bf27a2978983a9089d177447f296e4c6521bb/docs/assets/mid.png",
+      "animated": false
+    },
+    {
+      "url": "/assets/repository-guides/media-6d690799310a77ff11169411.webp",
+      "alt": "CodeGraph",
+      "sourceUrl": "https://github.com/Jakedismo/codegraph-rust/blob/ce5bf27a2978983a9089d177447f296e4c6521bb/README.md#L531",
+      "originalUrl": "https://raw.githubusercontent.com/Jakedismo/codegraph-rust/ce5bf27a2978983a9089d177447f296e4c6521bb/docs/assets/footer.jpg",
+      "animated": false
+    }
+  ],
   "generatedBy": "claude-opus-5-5",
   "documentHash": "f8fc27a65804d9f01fd37d11c30590f6f404cc76142f7740de9dcd66117e55e1",
-  "mediaStatus": "none_in_official_documents"
+  "mediaStatus": "archived",
+  "mediaFailures": [],
+  "mediaReferences": []
 }

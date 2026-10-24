@@ -46,8 +46,18 @@
     "README 中的赞助商内容为推广信息，与脚本功能无关。"
   ],
   "references": [],
-  "media": [],
+  "media": [
+    {
+      "url": "/assets/repository-guides/media-04b3a41363ac75a05dddb8ba.webp",
+      "alt": "全网VIP视频免费破解 —— 去除广告 · 解锁会员限制 · 畅享高清体验",
+      "sourceUrl": "https://github.com/88lin/video_vip/blob/50f04fd91ea37f273e6c0fd166bc0520cfce8c82/README.md#L3",
+      "originalUrl": "https://raw.githubusercontent.com/88lin/video_vip/50f04fd91ea37f273e6c0fd166bc0520cfce8c82/assets/banner.webp",
+      "animated": false
+    }
+  ],
   "generatedBy": "claude-opus-5-5",
   "documentHash": "fa455ae2d9ce175f6d8c74d3cd52cc49c14a980d24eeed89eaed37a6d2e0b125",
-  "mediaStatus": "none_in_official_documents"
+  "mediaStatus": "archived",
+  "mediaFailures": [],
+  "mediaReferences": []
 }

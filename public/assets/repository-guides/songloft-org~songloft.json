@@ -70,17 +70,41 @@
       "url": "/assets/repository-guides/media-2a6c6eb98af19089380163a1.webp",
       "alt": "首页 · 桌面端",
       "sourceUrl": "https://github.com/songloft-org/songloft/blob/68732b866354e982d2faa9e0abe2b1b907539861/README.md?plain=1#L64",
-      "originalUrl": "https://raw.githubusercontent.com/songloft-org/songloft/main/docs/public/screenshots/home-desktop.png"
+      "originalUrl": "https://raw.githubusercontent.com/songloft-org/songloft/main/docs/public/screenshots/home-desktop.png",
+      "animated": false
     },
     {
       "url": "/assets/repository-guides/media-19d254694e5d66840189ada7.webp",
       "alt": "沉浸式播放器 · 移动端",
       "sourceUrl": "https://github.com/songloft-org/songloft/blob/68732b866354e982d2faa9e0abe2b1b907539861/README.md?plain=1#L67",
-      "originalUrl": "https://raw.githubusercontent.com/songloft-org/songloft/main/docs/public/screenshots/player-mobile.png"
+      "originalUrl": "https://raw.githubusercontent.com/songloft-org/songloft/main/docs/public/screenshots/player-mobile.png",
+      "animated": false
+    },
+    {
+      "url": "/assets/repository-guides/media-08a50c2787ee2a5f6f9804a2.webp",
+      "alt": "Songloft",
+      "sourceUrl": "https://github.com/songloft-org/songloft/blob/68732b866354e982d2faa9e0abe2b1b907539861/README.md#L8",
+      "originalUrl": "https://raw.githubusercontent.com/songloft-org/songloft/68732b866354e982d2faa9e0abe2b1b907539861/docs/public/social-preview.png",
+      "animated": false
+    },
+    {
+      "url": "/assets/repository-guides/media-2a6c6eb98af19089380163a1.webp",
+      "alt": "首页 · 桌面端",
+      "sourceUrl": "https://github.com/songloft-org/songloft/blob/68732b866354e982d2faa9e0abe2b1b907539861/README.md#L64",
+      "originalUrl": "https://raw.githubusercontent.com/songloft-org/songloft/68732b866354e982d2faa9e0abe2b1b907539861/docs/public/screenshots/home-desktop.png",
+      "animated": false
+    },
+    {
+      "url": "/assets/repository-guides/media-19d254694e5d66840189ada7.webp",
+      "alt": "沉浸式播放器 · 移动端",
+      "sourceUrl": "https://github.com/songloft-org/songloft/blob/68732b866354e982d2faa9e0abe2b1b907539861/README.md#L67",
+      "originalUrl": "https://raw.githubusercontent.com/songloft-org/songloft/68732b866354e982d2faa9e0abe2b1b907539861/docs/public/screenshots/player-mobile.png",
+      "animated": false
     }
   ],
   "generatedBy": "claude-opus-5-5",
   "documentHash": "d4b3bcd669cd4f75a0fd1e7c428749229a0edbf2591c4c251e55622ba8c1c625",
   "mediaStatus": "archived",
-  "mediaFailures": []
+  "mediaFailures": [],
+  "mediaReferences": []
 }

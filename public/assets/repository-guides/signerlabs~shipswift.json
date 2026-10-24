@@ -66,8 +66,18 @@
     "README 中的定制开发服务属于商业推广内容，与使用开源组件库无关。"
   ],
   "references": [],
-  "media": [],
+  "media": [
+    {
+      "url": "/assets/repository-guides/media-603aed1575e82e45476a0358.webp",
+      "alt": "ShipSwift Banner",
+      "sourceUrl": "https://github.com/signerlabs/ShipSwift/blob/f71ada2ea5187c316a3e67a37a6c8f5932ca13b2/README.md#L5",
+      "originalUrl": "https://raw.githubusercontent.com/signerlabs/ShipSwift/f71ada2ea5187c316a3e67a37a6c8f5932ca13b2/assets/banner.jpg",
+      "animated": false
+    }
+  ],
   "generatedBy": "claude-opus-5-5",
   "documentHash": "7a80ceffdd2f654ead095072be6b1bab37132554ce3463246c13d649a95d22cf",
-  "mediaStatus": "none_in_official_documents"
+  "mediaStatus": "archived",
+  "mediaFailures": [],
+  "mediaReferences": []
 }

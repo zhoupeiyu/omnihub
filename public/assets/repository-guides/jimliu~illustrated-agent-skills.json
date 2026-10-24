@@ -55,8 +55,18 @@
     "每个启用的技能都会占用 Agent 上下文，作者建议只安装当前工作流真正会用到的少数技能。"
   ],
   "references": [],
-  "media": [],
+  "media": [
+    {
+      "url": "/assets/repository-guides/media-3d931bfed260e651dd354477.webp",
+      "alt": "66915（立体）",
+      "sourceUrl": "https://github.com/JimLiu/Illustrated-Agent-Skills/blob/6ce52438ab8ec2d7e27c526f503e4dfcb1ef029c/README.md#L3",
+      "originalUrl": "https://github.com/user-attachments/assets/6caef6a2-6f11-490e-a43b-e810df8e9354",
+      "animated": false
+    }
+  ],
   "generatedBy": "claude-opus-5-5",
   "documentHash": "57428795775de9b8a05baef14d0c7a7741e557d82763b48854fbe3545315c455",
-  "mediaStatus": "none_in_official_documents"
+  "mediaStatus": "archived",
+  "mediaFailures": [],
+  "mediaReferences": []
 }

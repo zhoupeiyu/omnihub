@@ -54,8 +54,28 @@
     "本仓库未声明许可证（license 为 null）。"
   ],
   "references": [],
-  "media": [],
+  "media": [
+    {
+      "url": "/assets/repository-guides/media-d9eebce5c08e9381381abb55.webp",
+      "alt": "APIMart",
+      "sourceUrl": "https://github.com/BehiSecc/awesome-claude-skills/blob/c368a0ae3c61e226af761fe975cf869c0f3a087d/README.md#L6",
+      "originalUrl": "https://raw.githubusercontent.com/BehiSecc/awesome-claude-skills/c368a0ae3c61e226af761fe975cf869c0f3a087d/apimart.jpeg",
+      "animated": false
+    }
+  ],
   "generatedBy": "claude-opus-5-5",
   "documentHash": "7ad97b51a1ee7a8eb255a27cc7006e80fa81444def1a9eb3de1cd9ae5742ea8c",
-  "mediaStatus": "none_in_official_documents"
+  "mediaStatus": "archived",
+  "mediaFailures": [
+    {
+      "sourceUrl": "https://github.com/BehiSecc/awesome-claude-skills/blob/c368a0ae3c61e226af761fe975cf869c0f3a087d/README.md#L5",
+      "reason": "unsupported_media_format"
+    }
+  ],
+  "mediaReferences": [
+    {
+      "label": "Atlas Cloud",
+      "url": "https://github.com/BehiSecc/awesome-claude-skills/blob/c368a0ae3c61e226af761fe975cf869c0f3a087d/README.md#L5"
+    }
+  ]
 }

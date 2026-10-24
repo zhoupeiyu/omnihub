@@ -68,11 +68,13 @@
       "url": "/assets/repository-guides/media-8bf562345b008084bcb7e49e.webp",
       "alt": "karpathy/autoresearch 官方演示 1",
       "sourceUrl": "https://github.com/karpathy/autoresearch/blob/228791fb499afffb54b46200aca536f79142f117/README.md?plain=1#L3",
-      "originalUrl": "https://raw.githubusercontent.com/karpathy/autoresearch/228791fb499afffb54b46200aca536f79142f117/progress.png"
+      "originalUrl": "https://raw.githubusercontent.com/karpathy/autoresearch/228791fb499afffb54b46200aca536f79142f117/progress.png",
+      "animated": false
     }
   ],
   "generatedBy": "claude-opus-5-5",
   "documentHash": "3958fd4195ac2f98ed35c4eaa4f3028a335165ee24945e96426c408d25793a41",
   "mediaStatus": "archived",
-  "mediaFailures": []
+  "mediaFailures": [],
+  "mediaReferences": []
 }

@@ -65,8 +65,25 @@
     "正文（book/、docs/、README）采用 CC BY 4.0，转载需注明出处、附许可链接并标明修改；代码部分为 MIT。"
   ],
   "references": [],
-  "media": [],
+  "media": [
+    {
+      "url": "/assets/repository-guides/media-e01864e46d1cfea786168995.webp",
+      "alt": "高性价比人生指南 —— 用最少的钱、时间和精力，换回最多的寿命、金钱和人身自由",
+      "sourceUrl": "https://github.com/eternity4719/HowToLiveBetter/blob/6f6d969abe19fd4aa8b30979d634f2a187be0a55/README.md#L3",
+      "originalUrl": "https://raw.githubusercontent.com/eternity4719/HowToLiveBetter/6f6d969abe19fd4aa8b30979d634f2a187be0a55/og.png",
+      "animated": false
+    },
+    {
+      "url": "/assets/repository-guides/media-71198b9b7730e9c902b0fcb9.webp",
+      "alt": "永恒世界 Minecraft 服务器，游戏地址 1.mcyyy.com",
+      "sourceUrl": "https://github.com/eternity4719/HowToLiveBetter/blob/6f6d969abe19fd4aa8b30979d634f2a187be0a55/README.md#L314",
+      "originalUrl": "https://raw.githubusercontent.com/eternity4719/HowToLiveBetter/6f6d969abe19fd4aa8b30979d634f2a187be0a55/ads/mcyyy.webp",
+      "animated": false
+    }
+  ],
   "generatedBy": "claude-opus-5-5",
   "documentHash": "076f0e3f352b3ad15b301b3f2ce099cb96e218424f8af7b6bd0e97f5eadb588c",
-  "mediaStatus": "none_in_official_documents"
+  "mediaStatus": "archived",
+  "mediaFailures": [],
+  "mediaReferences": []
 }

@@ -71,23 +71,27 @@
       "url": "/assets/repository-guides/media-f170e562e9e7d9053bbf2dc3.webp",
       "alt": "RomanSlack/jev-drone 官方演示 1",
       "sourceUrl": "https://github.com/RomanSlack/jev-drone/blob/974b47378c14c6dcf7d11f7c813fba0f5f4d8b6a/README.md?plain=1#L8",
-      "originalUrl": "https://raw.githubusercontent.com/RomanSlack/jev-drone/974b47378c14c6dcf7d11f7c813fba0f5f4d8b6a/docs/climb.png"
+      "originalUrl": "https://raw.githubusercontent.com/RomanSlack/jev-drone/974b47378c14c6dcf7d11f7c813fba0f5f4d8b6a/docs/climb.png",
+      "animated": false
     },
     {
       "url": "/assets/repository-guides/media-ca95646a863885e7dbf888cf.webp",
       "alt": "RomanSlack/jev-drone 官方演示 2",
       "sourceUrl": "https://github.com/RomanSlack/jev-drone/blob/974b47378c14c6dcf7d11f7c813fba0f5f4d8b6a/README.md?plain=1#L59",
-      "originalUrl": "https://raw.githubusercontent.com/RomanSlack/jev-drone/974b47378c14c6dcf7d11f7c813fba0f5f4d8b6a/docs/chase.png"
+      "originalUrl": "https://raw.githubusercontent.com/RomanSlack/jev-drone/974b47378c14c6dcf7d11f7c813fba0f5f4d8b6a/docs/chase.png",
+      "animated": false
     },
     {
       "url": "/assets/repository-guides/media-6f69e596ea670cf7c967caca.webp",
       "alt": "RomanSlack/jev-drone 官方演示 3",
       "sourceUrl": "https://github.com/RomanSlack/jev-drone/blob/974b47378c14c6dcf7d11f7c813fba0f5f4d8b6a/README.md?plain=1#L87",
-      "originalUrl": "https://raw.githubusercontent.com/RomanSlack/jev-drone/974b47378c14c6dcf7d11f7c813fba0f5f4d8b6a/docs/gate.png"
+      "originalUrl": "https://raw.githubusercontent.com/RomanSlack/jev-drone/974b47378c14c6dcf7d11f7c813fba0f5f4d8b6a/docs/gate.png",
+      "animated": false
     }
   ],
   "generatedBy": "claude-opus-5-5",
   "documentHash": "74571cdbc72381595ec06f836f62483694f8e292ab91598d1743f25d0e7decce",
   "mediaStatus": "archived",
-  "mediaFailures": []
+  "mediaFailures": [],
+  "mediaReferences": []
 }

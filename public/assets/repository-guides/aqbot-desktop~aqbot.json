@@ -74,23 +74,48 @@
       "url": "/assets/repository-guides/media-8365e2a70a80d022f4c232f0.webp",
       "alt": "AQBot-Desktop/AQBot 官方演示 1",
       "sourceUrl": "https://github.com/AQBot-Desktop/AQBot/blob/92a1c22b327dfd7eddf76816b9f22eb63682ab49/README.md?plain=1#L11",
-      "originalUrl": "https://raw.githubusercontent.com/AQBot-Desktop/AQBot/92a1c22b327dfd7eddf76816b9f22eb63682ab49/.github/images/s1-0412.png"
+      "originalUrl": "https://raw.githubusercontent.com/AQBot-Desktop/AQBot/92a1c22b327dfd7eddf76816b9f22eb63682ab49/.github/images/s1-0412.png",
+      "animated": false
     },
     {
       "url": "/assets/repository-guides/media-ef68581932d2d2a04856f9b9.webp",
       "alt": "AQBot-Desktop/AQBot 官方演示 2",
       "sourceUrl": "https://github.com/AQBot-Desktop/AQBot/blob/92a1c22b327dfd7eddf76816b9f22eb63682ab49/README.md?plain=1#L11",
-      "originalUrl": "https://raw.githubusercontent.com/AQBot-Desktop/AQBot/92a1c22b327dfd7eddf76816b9f22eb63682ab49/.github/images/s2-0412.png"
+      "originalUrl": "https://raw.githubusercontent.com/AQBot-Desktop/AQBot/92a1c22b327dfd7eddf76816b9f22eb63682ab49/.github/images/s2-0412.png",
+      "animated": false
     },
     {
       "url": "/assets/repository-guides/media-727c42f4926a8a1427e1137e.webp",
       "alt": "AQBot-Desktop/AQBot 官方演示 3",
       "sourceUrl": "https://github.com/AQBot-Desktop/AQBot/blob/92a1c22b327dfd7eddf76816b9f22eb63682ab49/README.md?plain=1#L19",
-      "originalUrl": "https://raw.githubusercontent.com/AQBot-Desktop/AQBot/92a1c22b327dfd7eddf76816b9f22eb63682ab49/.github/images/s5-0412.png"
+      "originalUrl": "https://raw.githubusercontent.com/AQBot-Desktop/AQBot/92a1c22b327dfd7eddf76816b9f22eb63682ab49/.github/images/s5-0412.png",
+      "animated": false
+    },
+    {
+      "url": "/assets/repository-guides/media-6051d264d85712e77049da79.webp",
+      "alt": "运行截图",
+      "sourceUrl": "https://github.com/AQBot-Desktop/AQBot/blob/92a1c22b327dfd7eddf76816b9f22eb63682ab49/README.md#L15",
+      "originalUrl": "https://raw.githubusercontent.com/AQBot-Desktop/AQBot/92a1c22b327dfd7eddf76816b9f22eb63682ab49/.github/images/s3-0412.png",
+      "animated": false
+    },
+    {
+      "url": "/assets/repository-guides/media-b38c2d639adba8895bb2917f.webp",
+      "alt": "运行截图",
+      "sourceUrl": "https://github.com/AQBot-Desktop/AQBot/blob/92a1c22b327dfd7eddf76816b9f22eb63682ab49/README.md#L15",
+      "originalUrl": "https://raw.githubusercontent.com/AQBot-Desktop/AQBot/92a1c22b327dfd7eddf76816b9f22eb63682ab49/.github/images/s4-0412.png",
+      "animated": false
+    },
+    {
+      "url": "/assets/repository-guides/media-c2dfd07b612b3890eb9e4853.webp",
+      "alt": "运行截图",
+      "sourceUrl": "https://github.com/AQBot-Desktop/AQBot/blob/92a1c22b327dfd7eddf76816b9f22eb63682ab49/README.md#L19",
+      "originalUrl": "https://raw.githubusercontent.com/AQBot-Desktop/AQBot/92a1c22b327dfd7eddf76816b9f22eb63682ab49/.github/images/s6-0412.png",
+      "animated": false
     }
   ],
   "generatedBy": "claude-opus-5-5",
   "documentHash": "70e82e53a06a0de1f42d49a441add1e6c3e51d26dfc958a679e4ced4635bcaec",
   "mediaStatus": "archived",
-  "mediaFailures": []
+  "mediaFailures": [],
+  "mediaReferences": []
 }

@@ -72,8 +72,18 @@
       "url": "https://github.com/Tencent/BrowserSkill/blob/3f10983c09fcd443c7420830ab984c9d409954bf/AGENT_INSTALL.md"
     }
   ],
-  "media": [],
+  "media": [
+    {
+      "url": "/assets/repository-guides/media-82337fca4e1b96afc920d52d.webp",
+      "alt": "BrowserSkill — connect your AI agent to your browser",
+      "sourceUrl": "https://github.com/Tencent/BrowserSkill/blob/3f10983c09fcd443c7420830ab984c9d409954bf/README.md#L4",
+      "originalUrl": "https://raw.githubusercontent.com/Tencent/BrowserSkill/3f10983c09fcd443c7420830ab984c9d409954bf/docs/assets/browserskill-readme-banner.png",
+      "animated": false
+    }
+  ],
   "generatedBy": "claude-opus-5-5",
   "documentHash": "8e03ab2ca2378099471451d5b5e20c5bc9d9205bbb934cb1c54b19eb91e6b741",
-  "mediaStatus": "none_in_official_documents"
+  "mediaStatus": "archived",
+  "mediaFailures": [],
+  "mediaReferences": []
 }

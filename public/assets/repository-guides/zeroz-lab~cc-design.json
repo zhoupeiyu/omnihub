@@ -69,23 +69,48 @@
       "url": "/assets/repository-guides/media-dce5052302a10be9d0deceac.webp",
       "alt": "ZeroZ-lab/cc-design 官方演示 1",
       "sourceUrl": "https://github.com/ZeroZ-lab/cc-design/blob/d5e10b4ffe694a1e99bcf88fc953cde6cde23930/README.md?plain=1#L60",
-      "originalUrl": "https://raw.githubusercontent.com/ZeroZ-lab/cc-design/d5e10b4ffe694a1e99bcf88fc953cde6cde23930/screenshots/previews/cc-design-home-preview.png"
+      "originalUrl": "https://raw.githubusercontent.com/ZeroZ-lab/cc-design/d5e10b4ffe694a1e99bcf88fc953cde6cde23930/screenshots/previews/cc-design-home-preview.png",
+      "animated": false
     },
     {
       "url": "/assets/repository-guides/media-33b039be526ca1a325262ab4.webp",
       "alt": "ZeroZ-lab/cc-design 官方演示 2",
       "sourceUrl": "https://github.com/ZeroZ-lab/cc-design/blob/d5e10b4ffe694a1e99bcf88fc953cde6cde23930/README.md?plain=1#L63",
-      "originalUrl": "https://raw.githubusercontent.com/ZeroZ-lab/cc-design/d5e10b4ffe694a1e99bcf88fc953cde6cde23930/screenshots/previews/cc-design-enterprise-preview.png"
+      "originalUrl": "https://raw.githubusercontent.com/ZeroZ-lab/cc-design/d5e10b4ffe694a1e99bcf88fc953cde6cde23930/screenshots/previews/cc-design-enterprise-preview.png",
+      "animated": false
     },
     {
       "url": "/assets/repository-guides/media-eec93b28b11542e6b7aef80c.webp",
       "alt": "ZeroZ-lab/cc-design 官方演示 3",
       "sourceUrl": "https://github.com/ZeroZ-lab/cc-design/blob/d5e10b4ffe694a1e99bcf88fc953cde6cde23930/README.md?plain=1#L69",
-      "originalUrl": "https://raw.githubusercontent.com/ZeroZ-lab/cc-design/d5e10b4ffe694a1e99bcf88fc953cde6cde23930/screenshots/previews/cc-design-glass-preview.png"
+      "originalUrl": "https://raw.githubusercontent.com/ZeroZ-lab/cc-design/d5e10b4ffe694a1e99bcf88fc953cde6cde23930/screenshots/previews/cc-design-glass-preview.png",
+      "animated": false
+    },
+    {
+      "url": "/assets/repository-guides/media-aef0bd4b6febc6ed4e12dc64.webp",
+      "alt": "Sci-Fi Website",
+      "sourceUrl": "https://github.com/ZeroZ-lab/cc-design/blob/d5e10b4ffe694a1e99bcf88fc953cde6cde23930/README.md#L64",
+      "originalUrl": "https://raw.githubusercontent.com/ZeroZ-lab/cc-design/d5e10b4ffe694a1e99bcf88fc953cde6cde23930/screenshots/previews/cc-design-scifi-preview.png",
+      "animated": false
+    },
+    {
+      "url": "/assets/repository-guides/media-d6304c81b879ae173cb7d6b6.webp",
+      "alt": "Tesla 3D",
+      "sourceUrl": "https://github.com/ZeroZ-lab/cc-design/blob/d5e10b4ffe694a1e99bcf88fc953cde6cde23930/README.md#L65",
+      "originalUrl": "https://raw.githubusercontent.com/ZeroZ-lab/cc-design/d5e10b4ffe694a1e99bcf88fc953cde6cde23930/screenshots/previews/cc-design-tesla-preview.png",
+      "animated": false
+    },
+    {
+      "url": "/assets/repository-guides/media-f8e209242c1a0fe3ddf63b3f.webp",
+      "alt": "AETHER",
+      "sourceUrl": "https://github.com/ZeroZ-lab/cc-design/blob/d5e10b4ffe694a1e99bcf88fc953cde6cde23930/README.md#L68",
+      "originalUrl": "https://raw.githubusercontent.com/ZeroZ-lab/cc-design/d5e10b4ffe694a1e99bcf88fc953cde6cde23930/screenshots/previews/cc-design-aether-preview.png",
+      "animated": false
     }
   ],
   "generatedBy": "claude-opus-5-5",
   "documentHash": "4d9777af281386df44be891093a496dbef209569a6a08dbd50eed63b13a8eb9c",
   "mediaStatus": "archived",
-  "mediaFailures": []
+  "mediaFailures": [],
+  "mediaReferences": []
 }

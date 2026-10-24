@@ -50,23 +50,27 @@
       "url": "/assets/repository-guides/media-f24325681a4478b47835fd14.webp",
       "alt": "EstarinAzx/VS-Claude 官方演示 1",
       "sourceUrl": "https://github.com/EstarinAzx/VS-Claude/blob/2a600dfb975062110e31e7c15c76f1ae9c63fc9c/README.md?plain=1#L7",
-      "originalUrl": "https://raw.githubusercontent.com/EstarinAzx/VS-Claude/2a600dfb975062110e31e7c15c76f1ae9c63fc9c/vs-claude/screenshots/welcome.png"
+      "originalUrl": "https://raw.githubusercontent.com/EstarinAzx/VS-Claude/2a600dfb975062110e31e7c15c76f1ae9c63fc9c/vs-claude/screenshots/welcome.png",
+      "animated": false
     },
     {
       "url": "/assets/repository-guides/media-0ebeaafe370c1a80a2cd80dd.webp",
       "alt": "EstarinAzx/VS-Claude 官方演示 2",
       "sourceUrl": "https://github.com/EstarinAzx/VS-Claude/blob/2a600dfb975062110e31e7c15c76f1ae9c63fc9c/README.md?plain=1#L9",
-      "originalUrl": "https://raw.githubusercontent.com/EstarinAzx/VS-Claude/2a600dfb975062110e31e7c15c76f1ae9c63fc9c/vs-claude/screenshots/editor.png"
+      "originalUrl": "https://raw.githubusercontent.com/EstarinAzx/VS-Claude/2a600dfb975062110e31e7c15c76f1ae9c63fc9c/vs-claude/screenshots/editor.png",
+      "animated": false
     },
     {
       "url": "/assets/repository-guides/media-dfa3fc339c426a9c621b904e.webp",
       "alt": "EstarinAzx/VS-Claude 官方演示 3",
       "sourceUrl": "https://github.com/EstarinAzx/VS-Claude/blob/2a600dfb975062110e31e7c15c76f1ae9c63fc9c/README.md?plain=1#L11",
-      "originalUrl": "https://raw.githubusercontent.com/EstarinAzx/VS-Claude/2a600dfb975062110e31e7c15c76f1ae9c63fc9c/vs-claude/screenshots/code.png"
+      "originalUrl": "https://raw.githubusercontent.com/EstarinAzx/VS-Claude/2a600dfb975062110e31e7c15c76f1ae9c63fc9c/vs-claude/screenshots/code.png",
+      "animated": false
     }
   ],
   "generatedBy": "claude-opus-5-5",
   "documentHash": "1b0ba1098d46b822ee7a6e67c8d655866ec2a554d339a75374b1411fc987c20a",
   "mediaStatus": "archived",
-  "mediaFailures": []
+  "mediaFailures": [],
+  "mediaReferences": []
 }

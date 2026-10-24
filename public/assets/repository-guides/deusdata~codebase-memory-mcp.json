@@ -70,11 +70,13 @@
       "url": "/assets/repository-guides/media-787e0f3433c7d269d31af370.webp",
       "alt": "DeusData/codebase-memory-mcp 官方演示 1",
       "sourceUrl": "https://github.com/DeusData/codebase-memory-mcp/blob/0f52d30c2964a5a538149f8b39846ba52517a020/README.md?plain=1#L26",
-      "originalUrl": "https://raw.githubusercontent.com/DeusData/codebase-memory-mcp/0f52d30c2964a5a538149f8b39846ba52517a020/docs/graph-ui-screenshot.png"
+      "originalUrl": "https://raw.githubusercontent.com/DeusData/codebase-memory-mcp/0f52d30c2964a5a538149f8b39846ba52517a020/docs/graph-ui-screenshot.png",
+      "animated": false
     }
   ],
   "generatedBy": "claude-opus-5-5",
   "documentHash": "fbcb09c380a4456e96d2501b76841658d79bd24aa354a9290ee9325ca01f2cb0",
   "mediaStatus": "archived",
-  "mediaFailures": []
+  "mediaFailures": [],
+  "mediaReferences": []
 }

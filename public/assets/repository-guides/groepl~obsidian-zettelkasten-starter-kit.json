@@ -60,8 +60,53 @@
     "README 未写明 zip 的具体下载位置（Release 或仓库打包），请以仓库页面实际提供的为准。"
   ],
   "references": [],
-  "media": [],
+  "media": [
+    {
+      "url": "/assets/repository-guides/media-edd407b4aa7ffbb5e5a6b016.webp",
+      "alt": "Workflow",
+      "sourceUrl": "https://github.com/groepl/Obsidian-Zettelkasten-Starter-Kit/blob/42b4677f3964fad9f5061cf3658e116101873368/README.md#L33",
+      "originalUrl": "https://raw.githubusercontent.com/groepl/Obsidian-Zettelkasten-Starter-Kit/42b4677f3964fad9f5061cf3658e116101873368/Starter-Kit/Visuals/IMG_0843.png",
+      "animated": false
+    },
+    {
+      "url": "/assets/repository-guides/media-1a72dffd63a4f936b9bc97cc.webp",
+      "alt": "Literature Map",
+      "sourceUrl": "https://github.com/groepl/Obsidian-Zettelkasten-Starter-Kit/blob/42b4677f3964fad9f5061cf3658e116101873368/README.md#L38",
+      "originalUrl": "https://raw.githubusercontent.com/groepl/Obsidian-Zettelkasten-Starter-Kit/42b4677f3964fad9f5061cf3658e116101873368/Starter-Kit/Visuals/Zettelkasten_LitMap_2024-08-04.png",
+      "animated": false
+    },
+    {
+      "url": "/assets/repository-guides/media-3a711d69313b9a45986d91fb.webp",
+      "alt": "Zettelkasten Ontology",
+      "sourceUrl": "https://github.com/groepl/Obsidian-Zettelkasten-Starter-Kit/blob/42b4677f3964fad9f5061cf3658e116101873368/README.md#L41",
+      "originalUrl": "https://raw.githubusercontent.com/groepl/Obsidian-Zettelkasten-Starter-Kit/42b4677f3964fad9f5061cf3658e116101873368/Starter-Kit/Visuals/Zettelkasten_Ontology.png",
+      "animated": false
+    },
+    {
+      "url": "/assets/repository-guides/media-3f1f755d7fd6bda215d6d5cb.webp",
+      "alt": "Zettelkasten Systems Model",
+      "sourceUrl": "https://github.com/groepl/Obsidian-Zettelkasten-Starter-Kit/blob/42b4677f3964fad9f5061cf3658e116101873368/README.md#L55",
+      "originalUrl": "https://raw.githubusercontent.com/groepl/Obsidian-Zettelkasten-Starter-Kit/42b4677f3964fad9f5061cf3658e116101873368/Starter-Kit/Visuals/Zettelkasten%20System%20Definition%20Example_01.png",
+      "animated": false
+    },
+    {
+      "url": "/assets/repository-guides/media-cde355be658d4f03ecfd7a42.webp",
+      "alt": "Zettelkasten Detailed Systems Model",
+      "sourceUrl": "https://github.com/groepl/Obsidian-Zettelkasten-Starter-Kit/blob/42b4677f3964fad9f5061cf3658e116101873368/README.md#L59",
+      "originalUrl": "https://raw.githubusercontent.com/groepl/Obsidian-Zettelkasten-Starter-Kit/42b4677f3964fad9f5061cf3658e116101873368/Starter-Kit/Visuals/Zettelkasten_System_Definition_D1_2025-04-03.png",
+      "animated": false
+    },
+    {
+      "url": "/assets/repository-guides/media-b748112b0659339ae218188a.webp",
+      "alt": "Zettelkasten Use Case Model ",
+      "sourceUrl": "https://github.com/groepl/Obsidian-Zettelkasten-Starter-Kit/blob/42b4677f3964fad9f5061cf3658e116101873368/README.md#L63",
+      "originalUrl": "https://raw.githubusercontent.com/groepl/Obsidian-Zettelkasten-Starter-Kit/42b4677f3964fad9f5061cf3658e116101873368/Starter-Kit/Visuals/Zettelkasten_usecase_model_2025-04-24.png",
+      "animated": false
+    }
+  ],
   "generatedBy": "claude-opus-5-5",
   "documentHash": "6e06f5430857eb4e2d3c4f3ac14cd6b139e6e01755fa837af64a737f0fbc23e1",
-  "mediaStatus": "none_in_official_documents"
+  "mediaStatus": "archived",
+  "mediaFailures": [],
+  "mediaReferences": []
 }

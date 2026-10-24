@@ -67,20 +67,48 @@
       "url": "/assets/repository-guides/media-afab38175e111fac93483938.webp",
       "alt": "ItsVeyra/glitter-idea-repo 官方演示 1",
       "sourceUrl": "https://github.com/ItsVeyra/glitter-idea-repo/blob/57ce8fa5749290c4c31ebed91485484141b61f10/README.md?plain=1#L59",
-      "originalUrl": "https://raw.githubusercontent.com/ItsVeyra/glitter-idea-repo/57ce8fa5749290c4c31ebed91485484141b61f10/assets/gifs/plain-text-quick-capture.gif"
+      "originalUrl": "https://raw.githubusercontent.com/ItsVeyra/glitter-idea-repo/57ce8fa5749290c4c31ebed91485484141b61f10/assets/gifs/plain-text-quick-capture.gif",
+      "animated": true
+    },
+    {
+      "url": "/assets/repository-guides/media-abfda365e65b5a2e39fbcc03.webp",
+      "alt": "Enable Plugin",
+      "sourceUrl": "https://github.com/ItsVeyra/glitter-idea-repo/blob/57ce8fa5749290c4c31ebed91485484141b61f10/README.md#L50",
+      "originalUrl": "https://raw.githubusercontent.com/ItsVeyra/glitter-idea-repo/57ce8fa5749290c4c31ebed91485484141b61f10/assets/images/enable-plugin.png",
+      "animated": false
+    },
+    {
+      "url": "/assets/repository-guides/media-e965f0bf7abd803f009500ed.webp",
+      "alt": "alt text",
+      "sourceUrl": "https://github.com/ItsVeyra/glitter-idea-repo/blob/57ce8fa5749290c4c31ebed91485484141b61f10/README.md#L70",
+      "originalUrl": "https://raw.githubusercontent.com/ItsVeyra/glitter-idea-repo/57ce8fa5749290c4c31ebed91485484141b61f10/assets/images/roam.png",
+      "animated": false
+    },
+    {
+      "url": "/assets/repository-guides/media-a32d39e5d1d59eb011af7026.webp",
+      "alt": "Markdown Export",
+      "sourceUrl": "https://github.com/ItsVeyra/glitter-idea-repo/blob/57ce8fa5749290c4c31ebed91485484141b61f10/README.md#L95",
+      "originalUrl": "https://raw.githubusercontent.com/ItsVeyra/glitter-idea-repo/57ce8fa5749290c4c31ebed91485484141b61f10/assets/images/markdown-export.png",
+      "animated": false
+    },
+    {
+      "url": "/assets/repository-guides/media-cb2c2880148d0549283c8c4a.webp",
+      "alt": "Snippet Insertion",
+      "sourceUrl": "https://github.com/ItsVeyra/glitter-idea-repo/blob/57ce8fa5749290c4c31ebed91485484141b61f10/README.md#L102",
+      "originalUrl": "https://raw.githubusercontent.com/ItsVeyra/glitter-idea-repo/57ce8fa5749290c4c31ebed91485484141b61f10/assets/images/snippet-insertion.png",
+      "animated": false
+    },
+    {
+      "url": "/assets/repository-guides/media-2644fa875d12a98036efda65.webp",
+      "alt": "Home View Display",
+      "sourceUrl": "https://github.com/ItsVeyra/glitter-idea-repo/blob/57ce8fa5749290c4c31ebed91485484141b61f10/README.md#L106",
+      "originalUrl": "https://raw.githubusercontent.com/ItsVeyra/glitter-idea-repo/57ce8fa5749290c4c31ebed91485484141b61f10/assets/images/view.png",
+      "animated": false
     }
   ],
   "generatedBy": "claude-opus-5-5",
   "documentHash": "d4d97a29583c36a5185c76afc97524b551a2cc92bcfba89628a4e343ba6443bc",
   "mediaStatus": "archived",
-  "mediaFailures": [
-    {
-      "sourceUrl": "https://github.com/ItsVeyra/glitter-idea-repo/blob/57ce8fa5749290c4c31ebed91485484141b61f10/README.md#L52",
-      "reason": "response_too_large"
-    },
-    {
-      "sourceUrl": "https://github.com/ItsVeyra/glitter-idea-repo/blob/57ce8fa5749290c4c31ebed91485484141b61f10/README.md#L74",
-      "reason": "response_too_large"
-    }
-  ]
+  "mediaFailures": [],
+  "mediaReferences": []
 }

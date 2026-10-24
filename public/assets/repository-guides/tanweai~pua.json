@@ -75,23 +75,41 @@
       "url": "/assets/repository-guides/media-51dad2df448271f85ffe4f76.webp",
       "alt": "PUA L3 触发 — 停止猜测，执行系统化检查清单，从 MCP 日志中找到真正的错误信息",
       "sourceUrl": "https://github.com/tanweai/pua/blob/e6e6cd237ad17750d179674bff52f8184abea8fd/README.zh-CN.md?plain=1#L54",
-      "originalUrl": "https://raw.githubusercontent.com/tanweai/pua/e6e6cd237ad17750d179674bff52f8184abea8fd/assets/pua1.jpg"
+      "originalUrl": "https://raw.githubusercontent.com/tanweai/pua/e6e6cd237ad17750d179674bff52f8184abea8fd/assets/pua1.jpg",
+      "animated": false
     },
     {
       "url": "/assets/repository-guides/media-10338a7747b90e5046c53ff8.webp",
       "alt": "根因发现 — claude mcp 管理的服务器注册方式和手动编辑 .claude.json 不同",
       "sourceUrl": "https://github.com/tanweai/pua/blob/e6e6cd237ad17750d179674bff52f8184abea8fd/README.zh-CN.md?plain=1#L58",
-      "originalUrl": "https://raw.githubusercontent.com/tanweai/pua/e6e6cd237ad17750d179674bff52f8184abea8fd/assets/pua2.jpg"
+      "originalUrl": "https://raw.githubusercontent.com/tanweai/pua/e6e6cd237ad17750d179674bff52f8184abea8fd/assets/pua2.jpg",
+      "animated": false
     },
     {
       "url": "/assets/repository-guides/media-959056805591d70fc3d1609a.webp",
       "alt": "对话复盘 — PUA skill 强制停止原地打转，系统化检查清单驱动找到了之前从未检查过的 Claude Code MCP 日志目录",
       "sourceUrl": "https://github.com/tanweai/pua/blob/e6e6cd237ad17750d179674bff52f8184abea8fd/README.zh-CN.md?plain=1#L62",
-      "originalUrl": "https://raw.githubusercontent.com/tanweai/pua/e6e6cd237ad17750d179674bff52f8184abea8fd/assets/pua3.jpg"
+      "originalUrl": "https://raw.githubusercontent.com/tanweai/pua/e6e6cd237ad17750d179674bff52f8184abea8fd/assets/pua3.jpg",
+      "animated": false
+    },
+    {
+      "url": "/assets/repository-guides/media-ac6fb11909404677e8ce0ace.webp",
+      "alt": "PUA Skill — Double Efficiency",
+      "sourceUrl": "https://github.com/tanweai/pua/blob/e6e6cd237ad17750d179674bff52f8184abea8fd/README.md#L4",
+      "originalUrl": "https://raw.githubusercontent.com/tanweai/pua/e6e6cd237ad17750d179674bff52f8184abea8fd/assets/hero.jpeg",
+      "animated": false
+    },
+    {
+      "url": "/assets/repository-guides/media-499e52c5d84b43352a9d43be.webp",
+      "alt": "小助手微信",
+      "sourceUrl": "https://github.com/tanweai/pua/blob/e6e6cd237ad17750d179674bff52f8184abea8fd/README.zh-CN.md#L18",
+      "originalUrl": "https://raw.githubusercontent.com/tanweai/pua/e6e6cd237ad17750d179674bff52f8184abea8fd/assets/xiao.jpg",
+      "animated": false
     }
   ],
   "generatedBy": "claude-opus-5-5",
   "documentHash": "eadc133a7f75c80eb125ba9cb94d2b05347c65f20bce6a717edae14bf48e5e25",
   "mediaStatus": "archived",
-  "mediaFailures": []
+  "mediaFailures": [],
+  "mediaReferences": []
 }

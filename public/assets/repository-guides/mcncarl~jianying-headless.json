@@ -77,17 +77,20 @@
       "url": "/assets/repository-guides/media-1f72f85d9c0c9011abbad923.webp",
       "alt": "Hypit 原成片六帧",
       "sourceUrl": "https://github.com/mcncarl/jianying-headless/blob/42b3d75b15bd9f3a9bb4c11b2f5205f7b4312252/README.md?plain=1#L61",
-      "originalUrl": "https://raw.githubusercontent.com/mcncarl/jianying-headless/42b3d75b15bd9f3a9bb4c11b2f5205f7b4312252/docs/media/hypit-original-frames.png"
+      "originalUrl": "https://raw.githubusercontent.com/mcncarl/jianying-headless/42b3d75b15bd9f3a9bb4c11b2f5205f7b4312252/docs/media/hypit-original-frames.png",
+      "animated": false
     },
     {
       "url": "/assets/repository-guides/media-1ce3ec481c22e412dda6c0c5.webp",
       "alt": "剪映导出六帧",
       "sourceUrl": "https://github.com/mcncarl/jianying-headless/blob/42b3d75b15bd9f3a9bb4c11b2f5205f7b4312252/README.md?plain=1#L61",
-      "originalUrl": "https://raw.githubusercontent.com/mcncarl/jianying-headless/42b3d75b15bd9f3a9bb4c11b2f5205f7b4312252/docs/media/jianying-import-frames.png"
+      "originalUrl": "https://raw.githubusercontent.com/mcncarl/jianying-headless/42b3d75b15bd9f3a9bb4c11b2f5205f7b4312252/docs/media/jianying-import-frames.png",
+      "animated": false
     }
   ],
   "generatedBy": "claude-opus-5-5",
   "documentHash": "999ab40050a59f3fc3092bdda97ac2c532196d9d26dcaa0b752dc61b1c24b6d0",
   "mediaStatus": "archived",
-  "mediaFailures": []
+  "mediaFailures": [],
+  "mediaReferences": []
 }

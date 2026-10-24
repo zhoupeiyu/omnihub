@@ -73,11 +73,13 @@
       "url": "/assets/repository-guides/media-2024c724c44d11c0ce299a72.webp",
       "alt": "kerpopule/hermes-jev-skills 官方演示 1",
       "sourceUrl": "https://github.com/kerpopule/hermes-jev-skills/blob/c52837522f575820c63d2ff608c6cb19bae96400/README.md?plain=1#L9",
-      "originalUrl": "https://raw.githubusercontent.com/kerpopule/hermes-jev-skills/c52837522f575820c63d2ff608c6cb19bae96400/docs/images/model-routing-dashboard.png"
+      "originalUrl": "https://raw.githubusercontent.com/kerpopule/hermes-jev-skills/c52837522f575820c63d2ff608c6cb19bae96400/docs/images/model-routing-dashboard.png",
+      "animated": false
     }
   ],
   "generatedBy": "claude-opus-5-5",
   "documentHash": "3042584e38d9d8b7e8c2962730761e4b8b77d340dc2a9b50671b45e6660f18b2",
   "mediaStatus": "archived",
-  "mediaFailures": []
+  "mediaFailures": [],
+  "mediaReferences": []
 }

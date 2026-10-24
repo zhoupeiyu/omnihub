@@ -69,11 +69,23 @@
       "url": "/assets/repository-guides/media-c0c8cca9ea17457dcef3d73e.webp",
       "alt": "深圳机场上升旗形标注原图",
       "sourceUrl": "https://github.com/FTShare-Lab/FTShare-MCP/blob/1ab492169881595490165e132a9b9fbdaa38df1c/README.md?plain=1#L111",
-      "originalUrl": "https://raw.githubusercontent.com/FTShare-Lab/FTShare-MCP/1ab492169881595490165e132a9b9fbdaa38df1c/docs/assets/readme/000089-bull-flag-20260901.png"
+      "originalUrl": "https://raw.githubusercontent.com/FTShare-Lab/FTShare-MCP/1ab492169881595490165e132a9b9fbdaa38df1c/docs/assets/readme/000089-bull-flag-20260901.png",
+      "animated": false
     }
   ],
   "generatedBy": "claude-opus-5-5",
   "documentHash": "76ddf50f69859fb104b15f7d722b25c7f4870d946da88be6c2d9b1abeb0e3c1a",
   "mediaStatus": "archived",
-  "mediaFailures": []
+  "mediaFailures": [
+    {
+      "sourceUrl": "https://github.com/FTShare-Lab/FTShare-MCP/blob/1ab492169881595490165e132a9b9fbdaa38df1c/README.md#L2",
+      "reason": "unsupported_media_format"
+    }
+  ],
+  "mediaReferences": [
+    {
+      "label": "FTShare MCP，让 AI Agent 调用金融数据与 FTShare 特色因子",
+      "url": "https://github.com/FTShare-Lab/FTShare-MCP/blob/1ab492169881595490165e132a9b9fbdaa38df1c/README.md#L2"
+    }
+  ]
 }

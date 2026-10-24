@@ -67,8 +67,28 @@
     "--details 会显示原始线程 ID、标题和路径，请只在需要排查细节时使用。"
   ],
   "references": [],
-  "media": [],
+  "media": [
+    {
+      "url": "/assets/repository-guides/media-4fbd9c7fae96df29ab0168b7.webp",
+      "alt": "Keep Codex Fast cover",
+      "sourceUrl": "https://github.com/vibeforge1111/keep-codex-fast/blob/e74c4496aca550c54228740fcc144372308da529/README.md#L3",
+      "originalUrl": "https://raw.githubusercontent.com/vibeforge1111/keep-codex-fast/e74c4496aca550c54228740fcc144372308da529/assets/keep-codex-fast-cover.png",
+      "animated": false
+    }
+  ],
   "generatedBy": "claude-opus-5-5",
   "documentHash": "f4c854d951a8dad9d8732881aabbdd249760ae00b2e1bfba765b7dbe4d524126",
-  "mediaStatus": "none_in_official_documents"
+  "mediaStatus": "archived",
+  "mediaFailures": [
+    {
+      "sourceUrl": "https://github.com/vibeforge1111/keep-codex-fast/blob/e74c4496aca550c54228740fcc144372308da529/README.md#L220",
+      "reason": "unsupported_media_format"
+    }
+  ],
+  "mediaReferences": [
+    {
+      "label": "Keep Codex Fast flow",
+      "url": "https://github.com/vibeforge1111/keep-codex-fast/blob/e74c4496aca550c54228740fcc144372308da529/README.md#L220"
+    }
+  ]
 }

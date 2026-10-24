@@ -57,8 +57,18 @@
     "README 中从克隆仓库安装的代码块（含 PowerShell 版）给出的仓库地址格式异常，不能直接照抄；本指南只采用 npx 安装路径。"
   ],
   "references": [],
-  "media": [],
+  "media": [
+    {
+      "url": "/assets/repository-guides/media-134104aa32d686c74df20e3e.webp",
+      "alt": "Slopkit",
+      "sourceUrl": "https://github.com/ehmo/slopkit/blob/b33718bb9283c11b09567dc714f92d90ffb7bd16/README.md#L2",
+      "originalUrl": "https://raw.githubusercontent.com/ehmo/slopkit/b33718bb9283c11b09567dc714f92d90ffb7bd16/assets/slopkit.png",
+      "animated": false
+    }
+  ],
   "generatedBy": "claude-opus-5-5",
   "documentHash": "40bfca8de4eb2336ba72631b04e40f2beb6b62875886df3017b8af05082dfb25",
-  "mediaStatus": "none_in_official_documents"
+  "mediaStatus": "archived",
+  "mediaFailures": [],
+  "mediaReferences": []
 }

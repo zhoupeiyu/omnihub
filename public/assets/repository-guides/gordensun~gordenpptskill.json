@@ -60,23 +60,27 @@
       "url": "/assets/repository-guides/media-1c98fcea2e040d6af74eeef0.webp",
       "alt": "效果展示 1 - 战略定位分析",
       "sourceUrl": "https://github.com/GordenSun/GordenPPTSkill/blob/7d4a61cbd8363b92e4a30784f8ca460a0a2b0a33/README.md?plain=1#L25",
-      "originalUrl": "https://raw.githubusercontent.com/GordenSun/GordenPPTSkill/7d4a61cbd8363b92e4a30784f8ca460a0a2b0a33/assets/showcase-1.jpg"
+      "originalUrl": "https://raw.githubusercontent.com/GordenSun/GordenPPTSkill/7d4a61cbd8363b92e4a30784f8ca460a0a2b0a33/assets/showcase-1.jpg",
+      "animated": false
     },
     {
       "url": "/assets/repository-guides/media-2357cbadb531560523aeb5ab.webp",
       "alt": "效果展示 2 - 价值冰山模型",
       "sourceUrl": "https://github.com/GordenSun/GordenPPTSkill/blob/7d4a61cbd8363b92e4a30784f8ca460a0a2b0a33/README.md?plain=1#L29",
-      "originalUrl": "https://raw.githubusercontent.com/GordenSun/GordenPPTSkill/7d4a61cbd8363b92e4a30784f8ca460a0a2b0a33/assets/showcase-2.jpg"
+      "originalUrl": "https://raw.githubusercontent.com/GordenSun/GordenPPTSkill/7d4a61cbd8363b92e4a30784f8ca460a0a2b0a33/assets/showcase-2.jpg",
+      "animated": false
     },
     {
       "url": "/assets/repository-guides/media-40dd7c7a37d4f82c43321dab.webp",
       "alt": "效果展示 3 - 产品化闭环",
       "sourceUrl": "https://github.com/GordenSun/GordenPPTSkill/blob/7d4a61cbd8363b92e4a30784f8ca460a0a2b0a33/README.md?plain=1#L33",
-      "originalUrl": "https://raw.githubusercontent.com/GordenSun/GordenPPTSkill/7d4a61cbd8363b92e4a30784f8ca460a0a2b0a33/assets/showcase-3.jpg"
+      "originalUrl": "https://raw.githubusercontent.com/GordenSun/GordenPPTSkill/7d4a61cbd8363b92e4a30784f8ca460a0a2b0a33/assets/showcase-3.jpg",
+      "animated": false
     }
   ],
   "generatedBy": "claude-opus-5-5",
   "documentHash": "d1b4c095c0c1c0216131b096e6c4b644aa0437028ab3e1abf5d003e12d9a85cc",
   "mediaStatus": "archived",
-  "mediaFailures": []
+  "mediaFailures": [],
+  "mediaReferences": []
 }

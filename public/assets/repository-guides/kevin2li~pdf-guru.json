@@ -41,5 +41,49 @@
   "media": [],
   "generatedBy": "claude-opus-5-5",
   "documentHash": "fabe5f524685146713929c227efa57f5266b7fd672226f10ff5fa65b9857ab6b",
-  "mediaStatus": "none_in_official_documents"
+  "mediaStatus": "unavailable",
+  "mediaFailures": [
+    {
+      "sourceUrl": "https://github.com/kevin2li/PDF-Guru/blob/f67a40f0ad2ec4e63b82dc0bb452d89241347b04/README.md#L3",
+      "reason": "unsupported_media_host"
+    },
+    {
+      "sourceUrl": "https://github.com/kevin2li/PDF-Guru/blob/f67a40f0ad2ec4e63b82dc0bb452d89241347b04/README.md#L26",
+      "reason": "unsupported_media_host"
+    },
+    {
+      "sourceUrl": "https://github.com/kevin2li/PDF-Guru/blob/f67a40f0ad2ec4e63b82dc0bb452d89241347b04/README.md#L35",
+      "reason": "unsupported_media_host"
+    },
+    {
+      "sourceUrl": "https://github.com/kevin2li/PDF-Guru/blob/f67a40f0ad2ec4e63b82dc0bb452d89241347b04/README.md#L81",
+      "reason": "unsupported_media_host"
+    },
+    {
+      "sourceUrl": "https://github.com/kevin2li/PDF-Guru/blob/f67a40f0ad2ec4e63b82dc0bb452d89241347b04/README.md#L38",
+      "reason": "unsupported_media_host"
+    }
+  ],
+  "mediaReferences": [
+    {
+      "label": "PDF Guru Anki  ",
+      "url": "https://github.com/kevin2li/PDF-Guru/blob/f67a40f0ad2ec4e63b82dc0bb452d89241347b04/README.md#L3"
+    },
+    {
+      "label": "一、 知识焦虑？全格式学习的时代困局",
+      "url": "https://github.com/kevin2li/PDF-Guru/blob/f67a40f0ad2ec4e63b82dc0bb452d89241347b04/README.md#L26"
+    },
+    {
+      "label": "二、 PDF Guru Anki：全平台知识枢纽，Anki 生态的超级引擎",
+      "url": "https://github.com/kevin2li/PDF-Guru/blob/f67a40f0ad2ec4e63b82dc0bb452d89241347b04/README.md#L35"
+    },
+    {
+      "label": "三、 适用人群全场景覆盖：你的专属知识加速引擎",
+      "url": "https://github.com/kevin2li/PDF-Guru/blob/f67a40f0ad2ec4e63b82dc0bb452d89241347b04/README.md#L81"
+    },
+    {
+      "label": "二、 PDF Guru Anki：全平台知识枢纽，Anki 生态的超级引擎",
+      "url": "https://github.com/kevin2li/PDF-Guru/blob/f67a40f0ad2ec4e63b82dc0bb452d89241347b04/README.md#L38"
+    }
+  ]
 }

@@ -61,8 +61,92 @@
       "url": "https://github.com/Emily2040/seedance-2.0/blob/4668457e560eee06e95d7fcfdf441c8c0bba802e/docs/README.zh.md"
     }
   ],
-  "media": [],
+  "media": [
+    {
+      "url": "/assets/repository-guides/media-955e57ca1c81d1a09c6e95de.webp",
+      "alt": "Slender hands with long pearl-blush nails, ivory tips and gold accents hold an ivory paper fan under a desk lamp.",
+      "sourceUrl": "https://github.com/Emily2040/seedance-2.0/blob/4668457e560eee06e95d7fcfdf441c8c0bba802e/README.md#L450",
+      "originalUrl": "https://raw.githubusercontent.com/Emily2040/seedance-2.0/4668457e560eee06e95d7fcfdf441c8c0bba802e/assets/paper-fan-teaching.png",
+      "animated": false
+    }
+  ],
   "generatedBy": "claude-opus-5-5",
   "documentHash": "c78ff1453dcafac4d12fbe027ffdacee57627a0e3bf9bbe0bf1e66d1092f473c",
-  "mediaStatus": "none_in_official_documents"
+  "mediaStatus": "archived",
+  "mediaFailures": [
+    {
+      "sourceUrl": "https://github.com/Emily2040/seedance-2.0/blob/4668457e560eee06e95d7fcfdf441c8c0bba802e/README.md#L4",
+      "reason": "unsupported_media_format"
+    },
+    {
+      "sourceUrl": "https://github.com/Emily2040/seedance-2.0/blob/4668457e560eee06e95d7fcfdf441c8c0bba802e/README.md#L38",
+      "reason": "unsupported_media_format"
+    },
+    {
+      "sourceUrl": "https://github.com/Emily2040/seedance-2.0/blob/4668457e560eee06e95d7fcfdf441c8c0bba802e/README.md#L628",
+      "reason": "unsupported_media_format"
+    },
+    {
+      "sourceUrl": "https://github.com/Emily2040/seedance-2.0/blob/4668457e560eee06e95d7fcfdf441c8c0bba802e/README.md#L39",
+      "reason": "unsupported_media_format"
+    },
+    {
+      "sourceUrl": "https://github.com/Emily2040/seedance-2.0/blob/4668457e560eee06e95d7fcfdf441c8c0bba802e/README.md#L42",
+      "reason": "unsupported_media_format"
+    },
+    {
+      "sourceUrl": "https://github.com/Emily2040/seedance-2.0/blob/4668457e560eee06e95d7fcfdf441c8c0bba802e/README.md#L43",
+      "reason": "unsupported_media_format"
+    },
+    {
+      "sourceUrl": "https://github.com/Emily2040/seedance-2.0/blob/4668457e560eee06e95d7fcfdf441c8c0bba802e/README.md#L46",
+      "reason": "unsupported_media_format"
+    },
+    {
+      "sourceUrl": "https://github.com/Emily2040/seedance-2.0/blob/4668457e560eee06e95d7fcfdf441c8c0bba802e/README.md#L47",
+      "reason": "unsupported_media_format"
+    },
+    {
+      "sourceUrl": "https://github.com/Emily2040/seedance-2.0/blob/4668457e560eee06e95d7fcfdf441c8c0bba802e/README.md#L50",
+      "reason": "unsupported_media_format"
+    }
+  ],
+  "mediaReferences": [
+    {
+      "label": "Seedance 2.0 Skill OS — Direct the model. Don",
+      "url": "https://github.com/Emily2040/seedance-2.0/blob/4668457e560eee06e95d7fcfdf441c8c0bba802e/README.md#L4"
+    },
+    {
+      "label": "Slate for clip 01, English: Paint-stained overalls in a luxury boutique. “The new owner is standing in the shop now.”",
+      "url": "https://github.com/Emily2040/seedance-2.0/blob/4668457e560eee06e95d7fcfdf441c8c0bba802e/README.md#L38"
+    },
+    {
+      "label": "Seedance 2.0 Skill OS operating diagram: seven gates feed the seedance-20 root, which routes to the core pipeline, governance, and multilingual vocabulary clust",
+      "url": "https://github.com/Emily2040/seedance-2.0/blob/4668457e560eee06e95d7fcfdf441c8c0bba802e/README.md#L628"
+    },
+    {
+      "label": "Slate for clip 02, English: “Let it go, Tom! It",
+      "url": "https://github.com/Emily2040/seedance-2.0/blob/4668457e560eee06e95d7fcfdf441c8c0bba802e/README.md#L39"
+    },
+    {
+      "label": "Slate for clip 03, 中文: 寿宴上，没人请她来。 “这杯茶，我妈等了二十年。”",
+      "url": "https://github.com/Emily2040/seedance-2.0/blob/4668457e560eee06e95d7fcfdf441c8c0bba802e/README.md#L42"
+    },
+    {
+      "label": "Slate for clip 04, 中文: “超时二十分钟，我要给差评。” 头盔摘下来，是一头花白的短发。",
+      "url": "https://github.com/Emily2040/seedance-2.0/blob/4668457e560eee06e95d7fcfdf441c8c0bba802e/README.md#L43"
+    },
+    {
+      "label": "Slate for clip 05, 한국어: 사직서를 그의 서류 위에 올려놓는다. “제 보고서, 이름만 바꾸셨더군요.”",
+      "url": "https://github.com/Emily2040/seedance-2.0/blob/4668457e560eee06e95d7fcfdf441c8c0bba802e/README.md#L46"
+    },
+    {
+      "label": "Slate for clip 06, 日本語: 夏の決勝、九回裏、雨。 最後の一球はミットに収まる。",
+      "url": "https://github.com/Emily2040/seedance-2.0/blob/4668457e560eee06e95d7fcfdf441c8c0bba802e/README.md#L47"
+    },
+    {
+      "label": "Slate for clip 07, Русский: «Хочешь бросить — бросай. Только мать смотрит.»",
+      "url": "https://github.com/Emily2040/seedance-2.0/blob/4668457e560eee06e95d7fcfdf441c8c0bba802e/README.md#L50"
+    }
+  ]
 }

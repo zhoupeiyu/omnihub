@@ -57,13 +57,37 @@
     "README 徽章标注 CC BY 4.0，但仓库元数据中的许可证为 NOASSERTION，再分发前应确认署名要求。"
   ],
   "references": [],
-  "media": [],
+  "media": [
+    {
+      "url": "/assets/repository-guides/media-b8219953ee5de3ee0f23ac9b.webp",
+      "alt": "Cover",
+      "sourceUrl": "https://github.com/YouMind-OpenLab/awesome-gpt-image-2/blob/2f6f46096a5816c2f256cf91d379014d1d230aa0/README.md#L29",
+      "originalUrl": "https://raw.githubusercontent.com/YouMind-OpenLab/awesome-gpt-image-2/2f6f46096a5816c2f256cf91d379014d1d230aa0/public/images/gpt-image-2-prompts-cover-en.png",
+      "animated": false
+    }
+  ],
   "generatedBy": "claude-opus-5-5",
   "documentHash": "be93554227a0998634b39cdf87193b52dce02a69116ad774f9603660a2c991ff",
-  "mediaStatus": "unavailable",
+  "mediaStatus": "archived",
   "mediaFailures": [
     {
+      "sourceUrl": "https://github.com/YouMind-OpenLab/awesome-gpt-image-2/blob/2f6f46096a5816c2f256cf91d379014d1d230aa0/README.md#L3",
+      "reason": "unsupported_media_host"
+    },
+    {
       "sourceUrl": "https://github.com/YouMind-OpenLab/awesome-gpt-image-2/blob/2f6f46096a5816c2f256cf91d379014d1d230aa0/README.md#L209",
+      "reason": "unsupported_media_host"
+    },
+    {
+      "sourceUrl": "https://github.com/YouMind-OpenLab/awesome-gpt-image-2/blob/2f6f46096a5816c2f256cf91d379014d1d230aa0/README.md#L319",
+      "reason": "unsupported_media_host"
+    },
+    {
+      "sourceUrl": "https://github.com/YouMind-OpenLab/awesome-gpt-image-2/blob/2f6f46096a5816c2f256cf91d379014d1d230aa0/README.md#L2376",
+      "reason": "unsupported_media_host"
+    },
+    {
+      "sourceUrl": "https://github.com/YouMind-OpenLab/awesome-gpt-image-2/blob/2f6f46096a5816c2f256cf91d379014d1d230aa0/README.md#L2382",
       "reason": "unsupported_media_host"
     },
     {
@@ -71,8 +95,78 @@
       "reason": "unsupported_media_host"
     },
     {
+      "sourceUrl": "https://github.com/YouMind-OpenLab/awesome-gpt-image-2/blob/2f6f46096a5816c2f256cf91d379014d1d230aa0/README.md#L1698",
+      "reason": "unsupported_media_host"
+    },
+    {
+      "sourceUrl": "https://github.com/YouMind-OpenLab/awesome-gpt-image-2/blob/2f6f46096a5816c2f256cf91d379014d1d230aa0/README.md#L313",
+      "reason": "unsupported_media_host"
+    },
+    {
+      "sourceUrl": "https://github.com/YouMind-OpenLab/awesome-gpt-image-2/blob/2f6f46096a5816c2f256cf91d379014d1d230aa0/README.md#L1880",
+      "reason": "unsupported_media_host"
+    },
+    {
       "sourceUrl": "https://github.com/YouMind-OpenLab/awesome-gpt-image-2/blob/2f6f46096a5816c2f256cf91d379014d1d230aa0/README.md#L400",
       "reason": "unsupported_media_host"
+    },
+    {
+      "sourceUrl": "https://github.com/YouMind-OpenLab/awesome-gpt-image-2/blob/2f6f46096a5816c2f256cf91d379014d1d230aa0/README.md#L2069",
+      "reason": "unsupported_media_host"
+    },
+    {
+      "sourceUrl": "https://github.com/YouMind-OpenLab/awesome-gpt-image-2/blob/2f6f46096a5816c2f256cf91d379014d1d230aa0/README.md#L435",
+      "reason": "unsupported_media_host"
+    }
+  ],
+  "mediaReferences": [
+    {
+      "label": "GPT Image 2 Prompts",
+      "url": "https://github.com/YouMind-OpenLab/awesome-gpt-image-2/blob/2f6f46096a5816c2f256cf91d379014d1d230aa0/README.md#L3"
+    },
+    {
+      "label": "VR Headset Exploded View Poster - Image 1",
+      "url": "https://github.com/YouMind-OpenLab/awesome-gpt-image-2/blob/2f6f46096a5816c2f256cf91d379014d1d230aa0/README.md#L209"
+    },
+    {
+      "label": "Momotaro Explainer Slide in Hybrid Style - Image 2",
+      "url": "https://github.com/YouMind-OpenLab/awesome-gpt-image-2/blob/2f6f46096a5816c2f256cf91d379014d1d230aa0/README.md#L319"
+    },
+    {
+      "label": "Infographic / Edu Visual - Folk Art Cafe Study Illustration Prompt - Image 3",
+      "url": "https://github.com/YouMind-OpenLab/awesome-gpt-image-2/blob/2f6f46096a5816c2f256cf91d379014d1d230aa0/README.md#L2376"
+    },
+    {
+      "label": "Infographic / Edu Visual - Folk Art Cafe Study Illustration Prompt - Image 4",
+      "url": "https://github.com/YouMind-OpenLab/awesome-gpt-image-2/blob/2f6f46096a5816c2f256cf91d379014d1d230aa0/README.md#L2382"
+    },
+    {
+      "label": "Illustrated City Food Map - Image 1",
+      "url": "https://github.com/YouMind-OpenLab/awesome-gpt-image-2/blob/2f6f46096a5816c2f256cf91d379014d1d230aa0/README.md#L278"
+    },
+    {
+      "label": "Social Media Post - Autumn Cozy Casual Outfit Prompt - Image 2",
+      "url": "https://github.com/YouMind-OpenLab/awesome-gpt-image-2/blob/2f6f46096a5816c2f256cf91d379014d1d230aa0/README.md#L1698"
+    },
+    {
+      "label": "Momotaro Explainer Slide in Hybrid Style - Image 1",
+      "url": "https://github.com/YouMind-OpenLab/awesome-gpt-image-2/blob/2f6f46096a5816c2f256cf91d379014d1d230aa0/README.md#L313"
+    },
+    {
+      "label": "Social Media Post - Shopping Cart Rooftop Lifestyle Photo - Image 2",
+      "url": "https://github.com/YouMind-OpenLab/awesome-gpt-image-2/blob/2f6f46096a5816c2f256cf91d379014d1d230aa0/README.md#L1880"
+    },
+    {
+      "label": "E-commerce Live Stream UI Mockup - Image 1",
+      "url": "https://github.com/YouMind-OpenLab/awesome-gpt-image-2/blob/2f6f46096a5816c2f256cf91d379014d1d230aa0/README.md#L400"
+    },
+    {
+      "label": "Social Media Post - Surreal fashion bicycle garden - Image 2",
+      "url": "https://github.com/YouMind-OpenLab/awesome-gpt-image-2/blob/2f6f46096a5816c2f256cf91d379014d1d230aa0/README.md#L2069"
+    },
+    {
+      "label": "Anime Martial Arts Battle Illustration - Image 1",
+      "url": "https://github.com/YouMind-OpenLab/awesome-gpt-image-2/blob/2f6f46096a5816c2f256cf91d379014d1d230aa0/README.md#L435"
     }
   ]
 }

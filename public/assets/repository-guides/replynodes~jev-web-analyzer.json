@@ -74,6 +74,36 @@
     {
       "sourceUrl": "https://github.com/replynodes/jev-web-analyzer/blob/37f4b29d3e700e53cdd04dea8ad8977a2ee3f142/README.md#L8",
       "reason": "unsupported_media_format"
+    },
+    {
+      "sourceUrl": "https://github.com/replynodes/jev-web-analyzer/blob/37f4b29d3e700e53cdd04dea8ad8977a2ee3f142/README.md#L299",
+      "reason": "unsupported_media_format"
+    },
+    {
+      "sourceUrl": "https://github.com/replynodes/jev-web-analyzer/blob/37f4b29d3e700e53cdd04dea8ad8977a2ee3f142/README.md#L303",
+      "reason": "unsupported_media_format"
+    },
+    {
+      "sourceUrl": "https://github.com/replynodes/jev-web-analyzer/blob/37f4b29d3e700e53cdd04dea8ad8977a2ee3f142/README.md#L307",
+      "reason": "unsupported_media_format"
+    }
+  ],
+  "mediaReferences": [
+    {
+      "label": "A Jev leaderboard permalink page: shipfa.st scored 88/100, with sub-scores for clarity, CTA clarity, differentiation, and pricing visibility, each showing the m",
+      "url": "https://github.com/replynodes/jev-web-analyzer/blob/37f4b29d3e700e53cdd04dea8ad8977a2ee3f142/README.md#L8"
+    },
+    {
+      "label": "ReplyNodes",
+      "url": "https://github.com/replynodes/jev-web-analyzer/blob/37f4b29d3e700e53cdd04dea8ad8977a2ee3f142/README.md#L299"
+    },
+    {
+      "label": "Jev by TypeSafe AI",
+      "url": "https://github.com/replynodes/jev-web-analyzer/blob/37f4b29d3e700e53cdd04dea8ad8977a2ee3f142/README.md#L303"
+    },
+    {
+      "label": "Vercel",
+      "url": "https://github.com/replynodes/jev-web-analyzer/blob/37f4b29d3e700e53cdd04dea8ad8977a2ee3f142/README.md#L307"
     }
   ]
 }

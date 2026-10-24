@@ -50,8 +50,28 @@
       "url": "https://github.com/zhaoxuya520/reverse-skill/blob/cab634bd855fc287f6e420c1f36fd1a6b9245960/docs/UV-AND-DOWNLOAD-SECURITY.md"
     }
   ],
-  "media": [],
+  "media": [
+    {
+      "url": "/assets/repository-guides/media-ded608a59e0e8ef69dc9fdc6.webp",
+      "alt": "reverse-skill",
+      "sourceUrl": "https://github.com/zhaoxuya520/reverse-skill/blob/cab634bd855fc287f6e420c1f36fd1a6b9245960/README.md#L2",
+      "originalUrl": "https://raw.githubusercontent.com/zhaoxuya520/reverse-skill/cab634bd855fc287f6e420c1f36fd1a6b9245960/reverse-skill.png",
+      "animated": false
+    }
+  ],
   "generatedBy": "GPT",
   "documentHash": "aa24cb312f232754651915278ad5b08e105d6d72bbf30ea66b3a5a398704e357",
-  "mediaStatus": "none_in_official_documents"
+  "mediaStatus": "archived",
+  "mediaFailures": [
+    {
+      "sourceUrl": "https://github.com/zhaoxuya520/reverse-skill/blob/cab634bd855fc287f6e420c1f36fd1a6b9245960/README.md#L137",
+      "reason": "unsupported_media_host"
+    }
+  ],
+  "mediaReferences": [
+    {
+      "label": "Built With",
+      "url": "https://github.com/zhaoxuya520/reverse-skill/blob/cab634bd855fc287f6e420c1f36fd1a6b9245960/README.md#L137"
+    }
+  ]
 }

@@ -26,8 +26,25 @@
       "url": "https://github.com/DanOps-1/Gpt-Agreement-Payment/blob/2168bcd0a6dab29ad35b864ce68317169d397e41/docs/installation.md"
     }
   ],
-  "media": [],
+  "media": [
+    {
+      "url": "/assets/repository-guides/media-208cd69f984e3c7ffe25a0f8.webp",
+      "alt": "webui 截图",
+      "sourceUrl": "https://github.com/DanOps-1/Gpt-Agreement-Payment/blob/2168bcd0a6dab29ad35b864ce68317169d397e41/README.md#L108",
+      "originalUrl": "https://raw.githubusercontent.com/DanOps-1/Gpt-Agreement-Payment/2168bcd0a6dab29ad35b864ce68317169d397e41/docs/images/webui.png",
+      "animated": false
+    },
+    {
+      "url": "/assets/repository-guides/media-93f69d60f29f9c819e124ff0.webp",
+      "alt": "赞赏码",
+      "sourceUrl": "https://github.com/DanOps-1/Gpt-Agreement-Payment/blob/2168bcd0a6dab29ad35b864ce68317169d397e41/README.md#L301",
+      "originalUrl": "https://raw.githubusercontent.com/DanOps-1/Gpt-Agreement-Payment/2168bcd0a6dab29ad35b864ce68317169d397e41/goodgood.jpg",
+      "animated": false
+    }
+  ],
   "generatedBy": "claude-opus-5-5",
   "documentHash": "c3ccc1e750f8d31d12d89035f2e65188c50cef5907e94e2f752504bfddc3e18d",
-  "mediaStatus": "none_in_official_documents"
+  "mediaStatus": "archived",
+  "mediaFailures": [],
+  "mediaReferences": []
 }

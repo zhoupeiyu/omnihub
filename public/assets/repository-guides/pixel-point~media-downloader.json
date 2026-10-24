@@ -64,8 +64,18 @@
     "应用会访问 GitHub API 检查更新；偏好设置存于 UserDefaults，历史和缩略图存于应用的 Application Support 目录。"
   ],
   "references": [],
-  "media": [],
+  "media": [
+    {
+      "url": "/assets/repository-guides/media-0e833147ccdf20382bd5b299.webp",
+      "alt": "Frame 2147227910",
+      "sourceUrl": "https://github.com/pixel-point/media-downloader/blob/6e21554ef5e4921c4d816d99ec59942496c7cc96/README.md#L1",
+      "originalUrl": "https://github.com/user-attachments/assets/ee37ab6e-2903-4374-8ff1-b6ef071f28f7",
+      "animated": false
+    }
+  ],
   "generatedBy": "claude-opus-5-5",
   "documentHash": "f770594613df6b1f86cd94e2bc55ce9ea4ad15a28b84ebc4ae78178da4e69e7f",
-  "mediaStatus": "none_in_official_documents"
+  "mediaStatus": "archived",
+  "mediaFailures": [],
+  "mediaReferences": []
 }

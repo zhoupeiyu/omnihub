@@ -64,11 +64,13 @@
       "url": "/assets/repository-guides/media-8e7f960e7534ba006abce9cc.webp",
       "alt": "b-nnett/codex-plusplus 官方演示 1",
       "sourceUrl": "https://github.com/b-nnett/codex-plusplus/blob/f98e7e9d1fa068dde9e0dddfb43b128acb4e2fd7/README.md?plain=1#L8",
-      "originalUrl": "https://github.com/user-attachments/assets/ea0b2ffc-c30d-4f68-ae12-dd8d6a997b2f"
+      "originalUrl": "https://github.com/user-attachments/assets/ea0b2ffc-c30d-4f68-ae12-dd8d6a997b2f",
+      "animated": false
     }
   ],
   "generatedBy": "claude-opus-5-5",
   "documentHash": "ddd59f0fc5389da12d5bdb7c3619ed26c465b3af7a1be7570aed1ccb1f842cc6",
   "mediaStatus": "archived",
-  "mediaFailures": []
+  "mediaFailures": [],
+  "mediaReferences": []
 }

@@ -73,8 +73,53 @@
       "url": "https://github.com/Lumiwealth/lumibot/blob/b068e8055dc52db93b6d22e0b230b1cf797a3e3f/README.zh-CN.md"
     }
   ],
-  "media": [],
+  "media": [
+    {
+      "url": "/assets/repository-guides/media-840da295b77005b5c5423ca3.webp",
+      "alt": "LumiBot: Python rules or AI agents, historical backtests and broker connections",
+      "sourceUrl": "https://github.com/Lumiwealth/lumibot/blob/b068e8055dc52db93b6d22e0b230b1cf797a3e3f/README.md#L34",
+      "originalUrl": "https://raw.githubusercontent.com/Lumiwealth/lumibot/b068e8055dc52db93b6d22e0b230b1cf797a3e3f/docs/assets/ai-trading/benefit-hero.png",
+      "animated": false
+    },
+    {
+      "url": "/assets/repository-guides/media-a1c0884778377344aed215ca.webp",
+      "alt": "Build your first AI trading bot with Rob Grzesik. Join the FREE challenge.",
+      "sourceUrl": "https://github.com/Lumiwealth/lumibot/blob/b068e8055dc52db93b6d22e0b230b1cf797a3e3f/README.md#L147",
+      "originalUrl": "https://raw.githubusercontent.com/Lumiwealth/lumibot/b068e8055dc52db93b6d22e0b230b1cf797a3e3f/docs/assets/ai-trading/free-challenge.png",
+      "animated": false
+    },
+    {
+      "url": "/assets/repository-guides/media-4f1ba714b173b73145f10acc.webp",
+      "alt": "Design your AI trading team with Lumibot",
+      "sourceUrl": "https://github.com/Lumiwealth/lumibot/blob/b068e8055dc52db93b6d22e0b230b1cf797a3e3f/README.md#L266",
+      "originalUrl": "https://raw.githubusercontent.com/Lumiwealth/lumibot/b068e8055dc52db93b6d22e0b230b1cf797a3e3f/docs/assets/readme/lumibot_agent_flows.png",
+      "animated": false
+    },
+    {
+      "url": "/assets/repository-guides/media-30e5352d0057dfc4d90ea07b.webp",
+      "alt": "Lumibot AI trading team workflow",
+      "sourceUrl": "https://github.com/Lumiwealth/lumibot/blob/b068e8055dc52db93b6d22e0b230b1cf797a3e3f/README.md#L274",
+      "originalUrl": "https://raw.githubusercontent.com/Lumiwealth/lumibot/b068e8055dc52db93b6d22e0b230b1cf797a3e3f/docs/assets/readme/lumibot_investment_committee_architecture.png",
+      "animated": false
+    },
+    {
+      "url": "/assets/repository-guides/media-052662087e150a4e54126835.webp",
+      "alt": "Build and deploy AI trading bots on BotSpot",
+      "sourceUrl": "https://github.com/Lumiwealth/lumibot/blob/b068e8055dc52db93b6d22e0b230b1cf797a3e3f/README.md#L430",
+      "originalUrl": "https://raw.githubusercontent.com/Lumiwealth/lumibot/b068e8055dc52db93b6d22e0b230b1cf797a3e3f/docs/assets/readme/botspot_primary_cta.png",
+      "animated": false
+    },
+    {
+      "url": "/assets/repository-guides/media-29056184e3832f661cf8d675.webp",
+      "alt": "One Lumibot strategy can run in backtests and live broker accounts",
+      "sourceUrl": "https://github.com/Lumiwealth/lumibot/blob/b068e8055dc52db93b6d22e0b230b1cf797a3e3f/README.md#L443",
+      "originalUrl": "https://raw.githubusercontent.com/Lumiwealth/lumibot/b068e8055dc52db93b6d22e0b230b1cf797a3e3f/docs/assets/readme/lumibot_backtest_live_parity.png",
+      "animated": false
+    }
+  ],
   "generatedBy": "claude-opus-5-5",
   "documentHash": "d5b049b70ba304d26159fbcc2c59b58d9fcfc69ff6f4582b49897a75be4e7121",
-  "mediaStatus": "none_in_official_documents"
+  "mediaStatus": "archived",
+  "mediaFailures": [],
+  "mediaReferences": []
 }

@@ -42,11 +42,13 @@
       "url": "/assets/repository-guides/media-c3db6451e7b8f447ef712b5c.webp",
       "alt": "YILS-LIN/short-video-factory 官方演示 1",
       "sourceUrl": "https://github.com/YILS-LIN/short-video-factory/blob/eb3128e4aa8402fbb7c872d6931006c74f22fc54/README.md?plain=1#L5",
-      "originalUrl": "https://raw.githubusercontent.com/YILS-LIN/short-video-factory/eb3128e4aa8402fbb7c872d6931006c74f22fc54/images/ScreenShot.png"
+      "originalUrl": "https://raw.githubusercontent.com/YILS-LIN/short-video-factory/eb3128e4aa8402fbb7c872d6931006c74f22fc54/images/ScreenShot.png",
+      "animated": false
     }
   ],
   "generatedBy": "claude-opus-5-5",
   "documentHash": "35544697e602bc4eb94cbde6df297427172097ceb3a87fb6a2c0b2618c3a3637",
   "mediaStatus": "archived",
-  "mediaFailures": []
+  "mediaFailures": [],
+  "mediaReferences": []
 }

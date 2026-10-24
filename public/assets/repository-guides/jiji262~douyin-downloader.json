@@ -69,17 +69,58 @@
       "url": "/assets/repository-guides/media-20fc32f1993f5e2d35c903eb.webp",
       "alt": "Douzy 抖音下载选项",
       "sourceUrl": "https://github.com/jiji262/douyin-downloader/blob/9874f413b2c1f8ad6e731b26e3e05f402fc964f8/README.zh-CN.md?plain=1#L29",
-      "originalUrl": "https://raw.githubusercontent.com/jiji262/douyin-downloader/9874f413b2c1f8ad6e731b26e3e05f402fc964f8/img/desktop/001.png"
+      "originalUrl": "https://raw.githubusercontent.com/jiji262/douyin-downloader/9874f413b2c1f8ad6e731b26e3e05f402fc964f8/img/desktop/001.png",
+      "animated": false
     },
     {
       "url": "/assets/repository-guides/media-9b2d165c63c6f1067aab78da.webp",
       "alt": "Douzy 平台切换",
       "sourceUrl": "https://github.com/jiji262/douyin-downloader/blob/9874f413b2c1f8ad6e731b26e3e05f402fc964f8/README.zh-CN.md?plain=1#L31",
-      "originalUrl": "https://raw.githubusercontent.com/jiji262/douyin-downloader/9874f413b2c1f8ad6e731b26e3e05f402fc964f8/img/desktop/006.png"
+      "originalUrl": "https://raw.githubusercontent.com/jiji262/douyin-downloader/9874f413b2c1f8ad6e731b26e3e05f402fc964f8/img/desktop/006.png",
+      "animated": false
+    },
+    {
+      "url": "/assets/repository-guides/media-de08030d66cd4917615431e7.webp",
+      "alt": "Douzy TikTok workspace",
+      "sourceUrl": "https://github.com/jiji262/douyin-downloader/blob/9874f413b2c1f8ad6e731b26e3e05f402fc964f8/README.md#L29",
+      "originalUrl": "https://raw.githubusercontent.com/jiji262/douyin-downloader/9874f413b2c1f8ad6e731b26e3e05f402fc964f8/img/desktop/002.png",
+      "animated": false
+    },
+    {
+      "url": "/assets/repository-guides/media-874e58695b4fdc49539177ed.webp",
+      "alt": "Douzy YouTube workspace",
+      "sourceUrl": "https://github.com/jiji262/douyin-downloader/blob/9874f413b2c1f8ad6e731b26e3e05f402fc964f8/README.md#L29",
+      "originalUrl": "https://raw.githubusercontent.com/jiji262/douyin-downloader/9874f413b2c1f8ad6e731b26e3e05f402fc964f8/img/desktop/003.png",
+      "animated": false
+    },
+    {
+      "url": "/assets/repository-guides/media-81c2eafb77933c20d8261aa9.webp",
+      "alt": "Douzy Telegram setup",
+      "sourceUrl": "https://github.com/jiji262/douyin-downloader/blob/9874f413b2c1f8ad6e731b26e3e05f402fc964f8/README.md#L31",
+      "originalUrl": "https://raw.githubusercontent.com/jiji262/douyin-downloader/9874f413b2c1f8ad6e731b26e3e05f402fc964f8/img/desktop/004.png",
+      "animated": false
+    },
+    {
+      "url": "/assets/repository-guides/media-c092cb0f5db7a826155da09f.webp",
+      "alt": "Douzy X workspace",
+      "sourceUrl": "https://github.com/jiji262/douyin-downloader/blob/9874f413b2c1f8ad6e731b26e3e05f402fc964f8/README.md#L31",
+      "originalUrl": "https://raw.githubusercontent.com/jiji262/douyin-downloader/9874f413b2c1f8ad6e731b26e3e05f402fc964f8/img/desktop/005.png",
+      "animated": false
     }
   ],
   "generatedBy": "claude-opus-5-5",
   "documentHash": "a5745bfc83875dbdfdc7ecdfdb80d9daefd88a26ac36c247d939b4eaba80b180",
   "mediaStatus": "archived",
-  "mediaFailures": []
+  "mediaFailures": [
+    {
+      "sourceUrl": "https://github.com/jiji262/douyin-downloader/blob/9874f413b2c1f8ad6e731b26e3e05f402fc964f8/README.md#L4",
+      "reason": "unsupported_media_format"
+    }
+  ],
+  "mediaReferences": [
+    {
+      "label": "douyin-downloader",
+      "url": "https://github.com/jiji262/douyin-downloader/blob/9874f413b2c1f8ad6e731b26e3e05f402fc964f8/README.md#L4"
+    }
+  ]
 }

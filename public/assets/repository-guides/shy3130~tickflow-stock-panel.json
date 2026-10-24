@@ -70,23 +70,48 @@
       "url": "/assets/repository-guides/media-3b871a5e158cf1b33403e557.webp",
       "alt": "看板页面",
       "sourceUrl": "https://github.com/shy3130/tick-stock-panel/blob/d00a94ea94a2c85e8b6b92967f10d4209af482ae/README.md?plain=1#L227",
-      "originalUrl": "https://raw.githubusercontent.com/shy3130/tick-stock-panel/d00a94ea94a2c85e8b6b92967f10d4209af482ae/screenshots/%E7%9C%8B%E6%9D%BF.png"
+      "originalUrl": "https://raw.githubusercontent.com/shy3130/tick-stock-panel/d00a94ea94a2c85e8b6b92967f10d4209af482ae/screenshots/%E7%9C%8B%E6%9D%BF.png",
+      "animated": false
     },
     {
       "url": "/assets/repository-guides/media-fddb66763577ec727b97badf.webp",
       "alt": "回测页",
       "sourceUrl": "https://github.com/shy3130/tick-stock-panel/blob/d00a94ea94a2c85e8b6b92967f10d4209af482ae/README.md?plain=1#L235",
-      "originalUrl": "https://raw.githubusercontent.com/shy3130/tick-stock-panel/d00a94ea94a2c85e8b6b92967f10d4209af482ae/screenshots/%E5%9B%9E%E6%B5%8B.png"
+      "originalUrl": "https://raw.githubusercontent.com/shy3130/tick-stock-panel/d00a94ea94a2c85e8b6b92967f10d4209af482ae/screenshots/%E5%9B%9E%E6%B5%8B.png",
+      "animated": false
     },
     {
       "url": "/assets/repository-guides/media-10418d00605d64df57081ea2.webp",
       "alt": "AI 对话助手 — 市场总览问答",
       "sourceUrl": "https://github.com/shy3130/tick-stock-panel/blob/d00a94ea94a2c85e8b6b92967f10d4209af482ae/README.md?plain=1#L442",
-      "originalUrl": "https://raw.githubusercontent.com/shy3130/tick-stock-panel/d00a94ea94a2c85e8b6b92967f10d4209af482ae/screenshots/AI%E5%AF%B9%E8%AF%9D%E5%8A%A9%E6%89%8B.png"
+      "originalUrl": "https://raw.githubusercontent.com/shy3130/tick-stock-panel/d00a94ea94a2c85e8b6b92967f10d4209af482ae/screenshots/AI%E5%AF%B9%E8%AF%9D%E5%8A%A9%E6%89%8B.png",
+      "animated": false
+    },
+    {
+      "url": "/assets/repository-guides/media-f23c7f69806ca887de663593.webp",
+      "alt": "开放接口 Token 管理",
+      "sourceUrl": "https://github.com/shy3130/tick-stock-panel/blob/d00a94ea94a2c85e8b6b92967f10d4209af482ae/README.md#L415",
+      "originalUrl": "https://raw.githubusercontent.com/shy3130/tick-stock-panel/d00a94ea94a2c85e8b6b92967f10d4209af482ae/screenshots/%E5%BC%80%E6%94%BE%E6%8E%A5%E5%8F%A3.png",
+      "animated": false
+    },
+    {
+      "url": "/assets/repository-guides/media-04e54ab015a433a819f69f17.webp",
+      "alt": "策略页",
+      "sourceUrl": "https://github.com/shy3130/tick-stock-panel/blob/d00a94ea94a2c85e8b6b92967f10d4209af482ae/README.md#L228",
+      "originalUrl": "https://raw.githubusercontent.com/shy3130/tick-stock-panel/d00a94ea94a2c85e8b6b92967f10d4209af482ae/screenshots/%E7%AD%96%E7%95%A5.png",
+      "animated": false
+    },
+    {
+      "url": "/assets/repository-guides/media-f2f7afccf36eba7c3a72aad3.webp",
+      "alt": "菜单核心/扩展架构标注",
+      "sourceUrl": "https://github.com/shy3130/tick-stock-panel/blob/d00a94ea94a2c85e8b6b92967f10d4209af482ae/README.md#L416",
+      "originalUrl": "https://raw.githubusercontent.com/shy3130/tick-stock-panel/d00a94ea94a2c85e8b6b92967f10d4209af482ae/screenshots/%E8%8F%9C%E5%8D%95%E6%9E%B6%E6%9E%84%E6%A0%87%E6%B3%A8.png",
+      "animated": false
     }
   ],
   "generatedBy": "claude-opus-5-5",
   "documentHash": "389097dad13c1ba135b55c0038ed478e5e178b7a83ebc187d717428708bce3e8",
   "mediaStatus": "archived",
-  "mediaFailures": []
+  "mediaFailures": [],
+  "mediaReferences": []
 }

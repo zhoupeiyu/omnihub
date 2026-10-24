@@ -60,23 +60,48 @@
       "url": "/assets/repository-guides/media-38210f9dbe456ef3bdabe32a.webp",
       "alt": "mudrii/hermesd 官方演示 1",
       "sourceUrl": "https://github.com/mudrii/hermesd/blob/118327757a2adfc2380d03ef17568cbe3b56ed3c/README.md?plain=1#L5",
-      "originalUrl": "https://raw.githubusercontent.com/mudrii/hermesd/v2026.9.26/images/overview.png"
+      "originalUrl": "https://raw.githubusercontent.com/mudrii/hermesd/v2026.9.26/images/overview.png",
+      "animated": false
     },
     {
       "url": "/assets/repository-guides/media-67f31e123f981e23f0581206.webp",
       "alt": "mudrii/hermesd 官方演示 2",
       "sourceUrl": "https://github.com/mudrii/hermesd/blob/118327757a2adfc2380d03ef17568cbe3b56ed3c/README.md?plain=1#L135",
-      "originalUrl": "https://raw.githubusercontent.com/mudrii/hermesd/v2026.9.26/images/panel-02-sessions.png"
+      "originalUrl": "https://raw.githubusercontent.com/mudrii/hermesd/v2026.9.26/images/panel-02-sessions.png",
+      "animated": false
     },
     {
       "url": "/assets/repository-guides/media-8a76085530905ec88c9ee622.webp",
       "alt": "mudrii/hermesd 官方演示 3",
       "sourceUrl": "https://github.com/mudrii/hermesd/blob/118327757a2adfc2380d03ef17568cbe3b56ed3c/README.md?plain=1#L217",
-      "originalUrl": "https://raw.githubusercontent.com/mudrii/hermesd/v2026.9.26/images/panel-08-logs.png"
+      "originalUrl": "https://raw.githubusercontent.com/mudrii/hermesd/v2026.9.26/images/panel-08-logs.png",
+      "animated": false
+    },
+    {
+      "url": "/assets/repository-guides/media-38210f9dbe456ef3bdabe32a.webp",
+      "alt": "hermesd overview",
+      "sourceUrl": "https://github.com/mudrii/hermesd/blob/118327757a2adfc2380d03ef17568cbe3b56ed3c/README.md#L5",
+      "originalUrl": "https://raw.githubusercontent.com/mudrii/hermesd/118327757a2adfc2380d03ef17568cbe3b56ed3c/images/overview.png",
+      "animated": false
+    },
+    {
+      "url": "/assets/repository-guides/media-ebee6c80f93c4b7dbf3574af.webp",
+      "alt": "Gateway Detail",
+      "sourceUrl": "https://github.com/mudrii/hermesd/blob/118327757a2adfc2380d03ef17568cbe3b56ed3c/README.md#L121",
+      "originalUrl": "https://raw.githubusercontent.com/mudrii/hermesd/118327757a2adfc2380d03ef17568cbe3b56ed3c/images/panel-01-gateway.png",
+      "animated": false
+    },
+    {
+      "url": "/assets/repository-guides/media-67f31e123f981e23f0581206.webp",
+      "alt": "Sessions Detail",
+      "sourceUrl": "https://github.com/mudrii/hermesd/blob/118327757a2adfc2380d03ef17568cbe3b56ed3c/README.md#L135",
+      "originalUrl": "https://raw.githubusercontent.com/mudrii/hermesd/118327757a2adfc2380d03ef17568cbe3b56ed3c/images/panel-02-sessions.png",
+      "animated": false
     }
   ],
   "generatedBy": "claude-opus-5-5",
   "documentHash": "07670c9ee4ffe5c08101f54559f45b0458889ca7c13645e5041caedd2b4e18e6",
   "mediaStatus": "archived",
-  "mediaFailures": []
+  "mediaFailures": [],
+  "mediaReferences": []
 }

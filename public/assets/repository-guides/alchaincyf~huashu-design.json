@@ -62,23 +62,58 @@
       "url": "/assets/repository-guides/media-958f0d1ec185817ad4b42586.webp",
       "alt": "alchaincyf/huashu-design 官方演示 1",
       "sourceUrl": "https://github.com/alchaincyf/huashu-design/blob/0830494ecb1c117e25b313a8114fe55a6bf2b125/README.md?plain=1#L131",
-      "originalUrl": "https://github.com/alchaincyf/huashu-design/releases/download/v2.0/c1-ios-prototype.gif"
+      "originalUrl": "https://github.com/alchaincyf/huashu-design/releases/download/v2.0/c1-ios-prototype.gif",
+      "animated": true
     },
     {
       "url": "/assets/repository-guides/media-a8ed583aa843764a87f269a1.webp",
       "alt": "alchaincyf/huashu-design 官方演示 2",
       "sourceUrl": "https://github.com/alchaincyf/huashu-design/blob/0830494ecb1c117e25b313a8114fe55a6bf2b125/README.md?plain=1#L143",
-      "originalUrl": "https://github.com/alchaincyf/huashu-design/releases/download/v2.0/c2-slides-pptx.gif"
+      "originalUrl": "https://github.com/alchaincyf/huashu-design/releases/download/v2.0/c2-slides-pptx.gif",
+      "animated": true
     },
     {
       "url": "/assets/repository-guides/media-c33484b5cc92a199437f171c.webp",
       "alt": "alchaincyf/huashu-design 官方演示 3",
       "sourceUrl": "https://github.com/alchaincyf/huashu-design/blob/0830494ecb1c117e25b313a8114fe55a6bf2b125/README.md?plain=1#L137",
-      "originalUrl": "https://github.com/alchaincyf/huashu-design/releases/download/v2.0/c3-motion-design.gif"
+      "originalUrl": "https://github.com/alchaincyf/huashu-design/releases/download/v2.0/c3-motion-design.gif",
+      "animated": true
+    },
+    {
+      "url": "/assets/repository-guides/media-d125ce44bb1dfdea6114bc26.webp",
+      "alt": "huashu-design Hero · 打字 → 选方向 → 画廊展开 → 聚焦 → 品牌显形",
+      "sourceUrl": "https://github.com/alchaincyf/huashu-design/blob/0830494ecb1c117e25b313a8114fe55a6bf2b125/README.md#L41",
+      "originalUrl": "https://github.com/alchaincyf/huashu-design/releases/download/v2.0/hero-animation-v10-en.gif",
+      "animated": true
+    },
+    {
+      "url": "/assets/repository-guides/media-2c85d1cf7a76065c234a4171.webp",
+      "alt": "设计方向顾问",
+      "sourceUrl": "https://github.com/alchaincyf/huashu-design/blob/0830494ecb1c117e25b313a8114fe55a6bf2b125/README.md#L125",
+      "originalUrl": "https://github.com/alchaincyf/huashu-design/releases/download/v2.0/w3-fallback-advisor.gif",
+      "animated": true
+    },
+    {
+      "url": "/assets/repository-guides/media-e796c830efc7eaf9da81fb21.webp",
+      "alt": "Tweaks · 实时变体切换",
+      "sourceUrl": "https://github.com/alchaincyf/huashu-design/blob/0830494ecb1c117e25b313a8114fe55a6bf2b125/README.md#L149",
+      "originalUrl": "https://github.com/alchaincyf/huashu-design/releases/download/v2.0/c4-tweaks.gif",
+      "animated": true
     }
   ],
   "generatedBy": "claude-opus-5-5",
   "documentHash": "4b4ad3824e5b1854421d573de1ae0be13eda18d27dfdda230b0745cbf5cdae07",
   "mediaStatus": "archived",
-  "mediaFailures": []
+  "mediaFailures": [
+    {
+      "sourceUrl": "https://github.com/alchaincyf/huashu-design/blob/0830494ecb1c117e25b313a8114fe55a6bf2b125/README.md#L57",
+      "reason": "unsupported_media_host"
+    }
+  ],
+  "mediaReferences": [
+    {
+      "label": "huashu-design 使用教程",
+      "url": "https://github.com/alchaincyf/huashu-design/blob/0830494ecb1c117e25b313a8114fe55a6bf2b125/README.md#L57"
+    }
+  ]
 }

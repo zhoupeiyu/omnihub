@@ -69,23 +69,48 @@
       "url": "/assets/repository-guides/media-61c54f2057e81cff2af32f75.webp",
       "alt": "Fincept-Corporation/FinceptTerminal 官方演示 1",
       "sourceUrl": "https://github.com/Fincept-Corporation/FinceptTerminal/blob/b7d850b49dc033bb133e6e5d2476444ac5c422b1/README.md?plain=1#L63",
-      "originalUrl": "https://raw.githubusercontent.com/Fincept-Corporation/FinceptTerminal/main/images/EquityResearch.png"
+      "originalUrl": "https://raw.githubusercontent.com/Fincept-Corporation/FinceptTerminal/main/images/EquityResearch.png",
+      "animated": false
     },
     {
       "url": "/assets/repository-guides/media-0d0b9b06ee59c1360accaff9.webp",
       "alt": "Fincept-Corporation/FinceptTerminal 官方演示 2",
       "sourceUrl": "https://github.com/Fincept-Corporation/FinceptTerminal/blob/b7d850b49dc033bb133e6e5d2476444ac5c422b1/README.md?plain=1#L64",
-      "originalUrl": "https://raw.githubusercontent.com/Fincept-Corporation/FinceptTerminal/main/images/Portfolio.png"
+      "originalUrl": "https://raw.githubusercontent.com/Fincept-Corporation/FinceptTerminal/main/images/Portfolio.png",
+      "animated": false
     },
     {
       "url": "/assets/repository-guides/media-0f64c87e0ab9b5c1677b9ab1.webp",
       "alt": "Fincept-Corporation/FinceptTerminal 官方演示 3",
       "sourceUrl": "https://github.com/Fincept-Corporation/FinceptTerminal/blob/b7d850b49dc033bb133e6e5d2476444ac5c422b1/README.md?plain=1#L66",
-      "originalUrl": "https://raw.githubusercontent.com/Fincept-Corporation/FinceptTerminal/main/images/NodeEditor.png"
+      "originalUrl": "https://raw.githubusercontent.com/Fincept-Corporation/FinceptTerminal/main/images/NodeEditor.png",
+      "animated": false
+    },
+    {
+      "url": "/assets/repository-guides/media-2732f30abe3411eea35def47.webp",
+      "alt": "Fincept Terminal",
+      "sourceUrl": "https://github.com/Fincept-Corporation/FinceptTerminal/blob/b7d850b49dc033bb133e6e5d2476444ac5c422b1/README.md#L59",
+      "originalUrl": "https://raw.githubusercontent.com/Fincept-Corporation/FinceptTerminal/b7d850b49dc033bb133e6e5d2476444ac5c422b1/images/FinceptBanner.png",
+      "animated": false
+    },
+    {
+      "url": "/assets/repository-guides/media-61c54f2057e81cff2af32f75.webp",
+      "alt": "**Your Thinking is the Only Limit. The Data Isn't.**",
+      "sourceUrl": "https://github.com/Fincept-Corporation/FinceptTerminal/blob/b7d850b49dc033bb133e6e5d2476444ac5c422b1/README.md#L63",
+      "originalUrl": "https://raw.githubusercontent.com/Fincept-Corporation/FinceptTerminal/b7d850b49dc033bb133e6e5d2476444ac5c422b1/images/EquityResearch.png",
+      "animated": false
+    },
+    {
+      "url": "/assets/repository-guides/media-0d0b9b06ee59c1360accaff9.webp",
+      "alt": "**Your Thinking is the Only Limit. The Data Isn't.**",
+      "sourceUrl": "https://github.com/Fincept-Corporation/FinceptTerminal/blob/b7d850b49dc033bb133e6e5d2476444ac5c422b1/README.md#L64",
+      "originalUrl": "https://raw.githubusercontent.com/Fincept-Corporation/FinceptTerminal/b7d850b49dc033bb133e6e5d2476444ac5c422b1/images/Portfolio.png",
+      "animated": false
     }
   ],
   "generatedBy": "claude-opus-5-5",
   "documentHash": "8fcdf711f9ad5fa0428aca070b3b23d72889e7a4e2c3288c44e0626955cbc023",
   "mediaStatus": "archived",
-  "mediaFailures": []
+  "mediaFailures": [],
+  "mediaReferences": []
 }

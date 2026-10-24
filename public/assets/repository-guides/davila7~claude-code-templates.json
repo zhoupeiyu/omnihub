@@ -70,11 +70,23 @@
       "url": "/assets/repository-guides/media-381681ea670aade97648a928.webp",
       "alt": "davila7/claude-code-templates 官方演示 1",
       "sourceUrl": "https://github.com/davila7/claude-code-templates/blob/fea62b264c6702b5bcdbb78cbdd9bb0a9a14c00b/README.md?plain=1#L67",
-      "originalUrl": "https://github.com/user-attachments/assets/d84feaa4-f871-4843-bbee-42d8f51b2f21"
+      "originalUrl": "https://github.com/user-attachments/assets/d84feaa4-f871-4843-bbee-42d8f51b2f21",
+      "animated": false
     }
   ],
   "generatedBy": "claude-opus-5-5",
   "documentHash": "e4b0e967737caca99869aac02bbec1c0d18cbf50bcdeb5eead50f69dade457c4",
   "mediaStatus": "archived",
-  "mediaFailures": []
+  "mediaFailures": [
+    {
+      "sourceUrl": "https://github.com/davila7/claude-code-templates/blob/fea62b264c6702b5bcdbb78cbdd9bb0a9a14c00b/README.md#L190",
+      "reason": "unsupported_media_host"
+    }
+  ],
+  "mediaReferences": [
+    {
+      "label": "Buy Me A Coffee",
+      "url": "https://github.com/davila7/claude-code-templates/blob/fea62b264c6702b5bcdbb78cbdd9bb0a9a14c00b/README.md#L190"
+    }
+  ]
 }

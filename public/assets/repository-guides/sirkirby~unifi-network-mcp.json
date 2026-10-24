@@ -57,8 +57,18 @@
     "防火墙规则排序、部分 Protect 设置等功能还需要额外配置 UNIFI_API_KEY。"
   ],
   "references": [],
-  "media": [],
+  "media": [
+    {
+      "url": "/assets/repository-guides/media-dc2336800eeebf0ad67a8f9e.webp",
+      "alt": "UniFi MCP — AI agents for your UniFi infrastructure",
+      "sourceUrl": "https://github.com/sirkirby/unifi-mcp/blob/6b3465740a83d6d2d5da06af3cd65159be5f4c49/README.md#L4",
+      "originalUrl": "https://raw.githubusercontent.com/sirkirby/unifi-mcp/6b3465740a83d6d2d5da06af3cd65159be5f4c49/docs/assets/hero-readme.jpg",
+      "animated": false
+    }
+  ],
   "generatedBy": "claude-opus-5-5",
   "documentHash": "d765a73f3e92423b45ceea9f1c7d0e213f04006a3792f91420c75f4cb61d8392",
-  "mediaStatus": "none_in_official_documents"
+  "mediaStatus": "archived",
+  "mediaFailures": [],
+  "mediaReferences": []
 }

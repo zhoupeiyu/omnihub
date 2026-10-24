@@ -51,7 +51,22 @@
       "url": "/assets/repository-guides/media-b4314046e234363e3993bd93.webp",
       "alt": "oil-oil/beautify-github-readme 官方演示 1",
       "sourceUrl": "https://github.com/oil-oil/beautify-github-readme/blob/d48dd84c98fb078cc97a06fbfa113870f433a451/README.md?plain=1#L48",
-      "originalUrl": "https://raw.githubusercontent.com/oil-oil/beautify-github-readme/d48dd84c98fb078cc97a06fbfa113870f433a451/assets/readme/en/case-wolfcha.png"
+      "originalUrl": "https://raw.githubusercontent.com/oil-oil/beautify-github-readme/d48dd84c98fb078cc97a06fbfa113870f433a451/assets/readme/en/case-wolfcha.png",
+      "animated": false
+    },
+    {
+      "url": "/assets/repository-guides/media-fa90eab441dff290c77abd6d.webp",
+      "alt": "Beautify GitHub README: help visitors understand a repository at first glance.",
+      "sourceUrl": "https://github.com/oil-oil/beautify-github-readme/blob/d48dd84c98fb078cc97a06fbfa113870f433a451/README.md#L6",
+      "originalUrl": "https://raw.githubusercontent.com/oil-oil/beautify-github-readme/d48dd84c98fb078cc97a06fbfa113870f433a451/assets/readme/en/hero.gif",
+      "animated": true
+    },
+    {
+      "url": "/assets/repository-guides/media-36db32a0a698a9d68e147bb7.webp",
+      "alt": "Block World hybrid README hero combining pixel-style SVG composition with an AI-generated builder character cutout.",
+      "sourceUrl": "https://github.com/oil-oil/beautify-github-readme/blob/d48dd84c98fb078cc97a06fbfa113870f433a451/README.md#L41",
+      "originalUrl": "https://raw.githubusercontent.com/oil-oil/beautify-github-readme/d48dd84c98fb078cc97a06fbfa113870f433a451/assets/readme/en/case-block-world.png",
+      "animated": false
     }
   ],
   "generatedBy": "claude-opus-5-5",
@@ -59,12 +74,86 @@
   "mediaStatus": "archived",
   "mediaFailures": [
     {
-      "sourceUrl": "https://github.com/oil-oil/beautify-github-readme/blob/d48dd84c98fb078cc97a06fbfa113870f433a451/README.md#L63",
+      "sourceUrl": "https://github.com/oil-oil/beautify-github-readme/blob/d48dd84c98fb078cc97a06fbfa113870f433a451/README.md#L10",
+      "reason": "unsupported_media_format"
+    },
+    {
+      "sourceUrl": "https://github.com/oil-oil/beautify-github-readme/blob/d48dd84c98fb078cc97a06fbfa113870f433a451/README.md#L14",
       "reason": "unsupported_media_format"
     },
     {
       "sourceUrl": "https://github.com/oil-oil/beautify-github-readme/blob/d48dd84c98fb078cc97a06fbfa113870f433a451/README.md#L33",
       "reason": "unsupported_media_format"
+    },
+    {
+      "sourceUrl": "https://github.com/oil-oil/beautify-github-readme/blob/d48dd84c98fb078cc97a06fbfa113870f433a451/README.md#L37",
+      "reason": "unsupported_media_format"
+    },
+    {
+      "sourceUrl": "https://github.com/oil-oil/beautify-github-readme/blob/d48dd84c98fb078cc97a06fbfa113870f433a451/README.md#L55",
+      "reason": "unsupported_media_format"
+    },
+    {
+      "sourceUrl": "https://github.com/oil-oil/beautify-github-readme/blob/d48dd84c98fb078cc97a06fbfa113870f433a451/README.md#L63",
+      "reason": "unsupported_media_format"
+    },
+    {
+      "sourceUrl": "https://github.com/oil-oil/beautify-github-readme/blob/d48dd84c98fb078cc97a06fbfa113870f433a451/README.md#L75",
+      "reason": "unsupported_media_format"
+    },
+    {
+      "sourceUrl": "https://github.com/oil-oil/beautify-github-readme/blob/d48dd84c98fb078cc97a06fbfa113870f433a451/README.md#L97",
+      "reason": "unsupported_media_format"
+    },
+    {
+      "sourceUrl": "https://github.com/oil-oil/beautify-github-readme/blob/d48dd84c98fb078cc97a06fbfa113870f433a451/README.md#L103",
+      "reason": "unsupported_media_format"
+    },
+    {
+      "sourceUrl": "https://github.com/oil-oil/beautify-github-readme/blob/d48dd84c98fb078cc97a06fbfa113870f433a451/README.md#L157",
+      "reason": "unsupported_media_format"
+    }
+  ],
+  "mediaReferences": [
+    {
+      "label": "Six project-native README directions for developer tools, AI products, design resources, research, creator projects, and open-source libraries.",
+      "url": "https://github.com/oil-oil/beautify-github-readme/blob/d48dd84c98fb078cc97a06fbfa113870f433a451/README.md#L10"
+    },
+    {
+      "label": "Real repositories already using beautify-github-readme.",
+      "url": "https://github.com/oil-oil/beautify-github-readme/blob/d48dd84c98fb078cc97a06fbfa113870f433a451/README.md#L14"
+    },
+    {
+      "label": "Kubernetes README hero example with a black system layout and cluster relationship diagram.",
+      "url": "https://github.com/oil-oil/beautify-github-readme/blob/d48dd84c98fb078cc97a06fbfa113870f433a451/README.md#L33"
+    },
+    {
+      "label": "PostgreSQL README hero example with a deep blue editorial layout and relational tables.",
+      "url": "https://github.com/oil-oil/beautify-github-readme/blob/d48dd84c98fb078cc97a06fbfa113870f433a451/README.md#L37"
+    },
+    {
+      "label": "01 Make the project clear before asking people to keep reading.",
+      "url": "https://github.com/oil-oil/beautify-github-readme/blob/d48dd84c98fb078cc97a06fbfa113870f433a451/README.md#L55"
+    },
+    {
+      "label": "A README changing from dense information with no clear entry point to a value, proof, method, and first-use sequence.",
+      "url": "https://github.com/oil-oil/beautify-github-readme/blob/d48dd84c98fb078cc97a06fbfa113870f433a451/README.md#L63"
+    },
+    {
+      "label": "02 Put visual identity in SVG and readable content in Markdown.",
+      "url": "https://github.com/oil-oil/beautify-github-readme/blob/d48dd84c98fb078cc97a06fbfa113870f433a451/README.md#L75"
+    },
+    {
+      "label": "Understand the project, set the direction, structure the content, build the visuals, and review the preview.",
+      "url": "https://github.com/oil-oil/beautify-github-readme/blob/d48dd84c98fb078cc97a06fbfa113870f433a451/README.md#L97"
+    },
+    {
+      "label": "03 Send the repository to your Agent.",
+      "url": "https://github.com/oil-oil/beautify-github-readme/blob/d48dd84c98fb078cc97a06fbfa113870f433a451/README.md#L103"
+    },
+    {
+      "label": "Follow the maker on X at @I_am_oil_oil",
+      "url": "https://github.com/oil-oil/beautify-github-readme/blob/d48dd84c98fb078cc97a06fbfa113870f433a451/README.md#L157"
     }
   ]
 }

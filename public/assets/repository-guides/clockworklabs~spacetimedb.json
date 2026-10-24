@@ -66,8 +66,68 @@
     "从源码构建需要 Rust 工具链和 wasm32-unknown-unknown target，适用于需要 master 分支上尚未发布功能的情况。"
   ],
   "references": [],
-  "media": [],
+  "media": [
+    {
+      "url": "/assets/repository-guides/media-4dd374e10fdf651794f75e98.webp",
+      "alt": "SpacetimeDB Architecture",
+      "sourceUrl": "https://github.com/clockworklabs/SpacetimeDB/blob/257a1916ca8cdc20367b321e28e4593d31e2cd5d/README.md#L79",
+      "originalUrl": "https://raw.githubusercontent.com/clockworklabs/SpacetimeDB/257a1916ca8cdc20367b321e28e4593d31e2cd5d/images/basic-architecture-diagram.png",
+      "animated": false
+    }
+  ],
   "generatedBy": "claude-opus-5-5",
   "documentHash": "4ed499b6f95d91bc6b9b15194325366d79ca27d9ba9896986b95ca88027b7d08",
-  "mediaStatus": "none_in_official_documents"
+  "mediaStatus": "archived",
+  "mediaFailures": [
+    {
+      "sourceUrl": "https://github.com/clockworklabs/SpacetimeDB/blob/257a1916ca8cdc20367b321e28e4593d31e2cd5d/README.md#L53",
+      "reason": "unsupported_media_format"
+    },
+    {
+      "sourceUrl": "https://github.com/clockworklabs/SpacetimeDB/blob/257a1916ca8cdc20367b321e28e4593d31e2cd5d/README.md#L55",
+      "reason": "unsupported_media_format"
+    },
+    {
+      "sourceUrl": "https://github.com/clockworklabs/SpacetimeDB/blob/257a1916ca8cdc20367b321e28e4593d31e2cd5d/README.md#L57",
+      "reason": "unsupported_media_format"
+    },
+    {
+      "sourceUrl": "https://github.com/clockworklabs/SpacetimeDB/blob/257a1916ca8cdc20367b321e28e4593d31e2cd5d/README.md#L59",
+      "reason": "unsupported_media_format"
+    },
+    {
+      "sourceUrl": "https://github.com/clockworklabs/SpacetimeDB/blob/257a1916ca8cdc20367b321e28e4593d31e2cd5d/README.md#L61",
+      "reason": "unsupported_media_format"
+    },
+    {
+      "sourceUrl": "https://github.com/clockworklabs/SpacetimeDB/blob/257a1916ca8cdc20367b321e28e4593d31e2cd5d/README.md#L63",
+      "reason": "unsupported_media_format"
+    }
+  ],
+  "mediaReferences": [
+    {
+      "label": "Twitter",
+      "url": "https://github.com/clockworklabs/SpacetimeDB/blob/257a1916ca8cdc20367b321e28e4593d31e2cd5d/README.md#L53"
+    },
+    {
+      "label": "GitHub",
+      "url": "https://github.com/clockworklabs/SpacetimeDB/blob/257a1916ca8cdc20367b321e28e4593d31e2cd5d/README.md#L55"
+    },
+    {
+      "label": "Twitch",
+      "url": "https://github.com/clockworklabs/SpacetimeDB/blob/257a1916ca8cdc20367b321e28e4593d31e2cd5d/README.md#L57"
+    },
+    {
+      "label": "YouTube",
+      "url": "https://github.com/clockworklabs/SpacetimeDB/blob/257a1916ca8cdc20367b321e28e4593d31e2cd5d/README.md#L59"
+    },
+    {
+      "label": "LinkedIn",
+      "url": "https://github.com/clockworklabs/SpacetimeDB/blob/257a1916ca8cdc20367b321e28e4593d31e2cd5d/README.md#L61"
+    },
+    {
+      "label": "StackOverflow",
+      "url": "https://github.com/clockworklabs/SpacetimeDB/blob/257a1916ca8cdc20367b321e28e4593d31e2cd5d/README.md#L63"
+    }
+  ]
 }

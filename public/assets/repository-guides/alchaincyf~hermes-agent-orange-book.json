@@ -63,17 +63,41 @@
       "url": "/assets/repository-guides/media-6ff74c3b1f66f81a7e50699a.webp",
       "alt": "alchaincyf/hermes-agent-orange-book 官方演示 1",
       "sourceUrl": "https://github.com/alchaincyf/hermes-agent-orange-book/blob/9ac06e1d05373c3b8b6d49751e8a59c1475f9867/README.md?plain=1#L19",
-      "originalUrl": "https://raw.githubusercontent.com/alchaincyf/hermes-agent-orange-book/9ac06e1d05373c3b8b6d49751e8a59c1475f9867/screenshots/page-toc.png"
+      "originalUrl": "https://raw.githubusercontent.com/alchaincyf/hermes-agent-orange-book/9ac06e1d05373c3b8b6d49751e8a59c1475f9867/screenshots/page-toc.png",
+      "animated": false
     },
     {
       "url": "/assets/repository-guides/media-b6f8f228cf27067f2a03c0e6.webp",
       "alt": "alchaincyf/hermes-agent-orange-book 官方演示 2",
       "sourceUrl": "https://github.com/alchaincyf/hermes-agent-orange-book/blob/9ac06e1d05373c3b8b6d49751e8a59c1475f9867/README.md?plain=1#L62",
-      "originalUrl": "https://raw.githubusercontent.com/alchaincyf/hermes-agent-orange-book/9ac06e1d05373c3b8b6d49751e8a59c1475f9867/screenshots/page-ch01.png"
+      "originalUrl": "https://raw.githubusercontent.com/alchaincyf/hermes-agent-orange-book/9ac06e1d05373c3b8b6d49751e8a59c1475f9867/screenshots/page-ch01.png",
+      "animated": false
+    },
+    {
+      "url": "/assets/repository-guides/media-3fb7df690da30fb1023b1615.webp",
+      "alt": "hermes-agent-orange-book Hero Animation",
+      "sourceUrl": "https://github.com/alchaincyf/hermes-agent-orange-book/blob/9ac06e1d05373c3b8b6d49751e8a59c1475f9867/README.md#L4",
+      "originalUrl": "https://raw.githubusercontent.com/alchaincyf/hermes-agent-orange-book/9ac06e1d05373c3b8b6d49751e8a59c1475f9867/assets/hero.gif",
+      "animated": true
+    },
+    {
+      "url": "/assets/repository-guides/media-ca1441594555e5d6e5234ebf.webp",
+      "alt": "Hermes Agent 2.0: The Complete Guide",
+      "sourceUrl": "https://github.com/alchaincyf/hermes-agent-orange-book/blob/9ac06e1d05373c3b8b6d49751e8a59c1475f9867/README.md#L18",
+      "originalUrl": "https://raw.githubusercontent.com/alchaincyf/hermes-agent-orange-book/9ac06e1d05373c3b8b6d49751e8a59c1475f9867/screenshots/page-cover.png",
+      "animated": false
+    },
+    {
+      "url": "/assets/repository-guides/media-9b4037451108dc5d24646d9f.webp",
+      "alt": "What This Book Covers",
+      "sourceUrl": "https://github.com/alchaincyf/hermes-agent-orange-book/blob/9ac06e1d05373c3b8b6d49751e8a59c1475f9867/README.md#L63",
+      "originalUrl": "https://raw.githubusercontent.com/alchaincyf/hermes-agent-orange-book/9ac06e1d05373c3b8b6d49751e8a59c1475f9867/screenshots/page-ch03.png",
+      "animated": false
     }
   ],
   "generatedBy": "claude-opus-5-5",
   "documentHash": "ef84474b1438f661b5b9672b39a453c7bb78a6ad072815eb7d049f9800ed530d",
   "mediaStatus": "archived",
-  "mediaFailures": []
+  "mediaFailures": [],
+  "mediaReferences": []
 }

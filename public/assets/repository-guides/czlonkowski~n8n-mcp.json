@@ -82,7 +82,36 @@
       "url": "/assets/repository-guides/media-606e0a82980478f026974b1a.webp",
       "alt": "czlonkowski/n8n-mcp 官方演示 1",
       "sourceUrl": "https://github.com/czlonkowski/n8n-mcp/blob/1284c9fdabe70b6d336b4c3aacc9513a6d47c10c/docs/OFFICIAL_MCP_SETUP.md?plain=1#L85",
-      "originalUrl": "https://raw.githubusercontent.com/czlonkowski/n8n-mcp/1284c9fdabe70b6d336b4c3aacc9513a6d47c10c/docs/img/n8n-connect-client-api-key.png"
+      "originalUrl": "https://raw.githubusercontent.com/czlonkowski/n8n-mcp/1284c9fdabe70b6d336b4c3aacc9513a6d47c10c/docs/img/n8n-connect-client-api-key.png",
+      "animated": false
+    },
+    {
+      "url": "/assets/repository-guides/media-1e70cbcfc90b51cf3448a29a.webp",
+      "alt": "n8n-mcp Skills Setup",
+      "sourceUrl": "https://github.com/czlonkowski/n8n-mcp/blob/1284c9fdabe70b6d336b4c3aacc9513a6d47c10c/README.md#L104",
+      "originalUrl": "https://raw.githubusercontent.com/czlonkowski/n8n-mcp/1284c9fdabe70b6d336b4c3aacc9513a6d47c10c/docs/img/skills.png",
+      "animated": false
+    },
+    {
+      "url": "/assets/repository-guides/media-a44dc98a8855bbe85f1af28f.webp",
+      "alt": "Settings menu with the Instance-level MCP entry",
+      "sourceUrl": "https://github.com/czlonkowski/n8n-mcp/blob/1284c9fdabe70b6d336b4c3aacc9513a6d47c10c/docs/OFFICIAL_MCP_SETUP.md#L69",
+      "originalUrl": "https://raw.githubusercontent.com/czlonkowski/n8n-mcp/1284c9fdabe70b6d336b4c3aacc9513a6d47c10c/docs/img/n8n-settings-menu-instance-level-mcp.png",
+      "animated": false
+    },
+    {
+      "url": "/assets/repository-guides/media-dea07c89d9d8c4d14f9f5fa4.webp",
+      "alt": "Adding n8n-MCP server in Claude Code",
+      "sourceUrl": "https://github.com/czlonkowski/n8n-mcp/blob/1284c9fdabe70b6d336b4c3aacc9513a6d47c10c/docs/CLAUDE_CODE_SETUP.md#L28",
+      "originalUrl": "https://raw.githubusercontent.com/czlonkowski/n8n-mcp/1284c9fdabe70b6d336b4c3aacc9513a6d47c10c/docs/img/cc_command.png",
+      "animated": false
+    },
+    {
+      "url": "/assets/repository-guides/media-a8090b70e55bc0efe5fee0b2.webp",
+      "alt": "Instance-level MCP page with MCP status set to Enabled",
+      "sourceUrl": "https://github.com/czlonkowski/n8n-mcp/blob/1284c9fdabe70b6d336b4c3aacc9513a6d47c10c/docs/OFFICIAL_MCP_SETUP.md#L73",
+      "originalUrl": "https://raw.githubusercontent.com/czlonkowski/n8n-mcp/1284c9fdabe70b6d336b4c3aacc9513a6d47c10c/docs/img/n8n-instance-level-mcp-status-enabled.png",
+      "animated": false
     }
   ],
   "generatedBy": "claude-opus-5-5",
@@ -90,12 +119,22 @@
   "mediaStatus": "archived",
   "mediaFailures": [
     {
-      "sourceUrl": "https://github.com/czlonkowski/n8n-mcp/blob/1284c9fdabe70b6d336b4c3aacc9513a6d47c10c/docs/CLAUDE_CODE_SETUP.md#L28",
-      "reason": "non_demo_dimensions"
+      "sourceUrl": "https://github.com/czlonkowski/n8n-mcp/blob/1284c9fdabe70b6d336b4c3aacc9513a6d47c10c/README.md#L10",
+      "reason": "unsupported_media_host"
     },
     {
       "sourceUrl": "https://github.com/czlonkowski/n8n-mcp/blob/1284c9fdabe70b6d336b4c3aacc9513a6d47c10c/docs/CLAUDE_CODE_SETUP.md#L102",
       "reason": "non_demo_dimensions"
+    }
+  ],
+  "mediaReferences": [
+    {
+      "label": "Deploy on Railway",
+      "url": "https://github.com/czlonkowski/n8n-mcp/blob/1284c9fdabe70b6d336b4c3aacc9513a6d47c10c/README.md#L10"
+    },
+    {
+      "label": "n8n-MCP connected and showing 39 tools available",
+      "url": "https://github.com/czlonkowski/n8n-mcp/blob/1284c9fdabe70b6d336b4c3aacc9513a6d47c10c/docs/CLAUDE_CODE_SETUP.md#L102"
     }
   ]
 }

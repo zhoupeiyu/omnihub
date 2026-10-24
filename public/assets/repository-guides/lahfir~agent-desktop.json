@@ -72,11 +72,20 @@
       "url": "/assets/repository-guides/media-99c5c1032c97e34d5910a58e.webp",
       "alt": "lahfir/agent-desktop 官方演示 1",
       "sourceUrl": "https://github.com/lahfir/agent-desktop/blob/dd6c47397e32373ceba22c9c045dc8b0217edbf8/README.md?plain=1#L29",
-      "originalUrl": "https://raw.githubusercontent.com/lahfir/agent-desktop/dd6c47397e32373ceba22c9c045dc8b0217edbf8/docs/slack-example.png"
+      "originalUrl": "https://raw.githubusercontent.com/lahfir/agent-desktop/dd6c47397e32373ceba22c9c045dc8b0217edbf8/docs/slack-example.png",
+      "animated": false
+    },
+    {
+      "url": "/assets/repository-guides/media-e233d70ec76a541bdb7a5f92.webp",
+      "alt": "agent-desktop architecture diagram",
+      "sourceUrl": "https://github.com/lahfir/agent-desktop/blob/dd6c47397e32373ceba22c9c045dc8b0217edbf8/README.md#L25",
+      "originalUrl": "https://raw.githubusercontent.com/lahfir/agent-desktop/dd6c47397e32373ceba22c9c045dc8b0217edbf8/docs/architecture.png",
+      "animated": false
     }
   ],
   "generatedBy": "claude-opus-5-5",
   "documentHash": "e3ae5ffd493f6951067df808686b6d92828ac79ece4901129c6976c31fb20673",
   "mediaStatus": "archived",
-  "mediaFailures": []
+  "mediaFailures": [],
+  "mediaReferences": []
 }

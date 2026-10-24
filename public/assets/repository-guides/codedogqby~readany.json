@@ -61,23 +61,48 @@
       "url": "/assets/repository-guides/media-6ff637c0a7977d317096b012.webp",
       "alt": "codedogQBY/ReadAny 官方演示 1",
       "sourceUrl": "https://github.com/codedogQBY/ReadAny/blob/60ca86997e944850ce684b9b6f870dee84b01fee/README.md?plain=1#L78",
-      "originalUrl": "https://raw.githubusercontent.com/codedogQBY/ReadAny/60ca86997e944850ce684b9b6f870dee84b01fee/assets/hero-screenshot.png"
+      "originalUrl": "https://raw.githubusercontent.com/codedogQBY/ReadAny/60ca86997e944850ce684b9b6f870dee84b01fee/assets/hero-screenshot.png",
+      "animated": false
     },
     {
       "url": "/assets/repository-guides/media-3bc1330bb0ad849278947d1a.webp",
       "alt": "codedogQBY/ReadAny 官方演示 2",
       "sourceUrl": "https://github.com/codedogQBY/ReadAny/blob/60ca86997e944850ce684b9b6f870dee84b01fee/README.md?plain=1#L84",
-      "originalUrl": "https://raw.githubusercontent.com/codedogQBY/ReadAny/60ca86997e944850ce684b9b6f870dee84b01fee/assets/ai-chat-desktop.png"
+      "originalUrl": "https://raw.githubusercontent.com/codedogQBY/ReadAny/60ca86997e944850ce684b9b6f870dee84b01fee/assets/ai-chat-desktop.png",
+      "animated": false
     },
     {
       "url": "/assets/repository-guides/media-5324c23ed61a726aa186a441.webp",
       "alt": "codedogQBY/ReadAny 官方演示 3",
       "sourceUrl": "https://github.com/codedogQBY/ReadAny/blob/60ca86997e944850ce684b9b6f870dee84b01fee/README.md?plain=1#L91",
-      "originalUrl": "https://raw.githubusercontent.com/codedogQBY/ReadAny/60ca86997e944850ce684b9b6f870dee84b01fee/assets/notes-desktop.png"
+      "originalUrl": "https://raw.githubusercontent.com/codedogQBY/ReadAny/60ca86997e944850ce684b9b6f870dee84b01fee/assets/notes-desktop.png",
+      "animated": false
+    },
+    {
+      "url": "/assets/repository-guides/media-ed0b86281f4cf2e00a028120.webp",
+      "alt": "TTS - Desktop",
+      "sourceUrl": "https://github.com/codedogQBY/ReadAny/blob/60ca86997e944850ce684b9b6f870dee84b01fee/README.md#L98",
+      "originalUrl": "https://raw.githubusercontent.com/codedogQBY/ReadAny/60ca86997e944850ce684b9b6f870dee84b01fee/assets/tts-desktop.png",
+      "animated": false
+    },
+    {
+      "url": "/assets/repository-guides/media-7222973f2e2a4a936232c29e.webp",
+      "alt": "Stats - Desktop",
+      "sourceUrl": "https://github.com/codedogQBY/ReadAny/blob/60ca86997e944850ce684b9b6f870dee84b01fee/README.md#L105",
+      "originalUrl": "https://raw.githubusercontent.com/codedogQBY/ReadAny/60ca86997e944850ce684b9b6f870dee84b01fee/assets/stats-desktop.png",
+      "animated": false
+    },
+    {
+      "url": "/assets/repository-guides/media-2bbb6bc065d837656f157720.webp",
+      "alt": "Sync - Desktop",
+      "sourceUrl": "https://github.com/codedogQBY/ReadAny/blob/60ca86997e944850ce684b9b6f870dee84b01fee/README.md#L112",
+      "originalUrl": "https://raw.githubusercontent.com/codedogQBY/ReadAny/60ca86997e944850ce684b9b6f870dee84b01fee/assets/sync-desktop.png",
+      "animated": false
     }
   ],
   "generatedBy": "claude-opus-5-5",
   "documentHash": "cd5b7eb676a82dffa3781f561c7d3c5d7c89c93895c5fe56150bd5da256851da",
   "mediaStatus": "archived",
-  "mediaFailures": []
+  "mediaFailures": [],
+  "mediaReferences": []
 }

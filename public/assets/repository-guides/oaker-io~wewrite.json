@@ -71,23 +71,48 @@
       "url": "/assets/repository-guides/media-7c4a92296e65bcfadb4ffa04.webp",
       "alt": "imraywang/wewrite 官方演示 1",
       "sourceUrl": "https://github.com/imraywang/wewrite/blob/3d9e335ab9e180474308acb214c76e8d1113cc29/README.md?plain=1#L52",
-      "originalUrl": "https://raw.githubusercontent.com/imraywang/wewrite/main/docs/screenshots/professional-clean.png"
+      "originalUrl": "https://raw.githubusercontent.com/imraywang/wewrite/main/docs/screenshots/professional-clean.png",
+      "animated": false
     },
     {
       "url": "/assets/repository-guides/media-1595921c5e938739b50d3ecd.webp",
       "alt": "imraywang/wewrite 官方演示 2",
       "sourceUrl": "https://github.com/imraywang/wewrite/blob/3d9e335ab9e180474308acb214c76e8d1113cc29/README.md?plain=1#L53",
-      "originalUrl": "https://raw.githubusercontent.com/imraywang/wewrite/main/docs/screenshots/sspai.png"
+      "originalUrl": "https://raw.githubusercontent.com/imraywang/wewrite/main/docs/screenshots/sspai.png",
+      "animated": false
     },
     {
       "url": "/assets/repository-guides/media-9b256c4a5a00a42d4d0c7fad.webp",
       "alt": "imraywang/wewrite 官方演示 3",
       "sourceUrl": "https://github.com/imraywang/wewrite/blob/3d9e335ab9e180474308acb214c76e8d1113cc29/README.md?plain=1#L54",
-      "originalUrl": "https://raw.githubusercontent.com/imraywang/wewrite/main/docs/screenshots/warm-editorial.png"
+      "originalUrl": "https://raw.githubusercontent.com/imraywang/wewrite/main/docs/screenshots/warm-editorial.png",
+      "animated": false
+    },
+    {
+      "url": "/assets/repository-guides/media-7c4a92296e65bcfadb4ffa04.webp",
+      "alt": "👀 效果预览",
+      "sourceUrl": "https://github.com/imraywang/wewrite/blob/3d9e335ab9e180474308acb214c76e8d1113cc29/README.md#L52",
+      "originalUrl": "https://raw.githubusercontent.com/imraywang/wewrite/3d9e335ab9e180474308acb214c76e8d1113cc29/docs/screenshots/professional-clean.png",
+      "animated": false
+    },
+    {
+      "url": "/assets/repository-guides/media-1595921c5e938739b50d3ecd.webp",
+      "alt": "👀 效果预览",
+      "sourceUrl": "https://github.com/imraywang/wewrite/blob/3d9e335ab9e180474308acb214c76e8d1113cc29/README.md#L53",
+      "originalUrl": "https://raw.githubusercontent.com/imraywang/wewrite/3d9e335ab9e180474308acb214c76e8d1113cc29/docs/screenshots/sspai.png",
+      "animated": false
+    },
+    {
+      "url": "/assets/repository-guides/media-9b256c4a5a00a42d4d0c7fad.webp",
+      "alt": "👀 效果预览",
+      "sourceUrl": "https://github.com/imraywang/wewrite/blob/3d9e335ab9e180474308acb214c76e8d1113cc29/README.md#L54",
+      "originalUrl": "https://raw.githubusercontent.com/imraywang/wewrite/3d9e335ab9e180474308acb214c76e8d1113cc29/docs/screenshots/warm-editorial.png",
+      "animated": false
     }
   ],
   "generatedBy": "claude-opus-5-5",
   "documentHash": "67e7d28f8f7e425f1f84c0bd5c9c9c4321e43fb1d3b98f50974437bfac430a09",
   "mediaStatus": "archived",
-  "mediaFailures": []
+  "mediaFailures": [],
+  "mediaReferences": []
 }

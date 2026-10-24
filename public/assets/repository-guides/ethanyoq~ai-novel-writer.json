@@ -69,11 +69,13 @@
       "url": "/assets/repository-guides/media-1fcfe0e478cbc414606c889c.webp",
       "alt": "AI 小说作家 v0.8.5：在本地桌面工作台中配置长篇小说的故事前提、世界观、角色、蓝图与章节",
       "sourceUrl": "https://github.com/EthanYoQ/AI-Novel-Writer/blob/a2948c16f0dba26f7abdc763792c2b97fc6c57d9/README.md?plain=1#L37",
-      "originalUrl": "https://raw.githubusercontent.com/EthanYoQ/AI-Novel-Writer/a2948c16f0dba26f7abdc763792c2b97fc6c57d9/docs/assets/readme/ui-zh-v085-project-config.png"
+      "originalUrl": "https://raw.githubusercontent.com/EthanYoQ/AI-Novel-Writer/a2948c16f0dba26f7abdc763792c2b97fc6c57d9/docs/assets/readme/ui-zh-v085-project-config.png",
+      "animated": false
     }
   ],
   "generatedBy": "claude-opus-5-5",
   "documentHash": "52685f2d10dbfbb57b0297ad0e3cc808040bade3c0eeac122fcde1c85c52d06c",
   "mediaStatus": "archived",
-  "mediaFailures": []
+  "mediaFailures": [],
+  "mediaReferences": []
 }

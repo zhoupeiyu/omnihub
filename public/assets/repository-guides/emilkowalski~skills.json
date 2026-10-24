@@ -53,8 +53,18 @@
     "技能内容基于作者的个人经验和规则，属于设计取向建议，不能代替你自己的设计判断。"
   ],
   "references": [],
-  "media": [],
+  "media": [
+    {
+      "url": "/assets/repository-guides/media-77d5566b123d6d5247554b86.webp",
+      "alt": "opengraph-image 2",
+      "sourceUrl": "https://github.com/emilkowalski/skills/blob/d16ebe60d09a5ba2afcb7054ede9d0a10c9f6128/README.md#L3",
+      "originalUrl": "https://github.com/user-attachments/assets/84fca9a6-0b2b-4927-8f48-f3ce194a5c47",
+      "animated": false
+    }
+  ],
   "generatedBy": "claude-opus-5-5",
   "documentHash": "c1ffaeb84dbeb2862f7a18e3bfd01e90a1f64b421b9c84c9942733de59b23449",
-  "mediaStatus": "none_in_official_documents"
+  "mediaStatus": "archived",
+  "mediaFailures": [],
+  "mediaReferences": []
 }

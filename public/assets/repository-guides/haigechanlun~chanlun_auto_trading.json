@@ -54,8 +54,46 @@
     "年化收益等数字只是作者给出的历史回测宣称，本说明未验证；README 自己也提示历史回测不代表未来收益。合约交易可能造成本金损失。"
   ],
   "references": [],
-  "media": [],
+  "media": [
+    {
+      "url": "/assets/repository-guides/media-b7ff0b27dd1a2d7a97052d0a.webp",
+      "alt": "ETH 一年回测",
+      "sourceUrl": "https://github.com/haigechanlun/chanlun_auto_trading/blob/49c1497d251d19b61e0598afea13d46690ad5153/README.md#L28",
+      "originalUrl": "https://raw.githubusercontent.com/haigechanlun/chanlun_auto_trading/49c1497d251d19b61e0598afea13d46690ad5153/images/haige.png",
+      "animated": false
+    },
+    {
+      "url": "/assets/repository-guides/media-73680e3c1e5b9d3cf4c5cbaf.webp",
+      "alt": "ETH 一年回测",
+      "sourceUrl": "https://github.com/haigechanlun/chanlun_auto_trading/blob/49c1497d251d19b61e0598afea13d46690ad5153/README.md#L76",
+      "originalUrl": "https://raw.githubusercontent.com/haigechanlun/chanlun_auto_trading/49c1497d251d19b61e0598afea13d46690ad5153/backtesting/eth.png",
+      "animated": false
+    },
+    {
+      "url": "/assets/repository-guides/media-2149c9110e886fcd719fd555.webp",
+      "alt": "最近 10 天回测数据",
+      "sourceUrl": "https://github.com/haigechanlun/chanlun_auto_trading/blob/49c1497d251d19b61e0598afea13d46690ad5153/README.md#L107",
+      "originalUrl": "https://raw.githubusercontent.com/haigechanlun/chanlun_auto_trading/49c1497d251d19b61e0598afea13d46690ad5153/backtesting/macd_td.png",
+      "animated": false
+    },
+    {
+      "url": "/assets/repository-guides/media-b5895c35421f764afbec5c52.webp",
+      "alt": "ETH 夏普率",
+      "sourceUrl": "https://github.com/haigechanlun/chanlun_auto_trading/blob/49c1497d251d19b61e0598afea13d46690ad5153/README.md#L77",
+      "originalUrl": "https://raw.githubusercontent.com/haigechanlun/chanlun_auto_trading/49c1497d251d19b61e0598afea13d46690ad5153/backtesting/report.png",
+      "animated": false
+    },
+    {
+      "url": "/assets/repository-guides/media-f6f318b231de8631ca7ae539.webp",
+      "alt": "最近 10 天回测统计",
+      "sourceUrl": "https://github.com/haigechanlun/chanlun_auto_trading/blob/49c1497d251d19b61e0598afea13d46690ad5153/README.md#L108",
+      "originalUrl": "https://raw.githubusercontent.com/haigechanlun/chanlun_auto_trading/49c1497d251d19b61e0598afea13d46690ad5153/backtesting/macd_td_report.png",
+      "animated": false
+    }
+  ],
   "generatedBy": "claude-opus-5-5",
   "documentHash": "3a7cc93f7ce7136c906b3673fb6db4f2baca90d022df092d4d561740fdc5e37d",
-  "mediaStatus": "none_in_official_documents"
+  "mediaStatus": "archived",
+  "mediaFailures": [],
+  "mediaReferences": []
 }

@@ -75,17 +75,30 @@
       "url": "/assets/repository-guides/media-19e3719094b500f338bae8ec.webp",
       "alt": "zenstory-ai/oh-story-claudecode 官方演示 1",
       "sourceUrl": "https://github.com/zenstory-ai/oh-story-claudecode/blob/4a50d5583590eb7f207037e35136c1168bc02201/README.md?plain=1#L204",
-      "originalUrl": "https://raw.githubusercontent.com/zenstory-ai/oh-story-claudecode/4a50d5583590eb7f207037e35136c1168bc02201/demo/story-dashboard.png"
+      "originalUrl": "https://raw.githubusercontent.com/zenstory-ai/oh-story-claudecode/4a50d5583590eb7f207037e35136c1168bc02201/demo/story-dashboard.png",
+      "animated": false
     },
     {
       "url": "/assets/repository-guides/media-615bfd526a21ae0bb0c06ec3.webp",
       "alt": "zenstory-ai/oh-story-claudecode 官方演示 2",
       "sourceUrl": "https://github.com/zenstory-ai/oh-story-claudecode/blob/4a50d5583590eb7f207037e35136c1168bc02201/README.md?plain=1#L204",
-      "originalUrl": "https://raw.githubusercontent.com/zenstory-ai/oh-story-claudecode/4a50d5583590eb7f207037e35136c1168bc02201/demo/%E5%B0%81%E9%9D%A2-%E5%89%91%E9%81%93%E7%8B%AC%E5%B0%8A.png"
+      "originalUrl": "https://raw.githubusercontent.com/zenstory-ai/oh-story-claudecode/4a50d5583590eb7f207037e35136c1168bc02201/demo/%E5%B0%81%E9%9D%A2-%E5%89%91%E9%81%93%E7%8B%AC%E5%B0%8A.png",
+      "animated": false
     }
   ],
   "generatedBy": "claude-opus-5-5",
   "documentHash": "ae4a7d0a988c0e58c5d7f07478af318f5159ed2ecf8495e4e41dd070a99d0fbe",
   "mediaStatus": "archived",
-  "mediaFailures": []
+  "mediaFailures": [
+    {
+      "sourceUrl": "https://github.com/zenstory-ai/oh-story-claudecode/blob/4a50d5583590eb7f207037e35136c1168bc02201/README.md#L2",
+      "reason": "unsupported_media_host"
+    }
+  ],
+  "mediaReferences": [
+    {
+      "label": "项目介绍",
+      "url": "https://github.com/zenstory-ai/oh-story-claudecode/blob/4a50d5583590eb7f207037e35136c1168bc02201/README.md#L2"
+    }
+  ]
 }

@@ -65,11 +65,13 @@
       "url": "/assets/repository-guides/media-c1cb16d2f28c39cfd6a4d58b.webp",
       "alt": "ricocc/brands-design-md 官方演示 1",
       "sourceUrl": "https://github.com/ricocc/brands-design-md/blob/a3ad408b354e2f0ee7a5702b783e2d4b218955f7/README.md?plain=1#L15",
-      "originalUrl": "https://raw.githubusercontent.com/ricocc/brands-design-md/a3ad408b354e2f0ee7a5702b783e2d4b218955f7/public/preview.jpg"
+      "originalUrl": "https://raw.githubusercontent.com/ricocc/brands-design-md/a3ad408b354e2f0ee7a5702b783e2d4b218955f7/public/preview.jpg",
+      "animated": false
     }
   ],
   "generatedBy": "claude-opus-5-5",
   "documentHash": "01b196abe1ba5feb3347360d4d6b22ead9ebb2045e6ddbd30b4387a98b1a8362",
   "mediaStatus": "archived",
-  "mediaFailures": []
+  "mediaFailures": [],
+  "mediaReferences": []
 }

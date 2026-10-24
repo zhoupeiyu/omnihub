@@ -67,5 +67,25 @@
   "media": [],
   "generatedBy": "claude-opus-5-5",
   "documentHash": "6f425ed610d5f1f24b257d4419a4dc8a571a4d577f91c48ec74a512c01ec4083",
-  "mediaStatus": "none_in_official_documents"
+  "mediaStatus": "unavailable",
+  "mediaFailures": [
+    {
+      "sourceUrl": "https://github.com/hanxi/xiaomusic/blob/e159329b3fabff97a9a6cafa9e149eda4d31b3b6/README.md#L129",
+      "reason": "unsupported_media_host"
+    },
+    {
+      "sourceUrl": "https://github.com/hanxi/xiaomusic/blob/e159329b3fabff97a9a6cafa9e149eda4d31b3b6/README.md#L140",
+      "reason": "unsupported_media_host"
+    }
+  ],
+  "mediaReferences": [
+    {
+      "label": "RackNerd Mobile Leaderboard Banner",
+      "url": "https://github.com/hanxi/xiaomusic/blob/e159329b3fabff97a9a6cafa9e149eda4d31b3b6/README.md#L129"
+    },
+    {
+      "label": "Powered by DartNode - Free VPS for Open Source",
+      "url": "https://github.com/hanxi/xiaomusic/blob/e159329b3fabff97a9a6cafa9e149eda4d31b3b6/README.md#L140"
+    }
+  ]
 }

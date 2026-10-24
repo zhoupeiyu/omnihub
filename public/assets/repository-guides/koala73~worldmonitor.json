@@ -67,11 +67,13 @@
       "url": "/assets/repository-guides/media-4913a6419907427b41852593.webp",
       "alt": "koala73/worldmonitor 官方演示 1",
       "sourceUrl": "https://github.com/koala73/worldmonitor/blob/438f1fbb966b2aa1bb74fdad1f9aa3bb25edd0ed/README.md?plain=1#L45",
-      "originalUrl": "https://raw.githubusercontent.com/koala73/worldmonitor/438f1fbb966b2aa1bb74fdad1f9aa3bb25edd0ed/docs/images/worldmonitor-7-mar-2026.jpg"
+      "originalUrl": "https://raw.githubusercontent.com/koala73/worldmonitor/438f1fbb966b2aa1bb74fdad1f9aa3bb25edd0ed/docs/images/worldmonitor-7-mar-2026.jpg",
+      "animated": false
     }
   ],
   "generatedBy": "claude-opus-5-5",
   "documentHash": "ac9aab02e7701008ff28d8fba9b5738dd9387ad46c17cbf4a96c5c9bd1cd0c70",
   "mediaStatus": "archived",
-  "mediaFailures": []
+  "mediaFailures": [],
+  "mediaReferences": []
 }

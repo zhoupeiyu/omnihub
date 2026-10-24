@@ -44,8 +44,44 @@
     "README 中夹杂赞助商推广内容，与技能本身无关。"
   ],
   "references": [],
-  "media": [],
+  "media": [
+    {
+      "url": "/assets/repository-guides/media-80d2da65d197d88b4042865c.webp",
+      "alt": "claude-skills",
+      "sourceUrl": "https://github.com/VoltAgent/awesome-agent-skills/blob/af465bbef5632ee23cf20a2291df31b29d3fd0c9/README.md#L3",
+      "originalUrl": "https://github.com/user-attachments/assets/a890e563-e999-4b1f-8ce1-20399b0574f8",
+      "animated": false
+    }
+  ],
   "generatedBy": "claude-opus-5-5",
   "documentHash": "c3bb1c2b4380c5d7862040bf628c61e3bb43dcc2a0159127b4db1ae285f315d7",
-  "mediaStatus": "none_in_official_documents"
+  "mediaStatus": "archived",
+  "mediaFailures": [
+    {
+      "sourceUrl": "https://github.com/VoltAgent/awesome-agent-skills/blob/af465bbef5632ee23cf20a2291df31b29d3fd0c9/README.md#L86",
+      "reason": "unsupported_media_host"
+    },
+    {
+      "sourceUrl": "https://github.com/VoltAgent/awesome-agent-skills/blob/af465bbef5632ee23cf20a2291df31b29d3fd0c9/README.md#L94",
+      "reason": "unsupported_media_host"
+    },
+    {
+      "sourceUrl": "https://github.com/VoltAgent/awesome-agent-skills/blob/af465bbef5632ee23cf20a2291df31b29d3fd0c9/README.md#L101",
+      "reason": "unsupported_media_host"
+    }
+  ],
+  "mediaReferences": [
+    {
+      "label": "everyfeed",
+      "url": "https://github.com/VoltAgent/awesome-agent-skills/blob/af465bbef5632ee23cf20a2291df31b29d3fd0c9/README.md#L86"
+    },
+    {
+      "label": "launchkit",
+      "url": "https://github.com/VoltAgent/awesome-agent-skills/blob/af465bbef5632ee23cf20a2291df31b29d3fd0c9/README.md#L94"
+    },
+    {
+      "label": "mobilekit",
+      "url": "https://github.com/VoltAgent/awesome-agent-skills/blob/af465bbef5632ee23cf20a2291df31b29d3fd0c9/README.md#L101"
+    }
+  ]
 }

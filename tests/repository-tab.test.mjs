@@ -98,7 +98,7 @@ test('compact module navigation retains names and remains accessible on desktop'
   assert.match(read('repository-workspace.css'), /\.workspace-navigation\.collapsed \{ opacity:1/);
 });
 
-test('the header is the single navigation display control and desktop repository context stays open', () => {
+test('the header is the single control for module labels and mobile navigation visibility', () => {
   const components = read('components.jsx');
   const app = read('app.jsx');
   const footer = components.split('<div className="sidebar-foot">')[1].split('{hasContext &&')[0];

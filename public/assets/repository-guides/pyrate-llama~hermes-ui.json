@@ -64,23 +64,48 @@
       "url": "/assets/repository-guides/media-6d0211c0a923b4992b0c5c0f.webp",
       "alt": "pyrate-llama/hermes-ui 官方演示 1",
       "sourceUrl": "https://github.com/pyrate-llama/hermes-ui/blob/5a78cf40158468d784b10e53691562bec25c3e48/README.md?plain=1#L14",
-      "originalUrl": "https://raw.githubusercontent.com/pyrate-llama/hermes-ui/5a78cf40158468d784b10e53691562bec25c3e48/screenshots/chat.png"
+      "originalUrl": "https://raw.githubusercontent.com/pyrate-llama/hermes-ui/5a78cf40158468d784b10e53691562bec25c3e48/screenshots/chat.png",
+      "animated": false
     },
     {
       "url": "/assets/repository-guides/media-b229da4d2e9c86cd223bca1e.webp",
       "alt": "pyrate-llama/hermes-ui 官方演示 2",
       "sourceUrl": "https://github.com/pyrate-llama/hermes-ui/blob/5a78cf40158468d784b10e53691562bec25c3e48/README.md?plain=1#L18",
-      "originalUrl": "https://raw.githubusercontent.com/pyrate-llama/hermes-ui/5a78cf40158468d784b10e53691562bec25c3e48/screenshots/tasks.png"
+      "originalUrl": "https://raw.githubusercontent.com/pyrate-llama/hermes-ui/5a78cf40158468d784b10e53691562bec25c3e48/screenshots/tasks.png",
+      "animated": false
     },
     {
       "url": "/assets/repository-guides/media-e6969c01da1e834cfe31077a.webp",
       "alt": "pyrate-llama/hermes-ui 官方演示 3",
       "sourceUrl": "https://github.com/pyrate-llama/hermes-ui/blob/5a78cf40158468d784b10e53691562bec25c3e48/README.md?plain=1#L21",
-      "originalUrl": "https://raw.githubusercontent.com/pyrate-llama/hermes-ui/5a78cf40158468d784b10e53691562bec25c3e48/screenshots/dashboard.png"
+      "originalUrl": "https://raw.githubusercontent.com/pyrate-llama/hermes-ui/5a78cf40158468d784b10e53691562bec25c3e48/screenshots/dashboard.png",
+      "animated": false
+    },
+    {
+      "url": "/assets/repository-guides/media-ac80a1884bbee2db30452c58.webp",
+      "alt": "Browse and manage installed Hermes skills",
+      "sourceUrl": "https://github.com/pyrate-llama/hermes-ui/blob/5a78cf40158468d784b10e53691562bec25c3e48/README.md#L24",
+      "originalUrl": "https://raw.githubusercontent.com/pyrate-llama/hermes-ui/5a78cf40158468d784b10e53691562bec25c3e48/screenshots/skills.png",
+      "animated": false
+    },
+    {
+      "url": "/assets/repository-guides/media-e9bedcef7d68c566b67ed83c.webp",
+      "alt": "Scheduled cron jobs with edit, pause, and run-now controls",
+      "sourceUrl": "https://github.com/pyrate-llama/hermes-ui/blob/5a78cf40158468d784b10e53691562bec25c3e48/README.md#L27",
+      "originalUrl": "https://raw.githubusercontent.com/pyrate-llama/hermes-ui/5a78cf40158468d784b10e53691562bec25c3e48/screenshots/cron-jobs.png",
+      "animated": false
+    },
+    {
+      "url": "/assets/repository-guides/media-e54c984333245d47091a4b8d.webp",
+      "alt": "Connected MCP servers grouped by category",
+      "sourceUrl": "https://github.com/pyrate-llama/hermes-ui/blob/5a78cf40158468d784b10e53691562bec25c3e48/README.md#L30",
+      "originalUrl": "https://raw.githubusercontent.com/pyrate-llama/hermes-ui/5a78cf40158468d784b10e53691562bec25c3e48/screenshots/mcp-tools.png",
+      "animated": false
     }
   ],
   "generatedBy": "claude-opus-5-5",
   "documentHash": "04f536d9b1d6b808744c419ac8181d63648773fa703a4a25434584f9bd0fe4ca",
   "mediaStatus": "archived",
-  "mediaFailures": []
+  "mediaFailures": [],
+  "mediaReferences": []
 }

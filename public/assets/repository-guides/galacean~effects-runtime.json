@@ -67,6 +67,10 @@
   "mediaStatus": "unavailable",
   "mediaFailures": [
     {
+      "sourceUrl": "https://github.com/galacean/effects-runtime/blob/07ee4fad186f2f16af96112e533f687309b50810/README.md#L13",
+      "reason": "non_demo_dimensions"
+    },
+    {
       "sourceUrl": "https://github.com/galacean/effects-runtime/blob/07ee4fad186f2f16af96112e533f687309b50810/README.md#L16",
       "reason": "unsupported_media_host"
     },
@@ -77,6 +81,32 @@
     {
       "sourceUrl": "https://github.com/galacean/effects-runtime/blob/07ee4fad186f2f16af96112e533f687309b50810/README.md#L18",
       "reason": "unsupported_media_host"
+    },
+    {
+      "sourceUrl": "https://github.com/galacean/effects-runtime/blob/07ee4fad186f2f16af96112e533f687309b50810/README.md#L25",
+      "reason": "unsupported_media_host"
+    }
+  ],
+  "mediaReferences": [
+    {
+      "label": "项目介绍",
+      "url": "https://github.com/galacean/effects-runtime/blob/07ee4fad186f2f16af96112e533f687309b50810/README.md#L13"
+    },
+    {
+      "label": "项目介绍",
+      "url": "https://github.com/galacean/effects-runtime/blob/07ee4fad186f2f16af96112e533f687309b50810/README.md#L16"
+    },
+    {
+      "label": "项目介绍",
+      "url": "https://github.com/galacean/effects-runtime/blob/07ee4fad186f2f16af96112e533f687309b50810/README.md#L17"
+    },
+    {
+      "label": "项目介绍",
+      "url": "https://github.com/galacean/effects-runtime/blob/07ee4fad186f2f16af96112e533f687309b50810/README.md#L18"
+    },
+    {
+      "label": "Performance Stats of galacean/effects-runtime - Last 28 days",
+      "url": "https://github.com/galacean/effects-runtime/blob/07ee4fad186f2f16af96112e533f687309b50810/README.md#L25"
     }
   ]
 }

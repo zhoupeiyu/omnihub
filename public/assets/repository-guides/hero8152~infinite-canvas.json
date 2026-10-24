@@ -54,8 +54,53 @@
     "即梦 CLI 调用会消耗即梦高级会员积分；RunningHub 收费模型也会产生费用。"
   ],
   "references": [],
-  "media": [],
+  "media": [
+    {
+      "url": "/assets/repository-guides/media-d6609ca11a6121a1b328560c.webp",
+      "alt": "image",
+      "sourceUrl": "https://github.com/hero8152/Infinite-Canvas/blob/67f49e4b9a0ac090bad1f5bd62ae385f8fb5394e/README.md#L67",
+      "originalUrl": "https://github.com/user-attachments/assets/8469923b-f7a2-403c-9c37-e6e789211f28",
+      "animated": false
+    },
+    {
+      "url": "/assets/repository-guides/media-e15c2b14726f1543278e74ff.webp",
+      "alt": "image",
+      "sourceUrl": "https://github.com/hero8152/Infinite-Canvas/blob/67f49e4b9a0ac090bad1f5bd62ae385f8fb5394e/README.md#L69",
+      "originalUrl": "https://github.com/user-attachments/assets/f4030201-67c6-4845-b08b-b6fdf304afaa",
+      "animated": false
+    },
+    {
+      "url": "/assets/repository-guides/media-c4c4963361a0da1e8b017dae.webp",
+      "alt": "b68e144c5b04a322bfd035da4d89aba3",
+      "sourceUrl": "https://github.com/hero8152/Infinite-Canvas/blob/67f49e4b9a0ac090bad1f5bd62ae385f8fb5394e/README.md#L72",
+      "originalUrl": "https://github.com/user-attachments/assets/0a6090fb-a8dd-4c3d-adee-b1f9233a2d91",
+      "animated": false
+    },
+    {
+      "url": "/assets/repository-guides/media-cbd45986eb8ecd66f644c3f8.webp",
+      "alt": "image",
+      "sourceUrl": "https://github.com/hero8152/Infinite-Canvas/blob/67f49e4b9a0ac090bad1f5bd62ae385f8fb5394e/README.md#L75",
+      "originalUrl": "https://github.com/user-attachments/assets/6f61fcf9-746c-425b-9e36-cfc8d252da7c",
+      "animated": false
+    },
+    {
+      "url": "/assets/repository-guides/media-8235bd8647776cb3b2860733.webp",
+      "alt": "image",
+      "sourceUrl": "https://github.com/hero8152/Infinite-Canvas/blob/67f49e4b9a0ac090bad1f5bd62ae385f8fb5394e/README.md#L77",
+      "originalUrl": "https://github.com/user-attachments/assets/57f3e230-3134-488f-8179-d97e7d15383a",
+      "animated": false
+    },
+    {
+      "url": "/assets/repository-guides/media-f4785a2b6f704f84734dd867.webp",
+      "alt": "image",
+      "sourceUrl": "https://github.com/hero8152/Infinite-Canvas/blob/67f49e4b9a0ac090bad1f5bd62ae385f8fb5394e/README.md#L78",
+      "originalUrl": "https://github.com/user-attachments/assets/9990e42d-22d5-4a10-a1e1-ad35a634edd2",
+      "animated": false
+    }
+  ],
   "generatedBy": "claude-opus-5-5",
   "documentHash": "b3e4b3d0a9d9945eb864c785b7769f00457a1c683c681b41492614ccad1fa765",
-  "mediaStatus": "none_in_official_documents"
+  "mediaStatus": "archived",
+  "mediaFailures": [],
+  "mediaReferences": []
 }

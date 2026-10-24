@@ -75,17 +75,20 @@
       "url": "/assets/repository-guides/media-51e5f913737ff6d1b891db0e.webp",
       "alt": "HG-ha/MTools 官方演示 1",
       "sourceUrl": "https://github.com/HG-ha/MTools/blob/0ee5523db50a80603d3951ecfa5c32998575e762/README.md?plain=1#L56",
-      "originalUrl": "https://raw.githubusercontent.com/HG-ha/MTools/0ee5523db50a80603d3951ecfa5c32998575e762/assets/MTools_Light.png"
+      "originalUrl": "https://raw.githubusercontent.com/HG-ha/MTools/0ee5523db50a80603d3951ecfa5c32998575e762/assets/MTools_Light.png",
+      "animated": false
     },
     {
       "url": "/assets/repository-guides/media-4363d210edd9aee2b359296b.webp",
       "alt": "HG-ha/MTools 官方演示 2",
       "sourceUrl": "https://github.com/HG-ha/MTools/blob/0ee5523db50a80603d3951ecfa5c32998575e762/README.md?plain=1#L60",
-      "originalUrl": "https://raw.githubusercontent.com/HG-ha/MTools/0ee5523db50a80603d3951ecfa5c32998575e762/assets/MTools_Dark.png"
+      "originalUrl": "https://raw.githubusercontent.com/HG-ha/MTools/0ee5523db50a80603d3951ecfa5c32998575e762/assets/MTools_Dark.png",
+      "animated": false
     }
   ],
   "generatedBy": "claude-opus-5-5",
   "documentHash": "a38b53633c1d422578920f406103c333a169d555e7a960e90a6a756c4c8a0061",
   "mediaStatus": "archived",
-  "mediaFailures": []
+  "mediaFailures": [],
+  "mediaReferences": []
 }

@@ -68,23 +68,41 @@
       "url": "/assets/repository-guides/media-448e0f1d173a8a6df8c4754a.webp",
       "alt": "ArcReel 工作台",
       "sourceUrl": "https://github.com/ArcReel/ArcReel/blob/d108650fd0e5c178e88686a593ba6446a2ea1d71/README.md?plain=1#L44",
-      "originalUrl": "https://raw.githubusercontent.com/ArcReel/ArcReel/d108650fd0e5c178e88686a593ba6446a2ea1d71/docs/assets/screenshots/hero.webp"
+      "originalUrl": "https://raw.githubusercontent.com/ArcReel/ArcReel/d108650fd0e5c178e88686a593ba6446a2ea1d71/docs/assets/screenshots/hero.webp",
+      "animated": false
     },
     {
       "url": "/assets/repository-guides/media-4725e72b6ac83c333027f3a7.webp",
       "alt": "视频单元",
       "sourceUrl": "https://github.com/ArcReel/ArcReel/blob/d108650fd0e5c178e88686a593ba6446a2ea1d71/README.md?plain=1#L88",
-      "originalUrl": "https://raw.githubusercontent.com/ArcReel/ArcReel/d108650fd0e5c178e88686a593ba6446a2ea1d71/docs/assets/screenshots/video-units.webp"
+      "originalUrl": "https://raw.githubusercontent.com/ArcReel/ArcReel/d108650fd0e5c178e88686a593ba6446a2ea1d71/docs/assets/screenshots/video-units.webp",
+      "animated": false
     },
     {
       "url": "/assets/repository-guides/media-1c67255ee3f7060c3bf07106.webp",
       "alt": "场景库",
       "sourceUrl": "https://github.com/ArcReel/ArcReel/blob/d108650fd0e5c178e88686a593ba6446a2ea1d71/README.md?plain=1#L92",
-      "originalUrl": "https://raw.githubusercontent.com/ArcReel/ArcReel/d108650fd0e5c178e88686a593ba6446a2ea1d71/docs/assets/screenshots/scenes.webp"
+      "originalUrl": "https://raw.githubusercontent.com/ArcReel/ArcReel/d108650fd0e5c178e88686a593ba6446a2ea1d71/docs/assets/screenshots/scenes.webp",
+      "animated": false
+    },
+    {
+      "url": "/assets/repository-guides/media-f85ded344a421fc139918cb0.webp",
+      "alt": "道具库",
+      "sourceUrl": "https://github.com/ArcReel/ArcReel/blob/d108650fd0e5c178e88686a593ba6446a2ea1d71/README.md#L89",
+      "originalUrl": "https://raw.githubusercontent.com/ArcReel/ArcReel/d108650fd0e5c178e88686a593ba6446a2ea1d71/docs/assets/screenshots/props.webp",
+      "animated": false
+    },
+    {
+      "url": "/assets/repository-guides/media-83244ff706e9faf7e6f2091b.webp",
+      "alt": "广告/带货模式",
+      "sourceUrl": "https://github.com/ArcReel/ArcReel/blob/d108650fd0e5c178e88686a593ba6446a2ea1d71/README.md#L93",
+      "originalUrl": "https://raw.githubusercontent.com/ArcReel/ArcReel/d108650fd0e5c178e88686a593ba6446a2ea1d71/docs/assets/screenshots/ad-mode.webp",
+      "animated": false
     }
   ],
   "generatedBy": "claude-opus-5-5",
   "documentHash": "e1e682e1c1bb6b9f86dd4cc2c194d32b2e43034f829413d3171f8a258fa2bee3",
   "mediaStatus": "archived",
-  "mediaFailures": []
+  "mediaFailures": [],
+  "mediaReferences": []
 }

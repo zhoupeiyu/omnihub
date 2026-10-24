@@ -61,17 +61,20 @@
       "url": "/assets/repository-guides/media-7aa11769b364461b9eab194c.webp",
       "alt": "yetone/cumora 官方演示 1",
       "sourceUrl": "https://github.com/yetone/cumora/blob/d0dbf160be6533535cf482cc9e6e9f96eb957c3f/README.md?plain=1#L10",
-      "originalUrl": "https://raw.githubusercontent.com/yetone/cumora/d0dbf160be6533535cf482cc9e6e9f96eb957c3f/website/assets/product-screenshot.png"
+      "originalUrl": "https://raw.githubusercontent.com/yetone/cumora/d0dbf160be6533535cf482cc9e6e9f96eb957c3f/website/assets/product-screenshot.png",
+      "animated": false
     },
     {
       "url": "/assets/repository-guides/media-e71c448fa5424b019539b5c0.webp",
       "alt": "yetone/cumora 官方演示 2",
       "sourceUrl": "https://github.com/yetone/cumora/blob/d0dbf160be6533535cf482cc9e6e9f96eb957c3f/README.md?plain=1#L14",
-      "originalUrl": "https://raw.githubusercontent.com/yetone/cumora/d0dbf160be6533535cf482cc9e6e9f96eb957c3f/website/assets/mobile-screenshot.png"
+      "originalUrl": "https://raw.githubusercontent.com/yetone/cumora/d0dbf160be6533535cf482cc9e6e9f96eb957c3f/website/assets/mobile-screenshot.png",
+      "animated": false
     }
   ],
   "generatedBy": "claude-opus-5-5",
   "documentHash": "5cf23c1a16cea5cd65ae407e76124ca84b3445ad62af23a62089c9cb8dc48d0f",
   "mediaStatus": "archived",
-  "mediaFailures": []
+  "mediaFailures": [],
+  "mediaReferences": []
 }

@@ -57,8 +57,32 @@
     "仓库许可证字段为 NOASSERTION，README 中写的是 Apache-2.0。"
   ],
   "references": [],
-  "media": [],
+  "media": [
+    {
+      "url": "/assets/repository-guides/media-0e735bf81fecea8b21b3a2b6.webp",
+      "alt": "memU Banner",
+      "sourceUrl": "https://github.com/NevaMind-AI/memU/blob/2c050bc9681a4c0aff1af211a000e73d14f33356/README.md#L1",
+      "originalUrl": "https://raw.githubusercontent.com/NevaMind-AI/memU/2c050bc9681a4c0aff1af211a000e73d14f33356/assets/banner.png",
+      "animated": false
+    },
+    {
+      "url": "/assets/repository-guides/media-b426a1a7af0cbb12154ac046.webp",
+      "alt": "memU memory system architecture",
+      "sourceUrl": "https://github.com/NevaMind-AI/memU/blob/2c050bc9681a4c0aff1af211a000e73d14f33356/README.md#L81",
+      "originalUrl": "https://raw.githubusercontent.com/NevaMind-AI/memU/2c050bc9681a4c0aff1af211a000e73d14f33356/assets/structure-v2.png",
+      "animated": false
+    },
+    {
+      "url": "/assets/repository-guides/media-f8f9783427a5a6a3053acc6c.webp",
+      "alt": "How memU turns agent history into reusable skills",
+      "sourceUrl": "https://github.com/NevaMind-AI/memU/blob/2c050bc9681a4c0aff1af211a000e73d14f33356/README.md#L87",
+      "originalUrl": "https://raw.githubusercontent.com/NevaMind-AI/memU/2c050bc9681a4c0aff1af211a000e73d14f33356/assets/skill-extraction.png",
+      "animated": false
+    }
+  ],
   "generatedBy": "claude-opus-5-5",
   "documentHash": "214ae0762a962f4540c1a3ff72e458ef612fd235ff9ede15f8d5cd27a17a6cea",
-  "mediaStatus": "none_in_official_documents"
+  "mediaStatus": "archived",
+  "mediaFailures": [],
+  "mediaReferences": []
 }

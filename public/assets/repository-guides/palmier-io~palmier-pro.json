@@ -61,11 +61,13 @@
       "url": "/assets/repository-guides/media-186387c2ce16c3b9d9f94756.webp",
       "alt": "palmier-io/palmier-pro 官方演示 1",
       "sourceUrl": "https://github.com/palmier-io/palmier-pro/blob/eeafde20086b1dffb01ccb59da80e470abadeda8/README.md?plain=1#L40",
-      "originalUrl": "https://raw.githubusercontent.com/palmier-io/palmier-pro/eeafde20086b1dffb01ccb59da80e470abadeda8/assets/palmier-ui.png"
+      "originalUrl": "https://raw.githubusercontent.com/palmier-io/palmier-pro/eeafde20086b1dffb01ccb59da80e470abadeda8/assets/palmier-ui.png",
+      "animated": false
     }
   ],
   "generatedBy": "claude-opus-5-5",
   "documentHash": "f083c75abe525856191da3b66ad3a616d2d1434805ebb409d768c33c7e3d1697",
   "mediaStatus": "archived",
-  "mediaFailures": []
+  "mediaFailures": [],
+  "mediaReferences": []
 }

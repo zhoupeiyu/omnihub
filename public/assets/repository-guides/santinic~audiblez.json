@@ -71,11 +71,13 @@
       "url": "/assets/repository-guides/media-eb87a47d5d55d070a7be8b78.webp",
       "alt": "santinic/audiblez 官方演示 1",
       "sourceUrl": "https://github.com/santinic/audiblez/blob/788a6a817e7bf7502d56c5fa9dd74ff3861c5dcb/README.md?plain=1#L10",
-      "originalUrl": "https://raw.githubusercontent.com/santinic/audiblez/788a6a817e7bf7502d56c5fa9dd74ff3861c5dcb/imgs/mac.png"
+      "originalUrl": "https://raw.githubusercontent.com/santinic/audiblez/788a6a817e7bf7502d56c5fa9dd74ff3861c5dcb/imgs/mac.png",
+      "animated": false
     }
   ],
   "generatedBy": "claude-opus-5-5",
   "documentHash": "6c704ead971a147c1533ffc9d377fed5b3f75c50a3545eb50cc4741a41c4e2be",
   "mediaStatus": "archived",
-  "mediaFailures": []
+  "mediaFailures": [],
+  "mediaReferences": []
 }

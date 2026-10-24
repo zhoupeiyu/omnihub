@@ -70,11 +70,13 @@
       "url": "/assets/repository-guides/media-a18761a6e34c2ba8fcbf89d7.webp",
       "alt": "apple/container 官方演示 1",
       "sourceUrl": "https://github.com/apple/container/blob/0a48a1bdbfaa7451c810372d98b045fa8b486b6a/README.md?plain=1#L12",
-      "originalUrl": "https://raw.githubusercontent.com/apple/container/0a48a1bdbfaa7451c810372d98b045fa8b486b6a/docs/assets/landing-movie.gif"
+      "originalUrl": "https://raw.githubusercontent.com/apple/container/0a48a1bdbfaa7451c810372d98b045fa8b486b6a/docs/assets/landing-movie.gif",
+      "animated": true
     }
   ],
   "generatedBy": "claude-opus-5-5",
   "documentHash": "e139019fdc5c1e828bea3cb9ff477685ced6163691ac1107afdb01bf5d7e8bb7",
   "mediaStatus": "archived",
-  "mediaFailures": []
+  "mediaFailures": [],
+  "mediaReferences": []
 }

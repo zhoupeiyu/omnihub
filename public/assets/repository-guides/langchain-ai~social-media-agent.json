@@ -73,16 +73,20 @@
       "url": "/assets/repository-guides/media-dc7e8553ea8ad32517e59237.webp",
       "alt": "langchain-ai/social-media-agent 官方演示 1",
       "sourceUrl": "https://github.com/langchain-ai/social-media-agent/blob/9be33da925e3608c7de227adc9c780eaadcace0c/README.md?plain=1#L152",
-      "originalUrl": "https://raw.githubusercontent.com/langchain-ai/social-media-agent/9be33da925e3608c7de227adc9c780eaadcace0c/static/graph_screenshot.png"
+      "originalUrl": "https://raw.githubusercontent.com/langchain-ai/social-media-agent/9be33da925e3608c7de227adc9c780eaadcace0c/static/graph_screenshot.png",
+      "animated": false
+    },
+    {
+      "url": "/assets/repository-guides/media-8d14cb737cecca0b14089ff4.webp",
+      "alt": "Screenshot of the social media agent flow",
+      "sourceUrl": "https://github.com/langchain-ai/social-media-agent/blob/9be33da925e3608c7de227adc9c780eaadcace0c/README.md#L5",
+      "originalUrl": "https://raw.githubusercontent.com/langchain-ai/social-media-agent/9be33da925e3608c7de227adc9c780eaadcace0c/static/agent_flow.png",
+      "animated": false
     }
   ],
   "generatedBy": "claude-opus-5-5",
   "documentHash": "dc976028b8f3e76df0fb1179381785dd497570dd2e97e15cf225105ed48105da",
   "mediaStatus": "archived",
-  "mediaFailures": [
-    {
-      "sourceUrl": "https://github.com/langchain-ai/social-media-agent/blob/9be33da925e3608c7de227adc9c780eaadcace0c/README.md#L5",
-      "reason": "non_demo_dimensions"
-    }
-  ]
+  "mediaFailures": [],
+  "mediaReferences": []
 }

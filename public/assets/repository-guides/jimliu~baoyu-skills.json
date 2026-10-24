@@ -68,23 +68,48 @@
       "url": "/assets/repository-guides/media-d55ceb993d971a3bc6b75a92.webp",
       "alt": "JimLiu/baoyu-skills 官方演示 1",
       "sourceUrl": "https://github.com/JimLiu/baoyu-skills/blob/1567581c26ec29f4216c6e6835415bf30343b0e3/README.md?plain=1#L175",
-      "originalUrl": "https://raw.githubusercontent.com/JimLiu/baoyu-skills/1567581c26ec29f4216c6e6835415bf30343b0e3/screenshots/xhs-images-styles/cute.webp"
+      "originalUrl": "https://raw.githubusercontent.com/JimLiu/baoyu-skills/1567581c26ec29f4216c6e6835415bf30343b0e3/screenshots/xhs-images-styles/cute.webp",
+      "animated": false
     },
     {
       "url": "/assets/repository-guides/media-a233db216513e6badff7710e.webp",
       "alt": "JimLiu/baoyu-skills 官方演示 2",
       "sourceUrl": "https://github.com/JimLiu/baoyu-skills/blob/1567581c26ec29f4216c6e6835415bf30343b0e3/README.md?plain=1#L179",
-      "originalUrl": "https://raw.githubusercontent.com/JimLiu/baoyu-skills/1567581c26ec29f4216c6e6835415bf30343b0e3/screenshots/xhs-images-styles/notion.webp"
+      "originalUrl": "https://raw.githubusercontent.com/JimLiu/baoyu-skills/1567581c26ec29f4216c6e6835415bf30343b0e3/screenshots/xhs-images-styles/notion.webp",
+      "animated": false
     },
     {
       "url": "/assets/repository-guides/media-3a167a47e941985aeab317b1.webp",
       "alt": "JimLiu/baoyu-skills 官方演示 3",
       "sourceUrl": "https://github.com/JimLiu/baoyu-skills/blob/1567581c26ec29f4216c6e6835415bf30343b0e3/README.md?plain=1#L260",
-      "originalUrl": "https://raw.githubusercontent.com/JimLiu/baoyu-skills/1567581c26ec29f4216c6e6835415bf30343b0e3/screenshots/infographic-layouts/bridge.webp"
+      "originalUrl": "https://raw.githubusercontent.com/JimLiu/baoyu-skills/1567581c26ec29f4216c6e6835415bf30343b0e3/screenshots/infographic-layouts/bridge.webp",
+      "animated": false
+    },
+    {
+      "url": "/assets/repository-guides/media-47a0d6190c4b4e8fd28e2467.webp",
+      "alt": "Update Skills",
+      "sourceUrl": "https://github.com/JimLiu/baoyu-skills/blob/1567581c26ec29f4216c6e6835415bf30343b0e3/README.md#L117",
+      "originalUrl": "https://raw.githubusercontent.com/JimLiu/baoyu-skills/1567581c26ec29f4216c6e6835415bf30343b0e3/screenshots/update-plugins.png",
+      "animated": false
+    },
+    {
+      "url": "/assets/repository-guides/media-c76a4464c7493f19d342132e.webp",
+      "alt": "Cursor running baoyu-design",
+      "sourceUrl": "https://github.com/JimLiu/baoyu-skills/blob/1567581c26ec29f4216c6e6835415bf30343b0e3/README.md#L128",
+      "originalUrl": "https://raw.githubusercontent.com/JimLiu/baoyu-design/main/assets/screenshots/cursor-reader-mac-app.webp",
+      "animated": false
+    },
+    {
+      "url": "/assets/repository-guides/media-3d931bfed260e651dd354477.webp",
+      "alt": "图解 Skill —— AI 提效实战指南",
+      "sourceUrl": "https://github.com/JimLiu/baoyu-skills/blob/1567581c26ec29f4216c6e6835415bf30343b0e3/README.zh.md#L9",
+      "originalUrl": "https://github.com/user-attachments/assets/6caef6a2-6f11-490e-a43b-e810df8e9354",
+      "animated": false
     }
   ],
   "generatedBy": "claude-opus-5-5",
   "documentHash": "3b8cfcf9d902776a7f1e86c5af2af1e57ff6a893627bf9502fa14db6056531c9",
   "mediaStatus": "archived",
-  "mediaFailures": []
+  "mediaFailures": [],
+  "mediaReferences": []
 }

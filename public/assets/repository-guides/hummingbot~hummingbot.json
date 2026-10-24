@@ -66,8 +66,18 @@
     "README 中的交易所折扣链接属于推荐（referral）合作，选择交易所时请自行判断。"
   ],
   "references": [],
-  "media": [],
+  "media": [
+    {
+      "url": "/assets/repository-guides/media-7a42058a9653bd8a755bb40c.webp",
+      "alt": "Hummingbot",
+      "sourceUrl": "https://github.com/hummingbot/hummingbot/blob/9af100d6822da7d2d0291a906c730ef172284ee2/README.md#L1",
+      "originalUrl": "https://github.com/user-attachments/assets/3213d7f8-414b-4df8-8c1b-a0cd142a82d8",
+      "animated": false
+    }
+  ],
   "generatedBy": "claude-opus-5-5",
   "documentHash": "179e404ee85129a0b714d234246b0b9c13345f1ce19f50dd065e8c83af28c1c7",
-  "mediaStatus": "none_in_official_documents"
+  "mediaStatus": "archived",
+  "mediaFailures": [],
+  "mediaReferences": []
 }

@@ -62,23 +62,34 @@
       "url": "/assets/repository-guides/media-834fd61c619bd04a545a134b.webp",
       "alt": "GumbyEnder/hermes-local-rig-accounting 官方演示 1",
       "sourceUrl": "https://github.com/GumbyEnder/hermes-local-rig-accounting/blob/dacbf574ca19b9692b672353f19f35f0be6a9e9a/README.md?plain=1#L78",
-      "originalUrl": "https://raw.githubusercontent.com/GumbyEnder/hermes-local-rig-accounting/dacbf574ca19b9692b672353f19f35f0be6a9e9a/rig-benchmark.png"
+      "originalUrl": "https://raw.githubusercontent.com/GumbyEnder/hermes-local-rig-accounting/dacbf574ca19b9692b672353f19f35f0be6a9e9a/rig-benchmark.png",
+      "animated": false
     },
     {
       "url": "/assets/repository-guides/media-3737264dfc5fba1e09f24ecd.webp",
       "alt": "GumbyEnder/hermes-local-rig-accounting 官方演示 2",
       "sourceUrl": "https://github.com/GumbyEnder/hermes-local-rig-accounting/blob/dacbf574ca19b9692b672353f19f35f0be6a9e9a/README.md?plain=1#L81",
-      "originalUrl": "https://raw.githubusercontent.com/GumbyEnder/hermes-local-rig-accounting/dacbf574ca19b9692b672353f19f35f0be6a9e9a/rig-summary.png"
+      "originalUrl": "https://raw.githubusercontent.com/GumbyEnder/hermes-local-rig-accounting/dacbf574ca19b9692b672353f19f35f0be6a9e9a/rig-summary.png",
+      "animated": false
     },
     {
       "url": "/assets/repository-guides/media-042b398b2100fec0382d004d.webp",
       "alt": "GumbyEnder/hermes-local-rig-accounting 官方演示 3",
       "sourceUrl": "https://github.com/GumbyEnder/hermes-local-rig-accounting/blob/dacbf574ca19b9692b672353f19f35f0be6a9e9a/README.md?plain=1#L84",
-      "originalUrl": "https://raw.githubusercontent.com/GumbyEnder/hermes-local-rig-accounting/dacbf574ca19b9692b672353f19f35f0be6a9e9a/rig-submit.png"
+      "originalUrl": "https://raw.githubusercontent.com/GumbyEnder/hermes-local-rig-accounting/dacbf574ca19b9692b672353f19f35f0be6a9e9a/rig-submit.png",
+      "animated": false
+    },
+    {
+      "url": "/assets/repository-guides/media-118702b7c6b0cdf871350b4a.webp",
+      "alt": "rig-benchmark-prompt",
+      "sourceUrl": "https://github.com/GumbyEnder/hermes-local-rig-accounting/blob/dacbf574ca19b9692b672353f19f35f0be6a9e9a/README.md#L87",
+      "originalUrl": "https://raw.githubusercontent.com/GumbyEnder/hermes-local-rig-accounting/dacbf574ca19b9692b672353f19f35f0be6a9e9a/rig-benchmark-prompt.png",
+      "animated": false
     }
   ],
   "generatedBy": "claude-opus-5-5",
   "documentHash": "22fd3c7ba676270a4037b3f9edb466fb7a7036139a6e56e60b954a40f3969b58",
   "mediaStatus": "archived",
-  "mediaFailures": []
+  "mediaFailures": [],
+  "mediaReferences": []
 }

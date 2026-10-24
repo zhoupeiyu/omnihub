@@ -66,23 +66,58 @@
       "url": "/assets/repository-guides/media-158e668d5d3b804237304d66.webp",
       "alt": "导入视频与项目管理",
       "sourceUrl": "https://github.com/zhouxiaoka/autoclip/blob/8968916b70511595be87c944c730c4672a6f0f9f/README.md?plain=1#L31",
-      "originalUrl": "https://raw.githubusercontent.com/zhouxiaoka/autoclip/8968916b70511595be87c944c730c4672a6f0f9f/docs/images/home-v1.4.0.png"
+      "originalUrl": "https://raw.githubusercontent.com/zhouxiaoka/autoclip/8968916b70511595be87c944c730c4672a6f0f9f/docs/images/home-v1.4.0.png",
+      "animated": false
     },
     {
       "url": "/assets/repository-guides/media-3b3d4d089a04adb1f25722ca.webp",
       "alt": "AI 切片结果",
       "sourceUrl": "https://github.com/zhouxiaoka/autoclip/blob/8968916b70511595be87c944c730c4672a6f0f9f/README.md?plain=1#L39",
-      "originalUrl": "https://raw.githubusercontent.com/zhouxiaoka/autoclip/8968916b70511595be87c944c730c4672a6f0f9f/docs/images/clips-v1.4.0.png"
+      "originalUrl": "https://raw.githubusercontent.com/zhouxiaoka/autoclip/8968916b70511595be87c944c730c4672a6f0f9f/docs/images/clips-v1.4.0.png",
+      "animated": false
     },
     {
       "url": "/assets/repository-guides/media-4bbbfa8be759762458f5e885.webp",
       "alt": "Studio 预览与修改",
       "sourceUrl": "https://github.com/zhouxiaoka/autoclip/blob/8968916b70511595be87c944c730c4672a6f0f9f/README.md?plain=1#L40",
-      "originalUrl": "https://raw.githubusercontent.com/zhouxiaoka/autoclip/8968916b70511595be87c944c730c4672a6f0f9f/docs/images/studio-v1.4.0.png"
+      "originalUrl": "https://raw.githubusercontent.com/zhouxiaoka/autoclip/8968916b70511595be87c944c730c4672a6f0f9f/docs/images/studio-v1.4.0.png",
+      "animated": false
+    },
+    {
+      "url": "/assets/repository-guides/media-5fa85637a04312966cd9b87a.webp",
+      "alt": "多种导入方式",
+      "sourceUrl": "https://github.com/zhouxiaoka/autoclip/blob/8968916b70511595be87c944c730c4672a6f0f9f/README.md#L87",
+      "originalUrl": "https://raw.githubusercontent.com/zhouxiaoka/autoclip/8968916b70511595be87c944c730c4672a6f0f9f/docs/images/feature-import.png",
+      "animated": false
+    },
+    {
+      "url": "/assets/repository-guides/media-4988ee2cbde4db5cadc96afe.webp",
+      "alt": "片段与合集",
+      "sourceUrl": "https://github.com/zhouxiaoka/autoclip/blob/8968916b70511595be87c944c730c4672a6f0f9f/README.md#L99",
+      "originalUrl": "https://raw.githubusercontent.com/zhouxiaoka/autoclip/8968916b70511595be87c944c730c4672a6f0f9f/docs/images/feature-collections.png",
+      "animated": false
+    },
+    {
+      "url": "/assets/repository-guides/media-064da0a7df81e1fbbb6d49fa.webp",
+      "alt": "多平台导出",
+      "sourceUrl": "https://github.com/zhouxiaoka/autoclip/blob/8968916b70511595be87c944c730c4672a6f0f9f/README.md#L104",
+      "originalUrl": "https://raw.githubusercontent.com/zhouxiaoka/autoclip/8968916b70511595be87c944c730c4672a6f0f9f/docs/images/feature-export.png",
+      "animated": false
     }
   ],
   "generatedBy": "claude-opus-5-5",
   "documentHash": "64e50bceb68b402687fea0d1943575bc913427e251d579ee97de809f5a5bf2cf",
   "mediaStatus": "archived",
-  "mediaFailures": []
+  "mediaFailures": [
+    {
+      "sourceUrl": "https://github.com/zhouxiaoka/autoclip/blob/8968916b70511595be87c944c730c4672a6f0f9f/README.md#L3",
+      "reason": "non_demo_dimensions"
+    }
+  ],
+  "mediaReferences": [
+    {
+      "label": "AutoClip",
+      "url": "https://github.com/zhouxiaoka/autoclip/blob/8968916b70511595be87c944c730c4672a6f0f9f/README.md#L3"
+    }
+  ]
 }

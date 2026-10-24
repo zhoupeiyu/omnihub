@@ -59,5 +59,17 @@
   "media": [],
   "generatedBy": "claude-opus-5-5",
   "documentHash": "1a5d92a0d9d9021b7a6090ef8832c24ba89dbd194b5bf2d5d309afec0b3d36ec",
-  "mediaStatus": "none_in_official_documents"
+  "mediaStatus": "unavailable",
+  "mediaFailures": [
+    {
+      "sourceUrl": "https://github.com/idootop/mi-gpt/blob/1aea52ef27e79ca705f597559f73b8ef6b7287b1/README.md#L16",
+      "reason": "unsupported_media_host"
+    }
+  ],
+  "mediaReferences": [
+    {
+      "label": "Featured｜HelloGitHub",
+      "url": "https://github.com/idootop/mi-gpt/blob/1aea52ef27e79ca705f597559f73b8ef6b7287b1/README.md#L16"
+    }
+  ]
 }

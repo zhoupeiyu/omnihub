@@ -78,17 +78,20 @@
       "url": "/assets/repository-guides/media-d7cb74af5711b18fad53b30e.webp",
       "alt": "AI Monitor 悬浮面板预览",
       "sourceUrl": "https://github.com/notracc1210/ai-monitor-public/blob/f42b34d74d90a190dd5adb9f3b3bf03f0e03a400/README.zh-CN.md?plain=1#L28",
-      "originalUrl": "https://raw.githubusercontent.com/notracc1210/ai-monitor-public/f42b34d74d90a190dd5adb9f3b3bf03f0e03a400/docs/images/floating-monitor.png"
+      "originalUrl": "https://raw.githubusercontent.com/notracc1210/ai-monitor-public/f42b34d74d90a190dd5adb9f3b3bf03f0e03a400/docs/images/floating-monitor.png",
+      "animated": false
     },
     {
       "url": "/assets/repository-guides/media-fa168b3f8e72d5b0ec7a1c48.webp",
       "alt": "AI Monitor 通知预览",
       "sourceUrl": "https://github.com/notracc1210/ai-monitor-public/blob/f42b34d74d90a190dd5adb9f3b3bf03f0e03a400/README.zh-CN.md?plain=1#L30",
-      "originalUrl": "https://raw.githubusercontent.com/notracc1210/ai-monitor-public/f42b34d74d90a190dd5adb9f3b3bf03f0e03a400/docs/images/notification.png"
+      "originalUrl": "https://raw.githubusercontent.com/notracc1210/ai-monitor-public/f42b34d74d90a190dd5adb9f3b3bf03f0e03a400/docs/images/notification.png",
+      "animated": false
     }
   ],
   "generatedBy": "claude-opus-5-5",
   "documentHash": "7c9fa49e06d091cdbe9a32f53259937dfef18efd1bab125303651da26f137d4b",
   "mediaStatus": "archived",
-  "mediaFailures": []
+  "mediaFailures": [],
+  "mediaReferences": []
 }

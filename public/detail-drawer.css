@@ -2,14 +2,15 @@
 html { scrollbar-gutter:stable; }
 .detail-drawer-layer[hidden] { display:none; }
 .detail-drawer-backdrop { position:fixed; inset:0; z-index:60; background:rgb(15 23 42 / .22); animation:detail-backdrop-in 180ms ease-out; }
-.detail-drawer { box-sizing:border-box; position:fixed; inset:0 0 0 auto; z-index:61; width:min(680px,100vw); height:100dvh; max-height:100dvh; min-width:0; margin:0; padding:0; display:flex; flex-direction:column; overflow:hidden; border:0; border-left:1px solid var(--border); border-radius:0; background:var(--surface); color:var(--text); box-shadow:-12px 0 36px rgb(15 23 42 / .12); animation:detail-drawer-in 240ms cubic-bezier(.2,0,0,1); }
+.detail-drawer { box-sizing:border-box; position:fixed; inset:0 0 0 auto; z-index:61; width:min(680px,100vw); height:100dvh; max-height:100dvh; min-width:0; margin:0; padding:0; display:flex; flex-direction:column; overflow:hidden; border:0; border-left:1px solid var(--border); border-radius:0; background:var(--surface); color:var(--text); box-shadow:-12px 0 36px rgb(15 23 42 / .12); animation:detail-drawer-in 220ms cubic-bezier(.2,0,0,1); }
 .detail-drawer:focus { outline:none; }
-.detail-drawer-header { box-sizing:border-box; flex:none; display:flex; align-items:center; justify-content:space-between; gap:16px; min-height:60px; padding:10px 24px; border-bottom:1px solid var(--border); background:var(--surface); }
+.detail-drawer-header { box-sizing:border-box; flex:none; display:flex; align-items:center; justify-content:space-between; gap:16px; min-height:60px; padding:8px 16px 8px 24px; border-bottom:1px solid var(--border); background:var(--surface); }
 .detail-drawer-label { min-width:0; font-size:13px; line-height:1.5; font-weight:600; color:var(--text-2); }
 .detail-drawer-actions { flex:none; display:flex; align-items:center; gap:8px; }
-.detail-drawer-close { display:inline-flex; align-items:center; justify-content:center; flex:none; width:36px; height:36px; padding:0; border:0; border-radius:8px; background:transparent; color:var(--text-2); cursor:pointer; }
+.detail-drawer-close { display:inline-flex; align-items:center; justify-content:center; flex:none; width:40px; height:40px; padding:0; border:0; border-radius:8px; background:transparent; color:var(--text-2); cursor:pointer; transition:background-color 120ms ease-out, color 120ms ease-out; }
 .detail-drawer-close svg { width:20px; height:20px; }
 .detail-drawer-close:hover { color:var(--text); background:var(--bg-sunken); }
+.detail-drawer-close:active { color:var(--text); background:color-mix(in srgb, var(--text) 10%, transparent); }
 .detail-drawer-close:focus-visible { outline:2px solid var(--accent); outline-offset:2px; }
 .detail-drawer-body { flex:1; min-height:0; overflow-y:auto; overscroll-behavior:contain; padding:24px; overflow-wrap:anywhere; }
 .detail-drawer-body > :first-child { margin-top:0; }
@@ -52,5 +53,6 @@ html { scrollbar-gutter:stable; }
 @media (max-width:460px) { .connection-section { padding:15px; } .device-create { align-items:stretch; flex-direction:column; } .device-create .btn { width:100%; } }
 @keyframes detail-drawer-in { from { transform:translateX(24px); opacity:.85; } to { transform:translateX(0); opacity:1; } }
 @keyframes detail-backdrop-in { from { opacity:0; } to { opacity:1; } }
-@media (max-width:600px) { .detail-drawer { width:100%; border-left:0; } .detail-drawer-header { padding-inline:16px; } .detail-drawer-body { padding:20px 16px; } .detail-drawer .drawer-foot { padding-inline:16px; } }
-@media (prefers-reduced-motion:reduce) { .detail-drawer, .detail-drawer-backdrop { animation:none; } }
+@media (pointer:coarse), (max-width:600px) { .detail-drawer-close { width:44px; height:44px; } }
+@media (max-width:600px) { .detail-drawer { width:100%; border-left:0; } .detail-drawer-header { padding-inline:16px 10px; } .detail-drawer-body { padding:20px 16px; } .detail-drawer .drawer-foot { padding-inline:16px; } }
+@media (prefers-reduced-motion:reduce) { .detail-drawer, .detail-drawer-backdrop { animation:none; } .detail-drawer-close { transition:none; } }

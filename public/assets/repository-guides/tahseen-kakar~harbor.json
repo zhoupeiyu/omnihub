@@ -69,11 +69,13 @@
       "url": "/assets/repository-guides/media-a57f40d1d62c04915f90fd7e.webp",
       "alt": "thsnkhn/harbor 官方演示 1",
       "sourceUrl": "https://github.com/thsnkhn/harbor/blob/ad10ef4e480266e002672a0cfa3ae9573670a864/README.md?plain=1#L37",
-      "originalUrl": "https://raw.githubusercontent.com/thsnkhn/harbor/ad10ef4e480266e002672a0cfa3ae9573670a864/.github/assets/harbor-screenshot-rounded.png"
+      "originalUrl": "https://raw.githubusercontent.com/thsnkhn/harbor/ad10ef4e480266e002672a0cfa3ae9573670a864/.github/assets/harbor-screenshot-rounded.png",
+      "animated": false
     }
   ],
   "generatedBy": "claude-opus-5-5",
   "documentHash": "31b79ddacb36825893b8961f0327db5dee072cff131a3b8134cb3d17e207cd93",
   "mediaStatus": "archived",
-  "mediaFailures": []
+  "mediaFailures": [],
+  "mediaReferences": []
 }

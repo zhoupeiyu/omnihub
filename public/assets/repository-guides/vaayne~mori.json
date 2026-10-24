@@ -70,23 +70,51 @@
       "url": "/assets/repository-guides/media-486137c154fdc7ba0ab8dc61.webp",
       "alt": "vaayne/mori 官方演示 1",
       "sourceUrl": "https://github.com/vaayne/mori/blob/ff206eec6b7c62ccebfa0a8c38499d2792bfccfe/README.md?plain=1#L15",
-      "originalUrl": "https://raw.githubusercontent.com/vaayne/mori/ff206eec6b7c62ccebfa0a8c38499d2792bfccfe/docs/screenshots/light-mode.jpeg"
+      "originalUrl": "https://raw.githubusercontent.com/vaayne/mori/ff206eec6b7c62ccebfa0a8c38499d2792bfccfe/docs/screenshots/light-mode.jpeg",
+      "animated": false
     },
     {
       "url": "/assets/repository-guides/media-3aaa36faab2465dec17b3655.webp",
       "alt": "vaayne/mori 官方演示 2",
       "sourceUrl": "https://github.com/vaayne/mori/blob/ff206eec6b7c62ccebfa0a8c38499d2792bfccfe/README.md?plain=1#L15",
-      "originalUrl": "https://raw.githubusercontent.com/vaayne/mori/ff206eec6b7c62ccebfa0a8c38499d2792bfccfe/docs/screenshots/lazygit.png"
+      "originalUrl": "https://raw.githubusercontent.com/vaayne/mori/ff206eec6b7c62ccebfa0a8c38499d2792bfccfe/docs/screenshots/lazygit.png",
+      "animated": false
     },
     {
       "url": "/assets/repository-guides/media-59c4e3bddcc60680d687aaf2.webp",
       "alt": "vaayne/mori 官方演示 3",
       "sourceUrl": "https://github.com/vaayne/mori/blob/ff206eec6b7c62ccebfa0a8c38499d2792bfccfe/README.md?plain=1#L15",
-      "originalUrl": "https://raw.githubusercontent.com/vaayne/mori/ff206eec6b7c62ccebfa0a8c38499d2792bfccfe/docs/screenshots/settings.jpeg"
+      "originalUrl": "https://raw.githubusercontent.com/vaayne/mori/ff206eec6b7c62ccebfa0a8c38499d2792bfccfe/docs/screenshots/settings.jpeg",
+      "animated": false
+    },
+    {
+      "url": "/assets/repository-guides/media-605041daa61c61bd92104305.webp",
+      "alt": "Screenshots",
+      "sourceUrl": "https://github.com/vaayne/mori/blob/ff206eec6b7c62ccebfa0a8c38499d2792bfccfe/README.md#L15",
+      "originalUrl": "https://raw.githubusercontent.com/vaayne/mori/ff206eec6b7c62ccebfa0a8c38499d2792bfccfe/docs/screenshots/dark-mode.jpeg",
+      "animated": false
+    },
+    {
+      "url": "/assets/repository-guides/media-d23539b5364e3aec9a82b234.webp",
+      "alt": "Screenshots",
+      "sourceUrl": "https://github.com/vaayne/mori/blob/ff206eec6b7c62ccebfa0a8c38499d2792bfccfe/README.md#L15",
+      "originalUrl": "https://raw.githubusercontent.com/vaayne/mori/ff206eec6b7c62ccebfa0a8c38499d2792bfccfe/docs/screenshots/yazi.jpeg",
+      "animated": false
     }
   ],
   "generatedBy": "claude-opus-5-5",
   "documentHash": "f6067fa8be2b5c672d97eedb1e70395972a24c6f460865f567c5934d93dad869",
   "mediaStatus": "archived",
-  "mediaFailures": []
+  "mediaFailures": [
+    {
+      "sourceUrl": "https://github.com/vaayne/mori/blob/ff206eec6b7c62ccebfa0a8c38499d2792bfccfe/README.md#L2",
+      "reason": "unsupported_media_format"
+    }
+  ],
+  "mediaReferences": [
+    {
+      "label": "Mori",
+      "url": "https://github.com/vaayne/mori/blob/ff206eec6b7c62ccebfa0a8c38499d2792bfccfe/README.md#L2"
+    }
+  ]
 }

@@ -68,11 +68,13 @@
       "url": "/assets/repository-guides/media-2934ec150f1159cf245f0c18.webp",
       "alt": "stemdeckapp/stemdeck 官方演示 1",
       "sourceUrl": "https://github.com/stemdeckapp/stemdeck/blob/96647d715fc4a7e6abbcc4875016df1595fad58f/README.md?plain=1#L37",
-      "originalUrl": "https://raw.githubusercontent.com/stemdeckapp/stemdeck/96647d715fc4a7e6abbcc4875016df1595fad58f/imgs/screenshot/stemdeck.png"
+      "originalUrl": "https://raw.githubusercontent.com/stemdeckapp/stemdeck/96647d715fc4a7e6abbcc4875016df1595fad58f/imgs/screenshot/stemdeck.png",
+      "animated": false
     }
   ],
   "generatedBy": "claude-opus-5-5",
   "documentHash": "2bd0f6ebacee79720cac285c4007664cf9d8ba9d18e95046c3e412f01cd788c1",
   "mediaStatus": "archived",
-  "mediaFailures": []
+  "mediaFailures": [],
+  "mediaReferences": []
 }

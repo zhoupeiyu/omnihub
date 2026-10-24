@@ -1,7 +1,7 @@
 import { REPOSITORY_TOPICS as topics, REPOSITORY_FORMS, SUBTOPICS, isValidClassification } from './repository-taxonomy.js';
 import { readRepositoryLocation, repositoryLocation } from './repository-navigation.js';
 import { getRepositoryDescription, getRepositorySummary } from './repository-localization.js';
-import { getRepositoryGuide, loadRepositoryGuide, renderRepositoryGuide, renderGuideInstallation } from './repository-guides.js';
+import { getRepositoryGuide, loadRepositoryGuide, renderRepositoryGuide, renderGuideInstallation, renderRepositoryGuideMeta, renderRepositoryGuideSources } from './repository-guides.js';
 
 // Optional reading notes; repository classifications always come from the database.
 const notes = [
@@ -35,10 +35,30 @@ const notes = [
 ];
 const editorial = new Map(notes.map(([key, groups, form, subject, summary, idea], rank) => [key, { groups, form, subject, summary, idea, rank }]));
 const topicById = new Map(topics.map(topic => [topic.id, topic]));
-export function mountRepositoryExplorer(root, { query = '', onQueryChange = () => {}, onNavigationChange = () => {}, repositories = null, active = true, onCorrectClassification = null, onPreviewMedia = null } = {}) {
+export function canFocusRepositorySearch(event, { active, detailOpen, editable, overlayOpen }) {
+  return active && !detailOpen && !editable && !overlayOpen && event.key === '/'
+    && !event.defaultPrevented && !event.isComposing && !event.repeat
+    && !event.ctrlKey && !event.metaKey && !event.altKey;
+}
+export function groupRepositoriesByOwner(repositories) {
+  const groups = new Map();
+  for (const repository of repositories) {
+    const key = repository.owner.toLowerCase();
+    if (!groups.has(key)) groups.set(key, {key, owner:repository.owner, repositories:[]});
+    groups.get(key).repositories.push(repository);
+  }
+  return [...groups.values()].sort((a,b) => a.key.localeCompare(b.key, 'en'));
+}
+export function repositoryDetailWidthLimits(viewportWidth) {
+  const defaultWidth = Math.min(680, viewportWidth);
+  // Preserve the existing readable drawer on smaller screens; on wide
+  // desktops it can grow to half the viewport without covering the catalogue.
+  return {enabled:viewportWidth > 860, defaultWidth, min:Math.min(420,defaultWidth), max:Math.max(defaultWidth,Math.floor(viewportWidth / 2))};
+}
+export function mountRepositoryExplorer(root, { query = '', onQueryChange = () => {}, repositories = null, active = true, onCorrectClassification = null, onPreviewMedia = null } = {}) {
 const lifetime = new AbortController();
 const listen = (target, type, callback, options = {}) => target.addEventListener(type, callback, { ...options, signal: lifetime.signal });
-const state = { repositories: [], section: query ? 'all' : 'overview', query, form: 'all', use: 'all', sort: 'default', detail:'', limit: 36, ...readRepositoryLocation(window.location.hash) };
+const state = { repositories: [], section: query ? 'all' : 'overview', query, form: 'all', use: 'all', sort: 'default', group:'owner', detail:'', limit: 36, ...readRepositoryLocation(window.location.hash) };
 let currentLocation = window.location.hash;
 let savedScroll = 0;
 let restoringPosition = false;
@@ -54,7 +74,7 @@ function restorePosition(top) {
   restoringPosition = true;
   requestAnimationFrame(() => {
     if (active) window.scrollTo({top,behavior:'instant'});
-    requestAnimationFrame(() => { restoringPosition = false; });
+    requestAnimationFrame(() => { restoringPosition = false; updateContinuation(); });
   });
 }
 function writeLocation(mode = 'push', historyState = null) {
@@ -66,6 +86,36 @@ function writeLocation(mode = 'push', historyState = null) {
 }
 listen(window, 'scroll', rememberPosition, { passive:true });
 const $ = id => root.getElementById(id);
+let resultItems = [];
+let renderedCount = 0;
+const resultsEnd = $('results-end');
+const moreObserver = new IntersectionObserver(entries => {
+  if (entries.some(entry => entry.isIntersecting)) appendMoreResults();
+}, {rootMargin:'0px 0px 160px 0px'});
+function updateContinuation() {
+  moreObserver.disconnect();
+  const hasMore = renderedCount < resultItems.length;
+  resultsEnd.hidden = resultItems.length <= 36;
+  resultsEnd.textContent = hasMore ? '继续下滑，查看更多' : '已显示全部';
+  if (hasMore && active && !restoringPosition && !state.detail && !document.hidden && !lifetime.signal.aborted) moreObserver.observe(resultsEnd);
+}
+function appendMoreResults() {
+  if (!active || restoringPosition || state.detail || document.hidden || lifetime.signal.aborted || renderedCount >= resultItems.length) return;
+  // Recheck the current layout: an observer entry can predate a filter or tab change.
+  const bounds = resultsEnd.getBoundingClientRect();
+  if (resultsEnd.hidden || !resultsEnd.getClientRects().length || bounds.top > window.innerHeight + 160 || bounds.bottom < 0) return;
+  moreObserver.disconnect();
+  const next = resultItems.slice(renderedCount, renderedCount + 36);
+  const grouped = state.group === 'owner';
+  const container = $('results').querySelector(grouped ? '.owner-groups' : '.repo-grid');
+  // Append only, preserving existing card nodes, focus and the reader's scroll position.
+  container.insertAdjacentHTML('beforeend', next.map((item,index) => grouped ? ownerGroup(item,renderedCount + index) : card(item)).join(''));
+  renderedCount += next.length;
+  state.limit = renderedCount;
+  updateContinuation();
+  rememberPosition();
+}
+listen(document, 'visibilitychange', updateContinuation);
 const escapeHtml = value => String(value ?? '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[c]);
 const safeUrl = value => { try { const u = new URL(value); return ['https:', 'http:'].includes(u.protocol) ? escapeHtml(u.href) : ''; } catch { return ''; } };
 const styleFor = id => { const t = topicById.get(id); return t ? `--topic-color:${t.color};--topic-bg:${t.background}` : ''; };
@@ -84,9 +134,23 @@ const getNote = repo => {
   };
 };
 const groupsFor = id => state.repositories.filter(repo => getNote(repo)?.groups.includes(id));
-const curated = () => state.repositories.filter(getNote);
 const unfiled = () => state.repositories.filter(repo => !getNote(repo));
 const link = (url, label, className = '') => { const href = safeUrl(url); return href ? `<a class="${className}" href="${href}" target="_blank" rel="noopener noreferrer">${escapeHtml(label)}</a>` : escapeHtml(label); };
+
+function renderRepositoryCollectionSources(detail) {
+  const keyFor = value => String(value || '').replace(/\/#readme$|#readme$/i,'').replace(/\/$/,'').toLowerCase();
+  const seen = new Set([keyFor(`https://github.com/${detail.key}`)]);
+  const unique = items => items.filter(item => {
+    const key = keyFor(item.url);
+    if (!safeUrl(item.url) || seen.has(key)) return false;
+    seen.add(key);
+    return true;
+  });
+  const sources = unique(Array.isArray(detail.sources) ? detail.sources : []);
+  const links = unique(Array.isArray(detail.targetLinks) ? detail.targetLinks : []);
+  if (!sources.length && !links.length) return '';
+  return `<div class="collection-sources"><h4>收藏来源</h4><div class="source-list">${sources.map(source => `<article class="source-item"><div class="source-author">${escapeHtml(source.author)}</div>${link(source.url,`${source.title || '查看原始收藏'} ↗`)}${source.excerpt ? `<p>${escapeHtml(source.excerpt)}</p>` : ''}</article>`).join('')}${links.map(item => `<div class="source-item">${link(item.url,`${item.url} ↗`)}</div>`).join('')}</div></div>`;
+}
 const icon = name => {
   // Reused paths from the existing public/icons.jsx system, not a new icon set.
   const paths = { search: '<circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/>', book: '<path d="M2 4h6a4 4 0 0 1 4 4v13a3 3 0 0 0-3-3H2z"/><path d="M22 4h-6a4 4 0 0 0-4 4v13a3 3 0 0 1 3-3h7z"/>', bookmark: '<path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/>', inbox: '<path d="M4 4h16l2 9v6a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2v-6z"/><path d="M2 13h5l2 3h6l2-3h5"/>' };
@@ -95,6 +159,70 @@ const icon = name => {
 const avatar = repo => `<span class="avatar" aria-hidden="true">${escapeHtml(repo.owner.slice(0,1).toUpperCase())}<img loading="lazy" referrerpolicy="no-referrer" src="https://github.com/${encodeURIComponent(repo.owner)}.png?size=80" alt=""></span>`;
 listen(root, 'error', event => { if (event.target instanceof HTMLImageElement && event.target.closest('.avatar')) event.target.remove(); }, { capture: true });
 $('search-icon').innerHTML = icon('search');
+$('results').dataset.view = 'cards';
+// As in the life-guide filters, a visible value sizes the control while the native select handles input.
+const filterControls = [...root.querySelectorAll('.filters select')].map(select => {
+  const control = document.createElement('span');
+  control.className = 'filter-select';
+  const value = document.createElement('span');
+  value.className = 'filter-value';
+  value.setAttribute('aria-hidden', 'true');
+  const arrow = document.createElement('span');
+  arrow.className = 'filter-arrow';
+  arrow.setAttribute('aria-hidden', 'true');
+  select.replaceWith(control);
+  control.append(value, arrow, select);
+  return {select,control,value};
+});
+const topicTabs = $('topic-tabs');
+function updateTopicOverflow() {
+  $('topic-scroll-controls').hidden = topicTabs.scrollWidth <= topicTabs.parentElement.clientWidth + 1;
+  $('topics-prev').disabled = topicTabs.scrollLeft <= 1;
+  $('topics-next').disabled = topicTabs.scrollLeft + topicTabs.clientWidth >= topicTabs.scrollWidth - 1;
+}
+function revealTopicTab(tab) {
+  const frame = topicTabs.getBoundingClientRect();
+  const item = tab.getBoundingClientRect();
+  if (item.left < frame.left) topicTabs.scrollLeft += item.left - frame.left;
+  else if (item.right > frame.right) topicTabs.scrollLeft += item.right - frame.right;
+  updateTopicOverflow();
+}
+const topicResize = new ResizeObserver(() => {
+  updateTopicOverflow();
+  const selected = topicTabs.querySelector('[aria-selected="true"]');
+  if (active && selected) revealTopicTab(selected);
+});
+topicResize.observe(topicTabs);
+listen(topicTabs, 'scroll', updateTopicOverflow, {passive:true});
+for (const [id, direction] of [['topics-prev', -1], ['topics-next', 1]]) {
+  listen($(id), 'click', () => topicTabs.scrollBy({left:direction * topicTabs.clientWidth * .75, behavior:window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'instant' : 'smooth'}));
+}
+listen(topicTabs, 'keydown', event => {
+  if (event.altKey || event.ctrlKey || event.metaKey || event.isComposing) return;
+  const tab = event.target.closest('[role="tab"]');
+  if (!tab) return;
+  const tabs = [...topicTabs.querySelectorAll('[role="tab"]')];
+  const index = tabs.indexOf(tab);
+  const next = event.key === 'Home' ? 0 : event.key === 'End' ? tabs.length - 1
+    : event.key === 'ArrowRight' ? (index + 1) % tabs.length
+    : event.key === 'ArrowLeft' ? (index - 1 + tabs.length) % tabs.length : -1;
+  if (next < 0) return;
+  event.preventDefault();
+  tabs.forEach((button,i) => { button.tabIndex = i === next ? 0 : -1; });
+  tabs[next].focus({preventScroll:true});
+  revealTopicTab(tabs[next]);
+});
+listen(window, 'keydown', event => {
+  if (event.key !== '/' || !active) return;
+  const target = event.composedPath()[0];
+  const editable = target?.isContentEditable || Boolean(target?.closest?.('input, textarea, select, [role="textbox"], [contenteditable]:not([contenteditable="false"])'));
+  const overlayOpen = document.body.dataset.detailDrawerOpen === 'true'
+    || Boolean(root.host?.closest('[inert]'))
+    || [...document.querySelectorAll('[aria-modal="true"], dialog[open], .modal-overlay, .lightbox, .inbox-media-overlay')].some(element => element.getClientRects().length);
+  if (!canFocusRepositorySearch(event, { active, detailOpen:Boolean(state.detail), editable, overlayOpen })) return;
+  event.preventDefault();
+  $('search').focus();
+});
 $('form-filter').innerHTML = '<option value="all">全部形态</option>' + Object.entries(REPOSITORY_FORMS).map(([id,label])=>`<option value="${id}">${label}</option>`).join('');
 
 function renderUseFilter() {
@@ -113,17 +241,36 @@ function renderUseFilter() {
 }
 
 function renderNavigation() {
-  onNavigationChange({ current:state.section, items:[
+  const items = [
     { id:'overview', title:'专题总览' }, { id:'all', title:'全部仓库', count:state.repositories.length },
     ...topics.map(topic => ({ id:topic.id, title:topic.title, count:groupsFor(topic.id).length, color:topic.color })),
     ...(unfiled().length ? [{ id:'unfiled', title:'待整理', count:unfiled().length }] : []),
-  ] });
-  $('mobile-section').innerHTML = `<option value="overview">专题浏览</option><option value="all">全部仓库 · ${state.repositories.length}</option>${topics.map(t => `<option value="${t.id}">${t.title} · ${groupsFor(t.id).length}</option>`).join('')}${unfiled().length ? `<option value="unfiled">尚未归入专题 · ${unfiled().length}</option>` : ''}`;
-  $('mobile-section').value = state.section;
+  ];
+  const sections = items.map(item => item.id).join('|');
+  if (topicTabs.dataset.sections !== sections) {
+    topicTabs.innerHTML = items.map(item => `<button type="button" class="topic-tab" id="repository-tab-${item.id}" role="tab" aria-controls="repository-panel" aria-selected="false" tabindex="-1" data-section="${item.id}" style="${styleFor(item.id)}">${item.color ? '<span class="tab-dot" aria-hidden="true"></span>' : ''}${escapeHtml(item.title)}</button>`).join('');
+    topicTabs.dataset.sections = sections;
+  }
+  for (const tab of topicTabs.children) {
+    const selected = tab.dataset.section === state.section;
+    tab.setAttribute('aria-selected', String(selected));
+    tab.tabIndex = selected ? 0 : -1;
+  }
+  $('repository-panel').setAttribute('aria-labelledby', `repository-tab-${state.section}`);
+  updateTopicOverflow();
+  if (topicTabs.dataset.section !== state.section) {
+    topicTabs.dataset.section = state.section;
+    revealTopicTab($(`repository-tab-${state.section}`));
+  }
 }
 function card(repo) {
   const note = getNote(repo);
-  return `<button class="repo-card${state.detail === repo.key ? ' selected' : ''}" style="${styleFor(note?.groups[0])}" data-repo="${escapeHtml(repo.key)}" aria-controls="repo-dialog" aria-expanded="${state.detail === repo.key}" aria-label="查看 ${escapeHtml(repo.name)} 详情"><span class="card-top">${avatar(repo)}<span class="card-heading"><h3>${escapeHtml(repo.name)}</h3><span class="owner">${escapeHtml(repo.owner)}</span></span><span class="card-arrow" aria-hidden="true">›</span></span><p class="repo-description">${escapeHtml(getRepositorySummary(repo, note?.summary))}</p><span class="card-bottom">${note ? `<span class="tag form">${note.form}</span><span class="tag">${note.subject}</span>` : '<span class="tag">待细分用途</span>'}</span></button>`;
+  const primaryUse = note?.uses[0] ? SUBTOPICS.get(note.uses[0]).label : '';
+  return `<button class="repo-card${state.detail === repo.key ? ' selected' : ''}" style="${styleFor(note?.groups[0])}" data-repo="${escapeHtml(repo.key)}" aria-controls="repo-dialog" aria-expanded="${state.detail === repo.key}" aria-label="查看 ${escapeHtml(repo.name)} 详情"><span class="card-top">${avatar(repo)}<span class="card-heading"><h3>${escapeHtml(repo.name)}</h3><span class="owner">${escapeHtml(repo.owner)}</span></span></span><p class="repo-description">${escapeHtml(getRepositorySummary(repo, note?.summary))}</p><span class="card-bottom"><span class="card-tags">${note ? `<span class="tag form">${escapeHtml(note.form)}</span><span class="tag" title="${escapeHtml(note.subject)}">${escapeHtml(primaryUse)}${note.uses.length > 1 ? ` +${note.uses.length - 1}` : ''}</span>` : '<span class="tag">待细分用途</span>'}</span><span class="card-action" aria-hidden="true"><span class="card-action-label">查看详情</span><span class="card-arrow">↗</span></span></span></button>`;
+}
+function ownerGroup(group, index) {
+  const titleId = `owner-group-${index}`;
+  return `<section class="owner-group" data-owner="${escapeHtml(group.key)}" aria-labelledby="${titleId}"><header class="owner-group-heading">${avatar(group.repositories[0])}<h3 id="${titleId}">${link(`https://github.com/${encodeURIComponent(group.owner)}`,escapeHtml(group.owner),'owner-profile')}</h3><span class="owner-count">${group.repositories.length} 个仓库</span></header><div class="repo-grid">${group.repositories.map(card).join('')}</div></section>`;
 }
 function filterRepositories(input) {
   const query = state.query.trim().toLocaleLowerCase();
@@ -139,29 +286,35 @@ function filterRepositories(input) {
   return output;
 }
 function render() {
+  moreObserver.disconnect();
+  resultItems = [];
+  renderedCount = 0;
   renderNavigation();
   renderUseFilter();
   const isOverview = state.section === 'overview' && !state.query && state.form === 'all' && state.use === 'all';
   const topic = topicById.get(state.section);
-  $('repository-breadcrumb').innerHTML = `<button data-section="overview">仓库库</button><span aria-hidden="true">/</span><span aria-current="page">${topic?.title || (state.section === 'all' ? '全部仓库' : state.section === 'unfiled' ? '待整理' : '专题总览')}</span>`;
+  $('main').classList.toggle('is-overview', isOverview);
   const searchLabel = topic ? `在${topic.title}中搜索` : '搜索全部仓库';
-  $('search').placeholder = `${searchLabel}：名称、用途、关键词`;
+  $('search').placeholder = topic ? '搜索当前专题' : '搜索名称、用途或关键词';
   $('search').setAttribute('aria-label', searchLabel);
   $('search-all').hidden = !topic || !state.query;
-  $('page-title').textContent = isOverview ? '把收藏，变成手边的工具。' : topic?.title || (state.section === 'unfiled' ? '给这些收藏，找个位置。' : '全部仓库');
-  $('page-description').textContent = isOverview ? '按用途、细分类别和工具形态，找到这次用得上的收藏。' : topic?.description || (state.section === 'unfiled' ? '这些新仓库还需要核对用途，原有介绍和来源都在。' : '所有可见仓库都在这里；可以搜索名称，也可以组合用途与形态筛选。');
-  $('total-count').textContent = topic ? groupsFor(topic.id).length : state.repositories.length;
-  $('total-count').nextElementSibling.textContent = topic ? '个专题仓库' : '个已收藏仓库';
-  $('overview').hidden = !isOverview;
-  $('overview').innerHTML = isOverview ? `<h2 class="topics-heading">今天，想做点什么？<span>${topics.length} 个用途专题 · 可交叉查找</span></h2><div class="topic-grid">${topics.map(t => `<button class="topic-tile" style="${styleFor(t.id)}" data-section="${t.id}"><div class="topic-tile-head"><span class="dot"></span><h3>${t.title}</h3><span class="topic-count">${groupsFor(t.id).length}</span><span class="topic-arrow" aria-hidden="true">›</span></div><p>${t.description}</p></button>`).join('')}</div>` : '';
-  $('results-title').textContent = isOverview ? '从这些工具开始' : state.query ? '搜索结果' : '专题里的仓库';
-  if (!isOverview && !topic && !state.query) $('results-title').textContent = '浏览仓库';
+  $('total-count').textContent = state.repositories.length;
+  $('results-title').textContent = state.query ? '搜索结果' : isOverview ? '工具速览' : topic?.title || (state.section === 'unfiled' ? '待整理' : '全部仓库');
   $('form-filter').value = state.form;
   $('sort').value = state.sort;
+  $('group-filter').hidden = isOverview;
+  $('group-filter').value = state.group;
+  const grouped = !isOverview && state.group === 'owner';
+  $('sort').querySelector('option[value="default"]').textContent = grouped ? '组内默认顺序' : '专题顺序';
+  $('sort').querySelector('option[value="name"]').textContent = grouped ? '组内名称 A–Z' : '名称 A–Z';
+  for (const {select,control,value} of filterControls) {
+    control.hidden = select.hidden || (isOverview && ['use-filter','form-filter'].includes(select.id));
+    value.textContent = select.selectedOptions[0]?.textContent || '';
+  }
   $('clear').hidden = !state.query && state.form === 'all' && state.use === 'all';
   $('results').classList.toggle('overview-results', isOverview);
   if (isOverview) {
-    $('result-count').textContent = `${curated().length} 个已分类`;
+    $('result-count').textContent = `${topics.length} 个专题`;
     $('results').innerHTML = topics.map(t => {
       const repos = filterRepositories(groupsFor(t.id));
       return `<section class="repository-section"><div class="section-title"><span class="dot" style="${styleFor(t.id)}"></span><h3>${t.title}</h3><span class="section-line"></span><button data-section="${t.id}">查看 ${repos.length} 个 →</button></div><div class="repo-grid">${repos.slice(0,3).map(card).join('')}</div></section>`;
@@ -170,10 +323,17 @@ function render() {
     const pool = state.section === 'unfiled' ? unfiled() : topic ? groupsFor(topic.id) : state.repositories;
     const repos = filterRepositories(pool);
     $('result-count').textContent = `${repos.length} 个仓库`;
-    $('results').innerHTML = repos.length ? `<div class="repo-grid">${repos.slice(0,state.limit).map(card).join('')}</div>${repos.length > state.limit ? `<button class="load-more" data-more>再看 ${Math.min(36,repos.length-state.limit)} 个 · 已显示 ${state.limit} / ${repos.length}</button>` : ''}` : '<div class="empty-state"><h2>这次没有找到匹配的仓库</h2><p>试试更短的关键词，或清除形态筛选。</p><button class="text-button" data-reset>清除搜索与筛选</button></div>';
+    if (!repos.length) {
+      $('results').innerHTML = '<div class="empty-state"><h2>这次没有找到匹配的仓库</h2><p>试试更短的关键词，或清除形态筛选。</p><button class="text-button" data-reset>清除搜索与筛选</button></div>';
+    } else {
+      // Paginate complete owner groups so one author's repositories never split across batches.
+      resultItems = grouped ? groupRepositoriesByOwner(repos) : repos;
+      renderedCount = Math.min(state.limit, resultItems.length);
+      $('results').innerHTML = `<div class="${grouped ? 'owner-groups' : 'repo-grid'}">${resultItems.slice(0,renderedCount).map(grouped ? ownerGroup : card).join('')}</div>`;
+    }
   }
   $('results').setAttribute('aria-busy', 'false');
-  $('coverage').textContent = `已分类 ${curated().length} / ${state.repositories.length} 个可见仓库${unfiled().length ? `，${unfiled().length} 个待整理` : ''}。分类已保存到知识库；同一仓库可属于多个用途，专题数量不相加。原始收藏、介绍与链接均保留。分类不代表已实测或链接全部有效。`;
+  updateContinuation();
 }
 function changeSection(section) {
   if (!['overview','all','unfiled',...topicById.keys()].includes(section)) return;
@@ -188,14 +348,21 @@ function changeSection(section) {
 }
 function clearFilters() { rememberPosition(); state.query = ''; state.form = 'all'; state.use = 'all'; state.limit = 36; $('search').value = ''; onQueryChange(''); render(); writeLocation(); }
 listen(root, 'click', event => {
-  const target = event.target.closest('[data-section],[data-use],[data-repo],[data-more],[data-reset],[data-retry-detail],[data-retry],[data-correct-classification],[data-repo-media],[data-guide-copy]');
+  const target = event.target.closest('[data-section],[data-use],[data-repo],[data-reset],[data-retry-detail],[data-retry],[data-correct-classification],[data-repo-media],[data-guide-copy],[data-view]');
   if (!target) return;
+  if (target.hasAttribute('data-view')) {
+    const view = target.dataset.view;
+    if (!['cards','list'].includes(view)) return;
+    $('results').dataset.view = view;
+    root.querySelectorAll('button[data-view]').forEach(button => button.setAttribute('aria-pressed', String(button.dataset.view === view)));
+    return;
+  }
   if (target.hasAttribute('data-repo-media')) {
     const media = getRepositoryGuide(state.detail)?.media || [];
     const index = Number(target.dataset.repoMedia);
     if (onPreviewMedia && Number.isInteger(index) && media[index]) {
       event.preventDefault();
-      onPreviewMedia({media,index,returnFocus:target,label:'仓库效果图'});
+      onPreviewMedia({media,index,returnFocus:target,label:'仓库素材'});
     }
     return;
   }
@@ -213,7 +380,6 @@ listen(root, 'click', event => {
   if (target.hasAttribute('data-section')) changeSection(target.dataset.section);
   if (target.hasAttribute('data-use')) { state.use = target.dataset.use; state.limit = 36; render(); writeLocation(); root.querySelector(`[data-use="${state.use}"]`)?.focus({preventScroll:true}); }
   if (target.hasAttribute('data-repo')) openDetail(target.dataset.repo);
-  if (target.hasAttribute('data-more')) { state.limit += 36; render(); rememberPosition(); }
   if (target.hasAttribute('data-reset')) clearFilters();
   if (target.hasAttribute('data-retry')) load();
   if (target.hasAttribute('data-retry-detail')) openDetail(target.dataset.retryDetail);
@@ -231,7 +397,6 @@ listen(root, 'error', event => {
   image.parentElement.classList.add('image-unavailable');
   image.parentElement.querySelector('span').textContent = `${image.alt} · 图片暂时无法加载`;
 }, {capture:true});
-listen($('mobile-section'), 'change', event => changeSection(event.target.value));
 let searchHistoryStarted = false;
 listen($('search'), 'focus', () => { searchHistoryStarted = false; });
 listen($('search'), 'input', event => { rememberPosition(); state.query = event.target.value; if (state.section === 'overview') state.section = 'all'; state.limit = 36; onQueryChange(state.query); render(); writeLocation(searchHistoryStarted ? 'replace' : 'push'); searchHistoryStarted = true; });
@@ -239,16 +404,89 @@ listen($('search-all'), 'click', () => { rememberPosition(); state.section = 'al
 listen($('form-filter'), 'change', event => { rememberPosition(); state.form = event.target.value; state.limit = 36; if (state.section === 'overview') state.section = 'all'; render(); writeLocation(); });
 listen($('use-filter'), 'change', event => { rememberPosition(); state.use = event.target.value; state.limit = 36; if (state.section === 'overview') state.section = 'all'; render(); writeLocation(); });
 listen($('sort'), 'change', event => { rememberPosition(); state.sort = event.target.value; state.limit = 36; render(); writeLocation(); });
+listen($('group-filter'), 'change', event => {
+  if (!['owner','none'].includes(event.target.value)) return;
+  rememberPosition();
+  state.group = event.target.value;
+  state.limit = 36;
+  render();
+});
 listen($('clear'), 'click', clearFilters);
 
 let detailRequest;
 const detailCache = new Map();
 const dialog = $('repo-dialog');
 const detailLayer = $('repo-detail-layer');
+const detailResizeHandle = $('resize-detail');
+let preferredDetailWidth = null;
+let detailResize = null;
+let detailResizeFrame = 0;
+let pendingDetailWidth = null;
+function syncDetailWidth() {
+  const limits = repositoryDetailWidthLimits(window.innerWidth);
+  const width = preferredDetailWidth === null ? limits.defaultWidth : Math.max(limits.min,Math.min(limits.max,preferredDetailWidth));
+  if (limits.enabled && preferredDetailWidth !== null) dialog.style.setProperty('--repository-detail-width',`${width}px`);
+  else dialog.style.removeProperty('--repository-detail-width');
+  detailResizeHandle.hidden = !limits.enabled;
+  detailResizeHandle.setAttribute('aria-valuemin',String(limits.min));
+  detailResizeHandle.setAttribute('aria-valuemax',String(limits.max));
+  detailResizeHandle.setAttribute('aria-valuenow',String(Math.round(width)));
+  detailResizeHandle.setAttribute('aria-valuetext',`${Math.round(width)} 像素`);
+}
+function setDetailWidth(width) {
+  const limits = repositoryDetailWidthLimits(window.innerWidth);
+  preferredDetailWidth = width === null ? null : Math.max(limits.min,Math.min(limits.max,width));
+  syncDetailWidth();
+}
+function flushDetailResize() {
+  cancelAnimationFrame(detailResizeFrame);
+  detailResizeFrame = 0;
+  if (pendingDetailWidth !== null) setDetailWidth(pendingDetailWidth);
+  pendingDetailWidth = null;
+}
+function stopDetailResize(cancel = false) {
+  const drag = detailResize;
+  detailResize = null;
+  if (cancel && drag) { pendingDetailWidth = null; setDetailWidth(drag.previousWidth); }
+  flushDetailResize();
+  dialog.classList.remove('is-resizing');
+  if (drag && detailResizeHandle.hasPointerCapture(drag.pointerId)) detailResizeHandle.releasePointerCapture(drag.pointerId);
+}
+listen(detailResizeHandle, 'pointerdown', event => {
+  if (event.button !== 0 || !event.isPrimary || !repositoryDetailWidthLimits(window.innerWidth).enabled) return;
+  event.preventDefault();
+  detailResizeHandle.focus({preventScroll:true});
+  detailResize = {pointerId:event.pointerId, x:event.clientX, width:dialog.getBoundingClientRect().width, previousWidth:preferredDetailWidth};
+  detailResizeHandle.setPointerCapture(event.pointerId);
+  dialog.classList.add('is-resizing');
+});
+listen(detailResizeHandle, 'pointermove', event => {
+  if (!detailResize || event.pointerId !== detailResize.pointerId) return;
+  pendingDetailWidth = detailResize.width + detailResize.x - event.clientX;
+  if (!detailResizeFrame) detailResizeFrame = requestAnimationFrame(flushDetailResize);
+});
+listen(detailResizeHandle, 'pointerup', () => stopDetailResize());
+listen(detailResizeHandle, 'pointercancel', () => stopDetailResize(true));
+listen(detailResizeHandle, 'lostpointercapture', () => stopDetailResize());
+listen(detailResizeHandle, 'dblclick', () => { stopDetailResize(); setDetailWidth(null); });
+listen(detailResizeHandle, 'keydown', event => {
+  if (event.key === 'Escape' && detailResize) {
+    event.preventDefault(); event.stopPropagation(); stopDetailResize(true); return;
+  }
+  const limits = repositoryDetailWidthLimits(window.innerWidth);
+  if (!limits.enabled || !['ArrowLeft','ArrowRight','Home','End','Enter'].includes(event.key)) return;
+  event.preventDefault(); event.stopPropagation();
+  const width = dialog.getBoundingClientRect().width;
+  const step = event.shiftKey ? 64 : 24;
+  setDetailWidth(event.key === 'Enter' ? null : event.key === 'Home' ? limits.min : event.key === 'End' ? limits.max : width + (event.key === 'ArrowLeft' ? step : -step));
+});
+listen(window, 'resize', () => { stopDetailResize(); syncDetailWidth(); });
+syncDetailWidth();
 let releaseDrawer;
 let returnFocusKey = '';
-function releaseDetailShell() { releaseDrawer?.(); releaseDrawer = null; }
+function releaseDetailShell() { stopDetailResize(); releaseDrawer?.(); releaseDrawer = null; }
 function showDetailShell() {
+  syncDetailWidth();
   detailLayer.hidden = !active;
   if (active && !releaseDrawer) releaseDrawer = window.OmniDetailDrawer.mount(dialog, closeDetail);
   else if (active && !dialog.contains(window.OmniDetailDrawer.activeElement())) dialog.focus({preventScroll:true});
@@ -264,6 +502,7 @@ function hideDetail() {
   releaseDetailShell();
   detailRequest?.abort();
   markSelectedCard();
+  updateContinuation();
 }
 function closeDetail() {
   rememberPosition();
@@ -285,7 +524,7 @@ function detailMarkup(repo) {
   const summary = guide?.summary || getRepositorySummary(repo, note?.summary);
   const official = ['github_description','github_readme'].includes(repo.metadata?.descriptionProvenance);
   const readmeUrl = `${repo.repositoryUrl.replace(/\/$/,'')}#readme`;
-  return `<div class="detail-head">
+  return `<div class="detail-head" style="${styleFor(note?.groups[0])}">
     <div class="detail-identity">${avatar(repo)}<div>
       <h2 id="detail-title">${escapeHtml(repo.name)}${link(repo.repositoryUrl,'↗','repository-link').replace('class="repository-link"','class="repository-link" aria-label="在 GitHub 打开仓库（新标签页）" title="在 GitHub 打开仓库"')}</h2>
       <span class="owner">${escapeHtml(repo.owner)} / ${escapeHtml(repo.name)}</span>
@@ -293,6 +532,13 @@ function detailMarkup(repo) {
     <p class="detail-summary" id="detail-summary" ${summary === description.text ? 'hidden' : ''}>${escapeHtml(summary)}</p>
     <div class="detail-tags">${note ? `<span class="tag">${escapeHtml(note.form)}</span><span class="tag">${escapeHtml(note.subject)}</span>` : '<span class="tag">用途尚未细分</span>'}</div>
     ${onCorrectClassification ? '<button class="inline-link" data-correct-classification>调整归类</button>' : ''}
+    <div class="detail-meta">
+      <div id="detail-guide-meta">${renderRepositoryGuideMeta(guide,{readmeUrl})}</div>
+      <details class="detail-sources"><summary>资料来源</summary><div class="detail-sources-content">
+        <div id="detail-guide-sources">${renderRepositoryGuideSources(guide)}</div>
+        <div id="detail-collection-sources"><p class="detail-loading" role="status">正在读取收藏来源…</p></div>
+      </div></details>
+    </div>
   </div>
   <div class="detail-body">
     ${repo.metadata?.classification?.linkStatus ? `<section class="detail-section"><h3>原链接需核对</h3><p class="detail-hint">${repo.metadata.classification.linkStatus === 'truncated' ? '原收藏中的仓库路径被截断，已保留原始入口。' : '整理时未能读取该仓库，可能已改名、转为私有或失效。'} 用途已依据可用资料归类，不代表当前可以直接使用。</p>${repo.metadata.classification.candidateUrl ? link(repo.metadata.classification.candidateUrl,'核对相关官方仓库 ↗','inline-link') : ''}</section>` : ''}
@@ -304,15 +550,14 @@ function detailMarkup(repo) {
       ${link(readmeUrl,'查看官方使用说明 ↗','inline-link')}
     </section>`}</div>
     ${repo.personalNote ? `<section class="detail-section"><h3>我的笔记</h3><p>${escapeHtml(repo.personalNote)}</p></section>` : ''}
-    <div id="detail-evidence"><p class="detail-loading" role="status">正在读取关联知识与原始来源…</p></div>
+    <div id="detail-evidence"></div>
   </div>`;
 }
 function evidenceMarkup(detail) {
-  const sources = Array.isArray(detail.sources) ? detail.sources : [];
   const knowledge = Array.isArray(detail.relatedKnowledge) ? detail.relatedKnowledge : [];
-  const links = Array.isArray(detail.targetLinks) ? detail.targetLinks : [];
-  return `${knowledge.length ? `<section class="detail-section"><h3>已整理成的知识</h3>${knowledge.map(article => `<article class="related-knowledge"><h4>${escapeHtml(article.title)}</h4><p>${escapeHtml(article.summary)}</p></article>`).join('')}</section>` : ''}<section class="detail-section"><details><summary>原始收藏与引用 · ${sources.length} 条来源${links.length ? ` · ${links.length} 个保存入口` : ''}</summary><div class="source-list">${sources.map(source => `<article class="source-item"><div class="source-author">${escapeHtml(source.author)}</div>${link(source.url,`${source.title || '查看原始收藏'} ↗`)}<p>${escapeHtml(source.excerpt)}</p></article>`).join('') || '<p class="detail-hint">没有可展示的来源。</p>'}${links.map(item => `<div class="source-item">${link(item.url,`${item.url} ↗`)}</div>`).join('')}</div></details></section>`;
+  return knowledge.length ? `<section class="detail-section"><h3>已整理成的知识</h3>${knowledge.map(article => `<article class="related-knowledge"><h4>${escapeHtml(article.title)}</h4><p>${escapeHtml(article.summary)}</p></article>`).join('')}</section>` : '';
 }
+
 async function openDetail(key, fromHistory = false) {
   const repo = state.repositories.find(item => item.key === key);
   if (!repo) return;
@@ -321,6 +566,7 @@ async function openDetail(key, fromHistory = false) {
   const wasOpen = Boolean(state.detail);
   const parent = window.history.state?.repositoryDetailParent || repositoryLocation({...state,detail:''}, window.location.hash);
   state.detail = key;
+  moreObserver.disconnect();
   if (!fromHistory) writeLocation(wasOpen ? 'replace' : 'push', {repositoryDetailParent:parent});
   detailRequest?.abort();
   const controller = new AbortController();
@@ -344,6 +590,8 @@ async function openDetail(key, fromHistory = false) {
     }
     const guideContainer = $('detail-guide');
     if (guideContainer) guideContainer.innerHTML = renderRepositoryGuide(guide,{introFallback:getRepositoryDescription(repo).text});
+    $('detail-guide-meta').innerHTML = renderRepositoryGuideMeta(guide);
+    $('detail-guide-sources').innerHTML = renderRepositoryGuideSources(guide);
     const summaryNode = $('detail-summary');
     const description = getRepositoryDescription(repo);
     if (summaryNode && guide.summary) {
@@ -363,13 +611,18 @@ async function openDetail(key, fromHistory = false) {
         if (!detail || typeof detail !== 'object' || !detail.key) throw new Error('Invalid repository details');
         detailCache.set(key,detail);
       }
-      if (!controller.signal.aborted && state.detail === key && !dialog.hidden) $('detail-evidence').innerHTML = evidenceMarkup(detail);
+      if (!controller.signal.aborted && state.detail === key && !dialog.hidden) {
+        $('detail-evidence').innerHTML = evidenceMarkup(detail);
+        $('detail-collection-sources').innerHTML = renderRepositoryCollectionSources(detail);
+      }
     } catch (error) {
-      if (error.name !== 'AbortError' && !controller.signal.aborted && state.detail === key && !dialog.hidden) $('detail-evidence').innerHTML = `<section class="detail-section"><p class="detail-hint">关联信息暂时没有加载成功，当前介绍仍可阅读。</p><button class="text-button" data-retry-detail="${escapeHtml(key)}">重新读取引用</button></section>`;
+      if (error.name !== 'AbortError' && !controller.signal.aborted && state.detail === key && !dialog.hidden) $('detail-collection-sources').innerHTML = `<p class="detail-hint">收藏来源暂时无法加载。</p><button class="text-button" data-retry-detail="${escapeHtml(key)}">重试</button>`;
     }
   })();
 }
 async function load() {
+  moreObserver.disconnect();
+  resultsEnd.hidden = true;
   $('results').setAttribute('aria-busy','true');
   try {
     const cataloguePath = typeof window.omnihubScopedCataloguePath === 'function' ? window.omnihubScopedCataloguePath('/api/repositories') : '/api/repositories';
@@ -415,10 +668,9 @@ listen(window, 'hashchange', () => {
   restorePosition(position?.scroll || 0);
 });
 return {
-  navigate: changeSection,
   setActive(value) {
     active = value;
-    if (!active) { onPreviewMedia?.(null); detailLayer.hidden = true; releaseDetailShell(); }
+    if (!active) { moreObserver.disconnect(); onPreviewMedia?.(null); detailLayer.hidden = true; releaseDetailShell(); }
     else if (state.detail) showDetailShell();
     if (active) restorePosition(savedScroll);
   },
@@ -432,6 +684,8 @@ return {
   },
   destroy() {
     lifetime.abort();
+    moreObserver.disconnect();
+    topicResize.disconnect();
     detailRequest?.abort();
     hideDetail();
     detailCache.clear();

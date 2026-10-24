@@ -1,7 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {readFileSync, existsSync} from 'node:fs';
-import {getRepositoryGuide, loadRepositoryGuide, renderRepositoryGuide, renderGuideInstallation, validateRepositoryGuide} from '../public/repository-guides.js';
+import {getRepositoryGuide, loadRepositoryGuide, renderRepositoryGuide, renderGuideInstallation, validateRepositoryGuide, renderRepositoryGuideMeta, renderRepositoryGuideSources} from '../public/repository-guides.js';
 
 test('only verified repositories have a guide; original API records stay untouched', () => {
   assert.equal(getRepositoryGuide('unreviewed/repository'), null);
@@ -24,10 +24,10 @@ test('official screenshots are local assets with source attribution, not badges 
   }
   const html = renderRepositoryGuide(guide);
   assert.match(html, /data-repo-media="2"/);
-  assert.match(html, /官方截图/);
+  assert.match(html, /3 张 · 点击放大/);
   assert.match(html, /loading="lazy"/);
   assert.doesNotMatch(html, /暂未收录演示|<iframe|autoplay/i);
-  assert.ok(html.indexOf('实际界面') < html.indexOf('怎么用'));
+  assert.ok(html.indexOf('演示与说明') < html.indexOf('怎么用'));
 });
 
 test('guides supply concrete instructions and distinguish examples from tested results', () => {
@@ -35,10 +35,11 @@ test('guides supply concrete instructions and distinguish examples from tested r
   assert.match(app, /添加私有提供商/);
   assert.match(app, /docker compose up -d --build/);
   assert.match(app, /没有独立登录鉴权/);
-  assert.match(app, /未实测/);
+  assert.doesNotMatch(app, /未实测|核对于|guide-provenance|guide-references/);
+  assert.match(renderRepositoryGuideSources(getRepositoryGuide('hbai-ltd/toonflow-app')), /未实测/);
   const guide = getRepositoryGuide('obra/superpowers');
   const skill = renderRepositoryGuide(guide);
-  assert.doesNotMatch(skill, /实际界面|data-repo-media/);
+  assert.doesNotMatch(skill, /演示与说明|data-repo-media/);
   assert.match(skill, /示例任务/);
   assert.match(skill, /根据官方流程整理/);
   assert.match(skill, /data-guide-platform/);
@@ -87,7 +88,8 @@ test('unavailable guides keep the original entry honest instead of inventing ste
   const html = renderRepositoryGuide(guide,{introFallback:'来自当前仓库记录的中文介绍。'});
   assert.match(html, /暂时无法核对使用方法/);
   assert.match(html, /仓库介绍/);
-  assert.match(html, /保留收藏介绍 · 官方用法暂不可用/);
+  assert.match(html, /暂时无法核对使用方法/);
+  assert.match(renderRepositoryGuideSources(guide), /保留收藏介绍，官方用法暂不可用/);
   assert.doesNotMatch(html, /整理自官方文档/);
   assert.match(html, /来自当前仓库记录的中文介绍/);
   assert.doesNotMatch(html, /guide-example|示例任务/);
@@ -110,6 +112,25 @@ test('detail removes generic trial filler and keeps citations folded', () => {
   const source = readFileSync(new URL('../public/repository-explorer-prototype.js', import.meta.url), 'utf8');
   assert.doesNotMatch(source, /暂未收录演示素材|<h3>可以怎么开始/);
   assert.match(source, /renderRepositoryGuide\(guide/);
-  assert.match(source, /<details><summary>原始收藏与引用/);
+  assert.match(source, /<details class="detail-sources"><summary>资料来源/);
+  assert.doesNotMatch(source, /原始收藏与引用|没有可展示的来源/);
   assert.match(source, /onPreviewMedia\?\.\(null\)/);
+});
+
+
+test('guide date and document link belong in the header, with provenance available separately', () => {
+  const guide = getRepositoryGuide('hbai-ltd/toonflow-app');
+  const meta = renderRepositoryGuideMeta(guide);
+  assert.match(meta, /<time datetime="2026-10-01">核对 2026-10-01<\/time>/);
+  assert.match(meta, /官方文档/);
+  assert.doesNotMatch(meta, /未实测|AI 整理/);
+  const fallback = renderRepositoryGuideMeta(null, {readmeUrl:'https://github.com/owner/repo#readme'});
+  assert.match(fallback, /github.com\/owner\/repo#readme/);
+  assert.doesNotMatch(fallback, /<time/);
+  assert.equal(renderRepositoryGuideMeta(null, {readmeUrl:'javascript:alert(1)'}), '');
+  const sources = renderRepositoryGuideSources({...guide,references:[...guide.references,...guide.references]});
+  assert.equal(sources.split(guide.references[0].label).length - 1, 1);
+  for (const item of guide.media) assert.ok(sources.includes(item.sourceUrl));
+  const body = renderRepositoryGuide(guide);
+  assert.doesNotMatch(body, /guide-provenance|guide-references|官方文档与素材出处/);
 });

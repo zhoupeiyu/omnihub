@@ -66,11 +66,31 @@
     "零样本声音克隆涉及他人声音，请确保已取得声音所有者的授权。官方声明相关内容仅用于学术用途。"
   ],
   "references": [],
-  "media": [],
+  "media": [
+    {
+      "url": "/assets/repository-guides/media-95d165c765909e51bdd0b62e.webp",
+      "alt": "Discussion & Communication",
+      "sourceUrl": "https://github.com/QwenAudio/CosyVoice/blob/074ca6dc9e80a2f424f1f74b48bdd7d3fea531cc/README.md#L219",
+      "originalUrl": "https://raw.githubusercontent.com/QwenAudio/CosyVoice/074ca6dc9e80a2f424f1f74b48bdd7d3fea531cc/asset/dingding.png",
+      "animated": false
+    }
+  ],
   "generatedBy": "claude-opus-5-5",
   "documentHash": "66436370172c2830ed98aa643b31898c65e16eee14ade68f00828d21fae602e0",
-  "mediaStatus": "none_in_official_documents",
+  "mediaStatus": "archived",
   "reviewedEdits": [
     "下载示例只保留官方推荐模型的原文代码，避免一次下载全部可选模型。"
+  ],
+  "mediaFailures": [
+    {
+      "sourceUrl": "https://github.com/QwenAudio/CosyVoice/blob/074ca6dc9e80a2f424f1f74b48bdd7d3fea531cc/README.md#L1",
+      "reason": "unsupported_media_host"
+    }
+  ],
+  "mediaReferences": [
+    {
+      "label": "SVG Banners",
+      "url": "https://github.com/QwenAudio/CosyVoice/blob/074ca6dc9e80a2f424f1f74b48bdd7d3fea531cc/README.md#L1"
+    }
   ]
 }

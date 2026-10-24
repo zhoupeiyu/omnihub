@@ -66,5 +66,17 @@
   "media": [],
   "generatedBy": "claude-opus-5-5",
   "documentHash": "3c9b5718476a2e17ee71faf85162ee384b8e9c88f52567103f4267159469e341",
-  "mediaStatus": "none_in_official_documents"
+  "mediaStatus": "unavailable",
+  "mediaFailures": [
+    {
+      "sourceUrl": "https://github.com/Anil-matcha/Open-Generative-AI/blob/efd5e786e99fbe636c7550e9d428b3651640a736/README.md#L11",
+      "reason": "unsupported_media_host"
+    }
+  ],
+  "mediaReferences": [
+    {
+      "label": "Open Generative AI — Unrestricted Open-Source Alternative to AI Video Platforms",
+      "url": "https://github.com/Anil-matcha/Open-Generative-AI/blob/efd5e786e99fbe636c7550e9d428b3651640a736/README.md#L11"
+    }
+  ]
 }

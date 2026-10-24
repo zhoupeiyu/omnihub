@@ -78,23 +78,58 @@
       "url": "/assets/repository-guides/media-fb1c50f67d792b4d1af646b5.webp",
       "alt": "日报总览",
       "sourceUrl": "https://github.com/Thysrael/Horizon/blob/74a70a29ac45ae9ce6d6f82c465452a157aa7a46/README_zh.md?plain=1#L41",
-      "originalUrl": "https://raw.githubusercontent.com/Thysrael/Horizon/74a70a29ac45ae9ce6d6f82c465452a157aa7a46/docs/assets/overview_zh.png"
+      "originalUrl": "https://raw.githubusercontent.com/Thysrael/Horizon/74a70a29ac45ae9ce6d6f82c465452a157aa7a46/docs/assets/overview_zh.png",
+      "animated": false
     },
     {
       "url": "/assets/repository-guides/media-d321aaa3b793655ebbe568d8.webp",
       "alt": "新闻详情",
       "sourceUrl": "https://github.com/Thysrael/Horizon/blob/74a70a29ac45ae9ce6d6f82c465452a157aa7a46/README_zh.md?plain=1#L45",
-      "originalUrl": "https://raw.githubusercontent.com/Thysrael/Horizon/74a70a29ac45ae9ce6d6f82c465452a157aa7a46/docs/assets/one_news_zh.png"
+      "originalUrl": "https://raw.githubusercontent.com/Thysrael/Horizon/74a70a29ac45ae9ce6d6f82c465452a157aa7a46/docs/assets/one_news_zh.png",
+      "animated": false
     },
     {
       "url": "/assets/repository-guides/media-c52ceee3fe2a0b484344d4db.webp",
       "alt": "Thysrael/Horizon 官方演示 3",
       "sourceUrl": "https://github.com/Thysrael/Horizon/blob/74a70a29ac45ae9ce6d6f82c465452a157aa7a46/README.md?plain=1#L56",
-      "originalUrl": "https://raw.githubusercontent.com/Thysrael/Horizon/74a70a29ac45ae9ce6d6f82c465452a157aa7a46/docs/assets/terminal_log.png"
+      "originalUrl": "https://raw.githubusercontent.com/Thysrael/Horizon/74a70a29ac45ae9ce6d6f82c465452a157aa7a46/docs/assets/terminal_log.png",
+      "animated": false
+    },
+    {
+      "url": "/assets/repository-guides/media-bd2654aed73db9ea0256aa47.webp",
+      "alt": "Daily Overview",
+      "sourceUrl": "https://github.com/Thysrael/Horizon/blob/74a70a29ac45ae9ce6d6f82c465452a157aa7a46/README.md#L40",
+      "originalUrl": "https://raw.githubusercontent.com/Thysrael/Horizon/74a70a29ac45ae9ce6d6f82c465452a157aa7a46/docs/assets/overview_en.png",
+      "animated": false
+    },
+    {
+      "url": "/assets/repository-guides/media-21ed151285b83e15274d0954.webp",
+      "alt": "News Detail",
+      "sourceUrl": "https://github.com/Thysrael/Horizon/blob/74a70a29ac45ae9ce6d6f82c465452a157aa7a46/README.md#L44",
+      "originalUrl": "https://raw.githubusercontent.com/Thysrael/Horizon/74a70a29ac45ae9ce6d6f82c465452a157aa7a46/docs/assets/one_news_en.png",
+      "animated": false
+    },
+    {
+      "url": "/assets/repository-guides/media-6c78acf13b88f44de940fd1b.webp",
+      "alt": "飞书通知",
+      "sourceUrl": "https://github.com/Thysrael/Horizon/blob/74a70a29ac45ae9ce6d6f82c465452a157aa7a46/README_zh.md#L61",
+      "originalUrl": "https://raw.githubusercontent.com/Thysrael/Horizon/74a70a29ac45ae9ce6d6f82c465452a157aa7a46/docs/assets/feishu_zh.png",
+      "animated": false
     }
   ],
   "generatedBy": "claude-opus-5-5",
   "documentHash": "4cf4af2a53cb02f9f28ebd117fb6e36adc656b50de33da00a5b5918d58c61d16",
   "mediaStatus": "archived",
-  "mediaFailures": []
+  "mediaFailures": [
+    {
+      "sourceUrl": "https://github.com/Thysrael/Horizon/blob/74a70a29ac45ae9ce6d6f82c465452a157aa7a46/README_zh.md#L106",
+      "reason": "unsupported_media_format"
+    }
+  ],
+  "mediaReferences": [
+    {
+      "label": "Horizon 架构：十类信息源汇入 Profile 驱动的处理流程，按区块启用历史与网络搜索，再通过 Markdown、Pages、邮件、微信和 Webhook 分发。",
+      "url": "https://github.com/Thysrael/Horizon/blob/74a70a29ac45ae9ce6d6f82c465452a157aa7a46/README_zh.md#L106"
+    }
+  ]
 }

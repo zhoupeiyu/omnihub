@@ -57,8 +57,123 @@
     "README 提到的托管平台（getcodegraph.com）目前处于候补名单阶段，与本地 CLI 是不同的产品。"
   ],
   "references": [],
-  "media": [],
+  "media": [
+    {
+      "url": "/assets/repository-guides/media-69c14fc6ba40c14d17939455.webp",
+      "alt": "1_C_VYnhpys0UHrOuOgpgoyw",
+      "sourceUrl": "https://github.com/colbymchenry/codegraph/blob/33436464464d0295a69dec6348e7e3446684a31f/README.md#L121",
+      "originalUrl": "https://github.com/user-attachments/assets/f168182f-4d9a-44e0-94d7-08d018cc8a3a",
+      "animated": true
+    },
+    {
+      "url": "/assets/repository-guides/media-0a2e7a929e675db032de380c.webp",
+      "alt": "token-cost-savings-scale",
+      "sourceUrl": "https://github.com/colbymchenry/codegraph/blob/33436464464d0295a69dec6348e7e3446684a31f/README.md#L194",
+      "originalUrl": "https://github.com/user-attachments/assets/eb74a11a-a3ab-4b01-80a6-19f78352ae8e",
+      "animated": false
+    }
+  ],
   "generatedBy": "claude-opus-5-5",
   "documentHash": "eb84996efef40925f8a1acea1978537d18a3d1560e960e76ef7b081e5c03a071",
-  "mediaStatus": "none_in_official_documents"
+  "mediaStatus": "archived",
+  "mediaFailures": [
+    {
+      "sourceUrl": "https://github.com/colbymchenry/codegraph/blob/33436464464d0295a69dec6348e7e3446684a31f/README.md#L44",
+      "reason": "unsupported_media_format"
+    },
+    {
+      "sourceUrl": "https://github.com/colbymchenry/codegraph/blob/33436464464d0295a69dec6348e7e3446684a31f/README.md#L148",
+      "reason": "unsupported_media_format"
+    },
+    {
+      "sourceUrl": "https://github.com/colbymchenry/codegraph/blob/33436464464d0295a69dec6348e7e3446684a31f/README.md#L149",
+      "reason": "unsupported_media_format"
+    },
+    {
+      "sourceUrl": "https://github.com/colbymchenry/codegraph/blob/33436464464d0295a69dec6348e7e3446684a31f/README.md#L150",
+      "reason": "unsupported_media_format"
+    },
+    {
+      "sourceUrl": "https://github.com/colbymchenry/codegraph/blob/33436464464d0295a69dec6348e7e3446684a31f/README.md#L151",
+      "reason": "unsupported_media_format"
+    },
+    {
+      "sourceUrl": "https://github.com/colbymchenry/codegraph/blob/33436464464d0295a69dec6348e7e3446684a31f/README.md#L152",
+      "reason": "unsupported_media_format"
+    },
+    {
+      "sourceUrl": "https://github.com/colbymchenry/codegraph/blob/33436464464d0295a69dec6348e7e3446684a31f/README.md#L153",
+      "reason": "unsupported_media_format"
+    },
+    {
+      "sourceUrl": "https://github.com/colbymchenry/codegraph/blob/33436464464d0295a69dec6348e7e3446684a31f/README.md#L154",
+      "reason": "unsupported_media_format"
+    },
+    {
+      "sourceUrl": "https://github.com/colbymchenry/codegraph/blob/33436464464d0295a69dec6348e7e3446684a31f/README.md#L155",
+      "reason": "unsupported_media_format"
+    },
+    {
+      "sourceUrl": "https://github.com/colbymchenry/codegraph/blob/33436464464d0295a69dec6348e7e3446684a31f/README.md#L156",
+      "reason": "unsupported_media_format"
+    },
+    {
+      "sourceUrl": "https://github.com/colbymchenry/codegraph/blob/33436464464d0295a69dec6348e7e3446684a31f/README.md#L157",
+      "reason": "unsupported_media_format"
+    },
+    {
+      "sourceUrl": "https://github.com/colbymchenry/codegraph/blob/33436464464d0295a69dec6348e7e3446684a31f/README.md#L158",
+      "reason": "unsupported_media_format"
+    }
+  ],
+  "mediaReferences": [
+    {
+      "label": "Join the waitlist for early beta access",
+      "url": "https://github.com/colbymchenry/codegraph/blob/33436464464d0295a69dec6348e7e3446684a31f/README.md#L44"
+    },
+    {
+      "label": "TypeScript",
+      "url": "https://github.com/colbymchenry/codegraph/blob/33436464464d0295a69dec6348e7e3446684a31f/README.md#L148"
+    },
+    {
+      "label": "JavaScript",
+      "url": "https://github.com/colbymchenry/codegraph/blob/33436464464d0295a69dec6348e7e3446684a31f/README.md#L149"
+    },
+    {
+      "label": "ArkTS",
+      "url": "https://github.com/colbymchenry/codegraph/blob/33436464464d0295a69dec6348e7e3446684a31f/README.md#L150"
+    },
+    {
+      "label": "Python",
+      "url": "https://github.com/colbymchenry/codegraph/blob/33436464464d0295a69dec6348e7e3446684a31f/README.md#L151"
+    },
+    {
+      "label": "Go",
+      "url": "https://github.com/colbymchenry/codegraph/blob/33436464464d0295a69dec6348e7e3446684a31f/README.md#L152"
+    },
+    {
+      "label": "Rust",
+      "url": "https://github.com/colbymchenry/codegraph/blob/33436464464d0295a69dec6348e7e3446684a31f/README.md#L153"
+    },
+    {
+      "label": "Java",
+      "url": "https://github.com/colbymchenry/codegraph/blob/33436464464d0295a69dec6348e7e3446684a31f/README.md#L154"
+    },
+    {
+      "label": "C#",
+      "url": "https://github.com/colbymchenry/codegraph/blob/33436464464d0295a69dec6348e7e3446684a31f/README.md#L155"
+    },
+    {
+      "label": "PHP",
+      "url": "https://github.com/colbymchenry/codegraph/blob/33436464464d0295a69dec6348e7e3446684a31f/README.md#L156"
+    },
+    {
+      "label": "Ruby",
+      "url": "https://github.com/colbymchenry/codegraph/blob/33436464464d0295a69dec6348e7e3446684a31f/README.md#L157"
+    },
+    {
+      "label": "C",
+      "url": "https://github.com/colbymchenry/codegraph/blob/33436464464d0295a69dec6348e7e3446684a31f/README.md#L158"
+    }
+  ]
 }

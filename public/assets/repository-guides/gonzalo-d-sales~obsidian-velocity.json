@@ -58,23 +58,44 @@
       "url": "/assets/repository-guides/media-01d54b53c97477f731df4f0e.webp",
       "alt": "Gonzalo-D-Sales/obsidian-velocity 官方演示 1",
       "sourceUrl": "https://github.com/Gonzalo-D-Sales/obsidian-velocity/blob/5ddc6c2e0028baad1b98fb5586517ff520291e7a/README.md?plain=1#L25",
-      "originalUrl": "https://raw.githubusercontent.com/Gonzalo-D-Sales/obsidian-velocity/5ddc6c2e0028baad1b98fb5586517ff520291e7a/assets/panels.png"
+      "originalUrl": "https://raw.githubusercontent.com/Gonzalo-D-Sales/obsidian-velocity/5ddc6c2e0028baad1b98fb5586517ff520291e7a/assets/panels.png",
+      "animated": false
     },
     {
       "url": "/assets/repository-guides/media-8414f3fb752069918b2a956c.webp",
       "alt": "Gonzalo-D-Sales/obsidian-velocity 官方演示 2",
       "sourceUrl": "https://github.com/Gonzalo-D-Sales/obsidian-velocity/blob/5ddc6c2e0028baad1b98fb5586517ff520291e7a/README.md?plain=1#L26",
-      "originalUrl": "https://raw.githubusercontent.com/Gonzalo-D-Sales/obsidian-velocity/5ddc6c2e0028baad1b98fb5586517ff520291e7a/assets/mobile.png"
+      "originalUrl": "https://raw.githubusercontent.com/Gonzalo-D-Sales/obsidian-velocity/5ddc6c2e0028baad1b98fb5586517ff520291e7a/assets/mobile.png",
+      "animated": false
     },
     {
       "url": "/assets/repository-guides/media-6367a48a6d4630d2c15b27fa.webp",
       "alt": "Gonzalo-D-Sales/obsidian-velocity 官方演示 3",
       "sourceUrl": "https://github.com/Gonzalo-D-Sales/obsidian-velocity/blob/5ddc6c2e0028baad1b98fb5586517ff520291e7a/README.md?plain=1#L104",
-      "originalUrl": "https://raw.githubusercontent.com/Gonzalo-D-Sales/obsidian-velocity/5ddc6c2e0028baad1b98fb5586517ff520291e7a/assets/autohide.gif"
+      "originalUrl": "https://raw.githubusercontent.com/Gonzalo-D-Sales/obsidian-velocity/5ddc6c2e0028baad1b98fb5586517ff520291e7a/assets/autohide.gif",
+      "animated": true
+    },
+    {
+      "url": "/assets/repository-guides/media-3276d92a02a733ae62e5717c.webp",
+      "alt": "poster",
+      "sourceUrl": "https://github.com/Gonzalo-D-Sales/obsidian-velocity/blob/5ddc6c2e0028baad1b98fb5586517ff520291e7a/README.md#L1",
+      "originalUrl": "https://raw.githubusercontent.com/Gonzalo-D-Sales/obsidian-velocity/5ddc6c2e0028baad1b98fb5586517ff520291e7a/assets/poster.png",
+      "animated": false
     }
   ],
   "generatedBy": "claude-opus-5-5",
   "documentHash": "831fb3a7f54b1ab08b3a956846e7ab640536bc84d1e03651a40af677be19ce54",
   "mediaStatus": "archived",
-  "mediaFailures": []
+  "mediaFailures": [
+    {
+      "sourceUrl": "https://github.com/Gonzalo-D-Sales/obsidian-velocity/blob/5ddc6c2e0028baad1b98fb5586517ff520291e7a/README.md#L12",
+      "reason": "unsupported_media_host"
+    }
+  ],
+  "mediaReferences": [
+    {
+      "label": "Buy Me a Coffee at ko-fi.com",
+      "url": "https://github.com/Gonzalo-D-Sales/obsidian-velocity/blob/5ddc6c2e0028baad1b98fb5586517ff520291e7a/README.md#L12"
+    }
+  ]
 }

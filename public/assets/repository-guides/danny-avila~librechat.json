@@ -56,5 +56,33 @@
   "media": [],
   "generatedBy": "claude-opus-5-5",
   "documentHash": "e2437e78b27a2ed18aea0c749768d26672bf0904a77d1024e1fac02c1ca5d5cb",
-  "mediaStatus": "none_in_official_documents"
+  "mediaStatus": "unavailable",
+  "mediaFailures": [
+    {
+      "sourceUrl": "https://github.com/LibreChat-AI/LibreChat/blob/f10b1d91f1eee3a2c82d5247bf620351486b7c1b/README.md#L36",
+      "reason": "unsupported_media_host"
+    },
+    {
+      "sourceUrl": "https://github.com/LibreChat-AI/LibreChat/blob/f10b1d91f1eee3a2c82d5247bf620351486b7c1b/README.md#L39",
+      "reason": "unsupported_media_host"
+    },
+    {
+      "sourceUrl": "https://github.com/LibreChat-AI/LibreChat/blob/f10b1d91f1eee3a2c82d5247bf620351486b7c1b/README.md#L42",
+      "reason": "unsupported_media_format"
+    }
+  ],
+  "mediaReferences": [
+    {
+      "label": "Deploy on Railway",
+      "url": "https://github.com/LibreChat-AI/LibreChat/blob/f10b1d91f1eee3a2c82d5247bf620351486b7c1b/README.md#L36"
+    },
+    {
+      "label": "Deploy on Zeabur",
+      "url": "https://github.com/LibreChat-AI/LibreChat/blob/f10b1d91f1eee3a2c82d5247bf620351486b7c1b/README.md#L39"
+    },
+    {
+      "label": "Deploy on Sealos",
+      "url": "https://github.com/LibreChat-AI/LibreChat/blob/f10b1d91f1eee3a2c82d5247bf620351486b7c1b/README.md#L42"
+    }
+  ]
 }

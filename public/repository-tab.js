@@ -63,11 +63,11 @@ async function loadRepositoryTab(signal, loadModule = () => import('/repository-
 // Keep catalogue styles isolated while rendering inside the existing workspace tab.
 function loadClassificationTaxonomy() { return import('/repository-taxonomy.js'); }
 
-function RepositoryExplorerTab({ query = "", onQueryChange, userKey = "guest", active = true, onNavigationChange, navigationTarget, onCorrectClassification, onRepositoriesLoaded }) {
+function RepositoryExplorerTab({ query = "", onQueryChange, userKey = "guest", active = true, onCorrectClassification, onRepositoriesLoaded }) {
   const hostRef = React.useRef(null);
   const viewRef = React.useRef(null);
-  const current = React.useRef({ query, onQueryChange, onNavigationChange, active });
-  current.current = { query, onQueryChange, onNavigationChange, active, onCorrectClassification, onRepositoriesLoaded };
+  const current = React.useRef({ query, onQueryChange, active });
+  current.current = { query, onQueryChange, active, onCorrectClassification, onRepositoriesLoaded };
   const [retry, setRetry] = React.useState(0);
   const [error, setError] = React.useState(false);
   const [loading, setLoading] = React.useState(true);
@@ -103,7 +103,6 @@ function RepositoryExplorerTab({ query = "", onQueryChange, userKey = "guest", a
       viewRef.current = module.mountRepositoryExplorer(root, {
         query: current.current.query,
         onQueryChange: (value) => current.current.onQueryChange?.(value),
-        onNavigationChange: (value) => current.current.onNavigationChange?.(value),
         active: current.current.active,
         onCorrectClassification: current.current.onCorrectClassification ? key => current.current.onCorrectClassification?.({repositoryKey:key}) : null,
         onPreviewMedia: setPreview,
@@ -131,7 +130,6 @@ function RepositoryExplorerTab({ query = "", onQueryChange, userKey = "guest", a
 
   React.useEffect(() => { if (active && !loading) viewRef.current?.setQuery(query); }, [query, active, loading]);
   React.useLayoutEffect(() => { viewRef.current?.setActive(active); }, [active, loading]);
-  React.useEffect(() => { if (navigationTarget && !loading) viewRef.current?.navigate(navigationTarget.id); }, [navigationTarget, loading]);
   return React.createElement("section", { "aria-label": "仓库库", hidden:!active, 'aria-busy': loading, style: { minWidth: 0 } },
     React.createElement('style', null, repositoryLoadingStyles),
     loading && React.createElement(RepositoryLoading),

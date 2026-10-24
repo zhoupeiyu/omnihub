@@ -61,5 +61,17 @@
   "media": [],
   "generatedBy": "claude-opus-5-5",
   "documentHash": "4bde852c1e4ca4b614fecd6fd8aeec0f6ed09bf66806d314fddffb82e72ada3a",
-  "mediaStatus": "none_in_official_documents"
+  "mediaStatus": "unavailable",
+  "mediaFailures": [
+    {
+      "sourceUrl": "https://github.com/zjp1997720/zhijian-skills/blob/88efe0f9fe4c79d3d7bc6d3986e602b6522635cb/README.md#L4",
+      "reason": "unsupported_media_format"
+    }
+  ],
+  "mediaReferences": [
+    {
+      "label": "Zhijian Skills: one canonical portfolio of nineteen focused Agent Skills",
+      "url": "https://github.com/zjp1997720/zhijian-skills/blob/88efe0f9fe4c79d3d7bc6d3986e602b6522635cb/README.md#L4"
+    }
+  ]
 }

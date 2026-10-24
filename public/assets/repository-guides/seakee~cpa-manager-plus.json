@@ -75,23 +75,48 @@
       "url": "/assets/repository-guides/media-5e66a55b0e39e781cd540160.webp",
       "alt": "CPA CLIProxyAPI 管理与可观测性仪表盘",
       "sourceUrl": "https://github.com/seakee/CPA-Manager-Plus/blob/05ebb7f275dbe575211cb886436d4b99936c1cd9/README_CN.md?plain=1#L33",
-      "originalUrl": "https://raw.githubusercontent.com/seakee/CPA-Manager-Plus/05ebb7f275dbe575211cb886436d4b99936c1cd9/img/dashboard-zh.png"
+      "originalUrl": "https://raw.githubusercontent.com/seakee/CPA-Manager-Plus/05ebb7f275dbe575211cb886436d4b99936c1cd9/img/dashboard-zh.png",
+      "animated": false
     },
     {
       "url": "/assets/repository-guides/media-56223ee2043556f9a4fe5557.webp",
       "alt": "CPA 请求监控与失败诊断仪表盘",
       "sourceUrl": "https://github.com/seakee/CPA-Manager-Plus/blob/05ebb7f275dbe575211cb886436d4b99936c1cd9/README_CN.md?plain=1#L37",
-      "originalUrl": "https://raw.githubusercontent.com/seakee/CPA-Manager-Plus/05ebb7f275dbe575211cb886436d4b99936c1cd9/img/monitoring-zh.png"
+      "originalUrl": "https://raw.githubusercontent.com/seakee/CPA-Manager-Plus/05ebb7f275dbe575211cb886436d4b99936c1cd9/img/monitoring-zh.png",
+      "animated": false
     },
     {
       "url": "/assets/repository-guides/media-37f94174b3787fc9c3c9cc0b.webp",
       "alt": "CPA 按模型和账号拆解用量与成本",
       "sourceUrl": "https://github.com/seakee/CPA-Manager-Plus/blob/05ebb7f275dbe575211cb886436d4b99936c1cd9/README_CN.md?plain=1#L43",
-      "originalUrl": "https://raw.githubusercontent.com/seakee/CPA-Manager-Plus/05ebb7f275dbe575211cb886436d4b99936c1cd9/img/usage-analytics-zh.png"
+      "originalUrl": "https://raw.githubusercontent.com/seakee/CPA-Manager-Plus/05ebb7f275dbe575211cb886436d4b99936c1cd9/img/usage-analytics-zh.png",
+      "animated": false
+    },
+    {
+      "url": "/assets/repository-guides/media-53182740072351bc17436c65.webp",
+      "alt": "CPA CLIProxyAPI management and observability dashboard",
+      "sourceUrl": "https://github.com/seakee/CPA-Manager-Plus/blob/05ebb7f275dbe575211cb886436d4b99936c1cd9/README.md#L35",
+      "originalUrl": "https://raw.githubusercontent.com/seakee/CPA-Manager-Plus/05ebb7f275dbe575211cb886436d4b99936c1cd9/img/dashboard.png",
+      "animated": false
+    },
+    {
+      "url": "/assets/repository-guides/media-4a720cc4b067a37f3a3a0a16.webp",
+      "alt": "CPA request monitoring and failure diagnosis dashboard",
+      "sourceUrl": "https://github.com/seakee/CPA-Manager-Plus/blob/05ebb7f275dbe575211cb886436d4b99936c1cd9/README.md#L39",
+      "originalUrl": "https://raw.githubusercontent.com/seakee/CPA-Manager-Plus/05ebb7f275dbe575211cb886436d4b99936c1cd9/img/monitoring.png",
+      "animated": false
+    },
+    {
+      "url": "/assets/repository-guides/media-e116599d7815f638cdf41fbd.webp",
+      "alt": "CPA usage and cost analytics by model and account",
+      "sourceUrl": "https://github.com/seakee/CPA-Manager-Plus/blob/05ebb7f275dbe575211cb886436d4b99936c1cd9/README.md#L45",
+      "originalUrl": "https://raw.githubusercontent.com/seakee/CPA-Manager-Plus/05ebb7f275dbe575211cb886436d4b99936c1cd9/img/usage-analytics.png",
+      "animated": false
     }
   ],
   "generatedBy": "claude-opus-5-5",
   "documentHash": "26166d4683bc2f275deabbc25e82793fb43dcfa15861d50495e0dc7a74dff755",
   "mediaStatus": "archived",
-  "mediaFailures": []
+  "mediaFailures": [],
+  "mediaReferences": []
 }

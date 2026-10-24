@@ -75,23 +75,48 @@
       "url": "/assets/repository-guides/media-a8344edd7b6556360592e1aa.webp",
       "alt": "截图1",
       "sourceUrl": "https://github.com/666ghj/MiroFish/blob/39d849138ef254f6c737ab4c4705e5545dbe31d4/README-ZH.md?plain=1#L52",
-      "originalUrl": "https://raw.githubusercontent.com/666ghj/MiroFish/39d849138ef254f6c737ab4c4705e5545dbe31d4/static/image/Screenshot/%E8%BF%90%E8%A1%8C%E6%88%AA%E5%9B%BE1.png"
+      "originalUrl": "https://raw.githubusercontent.com/666ghj/MiroFish/39d849138ef254f6c737ab4c4705e5545dbe31d4/static/image/Screenshot/%E8%BF%90%E8%A1%8C%E6%88%AA%E5%9B%BE1.png",
+      "animated": false
     },
     {
       "url": "/assets/repository-guides/media-4823f1dbb9fa6774ca9f7b90.webp",
       "alt": "截图2",
       "sourceUrl": "https://github.com/666ghj/MiroFish/blob/39d849138ef254f6c737ab4c4705e5545dbe31d4/README-ZH.md?plain=1#L53",
-      "originalUrl": "https://raw.githubusercontent.com/666ghj/MiroFish/39d849138ef254f6c737ab4c4705e5545dbe31d4/static/image/Screenshot/%E8%BF%90%E8%A1%8C%E6%88%AA%E5%9B%BE2.png"
+      "originalUrl": "https://raw.githubusercontent.com/666ghj/MiroFish/39d849138ef254f6c737ab4c4705e5545dbe31d4/static/image/Screenshot/%E8%BF%90%E8%A1%8C%E6%88%AA%E5%9B%BE2.png",
+      "animated": false
     },
     {
       "url": "/assets/repository-guides/media-a4a1f878c57443fddcb1a024.webp",
       "alt": "截图3",
       "sourceUrl": "https://github.com/666ghj/MiroFish/blob/39d849138ef254f6c737ab4c4705e5545dbe31d4/README-ZH.md?plain=1#L56",
-      "originalUrl": "https://raw.githubusercontent.com/666ghj/MiroFish/39d849138ef254f6c737ab4c4705e5545dbe31d4/static/image/Screenshot/%E8%BF%90%E8%A1%8C%E6%88%AA%E5%9B%BE3.png"
+      "originalUrl": "https://raw.githubusercontent.com/666ghj/MiroFish/39d849138ef254f6c737ab4c4705e5545dbe31d4/static/image/Screenshot/%E8%BF%90%E8%A1%8C%E6%88%AA%E5%9B%BE3.png",
+      "animated": false
+    },
+    {
+      "url": "/assets/repository-guides/media-bb2536753e93a8bb038a77ee.webp",
+      "alt": "MiroFish Demo Video",
+      "sourceUrl": "https://github.com/666ghj/MiroFish/blob/39d849138ef254f6c737ab4c4705e5545dbe31d4/README.md#L71",
+      "originalUrl": "https://raw.githubusercontent.com/666ghj/MiroFish/39d849138ef254f6c737ab4c4705e5545dbe31d4/static/image/%E6%AD%A6%E5%A4%A7%E6%A8%A1%E6%8B%9F%E6%BC%94%E7%A4%BA%E5%B0%81%E9%9D%A2.png",
+      "animated": false
+    },
+    {
+      "url": "/assets/repository-guides/media-fcb1753b16a9b20ac12419cf.webp",
+      "alt": "MiroFish Demo Video",
+      "sourceUrl": "https://github.com/666ghj/MiroFish/blob/39d849138ef254f6c737ab4c4705e5545dbe31d4/README.md#L79",
+      "originalUrl": "https://raw.githubusercontent.com/666ghj/MiroFish/39d849138ef254f6c737ab4c4705e5545dbe31d4/static/image/%E7%BA%A2%E6%A5%BC%E6%A2%A6%E6%A8%A1%E6%8B%9F%E6%8E%A8%E6%BC%94%E5%B0%81%E9%9D%A2.jpg",
+      "animated": false
+    },
+    {
+      "url": "/assets/repository-guides/media-c4be95f0613f721b13a5d73f.webp",
+      "alt": "QQ Group",
+      "sourceUrl": "https://github.com/666ghj/MiroFish/blob/39d849138ef254f6c737ab4c4705e5545dbe31d4/README.md#L182",
+      "originalUrl": "https://raw.githubusercontent.com/666ghj/MiroFish/39d849138ef254f6c737ab4c4705e5545dbe31d4/static/image/QQ%E7%BE%A4.png",
+      "animated": false
     }
   ],
   "generatedBy": "claude-opus-5-5",
   "documentHash": "5dbec98148c83c113291cd1028f0243c196be9ae7c43e800379ef90d97d1489c",
   "mediaStatus": "archived",
-  "mediaFailures": []
+  "mediaFailures": [],
+  "mediaReferences": []
 }

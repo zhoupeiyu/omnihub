@@ -68,23 +68,48 @@
       "url": "/assets/repository-guides/media-9f6b9e3288bdafecdf459cf0.webp",
       "alt": "tranvuongquocdat/SideScreen 官方演示 1",
       "sourceUrl": "https://github.com/tranvuongquocdat/SideScreen/blob/9b0ac6d671b67e6d36ccde48d41c84cf636b616d/README.md?plain=1#L35",
-      "originalUrl": "https://raw.githubusercontent.com/tranvuongquocdat/SideScreen/9b0ac6d671b67e6d36ccde48d41c84cf636b616d/resources/screenshots/hero_screenshot.jpeg"
+      "originalUrl": "https://raw.githubusercontent.com/tranvuongquocdat/SideScreen/9b0ac6d671b67e6d36ccde48d41c84cf636b616d/resources/screenshots/hero_screenshot.jpeg",
+      "animated": false
     },
     {
       "url": "/assets/repository-guides/media-ea6588ef2619d70c24e49449.webp",
       "alt": "tranvuongquocdat/SideScreen 官方演示 2",
       "sourceUrl": "https://github.com/tranvuongquocdat/SideScreen/blob/9b0ac6d671b67e6d36ccde48d41c84cf636b616d/README.md?plain=1#L65",
-      "originalUrl": "https://raw.githubusercontent.com/tranvuongquocdat/SideScreen/9b0ac6d671b67e6d36ccde48d41c84cf636b616d/resources/screenshots/feature_virtual_display.png"
+      "originalUrl": "https://raw.githubusercontent.com/tranvuongquocdat/SideScreen/9b0ac6d671b67e6d36ccde48d41c84cf636b616d/resources/screenshots/feature_virtual_display.png",
+      "animated": false
     },
     {
       "url": "/assets/repository-guides/media-b4cca99eea8c0a35ec14a3c3.webp",
       "alt": "tranvuongquocdat/SideScreen 官方演示 3",
       "sourceUrl": "https://github.com/tranvuongquocdat/SideScreen/blob/9b0ac6d671b67e6d36ccde48d41c84cf636b616d/README.md?plain=1#L93",
-      "originalUrl": "https://raw.githubusercontent.com/tranvuongquocdat/SideScreen/9b0ac6d671b67e6d36ccde48d41c84cf636b616d/resources/screenshots/mac_settings_1.png"
+      "originalUrl": "https://raw.githubusercontent.com/tranvuongquocdat/SideScreen/9b0ac6d671b67e6d36ccde48d41c84cf636b616d/resources/screenshots/mac_settings_1.png",
+      "animated": false
+    },
+    {
+      "url": "/assets/repository-guides/media-63fcd2bcf84df7ea5d40e0e8.webp",
+      "alt": "Low Latency Streaming with Stats Overlay",
+      "sourceUrl": "https://github.com/tranvuongquocdat/SideScreen/blob/9b0ac6d671b67e6d36ccde48d41c84cf636b616d/README.md#L73",
+      "originalUrl": "https://raw.githubusercontent.com/tranvuongquocdat/SideScreen/9b0ac6d671b67e6d36ccde48d41c84cf636b616d/resources/screenshots/android_performance.png",
+      "animated": false
+    },
+    {
+      "url": "/assets/repository-guides/media-278302f0aa75c4a33bbe4bf0.webp",
+      "alt": "macOS Settings — Streaming & Status",
+      "sourceUrl": "https://github.com/tranvuongquocdat/SideScreen/blob/9b0ac6d671b67e6d36ccde48d41c84cf636b616d/README.md#L95",
+      "originalUrl": "https://raw.githubusercontent.com/tranvuongquocdat/SideScreen/9b0ac6d671b67e6d36ccde48d41c84cf636b616d/resources/screenshots/mac_settings_2.png",
+      "animated": false
+    },
+    {
+      "url": "/assets/repository-guides/media-01f8d1b3ac9e73bf2fc03f61.webp",
+      "alt": "Android — Connection Screen",
+      "sourceUrl": "https://github.com/tranvuongquocdat/SideScreen/blob/9b0ac6d671b67e6d36ccde48d41c84cf636b616d/README.md#L97",
+      "originalUrl": "https://raw.githubusercontent.com/tranvuongquocdat/SideScreen/9b0ac6d671b67e6d36ccde48d41c84cf636b616d/resources/screenshots/android_settings.png",
+      "animated": false
     }
   ],
   "generatedBy": "claude-opus-5-5",
   "documentHash": "c4d2a10e2952dc1c444c92b903cb3750cad318bc607b6dd45301fffbcd02b95b",
   "mediaStatus": "archived",
-  "mediaFailures": []
+  "mediaFailures": [],
+  "mediaReferences": []
 }

@@ -67,11 +67,13 @@
       "url": "/assets/repository-guides/media-9d18cadf89b1cbf84e323f63.webp",
       "alt": "Vincentwei1021/video-shotcraft 官方演示 1",
       "sourceUrl": "https://github.com/Vincentwei1021/video-shotcraft/blob/5ddbf521038b0a7accfb6dc1e0a9eb29c67277ab/README.md?plain=1#L63",
-      "originalUrl": "https://raw.githubusercontent.com/Vincentwei1021/video-shotcraft/5ddbf521038b0a7accfb6dc1e0a9eb29c67277ab/workbench/docs/overview.png"
+      "originalUrl": "https://raw.githubusercontent.com/Vincentwei1021/video-shotcraft/5ddbf521038b0a7accfb6dc1e0a9eb29c67277ab/workbench/docs/overview.png",
+      "animated": false
     }
   ],
   "generatedBy": "claude-opus-5-5",
   "documentHash": "6c61d6123cc40004c6d56be4cceae0b3627b1021d017b25b1ceddcb61c901c8e",
   "mediaStatus": "archived",
-  "mediaFailures": []
+  "mediaFailures": [],
+  "mediaReferences": []
 }

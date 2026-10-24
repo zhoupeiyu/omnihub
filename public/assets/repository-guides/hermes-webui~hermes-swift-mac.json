@@ -61,11 +61,13 @@
       "url": "/assets/repository-guides/media-ecd4dcd66a9177ab0ea08d3f.webp",
       "alt": "hermes-webui/hermes-swift-mac 官方演示 1",
       "sourceUrl": "https://github.com/hermes-webui/hermes-swift-mac/blob/cf6e09224a7b1e00fee7b03bcfaa8c3eaf2766fa/README.md?plain=1#L5",
-      "originalUrl": "https://github.com/user-attachments/assets/8e704e62-c736-4827-ba50-c41a21d9922f"
+      "originalUrl": "https://github.com/user-attachments/assets/8e704e62-c736-4827-ba50-c41a21d9922f",
+      "animated": false
     }
   ],
   "generatedBy": "claude-opus-5-5",
   "documentHash": "0c1a8cd93356130078b34b7256f268ece8e97033e68990f7129d63e1c8d8b486",
   "mediaStatus": "archived",
-  "mediaFailures": []
+  "mediaFailures": [],
+  "mediaReferences": []
 }

@@ -67,11 +67,13 @@
       "url": "/assets/repository-guides/media-e01be822e1ccec6f25c7f1b2.webp",
       "alt": "agency-agents 专家库在线浏览",
       "sourceUrl": "https://github.com/jnMetaCode/agency-agents-zh/blob/811e51c370f26ec4f37ca277b4368b4ff895741f/README.md?plain=1#L205",
-      "originalUrl": "https://raw.githubusercontent.com/jnMetaCode/agency-agents-zh/811e51c370f26ec4f37ca277b4368b4ff895741f/assets/experts-gallery.png"
+      "originalUrl": "https://raw.githubusercontent.com/jnMetaCode/agency-agents-zh/811e51c370f26ec4f37ca277b4368b4ff895741f/assets/experts-gallery.png",
+      "animated": false
     }
   ],
   "generatedBy": "claude-opus-5-5",
   "documentHash": "343003e8f1002d621b1dd4c49c93c70fcf7f76cd6d43da6d2e715e51a4a36886",
   "mediaStatus": "archived",
-  "mediaFailures": []
+  "mediaFailures": [],
+  "mediaReferences": []
 }

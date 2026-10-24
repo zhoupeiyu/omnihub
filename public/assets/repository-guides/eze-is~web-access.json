@@ -56,8 +56,35 @@
     "仓库元数据未识别出许可证，README 末尾声明为 MIT。"
   ],
   "references": [],
-  "media": [],
+  "media": [
+    {
+      "url": "/assets/repository-guides/media-2e66a3162ec17826edb38c7c.webp",
+      "alt": "image",
+      "sourceUrl": "https://github.com/eze-is/web-access/blob/33eef84a55b1919396a80e7a55650a07bb83f590/README.md#L21",
+      "originalUrl": "https://github.com/user-attachments/assets/a87fd816-a0b5-4264-b01c-9466eae90723",
+      "animated": false
+    },
+    {
+      "url": "/assets/repository-guides/media-66593a5839c145437666e9c6.webp",
+      "alt": "image",
+      "sourceUrl": "https://github.com/eze-is/web-access/blob/33eef84a55b1919396a80e7a55650a07bb83f590/README.md#L214",
+      "originalUrl": "https://github.com/user-attachments/assets/2afa25c2-3730-413e-b40f-94e52567249d",
+      "animated": false
+    }
+  ],
   "generatedBy": "claude-opus-5-5",
   "documentHash": "dc213ede611f118900f8dad7229380563e5364c21a44db0eb809aa858a82e491",
-  "mediaStatus": "none_in_official_documents"
+  "mediaStatus": "archived",
+  "mediaFailures": [
+    {
+      "sourceUrl": "https://github.com/eze-is/web-access/blob/33eef84a55b1919396a80e7a55650a07bb83f590/README.md#L212",
+      "reason": "unsupported_media_host"
+    }
+  ],
+  "mediaReferences": [
+    {
+      "label": "Download History",
+      "url": "https://github.com/eze-is/web-access/blob/33eef84a55b1919396a80e7a55650a07bb83f590/README.md#L212"
+    }
+  ]
 }

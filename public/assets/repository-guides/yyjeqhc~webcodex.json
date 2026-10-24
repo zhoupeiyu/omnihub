@@ -59,8 +59,18 @@
       "url": "https://github.com/yyjeqhc/webcodex/blob/d11cdd226abd1efdb0351d4b58d502acb8f41f6e/docs/unified-installation.md"
     }
   ],
-  "media": [],
+  "media": [
+    {
+      "url": "/assets/repository-guides/media-2fdf09a722f4331f7bcd4838.webp",
+      "alt": "WebCodex",
+      "sourceUrl": "https://github.com/yyjeqhc/webcodex/blob/d11cdd226abd1efdb0351d4b58d502acb8f41f6e/README.md#L3",
+      "originalUrl": "https://raw.githubusercontent.com/yyjeqhc/webcodex/d11cdd226abd1efdb0351d4b58d502acb8f41f6e/docs/assets/brand/webcodex-app-icon.png",
+      "animated": false
+    }
+  ],
   "generatedBy": "claude-opus-5-5",
   "documentHash": "c610c2aac763732bab62734c7f16c2a7b1aaf58501266adb2d08f1a8d2c0f07b",
-  "mediaStatus": "none_in_official_documents"
+  "mediaStatus": "archived",
+  "mediaFailures": [],
+  "mediaReferences": []
 }

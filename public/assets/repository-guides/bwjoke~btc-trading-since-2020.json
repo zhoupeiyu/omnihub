@@ -73,11 +73,20 @@
       "url": "/assets/repository-guides/media-a069f2df1fcb67f745367019.webp",
       "alt": "bwjoke/BTC-Trading-Since-2020 官方演示 1",
       "sourceUrl": "https://github.com/bwjoke/BTC-Trading-Since-2020/blob/9ff0d562cffd943d79916c9ce05adae627c8d9a2/README.md?plain=1#L13",
-      "originalUrl": "https://raw.githubusercontent.com/bwjoke/BTC-Trading-Since-2020/9ff0d562cffd943d79916c9ce05adae627c8d9a2/cumulative-performance.png?v=30f9af45aa64"
+      "originalUrl": "https://raw.githubusercontent.com/bwjoke/BTC-Trading-Since-2020/9ff0d562cffd943d79916c9ce05adae627c8d9a2/cumulative-performance.png?v=30f9af45aa64",
+      "animated": false
+    },
+    {
+      "url": "/assets/repository-guides/media-a069f2df1fcb67f745367019.webp",
+      "alt": "Cumulative performance",
+      "sourceUrl": "https://github.com/bwjoke/BTC-Trading-Since-2020/blob/9ff0d562cffd943d79916c9ce05adae627c8d9a2/README.md#L13",
+      "originalUrl": "https://raw.githubusercontent.com/bwjoke/BTC-Trading-Since-2020/9ff0d562cffd943d79916c9ce05adae627c8d9a2/cumulative-performance.png",
+      "animated": false
     }
   ],
   "generatedBy": "claude-opus-5-5",
   "documentHash": "cebcb0c8eebc3008180c78541ef3c1f1a8ad461d5c79de5f4eb893e630d461b9",
   "mediaStatus": "archived",
-  "mediaFailures": []
+  "mediaFailures": [],
+  "mediaReferences": []
 }

@@ -66,8 +66,18 @@
     "回测即使隐去了公司信息，模型仍可能通过特征明显的数字认出公司，导致结果偏乐观。"
   ],
   "references": [],
-  "media": [],
+  "media": [
+    {
+      "url": "/assets/repository-guides/media-4a3c874750089ef5a51c7f24.webp",
+      "alt": "image",
+      "sourceUrl": "https://github.com/virattt/ai-hedge-fund/blob/5d2c7ca2d02c6501692a58bb363dfab1916890ba/README.md#L5",
+      "originalUrl": "https://github.com/user-attachments/assets/e3985623-c226-4c1a-a587-e03fb4eca31e",
+      "animated": false
+    }
+  ],
   "generatedBy": "claude-opus-5-5",
   "documentHash": "88276caf00bffcb1168da9eaf30568ac304eabc982675e734efb15c093ef1731",
-  "mediaStatus": "none_in_official_documents"
+  "mediaStatus": "archived",
+  "mediaFailures": [],
+  "mediaReferences": []
 }

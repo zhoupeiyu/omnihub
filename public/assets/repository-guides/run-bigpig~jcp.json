@@ -73,17 +73,62 @@
       "url": "/assets/repository-guides/media-9e0145fa5f52303f075802a5.webp",
       "alt": "主界面展示",
       "sourceUrl": "https://github.com/run-bigpig/jcp/blob/44af274e0bfa2cef1364527eda1c8e64dfd00a64/README.md?plain=1#L50",
-      "originalUrl": "https://raw.githubusercontent.com/run-bigpig/jcp/44af274e0bfa2cef1364527eda1c8e64dfd00a64/image/1.png"
+      "originalUrl": "https://raw.githubusercontent.com/run-bigpig/jcp/44af274e0bfa2cef1364527eda1c8e64dfd00a64/image/1.png",
+      "animated": false
     },
     {
       "url": "/assets/repository-guides/media-e64aecb49f06d0a28d7c8306.webp",
       "alt": "功能展示",
       "sourceUrl": "https://github.com/run-bigpig/jcp/blob/44af274e0bfa2cef1364527eda1c8e64dfd00a64/README.md?plain=1#L52",
-      "originalUrl": "https://raw.githubusercontent.com/run-bigpig/jcp/44af274e0bfa2cef1364527eda1c8e64dfd00a64/image/2.png"
+      "originalUrl": "https://raw.githubusercontent.com/run-bigpig/jcp/44af274e0bfa2cef1364527eda1c8e64dfd00a64/image/2.png",
+      "animated": false
     }
   ],
   "generatedBy": "claude-opus-5-5",
   "documentHash": "6d3829c4c78e72bf9840e49ebcbd19e3510182c3954147003f5d0c55f8d0766c",
   "mediaStatus": "archived",
-  "mediaFailures": []
+  "mediaFailures": [
+    {
+      "sourceUrl": "https://github.com/run-bigpig/jcp/blob/44af274e0bfa2cef1364527eda1c8e64dfd00a64/README.md#L238",
+      "reason": "unsupported_media_host"
+    },
+    {
+      "sourceUrl": "https://github.com/run-bigpig/jcp/blob/44af274e0bfa2cef1364527eda1c8e64dfd00a64/README.md#L239",
+      "reason": "unsupported_media_host"
+    },
+    {
+      "sourceUrl": "https://github.com/run-bigpig/jcp/blob/44af274e0bfa2cef1364527eda1c8e64dfd00a64/README.md#L240",
+      "reason": "unsupported_media_host"
+    },
+    {
+      "sourceUrl": "https://github.com/run-bigpig/jcp/blob/44af274e0bfa2cef1364527eda1c8e64dfd00a64/README.md#L241",
+      "reason": "unsupported_media_host"
+    },
+    {
+      "sourceUrl": "https://github.com/run-bigpig/jcp/blob/44af274e0bfa2cef1364527eda1c8e64dfd00a64/README.md#L242",
+      "reason": "unsupported_media_host"
+    }
+  ],
+  "mediaReferences": [
+    {
+      "label": "run-bigpig",
+      "url": "https://github.com/run-bigpig/jcp/blob/44af274e0bfa2cef1364527eda1c8e64dfd00a64/README.md#L238"
+    },
+    {
+      "label": "Twelveeee",
+      "url": "https://github.com/run-bigpig/jcp/blob/44af274e0bfa2cef1364527eda1c8e64dfd00a64/README.md#L239"
+    },
+    {
+      "label": "taloslhan",
+      "url": "https://github.com/run-bigpig/jcp/blob/44af274e0bfa2cef1364527eda1c8e64dfd00a64/README.md#L240"
+    },
+    {
+      "label": "Mustang0394",
+      "url": "https://github.com/run-bigpig/jcp/blob/44af274e0bfa2cef1364527eda1c8e64dfd00a64/README.md#L241"
+    },
+    {
+      "label": "chalan630",
+      "url": "https://github.com/run-bigpig/jcp/blob/44af274e0bfa2cef1364527eda1c8e64dfd00a64/README.md#L242"
+    }
+  ]
 }

@@ -76,11 +76,13 @@
       "url": "/assets/repository-guides/media-23c9915205a3fd20e625fb9a.webp",
       "alt": "jarrodwatts/claude-hud 官方演示 1",
       "sourceUrl": "https://github.com/jarrodwatts/claude-hud/blob/939eb66485832dead1b0a28a954f76f7aa2bdb06/README.md?plain=1#L8",
-      "originalUrl": "https://raw.githubusercontent.com/jarrodwatts/claude-hud/939eb66485832dead1b0a28a954f76f7aa2bdb06/claude-hud-preview-5-2.png"
+      "originalUrl": "https://raw.githubusercontent.com/jarrodwatts/claude-hud/939eb66485832dead1b0a28a954f76f7aa2bdb06/claude-hud-preview-5-2.png",
+      "animated": false
     }
   ],
   "generatedBy": "claude-opus-5-5",
   "documentHash": "d87c533419874088e9e357e7ed7f397155ee191ff5b8636a8e0060acd56de949",
   "mediaStatus": "archived",
-  "mediaFailures": []
+  "mediaFailures": [],
+  "mediaReferences": []
 }

@@ -63,8 +63,18 @@
     "许可证为 MIT。"
   ],
   "references": [],
-  "media": [],
+  "media": [
+    {
+      "url": "/assets/repository-guides/media-1bdffc8d085c359cf69170d2.webp",
+      "alt": "steve-jobs-skill Hero Animation",
+      "sourceUrl": "https://github.com/alchaincyf/steve-jobs-skill/blob/8ae40e10013d5218f85bc0e0241fd804f3b5c5e9/README.md#L6",
+      "originalUrl": "https://raw.githubusercontent.com/alchaincyf/steve-jobs-skill/8ae40e10013d5218f85bc0e0241fd804f3b5c5e9/assets/hero.gif",
+      "animated": true
+    }
+  ],
   "generatedBy": "claude-opus-5-5",
   "documentHash": "582cd2a6ad05ce6facdce389840fd17f8bc8e13edb4c8d5b733a3496a9e62c69",
-  "mediaStatus": "none_in_official_documents"
+  "mediaStatus": "archived",
+  "mediaFailures": [],
+  "mediaReferences": []
 }

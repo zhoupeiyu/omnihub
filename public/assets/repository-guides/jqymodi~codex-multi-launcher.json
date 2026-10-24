@@ -56,11 +56,20 @@
       "url": "/assets/repository-guides/media-731deaa16be5482e07146d3e.webp",
       "alt": "Codex 多开助手工作台",
       "sourceUrl": "https://github.com/JqyModi/codex-multi-launcher/blob/3a0555dfc88ba399c3adb45c47f81d49b24e2ab1/README.zh-CN.md?plain=1#L17",
-      "originalUrl": "https://raw.githubusercontent.com/JqyModi/codex-multi-launcher/main/user-manual-assets/01-dashboard.png"
+      "originalUrl": "https://raw.githubusercontent.com/JqyModi/codex-multi-launcher/main/user-manual-assets/01-dashboard.png",
+      "animated": false
+    },
+    {
+      "url": "/assets/repository-guides/media-731deaa16be5482e07146d3e.webp",
+      "alt": "Codex Multi Launcher dashboard",
+      "sourceUrl": "https://github.com/JqyModi/codex-multi-launcher/blob/3a0555dfc88ba399c3adb45c47f81d49b24e2ab1/README.md#L18",
+      "originalUrl": "https://raw.githubusercontent.com/JqyModi/codex-multi-launcher/3a0555dfc88ba399c3adb45c47f81d49b24e2ab1/user-manual-assets/01-dashboard.png",
+      "animated": false
     }
   ],
   "generatedBy": "claude-opus-5-5",
   "documentHash": "3734944186eecf0647fc72ed0138596cbcd5c16ef7ae9fe0796b90fe56436dcb",
   "mediaStatus": "archived",
-  "mediaFailures": []
+  "mediaFailures": [],
+  "mediaReferences": []
 }
