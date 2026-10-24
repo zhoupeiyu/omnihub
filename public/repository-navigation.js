@@ -4,7 +4,7 @@ const sections = new Set(['overview', 'all', 'unfiled', ...REPOSITORY_TOPICS.map
 export function readRepositoryLocation(hash) {
   if (hash.split('?')[0] !== '#repositories') return null;
   const params = new URLSearchParams(hash.split('?')[1] || '');
-  const section = sections.has(params.get('topic')) ? params.get('topic') : 'overview';
+  const section = sections.has(params.get('topic')) ? params.get('topic') : 'all';
   const use = params.get('use');
   return {
     section,
@@ -22,7 +22,7 @@ export function repositoryLocation(state, currentHash = '') {
   // `space` is not a repository filter, but it is the privacy boundary for
   // the whole catalogue. Keep it when the explorer writes a deep-link.
   if (['mine', 'public'].includes(current.get('space'))) params.set('space', current.get('space'));
-  if (state.section !== 'overview') params.set('topic', state.section);
+  if (sections.has(state.section)) params.set('topic', state.section);
   if (state.use && state.use !== 'all') params.set('use', state.use);
   if (state.form && state.form !== 'all') params.set('form', state.form);
   if (state.query) params.set('q', state.query);

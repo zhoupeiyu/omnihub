@@ -251,7 +251,7 @@ function RepositoryDossier({ detail, selectedKey, loading, error, repositories, 
         <div className="repo-chip-row">{(selected?.topics || []).map((topic) => <span key={topic}>{REPOSITORY_TOPICS[topic] || topic}</span>)}</div>
         {loading ? <p className="repo-detail-state" role="status">正在读取 {selectedKey} 的详情…</p> : error ?
           <div className="repo-detail-state" role="alert"><p>仓库详情读取失败，可以重试或选择其他仓库。</p><button className="btn" onClick={onRetry}>重新加载</button></div> : detail && <React.Fragment>
-          <div className="repo-dossier-meta"><span>整理于 {compactDate(detail.updatedAt)}</span>
+          <div className="repo-dossier-meta"><span>整理于 {compactDate(detail.organizedAt || detail.updatedAt)}</span>
             {canEdit && <RepositoryStatusSelect value={detail.personalStatus} editable onChange={onStatusChange} />}</div>
           <section className="repo-dossier-section"><h2>怎么使用</h2>
             <p>安装、配置和使用示例以仓库当前的 README 为准。</p>
@@ -407,7 +407,7 @@ function RepositoryLibraryView({ repositories, query, canEdit, onRepositoryUpdat
               <span className="repository-identity"><RepositoryAvatar owner={item.owner} /><span><strong>{item.owner}/{item.name}</strong><small>{item.description}</small></span></span>
               <span className="repository-topic-cell">{(item.topics || []).slice(0, 3).map((topic) => <em key={topic}>{REPOSITORY_TOPICS[topic] || topic}</em>)}</span>
               <span className="repository-source-count">{item.sourcePostCount}</span>
-              <time className="repository-updated">{compactDate(item.updatedAt).replaceAll("/", "-")}</time>
+              <time className="repository-updated">{compactDate(item.organizedAt || item.updatedAt).replaceAll("/", "-")}</time>
               <span className={`repo-status repo-status-${status.tone}`}>{status.label}</span>
             </div>;
           })}

@@ -199,6 +199,8 @@ function inboxEngagementScore(item, maxEngagement) {
 }
 
 function inboxTime(item) {
+  const organized = globalThis.OmniHubLibraryOrder.timestamp(item);
+  if (organized) return organized;
   const time = Date.parse(inboxDate(item));
   return Number.isFinite(time) ? time : 0;
 }
@@ -609,7 +611,8 @@ function InboxView({ active = true, items, query, readOnly = false, loadState, l
       groupedItems.get(groupId).push(item);
     }
   }
-  const listEntries = sourceScope === "x" ? [...groupedItems.values()].flatMap((group) => group) : filteredItems;
+  const listEntries = sourceScope === "x" ? [...groupedItems.values()].flatMap(group => group)
+    : [...filteredItems].sort((a,b) => inboxTime(b) - inboxTime(a) || b.id - a.id);
   const xTopics = [...new Set(scopedItems.map((item) => xOrganization(item)?.topic).filter(Boolean))];
   const reviewItems = scopedItems.filter((item) => !item.aiType && xOrganization(item)?.assetType !== "idea");
   const maxEngagement = Math.max(1, ...scopedItems.map((item) => inboxEngagement(item) || 0));
@@ -725,8 +728,8 @@ function InboxView({ active = true, items, query, readOnly = false, loadState, l
             </option>)}
           </select>}
           <select className="select" aria-label="X 收藏排序" value={sortMode} onChange={(event) => setSortMode(event.target.value)}>
-            <option value="time_desc">时间 · 最新优先</option>
-            <option value="time_asc">时间 · 最早优先</option>
+            <option value="time_desc">整理时间 · 最新优先</option>
+            <option value="time_asc">整理时间 · 最早优先</option>
             <option value="score_desc">互动评分 · 最高优先</option>
           </select>
           {!readOnly && onImportX && <button className="btn btn-ghost" onClick={() => importInput.current?.click()} disabled={importBusy}>

@@ -11,7 +11,13 @@ test('unknown or incompatible URL filters fall back safely', () => {
   assert.deepEqual(readRepositoryLocation('#repositories?topic=design&use=audio.tts&form=bad&sort=bad'), {
     section:'design', use:'all', form:'all', query:'', sort:'default', detail:'',
   });
-  assert.equal(readRepositoryLocation('#repositories?topic=missing').section, 'overview');
+  assert.equal(readRepositoryLocation('#repositories?topic=missing').section, 'all');
+});
+test('the default repository entry opens the chronological catalogue and overview remains explicit', () => {
+  assert.equal(readRepositoryLocation('#repositories').section, 'all');
+  const hash = repositoryLocation({section:'overview'}, '#repositories?space=mine');
+  assert.equal(hash, '#repositories?space=mine&topic=overview');
+  assert.equal(readRepositoryLocation(hash).section, 'overview');
 });
 test('closing a detail preserves the underlying category and search', () => {
   const state = readRepositoryLocation('#repositories?topic=design&use=design.portrait&q=portrait&repo=a%2Fb');

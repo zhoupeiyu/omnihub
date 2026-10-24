@@ -56,7 +56,7 @@ export function groupRepositoriesByOwner(repositories, sort = 'recent') {
 export function mountRepositoryExplorer(root, { query = '', onQueryChange = () => {}, repositories = null, active = true, onCorrectClassification = null, onPreviewMedia = null } = {}) {
 const lifetime = new AbortController();
 const listen = (target, type, callback, options = {}) => target.addEventListener(type, callback, { ...options, signal: lifetime.signal });
-const state = { repositories: [], section: query ? 'all' : 'overview', query, form: 'all', use: 'all', sort: 'default', group:'owner', detail:'', limit: 36, ...readRepositoryLocation(window.location.hash) };
+const state = { repositories: [], section: 'all', query, form: 'all', use: 'all', sort: 'default', group:'owner', detail:'', limit: 36, ...readRepositoryLocation(window.location.hash) };
 let currentLocation = window.location.hash;
 let savedScroll = 0;
 let restoringPosition = false;
@@ -155,6 +155,13 @@ const icon = name => {
   return `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${paths[name] || paths.book}</svg>`;
 };
 const avatar = repo => `<span class="avatar" aria-hidden="true">${escapeHtml(repo.owner.slice(0,1).toUpperCase())}<img loading="lazy" referrerpolicy="no-referrer" src="https://github.com/${encodeURIComponent(repo.owner)}.png?size=80" alt=""></span>`;
+const organizedDate = repo => {
+  const time = globalThis.OmniHubLibraryOrder.timestamp(repo);
+  if (!time) return '';
+  const recorded = repo.organizedAt || repo.updatedAt || repo.createdAt || '';
+  const date = /^\d{4}-\d{2}-\d{2}$/.test(recorded) ? recorded : new Date(time).toLocaleDateString('sv-SE');
+  return `<time class="repo-organized-date" datetime="${new Date(time).toISOString()}">整理于 ${date}</time>`;
+};
 listen(root, 'error', event => { if (event.target instanceof HTMLImageElement && event.target.closest('.avatar')) event.target.remove(); }, { capture: true });
 $('search-icon').innerHTML = icon('search');
 $('results').dataset.view = 'cards';
@@ -264,7 +271,7 @@ function renderNavigation() {
 function card(repo) {
   const note = getNote(repo);
   const primaryUse = note?.uses[0] ? SUBTOPICS.get(note.uses[0]).label : '';
-  return `<button class="repo-card${state.detail === repo.key ? ' selected' : ''}" style="${styleFor(note?.groups[0])}" data-repo="${escapeHtml(repo.key)}" aria-controls="repo-dialog" aria-expanded="${state.detail === repo.key}" aria-label="查看 ${escapeHtml(repo.name)} 详情"><span class="card-top">${avatar(repo)}<span class="card-heading"><h3>${escapeHtml(repo.name)}</h3><span class="owner">${escapeHtml(repo.owner)}</span></span></span><p class="repo-description">${escapeHtml(getRepositorySummary(repo, note?.summary))}</p><span class="card-bottom"><span class="card-tags">${note ? `<span class="tag form">${escapeHtml(note.form)}</span><span class="tag" title="${escapeHtml(note.subject)}">${escapeHtml(primaryUse)}${note.uses.length > 1 ? ` +${note.uses.length - 1}` : ''}</span>` : '<span class="tag">待细分用途</span>'}</span><span class="card-action" aria-hidden="true"><span class="card-action-label">查看详情</span><span class="card-arrow">↗</span></span></span></button>`;
+  return `<button class="repo-card${state.detail === repo.key ? ' selected' : ''}" style="${styleFor(note?.groups[0])}" data-repo="${escapeHtml(repo.key)}" aria-controls="repo-dialog" aria-expanded="${state.detail === repo.key}" aria-label="查看 ${escapeHtml(repo.name)} 详情"><span class="card-top">${avatar(repo)}<span class="card-heading"><h3>${escapeHtml(repo.name)}</h3><span class="owner">${escapeHtml(repo.owner)}</span>${organizedDate(repo)}</span></span><p class="repo-description">${escapeHtml(getRepositorySummary(repo, note?.summary))}</p><span class="card-bottom"><span class="card-tags">${note ? `<span class="tag form">${escapeHtml(note.form)}</span><span class="tag" title="${escapeHtml(note.subject)}">${escapeHtml(primaryUse)}${note.uses.length > 1 ? ` +${note.uses.length - 1}` : ''}</span>` : '<span class="tag">待细分用途</span>'}</span><span class="card-action" aria-hidden="true"><span class="card-action-label">查看详情</span><span class="card-arrow">↗</span></span></span></button>`;
 }
 function ownerGroup(group, index) {
   const titleId = `owner-group-${index}`;
@@ -337,7 +344,7 @@ function render() {
 function changeSection(section) {
   if (!['overview','all','unfiled',...topicById.keys()].includes(section)) return;
   rememberPosition();
-  state.section = section; state.query = ''; state.form = 'all'; state.use = 'all'; state.limit = 36;
+  state.section = section; state.query = ''; state.form = 'all'; state.use = 'all'; state.sort = 'default'; state.limit = 36;
   hideDetail();
   $('search').value = '';
   onQueryChange('');

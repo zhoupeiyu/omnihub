@@ -62,7 +62,7 @@ test('repository tabs stay mounted and no longer duplicate the header search', (
 test('repository links retain the catalogue space on deep links and history navigation', () => {
   const hash = repositoryLocation({ section:'design', use:'design.portrait', form:'all', query:'portrait', sort:'default', detail:'owner/repo' }, '#repositories?space=mine');
   assert.equal(hash, '#repositories?space=mine&topic=design&use=design.portrait&q=portrait&repo=owner%2Frepo');
-  assert.equal(repositoryLocation({ section:'overview', use:'all', form:'all', query:'', sort:'default', detail:'' }, '#repositories?space=public'), '#repositories?space=public');
+  assert.equal(repositoryLocation({ section:'overview', use:'all', form:'all', query:'', sort:'default', detail:'' }, '#repositories?space=public'), '#repositories?space=public&topic=overview');
 });
 
 test('repository details overlay the catalogue without resizing or scrolling the list', () => {
