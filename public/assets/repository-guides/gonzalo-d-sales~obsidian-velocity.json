@@ -1,0 +1,80 @@
+{
+  "schemaVersion": 1,
+  "key": "gonzalo-d-sales/obsidian-velocity",
+  "status": "partial",
+  "reason": "README 没有说明如何下载、安装和启用 Velocity 主题本身（例如是否通过 Obsidian 社区主题市场获取），只说明了启用主题之后如何借助 Style Settings 插件进行自定义，以及 CSSClasses 和 Math Callouts 的用法。",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/Gonzalo-D-Sales/obsidian-velocity/blob/5ddc6c2e0028baad1b98fb5586517ff520291e7a/README.md",
+  "sourceRevision": "5ddc6c2e0028baad1b98fb5586517ff520291e7a",
+  "canonicalKey": "Gonzalo-D-Sales/obsidian-velocity",
+  "summary": "一款面向 Obsidian 的现代风格主题，提供多套亮色/暗色配色、移动端支持、窄窗口自动隐藏侧栏，以及按笔记切换样式的 CSS 类。",
+  "intro": "适合希望统一和美化 Obsidian 笔记库外观的用户。主题可通过 Style Settings 插件的 Quick Settings 调整布局和配色，也可用 Configurator 做更细的配置。还可以在单篇笔记中用 cssclasses 隐藏标题或属性、加宽版面，或使用 math 样式的 Callout。",
+  "requirements": "需要已安装 Obsidian 并启用 Velocity 主题。如需自定义，还要从 Obsidian 应用内的插件商店安装免费的 Style Settings 插件。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "安装 Style Settings 插件",
+      "text": "在已启用 Velocity 主题的前提下，从 Obsidian 应用内的插件商店下载 Style Settings 插件。主题启用后，Velocity 的设置项会自动出现在该插件中。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/Gonzalo-D-Sales/obsidian-velocity/blob/5ddc6c2e0028baad1b98fb5586517ff520291e7a/README.md?plain=1#L45"
+      }
+    },
+    {
+      "title": "用 Quick Settings 调整外观",
+      "text": "在 Style Settings 中选择 Quick Settings，快速修改布局和配色。如需使用自定义字体，打开「Override dedicated theme typeface」开关；作者提示更换字体可能带来视觉瑕疵。需要更深入的配置时，改用 Configurator。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/Gonzalo-D-Sales/obsidian-velocity/blob/5ddc6c2e0028baad1b98fb5586517ff520291e7a/README.md?plain=1#L45"
+      }
+    },
+    {
+      "title": "按笔记应用 CSSClasses",
+      "text": "在单篇笔记的 cssclasses 中填写主题提供的类名即可改变该笔记样式。例如 hide-title 隐藏行内标题，hide-metadata 隐藏属性，style-wide 取消可读宽度限制，large-heading 放大 H1，override 用于禁用其他类。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/Gonzalo-D-Sales/obsidian-velocity/blob/5ddc6c2e0028baad1b98fb5586517ff520291e7a/README.md?plain=1#L79"
+      }
+    },
+    {
+      "title": "使用 Math Callout 与自动隐藏",
+      "text": "把 Callout 类型手动写为 [!math]，即可得到教科书风格的描边样式；追加颜色名可改色，如 [!math-red]。窗口过窄时主题会自动隐藏侧栏，如不需要，可在 Style Settings 中关闭 Auto-Hide。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/Gonzalo-D-Sales/obsidian-velocity/blob/5ddc6c2e0028baad1b98fb5586517ff520291e7a/README.md?plain=1#L98"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "作者说明主题可能影响部分插件设置页或菜单的样式，通常只是轻微的视觉错位，插件功能不受影响。",
+    "Issue 和功能请求只在周末处理，不保证及时完成。彩虹文件夹/标题等功能已被作者有意排除。",
+    "主题采用 GPL-3.0 许可证，二次分发修改版时需遵守其条款。"
+  ],
+  "references": [],
+  "media": [
+    {
+      "url": "/assets/repository-guides/media-01d54b53c97477f731df4f0e.webp",
+      "alt": "Gonzalo-D-Sales/obsidian-velocity 官方演示 1",
+      "sourceUrl": "https://github.com/Gonzalo-D-Sales/obsidian-velocity/blob/5ddc6c2e0028baad1b98fb5586517ff520291e7a/README.md?plain=1#L25",
+      "originalUrl": "https://raw.githubusercontent.com/Gonzalo-D-Sales/obsidian-velocity/5ddc6c2e0028baad1b98fb5586517ff520291e7a/assets/panels.png"
+    },
+    {
+      "url": "/assets/repository-guides/media-8414f3fb752069918b2a956c.webp",
+      "alt": "Gonzalo-D-Sales/obsidian-velocity 官方演示 2",
+      "sourceUrl": "https://github.com/Gonzalo-D-Sales/obsidian-velocity/blob/5ddc6c2e0028baad1b98fb5586517ff520291e7a/README.md?plain=1#L26",
+      "originalUrl": "https://raw.githubusercontent.com/Gonzalo-D-Sales/obsidian-velocity/5ddc6c2e0028baad1b98fb5586517ff520291e7a/assets/mobile.png"
+    },
+    {
+      "url": "/assets/repository-guides/media-6367a48a6d4630d2c15b27fa.webp",
+      "alt": "Gonzalo-D-Sales/obsidian-velocity 官方演示 3",
+      "sourceUrl": "https://github.com/Gonzalo-D-Sales/obsidian-velocity/blob/5ddc6c2e0028baad1b98fb5586517ff520291e7a/README.md?plain=1#L104",
+      "originalUrl": "https://raw.githubusercontent.com/Gonzalo-D-Sales/obsidian-velocity/5ddc6c2e0028baad1b98fb5586517ff520291e7a/assets/autohide.gif"
+    }
+  ],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "831fb3a7f54b1ab08b3a956846e7ab640536bc84d1e03651a40af677be19ce54",
+  "mediaStatus": "archived",
+  "mediaFailures": []
+}

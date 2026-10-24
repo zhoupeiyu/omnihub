@@ -1,0 +1,96 @@
+{
+  "schemaVersion": 1,
+  "key": "op7418/codepilot",
+  "status": "ready",
+  "reason": "",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/op7418/CodePilot/blob/1ae6d76de6993377dab961eacf04927babd99eb1/README.md",
+  "sourceRevision": "1ae6d76de6993377dab961eacf04927babd99eb1",
+  "canonicalKey": "op7418/CodePilot",
+  "summary": "CodePilot 是一个多模型 AI Agent 桌面客户端，可在同一界面连接多家 AI 服务商，并通过 MCP 和 Skills 扩展能力。",
+  "intro": "适合想用桌面图形界面与多家模型对话、编写代码或处理日常任务的个人用户和开发者。文档列出的用途包括：在 Code / Plan / Ask 模式下对话，在对话中切换模型，添加 MCP 服务器和技能，通过 Telegram、飞书、Discord、QQ、微信等 Bridge 远程发消息，调度定时任务，以及统计 Token 用量和费用。本指南以 macOS 下载发布版为入门路径。",
+  "requirements": "macOS 电脑（Apple Silicon 或 Intel）。至少一个受支持服务商的 API Key（如 Anthropic、OpenRouter、智谱 GLM、Ollama 等）。如需让 Claude 直接编辑文件、执行终端命令或进行 Git 操作，可另行安装 Claude Code CLI（可选，需要 npm）。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "下载并校验 macOS 安装包",
+      "text": "在官方 GitHub Releases 的 latest 页面，按芯片选择 Apple Silicon 或 Intel 的 .dmg 安装包，并用同一 Release 中的 SHA256SUMS.txt 校验文件。英文文档要求：如果 Gatekeeper 拒绝打开，应重新从官方 Release 下载；仍被拒绝时到 GitHub Issues 报告，不要绕过系统警告。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/op7418/CodePilot/blob/1ae6d76de6993377dab961eacf04927babd99eb1/README.md?plain=1#L33"
+      }
+    },
+    {
+      "title": "在设置中添加服务商凭证",
+      "text": "启动 CodePilot 后，进入「设置 > 服务商」（Settings > Providers），选择内置预设并填入 API Key。如果配置后看不到模型，请先确认 Key 有效、端点可以访问，再用「Run Diagnostics」检查连通性。Bedrock、Vertex 还需要额外的环境变量或 IAM 配置。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/op7418/CodePilot/blob/1ae6d76de6993377dab961eacf04927babd99eb1/README.md?plain=1#L155"
+      }
+    },
+    {
+      "title": "选择目录、模式和模型开始对话",
+      "text": "新建对话时，先选择工作目录，再选择交互模式（Code / Plan / Ask）和模型。对话过程中可以切换模型，可以暂停、恢复会话或回退到检查点，也可以设置权限级别（Default / Full Access）。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/op7418/CodePilot/blob/1ae6d76de6993377dab961eacf04927babd99eb1/README.md?plain=1#L155"
+      }
+    },
+    {
+      "title": "按需配置工作区、MCP 与技能",
+      "text": "以下均为可选项。在「设置 > Assistant」中选择工作区目录并开启 Onboarding，工作区根目录会生成 soul.md、user.md、claude.md、memory.md。在侧边栏 MCP 页面添加 MCP 服务器，在 Skills 页面管理自定义技能。如果使用 Bridge，需要先在目标平台创建机器人，再到 Bridge 页面填写 token。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/op7418/CodePilot/blob/1ae6d76de6993377dab961eacf04927babd99eb1/README.md?plain=1#L155"
+      }
+    },
+    {
+      "title": "可选安装 Claude Code CLI",
+      "text": "只做普通聊天时不需要这一步。如果需要让 Claude 直接编辑文件、执行终端命令或进行 Git 操作，按文档用 npm 全局安装 @anthropic-ai/claude-code。CodePilot 也支持导入 Claude Code CLI 的 .jsonl 会话历史。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/op7418/CodePilot/blob/1ae6d76de6993377dab961eacf04927babd99eb1/README.md?plain=1#L86"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "许可证为 BSL-1.1：个人、学术和非营利用途免费；商业使用需另行获取授权，代码于 2029-03-16 转为 Apache 2.0。",
+    "使用模型需要各服务商的 API Key，调用费用由所选服务商收取。应用内的费用统计只是估算。",
+    "中英文 README 对 macOS 签名状态的描述不一致：英文版称已公证，中文版称未公证并给出移除隔离属性的方法。英文版明确要求不要绕过 Gatekeeper，建议遵循英文版。",
+    "Windows 构建未签名，可能触发 SmartScreen；应先用 SHA256SUMS.txt 校验，再决定是否运行。Linux 版本需要手动下载更新。",
+    "Bridge 远程控制需要在各平台创建机器人并提供 token，请妥善保管这些凭证。",
+    "Full Access 权限模式会放宽逐项审批，使用前请确认工作目录范围。"
+  ],
+  "references": [
+    {
+      "label": "README_CN.md",
+      "url": "https://github.com/op7418/CodePilot/blob/1ae6d76de6993377dab961eacf04927babd99eb1/README_CN.md"
+    }
+  ],
+  "media": [
+    {
+      "url": "/assets/repository-guides/media-70f01d00f415c82baeb3399a.webp",
+      "alt": "op7418/CodePilot 官方演示 1",
+      "sourceUrl": "https://github.com/op7418/CodePilot/blob/1ae6d76de6993377dab961eacf04927babd99eb1/README_CN.md?plain=1#L14",
+      "originalUrl": "https://raw.githubusercontent.com/op7418/CodePilot/1ae6d76de6993377dab961eacf04927babd99eb1/apps/site/public/screenshots/zh/chat-window.webp"
+    },
+    {
+      "url": "/assets/repository-guides/media-fbc7b87f4658a427cedd030f.webp",
+      "alt": "技能与扩展",
+      "sourceUrl": "https://github.com/op7418/CodePilot/blob/1ae6d76de6993377dab961eacf04927babd99eb1/README_CN.md?plain=1#L21",
+      "originalUrl": "https://raw.githubusercontent.com/op7418/CodePilot/1ae6d76de6993377dab961eacf04927babd99eb1/apps/site/public/screenshots/zh/plugins-window.webp"
+    },
+    {
+      "url": "/assets/repository-guides/media-3888f96e2edc8f67fbab7afd.webp",
+      "alt": "连接 AI 服务",
+      "sourceUrl": "https://github.com/op7418/CodePilot/blob/1ae6d76de6993377dab961eacf04927babd99eb1/README_CN.md?plain=1#L21",
+      "originalUrl": "https://raw.githubusercontent.com/op7418/CodePilot/1ae6d76de6993377dab961eacf04927babd99eb1/apps/site/public/screenshots/zh/providers-window.webp"
+    }
+  ],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "b794908fa04872f980e3420320a6e060a557cb0484aa06d118d2d5a5c107e465",
+  "mediaStatus": "archived",
+  "mediaFailures": []
+}

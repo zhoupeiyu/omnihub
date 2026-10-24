@@ -1,0 +1,35 @@
+/* OmniHub 伴生样式：作用域内覆盖，选择器沿用上游，无字体/图片/依赖 */
+:root{--side:240px;--gap:16px;--radius:12px;--surface:var(--bg-soft);--text:var(--t1);--muted:var(--t2);--border:var(--divider);--accent:var(--brand-1)}
+html.dark{--surface:var(--bg-soft);--text:var(--t1);--muted:var(--t2);--border:var(--divider);--accent:var(--brand-1)}
+body{background:var(--bg);color:var(--text);font-family:ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,"PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif}
+a,button,input{font-family:inherit}
+.nav-in{gap:12px;padding:0 20px}
+.search{flex:1 1 320px;max-width:none;min-width:0;margin-left:auto}
+.search input{height:36px;border:0;background:transparent;border-radius:0}
+.icon-btn,.switch,.chip,.sec-link,.reset,.toggle,.tip-open{border:1px solid var(--border);border-radius:8px;background:var(--surface);color:var(--text);font-size:13px;padding:4px 10px}
+.icon-btn,.switch{background:none;border-color:transparent}
+.icon-btn:hover,.switch:hover,.chip:hover{border-color:var(--border);background:var(--surface)}
+.chip[aria-pressed=true],.sec-link[aria-pressed=true],.sec-link.on,.sec-link.all[aria-pressed=true],.fav[aria-pressed=true]{background:var(--brand-soft);border-color:var(--accent);color:var(--accent);font-weight:600}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px;border-radius:8px}
+.group.ad{display:none!important}
+.group .gt{font-size:12px;color:var(--muted)}
+.sec-link{border-color:transparent;background:transparent;border-radius:6px}
+.toc-sub a{color:var(--muted);border-left:1px solid var(--border);padding-left:10px}
+.toc-sub a.on{color:var(--accent);border-left-color:var(--accent)}
+.content{padding-right:32px}
+.doc{max-width:1100px;margin:0}
+.card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:18px 20px 14px}
+.card-h h3{font-size:17px;line-height:26px}
+.src summary{color:var(--muted)}
+.omni-bar{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin:0 0 18px}
+.omni-bar a,.omni-bar button,.omni-src{font-size:12.5px;color:var(--muted);background:none;border:1px solid transparent;border-radius:8px;padding:3px 8px;cursor:pointer}
+.omni-bar a:hover,.omni-bar button:hover,.omni-src:hover{color:var(--accent);border-color:var(--border)}
+details.addon:not([open])>.body{display:none}
+@media (min-width:1024px){.sidebar{width:var(--side)}.content{padding-left:calc(var(--side) + 32px)}}
+@media (min-width:1200px){.sec-block{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:var(--gap);align-items:start}.sec-block>.sec-h,.sec-block>.intro{grid-column:1/-1}.sec-block .card{margin-bottom:0}}
+@media (max-width:390px){html,body{overflow-x:hidden}.nav-in{gap:8px;padding:0 12px}.search{flex:1 1 100%}.content{padding-left:16px;padding-right:16px}.rows{grid-template-columns:1fr}.doc,.card,.rows .v,.sec-h h2{min-width:0;overflow-wrap:anywhere}}
+/* OmniHub 伴生样式补丁：移动端第二行搜索栏 + 文档说明/来源排版 */
+.doc-source{font-size:12px!important;line-height:1.6;margin-top:12px!important;color:var(--muted)}
+.doc-head>details{margin-top:12px;font-size:14px}
+.doc-head>details>summary{cursor:pointer}
+@media (max-width:960px){:root{--nav-h:96px}.nav-in{flex-wrap:wrap;align-content:center;row-gap:4px}.nav-in>a:first-child{white-space:nowrap;font-size:12px}.search{order:10;flex:0 0 100%;width:100%;height:32px}.search input{height:30px}}

@@ -1,0 +1,82 @@
+{
+  "schemaVersion": 1,
+  "key": "hithink-tech/financial-api",
+  "status": "ready",
+  "reason": "",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/HiThink-Tech/Financial-API/blob/3bca7805a4127ece8d81961917e740d2effac6ec/README.md",
+  "sourceRevision": "3bca7805a4127ece8d81961917e740d2effac6ec",
+  "canonicalKey": "HiThink-Tech/Financial-API",
+  "summary": "同花顺官方 A 股金融数据服务，可通过 CLI、REST API、MCP、Python SDK 或 Agent Skill 查询行情、财务报表、指数板块和涨跌停等数据。",
+  "intro": "适合需要 A 股数据的 AI Agent 使用者、量化研究者和应用开发者。可查询标的目录、最新行情、历史 K 线、集合竞价、财务报表、估值、指数与板块、公募基金、公开期货期权和涨跌停、龙虎榜等特色数据，也可以在本地用 DuckDB 维护历史行情并用 SQL 研究。README 把 CLI 列为终端、Agent 和自动化任务的默认入口，本指南按 CLI 路径整理。",
+  "requirements": "需要在同花顺金融数据服务官网登录并创建 API Key（API、MCP、CLI、Python 共用同一个 Key）。CLI 基于 Node.js，徽章标注要求 Node.js 22.12+，并通过 npm 全局安装。Python SDK 路径另需 Python 3.11+。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "在官网创建统一 API Key",
+      "text": "登录 https://fuyao.aicubes.cn/，进入 API Key 管理页面（/admin/）创建 Key。Key 不要写入代码、README、Issue、日志或 Git。本地保存时优先使用用户级环境变量、用户级凭据文件或系统凭据库。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/HiThink-Tech/Financial-API/blob/3bca7805a4127ece8d81961917e740d2effac6ec/README.md?plain=1#L62"
+      }
+    },
+    {
+      "title": "用 npm 安装 CLI 并登录",
+      "text": "在终端执行 npm 全局安装 @hithink-tech/hithink-finance-cli，再运行 hithink-finance auth login 完成认证，然后用 capabilities 命令以 JSON 格式查看当前可用能力。CLI 还会为已检测到的 Agent 同步配套的领域 Skills。",
+      "code": "npm install -g @hithink-tech/hithink-finance-cli\nhithink-finance auth login\nhithink-finance capabilities --format json",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/HiThink-Tech/Financial-API/blob/3bca7805a4127ece8d81961917e740d2effac6ec/README.md?plain=1#L88"
+      }
+    },
+    {
+      "title": "先检索确认唯一 thscode",
+      "text": "首次使用股票名称或不完整代码时，先用 symbol search 检索，确认唯一的 thscode（如 600519.SH），不要自行猜测交易所或指数后缀。确认后再用 market snapshot 查最新行情，或用 financials income 查利润表。",
+      "code": "# 根据代码或名称查找股票\nhithink-finance symbol search --q 600519 --limit 5 --format json\n\n# 查询最新行情\nhithink-finance market snapshot --thscodes 600519.SH --format json\n\n# 查询最近四期利润表\nhithink-finance financials income --thscode 600519.SH --limit 4 --format json\n\n# 初始化本地数据库\nhithink-finance data init --format json\n\n# 查询本地前复权日线\nhithink-finance db query \\\n  --sql \"SELECT * FROM v_daily_qfq LIMIT 10\" \\\n  --format json",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/HiThink-Tech/Financial-API/blob/3bca7805a4127ece8d81961917e740d2effac6ec/README.md?plain=1#L88"
+      }
+    },
+    {
+      "title": "初始化本地 DuckDB 做 SQL 研究",
+      "text": "需要长期维护历史行情时，用 data init 初始化本地数据库，再用 db query 执行 SQL，例如查询前复权日线视图 v_daily_qfq。全市场、多标的或长时间窗口的结果应写入文件，终端里只展示路径、行数和摘要。",
+      "code": "# 根据代码或名称查找股票\nhithink-finance symbol search --q 600519 --limit 5 --format json\n\n# 查询最新行情\nhithink-finance market snapshot --thscodes 600519.SH --format json\n\n# 查询最近四期利润表\nhithink-finance financials income --thscode 600519.SH --limit 4 --format json\n\n# 初始化本地数据库\nhithink-finance data init --format json\n\n# 查询本地前复权日线\nhithink-finance db query \\\n  --sql \"SELECT * FROM v_daily_qfq LIMIT 10\" \\\n  --format json",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/HiThink-Tech/Financial-API/blob/3bca7805a4127ece8d81961917e740d2effac6ec/README.md?plain=1#L88"
+      }
+    },
+    {
+      "title": "按需改用 MCP 或 REST API 接入",
+      "text": "如果要在 Claude Desktop、Cursor 等支持 MCP 的客户端里使用，可按服务名配置托管 MCP 地址，并在请求头 X-api-key 中引用环境变量。服务端集成可直接调用 REST API。具体参数以 docs/mcp.md、docs/api/ 以及连接返回的 tools/list 为准。",
+      "code": "{\n  \"mcpServers\": {\n    \"hithink-finance-a-share\": {\n      \"type\": \"http\",\n      \"url\": \"https://fuyao.aicubes.cn/mcp/a-share\",\n      \"headers\": {\n        \"X-api-key\": \"${HITHINK_FINANCE_API_KEY}\"\n      }\n    }\n  }\n}\n\ncurl 'https://fuyao.aicubes.cn/api/a-share/prices/snapshot?thscodes=600519.SH' \\\n  -H 'X-api-key: <API_KEY>'",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/HiThink-Tech/Financial-API/blob/3bca7805a4127ece8d81961917e740d2effac6ec/README.md?plain=1#L147"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "不设累计调用次数上限，但存在动态限流；触发限流后应降低频率和并发，并在适当延迟后重试。",
+    "公开方式不提供分钟 K、tick、Level-2、港股或美股行情、宏观数据、新闻公告原文、研报原文和投资推荐；资金流向等“端内专用”能力只在同花顺AI客户端中提供。",
+    "实际可访问的数据以官网说明和账号授权为准；文档和测试只能证明支持范围，线上可用性需要通过真实授权请求验证。",
+    "把 API Key 交给 Agent 代为配置时，聊天平台可能保留消息记录。",
+    "项目只提供金融数据访问和研究数据准备工具，不提供投资建议。"
+  ],
+  "references": [],
+  "media": [
+    {
+      "url": "/assets/repository-guides/media-0096ff3bf005fbad40223d5c.webp",
+      "alt": "单股行情与趋势速览",
+      "sourceUrl": "https://github.com/HiThink-Tech/Financial-API/blob/3bca7805a4127ece8d81961917e740d2effac6ec/README.md?plain=1#L214",
+      "originalUrl": "https://raw.githubusercontent.com/HiThink-Tech/Financial-API/3bca7805a4127ece8d81961917e740d2effac6ec/examples/inspirations/01-stock-overview/preview.jpg"
+    }
+  ],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "456fa6a62440e154a9c62cdd95a2dfb6ffce22d8ae88a31c87a07568c736e5b3",
+  "mediaStatus": "archived",
+  "mediaFailures": []
+}

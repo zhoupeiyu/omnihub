@@ -1,0 +1,54 @@
+{
+  "schemaVersion": 1,
+  "key": "humanlayer/skills",
+  "status": "ready",
+  "reason": "",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/humanlayer/skills/blob/ca7c8088db69e315a8b2deea43820270457f8f3c/README.md",
+  "sourceRevision": "ca7c8088db69e315a8b2deea43820270457f8f3c",
+  "canonicalKey": "humanlayer/skills",
+  "summary": "HumanLayer 提供的一组 Claude Code skills，覆盖图解讲解、可视化 PR、改写 CLAUDE.md、构建 agentic 工作流等场景。",
+  "intro": "适合使用 Claude Code 的开发者按需挑选技能：show-me 用简洁图示和 HTML 产物讲解当前话题；visual-pr 创建或更新带可视化大纲的 PR；improve-claude-md 用 <important if> 块改写 CLAUDE.md；narrow-react-prop-types 收窄 React 组件 prop 类型；build-iterated-agentic-loop 和 design-control-loop 用于搭建基于 GitHub Actions 的编码代理工作流。",
+  "requirements": "Claude Code；可以运行 npx 的环境。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "按需求挑选要安装的技能",
+      "text": "对照 README 中各技能的说明选择：讲解用 show-me，评审 PR 用 visual-pr，优化项目指令用 improve-claude-md，React 类型清理用 narrow-react-prop-types，搭建代理循环用 build-iterated-agentic-loop 或 design-control-loop。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/humanlayer/skills/blob/ca7c8088db69e315a8b2deea43820270457f8f3c/README.md?plain=1#L13"
+      }
+    },
+    {
+      "title": "用 npx skills add 安装技能",
+      "text": "通用安装格式是把 SKILLNAME 替换为技能名。例如安装 show-me，就使用 README 中对应的安装命令；其他技能同理，各自都有对应的安装命令。",
+      "code": "npx skills add humanlayer/skills --skill SKILLNAME\n\nnpx skills add humanlayer/skills --skill show-me",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/humanlayer/skills/blob/ca7c8088db69e315a8b2deea43820270457f8f3c/README.md?plain=1#L5"
+      }
+    },
+    {
+      "title": "在项目中输入斜杠命令调用",
+      "text": "安装后，在 Claude Code 中输入与技能同名的斜杠命令即可调用，例如 /show-me、/visual-pr、/improve-claude-md。其中 improve-claude-md 等技能需要在你的项目目录中运行。",
+      "code": "/show-me\n\n/visual-pr\n\n/improve-claude-md",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/humanlayer/skills/blob/ca7c8088db69e315a8b2deea43820270457f8f3c/README.md?plain=1#L13"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "improve-claude-md 会改写项目里的 CLAUDE.md，运行前建议先提交或备份原文件。",
+    "visual-pr 会创建或更新 pull request，属于对外可见的操作。",
+    "build-iterated-agentic-loop 和 design-control-loop 会在项目中生成 GitHub Actions 工作流等文件，合并前请先审查内容。"
+  ],
+  "references": [],
+  "media": [],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "1ed3b876d72ce8ac3913166a4da2008894e32bd2ab504613362ad32f630cbd38",
+  "mediaStatus": "none_in_official_documents"
+}

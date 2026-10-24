@@ -1,0 +1,75 @@
+{
+  "schemaVersion": 1,
+  "key": "qwenlm/qwen3-tts",
+  "status": "ready",
+  "reason": "",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/QwenLM/Qwen3-TTS/blob/022e286b98fbec7e1e916cb940cdf532cd9f488e/README.md",
+  "sourceRevision": "022e286b98fbec7e1e916cb940cdf532cd9f488e",
+  "canonicalKey": "QwenLM/Qwen3-TTS",
+  "summary": "Qwen3-TTS 是阿里云 Qwen 团队开源的语音合成模型系列，可用于预设音色合成、自然语言描述设计音色和基于参考音频的声音克隆。",
+  "intro": "适合需要在本地用 Python 调用语音合成模型的开发者和研究者。可以用 CustomVoice 模型选择 9 个预设音色并通过 instruct 控制语气，用 VoiceDesign 模型根据文字描述生成新音色，用 Base 模型根据参考音频及其文字稿克隆声音，也可以单独用 Qwen3-TTS-Tokenizer-12Hz 对音频做编码和解码。官方材料列出的语言为中、英、日、韩、德、法、俄、葡、西、意 10 种。",
+  "requirements": "建议使用新建的独立 Python 3.12 环境（官方示例用 conda）；官方示例在 CUDA GPU（device_map=\"cuda:0\"）上以 torch.bfloat16 加载模型；如启用 FlashAttention 2，硬件需兼容，且模型须以 float16 或 bfloat16 加载；首次加载时会按模型名自动下载权重，网络不便时可先用 ModelScope 或 Hugging Face 手动下载到本地目录。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "创建独立的 Python 环境",
+      "text": "官方建议在全新的隔离环境中安装，以免与已有依赖冲突。按代码块用 conda 创建名为 qwen3-tts 的 Python 3.12 环境并激活，后续安装和运行都在这个环境中进行。",
+      "code": "conda create -n qwen3-tts python=3.12 -y\nconda activate qwen3-tts",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/QwenLM/Qwen3-TTS/blob/022e286b98fbec7e1e916cb940cdf532cd9f488e/README.md?plain=1#L106"
+      }
+    },
+    {
+      "title": "从 PyPI 安装 qwen-tts 包",
+      "text": "在已激活的环境中执行 pip 安装 qwen-tts，它会拉取运行所需依赖，并可加载任一已发布的 Qwen3-TTS 模型。如需降低显存占用，可再安装 FlashAttention 2；内存小于 96GB 且 CPU 核心多时，官方给出了限制 MAX_JOBS 的安装写法。",
+      "code": "pip install -U qwen-tts\n\npip install -U flash-attn --no-build-isolation\n\nMAX_JOBS=4 pip install -U flash-attn --no-build-isolation",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/QwenLM/Qwen3-TTS/blob/022e286b98fbec7e1e916cb940cdf532cd9f488e/README.md?plain=1#L106"
+      }
+    },
+    {
+      "title": "按需求选择要加载的模型",
+      "text": "对照官方模型表选择：CustomVoice 用预设音色并可加指令控制风格，VoiceDesign 用自然语言描述设计音色，Base 用于 3 秒参考音频克隆并可作为微调基础。模型可填 Hugging Face 模型 ID，也可填已下载的本地目录；手动下载命令见代码块。",
+      "code": "# Download through ModelScope (recommended for users in Mainland China)\npip install -U modelscope\nmodelscope download --model Qwen/Qwen3-TTS-Tokenizer-12Hz  --local_dir ./Qwen3-TTS-Tokenizer-12Hz \nmodelscope download --model Qwen/Qwen3-TTS-12Hz-1.7B-CustomVoice --local_dir ./Qwen3-TTS-12Hz-1.7B-CustomVoice\nmodelscope download --model Qwen/Qwen3-TTS-12Hz-1.7B-VoiceDesign --local_dir ./Qwen3-TTS-12Hz-1.7B-VoiceDesign\nmodelscope download --model Qwen/Qwen3-TTS-12Hz-1.7B-Base --local_dir ./Qwen3-TTS-12Hz-1.7B-Base\nmodelscope download --model Qwen/Qwen3-TTS-12Hz-0.6B-CustomVoice --local_dir ./Qwen3-TTS-12Hz-0.6B-CustomVoice\nmodelscope download --model Qwen/Qwen3-TTS-12Hz-0.6B-Base --local_dir ./Qwen3-TTS-12Hz-0.6B-Base\n\n# Download through Hugging Face\npip install -U \"huggingface_hub[cli]\"\nhuggingface-cli download Qwen/Qwen3-TTS-Tokenizer-12Hz --local-dir ./Qwen3-TTS-Tokenizer-12Hz\nhuggingface-cli download Qwen/Qwen3-TTS-12Hz-1.7B-CustomVoice --local-dir ./Qwen3-TTS-12Hz-1.7B-CustomVoice\nhuggingface-cli download Qwen/Qwen3-TTS-12Hz-1.7B-VoiceDesign --local-dir ./Qwen3-TTS-12Hz-1.7B-VoiceDesign\nhuggingface-cli download Qwen/Qwen3-TTS-12Hz-1.7B-Base --local-dir ./Qwen3-TTS-12Hz-1.7B-Base\nhuggingface-cli download Qwen/Qwen3-TTS-12Hz-0.6B-CustomVoice --local-dir ./Qwen3-TTS-12Hz-0.6B-CustomVoice\nhuggingface-cli download Qwen/Qwen3-TTS-12Hz-0.6B-Base --local-dir ./Qwen3-TTS-12Hz-0.6B-Base",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/QwenLM/Qwen3-TTS/blob/022e286b98fbec7e1e916cb940cdf532cd9f488e/README.md?plain=1#L64"
+      }
+    },
+    {
+      "title": "在 Python 中调用生成函数",
+      "text": "导入 Qwen3TTSModel 并用 from_pretrained 加载模型，再按模型类型调用 generate_custom_voice、generate_voice_design 或 generate_voice_clone，返回的波形和采样率可用 soundfile 写成 wav。克隆需提供 ref_audio 和对应文字稿 ref_text，可通过 create_voice_clone_prompt 复用提示。",
+      "code": "import torch\nimport soundfile as sf\nfrom qwen_tts import Qwen3TTSModel\n\nmodel = Qwen3TTSModel.from_pretrained(\n    \"Qwen/Qwen3-TTS-12Hz-1.7B-CustomVoice\",\n    device_map=\"cuda:0\",\n    dtype=torch.bfloat16,\n    attn_implementation=\"flash_attention_2\",\n)\n\n# single inference\nwavs, sr = model.generate_custom_voice(\n    text=\"其实我真的有发现，我是一个特别善于观察别人情绪的人。\",\n    language=\"Chinese\", # Pass `Auto` (or omit) for auto language adaptive; if the target language is known, set it explicitly.\n    speaker=\"Vivian\",\n    instruct=\"用特别愤怒的语气说\", # Omit if not needed.\n)\nsf.write(\"output_custom_voice.wav\", wavs[0], sr)\n\n# batch inference\nwavs, sr = model.generate_custom_voice(\n    text=[\n        \"其实我真的有发现，我是一个特别善于观察别人情绪的人。\", \n        \"She said she would be here by noon.\"\n    ],\n    language=[\"Chinese\", \"English\"],\n    speaker=[\"Vivian\", \"Ryan\"],\n    instruct=[\"\", \"Very happy.\"]\n)\nsf.write(\"output_custom_voice_1.wav\", wavs[0], sr)\nsf.write(\"output_custom_voice_2.wav\", wavs[1], sr)\n\nimport torch\nimport soundfile as sf\nfrom qwen_tts import Qwen3TTSModel\n\nmodel = Qwen3TTSModel.from_pretrained(\n    \"Qwen/Qwen3-TTS-12Hz-1.7B-VoiceDesign\",\n    device_map=\"cuda:0\",\n    dtype=torch.bfloat16,\n    attn_implementation=\"flash_attention_2\",\n)\n\n# single inference\nwavs, sr = model.generate_voice_design(\n    text=\"哥哥，你回来啦，人家等了你好久好久了，要抱抱！\",\n    language=\"Chinese\",\n    instruct=\"体现撒娇稚嫩的萝莉女声，音调偏高且起伏明显，营造出黏人、做作又刻意卖萌的听觉效果。\",\n)\nsf.write(\"output_voice_design.wav\", wavs[0], sr)\n\n# batch inference\nwavs, sr = model.generate_voice_design(\n    text=[\n      \"哥哥，你回来啦，人家等了你好久好久了，要抱抱！\",\n      \"It's in the top drawer... wait, it's empty? No way, that's impossible! I'm sure I put it there!\"\n    ],\n    language=[\"Chinese\", \"English\"],\n    instruct=[\n      \"体现撒娇稚嫩的萝莉女声，音调偏高且起伏明显，营造出黏人、做作又刻意卖萌的听觉效果。\",\n      \"Speak in an incredulous tone, but with a hint of panic beginning to creep into your voice.\"\n    ]\n)\nsf.write(\"output_voice_design_1.wav\", wavs[0], sr)\nsf.write(\"output_voice_design_2.wav\", wavs[1], sr)\n\nimport torch\nimport soundfile as sf\nfrom qwen_tts import Qwen3TTSModel\n\nmodel = Qwen3TTSModel.from_pretrained(\n    \"Qwen/Qwen3-TTS-12Hz-1.7B-Base\",\n    device_map=\"cuda:0\",\n    dtype=torch.bfloat16,\n    attn_implementation=\"flash_attention_2\",\n)\n\nref_audio = \"https://qianwen-res.oss-cn-beijing.aliyuncs.com/Qwen3-TTS-Repo/clone.wav\"\nref_text  = \"Okay. Yeah. I resent you. I love you. I respect you. But you know what? You blew it! And thanks to you.\"\n\nwavs, sr = model.generate_voice_clone(\n    text=\"I am solving the equation: x = [-b ± √(b²-4ac)] / 2a? Nobody can — it's a disaster (◍•͈⌔•͈◍), very sad!\",\n    language=\"English\",\n    ref_audio=ref_audio,\n    ref_text=ref_text,\n)\nsf.write(\"output_voice_clone.wav\", wavs[0], sr)\n\nprompt_items = model.create_voice_clone_prompt(\n    ref_audio=ref_audio,\n    ref_text=ref_text,\n    x_vector_only_mode=False,\n)\nwavs, sr = model.generate_voice_clone(\n    text=[\"Sentence A.\", \"Sentence B.\"],\n    language=[\"English\", \"English\"],\n    voice_clone_prompt=prompt_items,\n)\nsf.write(\"output_voice_clone_1.wav\", wavs[0], sr)\nsf.write(\"output_voice_clone_2.wav\", wavs[1], sr)",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/QwenLM/Qwen3-TTS/blob/022e286b98fbec7e1e916cb940cdf532cd9f488e/README.md?plain=1#L148"
+      }
+    },
+    {
+      "title": "启动本地 Web UI 演示",
+      "text": "安装 qwen-tts 后可用 qwen-tts-demo 命令启动网页演示，传入模型名、--ip 和 --port，再在浏览器打开 http://<your-ip>:8000。Base 模型演示需要浏览器麦克风权限，官方建议通过 --ssl-certfile 和 --ssl-keyfile 以 HTTPS 运行。",
+      "code": "qwen-tts-demo --help\n\n# CustomVoice model\nqwen-tts-demo Qwen/Qwen3-TTS-12Hz-1.7B-CustomVoice --ip 0.0.0.0 --port 8000\n# VoiceDesign model\nqwen-tts-demo Qwen/Qwen3-TTS-12Hz-1.7B-VoiceDesign --ip 0.0.0.0 --port 8000\n# Base model\nqwen-tts-demo Qwen/Qwen3-TTS-12Hz-1.7B-Base --ip 0.0.0.0 --port 8000\n\nopenssl req -x509 -newkey rsa:2048 \\\n  -keyout key.pem -out cert.pem \\\n  -days 365 -nodes \\\n  -subj \"/CN=localhost\"\n\nqwen-tts-demo Qwen/Qwen3-TTS-12Hz-1.7B-Base \\\n  --ip 0.0.0.0 --port 8000 \\\n  --ssl-certfile cert.pem \\\n  --ssl-keyfile key.pem \\\n  --no-ssl-verify",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/QwenLM/Qwen3-TTS/blob/022e286b98fbec7e1e916cb940cdf532cd9f488e/README.md?plain=1#L377"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "官方示例默认使用 CUDA GPU 和 FlashAttention 2；硬件不兼容 FlashAttention 2 时不能使用该加速选项，且它只在 float16/bfloat16 下可用。",
+    "Base 模型的 Web 演示在远程访问时需要 HTTPS 才能正常获取麦克风权限；自签名证书会触发浏览器警告，官方提示生产环境应使用正式证书。",
+    "通过 vLLM-Omni 部署时目前仅支持离线推理，在线服务尚未支持。",
+    "DashScope API 是阿里云的在线服务，需另行参考其 API 文档，与本地开源包是不同的使用方式。",
+    "声音克隆需要提供他人或自己的参考音频，使用前应确认已获得声音所有者的授权。"
+  ],
+  "references": [],
+  "media": [],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "51f4497e70e9ae024b10ee4bbcb470366f10592edeab56c58d2194ba2dadb745",
+  "mediaStatus": "none_in_official_documents"
+}

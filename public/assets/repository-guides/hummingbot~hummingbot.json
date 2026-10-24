@@ -1,0 +1,73 @@
+{
+  "schemaVersion": 1,
+  "key": "hummingbot/hummingbot",
+  "status": "ready",
+  "reason": "",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/hummingbot/hummingbot/blob/9af100d6822da7d2d0291a906c730ef172284ee2/README.md",
+  "sourceRevision": "9af100d6822da7d2d0291a906c730ef172284ee2",
+  "canonicalKey": "hummingbot/hummingbot",
+  "summary": "开源的加密货币自动交易框架，可在多家中心化与去中心化交易所设计、运行和监控交易机器人。",
+  "intro": "适合想编写或运行算法交易策略的开发者和交易者。框架提供多种策略形式：单文件 Python 脚本（Scripts）、可实时调参的 V2 Controllers、管理订单生命周期的 Executors，以及传统的 V1 策略。连接器覆盖 CLOB CEX、CLOB DEX 和 AMM DEX 三类交易所。推荐通过 hbot 命令行以可脚本化的方式启停机器人，并查看成交、PnL 和日志。",
+  "requirements": "源码安装方式需要 Anaconda 或 Miniconda，以及 git 和 make；实盘交易需要交易所 API Key；AMM DEX 需要通过 Gateway 中间件连接。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "从源码安装 hbot 命令行",
+      "text": "这里选择官方推荐的源码安装路径（需要 Anaconda 或 Miniconda）：克隆仓库，执行 make install 创建 conda 环境并构建扩展，然后激活 hummingbot 环境，运行 hbot --help 验证。如需在 conda 环境之外使用，可执行 make link-cli 把 hbot 加入 PATH。",
+      "code": "# Clone the repository\ngit clone https://github.com/hummingbot/hummingbot.git\ncd hummingbot\n\n# Create the conda environment, build extensions, and expose the `hbot` CLI\nmake install\n\n# Activate the environment\nconda activate hummingbot\nhbot --help",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/hummingbot/hummingbot/blob/9af100d6822da7d2d0291a906c730ef172284ee2/README.md?plain=1#L29"
+      }
+    },
+    {
+      "title": "首次使用时设置 keystore 密码",
+      "text": "首次运行 hbot 时会提示设置 keystore 密码，用于加密交易所 API Key。若在脚本或代理工作流中非交互运行，可设置 HBOT_PASSWORD 环境变量，或使用 --password-stdin 参数传入密码。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/hummingbot/hummingbot/blob/9af100d6822da7d2d0291a906c730ef172284ee2/README.md?plain=1#L29"
+      }
+    },
+    {
+      "title": "用 simple_pmm 进行模拟交易",
+      "text": "用 hbot create 基于 simple_pmm 脚本生成配置，交易所设为 binance_paper_trade，然后用 hbot start 启动、hbot status 查看状态、hbot stop 停止。该模拟交易使用 Binance 实时行情数据，不需要 API Key。每个安装同时只能运行一个机器人。",
+      "code": "hbot create simple_pmm --name conf_paper_bot.yml \\\n     --set exchange=binance_paper_trade --set trading_pair=BTC-USDT\nhbot start conf_paper_bot.yml                          # run it (one bot per install)\nhbot status                                            # check on it\nhbot stop                                              # stop gracefully",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/hummingbot/hummingbot/blob/9af100d6822da7d2d0291a906c730ef172284ee2/README.md?plain=1#L29"
+      }
+    },
+    {
+      "title": "连接交易所 API 运行实盘控制器",
+      "text": "实盘交易时，先用 hbot connect binance 加密保存 API Key，再基于 pmm_mister 控制器创建配置，并设置 connector_name、trading_pair、total_amount_quote，最后启动。控制器的参数可以在运行中实时调整。",
+      "code": "hbot connect binance                                   # store API keys (encrypted)\nhbot create pmm_mister --name conf_my_bot.yml \\\n     --set connector_name=binance --set trading_pair=BTC-USDT --set total_amount_quote=100\nhbot start conf_my_bot.yml                             # run it (one bot per install)",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/hummingbot/hummingbot/blob/9af100d6822da7d2d0291a906c730ef172284ee2/README.md?plain=1#L29"
+      }
+    },
+    {
+      "title": "查阅 hbot 指南与官方文档",
+      "text": "完整命令参考见仓库内的 hummingbot/cli/README.md；安装与故障排查见 hummingbot.org/installation 及 FAQ、Troubleshooting 页面；策略框架总览见 Strategies 文档；问题可在 GitHub issue 或 Discord 的 #support 频道提出。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/hummingbot/hummingbot/blob/9af100d6822da7d2d0291a906c730ef172284ee2/README.md?plain=1#L29"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "实盘交易会动用真实资金，高频与做市策略可能造成亏损，建议先用 paper trading 熟悉流程。",
+    "交易所 API Key 由 keystore 密码加密，密码和 Key 都需要妥善保管。",
+    "包含 Gateway 时默认以开发模式（未加密 HTTP）启动，生产环境需要使用 DEV=false 并运行 gateway generate-certs 启用 HTTPS。",
+    "Hummingbot 存在匿名数据收集与上报，详见官方 Reporting 页面。",
+    "README 中的交易所折扣链接属于推荐（referral）合作，选择交易所时请自行判断。"
+  ],
+  "references": [],
+  "media": [],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "179e404ee85129a0b714d234246b0b9c13345f1ce19f50dd065e8c83af28c1c7",
+  "mediaStatus": "none_in_official_documents"
+}

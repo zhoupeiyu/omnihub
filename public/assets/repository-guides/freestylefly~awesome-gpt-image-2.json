@@ -1,0 +1,81 @@
+{
+  "schemaVersion": 1,
+  "key": "freestylefly/awesome-gpt-image-2",
+  "status": "ready",
+  "reason": "",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/freestylefly/awesome-gpt-image-2/blob/b93c18ad45397c828fcc39a1ed347830433b3de4/README.md",
+  "sourceRevision": "b93c18ad45397c828fcc39a1ed347830433b3de4",
+  "canonicalKey": "freestylefly/awesome-gpt-image-2",
+  "summary": "GPT Image 2 提示词与案例库，提供 500 多个带完整提示词的案例、分类结构化模板，以及可安装到代理中的风格库技能。",
+  "intro": "适合使用 GPT-Image2 做 UI、信息图、海报、电商、品牌、摄影、插画等图像的创作者和自动化工作流开发者。可以先在案例图库中找到目标视觉方向，再到模板页把业务变量填入通用模板或 JSON 模板。也可以在 Claude Code 等代理中安装 gpt-image-2-style-library 技能，由代理帮你选择风格、模板和场景标签。",
+  "requirements": "查阅案例和模板只需能访问 GitHub 仓库文档。安装技能需要 Claude Code 等受支持的代理宿主。在可视化网站测试生成需要 Google 登录。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "从精选案例确定想模仿的类型",
+      "text": "先浏览 README 中的精选案例和分类相册，确定想模仿的输出类型，例如 UI、信息图、海报或产品图。每个分类入口都链接到 docs/gallery.md 中对应的分区。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/freestylefly/awesome-gpt-image-2/blob/b93c18ad45397c828fcc39a1ed347830433b3de4/README.md?plain=1#L514"
+      }
+    },
+    {
+      "title": "在完整图库中查找相近案例",
+      "text": "打开 docs/gallery.md，或按编号进入 Part 1（1-165）或 Part 2（166-544），找到相近的案例。官方建议先复制提示词的结构，再借用风格词。也可以在 gpt-image2.canghe.ai 网站上按风格或场景筛选，并直接复制完整提示词。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/freestylefly/awesome-gpt-image-2/blob/b93c18ad45397c828fcc39a1ed347830433b3de4/README.md?plain=1#L514"
+      }
+    },
+    {
+      "title": "回到模板页填入业务变量",
+      "text": "打开 docs/templates.md，按类别（如 UI、信息图、产品、摄影、文档出版等）找到对应模板，把自己的业务变量填入通用模板或 JSON 模板。该页面同时包含常见问题与避坑说明。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/freestylefly/awesome-gpt-image-2/blob/b93c18ad45397c828fcc39a1ed347830433b3de4/README.md?plain=1#L514"
+      }
+    },
+    {
+      "title": "在 Claude Code 安装风格库技能",
+      "text": "如需让代理辅助选择风格和模板，在 Claude Code 内用 /plugin marketplace add 添加本仓库市场，再安装 gpt-image-2-style-library@awesome-gpt-image-2。安装后重启代理会话，即可在请求中指明使用该技能。",
+      "code": "/plugin marketplace add freestylefly/awesome-gpt-image-2\n/plugin install gpt-image-2-style-library@awesome-gpt-image-2",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/freestylefly/awesome-gpt-image-2/blob/b93c18ad45397c828fcc39a1ed347830433b3de4/README.md?plain=1#L278"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "GPT Image 2.5 专区只用于展示对比，不提供 2.5 实时生成。原始生成条件和确切模型 ID 尚未核实。",
+    "网站测试生成需要 Google 登录，并消耗平台积分；也可以填入个人 APIMart API key 直接生成。",
+    "README 中的赞助商 API 平台属于商业推广，不代表本项目对其服务的验证。"
+  ],
+  "references": [],
+  "media": [
+    {
+      "url": "/assets/repository-guides/media-3d6495c33f065f3912845507.webp",
+      "alt": "freestylefly/awesome-gpt-image-2 官方演示 1",
+      "sourceUrl": "https://github.com/freestylefly/awesome-gpt-image-2/blob/b93c18ad45397c828fcc39a1ed347830433b3de4/README.md?plain=1#L45",
+      "originalUrl": "https://raw.githubusercontent.com/freestylefly/awesome-gpt-image-2/b93c18ad45397c828fcc39a1ed347830433b3de4/data/images/site-preview.png"
+    },
+    {
+      "url": "/assets/repository-guides/media-d854c521d39b9e9d0aa651f6.webp",
+      "alt": "freestylefly/awesome-gpt-image-2 官方演示 2",
+      "sourceUrl": "https://github.com/freestylefly/awesome-gpt-image-2/blob/b93c18ad45397c828fcc39a1ed347830433b3de4/README.md?plain=1#L259",
+      "originalUrl": "https://raw.githubusercontent.com/freestylefly/awesome-gpt-image-2/b93c18ad45397c828fcc39a1ed347830433b3de4/agents/skills/gpt-image-2-style-library/assets/city-life-system-map.png"
+    },
+    {
+      "url": "/assets/repository-guides/media-57f1c910a95e6198b8bc9d39.webp",
+      "alt": "freestylefly/awesome-gpt-image-2 官方演示 3",
+      "sourceUrl": "https://github.com/freestylefly/awesome-gpt-image-2/blob/b93c18ad45397c828fcc39a1ed347830433b3de4/README.md?plain=1#L35",
+      "originalUrl": "https://raw.githubusercontent.com/freestylefly/awesome-gpt-image-2/b93c18ad45397c828fcc39a1ed347830433b3de4/docs/design/gpt-image-2-5/case532-preview.jpg"
+    }
+  ],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "11c4202e08b10f7eb6a3e9967c9b9aa8e6bd5ee16e7d9d795216d3fcb1cb4d29",
+  "mediaStatus": "archived",
+  "mediaFailures": []
+}

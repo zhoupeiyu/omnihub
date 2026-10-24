@@ -1,0 +1,78 @@
+{
+  "schemaVersion": 1,
+  "key": "alexanderradahl/mac-developer-bridge",
+  "status": "ready",
+  "reason": "",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/alexanderradahl/mac-developer-bridge/blob/fea70d1a3c5524164f2159f6063ba685fef91324/README.md",
+  "sourceRevision": "fea70d1a3c5524164f2159f6063ba685fef91324",
+  "canonicalKey": "alexanderradahl/mac-developer-bridge",
+  "summary": "一个开源 MCP 桥接服务。连接后，ChatGPT 可以在你的 Mac 上执行 shell 命令、读写文件、维持 PTY 交互会话、管理后台任务，并读取已存储的 Codex 会话历史。",
+  "intro": "适合希望由 ChatGPT 负责推理、由自己的 Mac 负责执行的开发者。典型用途有：读取并恢复已存储的 Codex 会话后继续开发，运行测试、构建、Git 和数据库 CLI 等本机工具，启动长时间任务并在之后查看日志，以及可选地在已登录的 Chrome 标签页中进行后台操作。桥接本身不调用任何 OpenAI 模型。拥有 OpenAI Secure MCP Tunnel 权限的工作区用户可以改用 install.sh 安装；本指南按文档推荐给个人账户的菜单栏应用路径编写。",
+  "requirements": "macOS 系统，且有已登录的桌面用户；Node.js 18 或更新版本；已登录 Cloudflare 账户的 cloudflared；一个你能控制的主机名，或 quick tunnel 地址；ChatGPT Developer mode（是否可用取决于账户推送和工作区策略）。Server URL 方式需要 openssl 生成 bearer token。只有三个 Codex 历史工具需要可用的 codex CLI，shell 和文件功能不依赖它。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "在 macOS 上构建菜单栏应用",
+      "text": "文档建议个人 ChatGPT 账户使用 macOS 菜单栏应用。操作是克隆仓库，运行 menubar/build.sh 完成构建，再打开 /Applications/MacDevBridge.app。动手前请先读 SECURITY.md，了解它会授予的完整权限。",
+      "code": "git clone https://github.com/alexanderradahl/mac-developer-bridge.git\ncd mac-developer-bridge\n./menubar/build.sh\nopen /Applications/MacDevBridge.app",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/alexanderradahl/mac-developer-bridge/blob/fea70d1a3c5524164f2159f6063ba685fef91324/README.md?plain=1#L47"
+      }
+    },
+    {
+      "title": "准备命名的 Cloudflare 隧道",
+      "text": "quick tunnel 每次运行都会生成新的随机主机名，这个主机名又是 OAuth issuer，主机名一变连接器就会失效。因此除一次性试用外，应先创建命名隧道并绑定 DNS，然后在 ~/.cloudflared/config.yml 中把 ingress 指向 http://localhost:8787。菜单栏应用会读取该文件，并自动优先使用命名隧道。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/alexanderradahl/mac-developer-bridge/blob/fea70d1a3c5524164f2159f6063ba685fef91324/DEPLOY.md?plain=1#L160"
+      }
+    },
+    {
+      "title": "启动桥接并复制 ChatGPT 配置",
+      "text": "在菜单栏应用中先点 Start，再点 Copy ChatGPT Setup，取得连接 ChatGPT 所需的配置信息。OAuth 与 Cloudflare 的详细设置见 README 的 Connecting to ChatGPT 一节和 DEPLOY.md。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/alexanderradahl/mac-developer-bridge/blob/fea70d1a3c5524164f2159f6063ba685fef91324/README.md?plain=1#L47"
+      }
+    },
+    {
+      "title": "在 ChatGPT 中以 OAuth 方式连接",
+      "text": "在 ChatGPT 设置中启用 Developer mode，然后到 Plugins 创建开发者模式应用。按以下方式填写：Connection 选 Server URL；地址填 https://<hostname>/mcp；Authentication 选 OAuth；Registration method 选 User-Defined OAuth Client；Client ID 填启动时日志中的 client_id；Client Secret 留空；Token endpoint auth method 选 none；Default scopes 填 mcp；取消勾选 OIDC。ChatGPT 会打开一个由你本机提供的同意页，在其中粘贴 bridge token 即可批准。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/alexanderradahl/mac-developer-bridge/blob/fea70d1a3c5524164f2159f6063ba685fef91324/DEPLOY.md?plain=1#L11"
+      }
+    },
+    {
+      "title": "先用只读调用验证连接",
+      "text": "把应用加入新的对话，用示例提示词让 ChatGPT 只调用 bridge_status 和 fs_stat，暂不调用任何写入工具或 shell 命令。核对返回的 Mac 用户名、home 目录、Node 路径、shell、审计模式，以及 fullAccessUnlocked 是否为 true。注意 /healthz 正常并不能证明解锁文件正确，以这次真实调用的结果为准。",
+      "code": "Use Mac Developer Bridge. Call bridge_status, then fs_stat for ~/.codex. Do not call any write tool or shell command yet.",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/alexanderradahl/mac-developer-bridge/blob/fea70d1a3c5524164f2159f6063ba685fef91324/DEPLOY.md?plain=1#L139"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "桥接拥有启动它的 macOS 用户的全部有效权限：没有沙箱，没有命令或路径白名单，也没有逐条命令的审批，可以读写和删除该用户能访问的任何文件。启用前务必阅读 SECURITY.md。",
+    "Server URL 方式会通过 Cloudflare Tunnel 对外公开一个 HTTPS 端点；OpenAI Secure MCP Tunnel 方式不开放入站端口，但个人账户无法选择 Tunnel 连接类型。",
+    "HTTP 传输方式目前没有 LaunchAgent：mcp-http.mjs 和 cloudflared 在重启后不会自动恢复，崩溃后也不会被自动拉起。",
+    "紧急停用时，先用 pkill 停止 cloudflared，再运行 scripts/disable.sh；顺序反过来会误报 NOT contained。要在远端彻底断开连接，最可靠的办法是在 ChatGPT 中删除该插件。",
+    "如果桥接进程继承了环境变量 MAC_DEV_BRIDGE_FULL_ACCESS_ACK，删除解锁文件无法让它停止，只能结束进程。",
+    "uninstall.sh 不会删除数据目录。其中的 http-token 和 oauth-state.json 等凭据会保留下来，如需清除，请手动删除 ~/Library/Application Support/MacDeveloperBridge。"
+  ],
+  "references": [
+    {
+      "label": "DEPLOY.md",
+      "url": "https://github.com/alexanderradahl/mac-developer-bridge/blob/fea70d1a3c5524164f2159f6063ba685fef91324/DEPLOY.md"
+    }
+  ],
+  "media": [],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "f5b927fa753e4e4efdf26a18f39d918c8526c980893538038542ff5e69ef6000",
+  "mediaStatus": "none_in_official_documents"
+}

@@ -1,0 +1,88 @@
+{
+  "schemaVersion": 1,
+  "key": "zhouxiaoka/autoclip",
+  "status": "ready",
+  "reason": "",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/zhouxiaoka/autoclip/blob/8968916b70511595be87c944c730c4672a6f0f9f/README.md",
+  "sourceRevision": "8968916b70511595be87c944c730c4672a6f0f9f",
+  "canonicalKey": "zhouxiaoka/autoclip",
+  "summary": "AutoClip 导入长视频后，用 AI 分析字幕找出精彩片段，自动剪成短视频与合集，并可按平台预设导出或发布。",
+  "intro": "适合处理访谈、播客、课程、口播和直播回放的创作者。它可以导入本地视频或 B 站、YouTube 链接，基于 SRT 或本地 Whisper 转写的字幕生成大纲、为片段评分并提取标题，然后输出抖音、小红书、YouTube Shorts、B 站等预设格式。项目同时提供桌面版、Docker Web 和 CLI / MCP，下面以桌面版为例。",
+  "requirements": "桌面版支持 macOS Apple Silicon（.dmg）和 Windows 10/11 x64（-setup.exe），已内置 Python 和 FFmpeg。还需要准备以下任一模型：云端模型服务商的 API Key 和模型名，或在本地运行的 Ollama / LM Studio。没有字幕时，需要在设置中准备本地 Whisper 组件与语音模型，首次下载需要联网。还需要一段你有权使用的视频，建议 3–5 分钟。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "从 Releases 下载桌面安装包",
+      "text": "打开最新的 Releases 页面。macOS Apple Silicon 下载名称含 aarch64 的 .dmg，拖入「应用程序」后打开；Windows x64 运行 x64-setup.exe 并按向导安装。不要把 Source code 压缩包当作安装包。Intel Mac 和 Linux 请改用 Docker 或 CLI。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/zhouxiaoka/autoclip/blob/8968916b70511595be87c944c730c4672a6f0f9f/docs/USER_INSTALLATION_GUIDE.md?plain=1#L5"
+      }
+    },
+    {
+      "title": "在设置中配置并测试模型",
+      "text": "打开「设置」选择服务商。云端服务填写自己的 API Key 和模型名，兼容接口可另填 Base URL，点击测试连接后保存。使用本地模型时，先启动 Ollama（默认地址 http://localhost:11434/v1）或 LM Studio 的 Local Server。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/zhouxiaoka/autoclip/blob/8968916b70511595be87c944c730c4672a6f0f9f/docs/USER_INSTALLATION_GUIDE.md?plain=1#L27"
+      }
+    },
+    {
+      "title": "导入短样片和字幕",
+      "text": "在首页用「文件导入」导入视频，可同时附上时间轴准确的 .srt；也可以用「链接导入」粘贴 B 站或 YouTube 链接。确认制作类型，确认后才会正式分析和剪辑。没有字幕时，先在设置的语音识别区域准备好 Whisper。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/zhouxiaoka/autoclip/blob/8968916b70511595be87c944c730c4672a6f0f9f/docs/USER_INSTALLATION_GUIDE.md?plain=1#L27"
+      }
+    },
+    {
+      "title": "在编辑器中检查并导出成片",
+      "text": "在编辑器中检查片段起止时间、标题和文案，输出仍需人工把关。随后在导出入口选择目标平台预设，竖屏导出可加入字幕和标题卡。导出后先播放检查，再自行发布。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/zhouxiaoka/autoclip/blob/8968916b70511595be87c944c730c4672a6f0f9f/docs/USER_INSTALLATION_GUIDE.md?plain=1#L27"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "云端模型由服务商计费，使用时会把字幕文本发送给所选服务商；视觉分析需要多模态模型，并须显式启用付费视觉初筛。",
+    "海外发布需要你自己的 Upload-Post 账号，额度以其页面为准；B 站发布需要在设置中填写包含 SESSDATA 等字段的 Cookie。",
+    "文档说明 v1.4.0 Windows 安装包的实际安装、导入与保存尚待实机验收。",
+    "项目不提供官方样片，请只处理你有权使用的素材。",
+    "数据目录中的配置可能含 API Key，备份时应妥善保存；文档提醒不要把删除数据库或清空数据目录作为常规排错手段。",
+    "当前分析主要基于字幕，纯视觉动作或音乐类视频效果可能有限。"
+  ],
+  "references": [
+    {
+      "label": "docs/USER_INSTALLATION_GUIDE.md",
+      "url": "https://github.com/zhouxiaoka/autoclip/blob/8968916b70511595be87c944c730c4672a6f0f9f/docs/USER_INSTALLATION_GUIDE.md"
+    }
+  ],
+  "media": [
+    {
+      "url": "/assets/repository-guides/media-158e668d5d3b804237304d66.webp",
+      "alt": "导入视频与项目管理",
+      "sourceUrl": "https://github.com/zhouxiaoka/autoclip/blob/8968916b70511595be87c944c730c4672a6f0f9f/README.md?plain=1#L31",
+      "originalUrl": "https://raw.githubusercontent.com/zhouxiaoka/autoclip/8968916b70511595be87c944c730c4672a6f0f9f/docs/images/home-v1.4.0.png"
+    },
+    {
+      "url": "/assets/repository-guides/media-3b3d4d089a04adb1f25722ca.webp",
+      "alt": "AI 切片结果",
+      "sourceUrl": "https://github.com/zhouxiaoka/autoclip/blob/8968916b70511595be87c944c730c4672a6f0f9f/README.md?plain=1#L39",
+      "originalUrl": "https://raw.githubusercontent.com/zhouxiaoka/autoclip/8968916b70511595be87c944c730c4672a6f0f9f/docs/images/clips-v1.4.0.png"
+    },
+    {
+      "url": "/assets/repository-guides/media-4bbbfa8be759762458f5e885.webp",
+      "alt": "Studio 预览与修改",
+      "sourceUrl": "https://github.com/zhouxiaoka/autoclip/blob/8968916b70511595be87c944c730c4672a6f0f9f/README.md?plain=1#L40",
+      "originalUrl": "https://raw.githubusercontent.com/zhouxiaoka/autoclip/8968916b70511595be87c944c730c4672a6f0f9f/docs/images/studio-v1.4.0.png"
+    }
+  ],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "64e50bceb68b402687fea0d1943575bc913427e251d579ee97de809f5a5bf2cf",
+  "mediaStatus": "archived",
+  "mediaFailures": []
+}

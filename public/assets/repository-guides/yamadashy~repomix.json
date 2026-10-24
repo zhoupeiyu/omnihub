@@ -1,0 +1,83 @@
+{
+  "schemaVersion": 1,
+  "key": "yamadashy/repomix",
+  "status": "ready",
+  "reason": "",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/yamadashy/repomix/blob/0b3f82b401bbc520fd1aca67c06d24e40a868d3e/README.md",
+  "sourceRevision": "0b3f82b401bbc520fd1aca67c06d24e40a868d3e",
+  "canonicalKey": "yamadashy/repomix",
+  "summary": "Repomix 把整个代码仓库打包成一个适合 AI 读取的文件，并统计 token 数，方便交给大语言模型分析。",
+  "intro": "适合需要让 ChatGPT、Claude、Gemini 等 AI 工具理解整个代码库的开发者。可以打包本地仓库、指定目录或远程 GitHub 仓库，支持 include/ignore 过滤、按 .gitignore 排除文件、用 Secretlint 排除疑似凭据文件，以及用 --compress 压缩代码以减少 token。还可以作为 MCP 服务器或 Claude Code 插件使用，另有 Chrome/Firefox 浏览器扩展。",
+  "requirements": "本指南采用官方文档中的 Docker 运行方式，需要本机已安装 Docker；打包远程仓库时需要能访问 GitHub。生成的文件需要配合你自己选择的 AI 工具使用。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "用 Docker 打包当前目录",
+      "text": "在要打包的仓库根目录运行官方 Docker 命令，把当前目录挂载到容器的 /app 中。Repomix 会遵循 .gitignore、.ignore 和 .repomixignore 规则，默认输出文件名为 repomix-output.xml，并提供每个文件和整个仓库的 token 统计。",
+      "code": "docker run -v .:/app -it --rm ghcr.io/yamadashy/repomix",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/yamadashy/repomix/blob/0b3f82b401bbc520fd1aca67c06d24e40a868d3e/README.md?plain=1#L311"
+      }
+    },
+    {
+      "title": "只打包某个子目录",
+      "text": "如果只想让 AI 看到部分代码，在 Docker 命令后加上目录路径，例如 path/to/directory。这样可以缩小输出内容，更容易控制在模型的上下文长度限制之内。",
+      "code": "docker run -v .:/app -it --rm ghcr.io/yamadashy/repomix path/to/directory",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/yamadashy/repomix/blob/0b3f82b401bbc520fd1aca67c06d24e40a868d3e/README.md?plain=1#L311"
+      }
+    },
+    {
+      "title": "打包远程 GitHub 仓库",
+      "text": "不需要先克隆仓库：把 ./output 挂载到容器中，并通过 --remote 传入仓库地址，生成的文件会写入 output 目录。注意远程仓库自带的 repomix.config.* 默认不会被加载，除非你显式使用 --remote-trust-config。 原文包含需人工核查的高权限或删除命令，本站不提供一键复制；请查看该步骤的官方出处。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/yamadashy/repomix/blob/0b3f82b401bbc520fd1aca67c06d24e40a868d3e/README.md?plain=1#L311"
+      }
+    },
+    {
+      "title": "把打包文件交给 AI 工具",
+      "text": "打开生成的打包文件，把内容上传或粘贴到 ChatGPT、DeepSeek、Perplexity、Gemini、Grok 等生成式 AI 工具中，再提出你的分析问题。如果需要调整输出格式（xml、markdown、json、plain）或排除范围，可以参考配置文件中的 output.style 等选项。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/yamadashy/repomix/blob/0b3f82b401bbc520fd1aca67c06d24e40a868d3e/README.md?plain=1#L186"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "repomix.config.* 属于可执行代码：.ts/.js 配置会被执行，input.processors 会运行外部命令。只应对可信的远程仓库使用 --remote-trust-config；选择“不再询问”只会固定入口配置文件的哈希，不包括它导入的文件和外部脚本。",
+    "Secretlint 只能识别符合已知凭据格式的文件。打包内容会发送给第三方 AI 服务，上传前请自行检查是否包含敏感代码或信息。",
+    "--compress 会借助 Tree-sitter 只提取关键代码结构，输出不是完整源码。",
+    "MCP 配置示例依赖 npx 运行 repomix --mcp，与本指南采用的 Docker 方式属于不同的接入路径。"
+  ],
+  "references": [],
+  "media": [
+    {
+      "url": "/assets/repository-guides/media-27a487f0af6aeab73c7999ac.webp",
+      "alt": "yamadashy/repomix 官方演示 1",
+      "sourceUrl": "https://github.com/yamadashy/repomix/blob/0b3f82b401bbc520fd1aca67c06d24e40a868d3e/README.md?plain=1#L134",
+      "originalUrl": "https://raw.githubusercontent.com/yamadashy/repomix/0b3f82b401bbc520fd1aca67c06d24e40a868d3e/website/client/src/public/images/docs/repomix-file-usage-1.png"
+    },
+    {
+      "url": "/assets/repository-guides/media-03008839a2d80c061ec84024.webp",
+      "alt": "yamadashy/repomix 官方演示 2",
+      "sourceUrl": "https://github.com/yamadashy/repomix/blob/0b3f82b401bbc520fd1aca67c06d24e40a868d3e/README.md?plain=1#L140",
+      "originalUrl": "https://raw.githubusercontent.com/yamadashy/repomix/0b3f82b401bbc520fd1aca67c06d24e40a868d3e/website/client/src/public/images/docs/repomix-file-usage-2.png"
+    },
+    {
+      "url": "/assets/repository-guides/media-bbecdf86b2585133a5d12c84.webp",
+      "alt": "yamadashy/repomix 官方演示 3",
+      "sourceUrl": "https://github.com/yamadashy/repomix/blob/0b3f82b401bbc520fd1aca67c06d24e40a868d3e/README.md?plain=1#L161",
+      "originalUrl": "https://raw.githubusercontent.com/yamadashy/repomix/0b3f82b401bbc520fd1aca67c06d24e40a868d3e/website/client/src/public/images/docs/browser-extension.png"
+    }
+  ],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "931e65b67840532775fa2a3cc862e479e8f55624d371f44bf127a34dd29d947b",
+  "mediaStatus": "archived",
+  "mediaFailures": []
+}

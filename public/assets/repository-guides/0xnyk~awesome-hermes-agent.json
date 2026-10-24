@@ -1,0 +1,61 @@
+{
+  "schemaVersion": 1,
+  "key": "0xnyk/awesome-hermes-agent",
+  "status": "ready",
+  "reason": "",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/0xNyk/awesome-hermes-agent/blob/9c87ae281f7291702dc6eeb85305ec369578f24e/README.md",
+  "sourceRevision": "9c87ae281f7291702dc6eeb85305ec369578f24e",
+  "canonicalKey": "0xNyk/awesome-hermes-agent",
+  "summary": "这是一个 Hermes Agent 生态资源目录，收录可选的技能、插件、记忆提供方、部署工具、界面和指南，每个条目附带成熟度标签。",
+  "intro": "适合已在使用或准备使用 Nous Research 开源 Hermes Agent 的用户，用来查找可以扩展 Hermes 的社区项目，例如技能包、插件、部署镜像、多智能体方案和运维指南。本仓库是资料集合，不需要安装，直接在 README 中按分类查阅即可。它由 0xNyk 独立维护，不是 Nous Research 官方项目。",
+  "requirements": "只需能访问 GitHub 阅读 README。要实际使用其中的条目，需要先按 Hermes Agent 官方文档跑通 Hermes。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "先按官方文档跑通 Hermes",
+      "text": "目录建议的第一步是按 Hermes Agent 官方文档的 quickstart 完成安装、熟悉 CLI 并完成第一次对话，确认基础运行正常后再添加生态组件。核心仓库、官方文档、发布说明等官方资源集中在 Official Resources 分类。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/0xNyk/awesome-hermes-agent/blob/9c87ae281f7291702dc6eeb85305ec369578f24e/README.md?plain=1#L63"
+      }
+    },
+    {
+      "title": "按目录分类查找所需资源",
+      "text": "根据 Contents 跳到对应分类：Skills & Plugins（含社区技能、插件、agentskills.io 生态）、Memory Providers、Tools & Utilities 与 Deployment、Integrations & Bridges、Multi-Agent & Swarms、Guides & Documentation、Operational Playbooks 等。每个条目都写有作者、用途和链接。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/0xNyk/awesome-hermes-agent/blob/9c87ae281f7291702dc6eeb85305ec369578f24e/README.md?plain=1#L111"
+      }
+    },
+    {
+      "title": "根据成熟度标签判断能否依赖",
+      "text": "每个条目标注 production、beta 或 experimental：production 表示稳定、有文档、维护活跃，beta 表示可用但仍在变化，experimental 表示概念验证或早期阶段。标签是编辑依据文档和维护情况给出的快照，依赖前要回到链接项目重新确认。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/0xNyk/awesome-hermes-agent/blob/9c87ae281f7291702dc6eeb85305ec369578f24e/README.md?plain=1#L63"
+      }
+    },
+    {
+      "title": "启用社区组件前检查信任边界",
+      "text": "启用社区技能、插件、MCP 服务器或无人值守任务前，确认谁能触发它、它能拿到哪些工具、命令在哪里执行、能读取哪些凭据、如何停止它。处理不可信任务时尽量使用最小工具集和隔离的后端，当前的控制方式以官方 security、tools、cron 文档为准。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/0xNyk/awesome-hermes-agent/blob/9c87ae281f7291702dc6eeb85305ec369578f24e/README.md?plain=1#L90"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "本目录不是 Nous Research 官方项目，收录不代表安全背书。",
+    "Featured 栏位是付费广告位，不代表安全或质量推荐。",
+    "成熟度标签是编辑快照，生态状态的最后审阅日期为 2026-07-16，条目可能已经变化。",
+    "README 徽章标注目录内容采用 CC BY 4.0 许可，被收录的各项目各自适用自己的许可。"
+  ],
+  "references": [],
+  "media": [],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "09934d5e6e0f29ecdfe04245cc937ab77fba739e262aa5b779bcfd7ac25e5456",
+  "mediaStatus": "none_in_official_documents"
+}

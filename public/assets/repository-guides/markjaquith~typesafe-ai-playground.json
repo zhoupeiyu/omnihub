@@ -1,0 +1,75 @@
+{
+  "schemaVersion": 1,
+  "key": "markjaquith/typesafe-ai-playground",
+  "status": "ready",
+  "reason": "",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/markjaquith/typesafe-ai-playground/blob/cca499aebace85f8745466b0cc255d49cd5f3149/README.md",
+  "sourceRevision": "cca499aebace85f8745466b0cc255d49cd5f3149",
+  "canonicalKey": "markjaquith/typesafe-ai-playground",
+  "summary": "一个 Rust CLI 实验集，调用 TypeSafe 的 Jev 模型做 PHI 筛查、代码注释评审、词性分析和代码重要度热力图。",
+  "intro": "适合想试验 TypeSafe Jev（System One 模型）能力的开发者。typesafe-ai 命令提供以下功能：phi 按 HIPAA 要素给文本打四项概率；parts-of-speech 标注英文词性和语法角色，并附浏览器查看器；code-comments 评估 JS/TS 注释的准确度和有用度；load-bearing 给源码逐行打重要度分并提供热力图查看器。",
+  "requirements": "需要 Rust 的 cargo 用于安装。需要设置 OPENROUTER_API_KEY 或 TYPESAFE_API_KEY；两者都设置时 OpenRouter 优先。输入需为 UTF-8 文本，PDF 等二进制文件须先转换为文本。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "安装 CLI 并设置 API 密钥",
+      "text": "在仓库目录运行 cargo install --path . --locked 安装 typesafe-ai，然后导出 OPENROUTER_API_KEY；也可以改为设置 TYPESAFE_API_KEY 直接调用 TypeSafe。可通过 TYPESAFE_MODEL 或 --model 指定模型，默认为 jev-latest。",
+      "code": "cargo install --path . --locked\nexport OPENROUTER_API_KEY='your-openrouter-api-key'",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/markjaquith/typesafe-ai-playground/blob/cca499aebace85f8745466b0cc255d49cd5f3149/README.md?plain=1#L11"
+      }
+    },
+    {
+      "title": "对文本运行 PHI 筛查",
+      "text": "用 typesafe-ai phi 处理单个文件、目录或 stdin。输出四项独立概率：可识别个人信息、健康状况、医疗服务和医疗付费，分别对应 45 CFR § 160.103 的要素。扫描目录时不递归子目录，单个文件失败会继续处理其余文件，但最终以非零状态退出。",
+      "code": "typesafe-ai phi patient-notes.txt\ntypesafe-ai phi ./notes\ncat patient-notes.txt | typesafe-ai phi\ntypesafe-ai phi - < patient-notes.txt\ntypesafe-ai phi patient-notes.txt --model jev-latest\ntypesafe-ai phi --help\n\n0.98 identifying information patient-notes.txt\n0.96 health condition patient-notes.txt\n0.84 healthcare provision patient-notes.txt\n0.03 healthcare payment patient-notes.txt",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/markjaquith/typesafe-ai-playground/blob/cca499aebace85f8745466b0cc255d49cd5f3149/README.md?plain=1#L21"
+      }
+    },
+    {
+      "title": "分析词性并在浏览器查看",
+      "text": "运行 typesafe-ai parts-of-speech 得到包含每个词的词性、句法角色和置信度的 JSON；加 --request 只打印请求内容，不调用 API。可将结果保存为 analysis.json，再用 parts-of-speech-serve 在 http://127.0.0.1:8231 查看，或加 --html 导出为离线 HTML 页面。",
+      "code": "typesafe-ai parts-of-speech passage.txt --cost\necho 'The sleepy cat is chasing birds, happily!' | typesafe-ai parts-of-speech\ntypesafe-ai parts-of-speech - < passage.txt\ntypesafe-ai parts-of-speech passage.txt --request | jq .\n\ntypesafe-ai parts-of-speech passage.txt --cost > analysis.json\ntypesafe-ai parts-of-speech-serve analysis.json\n# Open http://127.0.0.1:8231\n\ntypesafe-ai parts-of-speech-serve analysis.json --html > analysis.html",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/markjaquith/typesafe-ai-playground/blob/cca499aebace85f8745466b0cc255d49cd5f3149/README.md?plain=1#L91"
+      }
+    },
+    {
+      "title": "评审代码注释与代码重要度",
+      "text": "code-comments 用于对 JS/TS 文件中的注释从准确度和有用度两方面评分，满分各 100。load-bearing 给源码逐行打 0–1 的重要度分并输出 JSONL，再用 load-bearing-serve 在 http://127.0.0.1:8230 以热力图形式查看。",
+      "code": "typesafe-ai code-comments example.ts\ntypesafe-ai code-comments ./src\ncat example.ts | typesafe-ai code-comments\ntypesafe-ai code-comments - < example.ts\n\ntypesafe-ai load-bearing example.ts > scores.jsonl\ntypesafe-ai load-bearing ./src --model jev-latest > scores.jsonl\ntypesafe-ai load-bearing-serve scores.jsonl\n# Or pipe directly (the viewer starts after scoring reaches EOF):\ntypesafe-ai load-bearing ./src | typesafe-ai load-bearing-serve",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/markjaquith/typesafe-ai-playground/blob/cca499aebace85f8745466b0cc255d49cd5f3149/README.md?plain=1#L232"
+      }
+    },
+    {
+      "title": "用 --cost 查看调用费用",
+      "text": "在任意子命令前后加全局参数 --cost，结束时会向 stderr 输出 token 数和费用汇总，并附与 OpenAI GPT-5.6 Luna 的估算对比。不加该参数则不输出费用信息。",
+      "code": "typesafe-ai --cost phi patient-notes.txt\ntypesafe-ai phi patient-notes.txt --cost\n\nCost: 0.0042¢\nTokens: 1000\nLuna Cost: 0.0236¢ (5.6× Jev)",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/markjaquith/typesafe-ai-playground/blob/cca499aebace85f8745466b0cc255d49cd5f3149/README.md?plain=1#L436"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "输入会完整、不截断地发送给 TypeSafe 或 OpenRouter，处理病历等敏感文本前请评估数据合规要求，输入还必须在模型的请求限制之内。",
+    "PHI 分数只是筛查信号，不构成法律意见；文本本身无法确定是否属于 HIPAA PHI。",
+    "README 给出的计费标准为每百万输入 token 0.042 美元，输出 token 免费；Luna 对比只是估算，不会实际调用 OpenAI。",
+    "这是作者自称的实验性 playground；README 提到业务与职业分类功能，但所给资料中没有其用法说明。",
+    "查看器中的 API 密钥只保存在服务端环境变量中，不会进入浏览器。"
+  ],
+  "references": [],
+  "media": [],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "d7132681ff28fe7f1cbc6004b2950785c9aeadeca1df18e2b6bb88c65b9aa05f",
+  "mediaStatus": "none_in_official_documents"
+}

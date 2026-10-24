@@ -1,0 +1,86 @@
+{
+  "schemaVersion": 1,
+  "key": "songloft-org/songloft",
+  "status": "ready",
+  "reason": "",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/songloft-org/songloft/blob/68732b866354e982d2faa9e0abe2b1b907539861/README.md",
+  "sourceRevision": "68732b866354e982d2faa9e0abe2b1b907539861",
+  "canonicalKey": "songloft-org/songloft",
+  "summary": "Songloft 是一个面向个人用户的自托管音乐服务器，可以扫描、管理和播放你本地合法拥有的音乐与视频文件。",
+  "intro": "适合想在 NAS、树莓派、服务器或家用设备上搭建私人音乐库的个人用户。它提供完整版（内置 Web 界面）、精简版（-lite，需搭配客户端）和 Bundle 版（客户端内嵌后端，无需服务器）三种版本，并有 Flutter 客户端、Kodi 插件、JS 插件体系和 REST API。下面以官方推荐的 Docker Compose 方式部署完整版为例。",
+  "requirements": "一台能运行 Docker 和 docker-compose 的 Linux 主机（官方提供 x86_64、ARM64、ARMv7 镜像）；准备好存放音乐和数据的宿主机目录。ffprobe 为可选依赖，用于获取音频技术参数。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "编写 docker-compose.yml",
+      "text": "将官方示例保存为 docker-compose.yml，把 /path/to/music 和 /path/to/data 改成宿主机上的实际目录，并把 ADMIN_PASSWORD 改成强密码。PUID/PGID 是可选项，设置后会以对应宿主机用户的身份非 root 运行。",
+      "code": "version: '3.8'\n\nservices:\n  songloft:\n    image: songloft/songloft:latest\n    container_name: songloft\n    restart: always\n    ports:\n      - \"58091:58091\"\n    volumes:\n      - /path/to/music:/app/music\n      - /path/to/data:/app/data\n    environment:\n      - ADMIN_USERNAME=admin\n      - ADMIN_PASSWORD=your_strong_password\n      - LISTEN_PORT=58091\n      - PUID=1000 # 可选：非 root 运行，改成宿主机对应用户的 uid\n      - PGID=1000 # 可选：非 root 运行，改成宿主机对应用户的 gid",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/songloft-org/songloft/blob/68732b866354e982d2faa9e0abe2b1b907539861/README.md?plain=1#L308"
+      }
+    },
+    {
+      "title": "启动容器并查看日志",
+      "text": "在 docker-compose.yml 所在目录执行 docker-compose up -d 启动服务，可用 docker-compose logs -f 查看日志，用 docker-compose down 停止服务。",
+      "code": "# 启动服务\ndocker-compose up -d\n\n# 查看日志\ndocker-compose logs -f\n\n# 停止服务\ndocker-compose down",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/songloft-org/songloft/blob/68732b866354e982d2faa9e0abe2b1b907539861/README.md?plain=1#L308"
+      }
+    },
+    {
+      "title": "浏览器访问并登录管理员",
+      "text": "服务启动后，访问 http://localhost:58091 打开 Web 界面（仅完整版内置），使用 compose 文件中配置的管理员账号和密码登录。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/songloft-org/songloft/blob/68732b866354e982d2faa9e0abe2b1b907539861/README.md?plain=1#L365"
+      }
+    },
+    {
+      "title": "在设置页配置音乐目录",
+      "text": "首次登录后进入“设置”页面，配置音乐文件目录 music_path。Docker 部署时通常填写 /app/music，也就是 compose 文件中挂载音乐目录的容器路径。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/songloft-org/songloft/blob/68732b866354e982d2faa9e0abe2b1b907539861/README.md?plain=1#L373"
+      }
+    },
+    {
+      "title": "扫描音乐库后开始播放",
+      "text": "在 Web 界面点击“扫描”按钮，系统会扫描音乐目录中的音频文件并提取封面和元数据。扫描完成后，即可在界面中浏览和播放；也可以改用 Flutter 客户端连接该服务器。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/songloft-org/songloft/blob/68732b866354e982d2faa9e0abe2b1b907539861/README.md?plain=1#L377"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "默认管理员账号 admin/admin 仅适用于本地测试，对外网或多设备开放前必须通过 ADMIN_USERNAME、ADMIN_PASSWORD 设置强密码。",
+    "仅限个人非商业使用，只能管理自己合法拥有的音乐；第三方插件接入网络音源时，用户需自行承担版权合规责任。",
+    "精简版（-lite）不包含 Web 界面，需要搭配 Flutter 客户端使用。",
+    "官方构建会上报匿名运行统计（版本号、崩溃栈），自编译版本没有遥测。",
+    "通过反向代理挂在子路径下时，需要设置 BASE_PATH，并且 Nginx 的 proxy_pass 末尾不要加斜杠。"
+  ],
+  "references": [],
+  "media": [
+    {
+      "url": "/assets/repository-guides/media-2a6c6eb98af19089380163a1.webp",
+      "alt": "首页 · 桌面端",
+      "sourceUrl": "https://github.com/songloft-org/songloft/blob/68732b866354e982d2faa9e0abe2b1b907539861/README.md?plain=1#L64",
+      "originalUrl": "https://raw.githubusercontent.com/songloft-org/songloft/main/docs/public/screenshots/home-desktop.png"
+    },
+    {
+      "url": "/assets/repository-guides/media-19d254694e5d66840189ada7.webp",
+      "alt": "沉浸式播放器 · 移动端",
+      "sourceUrl": "https://github.com/songloft-org/songloft/blob/68732b866354e982d2faa9e0abe2b1b907539861/README.md?plain=1#L67",
+      "originalUrl": "https://raw.githubusercontent.com/songloft-org/songloft/main/docs/public/screenshots/player-mobile.png"
+    }
+  ],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "d4b3bcd669cd4f75a0fd1e7c428749229a0edbf2591c4c251e55622ba8c1c625",
+  "mediaStatus": "archived",
+  "mediaFailures": []
+}

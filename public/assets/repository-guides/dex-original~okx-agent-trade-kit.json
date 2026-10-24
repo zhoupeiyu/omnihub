@@ -1,0 +1,78 @@
+{
+  "schemaVersion": 1,
+  "key": "dex-original/okx-agent-trade-kit",
+  "status": "ready",
+  "reason": "",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/dex-original/okx-agent-trade-kit/blob/f619ddf3bb4aa5f3fdaa507a46f7a844573a65fd/README.md",
+  "sourceRevision": "f619ddf3bb4aa5f3fdaa507a46f7a844573a65fd",
+  "canonicalKey": "dex-original/okx-agent-trade-kit",
+  "summary": "OKX Agent Trade Kit 包含 MCP 服务器 okx-trade-mcp 和命令行工具 okx-trade-cli，让 AI 客户端或终端可以查询 OKX 行情、管理账户并下单。",
+  "intro": "适合想在 Claude Desktop、Claude Code、Cursor、VS Code 等 MCP 客户端中，用自然语言操作 OKX 账户的用户，也适合想在终端里直接查询和交易的用户。它覆盖行情、现货、永续、交割、期权、账户、赚币、交易机器人、事件合约、资讯和聪明钱等 11 个模块，并在 skills/ 目录附带 Agent Skill 文件。",
+  "requirements": "Node.js >= 18；npm 全局安装权限；OKX API 凭证（纯行情模块和 okx-cex-market skill 不需要鉴权）；一个支持 MCP 的 AI 客户端。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "全局安装 MCP 与 CLI 两个包",
+      "text": "确认 Node.js 版本不低于 18，然后用 npm 全局安装 @okx_ai/okx-trade-mcp 和 @okx_ai/okx-trade-cli。快速开始代码块中还包含后续的配置和注册命令，可以按顺序执行。",
+      "code": "# 1. 安装\nnpm install -g @okx_ai/okx-trade-mcp @okx_ai/okx-trade-cli\n\n# 2. 配置 OKX API 凭证（交互式向导）\nokx config init --lang zh\n\n# 3. 将 MCP Server 注册到 AI 客户端\nokx-trade-mcp setup --client claude-desktop\nokx-trade-mcp setup --client cursor\nokx-trade-mcp setup --client claude-code\nokx-trade-mcp setup --client vscode          # 在当前目录写入 .mcp.json",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/dex-original/okx-agent-trade-kit/blob/f619ddf3bb4aa5f3fdaa507a46f7a844573a65fd/README.zh-CN.md?plain=1#L60"
+      }
+    },
+    {
+      "title": "运行向导配置 API 凭证",
+      "text": "执行 okx config init（加 --lang zh 可以使用中文向导），交互式填写 OKX API 凭证。凭证只保存在本机。实盘交易、多账户 profile 等配置方法见 docs/configuration.md。",
+      "code": "# 1. 安装\nnpm install -g @okx_ai/okx-trade-mcp @okx_ai/okx-trade-cli\n\n# 2. 配置 OKX API 凭证（交互式向导）\nokx config init --lang zh\n\n# 3. 将 MCP Server 注册到 AI 客户端\nokx-trade-mcp setup --client claude-desktop\nokx-trade-mcp setup --client cursor\nokx-trade-mcp setup --client claude-code\nokx-trade-mcp setup --client vscode          # 在当前目录写入 .mcp.json",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/dex-original/okx-agent-trade-kit/blob/f619ddf3bb4aa5f3fdaa507a46f7a844573a65fd/README.zh-CN.md?plain=1#L60"
+      }
+    },
+    {
+      "title": "把 MCP 注册到你的 AI 客户端",
+      "text": "根据你使用的客户端，执行 okx-trade-mcp setup --client 加客户端名，可选 claude-desktop、cursor、claude-code、vscode。其中 vscode 会在当前目录写入 .mcp.json。Windsurf 等其他客户端见配置文档。",
+      "code": "# 1. 安装\nnpm install -g @okx_ai/okx-trade-mcp @okx_ai/okx-trade-cli\n\n# 2. 配置 OKX API 凭证（交互式向导）\nokx config init --lang zh\n\n# 3. 将 MCP Server 注册到 AI 客户端\nokx-trade-mcp setup --client claude-desktop\nokx-trade-mcp setup --client cursor\nokx-trade-mcp setup --client claude-code\nokx-trade-mcp setup --client vscode          # 在当前目录写入 .mcp.json",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/dex-original/okx-agent-trade-kit/blob/f619ddf3bb4aa5f3fdaa507a46f7a844573a65fd/README.zh-CN.md?plain=1#L60"
+      }
+    },
+    {
+      "title": "用模块和只读参数限制权限",
+      "text": "默认启用 spot、swap、account 模块。用 --modules market 只开放行情（不需要 API Key），用 --read-only 只开放查询工具、禁止下单等写操作。确认行为符合预期后，再考虑开放更多模块。",
+      "code": "okx-trade-mcp                                        # 默认：现货、合约、账户\nokx-trade-mcp --modules market                       # 纯行情，无需 API Key\nokx-trade-mcp --modules spot,account                 # 现货 + 账户\nokx-trade-mcp --profile live --modules all           # 所有模块（含赚币）\nokx-trade-mcp --read-only                            # 只读，禁止下单等写操作",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/dex-original/okx-agent-trade-kit/blob/f619ddf3bb4aa5f3fdaa507a46f7a844573a65fd/README.zh-CN.md?plain=1#L84"
+      }
+    },
+    {
+      "title": "按任务选用 Agent Skills",
+      "text": "skills/ 目录按任务提供 skill 文件：okx-cex-market（行情，无需鉴权）、okx-cex-trade、okx-cex-portfolio、okx-cex-bot、okx-cex-earn、okx-cex-smartmoney（这几个需要鉴权）。每个 skill 规定了激活时机和 okx CLI 的用法。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/dex-original/okx-agent-trade-kit/blob/f619ddf3bb4aa5f3fdaa507a46f7a844573a65fd/README.zh-CN.md?plain=1#L112"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "启用写权限后，AI 可以用你的 OKX 账户真实下单、调整杠杆、申购赎回和运行机器人，存在资金损失风险。建议先用 --read-only 或只开放 market 模块。",
+    "仓库属于 dex-original 账户，描述大量重复堆砌关键词。安装前请核实 npm 包 @okx_ai/okx-trade-mcp、@okx_ai/okx-trade-cli 的发布者与源码一致，再录入 API 凭证。",
+    "CLI 子命令用空格分层（如 okx swap algo place），不要把 MCP 工具名改写成短横线形式，否则会报 Unknown command。",
+    "从源码构建需要 pnpm；文档中 clone 后 cd 的目录名为 okx-trade-mcp，和仓库名不一致，执行时请注意实际目录。"
+  ],
+  "references": [
+    {
+      "label": "README.zh-CN.md",
+      "url": "https://github.com/dex-original/okx-agent-trade-kit/blob/f619ddf3bb4aa5f3fdaa507a46f7a844573a65fd/README.zh-CN.md"
+    }
+  ],
+  "media": [],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "60f285d5ddee9f31e275d68d191f13edc10a8623273d1eb4f1baf9ff8a66fbb3",
+  "mediaStatus": "none_in_official_documents"
+}

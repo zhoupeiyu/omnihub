@@ -1,0 +1,73 @@
+{
+  "schemaVersion": 1,
+  "key": "panniantong/agent-reach",
+  "status": "ready",
+  "reason": "",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/Panniantong/Agent-Reach/blob/a19a171fa980a0785849596492e0af4db800c82f/README.md",
+  "sourceRevision": "a19a171fa980a0785849596492e0af4db800c82f",
+  "canonicalKey": "Panniantong/Agent-Reach",
+  "summary": "Agent Reach 是一个给 AI Agent 安装、检查和路由上游工具的能力层，让 Agent 能读取网页、YouTube、RSS、GitHub、Twitter、Reddit、B站、小红书等平台的内容。",
+  "intro": "适合使用 Claude Code、OpenClaw、Cursor、Windsurf 等能运行命令行的 Agent，并希望 Agent 读取或搜索互联网内容的用户。它负责为各平台挑选接入方式、安装、体检和路由，实际读取由 Agent 直接调用 Jina Reader、yt-dlp、gh CLI、feedparser、Exa 等上游工具完成。网页、YouTube、RSS 等渠道无需配置；Twitter、Reddit、小红书等需要登录态，配置后才能使用。",
+  "requirements": "一个能执行 shell 命令的 AI Agent（如 Claude Code）。Python 3.10+（据 README 徽章）。安装过程会检查 Node.js、gh CLI、mcporter 是否存在。OpenClaw 用户需要先把工具配置切换为 coding profile，以开启 exec 权限。需要登录态的平台要有对应账号（建议使用小号）。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "把安装指令发给你的 Agent",
+      "text": "以 Claude Code 为例，把文档给出的安装语句原样发给 Agent，由 Agent 读取 install.md 并执行安装。如果使用 OpenClaw，需要先按文档开启 exec 权限，再重启 Gateway。默认安装只检查环境、列出缺失项，不会修改系统。",
+      "code": "帮我安装 Agent Reach：https://raw.githubusercontent.com/Panniantong/agent-reach/main/docs/install.md",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/Panniantong/Agent-Reach/blob/a19a171fa980a0785849596492e0af4db800c82f/README.md?plain=1#L136"
+      }
+    },
+    {
+      "title": "确认是否允许修改系统",
+      "text": "默认的 agent-reach install --env=auto 只做只读检查。加 --dry-run 可以先预览会执行哪些操作。只有在你明确同意修改当前机器时，才让 Agent 使用 --system，安装依赖、接入 Exa 并把 SKILL.md 写入 skills 目录。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/Panniantong/Agent-Reach/blob/a19a171fa980a0785849596492e0af4db800c82f/README.md?plain=1#L269"
+      }
+    },
+    {
+      "title": "用 doctor 检查各渠道状态",
+      "text": "安装完成后运行 agent-reach doctor，查看每个渠道是否可用、当前使用哪个后端，以及不可用时的修复建议。每个平台都有「首选 + 备选」后端，doctor 会实际探测并选出第一个完整可用的后端。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/Panniantong/Agent-Reach/blob/a19a171fa980a0785849596492e0af4db800c82f/README.md?plain=1#L136"
+      }
+    },
+    {
+      "title": "按需开启需要登录的渠道",
+      "text": "对 Agent 说「帮我配 XXX」（如 Twitter、B站、小红书），Agent 会逐步引导配置。Reddit、Facebook、Instagram 需要在桌面安装 OpenCLI 并复用 Chrome 登录态。Twitter 只接受用 Cookie-Editor 手动导出的 Cookie。凭据保存在 ~/.agent-reach/config.yaml。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/Panniantong/Agent-Reach/blob/a19a171fa980a0785849596492e0af4db800c82f/README.md?plain=1#L104"
+      }
+    },
+    {
+      "title": "不再使用时卸载并清理凭据",
+      "text": "运行 agent-reach uninstall，会清除 ~/.agent-reach/（包括其中保存的 token 和 cookie）、各 Agent 的 skill 文件以及 mcporter 中的 MCP 配置。可以先加 --dry-run 预览；加 --keep-config 则保留配置。最后用 pip uninstall agent-reach 卸载 Python 包。",
+      "code": "agent-reach uninstall\n\n# 只预览，不实际删除\nagent-reach uninstall --dry-run\n\n# 只删 skill 文件，保留 token 配置（重装时用）\nagent-reach uninstall --keep-config",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/Panniantong/Agent-Reach/blob/a19a171fa980a0785849596492e0af4db800c82f/README.md?plain=1#L278"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "用 Cookie 登录的平台（Twitter、小红书等）通过脚本调用时，存在被检测并封号的风险。文档建议使用专用小号，因为 Cookie 等同于完整的登录权限。",
+    "安装方式是让 Agent 读取并执行远程 main 分支上的 install.md，内容可能随时变化。建议先阅读该文档，并保持默认安全模式或先用 --dry-run 预览。",
+    "文档提醒：PyPI 上的同名包不是本项目，不要从 PyPI 安装 agent-reach。",
+    "部署在服务器上时可能需要付费代理（文档称约 $1/月），本地电脑不需要。",
+    "Reddit 没有免登录的使用方式；Facebook、Instagram 依赖桌面 OpenCLI 和 Chrome 登录态；直接运行上游 twitter 命令前，还需在环境变量中设置 TWITTER_AUTH_TOKEN 和 TWITTER_CT0。",
+    "各平台的接入方式会因风控或 API 变化而失效，需要依赖项目方更新路由。"
+  ],
+  "references": [],
+  "media": [],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "7b723bcd4e5992c37ad1c25c3a2badd89c723a105b787fde9d1aa19a215f7ff7",
+  "mediaStatus": "none_in_official_documents"
+}

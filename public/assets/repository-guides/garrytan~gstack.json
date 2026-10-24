@@ -1,0 +1,72 @@
+{
+  "schemaVersion": 1,
+  "key": "garrytan/gstack",
+  "status": "ready",
+  "reason": "",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/garrytan/gstack/blob/96764e80a641e28141ec8297223768029f5bf483/README.md",
+  "sourceRevision": "96764e80a641e28141ec8297223768029f5bf483",
+  "canonicalKey": "garrytan/gstack",
+  "summary": "gstack 是一组 Markdown 编写的 Claude Code 斜杠命令技能，按产品思考、规划、评审、QA、发布的冲刺流程组织 AI 编码工作。",
+  "intro": "适合想在 Claude Code 中用结构化角色代替空白提示词的创始人、技术负责人和首次使用 Claude Code 的开发者。它提供 /office-hours、/plan-ceo-review、/plan-eng-review、/review、/qa、/ship 等命令，用于需求梳理、架构评审、代码审查、浏览器或非浏览器 QA 以及发版。上一步的产出（如设计文档、测试计划）会被下游命令读取。",
+  "requirements": "Claude Code、Git、Bun v1.0+；仅 Windows 需要 Node.js。macOS 推荐 Aside 浏览器（macOS 15+），没有时 ./setup 会构建自带浏览器。/cso 另需支持指定构建参数的 Bun 版本及本地编译工具链（Linux 静态 C 编译器、macOS Xcode 命令行工具或 Windows Visual Studio 2022 Build Tools）。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "在 Claude Code 中安装 gstack",
+      "text": "本指南以 Claude Code 为宿主。打开 Claude Code，把 README「Step 1: Install on your machine」中的整段安装指令粘贴给 Claude：它会把仓库克隆到 ~/.claude/skills/gstack 并运行 ./setup，再在 CLAUDE.md 中加入 gstack 小节和可用技能列表。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/garrytan/gstack/blob/96764e80a641e28141ec8297223768029f5bf483/README.md?plain=1#L49"
+      }
+    },
+    {
+      "title": "可选：为共享仓库启用团队模式",
+      "text": "若希望队友自动获得 gstack，在项目仓库内运行团队模式命令：切换到 team 模式、初始化仓库并提交 .claude/ 与 CLAUDE.md。之后每次 Claude Code 会话会做一次限频的自动更新检查。将 required 换成 optional 可改为提醒而非强制。",
+      "code": "(cd ~/.claude/skills/gstack && ./setup --team) && ~/.claude/skills/gstack/bin/gstack-team-init required && git add .claude/ CLAUDE.md && git commit -m \"require gstack for AI-assisted work\"",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/garrytan/gstack/blob/96764e80a641e28141ec8297223768029f5bf483/README.md?plain=1#L55"
+      }
+    },
+    {
+      "title": "用 /office-hours 梳理需求",
+      "text": "运行 /office-hours 描述你要做的东西，它会用六个追问重新审视产品定位并写出设计文档；随后对功能想法运行 /plan-ceo-review，可在扩展、选择性扩展、保持范围、缩减四种模式下审视范围。需要锁定架构时再用 /plan-eng-review。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/garrytan/gstack/blob/96764e80a641e28141ec8297223768029f5bf483/README.md?plain=1#L34"
+      }
+    },
+    {
+      "title": "对改动分支运行 /review 与 /qa",
+      "text": "在有改动的分支上运行 /review 查找能通过 CI 但可能在生产出问题的缺陷；再对 staging URL 或隔离的本地 API、CLI、任务、webhook 运行 /qa。只想要报告不改代码时用 /qa-only。缺少工具或安全 fixture 时，报告会列出阻塞项和未测内容。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/garrytan/gstack/blob/96764e80a641e28141ec8297223768029f5bf483/README.md?plain=1#L34"
+      }
+    },
+    {
+      "title": "不再需要时运行卸载脚本",
+      "text": "运行 gstack-uninstall 可清理技能、符号链接、~/.gstack/ 全局状态、项目本地状态、browse 守护进程和临时文件。加 --keep-state 保留配置和分析数据，加 --force 跳过确认。",
+      "code": "~/.claude/skills/gstack/bin/gstack-uninstall",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/garrytan/gstack/blob/96764e80a641e28141ec8297223768029f5bf483/README.md?plain=1#L451"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "团队模式会向仓库提交 .claude/ 与 CLAUDE.md，并在每次会话进行联网自动更新检查（每小时至多一次），执行前确认团队同意。",
+    "推荐的 Aside 浏览器会让浏览器类技能使用你真实的已登录会话，注意其可访问的账号与数据范围。",
+    "/qa 涉及生产环境访问、破坏性或外部副作用时需要明确授权；简短冒烟测试不等于完整 QA。",
+    "外部评审需要所选 CLI（如 Codex 或 Claude Code）已安装并完成认证，相关调用可能产生对应服务的用量。",
+    "/cso 依赖额外工具链，缺失时会显示 not assessed；README 中的产出效率数据为作者自述，非本指南验证结论。"
+  ],
+  "references": [],
+  "media": [],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "05817b9cbf01f9ee9a58e5b30e3cff804a3e829530855fd121adb2575bf9da44",
+  "mediaStatus": "none_in_official_documents"
+}

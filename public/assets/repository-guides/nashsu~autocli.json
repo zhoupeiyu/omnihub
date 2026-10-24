@@ -1,0 +1,93 @@
+{
+  "schemaVersion": 1,
+  "key": "nashsu/autocli",
+  "status": "ready",
+  "reason": "",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/nashsu/AutoCLI/blob/c0969e2c83b29a7528452b1ba555085deca8e00d/README.md",
+  "sourceRevision": "c0969e2c83b29a7528452b1ba555085deca8e00d",
+  "canonicalKey": "nashsu/AutoCLI",
+  "summary": "AutoCLI 是一个 Rust 编写的单文件命令行工具，可以用一条命令从 Hacker News、Bilibili、Twitter/X、知乎等 55 个站点获取信息，并以表格、JSON 等格式输出。",
+  "intro": "适合想在终端或 AI Agent 中直接获取网站数据的开发者和自动化用户。它可以读取各站点的热门、搜索和用户信息，下载视频或文章，通过 YAML 编写自定义适配器，也可以透传调用 gh、docker、kubectl 等本地 CLI。浏览器类命令会复用 Chrome 中已登录的会话。",
+  "requirements": "本指南以 macOS / Linux 一键安装脚本为准，二进制没有运行时依赖。Browser 模式的命令需要 Chrome 和 autocli Chrome 扩展，并且要在 Chrome 中登录目标站点；Public 模式命令不需要扩展。下载视频需要 yt-dlp。AI 生成和云端适配器搜索需要 autocli.ai 的 API token。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "用脚本安装 autocli 二进制",
+      "text": "在 macOS 或 Linux 终端运行官方一键安装脚本。脚本会检测系统和架构，下载对应的二进制并安装到 /usr/local/bin/。以后更新时，重新运行该命令即可覆盖旧版本。 原文包含需人工核查的高权限或删除命令，本站不提供一键复制；请查看该步骤的官方出处。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/nashsu/AutoCLI/blob/c0969e2c83b29a7528452b1ba555085deca8e00d/README.md?plain=1#L69"
+      }
+    },
+    {
+      "title": "加载 Chrome 扩展",
+      "text": "从 GitHub Releases 下载 autocli-chrome-extension.zip 并解压。在 Chrome 中打开 chrome://extensions，开启右上角的「开发者模式」，点击「加载已解压的扩展程序」，选择解压后的文件夹。扩展会自动连接 autocli daemon。只使用 hackernews 等 Public 命令时可以跳过这一步。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/nashsu/AutoCLI/blob/c0969e2c83b29a7528452b1ba555085deca8e00d/README.md?plain=1#L113"
+      }
+    },
+    {
+      "title": "查看命令并获取站点数据",
+      "text": "先用 autocli --help 查看所有站点，再用 autocli <站点> --help 查看某个站点的子命令。可以用 --limit 控制条数，用 --format 切换 table、json、yaml、csv、md 输出。遇到问题时运行 autocli doctor 进行诊断。",
+      "code": "# View all available commands\nautocli --help\n\n# View commands for a specific site\nautocli hackernews --help\n\n# Get Hacker News top stories (public API, no browser needed)\nautocli hackernews top --limit 10\n\n# JSON format output\nautocli hackernews top --limit 5 --format json\n\n# Get Bilibili trending videos (requires browser + Cookie)\nautocli bilibili hot --limit 20\n\n# Search Twitter (requires browser + login)\nautocli twitter search \"rust lang\" --limit 10\n\n# Run diagnostics\nautocli doctor\n\n# Generate shell completions\nautocli completion bash >> ~/.bashrc\nautocli completion zsh >> ~/.zshrc\nautocli completion fish > ~/.config/fish/completions/autocli.fish\n\nautocli hackernews top --format table    # ASCII table (default)\nautocli hackernews top --format json     # JSON\nautocli hackernews top --format yaml     # YAML\nautocli hackernews top --format csv      # CSV\nautocli hackernews top --format md       # Markdown table",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/nashsu/AutoCLI/blob/c0969e2c83b29a7528452b1ba555085deca8e00d/README.md?plain=1#L132"
+      }
+    },
+    {
+      "title": "登录 autocli.ai 使用 AI 适配器",
+      "text": "运行 autocli auth。它会打开浏览器获取 token，验证后保存到 ~/.autocli/config.json。之后可以用 autocli search 加 URL 或域名搜索社区共享的适配器，也可以在 Chrome 扩展中选取页面数据并点击 Generate 生成新的适配器。",
+      "code": "autocli auth\n\n# Search by URL\nautocli search https://www.example.com\n\n# Domain name also works (auto-prepends https://)\nautocli search example.com",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/nashsu/AutoCLI/blob/c0969e2c83b29a7528452b1ba555085deca8e00d/README.md?plain=1#L166"
+      }
+    },
+    {
+      "title": "编写自定义 YAML 适配器",
+      "text": "在 ~/.autocli/adapters/<站点>/ 下创建 YAML 文件，声明 site、name、strategy、args、columns，再用 fetch、select、map、limit 等 pipeline 步骤描述抓取流程。字段可以使用 ${{ }} 模板表达式。",
+      "code": "# ~/.autocli/adapters/mysite/hot.yaml\nsite: mysite\nname: hot\ndescription: My site hot posts\nstrategy: public\nbrowser: false\n\nargs:\n  limit:\n    type: int\n    default: 20\n    description: Number of items\n\ncolumns: [rank, title, score]\n\npipeline:\n  - fetch: https://api.mysite.com/hot\n  - select: data.posts\n  - map:\n      rank: \"${{ index + 1 }}\"\n      title: \"${{ item.title }}\"\n      score: \"${{ item.score }}\"\n  - limit: \"${{ args.limit }}\"",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/nashsu/AutoCLI/blob/c0969e2c83b29a7528452b1ba555085deca8e00d/README.md?plain=1#L373"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "Browser 类命令直接复用 Chrome 中的登录会话。twitter 的 post、delete、follow 和 boss 的 batchgreet 等命令会以你的账号执行写操作，使用前请确认命令内容。",
+    "一键安装脚本通过 curl 管道直接交给 sh 执行，运行前可以先查看脚本内容。",
+    "README 提到 Windows 用户可以使用 PowerShell 下载或手动下载，本指南只覆盖 macOS / Linux 的脚本安装方式。",
+    "AI 生成和适配器搜索依赖 autocli.ai 云服务及其 token，生成的适配器会同步到 AutoCLI.ai。",
+    "视频下载依赖 yt-dlp。抓取和下载站点内容时，需要自行遵守各平台的使用条款。",
+    "README 自述的测试通过率为 103/122，部分命令可能无法正常工作。"
+  ],
+  "references": [
+    {
+      "label": "README.zh.md",
+      "url": "https://github.com/nashsu/AutoCLI/blob/c0969e2c83b29a7528452b1ba555085deca8e00d/README.zh.md"
+    }
+  ],
+  "media": [
+    {
+      "url": "/assets/repository-guides/media-e509f072addb8344deda964e.webp",
+      "alt": "nashsu/AutoCLI 官方演示 1",
+      "sourceUrl": "https://github.com/nashsu/AutoCLI/blob/c0969e2c83b29a7528452b1ba555085deca8e00d/README.md?plain=1#L181",
+      "originalUrl": "https://raw.githubusercontent.com/nashsu/AutoCLI/c0969e2c83b29a7528452b1ba555085deca8e00d/assets/chrome_extension_demo.jpg"
+    },
+    {
+      "url": "/assets/repository-guides/media-dadebab0a5c5774e2ab91f44.webp",
+      "alt": "nashsu/AutoCLI 官方演示 2",
+      "sourceUrl": "https://github.com/nashsu/AutoCLI/blob/c0969e2c83b29a7528452b1ba555085deca8e00d/README.md?plain=1#L187",
+      "originalUrl": "https://raw.githubusercontent.com/nashsu/AutoCLI/c0969e2c83b29a7528452b1ba555085deca8e00d/assets/autocli_use.jpg"
+    }
+  ],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "cf67982036e4c0f00da28d890d499997852060ed56eda4685b2b35e59ba98b3b",
+  "mediaStatus": "archived",
+  "mediaFailures": []
+}

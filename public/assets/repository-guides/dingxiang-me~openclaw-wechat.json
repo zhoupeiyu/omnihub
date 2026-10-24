@@ -1,0 +1,73 @@
+{
+  "schemaVersion": 1,
+  "key": "dingxiang-me/openclaw-wechat",
+  "status": "ready",
+  "reason": "",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/dingxiang-me/OpenClaw-Wechat/blob/e1d885e8033ce961dbbbd0d815ff16cc2dce7e60/README.md",
+  "sourceRevision": "e1d885e8033ce961dbbbd0d815ff16cc2dce7e60",
+  "canonicalKey": "dingxiang-me/OpenClaw-Wechat",
+  "summary": "OpenClaw-Wechat 是 OpenClaw 的企业微信渠道插件，支持自建应用 Agent 模式、智能机器人 Bot 模式（含长连接）和 Webhook 出站，让 OpenClaw 在企业微信中收发消息并自动回复。",
+  "intro": "适合已经在运行 OpenClaw、希望接入企业微信的管理员或开发者。典型场景包括：个人微信扫码进入企业微信应用对话、企业内部员工问答助手、多账号多业务线的消息分流。插件支持群聊触发策略、私聊白名单或审批、多账号、bindings 路由，以及 wecom_doc 文档工具等能力。",
+  "requirements": "需要已安装并能正常运行 Gateway 的 OpenClaw，以及有权限创建应用或智能机器人并配置回调的企业微信管理员账号。Node.js 版本与 OpenClaw 运行环境保持一致。Agent 模式和 Bot API 模式需要企业微信能访问的公网回调地址；Bot 长连接模式不需要。语音转写可选装 whisper，AMR 等格式转码推荐安装 ffmpeg。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "用安装器安装插件",
+      "text": "运行官方推荐的 openclaw-wecom-cli install。它会先执行 openclaw plugins install 安装插件，再写入 starter config，并可以选择继续运行本地 doctor 体检。插件最低建议版本为 2.3.0。",
+      "code": "npx -y @dingxiang-me/openclaw-wecom-cli install",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/dingxiang-me/OpenClaw-Wechat/blob/e1d885e8033ce961dbbbd0d815ff16cc2dce7e60/README.md?plain=1#L211"
+      }
+    },
+    {
+      "title": "在 openclaw.json 中启用插件",
+      "text": "确认 ~/.openclaw/openclaw.json 的 plugins 中已启用 openclaw-wechat，并加入 allow 和 entries。企业微信相关的业务配置写在 channels.wecom.* 下；不要手改 extensions 目录里的 package.json 或 openclaw.plugin.json。",
+      "code": "{\n  \"plugins\": {\n    \"enabled\": true,\n    \"allow\": [\"openclaw-wechat\"],\n    \"entries\": {\n      \"openclaw-wechat\": {\n        \"enabled\": true\n      }\n    }\n  }\n}",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/dingxiang-me/OpenClaw-Wechat/blob/e1d885e8033ce961dbbbd0d815ff16cc2dce7e60/README.md?plain=1#L237"
+      }
+    },
+    {
+      "title": "选择 Bot 长连接模式并填写凭据",
+      "text": "想最快跑通对话，官方推荐 Bot 长连接模式。在 channels.wecom.bot 中设置 enabled，并在 longConnection 下填写 enabled、botId、secret。这种模式不需要公网回调地址。如果需要主动发送消息或菜单能力，再改用 Agent 模式。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/dingxiang-me/OpenClaw-Wechat/blob/e1d885e8033ce961dbbbd0d815ff16cc2dce7e60/README.md?plain=1#L64"
+      }
+    },
+    {
+      "title": "重启网关并运行自检",
+      "text": "执行 openclaw gateway restart 和 status，然后运行 wecom selfcheck 系列命令。自检输出会先给出 readiness（能否收、回、发）和 routing（是否启用 bindings、dynamicAgent）两行摘要，方便判断配置是否完整。",
+      "code": "openclaw gateway restart\nopenclaw gateway status\nnpm run wecom:selfcheck -- --all-accounts\nnpm run wecom:agent:selfcheck -- --all-accounts\nnpm run wecom:bot:selfcheck -- --all-accounts",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/dingxiang-me/OpenClaw-Wechat/blob/e1d885e8033ce961dbbbd0d815ff16cc2dce7e60/README.md?plain=1#L298"
+      }
+    },
+    {
+      "title": "在企业微信中发消息验证",
+      "text": "向机器人发送一条文本消息，确认能收到回复。Bot 模式下可以再发一张图片，确认能识别图片内容。openclaw gateway status 应显示 RPC probe: ok，且 WeCom 状态正常。如果出现问题，参照 README 中的快速定位表排查。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/dingxiang-me/OpenClaw-Wechat/blob/e1d885e8033ce961dbbbd0d815ff16cc2dce7e60/README.md?plain=1#L313"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "Agent 模式必须在企业微信自建应用后台把 OpenClaw 的出网 IP 加入可信 IP，否则可能出现能收到消息但不回复的情况。",
+    "企业微信官方 Bot 在群聊中通常只对 @机器人 的消息触发回调，此时 triggerMode 设为 direct 或 keyword 也会按 mention 处理。",
+    "corpSecret、callbackAesKey、Bot secret 等属于敏感信息，官方建议优先放在 env.vars 或系统环境变量中。",
+    "Agent 回调地址不要使用 trycloudflare.com 这类临时隧道域名；/wecom/* 路径需要免除网关鉴权，也不能被重定向到登录页。",
+    "1.7.x 等旧版本插件包无法正确注册 wecom channel，需要先升级或重装。"
+  ],
+  "references": [],
+  "media": [],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "8e4862c10f1f122086047cb964893e3d71b62792732185e1bf3a0126a291cb1f",
+  "mediaStatus": "none_in_official_documents"
+}

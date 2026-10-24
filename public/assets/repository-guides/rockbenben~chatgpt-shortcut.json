@@ -1,0 +1,85 @@
+{
+  "schemaVersion": 1,
+  "key": "rockbenben/chatgpt-shortcut",
+  "status": "ready",
+  "reason": "",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/rockbenben/ChatGPT-Shortcut/blob/8e1f5f67e63dd957ff263a8af25ad9cfee3f8c50/README.md",
+  "sourceRevision": "8e1f5f67e63dd957ff263a8af25ad9cfee3f8c50",
+  "canonicalKey": "rockbenben/ChatGPT-Shortcut",
+  "summary": "AiShort 是一个可搜索的 AI 提示词库，在网页上找到提示词后，一键复制即可粘贴到 ChatGPT、Cursor 等 AI 工具中。",
+  "intro": "适合经常使用 ChatGPT、Claude、Gemini、Cursor 等工具，又不想每次从零写提示词的人。可以按场景标签或关键词查找提示词并直接复制。登录后还能收藏、自定义提示词、分享到社区、导出 JSON。另提供浏览器扩展，也支持自行部署。",
+  "requirements": "直接使用在线版只需浏览器，README 称无需注册和安装。收藏、自定义提示词等高级功能需要登录。浏览器扩展支持 Chrome、Edge、Firefox。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "打开 aishort.top 在线版",
+      "text": "在浏览器中访问 aishort.top。基础的浏览、搜索和复制功能可以直接使用，不需要注册或安装。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/rockbenben/ChatGPT-Shortcut/blob/8e1f5f67e63dd957ff263a8af25ad9cfee3f8c50/README.md?plain=1#L53"
+      }
+    },
+    {
+      "title": "用标签或关键词查找提示词",
+      "text": "可以按 26 个场景标签筛选，也可以按 Ctrl / ⌘ + K 打开搜索。界面和提示词支持 18 种语言。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/rockbenben/ChatGPT-Shortcut/blob/8e1f5f67e63dd957ff263a8af25ad9cfee3f8c50/README.md?plain=1#L53"
+      }
+    },
+    {
+      "title": "复制提示词粘贴到 AI 工具",
+      "text": "点击卡片上的 Copy，把提示词复制到剪贴板，再粘贴到 ChatGPT 类聊天页面、Cursor 等编码工具，或你自己的 API 调用中。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/rockbenben/ChatGPT-Shortcut/blob/8e1f5f67e63dd957ff263a8af25ad9cfee3f8c50/README.md?plain=1#L53"
+      }
+    },
+    {
+      "title": "登录后管理收藏与自定义",
+      "text": "登录方式支持密码、Google 或免密邮件链接。登录后可以拖拽排序收藏、按自定义标签分类、创建和编辑自己的提示词、分享到社区并投票评论，还能一键把全部提示词导出为 JSON。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/rockbenben/ChatGPT-Shortcut/blob/8e1f5f67e63dd957ff263a8af25ad9cfee3f8c50/README.md?plain=1#L79"
+      }
+    },
+    {
+      "title": "按需安装浏览器扩展",
+      "text": "如果想在 ChatGPT、Gemini、Claude 等页面里直接调用提示词，可以从 Chrome Web Store、Edge Addons 或 Firefox Add-ons 安装扩展，然后用 Alt + Shift + S 打开侧边栏。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/rockbenben/ChatGPT-Shortcut/blob/8e1f5f67e63dd957ff263a8af25ad9cfee3f8c50/README.md?plain=1#L126"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "自行部署的具体步骤不在 README 中，需要参考官网的 Deployment Guide。使用 Vercel 一键部署会创建新项目而不是 fork，因此无法自动同步上游更新。",
+    "内网或离线环境可以使用官方的 Offline Edition，数据只保存在本地浏览器中。",
+    "README 中“5000+ 提示词、专家级输出”等属于宣传描述，实际效果取决于所用的 AI 工具和具体任务。"
+  ],
+  "references": [],
+  "media": [
+    {
+      "url": "/assets/repository-guides/media-99d4a0e42dc39209798f0376.webp",
+      "alt": "rockbenben/ChatGPT-Shortcut 官方演示 1",
+      "sourceUrl": "https://github.com/rockbenben/ChatGPT-Shortcut/blob/8e1f5f67e63dd957ff263a8af25ad9cfee3f8c50/README.md?plain=1#L59",
+      "originalUrl": "https://raw.githubusercontent.com/rockbenben/ChatGPT-Shortcut/8e1f5f67e63dd957ff263a8af25ad9cfee3f8c50/static/img/docs/interface-home.png"
+    }
+  ],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "25f8d842be7b5c3a86959e744123a45efdc58c8e37226f1ccb6ecec5124afa57",
+  "mediaStatus": "archived",
+  "mediaFailures": [
+    {
+      "sourceUrl": "https://github.com/rockbenben/ChatGPT-Shortcut/blob/8e1f5f67e63dd957ff263a8af25ad9cfee3f8c50/README.md#L105",
+      "reason": "request_failed"
+    },
+    {
+      "sourceUrl": "https://github.com/rockbenben/ChatGPT-Shortcut/blob/8e1f5f67e63dd957ff263a8af25ad9cfee3f8c50/README.md#L98",
+      "reason": "request_failed"
+    }
+  ]
+}

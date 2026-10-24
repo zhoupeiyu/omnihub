@@ -1,0 +1,53 @@
+{
+  "schemaVersion": 1,
+  "key": "lottiefiles/motion-design-skill",
+  "status": "ready",
+  "reason": "",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/LottieFiles/motion-design-skill/blob/f9a8a041b85185ee4881b3471d3415e939aac772/README.md",
+  "sourceRevision": "f9a8a041b85185ee4881b3471d3415e939aac772",
+  "canonicalKey": "LottieFiles/motion-design-skill",
+  "summary": "一个面向 AI 智能体的动效设计 Skill，帮助智能体在写动画代码前先确定时序、缓动、编排和情绪意图。",
+  "intro": "适合用 AI 编码智能体开发界面动画的前端开发者和设计工程师。可用于按钮、卡片、弹窗、页面转场、微交互，以及加载、成功、错误等状态动画。也适用于滚动触发动画、品牌动效规范和多元素编排。它不绑定具体实现，可配合 CSS、Framer Motion、GSAP、Lottie、Spring 等动画方案。",
+  "requirements": "需要使用 skills.sh 支持的智能体，例如 Claude Code、Cursor、Codex、GitHub Copilot 等。安装时需要能执行 npx 命令。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "用 npx skills 安装该 Skill",
+      "text": "执行 npx skills add LottieFiles/motion-design-skill，把 Skill 安装到你使用的智能体中。README 说明它通过 skills.sh 支持 40 多种智能体。",
+      "code": "npx skills add LottieFiles/motion-design-skill",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/LottieFiles/motion-design-skill/blob/f9a8a041b85185ee4881b3471d3415e939aac772/README.md?plain=1#L16"
+      }
+    },
+    {
+      "title": "按需查阅四类内容",
+      "text": "SKILL.md 是核心速查，包含 8 步检查清单、时长和缓动表。director/ 讲设计理念与迪士尼 12 原则的 UI 改编。patterns/ 提供入场、状态反馈、多元素编排等配方。reference/ 收录查表、质量清单和问题排查。",
+      "code": "skills/motion-design/\n├── SKILL.md                          # Main skill instructions (< 500 lines)\n├── director/\n│   ├── core-philosophy.md            # Three Pillars deep dive\n│   ├── decision-framework.md         # Full decision pipeline\n│   ├── disney-principles.md          # 12 principles, UI-adapted\n│   ├── motion-personality.md         # 4 archetypes + brand identity\n│   ├── emotion-mapping.md            # Emotion → motion translation\n│   ├── choreography.md              # Multi-element coordination\n│   ├── narrative-structure.md        # Micro-story framework\n│   └── context-adaptation.md         # Platform, a11y, performance\n├── patterns/\n│   ├── entrance-exit.md              # Entrance/exit recipes\n│   ├── state-feedback.md             # Success, error, loading, hover\n│   ├── ambient-continuous.md         # Looping, breathing, parallax\n│   └── multi-element.md             # Stagger + choreography recipes\n└── reference/\n    ├── timing-easing-tables.md       # Duration + easing lookups\n    ├── property-selection.md         # Property communication guide\n    ├── quality-checklist.md          # Evaluation criteria\n    └── troubleshooting.md           # Animation smells + fixes",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/LottieFiles/motion-design-skill/blob/f9a8a041b85185ee4881b3471d3415e939aac772/README.md?plain=1#L24"
+      }
+    },
+    {
+      "title": "在动画相关任务中触发使用",
+      "text": "在智能体中处理 UI 动画、微交互、加载或成功/错误状态、滚动动画、品牌动效或多元素编排时，该 Skill 会被激活。你也可以让它按动效设计原则审查现有动画代码。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/LottieFiles/motion-design-skill/blob/f9a8a041b85185ee4881b3471d3415e939aac772/README.md?plain=1#L34"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "该 Skill 只提供设计原则和配方，不包含动画运行库；具体实现依赖项目中已有的动画方案。",
+    "能否在某个智能体中加载，取决于该智能体是否受 skills.sh 支持。"
+  ],
+  "references": [],
+  "media": [],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "9d43476646e1d0ae0f082d40877e19ce14dbe0215dd32c3887e8aad731959b03",
+  "mediaStatus": "none_in_official_documents"
+}

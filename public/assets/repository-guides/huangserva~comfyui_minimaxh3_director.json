@@ -1,0 +1,72 @@
+{
+  "schemaVersion": 1,
+  "key": "huangserva/comfyui_minimaxh3_director",
+  "status": "ready",
+  "reason": "",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/huangserva/ComfyUI_MiniMaxH3_Director/blob/4aa1663f38139f739211c6fa041126cbfe566e4e/README.md",
+  "sourceRevision": "4aa1663f38139f739211c6fa041126cbfe566e4e",
+  "canonicalKey": "huangserva/ComfyUI_MiniMaxH3_Director",
+  "summary": "收录 5 份可直接导入 ComfyUI 的 MiniMax H3 Director 工作流，覆盖文生视频、图生视频、首尾帧、参考生成、视频编辑和参考素材改视频。",
+  "intro": "适合已在使用 ComfyUI、想用 MiniMax H3 模型做音视频生成或逐段视频编辑的用户。仓库是上游 AIMixer/ComfyUI_MiniMaxH3_Director 工作流的副本，便于下载、复现和测试。工作流按模式分为 T2V、FL2V/I2V、R2V、V2V、RV2V，其中 RV2V 用于源视频加参考图或参考音频改视频。",
+  "requirements": "ComfyUI 0.30.0 或更高版本；需安装上游 MiniMaxH3Director 节点及其 Python 依赖；需下载对应 MiniMax H3 模型权重。作者的已验证环境为 NVIDIA RTX 4090 48GB、PyTorch 2.11.0 + CUDA 12.8，使用 Ref2VA INT8 权重。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "安装上游导演台自定义节点",
+      "text": "进入 ComfyUI/custom_nodes 目录，克隆 AIMixer/ComfyUI_MiniMaxH3_Director，再用 pip 安装其 requirements.txt 中的依赖。",
+      "code": "cd ComfyUI/custom_nodes\ngit clone https://github.com/AIMixer/ComfyUI_MiniMaxH3_Director.git\npython -m pip install -r ComfyUI_MiniMaxH3_Director/requirements.txt",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/huangserva/ComfyUI_MiniMaxH3_Director/blob/4aa1663f38139f739211c6fa041126cbfe566e4e/README.md?plain=1#L25"
+      }
+    },
+    {
+      "title": "按模式放置模型权重文件",
+      "text": "R2V、V2V、RV2V 需要 ref2va 权重；T2V、I2V、FL2V 需要 fl2va 权重。两类都要共用的文本编码器、视频 VAE 和音频 VAE。把文件放到代码块中列出的 models/ 路径下。权重来源见 Hugging Face 上的 Comfy-Org/MiniMax-H3。",
+      "code": "models/diffusion_models/minimax_h3_ref2va_pruned_int8_convrot.safetensors\n\nmodels/diffusion_models/minimax_h3_fl2va_pruned_int8_convrot.safetensors\n\nmodels/text_encoders/qwen3vl_32b_minimax_h3_nvfp4_awq.safetensors\nmodels/vae/minimax_h3_video_vae_fp16.safetensors\nmodels/vae/minimax_h3_audio_vae_fp32.safetensors",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/huangserva/ComfyUI_MiniMaxH3_Director/blob/4aa1663f38139f739211c6fa041126cbfe566e4e/README.md?plain=1#L37"
+      }
+    },
+    {
+      "title": "重启 ComfyUI 并导入工作流",
+      "text": "重启 ComfyUI，确认 MiniMaxH3Director 节点已注册，再把 example_workflows/ 里对应的 JSON 拖进页面。按用途选择文件，例如只有 ref2va 权重时，选 r2v、v2v 或 rv2v 工作流。CLIP Loader 的类型要选 minimax。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/huangserva/ComfyUI_MiniMaxH3_Director/blob/4aa1663f38139f739211c6fa041126cbfe566e4e/README.md?plain=1#L25"
+      }
+    },
+    {
+      "title": "在 RV2V 中分段编写提示词",
+      "text": "导入 RV2V 工作流后，上传源视频并按镜头切分或使用智能分割，再上传人物参考图，需要声音约束时加参考音频。在每段提示词中，用 <Video 1> 指代源片段，用 <Picture N>、<Audio J> 指代参考素材。音频可选模型生成、沿用原声或静音。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/huangserva/ComfyUI_MiniMaxH3_Director/blob/4aa1663f38139f739211c6fa041126cbfe566e4e/README.md?plain=1#L61"
+      }
+    },
+    {
+      "title": "先生成短片段检查再扩展",
+      "text": "先生成 5 秒，检查脸部、服装、动作和镜头边界，再决定是否扩展。导演台支持逐段运行和缓存，改一段不必重跑整条时间轴。做 A/B 对比时，固定源素材、提示词、seed、分辨率、帧数和 steps。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/huangserva/ComfyUI_MiniMaxH3_Director/blob/4aa1663f38139f739211c6fa041126cbfe566e4e/README.md?plain=1#L61"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "作者的已验证 4090 环境只有 Ref2VA 权重；T2V、I2V、FL2V 需另外补齐 fl2va 权重，文档未说明这三种模式的验证结果。",
+    "导演台没有硬身份锁，人物一致性由模型和参考素材共同约束；段间末帧到首帧的交接不能替代人物一致性检查。",
+    "工作流与上游插件为 Apache-2.0，模型权重遵循各自的许可条款。",
+    "RV2V 可用于视频换人，使用他人肖像或声音素材前需确认已获得相应授权。",
+    "SageAttention 补丁节点为可选项，启用前应先确认输出质量一致。"
+  ],
+  "references": [],
+  "media": [],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "96ecbac31310b9b41a0945825fe0f15642405e7081a85ae4fc766aa689f99cec",
+  "mediaStatus": "none_in_official_documents"
+}

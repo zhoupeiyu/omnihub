@@ -1,0 +1,61 @@
+{
+  "schemaVersion": 1,
+  "key": "haigechanlun/chanlun_auto_trading",
+  "status": "partial",
+  "reason": "README 只列出了 monitor/td.py、data/binance_api.py、trade/gate/trade.py、trade/okx/trade.py、strategy/backtest_macd_td.py 等文件链接，没有说明 Python 版本、依赖安装、配置项和运行命令。核心缠论决策模型不开源，“实盘对接流程”需要把交易所 API Key 交给作者，不是用户可以自行部署的使用方法。",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/haigechanlun/chanlun_auto_trading/blob/49c1497d251d19b61e0598afea13d46690ad5153/README.md",
+  "sourceRevision": "49c1497d251d19b61e0598afea13d46690ad5153",
+  "canonicalKey": "haigechanlun/chanlun_auto_trading",
+  "summary": "一个以缠论为主题的加密货币量化交易仓库，公开了 TD 序列监控、Binance 行情获取、Gate/OKX 下单和 MACD+TD 策略的部分代码。",
+  "intro": "适合想阅读量化交易代码结构的开发者，可以参考 TD 迪马克序列监控、K 线数据获取、交易所下单接口，以及 MACD 背驰 + TD 信号的回测和实盘脚本。README 中的缠论买卖点识别、风控和移动止盈止损属于功能描述，核心模型未公开。",
+  "requirements": "需要能阅读 Python 源码。若参考实盘代码，还需要对应交易所（Gate、OKX 等）的账户和合约 API 权限。仓库未给出依赖清单和运行说明。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "阅读行情数据获取实现",
+      "text": "打开 data/binance_api.py，了解仓库如何从 Binance 获取 K 线行情。README 说明行情数据统一来自 Binance，可以把这个文件作为理解后续监控和策略代码的起点。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/haigechanlun/chanlun_auto_trading/blob/49c1497d251d19b61e0598afea13d46690ad5153/README.md?plain=1#L86"
+      }
+    },
+    {
+      "title": "查看 TD 序列信号监控代码",
+      "text": "打开 monitor/td.py，查看 TD 迪马克序列（神奇九转）的信号计算与监控实现。README 附有一篇微信文章作为 TD 实战教程，可以对照阅读来理解指标含义。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/haigechanlun/chanlun_auto_trading/blob/49c1497d251d19b61e0598afea13d46690ad5153/README.md?plain=1#L81"
+      }
+    },
+    {
+      "title": "对照阅读开源策略回测脚本",
+      "text": "打开 strategy/backtest_macd_td.py 和 strategy/live_trading_macd_td.py，对比 MACD 背驰 + TD 信号动态加减仓策略在回测和实盘两个版本里的逻辑。README 明确标注这部分仅供参考，实盘有风险。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/haigechanlun/chanlun_auto_trading/blob/49c1497d251d19b61e0598afea13d46690ad5153/README.md?plain=1#L100"
+      }
+    },
+    {
+      "title": "查阅交易所下单接口实现",
+      "text": "打开 trade/gate/trade.py 和 trade/okx/trade.py，了解 Gate 与 OKX 的下单接口封装。README 称支持 Binance、OKX、Gate、WEEX，但公开链接只给出了 Gate 和 OKX 的代码。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/haigechanlun/chanlun_auto_trading/blob/49c1497d251d19b61e0598afea13d46690ad5153/README.md?plain=1#L90"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "核心缠论买卖点模型不开源，README 中的识别、风控、移动止盈止损等能力无法仅凭仓库代码复现。",
+    "“实盘对接流程”要求开通合约 API 的读取与交易权限并把 Key 交给作者，这意味着第三方可以操作你的资金账户，风险很高。",
+    "README 中的交易所注册链接带有邀请码，属于推广链接。",
+    "年化收益等数字只是作者给出的历史回测宣称，本说明未验证；README 自己也提示历史回测不代表未来收益。合约交易可能造成本金损失。"
+  ],
+  "references": [],
+  "media": [],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "3a7cc93f7ce7136c906b3673fb6db4f2baca90d022df092d4d561740fdc5e37d",
+  "mediaStatus": "none_in_official_documents"
+}

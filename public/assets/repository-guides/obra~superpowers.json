@@ -1,0 +1,69 @@
+{
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/obra/superpowers/blob/8ca22dba9a94f28898bbce59f2537ff4d87c747d/README.md",
+  "summary": "让编程 Agent 先澄清需求、给出设计，再按计划写代码、测试和审查。",
+  "intro": "适合给已有的编程 Agent 加一套开发流程。你仍在 Claude Code、Codex 或 Cursor 中工作；插件会在合适的任务里调用对应技能。",
+  "media": [],
+  "requirements": "需要已经可用的编程 Agent 及其模型服务。每个客户端要分别安装；给 Claude Code 装好后，Codex 不会自动拥有它。",
+  "platforms": [
+    {
+      "label": "Claude Code",
+      "steps": [
+        {
+          "title": "在 Claude Code 中安装",
+          "text": "在客户端的会话输入框执行官方市场安装命令，按提示完成安装。这里仅复制命令，不会替你安装。",
+          "code": "/plugin install superpowers@claude-plugins-official"
+        }
+      ]
+    },
+    {
+      "label": "Codex App",
+      "steps": [
+        {
+          "title": "从插件目录安装",
+          "text": "按仓库说明，打开左侧 Plugins，在 Coding 分类找到 Superpowers，点击 + 并按提示安装。若当前客户端没有此条目，先核对客户端版本和官方目录，不改用未经核验的安装脚本。",
+          "link": {
+            "label": "查看仓库的安装说明",
+            "url": "https://github.com/obra/superpowers/blob/8ca22dba9a94f28898bbce59f2537ff4d87c747d/README.md#codex-app"
+          }
+        }
+      ]
+    },
+    {
+      "label": "Cursor",
+      "steps": [
+        {
+          "title": "在 Agent 对话中安装",
+          "text": "在 Cursor 的 Agent 输入框运行命令，或在插件市场搜索 superpowers。",
+          "code": "/add-plugin superpowers"
+        }
+      ]
+    }
+  ],
+  "steps": [
+    {
+      "title": "在测试项目中新开会话",
+      "text": "先选一个范围明确的小功能。安装完成后新开会话，再描述需求；暂时不要用重要的未备份项目来验证流程。"
+    },
+    {
+      "title": "先确认设计，再进入实现",
+      "text": "按官方工作流，Agent 会先梳理需求与约束，把设计拆开与你确认，再给出实现计划。实现阶段强调测试先行，并包含代码审查。"
+    }
+  ],
+  "example": {
+    "prompt": "帮我做一个 React 待办列表，支持新增任务和标记完成。先澄清需求并给出设计，等我确认后再开始实现。",
+    "result": "应该先看到问题澄清和设计说明，确认后才进入计划、实现与测试。这里是根据官方流程整理的预期行为，不是本站的实测对话记录。"
+  },
+  "cautions": [
+    "插件会影响 Agent 的工作方式，不会替你配置模型账号或提供免费模型额度。",
+    "启动子任务、测试或修改文件仍受客户端权限与项目规则约束。安装插件不代表允许自动发布或修改生产数据。",
+    "如果一上来就写代码，先检查插件是否在当前客户端启用、会话是否重新启动；不要只凭回答语气判断已经生效。"
+  ],
+  "references": [],
+  "schemaVersion": 1,
+  "key": "obra/superpowers",
+  "status": "ready",
+  "reason": "",
+  "curated": true
+}

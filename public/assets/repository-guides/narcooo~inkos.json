@@ -1,0 +1,94 @@
+{
+  "schemaVersion": 1,
+  "key": "narcooo/inkos",
+  "status": "ready",
+  "reason": "",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/Narcooo/inkos/blob/8fc2ae57080b9821257dee3e37cc677e2b6f389a/README.md",
+  "sourceRevision": "8fc2ae57080b9821257dee3e37cc677e2b6f389a",
+  "canonicalKey": "Narcooo/inkos",
+  "summary": "InkOS 是一个面向故事创作的 AI Agent 系统，支持长篇、短篇、剧本、同人、互动影游、开放世界和多语言翻译，并提供 Studio、TUI 和 CLI 三种使用方式。",
+  "intro": "适合用大模型写长篇连载或短篇、续写或导入已有作品、做同人创作、生成封面，或搭建分支互动 / 开放世界剧情的创作者。InkOS 负责管理设定、角色、伏笔和长期记忆，按「规划、写作、审稿、提交」的流程逐章生产，并支持导出 EPUB。",
+  "requirements": "需要 Node.js 22.16 或更高版本，以及至少一个大模型服务的 API Key（例如 Gemini、Moonshot、DeepSeek、OpenRouter，或本地的 Ollama / LM Studio）。生成封面需要另外配置封面图片服务。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "通过 npm 全局安装 InkOS",
+      "text": "确认本机 Node.js 版本不低于 22.16，然后用 npm 全局安装 @actalk/inkos 包。安装完成后即可在终端中使用 inkos 命令。",
+      "code": "npm i -g @actalk/inkos",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/Narcooo/inkos/blob/8fc2ae57080b9821257dee3e37cc677e2b6f389a/README.md?plain=1#L107"
+      }
+    },
+    {
+      "title": "初始化项目并启动 Studio",
+      "text": "运行 inkos init 创建一个项目目录，进入该目录后运行 inkos 启动 Studio。然后在浏览器中打开启动日志里显示的本机地址。默认情况下，本地服务只接受同源浏览器请求。",
+      "code": "inkos init my-novel\ncd my-novel\ninkos",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/Narcooo/inkos/blob/8fc2ae57080b9821257dee3e37cc677e2b6f389a/README.md?plain=1#L163"
+      }
+    },
+    {
+      "title": "在 Studio 中配置模型服务",
+      "text": "进入「模型配置」，依次选择服务商和协议类型（OpenAI Chat Completions、OpenAI Responses 或 Anthropic Messages），粘贴 API Key 后点击「测试连接」，再选择模型并保存。API Key 保存在项目内的 .inkos/secrets.json 中。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/Narcooo/inkos/blob/8fc2ae57080b9821257dee3e37cc677e2b6f389a/README.md?plain=1#L163"
+      }
+    },
+    {
+      "title": "创建新书并逐章写作导出",
+      "text": "用 inkos book create 指定书名和题材建书，然后运行 write next 写下一章，同时记录审稿 observation。可以用 status 查看进度，用 review 查看审稿意见，最后用 export 导出全书，加 --format epub 可导出 EPUB 格式。",
+      "code": "inkos book create --title \"吞天魔帝\" --genre xuanhuan  # 创建新书\ninkos write next 吞天魔帝      # 写下一章并记录审稿 observation\ninkos status                   # 查看状态\ninkos review 吞天魔帝          # 查看已记录的审稿 observation\ninkos export 吞天魔帝          # 导出全书\ninkos export 吞天魔帝 --format epub  # 导出 EPUB（手机/Kindle 阅读）",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/Narcooo/inkos/blob/8fc2ae57080b9821257dee3e37cc677e2b6f389a/README.md?plain=1#L297"
+      }
+    },
+    {
+      "title": "用 doctor 排查配置问题",
+      "text": "如果调用失败，运行 inkos doctor 查看当前生效的配置模式、service / model / API Key 的来源，并测试 API 连通性。排查时优先确认服务商、模型和协议三者是否匹配。",
+      "code": "inkos doctor",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/Narcooo/inkos/blob/8fc2ae57080b9821257dee3e37cc677e2b6f389a/README.md?plain=1#L260"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "项目采用 AGPL-3.0 许可，修改后对外提供服务时需遵守相应的开源义务。",
+    "当前为 2.0 开发版本。1.x 旧项目需先运行 inkos work migrate --json 查看迁移清单，再用 --apply 执行迁移；缺少运行时状态的项目会以草稿形式导入，需重建状态后才能继续写作。",
+    "Studio 只读取 Studio 中的服务配置和 .inkos/secrets.json，不会使用 env 中的值覆盖；CLI / daemon 则支持 env 覆盖和命令行参数。",
+    "--words 指定的是目标字数，系统不保证精确命中，超出范围的正文也会照常保存。",
+    "模型调用和封面生成的费用由所选服务商决定；Gemini、MiniMax 等服务存在协议兼容方面的限制。"
+  ],
+  "references": [],
+  "media": [
+    {
+      "url": "/assets/repository-guides/media-08f73e5830f54950a65cf56e.webp",
+      "alt": "InkOS Studio 开始创作入口",
+      "sourceUrl": "https://github.com/Narcooo/inkos/blob/8fc2ae57080b9821257dee3e37cc677e2b6f389a/README.md?plain=1#L531",
+      "originalUrl": "https://raw.githubusercontent.com/Narcooo/inkos/8fc2ae57080b9821257dee3e37cc677e2b6f389a/assets/studio-dashboard.png"
+    },
+    {
+      "url": "/assets/repository-guides/media-7792643db7634a2e2bb91e0e.webp",
+      "alt": "InkOS Play Studio 开放世界界面",
+      "sourceUrl": "https://github.com/Narcooo/inkos/blob/8fc2ae57080b9821257dee3e37cc677e2b6f389a/README.md?plain=1#L79",
+      "originalUrl": "https://raw.githubusercontent.com/Narcooo/inkos/8fc2ae57080b9821257dee3e37cc677e2b6f389a/assets/studio-play-1-5.png"
+    },
+    {
+      "url": "/assets/repository-guides/media-e45dffc28c9b33c777bbc0ce.webp",
+      "alt": "InkOS 互动影游剧情树实测截图",
+      "sourceUrl": "https://github.com/Narcooo/inkos/blob/8fc2ae57080b9821257dee3e37cc677e2b6f389a/README.md?plain=1#L78",
+      "originalUrl": "https://raw.githubusercontent.com/Narcooo/inkos/8fc2ae57080b9821257dee3e37cc677e2b6f389a/assets/interactive-film-e2e.png"
+    }
+  ],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "0484bef7483b115311a2708406ce8f8a93c8ac67f47499c21b2ebf6b1a80fdcc",
+  "mediaStatus": "archived",
+  "mediaFailures": []
+}

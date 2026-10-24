@@ -1,0 +1,50 @@
+{
+  "schemaVersion": 1,
+  "key": "markmap/markmap",
+  "status": "partial",
+  "reason": "README 只有项目简介、在线试用链接和相关编辑器插件链接，具体的安装命令、库接入方式和使用参数都在外部文档 markmap.js.org/docs 中，本次提供的资料里没有。",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/markmap/markmap/blob/122bf0500ee7aca4f023c2465f7e26bf023eec52/README.md",
+  "sourceRevision": "122bf0500ee7aca4f023c2465f7e26bf023eec52",
+  "canonicalKey": "markmap/markmap",
+  "summary": "把 Markdown 文本可视化为思维导图。",
+  "intro": "适合习惯用 Markdown 整理大纲、笔记的人，可以把层级文本直接显示为思维导图。官方提供在线 REPL 试用，并列出了 VSCode/Open VSX、Vim/Neovim、Emacs、MCP Server、AI 代理技能等周边集成。",
+  "requirements": "在线试用只需浏览器。其余用法需要查看 markmap.js.org/docs，本次资料没有提供。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "在线 REPL 中试用",
+      "text": "打开 https://markmap.js.org/repl，输入 Markdown 内容，即可查看对应的思维导图效果，无需本地安装。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/markmap/markmap/blob/122bf0500ee7aca4f023c2465f7e26bf023eec52/README.md?plain=1#L1"
+      }
+    },
+    {
+      "title": "选择编辑器集成方式",
+      "text": "如果想在编辑器中使用，README 列出了以下选项：VSCode 或 Open VSX 扩展 markmap-vscode、Vim/Neovim 的 coc-markmap 或 markmap.vim、Emacs 的 eaf-markmap。另有 markmap-mcp-server 和 mindmap-skills 等第三方集成。具体安装方法请查看各自页面。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/markmap/markmap/blob/122bf0500ee7aca4f023c2465f7e26bf023eec52/README.md?plain=1#L11"
+      }
+    },
+    {
+      "title": "查阅官方文档了解接入",
+      "text": "README 本身不包含使用说明；需要作为库或命令行工具接入时，请阅读 https://markmap.js.org/docs 中的详细文档。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/markmap/markmap/blob/122bf0500ee7aca4f023c2465f7e26bf023eec52/README.md?plain=1#L24"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "README 中列出的 Vim、Emacs、MCP、AI 代理和 text2diagram 等集成多为独立项目，维护状况和使用方式需分别确认。"
+  ],
+  "references": [],
+  "media": [],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "d42eae6b751bedde1e0be20e1e574f3463ab1ad7ef263260528468204d9f46d0",
+  "mediaStatus": "none_in_official_documents"
+}

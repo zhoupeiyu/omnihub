@@ -1,0 +1,66 @@
+{
+  "schemaVersion": 1,
+  "key": "paperswithbacktest/awesome-systematic-trading",
+  "status": "ready",
+  "reason": "",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/paperswithbacktest/awesome-systematic-trading/blob/ddfee8bb548bd6914191cb8fdb695d533ae16b0d/README.md",
+  "sourceRevision": "ddfee8bb548bd6914191cb8fdb695d533ae16b0d",
+  "canonicalKey": "paperswithbacktest/awesome-systematic-trading",
+  "summary": "这是一份系统化（量化）交易资源清单，收录回测与实盘库、论文策略、书籍、视频、博客和课程。",
+  "intro": "适合想入门或深入量化交易研究、需要挑选回测框架、数据源、经纪商 API 或参考书籍的开发者和研究者。仓库本身是资料集合，不需要安装，直接在 README 中按分类查阅即可。",
+  "requirements": "只需能访问 GitHub 阅读 README。中文读者可以打开 README_zh.md。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "选择语言版本打开 README",
+      "text": "在仓库首页阅读英文 README，或打开 `README_zh.md` 中文版、`README_ja.md` 日文版。README 开头说明了收录范围：用于寻找、开发和运行系统化交易策略的论文、软件、书籍和文章。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/paperswithbacktest/awesome-systematic-trading/blob/ddfee8bb548bd6914191cb8fdb695d533ae16b0d/README.md?plain=1#L1"
+      }
+    },
+    {
+      "title": "展开目录定位所需分类",
+      "text": "展开「full table of content」，按需要跳转到对应分类。主要分类有：Libraries and packages（包括回测与实盘、交易机器人、分析、Broker APIs、数据源、机器学习等）、Strategies（按资产类别划分）、Books、Videos、Blogs、Courses。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/paperswithbacktest/awesome-systematic-trading/blob/ddfee8bb548bd6914191cb8fdb695d533ae16b0d/README.md?plain=1#L50"
+      }
+    },
+    {
+      "title": "查阅库表格并留意维护状态",
+      "text": "在库列表中按类别查看，例如事件驱动框架、向量化框架、加密货币等。每行列出仓库链接、简介和编程语言。注意条目后的 `dormant since`、`archived`、`no longer available` 标记，选型前先确认项目是否仍在维护。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/paperswithbacktest/awesome-systematic-trading/blob/ddfee8bb548bd6914191cb8fdb695d533ae16b0d/README.md?plain=1#L132"
+      }
+    },
+    {
+      "title": "结合复现统计阅读策略部分",
+      "text": "Strategies 部分列出已发表论文中的策略，并附上复现得到的 Sharpe 比率。开始实现前，先阅读 README 中的复现统计说明，例如中位 Sharpe 和 t 统计量等。方法和注意事项见其 wiki。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/paperswithbacktest/awesome-systematic-trading/blob/ddfee8bb548bd6914191cb8fdb695d533ae16b0d/README.md?plain=1#L50"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "README 中推广的 Papers With Backtest 是外部平台，需要注册账号。免费账号每个账户只有一次策略解锁、一次克隆和 1 美元代理额度，且不重置。更多用量需要付费方案。",
+    "库列表按 GitHub 星标排序。排序只反映受欢迎程度，不代表适合你的场景，也不代表仍在维护。",
+    "复现结果显示，相当一部分已发表策略在其样本上无法与零区分。不要把清单中的策略直接用于实盘。",
+    "仓库未标注开源许可证。"
+  ],
+  "references": [
+    {
+      "label": "README_zh.md",
+      "url": "https://github.com/paperswithbacktest/awesome-systematic-trading/blob/ddfee8bb548bd6914191cb8fdb695d533ae16b0d/README_zh.md"
+    }
+  ],
+  "media": [],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "259e78193aa84df92728d2a83d8d0c2cf49adf28aca76ba3d35b95865b9e5d84",
+  "mediaStatus": "none_in_official_documents"
+}

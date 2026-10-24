@@ -1,0 +1,62 @@
+{
+  "schemaVersion": 1,
+  "key": "joeseesun/qiaomu-seo",
+  "status": "ready",
+  "reason": "",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/joeseesun/qiaomu-seo/blob/b892b70639ac2839e7fa61302ff54a60a6cc9b74/README.md",
+  "sourceRevision": "b892b70639ac2839e7fa61302ff54a60a6cc9b74",
+  "canonicalKey": "joeseesun/qiaomu-seo",
+  "summary": "一个 Agent Skill：面向 Google、Bing 和 AI Search，覆盖网站 SEO 的审计、诊断、关键词规划、代码修复和效果验证。",
+  "intro": "适合站长、SEO 从业者，以及维护网站代码的开发者。它按“抓取 → 渲染 → 可索引性 → canonical/hreflang → 相关性 → 内链 → 测量”的链路排查问题，可用于定位不收录、分析自然流量下降、制作 keyword-to-page map、修复 canonical/sitemap/JSON-LD 等技术问题、规划站点迁移重定向，以及检查 AI Search 的可访问性基础。每个结论都会标注是直接观察、合理推断还是缺少证据。",
+  "requirements": "已安装 Node.js 且能运行 npx；使用支持 Agent Skills 的客户端（如 Codex、Claude Code、Cursor），并允许它读取本机 skills 目录。做流量或索引诊断时，需要自行提供 Search Console、Bing Webmaster Tools、分析数据或日志等材料。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "检查 Node.js 与 npx",
+      "text": "分别运行 node --version 和 npx --version，确认环境可用；未安装时从 nodejs.org 获取 LTS 版本。同时确认所用 Agent Skills 客户端允许读取本机 skills 目录。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/joeseesun/qiaomu-seo/blob/b892b70639ac2839e7fa61302ff54a60a6cc9b74/README.md?plain=1#L49"
+      }
+    },
+    {
+      "title": "安装并确认 Skill 已被发现",
+      "text": "执行一行安装命令，把 qiaomu-seo 装到兼容 Agent Skills 的工具中，再运行带 --list 的命令，确认 skill 已被识别。",
+      "code": "npx skills add joeseesun/qiaomu-seo\n\nnpx skills add joeseesun/qiaomu-seo --list",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/joeseesun/qiaomu-seo/blob/b892b70639ac2839e7fa61302ff54a60a6cc9b74/README.md?plain=1#L35"
+      }
+    },
+    {
+      "title": "准备与任务对应的输入材料",
+      "text": "按目标准备材料：技术审计提供网站 URL、代码、sitemap 或 crawl 文件；流量诊断提供 Search Console 或分析数据导出；迁移规划提供新旧 URL 清单。没有关键词工具时，搜索量等指标会标记为 unknown。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/joeseesun/qiaomu-seo/blob/b892b70639ac2839e7fa61302ff54a60a6cc9b74/README.md?plain=1#L23"
+      }
+    },
+    {
+      "title": "用审计或修复措辞下达任务",
+      "text": "在 agent 中直接描述需求，例如定位产品页未被索引的原因、按页面和查询分析近 90 天流量下降。只想审计时使用“审计/诊断/比较”措辞，skill 会保持只读；需要改代码时要明确授权“修复”。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/joeseesun/qiaomu-seo/blob/b892b70639ac2839e7fa61302ff54a60a6cc9b74/README.md?plain=1#L55"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "修复和实现类操作会修改网站代码，只应在明确授权后执行，并保留修改前证据和回滚信息。",
+    "不承诺排名、收录、富结果或 AI 引用；robots、canonical、sitemap、IndexNow 都不保证收录。",
+    "不覆盖付费搜索投放、ASO、垃圾外链、隐藏内容、关键词堆砌等内容。",
+    "平台规则可能变化，可查看 data/seo-source-registry.json 并运行 validate_knowledge.py 复核。部分维护者验证命令依赖另一个 qiaomu-meta-skill。"
+  ],
+  "references": [],
+  "media": [],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "6a14cda4ac7f0ffd9610b2be38c9f0c5742dbd27eb2b9cc72b32e17df1561484",
+  "mediaStatus": "none_in_official_documents"
+}

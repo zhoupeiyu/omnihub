@@ -1,0 +1,93 @@
+{
+  "schemaVersion": 1,
+  "key": "stormzhang/token-tracker",
+  "status": "ready",
+  "reason": "",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/stormzhang/token-tracker/blob/1b45c5640ad0909db9befff307c32b4ebac23a0b/README.md",
+  "sourceRevision": "1b45c5640ad0909db9befff307c32b4ebac23a0b",
+  "canonicalKey": "stormzhang/token-tracker",
+  "summary": "Token Tracker（tt）是一个本地工具，用于追踪和分析 Claude Code、Codex 和 Kimi Code 的 token 用量。它提供状态栏、热力图、日/周/月报表、等效成本统计和实时侧边栏。",
+  "intro": "适合日常使用 Claude Code、Codex 或 Kimi Code 的开发者。用途包括：在状态栏实时查看会话 token、5h/7d 限额和上下文占比；用 tt daily、tt weekly、tt monthly、tt sessions 按日、周、月、会话汇总用量和等效成本；用 tt sidebar 在窄窗格中总览所有活跃会话。数据只从本地读取，不会上传。",
+  "requirements": "需要 Python 3.11+，Rich 会自动安装。本机需已安装至少一个受支持的 Agent（Claude Code、Codex 或 Kimi Code），工具会读取它们的本地会话目录。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "运行安装脚本安装 tt",
+      "text": "用官方 install.sh 安装。脚本会自动选择 uv、pipx 或私有 venv 方式，不会污染系统 Python。升级时重新运行同一条命令即可。如果升级后 tt --version 仍是旧版本，可能是旧版遮蔽了新版，先 pip uninstall 再重装。 原文包含需人工核查的高权限或删除命令，本站不提供一键复制；请查看该步骤的官方出处。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/stormzhang/token-tracker/blob/1b45c5640ad0909db9befff307c32b4ebac23a0b/README.md?plain=1#L145"
+      }
+    },
+    {
+      "title": "运行 tt setup 完成配置向导",
+      "text": "第一次运行 tt 或 tt setup 时会进入交互向导：选择语言和主题，然后分别决定是否接管 Claude Code 状态栏、是否启用 Codex 伪 statusline 和 Kimi Code 状态栏。已有自定义 statusLine 时默认保留。之后想改设置，再运行一次 tt setup 即可。",
+      "code": "tt setup          # 配置状态栏，并安装 Codex / Kimi Code 的 tt-sidebar Skill / 提示词 Hook\ntt                # 过去一年 token 热力图 + 顶部三段概览（= tt daily）\ntt daily          # 同上（tt 无参即进 daily）\ntt status         # 今日消耗、5h/7d 额度与今日会话\ntt weekly         # 周报\ntt monthly        # 月报\ntt sessions       # 最近 20 条会话明细（tt sessions <正整数> 改条数、--sort 改排序）\ntt sidebar        # 常驻侧边栏：活跃会话总览 + 提示词历史 + 状态灯 + 点击跳转（--once 一帧快照）\ntt theme          # 查看 / 切换配色主题（show / list / set / preview）\ntt unsetup        # 卸载并恢复安装前的配置\ntt --version      # 查看版本（-v / -V 同义）",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/stormzhang/token-tracker/blob/1b45c5640ad0909db9befff307c32b4ebac23a0b/README.md?plain=1#L208"
+      }
+    },
+    {
+      "title": "用报表命令查看用量与成本",
+      "text": "tt 或 tt daily 显示过去一年的热力图。tt status 显示今日消耗和额度，tt weekly、tt monthly、tt sessions 分别给出周报、月报和会话明细。加 --claude、--codex 或 --kimi 可以只看单个 Agent，用 --sort 配合 --asc 或 --desc 可以调整排序。",
+      "code": "tt setup          # 配置状态栏，并安装 Codex / Kimi Code 的 tt-sidebar Skill / 提示词 Hook\ntt                # 过去一年 token 热力图 + 顶部三段概览（= tt daily）\ntt daily          # 同上（tt 无参即进 daily）\ntt status         # 今日消耗、5h/7d 额度与今日会话\ntt weekly         # 周报\ntt monthly        # 月报\ntt sessions       # 最近 20 条会话明细（tt sessions <正整数> 改条数、--sort 改排序）\ntt sidebar        # 常驻侧边栏：活跃会话总览 + 提示词历史 + 状态灯 + 点击跳转（--once 一帧快照）\ntt theme          # 查看 / 切换配色主题（show / list / set / preview）\ntt unsetup        # 卸载并恢复安装前的配置\ntt --version      # 查看版本（-v / -V 同义）\n\ntt weekly --sort cost --desc    # 按成本降序\ntt sessions --sort tokens --asc # 按 token 升序",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/stormzhang/token-tracker/blob/1b45c5640ad0909db9befff307c32b4ebac23a0b/README.md?plain=1#L163"
+      }
+    },
+    {
+      "title": "打开 tt sidebar 监控活跃会话",
+      "text": "在终端分屏或 tmux 窄窗格中运行 tt sidebar，可以查看过去 5 小时的活跃会话、状态灯、最近提示词和“下一步”建议，每 5 秒刷新一次。点击会话可以跳转到对应的 iTerm2 或 tmux 窗格。按 q 退出；用 --once 只输出一帧快照。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/stormzhang/token-tracker/blob/1b45c5640ad0909db9befff307c32b4ebac23a0b/README.md?plain=1#L104"
+      }
+    },
+    {
+      "title": "按需用 tt theme 切换配色",
+      "text": "内置 6 套主题，CLI 报表与 Claude Code、Kimi Code 状态栏使用同一套配色。可以用 tt theme list 列出、tt theme preview 预览、tt theme set 切换并保存。任意报表加 --theme 可以临时换主题，不会保存。",
+      "code": "tt theme               # 显示当前主题及来源\ntt theme list          # 列出全部主题 + 色块预览\ntt theme preview nord  # 预览某主题（CLI 样例 + 状态栏样例行）\ntt theme set nord      # 切换主题（持久化 + 重烘焙状态栏）\ntt monthly --theme nord  # 任意报表临时换主题渲染（不持久化、不动状态栏，适合对比）",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/stormzhang/token-tracker/blob/1b45c5640ad0909db9befff307c32b4ebac23a0b/README.md?plain=1#L183"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "安装方式是 curl 管道到 bash，执行的是远程脚本。介意的话可以先下载 install.sh 查看内容再运行。",
+    "tt setup 会修改各 Agent 的配置：Claude Code statusLine、Codex 的 hooks.json 和用户级 Skill、Kimi Code 的 config.toml。可以用 tt unsetup 还原。",
+    "Codex 需要在 /hooks 中信任 Token Tracker 的 Hook。iTerm2 或 Ghostty 的跳转和分屏功能会触发 macOS“自动化”授权请求。",
+    "不接管 Claude Code 状态栏时，tt status 中的 CC 订阅额度段没有数据。",
+    "报表中的成本是按定价表估算的等效成本，不是实际账单。"
+  ],
+  "references": [],
+  "media": [
+    {
+      "url": "/assets/repository-guides/media-1625c76e25a0d7245547085b.webp",
+      "alt": "stormzhang/token-tracker 官方演示 1",
+      "sourceUrl": "https://github.com/stormzhang/token-tracker/blob/1b45c5640ad0909db9befff307c32b4ebac23a0b/README.md?plain=1#L11",
+      "originalUrl": "https://raw.githubusercontent.com/stormzhang/token-tracker/1b45c5640ad0909db9befff307c32b4ebac23a0b/assets/screenshot-daily.png"
+    },
+    {
+      "url": "/assets/repository-guides/media-f9568fe1e1dcbce8d04254bf.webp",
+      "alt": "stormzhang/token-tracker 官方演示 2",
+      "sourceUrl": "https://github.com/stormzhang/token-tracker/blob/1b45c5640ad0909db9befff307c32b4ebac23a0b/README.md?plain=1#L37",
+      "originalUrl": "https://raw.githubusercontent.com/stormzhang/token-tracker/1b45c5640ad0909db9befff307c32b4ebac23a0b/assets/screenshot-statusline-cc.png"
+    },
+    {
+      "url": "/assets/repository-guides/media-9cead6a00873e80669829fbb.webp",
+      "alt": "stormzhang/token-tracker 官方演示 3",
+      "sourceUrl": "https://github.com/stormzhang/token-tracker/blob/1b45c5640ad0909db9befff307c32b4ebac23a0b/README.md?plain=1#L90",
+      "originalUrl": "https://raw.githubusercontent.com/stormzhang/token-tracker/1b45c5640ad0909db9befff307c32b4ebac23a0b/assets/screenshot.png"
+    }
+  ],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "ba0a4c79dc7e3adf7d3f31b773deceb5b58bb5302afba2881194fd98b8b18d68",
+  "mediaStatus": "archived",
+  "mediaFailures": []
+}

@@ -1,0 +1,73 @@
+{
+  "schemaVersion": 1,
+  "key": "better-auth/better-icons",
+  "status": "ready",
+  "reason": "",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/better-auth/better-icons/blob/033316ecb8f4982235af4111a2257e80231f5ab1/README.md",
+  "sourceRevision": "033316ecb8f4982235af4111a2257e80231f5ab1",
+  "canonicalKey": "better-auth/better-icons",
+  "summary": "一个 MCP 服务器、技能和 CLI 工具，可在 150+ 图标集合中搜索并获取图标，也可把图标直接写入项目的图标文件。",
+  "intro": "适合在 AI 辅助编码中需要查找和使用图标的前端开发者。它为 Cursor、Claude Code、OpenCode、Windsurf、VS Code (Copilot)、Google Antigravity 等代理提供搜索、获取、推荐、查找相似图标、批量获取等工具，并支持把图标同步到 .tsx/.ts/.js 图标文件，避免在对话中粘贴大段 SVG。导出支持 React、Vue、Svelte、Solid 和原始 SVG。",
+  "requirements": "需要可运行 npx 的环境，以及 README 列出的受支持 AI 编码代理之一（cursor、claude-code、opencode、windsurf、vscode、antigravity）。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "运行 setup 配置 MCP 服务器",
+      "text": "在终端执行 npx better-icons setup，按交互提示为你使用的代理配置 MCP 服务器。可用 -a 指定代理、-s 选择 global（默认）或 project 作用域、-y 跳过确认。不使用 setup 时，README 也提供各代理的手动配置文件写法。",
+      "code": "npx better-icons setup",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/better-auth/better-icons/blob/033316ecb8f4982235af4111a2257e80231f5ab1/README.md?plain=1#L29"
+      }
+    },
+    {
+      "title": "添加 better-icons 技能",
+      "text": "README 建议在代理环境中执行 npx skills add better-auth/better-icons，启用与文档示例一致的 better-icons 功能。",
+      "code": "npx skills add better-auth/better-icons",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/better-auth/better-icons/blob/033316ecb8f4982235af4111a2257e80231f5ab1/README.md?plain=1#L7"
+      }
+    },
+    {
+      "title": "用自然语言搜索或获取推荐",
+      "text": "在代理中直接描述需求，例如按关键词搜索图标、限定 lucide 等集合，或询问某个按钮适合用什么图标。对应工具为 search_icons（支持 query、limit、prefix、category）和 recommend_icons（支持 use_case、style、limit）。",
+      "code": "Search for \"arrow\" icons\nSearch for \"home\" icons in the lucide collection\n\nWhat icon should I use for a settings button?\nRecommend icons for user authentication",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/better-auth/better-icons/blob/033316ecb8f4982235af4111a2257e80231f5ab1/README.md?plain=1#L132"
+      }
+    },
+    {
+      "title": "用 sync_icon 写入项目图标文件",
+      "text": "官方推荐用 sync_icon 添加图标：需提供图标文件的绝对路径、framework（react/vue/svelte/solid/svg）和 prefix:name 格式的 icon_id，可选组件名、颜色和尺寸。工具会返回添加确认、import 语句和用法示例；可先用 scan_project_icons 查看文件中已有的图标。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/better-auth/better-icons/blob/033316ecb8f4982235af4111a2257e80231f5ab1/README.md?plain=1#L252"
+      }
+    },
+    {
+      "title": "批量获取与管理偏好",
+      "text": "需要多个图标时，用 get_icons 一次获取（最多 20 个），比多次调用 get_icon 更高效。工具会记录你常用的图标集合，可通过 get_icon_preferences 查看，通过 clear_icon_preferences 重置。",
+      "code": "Get these icons: lucide:home, lucide:settings, lucide:user\n\nShow my icon preferences\nWhat icon collections do I use most?\n\nClear my icon preferences\nReset icon preferences",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/better-auth/better-icons/blob/033316ecb8f4982235af4111a2257e80231f5ab1/README.md?plain=1#L227"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "sync_icon 会直接修改你指定的项目图标文件，提交前请检查改动。",
+    "工具会记住你使用过的图标集合和最近使用的图标并据此调整搜索结果；如不需要，可用 clear_icon_preferences 清除。",
+    "get_icons 单次最多支持 20 个图标 ID。",
+    "项目采用 MIT 许可证；README 未说明各图标集合自身的授权条款，商用前需自行确认。"
+  ],
+  "references": [],
+  "media": [],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "dcd17a52ded5773b4d9fac34add9e72be8204a936b6ee5642d030645208d7621",
+  "mediaStatus": "none_in_official_documents"
+}

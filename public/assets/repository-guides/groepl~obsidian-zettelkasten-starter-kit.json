@@ -1,0 +1,67 @@
+{
+  "schemaVersion": 1,
+  "key": "groepl/obsidian-zettelkasten-starter-kit",
+  "status": "ready",
+  "reason": "",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/groepl/Obsidian-Zettelkasten-Starter-Kit/blob/42b4677f3964fad9f5061cf3658e116101873368/README.md",
+  "sourceRevision": "42b4677f3964fad9f5061cf3658e116101873368",
+  "canonicalKey": "groepl/Obsidian-Zettelkasten-Starter-Kit",
+  "summary": "一个可直接作为 Obsidian 库打开的 Zettelkasten 入门资料包，附带工作流和多种概念模型图。",
+  "intro": "适合想在 Obsidian 中搭建 Zettelkasten（卡片盒笔记法）的个人学习者、研究者和写作者。仓库属于资料与示例库集合：内含可直接打开的 Starter Kit vault，README 中还提供了基于《How to Take Smart Notes》的工作流图，以及本体论、系统模型、用例模型、成熟度模型、历史模型等图解，可用来理解卡片盒的组成（笔记、链接、元数据、结构、流程）。",
+  "requirements": "需要安装 Obsidian，并在其中安装社区插件 Banners、Charts 和 DataView。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "下载并解压 Starter Kit",
+      "text": "从仓库下载 zip 压缩包并解压到本地。解压后的文件夹就是一套可以直接使用的 Obsidian 库。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/groepl/Obsidian-Zettelkasten-Starter-Kit/blob/42b4677f3964fad9f5061cf3658e116101873368/README.md?plain=1#L23"
+      }
+    },
+    {
+      "title": "在 Obsidian 中打开为库",
+      "text": "在 Obsidian 里选择“打开文件夹作为库”，选中解压后的文件夹。Obsidian 基于本地纯文本 Markdown 文件工作，所有笔记都保存在这个文件夹中。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/groepl/Obsidian-Zettelkasten-Starter-Kit/blob/42b4677f3964fad9f5061cf3658e116101873368/README.md?plain=1#L23"
+      }
+    },
+    {
+      "title": "安装三个社区插件",
+      "text": "在 Obsidian 社区插件中安装 Banners、Charts 和 DataView。README 把这三个插件列为使用 Starter Kit 的必要步骤。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/groepl/Obsidian-Zettelkasten-Starter-Kit/blob/42b4677f3964fad9f5061cf3658e116101873368/README.md?plain=1#L23"
+      }
+    },
+    {
+      "title": "对照工作流图浏览示例笔记",
+      "text": "浏览库中的示例内容，并对照 README 的 Workflow 图理解笔记流程。图中的页码对应 Sönke Ahrens 的《How to Take Smart Notes》，作者建议配合阅读这本书。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/groepl/Obsidian-Zettelkasten-Starter-Kit/blob/42b4677f3964fad9f5061cf3658e116101873368/README.md?plain=1#L23"
+      }
+    },
+    {
+      "title": "查阅模型图与配套模板",
+      "text": "想深入理解时，可查看 README 中的系统模型、对象模型、成熟度模型等图解。之后可学习配套的 Obsidian-Templates for Zettelkasten 模板仓库，最新模板更新在该仓库发布。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/groepl/Obsidian-Zettelkasten-Starter-Kit/blob/42b4677f3964fad9f5061cf3658e116101873368/README.md?plain=1#L23"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "Banners、Charts、DataView 是第三方社区插件，未安装时部分页面可能无法按预期显示。",
+    "README 未写明 zip 的具体下载位置（Release 或仓库打包），请以仓库页面实际提供的为准。"
+  ],
+  "references": [],
+  "media": [],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "6e06f5430857eb4e2d3c4f3ac14cd6b139e6e01755fa837af64a737f0fbc23e1",
+  "mediaStatus": "none_in_official_documents"
+}

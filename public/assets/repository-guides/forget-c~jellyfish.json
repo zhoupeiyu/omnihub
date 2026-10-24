@@ -1,0 +1,83 @@
+{
+  "schemaVersion": 1,
+  "key": "forget-c/jellyfish",
+  "status": "ready",
+  "reason": "",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/Forget-C/Jellyfish/blob/a9678194ddf2d9be3ccbe78d4287d87d5089e123/README.md",
+  "sourceRevision": "a9678194ddf2d9be3ccbe78d4287d87d5089e123",
+  "canonicalKey": "Forget-C/Jellyfish",
+  "summary": "一个 AI 短剧生产工作台，覆盖剧本拆分镜、角色场景道具一致性管理、镜头准备、图像与视频生成、任务追踪到导出的完整流程。",
+  "intro": "适合短剧和微短剧创作者、批量生产视频内容的 AI 工作室，以及制作剧情类宣传片或课程视频的团队。按章节导入剧本后，系统用 AI 拆分镜头，并提取角色、场景、道具、服装和对白。经过候选确认，镜头进入就绪状态，再在生成工作区发起图像或视频任务，进度统一在任务中心追踪。前端基于 React + Vite，后端基于 FastAPI。",
+  "requirements": "按 Docker Compose 路径部署时，需要能运行 docker compose 的环境，仓库在 deploy/compose/ 下提供了现成配置，包含 MySQL、Redis 和 RustFS。若改为本地开发，后端需要 uv，前端需要 pnpm。生成功能依赖在系统内配置的模型提供商；README 未说明具体提供商和 .env 变量。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "用 Docker Compose 启动全部服务",
+      "text": "在仓库根目录，把 deploy/compose/.env.example 复制为 .env，再用 docker compose 指定该 env 文件和 docker-compose.yml，执行 up --build，启动前端、后端及 MySQL、Redis、RustFS。README 没有逐项说明 .env 中的变量，需要自行查看示例文件。",
+      "code": "cp deploy/compose/.env.example deploy/compose/.env\ndocker compose --env-file deploy/compose/.env -f deploy/compose/docker-compose.yml up --build",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/Forget-C/Jellyfish/blob/a9678194ddf2d9be3ccbe78d4287d87d5089e123/README.md?plain=1#L205"
+      }
+    },
+    {
+      "title": "打开前端并确认后端可访问",
+      "text": "启动后，在浏览器访问 http://localhost:7788 进入前端。后端位于 http://localhost:8000，Swagger 文档在 /docs 路径。MySQL、Redis、RustFS 默认端口分别为 3306、6379、9000，可以通过对应环境变量修改。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/Forget-C/Jellyfish/blob/a9678194ddf2d9be3ccbe78d4287d87d5089e123/README.md?plain=1#L210"
+      }
+    },
+    {
+      "title": "配置模型与提示词模板",
+      "text": "进入模型与提示词管理，添加模型提供商和模型，并按类别设置默认模型。系统还支持管理图像、视频、镜头相关的提示词模板。这些配置是后续文本拆解和图像、视频生成任务的基础。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/Forget-C/Jellyfish/blob/a9678194ddf2d9be3ccbe78d4287d87d5089e123/README.md?plain=1#L112"
+      }
+    },
+    {
+      "title": "创建项目章节并拆解剧本",
+      "text": "新建项目和章节。章节是剧本、镜头和生成的基本单位。导入章节剧本后，用 AI 拆分为镜头，提取角色、场景、道具、服装和对白，也可以执行剧本优化、精简和一致性检查。提取出的实体进入资产管理，供各镜头复用。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/Forget-C/Jellyfish/blob/a9678194ddf2d9be3ccbe78d4287d87d5089e123/README.md?plain=1#L124"
+      }
+    },
+    {
+      "title": "确认镜头候选后发起生成",
+      "text": "在镜头准备中，刷新并接受、忽略或关联资产与对白候选，修正镜头的基本信息，直到镜头达到 ready 状态。然后在生成工作区管理关键帧和参考图，预览视频提示词，做单镜头或批量预检，再发起图像或视频任务。任务的状态、耗时和结果可在任务中心查看或取消。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/Forget-C/Jellyfish/blob/a9678194ddf2d9be3ccbe78d4287d87d5089e123/README.md?plain=1#L66"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "图像和视频生成依赖外部模型提供商。README 未列出受支持的具体提供商，也没有说明费用，调用产生的成本需自行确认。",
+    "本地开发方式（后端用 uv，前端用 pnpm）与 Docker Compose 部署是两条互斥路径，不要混用端口和配置。",
+    "项目采用 Apache-2.0 许可。"
+  ],
+  "references": [],
+  "media": [
+    {
+      "url": "/assets/repository-guides/media-54e51e8e050b933383a5c217.webp",
+      "alt": "Forget-C/Jellyfish 官方演示 1",
+      "sourceUrl": "https://github.com/Forget-C/Jellyfish/blob/a9678194ddf2d9be3ccbe78d4287d87d5089e123/README.md?plain=1#L38",
+      "originalUrl": "https://raw.githubusercontent.com/Forget-C/Jellyfish/a9678194ddf2d9be3ccbe78d4287d87d5089e123/docs/img/project.png"
+    },
+    {
+      "url": "/assets/repository-guides/media-b8d20128ee18949f14af0812.webp",
+      "alt": "Forget-C/Jellyfish 官方演示 2",
+      "sourceUrl": "https://github.com/Forget-C/Jellyfish/blob/a9678194ddf2d9be3ccbe78d4287d87d5089e123/README.md?plain=1#L38",
+      "originalUrl": "https://raw.githubusercontent.com/Forget-C/Jellyfish/a9678194ddf2d9be3ccbe78d4287d87d5089e123/docs/img/%E8%B5%84%E4%BA%A7%E7%AE%A1%E7%90%86.png"
+    }
+  ],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "5d66113b61661822991a218d5477b8736468d00459c836e055bd41c2a08a251c",
+  "mediaStatus": "archived",
+  "mediaFailures": []
+}

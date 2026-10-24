@@ -1,0 +1,66 @@
+{
+  "schemaVersion": 1,
+  "key": "plur-ai/plur",
+  "status": "ready",
+  "reason": "",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/plur-ai/plur/blob/0594c62118435d0771bab5f2b99658983fa58304/README.md",
+  "sourceRevision": "0594c62118435d0771bab5f2b99658983fa58304",
+  "canonicalKey": "plur-ai/plur",
+  "summary": "PLUR 是一个本地优先的 AI Agent 共享记忆系统，以 MCP 服务器形式把纠正、偏好和约定存为可读写的纯文本 engram，并在 Claude Code、Codex、Cursor 等工具间复用。",
+  "intro": "适合在多个 AI 编码工具中工作、希望 Agent 记住项目约定和纠正的开发者。PLUR 把学到的知识存为 YAML 格式的 engram，把事件存为 episode 时间线，在相关时注入上下文；搜索在本地完成（BM25 + 向量嵌入）。它不是代码索引或通用搜索工具。除 MCP 外，还提供 @plur-ai/core 的 TypeScript 接口和 Python SDK。",
+  "requirements": "Node.js 18+；至少 2GB 内存（嵌入模型安装约需 1GB，内存不足时会跳过嵌入、退回 BM25 关键词检索）；以下以 Claude Code 为宿主。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "在 Claude Code 中运行初始化",
+      "text": "以 Claude Code 为例，运行一次 init 命令。它会创建 ~/.plur/ 存储目录，把 PLUR 加入 .mcp.json，并安装 Claude Code hooks 实现自动注入记忆和会话结束收尾。PLUR 为全局安装，只需运行一次。",
+      "code": "npx @plur-ai/mcp init",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/plur-ai/plur/blob/0594c62118435d0771bab5f2b99658983fa58304/README.md?plain=1#L70"
+      }
+    },
+    {
+      "title": "为多项目设置 domain 与 scope",
+      "text": "如需区分不同项目的知识，在项目目录下用 CLI 设置 domain 和 scope，会生成 .plur.yaml 供 hooks 自动应用。回忆时按 scope 过滤但始终包含 global 知识；团队相关内容不要省略 scope 落入 global。",
+      "code": "cd ~/projects/my-app\nnpx @plur-ai/cli init --domain myapp --scope project:my-app",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/plur-ai/plur/blob/0594c62118435d0771bab5f2b99658983fa58304/README.md?plain=1#L70"
+      }
+    },
+    {
+      "title": "询问 Agent 确认 PLUR 状态",
+      "text": "在 Agent 中询问 “What's my PLUR status?”，它应调用 plur_status 并返回 engram 数量和存储路径，以此确认 MCP 已连通。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/plur-ai/plur/blob/0594c62118435d0771bab5f2b99658983fa58304/README.md?plain=1#L212"
+      }
+    },
+    {
+      "title": "用 dashboard 查看记忆内容",
+      "text": "运行 plur dashboard 会在本机打开只读页面，列出每条 engram 的内容、实际被召回的情况和频率，仅监听本地回环地址、不上传数据，支持中文界面（?lang=zh）。",
+      "code": "plur dashboard",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/plur-ai/plur/blob/0594c62118435d0771bab5f2b99658983fa58304/README.md?plain=1#L216"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "只有 Claude Code、Codex、Cursor、OpenClaw、Hermes、Antigravity CLI 有自动注入适配；Windsurf、Gemini CLI 等其他 MCP 客户端仅能调用工具，依赖模型主动调用。",
+    "Codex 安装后需在 Codex 中运行 /hooks 并信任 PLUR 条目，否则 hooks 会静默不执行、记忆不加载。",
+    "plur_sync 的 personal 远端会推送全部 engram（含私有可见性内容），应使用私有 Git 仓库。",
+    "省略 scope 时 engram 落入 global，会出现在所有项目中；配置团队存储时也不会同步到团队。",
+    "Python SDK 的 plur-ai 包尚未发布到 PyPI，需从 Git 安装并另装 @plur-ai/cli 作为桥接。",
+    "README 中的基准与成本对比数据来自项目方自测，可在 plur-bench 中复现，并非本指南验证结论。"
+  ],
+  "references": [],
+  "media": [],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "f425a4c8812e66571bc4e3385b8407aea2a4af4eabec25c7adf59a5bcf3cc696",
+  "mediaStatus": "none_in_official_documents"
+}

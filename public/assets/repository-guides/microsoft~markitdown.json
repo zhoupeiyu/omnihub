@@ -1,0 +1,74 @@
+{
+  "schemaVersion": 1,
+  "key": "microsoft/markitdown",
+  "status": "ready",
+  "reason": "",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/microsoft/markitdown/blob/53f38ea102c14d19cb895c7a648e0be895f0d512/README.md",
+  "sourceRevision": "53f38ea102c14d19cb895c7a648e0be895f0d512",
+  "canonicalKey": "microsoft/markitdown",
+  "summary": "MarkItDown 是一个 Python 库和命令行工具，可以把 PDF、Office 文档、图片、音频、HTML 等文件转换为适合 LLM 处理的 Markdown。",
+  "intro": "适合在 LLM 或文本分析流水线中需要统一输入格式的开发者。它在转换时尽量保留标题、列表、表格和链接等结构，支持 PDF、PowerPoint、Word、Excel、图片（EXIF 和 OCR）、音频转写、CSV/JSON/XML、ZIP、YouTube 链接和 EPub。官方定位是可嵌入其他系统的库，而不是追求高保真排版的人类阅读转换器。",
+  "requirements": "Python 3.10 至 3.14，建议使用虚拟环境。部分格式需要安装对应的可选依赖。使用 Azure Document Intelligence 或 Content Understanding 需要 Azure 资源端点；LLM 图片描述或 OCR 插件需要 OpenAI 兼容的客户端。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "创建并激活 Python 虚拟环境",
+      "text": "以 macOS/Linux 下的标准 Python 为例，用 python -m venv 创建 .venv 并执行 source 激活。README 也给出了 uv 和 Anaconda 的方式，选择其中一种即可，避免混用。",
+      "code": "python -m venv .venv\nsource .venv/bin/activate",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/microsoft/markitdown/blob/53f38ea102c14d19cb895c7a648e0be895f0d512/README.md?plain=1#L35"
+      }
+    },
+    {
+      "title": "用 pip 安装 markitdown",
+      "text": "在虚拟环境中执行 pip install 'markitdown[all]' 安装全部可选依赖。如果只需要处理部分格式，可以单独安装 pdf、docx、pptx、xlsx、outlook、audio-transcription 等扩展。",
+      "code": "pip install 'markitdown[pdf, docx, pptx]'",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/microsoft/markitdown/blob/53f38ea102c14d19cb895c7a648e0be895f0d512/README.md?plain=1#L60"
+      }
+    },
+    {
+      "title": "在命令行转换文件为 Markdown",
+      "text": "执行 markitdown 文件名，再重定向到 .md 文件；也可以用 -o 指定输出文件，或通过管道把内容传给 markitdown。",
+      "code": "markitdown path-to-file.pdf > document.md\n\nmarkitdown path-to-file.pdf -o document.md\n\ncat path-to-file.pdf | markitdown",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/microsoft/markitdown/blob/53f38ea102c14d19cb895c7a648e0be895f0d512/README.md?plain=1#L72"
+      }
+    },
+    {
+      "title": "按需启用第三方插件",
+      "text": "插件默认处于禁用状态。先用 --list-plugins 查看已安装的插件，再加 --use-plugins 进行转换。markitdown-ocr 插件可以借助 LLM Vision 识别 PDF、DOCX、PPTX、XLSX 中嵌入图片的文字；未提供 llm_client 时会跳过 OCR。",
+      "code": "markitdown --list-plugins\n\nmarkitdown --use-plugins path-to-file.pdf\n\npip install markitdown-ocr\npip install openai  # or any OpenAI-compatible client\n\nfrom markitdown import MarkItDown\nfrom openai import OpenAI\n\nmd = MarkItDown(\n    enable_plugins=True,\n    llm_client=OpenAI(),\n    llm_model=\"gpt-4o\",\n)\nresult = md.convert(\"document_with_images.pdf\")\nprint(result.markdown)",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/microsoft/markitdown/blob/53f38ea102c14d19cb895c7a648e0be895f0d512/README.md?plain=1#L113"
+      }
+    },
+    {
+      "title": "在 Python 代码中调用转换接口",
+      "text": "在代码中创建 MarkItDown 实例并调用 convert，结果通过 result.markdown 获取。官方建议只调用所需的最窄接口：只读本地文件用 convert_local()，需要控制输入流时用 convert_stream()。",
+      "code": "from markitdown import MarkItDown\nfrom openai import OpenAI\n\nmd = MarkItDown(\n    enable_plugins=True,\n    llm_client=OpenAI(),\n    llm_model=\"gpt-4o\",\n)\nresult = md.convert(\"document_with_images.pdf\")\nprint(result.markdown)",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/microsoft/markitdown/blob/53f38ea102c14d19cb895c7a648e0be895f0d512/README.md?plain=1#L262"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "MarkItDown 以当前进程的权限执行 I/O。在服务端或不可信环境中，必须先校验并限制文件路径、URI 协议和网络目标，再传入。",
+    "Azure Document Intelligence 和 Content Understanding 的每次转换都是计费的 Azure API 调用，可以用 cu_file_types 限制路由到 CU 的格式。",
+    "使用 LLM 生成图片描述或 OCR 会调用你配置的模型服务，可能产生相应费用。",
+    "官方仓库不接收 Web 服务、图形界面等应用类贡献，这类项目需作为依赖 markitdown 的独立项目维护。"
+  ],
+  "references": [],
+  "media": [],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "9f9dc0e582d066e8ac671a1f63b3a73c70a7be9909e8be51a7f5aeb5a7c04af2",
+  "mediaStatus": "none_in_official_documents"
+}

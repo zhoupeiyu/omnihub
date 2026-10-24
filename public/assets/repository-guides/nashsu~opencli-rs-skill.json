@@ -1,0 +1,71 @@
+{
+  "schemaVersion": 1,
+  "key": "nashsu/opencli-rs-skill",
+  "status": "ready",
+  "reason": "",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/nashsu/autocli-skill/blob/d6ca200b5ba65b60cf68153e88b2e9efb7f0f441/README.md",
+  "sourceRevision": "d6ca200b5ba65b60cf68153e88b2e9efb7f0f441",
+  "canonicalKey": "nashsu/autocli-skill",
+  "summary": "这是一个 AI Agent Skill，它把 autocli 封装给 Claude Code 等 Agent 使用，让 Agent 能通过自然语言调用 autocli，获取 55+ 平台的数据或操作桌面应用。",
+  "intro": "适合在 Claude Code 或 OpenClaw 中工作、希望 Agent 能直接查询 B站、知乎、微博、Twitter/X、Reddit、HackerNews 等平台内容的用户。安装后用自然语言提出需求，Agent 会选择并执行对应的 autocli 命令，结果以表格形式展示。",
+  "requirements": "需要先安装 autocli CLI 工具（见 nashsu/AutoCLI 仓库）。Browser 模式命令需要 Chrome 已打开并登录目标网站，同时安装 autocli Chrome 扩展。Desktop 模式需要对应的桌面应用（如 Cursor、Notion）正在运行。手动安装方式需要可用的 npx。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "先安装 autocli 命令行工具",
+      "text": "这个 Skill 本身不包含 autocli，需要按照 nashsu/AutoCLI 仓库的说明先安装 autocli，并确认终端里能找到 autocli 命令。如果提示 command not found，就重新运行安装脚本并检查 PATH。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/nashsu/autocli-skill/blob/d6ca200b5ba65b60cf68153e88b2e9efb7f0f441/README.md?plain=1#L188"
+      }
+    },
+    {
+      "title": "安装 Chrome 扩展并登录站点",
+      "text": "从 AutoCLI 的 GitHub Releases 下载并安装 autocli Chrome 扩展。保持 Chrome 打开，并手动登录需要访问的平台。Public 模式的站点不需要浏览器。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/nashsu/autocli-skill/blob/d6ca200b5ba65b60cf68153e88b2e9efb7f0f441/README.md?plain=1#L181"
+      }
+    },
+    {
+      "title": "安装 Skill 并重启 Claude Code",
+      "text": "手动安装时运行 npx skills add 加上仓库地址。也可以把仓库链接发给 Claude 或 OpenClaw，让 Agent 代为安装。完成后重启 Claude Code，Skill 才会生效。",
+      "code": "npx skills add https://github.com/nashsu/AutoCLI-skill\n\n帮我安装这个 skill：https://github.com/nashsu/AutoCLI-skill",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/nashsu/autocli-skill/blob/d6ca200b5ba65b60cf68153e88b2e9efb7f0f441/README.md?plain=1#L188"
+      }
+    },
+    {
+      "title": "用自然语言让 Agent 取数据",
+      "text": "在 Claude Code 中直接用中文或英文描述需求。Claude 会选择合适的 autocli 命令执行，并以表格展示结果，英文标题会附带中文翻译。需要核对时，可以参考命令速查中的 autocli 命令。",
+      "code": "查下B站今天的热门\n搜知乎上关于AI大模型的讨论\n看微博热搜前10条\n帮我发一条推文：今天天气真好\n查一下茅台的股票行情\n搜YouTube上的LLM教程\n看豆瓣电影Top250\n查看我微信读书的笔记\n\n# B站\nautocli bilibili hot --limit 10 --format json\nautocli bilibili search --keyword \"AI\"\n\n# Twitter/X\nautocli twitter timeline --format json\nautocli twitter post --text \"Hello from Claude!\"\nautocli twitter search \"claude AI\" --limit 10\n\n# 雪球\nautocli xueqiu stock --symbol SH600519   # 茅台行情\nautocli xueqiu watchlist                  # 我的自选股\n\n# HackerNews\nautocli hackernews top --limit 20 --format json\n\n# 豆瓣\nautocli douban top250 --format json\n\n# 桌面应用\nautocli cursor status\nautocli notion search \"会议记录\"",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/nashsu/autocli-skill/blob/d6ca200b5ba65b60cf68153e88b2e9efb7f0f441/README.md?plain=1#L209"
+      }
+    },
+    {
+      "title": "用 doctor 排查连接问题",
+      "text": "如果 Chrome 无法被控制，先确认 Chrome 已打开且扩展已加载。如果登录态没有被识别，在 Chrome 中手动重新登录。浏览器命令超时时，运行 autocli doctor 进行诊断。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/nashsu/autocli-skill/blob/d6ca200b5ba65b60cf68153e88b2e9efb7f0f441/README.md?plain=1#L253"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "Skill 会复用你的 Chrome 登录态，支持发推、点赞、关注、评论等写操作。让 Agent 执行此类请求前请确认内容。",
+    "所有能力都依赖 autocli 本体及其 Chrome 扩展，Skill 不能单独使用。",
+    "仓库元数据中未标注许可证，README 末尾写的是 Apache 2.0。",
+    "README 中的安装地址使用 nashsu/AutoCLI-skill，与当前仓库名 opencli-rs-skill 不同，安装时请留意地址。"
+  ],
+  "references": [],
+  "media": [],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "889660897aba996d9076764bb33444e6a500a02bb1091f514fac2c2faa688911",
+  "mediaStatus": "none_in_official_documents"
+}

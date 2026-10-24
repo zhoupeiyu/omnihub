@@ -1,0 +1,82 @@
+{
+  "schemaVersion": 1,
+  "key": "oil-oil/oil-subtitle",
+  "status": "ready",
+  "reason": "",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/oil-oil/oil-subtitle/blob/1186fa618bbaf5fcf5898fee5cd6dfe79240403d/README.md",
+  "sourceRevision": "1186fa618bbaf5fcf5898fee5cd6dfe79240403d",
+  "canonicalKey": "oil-oil/oil-subtitle",
+  "summary": "oil-subtitle 是一个由 Agent 驱动的字幕工作流：为本地视频转录中文字幕，供人工校对和预览后烧录成片，也可以导出保留时间轴的英文 SRT。",
+  "intro": "适合在 macOS 上制作中文讲解、录屏类视频的创作者。它通过百炼 FunAudio ASR 转录，由 Agent 校对错词，再用 Qwen 断句。超过 3 分钟的视频可生成章节进度条。用户在本地编辑器里逐句确认后，用 FFmpeg 生成 SRT、ASS 并烧录 MP4。还可以用 hotwords 和 glossary 词库提高专有名词的识别准确度。",
+  "requirements": "macOS、Python 3、Homebrew（setup.sh 在缺少 FFmpeg 时会通过 Homebrew 安装）；本机凭据配置页需要 Node.js 22.18+ 和可用的系统凭据服务；使用远程转录、断句和章节生成需要百炼 API Key（DashScope）；需要一个能读取 SKILL.md 并执行脚本的 Agent 环境。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "运行 setup.sh 准备环境",
+      "text": "在 macOS 上把 SKILL_DIR 设为仓库的绝对路径，然后执行 setup.sh。脚本会创建独立的虚拟环境，并在缺少 FFmpeg 时通过 Homebrew 安装。之后可以用 profile.ts 的 status default 检查凭据状态。",
+      "code": "SKILL_DIR=\"/absolute/path/to/oil-subtitle\"\n\nbash \"$SKILL_DIR/setup.sh\"\nnode \"$SKILL_DIR/scripts/credential-ui/src/profile.ts\" status default\n# 缺少凭据时，由用户在页面亲自填写：\nnode \"$SKILL_DIR/scripts/credential-ui/src/profile.ts\" setup default",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/oil-oil/oil-subtitle/blob/1186fa618bbaf5fcf5898fee5cd6dfe79240403d/README.md?plain=1#L57"
+      }
+    },
+    {
+      "title": "在本机配置页填写百炼 Key",
+      "text": "如果凭据缺失，运行 profile.ts setup default 打开本机配置页，亲自填写百炼 API Key。Key 存入系统凭据库，config.json 只保存引用。不要把密钥发到聊天里；系统凭据库不可用时会直接失败，不会改用明文文件。",
+      "code": "SKILL_DIR=\"/absolute/path/to/oil-subtitle\"\n\nbash \"$SKILL_DIR/setup.sh\"\nnode \"$SKILL_DIR/scripts/credential-ui/src/profile.ts\" status default\n# 缺少凭据时，由用户在页面亲自填写：\nnode \"$SKILL_DIR/scripts/credential-ui/src/profile.ts\" setup default",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/oil-oil/oil-subtitle/blob/1186fa618bbaf5fcf5898fee5cd6dfe79240403d/README.md?plain=1#L80"
+      }
+    },
+    {
+      "title": "把视频路径和目标告诉 Agent",
+      "text": "把本地视频路径和处理要求告诉 Agent，例如先校对再烧录。Agent 按 SKILL.md 依次完成转录、校对和断句。如果这次不想要章节进度条，直接说“这次关闭章节进度条”即可，不需要手动改配置。",
+      "code": "给 /path/to/demo.mp4 加中文字幕，先让我校对，再烧录成片。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/oil-oil/oil-subtitle/blob/1186fa618bbaf5fcf5898fee5cd6dfe79240403d/README.md?plain=1#L57"
+      }
+    },
+    {
+      "title": "在本地编辑器校对后保存",
+      "text": "Agent 会启动本地字幕编辑器（默认端口 8765）。左侧预览字幕和章节进度，右侧可以逐句修改、删除或批量查找替换。确认无误后点击「保存并关闭」，流程随即继续生成 SRT、ASS，并烧录 MP4。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/oil-oil/oil-subtitle/blob/1186fa618bbaf5fcf5898fee5cd6dfe79240403d/README.md?plain=1#L13"
+      }
+    },
+    {
+      "title": "维护 hotwords 与 glossary",
+      "text": "在 ~/.config/oil-subtitle/ 下编写 hotwords.json（识别阶段提高命中率）和 glossary.json（识别后做确定性替换），并在 config.json 中指向这两个文件。保存校对结果后生成的待审报告不会自动写入词库。",
+      "code": "[\n  { \"text\": \"Claude Code\", \"weight\": 4, \"lang\": \"en\" },\n  { \"text\": \"百炼\", \"weight\": 4, \"lang\": \"zh\" }\n]\n\n[\n  { \"wrong\": \"Claude Core\", \"correct\": \"Claude Code\" },\n  { \"wrong\": \"白练\", \"correct\": \"百炼\" }\n]\n\n{\n  \"hotwords\": \"~/.config/oil-subtitle/hotwords.json\",\n  \"glossary\": \"~/.config/oil-subtitle/glossary.json\",\n  \"subtitles\": {\n    \"progress_enabled\": true,\n    \"progress_min_duration_seconds\": 180\n  }\n}",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/oil-oil/oil-subtitle/blob/1186fa618bbaf5fcf5898fee5cd6dfe79240403d/README.md?plain=1#L88"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "远程转录会把从视频提取的音频上传到百炼临时存储，断句和章节生成会把字幕文本发送给百炼 Qwen；预览、编辑和烧录都在本机完成。",
+    "依赖百炼 API Key；纯本地处理不需要 Key，本地 Whisper 只作为明确指定的降级或对比路径。",
+    "正常烧录会检测人脸并执行固定的轻度美颜，需要保留原画时使用 --no-beauty。",
+    "只处理已导出的本地视频，不修改 .screenstudio 工程；默认只生成中文字幕，burn_subtitles.py 默认拒绝覆盖已有文件。",
+    "仓库未声明许可证；不要把个人词库或 API Key 提交进仓库。"
+  ],
+  "references": [],
+  "media": [
+    {
+      "url": "/assets/repository-guides/media-ed041c2be71ff74693b1c6d2.webp",
+      "alt": "oil-subtitle 本地字幕编辑器：左侧预览字幕与章节进度，右侧逐句校对",
+      "sourceUrl": "https://github.com/oil-oil/oil-subtitle/blob/1186fa618bbaf5fcf5898fee5cd6dfe79240403d/README.md?plain=1#L16",
+      "originalUrl": "https://raw.githubusercontent.com/oil-oil/oil-subtitle/1186fa618bbaf5fcf5898fee5cd6dfe79240403d/assets/readme/subtitle-editor.png"
+    }
+  ],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "7dd4f82cbc4d6592923994bc37770eb085ab3bed1b1bf72842d5edc838c5795c",
+  "mediaStatus": "archived",
+  "mediaFailures": []
+}

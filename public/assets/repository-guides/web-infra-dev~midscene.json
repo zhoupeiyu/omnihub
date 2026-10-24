@@ -1,0 +1,62 @@
+{
+  "schemaVersion": 1,
+  "key": "web-infra-dev/midscene",
+  "status": "partial",
+  "reason": "README 只给出 Playwright 中调用 PlaywrightAgent 的代码片段。npm 包的安装命令、多模态模型的配置方式（如 API key、环境变量）都只以外链指向官网的 Playwright 指南和 Model Strategy 页面，本文无法提供完整的接入命令。",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/web-infra-dev/midscene/blob/1c2d8f7d0ab1d45d8d60e3ec476d90c6777f8a2b/README.md",
+  "sourceRevision": "1c2d8f7d0ab1d45d8d60e3ec476d90c6777f8a2b",
+  "canonicalKey": "web-infra-dev/midscene",
+  "summary": "Midscene.js 是基于视觉的 GUI Agent 与测试工具包，用自然语言驱动 Web、移动端和桌面应用的操作与断言，可用于 E2E 测试。",
+  "intro": "适合需要编写或维护 UI 端到端测试的前端和测试工程师，也适合希望让 AI 编程代理操作界面的开发者。它通过截图定位元素，不需要写选择器，可处理纯图标按钮、canvas 和跨域 iframe 内的元素。提供 aiAct、aiTap、aiInput、aiAssert、aiQuery 等 API，可接入 Playwright、Puppeteer 或 JavaScript SDK，也可以用 YAML 编写的 Midscene Test（Beta）。",
+  "requirements": "需要一个可用的多模态模型，文档列出 Qwen3.x、Doubao-Seed-2.1、DeepSeek V4 Flash、GLM-4.6V、gemini-3.5-flash、UI-TARS 等，部分可自托管。以 Web 为例，还需要已有的 Playwright 项目和 page 对象。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "先在 Playground 试用指令",
+      "text": "在写脚本之前，可以先安装官网快速开始中的 Chrome 扩展 Playground，对自己的页面试验自然语言操作、数据提取和视觉断言，并逐步调整指令写法。移动端和桌面端也有对应的 Playground 入口。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/web-infra-dev/midscene/blob/1c2d8f7d0ab1d45d8d60e3ec476d90c6777f8a2b/README.md?plain=1#L97"
+      }
+    },
+    {
+      "title": "按官方指南配置模型",
+      "text": "以 Web 平台的 Playwright 接入为例，按官网 Playwright 指南完成依赖安装和模型配置。默认由一个模型负责规划、定位和页面理解；任务较复杂时，可按 Model Strategy 文档额外配置 Planning 或 Insight 模型。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/web-infra-dev/midscene/blob/1c2d8f7d0ab1d45d8d60e3ec476d90c6777f8a2b/README.md?plain=1#L18"
+      }
+    },
+    {
+      "title": "在 Playwright 中编写 AI 步骤",
+      "text": "在已有的 Playwright page 上创建 PlaywrightAgent。用 aiAct 描述要执行的流程，用 aiWaitFor 等待界面状态，用 aiAssert 以自然语言描述预期的视觉结果，例如颜色、选中态或错误提示是否可见。",
+      "code": "import { PlaywrightAgent } from '@midscene/web/playwright';\n\nconst agent = new PlaywrightAgent(page);\n\n// Let the Agent carry out a flow, then verify the result.\nawait agent.aiAct('Search for headphones, then filter the results to under $100');\nawait agent.aiWaitFor('The filtered search results are displayed');\nawait agent.aiAssert('Every product in the search results has a price below $100');\n\nawait agent.aiAssert('The selected plan has a blue border and a checkmark');\nawait agent.aiAssert('The error message is visible below the email field');",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/web-infra-dev/midscene/blob/1c2d8f7d0ab1d45d8d60e3ec476d90c6777f8a2b/README.md?plain=1#L18"
+      }
+    },
+    {
+      "title": "查看 HTML 报告排查结果",
+      "text": "运行测试后，打开生成的 HTML 报告，可以查看截图、元素定位、AI 决策过程以及每个动作和断言的结果。这些信息可用于定位失败原因并调整指令。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/web-infra-dev/midscene/blob/1c2d8f7d0ab1d45d8d60e3ec476d90c6777f8a2b/README.md?plain=1#L18"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "每次 AI 操作和断言都会调用你配置的多模态模型，可能产生模型费用，具体取决于所选模型和服务商。",
+    "README 中的基准成绩和成本数据来自报告中的特定模型与配置，不代表你的环境中的表现。",
+    "Midscene Test（@midscene/test）目前为 Beta 版本。",
+    "Android、iOS、HarmonyOS 和桌面平台需按各自平台指南另行配置。"
+  ],
+  "references": [],
+  "media": [],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "6d1717cd09e85670bdd496e8c6c494327cba5865d2896158f6063a89144fecc1",
+  "mediaStatus": "none_in_official_documents"
+}

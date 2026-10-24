@@ -1,0 +1,64 @@
+{
+  "schemaVersion": 1,
+  "key": "nevamind-ai/memu",
+  "status": "ready",
+  "reason": "",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/NevaMind-AI/memU/blob/2c050bc9681a4c0aff1af211a000e73d14f33356/README.md",
+  "sourceRevision": "2c050bc9681a4c0aff1af211a000e73d14f33356",
+  "canonicalKey": "NevaMind-AI/memU",
+  "summary": "memU 为 Codex、Claude Code、Cursor 等编码代理提供跨会话、跨代理、跨设备共享的个人记忆 Wiki，并能从代理历史中提炼可复用的技能。",
+  "intro": "适合同时使用多个桌面编码代理、希望它们共享项目知识的开发者。memU 以旁路程序（sidecar）的方式运行：定时读取代理的会话日志，由代理自己把有用内容整理成记忆或技能 Markdown；之后通过宿主的指令文件，让代理在回答前先检索相关记忆。",
+  "requirements": "需要一个受支持的宿主代理（如 Claude Code 的桌面版或 CLI、Cursor、Codex 的 VS Code 扩展等，见各平台支持矩阵）。云端模式需要先在 memu.so 获取 API Key；自托管模式需要自备 embedding 服务的密钥。README 徽章标注需要 Python 3.11+。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "核对宿主与系统支持情况",
+      "text": "先查看 macOS、Windows、Linux 三张支持矩阵，确认你的代理和使用模式同时支持 Memorize 和 Retrieve。例如 ChatGPT 的 Chat 模式，以及 Claude 的 Chat/Cowork 模式不受支持；Linux 上 Codex 的 VS Code 扩展只支持检索，不支持记忆写入。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/NevaMind-AI/memU/blob/2c050bc9681a4c0aff1af211a000e73d14f33356/README.md?plain=1#L35"
+      }
+    },
+    {
+      "title": "在 memu.so 获取 API Key",
+      "text": "云端模式支持跨设备使用。先到 memu.so 注册并获取 API Key，之后可以在同一网站上查看记忆文件。如果希望数据只保存在本机，可以改用 Self-hosted 方式，但需要自己的存储和 embedding 密钥。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/NevaMind-AI/memU/blob/2c050bc9681a4c0aff1af211a000e73d14f33356/README.md?plain=1#L25"
+      }
+    },
+    {
+      "title": "让代理按 SKILL.md 安装",
+      "text": "按 Quick start 的说明，把官方给出的那句话发给你的代理，内容是让它读取 https://memu.pro/SKILL.md 并按说明安装和配置 memU，同时附上你的 API Key。SKILL.md 会引导代理识别当前宿主、配置记忆后端、注册定时桥接任务，并修改宿主的指令文件。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/NevaMind-AI/memU/blob/2c050bc9681a4c0aff1af211a000e73d14f33356/README.md?plain=1#L25"
+      }
+    },
+    {
+      "title": "用 doctor 与 retrieve 验证",
+      "text": "安装完成后，运行对应宿主的 <binary> doctor（例如 memu-claude-code），检查配置、所选模式和实际检索是否正常。之后代理会在回答前自动检索记忆；需要手动检索时，可以运行对应宿主的 retrieve 命令。",
+      "code": "memu-codex retrieve \"What should I remember about this project?\"\n# or: memu-claude-code / memu-cursor / memu-openclaw / memu-hermes / memu-workbuddy / memu-cola / memu-pi / memu-agent",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/NevaMind-AI/memU/blob/2c050bc9681a4c0aff1af211a000e73d14f33356/README.md?plain=1#L114"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "安装方式是让代理读取远程 SKILL.md 并照着执行，建议先自行阅读该文件，确认其中的操作后再执行。",
+    "memU 会读取宿主的会话日志（包括消息和工具调用），并修改宿主的指令文件，例如 ~/.claude/CLAUDE.md、~/.codex/AGENTS.md。",
+    "云端模式下，记忆保存在 MemU Cloud；如果需要数据只留在本机，请使用 Self-hosted 模式（单设备，需要 embedding 密钥）。",
+    "在 Claude Code 中，如果所选模型拒绝执行安装步骤，README 建议换用 Opus 或其他模型重试；Windows 上的 Hermes 和 WorkBuddy 存在特定限制。",
+    "卸载默认保留记忆存储和 ~/.memu/config.env，只有在明确要求时才会删除记忆。",
+    "仓库许可证字段为 NOASSERTION，README 中写的是 Apache-2.0。"
+  ],
+  "references": [],
+  "media": [],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "214ae0762a962f4540c1a3ff72e458ef612fd235ff9ede15f8d5cd27a17a6cea",
+  "mediaStatus": "none_in_official_documents"
+}

@@ -1,0 +1,68 @@
+{
+  "schemaVersion": 1,
+  "key": "emily2040/seedance-2.0",
+  "status": "ready",
+  "reason": "",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/Emily2040/seedance-2.0/blob/4668457e560eee06e95d7fcfdf441c8c0bba802e/README.md",
+  "sourceRevision": "4668457e560eee06e95d7fcfdf441c8c0bba802e",
+  "canonicalKey": "Emily2040/seedance-2.0",
+  "summary": "这是一个 Seedance 2.0 代理技能，可以把想法整理成适合视频模型的分镜式提示词，并支持绑定参考素材和续接已接受的片段。",
+  "intro": "适合用 Seedance 2.0 做 AI 视频的创作者和需要交付商业短片的制作人员。在 Codex、Claude Code 等支持 Agent Skills 的客户端中安装后，根技能 seedance-20 会根据你描述的情况加载对应的子技能。它可以从模糊想法生成简报和初稿，也能写出完整提示词或 30–100 词的短提示词，规划长故事的分段序列，为图片、视频、音频参考素材分配作用，续接已有片段，诊断失败原因，或把涉及品牌、真人的内容改写得更安全。它只负责准备提示词，实际生成和费用由你的视频服务商负责。",
+  "requirements": "需要 git 和 Python 来克隆仓库并运行安装脚本（也可以下载 ZIP 后在解压目录中运行安装脚本），以及一个支持 Agent Skills 的客户端（下文以 Codex 为例）。实际生成视频需要你自己的 Seedance 2.0 服务商账号，费用由服务商收取。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "克隆仓库并安装到 Codex",
+      "text": "以 Codex 用户范围为例：克隆仓库后进入目录，运行 install_codex_skill.py 并指定 --client codex --scope user。安装脚本会先校验，再把文件放到 seedance-20 目录，并打印最终安装位置。Claude Code 等其他客户端改用对应的 --client 参数或 --dest 路径即可。",
+      "code": "git clone https://github.com/Emily2040/seedance-2.0.git\ncd seedance-2.0\npython scripts/install_codex_skill.py --client codex --scope user",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/Emily2040/seedance-2.0/blob/4668457e560eee06e95d7fcfdf441c8c0bba802e/README.md?plain=1#L477"
+      }
+    },
+    {
+      "title": "重启客户端并选择技能",
+      "text": "安装完成后重启客户端，确认技能列表中出现 seedance-20，然后选择它。只需安装 seedance-20 这一个根技能，子技能和参考资料会按相对路径自动解析。如果要配置可选的服务商工具，请先阅读 SECURITY.md。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/Emily2040/seedance-2.0/blob/4668457e560eee06e95d7fcfdf441c8c0bba802e/README.md?plain=1#L477"
+      }
+    },
+    {
+      "title": "向代理描述动作与固定约束",
+      "text": "在对话中写明使用 seedance-20，然后说明画面里发生什么、哪些要素必须保持不变，例如镜头是否固定、是否要音乐，并要求只输出提示词。时长和画幅比例应在服务商的生成界面中设置。草稿可以反复修改，修改不会提交付费生成请求。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/Emily2040/seedance-2.0/blob/4668457e560eee06e95d7fcfdf441c8c0bba802e/README.md?plain=1#L419"
+      }
+    },
+    {
+      "title": "按手头素材选择对应工作流",
+      "text": "根据现有材料提供后续信息：只有粗略想法时，给出动作、情绪和交付格式。改写提示词时，附上原稿和需要保留的约束。有参考素材时，提供实际文件并说明每个文件控制什么。续接片段时，说明已接受片段的结尾和下一个动作。出现失败结果时，说明未达成的要求和剩余预算。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/Emily2040/seedance-2.0/blob/4668457e560eee06e95d7fcfdf441c8c0bba802e/README.md?plain=1#L462"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "视频生成在你的服务商处进行，费用由服务商收取。准备提示词本身并不代表授权进行付费生成。",
+    "README 中的客户端安装路径表只是常见目标位置，并不保证所有客户端都支持，需要在你自己的客户端中验证。",
+    "安装脚本拒绝把技能安装到本仓库目录内。--force 只用于替换一个完整的已有安装。直接导入原始克隆仓库时，会带上评估器、服务商辅助工具和测试文件，没有安装脚本的过滤保证。",
+    "示例片段中尚未渲染的部分只有场记板，没有实际成片。纸扇插图是 AI 生成的教学概念图，并非 Seedance 输出，不能用来证明生成效果。",
+    "涉及角色、品牌或真实人物时，应先使用 seedance-copyright 子技能改写，以降低版权和审核风险。"
+  ],
+  "references": [
+    {
+      "label": "docs/README.zh.md",
+      "url": "https://github.com/Emily2040/seedance-2.0/blob/4668457e560eee06e95d7fcfdf441c8c0bba802e/docs/README.zh.md"
+    }
+  ],
+  "media": [],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "c78ff1453dcafac4d12fbe027ffdacee57627a0e3bf9bbe0bf1e66d1092f473c",
+  "mediaStatus": "none_in_official_documents"
+}

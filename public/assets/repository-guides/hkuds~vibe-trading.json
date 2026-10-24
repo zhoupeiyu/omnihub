@@ -1,0 +1,67 @@
+{
+  "schemaVersion": 1,
+  "key": "hkuds/vibe-trading",
+  "status": "ready",
+  "reason": "",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/HKUDS/Vibe-Trading/blob/18027a0c2b97bd41ac38a0e269799e485bb457d3/README.md",
+  "sourceRevision": "18027a0c2b97bd41ac38a0e269799e485bb457d3",
+  "canonicalKey": "HKUDS/Vibe-Trading",
+  "summary": "开源的交易研究 Agent 工作台，把自然语言的金融问题转化为数据加载、策略生成、回测、报告和可导出产物。",
+  "intro": "适合做市场研究、策略回测和交易复盘的个人研究者与量化爱好者。可以用自然语言发起研究和回测，覆盖 A 股、港美股、加密货币、期货和外汇；可以上传券商交割单做行为诊断和 Shadow Account 对比；可以运行多 Agent 研究团队（swarm）；还能导出 TradingView Pine Script、TDX、MetaTrader 5 等格式。项目提供 CLI/TUI、Web UI 和 MCP server 三种使用入口。",
+  "requirements": "Python 3.11+；任一受支持提供商的 LLM API Key，也可以用本地 Ollama 免 Key 运行，或通过 OpenAI Codex OAuth、GitHub Copilot 订阅接入。行情数据默认可以走 yfinance、OKX、mootdx、AKShare 等免费源，不需要额外 Key。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "通过 PyPI 安装 vibe-trading-ai",
+      "text": "本指南采用 README 中的 PyPI 一行安装路径（需要 Python 3.11+）。安装后会得到三个命令：vibe-trading（交互式 CLI/TUI）、vibe-trading serve（FastAPI Web 服务）和 vibe-trading-mcp（MCP server）。",
+      "code": "pip install vibe-trading-ai",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/HKUDS/Vibe-Trading/blob/18027a0c2b97bd41ac38a0e269799e485bb457d3/README.md?plain=1#L910"
+      }
+    },
+    {
+      "title": "运行 init 配置 LLM 提供商",
+      "text": "执行 vibe-trading init，按交互提示生成 .env，填写所选 LLM 提供商的 API Key；使用本地 Ollama 时不需要 Key。没有设置 *_BASE_URL 时会使用各提供商的默认端点。配置完成后，可以用 vibe-trading run -p 加自然语言描述发起第一个研究任务。",
+      "code": "vibe-trading init\nvibe-trading run -p \"Backtest a BTC-USDT 20/50 moving-average strategy for 2024 and summarize return and drawdown\"",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/HKUDS/Vibe-Trading/blob/18027a0c2b97bd41ac38a0e269799e485bb457d3/README.md?plain=1#L910"
+      }
+    },
+    {
+      "title": "在 CLI 中开展研究与复盘",
+      "text": "直接运行 vibe-trading 进入交互界面。也可以用 --upload 上传交易导出文件，再让 Agent 分析交易行为并生成 Shadow Account 对比；用 --swarm-run 加预设名（如 investment_committee）启动多 Agent 研究团队。",
+      "code": "vibe-trading init              # interactive .env setup\nvibe-trading                   # launch CLI\nvibe-trading serve --port 8899 # launch web UI\nvibe-trading-mcp               # start MCP server (stdio)\n\nvibe-trading --upload trades_export.csv\nvibe-trading run -p \"Analyze my trading behavior, extract my shadow strategy, and compare it with my actual trades\"\n\n# Bull/bear debate on a stock\nvibe-trading --swarm-run investment_committee '{\"topic\": \"Is TSLA a buy at current levels?\"}'\n\n# Quant strategy from screening to backtest\nvibe-trading --swarm-run quant_strategy_desk '{\"universe\": \"S&P 500\", \"horizon\": \"3 months\"}'\n\n# Crypto desk: funding + liquidation + flow → risk manager\nvibe-trading --swarm-run crypto_trading_desk '{\"asset\": \"ETH-USDT\", \"timeframe\": \"1w\"}'\n\n# Global macro portfolio allocation\nvibe-trading --swarm-run macro_rates_fx_desk '{\"focus\": \"Fed pivot impact on EM bonds\"}'\n\n# Resume a failed or cancelled run while keeping its completed tasks\nvibe-trading --swarm-retry <run_id> --swarm-resume",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/HKUDS/Vibe-Trading/blob/18027a0c2b97bd41ac38a0e269799e485bb457d3/README.md?plain=1#L910"
+      }
+    },
+    {
+      "title": "启动 Web UI 或 MCP server",
+      "text": "执行 vibe-trading serve --port 8899 后，在本机打开 http://localhost:8899 使用 Web 界面。如需在 Claude Desktop、Cursor 等客户端中调用，运行 vibe-trading-mcp 启动 stdio 模式的 MCP server。",
+      "code": "vibe-trading init              # interactive .env setup\nvibe-trading                   # launch CLI\nvibe-trading serve --port 8899 # launch web UI\nvibe-trading-mcp               # start MCP server (stdio)",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/HKUDS/Vibe-Trading/blob/18027a0c2b97bd41ac38a0e269799e485bb457d3/README.md?plain=1#L910"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "官方声明 X 账号 VibeTrading_HKU、Virtuals 项目 101845 及相关代币合约均非官方资产，项目从未发行或背书任何代币，不要购买、连接钱包或签名。",
+    "可以通过用户自行授权的券商进行自主交易，存在真实资金风险，需要自行设定额度限制。",
+    "调用 LLM 提供商会按其计费规则产生费用（使用本地 Ollama 或已有 Copilot 订阅的情况除外）。",
+    "serve 默认只允许本机访问；从其他机器或局域网访问前，必须先在 agent/.env 中设置强 API_AUTH_KEY。",
+    "从 0.1.10 之前的版本升级可能出现 LangChain 导入错误，需要重建 venv 或执行 pip install --force-reinstall vibe-trading-ai。",
+    "连续 8 次工具调用都没有新的成功观察时，Agent 会停止并请求恢复，该次运行会标记为失败。"
+  ],
+  "references": [],
+  "media": [],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "8b3a6d765d62e3a757dd3bf3f1ba0d46f3c2294dc1cc6d7701f71b171b5ff87c",
+  "mediaStatus": "none_in_official_documents"
+}

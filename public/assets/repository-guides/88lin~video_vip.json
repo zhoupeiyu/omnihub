@@ -1,0 +1,53 @@
+{
+  "schemaVersion": 1,
+  "key": "88lin/video_vip",
+  "status": "partial",
+  "reason": "该项目的核心用途是借助第三方解析接口绕过视频平台的会员付费限制，涉及版权和平台服务条款风险，本指南不整理具体的破解安装与播放操作。下面只说明项目定位、风险声明和反馈渠道。",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/88lin/video_vip/blob/50f04fd91ea37f273e6c0fd166bc0520cfce8c82/README.md",
+  "sourceRevision": "50f04fd91ea37f273e6c0fd166bc0520cfce8c82",
+  "canonicalKey": "88lin/video_vip",
+  "summary": "一个声称能通过第三方解析接口绕过国内视频网站会员限制的用户脚本。",
+  "intro": "项目自述为运行在 Tampermonkey 等脚本管理器中的用户脚本，在爱奇艺、腾讯视频、优酷等站点页面注入解析按钮，调用第三方解析接口播放会员内容。作者在文档中声明仅供学习研究。适合想了解此类用户脚本原理及风险的读者查阅。",
+  "requirements": "文档称需要浏览器安装用户脚本管理器（如 Tampermonkey、Violentmonkey），并开启“允许用户脚本”权限。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "先阅读项目的重要声明",
+      "text": "阅读 README 中的“重要声明与须知”：解析接口均来自公开网络，作者不拥有接口；作者声明工具仅供学习研究，请尊重版权、支持正版。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/88lin/video_vip/blob/50f04fd91ea37f273e6c0fd166bc0520cfce8c82/README.md?plain=1#L319"
+      }
+    },
+    {
+      "title": "了解第三方解析页的广告风险",
+      "text": "文档明确提示，第三方解析页可能带有广告、弹层、伪装播放按钮和诱导下载或充值的内容，脚本无法保证屏蔽这些内容。移动端的风险更高。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/88lin/video_vip/blob/50f04fd91ea37f273e6c0fd166bc0520cfce8c82/README.md?plain=1#L176"
+      }
+    },
+    {
+      "title": "按模板通过 Issues 反馈问题",
+      "text": "如需反馈兼容性问题，先阅读 CONTRIBUTING.md，并按 Issue 模板提供页面 URL、浏览器和脚本管理器环境、复现步骤及解析源名称。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/88lin/video_vip/blob/50f04fd91ea37f273e6c0fd166bc0520cfce8c82/README.md?plain=1#L434"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "绕过视频平台会员付费限制可能侵犯版权并违反平台服务条款，存在法律风险。",
+    "解析接口由来源不明的第三方提供，页面可能含有误导性广告、恶意跳转或诱导安装 App 的内容。",
+    "脚本管理器需要“在所有站点上”的访问权限，第三方脚本获得此类高权限存在隐私与安全风险。",
+    "README 中的赞助商内容为推广信息，与脚本功能无关。"
+  ],
+  "references": [],
+  "media": [],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "fa455ae2d9ce175f6d8c74d3cd52cc49c14a980d24eeed89eaed37a6d2e0b125",
+  "mediaStatus": "none_in_official_documents"
+}

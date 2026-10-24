@@ -1,0 +1,81 @@
+{
+  "schemaVersion": 1,
+  "key": "stmol/ssh-keys-manager-macos-app",
+  "status": "ready",
+  "reason": "",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/Stmol/ssh-keys-manager-macos-app/blob/2a6ee037376a351befe3e708b73f3e344166db43/README.md",
+  "sourceRevision": "2a6ee037376a351befe3e708b73f3e344166db43",
+  "canonicalKey": "Stmol/ssh-keys-manager-macos-app",
+  "summary": "SSH Keys Manager 是一个原生 macOS 应用，用于浏览、复制、生成和整理 SSH 密钥，并以表单方式编辑 SSH config 中的 Host 条目。",
+  "intro": "适合不想每次都在终端里手动维护 ~/.ssh 的 macOS 用户。可以查看密钥元数据，生成、重命名、复制或删除密钥对，修改注释和口令，编辑和排序 Host 块，为主机选择 IdentityFile，检查主机是否可达，还能从菜单栏快速复制公钥或私钥。默认使用 ~/.ssh，也可以指向自定义目录。",
+  "requirements": "需要 macOS。可以直接下载 GitHub Releases 中的构建，或使用 Xcode 从源码构建。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "从 Releases 下载应用",
+      "text": "在 macOS 上打开项目的 GitHub Releases 页面，下载 DMG，把 SSH Keys Manager.app 拷贝到 /Applications。这个发布版本未签名，也未经过公证。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/Stmol/ssh-keys-manager-macos-app/blob/2a6ee037376a351befe3e708b73f3e344166db43/README.md?plain=1#L40"
+      }
+    },
+    {
+      "title": "处理“已损坏”提示并启动",
+      "text": "如果 macOS 提示 SSH Keys Manager.app is damaged and can't be opened，按 README 的说明移除该应用的隔离属性，然后重新打开应用。 原文包含需人工核查的高权限或删除命令，本站不提供一键复制；请查看该步骤的官方出处。",
+      "code": "open \"/Applications/SSH Keys Manager.app\"",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/Stmol/ssh-keys-manager-macos-app/blob/2a6ee037376a351befe3e708b73f3e344166db43/README.md?plain=1#L40"
+      }
+    },
+    {
+      "title": "在设置中选目录并开启只读",
+      "text": "在设置页选择 SSH 目录（默认 ~/.ssh，也可以选自定义目录），并查看配置备份行为和外部工具路径。如果只想查看和复制密钥，建议开启 Read-only 模式，它会阻止编辑、覆盖、重命名和删除现有 SSH 文件。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/Stmol/ssh-keys-manager-macos-app/blob/2a6ee037376a351befe3e708b73f3e344166db43/README.md?plain=1#L30"
+      }
+    },
+    {
+      "title": "管理密钥与编辑 Host 条目",
+      "text": "在密钥页可以生成新的密钥对（指定文件名、类型、注释和可选口令），也可以重命名、复制、删除密钥或修改口令。在配置编辑器中可以增删改和排序 Host 块，通过 IdentityFile 选择关联私钥，并在侧边栏检查主机是否可达。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/Stmol/ssh-keys-manager-macos-app/blob/2a6ee037376a351befe3e708b73f3e344166db43/README.md?plain=1#L65"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "发布版本未签名、未公证。移除 quarantine 属性会绕过 Gatekeeper 的检查，请确认下载来源可信后再操作。",
+    "应用会直接读写 SSH 私钥和 config。修改前建议备份，或先在 Read-only 模式下使用。",
+    "README 说明项目有相当部分代码由 AI 生成，并经过人工审查。"
+  ],
+  "references": [],
+  "media": [
+    {
+      "url": "/assets/repository-guides/media-bd6dc5919fffa42bed2e5fe2.webp",
+      "alt": "Stmol/ssh-keys-manager-macos-app 官方演示 1",
+      "sourceUrl": "https://github.com/Stmol/ssh-keys-manager-macos-app/blob/2a6ee037376a351befe3e708b73f3e344166db43/README.md?plain=1#L17",
+      "originalUrl": "https://raw.githubusercontent.com/Stmol/ssh-keys-manager-macos-app/2a6ee037376a351befe3e708b73f3e344166db43/assets/screenshots/keys_tab.png"
+    },
+    {
+      "url": "/assets/repository-guides/media-73c7ecc11d11e486870f8b98.webp",
+      "alt": "Stmol/ssh-keys-manager-macos-app 官方演示 2",
+      "sourceUrl": "https://github.com/Stmol/ssh-keys-manager-macos-app/blob/2a6ee037376a351befe3e708b73f3e344166db43/README.md?plain=1#L73",
+      "originalUrl": "https://raw.githubusercontent.com/Stmol/ssh-keys-manager-macos-app/2a6ee037376a351befe3e708b73f3e344166db43/assets/screenshots/config_edit_host.png"
+    },
+    {
+      "url": "/assets/repository-guides/media-d10cebe7cf3c4ae54b8f4995.webp",
+      "alt": "Stmol/ssh-keys-manager-macos-app 官方演示 3",
+      "sourceUrl": "https://github.com/Stmol/ssh-keys-manager-macos-app/blob/2a6ee037376a351befe3e708b73f3e344166db43/README.md?plain=1#L85",
+      "originalUrl": "https://raw.githubusercontent.com/Stmol/ssh-keys-manager-macos-app/2a6ee037376a351befe3e708b73f3e344166db43/assets/screenshots/settings_screen.png"
+    }
+  ],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "64c4eeab5c88f2b3ce7ff082219d75c1de5d0b38c4c8837d52a07e60e966eddf",
+  "mediaStatus": "archived",
+  "mediaFailures": []
+}

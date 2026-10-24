@@ -1,0 +1,87 @@
+{
+  "schemaVersion": 1,
+  "key": "uncsoft/cyberwriter-app",
+  "status": "ready",
+  "reason": "",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/uncSoft/cyberwriter-app/blob/00a253ae20047a4fa572bef6a5eee57cb7550ab2/README.md",
+  "sourceRevision": "00a253ae20047a4fa572bef6a5eee57cb7550ab2",
+  "canonicalKey": "uncSoft/cyberwriter-app",
+  "summary": "cyberWriter 是一款原生 macOS Markdown 编辑器，可管理兼容 Obsidian 的笔记库，并导出 PDF、DOCX、HTML。",
+  "intro": "适合在 macOS 上写作的作者、研究者和工程师，用于编写含 Mermaid 图表、KaTeX 公式的 Markdown 文档，管理带 wikilink 和知识图谱的笔记库，借助 AI 与整个笔记库对话，以及转换为幻灯片、闪卡或出版级 PDF。本仓库只提供发布安装包、示例库和文档，源码不公开。",
+  "requirements": "macOS 15.0（Sequoia）或更高版本，支持 Apple Silicon 和 Intel。内置 Apple Intelligence 功能需要 macOS 26 及以上。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "从 Mac App Store 获取应用",
+      "text": "在 Mac App Store 下载 cyberWriter，可享受 7 天免费试用，无需注册账号。也可以从 GitHub Releases 直接下载 DMG，二者是同一个应用，区别只在于更新渠道和授权校验方式。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/uncSoft/cyberwriter-app/blob/00a253ae20047a4fa572bef6a5eee57cb7550ab2/README.md?plain=1#L9"
+      }
+    },
+    {
+      "title": "打开内置示例库熟悉功能",
+      "text": "首次启动时应用会附带 example-vault 示例库。在应用内打开它，可以实际体验 wikilink、知识图谱、Mermaid、callout、语音笔记和闪卡。已有 Obsidian 库也可以直接读取，无需迁移。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/uncSoft/cyberwriter-app/blob/00a253ae20047a4fa572bef6a5eee57cb7550ab2/README.md?plain=1#L154"
+      }
+    },
+    {
+      "title": "切换编辑与预览视图",
+      "text": "用 ⌘1、⌘2、⌘3 在编辑、分栏、预览三种视图之间切换。⌘⇧O 打开大纲侧栏，⌘⇧F 进入专注模式，⌘/ 打开斜杠命令面板，⌘P 打开实时 PDF 预览。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/uncSoft/cyberwriter-app/blob/00a253ae20047a4fa572bef6a5eee57cb7550ab2/README.md?plain=1#L110"
+      }
+    },
+    {
+      "title": "配置 AI 并调用快捷操作",
+      "text": "在 macOS 26 及以上可直接使用设备端 Apple Intelligence，无需 API Key；其他情况可接入 Ollama、LM Studio、Claude、OpenRouter 等提供方。按 ⌘J 调用摘要、改写、修正语法等快捷操作。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/uncSoft/cyberwriter-app/blob/00a253ae20047a4fa572bef6a5eee57cb7550ab2/README.md?plain=1#L21"
+      }
+    },
+    {
+      "title": "导出为 PDF、DOCX 或 HTML",
+      "text": "写作完成后，可导出为 PDF（支持按页码范围）、DOCX、独立 HTML、扩展 Markdown 或纯文本。Mermaid 图在 PDF 中为 SVG，在 DOCX 中为 PNG，在 HTML 中保持可交互。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/uncSoft/cyberwriter-app/blob/00a253ae20047a4fa572bef6a5eee57cb7550ab2/README.md?plain=1#L144"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "这是商业软件，试用期为 7 天，之后需要购买终身授权（App Store 或 lemonsqueezy 直购）；仓库未公开源码，也未声明开源许可证。",
+    "Apple Intelligence 相关功能需要 macOS 26 及以上；接入 Claude、OpenRouter 等第三方 AI 提供方时，须遵循各提供方的账号和计费规则。"
+  ],
+  "references": [],
+  "media": [
+    {
+      "url": "/assets/repository-guides/media-84cbcb3f25360a38b5d28963.webp",
+      "alt": "uncSoft/cyberwriter-app 官方演示 1",
+      "sourceUrl": "https://github.com/uncSoft/cyberwriter-app/blob/00a253ae20047a4fa572bef6a5eee57cb7550ab2/README.md?plain=1#L112",
+      "originalUrl": "https://raw.githubusercontent.com/uncSoft/cyberwriter-app/00a253ae20047a4fa572bef6a5eee57cb7550ab2/docs/screenshots/hero-split-view.png"
+    },
+    {
+      "url": "/assets/repository-guides/media-18103a8964e148055a546bd8.webp",
+      "alt": "uncSoft/cyberwriter-app 官方演示 2",
+      "sourceUrl": "https://github.com/uncSoft/cyberwriter-app/blob/00a253ae20047a4fa572bef6a5eee57cb7550ab2/README.md?plain=1#L23",
+      "originalUrl": "https://raw.githubusercontent.com/uncSoft/cyberwriter-app/00a253ae20047a4fa572bef6a5eee57cb7550ab2/docs/screenshots/ai-workspace.png"
+    },
+    {
+      "url": "/assets/repository-guides/media-c07e303eb2f0677e3e33376b.webp",
+      "alt": "uncSoft/cyberwriter-app 官方演示 3",
+      "sourceUrl": "https://github.com/uncSoft/cyberwriter-app/blob/00a253ae20047a4fa572bef6a5eee57cb7550ab2/README.md?plain=1#L55",
+      "originalUrl": "https://raw.githubusercontent.com/uncSoft/cyberwriter-app/00a253ae20047a4fa572bef6a5eee57cb7550ab2/docs/screenshots/graph-expanded.png"
+    }
+  ],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "46da653036cd77e03d605eed7687210b45b7e5f0425263bd911cf97402480ff2",
+  "mediaStatus": "archived",
+  "mediaFailures": []
+}

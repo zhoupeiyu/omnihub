@@ -1,0 +1,77 @@
+{
+  "schemaVersion": 1,
+  "key": "zhanlincui/ultimate-agent-skills-collection",
+  "status": "ready",
+  "reason": "",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/ZhanlinCui/Agent-Skills-Hunter/blob/849c38a32dbbbf47f95b931d6d694aa105a37f76/README.md",
+  "sourceRevision": "849c38a32dbbbf47f95b931d6d694aa105a37f76",
+  "canonicalKey": "ZhanlinCui/Agent-Skills-Hunter",
+  "summary": "一个 Agent Skills 合集，每个技能是包含 SKILL.md 的文件夹，并附带 skillctl 工具，可按宿主启用或停用单个技能。",
+  "intro": "适合使用 Claude Code、Cursor、GitHub Copilot、Codex、Gemini CLI 等支持技能标准的 AI 编程助手的用户。合集按创意设计、文档处理（docx/pdf/pptx/xlsx）、Obsidian、开发、SEO、计划工作流、调试质量、Agent 编排、Git 工作流、集成自动化和 Vercel 等类别收录技能，部分技能附带脚本、模板和参考资料。宿主会在任务需要时加载相关技能。",
+  "requirements": "需要 git 和终端环境，并已安装 README 所列的某个兼容宿主（本指南以 Claude Code 为例）。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "克隆仓库并查看技能清单",
+      "text": "在终端执行代码块中的 git clone，把合集克隆到 ~/agent-skills，然后进入该目录，用 ./skillctl list 查看所有可用技能。",
+      "code": "git clone https://github.com/ZhanlinCui/Ultimate-Agent-Skills-Collection.git ~/agent-skills\ncd ~/agent-skills\n\n# 查看所有可用技能\n./skillctl list\n\n# 为你的 IDE 配置技能\n./skillctl setup cursor        # 或：claude, copilot, codex, windsurf...\n./skillctl setup all           # 一次配置所有检测到的 IDE\n\n# 按需启用/停用单个技能\n./skillctl enable cursor docx\n./skillctl disable cursor xlsx\n./skillctl search \"testing\"\n./skillctl status              # 查看各 IDE 的技能状态\n./skillctl update              # 从 GitHub 拉取最新版本",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/ZhanlinCui/Agent-Skills-Hunter/blob/849c38a32dbbbf47f95b931d6d694aa105a37f76/README.zh-CN.md?plain=1#L102"
+      }
+    },
+    {
+      "title": "为 Claude Code 配置技能",
+      "text": "以 Claude Code 为例，执行 ./skillctl setup claude 为它配置技能（README 中该宿主的技能路径为 ~/.claude/skills/）。其他宿主可把参数换成 cursor、copilot、codex、windsurf 等；setup all 会一次配置所有检测到的 IDE。",
+      "code": "git clone https://github.com/ZhanlinCui/Ultimate-Agent-Skills-Collection.git ~/agent-skills\ncd ~/agent-skills\n\n# 查看所有可用技能\n./skillctl list\n\n# 为你的 IDE 配置技能\n./skillctl setup cursor        # 或：claude, copilot, codex, windsurf...\n./skillctl setup all           # 一次配置所有检测到的 IDE\n\n# 按需启用/停用单个技能\n./skillctl enable cursor docx\n./skillctl disable cursor xlsx\n./skillctl search \"testing\"\n./skillctl status              # 查看各 IDE 的技能状态\n./skillctl update              # 从 GitHub 拉取最新版本",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/ZhanlinCui/Agent-Skills-Hunter/blob/849c38a32dbbbf47f95b931d6d694aa105a37f76/README.zh-CN.md?plain=1#L102"
+      }
+    },
+    {
+      "title": "对照分类目录挑选技能",
+      "text": "按 README 的分类表挑选需要的技能。例如处理文档可选 docx、pdf、pptx、xlsx，规划多步任务可选 writing-plans 或 planning-with-files，调试可选 systematic-debugging。表格的 Includes 列标明了该技能是否附带 scripts、templates 或 references。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/ZhanlinCui/Agent-Skills-Hunter/blob/849c38a32dbbbf47f95b931d6d694aa105a37f76/README.md?plain=1#L416"
+      }
+    },
+    {
+      "title": "按需启用或停用单个技能",
+      "text": "如果不想加载全部技能，可以用 ./skillctl enable 和 disable 按宿主开关单个技能（代码块中以 cursor 为例，Claude Code 对应 claude），用 search 按关键词查找，用 status 查看各 IDE 当前的技能状态。",
+      "code": "git clone https://github.com/ZhanlinCui/Ultimate-Agent-Skills-Collection.git ~/agent-skills\ncd ~/agent-skills\n\n# 查看所有可用技能\n./skillctl list\n\n# 为你的 IDE 配置技能\n./skillctl setup cursor        # 或：claude, copilot, codex, windsurf...\n./skillctl setup all           # 一次配置所有检测到的 IDE\n\n# 按需启用/停用单个技能\n./skillctl enable cursor docx\n./skillctl disable cursor xlsx\n./skillctl search \"testing\"\n./skillctl status              # 查看各 IDE 的技能状态\n./skillctl update              # 从 GitHub 拉取最新版本",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/ZhanlinCui/Agent-Skills-Hunter/blob/849c38a32dbbbf47f95b931d6d694aa105a37f76/README.zh-CN.md?plain=1#L102"
+      }
+    },
+    {
+      "title": "用 skillctl 更新技能",
+      "text": "之后需要同步仓库的新版本时，在 ~/agent-skills 目录执行 ./skillctl update，从 GitHub 拉取最新内容。",
+      "code": "git clone https://github.com/ZhanlinCui/Ultimate-Agent-Skills-Collection.git ~/agent-skills\ncd ~/agent-skills\n\n# 查看所有可用技能\n./skillctl list\n\n# 为你的 IDE 配置技能\n./skillctl setup cursor        # 或：claude, copilot, codex, windsurf...\n./skillctl setup all           # 一次配置所有检测到的 IDE\n\n# 按需启用/停用单个技能\n./skillctl enable cursor docx\n./skillctl disable cursor xlsx\n./skillctl search \"testing\"\n./skillctl status              # 查看各 IDE 的技能状态\n./skillctl update              # 从 GitHub 拉取最新版本",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/ZhanlinCui/Agent-Skills-Hunter/blob/849c38a32dbbbf47f95b931d6d694aa105a37f76/README.zh-CN.md?plain=1#L102"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "README 中的技能数量说法不一致：简介写 400+，正文和徽章写 51+；仓库链接分别出现 Ultimate-Agent-Skills-Collection 和 Agent-Skills-Hunter 两个名称，克隆前请先确认实际地址。",
+    "不少技能附带可执行脚本，部分会访问外部服务，例如 x-article-publisher 发布到 X、notebooklm 通过浏览器自动化访问 NotebookLM、vercel-deploy 部署到 Vercel。启用前建议先查看对应 SKILL.md 和脚本内容。",
+    "手动符号链接和一键配置脚本会用 ln -sf 在 ~/.claude/skills 等路径创建链接。如果这些路径下已有自己的技能，请先检查，避免冲突。"
+  ],
+  "references": [
+    {
+      "label": "README.zh-CN.md",
+      "url": "https://github.com/ZhanlinCui/Agent-Skills-Hunter/blob/849c38a32dbbbf47f95b931d6d694aa105a37f76/README.zh-CN.md"
+    }
+  ],
+  "media": [],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "15f43a63de71a2605008db8067beb6d3d23fc3bcf4760e9f39d9e56ea4b17ec7",
+  "mediaStatus": "none_in_official_documents"
+}

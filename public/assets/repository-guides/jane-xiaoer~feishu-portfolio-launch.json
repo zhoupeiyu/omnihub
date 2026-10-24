@@ -1,0 +1,70 @@
+{
+  "schemaVersion": 1,
+  "key": "jane-xiaoer/feishu-portfolio-launch",
+  "status": "ready",
+  "reason": "",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/Jane-xiaoer/feishu-portfolio-launch/blob/547812273528dcaf014e5df7760db4368c17d177/README.md",
+  "sourceRevision": "547812273528dcaf014e5df7760db4368c17d177",
+  "canonicalKey": "Jane-xiaoer/feishu-portfolio-launch",
+  "summary": "一个 Claude Code Skill，把飞书多维表格里的视频/图片作品导出并生成作品集网页，发布到 GitHub Pages，并用 GitHub Actions 定时刷新飞书链接。",
+  "intro": "适合把视频、图片作品存放在飞书多维表格中、想对外展示作品的创作者，例如 AI 视频、摄影、设计、样片库等。安装后在 Claude Code 中提供表格链接，由 Skill 引导完成数据导出、瀑布流网页生成、GitHub Pages 上线、可选的自定义域名绑定和自动刷新配置。不适合博客、电商或需要用户注册登录的场景。",
+  "requirements": "已安装 Claude Code；本机需具备 lark-cli、Node.js ≥ 18、Python 3、gh (GitHub CLI)、git；需要飞书账号和 GitHub 账号，绑定自定义域名时还需要域名注册商账号。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "克隆仓库到 skills 目录",
+      "text": "使用 README 中的方式二，用 git 把整个仓库克隆到 Claude Code 的 skills 目录 ~/.claude/skills/feishu-portfolio-launch。仓库中附带 assets/refresh.py、assets/refresh.yml、assets/portfolio.sample.json 等模板，后续生成网站时会用到。",
+      "code": "git clone https://github.com/Jane-xiaoer/feishu-portfolio-launch.git \\\n  ~/.claude/skills/feishu-portfolio-launch",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/Jane-xiaoer/feishu-portfolio-launch/blob/547812273528dcaf014e5df7760db4368c17d177/README.md?plain=1#L33"
+      }
+    },
+    {
+      "title": "准备命令行工具和账号",
+      "text": "开始前确认已安装 lark-cli（访问飞书 API）、Node.js ≥ 18、Python 3（自动刷新脚本）、gh 和 git，并准备好飞书与 GitHub 账号。缺少工具时，Skill 会提示如何补齐。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/Jane-xiaoer/feishu-portfolio-launch/blob/547812273528dcaf014e5df7760db4368c17d177/README.md?plain=1#L60"
+      }
+    },
+    {
+      "title": "在 Claude Code 中触发 Skill",
+      "text": "在 Claude Code 里说「飞书作品集上线」或「帮我用飞书多维表格搭作品集网站」，Claude Code 会自动调用该 Skill。接着提供飞书多维表格链接，选择网页风格并确认预览。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/Jane-xiaoer/feishu-portfolio-launch/blob/547812273528dcaf014e5df7760db4368c17d177/README.md?plain=1#L33"
+      }
+    },
+    {
+      "title": "配置 GitHub Secrets",
+      "text": "默认路线通过 GitHub Actions 每 12 小时运行 refresh.py 更新 api/*.json。需要在生成的仓库中配置 LARK_APP_ID、LARK_APP_SECRET、LARK_BASE_TOKEN、LARK_TABLE_ID 四个 GitHub Secrets。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/Jane-xiaoer/feishu-portfolio-launch/blob/547812273528dcaf014e5df7760db4368c17d177/README.md?plain=1#L76"
+      }
+    },
+    {
+      "title": "按需绑定自定义域名",
+      "text": "如需使用自己的域名，按 Skill 的 DNS 引导在域名注册商的 DNS 控制台添加几条记录，Skill 会自动配置 CNAME。不绑定时也可以直接使用 GitHub Pages 的默认地址访问。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/Jane-xiaoer/feishu-portfolio-launch/blob/547812273528dcaf014e5df7760db4368c17d177/README.md?plain=1#L9"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "飞书附件链接 24 小时过期，网站能否持续正常展示依赖 GitHub Actions 定时刷新任务正常运行。",
+    "LARK_APP_SECRET 等飞书凭据需存放在 GitHub Secrets 中，不要提交到仓库。",
+    "GitHub Pages 站点为公开访问，上线前请确认表格中的作品和字段内容可以对外公开。",
+    "README 声明 MIT，但仓库元数据未识别到 license 文件，二次使用前请自行核实授权。"
+  ],
+  "references": [],
+  "media": [],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "e7846d7cd731afdc401292d81e4761f8e79b5947ebc3ab5f75696ce937bcf0d6",
+  "mediaStatus": "none_in_official_documents"
+}

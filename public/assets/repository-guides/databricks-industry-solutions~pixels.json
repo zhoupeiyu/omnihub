@@ -1,0 +1,98 @@
+{
+  "schemaVersion": 1,
+  "key": "databricks-industry-solutions/pixels",
+  "status": "ready",
+  "reason": "",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/databricks-industry-solutions/pixels/blob/347c349d9c75e6d9d8c362c6b12712243a59fefb/README.md",
+  "sourceRevision": "347c349d9c75e6d9d8c362c6b12712243a59fefb",
+  "canonicalKey": "databricks-industry-solutions/pixels",
+  "summary": "在 Databricks 上批量摄取、索引 DICOM 医学影像元数据，并在 OHIF 查看器中进行查看、分割与标注。",
+  "intro": "适合已在使用 Databricks 的医疗影像数据工程师、数据科学家和研究团队。可从 Unity Catalog Volumes 摄取 .dcm 文件和 zip 压缩包，把 DICOM 元数据提取为可用 SQL 查询的表。在此基础上可以构建仪表盘或 Genie 自然语言查询，也可以在集成 Databricks 安全模型的 OHIF 查看器中查看与标注影像。部署 Vista3D/MONAI 模型服务后，可做实时自动分割和自定义模型训练；元数据还可在摄取时做匿名化处理。",
+  "requirements": "需要一个 Databricks 工作区，并启用 Unity Catalog、Serverless Compute、Serverless SQL Warehouse、GPU Model Serving、Databricks Apps、Vector Search、AI/BI Genie 和 Foundation Model APIs。其中 Apps User Token Passthrough、Lakebase、Reverse ETL 属于受限预览功能，需要联系 Databricks 账户团队开通。本地需要 git、make 和 Databricks CLI，用于构建产物和部署 Databricks Asset Bundles。还需要一个可访问的 Unity Catalog catalog，默认使用 main。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "克隆仓库并构建 bundle 产物",
+      "text": "先克隆 pixels 仓库并进入目录，再执行 make build，生成 wheel、OHIF tarball 和 vista3d tarball。官方说明这些产物会随 DAB 同步，必须在 bundle deploy 之前就已存在，否则 apps 和 Vista3D 会部署失败。之后如果修改了 src/dbx/pixels/、OHIF 或 Vista3D 模型，需要先运行 make clean，再运行 make build 重新构建。",
+      "code": "# 1. Clone the repo\ngit clone https://github.com/databricks-industry-solutions/pixels.git\ncd pixels\n\n# 2. Build the bundle artifacts (wheel + OHIF tarball + vista3d tarball)\n#    DAB sync includes dist/*.whl, dist/ohif.tar.gz, dist/vista3d.tar.gz —\n#    they MUST exist before `bundle deploy` or apps and Vista3D will fail.\nmake build\n\n# 3. Authenticate to your target workspace\ndatabricks auth login --profile MY_WORKSPACE\n\n# 4. Validate — override catalog if \"main\" is not accessible in your workspace\ndatabricks bundle validate -t prod -p MY_WORKSPACE \\\n  --var catalog=my_catalog\n\n# 5. Deploy the bundle\ndatabricks bundle deploy -t prod -p MY_WORKSPACE --auto-approve \\\n  --var catalog=my_catalog\n\n# 6. Run the install job\ndatabricks bundle run pixels_install -t prod -p MY_WORKSPACE \\\n  --var catalog=my_catalog",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/databricks-industry-solutions/pixels/blob/347c349d9c75e6d9d8c362c6b12712243a59fefb/docs/INSTALL.md?plain=1#L1"
+      }
+    },
+    {
+      "title": "登录工作区并校验 bundle 配置",
+      "text": "用 Databricks CLI 以指定 profile 登录目标工作区，然后运行 bundle validate 做配置校验。官方示例使用 -t prod，这样资源名不会带上 dev 用户名前缀。如果默认的 main catalog 在你的工作区里无法访问，需要用 --var catalog=... 指定其他 catalog。schema、serving_endpoint_name 等其他变量也可以用 --var key=value 覆盖。",
+      "code": "# 1. Clone the repo\ngit clone https://github.com/databricks-industry-solutions/pixels.git\ncd pixels\n\n# 2. Build the bundle artifacts (wheel + OHIF tarball + vista3d tarball)\n#    DAB sync includes dist/*.whl, dist/ohif.tar.gz, dist/vista3d.tar.gz —\n#    they MUST exist before `bundle deploy` or apps and Vista3D will fail.\nmake build\n\n# 3. Authenticate to your target workspace\ndatabricks auth login --profile MY_WORKSPACE\n\n# 4. Validate — override catalog if \"main\" is not accessible in your workspace\ndatabricks bundle validate -t prod -p MY_WORKSPACE \\\n  --var catalog=my_catalog\n\n# 5. Deploy the bundle\ndatabricks bundle deploy -t prod -p MY_WORKSPACE --auto-approve \\\n  --var catalog=my_catalog\n\n# 6. Run the install job\ndatabricks bundle run pixels_install -t prod -p MY_WORKSPACE \\\n  --var catalog=my_catalog",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/databricks-industry-solutions/pixels/blob/347c349d9c75e6d9d8c362c6b12712243a59fefb/docs/INSTALL.md?plain=1#L71"
+      }
+    },
+    {
+      "title": "部署 bundle 并运行安装作业",
+      "text": "执行 databricks bundle deploy 部署资源，再用 databricks bundle run pixels_install 启动安装作业。该作业包含 15 个任务，全部在 serverless 上运行，负责 DICOM 摄取、Genie、Lakebase、两个 Apps、模型注册与 GPU 端点等的部署。在全新工作区上大约需要 30–45 分钟，其中主要时间花在等待 Vista3D GPU 端点就绪。",
+      "code": "# 1. Clone the repo\ngit clone https://github.com/databricks-industry-solutions/pixels.git\ncd pixels\n\n# 2. Build the bundle artifacts (wheel + OHIF tarball + vista3d tarball)\n#    DAB sync includes dist/*.whl, dist/ohif.tar.gz, dist/vista3d.tar.gz —\n#    they MUST exist before `bundle deploy` or apps and Vista3D will fail.\nmake build\n\n# 3. Authenticate to your target workspace\ndatabricks auth login --profile MY_WORKSPACE\n\n# 4. Validate — override catalog if \"main\" is not accessible in your workspace\ndatabricks bundle validate -t prod -p MY_WORKSPACE \\\n  --var catalog=my_catalog\n\n# 5. Deploy the bundle\ndatabricks bundle deploy -t prod -p MY_WORKSPACE --auto-approve \\\n  --var catalog=my_catalog\n\n# 6. Run the install job\ndatabricks bundle run pixels_install -t prod -p MY_WORKSPACE \\\n  --var catalog=my_catalog\n\ninit_schema\n├── dcm_ingest\n│   ├── genie_space ─────────────────────────────────────────────┐\n│   └── deploy_lakebase ─────────────────────────────────┐       │\n├── create_apps ─────────────────────────────────────────┤       │\n├── deploy_prep                                          │       │\n│   └── deploy_gateway ──────────────────────────┐       │       │\n├── register_model → deploy_endpoint             │       │       │\n│                └── validate_model              │       │       │\n│                    └── deploy_viewer ───────────┤       │       │\n│                                         deploy_grants          │\n│                                            ├── stow_processor ─┤\n│                                            └──────────────┴────┴── post_install_update\n│                                                                        └── validate_install",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/databricks-industry-solutions/pixels/blob/347c349d9c75e6d9d8c362c6b12712243a59fefb/docs/INSTALL.md?plain=1#L71"
+      }
+    },
+    {
+      "title": "使用 OHIF 查看器查看与分割影像",
+      "text": "安装完成后会部署以下组件：pixels-dicomweb 应用（OHIF 查看器和 MONAI 代理，可将测量与分割结果导出到 UC Volume 的 /ohif/exports/）、pixels-dicomweb-gateway 应用（DICOMweb 服务）和 pixels-monai-uc 模型服务端点。整个过程无需手动执行 notebook。生产环境的 DICOMweb 架构与运维说明以 docs/DICOMWEB.md 为准。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/databricks-industry-solutions/pixels/blob/347c349d9c75e6d9d8c362c6b12712243a59fefb/README.md?plain=1#L213"
+      }
+    },
+    {
+      "title": "在 notebook 中用 Python 摄取 DICOM",
+      "text": "如果只需要摄取元数据，可在 Databricks notebook 中使用 dbx.pixels：先用 Catalog 对 /Volumes/<catalog>/<schema>/<volume>/ 路径编目，再用 DicomMetaExtractor 提取元数据，最后调用 catalog.save 保存，供 SQL 查询。还可按需开启以下选项：streaming 增量处理、extractZip 解压、permissive 容错、remove_un_tags 去除 UN 标签，以及用 DicomMetaAnonymizerExtractor 做元数据匿名化。",
+      "code": "# import Pixels Catalog (indexer) and DICOM transformers & utilities\nfrom dbx.pixels import Catalog                              # 01\nfrom dbx.pixels.dicom import *                              # 02\n\n# catalog all your files\ncatalog = Catalog(spark)                                    # 03\ncatalog_df = catalog.catalog(<path>)                        # 04\n\n# extract the DICOM metadata\nmeta_df = DicomMetaExtractor(\n  catalog, \n  permissive=True,\n  remove_un_tags=True\n).transform(catalog_df)                                     # 05\n\n# save your work for SQL access\ncatalog.save(meta_df)                                       # 06\n\n/Volumes/<catalog>/<schema>/<volume>/<path-level-1>/...\n\ncatalog_df = catalog.catalog(path, streaming=True, streamCheckpointBasePath=<checkpointPath>)\n\ncatalog_df = catalog.catalog(path, extractZip=True, extractZipBasePath=<unzipPath>)\n\nmetadata_df = DicomMetaAnonymizerExtractor(\n   catalog,\n   anonym_mode=\"METADATA\",\n   fp_key=<fp_key>, #ONLY HEX STRING ALLOWED - 128, 192 or 256 bits\n   fp_tweak=<fp_tweak>,   #ONLY HEX STRING ALLOWED - 64 bits\n   anonymization_base_path=<anonym_path>\n).transform(catalog_df)",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/databricks-industry-solutions/pixels/blob/347c349d9c75e6d9d8c362c6b12712243a59fefb/README.md?plain=1#L29"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "Lakebase、Apps User Token Passthrough、Reverse ETL 是受限预览功能（文档截至 2026 年 4 月 2 日），需要账户团队开通，否则完整安装无法完成。",
+    "模型服务端点使用 Databricks 托管 GPU：AWS/GCP 上默认为 GPU_MEDIUM，Azure 上为 GPU_LARGE 或 GPU_SMALL。首次资源分配约需 15–30 分钟，并会产生相应的平台费用。默认开启 scale-to-zero。",
+    "项目处理的是医疗影像，可能包含 PHI。元数据匿名化需要提供十六进制的 fp_key（128/192/256 位），像素级 PHI 脱敏仍在集成中，尚未完成。",
+    "仓库许可证标注为 NOASSERTION，使用前请自行确认授权条款。",
+    "如使用 managed file events，流作业至少每 7 天需要运行一次，并应复用稳定的 checkpoint 路径，以免重复处理。"
+  ],
+  "references": [
+    {
+      "label": "docs/INSTALL.md",
+      "url": "https://github.com/databricks-industry-solutions/pixels/blob/347c349d9c75e6d9d8c362c6b12712243a59fefb/docs/INSTALL.md"
+    }
+  ],
+  "media": [
+    {
+      "url": "/assets/repository-guides/media-7946a11d15bde49a4bb9bf2a.webp",
+      "alt": "databricks-industry-solutions/pixels 官方演示 1",
+      "sourceUrl": "https://github.com/databricks-industry-solutions/pixels/blob/347c349d9c75e6d9d8c362c6b12712243a59fefb/README.md?plain=1#L21",
+      "originalUrl": "https://raw.githubusercontent.com/databricks-industry-solutions/pixels/347c349d9c75e6d9d8c362c6b12712243a59fefb/images/DICOM-analyze-with-SQL.png"
+    },
+    {
+      "url": "/assets/repository-guides/media-312cba0e61ccecfb3700b4af.webp",
+      "alt": "databricks-industry-solutions/pixels 官方演示 2",
+      "sourceUrl": "https://github.com/databricks-industry-solutions/pixels/blob/347c349d9c75e6d9d8c362c6b12712243a59fefb/README.md?plain=1#L26",
+      "originalUrl": "https://raw.githubusercontent.com/databricks-industry-solutions/pixels/347c349d9c75e6d9d8c362c6b12712243a59fefb/images/pixels-dashboard.png"
+    }
+  ],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "53346abf4b6b59235ad42f6c9d749913ad3d849d00759a7cfe87330921f32e8e",
+  "mediaStatus": "archived",
+  "mediaFailures": [
+    {
+      "sourceUrl": "https://github.com/databricks-industry-solutions/pixels/blob/347c349d9c75e6d9d8c362c6b12712243a59fefb/README.md#L17",
+      "reason": "response_too_large"
+    }
+  ]
+}

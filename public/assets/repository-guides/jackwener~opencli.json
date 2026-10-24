@@ -1,0 +1,73 @@
+{
+  "schemaVersion": 1,
+  "key": "jackwener/opencli",
+  "status": "ready",
+  "reason": "",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/jackwener/OpenCLI/blob/24136945847afbfad266c6c46a8cd335377f9112/README.md",
+  "sourceRevision": "24136945847afbfad266c6c46a8cd335377f9112",
+  "canonicalKey": "jackwener/OpenCLI",
+  "summary": "OpenCLI 把网站、浏览器会话和 Electron 桌面应用变成命令行接口，并允许 AI Agent 通过你已登录的 Chrome 操作网页。",
+  "intro": "适合以下几类人：想用命令抓取 Bilibili、知乎、HackerNews、Reddit 等站点数据的个人用户；希望在 Claude Code、Cursor 等 Agent 中让 AI 代为浏览、填表、提取页面内容的人；需要为新站点编写适配器的开发者。内置命令支持 table、json、yaml、md、csv 输出，退出码遵循 sysexits，方便在脚本中处理。",
+  "requirements": "本指南采用 npm 全局安装路径（适用于纯 CLI、CI 或服务器），需要 Node.js >= 20.18.1。另需 Chrome 或 Chromium，并安装 OpenCLI Browser Bridge 扩展。macOS 或 Windows 桌面用户也可以改用官方推荐的 OpenCLIApp，从 opencli.info/download 下载。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "用 npm 全局安装 OpenCLI",
+      "text": "先运行 node --version，确认版本不低于 20.18.1。然后通过 npm 全局安装 @jackwener/opencli。如果遇到 fetch 缺失或启动崩溃，通常是 Node 版本过旧。",
+      "code": "node --version\nnpm install -g @jackwener/opencli",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/jackwener/OpenCLI/blob/24136945847afbfad266c6c46a8cd335377f9112/README.md?plain=1#L22"
+      }
+    },
+    {
+      "title": "安装 Browser Bridge 扩展",
+      "text": "从 Chrome Web Store 安装 OpenCLI 扩展，并确认它在 chrome://extensions 中处于启用状态。OpenCLI 通过这个扩展加一个本地守护进程连接浏览器，守护进程会在需要时自动启动。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/jackwener/OpenCLI/blob/24136945847afbfad266c6c46a8cd335377f9112/README.md?plain=1#L41"
+      }
+    },
+    {
+      "title": "运行 doctor 检查连接",
+      "text": "运行 opencli doctor 诊断浏览器连接。如果同时连接了多个 Chrome profile，可以用 opencli profile list、rename、use 设置别名和默认 profile；只有一个 profile 时会自动使用它。",
+      "code": "opencli doctor\n\nopencli profile list\nopencli profile rename <contextId> work\nopencli profile use work\nopencli --profile work browser main state",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/jackwener/OpenCLI/blob/24136945847afbfad266c6c46a8cd335377f9112/README.md?plain=1#L53"
+      }
+    },
+    {
+      "title": "列出命令并调用内置适配器",
+      "text": "用 opencli list 查看所有已注册命令，然后按 opencli <site> <command> 的格式运行内置适配器。需要结构化输出时加 -f json 或 -f csv，排查问题时加 -v 查看调试步骤。",
+      "code": "opencli list\nopencli hackernews top --limit 5\nopencli bilibili hot --limit 5\n\nopencli bilibili hot -f json    # Pipe to jq or LLMs\nopencli bilibili hot -f csv     # Spreadsheet-friendly\nopencli bilibili hot -v         # Verbose: show pipeline debug steps",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/jackwener/OpenCLI/blob/24136945847afbfad266c6c46a8cd335377f9112/README.md?plain=1#L72"
+      }
+    },
+    {
+      "title": "为 AI Agent 安装技能",
+      "text": "用 npx skills add 一次安装全部技能，也可以只装需要的一个：opencli-browser 用于即时操作网页，opencli-adapter-author 用于编写新适配器，opencli-autofix 用于修复失效的适配器，opencli-usage 用于查询命令。安装后在 Agent 中用自然语言描述任务即可。",
+      "code": "npx skills add jackwener/opencli\n\nnpx skills add jackwener/opencli --skill opencli-adapter-author\nnpx skills add jackwener/opencli --skill opencli-autofix\nnpx skills add jackwener/opencli --skill opencli-browser\nnpx skills add jackwener/opencli --skill opencli-usage",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/jackwener/OpenCLI/blob/24136945847afbfad266c6c46a8cd335377f9112/README.md?plain=1#L99"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "Agent 和适配器会使用你已登录的 Chrome 会话执行操作，包括发帖、关注、点赞、删除等写操作。授权给 Agent 前，请确认可接受的操作范围，并遵守各站点的服务条款。",
+    "出现空数据或 Unauthorized 时，通常是登录态已过期，需要到对应网站重新登录。",
+    "下载 bilibili 视频需要另外安装 yt-dlp。小宇宙下载和转写需要在 ~/.opencli/xiaoyuzhou.json 中配置本地凭据。",
+    "社区插件和第三方 github:user/repo 命令并非官方代码，安装前请先审阅。"
+  ],
+  "references": [],
+  "media": [],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "acd7be12c62a46e7f29952b1ab00f6ae9f2b12cc428ac8fdad72c1931eb65732",
+  "mediaStatus": "none_in_official_documents"
+}

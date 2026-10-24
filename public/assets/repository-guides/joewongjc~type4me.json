@@ -1,0 +1,91 @@
+{
+  "schemaVersion": 1,
+  "key": "joewongjc/type4me",
+  "status": "ready",
+  "reason": "",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/joewongjc/type4me/blob/2760429662e614ea9b9ed2e85eb18417ed416974/README.md",
+  "sourceRevision": "2760429662e614ea9b9ed2e85eb18417ed416974",
+  "canonicalKey": "joewongjc/type4me",
+  "summary": "Type4Me 是一款 macOS 语音输入法，能实时识别语音，并可调用大模型润色、翻译或问答，数据保存在本地。",
+  "intro": "适合想在 macOS 上用语音代替打字的用户。它内置 8 种模式，可以快速原样输入、按场景整理口语、边说边翻译、对选中文字提问、执行常用 Mac 操作，也能生成 Prompt。用户还能自建处理模版，用热词和片段替换提升专有名词的识别准确率。高级用户可以通过 URL Scheme，从 Stream Deck、Raycast、快捷指令或终端控制录音。",
+  "requirements": "macOS 14（Sonoma）或更高版本。云端版支持 Intel 和 Apple Silicon，需要准备语音识别（ASR）与大模型（LLM）服务商的 API Key，README 推荐火山-豆包语音或 Soniox。本地版仅支持 Apple Silicon，约占用 8GB 内存，建议 32GB 以上；文本处理仍需 API Key 或本地 Ollama。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "下载 macOS 云端版 DMG",
+      "text": "在 README 的“立即体验”表格中选择版本。官方推荐云端版（约 10MB，Intel 与 Apple Silicon 通用）。本地版约 700MB，只支持 Apple Silicon，且内存占用高。两个版本共享配置文件，之后可以随时互相替换安装。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/joewongjc/type4me/blob/2760429662e614ea9b9ed2e85eb18417ed416974/README.md?plain=1#L39"
+      }
+    },
+    {
+      "title": "安装应用并完成权限引导",
+      "text": "打开 DMG，把 Type4Me 拖入“应用程序”文件夹。首次启动后，按两步引导完成欢迎页和权限设置。应用尚未通过 Apple 开发者认证，如果提示“已损坏”或无法打开，可参考 README 中 Gatekeeper 部分的处理说明。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/joewongjc/type4me/blob/2760429662e614ea9b9ed2e85eb18417ed416974/README.md?plain=1#L754"
+      }
+    },
+    {
+      "title": "配置语音识别与大模型服务",
+      "text": "首页会提示尚未配置的默认模型，点击即可进入对应设置页，填写 ASR 与 LLM 服务商凭证，并做连接测试。作者建议文本处理选用轻量模型，不要开启思考模式，否则处理时间会明显变长。具体配置可参考 README 中的飞书配置指引。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/joewongjc/type4me/blob/2760429662e614ea9b9ed2e85eb18417ed416974/README.md?plain=1#L7"
+      }
+    },
+    {
+      "title": "按快捷键选用合适的输入模式",
+      "text": "按住 Fn 是快速模式，直接输出识别结果，不经 LLM 改写。Fn + Control 是智能感知，适合日常长句。Fn + Shift 是翻译模式，Fn + Space 是随便问。不确定用哪个时，优先用智能感知。每个快捷键都可以改为按住说话或点按开关。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/joewongjc/type4me/blob/2760429662e614ea9b9ed2e85eb18417ed416974/README.md?plain=1#L90"
+      }
+    },
+    {
+      "title": "管理热词并按需接入自动化",
+      "text": "在词汇管理中添加热词和片段替换，提升专有名词的识别准确率；也可以安装配套的词库管理 Skill。需要从外部工具控制时，可以调用 type4me:// 开头的 URL，例如用 toggle 切换录音，或直接打开热词页。中文等特殊字符需先做 URL 编码。",
+      "code": "type4me://toggle\n\ntype4me://vocabulary/hotwords",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/joewongjc/type4me/blob/2760429662e614ea9b9ed2e85eb18417ed416974/README.md?plain=1#L483"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "应用尚未通过 Apple 开发者认证。README 给出的绕过方法会临时放宽系统安全设置，按其说明，完成安装后可以把“允许以下来源的应用”恢复为原设置。",
+    "云端 ASR 和 LLM 按服务商计费，需要自备 API Key；首页的用量看板只显示预估费用。",
+    "本地版仅支持 Apple Silicon。SenseVoice 约占 2GB 内存，Qwen3-ASR 约占 8GB；本地运行 LLM 的内存占用更高。",
+    "智能感知可以读取当前 App 和输入位置附近的上下文；随便问和代办模式会把选中文字或剪贴板内容发给模型。这些感知能力可以单独开关。",
+    "Mac 操作模式只执行 Type4Me 已支持的操作，不是通用的电脑控制 Agent。"
+  ],
+  "references": [],
+  "media": [
+    {
+      "url": "/assets/repository-guides/media-e97fc0e71d0bd87b477be327.webp",
+      "alt": "模式快捷键设置",
+      "sourceUrl": "https://github.com/joewongjc/type4me/blob/2760429662e614ea9b9ed2e85eb18417ed416974/README.md?plain=1#L115",
+      "originalUrl": "https://raw.githubusercontent.com/joewongjc/type4me/2760429662e614ea9b9ed2e85eb18417ed416974/docs/screenshots/screenshot-modes.png"
+    },
+    {
+      "url": "/assets/repository-guides/media-47931b15552ef2c87630d12f.webp",
+      "alt": "Ask Anything 会话历史",
+      "sourceUrl": "https://github.com/joewongjc/type4me/blob/2760429662e614ea9b9ed2e85eb18417ed416974/README.md?plain=1#L255",
+      "originalUrl": "https://raw.githubusercontent.com/joewongjc/type4me/2760429662e614ea9b9ed2e85eb18417ed416974/docs/screenshots/screenshot-askit.png"
+    },
+    {
+      "url": "/assets/repository-guides/media-846dee043edf254612a4e2b3.webp",
+      "alt": "词汇管理",
+      "sourceUrl": "https://github.com/joewongjc/type4me/blob/2760429662e614ea9b9ed2e85eb18417ed416974/README.md?plain=1#L491",
+      "originalUrl": "https://raw.githubusercontent.com/joewongjc/type4me/2760429662e614ea9b9ed2e85eb18417ed416974/docs/screenshots/screenshot-vocabulary.png"
+    }
+  ],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "62eb79d36f4dbf490dcf0cdcca1d472e48ecb1b169d81541216bb0982dc7fb21",
+  "mediaStatus": "archived",
+  "mediaFailures": []
+}

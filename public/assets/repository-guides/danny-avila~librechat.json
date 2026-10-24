@@ -1,0 +1,60 @@
+{
+  "schemaVersion": 1,
+  "key": "danny-avila/librechat",
+  "status": "partial",
+  "reason": "README 只介绍功能并提供 Railway、Zeabur、Sealos 一键部署按钮和外部文档链接，没有本地安装或 Docker 部署命令，也没有环境变量、librechat.yaml 等配置的具体内容。实际部署和接入模型提供商需查阅 librechat.ai/docs。",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/LibreChat-AI/LibreChat/blob/f10b1d91f1eee3a2c82d5247bf620351486b7c1b/README.md",
+  "sourceRevision": "f10b1d91f1eee3a2c82d5247bf620351486b7c1b",
+  "canonicalKey": "LibreChat-AI/LibreChat",
+  "summary": "一个可自托管的 AI 聊天平台，在同一界面中接入多家模型提供商，并支持 Agents、MCP、Artifacts、代码解释器和多用户认证。",
+  "intro": "适合希望自行掌控 AI 基础设施、在一个界面里统一使用 Anthropic、OpenAI、Azure、Google、AWS Bedrock 及任意 OpenAI 兼容接口（如 Ollama、OpenRouter、Deepseek）的个人或团队。可用于多模型对话、构建无代码 Agent、接入 MCP 工具、网页搜索、代码沙箱执行、图片生成，以及带认证的多用户部署。",
+  "requirements": "README 未列出具体的系统要求。部署前需准备好要接入的 AI 提供商账号或 OpenAI 兼容接口，以及一个用于自托管的环境，例如 Railway、Zeabur、Sealos，或按官方文档准备的服务器。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "阅读官方文档选择部署方式",
+      "text": "README 本身不含安装步骤。请到 librechat.ai/docs 查看安装说明。如果想用托管平台，README 顶部提供了 Railway、Zeabur、Sealos 的一键部署入口。选定一种方式后，按该方式的官方文档操作。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/LibreChat-AI/LibreChat/blob/f10b1d91f1eee3a2c82d5247bf620351486b7c1b/README.md?plain=1#L1"
+      }
+    },
+    {
+      "title": "配置要使用的 AI 端点",
+      "text": "部署完成后，按官方文档的 Custom Endpoints 和 AI endpoints（librechat_yaml）章节接入模型提供商。文档说明，任何 OpenAI 兼容 API 都可直接接入，无需代理，也支持 Ollama 等本地提供商。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/LibreChat-AI/LibreChat/blob/f10b1d91f1eee3a2c82d5247bf620351486b7c1b/README.md?plain=1#L70"
+      }
+    },
+    {
+      "title": "按需启用 Agents 等功能",
+      "text": "如需 Agents、Skills、MCP、Web Search、Code Interpreter 或图片生成，请分别查看 README 中链接的各功能文档。其中 Code Interpreter 由 ClickHouse/code-interpreter 提供沙箱执行。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/LibreChat-AI/LibreChat/blob/f10b1d91f1eee3a2c82d5247bf620351486b7c1b/README.md?plain=1#L70"
+      }
+    },
+    {
+      "title": "升级前查阅 changelog",
+      "text": "更新版本前，先阅读 librechat.ai/changelog，确认是否有破坏性变更，再进行升级。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/LibreChat-AI/LibreChat/blob/f10b1d91f1eee3a2c82d5247bf620351486b7c1b/README.md?plain=1#L205"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "官方提醒升级前务必查看 changelog 中的破坏性变更。",
+    "v0.8.8 中的 Attached workspaces 被标注为高度实验性。它允许 Agent 读写文件并运行 Bash；启用 Full access 等权限前，需要评估所连接环境是否可信。",
+    "使用 OpenAI、Anthropic 等商业模型时，费用由各提供商另行收取；README 未说明价格。"
+  ],
+  "references": [],
+  "media": [],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "e2437e78b27a2ed18aea0c749768d26672bf0904a77d1024e1fac02c1ca5d5cb",
+  "mediaStatus": "none_in_official_documents"
+}

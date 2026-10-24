@@ -1,0 +1,84 @@
+{
+  "schemaVersion": 1,
+  "key": "joeseesun/qiaomu-mondo-poster-design",
+  "status": "partial",
+  "reason": "README 只说明需要 Python 3.7+ 和 AI Gateway API Key，并注明“详细安装步骤看 SKILL.md”，但 SKILL.md 内容没有提供。因此缺少以下信息：API Key 的具体设置方式（环境变量名、对应的服务商）、requirements.txt 依赖的安装步骤。另外，npx 安装后的路径与命令行示例中的 ~/.claude/skills 路径是否一致，也无法确认。",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/joeseesun/qiaomu-mondo-poster-design/blob/e82e411c403ca5a0327a85682c658ad155cd9cbb/README.md",
+  "sourceRevision": "e82e411c403ca5a0327a85682c658ad155cd9cbb",
+  "canonicalKey": "joeseesun/qiaomu-mondo-poster-design",
+  "summary": "一个海报设计 Skill：用一句话描述内容，按题材自动匹配 Mondo 等设计师风格，生成海报、书籍封面、专辑封面和社交媒体配图。",
+  "intro": "适合不熟悉 PS 和配色、但需要给公众号、小红书、文章、读书笔记或活动制作配图的内容创作者。在 Claude 中用一句话描述题材和用途，Skill 会自动选择艺术风格、配色和平台比例（默认 9:16）。也支持三种风格对比、指定风格或配色、AI 优化提示词，以及图生图转换。",
+  "requirements": "Python 3.7+；AI Gateway API Key（具体设置方式见仓库内 SKILL.md）；依赖包列表见 requirements.txt；通过 Claude 使用。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "用 npx 安装 Skill",
+      "text": "在终端执行 README 给出的安装命令，添加 qiaomu-mondo-poster-design。安装前请先阅读仓库中的 SKILL.md 和 requirements.txt，确认 Python 3.7+ 环境和 AI Gateway API Key 已按其中说明配置好。",
+      "code": "npx skills add joeseesun/qiaomu-mondo-poster-design",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/joeseesun/qiaomu-mondo-poster-design/blob/e82e411c403ca5a0327a85682c658ad155cd9cbb/README.md?plain=1#L27"
+      }
+    },
+    {
+      "title": "对 Claude 描述题材和用途",
+      "text": "在 Claude 中用一句话说明要设计什么、用在哪里，例如为某本书设计书籍封面，或为公众号文章设计 21:9 封面。说明用途后会自动匹配比例：公众号 21:9、小红书 3:4、文章配图 16:9、专辑封面 1:1。",
+      "code": "\"用 Mondo 风格为《三体》生成一张书籍封面\"\n\"为周杰伦《七里香》专辑设计封面\"\n\"生成一张爵士音乐节海报\"\n\"为我的公众号文章《人类简史》设计一张 21:9 封面\"\n\"为我的小红书读书笔记《小王子》设计 3:4 配图\"\n\n\"为《人类简史》设计公众号封面，21:9 比例\"\n\"为《小王子》设计小红书配图，3:4 比例\"\n\"为文章《AI的未来》生成 16:9 配图\"",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/joeseesun/qiaomu-mondo-poster-design/blob/e82e411c403ca5a0327a85682c658ad155cd9cbb/README.md?plain=1#L33"
+      }
+    },
+    {
+      "title": "对比或指定风格与配色",
+      "text": "不满意自动选择的风格时，可以要求“用三种不同风格”出图对比，也可以直接指定设计师风格（如 Saul Bass、Alphonse Mucha）或指定配色。各设计师风格的说明见 references/artist-styles.md。",
+      "code": "\"用三种不同风格为《沙丘》设计海报，让我对比一下\"\n\n\"用 Saul Bass 极简几何风格为《教父》设计海报\"\n\"用 Alphonse Mucha 新艺术运动风格为《花样年华》设计海报\"\n\n\"为爵士音乐节设计海报，用橙色、深蓝色和金色\"",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/joeseesun/qiaomu-mondo-poster-design/blob/e82e411c403ca5a0327a85682c658ad155cd9cbb/README.md?plain=1#L348"
+      }
+    },
+    {
+      "title": "可选：用命令行脚本生成",
+      "text": "熟悉命令行的用户可以直接调用 generate_mondo_enhanced.py，通过 --style、--aspect-ratio、--ai-enhance、--compare 等参数控制输出，用 --list-styles 查看全部风格。注意示例路径是 ~/.claude/skills，需要按实际安装位置调整。",
+      "code": "# 公众号封面（21:9 超宽横版）\npython3 ~/.claude/skills/qiaomu-mondo-poster-design/scripts/generate_mondo_enhanced.py \"人类简史\" book --style wenyi --aspect-ratio 21:9\n\n# 小红书配图（3:4 竖版）\npython3 ~/.claude/skills/qiaomu-mondo-poster-design/scripts/generate_mondo_enhanced.py \"花样年华\" movie --style rixi --aspect-ratio 3:4\n\n# 文章配图（16:9 横版）\npython3 ~/.claude/skills/qiaomu-mondo-poster-design/scripts/generate_mondo_enhanced.py \"AI与未来\" movie --style kilian-eng --aspect-ratio 16:9\n\n# 书籍封面（默认 9:16 竖版）\npython3 ~/.claude/skills/qiaomu-mondo-poster-design/scripts/generate_mondo_enhanced.py \"三体\" book --style chip-kidd\n\n# 专辑封面（1:1 正方形）\npython3 ~/.claude/skills/qiaomu-mondo-poster-design/scripts/generate_mondo_enhanced.py \"Dark Side of the Moon\" album --style peter-saville --aspect-ratio 1:1\n\n# AI增强提示词\npython3 ~/.claude/skills/qiaomu-mondo-poster-design/scripts/generate_mondo_enhanced.py \"银翼杀手\" movie --ai-enhance\n\n# 三栏风格对比\npython3 ~/.claude/skills/qiaomu-mondo-poster-design/scripts/generate_mondo_enhanced.py \"盗梦空间\" movie --compare saul-bass,olly-moss,kilian-eng\n\n# 查看所有33+种风格\npython3 ~/.claude/skills/qiaomu-mondo-poster-design/scripts/generate_mondo_enhanced.py --list-styles",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/joeseesun/qiaomu-mondo-poster-design/blob/e82e411c403ca5a0327a85682c658ad155cd9cbb/README.md?plain=1#L387"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "需要自备 AI Gateway API Key，配置细节只在 SKILL.md 中说明，README 未提供。",
+    "README 称生成图可商用，但同时注明具体取决于所用 AI 模型的许可协议，商用前需自行核实。",
+    "示例中大量借用真实电影、书籍、专辑和知名设计师风格。涉及第三方作品名称和形象的设计在公开或商用时，可能存在版权或商标风险。"
+  ],
+  "references": [],
+  "media": [
+    {
+      "url": "/assets/repository-guides/media-d1d8bb63f9f997f054ce20ea.webp",
+      "alt": "人类简史 - 文艺风公众号封面",
+      "sourceUrl": "https://github.com/joeseesun/qiaomu-mondo-poster-design/blob/e82e411c403ca5a0327a85682c658ad155cd9cbb/README.md?plain=1#L61",
+      "originalUrl": "https://raw.githubusercontent.com/joeseesun/qiaomu-mondo-poster-design/e82e411c403ca5a0327a85682c658ad155cd9cbb/examples/usecase-wechat-sapiens.png"
+    },
+    {
+      "url": "/assets/repository-guides/media-de070e1a7232f9c43cb7dd89.webp",
+      "alt": "小王子 - 韩系风小红书",
+      "sourceUrl": "https://github.com/joeseesun/qiaomu-mondo-poster-design/blob/e82e411c403ca5a0327a85682c658ad155cd9cbb/README.md?plain=1#L83",
+      "originalUrl": "https://raw.githubusercontent.com/joeseesun/qiaomu-mondo-poster-design/e82e411c403ca5a0327a85682c658ad155cd9cbb/examples/usecase-xiaohongshu-prince.png"
+    },
+    {
+      "url": "/assets/repository-guides/media-e15e349b88cd0446f80d4805.webp",
+      "alt": "三体 - Chip Kidd概念封面",
+      "sourceUrl": "https://github.com/joeseesun/qiaomu-mondo-poster-design/blob/e82e411c403ca5a0327a85682c658ad155cd9cbb/README.md?plain=1#L112",
+      "originalUrl": "https://raw.githubusercontent.com/joeseesun/qiaomu-mondo-poster-design/e82e411c403ca5a0327a85682c658ad155cd9cbb/examples/usecase-book-cover.png"
+    }
+  ],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "c28fc4722379df662bb68ec3206ab114dcae18612726b70d8f123d8030f7ef47",
+  "mediaStatus": "archived",
+  "mediaFailures": []
+}

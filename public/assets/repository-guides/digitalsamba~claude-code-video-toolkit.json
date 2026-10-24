@@ -1,0 +1,87 @@
+{
+  "schemaVersion": 1,
+  "key": "digitalsamba/claude-code-video-toolkit",
+  "status": "ready",
+  "reason": "",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/digitalsamba/claude-code-video-toolkit/blob/225c80a1c3a57c82d319ea6c73e0eff513787ae8/README.md",
+  "sourceRevision": "225c80a1c3a57c82d319ea6c73e0eff513787ae8",
+  "canonicalKey": "digitalsamba/claude-code-video-toolkit",
+  "summary": "一个面向 Claude Code 的视频制作工作区，提供 Skill、斜杠命令、模板和 Python 工具，引导 Agent 完成从脚本、配音、配乐、画面到渲染 MP4 的流程。",
+  "intro": "适合希望用 Claude Code 制作讲解类视频的人，例如产品演示、操作讲解、冲刺回顾（sprint review）、竖屏短视频等。仓库内置 sprint-review、product-demo、concept-explainer-short 等模板，以及品牌配置、转场库和多会话项目跟踪。语音、图像、音乐、视频片段等 AI 工具可以部署到你自己的 Modal 或 RunPod 云 GPU 账号上运行。",
+  "requirements": "需要 Node.js 18+ 和 Claude Code。使用 AI 工具时推荐安装 uv（会自动安装 Python 3.10+）；FFmpeg 为可选。完整功能需要配置云 GPU（推荐 Modal，也支持 RunPod）、文件传输（如 Cloudflare R2）和语音服务，也可以在 .env 中手动填写 API Key。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "克隆仓库并安装 Python 依赖",
+      "text": "克隆 claude-code-video-toolkit 并进入目录。如果需要 AI 配音、生图、配乐等能力，运行 uv sync 创建 .venv 并按锁文件安装依赖；只渲染视频时这一步可以省略。最后在仓库目录中启动 claude。",
+      "code": "git clone https://github.com/digitalsamba/claude-code-video-toolkit.git\ncd claude-code-video-toolkit\nuv sync   # Optional: AI voiceover, image gen, music, moviepy examples\nclaude    # Open Claude Code in the toolkit",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/digitalsamba/claude-code-video-toolkit/blob/225c80a1c3a57c82d319ea6c73e0eff513787ae8/README.md?plain=1#L22"
+      }
+    },
+    {
+      "title": "在 Claude Code 中运行 /setup",
+      "text": "在 Claude Code 中输入 /setup，按交互向导配置云 GPU 提供商、文件传输和语音，并部署所需的 AI 工具。官方推荐使用 Modal。如果不想用向导，也可以把 .env.example 复制为 .env，手动填写 API Key。",
+      "code": "/setup                    # Configure cloud GPU, storage, voice (~5 min, mostly free)\n/video                    # Create your first video",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/digitalsamba/claude-code-video-toolkit/blob/225c80a1c3a57c82d319ea6c73e0eff513787ae8/README.md?plain=1#L22"
+      }
+    },
+    {
+      "title": "用 /video 选模板创建项目",
+      "text": "运行 /video，选择模板和品牌来创建视频项目。之后编辑 VOICEOVER-SCRIPT.md 规划内容和素材，可以用 /record-demo 录制浏览器演示，用 /scene-review 在 Remotion Studio 中逐场景检查，用 /generate-voiceover 生成 AI 配音。",
+      "code": "/video → Script → Assets → Scene Review → Design → Audio → Preview → Render → Publish",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/digitalsamba/claude-code-video-toolkit/blob/225c80a1c3a57c82d319ea6c73e0eff513787ae8/README.md?plain=1#L341"
+      }
+    },
+    {
+      "title": "预览、迭代后渲染 MP4",
+      "text": "在配置文件中填好素材路径和时间点，用 npm run studio 实时预览，再通过和 Claude Code 对话调整时间、样式和内容。完成后执行 npm run render 输出最终的 MP4。项目进度记录在 project.json 中，可以跨多个会话继续工作。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/digitalsamba/claude-code-video-toolkit/blob/225c80a1c3a57c82d319ea6c73e0eff513787ae8/README.md?plain=1#L341"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "云 GPU 工具按用量计费。README 列出的单次成本是作者估算（例如 ltx2 约 $0.23），Modal 和 R2 免费额度以服务商当前政策为准。",
+    "部分工具依赖 ElevenLabs 等第三方 API Key；/publish 发布到 YouTube 需要 OAuth 授权。",
+    "Codex 迁移脚本标注为实验性，会写入 ~/.codex/skills 并修改仓库根目录 AGENTS.md 中自动生成的区块。",
+    "创建或修改命令和 Skill 后，需要重启 Claude Code 才会加载。",
+    "使用去水印、声音克隆、重新配音等工具时，应确认你拥有相应素材和声音的使用授权。"
+  ],
+  "references": [
+    {
+      "label": "docs/getting-started.md",
+      "url": "https://github.com/digitalsamba/claude-code-video-toolkit/blob/225c80a1c3a57c82d319ea6c73e0eff513787ae8/docs/getting-started.md"
+    }
+  ],
+  "media": [
+    {
+      "url": "/assets/repository-guides/media-1098f99b8c363c1a19d3bc63.webp",
+      "alt": "digitalsamba/claude-code-video-toolkit 官方演示 1",
+      "sourceUrl": "https://github.com/digitalsamba/claude-code-video-toolkit/blob/225c80a1c3a57c82d319ea6c73e0eff513787ae8/README.md?plain=1#L17",
+      "originalUrl": "https://raw.githubusercontent.com/digitalsamba/claude-code-video-toolkit/225c80a1c3a57c82d319ea6c73e0eff513787ae8/assets/readme-thumbs/q2-townhall-longarm-ad.jpg"
+    }
+  ],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "582ded86d03265d253673b0b4b6d156007b1f5f11ca4ef13e1d7973be88ec312",
+  "mediaStatus": "archived",
+  "mediaFailures": [
+    {
+      "sourceUrl": "https://github.com/digitalsamba/claude-code-video-toolkit/blob/225c80a1c3a57c82d319ea6c73e0eff513787ae8/README.md#L17",
+      "reason": "non_demo_dimensions"
+    },
+    {
+      "sourceUrl": "https://github.com/digitalsamba/claude-code-video-toolkit/blob/225c80a1c3a57c82d319ea6c73e0eff513787ae8/README.md#L17",
+      "reason": "non_demo_dimensions"
+    }
+  ]
+}

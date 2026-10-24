@@ -1,0 +1,74 @@
+{
+  "schemaVersion": 1,
+  "key": "jackwener/xiaohongshu-cli",
+  "status": "ready",
+  "reason": "",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/jackwener/xiaohongshu-cli/blob/4d63f3c0c85ccd9054fa8e96d7f761aaf2507449/README.md",
+  "sourceRevision": "4d63f3c0c85ccd9054fa8e96d7f761aaf2507449",
+  "canonicalKey": "jackwener/xiaohongshu-cli",
+  "summary": "xhs 是一个基于逆向 Web API 的小红书命令行工具，可以搜索、阅读、互动、发布图文笔记、查看通知，并输出结构化的 YAML/JSON。",
+  "intro": "适合想在终端或脚本中批量查阅小红书笔记、评论和用户主页的用户，也适合希望让 AI Agent 通过 SKILL.md 调用小红书功能的人。输出采用固定的 ok/schema_version/data envelope，便于程序解析。",
+  "requirements": "Python >= 3.10；推荐使用 uv（也可以用 pipx）安装；一个已在浏览器（Chrome、Arc、Edge、Firefox、Safari 等）中登录的小红书账号，或可以用小红书 App 扫码登录。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "用 uv tool 安装 xhs",
+      "text": "官方推荐用 uv tool install xiaohongshu-cli 在隔离环境中安装，pipx 是备选方式。官方建议定期用 uv tool upgrade 升级，以免旧版本的 API 处理出现异常。",
+      "code": "# Recommended: uv tool (fast, isolated)\nuv tool install xiaohongshu-cli\n\n# Or: pipx\npipx install xiaohongshu-cli\n\nuv tool upgrade xiaohongshu-cli\n# Or: pipx upgrade xiaohongshu-cli",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/jackwener/xiaohongshu-cli/blob/4d63f3c0c85ccd9054fa8e96d7f761aaf2507449/README.md?plain=1#L35"
+      }
+    },
+    {
+      "title": "浏览器登录后执行 xhs login",
+      "text": "先在浏览器打开 xiaohongshu.com 并登录，再运行 xhs login。它会依次尝试已安装的浏览器并提取 Cookie，也可以用 --cookie-source 指定浏览器，或用 --qrcode 扫码登录。Cookie 默认有效 7 天，可以用 xhs status 检查登录状态。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/jackwener/xiaohongshu-cli/blob/4d63f3c0c85ccd9054fa8e96d7f761aaf2507449/README.md?plain=1#L147"
+      }
+    },
+    {
+      "title": "搜索并用短序号阅读笔记",
+      "text": "用 xhs search、feed、hot 等列表命令获取结果后，可以用 xhs read 1、xhs comments 1 按序号打开最近一次列表中的条目。也可以直接粘贴带 xsec_token 的网页 URL 阅读。完整命令见使用示例。",
+      "code": "# 认证\nxhs login                             # 从浏览器提取 Cookie\nxhs login --qrcode                    # browser-assisted 二维码扫码登录（终端显示二维码）\nxhs status                            # 检查登录状态\nxhs whoami                            # 查看用户资料\nxhs logout                            # 清除缓存的 Cookie\n\n# 搜索\nxhs search \"美食\"                      # 搜索笔记\nxhs search \"旅行\" --sort popular       # 排序：general, popular, latest\nxhs search-user \"用户名\"               # 搜索用户\nxhs topics \"美食\"                      # 搜索话题\n\n# 阅读\nxhs read 1                             # 阅读最近一次列表里的第 1 条笔记\nxhs read <note_id>                     # 阅读笔记（仅走 API）\nxhs read \"https://...?xsec_token=...\"  # 粘贴网页 URL 直接阅读（使用 URL token）\nxhs comments 1                         # 查看最近一次列表里的第 1 条笔记评论\nxhs comments \"<url>\"                   # 查看评论 — 粘贴 URL 以缓存/复用 xsec_token\nxhs comments \"<url>\" --all             # 获取全部评论（自动翻页）\nxhs comments \"<url>\" --all --json      # 全部评论，JSON 格式\nxhs comments <note_id> --xsec-token T  # 用 note_id + 显式 xsec_token\nxhs comments <note_id>                 # 如果之前访问过 URL，会复用缓存 token\nxhs sub-comments <note_id> <cmt_id>   # 查看评论的回复\nxhs user <user_id>                     # 用户主页\nxhs user-posts <user_id>              # 用户发布的笔记\n\n# 发现\nxhs feed                              # 推荐 Feed\nxhs hot -c food                       # 热门笔记（按分类）\nxhs hot -c travel                     # 分类: fashion, food, cosmetics, movie, career,\n                                      #       love, home, gaming, travel, fitness\n\n# 社交\nxhs favorites                          # 我的收藏（自动识别当前用户）\nxhs favorites <user_id>                # 其他用户的收藏\nxhs likes                            # 我的点赞（自动识别当前用户）\nxhs likes <user_id>                  # 其他用户的点赞\nxhs follow <user_id>                   # 关注\nxhs unfollow <user_id>                 # 取消关注\n\n# 互动\nxhs like 1                             # 给最近一次列表里的第 1 条笔记点赞\nxhs like <note_id>                     # 点赞\nxhs like <note_id> --undo              # 取消点赞\nxhs favorite 1                         # 收藏最近一次列表里的第 1 条笔记\nxhs favorite <note_id>                 # 收藏\nxhs unfavorite 1                       # 取消收藏最近一次列表里的第 1 条笔记\nxhs unfavorite <note_id>               # 取消收藏\nxhs comment 1 -c \"好棒！\"              # 给最近一次列表里的第 1 条笔记发评论\nxhs comment <note_id> -c \"好棒！\"      # 发评论\nxhs reply 1 --comment-id X -c \"谢谢\"   # 给最近一次列表里的第 1 条笔记回复评论\nxhs reply <note_id> --comment-id X -c \"谢谢\"  # 回复评论\nxhs delete-comment <note_id> <cmt_id>  # 删除自己的评论\n\n# 创作者\nxhs my-notes                           # 我的笔记列表\nxhs post --title \"标题\" --body \"正文\" --images img.jpg  # 发布笔记\nxhs delete <note_id>                   # 删除笔记\nxhs delete <note_id> -y                # 跳过确认\n\n# 通知\nxhs unread                             # 未读数\nxhs notifications                      # 评论和 @ 通知\nxhs notifications --type likes         # 赞和收藏通知\nxhs notifications --type connections   # 新增关注通知",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/jackwener/xiaohongshu-cli/blob/4d63f3c0c85ccd9054fa8e96d7f761aaf2507449/README.md?plain=1#L163"
+      }
+    },
+    {
+      "title": "选择结构化输出格式",
+      "text": "命令支持 --yaml 和 --json。stdout 不是 TTY 时（例如通过管道或被 Agent 调用）默认输出 YAML，可以用环境变量 OUTPUT=yaml|json|rich|auto 覆盖。返回结构见 SCHEMA.md。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/jackwener/xiaohongshu-cli/blob/4d63f3c0c85ccd9054fa8e96d7f761aaf2507449/README.md?plain=1#L18"
+      }
+    },
+    {
+      "title": "作为 Agent Skill 安装",
+      "text": "推荐用 Skills CLI 运行 npx skills add jackwener/xiaohongshu-cli。可以加 -g 全局安装，用 -a claude-code 指定目标 Agent，用 -y 进入非交互模式。ClawHub 安装方式已弃用。",
+      "code": "npx skills add jackwener/xiaohongshu-cli",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/jackwener/xiaohongshu-cli/blob/4d63f3c0c85ccd9054fa8e96d7f761aaf2507449/README.md?plain=1#L211"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "工具基于逆向工程的签名 API，并包含反风控和指纹伪装措施，可能违反小红书的服务条款，存在触发验证码、IP 封禁或账号受限的风险。",
+    "Cookie 保存在本地 ~/.xiaohongshu-cli/cookies.json，等同于账号登录凭据，请妥善保管。",
+    "like、comment、follow、post、delete 等命令会直接以你的账号执行写操作，交给 Agent 使用时尤其要谨慎。",
+    "请求之间内置约 1–1.5 秒的随机延迟，速度较慢属于设计行为。",
+    "仓库元数据中的 license 为空，README 写的是 Apache-2.0，请以仓库实际的 LICENSE 文件为准。",
+    "文档中源码安装和手动安装的 git clone 地址格式异常，本指南未采用这两条，建议以仓库页面上的实际克隆地址为准。"
+  ],
+  "references": [],
+  "media": [],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "fec57cc0ab64ac5be65954aef54be9dd4adb47db9f56de4a5c91dbafb91a848c",
+  "mediaStatus": "none_in_official_documents"
+}

@@ -1,0 +1,68 @@
+{
+  "schemaVersion": 1,
+  "key": "zgwl/chinese-buy-us-stock-guide",
+  "status": "ready",
+  "reason": "",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/zgwl/chinese-buy-us-stock-guide/blob/c37b33b2fe294466afdbea299828910c44ae565f/README.md",
+  "sourceRevision": "c37b33b2fe294466afdbea299828910c44ae565f",
+  "canonicalKey": "zgwl/chinese-buy-us-stock-guide",
+  "summary": "一套面向中国大陆投资者的美股科普文章，覆盖开户、税务、合规、选券商、入金和出金。",
+  "intro": "适合想了解中国大陆居民如何投资美股的读者。内容分九篇正篇，按“先搞懂规则、再把钱投进去、最后安全取回来”的顺序展开，讲解银行和券商开户、CRS/FATCA 税务机制、按风险分层的合规路径、美国券商分层与监管、港美银行入金、加密入金、出金路径和 ITIN 申请。正篇之后还有加更，单独追踪政策和渠道变化。",
+  "requirements": "无需安装。在 GitHub 上直接打开仓库中的 Markdown 文件阅读即可。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "先读税务与合规两篇",
+      "text": "新手建议先打开 02-美股指南（二）税务.md 和 03-美股指南（三）合规.md。前者讲国家怎么征税，后者按低、中、高风险接受度分三类投资路径。作者认为先明确自己能接受多大风险，比急着开户更重要。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/zgwl/chinese-buy-us-stock-guide/blob/c37b33b2fe294466afdbea299828910c44ae565f/README.md?plain=1#L9"
+      }
+    },
+    {
+      "title": "按开户到入金顺序阅读",
+      "text": "准备动手时，依次阅读 01（开户）、04（美国券商）和 05（银行入金）。这三篇覆盖银行账户与券商账户的开设、券商分层与监管，以及港美银行远程开户和汇款入金，合起来就是传统的“银行转券商”路线。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/zgwl/chinese-buy-us-stock-guide/blob/c37b33b2fe294466afdbea299828910c44ae565f/README.md?plain=1#L9"
+      }
+    },
+    {
+      "title": "按需补读税号与加密入金",
+      "text": "如果嫌能开的户太少，读 08（美国税号），了解 ITIN 的申请方法和办下来后能多开哪些户。传统渠道走不通时再考虑 06（加密入金）。作者说明这是进阶方案，理解门槛和合规风险都偏高，多数人用不上。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/zgwl/chinese-buy-us-stock-guide/blob/c37b33b2fe294466afdbea299828910c44ae565f/README.md?plain=1#L9"
+      }
+    },
+    {
+      "title": "阅读出金篇与总结篇",
+      "text": "准备把钱取回时，看 07（出金），重点关注遗产税和各条出金路径的合规风险。只想看结论，可以直接读 09（总结），其中对比了三条路线的取舍，并给出面向普通人的建议。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/zgwl/chinese-buy-us-stock-guide/blob/c37b33b2fe294466afdbea299828910c44ae565f/README.md?plain=1#L9"
+      }
+    },
+    {
+      "title": "查看加更跟进政策变化",
+      "text": "读完正篇后，在 README 的“加更”表格中按日期查看后续文章，例如 Fiat24 关停与境外投资新规、加密合规 CARF、非 CRS 券商等主题。正篇最后校订于 2026 年 5 月，此后的变化以加更为准。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/zgwl/chinese-buy-us-stock-guide/blob/c37b33b2fe294466afdbea299828910c44ae565f/README.md?plain=1#L1"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "作者声明本系列只是个人科普，不构成任何投资、税务或法律建议。",
+    "相关政策变化很快，文中不少信息可能已经过时，动手前需要自行再核实。",
+    "加密入金、非 CRS 券商等路径被作者标注为进阶或高合规风险方案。"
+  ],
+  "references": [],
+  "media": [],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "5cbaba2e69232a4c8551bb515c4b561176daf29e8795fcd57ae505fae84c5880",
+  "mediaStatus": "none_in_official_documents"
+}

@@ -1,0 +1,67 @@
+{
+  "schemaVersion": 1,
+  "key": "virgiliojr94/book-to-skill",
+  "status": "ready",
+  "reason": "",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/virgiliojr94/book-to-skill/blob/c108d25b0cb58e1bdc361f3de02ed9f37075152f/README.md",
+  "sourceRevision": "c108d25b0cb58e1bdc361f3de02ed9f37075152f",
+  "canonicalKey": "virgiliojr94/book-to-skill",
+  "summary": "把技术书籍、文档文件夹或多份资料转换成结构化的 Agent Skill，让编码智能体按需查阅书中内容。",
+  "intro": "适合想在工作中随时调用自己拥有的技术书籍、内部文档、设计规范、论文或 RFC 的开发者。它生成的不是摘要，而是一整套技能文件：SKILL.md 核心模型与章节索引、按章拆分的 chapters/、glossary.md、patterns.md、cheatsheet.md，章节文件按需加载。生成的技能遵循 Agent Skills 标准，可用于 Claude Code、GitHub Copilot CLI、Amp、Codex、Hermes Agent、OpenCode、OpenClaw。",
+  "requirements": "需要一个支持 Agent Skills 的宿主，下文以 Claude Code 为例。需要 Python 3，并按文档格式安装对应的提取工具：PDF 可用 pdftotext、pypdf、pdfminer.six 或 docling；EPUB 建议安装 ebooklib 和 beautifulsoup4；MOBI 需要 Calibre。TXT 和 Markdown 等纯文本格式无需额外依赖。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "克隆到 Claude Code 技能目录",
+      "text": "以 Claude Code 为例，用 git clone 把仓库克隆到 ~/.claude/skills/book-to-skill，这样会注册 /book-to-skill 命令。如需与团队共享，也可以克隆到项目内的 .claude/skills/。注意：pip 安装的独立 CLI 不会注册这个命令。",
+      "code": "git clone https://github.com/virgiliojr94/book-to-skill.git ~/.claude/skills/book-to-skill\n# Project-local (share with team via git):\n# git clone https://github.com/virgiliojr94/book-to-skill.git .claude/skills/book-to-skill",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/virgiliojr94/book-to-skill/blob/c108d25b0cb58e1bdc361f3de02ed9f37075152f/docs/install.md?plain=1#L6"
+      }
+    },
+    {
+      "title": "检查文档格式所需的提取器",
+      "text": "在仓库目录运行 python3 scripts/extract.py --check。它会列出各格式已安装的提取器，以及缺失时应执行的安装命令。处理代码、表格较多的技术书，推荐 docling；以文字为主的书用 pdftotext 更快。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/virgiliojr94/book-to-skill/blob/c108d25b0cb58e1bdc361f3de02ed9f37075152f/README.md?plain=1#L146"
+      }
+    },
+    {
+      "title": "用 /book-to-skill 转换书籍",
+      "text": "在 Claude Code 中执行 /book-to-skill，后面跟文件、文件夹或 glob 路径，可选附加技能名。技能会先询问书籍属于技术类还是文字类，再选择合适的工具。结果写入 ~/.agents/skills/<slug>/，并尝试在 ~/.claude/skills/<slug>/ 建立符号链接，运行报告会说明链接是否成功。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/virgiliojr94/book-to-skill/blob/c108d25b0cb58e1bdc361f3de02ed9f37075152f/README.md?plain=1#L1"
+      }
+    },
+    {
+      "title": "用生成的技能命令查询内容",
+      "text": "转换完成后，输入 /<书的 slug> 加主题词提问，智能体会读取相关章节文件，根据书中内容作答。更新、合并资料以及仅分析等其他模式，见 docs/usage.md。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/virgiliojr94/book-to-skill/blob/c108d25b0cb58e1bdc361f3de02ed9f37075152f/README.md?plain=1#L1"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "扫描版 PDF 没有文本层，需要先自行做 OCR（例如 ocrmypdf），否则提取器会直接停止。",
+    "提取在本地完成，但如果智能体使用云端模型，送入模型的文本会受该服务商的数据条款约束。",
+    "请只处理你有权使用的资料。由第三方版权书籍生成的技能应保持私有，不要发布或分享。转换器支持把技能发布到 GitHub（默认私有），公开前请确认版权。",
+    "独立 CLI 的 [html] 扩展会引入 trafilatura 等较多依赖，在资源受限的机器上安装前请留意。"
+  ],
+  "references": [
+    {
+      "label": "docs/install.md",
+      "url": "https://github.com/virgiliojr94/book-to-skill/blob/c108d25b0cb58e1bdc361f3de02ed9f37075152f/docs/install.md"
+    }
+  ],
+  "media": [],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "ada8c632cf514e79734e2aff2f7755cc6fa999a16873fba8913164332fa2fe38",
+  "mediaStatus": "none_in_official_documents"
+}

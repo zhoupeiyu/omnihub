@@ -1,0 +1,78 @@
+{
+  "schemaVersion": 1,
+  "key": "kevinho/clawfeed",
+  "status": "ready",
+  "reason": "",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/kevinho/clawfeed/blob/38b43f0c3d5c781acbc3173a3a4a47f480cb18a5/README.md",
+  "sourceRevision": "38b43f0c3d5c781acbc3173a3a4a47f480cb18a5",
+  "canonicalKey": "kevinho/clawfeed",
+  "summary": "ClawFeed 是一个 AI 资讯摘要服务，从 Twitter、RSS、Hacker News、Reddit 等信息源生成 4 小时、每日、每周、每月的结构化摘要，并提供 Web 仪表盘。",
+  "intro": "适合关注的信息源很多、希望定期收到精选摘要的个人或团队。它可以添加多种类型的信息源，按可配置的规则过滤噪音，对收藏的内容做深度分析，还能以 RSS 或 JSON Feed 形式对外输出摘要。既可以独立部署成 Web 服务，也可以作为 OpenClaw 或 Zylos 的技能使用。下面以 Standalone（Node.js 源码运行）方式为例。",
+  "requirements": "需要 git，以及能运行 npm 的 Node.js 环境。如果要用多用户登录、个人收藏和信息源管理，需要准备 Google OAuth 凭据和 SESSION_SECRET；不配置 OAuth 时应用以只读模式运行。通过 API 创建摘要需要设置 API_KEY。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "克隆仓库并安装依赖",
+      "text": "这里采用 Standalone 方式：用 git clone 获取 clawfeed 源码，进入目录后执行 npm install 安装依赖。README 还提供了 ClawHub、OpenClaw、Zylos 和 Docker 等安装方式，选一种即可，不要混用。",
+      "code": "git clone https://github.com/kevinho/clawfeed.git\ncd clawfeed\nnpm install",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/kevinho/clawfeed/blob/38b43f0c3d5c781acbc3173a3a4a47f480cb18a5/README.md?plain=1#L54"
+      }
+    },
+    {
+      "title": "复制并编辑 .env 配置",
+      "text": "把 .env.example 复制为 .env，按环境变量表填写配置。可设置的项包括 DIGEST_PORT（默认 8767）、ALLOWED_ORIGINS、API_KEY，以及与登录相关的 GOOGLE_CLIENT_ID、GOOGLE_CLIENT_SECRET、SESSION_SECRET。",
+      "code": "# 1. Copy and edit environment config\ncp .env.example .env\n# Edit .env with your settings\n\n# 2. Start the API server\nnpm start\n# → API running on http://127.0.0.1:8767",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/kevinho/clawfeed/blob/38b43f0c3d5c781acbc3173a3a4a47f480cb18a5/README.md?plain=1#L93"
+      }
+    },
+    {
+      "title": "按需配置 Google OAuth 登录",
+      "text": "需要多用户登录时，在 Google Cloud Console 中创建 OAuth 2.0 凭据，把你的域名加入授权来源，并添加回调地址 https://yourdomain.com/api/auth/callback，最后把凭据写入 .env。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/kevinho/clawfeed/blob/38b43f0c3d5c781acbc3173a3a4a47f480cb18a5/README.md?plain=1#L108"
+      }
+    },
+    {
+      "title": "用 npm start 启动服务",
+      "text": "执行 npm start，API 服务会运行在 http://127.0.0.1:8767。开发时可以改用 npm run dev 开启文件监听自动重载。如果要对外提供 Web 页面，可以参考 README 中的 Caddy 反向代理示例。",
+      "code": "# 1. Copy and edit environment config\ncp .env.example .env\n# Edit .env with your settings\n\n# 2. Start the API server\nnpm start\n# → API running on http://127.0.0.1:8767\n\nhandle /digest/api/* {\n    uri strip_prefix /digest/api\n    reverse_proxy localhost:8767\n}\nhandle_path /digest/* {\n    root * /path/to/clawfeed/web\n    file_server\n}",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/kevinho/clawfeed/blob/38b43f0c3d5c781acbc3173a3a4a47f480cb18a5/README.md?plain=1#L81"
+      }
+    },
+    {
+      "title": "添加信息源并调整摘要规则",
+      "text": "登录后可以通过 /api/sources 添加信息源，类型包括 twitter_feed、rss、hackernews、reddit、github_trending 等。编辑 templates/curation-rules.md 可以调整内容过滤规则，编辑 templates/digest-prompt.md 可以调整 AI 输出的摘要格式。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/kevinho/clawfeed/blob/38b43f0c3d5c781acbc3173a3a4a47f480cb18a5/README.md?plain=1#L150"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "不配置 Google OAuth 时应用只读，收藏、信息源管理等功能需要登录后才能使用。",
+    "README 没有说明摘要由哪个 AI 模型生成，也没有说明需要配置哪些模型密钥。创建摘要的接口 POST /api/digests 需要 API_KEY；在 OpenClaw 模式下由智能体通过 cron 生成摘要。",
+    "website 抓取、Twitter 等信息源依赖第三方平台，使用时需自行遵守相应平台的条款。",
+    "在生产环境部署时，应设置 ALLOWED_ORIGINS、SESSION_SECRET 等安全相关变量，并为 SQLite 数据目录做持久化。"
+  ],
+  "references": [],
+  "media": [],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "03776e0322421091062a2d2d62a3d201142aecab257db2704c20a0d1c36041c4",
+  "mediaStatus": "unavailable",
+  "mediaFailures": [
+    {
+      "sourceUrl": "https://github.com/kevinho/clawfeed/blob/38b43f0c3d5c781acbc3173a3a4a47f480cb18a5/README.md#L13",
+      "reason": "media_too_large"
+    }
+  ]
+}

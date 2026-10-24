@@ -1,0 +1,71 @@
+{
+  "schemaVersion": 1,
+  "key": "itsmostafa/typesafe-mcp",
+  "status": "ready",
+  "reason": "",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/itsmostafa/system-one-connector/blob/f9094b20196cf58a8f9305e48aba4bd2e1731690/README.md",
+  "sourceRevision": "f9094b20196cf58a8f9305e48aba4bd2e1731690",
+  "canonicalKey": "itsmostafa/system-one-connector",
+  "summary": "evaluate 是一个 MCP 连接器，让 AI Agent 调用 TypeSafe 的 Jev 等 System One 模型，对问题返回带概率的结构化判断结果。",
+  "intro": "适合使用 Claude Code、Claude Desktop、Codex、Hermes 或 pi 的开发者。Agent 需要做快速判断（是否紧急、归属哪个团队、打分）时，用它拿到每个候选答案的概率，便于在代码中按阈值分支，不必解析大段文字。也可以连接自托管的 CLM、Laya，或 Liquid AI 托管的 d1。注意：输入的仓库名为 typesafe-mcp，但文档链接均指向 itsmostafa/system-one-connector。",
+  "requirements": "macOS 或 Linux；从 console.typesafe.ai 获取的 TypeSafe API Key（也可以改用 OPENROUTER_API_KEY）；已安装至少一个受支持的 Agent 客户端（Claude Code、Claude Desktop、Codex、Hermes 或 pi）。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "在 macOS 或 Linux 安装 evaluate",
+      "text": "官方快速入门只给出 macOS 和 Linux 的安装脚本，用 curl 下载 install.sh 后交给 sh 执行。安装得到的是一个静态二进制文件，不依赖 Node 或 Python 运行时。 原文包含需人工核查的高权限或删除命令，本站不提供一键复制；请查看该步骤的官方出处。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/itsmostafa/system-one-connector/blob/f9094b20196cf58a8f9305e48aba4bd2e1731690/README.md?plain=1#L29"
+      }
+    },
+    {
+      "title": "用 API Key 注册到 Agent",
+      "text": "先在 TypeSafe Console 获取 Key，再设置 TYPESAFE_API_KEY 并运行 evaluate setup mcp。该命令会查找本机的 Claude Code、Claude Desktop、Codex 和 Hermes，并向每个客户端注册 evaluate。pi 用户改为运行 evaluate setup pi。",
+      "code": "TYPESAFE_API_KEY=your-key evaluate setup mcp",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/itsmostafa/system-one-connector/blob/f9094b20196cf58a8f9305e48aba4bd2e1731690/README.md?plain=1#L29"
+      }
+    },
+    {
+      "title": "按需切换模型或托管地址",
+      "text": "已有 OpenRouter 账号时可以改设 OPENROUTER_API_KEY。要使用本地 Laya 或 CLM，把 TYPESAFE_BASE_URL 指向自己的服务，CLM 还需加 TYPESAFE_MODEL=clm-latest。使用 d1 时指向 Liquid AI 的端点。详细说明见 docs/configuration.md。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/itsmostafa/system-one-connector/blob/f9094b20196cf58a8f9305e48aba4bd2e1731690/README.md?plain=1#L1"
+      }
+    },
+    {
+      "title": "在 Agent 中按题型提问",
+      "text": "在对话里要求 Agent 使用 evaluate。可用三种题型：是/否（noul）、单选（choice）、量表评分（score）。请求包含 state 和 questions，返回每个答案的概率。一次调用可以提多个问题，也可以通过 items 传入最多 500 条记录。字段说明见 docs/tool-reference.md。",
+      "code": "{\n  \"state\": \"Help! My payouts have been failing for 3 days.\",\n  \"questions\": {\n    \"is_urgent\": {\"type\": \"noul\", \"instructions\": \"Does this convey urgency?\"},\n    \"department\": {\"type\": \"choice\", \"instructions\": \"Which team should handle this?\",\n      \"criteria\": {\"billing\": \"Payments, refunds\", \"technical\": \"Bugs, outages\", \"sales\": \"Pricing\"}}\n  }\n}",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/itsmostafa/system-one-connector/blob/f9094b20196cf58a8f9305e48aba4bd2e1731690/README.md?plain=1#L29"
+      }
+    },
+    {
+      "title": "更新二进制与客户端配置",
+      "text": "运行 evaluate update 可以就地升级二进制。再次运行 evaluate setup mcp 会更新已注册客户端的配置。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/itsmostafa/system-one-connector/blob/f9094b20196cf58a8f9305e48aba4bd2e1731690/README.md?plain=1#L74"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "需要 TypeSafe、OpenRouter 或 Liquid AI 的 API Key。文档未说明调用费用，请到各服务商处自行确认。",
+    "Agent 传入的 state 和记录内容会发送到所配置的模型服务。涉及敏感数据时，应先确认服务商的数据政策，或改用自托管模型。",
+    "安装方式是把远程脚本直接管道给 sh 执行，建议先查看 install.sh 的内容。",
+    "输入的仓库名 typesafe-mcp 与文档中的仓库 system-one-connector 不一致，请确认来源。"
+  ],
+  "references": [],
+  "media": [],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "573dd512adb4b989b39ca5045aebf9f0d6b1158095045b4e6d1aff5e2c78027e",
+  "mediaStatus": "none_in_official_documents"
+}

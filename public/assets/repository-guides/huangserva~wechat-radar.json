@@ -1,0 +1,75 @@
+{
+  "schemaVersion": 1,
+  "key": "huangserva/wechat-radar",
+  "status": "ready",
+  "reason": "",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/huangserva/wechat-radar/blob/f1f015051163f8c4b8778b19607db569d95e978e/README.md",
+  "sourceRevision": "f1f015051163f8c4b8778b19607db569d95e978e",
+  "canonicalKey": "huangserva/wechat-radar",
+  "summary": "一个本地优先的微信群情报看板：读取 Hermes wechat-assistant 的解密数据，同步到本地 radar.db，在浏览器中展示话题、链接、待办、人物和知识等分析面板。",
+  "intro": "适合已经用 Hermes wechat-assistant 获得本地解密微信数据、想在本机浏览器里集中查看群聊情报的个人用户。看板包括话题雷达、热点、链接情报、待办承诺、人物、知识图谱、复盘等面板。/lab 对话实验室支持五种分析模式，在获得明确同意后把选中消息发送给 LLM 分析。",
+  "requirements": "需已有 Hermes wechat-assistant 的解密输出（collector.db 与 decrypted/*.db）；需安装 pnpm，项目使用 Next.js 16、React 19 和 better-sqlite3。如需话题/链接增强、知识分类或 /lab 分析，需配置 openai-compatible 的 LLM 提供方（如 MiMo、GLM），或在已配置时回退到 Codex CLI。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "克隆仓库并安装依赖",
+      "text": "从 README 给出的仓库地址 https://github.com/huangserva/wechat-radar 克隆代码并进入 wechat-radar 目录。依次执行 pnpm install 和 pnpm rebuild better-sqlite3。Quick Start 代码块第一行的克隆地址格式异常，请改用此处的 GitHub 地址。",
+      "code": "https://github.com/huangserva/wechat-radar\n\ngit clone git@github.com:huangserva/wechat-radar.git\ncd wechat-radar\npnpm install\npnpm rebuild better-sqlite3\ncp .env.example .env.local\n$EDITOR .env.local\npnpm dev",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/huangserva/wechat-radar/blob/f1f015051163f8c4b8778b19607db569d95e978e/README.md?plain=1#L1"
+      }
+    },
+    {
+      "title": "复制并编辑 .env.local",
+      "text": "执行 cp .env.example .env.local。填写以下几组配置：数据路径（WECHAT_RADAR_WECHAT_ASSISTANT_DIR、WECHAT_RADAR_COLLECTOR_DB、WECHAT_RADAR_DECRYPTED_DIR 等）、身份（WECHAT_RADAR_SELF_WXID、WECHAT_RADAR_MY_NAMES）、数据源 WECHAT_RADAR_DATA_SOURCE=db，以及需要时的 LAB 提供方配置。",
+      "code": "cp .env.example .env.local",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/huangserva/wechat-radar/blob/f1f015051163f8c4b8778b19607db569d95e978e/README.md?plain=1#L91"
+      }
+    },
+    {
+      "title": "同步数据并建立全文索引",
+      "text": "运行 scripts/sync-collector.ts，把 Hermes collector.db 同步到 ~/.wechat-radar/radar.db。再按需运行 run-topics-links.ts 提取话题与链接，运行 migrate-fts5.ts 创建或修复 FTS5 全文索引。",
+      "code": "pnpm exec tsx scripts/sync-collector.ts\npnpm exec tsx scripts/run-topics-links.ts\npnpm exec tsx scripts/migrate-fts5.ts\n\nHermes wechat-assistant\n  collector.db + decrypted/session/contact/message DBs\n    -> scripts/sync-collector.ts\n      -> ~/.wechat-radar/radar.db\n        -> Next.js API routes and cockpit panels\n\nHermes assistant.db / JSON artifacts\n  digests, todos, knowledge, topics, profile, user_state\n    -> read-only source adapters\n      -> knowledge, insights, commitments, people, profile, steward panels",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/huangserva/wechat-radar/blob/f1f015051163f8c4b8778b19607db569d95e978e/README.md?plain=1#L112"
+      }
+    },
+    {
+      "title": "启动看板并完成首次设置",
+      "text": "执行 pnpm dev，在浏览器打开 http://localhost:3000。首次使用可访问 /setup 完成设置，之后从 / 首页以及 /topics、/links、/commitments、/people、/knowledge 等面板查看数据。",
+      "code": "http://localhost:3000\n\npnpm dev\npnpm build\npnpm start\npnpm test\npnpm db:backup\npnpm demo:seed",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/huangserva/wechat-radar/blob/f1f015051163f8c4b8778b19607db569d95e978e/README.md?plain=1#L71"
+      }
+    },
+    {
+      "title": "按需在 /lab 中进行对话分析",
+      "text": "/lab 提供家庭、伴侣、职场、社交、亲子五种模式，支持自定义维度、历史回放和证据跳转。发送所选消息到 LLM 前需要明确同意，个人画像上下文也需要单独开启。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/huangserva/wechat-radar/blob/f1f015051163f8c4b8778b19607db569d95e978e/README.md?plain=1#L35"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "处理的是私人微信聊天数据：不要上传聊天数据库、API Key 或含个人信息的截图；.env.local、SQLite 数据库、日志、截图和导出文件已被 gitignore，不要强行提交。",
+    "LLM 分析属于数据外发，会把选中消息发送给第三方提供方，调用费用由提供方决定。",
+    "scripts/seed_demo.cjs（pnpm demo:seed）会写入演示数据，不要对真实数据目录运行。",
+    "本项目依赖 Hermes wechat-assistant 的解密输出，README 未说明如何获取这些数据。",
+    "这是作者自用的本地工具，不是托管服务；在真实数据上运行前，应先检查 .env.example、隐私边界和本地数据路径。",
+    "个人画像面板是基于本人消息的定性描述，不是客观评分。"
+  ],
+  "references": [],
+  "media": [],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "aa8cd864df37c03e45b38d27a8b61a7708b6593b124d8e932f81fa91c3d0f9fc",
+  "mediaStatus": "none_in_official_documents"
+}

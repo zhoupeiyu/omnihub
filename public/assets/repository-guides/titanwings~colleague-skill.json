@@ -1,0 +1,68 @@
+{
+  "schemaVersion": 1,
+  "key": "titanwings/colleague-skill",
+  "status": "ready",
+  "reason": "",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/titanwings/distilly/blob/b830d3dcbde006370f141155795b89021e3a947b/README.md",
+  "sourceRevision": "b830d3dcbde006370f141155795b89021e3a947b",
+  "canonicalKey": "titanwings/distilly",
+  "summary": "Distilly（原 Colleague Skill）把聊天、文档、访谈或公开资料中的经验、判断和表达方式整理成 Person Profile，并封装为 Agent Skill 供 Agent 调用。",
+  "intro": "适合想保留同事、导师的工作方法和上下文，或想基于公开资料整理名人思维方式的 Agent 用户。它提供 colleague、relationship、celebrity 三类流程，每类有不同的材料收集策略、分析维度和 Profile 结构。生成结果是基于材料的 Person Profile，文档说明它不声称复制真人。",
+  "requirements": "需要一个文档列出的本地 Agent 宿主：Claude Code、Hermes、OpenClaw、Codex、DeepSeek Harness、Pi、Grok Build 或 OpenCode。README 徽章标注 Python 3.9+。还需准备与目标人物相关的材料，例如消息记录、文档、邮件、PDF、截图或直接粘贴的文字。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "让宿主 Agent 安装 Distilly",
+      "text": "打开任一受支持的本地 Agent 宿主，按 README 的 For Agents 方式发送请求：从 https://github.com/titanwings/distilly 安装 Distilly，并确认当前宿主能发现它。Agent 会把它安装为名为 distilly 的 Skill。各宿主路径、Windows 和凭据设置见仓库内的 INSTALL_EN.md。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/titanwings/distilly/blob/b830d3dcbde006370f141155795b89021e3a947b/README.md?plain=1#L155"
+      }
+    },
+    {
+      "title": "按人物类型准备原始材料",
+      "text": "按目标人物准备材料，材料质量直接决定 Profile 质量。colleague 优先选本人长文，例如设计文档、评审意见；relationship 优先选完整聊天记录；celebrity 优先选第一手书籍、博客和长访谈。可用来源包括 Lark、DingTalk、Slack、微信导出、PDF、图片、邮件 .eml/.mbox 和 Markdown。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/titanwings/distilly/blob/b830d3dcbde006370f141155795b89021e3a947b/README.md?plain=1#L137"
+      }
+    },
+    {
+      "title": "在 Agent 中发起创建请求",
+      "text": "在 Agent 中输入：用 Distilly 为 <人物> 创建一个 Person Profile。然后选择 colleague、relationship 或 celebrity，再提供描述或材料（所有字段都可跳过）。审核结果后，Distilly 会生成 Profile，并封装为名为 {character}-{slug} 的 Agent Skill。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/titanwings/distilly/blob/b830d3dcbde006370f141155795b89021e3a947b/docs/lang/README_ZH.md?plain=1#L174"
+      }
+    },
+    {
+      "title": "追加材料或对话纠正 Profile",
+      "text": "生成后可以继续追加文件。Distilly 会分析新增内容，合并到相关章节，不覆盖已有结论。也可以在对话中纠正，例如说明“TA 不会这样做，而会怎样”，纠正内容写入 Correction 层。每次更新会自动归档，可回滚到历史版本。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/titanwings/distilly/blob/b830d3dcbde006370f141155795b89021e3a947b/README.md?plain=1#L269"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "Slack 自动采集需要管理员安装 Bot，免费版只能获取 90 天内的数据；DingTalk API 不支持消息历史，只能通过浏览器方式获取。",
+    "公开 X 帖子研究通过按量计费的第三方服务 Xquik 获取，属于可选功能，可能产生费用。",
+    "微信聊天记录需先用 WeChatMsg 或 PyWxDump 导出；Lark 自动采集需要把 App 机器人加入相关群聊。",
+    "材料常涉及他人的聊天记录和私人信息，使用前应确认自己有权处理这些内容。",
+    "Grok Bot 只是 saved-Skill 预览流程，官方未说明可以直接导入本地 SKILL.md，直接从仓库安装尚未验证。",
+    "README 说明项目仍是 demo 版本；名人研究流程和高级工具需另看 INSTALL_EN.md。"
+  ],
+  "references": [
+    {
+      "label": "docs/lang/README_ZH.md",
+      "url": "https://github.com/titanwings/distilly/blob/b830d3dcbde006370f141155795b89021e3a947b/docs/lang/README_ZH.md"
+    }
+  ],
+  "media": [],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "a931a82a3d58ab46587514923e9573a09a8b96fa31da31e91ee88e1ed4c33338",
+  "mediaStatus": "none_in_official_documents"
+}

@@ -1,0 +1,70 @@
+{
+  "schemaVersion": 1,
+  "key": "joeseesun/qiaomu-ai-prd",
+  "status": "ready",
+  "reason": "",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/joeseesun/qiaomu-ai-prd/blob/dede5554ab5d2d70cf9417addec964d9a2b0f42a/README.md",
+  "sourceRevision": "dede5554ab5d2d70cf9417addec964d9a2b0f42a",
+  "canonicalKey": "joeseesun/qiaomu-ai-prd",
+  "summary": "一个 Agent Skill：把一句话产品想法整理成 AI 编程助手可以直接执行的完整 PRD。",
+  "intro": "适合独立开发者、产品经理，以及准备把需求交给 AI 编程助手实现的人。它根据一句话需求生成 PRD，内容包括 AI 速读卡、产品定位、布局与模块 ASCII 图、带注释的数据模型、技术架构、P0-P3 优先级、数字化性能指标和验收剧本。v0.2 新增“硬约束 / 推荐默认 / 发挥空间”分层，用来说明哪些地方 AI 不能偏离、哪些地方可以自由发挥。",
+  "requirements": "已安装 Node.js（能运行 node --version）；所用 agent 支持本地 skills 目录（通常是 ~/.agents/skills）；如需保存 PRD 文件，当前工作区需要可写。验证脚本需要 python3。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "确认 Node.js 与技能目录",
+      "text": "运行 node --version，确认 Node.js 已安装。再确认你使用的 agent 支持本地 skills 目录，README 写明通常是 ~/.agents/skills。如果打算把 PRD 保存成文件，当前工作区还需要有写权限。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/joeseesun/qiaomu-ai-prd/blob/dede5554ab5d2d70cf9417addec964d9a2b0f42a/README.md?plain=1#L98"
+      }
+    },
+    {
+      "title": "用 npx 安装 Skill",
+      "text": "在终端执行官方给出的一行安装命令，把 qiaomu-ai-prd 添加到本地 skills 目录。中英文 README 给出的安装命令相同。",
+      "code": "npx skills add joeseesun/qiaomu-ai-prd",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/joeseesun/qiaomu-ai-prd/blob/dede5554ab5d2d70cf9417addec964d9a2b0f42a/README.md?plain=1#L22"
+      }
+    },
+    {
+      "title": "检查安装是否成功",
+      "text": "执行 README 中的验证命令：先确认 ~/.agents/skills/qiaomu-ai-prd/SKILL.md 存在，再运行 lint_prd.py --help，检查自带的 PRD 检查脚本能否调用。",
+      "code": "test -f ~/.agents/skills/qiaomu-ai-prd/SKILL.md\npython3 ~/.agents/skills/qiaomu-ai-prd/scripts/lint_prd.py --help",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/joeseesun/qiaomu-ai-prd/blob/dede5554ab5d2d70cf9417addec964d9a2b0f42a/README.md?plain=1#L22"
+      }
+    },
+    {
+      "title": "点名 Skill 描述产品想法",
+      "text": "在 agent 中明确写出“用 qiaomu-ai-prd”，再加上一句产品想法。最好补充核心用户和平台，否则输出容易像套模板。可以附加 [深度模式]、[精简模式]、[前端视角]、[后端视角]、[移动优先] 等模式标记来调整侧重点。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/joeseesun/qiaomu-ai-prd/blob/dede5554ab5d2d70cf9417addec964d9a2b0f42a/README.md?plain=1#L35"
+      }
+    },
+    {
+      "title": "对照质量门槛检查 PRD",
+      "text": "拿到 PRD 后，对照 README 的质量门槛检查：是否包含 AI 速读卡和三层约束，性能指标是否为数字，是否有至少 3 条验收剧本。如果出现占位符，用 scripts/lint_prd.py 检查该文件并修复；如果 P0 范围过大，只保留能跑通核心循环的部分。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/joeseesun/qiaomu-ai-prd/blob/dede5554ab5d2d70cf9417addec964d9a2b0f42a/README.md?plain=1#L104"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "生成的技术选型包体积等信息不一定经过核实。README 建议无法核实时写“未知”，或联网查官方包信息后再更新。",
+    "如果低风险的实现细节被写成硬约束，会把 AI 限制得过死，需要手动改成“推荐默认”或“发挥空间”。",
+    "lint_prd.py 依赖 python3。"
+  ],
+  "references": [],
+  "media": [],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "51569520432c85f874966f92053d02eefc7ae757303309c9e55edbe7ad16daa3",
+  "mediaStatus": "none_in_official_documents"
+}

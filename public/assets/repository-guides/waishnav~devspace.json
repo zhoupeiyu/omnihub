@@ -1,0 +1,81 @@
+{
+  "schemaVersion": 1,
+  "key": "waishnav/devspace",
+  "status": "ready",
+  "reason": "",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/Waishnav/devspace/blob/531d3f973f09f7b6b4993c9ff58f80a4514b9ba2/README.md",
+  "sourceRevision": "531d3f973f09f7b6b4993c9ff58f80a4514b9ba2",
+  "canonicalKey": "Waishnav/devspace",
+  "summary": "DevSpace 是一个自托管的 MCP 服务器，让 ChatGPT 等 MCP 客户端读取、编辑、搜索并运行你本机选定项目中的代码。",
+  "intro": "适合想在 ChatGPT 里完成类似 Codex 编码工作流的开发者。你在本机运行 DevSpace，通过自己控制的隧道暴露 /mcp 端点，再用仅你持有的 Owner 密码批准连接。连接后 ChatGPT 可以打开允许的项目文件夹，查看代码、做限定范围的修改、运行测试或构建命令，也可以使用 Git worktree 并遵循 AGENTS.md、CLAUDE.md 中的项目说明。它也支持面向 Coding Agents 的安装方式。",
+  "requirements": "Node 版本需满足 >=22.19 <27；需要 npm、Git 和 Bash。支持 Linux、macOS，以及带 Git Bash、WSL、MSYS2 或 Cygwin Bash 的 Windows；仅有 PowerShell 或 cmd.exe 的 Windows 暂不支持。接入 ChatGPT 时，需要一个公网 HTTPS 地址，可来自 Cloudflare Tunnel、ngrok、Pinggy、Tailscale Funnel 或其他反向代理。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "全局安装 DevSpace CLI",
+      "text": "以 macOS 或 Linux 的 Bash 环境为例（Windows 请先装好 Git Bash 或 WSL），确认 Node 版本满足 >=22.19 <27 后，用 npm 全局安装 @waishnav/devspace。随后运行 devspace doctor，检查本机的 Node、Git、Bash 等环境是否就绪。",
+      "code": "npm install -g @waishnav/devspace\n\ndevspace doctor",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/Waishnav/devspace/blob/531d3f973f09f7b6b4993c9ff58f80a4514b9ba2/README.md?plain=1#L61"
+      }
+    },
+    {
+      "title": "运行 init 完成 ChatGPT 配置",
+      "text": "运行 devspace init，使用位置选择 ChatGPT，再选择允许作为子代理的 agents。接着指定 ChatGPT 可以打开的本地项目文件夹，并填写隧道的公网 HTTPS 源地址。这里填的地址不要带 /mcp。初始化完成后会打印 Owner 密码。",
+      "code": "devspace init\n\nhttps://your-tunnel-host.example.com",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/Waishnav/devspace/blob/531d3f973f09f7b6b4993c9ff58f80a4514b9ba2/README.md?plain=1#L61"
+      }
+    },
+    {
+      "title": "启动隧道和 devspace serve",
+      "text": "先启动你自己的隧道或反向代理，让它指向本机 DevSpace，默认本地端点为 http://127.0.0.1:7676/mcp。然后运行 devspace serve。使用 ChatGPT 时必须运行这个服务命令。",
+      "code": "http://127.0.0.1:7676/mcp",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/Waishnav/devspace/blob/531d3f973f09f7b6b4993c9ff58f80a4514b9ba2/README.md?plain=1#L117"
+      }
+    },
+    {
+      "title": "在客户端添加公网 /mcp 地址",
+      "text": "在 ChatGPT 或其他 MCP 客户端中添加连接器，地址填写公网域名加 /mcp 后缀。客户端连接时，DevSpace 会打开 Owner 密码批准页面。输入 devspace init 打印的密码即可完成授权，该密码也保存在 ~/.devspace/auth.json 中。",
+      "code": "https://your-tunnel-host.example.com/mcp\n\n~/.devspace/auth.json",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/Waishnav/devspace/blob/531d3f973f09f7b6b4993c9ff58f80a4514b9ba2/README.md?plain=1#L117"
+      }
+    },
+    {
+      "title": "让 ChatGPT 打开允许的项目",
+      "text": "连接批准后，让 ChatGPT 打开允许根目录中的某个项目作为工作区。之后它可以在工作区内读写文件、搜索代码、运行测试、构建和 git 命令，并展示改动内容。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/Waishnav/devspace/blob/531d3f973f09f7b6b4993c9ff58f80a4514b9ba2/README.md?plain=1#L139"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "已连接的客户端在打开的工作区内可以执行 shell 命令，应只允许必要的项目根目录，并把它当作可访问本机的可信协作者。",
+    "Owner 密码是批准连接的唯一凭据，存放在 ~/.devspace/auth.json，请勿泄露。",
+    "服务通过公网隧道暴露，隧道服务需要自行选择和维护。",
+    "账户合规由你的实际用法决定，不要把它用于违反模型服务商条款的用途。"
+  ],
+  "references": [],
+  "media": [
+    {
+      "url": "/assets/repository-guides/media-63b0c07a22318209e926d99f.webp",
+      "alt": "Waishnav/devspace 官方演示 1",
+      "sourceUrl": "https://github.com/Waishnav/devspace/blob/531d3f973f09f7b6b4993c9ff58f80a4514b9ba2/README.md?plain=1#L17",
+      "originalUrl": "https://raw.githubusercontent.com/Waishnav/devspace/main/docs/assets/devspace-screenshot.png"
+    }
+  ],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "65f15c8bbf21ac50d053ee0b5b9308469abe8a2c12dd7d6314cb83f8c23d92e0",
+  "mediaStatus": "archived",
+  "mediaFailures": []
+}

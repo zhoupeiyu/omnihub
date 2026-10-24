@@ -1,0 +1,67 @@
+{
+  "schemaVersion": 1,
+  "key": "elvisun/newsjack",
+  "status": "ready",
+  "reason": "",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/elvisun/newsjack/blob/85e5fc6c81fc387fde7f6df7eda4d303ce974c13/README.md",
+  "sourceRevision": "85e5fc6c81fc387fde7f6df7eda4d303ce974c13",
+  "canonicalKey": "elvisun/newsjack",
+  "summary": "Newsjack 是一组开源 PR 技能加一个小型 CLI，让 AI 代理能够完成新闻借势发现、PR 策略、稿件打磨、记者筛选和 AI 可见性分析等工作。",
+  "intro": "适合自己做 PR 的创始人、同时管理多个客户的 PR 代理机构，以及小公司的市场人员。技能分为四类：Detect（监控新闻、追踪报道）、Strategize（PR 策略、日历、新闻价值评估）、Act（选题角度、标题、稿件审阅、危机声明、事实核查、记者匹配）、AI visibility（AEO/GEO 提示词面板）。可以用 /angle-generator 这样的名称直接调用，也可以描述需求，由代理选择合适的技能。",
+  "requirements": "完整模式需要本地代理（Claude Code、Codex、Hermes 或 OpenClaw），并具备 shell 执行和文件存储能力。本指南采用 macOS/Linux 的 curl 安装方式。Medialyst 账号、X bearer token、Slack webhook 都是可选项；不配置也能使用基础功能。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "在 macOS/Linux 安装到本地代理",
+      "text": "在 macOS 或 Linux 终端执行一行安装命令（可以先查看仓库中的 install.sh）。CLI 会安装到 ~/.newsjack/bin，技能会装进检测到的代理运行时。curl 安装的版本每次运行前会从最新的 GitHub Release 自动更新。 原文包含需人工核查的高权限或删除命令，本站不提供一键复制；请查看该步骤的官方出处。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/elvisun/newsjack/blob/85e5fc6c81fc387fde7f6df7eda4d303ce974c13/README.md?plain=1#L147"
+      }
+    },
+    {
+      "title": "从一个具体目标开始调用技能",
+      "text": "首次使用时选择一个起点，比如用 pr-strategist 制定 PR 策略，用 newsworthiness-check 判断事件或选题是否有新闻价值，用 find-journalists 建立记者名单。可以用 /技能名 调用，也可以直接描述需求。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/elvisun/newsjack/blob/85e5fc6c81fc387fde7f6df7eda4d303ce974c13/README.md?plain=1#L23"
+      }
+    },
+    {
+      "title": "按需登录 Medialyst 解锁实时新闻",
+      "text": "如果需要实时新闻检索、PR 日历、记者信息补充，就运行 newsjack login，在浏览器中批准打印出来的 Medialyst 链接，凭据会保存到 ~/.newsjack/credentials.json。不登录时，新闻检索会改用宿主自带的网页搜索。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/elvisun/newsjack/blob/85e5fc6c81fc387fde7f6df7eda4d303ce974c13/docs/getting-started.md?plain=1#L129"
+      }
+    },
+    {
+      "title": "在本地代理中设置定期监控",
+      "text": "使用 newsjack-monitor-setup 建立监控档案，包括你的领域、竞品、发言人、信息源以及可选的 Slack 推送，然后由 newsjack-detector 寻找借势机会。如果要按关键词追踪报道，先运行 coverage-tracker-setup。这两个设置技能只能在本地代理中运行。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/elvisun/newsjack/blob/85e5fc6c81fc387fde7f6df7eda4d303ce974c13/README.md?plain=1#L30"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "官方文档中的高权限或远程脚本操作应单独核查，不要整段复制执行。",
+    "Medialyst 注册赠送 300 免费额度，媒体名单调研需在你明确批准后消耗额度；X API 按量付费，没有免费层。",
+    "在 Claude.ai、Cowork 等浏览器聊天环境中只能以 Limited Mode 运行，不保存状态，也不能定时监控；普通 ChatGPT 账号不支持 Skills，只能降级使用。",
+    "press-clip 通过 Playwright 驱动真实的 Chrome/Edge 浏览器，只能在本地代理中运行。",
+    "crisis-holding 自带法务把关环节，危机声明需要经过法律顾问确认。"
+  ],
+  "references": [
+    {
+      "label": "docs/getting-started.md",
+      "url": "https://github.com/elvisun/newsjack/blob/85e5fc6c81fc387fde7f6df7eda4d303ce974c13/docs/getting-started.md"
+    }
+  ],
+  "media": [],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "7d098b1c6458a2b36df01524dcb4d694a9cbcd63090f9850c31b44b7c5061b37",
+  "mediaStatus": "none_in_official_documents"
+}

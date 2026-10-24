@@ -1,0 +1,82 @@
+{
+  "schemaVersion": 1,
+  "key": "yikart/aitoearn",
+  "status": "ready",
+  "reason": "",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/yikart/AiToEarn/blob/3581f511293236044e56fad67958cfcea0def6b5/README.md",
+  "sourceRevision": "3581f511293236044e56fad67958cfcea0def6b5",
+  "canonicalKey": "yikart/AiToEarn",
+  "summary": "AiToEarn 是面向一人公司、创作者和品牌的 AI 内容营销智能体，提供内容创作、多平台发布、互动运营和内容变现任务。",
+  "intro": "适合需要在抖音、小红书、TikTok、YouTube 等多个平台统一创作、排期发布和互动运营内容的个人创作者、品牌与团队。README 列出 5 种使用方式：网站直接使用、OpenClaw（龙虾）插件、Claude/Cursor 等 MCP 客户端、Docker 私有化部署、源码开发。本指南选择面向团队的 Docker 部署路径。只想试用的用户可以直接访问 aitoearn.cn（中国）或 aitoearn.ai（国际），无需部署。",
+  "requirements": "已安装 Docker 并有可用服务器；已在 aitoearn.cn 或 aitoearn.ai 注册账号并创建 API Key（Docker、OpenClaw、MCP 方式都需要）；git。源码开发另需 Node.js 20.18.x 与 pnpm。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "在官网创建 API Key",
+      "text": "中国用户打开 aitoearn.cn，国际用户打开 aitoearn.ai，注册并登录后点击左侧菜单「设置」。在「API Key」中点击创建，复制生成的 Key。这个 Key 只需获取一次，后续 Relay 配置会用到。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/yikart/AiToEarn/blob/3581f511293236044e56fad67958cfcea0def6b5/README.md?plain=1#L142"
+      }
+    },
+    {
+      "title": "用 Docker Compose 启动服务",
+      "text": "在服务器上克隆仓库，进入 AiToEarn 目录后执行 docker compose up -d。README 说明这种方式不需要手动安装数据库。启动后在浏览器访问 http://localhost:8080 打开部署好的界面。",
+      "code": "git clone https://github.com/yikart/AiToEarn.git\ncd AiToEarn\ndocker compose up -d",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/yikart/AiToEarn/blob/3581f511293236044e56fad67958cfcea0def6b5/README.md?plain=1#L142"
+      }
+    },
+    {
+      "title": "在配置管理中设置 Relay",
+      "text": "进入「配置管理」页面。在 Server → Relay 中转中配置内容发布和社交平台 OAuth 授权，在 AI → Relay 中转中配置平台提供的 AI 模型。配置 Relay 后可借用 aitoearn.ai 的凭据完成授权，不必自己向各平台申请开发者账号。中国版 Key 搭配 https://aitoearn.cn/api，国际版 Key 搭配 https://aitoearn.ai/api。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/yikart/AiToEarn/blob/3581f511293236044e56fad67958cfcea0def6b5/README.md?plain=1#L287"
+      }
+    },
+    {
+      "title": "保存配置并重启相关服务",
+      "text": "填写完成后点击「保存并重启」，让对应服务重新加载配置。如果要直接使用 OpenAI、Gemini、Anthropic 等模型服务商，也可以在 AI → 模型服务商中填写 API Key 和 API 地址。生产环境、OAuth、存储等完整配置见仓库中的 DOCKER_DEPLOYMENT_CN.md。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/yikart/AiToEarn/blob/3581f511293236044e56fad67958cfcea0def6b5/README.md?plain=1#L287"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "环境与 API Key 必须匹配：中国版 Key 对应 aitoearn.cn，国际版 Key 对应 aitoearn.ai，不匹配会返回 401。",
+    "通过 Relay 完成社交平台 OAuth 授权时，借用的是官方 aitoearn.ai 的凭据，依赖官方服务可用。",
+    "Engage 功能通过浏览器插件自动点赞、收藏、关注和回复，使用前请自行确认符合各平台规则。",
+    "源码开发需要 Node.js 20.18.x，并需单独运行或指定 MongoDB/Redis。"
+  ],
+  "references": [],
+  "media": [
+    {
+      "url": "/assets/repository-guides/media-b8647a50972333e1d5a736a8.webp",
+      "alt": "yikart/AiToEarn 官方演示 1",
+      "sourceUrl": "https://github.com/yikart/AiToEarn/blob/3581f511293236044e56fad67958cfcea0def6b5/README.md?plain=1#L115",
+      "originalUrl": "https://raw.githubusercontent.com/yikart/AiToEarn/3581f511293236044e56fad67958cfcea0def6b5/presentation/publish-cn.png"
+    },
+    {
+      "url": "/assets/repository-guides/media-e404e609d4241cc32872bc86.webp",
+      "alt": "yikart/AiToEarn 官方演示 2",
+      "sourceUrl": "https://github.com/yikart/AiToEarn/blob/3581f511293236044e56fad67958cfcea0def6b5/README.md?plain=1#L115",
+      "originalUrl": "https://raw.githubusercontent.com/yikart/AiToEarn/3581f511293236044e56fad67958cfcea0def6b5/presentation/channel-cn.png"
+    },
+    {
+      "url": "/assets/repository-guides/media-c95957616e9c422f00ccab24.webp",
+      "alt": "获取 API Key",
+      "sourceUrl": "https://github.com/yikart/AiToEarn/blob/3581f511293236044e56fad67958cfcea0def6b5/README.md?plain=1#L179",
+      "originalUrl": "https://raw.githubusercontent.com/yikart/AiToEarn/3581f511293236044e56fad67958cfcea0def6b5/presentation/app-screenshot/0.%20api-key/api-key-settings.png"
+    }
+  ],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "57f39ba4383a392e8225e49b7f0e526c560b6219dedddeebe85220a6dae72dc1",
+  "mediaStatus": "archived",
+  "mediaFailures": []
+}

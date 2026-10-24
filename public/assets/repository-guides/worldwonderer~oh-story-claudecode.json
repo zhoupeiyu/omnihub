@@ -1,0 +1,91 @@
+{
+  "schemaVersion": 1,
+  "key": "worldwonderer/oh-story-claudecode",
+  "status": "ready",
+  "reason": "",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/zenstory-ai/oh-story-claudecode/blob/4a50d5583590eb7f207037e35136c1168bc02201/README.md",
+  "sourceRevision": "4a50d5583590eb7f207037e35136c1168bc02201",
+  "canonicalKey": "zenstory-ai/oh-story-claudecode",
+  "summary": "Oh Story 是装进编程 Agent 的 13 个中文网文写作 skill，覆盖扫榜、拆文、大纲与正文写作、去 AI 味、审稿和封面生成。",
+  "intro": "适合在 Claude Code、Codex CLI、OpenCode、Google Antigravity 等编程 Agent 里写长篇或短篇网文的作者，面向起点、番茄、晋江、七猫、知乎盐言等平台。它用文件系统分别维护设定、大纲、正文和追踪状态，写正文前要求有细纲，写完会扫描截断、工程词和常见 AI 句式。已有书稿可以先反向导入为项目结构再续写。",
+  "requirements": "需要一款已在使用的受支持编程 Agent，写作使用该 Agent 自带的模型，不需要 GPU。下文以 npx skills 安装路径为例，需要能运行 npx。本地检查脚本依赖 Node / Python。Antigravity、ZCode 的 hook 依赖 PATH 中的 node。OpenCode 需要 2.x 版本。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "用 npx skills 全局安装",
+      "text": "运行下方命令，把 13 个 skill 全局安装，所有目录都可使用；去掉 -g 则只装到当前目录。以后更新时重新执行同一条命令即可。Windows 上出现 ENOENT ... mkdir 报错时，说明有 skill 没装全，重跑同一条命令即可修复。",
+      "code": "npx skills add zenstory-ai/oh-story-claudecode -y -g",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/zenstory-ai/oh-story-claudecode/blob/4a50d5583590eb7f207037e35136c1168bc02201/README.md?plain=1#L50"
+      }
+    },
+    {
+      "title": "在写作项目根运行环境部署",
+      "text": "进入写作项目根目录，运行 /story-setup（Codex 用 $story-setup），部署 hooks、agents 和 references，然后新开会话，7 个专业 Agent 才会生效。每次升级版本后，同样需要重跑 /story-setup 并新开会话。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/zenstory-ai/oh-story-claudecode/blob/4a50d5583590eb7f207037e35136c1168bc02201/README.md?plain=1#L50"
+      }
+    },
+    {
+      "title": "按长篇或短篇选择写作入口",
+      "text": "长篇的流程是 /story-long-scan 扫榜、/story-long-analyze 拆文、/story-long-write 写大纲和正文。短篇对应 /story-short-scan、/story-short-analyze、/story-short-write。拿不准该用哪个时，输入 /story 再加一句话描述需求，由它分发到合适的 skill。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/zenstory-ai/oh-story-claudecode/blob/4a50d5583590eb7f207037e35136c1168bc02201/README.md?plain=1#L274"
+      }
+    },
+    {
+      "title": "导入已有书稿后再续写",
+      "text": "已经写了一部分的小说，先完成 /story-setup 并新开会话，再运行 /story-import，把已有书稿反向解析成标准项目结构。审阅反推出的设定和事实后，用 /story-long-write 写第N章 或 /story-long-write 日更 继续写作。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/zenstory-ai/oh-story-claudecode/blob/4a50d5583590eb7f207037e35136c1168bc02201/README.md?plain=1#L363"
+      }
+    },
+    {
+      "title": "写完后去 AI 味并检查环境",
+      "text": "正文完成后运行 /story-deslop，它会逐条匹配已知句式，给出行号、命中片段和改写方向。如果环境异常，可以对 Agent 说「用 story-setup 检查写作环境」；这项检查只给出处理建议，不会改动项目。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/zenstory-ai/oh-story-claudecode/blob/4a50d5583590eb7f207037e35136c1168bc02201/README.md?plain=1#L179"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "story-cover 封面生成会调用 GPT-Image-2，使用 Codex 内置用量或回退到 API，可能产生费用。",
+    "story-deslop 是写作 lint，目标是改善读感，不是绕过朱雀等 AI 检测器，外部检测结果只作参考。",
+    "Codex 在 Windows 上需要为 git 开启 core.symlinks；部署后必须在 /hooks 中信任 hooks，否则大纲守卫等 hooks 会被静默跳过。",
+    "OpenCode 1.x 无法加载写正文守卫插件；OpenClaw、Reasonix、通用路径不部署 hooks 和 custom agents，大纲守卫只是 skill 内的软约束。",
+    "追踪派生文件由 _tracking-state.json 重新渲染，手动修改会被 check 拒绝。",
+    "browser-cdp 会复用浏览器登录态抓取数据，使用前请确认所涉账号和数据的使用范围。"
+  ],
+  "references": [
+    {
+      "label": "docs/hosts.md",
+      "url": "https://github.com/zenstory-ai/oh-story-claudecode/blob/4a50d5583590eb7f207037e35136c1168bc02201/docs/hosts.md"
+    }
+  ],
+  "media": [
+    {
+      "url": "/assets/repository-guides/media-19e3719094b500f338bae8ec.webp",
+      "alt": "zenstory-ai/oh-story-claudecode 官方演示 1",
+      "sourceUrl": "https://github.com/zenstory-ai/oh-story-claudecode/blob/4a50d5583590eb7f207037e35136c1168bc02201/README.md?plain=1#L204",
+      "originalUrl": "https://raw.githubusercontent.com/zenstory-ai/oh-story-claudecode/4a50d5583590eb7f207037e35136c1168bc02201/demo/story-dashboard.png"
+    },
+    {
+      "url": "/assets/repository-guides/media-615bfd526a21ae0bb0c06ec3.webp",
+      "alt": "zenstory-ai/oh-story-claudecode 官方演示 2",
+      "sourceUrl": "https://github.com/zenstory-ai/oh-story-claudecode/blob/4a50d5583590eb7f207037e35136c1168bc02201/README.md?plain=1#L204",
+      "originalUrl": "https://raw.githubusercontent.com/zenstory-ai/oh-story-claudecode/4a50d5583590eb7f207037e35136c1168bc02201/demo/%E5%B0%81%E9%9D%A2-%E5%89%91%E9%81%93%E7%8B%AC%E5%B0%8A.png"
+    }
+  ],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "ae4a7d0a988c0e58c5d7f07478af318f5159ed2ecf8495e4e41dd070a99d0fbe",
+  "mediaStatus": "archived",
+  "mediaFailures": []
+}

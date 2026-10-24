@@ -1,0 +1,84 @@
+{
+  "schemaVersion": 1,
+  "key": "omdsh-dev/dsh-better-sidebar",
+  "status": "ready",
+  "reason": "",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/omdsh-dev/DSH-better-sidebar/blob/492661a3ea304ad151611de70e7412494be234da/README.md",
+  "sourceRevision": "492661a3ea304ad151611de70e7412494be234da",
+  "canonicalKey": "omdsh-dev/DSH-better-sidebar",
+  "summary": "dsh-better-sidebar 是一个 DSH 插件，在右侧栏和底部提供工作台，包括可编辑的代码编辑器、增强文件树、Git 文件变动、任务管理和侧边对话，并通过 ctx.betterSidebar 让其他插件注册新的页面。",
+  "intro": "适合已经在用 DSH（dsh web）的开发者。它补足官方侧边栏缺少的能力：用 CodeMirror 编辑和保存文件，渲染 Markdown 和 Mermaid，在 Git 视角下暂存、提交并查看 diff，查看子代理拓扑和后台任务，以及使用底部工作台。插件开发者可以通过 registerTab / registerFileViewer 扩展新的页面和文件预览器。",
+  "requirements": "已安装 DSH 且 dsh web 能正常运行；Node.js ≥ 20、pnpm ≥ 10。插件版本需要和 DSH 版本对应：当前 v0.24.1 要求 DSH 0.2.0-rc.1+，DSH 0.1.7 线需要固定使用 dsh-better-sidebar@0.22.1。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "确认 DSH 版本并选插件版本",
+      "text": "先确认本机 DSH 的版本，再对照 README 的版本表选择插件版本。DSH 0.2.0-rc.1+ 使用 @latest，0.1.7 线固定 @0.22.1，更旧的版本也写精确版本号。caret 范围跨 minor 版本不成立，装错版本会被启动预检静默禁用。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/omdsh-dev/DSH-better-sidebar/blob/492661a3ea304ad151611de70e7412494be234da/README.md?plain=1#L1"
+      }
+    },
+    {
+      "title": "用 dsh plugin 命令安装",
+      "text": "以 DSH 0.2.0-rc.1+ 为例，执行 dsh plugin add 安装 dsh-better-sidebar@latest。命令里的 web 要换成你自己的 profile 名。本版不依赖需要构建脚本的包，安装一步完成。",
+      "code": "dsh plugin --profile web add dsh-better-sidebar@latest",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/omdsh-dev/DSH-better-sidebar/blob/492661a3ea304ad151611de70e7412494be234da/README.md?plain=1#L60"
+      }
+    },
+    {
+      "title": "硬刷新浏览器加载侧边栏",
+      "text": "安装完成后，在 DSH 网页中按 Cmd/Ctrl+Shift+R 硬刷新，即可看到侧边栏。client 改动会热加载，不需要重启 DSH；只有 host 部分更新时才需要重启。之后可以在 DSH 自带的 Plugins 页面直接启用或停用插件。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/omdsh-dev/DSH-better-sidebar/blob/492661a3ea304ad151611de70e7412494be234da/README.md?plain=1#L60"
+      }
+    },
+    {
+      "title": "按常见问题表排查安装报错",
+      "text": "遇到 Ignored build scripts 时，在 profile 目录运行 pnpm approve-builds；提示找不到 profile 时，先运行一次 dsh web；页面出现两个侧边栏时，删除 cordis.patch.yml 中旧的手动挂载行。升级时重新运行同一条 add 命令，然后硬刷新。",
+      "code": "dsh plugin --profile web add dsh-better-sidebar@latest",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/omdsh-dev/DSH-better-sidebar/blob/492661a3ea304ad151611de70e7412494be234da/README.md?plain=1#L60"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "v0.23.0 起删除了工作区路径检测，插件的 fs 路由可以读写宿主用户能访问的任意路径，只受操作系统权限约束。",
+    "严格按 DSH 版本选择插件版本，旧版本一律写精确版本号；不要在 0.1.7 alpha 上安装 0.19.1。",
+    "终端、图片/PDF/Office 预览和网页 tab 由 DSH 自身提供，不属于本插件能力；网页 tab 在 0.1.7 起只在 desktop profile 挂载。",
+    "侧边对话为 beta 功能。",
+    "MIT 许可证。"
+  ],
+  "references": [],
+  "media": [
+    {
+      "url": "/assets/repository-guides/media-edc34e2b3269e9c2391aee5f.webp",
+      "alt": "dsh-better-sidebar 工作台截图",
+      "sourceUrl": "https://github.com/omdsh-dev/DSH-better-sidebar/blob/492661a3ea304ad151611de70e7412494be234da/README.md?plain=1#L29",
+      "originalUrl": "https://github.com/user-attachments/assets/991c4b70-d45a-461f-a8c8-0a28b4218e60"
+    },
+    {
+      "url": "/assets/repository-guides/media-5ea6ad97e1527d973113ec9c.webp",
+      "alt": "文件资源管理器",
+      "sourceUrl": "https://github.com/omdsh-dev/DSH-better-sidebar/blob/492661a3ea304ad151611de70e7412494be234da/README.md?plain=1#L175",
+      "originalUrl": "https://github.com/user-attachments/assets/a410bfd2-a8ba-43e6-873e-22417756e94d"
+    },
+    {
+      "url": "/assets/repository-guides/media-37e229e00c8ad5ed8803e65d.webp",
+      "alt": "文件变动",
+      "sourceUrl": "https://github.com/omdsh-dev/DSH-better-sidebar/blob/492661a3ea304ad151611de70e7412494be234da/README.md?plain=1#L177",
+      "originalUrl": "https://github.com/user-attachments/assets/e7fc1220-305f-4bca-8583-e77ab4f4fa78"
+    }
+  ],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "90b0e1e3fb1da7547941cb896d417ec423db202153713cadbe62a95497666160",
+  "mediaStatus": "archived",
+  "mediaFailures": []
+}

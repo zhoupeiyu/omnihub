@@ -1,0 +1,68 @@
+{
+  "schemaVersion": 1,
+  "key": "ryoppippi/ccusage",
+  "status": "ready",
+  "reason": "",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/ccusage/ccusage/blob/f4cf1e97224a41cee56162573f3cea5e7ca6dd43/README.md",
+  "sourceRevision": "f4cf1e97224a41cee56162573f3cea5e7ca6dd43",
+  "canonicalKey": "ccusage/ccusage",
+  "summary": "ccusage 是命令行工具，读取本地编码代理 CLI 的使用记录，按日、周、月或会话统计 token 用量和费用。",
+  "intro": "适合使用 Claude Code、Codex、OpenCode、Gemini CLI、GitHub Copilot CLI 等编码代理 CLI 的开发者。它从本地数据生成彩色表格或 JSON 报告，可以查看每天、每月、每个会话的 token 与 USD 费用，也可以看 Claude 的 5 小时计费窗口和按模型拆分的费用，并支持把多个工具的用量汇总到一份报告里。",
+  "requirements": "官方入门路径使用 npm 自带的 npx，需要本机有 Node.js/npm 环境。本机上还要有已支持的编码代理 CLI 留下的本地使用记录。离线模式会使用预先缓存的价格数据。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "用 npx 直接运行 ccusage",
+      "text": "本指南采用 npm 路径。在终端执行 npx ccusage@latest，无需全局安装。默认会按天汇总所有检测到的数据源，并显示用量报告。如果使用 Nix、bunx 或 pnpm，请改看 Package Runners 一节里对应的写法，不要和 npx 混用。",
+      "code": "npx ccusage@latest",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/ccusage/ccusage/blob/f4cf1e97224a41cee56162573f3cea5e7ca6dd43/README.md?plain=1#L54"
+      }
+    },
+    {
+      "title": "选择报告的时间维度",
+      "text": "在命令后接 daily、weekly、monthly 或 session，可分别按日、周、月或会话汇总全部检测到的数据源。使用 Claude Code 时，还可以用 blocks 查看 5 小时计费窗口。statusline 子命令用于 Claude Code 状态栏 hook，目前为 Beta。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/ccusage/ccusage/blob/f4cf1e97224a41cee56162573f3cea5e7ca6dd43/README.md?plain=1#L60"
+      }
+    },
+    {
+      "title": "只看某一个 CLI 的用量",
+      "text": "在报告类型前加数据源名称，可以只统计单个工具，例如 ccusage claude daily、ccusage codex daily、ccusage gemini daily。完整的数据源列表和对应命令见 Supported Sources 表格。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/ccusage/ccusage/blob/f4cf1e97224a41cee56162573f3cea5e7ca6dd43/README.md?plain=1#L60"
+      }
+    },
+    {
+      "title": "按需添加过滤和输出参数",
+      "text": "--since 和 --until 用于限定日期范围；--last 1 跳到今天、本周或本月；--breakdown 按模型拆分费用；--json 输出结构化数据；--no-cost 隐藏费用列；--timezone 设置分组时区；--offline 使用缓存的价格数据；--compact 强制使用紧凑表格。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/ccusage/ccusage/blob/f4cf1e97224a41cee56162573f3cea5e7ca6dd43/README.md?plain=1#L168"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "费用以 USD 显示，按价格数据计算得出；--offline 模式使用预先缓存的价格，可能和最新价格不一致。可以在 ccusage.json 中按模型名覆盖价格。",
+    "statusline 状态栏集成目前标注为 Beta。",
+    "仓库元数据中的许可证为 NOASSERTION，README 中写的是 MIT，使用前请自行核对 LICENSE 文件。",
+    "README 中的赞助内容属于第三方推广，不是本工具的功能。"
+  ],
+  "references": [],
+  "media": [],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "71d127c0fc785511a3d686ec77eb7fb944e80b79385cfd26bf77a32944941cf6",
+  "mediaStatus": "unavailable",
+  "mediaFailures": [
+    {
+      "sourceUrl": "https://github.com/ccusage/ccusage/blob/f4cf1e97224a41cee56162573f3cea5e7ca6dd43/README.md#L21",
+      "reason": "unsupported_media_host"
+    }
+  ]
+}

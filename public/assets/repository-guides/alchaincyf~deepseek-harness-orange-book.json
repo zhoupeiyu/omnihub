@@ -1,0 +1,74 @@
+{
+  "schemaVersion": 1,
+  "key": "alchaincyf/deepseek-harness-orange-book",
+  "status": "ready",
+  "reason": "",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/alchaincyf/deepseek-harness-orange-book/blob/6242955ec87f37479cc0c9164e163692f9ea7ab0/README.md",
+  "sourceRevision": "6242955ec87f37479cc0c9164e163692f9ea7ab0",
+  "canonicalKey": "alchaincyf/deepseek-harness-orange-book",
+  "summary": "一本关于 DeepSeek Harness agent 框架的中文实测电子书，提供 PDF、EPUB、HTML 版本和配套幻灯片，内容包括系统提示词、启动清单和会话日志。",
+  "intro": "这是资料型仓库，不是可运行的软件。适合用过 Claude Code、Codex、OpenClaw 等工具、想了解或评估迁移到 DeepSeek Harness 的读者，也适合想看一手日志、被否决方案和事故复盘的工程师。全书分为序章、进门、主线、地基、收束五部分，附录含数字基准表、术语对照、命令速查和迁移总表。",
+  "requirements": "能阅读 PDF、EPUB 或 HTML 文件的设备；查看幻灯片需要能打开 PPTX 的软件。全书目前只有中文版。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "选择格式下载全书",
+      "text": "在 README 的下载表中选择格式：PDF（13MB）、针对微信读书优化的 EPUB（5.4MB），或图片已内联的单文件 HTML（4.9MB）。README 提示 GitHub 在线预览 PDF 可能显示不完整，建议下载后再读。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/alchaincyf/deepseek-harness-orange-book/blob/6242955ec87f37479cc0c9164e163692f9ea7ab0/README.md?plain=1#L50"
+      }
+    },
+    {
+      "title": "按需求定位到对应部分",
+      "text": "参照“本书结构”表查找章节：想快速上手、了解权限和四种模式、或从 Claude Code 迁移，看 Part 1；关心运行记录、成本和 PTC，看 Part 2；想弄清 skill、MCP、插件之间的关系，看 Part 3。附录提供命令速查和迁移总表。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/alchaincyf/deepseek-harness-orange-book/blob/6242955ec87f37479cc0c9164e163692f9ea7ab0/README.md?plain=1#L72"
+      }
+    },
+    {
+      "title": "先看 20 页幻灯片浓缩版",
+      "text": "如果不打算通读全书，可以下载 DeepSeek-Harness-Orange-Book-Magazine-Deck.pptx（20 页，11MB）。它按一页一个结论的方式浓缩了五个章节、成本账单、事件流、PTC、创造模式和架构拆解，适合快速浏览或拿去做分享。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/alchaincyf/deepseek-harness-orange-book/blob/6242955ec87f37479cc0c9164e163692f9ea7ab0/README.md?plain=1#L38"
+      }
+    },
+    {
+      "title": "在 WorkBuddy 上分章在线阅读",
+      "text": "本书已同步到 WorkBuddy 资料库，每章对应一个网页，README 给出了链接。也可以把章节链接直接交给自己的 agent 作为上下文使用。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/alchaincyf/deepseek-harness-orange-book/blob/6242955ec87f37479cc0c9164e163692f9ea7ab0/README.md?plain=1#L138"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "README 标注的协议是 CC BY-NC-SA 4.0：允许署名转载和改编，但不得商用，改编作品需以相同协议发布。",
+    "全书写于 Harness 发布后 24 小时内。书中的系统提示词、日志和启动清单可能随版本变化，复现时以本机输出为准。",
+    "书中内容是作者个人的实测记录，并非 DeepSeek 官方文档。"
+  ],
+  "references": [],
+  "media": [
+    {
+      "url": "/assets/repository-guides/media-c7f8c5b1a79be4afe6ba7fb4.webp",
+      "alt": "60秒能力演示预览：开机 · PTC · 创造模式 · 拆开",
+      "sourceUrl": "https://github.com/alchaincyf/deepseek-harness-orange-book/blob/6242955ec87f37479cc0c9164e163692f9ea7ab0/README.md?plain=1#L31",
+      "originalUrl": "https://raw.githubusercontent.com/alchaincyf/deepseek-harness-orange-book/6242955ec87f37479cc0c9164e163692f9ea7ab0/launch-film-60s-preview.jpg"
+    },
+    {
+      "url": "/assets/repository-guides/media-a688a362716fdfff27ac56cb.webp",
+      "alt": "杂志编辑风幻灯片预览：封面 · 事件流 · 创造模式 · 结论",
+      "sourceUrl": "https://github.com/alchaincyf/deepseek-harness-orange-book/blob/6242955ec87f37479cc0c9164e163692f9ea7ab0/README.md?plain=1#L43",
+      "originalUrl": "https://raw.githubusercontent.com/alchaincyf/deepseek-harness-orange-book/6242955ec87f37479cc0c9164e163692f9ea7ab0/magazine-deck-preview.jpg"
+    }
+  ],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "efe821f49f1472022e9b9105ea296a0815f80d703860045102db28e5d29826f0",
+  "mediaStatus": "archived",
+  "mediaFailures": []
+}

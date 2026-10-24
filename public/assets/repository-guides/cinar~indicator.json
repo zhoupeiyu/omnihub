@@ -1,0 +1,64 @@
+{
+  "schemaVersion": 1,
+  "key": "cinar/indicator",
+  "status": "ready",
+  "reason": "",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/cinar/indicator/blob/18a0b934a565dc5cbfcf5966f599882be80f6d40/README.md",
+  "sourceRevision": "18a0b934a565dc5cbfcf5966f599882be80f6d40",
+  "canonicalKey": "cinar/indicator",
+  "summary": "Indicator 是一个 Go 模块，提供 80 多种技术分析指标、示例策略和回测框架，可生成 HTML 回测报告。",
+  "intro": "适合用 Go 做量化研究或学习技术分析的开发者。它包含趋势、动量、波动率、成交量等指标，以及组合策略和装饰器策略示例，可用 Tiingo 或本地文件仓库的数据做历史回测，并计算 Sharpe、Sortino 等指标。v2 以 Go channel 处理数据流，也提供与 slice 互转的辅助函数。官方定位为教育和研究用途。",
+  "requirements": "走 Docker 入门路径需要 Docker 和一个 Tiingo API key（文档写明可免费获取）。作为 Go 库使用时，导入路径为 github.com/cinar/indicator/v2。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "获取 Tiingo API key",
+      "text": "官方的 Docker 镜像从 Tiingo 同步行情数据，再生成回测报告，所以先到 tiingo.com 获取 API key，在下一步的 --api-key 参数中使用。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/cinar/indicator/blob/18a0b934a565dc5cbfcf5966f599882be80f6d40/README.md?plain=1#L306"
+      }
+    },
+    {
+      "title": "用 Docker 镜像运行回测",
+      "text": "运行 ghcr.io/cinar/indicator:latest，并挂载本地 output 目录，传入 API key、--days、--assets 和 --strategies。策略不会默认运行，必须显式指定，例如 apo、macd、rsi。",
+      "code": "# Get your free Tiingo API key at: https://www.tiingo.com/\n\n# Run backtest for specific assets\ndocker run -it --rm \\\n  -v $(pwd)/output:/app/output \\\n  ghcr.io/cinar/indicator:latest \\\n  --api-key YOUR_TIINGO_API_KEY \\\n  --days 365 \\\n  --assets aapl msft googl \\\n  --strategies apo,macd,rsi\n\n# View results (macOS)\nopen output/index.html\n\n# View results (Linux)\nxdg-open output/index.html",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/cinar/indicator/blob/18a0b934a565dc5cbfcf5966f599882be80f6d40/README.md?plain=1#L306"
+      }
+    },
+    {
+      "title": "打开生成的 HTML 报告",
+      "text": "回测结束后打开 output/index.html 查看各策略与资产组合的报告：macOS 用 open，Linux 用 xdg-open。其他示例展示了 --last、自定义输出目录等用法。",
+      "code": "# Get your free Tiingo API key at: https://www.tiingo.com/\n\n# Run backtest for specific assets\ndocker run -it --rm \\\n  -v $(pwd)/output:/app/output \\\n  ghcr.io/cinar/indicator:latest \\\n  --api-key YOUR_TIINGO_API_KEY \\\n  --days 365 \\\n  --assets aapl msft googl \\\n  --strategies apo,macd,rsi\n\n# View results (macOS)\nopen output/index.html\n\n# View results (Linux)\nxdg-open output/index.html\n\n# Backtest all available assets for 1 year\ndocker run -it --rm \\\n  -v $(pwd)/reports:/app/output \\\n  ghcr.io/cinar/indicator:latest \\\n  --api-key YOUR_TIINGO_API_KEY \\\n  --strategies apo,macd,rsi\n\n# Backtest specific stocks for last 6 months, test last 30 days\ndocker run -it --rm \\\n  -v $(pwd)/reports:/app/output \\\n  ghcr.io/cinar/indicator:latest \\\n  --api-key YOUR_TIINGO_API_KEY \\\n  --days 180 \\\n  --last 30 \\\n  --assets aapl msft googl amzn \\\n  --strategies apo,macd,rsi\n\n# Custom output directory\ndocker run -it --rm \\\n  -v /path/to/my/reports:/app/output \\\n  ghcr.io/cinar/indicator:latest \\\n  --api-key YOUR_TIINGO_API_KEY \\\n  --strategies apo,macd,rsi \\\n  --output /app/output",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/cinar/indicator/blob/18a0b934a565dc5cbfcf5966f599882be80f6d40/README.md?plain=1#L352"
+      }
+    },
+    {
+      "title": "在 Go 代码中调用回测框架",
+      "text": "在自己的 Go 项目中导入 asset、backtest 和 examples/trend 等包，用 NewHTMLReport 和 NewBacktest 组合数据仓库与报告，追加资产名和策略后调用 Run。指标与策略的说明见各子目录的 README。",
+      "code": "import (\n\t\"github.com/cinar/indicator/v2/asset\"\n\t\"github.com/cinar/indicator/v2/backtest\"\n\t\"github.com/cinar/indicator/v2/examples/trend\"\n)\n\nreport := backtest.NewHTMLReport(outputDir)\nbt := backtest.NewBacktest(repository, report)\nbt.Names = append(bt.Names, \"brk-b\")\nbt.Strategies = append(bt.Strategies, trend.NewApoStrategy())\n\nerr = bt.Run()\nif err != nil {\n\tt.Fatal(err)\n}",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/cinar/indicator/blob/18a0b934a565dc5cbfcf5966f599882be80f6d40/README.md?plain=1#L236"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "许可证为 AGPL-3.0，集成到自己的产品或服务前，需要确认是否符合其开源义务。",
+    "项目仅用于教育和研究，不构成投资建议；回测是假设性结果，不代表实际交易表现。",
+    "Docker 路径依赖 Tiingo API key 和网络访问，key 不要写进公开的脚本或仓库。",
+    "v2 以 Go channel 作为输入输出，与 v1 用法不同；习惯使用 slice 时，需要借助 helper.SliceToChan 等函数转换。"
+  ],
+  "references": [],
+  "media": [],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "7b16e54a4dec3624f1a4bfbba085301e695b974ca83564d69669b10a6b78877a",
+  "mediaStatus": "none_in_official_documents"
+}

@@ -1,0 +1,94 @@
+{
+  "schemaVersion": 1,
+  "key": "yiliqi78/tokenicode",
+  "status": "ready",
+  "reason": "",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/yiliqi78/TOKENICODE/blob/7a0f195bd53ac25b9007209efb3af9f1e48a7722/README.md",
+  "sourceRevision": "7a0f195bd53ac25b9007209efb3af9f1e48a7722",
+  "canonicalKey": "yiliqi78/TOKENICODE",
+  "summary": "TOKENICODE 是 Claude Code CLI 的桌面图形客户端，可在图形界面中进行对话、管理会话与项目文件，并接入第三方 API。",
+  "intro": "适合想用图形界面使用 Claude Code、不想直接在终端操作的开发者。它提供流式对话、会话置顶/归档/导出、文件浏览与内置 CodeMirror 编辑器、code/ask/plan/bypass 四种权限模式、检查点回退、技能与 MCP 管理。它预置 DeepSeek、智谱 GLM、通义千问 Coder、Kimi k2、MiniMax 等服务商，并提供 Gitee 更新镜像，适合国内网络环境下的用户。",
+  "requirements": "需要 Claude Code CLI；如果尚未安装，应用首次启动时可以自动检测、安装并完成认证。macOS 提供 Apple Silicon 与 Intel 版本；Windows 需 Windows 10 或更高版本；Linux 需要 WebKit2GTK。使用第三方服务商时需自备对应的 API Key。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "在 macOS 下载并安装应用",
+      "text": "以 macOS 为例：从 GitHub Releases 下载最新的 .dmg 文件，打开后将 TOKENICODE 拖入“应用程序”文件夹。安装包同时提供 Apple Silicon（arm64）和 Intel（x86_64）版本，并已完成代码签名和公证。如果 GitHub 下载缓慢，可以改从 Gitee 镜像获取。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/yiliqi78/TOKENICODE/blob/7a0f195bd53ac25b9007209efb3af9f1e48a7722/README.md?plain=1#L44"
+      }
+    },
+    {
+      "title": "首次启动完成 CLI 安装与登录",
+      "text": "打开 TOKENICODE。如果系统中没有安装 Claude Code CLI，安装向导会引导你完成安装和登录，整个过程无需打开终端。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/yiliqi78/TOKENICODE/blob/7a0f195bd53ac25b9007209efb3af9f1e48a7722/README_zh.md?plain=1#L60"
+      }
+    },
+    {
+      "title": "选择项目文件夹并开始对话",
+      "text": "在欢迎界面或输入栏中选择项目文件夹，然后开始对话，Claude CLI 会话会在后台运行。可以用 Cmd+Enter 发送消息，用 Cmd+N 新建对话，用 Cmd+K 打开命令面板。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/yiliqi78/TOKENICODE/blob/7a0f195bd53ac25b9007209efb3af9f1e48a7722/README_zh.md?plain=1#L60"
+      }
+    },
+    {
+      "title": "按需配置第三方 API 服务商",
+      "text": "这一步可选。打开 设置 → API Provider，可以选择 6 个预设服务商之一，也可以添加 Anthropic 或 OpenAI 兼容格式的自定义接入点。支持一键导入 JSON 配置，并可做连接测试查看响应时间。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/yiliqi78/TOKENICODE/blob/7a0f195bd53ac25b9007209efb3af9f1e48a7722/README_zh.md?plain=1#L60"
+      }
+    },
+    {
+      "title": "切换权限模式并管理会话",
+      "text": "运行时可以在 code、ask、plan、bypass 四种模式之间切换，权限请求以审批卡片形式选择允许或拒绝。会话支持置顶、归档、搜索，并可导出为 Markdown 或 JSON；还可以通过对话时间线中的恢复按钮回退代码或对话。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/yiliqi78/TOKENICODE/blob/7a0f195bd53ac25b9007209efb3af9f1e48a7722/README_zh.md?plain=1#L88"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "TOKENICODE 依赖 Claude Code CLI 运行；使用 Anthropic 官方或第三方服务商 API 时，需要自备密钥，相关费用由对应服务商规定，文档未说明具体价格。",
+    "bypass 模式会跳过逐项权限审批，Claude 可能直接执行文件编辑或命令，建议在可回退的项目中谨慎使用。",
+    "通过第三方 API 接入点使用时，对话内容会发送给相应服务商，请自行评估数据合规要求。",
+    "文档仅说明 macOS 下会自动继承系统代理环境变量，未说明 Windows 和 Linux 的代理行为。"
+  ],
+  "references": [
+    {
+      "label": "README_zh.md",
+      "url": "https://github.com/yiliqi78/TOKENICODE/blob/7a0f195bd53ac25b9007209efb3af9f1e48a7722/README_zh.md"
+    }
+  ],
+  "media": [
+    {
+      "url": "/assets/repository-guides/media-66e377909bf121497504ade6.webp",
+      "alt": "yiliqi78/TOKENICODE 官方演示 1",
+      "sourceUrl": "https://github.com/yiliqi78/TOKENICODE/blob/7a0f195bd53ac25b9007209efb3af9f1e48a7722/README.md?plain=1#L34",
+      "originalUrl": "https://raw.githubusercontent.com/yiliqi78/TOKENICODE/7a0f195bd53ac25b9007209efb3af9f1e48a7722/screenshots/main-interface.png?v=2"
+    },
+    {
+      "url": "/assets/repository-guides/media-1d80a447ec4b87573758790b.webp",
+      "alt": "yiliqi78/TOKENICODE 官方演示 2",
+      "sourceUrl": "https://github.com/yiliqi78/TOKENICODE/blob/7a0f195bd53ac25b9007209efb3af9f1e48a7722/README.md?plain=1#L194",
+      "originalUrl": "https://raw.githubusercontent.com/yiliqi78/TOKENICODE/7a0f195bd53ac25b9007209efb3af9f1e48a7722/screenshots/streaming-chat.png?v=2"
+    },
+    {
+      "url": "/assets/repository-guides/media-037fa2c367dd11aecc8aeb50.webp",
+      "alt": "yiliqi78/TOKENICODE 官方演示 3",
+      "sourceUrl": "https://github.com/yiliqi78/TOKENICODE/blob/7a0f195bd53ac25b9007209efb3af9f1e48a7722/README.md?plain=1#L206",
+      "originalUrl": "https://raw.githubusercontent.com/yiliqi78/TOKENICODE/7a0f195bd53ac25b9007209efb3af9f1e48a7722/screenshots/plan-mode.png?v=2"
+    }
+  ],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "43a5120523088429a9942b710d9348d3957e1adaf740235f319a1ae3438e34d7",
+  "mediaStatus": "archived",
+  "mediaFailures": []
+}

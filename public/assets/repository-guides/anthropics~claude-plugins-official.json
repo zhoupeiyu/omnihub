@@ -1,0 +1,62 @@
+{
+  "schemaVersion": 1,
+  "key": "anthropics/claude-plugins-official",
+  "status": "ready",
+  "reason": "",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/anthropics/claude-plugins-official/blob/ab024cdcfa7ca80be204acd4907656ba5a968589/README.md",
+  "sourceRevision": "ab024cdcfa7ca80be204acd4907656ba5a968589",
+  "canonicalKey": "anthropics/claude-plugins-official",
+  "summary": "Anthropic 管理的 Claude Code 插件目录（marketplace），可在 Claude Code 中直接浏览和安装其中收录的插件。",
+  "intro": "适合使用 Claude Code、想扩展其命令、代理、技能或 MCP 能力的用户，以及希望把自己的插件提交到官方目录的开发者。仓库本身是插件目录：/plugins 收录 Anthropic 内部插件，/external_plugins 收录合作伙伴与社区的第三方插件，并给出插件结构与命名规范说明。",
+  "requirements": "需要可使用插件系统的 Claude Code。开发或提交插件时，需按仓库说明的标准结构组织插件，第三方插件还需通过提交表单审核。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "区分官方与第三方插件目录",
+      "text": "仓库分为两个目录：/plugins 存放 Anthropic 团队开发维护的内部插件，/external_plugins 存放合作伙伴和社区提交的第三方插件。挑选前先确认插件所在目录，并到该插件主页查看说明和 LICENSE 文件。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/anthropics/claude-plugins-official/blob/ab024cdcfa7ca80be204acd4907656ba5a968589/README.md?plain=1#L7"
+      }
+    },
+    {
+      "title": "在 Claude Code 中安装插件",
+      "text": "在 Claude Code 中运行 `/plugin install {plugin-name}@claude-plugins-official`，把 {plugin-name} 替换为目标插件名；也可以打开 `/plugin > Discover` 浏览并选择插件。安装、更新或使用前请先确认你信任该插件。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/anthropics/claude-plugins-official/blob/ab024cdcfa7ca80be204acd4907656ba5a968589/README.md?plain=1#L12"
+      }
+    },
+    {
+      "title": "参考示例插件了解结构",
+      "text": "如需开发插件，可参考 /plugins/example-plugin。每个插件包含必需的 .claude-plugin/plugin.json，以及可选的 .mcp.json、commands/、agents/、skills/ 和 README.md。更多开发说明见官方 plugins 文档。",
+      "code": "plugin-name/\n├── .claude-plugin/\n│   └── plugin.json      # Plugin metadata (required)\n├── .mcp.json            # MCP server configuration (optional)\n├── commands/            # Slash commands (optional)\n├── agents/              # Agent definitions (optional)\n├── skills/              # Skill definitions (optional)\n└── README.md            # Documentation",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/anthropics/claude-plugins-official/blob/ab024cdcfa7ca80be204acd4907656ba5a968589/README.md?plain=1#L22"
+      }
+    },
+    {
+      "title": "按规范提交与维护第三方插件",
+      "text": "第三方合作伙伴可通过 plugin directory submission form 提交插件，需满足质量和安全标准才能收录。已发布插件的 name 不可更改，改界面名称请用 displayName；确需改名时在 marketplace.json 的 renames 中登记以自动迁移。",
+      "code": "\"renames\": {\n  \"old-name\": \"new-name\"\n}",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/anthropics/claude-plugins-official/blob/ab024cdcfa7ca80be204acd4907656ba5a968589/README.md?plain=1#L26"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "Anthropic 不控制插件中包含的 MCP 服务器、文件或其他软件，也无法验证它们会按预期工作或不会变更，安装前需自行确认可信度。",
+    "各插件的许可证以其自身链接的 LICENSE 为准，不统一适用本仓库的 Apache-2.0。",
+    "已发布插件改动 name 字段会导致已安装用户出现 plugin-not-found 错误，需使用 renames 映射迁移。"
+  ],
+  "references": [],
+  "media": [],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "f34b8730d2b61617045c61ea2d9bf3ab08561305bfac77ea061e755bf46aeac2",
+  "mediaStatus": "none_in_official_documents"
+}

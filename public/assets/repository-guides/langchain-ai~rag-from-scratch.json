@@ -1,0 +1,43 @@
+{
+  "schemaVersion": 1,
+  "key": "langchain-ai/rag-from-scratch",
+  "status": "partial",
+  "reason": "README 只介绍了 RAG 背景，并说明 notebooks 与 YouTube 视频播放列表配套。没有列出各 notebook 的文件名和对应章节，也没有说明运行 notebook 所需的依赖安装、Python 版本或模型 API 密钥。",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/langchain-ai/rag-from-scratch/blob/1fdb7d0e4f1d3e731c8397332452715512f18667/README.md",
+  "sourceRevision": "1fdb7d0e4f1d3e731c8397332452715512f18667",
+  "canonicalKey": "langchain-ai/rag-from-scratch",
+  "summary": "一组配合 LangChain 视频课程的 notebooks，从索引、检索、生成开始逐步讲解 RAG。",
+  "intro": "适合想系统理解检索增强生成（RAG）的开发者和学习者。仓库属于教学资料：每个 notebook 对应视频播放列表中的一讲，从索引、检索、生成等基础概念开始逐步展开。",
+  "requirements": "能访问 YouTube 视频播放列表，并有可打开 notebook 的环境。运行所需的依赖和密钥，README 未说明。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "打开配套视频播放列表",
+      "text": "从 README 中的 Video playlist 链接进入 YouTube 播放列表，按顺序观看。课程从索引、检索、生成这些基础讲起。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/langchain-ai/rag-from-scratch/blob/1fdb7d0e4f1d3e731c8397332452715512f18667/README.md?plain=1#L1"
+      }
+    },
+    {
+      "title": "对照视频查阅仓库 notebooks",
+      "text": "在仓库中找到与当前视频对应的 notebook，边看边阅读代码。README 没有给出 notebook 与视频的对应表，需要自行根据文件名匹配。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/langchain-ai/rag-from-scratch/blob/1fdb7d0e4f1d3e731c8397332452715512f18667/README.md?plain=1#L1"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "README 没有说明运行 notebook 所需的依赖、Python 版本或 LLM/嵌入模型 API 密钥，实际运行前需要自行查看各 notebook。",
+    "仓库输入中没有提供许可证信息。"
+  ],
+  "references": [],
+  "media": [],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "0edbef94346f1feb5203d6397bf2ca5c867288a5df09459be499ead8e1765a30",
+  "mediaStatus": "none_in_official_documents"
+}

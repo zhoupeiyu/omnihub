@@ -1,0 +1,80 @@
+{
+  "schemaVersion": 1,
+  "key": "geeklee/srt-whiteboard-animation",
+  "status": "ready",
+  "reason": "",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/geeklee/srt-whiteboard-animation/blob/696a7243c0e6ffb6827676e539c2ca5ebae2bf6b/README.md",
+  "sourceRevision": "696a7243c0e6ffb6827676e539c2ca5ebae2bf6b",
+  "canonicalKey": "geeklee/srt-whiteboard-animation",
+  "summary": "一个把 SRT 字幕制作成暖米黄纸张底白板手绘 MP4 的 Skill：按字幕叙事顺序分区遮罩，先流式落墨线稿再添彩。",
+  "intro": "适合把知识讲解、故事口播、课程字幕或短视频文案做成手绘白板动画的创作者。流程采用“字幕驱动、逐步确认”：先由字幕生成分镜，再依次确认线稿、标注、区域检查图，最后逐幕渲染并合并。仓库包含 SKILL.md 工作流说明、配套 Python 脚本和本地预览台 preview.html，agents/openai.yaml 为 Codex 元数据。",
+  "requirements": "可运行 Python 的环境（用于执行 scripts/prepare_env.py 创建独立虚拟环境）；SRT 字幕文件；每一幕的线稿 PNG 及同名 annotation.json；用于打开 assets/preview.html 的浏览器。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "准备独立 Python 环境",
+      "text": "首次使用时在仓库目录先运行 prepare_env.py --check，再运行 prepare_env.py。成功后会输出 ENV_PY=<路径>，后续渲染和合并命令都使用这个解释器，以隔离依赖。",
+      "code": "python scripts/prepare_env.py --check\npython scripts/prepare_env.py",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/geeklee/srt-whiteboard-animation/blob/696a7243c0e6ffb6827676e539c2ca5ebae2bf6b/README.md?plain=1#L44"
+      }
+    },
+    {
+      "title": "解析字幕生成分镜建议",
+      "text": "用 parse_srt.py 解析 SRT，按 25–35 秒（目标 30 秒）拆分场景并输出分镜建议。确认分镜和配图策略后，再按视觉规范准备每一幕的线稿。",
+      "code": "python scripts/parse_srt.py <字幕.srt> --target-sec 30 --min-sec 25 --max-sec 35",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/geeklee/srt-whiteboard-animation/blob/696a7243c0e6ffb6827676e539c2ca5ebae2bf6b/README.md?plain=1#L25"
+      }
+    },
+    {
+      "title": "按规范整理线稿与标注",
+      "text": "把每幕 PNG 和同名 annotation.json 放进 assets/whiteboard/<项目名>/。标注使用原图整数像素坐标，用 sequence、subtitle、narrativeRole 关联字幕事件；遮挡对象用 protectedRegions 保护。",
+      "code": "assets/whiteboard/<项目名>/\n├── scene-01-<名称>.png\n├── scene-01-<名称>.annotation.json\n├── scene-01-<名称>-whiteboard.mp4\n└── scene-01-<名称>-preview.mp4\n\n{\n  \"sceneId\": \"scene-01\",\n  \"canvas\": { \"width\": 1672, \"height\": 941 },\n  \"storyBasis\": \"小猴在猴子山上拿着香蕉，大猴抢走香蕉，孩子们在旁观看。\",\n  \"sceneDurationMs\": 9000,\n  \"elements\": [\n    {\n      \"id\": \"rockery\",\n      \"label\": \"猴子山场景\",\n      \"sequence\": 1,\n      \"narrativeRole\": \"故事的场景铺垫\",\n      \"subtitle\": \"小猴子坐在猴子山顶，手里拿着香蕉。\",\n      \"type\": \"structure\",\n      \"region\": { \"x\": 20, \"y\": 120, \"width\": 540, \"height\": 780 },\n      \"reveal\": {\n        \"direction\": \"top_to_bottom\",\n        \"startMs\": 300,\n        \"durationMs\": 2600,\n        \"maskPaddingPx\": 22,\n        \"protectedRegions\": []\n      },\n      \"handPath\": { \"start\": [290, 130], \"end\": [290, 890], \"easing\": \"easeInOut\" }\n    }\n  ]\n}",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/geeklee/srt-whiteboard-animation/blob/696a7243c0e6ffb6827676e539c2ca5ebae2bf6b/README.md?plain=1#L55"
+      }
+    },
+    {
+      "title": "生成检查图并在预览台调整",
+      "text": "用 render_annotation_preview.py 生成区域检查图；再在浏览器打开 assets/preview.html，通过“打开文件夹”载入场景目录，调整区域、顺序、时间和字幕关联后保存。",
+      "code": "python scripts/render_annotation_preview.py <图片路径> <标注路径> <预览图输出路径>",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/geeklee/srt-whiteboard-animation/blob/696a7243c0e6ffb6827676e539c2ca5ebae2bf6b/README.md?plain=1#L25"
+      }
+    },
+    {
+      "title": "逐幕渲染并合并为成片",
+      "text": "标注确认后，用 ENV_PY 运行 render_stream_whiteboard.py，传入图片、标注、输出路径和 drawing-hand.png，渲染单幕 MP4。各幕确认后用 merge_scenes.py 按分镜顺序合并为 final.mp4。",
+      "code": "<ENV_PY> scripts/render_stream_whiteboard.py <图片路径> <标注路径> <输出.mp4> assets/drawing-hand.png \\\n  --ink-path grid --color-fill contour-wipe\n\n<ENV_PY> scripts/merge_scenes.py --inputs 幕1.mp4 幕2.mp4 幕3.mp4 --output final.mp4",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/geeklee/srt-whiteboard-animation/blob/696a7243c0e6ffb6827676e539c2ca5ebae2bf6b/README.md?plain=1#L25"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "README 没有说明如何把该 Skill 安装到具体的 agent 宿主中，只提到 SKILL.md 和 Codex 元数据文件 agents/openai.yaml；接入宿主时需自行参考宿主的官方说明。",
+    "线稿图片需要另行生成或绘制，README 只规定了视觉风格（暖米黄底、深灰线条、不含文字），没有给出具体的生成工具。",
+    "图片与标注文件必须同名，canvas 尺寸必须与原图一致，否则遮罩与时序会出错。",
+    "官方建议每一步确认后再继续，避免在分镜、线稿或标注未定稿时浪费渲染时间。"
+  ],
+  "references": [],
+  "media": [],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "40e76f8cf16efd4e6db032053f932fe5923a5af02bcff6df9732627f0197526b",
+  "mediaStatus": "unavailable",
+  "mediaFailures": [
+    {
+      "sourceUrl": "https://github.com/geeklee/srt-whiteboard-animation/blob/696a7243c0e6ffb6827676e539c2ca5ebae2bf6b/README.md#L11",
+      "reason": "media_too_large"
+    }
+  ]
+}

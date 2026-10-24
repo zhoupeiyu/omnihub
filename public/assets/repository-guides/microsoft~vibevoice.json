@@ -1,0 +1,61 @@
+{
+  "schemaVersion": 1,
+  "key": "microsoft/vibevoice",
+  "status": "partial",
+  "reason": "README 只介绍了各模型的能力、权重链接、Playground 和 Colab 入口，没有给出本地安装依赖、下载权重和运行推理的具体命令。具体用法分散在 docs/vibevoice-asr.md、docs/vibevoice-tts.md、docs/vibevoice-realtime-0.5b.md 等文档中，本次未提供这些文档的内容。",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/microsoft/VibeVoice/blob/1541f590c7099820f10ea012f48d2399282df69f/README.md",
+  "sourceRevision": "1541f590c7099820f10ea012f48d2399282df69f",
+  "canonicalKey": "microsoft/VibeVoice",
+  "summary": "VibeVoice 是微软开源的语音 AI 模型系列，包含长音频语音识别（ASR）、多说话人长篇语音合成（TTS）和实时流式 TTS。",
+  "intro": "适合研究语音识别与语音合成的研究人员和开发者。VibeVoice-ASR 可一次处理最长 60 分钟音频，输出带说话人和时间戳的结构化转写，并支持自定义热词；VibeVoice-TTS 可生成最长 90 分钟、最多 4 位说话人的对话音频；VibeVoice-Realtime-0.5B 支持流式文本输入的实时语音合成。",
+  "requirements": "README 未列出本地运行环境要求。在线试用需要能访问 Playground 或 Google Colab，模型权重托管在 Hugging Face。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "按任务在模型表中选定模型",
+      "text": "在 Overview 的模型表中按需求选择：长音频转写选 VibeVoice-ASR-7B，边录边转写选 VibeVoice-ASR-Streaming，仅用 CPU 推理选 VibeVoice-ASR-BitNet，实时语音合成选 VibeVoice-Realtime-0.5B。表中同时列出了每个模型的 Hugging Face 权重链接。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/microsoft/VibeVoice/blob/1541f590c7099820f10ea012f48d2399282df69f/README.md?plain=1#L54"
+      }
+    },
+    {
+      "title": "在 Playground 在线试用 ASR",
+      "text": "打开 README 提供的 ASR Playground 链接（aka.ms/vibevoice-asr），在线体验 VibeVoice-ASR 的长音频转写、说话人区分和时间戳输出。README 还说明该模型已接入 Azure AI Foundry Labs，也可以在那里试用。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/microsoft/VibeVoice/blob/1541f590c7099820f10ea012f48d2399282df69f/README.md?plain=1#L78"
+      }
+    },
+    {
+      "title": "用 Colab 试用实时流式 TTS",
+      "text": "打开 README 中 VibeVoice-Realtime-0.5B 对应的 Colab 笔记本链接，在 Google Colab 中试用实时语音合成。该模型参数量为 0.5B，支持流式文本输入，可生成约 10 分钟的长语音。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/microsoft/VibeVoice/blob/1541f590c7099820f10ea012f48d2399282df69f/README.md?plain=1#L179"
+      }
+    },
+    {
+      "title": "查阅子文档了解集成与微调",
+      "text": "需要在项目中集成或做进一步开发时，查阅对应文档：docs/vibevoice-asr.md、docs/vibevoice-asr-streaming.md、vLLM 推理说明 docs/vibevoice-vllm-asr.md，以及 finetuning-asr/README.md 中的微调代码。README 还提到 ASR 已可通过 Hugging Face Transformers 调用。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/microsoft/VibeVoice/blob/1541f590c7099820f10ea012f48d2399282df69f/README.md?plain=1#L78"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "官方说明模型仅用于研究与开发，在没有进一步测试和开发的情况下，不建议用于商业或真实生产场景。",
+    "模型可能产生意外、有偏见或不准确的输出，并继承基础模型 Qwen2.5 1.5b 的偏差。",
+    "高质量合成语音存在被用于冒充、欺诈和散布虚假信息的风险；使用时须遵守所在司法辖区的法律，并建议在分享时披露内容由 AI 生成。",
+    "模型表中 VibeVoice-TTS-1.5B 的在线试用标注为 Disabled。"
+  ],
+  "references": [],
+  "media": [],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "b1fe27ee5b77e30b4a82b76e0f279157ffddc43f782b094ffe07f90383e62537",
+  "mediaStatus": "none_in_official_documents"
+}

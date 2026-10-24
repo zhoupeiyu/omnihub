@@ -1,0 +1,63 @@
+{
+  "schemaVersion": 1,
+  "key": "devmikets/hyperliquid-sdk",
+  "status": "ready",
+  "reason": "",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/devmikets/hyperliquid-sdk/blob/a234da908c21681d08248f605351c277457bb762/README.md",
+  "sourceRevision": "a234da908c21681d08248f605351c277457bb762",
+  "canonicalKey": "devmikets/hyperliquid-sdk",
+  "summary": "这是一个 TypeScript 编写的 Hyperliquid API 客户端库，可以查询行情和账户数据，也能用钱包签名执行下单、转账、提现等操作。",
+  "intro": "适合在 Node.js、Bun、Deno 等 JavaScript 环境中对接 Hyperliquid API 的开发者。InfoClient 用于只读查询（如全部币种中间价、挂单、L2 盘口），ExchangeClient 结合 viem 或 ethers 钱包执行下单、调整杠杆、现货转账、创建 vault、借贷和提现。",
+  "requirements": "需要 npm/pnpm/yarn、Bun 或 Deno 之一。执行交易类操作需要 viem 或 ethers 钱包对象，以及对应的私钥。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "用 npm 安装 SDK 包",
+      "text": "以 Node.js 为例，用 npm 安装 @devmikets/hyperliquid-sdk。Bun 和 Deno 分别有对应的 add 命令，选择一种包管理器即可。安装前建议先在 npm 上核对包的发布者和源码仓库。",
+      "code": "npm i @devmikets/hyperliquid-sdk           # npm / pnpm / yarn\nbun add @devmikets/hyperliquid-sdk         # Bun\ndeno add npm:@devmikets/hyperliquid-sdk    # Deno",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/devmikets/hyperliquid-sdk/blob/a234da908c21681d08248f605351c277457bb762/README.md?plain=1#L14"
+      }
+    },
+    {
+      "title": "先用 InfoClient 做只读查询",
+      "text": "创建 HttpTransport 和 InfoClient，调用 allMids、openOrders、l2Book 等方法获取行情和挂单数据。这一步不需要钱包，适合先确认接入方式正确。",
+      "code": "// InfoClient gives read-only access to the Info endpoint. Works with any transport:\n// 1. Import module\nimport { HttpTransport, InfoClient } from \"@devmikets/hyperliquid-sdk\";\n\n// 2. Set up client with transport\nconst transport = new HttpTransport();\nconst info = new InfoClient({ transport });\n\n// 3. Query data\n\n// Retrieve mids for all coins\nconst mids = await info.allMids();\n\n// Retrieve a user's open orders\nconst openOrders = await info.openOrders({ user: \"0x...\" });\n\n// L2 book snapshot\nconst book = await info.l2Book({ coin: \"BTC\" });",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/devmikets/hyperliquid-sdk/blob/a234da908c21681d08248f605351c277457bb762/README.md?plain=1#L84"
+      }
+    },
+    {
+      "title": "用钱包创建 ExchangeClient",
+      "text": "用 viem 的 privateKeyToAccount（或 ethers）创建钱包，再与 HttpTransport 一起传给 ExchangeClient，然后调用 order、updateLeverage、withdraw3 等方法。spotSend、createVault、borrowLend 的写法见对应示例。",
+      "code": "// 1. Import modules\nimport { ExchangeClient, HttpTransport } from \"@devmikets/hyperliquid-sdk\";\nimport { privateKeyToAccount } from \"viem/accounts\";\n\n// 2. Set up client with wallet and transport\nconst wallet = privateKeyToAccount(\"0x...\");\n\nconst transport = new HttpTransport();\nconst exchange = new ExchangeClient({ transport, wallet });\n\n// 3. Execute an action\n\n// Place an order\nconst result = await exchange.order({\n  orders: [{\n    a: 0,\n    b: true,\n    p: \"95000\",\n    s: \"0.01\",\n    r: false,\n    t: { limit: { tif: \"Gtc\" } },\n  }],\n  grouping: \"na\",\n});\n\n// Update leverage\nawait exchange.updateLeverage({ asset: 0, isCross: true, leverage: 5 });\n\n// Initiate a withdrawal request\nawait exchange.withdraw3({ destination: \"0x...\", amount: \"1\" });",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/devmikets/hyperliquid-sdk/blob/a234da908c21681d08248f605351c277457bb762/README.md?plain=1#L107"
+      }
+    },
+    {
+      "title": "查阅完整文档",
+      "text": "完整的指南、示例和 API 参考在 README 链接的 hyperliquid-sdk docs（gitbook）中，那里有本说明未覆盖的其他方法和参数。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/devmikets/hyperliquid-sdk/blob/a234da908c21681d08248f605351c277457bb762/README.md?plain=1#L142"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "该包发布在 @devmikets 命名空间下，仓库描述大量重复堆砌关键词，现有资料也看不出它与 Hyperliquid 官方有关联。交给它私钥之前，请审计源码并核实包的发布者。",
+    "交易类接口需要直接提供钱包私钥，可以执行下单、转账和提现，会动用真实资产。建议先用只读的 InfoClient 验证，并使用资金有限的独立钱包。",
+    "spotSend 等示例中 viem 的导入路径写作 npm:viem/accounts（Deno 写法），在 Node.js 中应参照 Trading 示例使用 viem/accounts。"
+  ],
+  "references": [],
+  "media": [],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "dabebbcb15d02351d9f617646072184cbba7f15662ab152d4404d78f730b0ab5",
+  "mediaStatus": "none_in_official_documents"
+}

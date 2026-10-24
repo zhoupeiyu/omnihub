@@ -1,0 +1,75 @@
+{
+  "schemaVersion": 1,
+  "key": "davidhdev/react-bits",
+  "status": "ready",
+  "reason": "",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/DavidHDev/react-bits/blob/e1bbb696fc53f7f91e694c529e4d68c899773b6e/README.md",
+  "sourceRevision": "e1bbb696fc53f7f91e694c529e4d68c899773b6e",
+  "canonicalKey": "DavidHDev/react-bits",
+  "summary": "React Bits 是一个开源的 React 动画组件库，提供文字动画、背景、UI 元素和微交互等可定制组件，可通过 CLI 或手动复制代码接入项目。",
+  "intro": "适合正在开发 React 网站、想为页面加入动画效果的前端开发者。仓库提供 200+ 组件，涵盖文字动画、动画、组件、微交互和背景五类。每个组件有 JS-CSS、JS-TW、TS-CSS、TS-TW 四种变体，可通过 props 调整，也可以直接修改源码。官网另有 Background Studio、Shape Magic、Texture Lab 等在线工具。官方还提供 Vue.js 和 Svelte 移植版本。",
+  "requirements": "一个现代 React 项目。如果用 CLI 安装，需要能使用 npx，并选择 shadcn 或 jsrepo 其中一种方式。选择 TW 变体时，项目需要使用 Tailwind；选择 TS 变体时，项目需要使用 TypeScript。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "在官网文档中挑选组件",
+      "text": "打开 reactbits.dev 文档站，在文字动画、动画、组件、微交互、背景等分类中浏览，找到需要的组件。每个组件页都会给出可直接复制的 CLI 命令。完整说明可参考官网的 installation guide。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/DavidHDev/react-bits/blob/e1bbb696fc53f7f91e694c529e4d68c899773b6e/README.md?plain=1#L1"
+      }
+    },
+    {
+      "title": "选择与项目匹配的技术变体",
+      "text": "每个组件提供 JS-CSS、JS-TW、TS-CSS、TS-TW 四种变体。请根据项目是否使用 TypeScript、是否使用 Tailwind 来选择。例如 TypeScript 加 Tailwind 的项目应选 TS-TW 变体。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/DavidHDev/react-bits/blob/e1bbb696fc53f7f91e694c529e4d68c899773b6e/README.md?plain=1#L37"
+      }
+    },
+    {
+      "title": "通过 shadcn CLI 添加组件",
+      "text": "React Bits 支持用 shadcn 或 jsrepo 安装。这里以 shadcn 为例：在 React 项目根目录执行组件页提供的命令。示例命令会添加 BlurText 组件的 TS-TW 变体，其他组件请替换为对应页面给出的名称。如果不想用 CLI，也可以在页面选好技术栈后手动复制代码。",
+      "code": "# Example: Add a component via shadcn\nnpx shadcn@latest add @react-bits/BlurText-TS-TW",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/DavidHDev/react-bits/blob/e1bbb696fc53f7f91e694c529e4d68c899773b6e/README.md?plain=1#L61"
+      }
+    },
+    {
+      "title": "通过 props 或源码定制效果",
+      "text": "组件加入项目后，可以通过 props 调整动画效果。如果 props 不够用，也可以直接编辑组件源码，让它符合你的设计需求。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/DavidHDev/react-bits/blob/e1bbb696fc53f7f91e694c529e4d68c899773b6e/README.md?plain=1#L37"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "许可证是 MIT + Commons Clause，不是纯 MIT。README 称可免费用于个人和商业用途，但 Commons Clause 有附加限制，商业使用前请阅读 LICENSE.md 确认。",
+    "部分组件参考了公开代码示例后重写，如需确认来源或署名，可通过 issue 反馈。",
+    "README 中只给出了 shadcn 的示例命令，jsrepo 的具体用法需要查看官网安装指南。"
+  ],
+  "references": [],
+  "media": [
+    {
+      "url": "/assets/repository-guides/media-7732b0d8c93653ac0eb98663.webp",
+      "alt": "DavidHDev/react-bits 官方演示 1",
+      "sourceUrl": "https://github.com/DavidHDev/react-bits/blob/e1bbb696fc53f7f91e694c529e4d68c899773b6e/README.md?plain=1#L26",
+      "originalUrl": "https://raw.githubusercontent.com/DavidHDev/react-bits/e1bbb696fc53f7f91e694c529e4d68c899773b6e/src/assets/common/gh-showcase.png"
+    },
+    {
+      "url": "/assets/repository-guides/media-753b6886bac9c07e6bc6654f.webp",
+      "alt": "DavidHDev/react-bits 官方演示 2",
+      "sourceUrl": "https://github.com/DavidHDev/react-bits/blob/e1bbb696fc53f7f91e694c529e4d68c899773b6e/README.md?plain=1#L48",
+      "originalUrl": "https://raw.githubusercontent.com/DavidHDev/react-bits/e1bbb696fc53f7f91e694c529e4d68c899773b6e/src/assets/common/tools-readme.webp"
+    }
+  ],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "b6266ad69d0c6a9dda901e11f9f9e92f4446e5f6d419dcfc5b6ceee9d992b6f6",
+  "mediaStatus": "archived",
+  "mediaFailures": []
+}

@@ -1,0 +1,79 @@
+{
+  "schemaVersion": 1,
+  "key": "freqtrade/freqtrade",
+  "status": "partial",
+  "reason": "README 的快速开始只链接到外部 Docker Quickstart 和安装文档，仓库首页未给出安装命令、配置文件编写和交易所 API 设置步骤，仅列出 CLI 子命令与 Telegram 命令。",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/freqtrade/freqtrade/blob/f6a7b767a31720b2f34059dd7b166b28abef3f09/README.md",
+  "sourceRevision": "f6a7b767a31720b2f34059dd7b166b28abef3f09",
+  "canonicalKey": "freqtrade/freqtrade",
+  "summary": "Freqtrade 是用 Python 编写的开源加密货币交易机器人，支持回测、模拟运行、策略优化，并可通过 Telegram 或 WebUI 控制。",
+  "intro": "适合具备 Python 编程基础、想研究自动化加密货币交易策略的用户，用于在多家主流交易所（现货与部分合约）上编写策略、下载历史数据回测、用 hyperopt 或 FreqAI 优化参数、先 Dry-run 模拟运行，并通过内置 WebUI 或 Telegram 查看持仓与收益。",
+  "requirements": "建议最低 2GB RAM、1GB 磁盘、2vCPU；Python ≥3.11、pip、git、TA-Lib，推荐 virtualenv 或 Docker；系统时钟需与 NTP 服务器频繁同步；使用前阅读所选交易所的专门说明。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "先阅读免责声明与官方文档",
+      "text": "官方声明该软件仅用于教育目的，作者不对交易结果负责，并强烈建议具备编程和 Python 知识。先通读 freqtrade.io 上的文档，理解机器人的工作机制再继续。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/freqtrade/freqtrade/blob/f6a7b767a31720b2f34059dd7b166b28abef3f09/README.md?plain=1#L13"
+      }
+    },
+    {
+      "title": "按 Docker 快速入门完成安装",
+      "text": "官方推荐的入门路径是 Docker：按 freqtrade.io 上的 Docker Quickstart 文档安装和初始化；如需原生安装，参考 Installation 文档页。README 本身未列出具体安装命令。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/freqtrade/freqtrade/blob/f6a7b767a31720b2f34059dd7b166b28abef3f09/README.md?plain=1#L86"
+      }
+    },
+    {
+      "title": "查阅交易所说明并准备时钟同步",
+      "text": "根据要使用的交易所阅读 exchange-specific notes，了解所需特殊配置；涉及合约还需阅读杠杆交易文档。同时确保主机时钟与 NTP 服务器频繁同步，避免与交易所通信出错。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/freqtrade/freqtrade/blob/f6a7b767a31720b2f34059dd7b166b28abef3f09/README.md?plain=1#L26"
+      }
+    },
+    {
+      "title": "用回测与 Dry-run 验证策略",
+      "text": "借助 freqtrade 命令行的 download-data、backtesting、hyperopt 等子命令下载数据、回测和优化策略，然后先以 Dry-run 模式运行，确认了解预期盈亏后再考虑投入资金。",
+      "code": "usage: freqtrade [-h] [-V]\n                 {trade,create-userdir,new-config,show-config,new-strategy,download-data,convert-data,convert-trade-data,trades-to-ohlcv,list-data,backtesting,backtesting-show,backtesting-analysis,edge,hyperopt,hyperopt-list,hyperopt-show,list-exchanges,list-markets,list-pairs,list-strategies,list-hyperoptloss,list-freqaimodels,list-timeframes,show-trades,test-pairlist,convert-db,install-ui,plot-dataframe,plot-profit,webserver,strategy-updater,lookahead-analysis,recursive-analysis}\n                 ...\n\nFree, open source crypto trading bot\n\npositional arguments:\n  {trade,create-userdir,new-config,show-config,new-strategy,download-data,convert-data,convert-trade-data,trades-to-ohlcv,list-data,backtesting,backtesting-show,backtesting-analysis,edge,hyperopt,hyperopt-list,hyperopt-show,list-exchanges,list-markets,list-pairs,list-strategies,list-hyperoptloss,list-freqaimodels,list-timeframes,show-trades,test-pairlist,convert-db,install-ui,plot-dataframe,plot-profit,webserver,strategy-updater,lookahead-analysis,recursive-analysis}\n    trade               Trade module.\n    create-userdir      Create user-data directory.\n    new-config          Create new config\n    show-config         Show resolved config\n    new-strategy        Create new strategy\n    download-data       Download backtesting data.\n    convert-data        Convert candle (OHLCV) data from one format to\n                        another.\n    convert-trade-data  Convert trade data from one format to another.\n    trades-to-ohlcv     Convert trade data to OHLCV data.\n    list-data           List downloaded data.\n    backtesting         Backtesting module.\n    backtesting-show    Show past Backtest results\n    backtesting-analysis\n                        Backtest Analysis module.\n    hyperopt            Hyperopt module.\n    hyperopt-list       List Hyperopt results\n    hyperopt-show       Show details of Hyperopt results\n    list-exchanges      Print available exchanges.\n    list-markets        Print markets on exchange.\n    list-pairs          Print pairs on exchange.\n    list-strategies     Print available strategies.\n    list-hyperoptloss   Print available hyperopt loss functions.\n    list-freqaimodels   Print available freqAI models.\n    list-timeframes     Print available timeframes for the exchange.\n    show-trades         Show trades.\n    test-pairlist       Test your pairlist configuration.\n    convert-db          Migrate database to different system\n    install-ui          Install FreqUI\n    plot-dataframe      Plot candles with indicators.\n    plot-profit         Generate plot showing profits.\n    webserver           Webserver module.\n    strategy-updater    updates outdated strategy files to the current version\n    lookahead-analysis  Check for potential look ahead bias.\n    recursive-analysis  Check for potential recursive formula issue.\n\noptions:\n  -h, --help            show this help message and exit\n  -V, --version         show program's version number and exit",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/freqtrade/freqtrade/blob/f6a7b767a31720b2f34059dd7b166b28abef3f09/README.md?plain=1#L94"
+      }
+    },
+    {
+      "title": "通过 WebUI 或 Telegram 管理",
+      "text": "可使用内置 WebUI（install-ui 子命令安装 FreqUI）管理机器人；也可选配 Telegram，用 /status、/profit、/balance、/stopentry 等命令查看交易与控制运行，完整命令见官方 Telegram 文档。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/freqtrade/freqtrade/blob/f6a7b767a31720b2f34059dd7b166b28abef3f09/README.md?plain=1#L146"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "涉及真实资金交易，官方强调自担风险，不要投入害怕损失的资金，务必先用 Dry-run。",
+    "合约与杠杆交易需先阅读杠杆文档和交易所说明；列表外的交易所官方无法保证可用。",
+    "系统时钟不同步会导致与交易所通信问题。",
+    "develop 分支可能包含破坏性变更，求稳定应使用 stable 分支。",
+    "项目采用 GPL-3.0 许可证，修改分发需遵守其条款。"
+  ],
+  "references": [],
+  "media": [
+    {
+      "url": "/assets/repository-guides/media-d44131b9bd957a36fe375780.webp",
+      "alt": "freqtrade/freqtrade 官方演示 1",
+      "sourceUrl": "https://github.com/freqtrade/freqtrade/blob/f6a7b767a31720b2f34059dd7b166b28abef3f09/README.md?plain=1#L11",
+      "originalUrl": "https://raw.githubusercontent.com/freqtrade/freqtrade/develop/docs/assets/freqtrade-screenshot.png"
+    }
+  ],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "7d28c0afc1a8de30c50a54127e6883f105d30af0f43e572ff18b326ce9e73fb7",
+  "mediaStatus": "archived",
+  "mediaFailures": []
+}

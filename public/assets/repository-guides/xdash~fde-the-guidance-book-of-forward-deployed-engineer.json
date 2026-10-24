@@ -1,0 +1,59 @@
+{
+  "schemaVersion": 1,
+  "key": "xdash/fde-the-guidance-book-of-forward-deployed-engineer",
+  "status": "ready",
+  "reason": "",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/xdash/FDE-the-Guidance-Book-of-Forward-Deployed-Engineer/blob/d8a3eab849747a3cbbc5d976c3f2e01773faa169/README.md",
+  "sourceRevision": "d8a3eab849747a3cbbc5d976c3f2e01773faa169",
+  "canonicalKey": "xdash/FDE-the-Guidance-Book-of-Forward-Deployed-Engineer",
+  "summary": "一本免费公开的中文书籍，系统介绍前线部署工程师（FDE）这一岗位的定义、交付方法和真实案例。",
+  "intro": "适合考虑转型 FDE 的工程师、投身企业 AI 的创业者，以及想了解 AI 如何在企业落地的读者。全书围绕三件事展开：FDE 是什么、怎么做（从找对问题到规模化复制的完整交付旅程）、谁在做（165 个可查案例）。书中数据和案例的出处列在附录 C。",
+  "requirements": "无需安装。可通过浏览器访问官网或 GitHub 阅读；如需离线阅读，可下载仓库根目录的 PDF 合并版。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "选择一种阅读入口",
+      "text": "作者提供三种阅读方式：官网 fde4.ai（与仓库实时同步，手机端体验更好，大陆访问更快）、在 GitHub 上按章节阅读 Markdown，以及下载根目录的 PDF 合并版。按自己的设备和网络情况选择其中一种即可。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/xdash/FDE-the-Guidance-Book-of-Forward-Deployed-Engineer/blob/d8a3eab849747a3cbbc5d976c3f2e01773faa169/README.md?plain=1#L1"
+      }
+    },
+    {
+      "title": "按目录顺序阅读主线章节",
+      "text": "从 00-自序.md 和第 1 章「FDE 的崛起」开始，了解岗位来源；随后依次阅读第 2～7 章，内容沿一次完整交付展开：解决正确的问题、赢得客户、激活部署、守住续约、扩大收入、规模化复制。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/xdash/FDE-the-Guidance-Book-of-Forward-Deployed-Engineer/blob/d8a3eab849747a3cbbc5d976c3f2e01773faa169/README.md?plain=1#L9"
+      }
+    },
+    {
+      "title": "查阅案例集与附录资料",
+      "text": "需要查找具体公司或人物时，阅读第 8 章「完整案例集」和附录 B「FDE 人物与团队名单」；附录 A 汇总 FDE 应关注的常用指标；附录 C 是全书案例索引与资料出处，可用来核查引用。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/xdash/FDE-the-Guidance-Book-of-Forward-Deployed-Engineer/blob/d8a3eab849747a3cbbc5d976c3f2e01773faa169/README.md?plain=1#L9"
+      }
+    },
+    {
+      "title": "以章节 Markdown 为准核对更新",
+      "text": "PDF 是合并版（文件名为 前线部署工程师（FDE）v1.0.24.pdf），如有更新以章节 Markdown 为准。发现数据或引用疏漏时，作者欢迎通过 Issue 指正。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/xdash/FDE-the-Guidance-Book-of-Forward-Deployed-Engineer/blob/d8a3eab849747a3cbbc5d976c3f2e01773faa169/README.md?plain=1#L9"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "著作权归作者所有，仅允许免费阅读与非商业性分享，转载须注明出处与作者；出版、培训、付费内容改编等商业用途须事先获得作者书面许可。",
+    "本书为作者个人研究整理，不代表任何机构立场。"
+  ],
+  "references": [],
+  "media": [],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "23fe267b7d88cc7cc441d384580599eeea9453d2c651a2d28b8b70c34c4f5028",
+  "mediaStatus": "none_in_official_documents"
+}

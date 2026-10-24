@@ -1,0 +1,95 @@
+{
+  "schemaVersion": 1,
+  "key": "tonisives/clawtab",
+  "status": "ready",
+  "reason": "",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/tonisives/clawtab/blob/e3a41005b740d981c16022f85387583a50abc4e9/README.md",
+  "sourceRevision": "e3a41005b740d981c16022f85387583a50abc4e9",
+  "canonicalKey": "tonisives/clawtab",
+  "summary": "ClawTab 把 Claude Code、Codex、OpenCode 和 shell 任务放在持久的 tmux pane 中运行，并可从终端、桌面、Web 或手机控制同一会话。",
+  "intro": "适合在 tmux 中同时运行多个 AI 编程代理的开发者。它提供后台 daemon、定时任务、代理状态标记、auto-yes、密钥注入，以及从 Web 或 iOS 远程查看输出、回答代理提问的能力。桌面 GUI 是可选组件，提供分屏工作区和 Mind Map。",
+  "requirements": "macOS（Apple Silicon 或 Intel），Homebrew；tmux；至少安装一个受支持的代理 CLI，例如 Claude Code、Codex 或 OpenCode。tmux 浮动菜单需要 tmux 3.7 及以上，旧版本会退回原始弹窗。Web Remote 和 iOS 应用需要 relay（自建或使用托管服务）。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "在 macOS 用 Homebrew 安装",
+      "text": "以 macOS 为例，用 Homebrew 安装 ClawTab cask，然后执行 cwtctl daemon install 安装后台 daemon，再用 cwtctl daemon status 确认状态。daemon 通过 launchd 在登录时启动，独立于桌面应用运行。",
+      "code": "brew install --cask tonisives/tap/clawtab\ncwtctl daemon install\ncwtctl daemon status",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/tonisives/clawtab/blob/e3a41005b740d981c16022f85387583a50abc4e9/README.md?plain=1#L21"
+      }
+    },
+    {
+      "title": "在 tmux 配置中加载插件",
+      "text": "在 .tmux.conf 中加入 run-shell 一行，路径指向 ClawTab 源码中的 tmux-clawtab/clawtab.tmux，然后执行 tmux source-file 重新加载。插件提供代理状态标记、按任务命名 pane、auto-yes、会话 fork、技能搜索和侧边栏。",
+      "code": "run-shell /path/to/clawtab/tmux-clawtab/clawtab.tmux\n\ntmux source-file ~/.tmux.conf",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/tonisives/clawtab/blob/e3a41005b740d981c16022f85387583a50abc4e9/README.md?plain=1#L63"
+      }
+    },
+    {
+      "title": "用快捷键操作代理 pane",
+      "text": "在代理 pane 中按 prefix + E 打开浮动菜单，prefix + y 切换 auto-yes，prefix + f fork 会话，prefix + s 搜索技能。菜单大小或弹窗模式可通过 .tmux.conf 中的 tmux 选项调整。",
+      "code": "set -g @clawtab-menu-size 85\n# set -g @clawtab-menu-mode popup",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/tonisives/clawtab/blob/e3a41005b740d981c16022f85387583a50abc4e9/README.md?plain=1#L87"
+      }
+    },
+    {
+      "title": "用 cwtctl 管理和创建任务",
+      "text": "cwtctl 不依赖桌面应用：可查看 daemon 状态、列出和运行任务、查看代理信息。在项目目录执行 cwtctl jobs create 打开交互表单，或用 --cron、--at 和描述文件等参数直接创建代理任务。",
+      "code": "cwtctl daemon status\ncwtctl jobs list\ncwtctl jobs run my-project/review\ncwtctl jobs status\ncwtctl agent info %16\ncwtctl agent auto-yes toggle %16\ncwtctl plugin installed --json\ncwtctl plugin list\ncwtctl plugin <name> run [pane_id] [key=value ...]\n\ncwtctl jobs create --name daily-review --cron '0 9 * * *' --description-file review.md\ncwtctl jobs create --name follow-up --at '2026-10-02 09:00' --description 'Check the results'\ncat task.md | cwtctl jobs create --name task --at '2026-10-02T09:00:00+07:00' --description-stdin --keep-config",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/tonisives/clawtab/blob/e3a41005b740d981c16022f85387583a50abc4e9/README.md?plain=1#L111"
+      }
+    },
+    {
+      "title": "通过 relay 远程查看与回答",
+      "text": "若需要在 Web 或手机上查看实时输出、点按回答代理提问，可使用 remote.clawtab.cc 或 App Store 的 iOS 应用。这两种方式都依赖 relay，可以自行部署，也可以使用托管的 relay.clawtab.cc。",
+      "code": "tmux pane <-> ClawTab daemon <-> Relay server <-> Web or mobile client",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/tonisives/clawtab/blob/e3a41005b740d981c16022f85387583a50abc4e9/README.md?plain=1#L162"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "没有原生 Windows 版本；Linux 发布包只是无界面的代理主机，需要 glibc 2.35+、systemd、tmux、Git 和 Python 3。",
+    "Android 版尚未上架 Google Play，目前仍待完成签名和提交。",
+    "桌面应用和本地工具采用 MIT 许可、免费使用；托管 Remote 为订阅服务，也可免费自建 relay。",
+    "auto-yes 会自动应答代理提问，开启前请确认对应代理可执行的操作范围。",
+    "密钥管理会把 macOS Keychain 或 gopass 中选定的密钥注入任务，请只授权必要的密钥。",
+    "cwtctl jobs create 只能创建代理任务；直接运行脚本的 Binary 任务需在桌面应用中创建。"
+  ],
+  "references": [
+    {
+      "label": "docs/platform-builds.md",
+      "url": "https://github.com/tonisives/clawtab/blob/e3a41005b740d981c16022f85387583a50abc4e9/docs/platform-builds.md"
+    }
+  ],
+  "media": [],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "94f728985c4b1d9b330e0d5cbd23c38c1ff4df25b37baf8e4d1a4ac5881276e3",
+  "mediaStatus": "unavailable",
+  "mediaFailures": [
+    {
+      "sourceUrl": "https://github.com/tonisives/clawtab/blob/e3a41005b740d981c16022f85387583a50abc4e9/README.md#L9",
+      "reason": "unsupported_media_host"
+    },
+    {
+      "sourceUrl": "https://github.com/tonisives/clawtab/blob/e3a41005b740d981c16022f85387583a50abc4e9/README.md#L70",
+      "reason": "unsupported_media_host"
+    },
+    {
+      "sourceUrl": "https://github.com/tonisives/clawtab/blob/e3a41005b740d981c16022f85387583a50abc4e9/README.md#L157",
+      "reason": "unsupported_media_host"
+    }
+  ]
+}

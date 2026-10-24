@@ -1,0 +1,55 @@
+{
+  "schemaVersion": 1,
+  "key": "palemoky/chinese-poetry-api",
+  "status": "ready",
+  "reason": "",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/palemoky/chinese-poetry-api/blob/f17afe49ead6dce982602819dadcf6b6f9d5fd50/README.md",
+  "sourceRevision": "f17afe49ead6dce982602819dadcf6b6f9d5fd50",
+  "canonicalKey": "palemoky/chinese-poetry-api",
+  "summary": "诗泉是用 Go 编写的中国古诗词 API 服务，提供 REST 和 GraphQL 接口，可按朝代、作者、体裁检索近 40 万首诗词，并支持简繁体切换。",
+  "intro": "适合需要在网站、应用或练习项目中调用古诗词数据的开发者。可以按标题、内容、作者全文搜索，按朝代、作者、体裁过滤，获取随机诗词（如飞花令单字场景），查询统计信息，并通过 lang 参数在简体与繁体之间切换。数据基于 chinese-poetry 数据集。",
+  "requirements": "推荐方式需要 Docker（镜像支持 amd64/arm64）。如需从源码构建，需要用带 submodules 的方式克隆仓库，并使用 Makefile。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "用 Docker 启动 API 服务",
+      "text": "运行官方 Docker 镜像，并把容器的 1279 端口映射到本机。更完整的配置可参考仓库中的 docker-compose.yml。",
+      "code": "docker run -d -p 1279:1279 palemoky/chinese-poetry-api:latest",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/palemoky/chinese-poetry-api/blob/f17afe49ead6dce982602819dadcf6b6f9d5fd50/README.md?plain=1#L33"
+      }
+    },
+    {
+      "title": "通过 REST 接口查询诗词",
+      "text": "访问 http://localhost:1279/api/v1 下的接口：health、stats、poems、poems/search、poems/random、authors、dynasties、types。可用 dynasty、author、type、page、page_size 等参数过滤，type 参数可选 all/title/content/author，lang=zh-Hant 切换为繁体。",
+      "code": "# 健康检查\ncurl \"http://localhost:1279/api/v1/health\"\n\n# 统计信息\ncurl \"http://localhost:1279/api/v1/stats\"\n\n# 简体中文（默认）\ncurl \"http://localhost:1279/api/v1/poems\"\n\n# 繁体中文\ncurl \"http://localhost:1279/api/v1/poems?lang=zh-Hant\"\n\n# 诗词列表（带过滤，与 /poems/random 使用同一组参数）\ncurl \"http://localhost:1279/api/v1/poems?dynasty=唐\"\ncurl \"http://localhost:1279/api/v1/poems?author=李白&page=2&page_size=50\"\ncurl \"http://localhost:1279/api/v1/poems?dynasty_id=1&type_id=11&type_id=12\" # 多个 type_id 为「或」关系\n\n# 参数校验：未知或非法的查询参数返回 400，而不是被忽略\ncurl \"http://localhost:1279/api/v1/poems?dynastyId=1\"   # 400，未知参数\ncurl \"http://localhost:1279/api/v1/poems?page_size=500\" # 400，超出上限 100\n\n# 搜索诗词\ncurl \"http://localhost:1279/api/v1/poems/search?q=静夜思\"\n\n# 随机诗词\ncurl \"http://localhost:1279/api/v1/poems/random\"\n\n# 随机诗词（带过滤）\ncurl \"http://localhost:1279/api/v1/poems/random?author=李白\"\ncurl \"http://localhost:1279/api/v1/poems/random?type=五言绝句\"\ncurl \"http://localhost:1279/api/v1/poems/random?char=春\" # 飞花令等单字场景\ncurl \"http://localhost:1279/api/v1/poems/random?author=李白&type=五言绝句\"\ncurl \"http://localhost:1279/api/v1/poems/random?author=李白&type=五言绝句&dynasty=唐\"\ncurl \"http://localhost:1279/api/v1/poems/random?author=李白&dynasty=唐&type=五言绝句&type=七言绝句&type=五言律诗\"\n\n# 作者列表\ncurl \"http://localhost:1279/api/v1/authors?page=1&page_size=20\"\n\n# 作者详情\ncurl \"http://localhost:1279/api/v1/authors/1\"\n\n# 朝代列表\ncurl \"http://localhost:1279/api/v1/dynasties\"\n\n# 朝代详情\ncurl \"http://localhost:1279/api/v1/dynasties/1\"\n\n# 诗词体裁列表\ncurl \"http://localhost:1279/api/v1/types\"\n\n# 诗词体裁详情\ncurl \"http://localhost:1279/api/v1/types/10\"",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/palemoky/chinese-poetry-api/blob/f17afe49ead6dce982602819dadcf6b6f9d5fd50/README.md?plain=1#L76"
+      }
+    },
+    {
+      "title": "使用 GraphQL 接口查询",
+      "text": "向 http://localhost:1279/graphql 发送查询。可按繁体获取诗词列表、按标题搜索诗词，或获取总诗词数、总作者数和各朝代分布等统计信息。",
+      "code": "# 繁体中文查询\nquery {\n  poems(lang: ZH_HANT, pageSize: 10) {\n    edges {\n      node {\n        title\n        content\n        author {\n          name\n        }\n      }\n    }\n    totalCount\n  }\n}\n\n# 搜索诗词\nquery {\n  searchPoems(query: \"静夜思\", searchType: TITLE) {\n    edges {\n      node {\n        title\n        author {\n          name\n        }\n      }\n    }\n  }\n}\n\n# 统计信息\nquery {\n  statistics {\n    totalPoems\n    totalAuthors\n    poemsByDynasty {\n      dynasty {\n        name\n      }\n      count\n    }\n  }\n}",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/palemoky/chinese-poetry-api/blob/f17afe49ead6dce982602819dadcf6b6f9d5fd50/README.md?plain=1#L133"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "项目采用 GPL-3.0 许可证，分发衍生作品时需遵守其条款。",
+    "服务内置 IP 限流。未知或非法的查询参数会返回 400，page_size 上限为 100。",
+    "诗词数据来自 chinese-poetry 数据集；从源码构建时需拉取 Git submodules 才能获得数据。"
+  ],
+  "references": [],
+  "media": [],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "59fc74d363f012e8b8702f7475e9ab2b1202dcfb7beaeb107ca6350302e8a9b1",
+  "mediaStatus": "none_in_official_documents"
+}

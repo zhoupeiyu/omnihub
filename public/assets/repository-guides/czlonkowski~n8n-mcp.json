@@ -1,0 +1,101 @@
+{
+  "schemaVersion": 1,
+  "key": "czlonkowski/n8n-mcp",
+  "status": "ready",
+  "reason": "",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/czlonkowski/n8n-mcp/blob/1284c9fdabe70b6d336b4c3aacc9513a6d47c10c/README.md",
+  "sourceRevision": "1284c9fdabe70b6d336b4c3aacc9513a6d47c10c",
+  "canonicalKey": "czlonkowski/n8n-mcp",
+  "summary": "n8n-MCP 是一个 MCP 服务器，让 Claude Code、Claude Desktop、Cursor 等 AI 助手查询 n8n 节点文档、属性与模板，并在配置 API 后创建和管理 n8n 工作流。",
+  "intro": "适合使用 n8n 做自动化、并希望在 Claude Code 等 MCP 客户端中借助 AI 搭建工作流的开发者。只做基础配置时，它提供 n8n 节点文档、属性、操作和工作流模板的查询能力。提供 n8n 实例的 N8N_API_URL 和 N8N_API_KEY 后，可以使用工作流的创建、获取、更新、校验、自动修复、版本管理和模板部署等管理工具。另外配置实例级 MCP 的 N8N_MCP_ACCESS_TOKEN 后，还能管理 n8n Agents、解析节点的动态下拉选项，并调用原生工作流历史等功能。官方也提供托管版 dashboard.n8n-mcp.com，注册后获取 API key 即可连接，无需自行部署。",
+  "requirements": "已安装 Claude Code CLI，并能在终端运行 npx（官方命令通过 npx n8n-mcp 启动）。使用工作流管理工具需要一个 n8n 实例的 URL 和 API key。使用实例级 MCP 相关功能需要 n8n 2.18.4 或更高版本，以及该实例的 owner 或 admin 账号；n8n_manage_agents 需要 n8n 2.34 或更高版本并启用 agents 模块。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "在 Claude Code 添加基础文档服务",
+      "text": "本路径以 Linux、macOS 或 Windows 的 WSL/Git Bash 为例。如果只需要查询 n8n 节点文档，在终端执行基础配置命令，把 n8n-mcp 以 stdio 模式添加为 Claude Code 的 MCP 服务器。这种配置只提供文档类工具，不连接任何 n8n 实例。",
+      "code": "claude mcp add n8n-mcp \\\n  -e MCP_MODE=stdio \\\n  -e LOG_LEVEL=error \\\n  -e DISABLE_CONSOLE_OUTPUT=true \\\n  -- npx n8n-mcp",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/czlonkowski/n8n-mcp/blob/1284c9fdabe70b6d336b4c3aacc9513a6d47c10c/docs/CLAUDE_CODE_SETUP.md?plain=1#L1"
+      }
+    },
+    {
+      "title": "改用完整配置连接 n8n 实例",
+      "text": "如果需要让 AI 创建、更新、校验或部署工作流，请改用完整配置命令代替上一步的基础配置。把命令中的 https://your-n8n-instance.com 换成你实际的 n8n 地址，把 your-api-key 换成你的 n8n API key。这些管理工具依赖 N8N_API_URL 和 N8N_API_KEY 两个变量。",
+      "code": "claude mcp add n8n-mcp \\\n  -e MCP_MODE=stdio \\\n  -e LOG_LEVEL=error \\\n  -e DISABLE_CONSOLE_OUTPUT=true \\\n  -e N8N_API_URL=https://your-n8n-instance.com \\\n  -e N8N_API_KEY=your-api-key \\\n  -- npx n8n-mcp",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/czlonkowski/n8n-mcp/blob/1284c9fdabe70b6d336b4c3aacc9513a6d47c10c/docs/CLAUDE_CODE_SETUP.md?plain=1#L30"
+      }
+    },
+    {
+      "title": "按需开启实例级 MCP 并配置令牌",
+      "text": "需要 Agents 管理、节点资源解析或原生版本历史时，先在 n8n 中打开齿轮设置菜单，进入 Instance-level MCP，把 MCP status 设为 Enabled。然后依次点击 Connect your client → Connect，在弹窗中选择 API key 标签并复制 Access token。最后在 mcpServers 配置里添加 N8N_MCP_ACCESS_TOKEN。",
+      "code": "{\n  \"mcpServers\": {\n    \"n8n-mcp\": {\n      \"command\": \"npx\",\n      \"args\": [\"n8n-mcp\"],\n      \"env\": {\n        \"N8N_API_URL\": \"https://your-n8n-instance.com\",\n        \"N8N_API_KEY\": \"your-n8n-api-key\",\n        \"N8N_MCP_ACCESS_TOKEN\": \"your-mcp-access-token\"\n      }\n    }\n  }\n}",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/czlonkowski/n8n-mcp/blob/1284c9fdabe70b6d336b4c3aacc9513a6d47c10c/docs/OFFICIAL_MCP_SETUP.md?plain=1#L8"
+      }
+    },
+    {
+      "title": "在 Access 中暴露需要操作的工作流",
+      "text": "回到 Instance-level MCP 设置页的 Access 区域，在 Workflows exposed 中打开需要被 MCP 操作的工作流。也可以通过 settings.availableInMCP 设置该选项。只有涉及具体工作流的转发操作受这个开关限制；工作流未暴露时，调用会返回 WORKFLOW_NOT_EXPOSED。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/czlonkowski/n8n-mcp/blob/1284c9fdabe70b6d336b4c3aacc9513a6d47c10c/docs/OFFICIAL_MCP_SETUP.md?plain=1#L158"
+      }
+    },
+    {
+      "title": "可选安装 n8n-skills 技能插件",
+      "text": "官方推荐在 Claude Code 中用插件方式安装配套的 n8n-skills。它提供表达式语法、工作流模式、校验错误解读、节点配置以及 Code 节点 JavaScript/Python 写法等指导，可以配合 n8n-mcp 使用。完整的安装和配置说明请参阅 n8n-skills 仓库的 README。",
+      "code": "/plugin install czlonkowski/n8n-skills",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/czlonkowski/n8n-mcp/blob/1284c9fdabe70b6d336b4c3aacc9513a6d47c10c/docs/CLAUDE_CODE_SETUP.md?plain=1#L113"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "官方警告：不要直接用 AI 编辑生产环境的工作流。使用前请先复制工作流、导出备份，在开发环境中测试并验证后再部署。",
+    "N8N_API_KEY 和 N8N_MCP_ACCESS_TOKEN 都属于密钥，应以环境变量或 secret 形式保存，不要提交到版本控制。项目级 .mcp.json 中如果写入了密钥，同样需要注意这一点。",
+    "实例级 MCP 的 Access token 只在生成或重新生成后完整显示一次。重新生成会让旧令牌失效，之后需要同步更新配置。",
+    "传入 exposeToMcp: true 会持久打开工作流的 \"Available in MCP\" 设置，n8n-mcp 不会自动关闭它。官方建议在传入前先征得用户确认。",
+    "在治理要求较高的环境中，可以用 DISABLED_TOOLS 或 DISABLED_TOOL_OPERATIONS 禁用写入和破坏性操作，并搭配只读的 n8n API key 使用。",
+    "托管版 dashboard.n8n-mcp.com 的免费层每天限 100 次工具调用。"
+  ],
+  "references": [
+    {
+      "label": "docs/OFFICIAL_MCP_SETUP.md",
+      "url": "https://github.com/czlonkowski/n8n-mcp/blob/1284c9fdabe70b6d336b4c3aacc9513a6d47c10c/docs/OFFICIAL_MCP_SETUP.md"
+    },
+    {
+      "label": "docs/CLAUDE_CODE_SETUP.md",
+      "url": "https://github.com/czlonkowski/n8n-mcp/blob/1284c9fdabe70b6d336b4c3aacc9513a6d47c10c/docs/CLAUDE_CODE_SETUP.md"
+    }
+  ],
+  "media": [
+    {
+      "url": "/assets/repository-guides/media-606e0a82980478f026974b1a.webp",
+      "alt": "czlonkowski/n8n-mcp 官方演示 1",
+      "sourceUrl": "https://github.com/czlonkowski/n8n-mcp/blob/1284c9fdabe70b6d336b4c3aacc9513a6d47c10c/docs/OFFICIAL_MCP_SETUP.md?plain=1#L85",
+      "originalUrl": "https://raw.githubusercontent.com/czlonkowski/n8n-mcp/1284c9fdabe70b6d336b4c3aacc9513a6d47c10c/docs/img/n8n-connect-client-api-key.png"
+    }
+  ],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "8c271d388715925497c3852d9a362afa59dfd4f639d12abd02fd0f178d5dce19",
+  "mediaStatus": "archived",
+  "mediaFailures": [
+    {
+      "sourceUrl": "https://github.com/czlonkowski/n8n-mcp/blob/1284c9fdabe70b6d336b4c3aacc9513a6d47c10c/docs/CLAUDE_CODE_SETUP.md#L28",
+      "reason": "non_demo_dimensions"
+    },
+    {
+      "sourceUrl": "https://github.com/czlonkowski/n8n-mcp/blob/1284c9fdabe70b6d336b4c3aacc9513a6d47c10c/docs/CLAUDE_CODE_SETUP.md#L102",
+      "reason": "non_demo_dimensions"
+    }
+  ]
+}

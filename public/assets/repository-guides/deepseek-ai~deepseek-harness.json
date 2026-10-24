@@ -1,0 +1,58 @@
+{
+  "schemaVersion": 1,
+  "key": "deepseek-ai/deepseek-harness",
+  "status": "ready",
+  "reason": "",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/deepseek-ai/deepseek-harness/blob/639ed015397290b3745d163aafe02ffee4aa3f84/README.md",
+  "sourceRevision": "639ed015397290b3745d163aafe02ffee4aa3f84",
+  "canonicalKey": "deepseek-ai/deepseek-harness",
+  "summary": "DeepSeek Harness（dsh）是 DeepSeek AI 开源的智能体框架，采用一切皆插件的架构，可通过 npx 在本地启动 Web UI。",
+  "intro": "适合想试用或扩展 DeepSeek 智能体框架的开发者。框架基于 Cordis 构建，功能以插件组织，插件作者可以给仓库加上 dsh-plugin 话题以便被发现。README 提供了 npm 一键启动 Web UI 和从源码运行两种方式；Web UI 的具体用法在官方文档站的 Web UI 指南中。",
+  "requirements": "需要安装 Node.js。运行前请阅读仓库中的安全说明 SAFETY.md。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "运行前阅读安全说明",
+      "text": "项目处于开发者预览阶段，迭代很快，后续会出现破坏兼容性的变更。官方要求在运行前先阅读仓库中的 SAFETY.md（中文版为 SAFETY.zh.md）。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/deepseek-ai/deepseek-harness/blob/639ed015397290b3745d163aafe02ffee4aa3f84/README.md?plain=1#L11"
+      }
+    },
+    {
+      "title": "用 npx 启动 Web UI",
+      "text": "安装 Node.js 后执行 npx @deepseek-ai/dsh web。服务默认监听 http://127.0.0.1:3080，在本机启动时会自动用默认浏览器打开该页面。",
+      "code": "npx @deepseek-ai/dsh web",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/deepseek-ai/deepseek-harness/blob/639ed015397290b3745d163aafe02ffee4aa3f84/README.md?plain=1#L19"
+      }
+    },
+    {
+      "title": "按运行环境调整访问方式",
+      "text": "通过 SSH 启动时，命令只打印宿主机 URL，需要借助 SSH 客户端或编辑器的端口转发访问。加上 --no-open 可只启动服务、不打开浏览器。界面操作请参阅 docs/user/guide 下的 Web UI 指南。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/deepseek-ai/deepseek-harness/blob/639ed015397290b3745d163aafe02ffee4aa3f84/README.md?plain=1#L19"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "开发者预览版本会出现破坏兼容性的变更，不宜直接用于依赖稳定接口的场景。",
+    "README 没有说明模型接入或密钥配置方式，这些内容需查阅官方文档站的 Web UI 指南。",
+    "第三方依赖的许可证列在 THIRD_PARTY_NOTICES.md 中。"
+  ],
+  "references": [
+    {
+      "label": "README.zh.md",
+      "url": "https://github.com/deepseek-ai/deepseek-harness/blob/639ed015397290b3745d163aafe02ffee4aa3f84/README.zh.md"
+    }
+  ],
+  "media": [],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "a0b74478258d3454ba37470c149cacb0684d8009afc3951ac107c2fe0fe8ab23",
+  "mediaStatus": "none_in_official_documents"
+}

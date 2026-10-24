@@ -1,0 +1,54 @@
+{
+  "schemaVersion": 1,
+  "key": "gongzisahan/sizhu-programming",
+  "status": "ready",
+  "reason": "",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/gongzisahan/sizhu-programming/blob/352d71088c61c819cd680135afdbe1650ff28486/README.md",
+  "sourceRevision": "352d71088c61c819cd680135afdbe1650ff28486",
+  "canonicalKey": "gongzisahan/sizhu-programming",
+  "summary": "一本用编程教科书写法讲解四柱命理概念的中文书稿，附带一个演示十神计算和地支藏干展开的小型 Python 原型。",
+  "intro": "适合对四柱感兴趣、但不习惯传统资料跳跃写法的读者，也适合想借鉴「用编程思维整理知识」方法的写作者。主体是书稿 sizhu_programming.md，不会编程也能阅读。sizhu/ 和 tests/ 下的代码只是辅助说明的实验性附录。",
+  "requirements": "阅读书稿只需能打开 Markdown 文件。若要查看配套代码，需要了解基本的 Python 项目结构（仓库包含 pyproject.toml）。README 未提供安装或运行命令。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "先读 README 了解项目边界",
+      "text": "先通读 README，弄清项目的定位：它是结构化的四柱科普书稿，不是完整的算命软件或自动断命系统。同时了解当前已完成和未完成的内容。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/gongzisahan/sizhu-programming/blob/352d71088c61c819cd680135afdbe1650ff28486/README.md?plain=1#L15"
+      }
+    },
+    {
+      "title": "阅读主体书稿正文",
+      "text": "打开仓库根目录的 sizhu_programming.md，这是全书正文和理论框架，也是作者建议重点阅读的内容。书稿按基本概念、数据结构、规则系统、分析流程和边界条件分层讲解。",
+      "code": "sizhu-programming/\n├─ LICENSE\n├─ README.md\n├─ pyproject.toml\n├─ sizhu_programming.md\n├─ sizhu/\n│  ├─ __init__.py\n│  ├─ core.py\n│  └─ cli.py\n└─ tests/\n   └─ test_core.py",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/gongzisahan/sizhu-programming/blob/352d71088c61c819cd680135afdbe1650ff28486/README.md?plain=1#L44"
+      }
+    },
+    {
+      "title": "按需查看配套原型代码",
+      "text": "如果想了解规则如何程序化表达，可以依次查看 sizhu/core.py（四柱对象、十神计算、藏干展开、基础分析逻辑）、sizhu/cli.py（命令行演示入口）和 tests/test_core.py（规则验证样例）。",
+      "code": "sizhu-programming/\n├─ LICENSE\n├─ README.md\n├─ pyproject.toml\n├─ sizhu_programming.md\n├─ sizhu/\n│  ├─ __init__.py\n│  ├─ core.py\n│  └─ cli.py\n└─ tests/\n   └─ test_core.py",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/gongzisahan/sizhu-programming/blob/352d71088c61c819cd680135afdbe1650ff28486/README.md?plain=1#L124"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "项目处于早期阶段。公历转四柱、节气换月、起运计算、大运/流年模块等尚未实现。",
+    "代码只是演示原型，作者明确说明它不适合自动完成完整命理分析，也不能替代人工判断。",
+    "README 没有给出安装或运行代码的命令，需要自行根据 pyproject.toml 判断。"
+  ],
+  "references": [],
+  "media": [],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "9ceecdd5bda396fd3308f615eb08e0039bb5d7dcb26d76d34b2b8aaf3760cfca",
+  "mediaStatus": "none_in_official_documents"
+}

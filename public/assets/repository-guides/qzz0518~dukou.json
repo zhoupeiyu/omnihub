@@ -1,0 +1,82 @@
+{
+  "schemaVersion": 1,
+  "key": "qzz0518/dukou",
+  "status": "ready",
+  "reason": "",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/qzz0518/Dukou/blob/28f38d7ebb0f107d7bc8cc6ef367753c44250bef/README.md",
+  "sourceRevision": "28f38d7ebb0f107d7bc8cc6ef367753c44250bef",
+  "canonicalKey": "qzz0518/Dukou",
+  "summary": "Dukou（渡口）是一个 macOS 工具，能把微信合并转发的聊天记录直接送到 Claude、ChatGPT、剪贴板或任意 App，也可把群聊和朋友圈批量导出为 TXT 并附离线 HTML 预览。",
+  "intro": "适合在 macOS 上使用微信、需要把聊天记录交给 AI 应用阅读或做本地文本备份的人。它在微信「转发到其他应用」菜单里加入暂存到渡口、发给 Codex、发给 Claude、复制到剪贴板、发送到自定义五个入口；实验性的快捷微信转发和快捷朋友圈转发可按群名和条数自动导出，导出的 ZIP 附带 index.html 供离线翻阅。它只使用微信自带的转发导出，不读数据库、不解密、不注入。",
+  "requirements": "macOS 14 或更高版本；合并转发给第三方应用依赖 macOS 微信 4.1.13 起提供的功能；使用「发给 Codex / Claude」需已安装 ChatGPT.app 或 Claude.app；自动粘贴和快捷转发需授予「辅助功能」权限；按本指南安装需已有 Homebrew。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "用 Homebrew 安装 Dukou",
+      "text": "在 macOS 终端执行代码块中的 brew install --cask 命令安装。Homebrew 与 Releases 页面提供的是同一份经过 Developer ID 签名和 Apple 公证的 Universal 2 DMG，后续可用 brew upgrade --cask dukou 更新，或等待 App 通过 Sparkle 提示。",
+      "code": "brew install --cask qzz0518/tap/dukou",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/qzz0518/Dukou/blob/28f38d7ebb0f107d7bc8cc6ef367753c44250bef/README.md?plain=1#L74"
+      }
+    },
+    {
+      "title": "按向导启用转发菜单入口",
+      "text": "打开 Dukou，按四步向导打开需要的入口。新装的共享扩展默认未启用，不打开就不会出现在微信转发菜单里；之后也可以在「设置 → 入口」里逐条开关。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/qzz0518/Dukou/blob/28f38d7ebb0f107d7bc8cc6ef367753c44250bef/README.md?plain=1#L86"
+      }
+    },
+    {
+      "title": "授予辅助功能权限",
+      "text": "如需自动粘贴到目标 App，给 Dukou 授予「辅助功能」权限。这一步可以跳过，第一次转发失败时 Dukou 会再次引导；即使目标未就绪，文件也会留在剪贴板并可放到暂存架。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/qzz0518/Dukou/blob/28f38d7ebb0f107d7bc8cc6ef367753c44250bef/README.md?plain=1#L86"
+      }
+    },
+    {
+      "title": "在微信中转发到 Dukou",
+      "text": "在微信里多选聊天记录，选择「转发到其他应用」，再点 Dukou 提供的某条入口，例如发给 Claude 或暂存到渡口。微信会把文字、图片和视频打包成 ZIP 并附按时间排序的 TXT，由 Dukou 送到对应位置。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/qzz0518/Dukou/blob/28f38d7ebb0f107d7bc8cc6ef367753c44250bef/README.md?plain=1#L86"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "「快捷微信转发」和「快捷朋友圈转发」是实验功能；部分微信账号不向系统开放界面控件，这两项会无法使用，手动多选后从转发菜单发送不受影响。",
+    "记录超过保留时长（默认 7 天）会自动移到废纸篓。",
+    "授权辅助功能后，转发时会读取一次微信窗口上的聊天名用于命名，仅保存在本机；软件除检查更新外不联网。",
+    "快捷朋友圈转发逐条下载较慢，可按 ESC 中断。"
+  ],
+  "references": [],
+  "media": [
+    {
+      "url": "/assets/repository-guides/media-b04da6a090081df076d506d9.webp",
+      "alt": "微信 4.1.13 的「转发到其他应用」菜单：Dukou 的五条入口和系统自带的共享服务排在一起",
+      "sourceUrl": "https://github.com/qzz0518/Dukou/blob/28f38d7ebb0f107d7bc8cc6ef367753c44250bef/README.md?plain=1#L16",
+      "originalUrl": "https://raw.githubusercontent.com/qzz0518/Dukou/28f38d7ebb0f107d7bc8cc6ef367753c44250bef/Resources/Screenshots/wechat-forward.png"
+    },
+    {
+      "url": "/assets/repository-guides/media-71d14d75d25ad38ac616f849.webp",
+      "alt": "Dukou 总览：入口开关、快捷微信转发、暂存架与记录",
+      "sourceUrl": "https://github.com/qzz0518/Dukou/blob/28f38d7ebb0f107d7bc8cc6ef367753c44250bef/README.md?plain=1#L20",
+      "originalUrl": "https://raw.githubusercontent.com/qzz0518/Dukou/28f38d7ebb0f107d7bc8cc6ef367753c44250bef/Resources/Screenshots/overview.png"
+    },
+    {
+      "url": "/assets/repository-guides/media-bcc8e57d1a1edc007a791331.webp",
+      "alt": "快捷朋友圈转发设置，以及导出 ZIP 里自带的离线 HTML 聊天预览",
+      "sourceUrl": "https://github.com/qzz0518/Dukou/blob/28f38d7ebb0f107d7bc8cc6ef367753c44250bef/README.md?plain=1#L24",
+      "originalUrl": "https://raw.githubusercontent.com/qzz0518/Dukou/28f38d7ebb0f107d7bc8cc6ef367753c44250bef/Resources/Screenshots/backup-preview.png"
+    }
+  ],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "1df6c0663b9de79eadb177f8c686c3d3a6ba2bebf57413c9cb00a1e20a1d7726",
+  "mediaStatus": "archived",
+  "mediaFailures": []
+}

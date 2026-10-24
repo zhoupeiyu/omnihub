@@ -1,0 +1,72 @@
+{
+  "schemaVersion": 1,
+  "key": "usenotra/notra",
+  "status": "partial",
+  "reason": "README 提供了本地开发命令，但空数据库的初始化方法放在 AGENTS.md 中，本材料没有包含。README 也说明 db:migrate 不能完整初始化空库。.env 需要的 WorkOS AuthKit 凭据和各模型提供方凭据，没有给出具体获取方式。托管版注册后的使用步骤、REST API 与 MCP 的认证方法都在外部文档 docs.usenotra.com，本材料同样没有包含。",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/usenotra/notra/blob/3607e684b7736247ab53108bc526daaa0a14856a/README.md",
+  "sourceRevision": "3607e684b7736247ab53108bc526daaa0a14856a",
+  "canonicalKey": "usenotra/notra",
+  "summary": "Notra 是一个 GEO（生成式引擎优化）工具：它向 ChatGPT、Claude、Gemini 等 AI 引擎提出买家会问的问题，追踪你的品牌是否出现在回答中、哪些竞争对手出现在你前面，并据此生成内容草稿。",
+  "intro": "适合关注品牌在 AI 回答中可见度的市场、内容和增长团队。具体用途包括：添加或导入买家问题（可手动添加、从网站生成、导入 CSV，或参考 Google Search Console 查询），跨多个引擎扫描；按引擎、问题和语言比较提及率与推荐位置；追踪竞争对手；把内容缺口生成为指南、清单或对比文章；用 @usenotra/geo SDK 区分 AI 爬虫流量与人工引荐流量。开发者可以通过 REST API、MCP 服务器接入，也可以在本地参与这个 Bun + Turborepo monorepo 的开发。",
+  "requirements": "托管版需要在 app.usenotra.com 注册账号。本地开发需要 Bun 1.4.0、Node.js 24.11.1 和一个 PostgreSQL 数据库。根目录 .env 需要配置 DATABASE_URL、WorkOS AuthKit 凭据、INTEGRATION_ENCRYPTION_KEY 和应用 URL；要使用哪些功能，就补充对应提供方的凭据。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "安装依赖并创建 .env 文件",
+      "text": "在仓库根目录使用 Bun 1.4.0 安装依赖，然后把 .env.example 复制为 .env。README 说明安装钩子会给 Oxlint 打补丁，所以要用指定版本的 Bun 来安装固定的兼容版本。",
+      "code": "bun install\ncp .env.example .env",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/usenotra/notra/blob/3607e684b7736247ab53108bc526daaa0a14856a/README.md?plain=1#L64"
+      }
+    },
+    {
+      "title": "填写数据库与认证等必要配置",
+      "text": "启动 dashboard 之前，在根目录 .env 中设置 DATABASE_URL、WorkOS AuthKit 凭据、INTEGRATION_ENCRYPTION_KEY 和应用 URL。再按需要使用的功能补充对应提供方的凭据，具体变量可参考 .env.example 和 CONTRIBUTING.md。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/usenotra/notra/blob/3607e684b7736247ab53108bc526daaa0a14856a/README.md?plain=1#L64"
+      }
+    },
+    {
+      "title": "按 AGENTS.md 初始化空数据库",
+      "text": "dashboard 需要一个已经初始化的数据库。现有迁移链假设基础表已经存在，所以对空库执行 bun run db:migrate 并不完整；schema push 在新库上还有外键顺序问题。请按仓库 AGENTS.md 中的环境说明处理，本材料没有包含具体步骤。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/usenotra/notra/blob/3607e684b7736247ab53108bc526daaa0a14856a/README.md?plain=1#L64"
+      }
+    },
+    {
+      "title": "启动主产品或公开网站",
+      "text": "运行 dashboard 过滤目标，在 http://localhost:3000 打开主产品，其中包括 GEO 分析、内容、集成和工作区管理。也可以运行 web 过滤目标，在 http://localhost:3001 打开公开网站。",
+      "code": "# Main product, http://localhost:3000\nbun run dev --filter=dashboard\n\n# Public website, http://localhost:3001\nbun run dev --filter=web",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/usenotra/notra/blob/3607e684b7736247ab53108bc526daaa0a14856a/README.md?plain=1#L64"
+      }
+    },
+    {
+      "title": "提交前运行仓库检查",
+      "text": "在仓库根目录依次运行代码检查、类型检查、测试和 dashboard 构建。提交 PR 前请阅读 CONTRIBUTING.md 中的工作流说明。如果修改了落地页文案，需要同步更新 apps/web/src/utils/site-markdown.ts。",
+      "code": "bun run check\nbun run check-types\nbun run test\nbun run build --filter=dashboard",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/usenotra/notra/blob/3607e684b7736247ab53108bc526daaa0a14856a/README.md?plain=1#L64"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "项目采用 AGPL-3.0 许可，自行部署或修改后对外提供服务时，需要评估相应的开源义务。",
+    "本地运行依赖 WorkOS AuthKit 和多个 AI 引擎提供方的凭据，这些第三方服务可能产生费用，README 没有说明。",
+    "README 明确提示：单次页面抓取不能证明内容被 AI 引用，解读流量归因数据时要注意这一点。",
+    "Studio 需要连接 GitHub、Linear、Slack 等第三方账号，授权前请评估数据访问范围。"
+  ],
+  "references": [],
+  "media": [],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "a936a80e88f9cc409e06d42ae0ed75505e754960105e36a9be1265c0fe64887b",
+  "mediaStatus": "none_in_official_documents"
+}

@@ -1,0 +1,89 @@
+{
+  "schemaVersion": 1,
+  "key": "webadderall/recordly",
+  "status": "ready",
+  "reason": "",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/webadderallorg/Recordly/blob/18884285b11b3603fc4ccede89add40e0e4a9bd6/README.md",
+  "sourceRevision": "18884285b11b3603fc4ccede89add40e0e4a9bd6",
+  "canonicalKey": "webadderallorg/Recordly",
+  "summary": "Recordly 是开源的桌面录屏与编辑应用，可录制屏幕后添加自动缩放、光标美化、摄像头叠加和样式化背景，并导出 MP4 或 GIF。",
+  "intro": "适合需要制作操作讲解、产品演示、教程视频的开发者、产品经理和内容创作者。它把录制、时间线剪辑（裁剪、缩放、变速、注释、额外音频）、光标与画面美化、导出集中在一个应用中完成，工作可保存为 `.recordly` 项目文件，之后继续编辑。",
+  "requirements": "macOS 14.0（Sonoma）及以上、Windows 10 Build 19041（20H1）及以上，或现代 Linux 发行版；Linux 录制系统音频通常需要 PipeWire。以下按官方预构建版本的入门路径整理，不需要自行编译。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "从 Releases 下载预构建版本",
+      "text": "打开仓库的 GitHub Releases 页面（https://github.com/webadderallorg/Recordly/releases），下载与你的系统（macOS、Windows 或 Linux）对应的预构建安装包并安装。安装前先核对系统版本是否满足最低要求，例如 Windows 需 Build 19041 及以上才能使用原生捕获。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/webadderallorg/Recordly/blob/18884285b11b3603fc4ccede89add40e0e4a9bd6/README.md?plain=1#L171"
+      }
+    },
+    {
+      "title": "选择录制目标与音频后开始录制",
+      "text": "启动 Recordly，选择要录制的整个屏幕或单个应用窗口，再设置是否录制麦克风和系统音频，然后开始录制。停止录制后会直接进入编辑器。也可以在应用中打开已有录像或已有 `.recordly` 项目继续处理。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/webadderallorg/Recordly/blob/18884285b11b3603fc4ccede89add40e0e4a9bd6/README.md?plain=1#L255"
+      }
+    },
+    {
+      "title": "在编辑器中剪辑并美化画面",
+      "text": "在时间线上添加裁剪、缩放、变速区域和文本/图片注释，可使用基于光标活动的自动缩放建议；调整光标大小、平滑与动态效果；用壁纸、纯色、渐变、模糊、留白和圆角美化画面；按需添加摄像头叠加和额外音频，并裁切画面、选择宽高比。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/webadderallorg/Recordly/blob/18884285b11b3603fc4ccede89add40e0e4a9bd6/README.md?plain=1#L263"
+      }
+    },
+    {
+      "title": "保存为 .recordly 项目文件",
+      "text": "编辑过程中可随时将工作保存为 `.recordly` 项目。该文件保存源媒体路径和编辑器状态，之后重新打开即可继续编辑；因为记录的是源媒体路径，移动或删除原始录像文件前需留意。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/webadderallorg/Recordly/blob/18884285b11b3603fc4ccede89add40e0e4a9bd6/README.md?plain=1#L263"
+      }
+    },
+    {
+      "title": "调整参数后导出 MP4 或 GIF",
+      "text": "选择导出格式：MP4 用于常规视频，GIF 用于轻量分享和循环片段。导出前可调整质量、GIF 帧率、GIF 循环、尺寸预设及输出宽高比，导出后可在系统文件管理器中定位生成的文件。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/webadderallorg/Recordly/blob/18884285b11b3603fc4ccede89add40e0e4a9bd6/README.md?plain=1#L276"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "Linux 通过 Electron 捕获录制，目前不支持隐藏真实光标；若同时启用渲染光标叠加，导出画面可能同时出现真实光标和样式化光标。",
+    "Windows Build 19041 之前的版本会回退到兼容捕获方式，真实系统光标可能出现在视频中。",
+    "系统音频支持因平台而异：Windows 使用原生 WASAPI，Linux 通常需要 PipeWire，macOS 需要 14.0+ 及 ScreenCaptureKit 流程。",
+    "项目采用 AGPL 3.0 许可证，二次分发或基于其修改提供服务时需遵守该许可条款。",
+    "扩展市场中的扩展由社区构建和发布，安装前请自行评估来源。"
+  ],
+  "references": [
+    {
+      "label": "README.zh-CN.md",
+      "url": "https://github.com/webadderallorg/Recordly/blob/18884285b11b3603fc4ccede89add40e0e4a9bd6/README.zh-CN.md"
+    }
+  ],
+  "media": [],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "5df4d643f48e576c1c5bf95344aa287714ec78bf6956a528fb5a5b4b31190c86",
+  "mediaStatus": "unavailable",
+  "mediaFailures": [
+    {
+      "sourceUrl": "https://github.com/webadderallorg/Recordly/blob/18884285b11b3603fc4ccede89add40e0e4a9bd6/README.md#L156",
+      "reason": "unsupported_media_host"
+    },
+    {
+      "sourceUrl": "https://github.com/webadderallorg/Recordly/blob/18884285b11b3603fc4ccede89add40e0e4a9bd6/README.md#L160",
+      "reason": "unsupported_media_host"
+    },
+    {
+      "sourceUrl": "https://github.com/webadderallorg/Recordly/blob/18884285b11b3603fc4ccede89add40e0e4a9bd6/README.md#L49",
+      "reason": "response_too_large"
+    }
+  ]
+}

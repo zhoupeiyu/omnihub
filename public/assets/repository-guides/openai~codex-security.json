@@ -1,0 +1,66 @@
+{
+  "schemaVersion": 1,
+  "key": "openai/codex-security",
+  "status": "ready",
+  "reason": "",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/openai/codex-security/blob/4874724c0d811ffe5ed8fd09ab464e31e00fb801/README.md",
+  "sourceRevision": "4874724c0d811ffe5ed8fd09ab464e31e00fb801",
+  "canonicalKey": "openai/codex-security",
+  "summary": "OpenAI 的 Codex Security CLI 和 TypeScript SDK，用于为代码库制定安全策略，并发现、验证和修复安全漏洞。",
+  "intro": "适合需要对自有代码库做安全扫描的开发者和安全团队。可以用 CLI 扫描目录、生成 SECURITY.md 策略草稿，也可以在 TypeScript 代码中调用 SDK 运行扫描并获取报告路径。批量扫描多个仓库时可使用 Docker Compose；另有预览版的 findings 服务，用于存储、去重和查看扫描结果。",
+  "requirements": "Node.js 22.13.0 或更高版本；Python 3.10 或更高版本；交互使用时需要登录，CI 中改为设置 OPENAI_API_KEY；使用其他推理服务商时需要对应的 API Key。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "安装 npm 包并登录",
+      "text": "在项目中用 npm 安装 @openai/codex-security，再运行 login 命令登录。在 CI 环境中不用登录，改为设置 OPENAI_API_KEY 环境变量。",
+      "code": "npm install @openai/codex-security\nnpx @openai/codex-security login\nnpx @openai/codex-security scan /path/to/directory",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/openai/codex-security/blob/4874724c0d811ffe5ed8fd09ab464e31e00fb801/README.md?plain=1#L11"
+      }
+    },
+    {
+      "title": "扫描指定代码目录",
+      "text": "运行 npx @openai/codex-security scan 并传入要检查的目录路径。如果要改用 Amazon Bedrock、OpenRouter 或 Fireworks，先导出对应的 API Key，再用 --provider 和 --model 指定服务商和模型。",
+      "code": "npm install @openai/codex-security\nnpx @openai/codex-security login\nnpx @openai/codex-security scan /path/to/directory\n\nexport AWS_BEARER_TOKEN_BEDROCK=\"<your-bedrock-api-key>\"\nexport AWS_REGION=\"us-east-2\"\nnpx @openai/codex-security scan . --provider amazon-bedrock --model openai.gpt-5.6-luna\n\nexport OPENROUTER_API_KEY=\"<your-openrouter-api-key>\"\nnpx @openai/codex-security scan . --provider openrouter --model anthropic/claude-sonnet-4.5\n\nexport FIREWORKS_API_KEY=\"<your-fireworks-api-key>\"\nnpx @openai/codex-security scan . --provider fireworks --model accounts/fireworks/models/qwen3-235b-a22b",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/openai/codex-security/blob/4874724c0d811ffe5ed8fd09ab464e31e00fb801/README.md?plain=1#L11"
+      }
+    },
+    {
+      "title": "生成 SECURITY.md 草稿",
+      "text": "运行 policy 命令，为整个仓库或某个组件（用 --path 指定，可配合 --knowledge-base 提供架构资料）起草 SECURITY.md，供后续扫描参考。草稿保存在仓库之外，不会自动安装；复制前请先检查拟议的 diff。",
+      "code": "npx @openai/codex-security policy .\nnpx @openai/codex-security policy . --path services/api --knowledge-base architecture.md",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/openai/codex-security/blob/4874724c0d811ffe5ed8fd09ab464e31e00fb801/README.md?plain=1#L23"
+      }
+    },
+    {
+      "title": "在 TypeScript 中调用 SDK",
+      "text": "在代码中引入 CodexSecurity，创建实例后调用 run 扫描目录。可以传入 mode、workers、maxTimeHours 等选项，完成后读取 result.reportPath，最后调用 close。更多用法见 sdk/typescript/README.md。",
+      "code": "import { CodexSecurity } from \"@openai/codex-security\";\n\nconst security = new CodexSecurity();\nconst result = await security.run(\"/path/to/directory\");\nawait security.run(\"/path/to/directory\", {\n  mode: \"deep\",\n  workers: 2,\n  subagents: 0,\n  stopAfterNoNew: 3,\n  maxDiscoveryRuns: 10,\n  maxTimeHours: 1.5,\n});\n\nconsole.log(result.reportPath);\nawait security.close();",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/openai/codex-security/blob/4874724c0d811ffe5ed8fd09ab464e31e00fb801/README.md?plain=1#L38"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "部分网络安全请求和受保护的发现需要通过 Trusted Access for Cyber 审批，申请入口为 chatgpt.com/cyber。",
+    "生成策略时产生的架构、威胁模型等辅助文档保存在仓库外，可能包含敏感信息，需要妥善保管。",
+    "findings 服务仍是预览版。",
+    "调用 OpenAI 或其他推理服务商会消耗对应账号的 API 额度。",
+    "只对你有权测试的代码库运行扫描。"
+  ],
+  "references": [],
+  "media": [],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "0cdb90c078ad2cb304e3691648ca274133926eba2df3f266ca37f7517bab1755",
+  "mediaStatus": "none_in_official_documents"
+}

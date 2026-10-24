@@ -1,0 +1,70 @@
+{
+  "schemaVersion": 1,
+  "key": "reinamaccredy/maestro",
+  "status": "ready",
+  "reason": "",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/ReinaMacCredy/maestro/blob/2412403f5eaeb74052f73d7034ea9af92dee5153/README.md",
+  "sourceRevision": "2412403f5eaeb74052f73d7034ea9af92dee5153",
+  "canonicalKey": "ReinaMacCredy/maestro",
+  "summary": "一个本地优先的协作系统，用 TypeScript 编写、运行在 Bun 上。它把人与 AI 代理之间的工作、决策、会话、证据、派发和回交记录持久化保存在仓库中。",
+  "intro": "适合同时使用 Claude 或 Codex 等代理处理多个仓库的开发者。Maestro 用 SQLite 存储工作项和决策，用 maestro status、maestro ready、maestro work 管理任务生命周期，并通过 recipe 和技能提供 Markdown 形式的工作方法。它还可以借助 Herdr 运行由 Supervisor、Lead、Peer 组成的 SLP 监督团队。不需要后台服务。",
+  "requirements": "需要 git 和 Bun。安装时会在 ~/.maestro、~/.local/bin/maestro 和 ~/maestro 下写入文件，并为 Claude 和 Codex 写入受管的 hook 与适配器。使用 SLP 团队功能需要 Herdr 工作区，以及 claude 或 codex 命令行工具。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "用安装脚本从源码安装",
+      "text": "在需要接入的仓库中运行官方的一行安装脚本。脚本会把源码克隆到 ~/.maestro/source，安装运行时和 ~/.local/bin/maestro 命令入口，接入当前仓库，并在 ~/maestro 创建 Supervisor 房间和十个受管技能。可以用 MAESTRO_SOURCE_DIR 和 MAESTRO_REF 覆盖源码位置和分支。 原文包含需人工核查的高权限或删除命令，本站不提供一键复制；请查看该步骤的官方出处。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/ReinaMacCredy/maestro/blob/2412403f5eaeb74052f73d7034ea9af92dee5153/README.md?plain=1#L23"
+      }
+    },
+    {
+      "title": "运行 doctor 检查安装状态",
+      "text": "安装后执行 maestro doctor。它会检查命令入口、运行时、源码记录、仓库接入、权限和存储访问，但不会自动修复。检查通过时以零退出；发现问题时，如果修复是机械性的，会给出下一步应执行的命令。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/ReinaMacCredy/maestro/blob/2412403f5eaeb74052f73d7034ea9af92dee5153/README.md?plain=1#L23"
+      }
+    },
+    {
+      "title": "查看状态并管理工作项",
+      "text": "用 maestro status 查看会话、持有的工作和在线的 peer；用 maestro ready 查看可以开始的工作和被阻塞的门控。之后用 maestro work add、start、note、done 推进工作生命周期，用 maestro decision 记录带理由的决策。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/ReinaMacCredy/maestro/blob/2412403f5eaeb74052f73d7034ea9af92dee5153/README.md?plain=1#L170"
+      }
+    },
+    {
+      "title": "浏览配方与工作方法",
+      "text": "用 maestro recipe list 浏览内置的 Markdown 工作方法，用 maestro recipe show 加名称阅读某一个配方。共享方法规则安装在 ~/maestro/WORKFLOW.md，可据此按风险选择 quickfix、Light 或 Full 流程。完整命令列表可通过 maestro help 查看。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/ReinaMacCredy/maestro/blob/2412403f5eaeb74052f73d7034ea9af92dee5153/README.md?plain=1#L13"
+      }
+    },
+    {
+      "title": "按需启动 SLP 监督团队",
+      "text": "如果需要多代理协作，可在 Herdr 工作区中用 maestro team start 启动团队。该命令会创建一个 Team Supervisor 和一个 Lead；加 --lead-only 则只开 Lead。各角色只使用文档列出的九个操作，工作状态按 OPEN、ACTIVE、RETURNED、DONE 的顺序流转。",
+      "code": "maestro team start\nmaestro team stop\nmaestro status [work-id]\nmaestro work add\nmaestro work take\nmaestro work note\nmaestro work return\nmaestro work accept\nmaestro decide",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/ReinaMacCredy/maestro/blob/2412403f5eaeb74052f73d7034ea9af92dee5153/README.md?plain=1#L71"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "安装方式是通过 curl 管道执行远程脚本，执行前可以先查看脚本内容。",
+    "安装会改写当前仓库中受管的 Claude 和 Codex hook，以及 CLAUDE.md、AGENTS.md 中的受管区块。maestro uninstall 只移除这些接入，不会删除仓库数据、运行时或 Supervisor 房间。",
+    "文档明确说明 SLP 是协作协议，不是 shell 安全沙箱，不会阻止原生命令或直接调用 Herdr，相关约束需要由使用者和宿主策略负责。",
+    "maestro update 只接受快进更新，遇到有未提交改动或已分叉的源码会拒绝执行。"
+  ],
+  "references": [],
+  "media": [],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "b1d67f815b5d3f5ff7d00d0f3d21d58429605bb0a37657e17e2af14bccd8410b",
+  "mediaStatus": "none_in_official_documents"
+}

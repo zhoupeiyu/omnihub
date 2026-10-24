@@ -1,0 +1,97 @@
+{
+  "schemaVersion": 1,
+  "key": "666ghj/mirofish",
+  "status": "ready",
+  "reason": "",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/666ghj/MiroFish/blob/39d849138ef254f6c737ab4c4705e5545dbe31d4/README.md",
+  "sourceRevision": "39d849138ef254f6c737ab4c4705e5545dbe31d4",
+  "canonicalKey": "666ghj/MiroFish",
+  "summary": "一个基于多智能体的群体智能仿真引擎，可根据上传的种子材料构建数字世界并生成预测报告。",
+  "intro": "适合想用多智能体仿真做舆情推演、政策或公关预演，或推演小说结局等创意场景的用户。上传种子材料（如数据分析报告或小说文本）并用自然语言描述预测需求后，系统会经过图谱构建、环境搭建、模拟、报告生成等阶段，返回预测报告，并支持与模拟世界中的智能体或 ReportAgent 对话。",
+  "requirements": "源码部署需要 Node.js 18+（含 npm）、Python ≥3.11 且 ≤3.12、uv；需要一个兼容 OpenAI SDK 格式的 LLM API key，以及 Zep Cloud API key。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "复制并创建 .env 配置文件",
+      "text": "在项目根目录将 .env.example 复制为 .env，后续在其中填写必要的 API 密钥。以下按官方文档的源码部署路径进行（适用于已安装 Node.js、Python 与 uv 的环境）。",
+      "code": "# 复制示例配置文件\ncp .env.example .env\n\n# 编辑 .env 文件，填入必要的 API 密钥",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/666ghj/MiroFish/blob/39d849138ef254f6c737ab4c4705e5545dbe31d4/README-ZH.md?plain=1#L98"
+      }
+    },
+    {
+      "title": "填写 LLM 与 Zep 密钥",
+      "text": "在 .env 中设置 LLM_API_KEY、LLM_BASE_URL、LLM_MODEL_NAME（支持 OpenAI SDK 格式的任意 LLM API，文档示例为阿里百炼的 qwen-plus），以及从 Zep Cloud 获取的 ZEP_API_KEY。",
+      "code": "# LLM API配置（支持 OpenAI SDK 格式的任意 LLM API）\n# 推荐使用阿里百炼平台qwen-plus模型：https://bailian.console.aliyun.com/\n# 注意消耗较大，可先进行小于40轮的模拟尝试\nLLM_API_KEY=your_api_key\nLLM_BASE_URL=https://dashscope.aliyuncs.com/compatible-mode/v1\nLLM_MODEL_NAME=qwen-plus\n\n# Zep Cloud 配置\n# 每月免费额度即可支撑简单使用：https://app.getzep.com/\nZEP_API_KEY=your_zep_api_key",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/666ghj/MiroFish/blob/39d849138ef254f6c737ab4c4705e5545dbe31d4/README-ZH.md?plain=1#L106"
+      }
+    },
+    {
+      "title": "一键安装前后端依赖",
+      "text": "在项目根目录执行 npm run setup:all，安装根目录、前端和后端依赖。也可分步执行：npm run setup 安装 Node 依赖，npm run setup:backend 安装 Python 依赖并自动创建虚拟环境。",
+      "code": "# 一键安装所有依赖（根目录 + 前端 + 后端）\nnpm run setup:all\n\n# 安装 Node 依赖（根目录 + 前端）\nnpm run setup\n\n# 安装 Python 依赖（后端，自动创建虚拟环境）\nnpm run setup:backend",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/666ghj/MiroFish/blob/39d849138ef254f6c737ab4c4705e5545dbe31d4/README-ZH.md?plain=1#L130"
+      }
+    },
+    {
+      "title": "启动服务并打开前端页面",
+      "text": "在项目根目录执行 npm run dev 同时启动前后端，然后在浏览器访问 http://localhost:3000 使用前端，后端 API 位于 http://localhost:5001。也可用 npm run backend 或 npm run frontend 单独启动。",
+      "code": "# 同时启动前后端（在项目根目录执行）\nnpm run dev\n\nnpm run backend   # 仅启动后端\nnpm run frontend  # 仅启动前端",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/666ghj/MiroFish/blob/39d849138ef254f6c737ab4c4705e5545dbe31d4/README-ZH.md?plain=1#L147"
+      }
+    },
+    {
+      "title": "上传种子材料并描述需求",
+      "text": "在界面中上传种子材料并用自然语言描述预测需求，系统依次完成图谱构建、环境搭建、模拟与报告生成；之后可与模拟世界中的任意智能体或 ReportAgent 对话深入追问。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/666ghj/MiroFish/blob/39d849138ef254f6c737ab4c4705e5545dbe31d4/README-ZH.md?plain=1#L27"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "项目采用 AGPL-3.0 许可证，修改后通过网络提供服务时需注意其开源义务。",
+    "官方提示 LLM 调用消耗较大，建议先进行少于 40 轮的模拟尝试；LLM API 和 Zep Cloud 的费用及额度以各平台为准。",
+    "输出为多智能体仿真推演结果，不应等同于对现实事件的确定性结论，用于政策、金融等决策时需自行审慎判断。"
+  ],
+  "references": [
+    {
+      "label": "README-ZH.md",
+      "url": "https://github.com/666ghj/MiroFish/blob/39d849138ef254f6c737ab4c4705e5545dbe31d4/README-ZH.md"
+    }
+  ],
+  "media": [
+    {
+      "url": "/assets/repository-guides/media-a8344edd7b6556360592e1aa.webp",
+      "alt": "截图1",
+      "sourceUrl": "https://github.com/666ghj/MiroFish/blob/39d849138ef254f6c737ab4c4705e5545dbe31d4/README-ZH.md?plain=1#L52",
+      "originalUrl": "https://raw.githubusercontent.com/666ghj/MiroFish/39d849138ef254f6c737ab4c4705e5545dbe31d4/static/image/Screenshot/%E8%BF%90%E8%A1%8C%E6%88%AA%E5%9B%BE1.png"
+    },
+    {
+      "url": "/assets/repository-guides/media-4823f1dbb9fa6774ca9f7b90.webp",
+      "alt": "截图2",
+      "sourceUrl": "https://github.com/666ghj/MiroFish/blob/39d849138ef254f6c737ab4c4705e5545dbe31d4/README-ZH.md?plain=1#L53",
+      "originalUrl": "https://raw.githubusercontent.com/666ghj/MiroFish/39d849138ef254f6c737ab4c4705e5545dbe31d4/static/image/Screenshot/%E8%BF%90%E8%A1%8C%E6%88%AA%E5%9B%BE2.png"
+    },
+    {
+      "url": "/assets/repository-guides/media-a4a1f878c57443fddcb1a024.webp",
+      "alt": "截图3",
+      "sourceUrl": "https://github.com/666ghj/MiroFish/blob/39d849138ef254f6c737ab4c4705e5545dbe31d4/README-ZH.md?plain=1#L56",
+      "originalUrl": "https://raw.githubusercontent.com/666ghj/MiroFish/39d849138ef254f6c737ab4c4705e5545dbe31d4/static/image/Screenshot/%E8%BF%90%E8%A1%8C%E6%88%AA%E5%9B%BE3.png"
+    }
+  ],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "5dbec98148c83c113291cd1028f0243c196be9ae7c43e800379ef90d97d1489c",
+  "mediaStatus": "archived",
+  "mediaFailures": []
+}

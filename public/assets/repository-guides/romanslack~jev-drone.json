@@ -1,0 +1,93 @@
+{
+  "schemaVersion": 1,
+  "key": "romanslack/jev-drone",
+  "status": "ready",
+  "reason": "",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/RomanSlack/jev-drone/blob/974b47378c14c6dcf7d11f7c813fba0f5f4d8b6a/README.md",
+  "sourceRevision": "974b47378c14c6dcf7d11f7c813fba0f5f4d8b6a",
+  "canonicalKey": "RomanSlack/jev-drone",
+  "summary": "在 MuJoCo 中模拟仅靠机载相机飞行的四旋翼无人机，由 TypeSafe 的 Jev 判断模型以约 2.5Hz 做战术决策，穿越五站障碍赛道。",
+  "intro": "适合研究机器人控制、仿真或「把小型判断模型放进实时控制回路」的开发者和研究者。项目把感知、飞控、安全反射交给常规代码，只让 Jev 回答机动选择、风险和目标是否丢失等问题。项目提供带 Jev 和不带 Jev（消融基线）两种运行方式，也可以录制视频后离线重放。README 中还记录了大量仿真器与控制器调试经验，可直接查阅。",
+  "requirements": "需要运行仓库的 setup.sh（创建 venv 并下载 Skydio X2 模型），并在 .env 中填入 Jev 的 API key。渲染需要 MUJOCO_GL=glfw，无显示器的机器改用 egl。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "运行 setup.sh 并配置密钥",
+      "text": "在仓库根目录执行 ./setup.sh，它会创建虚拟环境并拉取 MuJoCo Menagerie 中的 Skydio X2 模型。然后把 .env.example 复制为 .env，并在其中填入你的 API key。",
+      "code": "./setup.sh                      # venv + fetch the Skydio X2 model\ncp .env.example .env            # then put your key in it",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/RomanSlack/jev-drone/blob/974b47378c14c6dcf7d11f7c813fba0f5f4d8b6a/README.md?plain=1#L149"
+      }
+    },
+    {
+      "title": "加载环境变量并启动带 Jev 的飞行",
+      "text": "用 set -a 加载 .env，设置 MUJOCO_GL=glfw（无头机器用 egl），再运行 run.py --seconds 65 --seeds 1 启动 Jev 参与决策的飞行。加上 TRACE=1 可以打印每一次判断。",
+      "code": "set -a && . ./.env && set +a\nexport MUJOCO_GL=glfw           # or egl on a headless box\n\n.venv/bin/python run.py --seconds 65 --seeds 1              # Jev engaged\n.venv/bin/python run.py --no-jev --fast --seconds 65 --seeds 0 1 2   # ablation (free)\n.venv/bin/python run.py --seconds 65 --seeds 1 --video course.mp4    # + telemetry video\nTRACE=1 .venv/bin/python run.py --seconds 65 --seeds 1      # print every judgment",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/RomanSlack/jev-drone/blob/974b47378c14c6dcf7d11f7c813fba0f5f4d8b6a/README.md?plain=1#L149"
+      }
+    },
+    {
+      "title": "运行无 Jev 的消融基线对比",
+      "text": "使用 --no-jev --fast 参数，并指定多个 seed，运行贪心「向更宽一侧转向」的基线版本。这种方式不调用 API。README 说明基线不会碰撞，但始终停在第 2 站，可用于对照 Jev 的作用。",
+      "code": "set -a && . ./.env && set +a\nexport MUJOCO_GL=glfw           # or egl on a headless box\n\n.venv/bin/python run.py --seconds 65 --seeds 1              # Jev engaged\n.venv/bin/python run.py --no-jev --fast --seconds 65 --seeds 0 1 2   # ablation (free)\n.venv/bin/python run.py --seconds 65 --seeds 1 --video course.mp4    # + telemetry video\nTRACE=1 .venv/bin/python run.py --seconds 65 --seeds 1      # print every judgment",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/RomanSlack/jev-drone/blob/974b47378c14c6dcf7d11f7c813fba0f5f4d8b6a/README.md?plain=1#L61"
+      }
+    },
+    {
+      "title": "录制视频并离线重放片段",
+      "text": "运行时加 --video course.mp4，会同时生成 course.mp4.tape.npy。之后用 replay.py 读取该 tape，按 --from/--to 截取时间段重新渲染。重放不需要物理仿真，也不消耗 API 额度。",
+      "code": ".venv/bin/python replay.py course.mp4.tape.npy out.mp4 --from 12 --to 30",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/RomanSlack/jev-drone/blob/974b47378c14c6dcf7d11f7c813fba0f5f4d8b6a/README.md?plain=1#L149"
+      }
+    },
+    {
+      "title": "在 tactics.py 中审阅问题和阈值",
+      "text": "Jev 面向的三个问题、选项说明以及影响飞行器反应的所有阈值，都集中在 tactics.py 顶部。arena 定义在 world.xml，控制器与感知在 flight.py，主循环与安全反射在 run.py。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/RomanSlack/jev-drone/blob/974b47378c14c6dcf7d11f7c813fba0f5f4d8b6a/README.md?plain=1#L149"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "带 Jev 的运行会调用 TypeSafe 的 API 并消耗额度。README 记录 65 秒飞行约 80–110 次调用。",
+    "作者说明 Jev 组的结果只是单次运行，并非多种子平均；在早期较简单的场地上没有观察到优势，且不同运行之间方差较大。",
+    "tunnel.py 隧道实验被作者标注为部分结果，无法稳定通过整条隧道。",
+    "Skydio X2 模型来自 MuJoCo Menagerie，适用其自身的许可证。"
+  ],
+  "references": [],
+  "media": [
+    {
+      "url": "/assets/repository-guides/media-f170e562e9e7d9053bbf2dc3.webp",
+      "alt": "RomanSlack/jev-drone 官方演示 1",
+      "sourceUrl": "https://github.com/RomanSlack/jev-drone/blob/974b47378c14c6dcf7d11f7c813fba0f5f4d8b6a/README.md?plain=1#L8",
+      "originalUrl": "https://raw.githubusercontent.com/RomanSlack/jev-drone/974b47378c14c6dcf7d11f7c813fba0f5f4d8b6a/docs/climb.png"
+    },
+    {
+      "url": "/assets/repository-guides/media-ca95646a863885e7dbf888cf.webp",
+      "alt": "RomanSlack/jev-drone 官方演示 2",
+      "sourceUrl": "https://github.com/RomanSlack/jev-drone/blob/974b47378c14c6dcf7d11f7c813fba0f5f4d8b6a/README.md?plain=1#L59",
+      "originalUrl": "https://raw.githubusercontent.com/RomanSlack/jev-drone/974b47378c14c6dcf7d11f7c813fba0f5f4d8b6a/docs/chase.png"
+    },
+    {
+      "url": "/assets/repository-guides/media-6f69e596ea670cf7c967caca.webp",
+      "alt": "RomanSlack/jev-drone 官方演示 3",
+      "sourceUrl": "https://github.com/RomanSlack/jev-drone/blob/974b47378c14c6dcf7d11f7c813fba0f5f4d8b6a/README.md?plain=1#L87",
+      "originalUrl": "https://raw.githubusercontent.com/RomanSlack/jev-drone/974b47378c14c6dcf7d11f7c813fba0f5f4d8b6a/docs/gate.png"
+    }
+  ],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "74571cdbc72381595ec06f836f62483694f8e292ab91598d1743f25d0e7decce",
+  "mediaStatus": "archived",
+  "mediaFailures": []
+}

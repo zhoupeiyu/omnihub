@@ -1,0 +1,44 @@
+{
+  "schemaVersion": 1,
+  "key": "huangyun101/ai-business-hunter",
+  "status": "partial",
+  "reason": "README 只介绍了手册的章节内容和适合人群，没有给出手册正文的文件名、目录结构或阅读入口链接，无法说明具体从哪个文件开始查阅。",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/huangyun101/AI-Business-Hunter/blob/eb229caead0b335423276ec217ea489efab7c6d3/README.md",
+  "sourceRevision": "eb229caead0b335423276ec217ea489efab7c6d3",
+  "canonicalKey": "huangyun101/AI-Business-Hunter",
+  "summary": "一本面向程序员的 AI 与代码副业手册，梳理接单、教学、虚拟产品、工具站、SaaS、自动化服务六类变现路径。",
+  "intro": "适合会写代码、想在工资以外开展副业的程序员，尤其是不知道除了接外包还能做什么、已有少量收入但难以提升，或下班后不知从何下手的人。手册内容涵盖心理建设、需求发现与验证框架、各阶段不该学的技术，以及杠杆与避坑经验，案例来自作者整理的生财社群圈友复盘。",
+  "requirements": "无需安装；能访问 GitHub 仓库阅读 README 即可。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "阅读 README 判断是否适合",
+      "text": "打开仓库 README 的“项目介绍”，对照“这本手册适合谁”和“不适合谁”两部分判断自身情况。作者明确说明手册不适合期待短期暴利的读者，其中最真实的案例是 4 个半月、15 个站才赚到 0.01 刀。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/huangyun101/AI-Business-Hunter/blob/eb229caead0b335423276ec217ea489efab7c6d3/README.md?plain=1#L1"
+      }
+    },
+    {
+      "title": "按章节主题确定阅读重点",
+      "text": "README 列出手册的主要切面：六条生意主干道、第二章心理建设、第三章需求发现的四个来源与验证框架、技术章节（各阶段不该学什么）、最后两章杠杆与避坑。可根据自己当前卡点选择对应章节；正文文件位置 README 未注明，需在仓库文件列表中自行查找。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/huangyun101/AI-Business-Hunter/blob/eb229caead0b335423276ec217ea489efab7c6d3/README.md?plain=1#L1"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "仓库未声明许可证，转载或二次分发前需确认作者授权。",
+    "内容为作者基于社群复盘的个人整理，案例的收入量级仅作参考，不代表可复现的结果。",
+    "部分案例来源于“生财”社群，原始复盘帖可能需要该社群的成员权限才能查看。"
+  ],
+  "references": [],
+  "media": [],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "b266328ae4d7f79f0efe0b05d00bd302a0e5e6a228120d63b257c444c78a80e3",
+  "mediaStatus": "none_in_official_documents"
+}

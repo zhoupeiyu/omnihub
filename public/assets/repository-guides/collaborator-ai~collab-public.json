@@ -1,0 +1,70 @@
+{
+  "schemaVersion": 1,
+  "key": "collaborator-ai/collab-public",
+  "status": "ready",
+  "reason": "",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/collabs-inc/collab-public/blob/476b8efc942ee5f430a9b8bf832b8560a8cf76c2/README.md",
+  "sourceRevision": "476b8efc942ee5f430a9b8bf832b8560a8cf76c2",
+  "canonicalKey": "collabs-inc/collab-public",
+  "summary": "Collaborator 是一款桌面应用，在无限画布上同时摆放终端、笔记、代码和图片，用于和 AI 代理协作开发。",
+  "intro": "适合在终端中运行 AI 编程代理、又希望把代理会话和相关文件放在同一视图中的开发者。应用左侧是工作区文件树，右侧是可平移、缩放的无限画布：双击画布可创建终端，将文件拖入画布可打开为可编辑的笔记、代码或图片卡片，减少切换窗口和标签页。所有数据保存在本地，无需账号。",
+  "requirements": "支持 macOS、Windows、Linux 桌面系统，从 GitHub Releases 下载最新版本（Windows 使用 .exe 安装程序）。还需要一个本地文件夹作为工作区。Windows 上如果要使用 WSL2 终端，至少需要安装一个 WSL 发行版。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "下载并安装最新版本",
+      "text": "打开项目 GitHub Releases 的最新版本页面，下载对应系统的安装包。Windows 使用页面上的 .exe 安装程序；macOS 和 Linux 也可以使用 README 提供的命令行脚本安装。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/collabs-inc/collab-public/blob/476b8efc942ee5f430a9b8bf832b8560a8cf76c2/README.md?plain=1#L11"
+      }
+    },
+    {
+      "title": "添加本地文件夹为工作区",
+      "text": "打开 Collaborator，点击左侧导航栏顶部的工作区下拉菜单，选择 Add workspace（或按 Cmd+Shift+O），然后选择一个本地文件夹。从列表中移除工作区不会删除文件。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/collabs-inc/collab-public/blob/476b8efc942ee5f430a9b8bf832b8560a8cf76c2/README.md?plain=1#L49"
+      }
+    },
+    {
+      "title": "双击画布创建终端并启动代理",
+      "text": "在画布空白处双击创建终端卡片，终端的工作目录就是当前工作区路径。在终端中启动你使用的 AI 代理。每个终端卡片都有独立且持久的会话。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/collabs-inc/collab-public/blob/476b8efc942ee5f430a9b8bf832b8560a8cf76c2/README.md?plain=1#L49"
+      }
+    },
+    {
+      "title": "把文件拖到画布上并排查看",
+      "text": "从导航栏把文件拖到画布上：.md 文件打开为富文本笔记卡片，图片打开为只读图片卡片，其他文本文件打开为代码编辑器卡片。磁盘上的文件变化时卡片会自动刷新，文件被删除时卡片会关闭。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/collabs-inc/collab-public/blob/476b8efc942ee5f430a9b8bf832b8560a8cf76c2/README.md?plain=1#L49"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "项目处于早期阶段，仍在积极开发中。",
+    "应用会通过 PostHog 收集匿名、不含身份信息的使用统计数据。",
+    "所有应用状态以 JSON 文件形式保存在 ~/.collaborator/ 中。",
+    "应用本身不包含 AI 代理，README 也没有说明如何安装具体代理，需要自行在终端中准备。",
+    "Windows 上使用 WSL2 终端需要至少安装一个发行版；推荐使用 PowerShell 7。"
+  ],
+  "references": [],
+  "media": [
+    {
+      "url": "/assets/repository-guides/media-23818b1dfb9f48c924446190.webp",
+      "alt": "collabs-inc/collab-public 官方演示 1",
+      "sourceUrl": "https://github.com/collabs-inc/collab-public/blob/476b8efc942ee5f430a9b8bf832b8560a8cf76c2/README.md?plain=1#L5",
+      "originalUrl": "https://raw.githubusercontent.com/collabs-inc/collab-public/476b8efc942ee5f430a9b8bf832b8560a8cf76c2/screenshot.png"
+    }
+  ],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "ba46180ed771fb0127fb24e5b8ed54c449edaba1b408ef14f9c889f8816a58f1",
+  "mediaStatus": "archived",
+  "mediaFailures": []
+}

@@ -1,0 +1,83 @@
+{
+  "schemaVersion": 1,
+  "key": "codedogqby/readany",
+  "status": "ready",
+  "reason": "",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/codedogQBY/ReadAny/blob/60ca86997e944850ce684b9b6f870dee84b01fee/README.md",
+  "sourceRevision": "60ca86997e944850ce684b9b6f870dee84b01fee",
+  "canonicalKey": "codedogQBY/ReadAny",
+  "summary": "ReadAny 是一款本地优先的 AI 电子书阅读器，支持针对书籍提问、语义搜索、高亮笔记、TTS 朗读和 WebDAV 同步。",
+  "intro": "适合大量阅读电子书、希望整理阅读笔记并用 AI 辅助理解内容的读者。它支持 EPUB、PDF、MOBI、AZW3 等 10 余种格式，可以针对当前书籍或选中段落提问，用向量检索加 BM25 按含义查找内容，做五色高亮和 Markdown 笔记，并把笔记导出为 Markdown、Obsidian、Notion 等格式。桌面端覆盖 macOS、Windows、Linux，移动端覆盖 iOS 和 Android。",
+  "requirements": "桌面端从 GitHub Releases 下载对应安装包：macOS 为 .dmg，Windows 为 .msi，Linux 为 .AppImage。AI 功能为可选项，需要 OpenAI、Anthropic Claude、Google Gemini 等服务商的 API Key，或者可用的 Ollama / DeepSeek 本地或自定义端点。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "下载并安装桌面版",
+      "text": "打开项目 GitHub Releases 的最新版本页面，按系统下载安装包：macOS（Apple Silicon 或 Intel）选 .dmg，Windows 选 .msi，Linux 选 .AppImage，然后完成安装。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/codedogQBY/ReadAny/blob/60ca86997e944850ce684b9b6f870dee84b01fee/README.md?plain=1#L172"
+      }
+    },
+    {
+      "title": "把电子书拖入书库",
+      "text": "启动 ReadAny 后，把电子书文件直接拖入书库即可导入。支持 EPUB、PDF、MOBI、AZW、AZW3、FB2、FBZ、CBZ、TXT、UMD；其中 TXT 和 UMD 会先转换为 EPUB，再用于阅读、笔记、搜索和同步。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/codedogQBY/ReadAny/blob/60ca86997e944850ce684b9b6f870dee84b01fee/README.md?plain=1#L190"
+      }
+    },
+    {
+      "title": "双击打开书籍开始阅读",
+      "text": "在书库中双击书籍进入阅读界面。阅读时可以选中文字做五色高亮并添加 Markdown 笔记，也可以切换浅色/深色模式、分页或连续滚动，以及调整字体主题。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/codedogQBY/ReadAny/blob/60ca86997e944850ce684b9b6f870dee84b01fee/README.md?plain=1#L190"
+      }
+    },
+    {
+      "title": "在设置中填写 AI API Key",
+      "text": "如需 AI 对话、语义搜索等功能，进入 Settings → AI 填写 API Key。OpenAI、Anthropic Claude、Google Gemini 的 Key 分别在各自的平台控制台获取，Ollama / DeepSeek 可以使用本地或自定义端点。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/codedogQBY/ReadAny/blob/60ca86997e944850ce684b9b6f870dee84b01fee/README.md?plain=1#L190"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "AI 功能依赖第三方模型服务商的 API Key，调用费用和数据处理遵循各服务商自己的规则。",
+    "README 说明官方应用商店版本可能收费，用于支持开发和支付证书费用；也可以自行从源码构建。",
+    "源码采用 GPL-3.0 协议，衍生作品必须以相同协议开源。",
+    "iOS 版目前通过 TestFlight 分发。",
+    "README 列出了 WebDAV 同步功能，但没有给出具体配置步骤。",
+    "自行开发或构建移动端时需使用 expo-dev-client 开发构建，不支持 Expo Go，并需要 Node.js ≥18、pnpm ≥9、Rust，以及 Xcode 或 Android Studio/SDK。"
+  ],
+  "references": [],
+  "media": [
+    {
+      "url": "/assets/repository-guides/media-6ff637c0a7977d317096b012.webp",
+      "alt": "codedogQBY/ReadAny 官方演示 1",
+      "sourceUrl": "https://github.com/codedogQBY/ReadAny/blob/60ca86997e944850ce684b9b6f870dee84b01fee/README.md?plain=1#L78",
+      "originalUrl": "https://raw.githubusercontent.com/codedogQBY/ReadAny/60ca86997e944850ce684b9b6f870dee84b01fee/assets/hero-screenshot.png"
+    },
+    {
+      "url": "/assets/repository-guides/media-3bc1330bb0ad849278947d1a.webp",
+      "alt": "codedogQBY/ReadAny 官方演示 2",
+      "sourceUrl": "https://github.com/codedogQBY/ReadAny/blob/60ca86997e944850ce684b9b6f870dee84b01fee/README.md?plain=1#L84",
+      "originalUrl": "https://raw.githubusercontent.com/codedogQBY/ReadAny/60ca86997e944850ce684b9b6f870dee84b01fee/assets/ai-chat-desktop.png"
+    },
+    {
+      "url": "/assets/repository-guides/media-5324c23ed61a726aa186a441.webp",
+      "alt": "codedogQBY/ReadAny 官方演示 3",
+      "sourceUrl": "https://github.com/codedogQBY/ReadAny/blob/60ca86997e944850ce684b9b6f870dee84b01fee/README.md?plain=1#L91",
+      "originalUrl": "https://raw.githubusercontent.com/codedogQBY/ReadAny/60ca86997e944850ce684b9b6f870dee84b01fee/assets/notes-desktop.png"
+    }
+  ],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "cd5b7eb676a82dffa3781f561c7d3c5d7c89c93895c5fe56150bd5da256851da",
+  "mediaStatus": "archived",
+  "mediaFailures": []
+}

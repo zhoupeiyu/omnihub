@@ -1,0 +1,33 @@
+{
+  "schemaVersion": 1,
+  "key": "danops-1/gpt-pp-team",
+  "status": "partial",
+  "reason": "这份指南不提供安装、配置或运行步骤。资料显示，该项目的核心功能是绕过 OpenAI、Stripe 和 PayPal 的支付与风控流程，包括重放订阅支付链路、自动求解 hCaptcha 和 DataDome 验证、借助接码平台和代理轮换批量注册账号，以及用 daemon 模式持续补充账号池。README 虽然以 CTF 或 bug bounty 为名，但这些操作针对的是第三方生产服务，文档中没有任何来自目标平台的授权范围说明。整理成可执行的上手流程，实际上就是在协助规避支付和批量造号，所以这里只保留概述和风险提示。",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/DanOps-1/Gpt-Agreement-Payment/blob/2168bcd0a6dab29ad35b864ce68317169d397e41/README.md",
+  "sourceRevision": "2168bcd0a6dab29ad35b864ce68317169d397e41",
+  "canonicalKey": "DanOps-1/Gpt-Agreement-Payment",
+  "summary": "一个针对 ChatGPT Plus/Team 订阅的支付协议重放与自动化开通工具集，附带 hCaptcha 求解器和反欺诈机制观察数据。",
+  "intro": "据 README 描述，项目通过 Stripe Checkout、PayPal、GoPay 或 QRIS 链路自动开通 ChatGPT 订阅并获取 OAuth refresh_token，同时包含并发 worker、自愈 daemon 和验证码求解模块。这些功能的直接用途是规避第三方平台的支付与风控机制，因此本指南不提供操作路径。如果你从事授权安全研究，应先取得 OpenAI、Stripe、PayPal 等平台安全团队的书面授权，并通过它们官方的漏洞赏金渠道开展工作。",
+  "requirements": "不提供。",
+  "platforms": [],
+  "steps": [],
+  "example": null,
+  "cautions": [
+    "项目自身的 NOTICE 和免责声明明确禁止欺诈、规避支付、批量造号转售和违反第三方 ToS，并提示可能涉及美国 CFAA、英国 CMA、中国《刑法》第 285/286/287 条等法律，责任全部由使用者承担。",
+    "README 中的“仅限 CTF 或授权 bug bounty”只是作者的声明，并不构成 OpenAI、Stripe、PayPal 或 hCaptcha 的授权。这些平台未在文档中授权此类测试。",
+    "使用过程会涉及真实的 PayPal 账号、支付凭证、手机号或接码服务，可能导致账号封禁、资金损失和个人信息泄露。",
+    "README 中的 API 中转站和赞赏码属于推广内容，与项目功能无关。"
+  ],
+  "references": [
+    {
+      "label": "docs/installation.md",
+      "url": "https://github.com/DanOps-1/Gpt-Agreement-Payment/blob/2168bcd0a6dab29ad35b864ce68317169d397e41/docs/installation.md"
+    }
+  ],
+  "media": [],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "c3ccc1e750f8d31d12d89035f2e65188c50cef5907e94e2f752504bfddc3e18d",
+  "mediaStatus": "none_in_official_documents"
+}

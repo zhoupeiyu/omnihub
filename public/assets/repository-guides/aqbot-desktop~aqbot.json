@@ -1,0 +1,96 @@
+{
+  "schemaVersion": 1,
+  "key": "aqbot-desktop/aqbot",
+  "status": "ready",
+  "reason": "",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/AQBot-Desktop/AQBot/blob/92a1c22b327dfd7eddf76816b9f22eb63682ab49/README.md",
+  "sourceRevision": "92a1c22b327dfd7eddf76816b9f22eb63682ab49",
+  "canonicalKey": "AQBot-Desktop/AQBot",
+  "summary": "AQBot 是一款本地优先的跨平台桌面 AI 工作台，可统一连接多家模型服务商进行对话，并提供 Agent、知识库、MCP 工具与本地 API 网关。",
+  "intro": "适合需要在同一桌面客户端里管理多家模型服务商（如 OpenAI、Claude、Gemini、DeepSeek、Qwen 及 OpenAI 兼容端点）的个人用户和开发者。可用于多模型对话与并行回答、在指定工作目录中让 Agent 读写文件和执行命令、接入 ACP 兼容的外部编程 Agent、用 sqlite-vec 建立本地知识库、运行 MCP 服务器，以及通过本地网关为 Claude Code、Codex CLI 等客户端提供统一接口。",
+  "requirements": "macOS（Apple Silicon 或 Intel）、Windows 10/11（x86_64 或 arm64）或 Linux（x86_64/arm64，提供 AppImage/deb/rpm）；至少一个可用的模型服务商 API（或 OpenAI 兼容端点）。使用 ACP Agent 工作台需另有 ACP 兼容的外部 Agent。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "从 Releases 下载安装包",
+      "text": "以 macOS 为例：前往项目 GitHub 的 Releases 页面，按芯片架构选择 Apple Silicon（arm64）或 Intel（x86_64）对应的安装包并下载安装。Windows 与 Linux 用户同样在该页面选择适合自己平台和架构的安装包。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/AQBot-Desktop/AQBot/blob/92a1c22b327dfd7eddf76816b9f22eb63682ab49/README.md?plain=1#L105"
+      }
+    },
+    {
+      "title": "在 macOS 上首次放行应用",
+      "text": "若提示“已损坏”或“无法验证开发者”，在 Finder 中按住 Control 点击 AQBot.app 选择「打开」并确认；仍被拦截时到「系统设置 → 隐私与安全性」点击「仍要打开」。官方简体中文说明指出无需关闭整个系统的 Gatekeeper，只放行 AQBot 即可。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/AQBot-Desktop/AQBot/blob/92a1c22b327dfd7eddf76816b9f22eb63682ab49/README.md?plain=1#L111"
+      }
+    },
+    {
+      "title": "添加服务商并管理模型",
+      "text": "在应用中连接 OpenAI、Claude、Gemini、DeepSeek、Qwen 或任意 OpenAI 兼容端点，可自定义 Base URL、API Path、请求头和代理规则；也可通过 aqbot:// 链接或 CC Switch 配置导入。随后同步远程模型列表、测试延迟并配置上下文长度等参数。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/AQBot-Desktop/AQBot/blob/92a1c22b327dfd7eddf76816b9f22eb63682ab49/README.md?plain=1#L31"
+      }
+    },
+    {
+      "title": "选择 Agent 模式与权限",
+      "text": "在普通对话中切换到 Agent 模式即可使用已配置服务商的 API，在所选工作目录中读写文件、执行命令；可选择每次询问、自动接受编辑或完全访问等权限模式。若要接入 Codex、Claude Agent、Gemini CLI 等外部 Agent，则使用独立的 ACP Agent 工作台从 Registry 添加。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/AQBot-Desktop/AQBot/blob/92a1c22b327dfd7eddf76816b9f22eb63682ab49/README.md?plain=1#L38"
+      }
+    },
+    {
+      "title": "按需启用网关与知识库",
+      "text": "如需让其他客户端复用已配置的模型，可开启本地 API 网关，它提供 OpenAI、Claude、Gemini 原生接口及 Claude Code、Codex CLI 等配置模板，并可管理网关密钥和请求日志。私有文档可导入本地知识库，MCP 服务器可在工具设置中添加。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/AQBot-Desktop/AQBot/blob/92a1c22b327dfd7eddf76816b9f22eb63682ab49/README.md?plain=1#L79"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "对话 Agent 所选的工作目录只是进程起始目录，不是文件系统沙箱；选择“完全访问”等权限模式时需谨慎。",
+    "调用服务商 API 会按各服务商规则产生费用，应用会记录单次 Agent 任务的 token 和成本，但费用本身由服务商收取。",
+    "官方文档中的高权限或远程脚本操作应单独核查，不要整段复制执行。",
+    "使用划词工具栏需在「系统设置 → 隐私与安全性 → 辅助功能」中另行授权 AQBot。",
+    "应用数据位于 ~/.aqbot/，用户文件位于 ~/Documents/aqbot/；从 Cherry Studio/Kelivo 导入时可选择迁移 API Key，请留意密钥去向。",
+    "项目采用 AGPL-3.0 许可证。"
+  ],
+  "references": [
+    {
+      "label": "README-ZH-TW.md",
+      "url": "https://github.com/AQBot-Desktop/AQBot/blob/92a1c22b327dfd7eddf76816b9f22eb63682ab49/README-ZH-TW.md"
+    }
+  ],
+  "media": [
+    {
+      "url": "/assets/repository-guides/media-8365e2a70a80d022f4c232f0.webp",
+      "alt": "AQBot-Desktop/AQBot 官方演示 1",
+      "sourceUrl": "https://github.com/AQBot-Desktop/AQBot/blob/92a1c22b327dfd7eddf76816b9f22eb63682ab49/README.md?plain=1#L11",
+      "originalUrl": "https://raw.githubusercontent.com/AQBot-Desktop/AQBot/92a1c22b327dfd7eddf76816b9f22eb63682ab49/.github/images/s1-0412.png"
+    },
+    {
+      "url": "/assets/repository-guides/media-ef68581932d2d2a04856f9b9.webp",
+      "alt": "AQBot-Desktop/AQBot 官方演示 2",
+      "sourceUrl": "https://github.com/AQBot-Desktop/AQBot/blob/92a1c22b327dfd7eddf76816b9f22eb63682ab49/README.md?plain=1#L11",
+      "originalUrl": "https://raw.githubusercontent.com/AQBot-Desktop/AQBot/92a1c22b327dfd7eddf76816b9f22eb63682ab49/.github/images/s2-0412.png"
+    },
+    {
+      "url": "/assets/repository-guides/media-727c42f4926a8a1427e1137e.webp",
+      "alt": "AQBot-Desktop/AQBot 官方演示 3",
+      "sourceUrl": "https://github.com/AQBot-Desktop/AQBot/blob/92a1c22b327dfd7eddf76816b9f22eb63682ab49/README.md?plain=1#L19",
+      "originalUrl": "https://raw.githubusercontent.com/AQBot-Desktop/AQBot/92a1c22b327dfd7eddf76816b9f22eb63682ab49/.github/images/s5-0412.png"
+    }
+  ],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "70e82e53a06a0de1f42d49a441add1e6c3e51d26dfc958a679e4ced4635bcaec",
+  "mediaStatus": "archived",
+  "mediaFailures": []
+}

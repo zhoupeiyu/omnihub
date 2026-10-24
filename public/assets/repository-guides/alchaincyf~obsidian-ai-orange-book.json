@@ -1,0 +1,60 @@
+{
+  "schemaVersion": 1,
+  "key": "alchaincyf/obsidian-ai-orange-book",
+  "status": "ready",
+  "reason": "",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/alchaincyf/obsidian-ai-orange-book/blob/75f553df86a7ed70f22aef701f4400b869a8d71d/README.md",
+  "sourceRevision": "75f553df86a7ed70f22aef701f4400b869a8d71d",
+  "canonicalKey": "alchaincyf/obsidian-ai-orange-book",
+  "summary": "一本免费的中英文 PDF 指南，讲解如何用 Obsidian 搭配 Claude Code 搭建 AI 驱动的个人知识管理系统。",
+  "intro": "适合想用 Obsidian 管理笔记、并希望让 Claude Code 帮忙维护知识库的读者。这个仓库是资料而非软件。全书分为问题、选择、上手、架构、知识库、实战、生态、进阶等部分，内容包括 vault 架构设计、CLAUDE.md + index.md 导航、Karpathy 的 LLM Wiki 模式、7 个工作流等。",
+  "requirements": "需要能阅读 PDF 的设备；README 建议下载后阅读。如果要照书实践，书中涉及 Obsidian 与 Claude Code，具体安装步骤在 PDF 正文中，README 未列出。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "下载对应语言的 PDF",
+      "text": "在仓库下载区选择中文版 Obsidian-AI-v1.0.0.pdf 或英文版 Obsidian-AI-The-Complete-Guide-v1.0.0.pdf。README 提示 GitHub 在线预览可能无法完整渲染，建议下载后阅读。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/alchaincyf/obsidian-ai-orange-book/blob/75f553df86a7ed70f22aef701f4400b869a8d71d/README.md?plain=1#L40"
+      }
+    },
+    {
+      "title": "按目录定位所需章节",
+      "text": "对照目录选择阅读顺序。刚入门可以从 §03「30 分钟上手 Obsidian」和 §04「Claude Code 进场」开始；搭建结构看 §05、§06；找可直接套用的流程看 §07「7 个真实工作流」。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/alchaincyf/obsidian-ai-orange-book/blob/75f553df86a7ed70f22aef701f4400b869a8d71d/README.md?plain=1#L49"
+      }
+    },
+    {
+      "title": "先理解三条核心洞察",
+      "text": "动手前先读 README 的核心洞察：Markdown 是 AI Agent 的原生接口；LLM 应当维护知识库，而不是只做检索；CLAUDE.md 加上每个文件夹的 index.md 即可让 Claude Code 导航 vault。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/alchaincyf/obsidian-ai-orange-book/blob/75f553df86a7ed70f22aef701f4400b869a8d71d/README.md?plain=1#L26"
+      }
+    },
+    {
+      "title": "在线按章阅读或交给 Agent",
+      "text": "如果不想下载，可以打开 README 提供的 WorkBuddy 资料库链接，每章是一个独立网页。README 也说明，可以把这些链接直接交给你的 Agent 作为上下文。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/alchaincyf/obsidian-ai-orange-book/blob/75f553df86a7ed70f22aef701f4400b869a8d71d/README.md?plain=1#L88"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "仓库未附开源许可证，README 仅说明免费分享用于学习交流，转载和引用需注明出处。",
+    "README 只是目录和概览，具体的安装与配置操作需要到 PDF 正文中查阅。",
+    "在线阅读依赖第三方平台 WorkBuddy 的链接。"
+  ],
+  "references": [],
+  "media": [],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "16220ed121cc547cf918a61fcdcf178e1d96e46e4f7dcaf0ee2ab2bf533e9a03",
+  "mediaStatus": "none_in_official_documents"
+}

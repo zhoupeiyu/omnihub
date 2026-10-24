@@ -1,0 +1,71 @@
+{
+  "schemaVersion": 1,
+  "key": "lajosdeme/watchtower",
+  "status": "ready",
+  "reason": "",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/lajosdeme/watchtower/blob/790b222480b67ca5f0ec59b5ef0e1d3e790e985e/README.md",
+  "sourceRevision": "790b222480b67ca5f0ec59b5ef0e1d3e790e985e",
+  "canonicalKey": "lajosdeme/watchtower",
+  "summary": "一个终端里的全球资讯看板，集中展示新闻、市场行情、本地天气和 AI 生成的情报简报。",
+  "intro": "适合想在终端快速了解全球动态、又不想打开大量网页的用户。它有四个标签页：Global News 汇集 100+ RSS 源并按关键词分级；Markets 展示加密货币、Polymarket、股票和大宗商品；Local 显示 Open-Meteo 天气和本地新闻；Intel Brief 由 LLM 汇总头条。",
+  "requirements": "以下以 macOS/Homebrew 为例。只有 AI 简报需要 LLM API 密钥（Groq、OpenAI、Deepseek、Gemini、Anthropic 或本地模型），其余数据源无需密钥。从源码构建需要 Go。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "用 Homebrew 安装 Watchtower",
+      "text": "在 macOS 上先添加 lajosdeme/watchtower tap，再执行 brew install watchtower。其他平台可以改用 AUR、.deb、.rpm、Scoop 或 go install，同一台机器只需选一种方式。",
+      "code": "brew tap lajosdeme/watchtower\nbrew install watchtower",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/lajosdeme/watchtower/blob/790b222480b67ca5f0ec59b5ef0e1d3e790e985e/README.md?plain=1#L24"
+      }
+    },
+    {
+      "title": "完成首次运行的配置向导",
+      "text": "第一次运行时按提示依次操作：选择 LLM 提供商，粘贴 API 密钥，再输入所在城市和坐标，用于本地天气和新闻。设置保存在本机的 ~/.config/watchtower/config.yaml。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/lajosdeme/watchtower/blob/790b222480b67ca5f0ec59b5ef0e1d3e790e985e/README.md?plain=1#L78"
+      }
+    },
+    {
+      "title": "用快捷键浏览各标签页",
+      "text": "按 1–4 跳转标签页，Tab/Shift+Tab 或 h/l 切换，j/k 或方向键滚动，d/u 翻半页，g/G 跳到顶部或底部。按 r 强制刷新全部数据，按 q 或 Ctrl+C 退出。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/lajosdeme/watchtower/blob/790b222480b67ca5f0ec59b5ef0e1d3e790e985e/README.md?plain=1#L90"
+      }
+    },
+    {
+      "title": "在 Brief 页生成 AI 简报",
+      "text": "切换到 Intel Brief 标签页后按 b，用配置好的 LLM 汇总当前头条。这是唯一需要 API 密钥的功能。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/lajosdeme/watchtower/blob/790b222480b67ca5f0ec59b5ef0e1d3e790e985e/README.md?plain=1#L13"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "AI 简报会调用第三方 LLM 服务，免费额度之外可能产生费用，具体取决于所选提供商。",
+    "API 密钥以明文保存在 ~/.config/watchtower/config.yaml，请注意本机文件权限。",
+    "新闻、行情、天气都来自第三方 RSS 和公开 API，可用性和准确性取决于这些来源；威胁等级只是基于关键词的分类。"
+  ],
+  "references": [],
+  "media": [],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "9dbac6a4bb22779f27aa9192468884512805770ee38d01532686eca802d14363",
+  "mediaStatus": "unavailable",
+  "mediaFailures": [
+    {
+      "sourceUrl": "https://github.com/lajosdeme/watchtower/blob/790b222480b67ca5f0ec59b5ef0e1d3e790e985e/README.md#L5",
+      "reason": "unsupported_media_host"
+    },
+    {
+      "sourceUrl": "https://github.com/lajosdeme/watchtower/blob/790b222480b67ca5f0ec59b5ef0e1d3e790e985e/README.md#L86",
+      "reason": "unsupported_media_host"
+    }
+  ]
+}

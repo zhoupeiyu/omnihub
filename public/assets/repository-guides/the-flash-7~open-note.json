@@ -1,0 +1,89 @@
+{
+  "schemaVersion": 1,
+  "key": "the-flash-7/open-note",
+  "status": "ready",
+  "reason": "",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/The-Flash-7/open-note/blob/c8321f674c8a85ec0e4511dcacbd1669957be017/README.md",
+  "sourceRevision": "c8321f674c8a85ec0e4511dcacbd1669957be017",
+  "canonicalKey": "The-Flash-7/open-note",
+  "summary": "OpenNote 是跨平台的桌面智能笔记应用，内置 AI 助手 Cici，支持多格式笔记、本地知识库和向量语义检索。",
+  "intro": "适合想用 AI 管理个人笔记库的用户。可以用 Markdown、富文本、纯文本或代码编辑器写笔记，用多级分类和标签整理，从网页 URL 或文件导入内容。助手 Cici 能基于笔记库问答，也能搜索、编辑、总结、提取关键词和合并笔记。语义检索使用本地运行的嵌入模型 embeddinggemma-300m 和 ChromaDB。项目还提供 MCP 服务器和 CLI 工具。",
+  "requirements": "系统要求：arm64 架构需 macOS 12.0+；x86_64 架构需 macOS 11+、Windows 10+ 或 Linux（Ubuntu 20.04+）。需要至少一个 AI 服务来源：README 列出的云端服务商账号（如 DeepSeek、OpenAI、Claude、阿里云百炼、智谱等），或本地 Ollama，或兼容 OpenAI API 格式的自定义服务。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "核对系统版本与架构",
+      "text": "安装前先确认电脑满足官方系统要求。arm64 架构的 Mac 需 macOS 12.0 及以上；x86_64 架构支持 macOS 11+、Windows 10+ 和 Ubuntu 20.04+ 的 Linux。Intel 架构 Mac 如果系统低于 11，Q4 量化嵌入模型无法使用。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/The-Flash-7/open-note/blob/c8321f674c8a85ec0e4511dcacbd1669957be017/README.md?plain=1#L148"
+      }
+    },
+    {
+      "title": "从 Releases 下载对应安装包",
+      "text": "打开仓库的 Releases 页面，按你的操作系统（macOS、Windows 或 Linux）下载对应平台的安装包。安装后启动应用即可。README 没有提供从源码构建的步骤，开发相关说明在 DEV_GUIDE.md 中。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/The-Flash-7/open-note/blob/c8321f674c8a85ec0e4511dcacbd1669957be017/README.md?plain=1#L155"
+      }
+    },
+    {
+      "title": "按引导配置 AI 服务商",
+      "text": "首次启动后按新用户引导完成 AI 提供商配置。可以选择预设的云端服务商（如 DeepSeek、OpenAI、Claude、阿里云百炼、智谱 GLM、Moonshot 等），也可以用本地 Ollama，或填写兼容 OpenAI API 格式的自定义厂商、URL 和模型。配置也可以在设置面板中调整。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/The-Flash-7/open-note/blob/c8321f674c8a85ec0e4511dcacbd1669957be017/README.md?plain=1#L155"
+      }
+    },
+    {
+      "title": "等待本地嵌入服务初始化",
+      "text": "首次启动时应用会自动初始化文本嵌入向量服务。该服务在本地用 ONNX 运行 embeddinggemma-300m 模型，并用 ChromaDB 持久化存储。初始化完成后，笔记保存时会自动分块建立向量索引，用于关键词加语义的混合搜索。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/The-Flash-7/open-note/blob/c8321f674c8a85ec0e4511dcacbd1669957be017/README.md?plain=1#L155"
+      }
+    },
+    {
+      "title": "创建笔记并向 Cici 提问",
+      "text": "通过手动新建、剪贴板粘贴、URL 提取或文件导入（Cmd/Ctrl+O，也支持拖放）添加笔记，再用分类和标签整理。之后在 Cici 助手面板中用自然语言提问，或让它搜索、编辑、总结笔记。面板会显示每一步工具执行日志。全局搜索快捷键为 Cmd/Ctrl+Shift+F。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/The-Flash-7/open-note/blob/c8321f674c8a85ec0e4511dcacbd1669957be017/README.md?plain=1#L58"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "使用云端 AI 服务商需要自备对应平台的账号和 API 凭证，调用费用按各服务商规则计算；预设列表不代表模型能力排名。",
+    "Cici 具备编辑、删除、合并笔记等技能，让它执行写操作前应确认目标笔记，必要时先导出备份。",
+    "Intel 架构 macOS 低于 11 时，Q4 量化嵌入模型无法使用，语义检索可能受影响。",
+    "仓库元数据中的许可证显示为 NOASSERTION；README 说明采用 MIT 与 Apache-2.0 双许可证，以仓库内 LICENSE-MIT、LICENSE-APACHE 文件为准。"
+  ],
+  "references": [],
+  "media": [
+    {
+      "url": "/assets/repository-guides/media-fd2f39343535309f4b24f591.webp",
+      "alt": "主界面",
+      "sourceUrl": "https://github.com/The-Flash-7/open-note/blob/c8321f674c8a85ec0e4511dcacbd1669957be017/README.md?plain=1#L128",
+      "originalUrl": "https://raw.githubusercontent.com/The-Flash-7/open-note/c8321f674c8a85ec0e4511dcacbd1669957be017/.github/images/opennotemain.png"
+    },
+    {
+      "url": "/assets/repository-guides/media-79e35275eb1cdd079320f0d8.webp",
+      "alt": "Cici智能助手面板",
+      "sourceUrl": "https://github.com/The-Flash-7/open-note/blob/c8321f674c8a85ec0e4511dcacbd1669957be017/README.md?plain=1#L132",
+      "originalUrl": "https://raw.githubusercontent.com/The-Flash-7/open-note/c8321f674c8a85ec0e4511dcacbd1669957be017/.github/images/cici_assistant_panel.png"
+    },
+    {
+      "url": "/assets/repository-guides/media-f7b3f59c5c9ce195efa4914c.webp",
+      "alt": "设置面板",
+      "sourceUrl": "https://github.com/The-Flash-7/open-note/blob/c8321f674c8a85ec0e4511dcacbd1669957be017/README.md?plain=1#L144",
+      "originalUrl": "https://raw.githubusercontent.com/The-Flash-7/open-note/c8321f674c8a85ec0e4511dcacbd1669957be017/.github/images/settings_panel.png"
+    }
+  ],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "ccd8983a4f5cbe637833abb4ae1a00b77c52225bd334d2a64d0676d2ccc43d40",
+  "mediaStatus": "archived",
+  "mediaFailures": []
+}

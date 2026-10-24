@@ -1,0 +1,61 @@
+{
+  "schemaVersion": 1,
+  "key": "blackmatrix7/ios_rule_script",
+  "status": "partial",
+  "reason": "README 只给出 rule、rewrite 目录链接以及 Quantumult X Gallery、BoxJS 订阅地址，没有说明如何在 Quantumult X、BoxJS 等具体应用中导入规则或订阅；各脚本的配置方法位于子目录，未在提供的材料中出现。",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/blackmatrix7/ios_rule_script/blob/c9b2158695596a1ba866adcf74def8d5ab348e25/README.md",
+  "sourceRevision": "c9b2158695596a1ba866adcf74def8d5ab348e25",
+  "canonicalKey": "blackmatrix7/ios_rule_script",
+  "summary": "汇集各平台分流规则、复写规则和基于 MagicJS 的自动化脚本的资料仓库。",
+  "intro": "适合使用 Quantumult X、BoxJS 等工具、需要现成分流规则、复写规则或签到、去广告脚本的用户。规则主要整合自互联网上的开源项目；脚本包括什么值得买、百度贴吧签到、开屏去广告、叮咚买菜签到、群晖 Download Station 离线下载等。",
+  "requirements": "需要自行准备支持相应规则或脚本的客户端（README 提及 Quantumult X Gallery 与 BoxJS 订阅）；脚本分别基于 MagicJS 2 或 MagicJS 3。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "在 rule 目录查找分流规则",
+      "text": "打开 README 给出的 rule 目录链接，按需要的平台和服务查找分流规则；复写规则位于 rewrite 目录。规则数据来自互联网开源项目。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/blackmatrix7/ios_rule_script/blob/c9b2158695596a1ba866adcf74def8d5ab348e25/README.md?plain=1#L18"
+      }
+    },
+    {
+      "title": "对照脚本表确认状态与框架",
+      "text": "在“脚本说明”表中查看每个脚本的用途、所依赖的 MagicJS 版本和维护状态，例如 AppleStore 库存监控已暂停。点击脚本名进入对应子目录查看详细说明。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/blackmatrix7/ios_rule_script/blob/c9b2158695596a1ba866adcf74def8d5ab348e25/README.md?plain=1#L34"
+      }
+    },
+    {
+      "title": "获取 Gallery 与 BoxJS 订阅地址",
+      "text": "部分脚本已配置为 Quantumult X Gallery，地址为 script/gallery.json 的 raw 链接；BoxJS 订阅地址为 script/boxjs.json 的 raw 链接。导入方法需参考各客户端自身文档。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/blackmatrix7/ios_rule_script/blob/c9b2158695596a1ba866adcf74def8d5ab348e25/README.md?plain=1#L49"
+      }
+    },
+    {
+      "title": "区分 external 外部资源",
+      "text": "external 目录整合和备份其他开源项目的资源，以各目录说明为准；使用中遇到的问题本项目不解答，需要联系原作者。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/blackmatrix7/ios_rule_script/blob/c9b2158695596a1ba866adcf74def8d5ab348e25/README.md?plain=1#L61"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "项目声明禁止公众号、自媒体以任何形式转载、发布其中资源。",
+    "作者声明不保证内容的合法性、准确性和有效性，并要求仅用于学习研究，不得违反所在地法律法规。",
+    "签到、去广告类脚本涉及第三方应用，第三方软硬件与本项目无关，使用后果由使用者自行承担。",
+    "仓库许可证为 GPL-2.0。"
+  ],
+  "references": [],
+  "media": [],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "22cf4c930b6341d747a5de1896367091421e64b43cc6ef4585075dd9a86e8ba7",
+  "mediaStatus": "none_in_official_documents"
+}

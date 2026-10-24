@@ -1,0 +1,88 @@
+{
+  "schemaVersion": 1,
+  "key": "shiyu-coder/kronos",
+  "status": "ready",
+  "reason": "",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/shiyu-coder/Kronos/blob/67b630e67f6a18c9e9be918d9b4337c960db1e9a/README.md",
+  "sourceRevision": "67b630e67f6a18c9e9be918d9b4337c960db1e9a",
+  "canonicalKey": "shiyu-coder/Kronos",
+  "summary": "Kronos 是面向金融 K 线（OHLCV）序列的开源基础模型，可以用 KronosPredictor 对历史行情做未来走势预测。",
+  "intro": "适合做量化研究、金融时间序列建模的研究者和开发者。Kronos 先用专门的 tokenizer 把 K 线数据量化成离散 token，再用自回归 Transformer 预测。仓库提供 Kronos-mini、small、base 三个已开源的预训练模型（托管在 Hugging Face），以及基于 Qlib 的 A 股微调与回测示例流程。",
+  "requirements": "需要 Python 3.10+，并安装 requirements.txt 中的依赖。需要能访问 Hugging Face Hub 下载 NeoQuasar 下的模型。输入数据要包含 open、high、low、close 列，volume 和 amount 可选。微调流程还需要额外安装 pyqlib、准备本地 Qlib 数据，并使用多 GPU 运行 torchrun。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "安装 Python 3.10+ 和依赖",
+      "text": "准备 Python 3.10 或更高版本，在仓库根目录用 pip 安装 requirements.txt 中的依赖。之后的示例代码都从仓库的 model 模块导入 Kronos、KronosTokenizer 和 KronosPredictor。",
+      "code": "pip install -r requirements.txt",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/shiyu-coder/Kronos/blob/67b630e67f6a18c9e9be918d9b4337c960db1e9a/README.md?plain=1#L87"
+      }
+    },
+    {
+      "title": "从 Hugging Face 加载模型与分词器",
+      "text": "用 from_pretrained 加载对应的 tokenizer 和模型，例如 Kronos-Tokenizer-base 搭配 Kronos-small。按 Model Zoo 表格选型：Kronos-mini 用 Kronos-Tokenizer-2k，上下文长度 2048；small 和 base 用 Kronos-Tokenizer-base，上下文长度 512。",
+      "code": "from model import Kronos, KronosTokenizer, KronosPredictor\n\n# Load from Hugging Face Hub\ntokenizer = KronosTokenizer.from_pretrained(\"NeoQuasar/Kronos-Tokenizer-base\")\nmodel = Kronos.from_pretrained(\"NeoQuasar/Kronos-small\")",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/shiyu-coder/Kronos/blob/67b630e67f6a18c9e9be918d9b4337c960db1e9a/README.md?plain=1#L103"
+      }
+    },
+    {
+      "title": "创建 KronosPredictor 实例",
+      "text": "把模型和 tokenizer 传给 KronosPredictor，设置 max_context，也可以指定运行设备。small 和 base 的最大上下文是 512，lookback 长度建议不要超过这个值，超出部分会被自动截断。预处理、归一化和反归一化都由 KronosPredictor 自动完成。",
+      "code": "# Initialize the predictor\npredictor = KronosPredictor(model, tokenizer, max_context=512)",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/shiyu-coder/Kronos/blob/67b630e67f6a18c9e9be918d9b4337c960db1e9a/README.md?plain=1#L115"
+      }
+    },
+    {
+      "title": "准备历史 K 线与时间戳输入",
+      "text": "用 pandas 读取历史行情，构造三个输入：x_df（至少包含 open、high、low、close 列）、历史时间戳 x_timestamp，以及待预测区间的时间戳 y_timestamp。lookback 和 pred_len 按你的数据和预测需求设置。",
+      "code": "import pandas as pd\n\n# Load your data\ndf = pd.read_csv(\"./data/XSHG_5min_600977.csv\")\ndf['timestamps'] = pd.to_datetime(df['timestamps'])\n\n# Define context window and prediction length\nlookback = 400\npred_len = 120\n\n# Prepare inputs for the predictor\nx_df = df.loc[:lookback-1, ['open', 'high', 'low', 'close', 'volume', 'amount']]\nx_timestamp = df.loc[:lookback-1, 'timestamps']\ny_timestamp = df.loc[lookback:lookback+pred_len-1, 'timestamps']",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/shiyu-coder/Kronos/blob/67b630e67f6a18c9e9be918d9b4337c960db1e9a/README.md?plain=1#L124"
+      }
+    },
+    {
+      "title": "调用 predict 生成预测结果",
+      "text": "调用 predict，用 T、top_p、sample_count 控制采样，返回值是以 y_timestamp 为索引的预测 DataFrame。多条序列可以用 predict_batch 并行预测，但各序列的 lookback 和 pred_len 必须一致。完整的数据加载、预测和绘图流程见 examples/prediction_example.py。",
+      "code": "# Generate predictions\npred_df = predictor.predict(\n    df=x_df,\n    x_timestamp=x_timestamp,\n    y_timestamp=y_timestamp,\n    pred_len=pred_len,\n    T=1.0,          # Temperature for sampling\n    top_p=0.9,      # Nucleus sampling probability\n    sample_count=1  # Number of forecast paths to generate and average\n)\n\nprint(\"Forecasted Data Head:\")\nprint(pred_df.head())\n\n# Prepare multiple datasets for batch prediction\ndf_list = [df1, df2, df3]  # List of DataFrames\nx_timestamp_list = [x_ts1, x_ts2, x_ts3]  # List of historical timestamps\ny_timestamp_list = [y_ts1, y_ts2, y_ts3]  # List of future timestamps\n\n# Generate batch predictions\npred_df_list = predictor.predict_batch(\n    df_list=df_list,\n    x_timestamp_list=x_timestamp_list,\n    y_timestamp_list=y_timestamp_list,\n    pred_len=pred_len,\n    T=1.0,\n    top_p=0.9,\n    sample_count=1,\n    verbose=True\n)\n\n# pred_df_list contains prediction results in the same order as input\nfor i, pred_df in enumerate(pred_df_list):\n    print(f\"Predictions for series {i}:\")\n    print(pred_df.head())",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/shiyu-coder/Kronos/blob/67b630e67f6a18c9e9be918d9b4337c960db1e9a/README.md?plain=1#L148"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "Kronos-large 没有开源，能直接下载使用的只有 mini、small、base。",
+    "官方说明微调与回测流程只是演示，不是可直接投入生产的量化交易系统；简单的 top-K 回测没有精细模拟交易成本、滑点和市场冲击。",
+    "微调依赖 pyqlib 和本地 Qlib 日频数据，训练脚本按多 GPU 的 torchrun 设计；不用 Comet.ml 时需要在 finetune/config.py 中设置 use_comet = False。",
+    "finetune/ 目录里很多代码注释由 AI 生成，可能有误，应以代码本身为准。"
+  ],
+  "references": [],
+  "media": [
+    {
+      "url": "/assets/repository-guides/media-848597d05961b25e165a9822.webp",
+      "alt": "shiyu-coder/Kronos 官方演示 1",
+      "sourceUrl": "https://github.com/shiyu-coder/Kronos/blob/67b630e67f6a18c9e9be918d9b4337c960db1e9a/README.md?plain=1#L211",
+      "originalUrl": "https://raw.githubusercontent.com/shiyu-coder/Kronos/67b630e67f6a18c9e9be918d9b4337c960db1e9a/figures/prediction_example.png"
+    },
+    {
+      "url": "/assets/repository-guides/media-7f88b15ccdf4411f3e184c22.webp",
+      "alt": "shiyu-coder/Kronos 官方演示 2",
+      "sourceUrl": "https://github.com/shiyu-coder/Kronos/blob/67b630e67f6a18c9e9be918d9b4337c960db1e9a/README.md?plain=1#L299",
+      "originalUrl": "https://raw.githubusercontent.com/shiyu-coder/Kronos/67b630e67f6a18c9e9be918d9b4337c960db1e9a/figures/backtest_result_example.png"
+    }
+  ],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "b815b608192afa4b805a11bcbb66268f3e3db55736218964944318da7865357e",
+  "mediaStatus": "archived",
+  "mediaFailures": []
+}

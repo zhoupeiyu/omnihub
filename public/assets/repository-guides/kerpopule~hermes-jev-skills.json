@@ -1,0 +1,83 @@
+{
+  "schemaVersion": 1,
+  "key": "kerpopule/hermes-jev-skills",
+  "status": "ready",
+  "reason": "",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/kerpopule/hermes-jev-skills/blob/c52837522f575820c63d2ff608c6cb19bae96400/README.md",
+  "sourceRevision": "c52837522f575820c63d2ff608c6cb19bae96400",
+  "canonicalKey": "kerpopule/hermes-jev-skills",
+  "summary": "Hermes Jev Skills 把 TypeSafe 的 Jev 决策模型接入智能体，用于模型路由、技能选择、记忆筛选、对话压缩、搜索、邮件分拣，以及电脑和浏览器操作决策。",
+  "intro": "适合使用 Hermes 智能体（也支持 Claude Code、Codex）的用户。如果你希望把“这轮用哪个模型”“加载哪个技能”“哪些检索段落值得读”这类小决策交给低成本的 Jev 处理，可以使用它。仓库包含 jev 命令行、11 个与宿主无关的 SKILL.md 技能、Hermes 插件和模型路由仪表盘。建议先在 Hermes 上用 shadow 模式只记录不生效，观察后再决定是否开启。",
+  "requirements": "Python 3.9 或更高版本，无其他依赖。需要一个 TypeSafe API key。本机需已安装 Hermes、Claude Code 或 Codex 中至少一个（安装器会自动检测）。模型路由只会使用你已在环境变量或 Hermes .env 中配置了 key、或已登录的模型提供商。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "克隆仓库并运行安装器",
+      "text": "该步骤涉及需要人工核查的高权限、远程脚本或破坏性操作。本站不提供直接执行指令，请先查看官方说明并确认影响。",
+      "code": "git clone https://github.com/kerpopule/hermes-jev-skills ~/hermes-jev-skills && python3 ~/hermes-jev-skills/install.py",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/kerpopule/hermes-jev-skills/blob/c52837522f575820c63d2ff608c6cb19bae96400/README.md?plain=1#L37"
+      }
+    },
+    {
+      "title": "用 jev setup-key 保存密钥",
+      "text": "运行 jev setup-key，它会在本机打开一个一次性页面。把 TypeSafe key 粘贴到这个页面，密钥会写入系统密钥库（macOS 下为 Keychain）。完成后运行 jev doctor 检查状态。无图形界面的机器可以改用 jev setup-key --tty。",
+      "code": "jev setup-key   # paste your key into the one-time page it opens, then run: jev doctor",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/kerpopule/hermes-jev-skills/blob/c52837522f575820c63d2ff608c6cb19bae96400/README.md?plain=1#L86"
+      }
+    },
+    {
+      "title": "列出可用模型并草拟路由池",
+      "text": "用 jev models list 和 jev models providers 查看本机能调用的模型和提供商，再用 jev models suggest --write 按价格档位生成初版路由池，之后可以手动修改。路由池配置保存在 ~/.hermes/jev/routing.json。",
+      "code": "jev models list              # everything this machine can call: price, context, vision, reasoning\njev models providers         # which providers you hold a key or login for\njev models suggest --write   # first-draft pools from price bands; then edit to taste",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/kerpopule/hermes-jev-skills/blob/c52837522f575820c63d2ff608c6cb19bae96400/README.md?plain=1#L76"
+      }
+    },
+    {
+      "title": "在 Hermes 中先开启 shadow 模式",
+      "text": "在 Hermes 里执行 /jev routing shadow。这个模式只做决策并记录日志，不会真正切换模型。观察一段时间、确认日志合理后，再用 /jev routing on 开启。技能建议、网页内容筛查等功能也有对应的 /jev 开关。",
+      "code": "/jev                         status\n/jev routing shadow          decide and log, do not switch (start here)\n/jev routing on              switch models per turn\n/jev skills on               suggest the right skill per turn\n/jev notice on               show \"[Jev] hard · coding → kimi-k3 · confidence 0.92\" on routed replies\n/jev screen shadow           screen web_search / web_extract results for injected instructions, log only\n/jev screen on               withhold the parts that carry them, with a notice in their place\n/jev routing on all          make it the default for every profile (a profile's own setting still wins)",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/kerpopule/hermes-jev-skills/blob/c52837522f575820c63d2ff608c6cb19bae96400/README.md?plain=1#L53"
+      }
+    },
+    {
+      "title": "运行离线测试确认安装",
+      "text": "在仓库目录运行 unittest。测试全部离线进行，所有 Jev 回复都是伪造的，不会调用云端 API，可以放心在任何机器上运行。",
+      "code": "python3 -m unittest discover -s tests",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/kerpopule/hermes-jev-skills/blob/c52837522f575820c63d2ff608c6cb19bae96400/README.md?plain=1#L124"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "Jev 是云端 API，路由、记忆、技能选择、搜索、邮件分拣等功能会把经过脱敏的部分内容发送出本机。启用前请阅读 README 中“What leaves your machine”一节。",
+    "不要把 TypeSafe key 粘贴到聊天中；如果已经这样做了，应重新生成一个 key。",
+    "为 Claude Code 安装时，安装器会添加 4 个 lane 子代理，并改写 ~/.claude/CLAUDE.md（会先备份）。不想修改该文件可以使用 --no-claude-md。",
+    "README 中的耗时、召回率、费用等数字都是作者自己的测量结果，网页注入检测的结果也注明不代表可迁移的召回率。",
+    "本项目独立于 TypeSafe AI，Jev 的调用按 TypeSafe 的计费方式收费。"
+  ],
+  "references": [],
+  "media": [
+    {
+      "url": "/assets/repository-guides/media-2024c724c44d11c0ce299a72.webp",
+      "alt": "kerpopule/hermes-jev-skills 官方演示 1",
+      "sourceUrl": "https://github.com/kerpopule/hermes-jev-skills/blob/c52837522f575820c63d2ff608c6cb19bae96400/README.md?plain=1#L9",
+      "originalUrl": "https://raw.githubusercontent.com/kerpopule/hermes-jev-skills/c52837522f575820c63d2ff608c6cb19bae96400/docs/images/model-routing-dashboard.png"
+    }
+  ],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "3042584e38d9d8b7e8c2962730761e4b8b77d340dc2a9b50671b45e6660f18b2",
+  "mediaStatus": "archived",
+  "mediaFailures": []
+}

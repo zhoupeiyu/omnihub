@@ -1,0 +1,71 @@
+{
+  "schemaVersion": 1,
+  "key": "nico81/icontainer",
+  "status": "ready",
+  "reason": "",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/nico81/iContainer/blob/ace075095f2cdd25dffe31d9c4d9b2bdd645f583/README.md",
+  "sourceRevision": "ace075095f2cdd25dffe31d9c4d9b2bdd645f583",
+  "canonicalKey": "nico81/iContainer",
+  "summary": "iContainer 是基于 SwiftUI 的原生 macOS 应用，通过图形界面管理 Apple Container 的容器、镜像、日志、资源统计和交互式 Shell。",
+  "intro": "适合在 Apple silicon Mac 上使用 Apple Container、希望用图形界面代替命令行的开发者。可以创建、启停和编辑容器与容器虚拟机，拉取和管理镜像、网络、卷，从 Docker 导入镜像或复制现有容器配置，运行简单的 Compose 项目。此外可以在本机用 Foundation Models 分析日志。",
+  "requirements": "需要 macOS 26 或更高版本，且为 Apple silicon 机型，并已安装 Apple Container CLI。可选条件：启用 Apple Intelligence（仅用于端侧 AI 日志分析）；Docker Desktop 或 docker CLI（仅用于从 Docker 导入）；为容器服务配置 DNS 域（用于容器之间按名称互相访问）。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "安装 Apple Container CLI",
+      "text": "从 apple/container 的 releases 页面下载最新的 .pkg 并安装，安装时确认使用推荐的默认内核。如果没有安装 CLI，iContainer 启动后会显示设置页和下载链接，而不是主界面。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/nico81/iContainer/blob/ace075095f2cdd25dffe31d9c4d9b2bdd645f583/README.md?plain=1#L47"
+      }
+    },
+    {
+      "title": "用 Homebrew 安装 iContainer",
+      "text": "在 macOS 上，先添加官方 tap，再安装 cask；以后升级也使用 brew 命令。Homebrew 会自动去除隔离标记。如果安装时提示 \"Refusing to load cask … from untrusted tap\"，按提示运行 brew trust nico81/icontainer 后重新安装。",
+      "code": "brew tap nico81/icontainer\nbrew install --cask icontainer\n\n# Later, to upgrade to the newest release:\nbrew upgrade --cask icontainer",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/nico81/iContainer/blob/ace075095f2cdd25dffe31d9c4d9b2bdd645f583/README.md?plain=1#L73"
+      }
+    },
+    {
+      "title": "在应用中启动容器服务",
+      "text": "打开 iContainer，在应用内启动 Apple container 系统服务，之后就可以在仪表盘中创建容器或虚拟机、拉取镜像。应用通过 Sparkle 在后台检查更新，也可以通过菜单 iContainer ▸ Check for Updates… 手动检查。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/nico81/iContainer/blob/ace075095f2cdd25dffe31d9c4d9b2bdd645f583/README.md?plain=1#L47"
+      }
+    },
+    {
+      "title": "按需配置 DNS 域",
+      "text": "该步骤涉及需要人工核查的高权限、远程脚本或破坏性操作。本站不提供直接执行指令，请先查看官方说明并确认影响。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/nico81/iContainer/blob/ace075095f2cdd25dffe31d9c4d9b2bdd645f583/README.md?plain=1#L39"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "作者说明这是借助 Claude Code “vibe-coded”的业余项目，基于全新的 Apple 技术构建，建议不要在关键环境中使用。",
+    "编辑容器设置会用新配置重新创建该容器。",
+    "Docker Compose 支持目前为 MVP，部分指令无法映射，应用会列出这些指令。",
+    "官方文档中的高权限或远程脚本操作应单独核查，不要整段复制执行。",
+    "2.1.1 及更早版本没有经过公证，首次打开时需要手动绕过 Gatekeeper。"
+  ],
+  "references": [],
+  "media": [
+    {
+      "url": "/assets/repository-guides/media-5fa653a13e066ce67bec43f1.webp",
+      "alt": "nico81/iContainer 官方演示 1",
+      "sourceUrl": "https://github.com/nico81/iContainer/blob/ace075095f2cdd25dffe31d9c4d9b2bdd645f583/README.md?plain=1#L17",
+      "originalUrl": "https://raw.githubusercontent.com/nico81/iContainer/ace075095f2cdd25dffe31d9c4d9b2bdd645f583/docs/images/home-dark.png"
+    }
+  ],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "a273891fc9ebf640d9e09f5288199fa0260082d48fb723ad92cfda60c823b92b",
+  "mediaStatus": "archived",
+  "mediaFailures": []
+}

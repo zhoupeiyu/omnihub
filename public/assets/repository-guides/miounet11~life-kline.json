@@ -1,0 +1,86 @@
+{
+  "schemaVersion": 1,
+  "key": "miounet11/life-kline",
+  "status": "ready",
+  "reason": "",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/miounet11/life-kline/blob/7abf184df370452ee8279d72c8b45bc09e19913b/README.md",
+  "sourceRevision": "7abf184df370452ee8279d72c8b45bc09e19913b",
+  "canonicalKey": "miounet11/life-kline",
+  "summary": "人生K线结合 lunar-javascript 八字排盘和 OpenAI 兼容大模型，把人生运势以 K 线图和分析报告的形式展示，并支持自托管部署。",
+  "intro": "适合对传统命理文化或数据可视化感兴趣的人。普通用户可以直接打开官方站点 life-kline.com，README 说明无需注册、无需配置。想掌控数据和模型成本的开发者可以自托管：自行配置 AI 接口、站点品牌和积分规则，或在源码上二次开发。功能包括八字排盘（真太阳时修正）、1-100 岁大运流年 K 线、AI 分析报告、名人案例库和知识中心。",
+  "requirements": "自托管需要 Node.js 18+，以及 npm、pnpm 或 yarn 之一；还需要一个兼容 OpenAI API 格式的服务地址和 API Key。README 列出的可用来源包括 OpenAI、通过兼容接口接入的 Claude 和 Gemini、中转 API，以及 LM Studio、Ollama 等本地模型。只在线体验则无需准备。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "克隆仓库并安装项目依赖",
+      "text": "本步骤走自托管路径。先克隆 miounet11/life-kline 仓库并进入项目目录，然后执行 npm install 安装依赖。前端基于 React 19 + Vite，后端基于 Express，数据库为 SQLite（better-sqlite3），README 说明它零配置、本地优先。",
+      "code": "# 1. 克隆项目\ngit clone https://github.com/miounet11/life-kline.git\ncd life-kline\n\n# 2. 安装依赖\nnpm install\n\n# 3. 配置环境变量\ncp .env.example .env\n\n# 编辑 .env 文件，配置你的 API\n# API_BASE_URL=https://api.openai.com/v1\n# API_KEY=sk-your-api-key-here\n# DEFAULT_MODEL=gpt-4\n\n# 4. 启动服务（前后端同时启动）\nnpm run dev",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/miounet11/life-kline/blob/7abf184df370452ee8279d72c8b45bc09e19913b/README.md?plain=1#L163"
+      }
+    },
+    {
+      "title": "复制并填写 .env 环境变量",
+      "text": "把 .env.example 复制为 .env。必填项是 API_BASE_URL、API_KEY 和 DEFAULT_MODEL。按需设置 SITE_NAME、SITE_DOMAIN、SITE_URL 等站点信息，以及后端端口 PORT、JWT_SECRET、兑换券管理密码 ADMIN_VOUCHER_PASSWORD。邮件 SMTP 配置是可选项。",
+      "code": "# API 配置（必填）\nAPI_BASE_URL=https://api.openai.com/v1  # API 服务地址\nAPI_KEY=sk-xxx                           # 你的 API Key\nDEFAULT_MODEL=gpt-4                      # 默认模型\n\n# 站点配置（自定义你的品牌）\nSITE_NAME=我的命理网                      # 站点名称\nSITE_DOMAIN=mydomain.com                 # 你的域名\nSITE_URL=https://mydomain.com            # 完整URL\n\n# 服务器配置\nPORT=3000                                # 后端端口\nJWT_SECRET=random-32-char-string         # JWT 密钥\n\n# 积分系统配置（可自定义）\nFREE_INIT_POINTS=1000                    # 新用户初始积分\nCOST_PER_ANALYSIS=50                     # 每次分析消耗积分\n\n# 管理员配置\nADMIN_VOUCHER_PASSWORD=secure-password   # 兑换券管理密码\n\n# 邮件配置（可选）\n# MAIL_SMTP_HOST=smtp.example.com\n# MAIL_SMTP_PORT=587\n# MAIL_FROM=noreply@example.com\n# MAIL_PASSWORD=your-password",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/miounet11/life-kline/blob/7abf184df370452ee8279d72c8b45bc09e19913b/README.md?plain=1#L195"
+      }
+    },
+    {
+      "title": "启动服务并打开本地页面",
+      "text": "执行 npm run dev，前后端会同时启动。然后在浏览器访问 http://localhost:5173。按 README 的流程，在首页输入出生时间和地点，系统先完成八字排盘，再调用配置好的大模型生成 K 线图和分析报告。",
+      "code": "# 1. 克隆项目\ngit clone https://github.com/miounet11/life-kline.git\ncd life-kline\n\n# 2. 安装依赖\nnpm install\n\n# 3. 配置环境变量\ncp .env.example .env\n\n# 编辑 .env 文件，配置你的 API\n# API_BASE_URL=https://api.openai.com/v1\n# API_KEY=sk-your-api-key-here\n# DEFAULT_MODEL=gpt-4\n\n# 4. 启动服务（前后端同时启动）\nnpm run dev\n\n用户输入出生信息\n       ↓\n┌──────────────────┐\n│  智能八字排盘    │  ← lunar-javascript 精确计算\n│  (真太阳时修正)  │\n└────────┬─────────┘\n         ↓\n┌──────────────────┐\n│  AI 统一分析引擎 │  ← 大模型 (GPT/Claude/Gemini)\n│  • 核心命理      │\n│  • 事业财富      │\n│  • 婚姻健康      │\n│  • 历史K线       │\n│  • 未来预测      │\n│  • Web3运势      │\n└────────┬─────────┘\n         ↓\n┌──────────────────┐\n│   K线图 + 报告   │  ← Recharts 可视化\n│   + 分享海报     │\n└──────────────────┘",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/miounet11/life-kline/blob/7abf184df370452ee8279d72c8b45bc09e19913b/README.md?plain=1#L171"
+      }
+    },
+    {
+      "title": "按需调整积分和兑换券规则",
+      "text": "自托管时可以修改积分规则：在 .env 中用 FREE_INIT_POINTS 设置新用户初始积分，用 COST_PER_ANALYSIS 设置每次分析消耗的积分。兑换码需要用管理员密码生成。README 提到的场景包括企业内部使用和教育机构批量发券。",
+      "code": "# API 配置（必填）\nAPI_BASE_URL=https://api.openai.com/v1  # API 服务地址\nAPI_KEY=sk-xxx                           # 你的 API Key\nDEFAULT_MODEL=gpt-4                      # 默认模型\n\n# 站点配置（自定义你的品牌）\nSITE_NAME=我的命理网                      # 站点名称\nSITE_DOMAIN=mydomain.com                 # 你的域名\nSITE_URL=https://mydomain.com            # 完整URL\n\n# 服务器配置\nPORT=3000                                # 后端端口\nJWT_SECRET=random-32-char-string         # JWT 密钥\n\n# 积分系统配置（可自定义）\nFREE_INIT_POINTS=1000                    # 新用户初始积分\nCOST_PER_ANALYSIS=50                     # 每次分析消耗积分\n\n# 管理员配置\nADMIN_VOUCHER_PASSWORD=secure-password   # 兑换券管理密码\n\n# 邮件配置（可选）\n# MAIL_SMTP_HOST=smtp.example.com\n# MAIL_SMTP_PORT=587\n# MAIL_FROM=noreply@example.com\n# MAIL_PASSWORD=your-password",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/miounet11/life-kline/blob/7abf184df370452ee8279d72c8b45bc09e19913b/README.md?plain=1#L238"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "README 声明本项目仅供娱乐与文化研究，AI 分析结果不构成专业咨询，不应作为重大人生决定的依据；Web3 运势分析不构成投资建议。",
+    "自托管模式下，每次 AI 分析都会调用你配置的 API Key，模型调用费用由部署者自行承担。",
+    "部署前请把 JWT_SECRET 和 ADMIN_VOUCHER_PASSWORD 改成足够强的值，不要沿用示例值。",
+    "应用会处理出生时间、出生地点等个人信息。使用官方站点或公开部署前，请考虑数据存放位置和隐私影响。",
+    "项目采用 Apache-2.0 协议，二次分发时需保留版权声明并说明修改内容。"
+  ],
+  "references": [],
+  "media": [
+    {
+      "url": "/assets/repository-guides/media-17845c431661a655c4e1365f.webp",
+      "alt": "首页 - 八字排盘",
+      "sourceUrl": "https://github.com/miounet11/life-kline/blob/7abf184df370452ee8279d72c8b45bc09e19913b/README.md?plain=1#L61",
+      "originalUrl": "https://raw.githubusercontent.com/miounet11/life-kline/7abf184df370452ee8279d72c8b45bc09e19913b/assets/screenshot-home.jpg"
+    },
+    {
+      "url": "/assets/repository-guides/media-03e6df2701e9c97d58777fa8.webp",
+      "alt": "人生K线图",
+      "sourceUrl": "https://github.com/miounet11/life-kline/blob/7abf184df370452ee8279d72c8b45bc09e19913b/README.md?plain=1#L62",
+      "originalUrl": "https://raw.githubusercontent.com/miounet11/life-kline/7abf184df370452ee8279d72c8b45bc09e19913b/assets/screenshot-kline.jpg"
+    },
+    {
+      "url": "/assets/repository-guides/media-2b0b7be4917e4ab5167ede14.webp",
+      "alt": "命理分析报告",
+      "sourceUrl": "https://github.com/miounet11/life-kline/blob/7abf184df370452ee8279d72c8b45bc09e19913b/README.md?plain=1#L69",
+      "originalUrl": "https://raw.githubusercontent.com/miounet11/life-kline/7abf184df370452ee8279d72c8b45bc09e19913b/assets/screenshot-analysis.jpg"
+    }
+  ],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "ed810b9c6cba591f9ec753aa0b761aa67f6f55330fbff1a59449d483f89c926d",
+  "mediaStatus": "archived",
+  "mediaFailures": []
+}

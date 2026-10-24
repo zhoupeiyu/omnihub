@@ -1,0 +1,79 @@
+{
+  "schemaVersion": 1,
+  "key": "ftshare-lab/ftshare-mcp",
+  "status": "ready",
+  "reason": "",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/FTShare-Lab/FTShare-MCP/blob/1ab492169881595490165e132a9b9fbdaa38df1c/README.md",
+  "sourceRevision": "1ab492169881595490165e132a9b9fbdaa38df1c",
+  "canonicalKey": "FTShare-Lab/FTShare-MCP",
+  "summary": "FTShare 托管的只读金融数据 MCP 服务的接入文档，让支持 MCP 的 AI 客户端用自然语言查询 A 股、基金、港美股等数据和 FTShare 特色因子。",
+  "intro": "适合在 Claude Code、Codex 或其他支持 Streamable HTTP MCP 的客户端中，需要让 AI Agent 获取结构化金融数据的用户。可查询的数据包括 A 股行情、K 线、资金流、ETF、基金、期货、债券、宏观、公告、研报，以及新闻情绪因子、K 线形态标注等特色数据。本仓库只提供工具文档、参数说明和接入示例，不包含 MCP Server 源码。",
+  "requirements": "需要一个 FTShare 账号，并在账号中心获取 API Key（`FTSHARE_API_KEY`）；还需要一个支持 Streamable HTTP MCP 的客户端，下文以 Claude Code 为例。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "在账号中心获取 API Key",
+      "text": "登录 FTShare 账号中心（https://ftai.chat/me/profile），获取当前账号的 API Key。之后每次请求都要通过 HTTP Header `FTSHARE_API_KEY` 携带这个 Key。不要把真实 Key 提交到 Git 仓库、Issue、日志或公开截图中。",
+      "code": "FTSHARE_API_KEY: YOUR_FTSHARE_API_KEY",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/FTShare-Lab/FTShare-MCP/blob/1ab492169881595490165e132a9b9fbdaa38df1c/README.md?plain=1#L41"
+      }
+    },
+    {
+      "title": "在 Claude Code 中添加 MCP 服务",
+      "text": "以 Claude Code 为例：执行文档给出的 `claude mcp add` 命令，传输方式选 http，作用域为 user，并在 header 中填入你的 API Key。服务名为 ftshare，地址为 https://market.ft.tech/gateway/mcp。",
+      "code": "claude mcp add --transport http --scope user \\\n  --header \"FTSHARE_API_KEY: YOUR_FTSHARE_API_KEY\" \\\n  ftshare https://market.ft.tech/gateway/mcp",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/FTShare-Lab/FTShare-MCP/blob/1ab492169881595490165e132a9b9fbdaa38df1c/README.md?plain=1#L55"
+      }
+    },
+    {
+      "title": "用 /mcp 确认连接状态",
+      "text": "进入 Claude Code 后输入 `/mcp`，确认列表中的 `ftshare` 显示为已连接。使用 Codex 或其他客户端时，请改用文档里对应客户端的配置说明，各客户端的 Header 字段名称可能不同。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/FTShare-Lab/FTShare-MCP/blob/1ab492169881595490165e132a9b9fbdaa38df1c/README.md?plain=1#L55"
+      }
+    },
+    {
+      "title": "用自然语言发起数据查询",
+      "text": "连接成功后，在对话中用自然语言描述要查的标的、日期和数据类型，客户端会转换成对应的 MCP 工具调用并返回结构化结果。可查的数据范围和字段说明见 FTShare 最新数据接口文档（https://market.ft.tech/gateway/doc）。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/FTShare-Lab/FTShare-MCP/blob/1ab492169881595490165e132a9b9fbdaa38df1c/README.md?plain=1#L31"
+      }
+    },
+    {
+      "title": "对照实时 Schema 排查错误",
+      "text": "工具的名称、参数和数量以 MCP `tools/list` 的实时返回为准，仓库文档不能替代服务端 Schema。遇到 `MISSING_PARAMETER`、`INVALID_ARGUMENT` 等错误时，对照实时 inputSchema 修正参数；遇到 `UPSTREAM_REJECTED` 时，需要核对套餐和接口权限。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/FTShare-Lab/FTShare-MCP/blob/1ab492169881595490165e132a9b9fbdaa38df1c/README.md?plain=1#L177"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "这是 FTShare 托管的在线服务，必须使用 API Key。能调用哪些接口、调用额度多少，取决于账号套餐，被拒绝时会返回 `UPSTREAM_REJECTED`。",
+    "MIT 许可证只覆盖本仓库的文档和示例，不包含托管数据服务的访问额度、数据授权、再分发权或商业使用权。",
+    "客户端配置文件（如 Codex 的 `~/.codex/config.toml`）会保存密钥，不要公开提交。",
+    "服务版本、工具数量和账号权限会变化，需要以 `tools/list` 的实时结果为准。"
+  ],
+  "references": [],
+  "media": [
+    {
+      "url": "/assets/repository-guides/media-c0c8cca9ea17457dcef3d73e.webp",
+      "alt": "深圳机场上升旗形标注原图",
+      "sourceUrl": "https://github.com/FTShare-Lab/FTShare-MCP/blob/1ab492169881595490165e132a9b9fbdaa38df1c/README.md?plain=1#L111",
+      "originalUrl": "https://raw.githubusercontent.com/FTShare-Lab/FTShare-MCP/1ab492169881595490165e132a9b9fbdaa38df1c/docs/assets/readme/000089-bull-flag-20260901.png"
+    }
+  ],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "76ddf50f69859fb104b15f7d722b25c7f4870d946da88be6c2d9b1abeb0e3c1a",
+  "mediaStatus": "archived",
+  "mediaFailures": []
+}

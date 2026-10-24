@@ -1,0 +1,82 @@
+{
+  "schemaVersion": 1,
+  "key": "gordensun/gordenpptskill",
+  "status": "ready",
+  "reason": "",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/GordenSun/GordenPPTSkill/blob/7d4a61cbd8363b92e4a30784f8ca460a0a2b0a33/README.md",
+  "sourceRevision": "7d4a61cbd8363b92e4a30784f8ca460a0a2b0a33",
+  "canonicalKey": "GordenSun/GordenPPTSkill",
+  "summary": "GordenPPTSkill 是一个做 PPT 的 Agent 技能，内置 17 个中文 PPTX 模板，基于 python-pptx 只替换文字，保留原有版式来生成 .pptx 文件。",
+  "intro": "适合想让 AI 助手按现成中文模板制作汇报类 PPT 的个人用户。可以把仓库作为技能交给 Agent 使用，Agent 入口文档是 SKILL.md；也可以在命令行中自己选定模板、编写 edits.json 来构建 PPTX，并渲染预览图检查效果。",
+  "requirements": "python3 与 python-pptx 1.0+；渲染预览图时还需要 LibreOffice（soffice）和 Poppler（pdftoppm）；模板大量使用微软雅黑，系统缺少该字体时需配置替代字体。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "阅读技能入口与模板索引",
+      "text": "要把它装进 AI 助手，先读仓库根目录的 SKILL.md。要挑选模板，读 templates/INDEX.md 了解分类和推荐。templates/ 下共 17 个模板，每个模板包含 4 个文件；编辑规则和 Schema 放在 references/。",
+      "code": "SKILL.md         # AI 入口文档\nVERSION          # 1.0.0\nCHANGELOG.md     # 人读变更\nupdates.json     # 机读变更\nmanifest.json    # 每文件版本 + sha256\nscripts/         # 5 个面向使用者的脚本（build / render / update / manifest）\nreferences/      # 编辑规则、Schema、工作流参考\ntemplates/       # 17 个模板（每个 4 文件）",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/GordenSun/GordenPPTSkill/blob/7d4a61cbd8363b92e4a30784f8ca460a0a2b0a33/README.md?plain=1#L42"
+      }
+    },
+    {
+      "title": "检查 Python 与渲染依赖",
+      "text": "确认 python3 能导入 pptx，且版本为 1.0 或更高。只有需要渲染预览图时，才需要 soffice 和 pdftoppm 可用。快速开始代码块第一部分给出了这三项检查命令。 该步骤涉及需要人工核查的高权限、远程脚本或破坏性操作。本站不提供直接执行指令，请先查看官方说明并确认影响。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/GordenSun/GordenPPTSkill/blob/7d4a61cbd8363b92e4a30784f8ca460a0a2b0a33/README.md?plain=1#L48"
+      }
+    },
+    {
+      "title": "编写 edits.json 并构建",
+      "text": "选定模板后，按 references/ 中的编辑规则和 Schema 编写 edits.json。然后运行 scripts/build_pptx.py，依次传入模板的 template.pptx、edits.json 和输出路径，并用 --detail 指定该模板的 detail.json。 该步骤涉及需要人工核查的高权限、远程脚本或破坏性操作。本站不提供直接执行指令，请先查看官方说明并确认影响。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/GordenSun/GordenPPTSkill/blob/7d4a61cbd8363b92e4a30784f8ca460a0a2b0a33/README.md?plain=1#L48"
+      }
+    },
+    {
+      "title": "配置字体并渲染预览图",
+      "text": "系统没有微软雅黑时，在 ~/.config/fontconfig/fonts.conf 中添加 alias，映射到 Noto Sans SC、WenQuanYi Micro Hei 等字体。之后可以用 scripts/render_slides.py 把生成的 PPTX 渲染成预览图，用于检查版式。 该步骤涉及需要人工核查的高权限、远程脚本或破坏性操作。本站不提供直接执行指令，请先查看官方说明并确认影响。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/GordenSun/GordenPPTSkill/blob/7d4a61cbd8363b92e4a30784f8ca460a0a2b0a33/README.md?plain=1#L67"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "仓库及内置模板仅限个人学习与研究，禁止商业用途和二次分发；作者声明本仓库不拥有 PPT 模板的版权，许可证标注为 NOASSERTION。",
+    "技能带有自动更新机制，使用时可能自动拉取新的模板和文件。",
+    "兼容多种模型、效果出众等说法来自作者宣传，未经独立验证。",
+    "工具只编辑文字、不改动版式，内容过多时可能需要自行调整文字量。"
+  ],
+  "references": [],
+  "media": [
+    {
+      "url": "/assets/repository-guides/media-1c98fcea2e040d6af74eeef0.webp",
+      "alt": "效果展示 1 - 战略定位分析",
+      "sourceUrl": "https://github.com/GordenSun/GordenPPTSkill/blob/7d4a61cbd8363b92e4a30784f8ca460a0a2b0a33/README.md?plain=1#L25",
+      "originalUrl": "https://raw.githubusercontent.com/GordenSun/GordenPPTSkill/7d4a61cbd8363b92e4a30784f8ca460a0a2b0a33/assets/showcase-1.jpg"
+    },
+    {
+      "url": "/assets/repository-guides/media-2357cbadb531560523aeb5ab.webp",
+      "alt": "效果展示 2 - 价值冰山模型",
+      "sourceUrl": "https://github.com/GordenSun/GordenPPTSkill/blob/7d4a61cbd8363b92e4a30784f8ca460a0a2b0a33/README.md?plain=1#L29",
+      "originalUrl": "https://raw.githubusercontent.com/GordenSun/GordenPPTSkill/7d4a61cbd8363b92e4a30784f8ca460a0a2b0a33/assets/showcase-2.jpg"
+    },
+    {
+      "url": "/assets/repository-guides/media-40dd7c7a37d4f82c43321dab.webp",
+      "alt": "效果展示 3 - 产品化闭环",
+      "sourceUrl": "https://github.com/GordenSun/GordenPPTSkill/blob/7d4a61cbd8363b92e4a30784f8ca460a0a2b0a33/README.md?plain=1#L33",
+      "originalUrl": "https://raw.githubusercontent.com/GordenSun/GordenPPTSkill/7d4a61cbd8363b92e4a30784f8ca460a0a2b0a33/assets/showcase-3.jpg"
+    }
+  ],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "d1b4c095c0c1c0216131b096e6c4b644aa0437028ab3e1abf5d003e12d9a85cc",
+  "mediaStatus": "archived",
+  "mediaFailures": []
+}

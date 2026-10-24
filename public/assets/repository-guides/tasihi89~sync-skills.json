@@ -1,0 +1,71 @@
+{
+  "schemaVersion": 1,
+  "key": "tasihi89/sync-skills",
+  "status": "ready",
+  "reason": "",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/Tasihi89/sync-skills/blob/cd938e912da1fa78a24e20d4daf05bd523092190/README.md",
+  "sourceRevision": "cd938e912da1fa78a24e20d4daf05bd523092190",
+  "canonicalKey": "Tasihi89/sync-skills",
+  "summary": "用一个技能源目录配合符号链接和指针，在 Claude Code 与 Codex 之间统一管理技能，改一处两端同时生效。",
+  "intro": "适合同时使用 Claude Code 和 Codex（或只用其中一个）的用户，用来把分散在各宿主中的技能集中到一个 source 目录。各端只保留指向 ~/.skill-source 指针的符号链接，因此不存在需要同步的第二份副本。工具提供巡检（reconcile）、纳管、删除、解除纳管和迁移源目录等操作。",
+  "requirements": "必需：bash 以及 ln、mv、cp、find、readlink 等标准命令；需要 git 来克隆仓库。可选：python3 + pyyaml，用于在 reconcile 时校验 frontmatter，缺失时自动跳过；sqlite3，用于查看 Codex 的拒绝日志。已安装 Claude Code 和/或 Codex。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "克隆仓库并运行安装脚本",
+      "text": "克隆仓库后执行 install.sh。源目录默认为 ~/skill-source，也可以用 --source 指定其他位置，路径须为 ASCII 且不含空格。脚本会依次创建源目录和指针 ~/.skill-source，把 sync-skills 自身纳入管理，再建立两端的符号链接。",
+      "code": "# One-click download + install (source defaults to ~/skill-source)\ngit clone https://github.com/Tasihi89/sync-skills.git && bash sync-skills/install.sh\n\n# Or a custom source location (ASCII, no spaces):\ngit clone https://github.com/Tasihi89/sync-skills.git && bash sync-skills/install.sh --source ~/my-skills",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/Tasihi89/sync-skills/blob/cd938e912da1fa78a24e20d4daf05bd523092190/README.md?plain=1#L21"
+      }
+    },
+    {
+      "title": "重启宿主并纳管已有技能",
+      "text": "安装完成后重启 Claude Code / Codex，再在 Claude 中输入 /sync-skills，把其他已有技能也纳入统一管理。完整流程（init、修改、判断）写在仓库的 SKILL.md 中。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/Tasihi89/sync-skills/blob/cd938e912da1fa78a24e20d4daf05bd523092190/README.md?plain=1#L21"
+      }
+    },
+    {
+      "title": "只读巡检技能一致性",
+      "text": "运行 bash scripts/scan.sh 做只读巡检，查看两端是否一致、有哪些可纳管的候选技能以及异常情况。对于长期只在一端使用的技能，可以把名称写进 ~/.skill-source-ignore（模板见 references/single-host.example），巡检时会把它们折叠成一行显示。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/Tasihi89/sync-skills/blob/cd938e912da1fa78a24e20d4daf05bd523092190/README.md?plain=1#L34"
+      }
+    },
+    {
+      "title": "用脚本纳管、删除或解除技能",
+      "text": "纳管用 bash scripts/migrate.sh <name> <claude|codex>；删除用 remove.sh <name> <all|claude|codex> --confirm；解除纳管用 release.sh <name> --confirm。所有写操作默认是 dry-run，只打印计划，加上 --confirm 才会真正执行。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/Tasihi89/sync-skills/blob/cd938e912da1fa78a24e20d4daf05bd523092190/README.md?plain=1#L34"
+      }
+    },
+    {
+      "title": "需要时迁移源目录位置",
+      "text": "要更换源目录位置时，先移动源目录，再删除旧的 ~/.skill-source 指针，并重新链接到新位置。各端的符号链接都经由这个指针指向源目录，所以搬迁只需改动这一条链接。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/Tasihi89/sync-skills/blob/cd938e912da1fa78a24e20d4daf05bd523092190/README.md?plain=1#L34"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "仓库未声明许可证，使用或二次分发前请自行确认授权。",
+    "删除真实目录（而非符号链接）除 --confirm 外还需加 --force-real，执行前应先在 dry-run 输出中核对计划。",
+    "技能只在 source 目录保存一份，其余都是链接；误删 source 或 ~/.skill-source 指针会同时影响两端。",
+    "~/.skill-source-ignore 保存在用户主目录，不会随仓库迁移。",
+    "一个技能能否在两端共用需要自行判断，判断依据见 references/judgment.md。"
+  ],
+  "references": [],
+  "media": [],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "bea7d94f4702a0d957bd1225065a909574a715b8caea81ffbc49677b1d430ff4",
+  "mediaStatus": "none_in_official_documents"
+}

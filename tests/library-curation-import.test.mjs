@@ -1,0 +1,34 @@
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import {DatabaseSync} from 'node:sqlite';
+import {createHash} from 'node:crypto';
+import {prepareCurationImport,applyCurationImport,sourceSnapshot} from '../lib/library-curation-import.js';
+import {createLibraryCuration} from '../lib/library-curation.js';
+
+test('release import resolves target IDs, checks source hashes and preserves manual edits',t=>{
+  const db=new DatabaseSync(':memory:');t.after(()=>db.close());
+  db.exec(`CREATE TABLE users(id INTEGER PRIMARY KEY,username TEXT);
+    INSERT INTO users VALUES(7,'zane');
+    CREATE TABLE inbox(id INTEGER PRIMARY KEY,user_id INTEGER,source TEXT,external_id TEXT,content TEXT,metrics TEXT,title TEXT,visibility TEXT,status TEXT);
+    INSERT INTO inbox VALUES(42,7,'x','external-a','开头：长期规则。结尾','{}','原题','public','pending');
+    INSERT INTO inbox VALUES(47,7,'x','external-b','关联内容','{}','关联','public','pending');
+    CREATE TABLE prompts(user_id INTEGER,source_inbox_id INTEGER,id INTEGER,text TEXT,tags TEXT,category TEXT);`);
+  const digest=text=>createHash('sha256').update(JSON.stringify([text,''])).digest('hex');
+  const decisions=[{externalId:'external-a',type:'method',title:'规则的用途',summary:'长期规则配置',body:'## 步骤\n\n读现有配置再合并。',tags:['工具','配置'],promptCategory:'Agent 系统',extract:{start:'长期规则',end:'结尾'},related:['external-b']}];
+  const hashes={'external-a':digest('开头：长期规则。结尾'),'external-b':digest('关联内容')};
+  const plan=prepareCurationImport(db,decisions,hashes);
+  assert.equal(plan.ownerId,7);assert.equal(plan.plans[0].id,42);
+  assert.deepEqual(plan.plans[0].data.relatedSourceIds,[47]);
+  assert.equal(plan.plans[0].data.promptText,'长期规则。');
+  assert.equal(applyCurationImport(db,plan).written,1);
+  assert.equal(sourceSnapshot(db,7),plan.sourceHash);
+  assert.equal(applyCurationImport(db,plan).written,0);
+  const store=createLibraryCuration(db);
+  store.write(7,'source','42',1,{...plan.plans[0].data,title:'手动修改'});
+  assert.equal(applyCurationImport(db,plan).preserved,1);
+  assert.equal(store.record(7,'source','42').data.title,'手动修改');
+  assert.throws(()=>prepareCurationImport(db,[...decisions,...decisions],hashes),/Duplicate/);
+  db.prepare('UPDATE inbox SET content=? WHERE id=47').run('原文已更新');
+  assert.throws(()=>prepareCurationImport(db,decisions,hashes),/Reviewed source changed/);
+  assert.throws(()=>applyCurationImport(db,plan),/Source changed before import/);
+});

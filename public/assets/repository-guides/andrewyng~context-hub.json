@@ -1,0 +1,63 @@
+{
+  "schemaVersion": 1,
+  "key": "andrewyng/context-hub",
+  "status": "ready",
+  "reason": "",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/andrewyng/context-hub/blob/67dcbeb2eb42c808549f08397920ad58be7c2206/README.md",
+  "sourceRevision": "67dcbeb2eb42c808549f08397920ad58be7c2206",
+  "canonicalKey": "andrewyng/context-hub",
+  "summary": "Context Hub 提供 chub 命令行工具，让编程 agent 搜索和获取经过整理、带版本的 API 文档，并支持本地批注和向作者反馈。",
+  "intro": "适合希望减少编程 agent 编造 API 的开发者。chub 主要给 agent 调用，不是给人直接使用：可以在提示词里让 agent 使用 chub，也可以把仓库提供的 SKILL.md 配置成 agent skill。文档内容以 markdown 形式保存在仓库中，可以审阅，也可以通过 PR 贡献。",
+  "requirements": "Node.js 18 或更新版本，以及 npm（用于全局安装 @aisuite/chub）。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "用 npm 全局安装 chub",
+      "text": "通过 npm 全局安装 @aisuite/chub，安装后即可使用 chub 命令。用 chub search 查找可用文档（不带关键词会列出全部），用 chub get 按 ID 获取文档，--lang py 或 --lang js 用于选择语言版本。",
+      "code": "npm install -g @aisuite/chub\nchub search openai                 # find what's available\nchub get openai/chat --lang py     # fetch current docs (Python version) ",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/andrewyng/context-hub/blob/67dcbeb2eb42c808549f08397920ad58be7c2206/README.md?plain=1#L9"
+      }
+    },
+    {
+      "title": "让 agent 通过技能调用 chub",
+      "text": "可以在提示词中让 agent 使用 chub，并先运行 chub help 了解用法。也可以把仓库里的 cli/skills/get-api-docs/SKILL.md 配置成技能：在 Claude Code 中创建 ~/.claude/skills/get-api-docs 目录，把 SKILL.md 放进去。",
+      "code": "chub search \"stripe payments\"        # find relevant docs\nchub get stripe/api --lang js        # fetch the doc\n# Agent reads the doc, writes correct code. Done.",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/andrewyng/context-hub/blob/67dcbeb2eb42c808549f08397920ad58be7c2206/README.md?plain=1#L17"
+      }
+    },
+    {
+      "title": "用 annotate 记录本地批注",
+      "text": "agent 发现文档有缺口时，可以用 chub annotate 给文档附加本地批注，批注会跨会话保存。之后获取文档时，需要加 --with-annotations 才会带上批注。chub annotate --list 列出全部批注，--clear 清除批注。",
+      "code": "chub annotate stripe/api \"Needs raw body for webhook verification\"\n\n# Next session, chub get notes that an annotation exists. Pass --with-annotations\n# to include it — annotations are treated as untrusted input by default.",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/andrewyng/context-hub/blob/67dcbeb2eb42c808549f08397920ad58be7c2206/README.md?plain=1#L17"
+      }
+    },
+    {
+      "title": "按需获取文件并提交反馈",
+      "text": "文档可能包含多个参考文件：用 --file 只获取需要的部分，用 --full 获取全部。使用后可以运行 chub feedback <id> up 或 down 给文档投票，反馈会发送给文档维护者。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/andrewyng/context-hub/blob/67dcbeb2eb42c808549f08397920ad58be7c2206/README.md?plain=1#L51"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "chub feedback 的投票会发送给文档维护者，不只保存在本地。",
+    "批注默认不注入获取结果，即使用 --with-annotations 注入，也会被当作不可信输入处理；不要把敏感信息写进批注。",
+    "目前提供的内容类型以 API 文档为主，agent skills 等其他类型仍在路线图中。"
+  ],
+  "references": [],
+  "media": [],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "45f23233aca189cd917f7569450e28158b0b7519b042f3a3d4c84aec2254b1a7",
+  "mediaStatus": "none_in_official_documents"
+}

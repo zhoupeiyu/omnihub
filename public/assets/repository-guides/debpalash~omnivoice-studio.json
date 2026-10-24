@@ -1,0 +1,86 @@
+{
+  "schemaVersion": 1,
+  "key": "debpalash/omnivoice-studio",
+  "status": "ready",
+  "reason": "",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/debpalash/VoiceStudio/blob/0834c8be28460fc4e0518bdb31eb57c494b253b2/README.md",
+  "sourceRevision": "0834c8be28460fc4e0518bdb31eb57c494b253b2",
+  "canonicalKey": "debpalash/VoiceStudio",
+  "summary": "VoiceStudio 是可在本地运行的 Electron 桌面应用，提供声音克隆、声音设计、视频配音、听写、转写和有声书制作，并带本地 API 与 MCP。",
+  "intro": "适合希望在自己的硬件上完成语音生成与处理的创作者和开发者。可用于克隆或设计声音、给视频生成按时间对齐的配音、制作故事和有声书、批量任务，以及通过本地 API 或 MCP 接入智能体。默认引擎基于 k2-fsa/OmniVoice，也可以换用其他引擎。",
+  "requirements": "本指南采用 macOS / Linux x64 的一键脚本安装最新正式版，需要 curl 和 SHA-256 工具（macOS 自带 shasum，Linux 需 sha256sum）。Windows 用户应改为从 Releases 下载 win-x64 安装程序。不同引擎的硬件需求不同，参见 performance 文档。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "确认平台与校验工具已就绪",
+      "text": "一键脚本支持 macOS（Apple Silicon 和 Intel）与 Linux x64。请确认已安装 curl，以及 shasum 或 sha256sum。安装器会对照发布页的 SHA256SUMS.txt 校验下载包，缺少校验文件或校验不一致时会停止安装。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/debpalash/VoiceStudio/blob/0834c8be28460fc4e0518bdb31eb57c494b253b2/docs/install/script.md?plain=1#L1"
+      }
+    },
+    {
+      "title": "运行脚本安装最新 Electron 版",
+      "text": "先完全退出正在运行的 VoiceStudio，再执行代码块中的第一条命令（Latest stable Electron release）。macOS 会把应用安装到 /Applications，不可写时改用 ~/Applications；Linux 安装到 ~/.local/bin/VoiceStudio，需要把该目录加入 PATH。 原文包含需人工核查的高权限或删除命令，本站不提供一键复制；请查看该步骤的官方出处。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/debpalash/VoiceStudio/blob/0834c8be28460fc4e0518bdb31eb57c494b253b2/docs/install/script.md?plain=1#L1"
+      }
+    },
+    {
+      "title": "在声音克隆页安装模型并生成",
+      "text": "打开应用，进入 Voice cloning，选择一个已有声音或添加一段干净的参考录音，输入文本后点击生成。出现提示时安装所需模型。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/debpalash/VoiceStudio/blob/0834c8be28460fc4e0518bdb31eb57c494b253b2/README.md?plain=1#L58"
+      }
+    },
+    {
+      "title": "需要时卸载应用并保留数据",
+      "text": "该步骤涉及需要人工核查的高权限、远程脚本或破坏性操作。本站不提供直接执行指令，请先查看官方说明并确认影响。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/debpalash/VoiceStudio/blob/0834c8be28460fc4e0518bdb31eb57c494b253b2/docs/install/script.md?plain=1#L64"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "项目采用 AGPL-3.0 许可；各模型另有独立许可证，商用前需逐一核查。只能在获得许可的情况下克隆他人声音。",
+    "Electron 是唯一的桌面端和 Web UI。0.5.3 是最后一个 Tauri 版本，原 Tauri 用户需单独安装 Electron 版，脚本不会删除旧的 Tauri 应用。",
+    "降级后可能无法读取新版本生成的数据，降级前先备份重要项目。",
+    "--main 源码构建需要 Git、Node.js 22+、Bun、Rust/Cargo 及平台构建工具，会下载数 GB 依赖，生成的安装包未签名。",
+    "本地工作流在本机硬件上运行，远程服务为可选项，使用分析需用户同意后才会启用。"
+  ],
+  "references": [
+    {
+      "label": "docs/install/script.md",
+      "url": "https://github.com/debpalash/VoiceStudio/blob/0834c8be28460fc4e0518bdb31eb57c494b253b2/docs/install/script.md"
+    }
+  ],
+  "media": [
+    {
+      "url": "/assets/repository-guides/media-bb8a60085f71e342d397c0c0.webp",
+      "alt": "debpalash/VoiceStudio 官方演示 1",
+      "sourceUrl": "https://github.com/debpalash/VoiceStudio/blob/0834c8be28460fc4e0518bdb31eb57c494b253b2/README.md?plain=1#L41",
+      "originalUrl": "https://raw.githubusercontent.com/debpalash/VoiceStudio/0834c8be28460fc4e0518bdb31eb57c494b253b2/docs/media/electron/voice-cloning.png"
+    },
+    {
+      "url": "/assets/repository-guides/media-d42ef2912f1a62f49f35450f.webp",
+      "alt": "debpalash/VoiceStudio 官方演示 2",
+      "sourceUrl": "https://github.com/debpalash/VoiceStudio/blob/0834c8be28460fc4e0518bdb31eb57c494b253b2/README.md?plain=1#L42",
+      "originalUrl": "https://raw.githubusercontent.com/debpalash/VoiceStudio/0834c8be28460fc4e0518bdb31eb57c494b253b2/docs/media/electron/dubbing.png"
+    }
+  ],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "3abe7a8ae925d000cca4064f70e0f880405642ef1d780ba0316a5d56a5a81d39",
+  "mediaStatus": "archived",
+  "mediaFailures": [
+    {
+      "sourceUrl": "https://github.com/debpalash/VoiceStudio/blob/0834c8be28460fc4e0518bdb31eb57c494b253b2/README.md#L23",
+      "reason": "media_too_large"
+    }
+  ]
+}

@@ -1,0 +1,78 @@
+{
+  "schemaVersion": 1,
+  "key": "ancienttwo/repo-harness",
+  "status": "ready",
+  "reason": "",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/Ancienttwo/repo-harness/blob/151ba8f946f450b549c721fc8decb7702b956d21/README.md",
+  "sourceRevision": "151ba8f946f450b549c721fc8decb7702b956d21",
+  "canonicalKey": "Ancienttwo/repo-harness",
+  "summary": "repo-harness 是一个 CLI 加 skill/runtime hooks 的组合，把计划、契约、检查、交接和审查证据写回仓库文件，让 Claude Code 和 Codex 会话可以基于文件续接工作。",
+  "intro": "适合用 Claude Code 或 Codex 维护现有 Git 仓库、希望 agent 跨会话不依赖聊天记忆的开发者。第一层是会话契约：plans/、tasks/、docs/spec.md、.ai/harness/handoff/ 等文件记录任务状态，单人仓库只用这一层即可。第二层是需要授权、预算和租约的长周期 program，属于可选的进阶能力。本指南以 macOS/Linux 为平台，讲解第一层的接入流程。",
+  "requirements": "一个 Git working tree；Bun >= 1.4.0（安装脚本会在需要时自动安装或升级）；可用的 herdr >= 0.9.0（从 herdr.dev 安装，用 herdr --version 验证）；macOS/Linux 需要 bash；jq 可选；不需要 Node.js。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "在 macOS/Linux 安装 CLI",
+      "text": "在 macOS/Linux 上使用代码块中标注为 macOS / Linux 的 curl 安装脚本（不要用其中的 Windows PowerShell 那一行）。如果 PATH 上已有 Bun 1.4.0 或更新版本，可以跳过 shell 安装脚本。另外从 herdr.dev 安装 herdr，并用 herdr --version 确认可用。 原文包含需人工核查的高权限或删除命令，本站不提供一键复制；请查看该步骤的官方出处。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/Ancienttwo/repo-harness/blob/151ba8f946f450b549c721fc8decb7702b956d21/README.md?plain=1#L49"
+      }
+    },
+    {
+      "title": "运行 install 初始化宿主运行时",
+      "text": "执行 repo-harness install 完成全局引导：安装全局 CLI，刷新 skill 别名，安装用户级 hook 适配器，并记录安装 profile。这个命令可以重复执行，不会向当前目录写入仓库级文件。加 --dry-run --json 可以先列出将要安装、跳过和移除的组件。",
+      "code": "repo-harness install",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/Ancienttwo/repo-harness/blob/151ba8f946f450b549c721fc8decb7702b956d21/README.md?plain=1#L81"
+      }
+    },
+    {
+      "title": "在目标仓库根目录预览契约",
+      "text": "进入目标仓库根目录，运行 init --dry-run，查看将要创建或刷新的 specs、任务状态、helper runtime、hook 适配器目标和验证文件。它不会创建应用代码结构。如果预览结果不对，先停下来阅读 hook-operations.md。",
+      "code": "repo-harness init --dry-run",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/Ancienttwo/repo-harness/blob/151ba8f946f450b549c721fc8decb7702b956d21/README.md?plain=1#L102"
+      }
+    },
+    {
+      "title": "应用 init 并运行验证脚本",
+      "text": "确认预览无误后执行 init，再运行 check-task-workflow.sh --strict 和 bun test 进行验证。应用完成后会输出 Migration Report，列出 hook 来源、用户级适配器位置、新建的仓库文件以及外部工具就绪情况。",
+      "code": "repo-harness init\nbash scripts/check-task-workflow.sh --strict\nbun test",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/Ancienttwo/repo-harness/blob/151ba8f946f450b549c721fc8decb7702b956d21/README.md?plain=1#L113"
+      }
+    },
+    {
+      "title": "用 update 维护或卸载配置",
+      "text": "日常用 update 同步 CLI 与依赖；只想查看修复建议、不写入任何文件时用 update --check。卸载前先运行 uninstall --dry-run 预览要清理的用户级配置，uninstall 只移除工具自己管理的配置，会保留你的改动和历史。",
+      "code": "repo-harness update          # reconcile CLI, mandatory deps, profile tooling, and CodeGraph\nrepo-harness update --check  # read-only repair guidance, no writes\nrepo-harness uninstall --dry-run # preview owned user configuration cleanup\nrepo-harness uninstall           # remove owned configuration; preserve user changes/history\nrepo-harness mcp uninstall --dry-run # preview independent MCP setup cleanup\nrepo-harness mcp uninstall --services-stopped # after stopping all MCP HTTP services",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/Ancienttwo/repo-harness/blob/151ba8f946f450b549c721fc8decb7702b956d21/README.md?plain=1#L137"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "安装会修改用户级配置 ~/.claude/settings.json 和 ~/.codex/hooks.json，把 Claude/Codex 的事件路由到 repo-harness-hook。",
+    "官方文档中的高权限或远程脚本操作应单独核查，不要整段复制执行。",
+    "herdr 缺失或不可用会阻止 host readiness；Windows 上的常驻 review hosting 需要通过 WSL 运行。从 tmux 版本升级前，要先用旧版本 drain 现有的 reviewer。",
+    "authorized programs、campaign 等进阶能力涉及授权、预算台账和外部模型调用（如 GPT Pro lane），启用前应了解相应的授权和费用影响。"
+  ],
+  "references": [
+    {
+      "label": "README.zh-CN.md",
+      "url": "https://github.com/Ancienttwo/repo-harness/blob/151ba8f946f450b549c721fc8decb7702b956d21/README.zh-CN.md"
+    }
+  ],
+  "media": [],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "1f4a48ccd128d08bd237803bb784e1fa6368247b3272d46ea09318ea811abda2",
+  "mediaStatus": "none_in_official_documents"
+}

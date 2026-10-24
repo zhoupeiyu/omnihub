@@ -1,0 +1,53 @@
+{
+  "schemaVersion": 1,
+  "key": "mininglamp-ai/mano-p",
+  "status": "partial",
+  "reason": "所给 README 内容主要是项目介绍、基准成绩和演示视频。“Two Usage Forms”一节只有引言，没有给出两种用法的具体内容。Skills 安装方式、本地模型部署与 SDK 调用均无命令或步骤，官方也写明两种部署方式的详细说明“将于近期发布”。",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/Mininglamp-AI/Mano-P/blob/87673eff8cf882c3547c8e45da145a4d5acf9c05/README.md",
+  "sourceRevision": "87673eff8cf882c3547c8e45da145a4d5acf9c05",
+  "canonicalKey": "Mininglamp-AI/Mano-P",
+  "summary": "Mano-P 是面向端侧设备的开源 GUI-VLA 智能体项目，可以用自然语言驱动，通过纯视觉方式自动操作图形界面。",
+  "intro": "适合想在本地设备上做 GUI 自动化的 Agent 爱好者（如 OpenClaw、Claude Code 用户），以及对数据安全要求高、希望本地推理的开发者。项目分阶段开源：先是 Mano-CUA Skills，再是端侧模型与 SDK，最后是训练与量化方法。支持点击、输入、快捷键、滚动、拖拽、截图、启动应用等操作。",
+  "requirements": "本地模式需要搭载 M4 及以上芯片、32GB 以上内存的 Mac mini 或 MacBook，或者通过 USB 4.0 连接的 Mano-P 算力棒。没有本地模型时会使用云端 API。所有用法都需要授予屏幕录制和辅助功能权限。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "确认硬件并选择推理模式",
+      "text": "先确认本机条件。本地模式需要 M4 及以上芯片、32GB 以上内存的 Mac mini 或 MacBook，或者使用 USB 4.0 连接的算力棒。没有配置本地模型时，系统会自动切换到云端模式，调用 mano.mininglamp.com 服务。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/Mininglamp-AI/Mano-P/blob/87673eff8cf882c3547c8e45da145a4d5acf9c05/README.md?plain=1#L1023"
+      }
+    },
+    {
+      "title": "在 macOS 中授予屏幕与辅助权限",
+      "text": "以官方标注为稳定版的 macOS 为例，在“系统设置 → 隐私与安全性”中为运行 Mano-P 的程序开启屏幕录制权限，以及用于键盘和鼠标控制的辅助功能权限。所有使用形式都需要这两项权限。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/Mininglamp-AI/Mano-P/blob/87673eff8cf882c3547c8e45da145a4d5acf9c05/README.md?plain=1#L1193"
+      }
+    },
+    {
+      "title": "查阅原文选择使用形式",
+      "text": "README 提供两种使用形式供选择，但所给资料没有包含具体内容。请到仓库 README 的“Two Usage Forms”和“Skills”“Inference SDK”章节查看最新的安装与调用说明，再按自己的场景选择。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/Mininglamp-AI/Mano-P/blob/87673eff8cf882c3547c8e45da145a4d5acf9c05/README.md?plain=1#L1073"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "屏幕录制和辅助功能权限会让程序看到屏幕并控制键盘鼠标，请只在可信环境中授予。",
+    "未配置本地模型时会使用云端服务 mano.mininglamp.com，此时数据不再只在本地处理。",
+    "Windows 和 Linux 支持仍为 Beta，macOS 为稳定版。",
+    "本地部署的详细说明官方尚未发布，部分阶段（模型、SDK、训练方法）按计划分批开源。"
+  ],
+  "references": [],
+  "media": [],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "1c778701e5304c663970e6ec21cfba2d090ba3579faa428fef5b1183df30b4c9",
+  "mediaStatus": "none_in_official_documents"
+}

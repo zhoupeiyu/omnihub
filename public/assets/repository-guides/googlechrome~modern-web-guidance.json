@@ -1,0 +1,62 @@
+{
+  "schemaVersion": 1,
+  "key": "googlechrome/modern-web-guidance",
+  "status": "ready",
+  "reason": "",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/GoogleChrome/modern-web-guidance/blob/84ae7251ee919239d5ea85aef25897983f26601e/README.md",
+  "sourceRevision": "84ae7251ee919239d5ea85aef25897983f26601e",
+  "canonicalKey": "GoogleChrome/modern-web-guidance",
+  "summary": "Modern Web Guidance 是一套面向编码 Agent 的技能，把 Web 平台最佳实践和浏览器兼容性数据注入 Agent 上下文，引导它使用现代原生方案。",
+  "intro": "适合使用编码 Agent 做前端开发的人。Agent 默认可能写出旧式写法或体积较大的 JavaScript。该技能提供本地检索的专家指南，覆盖 CSS 布局、HTML/DOM、JavaScript API、性能、可访问性和内置 AI 等主题，并给出渐进增强和轻量回退方案。",
+  "requirements": "需要能运行 npx 的环境（官方安装、试用和更新命令均通过 npx 执行），以及一个受支持的编码 Agent 宿主。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "免安装试用指南检索",
+      "text": "安装前可以先用 npx 调用 modern-web-guidance 的 search 子命令，按自然语言描述查找相关指南，再用 retrieve 按指南 ID 取回完整内容，确认这些指南是否符合你的需求。",
+      "code": "# Search for relevant guides\nnpx modern-web-guidance@latest search \"animate a dialog modal backdrop\"\n\n# Retrieve a guide by ID\nnpx modern-web-guidance@latest retrieve \"animate-to-from-top-layer\"",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/GoogleChrome/modern-web-guidance/blob/84ae7251ee919239d5ea85aef25897983f26601e/README.md?plain=1#L24"
+      }
+    },
+    {
+      "title": "运行交互式安装向导",
+      "text": "官方推荐的入门方式是执行 npx modern-web-guidance@latest install，它会启动交互式向导，把技能安装到你的 Agent。如果你在 Claude Code、Codex、Copilot CLI 等宿主中更习惯用插件方式，可以改用 README 中 Alternative Installation Methods 一节对应宿主的方法。",
+      "code": "npx modern-web-guidance@latest install",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/GoogleChrome/modern-web-guidance/blob/84ae7251ee919239d5ea85aef25897983f26601e/README.md?plain=1#L16"
+      }
+    },
+    {
+      "title": "理解 Agent 如何调用技能",
+      "text": "遇到相关任务时，Agent 会激活 modern-web-guidance 技能，先用 search 在本地做语义匹配，再用 retrieve 把对应指南的代码模式、注意事项和回退方案放进上下文。官方说明检索使用离线 TensorFlow.js 模型，不发起网络调用，也不需要 API Key。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/GoogleChrome/modern-web-guidance/blob/84ae7251ee919239d5ea85aef25897983f26601e/README.md?plain=1#L365"
+      }
+    },
+    {
+      "title": "按安装方式更新技能",
+      "text": "如果是通过 npx modern-web-guidance@latest install 安装的，可以执行 npx modern-web-guidance@latest update 更新。通过其他插件或技能管理器安装的，按对应 Agent 文档中更新插件或技能的方法操作。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/GoogleChrome/modern-web-guidance/blob/84ae7251ee919239d5ea85aef25897983f26601e/README.md?plain=1#L446"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "目前是预览版（preview release），内容仍在持续添加，覆盖范围可能变化。",
+    "官方用 npx 拉取 @latest 版本来保持内容不过期，因此每次运行的版本可能不同。",
+    "指南用于引导 Agent，生成代码的浏览器兼容性仍需结合 Baseline 数据和项目自身的支持范围来确认。"
+  ],
+  "references": [],
+  "media": [],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "b961d84ef9e116c9818896b06263bd9f37954db252cecb013626a6f8b9ecf060",
+  "mediaStatus": "none_in_official_documents"
+}

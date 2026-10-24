@@ -1,0 +1,82 @@
+{
+  "schemaVersion": 1,
+  "key": "tw93/kami",
+  "status": "ready",
+  "reason": "",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/tw93/Kami/blob/5a7fa34e3804199e6fa28eea1c16057ece2f8f0f/README.md",
+  "sourceRevision": "5a7fa34e3804199e6fa28eea1c16057ece2f8f0f",
+  "canonicalKey": "tw93/Kami",
+  "summary": "Kami 是一套给 AI 代理使用的文档与落地页排版技能，提供模板和版式规则，可生成 PDF、PNG，也可以把幻灯片导出为可编辑的 PowerPoint。",
+  "intro": "适合经常让 Claude Code、Codex、Cursor 等代理撰写报告、简历、信件、作品集、演讲幻灯片或产品落地页，并希望输出版式统一的人。仓库提供 One-Pager、Long Doc、Letter、Portfolio、Resume、Slides、Equity Report、Changelog 八种文档模板，还有一套 Landing Page 系统，以及内容和版式检查。",
+  "requirements": "需要一个支持技能的 AI 代理宿主，例如 Claude Code、Codex、Cursor，或 Claude Desktop。通过 npx skills 安装时需要能运行 npx。使用插件方式安装时，Claude Code 版本需为 v2.1.142 或更新。代码高亮是可选功能，需要安装 Pygments；未安装时 PDF 仍能渲染，代码显示为单色。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "用 npx 安装到共享技能目录",
+      "text": "以 Claude Code、Codex、Cursor 为例，运行 npx skills add 命令全局安装 Kami。技能会放入共享目录 ~/.agents/skills，Claude Code 通过符号链接读取，其他读取该目录的代理会识别为 /kami。之后可用 npx skills update -g -y 更新。",
+      "code": "npx skills add tw93/kami -a claude-code codex cursor -g -y",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/tw93/Kami/blob/5a7fa34e3804199e6fa28eea1c16057ece2f8f0f/README.md?plain=1#L70"
+      }
+    },
+    {
+      "title": "按需补齐中日韩字体",
+      "text": "为控制安装包体积，大型 CJK 字体不随包分发。如果中文或韩文字体缺失，可运行 skills/kami/scripts/ensure-fonts.sh，把字体恢复到用户字体目录。在仓库检出环境中，该脚本还会把仓库内字体复制进技能目录，模板会优先加载本地字体，再回退到 jsDelivr CDN。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/tw93/Kami/blob/5a7fa34e3804199e6fa28eea1c16057ece2f8f0f/README.md?plain=1#L70"
+      }
+    },
+    {
+      "title": "用自然语言提出文档需求",
+      "text": "无需输入斜杠命令，直接用自然语言描述要做的文档，技能就会自动触发，例如“帮我做一份一页纸”“帮我做一份简历”“帮我做一个产品落地页”。英文和中文效果最好；日文和韩文通过专用字体回退和版式调整来支持。Kami 会根据你书写的语言选择对应的模板变体。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/tw93/Kami/blob/5a7fa34e3804199e6fa28eea1c16057ece2f8f0f/README.md?plain=1#L98"
+      }
+    },
+    {
+      "title": "创建品牌配置保存偏好",
+      "text": "这一步可选。创建 ~/.config/kami/brand.md：在 YAML frontmatter 中填写姓名、职位、邮箱、品牌色、语言、页面尺寸、语气等字段，正文写自由备注。完整模板见 skills/kami/references/brand.example.md。请求中未指定的选项会采用这些设置，请求里的明确指令始终优先。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/tw93/Kami/blob/5a7fa34e3804199e6fa28eea1c16057ece2f8f0f/README.md?plain=1#L98"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "中文默认字体 TsangerJinKai02 仅限个人免费使用，商业用途需向 tsanger.cn 获取授权。",
+    "Kami 每天最多联网一次，查询 GitHub 上的最新发布版本，并在本地 XDG 缓存目录写入标记。按文档说明，它不上传文档或任务内容，离线时静默失败。",
+    "MCP 服务器（skills/kami/scripts/mcp_server.py）只应渲染可信的本地 HTML，因为页面引用的文件和 HTTP/HTTPS 资源会以 MCP 进程的权限加载。",
+    "Claude Desktop 需要上传 Release 中的 kami.zip，而不是 GitHub 自动生成的源码 ZIP。"
+  ],
+  "references": [],
+  "media": [
+    {
+      "url": "/assets/repository-guides/media-0c10c091f5b4976394894093.webp",
+      "alt": "tw93/Kami 官方演示 1",
+      "sourceUrl": "https://github.com/tw93/Kami/blob/5a7fa34e3804199e6fa28eea1c16057ece2f8f0f/README.md?plain=1#L36",
+      "originalUrl": "https://raw.githubusercontent.com/tw93/Kami/5a7fa34e3804199e6fa28eea1c16057ece2f8f0f/site/assets/demos/demo-tesla.png"
+    },
+    {
+      "url": "/assets/repository-guides/media-e6aaaedaa7a00774a0c12a1b.webp",
+      "alt": "tw93/Kami 官方演示 2",
+      "sourceUrl": "https://github.com/tw93/Kami/blob/5a7fa34e3804199e6fa28eea1c16057ece2f8f0f/README.md?plain=1#L41",
+      "originalUrl": "https://raw.githubusercontent.com/tw93/Kami/5a7fa34e3804199e6fa28eea1c16057ece2f8f0f/site/assets/demos/demo-agent-slides.png"
+    },
+    {
+      "url": "/assets/repository-guides/media-98cc665adcff48b2d522103c.webp",
+      "alt": "tw93/Kami 官方演示 3",
+      "sourceUrl": "https://github.com/tw93/Kami/blob/5a7fa34e3804199e6fa28eea1c16057ece2f8f0f/README.md?plain=1#L26",
+      "originalUrl": "https://raw.githubusercontent.com/tw93/Kami/5a7fa34e3804199e6fa28eea1c16057ece2f8f0f/site/assets/demos/demo-musk-resume.png"
+    }
+  ],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "3e70de95cefa50c64f911ce79cf89888e63018c28d3c177ae7b737a5a35698a3",
+  "mediaStatus": "archived",
+  "mediaFailures": []
+}

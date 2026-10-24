@@ -1,0 +1,83 @@
+{
+  "schemaVersion": 1,
+  "key": "bytedance/deer-flow",
+  "status": "ready",
+  "reason": "",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/bytedance/deer-flow/blob/5b83cb502c967e2952d32155a21c01ee739f1660/README.md",
+  "sourceRevision": "5b83cb502c967e2952d32155a21c01ee739f1660",
+  "canonicalKey": "bytedance/deer-flow",
+  "summary": "DeerFlow 2.0 是开源的长时程 SuperAgent harness，通过子 Agent、记忆、沙箱和可扩展技能完成调研、编码和内容创作等任务。",
+  "intro": "适合想在本地或自有服务器上部署多 Agent 系统、执行耗时数分钟到数小时任务的开发者与团队。它在 Gateway API 中运行 agent runtime，支持多种 LLM provider、MCP、IM 通道和追踪服务。2.0 是完全重写的版本，原 Deep Research 框架保留在 1.x 分支。",
+  "requirements": "需要 Python 3.12+、Node.js 22+ 和 make。推荐使用 Docker。至少需要一个 LLM provider 的 API Key，网页搜索为可选项。Docker 开发模式起步配置为 4 vCPU、8 GB 内存、25 GB 可用 SSD。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "克隆 DeerFlow 仓库",
+      "text": "把 DeerFlow 仓库克隆到本地，并进入 deer-flow 目录，后续命令都在这个根目录下执行。",
+      "code": "   git clone https://github.com/bytedance/deer-flow.git\n   cd deer-flow",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/bytedance/deer-flow/blob/5b83cb502c967e2952d32155a21c01ee739f1660/README.md?plain=1#L114"
+      }
+    },
+    {
+      "title": "运行 make setup 安装向导",
+      "text": "在项目根目录运行 make setup，启动交互式向导。向导会引导你选择 LLM provider、可选的网页搜索工具，以及沙箱模式、bash 权限、文件写入等执行与安全偏好，然后生成最小化的 config.yaml，并把密钥写入 .env。如需手动编辑完整配置，可改用 make config。",
+      "code": "   make setup",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/bytedance/deer-flow/blob/5b83cb502c967e2952d32155a21c01ee739f1660/README.md?plain=1#L114"
+      }
+    },
+    {
+      "title": "用 make doctor 检查环境",
+      "text": "配置完成后运行 make doctor，检查配置和系统环境，并获得可执行的修复建议。如果需要就本地安装或运行问题提交 issue，可以运行 make support-bundle 生成脱敏后的摘要；不要附上 .env，证据包只在维护者要求时提供。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/bytedance/deer-flow/blob/5b83cb502c967e2952d32155a21c01ee739f1660/README.md?plain=1#L114"
+      }
+    },
+    {
+      "title": "以 Docker 开发模式启动",
+      "text": "本指南选用 README 推荐的 Docker 路径：在根目录执行启动模式表中的 make docker-start（等价于 ./scripts/docker.sh start），停止时使用 make docker-stop。长期运行的服务推荐使用 Linux + Docker 和 make up；macOS 和 Windows 更适合用于开发或体验。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/bytedance/deer-flow/blob/5b83cb502c967e2952d32155a21c01ee739f1660/README.md?plain=1#L503"
+      }
+    },
+    {
+      "title": "保持仅本机访问或先加固",
+      "text": "Docker 栈默认只把入口端口发布在 127.0.0.1 上。确实需要跨机器访问时，先配置 IP 白名单、带身份验证的反向代理或网络隔离，再在 .env 中设置 BIND_HOST；并且在主机对外可访问之前，先通过 /setup 创建管理员账号。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/bytedance/deer-flow/blob/5b83cb502c967e2952d32155a21c01ee739f1660/README.md?plain=1#L2374"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "DeerFlow 具备执行系统命令和读写文件等高权限能力，默认只适合部署在本地可信环境；在暴露到局域网或公网之前，必须做好访问控制。",
+    "在 Settings → Models 中测试模型连接时会发送真实请求，可能产生 provider 费用。",
+    "处理不可信任务时，请保持 ACP agent 的 auto_approve_permissions: false。",
+    "2 vCPU / 4 GB 的配置通常不够用；如果在本机自建 LLM，需要单独为模型服务预留资源。",
+    "2.0 版与 v1 不共享代码，旧版 Deep Research 框架在 main-1.x 分支维护。"
+  ],
+  "references": [
+    {
+      "label": "README_zh.md",
+      "url": "https://github.com/bytedance/deer-flow/blob/5b83cb502c967e2952d32155a21c01ee739f1660/README_zh.md"
+    }
+  ],
+  "media": [],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "434cb2c6f9101f049275d81f9b35aec573391eb8a05fdf0d58628effa7bcd952",
+  "mediaStatus": "unavailable",
+  "mediaFailures": [
+    {
+      "sourceUrl": "https://github.com/bytedance/deer-flow/blob/5b83cb502c967e2952d32155a21c01ee739f1660/README.md#L2294",
+      "reason": "unsupported_media_format"
+    }
+  ]
+}

@@ -1,0 +1,91 @@
+{
+  "schemaVersion": 1,
+  "key": "cocoon-ai/architecture-diagram-generator",
+  "status": "ready",
+  "reason": "",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/Cocoon-AI/architecture-diagram-generator/blob/4b9087d55268c79a935105439dbcd37b630fc3f3/README.md",
+  "sourceRevision": "4b9087d55268c79a935105439dbcd37b630fc3f3",
+  "canonicalKey": "Cocoon-AI/architecture-diagram-generator",
+  "summary": "这是一个 Claude Skill：根据文字描述生成深色主题的系统架构图，输出为可直接在浏览器打开的单个 HTML/SVG 文件。",
+  "intro": "适合需要快速绘制系统架构图的开发者、架构师和技术文档作者。在 Claude.ai 中安装该技能后，用自然语言描述组件和连接关系，就能得到单文件 HTML 架构图。图中按前端、后端、数据库、云服务、安全等类型配色，并自带 Copy / PNG / PDF 导出按钮。之后可以继续通过对话增删组件或调整布局。",
+  "requirements": "需要 Claude.ai 账号（Free、Pro、Max、Team、Enterprise 套餐均可），并已开启 Code Execution：Free / Pro / Max 在 Settings → Capabilities 中开启，Team / Enterprise 需由管理员在 Organization settings → Skills 中开启。另需仓库中的 architecture-diagram.zip，以及一个用于打开生成文件的现代浏览器。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "开启 Code Execution 功能",
+      "text": "上传自定义技能前必须先开启 Code Execution。个人套餐（Free / Pro / Max）在 Claude.ai 的 Settings → Capabilities 中打开；Team / Enterprise 需要管理员在 Organization settings → Skills 中启用。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/Cocoon-AI/architecture-diagram-generator/blob/4b9087d55268c79a935105439dbcd37b630fc3f3/README.md?plain=1#L18"
+      }
+    },
+    {
+      "title": "在 Claude.ai 上传并启用技能",
+      "text": "从仓库下载 architecture-diagram.zip，然后在 claude.ai 依次进入 Customize → Skills，点击 + 按钮，选择 + Create skill → Upload a skill 并上传该 zip 文件。上传后打开技能开关。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/Cocoon-AI/architecture-diagram-generator/blob/4b9087d55268c79a935105439dbcd37b630fc3f3/README.md?plain=1#L18"
+      }
+    },
+    {
+      "title": "准备系统架构的文字描述",
+      "text": "先准备一段描述系统组件及连接关系的文字。可以让 Cursor、Claude Code 等 AI 工具分析代码库后生成，也可以自己按列表写出前端、API、数据库、缓存、托管平台等组件，或者直接向 Claude 询问某类系统的典型架构。",
+      "code": "Analyze this codebase and describe the architecture. Include all major\ncomponents, how they connect, what technologies they use, and any cloud\nservices or integrations. Format as a list for an architecture diagram.\n\n- React frontend talking to a Node.js API\n- PostgreSQL database\n- Redis for caching\n- Hosted on AWS with CloudFront CDN",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/Cocoon-AI/architecture-diagram-generator/blob/4b9087d55268c79a935105439dbcd37b630fc3f3/README.md?plain=1#L29"
+      }
+    },
+    {
+      "title": "让 Claude 调用技能生成图表",
+      "text": "在已安装该技能的 Claude 对话中，按 README 给出的提示词格式粘贴上一步得到的描述，Claude 会生成一个 HTML 文件。之后可以在对话中继续要求更新组件、布局或修正问题。",
+      "code": "Use your architecture diagram skill to create an architecture diagram from this description:\n\n[PASTE YOUR ARCHITECTURE DESCRIPTION HERE]",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/Cocoon-AI/architecture-diagram-generator/blob/4b9087d55268c79a935105439dbcd37b630fc3f3/README.md?plain=1#L62"
+      }
+    },
+    {
+      "title": "在浏览器中打开并导出",
+      "text": "用现代浏览器打开生成的 HTML 文件，通过页眉工具栏导出：Copy 将高分辨率 PNG 复制到剪贴板，PNG 下载图片文件，PDF 下载保留深色主题的 PDF。文件本身也可以直接分享或放到静态站点上。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/Cocoon-AI/architecture-diagram-generator/blob/4b9087d55268c79a935105439dbcd37b630fc3f3/README.md?plain=1#L131"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "必须先开启 Code Execution 才能上传自定义技能；Team / Enterprise 用户需由组织管理员在 Organization settings → Skills 中启用。",
+    "生成的图表使用从 Google Fonts 加载的 JetBrains Mono 字体，离线打开时字体显示可能与设计效果不同。",
+    "Claude Code CLI 也支持安装（将 zip 解压到 ~/.claude/skills/ 或 ./.claude/skills/），与 Claude.ai 是两条不同的安装路径，按实际使用的宿主选择其一即可。",
+    "README 适合按时间展开的流程图另有姊妹技能 process-flow-diagram-generator，本技能专注于系统架构图。"
+  ],
+  "references": [],
+  "media": [
+    {
+      "url": "/assets/repository-guides/media-9836db29c1bb5c16fa497ba4.webp",
+      "alt": "Cocoon-AI/architecture-diagram-generator 官方演示 1",
+      "sourceUrl": "https://github.com/Cocoon-AI/architecture-diagram-generator/blob/4b9087d55268c79a935105439dbcd37b630fc3f3/README.md?plain=1#L121",
+      "originalUrl": "https://raw.githubusercontent.com/Cocoon-AI/architecture-diagram-generator/4b9087d55268c79a935105439dbcd37b630fc3f3/examples/images/web-app.png"
+    },
+    {
+      "url": "/assets/repository-guides/media-fe5919c52f197b0d6a1cefe5.webp",
+      "alt": "Cocoon-AI/architecture-diagram-generator 官方演示 2",
+      "sourceUrl": "https://github.com/Cocoon-AI/architecture-diagram-generator/blob/4b9087d55268c79a935105439dbcd37b630fc3f3/README.md?plain=1#L125",
+      "originalUrl": "https://raw.githubusercontent.com/Cocoon-AI/architecture-diagram-generator/4b9087d55268c79a935105439dbcd37b630fc3f3/examples/images/aws-serverless.png"
+    },
+    {
+      "url": "/assets/repository-guides/media-ee865ac3723129ff907277d2.webp",
+      "alt": "Cocoon-AI/architecture-diagram-generator 官方演示 3",
+      "sourceUrl": "https://github.com/Cocoon-AI/architecture-diagram-generator/blob/4b9087d55268c79a935105439dbcd37b630fc3f3/README.md?plain=1#L129",
+      "originalUrl": "https://raw.githubusercontent.com/Cocoon-AI/architecture-diagram-generator/4b9087d55268c79a935105439dbcd37b630fc3f3/examples/images/microservices.png"
+    }
+  ],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "b9970a1dcaa1e669a23c2643a3931f08f7a7b4fb3ee658a116c854d5a0a7f163",
+  "mediaStatus": "archived",
+  "mediaFailures": []
+}

@@ -1,0 +1,84 @@
+{
+  "schemaVersion": 1,
+  "key": "gumbyender/hermes-local-rig-accounting",
+  "status": "ready",
+  "reason": "",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/GumbyEnder/hermes-local-rig-accounting/blob/dacbf574ca19b9692b672353f19f35f0be6a9e9a/README.md",
+  "sourceRevision": "dacbf574ca19b9692b672353f19f35f0be6a9e9a",
+  "canonicalKey": "GumbyEnder/hermes-local-rig-accounting",
+  "summary": "一个 Hermes Agent 插件，根据硬件折旧和电费估算本地 LLM 推理的每百万 token 成本。",
+  "intro": "适合在本地机器（经由 localhost、LM Studio、Ollama、vLLM 等）运行大模型、并想了解真实推理成本的 Hermes Agent 用户。插件根据你填写的硬件价格、使用年限、平均功耗和电价，结合实测 TPS，用公开公式计算折旧、电费和 $/M tokens，便于与云端价格对比。它提供 /rig-benchmark、/rig-summary、/rig-cost、/rig-rates、/rig-submit 等命令，也支持多台机器按 hostname 自动匹配配置。",
+  "requirements": "需要已安装 Hermes Agent，并有本地 LLM 推理服务。如需向社区排行榜提交基准结果，需要完成 gh 认证。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "通过 hermes 安装插件",
+      "text": "使用 hermes plugins install 命令安装插件。也可以按文档的方式，手动把仓库 clone 到 ~/.hermes/plugins/local-rig-accounting。两种方式选一种即可。",
+      "code": "hermes plugins install GumbyEnder/hermes-local-rig-accounting",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/GumbyEnder/hermes-local-rig-accounting/blob/dacbf574ca19b9692b672353f19f35f0be6a9e9a/README.md?plain=1#L7"
+      }
+    },
+    {
+      "title": "在 config.yaml 中填写硬件参数",
+      "text": "在 config.yaml 的 plugins.enabled 中加入 local-rig-accounting，并在 local_rig 下填写硬件总价、使用年限、可选的 GPU 价格、平均功耗和电价。如果不清楚电价，可以把电价设为 auto 并填写地区，从内置数据库查询。",
+      "code": "plugins:\n  enabled:\n    - local-rig-accounting\n\nlocal_rig:\n  hardware_cost_usd: 5000        # Your total rig cost\n  lifespan_years: 3              # Expected useful lifespan\n  gpu_only_cost_usd: 2500        # Optional: GPU cost as depreciation base\n  avg_power_watts: 450           # Average power draw during inference (W)\n  electricity_rate_per_kwh: 0.15 # Your local electricity rate ($/kWh)\n  auto_submit: true             # When true, auto-submit benchmarks to leaderboard (requires gh auth). Default: true.\n\nlocal_rig:\n  electricity_rate_per_kwh: auto   # Auto-lookup from built-in database\n  electricity_region: Texas        # US state, country, or abbreviation",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/GumbyEnder/hermes-local-rig-accounting/blob/dacbf574ca19b9692b672353f19f35f0be6a9e9a/README.md?plain=1#L19"
+      }
+    },
+    {
+      "title": "先运行 /rig-benchmark 测速",
+      "text": "文档建议第一步先对本地模型执行 /rig-benchmark 测量 TPS，后续的每 token 成本都基于这个实测值计算。基准完成后，如果 auto_submit 为 true 且 gh 认证正常，结果会自动提交到社区排行榜。",
+      "code": "# Benchmark your local model (do this first!)\n# After a successful benchmark:\n#   - If auto_submit: true and gh auth OK → submits automatically\n#   - Otherwise → run /rig-submit manually to share\n/rig-benchmark qwen3.5-9b\n\n# See your rig economics\n/rig-summary\n\n# Check current session cost\n/rig-cost\n\n# Look up electricity rates by region\n/rig-rates Texas\n\n# Submit your benchmark to the community leaderboard (manual, or set auto_submit: true)\n/rig-submit qwen3.5-9b",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/GumbyEnder/hermes-local-rig-accounting/blob/dacbf574ca19b9692b672353f19f35f0be6a9e9a/README.md?plain=1#L46"
+      }
+    },
+    {
+      "title": "用 /rig-summary 查看成本",
+      "text": "执行 /rig-summary 查看整机的成本汇总，用 /rig-cost 查看当前会话的成本，用 /rig-rates 加地区名查询电价。插件只统计本地 provider 的 token，云端 API 调用会被忽略。",
+      "code": "# Benchmark your local model (do this first!)\n# After a successful benchmark:\n#   - If auto_submit: true and gh auth OK → submits automatically\n#   - Otherwise → run /rig-submit manually to share\n/rig-benchmark qwen3.5-9b\n\n# See your rig economics\n/rig-summary\n\n# Check current session cost\n/rig-cost\n\n# Look up electricity rates by region\n/rig-rates Texas\n\n# Submit your benchmark to the community leaderboard (manual, or set auto_submit: true)\n/rig-submit qwen3.5-9b",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/GumbyEnder/hermes-local-rig-accounting/blob/dacbf574ca19b9692b672353f19f35f0be6a9e9a/README.md?plain=1#L46"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "配置示例中的 auto_submit 默认值为 true，基准结果会在 gh 认证可用时自动提交到社区排行榜。不想公开结果请设为 false。",
+    "成本数值是根据你自填的硬件价格、功耗、电价和实测 TPS 推算的估计值，准确度取决于输入参数。",
+    "只统计本地推理 provider（localhost、lmstudio、ollama、vllm 等），不计算云端 API 的费用。"
+  ],
+  "references": [],
+  "media": [
+    {
+      "url": "/assets/repository-guides/media-834fd61c619bd04a545a134b.webp",
+      "alt": "GumbyEnder/hermes-local-rig-accounting 官方演示 1",
+      "sourceUrl": "https://github.com/GumbyEnder/hermes-local-rig-accounting/blob/dacbf574ca19b9692b672353f19f35f0be6a9e9a/README.md?plain=1#L78",
+      "originalUrl": "https://raw.githubusercontent.com/GumbyEnder/hermes-local-rig-accounting/dacbf574ca19b9692b672353f19f35f0be6a9e9a/rig-benchmark.png"
+    },
+    {
+      "url": "/assets/repository-guides/media-3737264dfc5fba1e09f24ecd.webp",
+      "alt": "GumbyEnder/hermes-local-rig-accounting 官方演示 2",
+      "sourceUrl": "https://github.com/GumbyEnder/hermes-local-rig-accounting/blob/dacbf574ca19b9692b672353f19f35f0be6a9e9a/README.md?plain=1#L81",
+      "originalUrl": "https://raw.githubusercontent.com/GumbyEnder/hermes-local-rig-accounting/dacbf574ca19b9692b672353f19f35f0be6a9e9a/rig-summary.png"
+    },
+    {
+      "url": "/assets/repository-guides/media-042b398b2100fec0382d004d.webp",
+      "alt": "GumbyEnder/hermes-local-rig-accounting 官方演示 3",
+      "sourceUrl": "https://github.com/GumbyEnder/hermes-local-rig-accounting/blob/dacbf574ca19b9692b672353f19f35f0be6a9e9a/README.md?plain=1#L84",
+      "originalUrl": "https://raw.githubusercontent.com/GumbyEnder/hermes-local-rig-accounting/dacbf574ca19b9692b672353f19f35f0be6a9e9a/rig-submit.png"
+    }
+  ],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "22fd3c7ba676270a4037b3f9edb466fb7a7036139a6e56e60b954a40f3969b58",
+  "mediaStatus": "archived",
+  "mediaFailures": []
+}

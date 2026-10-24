@@ -1,0 +1,89 @@
+{
+  "schemaVersion": 1,
+  "key": "diffusionstudio/lottie",
+  "status": "ready",
+  "reason": "",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/diffusionstudio/lottie/blob/3c72912fad543897f90045ed4d355813837927fc/README.md",
+  "sourceRevision": "3c72912fad543897f90045ed4d355813837927fc",
+  "canonicalKey": "diffusionstudio/lottie",
+  "summary": "Text-to-Lottie 是一个 Skill 框架，让 Claude Code、Codex 等支持 Skill 的编程 Agent 根据文字描述生成可直接使用的 Lottie 动画 JSON。",
+  "intro": "适合需要为网页或 App 制作 Lottie 动效、又希望用自然语言驱动编程 Agent 完成动画的设计师和开发者。Agent 会建立工作区和内置播放器，每段动画是项目中的一个场景，可以在播放器里实时查看、拖动时间轴并继续调整。生成的 lottie.json 可直接用于 Web、React Native、iOS、Android、Flutter，也可以导入 After Effects 继续精修。",
+  "requirements": "需要 Claude Code、Codex 或其他支持 Skill 的编程 Agent，以及可以执行 npx 的命令行环境。如需在项目中播放生成的动画，还要准备目标平台对应的 Lottie 播放库，例如 Web 端的 lottie-web。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "安装 text-to-lottie Skill",
+      "text": "在命令行运行文档提供的 skills 安装命令，把 diffusionstudio/lottie 添加为编程 Agent 可调用的 Skill。安装完成后，就可以在 Claude Code、Codex 等支持 Skill 的 Agent 中通过 text-to-lottie 这个名称使用它。",
+      "code": "npx skills add diffusionstudio/lottie",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/diffusionstudio/lottie/blob/3c72912fad543897f90045ed4d355813837927fc/README.md?plain=1#L25"
+      }
+    },
+    {
+      "title": "让 Agent 用 text-to-lottie 生成动画",
+      "text": "在编程 Agent 中明确要求使用 text-to-lottie 生成 Lottie 动画。Agent 会建立工作区和内置播放器，每段动画对应项目中的一个场景，文件位于 public/projects/<project>/<scene>/lottie.json。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/diffusionstudio/lottie/blob/3c72912fad543897f90045ed4d355813837927fc/README.md?plain=1#L25"
+      }
+    },
+    {
+      "title": "按官方建议写清动画需求",
+      "text": "尽量提供 SVG、真实数据或截图作为素材。用 ease-in、ease-out、ease-in-out 等动态设计术语描述节奏，可以加入推镜、平移、缩放等镜头运动。如果需要特定帧率或时长，写明 FPS 和总帧数。默认通常只提供背景色控制项，需要其他控制项时要明确提出。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/diffusionstudio/lottie/blob/3c72912fad543897f90045ed4d355813837927fc/README.md?plain=1#L39"
+      }
+    },
+    {
+      "title": "在内置播放器中检查和微调",
+      "text": "Agent 修改 lottie.json 时，场景会自动载入播放器并实时更新。你可以在播放器中检视画面、拖动时间轴，再用对话让 Agent 逐步修改动画，直到满意为止。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/diffusionstudio/lottie/blob/3c72912fad543897f90045ed4d355813837927fc/README.md?plain=1#L25"
+      }
+    },
+    {
+      "title": "在网页中加载生成的 Lottie JSON",
+      "text": "以 Web/原生 HTML 为例：通过 unpkg 引入 lottie-web，准备一个容器元素，再调用 lottie.loadAnimation 并把 path 指向生成的 JSON 文件。React Native、iOS、Android、Flutter 的接入写法见 README 中对应的章节。",
+      "code": "<script src=\"https://unpkg.com/lottie-web/build/player/lottie.min.js\"></script>\n\n<div id=\"anim\"></div>\n\n<script>\n  lottie.loadAnimation({\n    container: document.getElementById(\"anim\"),\n    renderer: \"svg\",\n    loop: true,\n    autoplay: true,\n    path: \"/animations/my-animation.json\"\n  });\n</script>",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/diffusionstudio/lottie/blob/3c72912fad543897f90045ed4d355813837927fc/README.md?plain=1#L55"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "生成质量取决于所用编程 Agent 和提示词，官方建议尽量提供 SVG、数据或截图等具体素材。",
+    "默认输出通常只提供背景色控制项，其他可调属性需要在提示词中明确要求 Agent 创建。",
+    "Web 示例从 unpkg CDN 加载 lottie-web；在离线或受限网络环境中需要自行改为其他引入方式。"
+  ],
+  "references": [
+    {
+      "label": "README.zh-TW.md",
+      "url": "https://github.com/diffusionstudio/lottie/blob/3c72912fad543897f90045ed4d355813837927fc/README.zh-TW.md"
+    }
+  ],
+  "media": [
+    {
+      "url": "/assets/repository-guides/media-9ceaa96ca7a01492b3305774.webp",
+      "alt": "diffusionstudio/lottie 官方演示 1",
+      "sourceUrl": "https://github.com/diffusionstudio/lottie/blob/3c72912fad543897f90045ed4d355813837927fc/README.md?plain=1#L17",
+      "originalUrl": "https://raw.githubusercontent.com/diffusionstudio/lottie/3c72912fad543897f90045ed4d355813837927fc/assets/demo-1.gif"
+    },
+    {
+      "url": "/assets/repository-guides/media-8bf64c68c82a196ac8c6ea22.webp",
+      "alt": "diffusionstudio/lottie 官方演示 2",
+      "sourceUrl": "https://github.com/diffusionstudio/lottie/blob/3c72912fad543897f90045ed4d355813837927fc/README.md?plain=1#L20",
+      "originalUrl": "https://raw.githubusercontent.com/diffusionstudio/lottie/3c72912fad543897f90045ed4d355813837927fc/assets/demo-2.gif"
+    }
+  ],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "36166ee15fe4d135b56920b0a6d157082d96793a24362169d1d5e723bccac01a",
+  "mediaStatus": "archived",
+  "mediaFailures": []
+}

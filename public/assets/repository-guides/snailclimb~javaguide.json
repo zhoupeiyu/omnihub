@@ -1,0 +1,68 @@
+{
+  "schemaVersion": 1,
+  "key": "snailclimb/javaguide",
+  "status": "ready",
+  "reason": "",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/Snailclimb/JavaGuide/blob/31f891d3053dc2af6c2fd1a0b94af233496a718c/README.md",
+  "sourceRevision": "31f891d3053dc2af6c2fd1a0b94af233496a718c",
+  "canonicalKey": "Snailclimb/JavaGuide",
+  "summary": "JavaGuide 是一套面向 Java 后端求职者的中文学习与面试资料集合，覆盖 Java 基础、并发、JVM、数据库、分布式、系统设计等主题。",
+  "intro": "适合准备 Java 后端面试的应届生和在职开发者，也适合需要系统复习计算机基础与后端常见技术的人。仓库本身是 Markdown 文章集合，不需要安装或运行，可在官网在线阅读，也可在 GitHub/Gitee 按目录查阅 docs 下的文章。作者另提供只保留重点的面试突击版和 AI 应用开发方向的 AIGuide。",
+  "requirements": "浏览器即可在线阅读 javaguide.cn；如需离线查阅可访问 GitHub 或 Gitee 上的仓库文件。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "打开在线站点开始阅读",
+      "text": "作者推荐在线阅读以获得更好体验和更快速度，访问 javaguide.cn 即可浏览全部内容。如果时间紧，只想看重点，可改用面试突击版 interview.javaguide.cn，该版本提供 PDF 下载。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/Snailclimb/JavaGuide/blob/31f891d3053dc2af6c2fd1a0b94af233496a718c/README.md?plain=1#L1"
+      }
+    },
+    {
+      "title": "先读后端面试通关计划",
+      "text": "不知道从哪里开始时，先阅读“Java 后端面试通关计划”，再按需查看如何高效准备 Java 面试、面试重点总结、Java 学习路线、简历编写指南和项目经验指南等文章，确定自己的复习顺序。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/Snailclimb/JavaGuide/blob/31f891d3053dc2af6c2fd1a0b94af233496a718c/README.md?plain=1#L1"
+      }
+    },
+    {
+      "title": "按模块复习标注必看的内容",
+      "text": "按目录逐个模块复习：Java 基础、集合、并发、JVM 等板块都有“知识点/面试题总结”，并标注了必看。先读这些总结文章，再按需深入源码分析和重要知识点详解，例如 HashMap、AQS、线程池等专题。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/Snailclimb/JavaGuide/blob/31f891d3053dc2af6c2fd1a0b94af233496a718c/README.md?plain=1#L46"
+      }
+    },
+    {
+      "title": "补充数据库与计算机基础",
+      "text": "在 Java 主线之外，按需阅读操作系统、计算机网络、数据结构、算法，以及 MySQL、Redis、MongoDB 等数据库专题。MySQL 和 Redis 的常见知识点与面试题总结同样标注为必看，可优先阅读。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/Snailclimb/JavaGuide/blob/31f891d3053dc2af6c2fd1a0b94af233496a718c/README.md?plain=1#L147"
+      }
+    },
+    {
+      "title": "查阅框架分布式与系统设计",
+      "text": "进阶阶段查看 Spring/SpringBoot、MyBatis、认证授权、系统设计、分布式理论与协议、RPC、分布式锁、分布式事务以及数据库优化等章节。其中部分分布式文章链接到 javaguide.cn 站点，需要在线打开阅读。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/Snailclimb/JavaGuide/blob/31f891d3053dc2af6c2fd1a0b94af233496a718c/README.md?plain=1#L301"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "Elasticsearch 面试题等部分内容标注为付费，《Java 面试指北》等专栏为站外补充资料，不在开源仓库内。",
+    "“最重要的 JVM 参数总结”标注为待完成，只翻译完善了一半。",
+    "文章除注明转载外均为 JavaGuide 原创，转载需在文首注明出处。"
+  ],
+  "references": [],
+  "media": [],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "b57846f9955a275ad42d5e96c1e1808c51fa01abe94d422418b887c827dd043f",
+  "mediaStatus": "none_in_official_documents"
+}

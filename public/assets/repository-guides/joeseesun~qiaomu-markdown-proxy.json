@@ -1,0 +1,64 @@
+{
+  "schemaVersion": 1,
+  "key": "joeseesun/qiaomu-markdown-proxy",
+  "status": "ready",
+  "reason": "",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/joeseesun/qiaomu-markdown-proxy/blob/ab56e0aa4003221762ab89efce5e11fbbe54ece2/README.md",
+  "sourceRevision": "ab56e0aa4003221762ab89efce5e11fbbe54ece2",
+  "canonicalKey": "joeseesun/qiaomu-markdown-proxy",
+  "summary": "一个 Claude Code Skill：把给出的 URL 按类型选择读取通道，抓取为干净的 Markdown 原文，再交给后续的总结、翻译、改写等任务。",
+  "intro": "适合在 Claude Code 中经常需要阅读网页、公众号、飞书文档、X/Twitter、PDF 或 arXiv 论文的人。它按 URL 类型分流：普通网页依次尝试 r.jina.ai、defuddle.md、agent-fetch；微信公众号先走代理，失败时回退到 Playwright；飞书走官方 API；PDF 依次尝试三种提取工具。抓取后可以在同一轮对话中继续完成写作、总结或翻译。",
+  "requirements": "已安装 Claude Code；系统有 curl（macOS/Linux 自带）。以下按需准备：抓取公众号需要 Python 3.8+ 及 playwright 等依赖；提取 PDF 需要 marker-pdf、pdftotext 或 pypdf 中的任意一个；读取飞书需要自有应用的 FEISHU_APP_ID、FEISHU_APP_SECRET，并具备相应读取权限。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "安装 Skill 并确认文件存在",
+      "text": "以 Claude Code 为宿主，执行官方安装命令添加 qiaomu-markdown-proxy，然后用 ls 确认 ~/.agents/skills/qiaomu-markdown-proxy/SKILL.md 已存在。",
+      "code": "npx skills add joeseesun/qiaomu-markdown-proxy\n\nls ~/.agents/skills/qiaomu-markdown-proxy/SKILL.md",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/joeseesun/qiaomu-markdown-proxy/blob/ab56e0aa4003221762ab89efce5e11fbbe54ece2/README.md?plain=1#L169"
+      }
+    },
+    {
+      "title": "按需安装公众号抓取依赖",
+      "text": "如果要读取微信公众号文章，先安装 playwright、beautifulsoup4、lxml，再安装 chromium 浏览器。这样遇到验证码页时，Skill 才能回退到浏览器提取，而不是把“环境异常”页面当成正文。",
+      "code": "  python3 -m pip install playwright beautifulsoup4 lxml\n  python3 -m playwright install chromium",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/joeseesun/qiaomu-markdown-proxy/blob/ab56e0aa4003221762ab89efce5e11fbbe54ece2/README.md?plain=1#L147"
+      }
+    },
+    {
+      "title": "配置飞书应用凭据",
+      "text": "如果要读取飞书文档，在环境变量中设置自有应用的 FEISHU_APP_ID 和 FEISHU_APP_SECRET，并用 echo 确认已生效。应用需要 docx:document:readonly 权限；读取知识库页面还需要 wiki:wiki:readonly 权限。",
+      "code": "  echo $FEISHU_APP_ID  # 验证已配置",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/joeseesun/qiaomu-markdown-proxy/blob/ab56e0aa4003221762ab89efce5e11fbbe54ece2/README.md?plain=1#L147"
+      }
+    },
+    {
+      "title": "直接把 URL 发给 Claude",
+      "text": "在 Claude Code 中发送链接并说明用途，例如读文章、抓推文、把飞书文档转成 Markdown、提取远程或本地 PDF。也可以在同一句里要求读取后改写或总结，Skill 会先拿到原文，再继续完成后续任务。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/joeseesun/qiaomu-markdown-proxy/blob/ab56e0aa4003221762ab89efce5e11fbbe54ece2/README.md?plain=1#L180"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "普通网页默认经过 r.jina.ai、defuddle.md 等第三方在线服务转换，链接和页面内容会经过这些外部服务，敏感链接请谨慎使用。",
+    "抓取会访问外部 URL，需要遵守目标网站的访问规则和内容版权。",
+    "飞书读取依赖你自己的应用凭据和权限配置；仓库声明不会保存任何 token 或 cookie。",
+    "所有代理都失败时，可能是目标页面有严格的认证限制，README 建议改用 npx agent-fetch。"
+  ],
+  "references": [],
+  "media": [],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "301c3c8133fc7a1e1406b789a21ea77ea6ecc45b6e5e6034b370171fb8ad6195",
+  "mediaStatus": "none_in_official_documents"
+}

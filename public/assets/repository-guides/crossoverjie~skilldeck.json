@@ -1,0 +1,82 @@
+{
+  "schemaVersion": 1,
+  "key": "crossoverjie/skilldeck",
+  "status": "ready",
+  "reason": "",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/crossoverJie/SkillDeck/blob/0bcc2c33d5e0ad66540d12685d06c2e089eb712c/README.md",
+  "sourceRevision": "0bcc2c33d5e0ad66540d12685d06c2e089eb712c",
+  "canonicalKey": "crossoverJie/SkillDeck",
+  "summary": "SkillDeck 是一个 macOS 原生桌面应用，在一个界面里集中管理 Claude Code、Codex、Gemini CLI 等多种 AI 编程代理的 skills。",
+  "intro": "适合在 macOS 上同时使用多个 AI 编程代理的开发者。不用再手动编辑文件、处理符号链接或解析 YAML，就能完成这些操作：浏览 skills.sh 排行榜和 ClawHub 目录，从 GitHub 或本地文件夹导入 skill，检查并拉取更新，编辑 SKILL.md，以及选择某个 skill 安装到哪些代理。",
+  "requirements": "需要 macOS 14 或更高版本（项目徽章及源码构建要求均为 macOS 14+）。本机需已安装至少一个受支持的代理，SkillDeck 依据各代理的可执行文件或配置目录（如 claude 加 ~/.claude/）识别它们。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "从 Releases 下载通用版安装包",
+      "text": "本指南采用官方推荐的 macOS 下载安装方式。打开项目的 GitHub Releases 页面，下载最新的 SkillDeck-vX.Y.Z-universal.zip，解压后把 SkillDeck.app 移动到 /Applications/ 目录。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/crossoverJie/SkillDeck/blob/0bcc2c33d5e0ad66540d12685d06c2e089eb712c/README.md?plain=1#L61"
+      }
+    },
+    {
+      "title": "首次启动时放行未签名应用",
+      "text": "该步骤涉及需要人工核查的高权限、远程脚本或破坏性操作。本站不提供直接执行指令，请先查看官方说明并确认影响。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/crossoverJie/SkillDeck/blob/0bcc2c33d5e0ad66540d12685d06c2e089eb712c/README.md?plain=1#L61"
+      }
+    },
+    {
+      "title": "在统一面板中查看各代理技能",
+      "text": "启动后，应用会自动识别本机已安装的代理，并在三栏式面板中列出各代理目录下的 skills，例如 ~/.claude/skills/、~/.codex/skills/。它会监控文件系统，你在命令行侧做的改动会自动同步到界面上。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/crossoverJie/SkillDeck/blob/0bcc2c33d5e0ad66540d12685d06c2e089eb712c/README.md?plain=1#L41"
+      }
+    },
+    {
+      "title": "导入技能并分配给目标代理",
+      "text": "可以在 Registry 浏览器中搜索 skills.sh 或 ClawHub 上的技能，也可以从 GitHub 或本地文件夹导入。导入后应用会自动创建符号链接并更新 lock 文件。之后可以通过开关选择该 skill 安装到哪些代理，或用更新检查功能一键拉取远程变更。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/crossoverJie/SkillDeck/blob/0bcc2c33d5e0ad66540d12685d06c2e089eb712c/README.md?plain=1#L41"
+      }
+    },
+    {
+      "title": "按需调整语言、字体与代理",
+      "text": "在 App Settings 中可以设置全局字体，配置 HTTPS 或 SOCKS5 代理（凭据存放在 Keychain，并支持绕过列表），还可以在应用内切换英文和简体中文界面。如需编辑技能，可使用内置的 SKILL.md 分栏编辑器，它带实时预览。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/crossoverJie/SkillDeck/blob/0bcc2c33d5e0ad66540d12685d06c2e089eb712c/README.md?plain=1#L41"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "应用未签名，需要手动清除隔离属性或通过右键打开才能启动，请确认安装包来自官方 Releases 页面。",
+    "技能文档段落的自动中文翻译功能需要 macOS 26 以上版本。",
+    "各代理读取 skills 的目录优先级不同，例如 Copilot CLI、Cursor 也会读取 ~/.claude/skills/。分配技能时注意，同一个技能可能被多个代理读取到。"
+  ],
+  "references": [],
+  "media": [],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "c45b46ecb83d550924b1813464a8dbcaf4609a50f164e1e4ce6c052ba95b0c2a",
+  "mediaStatus": "unavailable",
+  "mediaFailures": [
+    {
+      "sourceUrl": "https://github.com/crossoverJie/SkillDeck/blob/0bcc2c33d5e0ad66540d12685d06c2e089eb712c/README.md#L32",
+      "reason": "unsupported_media_host"
+    },
+    {
+      "sourceUrl": "https://github.com/crossoverJie/SkillDeck/blob/0bcc2c33d5e0ad66540d12685d06c2e089eb712c/README.md#L33",
+      "reason": "unsupported_media_host"
+    },
+    {
+      "sourceUrl": "https://github.com/crossoverJie/SkillDeck/blob/0bcc2c33d5e0ad66540d12685d06c2e089eb712c/README.md#L38",
+      "reason": "unsupported_media_host"
+    }
+  ]
+}

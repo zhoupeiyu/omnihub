@@ -1,0 +1,61 @@
+{
+  "schemaVersion": 1,
+  "key": "jinchenma94/bazi-skill",
+  "status": "ready",
+  "reason": "",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/jinchenma94/bazi-skill/blob/112a5d84cd1a001a0038cafca3be68d93e4c0cc9/README.md",
+  "sourceRevision": "112a5d84cd1a001a0038cafca3be68d93e4c0cc9",
+  "canonicalKey": "jinchenma94/bazi-skill",
+  "summary": "一个 Claude Code Skill，通过对话收集出生信息，用本地 Python 脚本排出四柱八字和大运，再参照命理典籍做分析。",
+  "intro": "适合对传统命理文化感兴趣、使用 Claude Code 的用户。Skill 会逐步收集姓名、阳历或农历生日、时辰、性别、出生地，调用仓库内的 pai_pan.py 排出四柱、大运与流年，再参照九本经典典籍的规则摘要，分析日主强弱、十神、五行、格局等内容。references/ 下的五行表、时辰表、大运规则也可以单独查阅。",
+  "requirements": "需要 Claude Code 和 git，以及本机 python3（3.6+）。排盘脚本只用标准库，不需要 pip 安装第三方包。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "确认本机已安装 python3",
+      "text": "排盘脚本 scripts/pai_pan.py 依赖本机的 python3（3.6+ 即可），只使用标准库，不需要额外 pip 依赖。安装 Skill 前先确认终端里可以运行 python3。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/jinchenma94/bazi-skill/blob/112a5d84cd1a001a0038cafca3be68d93e4c0cc9/README.md?plain=1#L15"
+      }
+    },
+    {
+      "title": "克隆到 .claude/skills 目录",
+      "text": "在 git 仓库根目录创建 .claude/skills，并把本仓库克隆为 .claude/skills/bazi，这样只对当前项目生效。如果希望所有项目都能用，可以改为克隆到 ~/.claude/skills/bazi。Claude Code 从仓库根目录的 .claude/skills/ 查找 skill，请注意执行位置。",
+      "code": "# 安装到当前项目（在 git 仓库根目录执行）\nmkdir -p .claude/skills\ngit clone https://github.com/jinchenma94/bazi-skill .claude/skills/bazi\n\n# 或安装到全局（所有项目都能用）\ngit clone https://github.com/jinchenma94/bazi-skill ~/.claude/skills/bazi",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/jinchenma94/bazi-skill/blob/112a5d84cd1a001a0038cafca3be68d93e4c0cc9/README.md?plain=1#L15"
+      }
+    },
+    {
+      "title": "用关键词触发并提供出生信息",
+      "text": "在 Claude Code 中输入“算八字”“排盘”“四柱”“bazi”等关键词触发 Skill，然后按引导依次提供生日（阳历或农历）、出生时辰、性别、出生地等信息。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/jinchenma94/bazi-skill/blob/112a5d84cd1a001a0038cafca3be68d93e4c0cc9/README.md?plain=1#L28"
+      }
+    },
+    {
+      "title": "确认信息后执行排盘脚本",
+      "text": "出生信息确认后，Skill 会调用 pai_pan.py，以 --solar、--shichen、--sex 等参数排出四柱和大运，再做综合分析。仓库还附带 test_pai_pan.py 回归测试，可用来查看排盘逻辑。",
+      "code": "python3 scripts/pai_pan.py --solar 1990-05-15 --shichen 午 --sex 男",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/jinchenma94/bazi-skill/blob/112a5d84cd1a001a0038cafca3be68d93e4c0cc9/README.md?plain=1#L28"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "README 声明分析结果仅供传统文化学习和娱乐参考，不构成任何决策依据。",
+    "使用时需要在对话中提供姓名、出生日期、出生地等个人信息，请留意隐私。"
+  ],
+  "references": [],
+  "media": [],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "2626e8f0111871f12e1987a024ff361c2c0374d3fc075c23979d569f54feb86c",
+  "mediaStatus": "none_in_official_documents"
+}

@@ -1,0 +1,85 @@
+{
+  "schemaVersion": 1,
+  "key": "jiji262/douyin-downloader",
+  "status": "ready",
+  "reason": "",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/jiji262/douyin-downloader/blob/9874f413b2c1f8ad6e731b26e3e05f402fc964f8/README.md",
+  "sourceRevision": "9874f413b2c1f8ad6e731b26e3e05f402fc964f8",
+  "canonicalKey": "jiji262/douyin-downloader",
+  "summary": "用于下载抖音无水印视频和图文的工具，提供 Douzy 桌面版和仅支持抖音的 Python 命令行版。",
+  "intro": "适合需要在本地保存和管理抖音作品的个人用户。官方建议日常下载使用 Douzy 桌面版（Windows / macOS，可在 Releases 下载，支持抖音、TikTok、YouTube、Telegram、X）。下面的步骤针对文档最完整的 Python 命令行版，适合需要脚本化、批量下载博主主页作品、按日期筛选并保留下载历史的用户。",
+  "requirements": "Python 3.9+（Windows、macOS 或 Linux）；Playwright 及 Chromium（用于登录取 Cookie 和浏览器兜底）；可在浏览器中登录的抖音账号。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "克隆仓库并安装依赖",
+      "text": "克隆仓库后进入目录，用 pip 安装 requirements.txt 和 playwright，再执行 playwright install chromium 安装浏览器内核。Windows、macOS、Linux 的命令相同。",
+      "code": "git clone https://github.com/jiji262/douyin-downloader.git\ncd douyin-downloader\npython -m pip install -r requirements.txt\npython -m pip install playwright\npython -m playwright install chromium",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/jiji262/douyin-downloader/blob/9874f413b2c1f8ad6e731b26e3e05f402fc964f8/README.zh-CN.md?plain=1#L43"
+      }
+    },
+    {
+      "title": "复制配置并登录抖音取 Cookie",
+      "text": "将 config.example.yml 复制为 config.yml（Windows PowerShell 用 Copy-Item），然后运行 tools.cookie_fetcher。在弹出的浏览器中登录抖音，回到终端按 Enter 保存 Cookie。",
+      "code": "cp config.example.yml config.yml\npython -m tools.cookie_fetcher --config config.yml",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/jiji262/douyin-downloader/blob/9874f413b2c1f8ad6e731b26e3e05f402fc964f8/README.zh-CN.md?plain=1#L57"
+      }
+    },
+    {
+      "title": "在 config.yml 中设置目标与范围",
+      "text": "把示例 link 换成目标博主的主页 URL，保留已保存的 Cookie，再按需修改 path、mode、number.post（0 表示不限）、increase.post 和 redownload_missing_files。日期范围用 start_time / end_time 设置。",
+      "code": "link:\n  - https://www.douyin.com/user/YOUR_SEC_UID\npath: ./Downloaded/\nmode: [post]\nnumber:\n  post: 10                 # 0 表示不限数量\nincrease:\n  post: true              # 跳过已下载作品\nredownload_missing_files: true",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/jiji262/douyin-downloader/blob/9874f413b2c1f8ad6e731b26e3e05f402fc964f8/README.zh-CN.md?plain=1#L57"
+      }
+    },
+    {
+      "title": "运行下载并按需查看日志",
+      "text": "执行 python run.py -c config.yml 开始下载。可用 -u 追加链接、-p 指定目录、-t 设置并发数、-v 输出详细日志。Cookie 失效时重新运行 cookie_fetcher 即可。",
+      "code": "python run.py -c config.yml",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/jiji262/douyin-downloader/blob/9874f413b2c1f8ad6e731b26e3e05f402fc964f8/README.zh-CN.md?plain=1#L82"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "抖音风控目前会阻止 CLI 下载单个视频/图文、合集、音乐、喜欢和收藏。主页作品可以尝试 Playwright 浏览器兜底，但不保证成功；更新 Cookie 或重试都无法解决。",
+    "主页只获取到少量作品时，保持 browser_fallback.enabled: true 和 headless: false，并在浏览器中手动完成验证。",
+    "直播录制是实验功能，HLS 源只保存播放列表，不是可直接播放的视频。",
+    "Douzy 的平台功能依赖插件或本机组件，部分批量与高级功能需要激活。Telegram 需要登录配置，X 需要账号 Cookie。",
+    "本工具仅用于学习和个人数据管理，须遵守版权、隐私与平台规则，使用责任自负；平台变化可能导致功能失效。"
+  ],
+  "references": [
+    {
+      "label": "README.zh-CN.md",
+      "url": "https://github.com/jiji262/douyin-downloader/blob/9874f413b2c1f8ad6e731b26e3e05f402fc964f8/README.zh-CN.md"
+    }
+  ],
+  "media": [
+    {
+      "url": "/assets/repository-guides/media-20fc32f1993f5e2d35c903eb.webp",
+      "alt": "Douzy 抖音下载选项",
+      "sourceUrl": "https://github.com/jiji262/douyin-downloader/blob/9874f413b2c1f8ad6e731b26e3e05f402fc964f8/README.zh-CN.md?plain=1#L29",
+      "originalUrl": "https://raw.githubusercontent.com/jiji262/douyin-downloader/9874f413b2c1f8ad6e731b26e3e05f402fc964f8/img/desktop/001.png"
+    },
+    {
+      "url": "/assets/repository-guides/media-9b2d165c63c6f1067aab78da.webp",
+      "alt": "Douzy 平台切换",
+      "sourceUrl": "https://github.com/jiji262/douyin-downloader/blob/9874f413b2c1f8ad6e731b26e3e05f402fc964f8/README.zh-CN.md?plain=1#L31",
+      "originalUrl": "https://raw.githubusercontent.com/jiji262/douyin-downloader/9874f413b2c1f8ad6e731b26e3e05f402fc964f8/img/desktop/006.png"
+    }
+  ],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "a5745bfc83875dbdfdc7ecdfdb80d9daefd88a26ac36c247d939b4eaba80b180",
+  "mediaStatus": "archived",
+  "mediaFailures": []
+}

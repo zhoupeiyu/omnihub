@@ -1,0 +1,90 @@
+{
+  "schemaVersion": 1,
+  "key": "sigpanic/goink",
+  "status": "ready",
+  "reason": "",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/sigpanic/goink/blob/1a444c47697a61c9c39ce4e67a746af9dff8b9b6/README.md",
+  "sourceRevision": "1a444c47697a61c9c39ce4e67a746af9dff8b9b6",
+  "canonicalKey": "sigpanic/goink",
+  "summary": "Goink 是一款桌面 AI 长篇小说写作应用，通过对话写作，并用结构化记忆追踪角色、伏笔、弧线、地点和读者认知，还支持本地语义搜索前文。",
+  "intro": "适合使用 AI 辅助创作长篇小说的作者。Goink 会把角色关系、伏笔回收点、弧线节点、地点层级和读者认知记录为结构化数据，Agent 写完章节后会自动检查并更新这些状态。AI 修改正文前会先生成 Diff，由用户批准后才写入；每次对话都会自动 Git 提交，可以随时回退。用户还可以用 .md 文件自定义写作 Skill，或从一段样文提炼出仿写风格 Skill。",
+  "requirements": "需要一个 LLM API Key。应用内置 DeepSeek、GLM、MiMo 模板，也兼容 OpenAI 格式的接口。官方安装包支持 Windows、macOS 和 Linux，不需要 Python、Node.js、数据库或 GPU。从源码构建的说明以 Linux（apt）为例。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "在 macOS 上下载并安装",
+      "text": "以 macOS 为例，从 GitHub Releases 页面下载对应平台的安装包，打开 DMG 文件后把 Goink 拖入 Applications 文件夹。Windows 用户可改用安装程序，Linux 用户可运行 AppImage。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/sigpanic/goink/blob/1a444c47697a61c9c39ce4e67a746af9dff8b9b6/README.md?plain=1#L183"
+      }
+    },
+    {
+      "title": "配置 LLM API Key",
+      "text": "首次使用前，在应用中填写自己的 LLM API Key。可以选择内置的 DeepSeek、GLM、MiMo 模板，也可以接入兼容 OpenAI 格式的服务。README 没有给出具体的设置界面路径，请以应用内的实际界面为准。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/sigpanic/goink/blob/1a444c47697a61c9c39ce4e67a746af9dff8b9b6/README.md?plain=1#L183"
+      }
+    },
+    {
+      "title": "对话写作并审批 Diff",
+      "text": "在对话中让 Agent 撰写或修改章节。每次编辑都会先生成 Diff，你可以批准、拒绝，或者给出反馈让 AI 修正；也可以切换到自动模式连续写作。所有修改都有 Git 历史，可以回退。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/sigpanic/goink/blob/1a444c47697a61c9c39ce4e67a746af9dff8b9b6/README.md?plain=1#L167"
+      }
+    },
+    {
+      "title": "查看结构化状态与搜索前文",
+      "text": "写完章节后，系统会提醒 Agent 检查角色、伏笔、弧线和读者认知的变化；需要时还可以启动审稿子 Agent 做一致性检查。想查找前文时，用一句话描述即可，本地语义搜索会按意思找到相关段落。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/sigpanic/goink/blob/1a444c47697a61c9c39ce4e67a746af9dff8b9b6/README.md?plain=1#L45"
+      }
+    },
+    {
+      "title": "新建自定义写作 Skill",
+      "text": "在 ~/.goink/skills/（对所有小说生效）或 {novel}/skills/（只对当前小说生效）中新建 .md 文件，在 frontmatter 中填写 name、description、mode，即可得到一个新 Skill。mode 可选 auto、manual 或 always，保存后热重载生效。",
+      "code": "---\nname: 我的写作流程\ndescription: 个人定制创作流程\ncategory: 自定义\nmode: auto\n---\n# 正文 markdown 内容",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/sigpanic/goink/blob/1a444c47697a61c9c39ce4e67a746af9dff8b9b6/README.md?plain=1#L105"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "项目采用 AGPL-3.0 协议，NOTICE 文件中还有依据第 7 节附加的条款。二次分发或提供网络服务前，请先阅读许可文本。",
+    "正文生成依赖第三方 LLM API，费用和数据处理规则以所选服务商为准。",
+    "Windows 安装包未签名，SmartScreen 可能弹出提示。README 中的网盘下载属于非 GitHub 渠道，请自行核对文件来源。",
+    "AI 写入范围受白名单限制，只允许 chapters/、outlines/、goink.md 等路径。"
+  ],
+  "references": [],
+  "media": [
+    {
+      "url": "/assets/repository-guides/media-dbb6eb76427be690d7335236.webp",
+      "alt": "写作与 Diff 审批",
+      "sourceUrl": "https://github.com/sigpanic/goink/blob/1a444c47697a61c9c39ce4e67a746af9dff8b9b6/README.md?plain=1#L173",
+      "originalUrl": "https://raw.githubusercontent.com/sigpanic/goink/1a444c47697a61c9c39ce4e67a746af9dff8b9b6/assets/write-demo.png"
+    },
+    {
+      "url": "/assets/repository-guides/media-20b8fa76b50dca922fa911b8.webp",
+      "alt": "大纲与章节计划",
+      "sourceUrl": "https://github.com/sigpanic/goink/blob/1a444c47697a61c9c39ce4e67a746af9dff8b9b6/README.md?plain=1#L176",
+      "originalUrl": "https://raw.githubusercontent.com/sigpanic/goink/1a444c47697a61c9c39ce4e67a746af9dff8b9b6/assets/outline-demo.png"
+    },
+    {
+      "url": "/assets/repository-guides/media-37f2057197f1b569c295334a.webp",
+      "alt": "Skill 技能系统",
+      "sourceUrl": "https://github.com/sigpanic/goink/blob/1a444c47697a61c9c39ce4e67a746af9dff8b9b6/README.md?plain=1#L146",
+      "originalUrl": "https://raw.githubusercontent.com/sigpanic/goink/1a444c47697a61c9c39ce4e67a746af9dff8b9b6/assets/skill-demo.png"
+    }
+  ],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "15f0ba1bfa7cb714d5594ee0e8f7a90de413340d9895ecef55cd15a370e252f0",
+  "mediaStatus": "archived",
+  "mediaFailures": []
+}

@@ -1,0 +1,63 @@
+{
+  "schemaVersion": 1,
+  "key": "ninehills/skills",
+  "status": "ready",
+  "reason": "",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/ninehills/skills/blob/f3e82a7e2bfbed54fc2b4a715a1986f5f467e827/README.md",
+  "sourceRevision": "f3e82a7e2bfbed54fc2b4a715a1986f5f467e827",
+  "canonicalKey": "ninehills/skills",
+  "summary": "一个面向 Claude Code 等 Agent 平台的技能（skills）合集，涵盖浏览器自动化、前端设计、React 优化、实施计划编写等场景。",
+  "intro": "适合已经在使用 Claude Code、Codex、Pi、Hermes 等 Agent 平台，并希望为其补充现成技能的开发者。可以先通过 Quick Reference 表查阅各技能的用途和适用时机，再按需安装单个技能，或用仓库自带的 skills-manager 脚本按场景批量软连接到各平台的 skills 目录。",
+  "requirements": "支持 skills 目录的 Agent 宿主（如 Claude Code，默认目录 ~/.claude/skills）；git；可运行 npx 的环境，用于 Skills CLI；若使用 skills-manager 脚本则需要 python3。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "在速查表中选择需要的技能",
+      "text": "先阅读 README 的 Quick Reference 表，根据 Purpose 和 Use When 列挑选技能。例如：需要操作网页时选 agent-browser，审查 UI 可访问性时选 web-design-guidelines，有明确需求、准备动手编码前选 writing-plans。各技能章节还列出了流程和关键命令。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/ninehills/skills/blob/f3e82a7e2bfbed54fc2b4a715a1986f5f467e827/README.md?plain=1#L38"
+      }
+    },
+    {
+      "title": "克隆仓库并安装单个技能",
+      "text": "这里以 Claude Code 为宿主。先克隆本仓库并进入目录，再用 Skills CLI 安装指定技能目录。文档示例安装的是 ./agent-browser，把路径换成你选好的技能目录名即可。",
+      "code": "# Clone the repository\ngit clone https://github.com/ninehills/skills.git\ncd skills\n\n# Install a specific skill\nnpx skills add ./agent-browser -g",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/ninehills/skills/blob/f3e82a7e2bfbed54fc2b4a715a1986f5f467e827/README.md?plain=1#L255"
+      }
+    },
+    {
+      "title": "在 Agent 中按适用场景触发",
+      "text": "安装后，在宿主 Agent 中遇到与技能 Use When 描述相符的任务时使用它。例如 brainstorming 要求设计获批前不写代码，并会把设计文档写入 docs/superpowers/specs/；find-skills 可以通过 npx skills find 搜索更多技能。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/ninehills/skills/blob/f3e82a7e2bfbed54fc2b4a715a1986f5f467e827/README.md?plain=1#L1"
+      }
+    },
+    {
+      "title": "参照目录结构自定义技能",
+      "text": "如需修改或新建技能，请按文档给出的结构组织文件：SKILL.md 必需，并带 YAML frontmatter；references、scripts、assets 为可选目录。也可以借助 skill-creator 技能编写技能并用 evals/evals.json 做评测。",
+      "code": "skill-name/\n├── SKILL.md              # Required: skill definition with YAML frontmatter\n├── references/           # Optional: documentation loaded as needed\n├── scripts/              # Optional: executable code for deterministic tasks\n└── assets/               # Optional: templates, icons, fonts",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/ninehills/skills/blob/f3e82a7e2bfbed54fc2b4a715a1986f5f467e827/README.md?plain=1#L276"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "仓库整体未声明许可证，README 说明各技能的许可信息需查看各自目录。",
+    "agent-browser 可以填写表单、处理登录流程和抓取数据，用于真实网站时应注意账号授权和目标站点的使用条款。",
+    "skills-manager 每次执行 install 时，会自动清理目标目录中指向本仓库、但不在当前场景配置里的软连接。",
+    "brainstorming、writing-plans 会在项目内的 docs/superpowers/ 下写入设计文档和计划文件。"
+  ],
+  "references": [],
+  "media": [],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "dc0cb5f4418623ac3e167010458aa8eb82d49fe4dc6dd154f5e8b1058e66945c",
+  "mediaStatus": "none_in_official_documents"
+}

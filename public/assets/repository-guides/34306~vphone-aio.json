@@ -1,0 +1,79 @@
+{
+  "schemaVersion": 1,
+  "key": "34306/vphone-aio",
+  "status": "ready",
+  "reason": "",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/34306/vphone-aio/blob/1db79dccd95391d6247c41f3cc4eac523567f295/README.md",
+  "sourceRevision": "1db79dccd95391d6247c41f3cc4eac523567f295",
+  "canonicalKey": "34306/vphone-aio",
+  "summary": "一个在 macOS 上通过单个脚本运行 vphone（iOS 26.1 虚拟设备）的仓库，镜像已越狱并装好完整 bootstrap。",
+  "intro": "适合需要在本机运行已越狱 iOS 26.1 虚拟环境、熟悉 macOS 安全设置的研究者或开发者。仓库提供分卷压缩包和 vphone-aio.sh 脚本，合并解压后可以通过 VNC 连接查看。作者本人建议改用 vphone-cli，那边更新和支持更好，并已支持 iOS 27。",
+  "requirements": "使用 Homebrew 的 macOS 环境，需要安装 git-lfs、wget、zstd、libimobiledevice。需要关闭 SIP 并设置 amfi_get_out_of_my_way=1。建议预留 128GB 以上的空闲磁盘。需要 RealVNC 或系统自带的屏幕共享。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "用 Homebrew 安装依赖工具",
+      "text": "在 macOS 终端中用 Homebrew 安装 git-lfs、wget、zstd 和 libimobiledevice。这是 README 列出的第一步前置条件。",
+      "code": "   brew install git-lfs wget zstd libimobiledevice",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/34306/vphone-aio/blob/1db79dccd95391d6247c41f3cc4eac523567f295/README.md?plain=1#L1"
+      }
+    },
+    {
+      "title": "关闭 SIP 并设置 amfi 参数",
+      "text": "按 README 要求关闭 SIP，并设置 amfi_get_out_of_my_way=1。README 没有给出具体操作命令，请参考 Apple 官方或可信资料完成，并了解这样做会降低系统安全保护。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/34306/vphone-aio/blob/1db79dccd95391d6247c41f3cc4eac523567f295/README.md?plain=1#L1"
+      }
+    },
+    {
+      "title": "获取仓库分卷并校验哈希",
+      "text": "下载或克隆本仓库，约 12GB，作者实测约 20 分钟。缺少的分卷脚本会自动下载，也可以用循环命令手动下载 part_aa 到 part_ag。下载完成后用 shasum 计算 SHA-256，与 README 列出的值逐一比对。",
+      "code": "   for p in aa ab ac ad ae af ag; do\n     wget -O \"vphone-cli.tar.zst.part_${p}\" \\\n       \"https://github.com/34306/vphone-aio/raw/refs/heads/main/vphone-cli.tar.zst.part_${p}?download=\"\n   done\n\nshasum -a 256 vphone-cli.tar.zst.part_a*\n\n3c966247deae3fff51a640f6204e0fafc14fd5c76353ba8f28f20f7d1d29e693  vphone-cli.tar.zst.part_aa\nc7d11bbbe32dda2b337933c736171cc94faab2c7465e75391fa49029f3b6f1b1  vphone-cli.tar.zst.part_ab\nf422949080e7f141f32f35f8ea20c1fedffc2b97eadf0390645114feef6bb1aa  vphone-cli.tar.zst.part_ac\nf3acfa47145207b8962ba4d20fb83eb4646934cca768906e65609d7fdde564e7  vphone-cli.tar.zst.part_ad\nefdca69df80386b0aa7af8ac260d9ac576ed1f258429fd4ac21b5bbb87cd78fe  vphone-cli.tar.zst.part_ae\n4628852da12949361d3ea6efcf8af1532eb52194cc43a4ab4993024267947587  vphone-cli.tar.zst.part_af\n8bd1551511eb016325918c2d93519829be04feb54727612e74c32e4299670a88  vphone-cli.tar.zst.part_ag",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/34306/vphone-aio/blob/1db79dccd95391d6247c41f3cc4eac523567f295/README.md?plain=1#L1"
+      }
+    },
+    {
+      "title": "运行 vphone-aio.sh 合并解压",
+      "text": "运行仓库中的 vphone-aio.sh 脚本，等待分卷合并完成，随后它会解压整个目录，约需 15 分钟。合并完成后，可以删除 .git 目录和分卷文件来释放空间。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/34306/vphone-aio/blob/1db79dccd95391d6247c41f3cc4eac523567f295/README.md?plain=1#L1"
+      }
+    },
+    {
+      "title": "通过 VNC 连接虚拟设备",
+      "text": "用 RealVNC 或 macOS 屏幕共享连接 vnc://127.0.0.1:5901，即可访问运行中的 vphone。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/34306/vphone-aio/blob/1db79dccd95391d6247c41f3cc4eac523567f295/README.md?plain=1#L1"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "需要关闭 SIP 并设置 amfi_get_out_of_my_way=1，会削弱 macOS 的系统安全保护，建议只在专用或测试机器上进行。",
+    "作者明确推荐改用 vphone-cli，本仓库固定在 iOS 26.1，后续更新与支持有限。",
+    "下载约 12GB，建议空闲空间 128GB 以上，合并和解压需要较长时间。",
+    "README 未声明许可证，也未说明所含系统镜像的授权来源，使用前请自行评估合规性。"
+  ],
+  "references": [],
+  "media": [
+    {
+      "url": "/assets/repository-guides/media-2e64ba5b6b5a14d1fc088cab.webp",
+      "alt": "34306/vphone-aio 官方演示 1",
+      "sourceUrl": "https://github.com/34306/vphone-aio/blob/1db79dccd95391d6247c41f3cc4eac523567f295/README.md?plain=1#L49",
+      "originalUrl": "https://raw.githubusercontent.com/34306/vphone-aio/1db79dccd95391d6247c41f3cc4eac523567f295/preview.png"
+    }
+  ],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "a6a6ba2249a44c8cd6972cc1091e04a66b795808b27bcdfb8dbdcbbc97137d19",
+  "mediaStatus": "archived",
+  "mediaFailures": []
+}

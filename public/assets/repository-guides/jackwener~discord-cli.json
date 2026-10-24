@@ -1,0 +1,69 @@
+{
+  "schemaVersion": 1,
+  "key": "jackwener/discord-cli",
+  "status": "ready",
+  "reason": "",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/jackwener/discord-cli/blob/ce32e6b37bdf1a3852ebf65fbdf580ee81361155/README.md",
+  "sourceRevision": "ce32e6b37bdf1a3852ebf65fbdf580ee81361155",
+  "canonicalKey": "jackwener/discord-cli",
+  "summary": "discord-cli 用你本机 Discord 会话中的 user token 把消息同步到本地 SQLite，然后在终端搜索、统计和导出，并提供结构化输出给 AI Agent 使用。",
+  "intro": "适合想在自己控制的设备上，把自己的 Discord 账号消息做本地归档、检索和分析的用户，也适合把消息交给 AI Agent 处理的场景。可以同步所有可访问的文字频道，查看今日消息、活跃发言人和时间线，并导出为 text 或 json。",
+  "requirements": "需要 uv 或 pipx 来安装（PyPI 包名是 `kabi-discord-cli`）。本机需要有已登录的 Discord 客户端或浏览器会话，用于提取 user token。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "通过 PyPI 安装命令行",
+      "text": "使用 uv 运行 `uv tool install kabi-discord-cli` 安装。注意 PyPI 包名是 kabi-discord-cli，不是仓库名。以后可以用 `uv tool upgrade kabi-discord-cli` 定期升级，避免旧版本 API 处理出错。",
+      "code": "uv tool upgrade kabi-discord-cli\n# Or: pipx upgrade kabi-discord-cli",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/jackwener/discord-cli/blob/ce32e6b37bdf1a3852ebf65fbdf580ee81361155/README.md?plain=1#L1"
+      }
+    },
+    {
+      "title": "提取并保存账号 token",
+      "text": "运行 `discord auth --save`，从本地 Discord/浏览器会话中提取 token 并保存，然后用 `discord status` 检查 token 是否有效，用 `discord whoami` 确认当前登录的账号。",
+      "code": "# Extract and save a token from your local Discord/browser session\ndiscord auth --save\n\n# Verify auth\ndiscord status\ndiscord whoami\n\n# Explore guilds and channels\ndiscord dc guilds\ndiscord dc channels <guild_id>\n\n# Bootstrap local storage\ndiscord dc sync-all -n 500\n\n# Query local cache\ndiscord today\ndiscord recent -n 50\ndiscord search \"rust\" -c general --json\ndiscord timeline --by hour --json",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/jackwener/discord-cli/blob/ce32e6b37bdf1a3852ebf65fbdf580ee81361155/README.md?plain=1#L93"
+      }
+    },
+    {
+      "title": "浏览服务器并同步到本地",
+      "text": "用 `discord dc guilds` 列出已加入的 guild，用 `discord dc channels <guild_id>` 查看文字频道。然后运行 `discord dc sync-all -n 500`，自动发现可访问的频道并同步到本地 SQLite，空数据库也能直接执行。",
+      "code": "# Extract and save a token from your local Discord/browser session\ndiscord auth --save\n\n# Verify auth\ndiscord status\ndiscord whoami\n\n# Explore guilds and channels\ndiscord dc guilds\ndiscord dc channels <guild_id>\n\n# Bootstrap local storage\ndiscord dc sync-all -n 500\n\n# Query local cache\ndiscord today\ndiscord recent -n 50\ndiscord search \"rust\" -c general --json\ndiscord timeline --by hour --json",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/jackwener/discord-cli/blob/ce32e6b37bdf1a3852ebf65fbdf580ee81361155/README.md?plain=1#L101"
+      }
+    },
+    {
+      "title": "查询本地缓存并导出",
+      "text": "大多数顶层命令读取的是本地 SQLite：`today`、`recent`、`search`、`stats`、`top`、`timeline` 可以加 `--json` 输出。需要归档时用 `export CHANNEL -f json -o FILE` 导出。频道名有重名时，请改用频道 ID。",
+      "code": "# Extract and save a token from your local Discord/browser session\ndiscord auth --save\n\n# Verify auth\ndiscord status\ndiscord whoami\n\n# Explore guilds and channels\ndiscord dc guilds\ndiscord dc channels <guild_id>\n\n# Bootstrap local storage\ndiscord dc sync-all -n 500\n\n# Query local cache\ndiscord today\ndiscord recent -n 50\ndiscord search \"rust\" -c general --json\ndiscord timeline --by hour --json",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/jackwener/discord-cli/blob/ce32e6b37bdf1a3852ebf65fbdf580ee81361155/README.md?plain=1#L115"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "工具使用的是个人 user token，Discord 可能限制或封禁自动化使用 user token 的账号；只应在自己的账号上使用，并清楚相关风险。",
+    "`purge CHANNEL` 会删除该频道的本地缓存消息，加 `-y` 时不再确认。",
+    "查询结果来自本地缓存，需要先执行同步，内容才会是最新的。"
+  ],
+  "references": [
+    {
+      "label": "README_CN.md",
+      "url": "https://github.com/jackwener/discord-cli/blob/ce32e6b37bdf1a3852ebf65fbdf580ee81361155/README_CN.md"
+    }
+  ],
+  "media": [],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "f885e4f78fdc7142082c66ec10a42a367cb53110ec6f15d67fa080e9efa76370",
+  "mediaStatus": "none_in_official_documents"
+}

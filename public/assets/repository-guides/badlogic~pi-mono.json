@@ -1,0 +1,63 @@
+{
+  "schemaVersion": 1,
+  "key": "badlogic/pi-mono",
+  "status": "partial",
+  "reason": "README 只给出了源码开发构建、从源码运行 pi，以及从发布源码包构建二进制的方法。面向普通用户的 npm 安装命令、LLM 提供商密钥配置和 pi 的交互用法都没有写在 README 中，需要查阅 pi.dev/docs 或各 packages 子目录。",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/earendil-works/pi/blob/8ce69e9d2b171d173fe4b6b2b6256f1f4411e69d/README.md",
+  "sourceRevision": "8ce69e9d2b171d173fe4b6b2b6256f1f4411e69d",
+  "canonicalKey": "earendil-works/pi",
+  "summary": "Pi 智能体工具集的 monorepo，包含交互式编码智能体 CLI、智能体运行时、统一多提供商 LLM API 和终端 UI 库。",
+  "intro": "适合想使用或二次开发 AI 编码智能体的开发者。可以把 pi-coding-agent 当作命令行编码助手；也可以单独引用 pi-ai（统一调用 OpenAI、Anthropic、Google 等）、pi-agent-core（工具调用与状态管理）、pi-tui（差量渲染终端 UI）等包。",
+  "requirements": "从源码构建需要 npm（Node.js 环境）。依赖 LLM 的测试需要相应提供商的 API Key，没有时会被跳过。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "按需求选择要用的包",
+      "text": "对照 All Packages 表选包：需要命令行编码智能体选 pi-coding-agent，需要统一 LLM 接口选 pi-ai，需要智能体循环选 pi-agent-core，需要终端界面选 pi-tui。Slack/聊天自动化请看 pi-chat 仓库。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/earendil-works/pi/blob/8ce69e9d2b171d173fe4b6b2b6256f1f4411e69d/README.md?plain=1#L13"
+      }
+    },
+    {
+      "title": "安装依赖并构建全部包",
+      "text": "在仓库根目录用 npm install --ignore-scripts 安装依赖（不执行生命周期脚本），再运行 npm run build 刷新模型数据并构建全部包。无网络时可改用 npm run build:offline。",
+      "code": "npm install --ignore-scripts  # Install all dependencies without running lifecycle scripts\nnpm run build         # Refresh model data, then build all packages\nnpm run build:offline # Rebuild using existing model data without network access\nnpm run check         # Lint, format, and type check\n./test.sh            # Run tests (skips LLM-dependent tests without API keys)\n./pi-test.sh         # Run pi from sources (can be run from any directory)",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/earendil-works/pi/blob/8ce69e9d2b171d173fe4b6b2b6256f1f4411e69d/README.md?plain=1#L54"
+      }
+    },
+    {
+      "title": "从源码运行 pi 并执行检查",
+      "text": "构建完成后，可用 ./pi-test.sh 从源码运行 pi，可在任意目录调用。npm run check 执行 lint、格式和类型检查，./test.sh 运行测试，未配置 API Key 时会跳过依赖 LLM 的测试。",
+      "code": "npm install --ignore-scripts  # Install all dependencies without running lifecycle scripts\nnpm run build         # Refresh model data, then build all packages\nnpm run build:offline # Rebuild using existing model data without network access\nnpm run check         # Lint, format, and type check\n./test.sh            # Run tests (skips LLM-dependent tests without API keys)\n./pi-test.sh         # Run pi from sources (can be run from any directory)",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/earendil-works/pi/blob/8ce69e9d2b171d173fe4b6b2b6256f1f4411e69d/README.md?plain=1#L54"
+      }
+    },
+    {
+      "title": "需要隔离时容器化运行",
+      "text": "Pi 没有内置权限系统，会以启动它的用户权限运行。如需更强的隔离，可参考 containerization.md 中的三种方式：Gondolin 扩展、Plain Docker、OpenShell。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/earendil-works/pi/blob/8ce69e9d2b171d173fe4b6b2b6256f1f4411e69d/README.md?plain=1#L40"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "Pi 不限制文件系统、进程、网络或凭据访问，默认拥有启动用户的全部权限，处理敏感环境时应放入沙箱或容器。",
+    "调用 OpenAI、Anthropic、Google 等提供商需要你自己的 API Key，费用由各提供商的计费规则决定。",
+    "输入的 key 为 badlogic/pi-mono，但文档来源链接指向 earendil-works/pi，仓库可能已迁移，请以后者为准。",
+    "新贡献者提交的 issue 和 PR 默认会被自动关闭，需先阅读 CONTRIBUTING.md。"
+  ],
+  "references": [],
+  "media": [],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "fe13915e217f905739b64124cbb03b72758fa2081b7198cabeefaee4914a6f14",
+  "mediaStatus": "none_in_official_documents"
+}

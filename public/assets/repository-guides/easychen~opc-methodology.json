@@ -1,0 +1,60 @@
+{
+  "schemaVersion": 1,
+  "key": "easychen/opc-methodology",
+  "status": "ready",
+  "reason": "",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/easychen/opc-methodology/blob/b3d0503a52298a2fbe4751231f3119d6a015eab5/README.md",
+  "sourceRevision": "b3d0503a52298a2fbe4751231f3119d6a015eab5",
+  "canonicalKey": "easychen/opc-methodology",
+  "summary": "《一人企业方法论》第二版的电子书仓库，可在线阅读或下载电子书，系统了解一人企业与副业的规划、构建和基础设施搭建。",
+  "intro": "适合想做独立开发、自媒体、电商或数字商品等副业的人，包括非技术读者。书中按“定义、规划、构建一人业务、基础设施及搭建”四部分组织内容，可以按章节查阅赛道选择、竞争策略、风险评控、产品构建和用户池、支付等基础设施相关内容。",
+  "requirements": "在线阅读和下载只需要浏览器。如果要自行编译 epub，需要 mdbook-epub 工具。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "按目录选择在线章节阅读",
+      "text": "在 README 的“在线阅读”目录中，先从“定义一人企业”下的新版方法论概述和一人企业定义读起，再按需要进入规划、构建一人业务、基础设施及搭建等部分。各章节链接到 ft07.com 上的文章。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/easychen/opc-methodology/blob/b3d0503a52298a2fbe4751231f3119d6a015eab5/README.md?plain=1#L48"
+      }
+    },
+    {
+      "title": "下载电子书离线阅读",
+      "text": "如需离线阅读，可以通过 README“电子书”部分的下载链接进入 ft07.com 的电子书索引页获取。第二版约 6 万字，2.1 版补充了产品构建和基础设施搭建相关章节。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/easychen/opc-methodology/blob/b3d0503a52298a2fbe4751231f3119d6a015eab5/README.md?plain=1#L43"
+      }
+    },
+    {
+      "title": "用 mdbook-epub 自行编译 epub",
+      "text": "如果想从仓库源文件生成电子书，README 说明可使用 mdbook-epub 工具执行 `mdbook-epub --standalone true`，生成的 epub 位于 book 目录下。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/easychen/opc-methodology/blob/b3d0503a52298a2fbe4751231f3119d6a015eab5/README.md?plain=1#L43"
+      }
+    },
+    {
+      "title": "了解配套技能集与推演沙箱",
+      "text": "README 还给出了 2026/04 新增的 Agent 技能集网站和视频讲解链接，以及《方糖真实创业模拟器》，可结合方法论做策略推演。仓库内没有技能集的安装说明，需要到对应外部网站查看。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/easychen/opc-methodology/blob/b3d0503a52298a2fbe4751231f3119d6a015eab5/README.md?plain=1#L3"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "本书采用 CC-BY-NC-SA 4.0 协议：转载需署名并附仓库链接，不得用于商业目的，派生作品须使用相同协议。",
+    "在线阅读章节和电子书下载都依赖外部站点 ft07.com。",
+    "Agent 技能集在 README 中只有网站和视频链接，没有提供安装或使用步骤。"
+  ],
+  "references": [],
+  "media": [],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "746be59359a763f1a0064f5fb1a383140276cf1578b297d74cef91bd0f68a866",
+  "mediaStatus": "none_in_official_documents"
+}

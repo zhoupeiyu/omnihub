@@ -1,0 +1,73 @@
+{
+  "schemaVersion": 1,
+  "key": "joeseesun/opencli-skill",
+  "status": "ready",
+  "reason": "",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/joeseesun/qiaomu-opencli-skills/blob/4d9a08ebff749e5b12ab544d6a72f82bbe78f43d/README.md",
+  "sourceRevision": "4d9a08ebff749e5b12ab544d6a72f82bbe78f43d",
+  "canonicalKey": "joeseesun/qiaomu-opencli-skills",
+  "summary": "一组面向 Claude Code 的 Skills，让 AI Agent 借助上游 opencli 命令行查询、搜索、发布和下载多个社交与内容网站的数据。",
+  "intro": "适合已在使用 Claude Code、希望让 Agent 通过命令行操作 Bilibili、知乎、Twitter/X、小红书、HackerNews 等网站或部分桌面应用的用户。仓库本身是 Skills 文档集合，实际能力来自上游 jackwener/opencli；可按场景选择 qiaomu-opencli-usage（日常命令参考）、qiaomu-opencli-browser（浏览器自动化）、qiaomu-smart-search（搜索路由）等技能。",
+  "requirements": "需要可用的 npm 环境以安装 @jackwener/opencli 和执行 npx skills；需要 Chrome，并在其中加载 opencli 浏览器扩展、登录目标网站；Skills 面向 Claude Code 使用。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "全局安装上游 OpenCLI",
+      "text": "Skills 依赖上游 opencli 命令行工具。先用 npm 全局安装 @jackwener/opencli，安装后终端中即可使用 opencli 命令。",
+      "code": "npm install -g @jackwener/opencli",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/joeseesun/qiaomu-opencli-skills/blob/4d9a08ebff749e5b12ab544d6a72f82bbe78f43d/README.md?plain=1#L1"
+      }
+    },
+    {
+      "title": "在 Chrome 加载浏览器扩展",
+      "text": "从上游 Releases 下载 opencli-extension.zip，解压后在 chrome://extensions 中加载解压后的文件夹，并确认 Chrome 已登录你要操作的目标网站，以便复用登录状态。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/joeseesun/qiaomu-opencli-skills/blob/4d9a08ebff749e5b12ab544d6a72f82bbe78f43d/README.md?plain=1#L39"
+      }
+    },
+    {
+      "title": "按需安装全部或单个 Skills",
+      "text": "用 npx skills add 安装整个仓库的 Skills，或通过 --skill 只安装需要的技能，例如 qiaomu-opencli-usage 或 qiaomu-smart-search。可参考 Skills 列表按使用场景挑选。",
+      "code": "# 安装所有 skills\nnpx skills add joeseesun/qiaomu-opencli-skills\n\n# 或单独安装\nnpx skills add joeseesun/qiaomu-opencli-skills --skill qiaomu-opencli-usage\nnpx skills add joeseesun/qiaomu-opencli-skills --skill qiaomu-smart-search",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/joeseesun/qiaomu-opencli-skills/blob/4d9a08ebff749e5b12ab544d6a72f82bbe78f43d/README.md?plain=1#L45"
+      }
+    },
+    {
+      "title": "运行诊断命令验证安装",
+      "text": "依次运行 opencli doctor、opencli list，并用 opencli hackernews top --limit 5 做一次公开数据查询，确认工具与适配器可以正常工作。",
+      "code": "opencli doctor\nopencli list\nopencli hackernews top --limit 5",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/joeseesun/qiaomu-opencli-skills/blob/4d9a08ebff749e5b12ab544d6a72f82bbe78f43d/README.md?plain=1#L56"
+      }
+    },
+    {
+      "title": "在 Claude Code 中按场景调用",
+      "text": "根据任务选择对应技能：查热门或搜索内容参考 usage 技能中的命令（如 bilibili hot、zhihu search），需要点击输入截图时用 browser 技能，为新网站生成适配器用 explorer 或 oneshot，适配器失效时用 autofix。",
+      "code": "# B站热门\nopencli bilibili hot --limit 10 -f json\n\n# Twitter 趋势\nopencli twitter trending -f json\n\n# HackerNews 头条\nopencli hackernews top --limit 20 -f json\n\n# 小红书 feed\nopencli xiaohongshu feed -f json\n\n# 搜索 B站\nopencli bilibili search --keyword \"AI\" -f json\n\n# 搜索知乎\nopencli zhihu search --keyword \"大模型\" -f json\n\n# 搜索 YouTube\nopencli youtube search --query \"LLM tutorial\" -f json",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/joeseesun/qiaomu-opencli-skills/blob/4d9a08ebff749e5b12ab544d6a72f82bbe78f43d/README.md?plain=1#L20"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "本仓库只维护 Skills 文档，命令能力来自上游 jackwener/opencli，功能问题与主要贡献应提交到上游。",
+    "多数网站通过复用浏览器 Cookie 认证，Agent 会以你在 Chrome 中登录的账号身份操作。",
+    "发推、回复、下载等命令会真实作用于你的账号或下载他人内容，使用前需确认符合目标平台规则与内容授权。",
+    "部分适配器依赖网站接口，可能失效，README 提供 autofix 技能用于诊断修复。"
+  ],
+  "references": [],
+  "media": [],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "bd19a8d40cf335d0a2732d47fd9e9fc0811b0586370f07051045c2b60ccd6d3f",
+  "mediaStatus": "none_in_official_documents"
+}

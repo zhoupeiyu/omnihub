@@ -1,0 +1,74 @@
+{
+  "schemaVersion": 1,
+  "key": "fireredteam/firered-openstoryline",
+  "status": "ready",
+  "reason": "",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/FireRedTeam/FireRed-OpenStoryline/blob/c9e945215586f45c12a61c1951ee9a8e9c43a027/README.md",
+  "sourceRevision": "c9e945215586f45c12a61c1951ee9a8e9c43a027",
+  "canonicalKey": "FireRedTeam/FireRed-OpenStoryline",
+  "summary": "FireRed-OpenStoryline 是一个 AI 视频剪辑 Agent，通过自然语言对话完成素材检索、脚本生成、配乐配音推荐和剪辑调整。",
+  "intro": "适合希望用对话方式制作短视频的创作者和开发者，用于素材搜索与整理、生成叙事脚本和旁白、推荐 BGM、配音与字体、用自然语言修改剪辑细节，并可把整套剪辑流程保存为可复用的 Style Skill 以便批量套用风格。也可通过 OpenClaw、Claude Code 等 Agent 的 Skills 安装和调用。",
+  "requirements": "Python ≥3.11（文档推荐用 Conda/Miniforge 创建环境）；git 或手动下载源码；在 config.toml 中配置 API-Key（详见 docs/source/en/api-key.md）；macOS/Linux 手动安装需要 wget；如使用 storyline.local_asr，需在同一环境安装 torchaudio。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "克隆仓库并进入项目目录",
+      "text": "以 macOS 或 Linux 为例，先用 git clone 获取 FireRed-OpenStoryline 源码并进入项目根目录；未安装 git 时可按官网说明安装，或手动下载代码压缩包。",
+      "code": "# If git is not installed, refer to the official website for installation: https://git-scm.com/install/\n# Or manually download the code\ngit clone https://github.com/FireRedTeam/FireRed-OpenStoryline.git\ncd FireRed-OpenStoryline",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/FireRedTeam/FireRed-OpenStoryline/blob/c9e945215586f45c12a61c1951ee9a8e9c43a027/README.md?plain=1#L169"
+      }
+    },
+    {
+      "title": "用 Conda 创建 Python 环境",
+      "text": "按 Conda 官方指南安装（推荐 Miniforge，并勾选自动配置环境变量），然后创建名为 storyline 的 Python 3.11 环境并激活，后续安装与运行都在该环境中进行。",
+      "code": "# Recommended python>=3.11\nconda create -n storyline python=3.11\nconda activate storyline",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/FireRedTeam/FireRed-OpenStoryline/blob/c9e945215586f45c12a61c1951ee9a8e9c43a027/README.md?plain=1#L176"
+      }
+    },
+    {
+      "title": "运行自动安装脚本",
+      "text": "在 Linux 或 macOS 上，于项目根目录执行 build_env.sh 完成自动安装。该自动安装方式仅支持这两个平台，Windows 需改走手动下载 models.zip、resource.zip 并 pip 安装依赖的流程。",
+      "code": "sh build_env.sh",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/FireRedTeam/FireRed-OpenStoryline/blob/c9e945215586f45c12a61c1951ee9a8e9c43a027/README.md?plain=1#L187"
+      }
+    },
+    {
+      "title": "在 config.toml 中配置 API-Key",
+      "text": "启动前必须先在 config.toml 中填写所需的 API-Key，具体字段和获取方式请参阅仓库内的 API-Key Configuration 文档（docs/source/en/api-key.md）。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/FireRedTeam/FireRed-OpenStoryline/blob/c9e945215586f45c12a61c1951ee9a8e9c43a027/README.md?plain=1#L234"
+      }
+    },
+    {
+      "title": "启动 MCP 服务与对话界面",
+      "text": "在 macOS/Linux 上先以 PYTHONPATH=src 启动 open_storyline.mcp.server，再另开终端运行 cli.py 进入命令行对话界面；文档另提供 Web 界面入口。常见用法可参考 docs/source/en/guide.md。",
+      "code": "PYTHONPATH=src python -m open_storyline.mcp.server\n\n  python cli.py",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/FireRedTeam/FireRed-OpenStoryline/blob/c9e945215586f45c12a61c1951ee9a8e9c43a027/README.md?plain=1#L241"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "AI 转场功能依赖第三方 AIGC 视频生成服务，官方提示费用较高且效果不可预测，建议按需开启。",
+    "受开源素材授权限制，默认字体/音乐仅为基础效果；如需更好的素材需按官方自定义素材库教程自行配置，并注意素材版权。",
+    "运行依赖在 config.toml 中配置的外部模型 API-Key，可能产生相应服务费用。",
+    "使用 storyline.local_asr 需在同一环境安装 torchaudio。",
+    "通过 Codex 等其他 Agent 安装 Skills 的方式被官方标注为实验性。"
+  ],
+  "references": [],
+  "media": [],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "1143fa2960579dfd03a326cd575013379f727a03b056acfd8414bc3cd41730c5",
+  "mediaStatus": "none_in_official_documents"
+}

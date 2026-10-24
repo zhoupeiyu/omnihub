@@ -1,0 +1,86 @@
+{
+  "schemaVersion": 1,
+  "key": "itsveyra/glitter-idea-repo",
+  "status": "ready",
+  "reason": "",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/ItsVeyra/glitter-idea-repo/blob/57ce8fa5749290c4c31ebed91485484141b61f10/README.md",
+  "sourceRevision": "57ce8fa5749290c4c31ebed91485484141b61f10",
+  "canonicalKey": "ItsVeyra/glitter-idea-repo",
+  "summary": "Glitter 是一个 Obsidian 插件，用卡片快速记录文字、链接、图片和视频灵感，之后再分类、上白板整理或插回笔记。",
+  "intro": "适合在 Obsidian 中写作、经常有零散想法但不想立刻建 Markdown 文件的用户。可以先用快速捕获保存灵感卡片，再按想法池（Pool）分类，在漫游白板（Roam Board）上拖拽、连接、对比，最后转成笔记文件或作为片段插入正文。",
+  "requirements": "已安装 Obsidian 并拥有一个 vault；能从本仓库下载 release 包。可选：使用 AI Polish 时需自备模型服务的 API Key、Base URL 和 Model。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "手动安装 release 文件",
+      "text": "从本仓库下载最新 Glitter release 包，在 vault 中创建 `.obsidian/plugins/glitter-idea/` 文件夹，把包内的 `manifest.json`、`main.js`、`styles.css` 复制进去，然后重新打开 Obsidian 或重载社区插件。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/ItsVeyra/glitter-idea-repo/blob/57ce8fa5749290c4c31ebed91485484141b61f10/README.md?plain=1#L114"
+      }
+    },
+    {
+      "title": "启用插件并进入主页",
+      "text": "打开 Settings → Community plugins 启用 Glitter。之后在 Glitter 设置页点击 Open Glitter Home，或点击左侧边栏默认的 ✨ 图标进入插件主页，按首次使用引导创建第一条想法。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/ItsVeyra/glitter-idea-repo/blob/57ce8fa5749290c4c31ebed91485484141b61f10/README.md?plain=1#L114"
+      }
+    },
+    {
+      "title": "用快速捕获记录灵感",
+      "text": "点击 Idea Quick Capture 或按默认快捷键 Mod+Shift+J，输入文字、粘贴链接（会自动识别基本信息）或添加图片视频后保存。媒体默认存放在 vault 的 `/Glitter/images`；勾选“Save idea and create file”可同时生成笔记文件。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/ItsVeyra/glitter-idea-repo/blob/57ce8fa5749290c4c31ebed91485484141b61f10/README.md?plain=1#L56"
+      }
+    },
+    {
+      "title": "在想法池与白板中整理",
+      "text": "在主页点击 Create Pool 新建想法池并把卡片归类，可用 Switch View 切换 Fulfillment 与 Ripple 视图。需要围绕主题展开时，把已保存的想法放到 Roam Board 上拖拽、排列和连接，历史白板可在 Roam history 中继续查看。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/ItsVeyra/glitter-idea-repo/blob/57ce8fa5749290c4c31ebed91485484141b61f10/README.md?plain=1#L79"
+      }
+    },
+    {
+      "title": "把想法片段插回笔记正文",
+      "text": "写作时在笔记正文中右键找到 Glitter，选择 Insert Idea Snippet，或按快捷键 Mod+Shift+I，把已保存的想法插入正文继续引用和扩写。卡片菜单中还可查看该想法在正文中的插入位置。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/ItsVeyra/glitter-idea-repo/blob/57ce8fa5749290c4c31ebed91485484141b61f10/README.md?plain=1#L98"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "AI Polish 不自带模型，需在设置中填写自己的 API Key、Base URL 和 Model；触发后当前文本会发送到你指定的模型服务，可能产生对应服务的费用。",
+    "导入链接时插件会请求该网页以提取标题和描述等信息，这会产生网络请求。",
+    "插件界面会跟随你的 Obsidian 主题，实际外观可能与演示图不同。",
+    "README 只说明了手动安装方式；更新时需用新版 `manifest.json`、`main.js`、`styles.css` 替换旧文件，再重载 Obsidian。"
+  ],
+  "references": [],
+  "media": [
+    {
+      "url": "/assets/repository-guides/media-afab38175e111fac93483938.webp",
+      "alt": "ItsVeyra/glitter-idea-repo 官方演示 1",
+      "sourceUrl": "https://github.com/ItsVeyra/glitter-idea-repo/blob/57ce8fa5749290c4c31ebed91485484141b61f10/README.md?plain=1#L59",
+      "originalUrl": "https://raw.githubusercontent.com/ItsVeyra/glitter-idea-repo/57ce8fa5749290c4c31ebed91485484141b61f10/assets/gifs/plain-text-quick-capture.gif"
+    }
+  ],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "d4d97a29583c36a5185c76afc97524b551a2cc92bcfba89628a4e343ba6443bc",
+  "mediaStatus": "archived",
+  "mediaFailures": [
+    {
+      "sourceUrl": "https://github.com/ItsVeyra/glitter-idea-repo/blob/57ce8fa5749290c4c31ebed91485484141b61f10/README.md#L52",
+      "reason": "response_too_large"
+    },
+    {
+      "sourceUrl": "https://github.com/ItsVeyra/glitter-idea-repo/blob/57ce8fa5749290c4c31ebed91485484141b61f10/README.md#L74",
+      "reason": "response_too_large"
+    }
+  ]
+}

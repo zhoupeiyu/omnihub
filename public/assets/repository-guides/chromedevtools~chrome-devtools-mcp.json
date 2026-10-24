@@ -1,0 +1,65 @@
+{
+  "schemaVersion": 1,
+  "key": "chromedevtools/chrome-devtools-mcp",
+  "status": "ready",
+  "reason": "",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/ChromeDevTools/chrome-devtools-mcp/blob/02c0112cd57e4fa4bac31a1e69d7507601773b14/README.md",
+  "sourceRevision": "02c0112cd57e4fa4bac31a1e69d7507601773b14",
+  "canonicalKey": "ChromeDevTools/chrome-devtools-mcp",
+  "summary": "chrome-devtools-mcp 是一个 MCP server，让编码 Agent 控制和检查真实运行的 Chrome 浏览器，用于自动化、调试和性能分析。",
+  "intro": "适合使用 Claude、Cursor、Copilot、Antigravity 等 MCP 客户端的开发者，可以让 Agent 录制性能 trace 并提取分析结论，查看网络请求、截图和控制台消息（含 source map 堆栈），也能借助 puppeteer 完成可靠的浏览器自动化。不使用 MCP 时，另有 CLI 可用。",
+  "requirements": "Node.js LTS 版本、npm，以及当前稳定版或更新版本的 Google Chrome；还需要一个支持 MCP 的客户端。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "在 MCP 客户端添加服务器配置",
+      "text": "在 MCP 客户端配置中加入 chrome-devtools 服务器，命令是 npx，参数指向 chrome-devtools-mcp@latest，这样始终使用最新版本。各编辑器或 Agent 的具体配置位置，见官方的 Client Configurations Guide。",
+      "code": "{\n  \"mcpServers\": {\n    \"chrome-devtools\": {\n      \"command\": \"npx\",\n      \"args\": [\"-y\", \"chrome-devtools-mcp@latest\"]\n    }\n  }\n}",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/ChromeDevTools/chrome-devtools-mcp/blob/02c0112cd57e4fa4bac31a1e69d7507601773b14/README.md?plain=1#L68"
+      }
+    },
+    {
+      "title": "只做基础任务时改用 slim 模式",
+      "text": "如果只需要基础浏览器操作，可在参数里加上 --slim 和 --headless，以精简工具集、无界面方式运行。完整参数（如 --isolated）和 WebSocket 连接方法见 Configuration Guide。",
+      "code": "{\n  \"mcpServers\": {\n    \"chrome-devtools\": {\n      \"command\": \"npx\",\n      \"args\": [\"-y\", \"chrome-devtools-mcp@latest\", \"--slim\", \"--headless\"]\n    }\n  }\n}",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/ChromeDevTools/chrome-devtools-mcp/blob/02c0112cd57e4fa4bac31a1e69d7507601773b14/README.md?plain=1#L68"
+      }
+    },
+    {
+      "title": "按需关闭使用统计上报",
+      "text": "Google 默认收集工具调用成功率、延迟、环境信息等使用统计。不想上报时，在启动参数中加 --no-usage-statistics；设置 CHROME_DEVTOOLS_MCP_NO_USAGE_STATISTICS 或 CI 环境变量也会关闭收集。",
+      "code": "\"args\": [\"-y\", \"chrome-devtools-mcp@latest\", \"--no-usage-statistics\"]",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/ChromeDevTools/chrome-devtools-mcp/blob/02c0112cd57e4fa4bac31a1e69d7507601773b14/README.md?plain=1#L41"
+      }
+    },
+    {
+      "title": "用官方检查提示验证连接",
+      "text": "在 MCP 客户端中输入官方提供的检查提示。如果客户端打开浏览器并录制了性能 trace，说明配置正常。注意：只连上服务器不会启动浏览器，要等调用到需要浏览器的工具时才会启动。遇到问题可查 troubleshooting 指南。",
+      "code": "Check the performance of https://developers.chrome.com",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/ChromeDevTools/chrome-devtools-mcp/blob/02c0112cd57e4fa4bac31a1e69d7507601773b14/README.md?plain=1#L105"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "浏览器里的内容会暴露给 MCP 客户端，客户端可以查看和修改浏览器中的任何数据，不要在这个浏览器实例里处理敏感或个人信息。",
+    "性能工具可能把 trace URL 发送到 Google CrUX API 获取真实用户数据，可用 --no-performance-crux 关闭。",
+    "官方只支持 Google Chrome 和 Chrome for Testing，其他 Chromium 浏览器不保证可用。",
+    "服务器默认会定期检查 npm 更新，可设置 CHROME_DEVTOOLS_MCP_NO_UPDATE_CHECKS 关闭。"
+  ],
+  "references": [],
+  "media": [],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "059a0349daaef6bda98eae6d9384ed349ac94b8033b18be817c317a01b472024",
+  "mediaStatus": "none_in_official_documents"
+}

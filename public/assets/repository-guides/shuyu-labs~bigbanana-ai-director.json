@@ -1,0 +1,91 @@
+{
+  "schemaVersion": 1,
+  "key": "shuyu-labs/bigbanana-ai-director",
+  "status": "ready",
+  "reason": "",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/shuyu-labs/BigBanana-AI-Director/blob/87bc1db714140efcd056111a7e7ef48e754f030a/README.md",
+  "sourceRevision": "87bc1db714140efcd056111a7e7ef48e754f030a",
+  "canonicalKey": "shuyu-labs/BigBanana-AI-Director",
+  "summary": "一个 AI 短剧/漫剧生产工作台，按“剧本 → 一致性资产 → 关键帧 → 成片”的流程，生成并剪辑角色形象保持一致的短剧视频。",
+  "intro": "适合需要角色长期保持一致的连载创作者、网文 IP 改编团队，以及有剧本意识、愿意手动微调分镜和台词的内容工作室。可用于导入小说并自动拆分多集草稿、维护角色/场景/道具资产、生成首尾帧和九宫格分镜、生成视频片段，以及粗剪与导出。文档提供在线版、Docker 自托管和桌面客户端三种方式，本指南采用 Docker 自托管路径。",
+  "requirements": "已安装 Docker 及 docker-compose；需要稳定的网络以调用 AI 模型 API；公开版默认通过 AntSK API 接入模型，需要准备 API Key / Token（文档也提到可以自行改用 OpenAI 或 Google 官方服务）。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "用 docker-compose 启动官方镜像",
+      "text": "克隆仓库并进入目录，执行 docker-compose up -d。首次启动会自动拉取所需的官方镜像，之后在浏览器打开 http://localhost:3005 即可使用。文档同时给出了查看日志和停止服务的命令；更新时使用“更新官方镜像”一节的命令拉取新镜像并重建容器。",
+      "code": "# 1. 获取部署文件\ngit clone https://github.com/shuyu-labs/BigBanana-AI-Director.git\ncd BigBanana-AI-Director\n\n# 2. 启动官方镜像\n# 首次启动时会自动拉取并启动所需官方镜像\ndocker-compose up -d\n\n# 3. 访问应用\n# 浏览器打开 http://localhost:3005\n\n# 查看日志\ndocker-compose logs -f\n\n# 停止服务\ndocker-compose down\n\n# 拉取最新版官方镜像并重建容器\ndocker-compose pull\ndocker-compose up -d --force-recreate",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/shuyu-labs/BigBanana-AI-Director/blob/87bc1db714140efcd056111a7e7ef48e754f030a/README.md?plain=1#L271"
+      }
+    },
+    {
+      "title": "填写模型 API Key",
+      "text": "首次进入时，在新手引导、账号中心或模型配置中填入 AntSK API Key / Token，用于调用文本、图像和视频模型。模型调用按实际用量计费，费用由模型供应商收取。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/shuyu-labs/BigBanana-AI-Director/blob/87bc1db714140efcd056111a7e7ef48e754f030a/README.md?plain=1#L257"
+      }
+    },
+    {
+      "title": "创建项目并搭好季集框架",
+      "text": "在项目中心新建项目，进入项目概览后手动新建季和集，或直接导入整篇小说，由系统自动拆分出多集草稿。接着按需整理角色、场景、道具和世界观资源，后续每一集都可以复用这些统一设定。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/shuyu-labs/BigBanana-AI-Director/blob/87bc1db714140efcd056111a7e7ef48e754f030a/README.md?plain=1#L257"
+      }
+    },
+    {
+      "title": "规划剧本并制作镜头",
+      "text": "在 Phase 01 生成结构化剧本，手动校对角色、动作、台词和提示词。在 Phase 02 补齐角色定妆照以及场景、道具等资产。在 Phase 03 镜头工作台中生成首帧、尾帧和九宫格分镜，再生成视频片段。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/shuyu-labs/BigBanana-AI-Director/blob/87bc1db714140efcd056111a7e7ef48e754f030a/README.md?plain=1#L257"
+      }
+    },
+    {
+      "title": "粗剪导出并备份剧集",
+      "text": "在 Phase 04 成片交付中预览时间线、调整镜头顺序并裁剪，然后导出母版视频、片段压缩包或源素材，也可以导出剧集数据作为备份。如果生成质量不稳定，可以到提示词管理页集中修改提示词，或回滚到旧版本。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/shuyu-labs/BigBanana-AI-Director/blob/87bc1db714140efcd056111a7e7ef48e754f030a/README.md?plain=1#L257"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "README 声明项目代码采用 CC BY-NC-SA 4.0，商业使用需另行获得授权；生成内容能否商用，还要遵守所用模型供应商的服务条款。",
+    "后续版本只通过官方 Docker 镜像发布，公开仓库不再同步源码，仅保留说明文档、docker-compose.yaml 和历史参考版本。",
+    "项目数据主要保存在浏览器本地的 IndexedDB 中，更换设备或清理浏览器数据前，请先通过项目或剧集导出功能备份。",
+    "软件本身免费，但 AI 文本、图像、视频模型的调用按用量付费。",
+    "这是需要人工微调的工作流工具，不适合期望一键全自动出片的用户。"
+  ],
+  "references": [],
+  "media": [
+    {
+      "url": "/assets/repository-guides/media-c58f03f492a8e304489eadde.webp",
+      "alt": "导演工作台",
+      "sourceUrl": "https://github.com/shuyu-labs/BigBanana-AI-Director/blob/87bc1db714140efcd056111a7e7ef48e754f030a/README.md?plain=1#L96",
+      "originalUrl": "https://raw.githubusercontent.com/shuyu-labs/BigBanana-AI-Director/87bc1db714140efcd056111a7e7ef48e754f030a/images/%E5%AF%BC%E6%BC%94%E5%B7%A5%E4%BD%9C%E5%8F%B0.png"
+    },
+    {
+      "url": "/assets/repository-guides/media-4ce7737ba51cce2e17a8bc6a.webp",
+      "alt": "镜头九宫格",
+      "sourceUrl": "https://github.com/shuyu-labs/BigBanana-AI-Director/blob/87bc1db714140efcd056111a7e7ef48e754f030a/README.md?plain=1#L97",
+      "originalUrl": "https://raw.githubusercontent.com/shuyu-labs/BigBanana-AI-Director/87bc1db714140efcd056111a7e7ef48e754f030a/images/%E9%95%9C%E5%A4%B4%E4%B9%9D%E5%AE%AB%E6%A0%BC.png"
+    },
+    {
+      "url": "/assets/repository-guides/media-dff5053d3ed761916f7f037f.webp",
+      "alt": "成片导出",
+      "sourceUrl": "https://github.com/shuyu-labs/BigBanana-AI-Director/blob/87bc1db714140efcd056111a7e7ef48e754f030a/README.md?plain=1#L103",
+      "originalUrl": "https://raw.githubusercontent.com/shuyu-labs/BigBanana-AI-Director/87bc1db714140efcd056111a7e7ef48e754f030a/images/%E6%88%90%E7%89%87%E5%AF%BC%E5%87%BA.png"
+    }
+  ],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "82f147043609b9373f25ed14399b6f214d7220bbef467331e2c25991734c85d2",
+  "mediaStatus": "archived",
+  "mediaFailures": []
+}

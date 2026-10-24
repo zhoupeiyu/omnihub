@@ -1,0 +1,59 @@
+{
+  "schemaVersion": 1,
+  "key": "iebb/mithka",
+  "status": "ready",
+  "reason": "",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/iebb/mithka/blob/fdbafb122778f6a0ba19adb36fd682f1526d9230/README.md",
+  "sourceRevision": "fdbafb122778f6a0ba19adb36fd682f1526d9230",
+  "canonicalKey": "iebb/mithka",
+  "summary": "Mithka 是基于 Flutter 和 TDLib 的非官方跨平台 Telegram 客户端，可在 Android、iOS、Windows、macOS 和 Linux 上登录真实的 Telegram 账号收发消息。",
+  "intro": "适合想换一个 Telegram 界面体验的用户。客户端支持聊天列表与会话、表情回应、动画贴纸、语音消息、投票、清单、社群、位置共享、动态和一对一通话界面。Android 用户可从 Google Play 安装，iOS 用户可从 App Store 或 TestFlight 安装，桌面用户从 GitHub Releases 下载。开发者也可以自备 Telegram API 凭据从源码构建。本指南以 Windows 稳定版安装为例。",
+  "requirements": "Windows x64 或 arm64 设备，以及一个 Telegram 账号。安装程序按当前用户安装，不需要管理员权限。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "下载 Windows 稳定版安装包",
+      "text": "打开仓库可用版本表中的「Latest GitHub release」页面，下载与本机架构（x64 或 arm64）对应的 setup.exe 安装程序。如果不想安装，也可以下载同一页面的便携 ZIP。想提前试用新功能的话，可以改选 GitHub 预发布版。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/iebb/mithka/blob/fdbafb122778f6a0ba19adb36fd682f1526d9230/README.md?plain=1#L32"
+      }
+    },
+    {
+      "title": "运行 setup.exe 完成安装",
+      "text": "运行 setup.exe。安装按当前用户进行，不需要管理员权限。安装程序会创建开始菜单快捷方式，可以选择是否创建桌面快捷方式，并在「已安装的应用」中注册 Mithka，之后可以从开始菜单启动。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/iebb/mithka/blob/fdbafb122778f6a0ba19adb36fd682f1526d9230/README.md?plain=1#L32"
+      }
+    },
+    {
+      "title": "在应用内检查并安装更新",
+      "text": "进入「设置 → 关于 → 检查更新」。应用会下载对应架构的发布包，用 GitHub 发布的 SHA-256 校验文件，替换安装后重新启动。更新源固定为 GitHub 最新正式版。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/iebb/mithka/blob/fdbafb122778f6a0ba19adb36fd682f1526d9230/README.md?plain=1#L32"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "Mithka 是独立的非官方客户端，与 Telegram、腾讯和 QQ 均无关联。使用风险由用户自行承担，并需遵守 Telegram 服务条款和 API 条款。",
+    "从源码构建时，需要在 my.telegram.org 自行申请 api_id 和 api_hash 并写入 lib/config/secrets.dart，还要用脚本下载预编译的 TDLib 库。",
+    "由包管理器、Flatpak 或 Snap 管理的安装不会被应用自动替换，检查更新时会跳转到发布页面。",
+    "Linux AppImage 只在 Ubuntu 24.04 上验证过启动，不保证支持更早的发行版。",
+    "README 中的设备图是基于布局制作的示意图，并非真实截图。"
+  ],
+  "references": [
+    {
+      "label": "README.zh-CN.md",
+      "url": "https://github.com/iebb/mithka/blob/fdbafb122778f6a0ba19adb36fd682f1526d9230/README.zh-CN.md"
+    }
+  ],
+  "media": [],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "8bccb0b3a1604262ff4e074675bd2a53396ec9413a6fbdb777e3fd5eb2d9e41e",
+  "mediaStatus": "none_in_official_documents"
+}

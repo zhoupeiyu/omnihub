@@ -1,0 +1,74 @@
+{
+  "schemaVersion": 1,
+  "key": "pbakaus/impeccable",
+  "status": "ready",
+  "reason": "",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/pbakaus/impeccable/blob/c74755d920985f7a92cef691ca970ba95f90126e/README.md",
+  "sourceRevision": "c74755d920985f7a92cef691ca970ba95f90126e",
+  "canonicalKey": "pbakaus/impeccable",
+  "summary": "一个给 AI 编程代理使用的前端设计技能，通过单个 /impeccable 技能提供 24 个设计命令和确定性检测规则，用于改进 AI 生成的界面设计。",
+  "intro": "适合使用 Claude Code、Cursor、Codex、GitHub Copilot、Gemini CLI 等 AI 编程工具做前端开发的开发者。它在项目中记录产品背景（PRODUCT.md），并提供 audit、critique、polish、harden 等命令，对页面进行设计评审、技术质量检查与收尾打磨；在部分宿主上还会安装编辑钩子，对 UI 文件改动自动运行设计检测。",
+  "requirements": "在项目根目录使用推荐的 CLI 安装方式需要 Node（npx）；需已安装受支持的 AI 编程工具（如 Claude Code、Cursor、Codex 等）。技能本身附带启动器，首次运行时可能下载引擎二进制到 ~/.impeccable/bin/。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "在项目根目录运行 CLI 安装器",
+      "text": "以官方推荐的 CLI 安装方式为例：在项目根目录运行 npx impeccable install。安装器会列出检测到的宿主（如 ~/.claude、项目内 .cursor），让你确认要安装的工具，并选择安装到当前项目或全局，完成后重新加载宿主工具。",
+      "code": "npx impeccable install",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/pbakaus/impeccable/blob/c74755d920985f7a92cef691ca970ba95f90126e/README.md?plain=1#L1"
+      }
+    },
+    {
+      "title": "在 AI 工具中运行初始化命令",
+      "text": "在 AI 编程工具里运行 /impeccable init。它会检查项目，只就缺失的关键产品信息提问，并写入 PRODUCT.md，记录受众、用途、约束和语气等长期信息；视觉方向会在之后针对具体页面再确定。",
+      "code": "/impeccable init",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/pbakaus/impeccable/blob/c74755d920985f7a92cef691ca970ba95f90126e/README.md?plain=1#L20"
+      }
+    },
+    {
+      "title": "按场景调用设计命令",
+      "text": "所有命令都通过 /impeccable <command> <target> 调用，例如对 blog 页面运行 audit 做技术质量检查，对 landing 运行 critique 做 UX 评审，对 settings 运行 polish 做上线前收尾。单独输入 /impeccable 可查看完整命令列表。",
+      "code": "/impeccable <command> <target>\n\n/impeccable audit blog           # Audit blog hub + post pages\n/impeccable critique landing     # UX design review\n/impeccable polish settings      # Final pass before shipping\n/impeccable harden checkout      # Add error handling + edge cases\n\n/impeccable redo this hero section",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/pbakaus/impeccable/blob/c74755d920985f7a92cef691ca970ba95f90126e/README.md?plain=1#L36"
+      }
+    },
+    {
+      "title": "为常用命令固定快捷方式",
+      "text": "如果经常使用某个命令，可运行 /impeccable pin audit 生成独立的 /audit 快捷命令。Codex 用户需通过 /skills 或输入 $impeccable 调用，新安装的技能未出现时请重启工具。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/pbakaus/impeccable/blob/c74755d920985f7a92cef691ca970ba95f90126e/README.md?plain=1#L36"
+      }
+    },
+    {
+      "title": "后续用 update 刷新安装",
+      "text": "需要升级已有安装时，在项目根目录运行 npx impeccable update。Codex 用户在安装或更新后需打开 /hooks 并批准项目钩子；Grok Build 用户需先信任项目文件夹后钩子脚本才会运行。",
+      "code": "npx impeccable update",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/pbakaus/impeccable/blob/c74755d920985f7a92cef691ca970ba95f90126e/README.md?plain=1#L101"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "在 Claude Code 中，已安装的命令钩子独立于模型工具审批运行，首次编辑或 Stop 事件可能下载并缓存引擎；无人值守运行前应检查已安装的钩子。",
+    "Live 模式仅适用于本地开发服务器或本地静态 HTML，不支持注入到已部署的生产站点，也不应为此关闭浏览器安全或放宽生产 CSP。",
+    "应用文案编辑时会以当前用户权限在 shell 中执行 package.json 中可选的 impeccable:manual-edit-validate 脚本，仅在可信项目中使用 Live 模式。",
+    "运行命令会在 .impeccable/ 下生成截图、缓存和本地配置，需按官方说明配置 .gitignore，同时保留 config.json、design.json 等共享文件。",
+    "Codex 每次更新改变 .codex/hooks.json 后可能需要重新批准钩子；Hermes 项目级安装需运行 hermes skills trust，且不安装设计钩子。"
+  ],
+  "references": [],
+  "media": [],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "4dfa2740321ca339244080e37f44721ea5d9cd3e15513d13cb1ac57beff7e29f",
+  "mediaStatus": "none_in_official_documents"
+}

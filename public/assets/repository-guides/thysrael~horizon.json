@@ -1,0 +1,100 @@
+{
+  "schemaVersion": 1,
+  "key": "thysrael/horizon",
+  "status": "ready",
+  "reason": "",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/Thysrael/Horizon/blob/74a70a29ac45ae9ce6d6f82c465452a157aa7a46/README.md",
+  "sourceRevision": "74a70a29ac45ae9ce6d6f82c465452a157aa7a46",
+  "canonicalKey": "Thysrael/Horizon",
+  "summary": "Horizon 从 RSS、Hacker News、Reddit 等多个信息源抓取内容，用 AI 按 Profile 评分、筛选、去重并补充背景，生成中英双语新闻日报。",
+  "intro": "适合信息源分散、想按自己兴趣自动筛选新闻和技术文章的个人用户或团队。可以按 Profile 为技术新闻、工程长文等不同内容设置评分规则和输出区块，限制日报总条数和各类别份额。生成的日报保存为 Markdown，也可以发布到 GitHub Pages，或通过邮件、Webhook、微信推送。",
+  "requirements": "需要 git 和 uv（也可用 pip 以 pip install -e . 安装）；需要一个 AI 服务商的 API Key，文档示例为 OpenAI（OPENAI_API_KEY）或 Gemini（GOOGLE_API_KEY）。可选的 OpenBB 金融新闻源需要额外安装 openbb extra；twitter extra 还需要 Playwright 浏览器和相应系统包。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "克隆仓库并用 uv 安装依赖",
+      "text": "本指南采用官方的本地安装路径（方式 A）。克隆 Horizon 仓库后在项目目录执行 uv sync 安装基础依赖，基础安装已包含 trafilatura 全文提取。需要 pytest 等开发依赖时使用 uv sync --extra dev；需要 OpenBB 金融新闻源时再安装 openbb extra。",
+      "code": "git clone https://github.com/Thysrael/Horizon.git\ncd Horizon\n\n# Install with uv (recommended)\nuv sync\n\n# Install test/development extras when needed\nuv sync --extra dev\n\n# Or with pip\npip install -e .",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/Thysrael/Horizon/blob/74a70a29ac45ae9ce6d6f82c465452a157aa7a46/README.md?plain=1#L115"
+      }
+    },
+    {
+      "title": "运行交互式向导生成配置",
+      "text": "执行 horizon-wizard 向导。它会询问你关注的方向，例如“LLM 推理”“嵌入式”“web 安全”，然后推荐信息源并自动生成 data/config.json。不想用向导时，也可以复制 data/config.example.json 手动编辑，信息源、Profile 和阈值的写法见配置指南。",
+      "code": "uv run horizon-wizard",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/Thysrael/Horizon/blob/74a70a29ac45ae9ce6d6f82c465452a157aa7a46/README.md?plain=1#L159"
+      }
+    },
+    {
+      "title": "在 .env 中填写 AI API 密钥",
+      "text": "config.json 中的 api_key_env 只填写环境变量名，不能直接填密钥。把真实密钥写进项目根目录的 .env 文件，OpenAI 使用 OPENAI_API_KEY，Gemini 使用 GOOGLE_API_KEY。配置中的任意字符串都可以用 ${VAR_NAME} 引用环境变量，例如私有 RSS 地址或 Webhook 地址。",
+      "code": "OPENAI_API_KEY=sk-your-key\n\n{\n  \"ai\": {\n    \"provider\": \"gemini\",\n    \"model\": \"gemini-2.0-flash\",\n    \"api_key_env\": \"GOOGLE_API_KEY\"\n  }\n}",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/Thysrael/Horizon/blob/74a70a29ac45ae9ce6d6f82c465452a157aa7a46/README.md?plain=1#L159"
+      }
+    },
+    {
+      "title": "运行 horizon 生成当天日报",
+      "text": "执行 uv run horizon 跑完整流程。--hours 控制抓取最近多少小时的内容（默认 24），-d 改变数据目录，-c 指定配置文件，-l 设置日志级别。日报默认保存到 data/summaries/，设置了 --data-dir 时保存到该目录下的 summaries/。",
+      "code": "uv run horizon [OPTIONS]",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/Thysrael/Horizon/blob/74a70a29ac45ae9ce6d6f82c465452a157aa7a46/README.md?plain=1#L267"
+      }
+    },
+    {
+      "title": "可选：用 GitHub Actions 定时运行",
+      "text": "仓库提供一个已禁用的每日工作流模板 .github/workflows/daily-summary.yml.disabled。按你的部署情况配置好后，把文件重命名为 daily-summary.yml 即可启用定时运行。发布到 Pages、邮件、Webhook 和微信推送的设置见 docs/configuration.md。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/Thysrael/Horizon/blob/74a70a29ac45ae9ce6d6f82c465452a157aa7a46/README.md?plain=1#L290"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "运行需要调用你自己的 AI 服务商 API，费用由所选服务商和模型决定。",
+    ".env 中保存真实 API 密钥，config.json 只写变量名，避免把密钥提交到仓库。",
+    "twitter extra 需要 Playwright 浏览器和系统包，当前 Dockerfile 没有安装这些；X 源通过 Apify 抓取。",
+    "OpenBB 依赖在部分机器上可能缺少 wheel，官方建议这种情况下改为只安装二进制包。",
+    "微信推送需要通过 iLink Bot 扫码登录并先发一条消息，并受微信回复次数限制。",
+    "项目尚未发布到 PyPI，目前只能从源码安装。"
+  ],
+  "references": [
+    {
+      "label": "README_zh.md",
+      "url": "https://github.com/Thysrael/Horizon/blob/74a70a29ac45ae9ce6d6f82c465452a157aa7a46/README_zh.md"
+    }
+  ],
+  "media": [
+    {
+      "url": "/assets/repository-guides/media-fb1c50f67d792b4d1af646b5.webp",
+      "alt": "日报总览",
+      "sourceUrl": "https://github.com/Thysrael/Horizon/blob/74a70a29ac45ae9ce6d6f82c465452a157aa7a46/README_zh.md?plain=1#L41",
+      "originalUrl": "https://raw.githubusercontent.com/Thysrael/Horizon/74a70a29ac45ae9ce6d6f82c465452a157aa7a46/docs/assets/overview_zh.png"
+    },
+    {
+      "url": "/assets/repository-guides/media-d321aaa3b793655ebbe568d8.webp",
+      "alt": "新闻详情",
+      "sourceUrl": "https://github.com/Thysrael/Horizon/blob/74a70a29ac45ae9ce6d6f82c465452a157aa7a46/README_zh.md?plain=1#L45",
+      "originalUrl": "https://raw.githubusercontent.com/Thysrael/Horizon/74a70a29ac45ae9ce6d6f82c465452a157aa7a46/docs/assets/one_news_zh.png"
+    },
+    {
+      "url": "/assets/repository-guides/media-c52ceee3fe2a0b484344d4db.webp",
+      "alt": "Thysrael/Horizon 官方演示 3",
+      "sourceUrl": "https://github.com/Thysrael/Horizon/blob/74a70a29ac45ae9ce6d6f82c465452a157aa7a46/README.md?plain=1#L56",
+      "originalUrl": "https://raw.githubusercontent.com/Thysrael/Horizon/74a70a29ac45ae9ce6d6f82c465452a157aa7a46/docs/assets/terminal_log.png"
+    }
+  ],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "4cf4af2a53cb02f9f28ebd117fb6e36adc656b50de33da00a5b5918d58c61d16",
+  "mediaStatus": "archived",
+  "mediaFailures": []
+}

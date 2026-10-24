@@ -1,0 +1,44 @@
+{
+  "schemaVersion": 1,
+  "key": "stephenturner/skills",
+  "status": "partial",
+  "reason": "README 没有列出仓库里包含哪些技能，也没有说明各技能的用途和触发方式，只在打包示例中出现了 deslop 这个目录名。Claude Code 安装示例里的 git clone 地址是 john@gmail.com:stephenturner/skills.git，不是常规的 GitHub 克隆地址，无法直接照用。Claude.ai / Claude Desktop 部分只写了“添加到 Claude”，缺少具体的上传操作说明。",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/stephenturner/skills/blob/48287d806e61534bc14939b55b72c3f3f11a7db5/README.md",
+  "sourceRevision": "48287d806e61534bc14939b55b72c3f3f11a7db5",
+  "canonicalKey": "stephenturner/skills",
+  "summary": "这是作者个人使用的 Claude 技能（skills）集合，可以放进 Claude Code 的技能目录中使用。",
+  "intro": "适合想参考或复用他人 Claude skills 的 Claude Code 用户。仓库按目录组织技能，例如 deslop。README 给出了两种宿主的放置方式：Claude Code 放在 ~/.claude/skills；Claude.ai / Claude Desktop 则先把单个技能目录打包成 .skill 文件再添加。下文按 Claude Code 路径整理。",
+  "requirements": "需要已安装 Claude Code，并能访问 ~/.claude 目录。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "浏览仓库并挑选需要的技能",
+      "text": "仓库中的每个技能是一个独立目录，例如 deslop。README 没有给出技能清单和用途说明，使用前需要自己打开各目录，阅读其中的文件，判断是否适合。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/stephenturner/skills/blob/48287d806e61534bc14939b55b72c3f3f11a7db5/README.md?plain=1#L1"
+      }
+    },
+    {
+      "title": "把技能放到 ~/.claude/skills",
+      "text": "在 Claude Code 中，这些技能应位于 ~/.claude/skills 目录下。README 的做法是进入 ~/.claude 后克隆本仓库，使仓库目录成为 skills。但示例里的克隆地址格式异常，需要自行换成本仓库在 GitHub 上的有效地址。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/stephenturner/skills/blob/48287d806e61534bc14939b55b72c3f3f11a7db5/README.md?plain=1#L5"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "这是作者的个人技能集合，README 没有说明各技能的用途、适用范围或维护情况。",
+    "README 中的 git clone 地址不是标准的 GitHub 地址，请勿原样执行。",
+    "如果 ~/.claude/skills 已经存在，克隆前请先检查，避免覆盖或冲突。"
+  ],
+  "references": [],
+  "media": [],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "cdbc7cac3727170562348cce21e790a0eea88446c2a42b7d9b12a917f9561ce4",
+  "mediaStatus": "none_in_official_documents"
+}

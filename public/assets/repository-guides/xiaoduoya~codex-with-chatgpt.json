@@ -1,0 +1,78 @@
+{
+  "schemaVersion": 1,
+  "key": "xiaoduoya/codex-with-chatgpt",
+  "status": "ready",
+  "reason": "",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/XiaoDuoYa/codex-with-chatgpt/blob/9663b88753e35c76796c5bce000293e0bd22cd9e/README.md",
+  "sourceRevision": "9663b88753e35c76796c5bce000293e0bd22cd9e",
+  "canonicalKey": "XiaoDuoYa/codex-with-chatgpt",
+  "summary": "让 ChatGPT 网页版通过只读 MCP 连接读取本地工作区并负责规划与审查，Codex 负责实际编码执行的 Codex Skill 与桥接工具。",
+  "intro": "适合已经在用 Codex 编码、同时有 ChatGPT 付费订阅的开发者。用途是把规划和 Review 交给 ChatGPT 网页版，减少 Codex 自身额度的消耗。ChatGPT 通过 OAuth 保护的只读 MCP 工具按需读取文件、git diff 和测试记录，不上传整个仓库；执行、修改和测试仍全部由 Codex 完成。",
+  "requirements": "已安装并可用的 Codex；ChatGPT 网页版账号（项目定位为利用已付费的 Plus/Pro 订阅额度）；git 与 Node.js >= 20；公网连接需要 cloudflared（Skill 可自动安装）。如需固定域名，还要有 Cloudflare 账号以及已托管在 Cloudflare 上的域名。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "把一段话安装提示发给 Codex",
+      "text": "复制 README.zh-CN.md 中「一段话安装」的整段提示，原样发给 Codex。提示会让 Codex 检查 git 和 Node.js、克隆并构建仓库、把 skill/SKILL.md 安装到 ~/.codex/skills/codex-with-chatgpt/，再执行首次配置。缺少的依赖在 macOS 上用 Homebrew 安装，在 Windows 上用 winget 安装。",
+      "code": "请帮我完整安装并配置 Codex with ChatGPT，全程自动，我是不懂技术的小白，\n所有事情你自己做：\n\n1. 环境自检：需要 git 和 Node.js ≥ 20，缺什么就自动安装\n  （macOS 用 Homebrew，Windows 用 winget），同时安装 cloudflared。\n2. 下载：把 https://github.com/XiaoDuoYa/codex-with-chatgpt 克隆到\n   ~/codex-with-chatgpt（已存在就 git pull 更新）。\n3. 构建：在该目录里执行 corepack pnpm install 和 corepack pnpm build。\n4. 安装 Skill：把仓库里的 skill/SKILL.md 复制到\n   ~/.codex/skills/codex-with-chatgpt/SKILL.md，并把文件中\n   \"The codex-with-chatgpt checkout lives at:\" 那一行的路径改成实际克隆路径。\n5. 首次配置：按 SKILL.md 里的 first-time setup 流程执行\n  （运行 c2c setup，用内置浏览器打开 ChatGPT 配置连接器并输入配对码）。\n   全程只用内置浏览器，禁止打开任何第三方浏览器。\n6. 只有遇到需要我登录（ChatGPT / Cloudflare）、验证码或两步验证时才叫我，\n   而且一次只告诉我一个动作。\n7. 完成后给我看 ✓ 清单，并确认文件读取测试通过。我不懂 MCP、OAuth、\n   Tunnel、端口这些词，不要向我解释；出了问题先自己修。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/XiaoDuoYa/codex-with-chatgpt/blob/9663b88753e35c76796c5bce000293e0bd22cd9e/README.zh-CN.md?plain=1#L19"
+      }
+    },
+    {
+      "title": "按提示登录并创建 ChatGPT 项目",
+      "text": "配置过程中只有少数操作需要你自己完成：登录 ChatGPT，以及在内置浏览器中完成连接器配置。新仓库还需要在 ChatGPT 里建一个项目（合集），名称用仓库名，记忆选择「仅限项目记忆」。如果侧栏没有「项目」，把鼠标移到「聊天」上，点右侧三个点，选「按项目整理」。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/XiaoDuoYa/codex-with-chatgpt/blob/9663b88753e35c76796c5bce000293e0bd22cd9e/README.zh-CN.md?plain=1#L48"
+      }
+    },
+    {
+      "title": "确认配置清单显示 Ready",
+      "text": "配置完成后，Codex 会显示一份 ✓ 清单，依次确认项目已识别、Workspace Bridge 已启动、安全连接已建立、ChatGPT 已连接、文件读取测试通过。清单全部打勾并显示 Ready 后，即可开始使用。",
+      "code": "Codex with ChatGPT\n\n✓ 当前项目已识别\n✓ Workspace Bridge 已启动\n✓ 安全连接已建立\n✓ ChatGPT 已连接\n✓ 文件读取测试通过\n\nReady.",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/XiaoDuoYa/codex-with-chatgpt/blob/9663b88753e35c76796c5bce000293e0bd22cd9e/README.zh-CN.md?plain=1#L48"
+      }
+    },
+    {
+      "title": "可选：配置固定域名",
+      "text": "默认使用的是临时 Cloudflare 地址，桥重启后地址会变，Codex 需要删除并重新添加连接器。如果你有 Cloudflare 账号，并且域名已托管在 Cloudflare 上，可以在首次配置被询问时选择使用固定域名，在浏览器里授权一次即可。跳过这一步也能正常使用，只是地址变化后修复会慢一些。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/XiaoDuoYa/codex-with-chatgpt/blob/9663b88753e35c76796c5bce000293e0bd22cd9e/README.zh-CN.md?plain=1#L71"
+      }
+    },
+    {
+      "title": "用自然语言让两者协作完成任务",
+      "text": "之后对 Codex 说「使用 Codex with ChatGPT，帮我实现 XXX」。两边通过 INIT → PLAN → EXECUTED → REVIEW → DONE 的状态消息协作：ChatGPT 负责规划，Codex 负责执行，最后由 ChatGPT 通过 MCP 检查真实的 git diff 和测试记录完成审查。遇到问题时，先说「更新 Codex with ChatGPT」再重试。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/XiaoDuoYa/codex-with-chatgpt/blob/9663b88753e35c76796c5bce000293e0bd22cd9e/README.zh-CN.md?plain=1#L48"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "这是非官方社区项目，与 OpenAI 无关联，也未获 OpenAI 背书。",
+    "一段话安装会让 Codex 自动安装软件（Homebrew/winget、cloudflared）并克隆、构建仓库，执行前请确认你接受这些操作。",
+    "工作区会通过 Cloudflare 隧道暴露一个公网 MCP 端点。该端点需要 OAuth 2.1 认证，且只提供只读工具；.env*、密钥、SSH 等敏感文件默认拒绝读取，你也可以用 .c2cignore 追加排除规则。",
+    "Skill 每天会自动检查 GitHub 并自我更新。",
+    "如果所在网络拦截 QUIC，需要设置 C2C_TUNNEL_PROTOCOL=http2 后重启 Bridge。",
+    "已有单条长对话的旧工作区默认继续沿用原方式，需要你主动要求才会切换为 Project 模式。"
+  ],
+  "references": [
+    {
+      "label": "README.zh-CN.md",
+      "url": "https://github.com/XiaoDuoYa/codex-with-chatgpt/blob/9663b88753e35c76796c5bce000293e0bd22cd9e/README.zh-CN.md"
+    }
+  ],
+  "media": [],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "15d393a397cd2675dc8cd90c0fed38744e4d34f0c684c706dbbcbc1217c2e563",
+  "mediaStatus": "none_in_official_documents"
+}

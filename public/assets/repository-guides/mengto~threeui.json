@@ -1,0 +1,72 @@
+{
+  "schemaVersion": 1,
+  "key": "mengto/threeui",
+  "status": "ready",
+  "reason": "",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/MengTo/threeui/blob/68802d5428071ada5c20db8094b1649e6bb770ed/README.md",
+  "sourceRevision": "68802d5428071ada5c20db8094b1649e6bb770ed",
+  "canonicalKey": "MengTo/threeui",
+  "summary": "ThreeUI Community 是免登录的开源 React 交互组件库与在线目录，可通过 npm 包 @designcodeio/threeui 接入社区版组件。",
+  "intro": "适合在 React 项目中使用现成交互视觉组件的前端开发者，也适合想在本地浏览社区版组件目录、查看变体、控件和源码的开发者。仓库包含 50 个社区父组件、全部免费变体，以及完整的社区实现源码和所需资源；Pro 与 Beta 组件不包含在内。",
+  "requirements": "需要可使用 npm 的 React 项目。如果要在本地运行目录站点，需要克隆本仓库并具备 npm 环境。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "通过 npm 安装社区组件包",
+      "text": "在你的 React 项目根目录执行 npm install @designcodeio/threeui，安装公开的 Community 组件库。该包只包含社区版组件，不含 Pro 和 Beta 实现。",
+      "code": "npm install @designcodeio/threeui",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/MengTo/threeui/blob/68802d5428071ada5c20db8094b1649e6bb770ed/README.md?plain=1#L47"
+      }
+    },
+    {
+      "title": "导入组件与共享样式文件",
+      "text": "从 @designcodeio/threeui 导入所需组件，例如 AtTheHorizon，同时导入 @designcodeio/threeui/style.css 共享样式，然后在页面组件中直接渲染。如果希望开发时的导入图尽量小，可以改用 components 子路径单独导入某个组件。",
+      "code": "import { AtTheHorizon } from \"@designcodeio/threeui\";\nimport \"@designcodeio/threeui/style.css\";\n\nexport function Hero() {\n  return <AtTheHorizon />;\n}\n\nimport { AtTheHorizon } from \"@designcodeio/threeui/components/AtTheHorizon\";",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/MengTo/threeui/blob/68802d5428071ada5c20db8094b1649e6bb770ed/README.md?plain=1#L47"
+      }
+    },
+    {
+      "title": "复制组件需要的运行时资源",
+      "text": "部分组件会渲染完整的 HTML 文档，需要在与 ThreeUI 预览相同的根相对 URL 下找到运行时文件。可以从 node_modules/@designcodeio/threeui/lib-dist/assets/ 复制所需文件到应用的 public 目录；组件支持时，也可以改用 sourceUrl 或 assetBaseUrl 属性指定位置。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/MengTo/threeui/blob/68802d5428071ada5c20db8094b1649e6bb770ed/README.md?plain=1#L47"
+      }
+    },
+    {
+      "title": "在本地运行组件目录站点",
+      "text": "如果想浏览全部社区组件、变体、控件和源码标签页，可以在本仓库目录下执行 npm install 与 npm run dev 启动目录站点。需要做发布边界、类型和生产构建检查时，执行 npm run build。",
+      "code": "npm install\nnpm run dev\n\nnpm run build",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/MengTo/threeui/blob/68802d5428071ada5c20db8094b1649e6bb770ed/README.md?plain=1#L34"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "社区版不包含 Pro 和 Beta 组件；Pro 源码不发布到 npm，只有有效 Pro 会员能通过 @designcodeio/threeui-cli 登录后下载。",
+    "目录内的 Get Pro 链接指向付费页面 https://threeui.com/pricing。",
+    "应用和社区组件代码为 MIT 许可，但随附字体沿用 SIL Open Font License 1.1；从 threeui.com 远程加载的缩略图和预览不在本仓库的再分发范围内，具体请查看 ASSET-LICENSES.md、FONT-LICENSES.md 与 THIRD_PARTY_NOTICES.md。",
+    "README 顶部含付费赞助广告位，这部分内容与组件的使用方法无关。"
+  ],
+  "references": [],
+  "media": [
+    {
+      "url": "/assets/repository-guides/media-e146db14f834836426ab04c2.webp",
+      "alt": "MengTo/threeui 官方演示 1",
+      "sourceUrl": "https://github.com/MengTo/threeui/blob/68802d5428071ada5c20db8094b1649e6bb770ed/README.md?plain=1#L11",
+      "originalUrl": "https://raw.githubusercontent.com/MengTo/threeui/68802d5428071ada5c20db8094b1649e6bb770ed/assets/preview.jpg"
+    }
+  ],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "dfbad6f2a996638c641220699bbcdfebed02d05906b3a0e9e3bdea23ca74f2d3",
+  "mediaStatus": "archived",
+  "mediaFailures": []
+}

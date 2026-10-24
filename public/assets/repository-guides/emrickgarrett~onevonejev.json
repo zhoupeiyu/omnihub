@@ -1,0 +1,64 @@
+{
+  "schemaVersion": 1,
+  "key": "emrickgarrett/onevonejev",
+  "status": "ready",
+  "reason": "",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/emrickgarrett/OneVOneJev/blob/365b339d04446836352687b3650762106ea37f17/README.md",
+  "sourceRevision": "365b339d04446836352687b3650762106ea37f17",
+  "canonicalKey": "emrickgarrett/OneVOneJev",
+  "summary": "一个浏览器 1v1 狙击 FPS 游戏，玩家排队与 TypeSafe 的 Jev AI 对战，先拿到 5 杀者获胜，其他人可以观战和聊天。",
+  "intro": "适合想在本地运行或研究“由 LLM 控制游戏对手”的开发者。客户端使用 Vite + Three.js + TypeScript，服务端使用 Node.js + ws，以 60 Hz 运行权威模拟。AI 通过 @typesafe-ai/sdk 决策，不可用时会退回到启发式逻辑。下面以本地开发为入门路径。",
+  "requirements": "Node.js 与 npm；一个 TypeSafe API key（TYPESAFE_API_KEY）。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "安装依赖并写入 API key",
+      "text": "在仓库根目录执行 `npm install`，再把 `.env.example` 复制为 `.env`，并在其中填写 `TYPESAFE_API_KEY=...`。API key 只保存在服务端。",
+      "code": "npm install\ncp .env.example .env\n# Put your key in .env:\n# TYPESAFE_API_KEY=...\nnpm run dev",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/emrickgarrett/OneVOneJev/blob/365b339d04446836352687b3650762106ea37f17/README.md?plain=1#L11"
+      }
+    },
+    {
+      "title": "启动本地开发服务",
+      "text": "执行 `npm run dev` 启动开发环境。游戏界面地址为 http://localhost:5173，WebSocket 路径 `/ws` 会被代理到 localhost:3001 上的游戏服务器。",
+      "code": "npm install\ncp .env.example .env\n# Put your key in .env:\n# TYPESAFE_API_KEY=...\nnpm run dev",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/emrickgarrett/OneVOneJev/blob/365b339d04446836352687b3650762106ea37f17/README.md?plain=1#L11"
+      }
+    },
+    {
+      "title": "进入大厅排队开始对战",
+      "text": "在浏览器中打开游戏界面并加入队列。每次只有一名玩家对战 Jev，其他人排队或观战，先拿到 5 杀者获胜。操作方式：WASD 移动，鼠标视角，右键开镜，左键开火，空格跳跃，T 聊天。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/emrickgarrett/OneVOneJev/blob/365b339d04446836352687b3650762106ea37f17/README.md?plain=1#L33"
+      }
+    },
+    {
+      "title": "本地验证生产构建",
+      "text": "如果想以单一 Node 服务同时提供页面和 WebSocket，执行 `npm run build` 后再运行 `npm start`，然后打开 http://localhost:3001。端口由 PORT 指定，默认为 3001。",
+      "code": "npm run build\nnpm start\n# open http://localhost:3001",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/emrickgarrett/OneVOneJev/blob/365b339d04446836352687b3650762106ea37f17/README.md?plain=1#L11"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "TypeSafe 的用量随对局时长增加：对局进行中约每秒 9 次 Jev 决策，会产生相应费用。",
+    "TypeSafe 不可达时，服务端会改用确定性启发式逻辑，此时对手不是由 Jev 控制。",
+    "README 说明 Vercel 无法托管本项目（不支持长连接 WebSocket 房间和 60 Hz 模拟），官方推荐用 Railway 部署，且 Root Directory 必须为仓库根目录、启动命令为 `npm start`。",
+    "仓库未声明许可证。"
+  ],
+  "references": [],
+  "media": [],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "754aa76597cf83165cbba51f36b53820ab611429d5656a0836c5701886ab11af",
+  "mediaStatus": "none_in_official_documents"
+}

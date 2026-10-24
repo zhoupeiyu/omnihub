@@ -1,0 +1,69 @@
+{
+  "schemaVersion": 1,
+  "key": "lzright123/yuan",
+  "status": "ready",
+  "reason": "",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/shizhilya/yuan/blob/c417ae71a8690e4c526b5dc4b9c5af1bcb476d3f/README.md",
+  "sourceRevision": "c417ae71a8690e4c526b5dc4b9c5af1bcb476d3f",
+  "canonicalKey": "shizhilya/yuan",
+  "summary": "一个综合命理 Skill，把出生信息统一成一份输入，由 AI 按八字、称骨等六个体系输出结构固定的成品命理解读。",
+  "intro": "适合在 Codex、Claude Code 或兼容 Agent Skills 的运行时中，需要生成命理阅读文本的用户。它以一个总 Skill 组织八字、称骨、数字命理、西方占星、吠陀占星、紫微斗数六个参考体系。输出固定按资料确认、称骨歌诀、结论、事业、财运、感情、五年断事、建议的顺序组织，提供克制、直断和五年窗口三种渲染模式。",
+  "requirements": "需要 Codex、Claude Code 或其他兼容 Agent Skills 的运行时。基础交互默认无需安装依赖。只有需要精确排盘时，才需启用 references/ 下的脚本与依赖，文档未写明具体安装方法。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "将仓库放入 Claude Code 技能目录",
+      "text": "以 Claude Code 为例，把整个 yuan 目录放到项目级的 .claude/skills/yuan/，或用户级的 ~/.claude/skills/yuan/。使用 Codex 时，则放到 .agents/skills/yuan/ 或 $HOME/.agents/skills/yuan/。",
+      "code": ".claude/skills/yuan/\n\n~/.claude/skills/yuan/",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/shizhilya/yuan/blob/c417ae71a8690e4c526b5dc4b9c5af1bcb476d3f/README-CN.md?plain=1#L132"
+      }
+    },
+    {
+      "title": "了解目录结构与六个参考体系",
+      "text": "仓库根目录的 SKILL.md 是入口文件，references/ 下分别存放 bazi、chenggu、numerology、western-astrology、vedic-astrology、ziwei 六个体系的参考资料。",
+      "code": "yuan/\n├── SKILL.md\n├── README.md\n├── README-CN.md\n├── AGENTS.md\n├── agents/\n│   └── openai.yaml\n└── references/\n    ├── bazi/\n    ├── chenggu/\n    ├── numerology/\n    ├── western-astrology/\n    ├── vedic-astrology/\n    └── ziwei/",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/shizhilya/yuan/blob/c417ae71a8690e4c526b5dc4b9c5af1bcb476d3f/README-CN.md?plain=1#L95"
+      }
+    },
+    {
+      "title": "准备统一的出生资料",
+      "text": "按单一输入面的要求，准备出生时间（公历或农历）、出生地、历法、性别和关注主题。Skill 会先把这些信息收敛为统一输入包，再派生到各体系。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/shizhilya/yuan/blob/c417ae71a8690e4c526b5dc4b9c5af1bcb476d3f/README-CN.md?plain=1#L23"
+      }
+    },
+    {
+      "title": "显式或用自然语言调用 yuan",
+      "text": "可以显式要求用 yuan skill 输出某种版本（如直断版），也可以用自然语言附上出生资料，要求直接给出最终结果。无法可靠排盘的体系会被标注为限制，不会编造。",
+      "code": "用 yuan skill 出一份直断版本：包含称骨歌诀、结论、事业、财运、感情、五年断事。\n\n用 yuan skill 算一下，直接给最终结果，不要中间过程。\n姓名：张三\n性别：男\n公历：1992年8月14日21时30分\n农历：1992年七月十六亥时\n出生地：湖北省武汉市",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/shizhilya/yuan/blob/c417ae71a8690e4c526b5dc4b9c5af1bcb476d3f/README-CN.md?plain=1#L148"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "项目自述不把术数当作科学定论，输出属于传统经验性解读，不宜作为决策依据。",
+    "调用时需要提供姓名、出生时间、出生地等个人信息，请留意宿主 AI 服务的数据处理方式。",
+    "精确排盘依赖 references/ 下的可选脚本与依赖，README 未给出安装步骤；缺少这些时，部分体系会被标为 partial 或 blocked。",
+    "仓库未声明许可证。另外，文档链接指向 shizhilya/yuan，与本条目 key 不一致，使用前请确认来源。"
+  ],
+  "references": [
+    {
+      "label": "README-CN.md",
+      "url": "https://github.com/shizhilya/yuan/blob/c417ae71a8690e4c526b5dc4b9c5af1bcb476d3f/README-CN.md"
+    }
+  ],
+  "media": [],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "bc99490f53dafb7ff09f88aac815c06ab7816eaaf6607dabb2009215c33a4fda",
+  "mediaStatus": "none_in_official_documents"
+}

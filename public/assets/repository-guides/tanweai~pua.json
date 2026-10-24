@@ -1,0 +1,97 @@
+{
+  "schemaVersion": 1,
+  "key": "tanweai/pua",
+  "status": "partial",
+  "reason": "提供的资料没有 PUA skill 本体在 Claude Code、Codex CLI、Cursor 等宿主中的具体安装命令或安装步骤。D0C27 只写了“Ensure PUA Skill is installed”。README 中指向的 docs/MODEL-COMPAT-20260909.md 使用说明也没有收录在本次材料里。现有资料只能说明安装后如何手动或自动触发，以及 Claude Code Agent Team 的配置方式。",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/tanweai/pua/blob/e6e6cd237ad17750d179674bff52f8184abea8fd/README.md",
+  "sourceRevision": "e6e6cd237ad17750d179674bff52f8184abea8fd",
+  "canonicalKey": "tanweai/pua",
+  "summary": "这是一个 AI Coding Agent 技能插件。它用大厂绩效话术和一套调试方法论，促使编程智能体先穷尽排查方案再放弃，并主动验证结果。",
+  "intro": "适合已经在 Claude Code、OpenAI Codex CLI、Cursor、Kiro、OpenCode、VSCode (GitHub Copilot) 等宿主中使用编程智能体的开发者。主要用于调试、配置、部署、API 集成等任务：当 AI 重复同一思路、把问题推给用户或未验证就声称完成时，可以手动或自动触发该 skill，让它按“闻味道、揪头发、照镜子、执行、复盘”的步骤系统排查。仓库还提供 14 种大厂风格扩展，以及面向 Claude Code Agent Team 的监工用法。",
+  "requirements": "需要一个 README 列出的受支持宿主，例如 Claude Code 或 OpenAI Codex CLI，并已在其中安装 PUA skill（本次材料未包含安装方法）。如果要使用 Agent Team 用法，需要最新版 Claude Code，并设置环境变量 CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS=1。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "确认宿主支持并完成技能安装",
+      "text": "README 列出的支持宿主包括 Claude Code、OpenAI Codex CLI、pi coding agent、Trae、Cursor、Kiro、CodeBuddy、OpenClaw、Google Antigravity、OpenCode 和 VSCode (GitHub Copilot)。3.5.1 版本提供了 Claude Code / Codex / ChatGPT 独立技能包。具体安装方法请查阅仓库中的 docs/MODEL-COMPAT-20260909.md，本文材料未收录该步骤。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/tanweai/pua/blob/e6e6cd237ad17750d179674bff52f8184abea8fd/README.md?plain=1#L7"
+      }
+    },
+    {
+      "title": "在对话中输入 /pua 手动激活",
+      "text": "安装完成后，如果发现 AI 在同一思路上反复打转，例如反复改格式、猜版本号，可以在对话中输入 /pua 手动激活。README 的 MCP Server 调试案例就是由用户手动触发 /pua，随后进入 L3 并执行 7 项检查清单。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/tanweai/pua/blob/e6e6cd237ad17750d179674bff52f8184abea8fd/README.zh-CN.md?plain=1#L110"
+      }
+    },
+    {
+      "title": "了解自动触发与压力升级规则",
+      "text": "出现以下情况时，skill 会自动激活：连续失败 2 次以上、即将说“我无法解决”、未验证就归咎于环境、跳过验证就声称完成，或用户说“为什么还不行”“再试试”等。首次尝试失败不会触发。失败次数增加后，会从 L1 逐级升到 L4，每级对应切换方案、搜索并读源码、执行 7 项检查清单等强制动作。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/tanweai/pua/blob/e6e6cd237ad17750d179674bff52f8184abea8fd/README.zh-CN.md?plain=1#L78"
+      }
+    },
+    {
+      "title": "在 Claude Code 开启 Agent Team",
+      "text": "如果要在 Claude Code 的多智能体团队中使用，先设置环境变量 CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS=1，也可以写入 ~/.claude/settings.json 的 env 字段。同时要确认 PUA skill 已安装。该功能属于实验性功能，需要最新版 Claude Code。",
+      "code": "# 1. Enable Agent Team\nexport CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS=1\n# Or add to ~/.claude/settings.json:\n# { \"env\": { \"CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS\": \"1\" } }\n\n# 2. Ensure PUA Skill is installed",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/tanweai/pua/blob/e6e6cd237ad17750d179674bff52f8184abea8fd/README.zh-CN.md?plain=1#L513"
+      }
+    },
+    {
+      "title": "在 CLAUDE.md 配置 Leader 自带 PUA",
+      "text": "官方推荐的方式一是在项目 CLAUDE.md 中加入 Agent Team PUA 配置：要求所有 teammate 开工前加载 pua skill，失败 2 次以上时向 Leader 发送 [PUA-REPORT] 汇报，由 Leader 统一管理压力等级。teammate 达到 5 个以上时，README 推荐改用独立的 pua-enforcer 监工。",
+      "code": "# Agent Team PUA 配置\n所有 teammate 开工前必须加载 pua skill。\nteammate 失败 2 次以上时向 Leader 发送 [PUA-REPORT] 格式汇报。\nLeader 负责全局压力等级管理和跨 teammate 失败传递。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/tanweai/pua/blob/e6e6cd237ad17750d179674bff52f8184abea8fd/README.zh-CN.md?plain=1#L528"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "README 自己注明：3.5.1 版本并非所有模型都通过测试，本次测试也不能证明效率翻倍。宣传语中的“效率翻倍”不应视为已验证的结论。",
+    "Agent Team 用法是 Claude Code 的实验性功能，依赖最新版本和 CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS 环境变量，行为可能随版本变化。",
+    "pua-enforcer 的获取方式是用 curl 从 main 分支直接下载 agents/pua-enforcer.md，内容可能随上游更新而变化，写入项目前建议先检查文件内容。",
+    "仓库元数据中 license 字段为空，README 徽章则标注 MIT。如需商用或再分发，请自行核实仓库中的许可证文件。",
+    "该 skill 会让智能体使用职场 PUA、PIP 风格的话术，在团队或对外场景中使用前请评估是否合适。"
+  ],
+  "references": [
+    {
+      "label": "README.zh-CN.md",
+      "url": "https://github.com/tanweai/pua/blob/e6e6cd237ad17750d179674bff52f8184abea8fd/README.zh-CN.md"
+    }
+  ],
+  "media": [
+    {
+      "url": "/assets/repository-guides/media-51dad2df448271f85ffe4f76.webp",
+      "alt": "PUA L3 触发 — 停止猜测，执行系统化检查清单，从 MCP 日志中找到真正的错误信息",
+      "sourceUrl": "https://github.com/tanweai/pua/blob/e6e6cd237ad17750d179674bff52f8184abea8fd/README.zh-CN.md?plain=1#L54",
+      "originalUrl": "https://raw.githubusercontent.com/tanweai/pua/e6e6cd237ad17750d179674bff52f8184abea8fd/assets/pua1.jpg"
+    },
+    {
+      "url": "/assets/repository-guides/media-10338a7747b90e5046c53ff8.webp",
+      "alt": "根因发现 — claude mcp 管理的服务器注册方式和手动编辑 .claude.json 不同",
+      "sourceUrl": "https://github.com/tanweai/pua/blob/e6e6cd237ad17750d179674bff52f8184abea8fd/README.zh-CN.md?plain=1#L58",
+      "originalUrl": "https://raw.githubusercontent.com/tanweai/pua/e6e6cd237ad17750d179674bff52f8184abea8fd/assets/pua2.jpg"
+    },
+    {
+      "url": "/assets/repository-guides/media-959056805591d70fc3d1609a.webp",
+      "alt": "对话复盘 — PUA skill 强制停止原地打转，系统化检查清单驱动找到了之前从未检查过的 Claude Code MCP 日志目录",
+      "sourceUrl": "https://github.com/tanweai/pua/blob/e6e6cd237ad17750d179674bff52f8184abea8fd/README.zh-CN.md?plain=1#L62",
+      "originalUrl": "https://raw.githubusercontent.com/tanweai/pua/e6e6cd237ad17750d179674bff52f8184abea8fd/assets/pua3.jpg"
+    }
+  ],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "eadc133a7f75c80eb125ba9cb94d2b05347c65f20bce6a717edae14bf48e5e25",
+  "mediaStatus": "archived",
+  "mediaFailures": []
+}

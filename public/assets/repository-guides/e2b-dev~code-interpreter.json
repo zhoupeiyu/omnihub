@@ -1,0 +1,62 @@
+{
+  "schemaVersion": 1,
+  "key": "e2b-dev/code-interpreter",
+  "status": "ready",
+  "reason": "",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/e2b-dev/code-interpreter/blob/11d8a0fc64d284dec0403df31b09fd58a916516f/README.md",
+  "sourceRevision": "11d8a0fc64d284dec0403df31b09fd58a916516f",
+  "canonicalKey": "e2b-dev/code-interpreter",
+  "summary": "提供 E2B Code Interpreter 的 Python 和 JS/TS SDK 入门说明，可在云端隔离沙箱中运行 AI 生成的代码。",
+  "intro": "适合需要在 AI 应用中安全执行模型生成代码的开发者。README 给出了安装 SDK、配置 API Key、在 Sandbox 中执行代码的流程。注意：SDK 源码已迁移到 E2B monorepo，本仓库目前保留沙箱模板和图表数据提取器，可用于构建自定义 Code Interpreter 沙箱模板。下文以 Python 为例，README 也提供了同等的 JavaScript/TypeScript 用法。",
+  "requirements": "需要 Python 和 pip（以 Python 路径为例）、一个 E2B 账号及其 API Key。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "用 pip 安装 Python SDK",
+      "text": "在 Python 环境中通过 pip 安装 e2b-code-interpreter 包。如果使用 JavaScript/TypeScript，README 另外提供了 npm 安装方式，二者任选其一即可。",
+      "code": "pip install e2b-code-interpreter",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/e2b-dev/code-interpreter/blob/11d8a0fc64d284dec0403df31b09fd58a916516f/README.md?plain=1#L30"
+      }
+    },
+    {
+      "title": "注册 E2B 并配置 API Key",
+      "text": "在 E2B 官网注册账号，到控制台的 keys 页面获取 API Key，然后将它设置为环境变量 E2B_API_KEY，供 SDK 创建和控制沙箱时使用。",
+      "code": "E2B_API_KEY=e2b_***",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/e2b-dev/code-interpreter/blob/11d8a0fc64d284dec0403df31b09fd58a916516f/README.md?plain=1#L42"
+      }
+    },
+    {
+      "title": "在 Sandbox 中执行代码",
+      "text": "在 Python 中导入 Sandbox，用 Sandbox.create() 创建沙箱，通过 run_code 执行代码字符串，再从返回结果的 text 属性读取输出。多次 run_code 调用之间可以共享变量状态。",
+      "code": "from e2b_code_interpreter import Sandbox\n\nwith Sandbox.create() as sandbox:\n    sandbox.run_code(\"x = 1\")\n    execution = sandbox.run_code(\"x+=1; x\")\n    print(execution.text)  # outputs 2",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/e2b-dev/code-interpreter/blob/11d8a0fc64d284dec0403df31b09fd58a916516f/README.md?plain=1#L50"
+      }
+    },
+    {
+      "title": "查阅文档与自定义沙箱模板",
+      "text": "更多 API 用法见 E2B 官方文档，结合不同 LLM 和框架的示例见 e2b-cookbook。如果需要额外的软件包或不同的运行时，可以按仓库中的 template/README.md 创建、构建并使用自定义沙箱模板。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/e2b-dev/code-interpreter/blob/11d8a0fc64d284dec0403df31b09fd58a916516f/README.md?plain=1#L73"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "SDK 源码和问题反馈已迁移到 E2B monorepo（packages/code-interpreter-python 与 packages/code-interpreter-js），本仓库只保留沙箱模板和图表数据提取器。",
+    "代码在 E2B 云端沙箱中执行，需要注册账号并使用 API Key，请妥善保管 E2B_API_KEY。"
+  ],
+  "references": [],
+  "media": [],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "b7434c4b09c34ddbea23b2034840e79cc25f4f8f970ab61f491b69b9eac54865",
+  "mediaStatus": "none_in_official_documents"
+}

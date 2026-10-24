@@ -1,0 +1,64 @@
+{
+  "schemaVersion": 1,
+  "key": "cclank/lanshu-wiki-skill",
+  "status": "ready",
+  "reason": "",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/cclank/lanshu-wiki-skill/blob/f235a8d734c4744ef63b763a2681c57c02297d87/README.md",
+  "sourceRevision": "f235a8d734c4744ef63b763a2681c57c02297d87",
+  "canonicalKey": "cclank/lanshu-wiki-skill",
+  "summary": "一个 Claude Code Skill，把 Karpathy 的 LLM Wiki 模式落地为由 LLM 维护的 Markdown 知识库或代码仓库架构 wiki。",
+  "intro": "适合希望由 LLM 来整理阅读笔记、建立交叉引用并持续维护知识库的个人或小团队，也适合想为开源项目编写带源码行号锚点的架构文档的人。仓库提供 SKILL.md 入口，以及个人知识库（五层目录）和代码仓库 wiki（三层目录）两套 schema 模板。日常操作通过 /wiki 命令或自然语言触发，包括导入、查询、lint 等。",
+  "requirements": "Claude Code（使用其 Skill 系统）和 Git。其他工具可以把 schema 文件粘到系统提示中使用，但文档说明体验会差一些。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "克隆仓库并软链 SKILL.md",
+      "text": "把仓库克隆到 ~/code/lanshu-wiki-skill，再新建 ~/.claude/skills/wiki 目录，把 SKILL.md 软链到这里，让 Claude Code 能识别 wiki 这个 Skill。",
+      "code": "# Clone 本仓库\ngit clone https://github.com/cclank/lanshu-wiki-skill.git ~/code/lanshu-wiki-skill\n\n# 软链 SKILL.md 到 Claude Code 的 skills 目录\nmkdir -p ~/.claude/skills/wiki\nln -sf ~/code/lanshu-wiki-skill/SKILL.md ~/.claude/skills/wiki/SKILL.md",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/cclank/lanshu-wiki-skill/blob/f235a8d734c4744ef63b763a2681c57c02297d87/README.md?plain=1#L97"
+      }
+    },
+    {
+      "title": "初始化个人知识库目录与 schema",
+      "text": "做个人知识库时，在 ~/wiki 下建立 raw、sources、entities、concepts、syntheses 等目录，把 schema/wiki-personal-CLAUDE.md 复制为 ~/wiki/CLAUDE.md，并创建 index.md、log.md、inbox.md 三个文件。",
+      "code": "# 建五层目录骨架\nmkdir -p ~/wiki/{raw,sources,entities,concepts,syntheses,reports,assets}\n\n# 把权威 schema 放进去\ncp ~/code/lanshu-wiki-skill/schema/wiki-personal-CLAUDE.md ~/wiki/CLAUDE.md\n\n# 初始化必备文件\ncd ~/wiki && echo \"# Wiki Index\" > index.md && echo \"# Wiki Log\" > log.md && echo \"# Wiki Inbox\" > inbox.md",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/cclank/lanshu-wiki-skill/blob/f235a8d734c4744ef63b763a2681c57c02297d87/README.md?plain=1#L110"
+      }
+    },
+    {
+      "title": "或为开源项目建立架构 wiki",
+      "text": "做代码仓库 wiki 时，新建 <project>-wiki 目录，复制 wiki-code-repo-SCHEMA.md 为 SCHEMA.md，创建 concepts、entities、changelog 目录以及 index.md、log.md，再编辑 SCHEMA.md 中带 ⚠️ 标记的 Domain 和 Tag 部分。之后在 Claude Code 中让它按 SCHEMA.md 的规则编写。",
+      "code": "# 在你的项目附近新建 wiki 仓库\nmkdir ~/code/<project>-wiki && cd ~/code/<project>-wiki\n\n# 复制代码仓库 wiki 的 schema 模板\ncp ~/code/lanshu-wiki-skill/schema/wiki-code-repo-SCHEMA.md ./SCHEMA.md\n\n# 创建必要骨架\nmkdir concepts entities changelog\necho \"# Wiki Index\" > index.md\necho \"# Wiki Log\" > log.md\n\n# 编辑 SCHEMA.md，填入你项目的 Domain 描述与 Tag Taxonomy（搜索 ⚠️ 标记）",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/cclank/lanshu-wiki-skill/blob/f235a8d734c4744ef63b763a2681c57c02297d87/README.md?plain=1#L125"
+      }
+    },
+    {
+      "title": "用 /wiki 命令导入、查询和检查",
+      "text": "在 Claude Code 中用 /wiki ingest <URL> 完整导入一篇资料，/wiki add 快速收藏，/wiki query 提问，/wiki lint 查找悬空链接和矛盾，/wiki status 和 /wiki inbox 查看状态与待办。也可以直接说“把这个加到 wiki”这类自然语言来触发。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/cclank/lanshu-wiki-skill/blob/f235a8d734c4744ef63b763a2681c57c02297d87/README.md?plain=1#L144"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "文档称约 2000 页是来自 Karpathy 原文的经验上限，瓶颈在 index.md 的容量；规模更大时建议拆成多个子 wiki。",
+    "个人 wiki 可能包含敏感信息。文档建议不要直接推送到公开 git，备份时使用私有仓库或网盘。",
+    "多人协作需要先对 schema 达成共识，并处理重复 ingest 带来的冲突（可用 /wiki merge）。",
+    "LLM 写出的结论可能有误。schema 要求每条结论都附带源码或原文锚点，仍需要人工抽查核验。"
+  ],
+  "references": [],
+  "media": [],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "fd5e7144e440fdb88dfe3f21880d726a73dfac170e1b688d1c83a9fb8d2b610d",
+  "mediaStatus": "none_in_official_documents"
+}

@@ -1,0 +1,52 @@
+{
+  "schemaVersion": 1,
+  "key": "bytebytegohq/system-design-101",
+  "status": "ready",
+  "reason": "",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/ByteByteGoHq/system-design-101/blob/b28380a4710c5ec9638ec037d4168e288f334cba/README.md",
+  "sourceRevision": "b28380a4710c5ec9638ec037d4168e288f334cba",
+  "canonicalKey": "ByteByteGoHq/system-design-101",
+  "summary": "用图解和浅显语言讲解复杂系统原理的资料合集，可用于系统设计面试准备。",
+  "intro": "适合准备系统设计面试的求职者，以及想了解系统底层运作方式的工程师和学习者。仓库 README 是一份按主题分类的目录，例如 API and Web Development 下包含轮询/SSE/WebSocket、gRPC、HTTP2、API Gateway、负载均衡、REST 与 GraphQL 对比等条目，每个条目链接到 bytebytego.com/guides 上的对应图解文章。",
+  "requirements": "只需能访问 GitHub 和 bytebytego.com 的浏览器，无需安装任何软件。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "打开 README 的目录",
+      "text": "进入仓库首页，找到 Table of Contents。目录按大类组织，如 API and Web Development，每个大类下列出具体主题。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/ByteByteGoHq/system-design-101/blob/b28380a4710c5ec9638ec037d4168e288f334cba/README.md?plain=1#L17"
+      }
+    },
+    {
+      "title": "按面试或学习主题挑选条目",
+      "text": "根据需要复习的方向选择条目，例如负载均衡器与 API Gateway 的区别、HTTP 状态码、安全 API 清单、SOAP/REST/GraphQL/RPC 对比等。点击后会跳转到 bytebytego.com/guides 上的对应图解页面阅读。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/ByteByteGoHq/system-design-101/blob/b28380a4710c5ec9638ec037d4168e288f334cba/README.md?plain=1#L23"
+      }
+    },
+    {
+      "title": "使用前确认许可证限制",
+      "text": "内容采用 CC BY-NC-ND 4.0 许可证：转载需署名，不得用于商业用途，也不得发布修改后的衍生版本。整理笔记或分享时请遵守这些限制。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/ByteByteGoHq/system-design-101/blob/b28380a4710c5ec9638ec037d4168e288f334cba/README.md?plain=1#L450"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "许可证为 CC BY-NC-ND 4.0，禁止商业使用和发布改编作品。",
+    "目录中的具体文章托管在 bytebytego.com 外部站点，阅读需能访问该网站。",
+    "提供的资料只包含部分目录，完整主题列表需在仓库 README 中查看。"
+  ],
+  "references": [],
+  "media": [],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "23b7cf98fbe6b465293555c22d527b74926f165be9a7fc5468e43d66922942e7",
+  "mediaStatus": "none_in_official_documents"
+}

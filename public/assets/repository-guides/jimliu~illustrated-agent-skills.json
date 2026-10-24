@@ -1,0 +1,62 @@
+{
+  "schemaVersion": 1,
+  "key": "jimliu/illustrated-agent-skills",
+  "status": "ready",
+  "reason": "",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/JimLiu/Illustrated-Agent-Skills/blob/6ce52438ab8ec2d7e27c526f503e4dfcb1ef029c/README.md",
+  "sourceRevision": "6ce52438ab8ec2d7e27c526f503e4dfcb1ef029c",
+  "canonicalKey": "JimLiu/Illustrated-Agent-Skills",
+  "summary": "《图解 Skill —— AI 提效实战指南》的配套资源仓库，收录附录全文、术语表、写作工作流技能模板、完整技能和章节示例数据。",
+  "intro": "这是资料与技能集合，不是应用程序。适合正在阅读该书、想查阅附录和术语，或者想搭建 AI 写作、访谈整理、资讯速递、书稿配图等 Agent 技能工作流的读者。可以按需求查阅对应目录，把模板或完整技能复制到自己 Agent 的技能目录中使用。",
+  "requirements": "查阅资料只需浏览仓库。使用技能需要一个支持技能的宿主（附录 B 列出了 Claude.ai、Claude Code、VS Code、OpenCode 等），各平台的具体安装方法见 附录.md 的附录 B。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "先从 附录.md 和术语表开始查阅",
+      "text": "看书时遇到附录引用，直接查看 附录.md。其中包含术语表、各平台技能安装指南、国内模型 API 平台与部署方案，以及完整版技能参考。平台和命令以在线版为准。英文术语可查 术语表.md。",
+      "code": ".\n├── 附录.md                    # 全书附录（术语表 / 安装指南 / 国内平台 / 完整技能）\n├── 术语表.md                  # 英文术语与中文译名对照\n├── skill-templates/          # 第 5 章写作工作流的简化技能模板\n├── skills/                   # 完整可用的技能（含生成本书插图的技能）\n├── examples/                 # 章节示例代码与数据\n├── campaign-data-2025-01.csv # 第 7 章数据分析示例用的样本数据\n└── 【试读】….pdf              # 试读样章",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/JimLiu/Illustrated-Agent-Skills/blob/6ce52438ab8ec2d7e27c526f503e4dfcb1ef029c/README.md?plain=1#L29"
+      }
+    },
+    {
+      "title": "用 skill-templates 搭写作工作流",
+      "text": "skill-templates/ 中是第 5 章的简化版技能，包括素材分析、大纲、写作、风格、润色、配图和会议纪要等，可以直接复制到自己的技能目录。之后可对照附录 D 的完整版继续迭代。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/JimLiu/Illustrated-Agent-Skills/blob/6ce52438ab8ec2d7e27c526f503e4dfcb1ef029c/README.md?plain=1#L55"
+      }
+    },
+    {
+      "title": "按需求选择 skills 中的完整技能",
+      "text": "在 skills/ 中按用途挑选：book-illustrator（书稿配图）、content-analyzer、interview-analysis、interview-writing、outliner、info-digest 等。安装方法按附录 B 中对应平台的说明操作。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/JimLiu/Illustrated-Agent-Skills/blob/6ce52438ab8ec2d7e27c526f503e4dfcb1ef029c/README.md?plain=1#L72"
+      }
+    },
+    {
+      "title": "对照示例与归档分支学习迭代",
+      "text": "翻阅 examples/chapter-07/ 中数据分析技能的 v1、v2、v3 版本及其 output/，配合根目录的 campaign-data-2025-01.csv 理解技能如何演化。章节配图的提示词在归档分支各章的 prompts/ 中。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/JimLiu/Illustrated-Agent-Skills/blob/6ce52438ab8ec2d7e27c526f503e4dfcb1ef029c/README.md?plain=1#L105"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "仓库内容遵循书籍授权条款，仅供学习参考，商业使用需联系作者。",
+    "adversarial-polish 依赖 sub-agent 上下文隔离，作者注明它仅供学习研究，实际运行效果远不如预期。",
+    "章节配图和提示词已移至 archive-chapters-illutrations 分支，main 分支中没有这部分内容。",
+    "每个启用的技能都会占用 Agent 上下文，作者建议只安装当前工作流真正会用到的少数技能。"
+  ],
+  "references": [],
+  "media": [],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "57428795775de9b8a05baef14d0c7a7741e557d82763b48854fbe3545315c455",
+  "mediaStatus": "none_in_official_documents"
+}

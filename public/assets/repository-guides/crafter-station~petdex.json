@@ -1,0 +1,71 @@
+{
+  "schemaVersion": 1,
+  "key": "crafter-station/petdex",
+  "status": "ready",
+  "reason": "",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/crafter-station/petdex/blob/7e327034c27098bb7b701b834e34af81c2cfbdba/README.md",
+  "sourceRevision": "7e327034c27098bb7b701b834e34af81c2cfbdba",
+  "canonicalKey": "crafter-station/petdex",
+  "summary": "Petdex 是 Codex 等编程智能体的动画宠物画廊，可以用 CLI 安装宠物，并通过桌面应用让宠物随智能体的活动做出动画。",
+  "intro": "适合使用 Codex、Claude Code、Gemini CLI 等编程智能体、想给工作区加一个动画伴侣的用户。Petdex 由三部分组成：\n- petdex.dev 网站：浏览和提交宠物\n- npx petdex CLI：安装、提交宠物和管理收藏集\n- 桌面应用：让宠物悬浮在屏幕上，随智能体的工具调用做出动画\n\n开发者还可以基于 manifest API 和宠物包格式进行二次开发。",
+  "requirements": "能运行 npx 的环境；桌面应用支持 macOS、Linux 和 Windows，需从 petdex.dev/download 下载。创建收藏集需要登录账号。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "在 petdex.dev 浏览宠物",
+      "text": "访问 petdex.dev 浏览社区提交的动画宠物，记下想安装的宠物 slug，下一步用 CLI 安装时会用到。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/crafter-station/petdex/blob/7e327034c27098bb7b701b834e34af81c2cfbdba/README.md?plain=1#L73"
+      }
+    },
+    {
+      "title": "用 CLI 安装一个宠物",
+      "text": "运行 npx petdex install <slug> 安装宠物，README 以 boba 为例。安装成功后，~/.petdex/pets/boba/ 目录下会出现 pet.json 和 spritesheet 文件。",
+      "code": "npx petdex install boba",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/crafter-station/petdex/blob/7e327034c27098bb7b701b834e34af81c2cfbdba/README.md?plain=1#L44"
+      }
+    },
+    {
+      "title": "下载并打开桌面应用",
+      "text": "从 petdex.dev/download 下载对应系统的桌面应用（支持 macOS、Linux、Windows）。打开后，在宠物上按 Cmd+, 打开 Settings，在 Pets 中选择当前宠物。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/crafter-station/petdex/blob/7e327034c27098bb7b701b834e34af81c2cfbdba/README.md?plain=1#L44"
+      }
+    },
+    {
+      "title": "在 Agents 中连接编程智能体",
+      "text": "在桌面应用 Settings 的 Agents 中，为每个编程智能体点一下即可完成连接，无需使用终端。连接后，宠物会悬浮在工作区上方，并在智能体每次调用工具时播放动画。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/crafter-station/petdex/blob/7e327034c27098bb7b701b834e34af81c2cfbdba/README.md?plain=1#L44"
+      }
+    },
+    {
+      "title": "管理收藏集或提交自己的宠物",
+      "text": "登录后可以用 npx petdex collection create 把已通过审核的宠物分组成收藏集，也可以在个人主页的 Collections 标签页操作。制作好的宠物可以用 npx petdex submit 提交，或通过网页提交。",
+      "code": "npx petdex collection create --title \"My pets\" --pets boba,mochi",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/crafter-station/petdex/blob/7e327034c27098bb7b701b834e34af81c2cfbdba/README.md?plain=1#L44"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "宠物是用户提交的同人作品，Petdex 不主张底层形象的权利；宠物素材的许可证由提交者自行声明，与源码的 MIT 许可证分开。",
+    "每个账号最多创建 10 个收藏集，每个收藏集最多 24 个宠物。",
+    "桌面应用会在 127.0.0.1:7777 运行本地 hook server。",
+    "bun run dev 方式需要填写 .env.local，仅限维护者使用；外部贡献者应使用 dev:docker。"
+  ],
+  "references": [],
+  "media": [],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "f05d6ad7468717353c75769d992b65574f70d1b9c6caef04f684b2cb41cb44b3",
+  "mediaStatus": "none_in_official_documents"
+}

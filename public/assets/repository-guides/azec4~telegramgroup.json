@@ -1,0 +1,55 @@
+{
+  "schemaVersion": 1,
+  "key": "azec4/telegramgroup",
+  "status": "partial",
+  "reason": "仓库描述称收录 10000+ 个 Telegram 群，但提供的文档只有搜索、索引、群管、下载、翻译等机器人链接表，没有群组列表本身。多数教程（安全设置、切换中文、+86 验证码）只有 YouTube 视频外链，缺少文字操作步骤。",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/AZeC4/TelegramGroup/blob/7f1f23f12b2e0f971b3ab01bd77a9d3c8d7e1063/README.md",
+  "sourceRevision": "7f1f23f12b2e0f971b3ab01bd77a9d3c8d7e1063",
+  "canonicalKey": "AZeC4/TelegramGroup",
+  "summary": "一份按用途分类的 Telegram 机器人和频道链接合集，附若干 Telegram 使用教程的外链。",
+  "intro": "适合已经在使用 Telegram、想按功能查找机器人的用户，例如搜索群组/频道、管理群组、入群验证、拦截广告、多平台下载、翻译等。这是一个资料集合，不是需要安装的软件，查阅 README 中的表格即可。",
+  "requirements": "需要一个可用的 Telegram 账号和客户端，用于打开表格中的 t.me 链接。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "按分类浏览机器人列表",
+      "text": "README 按用途分成多个表格：综合搜索、中文群组索引、群组管理、频道管理、抽奖、加群验证、反垃圾/广告拦截、多平台下载、翻译、AI 机器人。先找到与你需求对应的分类。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/AZeC4/TelegramGroup/blob/7f1f23f12b2e0f971b3ab01bd77a9d3c8d7e1063/README.md?plain=1#L10"
+      }
+    },
+    {
+      "title": "根据功能描述挑选机器人",
+      "text": "每个表格都列出了名称、t.me 链接和功能描述。对照描述挑选目标机器人，再在 Telegram 客户端中打开链接。群管类机器人一般需要拉进你自己管理的群组中使用。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/AZeC4/TelegramGroup/blob/7f1f23f12b2e0f971b3ab01bd77a9d3c8d7e1063/README.md?plain=1#L189"
+      }
+    },
+    {
+      "title": "查看客户端设置相关教程",
+      "text": "README 写了在 Windows、macOS 桌面端或网页版的隐私安全设置中开启敏感内容显示的路径，以及 iOS 版本要求（≥ 5.13）。安全设置、切换中文等教程只提供了视频外链。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/AZeC4/TelegramGroup/blob/7f1f23f12b2e0f971b3ab01bd77a9d3c8d7e1063/README.md?plain=1#L56"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "“AI / ChatGPT 机器人”分类中包含“AI 去衣/换脸”机器人。未经同意生成他人的私密或换脸内容可能违法，也会严重伤害他人，不应使用。",
+    "README 公开列出了多个官方或第三方客户端的 api-id/api-hash，并附带示例凭据。挪用他人客户端的凭据可能违反 Telegram API 使用条款，并带来账号风险。",
+    "大量链接带有 start= 推广参数或邀请码（包括接码平台、VPN、广告优惠、USDT 奖励等），属于推广内容，使用前需自行判断可信度。",
+    "搜书类和下载类机器人可能涉及受版权保护的内容，使用前请确认合法性。",
+    "README 声明禁止中国大陆用户使用，并要求遵守当地法律法规。所列机器人均为第三方服务，链接可能失效，作者不对其负责。",
+    "仓库未声明许可证。"
+  ],
+  "references": [],
+  "media": [],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "547e14de422fef3995b0223bd7099bc36effefc90a1bbca5f47f5854641b3175",
+  "mediaStatus": "none_in_official_documents"
+}

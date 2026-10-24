@@ -1,0 +1,54 @@
+{
+  "schemaVersion": 1,
+  "key": "fanzr-arch/numerologist_skills",
+  "status": "partial",
+  "reason": "README 说明了技能目录结构和奇门遁甲脚本的运行命令，但缺少两部分：一是没有说明这些 SKILL.md 应在哪个 AI 宿主中、以什么方式加载；二是没有给出 qimen_input.json 的字段格式。",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/FANzR-arch/Numerologist_skills/blob/ea28c3fb7e808fa74f6b8e7b4c9ac8c8a9d44c39/README.md",
+  "sourceRevision": "ea28c3fb7e808fa74f6b8e7b4c9ac8c8a9d44c39",
+  "canonicalKey": "FANzR-arch/Numerologist_skills",
+  "summary": "这是一组奇门遁甲、紫微斗数和四柱八字的 AI skills，通过规则文件、参考资料和外部计算脚本来减少大模型在排盘和解读过程中的幻觉。",
+  "intro": "适合希望让 AI 按固定步骤、明确流派口径进行传统术数排盘和解读的用户或开发者。仓库按体系分成三个目录：奇门遁甲（含 Python 计算脚本）、紫微斗数和四柱八字。每个目录包含 SKILL.md 工作流说明和 references 规则资料，可用于审计、复用和扩展技能。",
+  "requirements": "运行奇门遁甲计算脚本需要 Python 和 pip，依赖列在 qimen-dunjia/scripts/requirements.txt 中。紫微斗数和八字两部分以规则和 references 为主，README 未列出额外依赖。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "按术数体系选择技能目录",
+      "text": "根据要处理的体系选择目录：qimen-dunjia/ 用于单事判断、择时和方位；ziwei-doushu/ 用于本命盘、宫位和大限流年分析；bazi/ 用于日主强弱、格局、十神和大运流年分析。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/FANzR-arch/Numerologist_skills/blob/ea28c3fb7e808fa74f6b8e7b4c9ac8c8a9d44c39/README.md?plain=1#L5"
+      }
+    },
+    {
+      "title": "阅读 SKILL.md 与 references",
+      "text": "在所选目录中先阅读 SKILL.md，了解触发条件、工作流和输出约束；再查看 references/ 中的规则集、术语表、示例和口径说明，确认流派、换日规则和闰月归属等默认设置。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/FANzR-arch/Numerologist_skills/blob/ea28c3fb7e808fa74f6b8e7b4c9ac8c8a9d44c39/README.md?plain=1#L13"
+      }
+    },
+    {
+      "title": "运行奇门遁甲固定计算脚本",
+      "text": "需要奇门遁甲的刚性排盘计算时，先安装 requirements.txt 中的依赖，再用 qimen_cli.py 读取输入 JSON 并输出结果 JSON。README 未给出输入文件格式，请参考目录内的 SKILL.md 和 references。",
+      "code": "pip install -r qimen-dunjia/scripts/requirements.txt\npython qimen-dunjia/scripts/qimen_cli.py --input tmp/qimen_input.json --output tmp/qimen_output.json",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/FANzR-arch/Numerologist_skills/blob/ea28c3fb7e808fa74f6b8e7b4c9ac8c8a9d44c39/README.md?plain=1#L26"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "仓库声明内容仅用于传统术数的工程化表达和 AI 约束实验，不构成医疗、法律、财务或其他现实决策建议。",
+    "目前只有奇门遁甲包含计算脚本；紫微斗数和八字依赖规则文件，设计原则建议使用脚本或可信的排盘结果作为输入，而不是让模型自行硬排。",
+    "仓库未声明许可证（license 为空），复用或再分发前需要自行确认授权。",
+    "README 未说明这些技能在哪个 AI 宿主中使用。"
+  ],
+  "references": [],
+  "media": [],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "c3c3fefab44a81093e66aa5d2fd2f7d93304c3201e30be4467a88683eb9759fb",
+  "mediaStatus": "none_in_official_documents"
+}

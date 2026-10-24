@@ -1,0 +1,73 @@
+{
+  "schemaVersion": 1,
+  "key": "tt-a1i/simplify-codebase",
+  "status": "ready",
+  "reason": "",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/tt-a1i/simplify-codebase/blob/5da55efcb52db690e7406f06f827a23b15da2706/README.md",
+  "sourceRevision": "5da55efcb52db690e7406f06f827a23b15da2706",
+  "canonicalKey": "tt-a1i/simplify-codebase",
+  "summary": "simplify-codebase 是一个 Agent Skill，帮助编码智能体在现有代码库中找出偶然复杂度，先找证据再删除，同时保护仍然有效的行为、边界与兼容性。",
+  "intro": "适合维护中大型现有代码库、想清理重复状态、失去所有者的抽象、无效兼容路径等冗余的开发者。它分为只读审计（Survey）和授权修改（Change）两种模式，每种模式都可以聚焦单个子系统或覆盖整个仓库。每个候选项都会形成证明记录，说明消费者、删除边界和验证方式。用户明确要求时，还可以生成可交互的 Cleanup Map。",
+  "requirements": "需要 Codex，或其他支持 SKILL.md 的 Agent 环境。手动安装需要 git。可视化报告的 renderer 需要 Node.js 18 或更高版本，不依赖额外的 npm 包，也不需要另外安装 Archify。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "把仓库克隆到 Codex Skill 目录",
+      "text": "以 Codex 为例，用 git clone 把仓库手动安装到用户级 Skill 目录 ~/.codex/skills/simplify-codebase。其他支持 SKILL.md 的 Agent 环境，可以把本仓库放进各自的 Skill 目录。",
+      "code": "git clone https://github.com/tt-a1i/simplify-codebase.git \\\n  ~/.codex/skills/simplify-codebase",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/tt-a1i/simplify-codebase/blob/5da55efcb52db690e7406f06f827a23b15da2706/README.md?plain=1#L56"
+      }
+    },
+    {
+      "title": "新建任务让 Skill 重新加载",
+      "text": "安装完成后，在 Codex 中新建一个任务，让 Skill 目录重新加载。之后就可以在提示词中用 $simplify-codebase 调用它。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/tt-a1i/simplify-codebase/blob/5da55efcb52db690e7406f06f827a23b15da2706/README.md?plain=1#L56"
+      }
+    },
+    {
+      "title": "先做只读审计，不改动文件",
+      "text": "使用官方示例提示词，让 Skill 审计整个仓库，列出最安全、收益最高的简化候选，并明确要求不要修改文件。也可以针对具体问题调查，例如判断几个 readiness 标志是否属于重复状态。审计会给出覆盖范围、证明记录、反例和未决问题。",
+      "code": "使用 $simplify-codebase 审计这个仓库，列出最安全、收益最高的简化候选。不要修改文件。\n\n使用 $simplify-codebase 判断这些 readiness 标志是在表达不同的生命周期保证，还是重复状态。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/tt-a1i/simplify-codebase/blob/5da55efcb52db690e7406f06f827a23b15da2706/README.md?plain=1#L77"
+      }
+    },
+    {
+      "title": "授权实施一个已证明安全的简化",
+      "text": "确认候选后，用 Change 模式的示例提示词，让 Skill 删除一个高置信度的复杂度来源，同时保留有效契约、完成验证，并给出操作回执和撤销路径。合并其他分支或 PR 的简化建议时，可以使用对应的复核提示词。",
+      "code": "使用 $simplify-codebase 删除一个高置信度的偶然复杂度来源。保留仍然有效的契约，完成验证，并给出操作回执和撤销路径。\n\n使用 $simplify-codebase 复核并整合这个 PR 中的简化建议。保留证据，不保留候选数量。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/tt-a1i/simplify-codebase/blob/5da55efcb52db690e7406f06f827a23b15da2706/README.md?plain=1#L89"
+      }
+    },
+    {
+      "title": "按需生成 Cleanup Map 可视化报告",
+      "text": "需要图形化呈现时，要在提示词中明确要求生成带 Finding 深链接的 Cleanup Map。文字证明记录仍是权威结果；没有明确要求时，Skill 会先征求确认，不会自动出图。",
+      "code": "使用 $simplify-codebase 审计这个仓库，并生成带 Finding 深链接的 Cleanup Map。文字证明记录作为权威结果；只画已确认的组件和关系，不要把图上可达关系称为运行时影响范围。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/tt-a1i/simplify-codebase/blob/5da55efcb52db690e7406f06f827a23b15da2706/README.md?plain=1#L101"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "Skill 不能替代产品决策。删除仍可访问的能力、已支持的接口、持久化格式或兼容路径时，必须由使用者明确授权。",
+    "小范围测试通过，不等于完整的运行时验证或用户验收。修改任务会单独列出剩余风险。",
+    "发现真实消费者或边界尚未查清时，Skill 会建议保留，而不是为了产出结果强行删除。",
+    "可视化 renderer 需要 Node.js 18 或更高版本。Cleanup Map 是证明记录的辅助材料，不能替代消费者证明和撤销路径。"
+  ],
+  "references": [],
+  "media": [],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "9632d473d57ef18e917f37fb18d51adc34c65232b9c3b53bd77c2397e8f3b284",
+  "mediaStatus": "none_in_official_documents"
+}

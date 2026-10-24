@@ -1,0 +1,65 @@
+{
+  "schemaVersion": 1,
+  "key": "hotcoffeeshake/tong-jincheng-skill",
+  "status": "ready",
+  "reason": "",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/hotcoffeeshake/tong-jincheng-skill/blob/c9caaa9a6576f581c29d016c60bbe935908e20d5/README.md",
+  "sourceRevision": "c9caaa9a6576f581c29d016c60bbe935908e20d5",
+  "canonicalKey": "hotcoffeeshake/tong-jincheng-skill",
+  "summary": "一个 Claude Code Skill，借用情感主播童锦程的认知框架和表达风格分析恋爱与人际关系问题。",
+  "intro": "适合想从童锦程视角梳理恋爱、人际或个人成长困惑的 Claude Code 用户。Skill 基于 9 个视频字幕、约 20 万字素材，提炼出“吸引力 > 讨好”“人性不可考验”等心智模型和决策启发式，用来分析问题，而不是复读语录。调研资料公开在 references/research/ 目录中，可以自行查阅。",
+  "requirements": "Claude Code；能运行 npx 的环境，用于执行 skills 安装命令。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "用 npx 安装 Skill",
+      "text": "在终端执行 npx skills add hotcoffeeshake/tong-jincheng-skill，把 Skill 安装到 Claude Code。核心文件是仓库根目录的 SKILL.md。",
+      "code": "npx skills add hotcoffeeshake/tong-jincheng-skill\n\ntong-jincheng-skill/\n├── SKILL.md                          # 童锦程视角核心文件（直接激活用这个）\n├── README.md                         # 本文件\n└── references/\n    └── research/                     # 调研数据（全透明）\n        ├── 01-writings.md            # 核心语录与反复论点\n        ├── 02-conversations.md       # 长对话与即兴思维\n        ├── 03-expression-dna.md      # 表达风格DNA分析\n        ├── 04-external-views.md      # 外部视角与争议\n        ├── 05-decisions.md           # 决策记录与行为模式\n        └── 06-timeline.md            # 人物时间线",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/hotcoffeeshake/tong-jincheng-skill/blob/c9caaa9a6576f581c29d016c60bbe935908e20d5/README.md?plain=1#L111"
+      }
+    },
+    {
+      "title": "在 Claude Code 中用关键词触发",
+      "text": "在 Claude Code 对话里输入“童锦程”“深情祖师爷”“用童锦程的方式”“从童锦程视角”等触发词来激活 Skill。",
+      "code": "> 童锦程\n> 深情祖师爷\n> 用童锦程的方式\n> 从童锦程视角\n> 景辰怎么看",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/hotcoffeeshake/tong-jincheng-skill/blob/c9caaa9a6576f581c29d016c60bbe935908e20d5/README.md?plain=1#L111"
+      }
+    },
+    {
+      "title": "激活后直接描述关系问题",
+      "text": "激活后直接用自然语言说明自己遇到的人际或恋爱情况。Skill 会按童锦程的认知框架分析，并模仿其直接、自嘲式的表达风格。",
+      "code": "> 我暗恋同事半年了，一直没开口，怎么办\n> 他对我不冷不热，我该怎么看\n> 我想追一个女孩，但不知道她有没有男朋友",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/hotcoffeeshake/tong-jincheng-skill/blob/c9caaa9a6576f581c29d016c60bbe935908e20d5/README.md?plain=1#L111"
+      }
+    },
+    {
+      "title": "查阅 research 目录了解依据",
+      "text": "如果想了解分析依据，可以阅读 references/research/ 下的 6 个文件，内容包括语录、长对话、表达风格、外部视角与争议、决策记录和人物时间线。",
+      "code": "tong-jincheng-skill/\n├── SKILL.md                          # 童锦程视角核心文件（直接激活用这个）\n├── README.md                         # 本文件\n└── references/\n    └── research/                     # 调研数据（全透明）\n        ├── 01-writings.md            # 核心语录与反复论点\n        ├── 02-conversations.md       # 长对话与即兴思维\n        ├── 03-expression-dna.md      # 表达风格DNA分析\n        ├── 04-external-views.md      # 外部视角与争议\n        ├── 05-decisions.md           # 决策记录与行为模式\n        └── 06-timeline.md            # 人物时间线",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/hotcoffeeshake/tong-jincheng-skill/blob/c9caaa9a6576f581c29d016c60bbe935908e20d5/README.md?plain=1#L157"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "素材几乎全是情感内容，不适合用于商业、直播电商或创业决策。",
+    "不能代表童锦程本人当下的状态和想法；2025 年之后的动态可能缺失。",
+    "输出是对公众人物观点的模仿性分析，不构成专业心理咨询意见。",
+    "README 中推广的微信小程序是独立产品，不属于本 Skill 的使用方式。"
+  ],
+  "references": [],
+  "media": [],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "bc7ad5e771ff12a2e32d72d4b7dde9ae96610774361a5530886adb526e96fee4",
+  "mediaStatus": "none_in_official_documents"
+}

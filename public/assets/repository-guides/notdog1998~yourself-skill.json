@@ -1,0 +1,71 @@
+{
+  "schemaVersion": 1,
+  "key": "notdog1998/yourself-skill",
+  "status": "ready",
+  "reason": "",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/notdog1998/yourself-skill/blob/9deb1a87b1231fec85cadf2ef690fa49fef519ca/README.md",
+  "sourceRevision": "9deb1a87b1231fec85cadf2ef690fa49fef519ca",
+  "canonicalKey": "notdog1998/yourself-skill",
+  "summary": "一个 Claude Code Skill，用你提供的聊天记录、日记、照片和自我描述生成「自我记忆 + 人格模型」，得到一个按你的方式说话和思考的数字副本 Skill。",
+  "intro": "适合想借助 AI 观察和回顾自己的 Claude Code 或 OpenClaw 用户。它遵循 AgentSkills 标准，通过对话收集信息，生成包含 Self Memory（经历、价值观、习惯等）和 Persona（五层性格结构）的个人 Skill。生成后可以用于日常对话、自我分析或回忆模式，并支持追加材料、纠正表达和版本回滚。",
+  "requirements": "需要 Claude Code（项目也兼容 OpenClaw）和 git。Python 解析工具为可选依赖，徽章标注 Python 3.9+。如需导入微信或 QQ 聊天记录，要先用第三方工具导出。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "克隆仓库到 skills 目录",
+      "text": "Claude Code 会从 git 仓库根目录的 .claude/skills/ 查找 skill。你可以在仓库根目录把本项目克隆到 .claude/skills/create-yourself，也可以克隆到 ~/.claude/skills/ 作为全局安装。",
+      "code": "# 安装到当前项目（在 git 仓库根目录执行）\nmkdir -p .claude/skills\ngit clone https://github.com/notdog1998/yourself-skill .claude/skills/create-yourself\n\n# 或安装到全局（所有项目都能用）\ngit clone https://github.com/notdog1998/yourself-skill ~/.claude/skills/create-yourself",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/notdog1998/yourself-skill/blob/9deb1a87b1231fec85cadf2ef690fa49fef519ca/README.md?plain=1#L35"
+      }
+    },
+    {
+      "title": "按需安装 Python 依赖",
+      "text": "如果需要解析微信、QQ 聊天记录、社交媒体内容或照片元信息，进入 skill 目录安装 requirements.txt 中的依赖。仅凭文字描述生成时，这一步可以跳过。",
+      "code": "pip install -r requirements.txt",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/notdog1998/yourself-skill/blob/9deb1a87b1231fec85cadf2ef690fa49fef519ca/README.md?plain=1#L48"
+      }
+    },
+    {
+      "title": "运行 /create-yourself 录入信息",
+      "text": "在 Claude Code 中输入 /create-yourself，按提示填写代号、基本信息和自我画像，再选择数据来源，例如微信/QQ 导出、日记、截图、照片或直接粘贴的文字。所有字段都可以跳过。",
+      "code": "/create-yourself",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/notdog1998/yourself-skill/blob/9deb1a87b1231fec85cadf2ef690fa49fef519ca/README.md?plain=1#L56"
+      }
+    },
+    {
+      "title": "用 slug 命令调用和管理 Skill",
+      "text": "生成后用 /{slug} 进行完整对话，用 /{slug}-self 进入自我档案模式，用 /{slug}-persona 只保留性格和表达风格。/list-selves 可以列出全部 Skill，也支持回滚和删除命令。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/notdog1998/yourself-skill/blob/9deb1a87b1231fec85cadf2ef690fa49fef519ca/README.md?plain=1#L56"
+      }
+    },
+    {
+      "title": "追加材料或纠正表达",
+      "text": "找到更多聊天记录、日记或照片后，可以追加给 Skill，它会做增量合并。对话中说「我不会这样说」会写入 Correction 层。每次更新都会自动存档，可以用 /yourself-rollback 回滚。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/notdog1998/yourself-skill/blob/9deb1a87b1231fec85cadf2ef690fa49fef519ca/README.md?plain=1#L160"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "需要提供聊天记录、日记、照片（含 EXIF 位置信息）等高度私密的数据，使用前请自行评估隐私风险。生成结果保存在 selves/ 目录，该目录已被 gitignore。",
+    "聊天记录导出依赖独立的第三方工具：WeChatMsg 和 PyWxDump 仅支持 Windows，留痕用于 macOS。PyWxDump 涉及解密微信数据库，本项目不包含这些工具。",
+    "作者说明还原度取决于原始材料的质量，生成的 Skill 只代表被蒸馏时的你，它是观察自己的工具，不应当作逃避现实的出口。"
+  ],
+  "references": [],
+  "media": [],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "5573b6968d8af335ee3c624cd4d88bb6e4d37e50823999e1621d8278ac9b904f",
+  "mediaStatus": "none_in_official_documents"
+}

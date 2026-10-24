@@ -1,0 +1,66 @@
+{
+  "schemaVersion": 1,
+  "key": "sac-y/jev-cu",
+  "status": "ready",
+  "reason": "",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/Sac-Y/Jev-cu/blob/52d32ac24e2cea29c63d9d7c4bd6d4c401111f56/README.md",
+  "sourceRevision": "52d32ac24e2cea29c63d9d7c4bd6d4c401111f56",
+  "canonicalKey": "Sac-Y/Jev-cu",
+  "summary": "一个 Codex skill 和脚本集，让 Jev（TypeSafe System One）根据界面文字决定 Computer Use 的下一步操作，并由本地策略拦截敏感操作。",
+  "intro": "适合在 Codex 桌面 App 中使用 Computer Use 的开发者。Codex Computer Use 负责读取界面并执行操作；Jev 从界面文字候选中选择要操作的元素、动作、完成度和风险，只传文字，不传截图；本地策略门槛会拦截敏感操作。仓库包含可安装的 skill、决策循环脚本、离线评测和单元测试。",
+  "requirements": "需要 Codex 桌面 App，循环在其 cua_repl 运行时里执行；需要 npm 来运行安装和测试脚本；需要 TYPESAFE_API_KEY，可写入 .env.local 或设为同名环境变量。README 没有提供克隆仓库和安装依赖的说明。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "安装 skill 到 Codex",
+      "text": "在仓库目录执行 npm run install-skill，skill 会被复制到 ~/.codex/skills/jev-cu，新开的会话才会生效。安装时，源文件中的 {{REPO_DIR}} 会被替换为仓库的实际路径。卸载时使用 npm run uninstall-skill。",
+      "code": "npm run install-skill      # 复制到 ~/.codex/skills/jev-cu，新会话生效\nnpm run uninstall-skill",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/Sac-Y/Jev-cu/blob/52d32ac24e2cea29c63d9d7c4bd6d4c401111f56/README.md?plain=1#L14"
+      }
+    },
+    {
+      "title": "配置 TYPESAFE_API_KEY",
+      "text": "把 key 写入仓库下的 .env.local 文件，这个文件不要提交到版本库；也可以设置同名环境变量。调用 Jev 的功能都依赖这个 key。",
+      "code": "echo 'TYPESAFE_API_KEY=<your key>' > .env.local",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/Sac-Y/Jev-cu/blob/52d32ac24e2cea29c63d9d7c4bd6d4c401111f56/README.md?plain=1#L23"
+      }
+    },
+    {
+      "title": "在 cua_repl 中以 dry-run 运行任务",
+      "text": "在 Codex 桌面 App 的 cua_repl 运行时中，把 repo 改成实际的克隆路径，导入 scripts/loop.mjs 并调用 runTask，指定 appName、goal 和 maxSteps。goal 建议用英文写。先保持 dryRun: true，确认行为符合预期后再改为 false。",
+      "code": "const repo = \"/path/to/Jev-cu\"; // 换成实际克隆路径\nconst { pathToFileURL } = await import(\"node:url\");\nconst { runTask, createCuaDriver } = await import(pathToFileURL(`${repo}/scripts/loop.mjs`).href);\n\nawait runTask({\n  driver: createCuaDriver(cua),\n  appName: \"Calendar\",\n  goal: \"switch the calendar to the previous month\", // 英文目标，Jev 英文最准\n  dryRun: true,                                       // 确认后改 false\n  maxSteps: 5,\n});",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/Sac-Y/Jev-cu/blob/52d32ac24e2cea29c63d9d7c4bd6d4c401111f56/README.md?plain=1#L23"
+      }
+    },
+    {
+      "title": "运行测试与离线评测",
+      "text": "npm test 运行单元测试，不调用 API。npm run p0 用 AX 快照评测选元素的准确率，会调用 Jev，因此需要 key。",
+      "code": "npm test        # 单测，不调用 API\nnpm run p0      # 离线评测：AX 快照选元素准确率（调用 Jev，需要 key）",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/Sac-Y/Jev-cu/blob/52d32ac24e2cea29c63d9d7c4bd6d4c401111f56/README.md?plain=1#L47"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "界面文字会发送给 TypeSafe 的 Jev 服务处理（不传截图），请注意界面上的敏感信息。",
+    "默认是 dry-run 模式。删除、发送、支付、授权、上传、验证码、安装、系统设置等操作会停在 confirm，需要人工确认。",
+    "App 白名单在 scripts/policy.mjs 中，新增 App 必须显式修改这个文件。",
+    "该工具不会绕过登录、付费墙和验证码。",
+    "只能在 Codex 桌面 App 的 cua_repl 运行时中运行决策循环。"
+  ],
+  "references": [],
+  "media": [],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "eb96c6fa194c694f8b94d62181695d50cbca76948223498e39231759dcd6052a",
+  "mediaStatus": "none_in_official_documents"
+}

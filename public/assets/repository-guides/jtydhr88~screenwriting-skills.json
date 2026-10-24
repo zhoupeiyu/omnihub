@@ -1,0 +1,68 @@
+{
+  "schemaVersion": 1,
+  "key": "jtydhr88/screenwriting-skills",
+  "status": "ready",
+  "reason": "",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/jtydhr88/screenwriting-skills/blob/357d1348ccaa1ab75f2f51ef7c90a7f00a686c76/README.md",
+  "sourceRevision": "357d1348ccaa1ab75f2f51ef7c90a7f00a686c76",
+  "canonicalKey": "jtydhr88/screenwriting-skills",
+  "summary": "一套共 26 个的编剧与戏剧构作 Agent Skills，可在 Claude Code 和 OpenAI Codex 中辅助完成电影、剧集、情景喜剧和戏曲剧本的创作与修改。",
+  "intro": "适合编剧、剧集创作者和戏剧写作者，在 Claude Code 或 Codex 中按项目阶段调用。技能分为四层：通用戏剧构作（前提、结构、人物、对白、场景、格式）、媒介层（剧集、编剧室、情景喜剧、戏曲板腔体与曲牌体）、传统与行业（美日韩法与中国大陆实践）、大师剧本语料（契诃夫、小津、Succession 等）。可以用于拆幕、改对白、把小说改编成分集大纲，以及跟踪项目进度。",
+  "requirements": "需要已安装 Claude Code（本指南采用这一路径）；也支持 OpenAI Codex，但安装方式不同。技能正文用中文编写，用户可以用中文、英文、日文、韩文或法文提问，回答会使用提问的语言。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "在 Claude Code 中添加插件市场",
+      "text": "以 Claude Code 为例，按官方推荐方式先添加插件市场，再安装 screenwriting 插件。安装后，技能以 /screenwriting:<skill> 的形式调用，例如 /screenwriting:sw-dialogue。",
+      "code": "/plugin marketplace add jtydhr88/screenwriting-skills\n/plugin install screenwriting@screenwriting-skills",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/jtydhr88/screenwriting-skills/blob/357d1348ccaa1ab75f2f51ef7c90a7f00a686c76/README.md?plain=1#L15"
+      }
+    },
+    {
+      "title": "用 /skills 确认技能已加载",
+      "text": "安装完成后，运行 /skills 列出可用技能，确认 26 个技能都已出现。之后 agent 检测到相关上下文时会自动加载技能，不需要每次手动指定。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/jtydhr88/screenwriting-skills/blob/357d1348ccaa1ab75f2f51ef7c90a7f00a686c76/README.md?plain=1#L38"
+      }
+    },
+    {
+      "title": "按项目类型选择技能层级",
+      "text": "电影项目主要用第 1、3、4 层；剧集或舞台项目还要加上第 2 层媒介层，因为它会用该媒介自己的单位替代电影结构。如果想按阶段推进并在 story-bible.md 中记录项目状态，可以先从 sw-workflow 开始。",
+      "code": "1. General dramaturgy   premise · structure · character · dialogue · scene · format · Truby organic anatomy · genre anatomy · project workflow\n2. Medium layer         series · episode & season structure · engine & bible · writers' room · half-hour comedy\n                        stage  · Chinese opera: banqiang and qupai methods, each with a full-script case library\n3. Tradition & trade    America · Japan · Korea & France · mainland China · the business\n4. Master corpora       Chekhov · Ozu · Succession · television case studies",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/jtydhr88/screenwriting-skills/blob/357d1348ccaa1ab75f2f51ef7c90a7f00a686c76/README.md?plain=1#L106"
+      }
+    },
+    {
+      "title": "用自然语言提出具体写作需求",
+      "text": "直接描述需求，agent 会选用对应技能：拆幕和定幕点用 sw-series-structure，对白太直白用 sw-dialogue 加 sw-scene-craft，小说改编成国产剧分集大纲用 sw-chinese-series-practice。你的剧本保持原语言，讨论语言可以不同。",
+      "code": "# “把我这 12 集的剧拆幕，定出幕点”\n# → agent 调用 sw-series-structure\n\n# “这场戏的对白太直白了，帮我改”\n# → agent 调用 sw-dialogue + sw-scene-craft\n\n# “把这本 40 万字小说改成 40 集国产剧的分集大纲”\n# → agent 调用 sw-chinese-series-practice + sw-series-engine-bible\n\n# “开个项目，帮我记住进度”\n# → agent 调用 sw-workflow",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/jtydhr88/screenwriting-skills/blob/357d1348ccaa1ab75f2f51ef7c90a7f00a686c76/README_ZH.md?plain=1#L73"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "技能指令文件只有中文版本，不读中文的用户无法直接审阅技能内容，只能依赖 agent 的转述。",
+    "舞台类型目前只覆盖了一部分：豫剧韵表、粤剧等仍在计划中。",
+    "技能内容提炼自已出版的书籍和剧本，属于创作方法参考，不是行业规定或法律意见。"
+  ],
+  "references": [
+    {
+      "label": "README_ZH.md",
+      "url": "https://github.com/jtydhr88/screenwriting-skills/blob/357d1348ccaa1ab75f2f51ef7c90a7f00a686c76/README_ZH.md"
+    }
+  ],
+  "media": [],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "16b3f6d25b499e3869151c8744dc9c27246286daa6b8826c8f55d1476fff6af8",
+  "mediaStatus": "none_in_official_documents"
+}

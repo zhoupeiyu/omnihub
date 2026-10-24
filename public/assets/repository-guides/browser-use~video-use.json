@@ -1,0 +1,70 @@
+{
+  "schemaVersion": 1,
+  "key": "browser-use/video-use",
+  "status": "ready",
+  "reason": "",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/browser-use/video-use/blob/b877063835e6ea6e457124da7e28a0ae26691dc3/README.md",
+  "sourceRevision": "b877063835e6ea6e457124da7e28a0ae26691dc3",
+  "canonicalKey": "browser-use/video-use",
+  "summary": "一个供 Claude Code 等编码代理使用的视频剪辑技能：把原始素材放进文件夹并通过对话剪辑，最终输出 final.mp4。",
+  "intro": "适合想用对话方式剪辑口播、教程、访谈、旅行、混剪等视频的创作者。它会剪掉口头填充词和停顿、为各片段调色、在剪辑点加 30ms 音频淡入淡出、烧录字幕，并可通过 HyperFrames、Remotion、Manim 或 PIL 生成动画叠层。处理时以 ElevenLabs 转录的逐词时间戳文本为主，按需生成时间线合成图辅助判断；渲染后会在每个剪辑点自检，并把会话记忆保存在 project.md 中。",
+  "requirements": "需要 Claude Code、Codex 等具备 shell 权限的代理；需要 ElevenLabs API Key（README 给出申请地址）；ffmpeg 为必需依赖，yt-dlp 仅在下载在线素材时需要。以下流程以 Claude Code 为例。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "准备 ElevenLabs API Key",
+      "text": "在 elevenlabs.io 的 API Keys 设置页申请密钥。安装过程中代理会提示你粘贴一次，转录每个素材都需要用到它。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/browser-use/video-use/blob/b877063835e6ea6e457124da7e28a0ae26691dc3/README.md?plain=1#L23"
+      }
+    },
+    {
+      "title": "把安装提示词粘贴给 Claude Code",
+      "text": "将 README 中的 Setup prompt 粘贴进 Claude Code。代理会阅读 install.md，完成克隆、安装依赖、配置 ffmpeg、注册技能并设置 API Key，然后告知已就绪，等待你提供素材。",
+      "code": "Set up https://github.com/browser-use/video-use for me.\n\nRead install.md first to install this repo, wire up ffmpeg, register the skill with whichever agent you're running under, and set up the ElevenLabs API key — ask me to paste it when you need it. Then read SKILL.md for daily usage, and always read helpers/ because that's where the editing scripts live. After install, don't transcribe anything on your own — just tell me it's ready and wait for me to drop footage into a folder.",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/browser-use/video-use/blob/b877063835e6ea6e457124da7e28a0ae26691dc3/README.md?plain=1#L23"
+      }
+    },
+    {
+      "title": "在素材目录中启动代理",
+      "text": "把原始素材放进一个文件夹，在终端进入该目录后启动 claude（也可换成 codex 等其他代理）。",
+      "code": "cd /path/to/your/videos\nclaude    # or codex, hermes, etc.",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/browser-use/video-use/blob/b877063835e6ea6e457124da7e28a0ae26691dc3/README.md?plain=1#L23"
+      }
+    },
+    {
+      "title": "描述需求并确认剪辑策略",
+      "text": "在会话中说明想要的成片。代理会先盘点素材并提出剪辑策略，必须等你确认后才执行剪辑。渲染完成后它会自检，通过后才给你预览；成片为 edit/final.mp4，所有产出都放在素材目录的 edit/ 下。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/browser-use/video-use/blob/b877063835e6ea6e457124da7e28a0ae26691dc3/README.md?plain=1#L23"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "每个素材都会调用一次 ElevenLabs Scribe 进行转录，音频需交由该第三方服务处理；README 未说明相关费用。",
+    "安装和剪辑由具备 shell 权限的代理自动执行命令完成，请在可信环境中使用并留意代理的操作。",
+    "自检发现问题时最多重新渲染 3 次。",
+    "手动安装示例使用 brew 安装 ffmpeg，对应 macOS 环境；其他平台未在 README 中说明。",
+    "README 还提到 Browser Use Cloud 和 Browser Use Box 等托管选项，但未给出具体使用说明。"
+  ],
+  "references": [],
+  "media": [],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "612bca23557cfc4501e80d3ce4babbe086dba77a70fa3a74ae5c0170393ece8f",
+  "mediaStatus": "unavailable",
+  "mediaFailures": [
+    {
+      "sourceUrl": "https://github.com/browser-use/video-use/blob/b877063835e6ea6e457124da7e28a0ae26691dc3/README.md#L76",
+      "reason": "unsupported_media_format"
+    }
+  ]
+}

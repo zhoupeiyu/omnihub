@@ -1,0 +1,93 @@
+{
+  "schemaVersion": 1,
+  "key": "ekkolearnai/hermes-web-ui",
+  "status": "ready",
+  "reason": "",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/EKKOLearnAI/ekko-studio/blob/f918e0fb449f92dff67cdbebfe0cf72fd3978c7f/README.md",
+  "sourceRevision": "f918e0fb449f92dff67cdbebfe0cf72fd3978c7f",
+  "canonicalKey": "EKKOLearnAI/ekko-studio",
+  "summary": "Ekko Studio（原名 Hermes Web UI）是一个本地优先的 AI 工作台，可在同一界面里进行多代理对话、编程代理管理和可视化工作流编排。",
+  "intro": "适合同时使用 Hermes Agent、Claude Code、Codex、Pi、Grok、OpenCode、DeepSeek Harness 等多个代理运行时的个人或团队。它提供单聊和群聊、可视化工作流（含人工审批节点）、模型与提供商管理、多个 Hermes Profile、文件浏览器、Web 终端、定时任务、Kanban、语音和用量统计，并能接入 Telegram、Discord、Slack、飞书等 10 个平台渠道。",
+  "requirements": "按本指南的 npm 路径安装，需要可用的 npm 和全局安装权限。如果使用 DSH 原生插件，运行 Studio 后端的机器的 PATH 中需要有 pnpm。各模型提供商需要你自己的凭据。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "通过 npm 全局安装并启动",
+      "text": "本指南采用 npm 路径（官方另提供 Windows、macOS、Linux 桌面安装包，二者择一即可）。全局安装 ekko-studio 包，再执行 ekko-studio-web start 启动服务。启动时会初始化数据目录、本地数据库和内置技能，并启动 Hermes 代理桥接。",
+      "code": "npm install -g ekko-studio\nekko-studio-web start",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/EKKOLearnAI/ekko-studio/blob/f918e0fb449f92dff67cdbebfe0cf72fd3978c7f/README.md?plain=1#L336"
+      }
+    },
+    {
+      "title": "打开本地地址并登录",
+      "text": "启动成功后会自动打开浏览器（设置了 --no-open 时除外）。也可以手动访问 http://localhost:8648。默认初始账号是 admin / 123456，登录后系统会提示修改默认用户名和密码。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/EKKOLearnAI/ekko-studio/blob/f918e0fb449f92dff67cdbebfe0cf72fd3978c7f/README.md?plain=1#L336"
+      }
+    },
+    {
+      "title": "配置模型提供商",
+      "text": "在 Models 中添加预置或自定义的 OpenAI 兼容提供商，也可以通过 OAuth/设备流程连接 OpenAI Codex、Nous Portal、xAI、Claude、GitHub Copilot。系统可以从 ~/.hermes/auth.json 自动发现模型，然后在这里设置默认模型。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/EKKOLearnAI/ekko-studio/blob/f918e0fb449f92dff67cdbebfe0cf72fd3978c7f/README.md?plain=1#L153"
+      }
+    },
+    {
+      "title": "在 Agent Manager 安装编程代理",
+      "text": "在 Agent Manager 中安装、配置和更新 Claude Code、Codex、Pi、Grok、OpenCode、DSH 等运行时。之后可以在仪表盘启动和监控这些代理，并使用内置终端、会话历史和文件差异查看。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/EKKOLearnAI/ekko-studio/blob/f918e0fb449f92dff67cdbebfe0cf72fd3978c7f/README.md?plain=1#L190"
+      }
+    },
+    {
+      "title": "遇到登录锁定时用维护命令处理",
+      "text": "如果因登录失败被锁定，可以运行 clear-login-locks 清除锁记录，服务正在运行时需重启。reset-default-login 会把 admin 账号重置为 123456 并设为超级管理员，执行后务必重新修改密码。",
+      "code": "# Delete persisted login IP lock records\nekko-studio-web clear-login-locks\n\n# Delete login locks and restart the running Studio server\nekko-studio-web clear-login-locks --restart\n\n# Create or reset the default super administrator login to admin / 123456\nekko-studio-web reset-default-login",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/EKKOLearnAI/ekko-studio/blob/f918e0fb449f92dff67cdbebfe0cf72fd3978c7f/README.md?plain=1#L238"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "默认账号密码 admin / 123456 是公开的，首次登录后应立即修改；reset-default-login 会把密码恢复成这个默认值。",
+    "ekko-studio 和旧包 hermes-web-ui 的全局命令会互相覆盖，切换前要先卸载另一个包。",
+    "平台渠道凭据会写入 ~/.hermes/.env，渠道行为配置写入 ~/.hermes/config.yaml，请注意这些文件的访问权限。",
+    "调用各模型提供商会按对方的计费规则产生费用；界面中的成本统计只是估算值。",
+    "仓库许可证标注为 NOASSERTION，使用或二次分发前请自行确认授权条款。",
+    "实时语音不支持同时听和说的全双工模式，也不包括电话接入和常驻唤醒词监听。"
+  ],
+  "references": [],
+  "media": [
+    {
+      "url": "/assets/repository-guides/media-3bd7d0ad5f7de5cc2ac3894e.webp",
+      "alt": "EKKOLearnAI/ekko-studio 官方演示 1",
+      "sourceUrl": "https://github.com/EKKOLearnAI/ekko-studio/blob/f918e0fb449f92dff67cdbebfe0cf72fd3978c7f/README.md?plain=1#L22",
+      "originalUrl": "https://raw.githubusercontent.com/EKKOLearnAI/ekko-studio/f918e0fb449f92dff67cdbebfe0cf72fd3978c7f/docs/screenshots/overview/workspace.png"
+    },
+    {
+      "url": "/assets/repository-guides/media-25310544b1d88d841ee9f0cf.webp",
+      "alt": "EKKOLearnAI/ekko-studio 官方演示 2",
+      "sourceUrl": "https://github.com/EKKOLearnAI/ekko-studio/blob/f918e0fb449f92dff67cdbebfe0cf72fd3978c7f/README.md?plain=1#L42",
+      "originalUrl": "https://raw.githubusercontent.com/EKKOLearnAI/ekko-studio/f918e0fb449f92dff67cdbebfe0cf72fd3978c7f/docs/screenshots/overview/workflow.png"
+    },
+    {
+      "url": "/assets/repository-guides/media-e473cd9f5ca5a7ca4052eb6a.webp",
+      "alt": "EKKOLearnAI/ekko-studio 官方演示 3",
+      "sourceUrl": "https://github.com/EKKOLearnAI/ekko-studio/blob/f918e0fb449f92dff67cdbebfe0cf72fd3978c7f/README.md?plain=1#L42",
+      "originalUrl": "https://raw.githubusercontent.com/EKKOLearnAI/ekko-studio/f918e0fb449f92dff67cdbebfe0cf72fd3978c7f/docs/screenshots/overview/agent-manager.png"
+    }
+  ],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "8d163f7731b834cffa28615a6c87baa21cf803d09a9c3a53b0d360100ea76af6",
+  "mediaStatus": "archived",
+  "mediaFailures": []
+}

@@ -1,0 +1,64 @@
+{
+  "schemaVersion": 1,
+  "key": "nautechsystems/nautilus_trader",
+  "status": "ready",
+  "reason": "",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/nautechsystems/nautilus_trader/blob/a1c04285ffe57052923751eb94a9a6377f54b3ad/README.md",
+  "sourceRevision": "a1c04285ffe57052923751eb94a9a6377f54b3ad",
+  "canonicalKey": "nautechsystems/nautilus_trader",
+  "summary": "NautilusTrader 是以 Rust 为核心、用 Python 作为控制层的事件驱动交易引擎，可以用同一套策略代码做回测和实盘交易。",
+  "intro": "适合个人或小团队量化交易者。可用于在多个交易场所、多种资产上做纳秒级历史数据回测，并让同一策略接入加密货币交易所、传统市场经纪商或博彩交易所进行实盘交易。策略和指标可以用 Python 编写；对延迟敏感的场景，官方推荐用 Rust 编写。",
+  "requirements": "支持 Linux（x86_64/ARM64）、macOS（ARM64）和 Windows（x86_64），Python 版本为 3.12–3.14。官方建议在虚拟环境中安装，并推荐使用 uv 配合原版 CPython；Conda 等发行版不在官方支持范围内。安装预编译 wheel 不需要 Rust 工具链。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "准备 Python 虚拟环境",
+      "text": "先确认平台和 Python 版本在官方支持列表内（Python 3.12–3.14）。官方建议使用最新的受支持 Python 版本，并在虚拟环境中安装以隔离依赖。官方强烈推荐用 uv 包管理器配合原版 CPython；Conda 等发行版可能可用，但不受官方支持。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/nautechsystems/nautilus_trader/blob/a1c04285ffe57052923751eb94a9a6377f54b3ad/README.md?plain=1#L1"
+      }
+    },
+    {
+      "title": "安装 nautilus_trader 包",
+      "text": "官方支持两种安装方式：从 PyPI 或 Nautech Systems 包索引安装预编译 wheel，或从源码构建。pip 默认安装最新稳定版。下面这条命令带有 --pre 参数，并指向 Nautech 索引，会安装最新的预发布版本（包括开发版 wheel），使用前请确认这是你需要的版本。",
+      "code": "pip install -U nautilus_trader --pre --index-url=https://packages.nautechsystems.io/simple",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/nautechsystems/nautilus_trader/blob/a1c04285ffe57052923751eb94a9a6377f54b3ad/README.md?plain=1#L248"
+      }
+    },
+    {
+      "title": "参考官方回测示例入门",
+      "text": "仓库的 examples/backtest/ 目录提供了直接使用 BacktestEngine 的回测示例，crates/backtest/examples/engine_ema_cross.rs 是用 Rust 编写的 EMA 交叉回测示例。指标通过 PyO3 暴露给 Python，实现位于 python/nautilus_trader/indicators/。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/nautechsystems/nautilus_trader/blob/a1c04285ffe57052923751eb94a9a6377f54b3ad/README.md?plain=1#L540"
+      }
+    },
+    {
+      "title": "查阅适配器文档再接实盘",
+      "text": "实盘交易通过适配器接入交易场所和数据源。先在 Integrations 列表中确认目标场所（如 Binance、Interactive Brokers、Databento）及其状态（planned/building/beta/stable），再阅读 docs/integrations/ 中对应的指南。同时请阅读文档中关于回测与实盘差异的说明。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/nautechsystems/nautilus_trader/blob/a1c04285ffe57052923751eb94a9a6377f54b3ad/README.md?plain=1#L100"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "项目仍在积极开发中，版本之间可能出现破坏性 API 变更，变更说明仅按尽力而为原则记录。",
+    "目前处于 v2 过渡期：v1 只在 develop_v1 分支接收关键安全补丁，迁移细节见 MIGRATION_V2.md。",
+    "回测结果不能完全代表实盘：交易场所、网络传输、时序、持久化和对账等行为，模拟环境可能无法复现。",
+    "使用 --pre 参数会安装预发布版或开发版 wheel；官方说明 master 分支对应最新正式版本，推荐用于生产。",
+    "各交易所适配器的状态不同，接入前请先确认其稳定程度。实盘交易需要自行承担对应交易场所的账户、授权和资金风险。",
+    "项目采用 LGPL-3.0 许可证；源码构建时，MSRV 通常等于最新的 Rust 稳定版。"
+  ],
+  "references": [],
+  "media": [],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "2f214ae1f49e5e0a9d4519398af11dbadd7e51569e875afae110bd81568d117d",
+  "mediaStatus": "none_in_official_documents"
+}

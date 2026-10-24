@@ -1,0 +1,18 @@
+{
+  "schemaVersion": 1,
+  "key": "heygen-com/hyp",
+  "status": "unavailable",
+  "reason": "当前无法读取公开仓库：可能已删除、改名或不再公开。原始收藏仍保留。",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/heygen-com/hyp",
+  "summary": "",
+  "intro": "",
+  "requirements": "",
+  "platforms": [],
+  "steps": [],
+  "example": null,
+  "cautions": [],
+  "references": [],
+  "media": []
+}

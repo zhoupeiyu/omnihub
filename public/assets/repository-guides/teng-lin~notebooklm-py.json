@@ -1,0 +1,86 @@
+{
+  "schemaVersion": 1,
+  "key": "teng-lin/notebooklm-py",
+  "status": "ready",
+  "reason": "",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/teng-lin/notebooklm-py/blob/5d2fd5e29d1b99999a7d45230bfddca7bd1cbc81/README.md",
+  "sourceRevision": "5d2fd5e29d1b99999a7d45230bfddca7bd1cbc81",
+  "canonicalKey": "teng-lin/notebooklm-py",
+  "summary": "notebooklm-py 是 NotebookLM（Gemini Notebook）的非官方 Python API、CLI 和 agent skill，可以用程序管理笔记本、导入来源、提问，以及生成和下载内容产物。",
+  "intro": "适合想把 NotebookLM 接入脚本、研究流程或 AI agent 的开发者和研究者。它支持批量导入 URL、PDF、YouTube、Google Drive 等来源，生成音频概览、幻灯片、测验、思维导图等产物，并下载为 MP3、PDF、JSON 等格式。仓库附带 SKILL.md，可安装到 Claude Code 或 .agents 的 skill 目录，供 agent 调用。",
+  "requirements": "需要 Python 3.10 或更高版本，系统为 macOS、Linux、Windows 10/11 或 WSL。推荐安装 uv 或 pipx。需要一个可登录的 Google 账号。首次执行 notebooklm login 会下载约 170 MB 的 Chromium。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "用 uv tool 安装 CLI",
+      "text": "以 macOS / Linux 为例，推荐用 uv tool install（或 pipx）安装带 browser 扩展的 notebooklm-py。这两种方式会把 CLI 装进独立环境并加入 PATH，可以避开系统 pip 报的 externally-managed-environment 错误。",
+      "code": "uv tool install \"notebooklm-py[browser]\"   # or: pipx install \"notebooklm-py[browser]\"\nnotebooklm login                           # first run auto-downloads Chromium (~170 MB), then Google sign-in\nnotebooklm auth check --test --json        # verify: expect \"status\": \"ok\"",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/teng-lin/notebooklm-py/blob/5d2fd5e29d1b99999a7d45230bfddca7bd1cbc81/README.md?plain=1#L153"
+      }
+    },
+    {
+      "title": "登录 Google 并校验认证",
+      "text": "执行 notebooklm login。首次运行会自动下载 Chromium（约 170 MB，没有进度条，需要等待 30–90 秒），然后在浏览器中完成 Google 登录。登录后运行 auth check --test --json 验证，输出 status 为 ok 即表示可用。注意 notebooklm status 并不是认证检查。",
+      "code": "uv tool install \"notebooklm-py[browser]\"   # or: pipx install \"notebooklm-py[browser]\"\nnotebooklm login                           # first run auto-downloads Chromium (~170 MB), then Google sign-in\nnotebooklm auth check --test --json        # verify: expect \"status\": \"ok\"",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/teng-lin/notebooklm-py/blob/5d2fd5e29d1b99999a7d45230bfddca7bd1cbc81/README.md?plain=1#L153"
+      }
+    },
+    {
+      "title": "Linux 上补装 Chromium 系统库",
+      "text": "该步骤涉及需要人工核查的高权限、远程脚本或破坏性操作。本站不提供直接执行指令，请先查看官方说明并确认影响。",
+      "code": "playwright install-deps chromium       # scoped to chromium; matches CI",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/teng-lin/notebooklm-py/blob/5d2fd5e29d1b99999a7d45230bfddca7bd1cbc81/docs/installation.md?plain=1#L643"
+      }
+    },
+    {
+      "title": "创建笔记本跑通首次流程",
+      "text": "按官方的端到端验证流程，依次执行三条命令：用 create 新建笔记本，用 source add 添加一个网页来源，再用 ask 对来源提问。也可以先用 notebooklm list 做冒烟测试，确认安装、认证和 RPC 往返都正常。完整命令见 cli-reference.md。",
+      "code": "notebooklm create \"My First Notebook\"\nnotebooklm source add 'https://en.wikipedia.org/wiki/Python_(programming_language)'\nnotebooklm ask \"Summarize the sources in three sentences\"",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/teng-lin/notebooklm-py/blob/5d2fd5e29d1b99999a7d45230bfddca7bd1cbc81/docs/installation.md?plain=1#L780"
+      }
+    },
+    {
+      "title": "为 AI agent 安装 skill",
+      "text": "如果要在 Claude Code 等 agent 中使用，执行 notebooklm skill install，把 skill 写入 ~/.claude/skills/notebooklm 和 ~/.agents/skills/notebooklm。也可以用 npx skills add 从 GitHub 获取 SKILL.md。只有当宿主会读取这些目录、且尚未安装该 skill 时才需要这一步。",
+      "code": "notebooklm skill install\n\nnpx skills add teng-lin/notebooklm-py",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/teng-lin/notebooklm-py/blob/5d2fd5e29d1b99999a7d45230bfddca7bd1cbc81/README.md?plain=1#L30"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "这是非官方库，与 Google 无隶属关系。它依赖未公开的 Google 接口，接口可能随时变更导致失效。",
+    "高频使用可能被限流。官方定位是适合原型、研究和个人项目。",
+    "认证状态默认保存在 ~/.notebooklm，包含账号 Cookie，需要按敏感数据妥善保管。",
+    "内置 REST 服务必须设置 NOTEBOOKLM_SERVER_TOKEN 才能使用，且默认只绑定回环地址。绑定外部网卡会把账号凭据暴露到网络。",
+    "Android 后端需要单独安装，并生成 master_token.json 凭据，使用前请先阅读对应的安全说明。"
+  ],
+  "references": [
+    {
+      "label": "docs/installation.md",
+      "url": "https://github.com/teng-lin/notebooklm-py/blob/5d2fd5e29d1b99999a7d45230bfddca7bd1cbc81/docs/installation.md"
+    }
+  ],
+  "media": [],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "0d0350eb32ac57e5d3cf09bf069a3f7105f6fbcdc58dbb54ff7ec7f44d68072a",
+  "mediaStatus": "unavailable",
+  "mediaFailures": [
+    {
+      "sourceUrl": "https://github.com/teng-lin/notebooklm-py/blob/5d2fd5e29d1b99999a7d45230bfddca7bd1cbc81/README.md#L212",
+      "reason": "unsupported_media_host"
+    }
+  ]
+}

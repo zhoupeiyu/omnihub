@@ -1,0 +1,61 @@
+{
+  "schemaVersion": 1,
+  "key": "kornelski/pngquant",
+  "status": "partial",
+  "reason": "README 提供了用法和主要参数说明，但没有给出 pngquant 的安装或编译步骤，也没有可直接选用的代码块。",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/kornelski/pngquant/blob/913a90de9671a6511d634519b1f8a5f329aebbcb/README.md",
+  "sourceRevision": "913a90de9671a6511d634519b1f8a5f329aebbcb",
+  "canonicalKey": "kornelski/pngquant",
+  "summary": "pngquant 是一个有损 PNG 压缩命令行工具，把图片转换为带 alpha 通道的 8 位 PNG，从而减小文件体积。",
+  "intro": "适合需要批量压缩 PNG 的网页开发者和设计相关工作流。它可以一次处理多个文件，支持 stdin/stdout 管道，可设置质量区间、抖动强度和速度，并能跳过达不到质量要求的图片。README 称，转换后的图片符合标准，所有浏览器和操作系统都支持。压缩引擎也以 libimagequant 库的形式单独提供。",
+  "requirements": "需要先在系统中获得 pngquant 命令；本 README 未说明安装或编译方法，可到官方站点 pngquant.org 或本仓库查找。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "获取 pngquant 命令行工具",
+      "text": "本 README 未提供安装或编译步骤，请到官方站点 pngquant.org 或官方仓库自行查找获取方式。拿到命令后，可先运行 pngquant -h 或 man pngquant 查看完整参数列表。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/kornelski/pngquant/blob/913a90de9671a6511d634519b1f8a5f329aebbcb/README.md?plain=1#L1"
+      }
+    },
+    {
+      "title": "批量压缩目录中的 PNG",
+      "text": "在图片所在目录执行 pngquant *.png 进行批量转换。默认输出文件名带 -or8.png 或 -fs8.png 后缀，不会覆盖原图。也可以在管道中用 pngquant - 从 stdin 读取、向 stdout 输出。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/kornelski/pngquant/blob/913a90de9671a6511d634519b1f8a5f329aebbcb/README.md?plain=1#L7"
+      }
+    },
+    {
+      "title": "用质量区间控制压缩结果",
+      "text": "使用 --quality=min-max，如 README 示例 --quality=65-80。工具会用满足 max 的最少颜色数完成压缩；结果低于 min 时不保存该图片，并以状态码 99 退出。可配合 --skip-if-larger，在压缩不划算时不写出文件。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/kornelski/pngquant/blob/913a90de9671a6511d634519b1f8a5f329aebbcb/README.md?plain=1#L32"
+      }
+    },
+    {
+      "title": "调整输出路径与画质参数",
+      "text": "用 -o 指定单个文件的输出路径，或用 --ext 自定义输出后缀。--speed 取值 1~11，默认 4，官方建议保持默认；--floyd 和 --nofs 控制抖动；--strip 不复制可选的 PNG 数据块。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/kornelski/pngquant/blob/913a90de9671a6511d634519b1f8a5f329aebbcb/README.md?plain=1#L42"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "许可为双授权：GPL v3 或更高版本，并需保留附加的版权声明；用于非 GPL 软件（如闭源或 App Store 分发）时，需购买商业许可。",
+    "同时使用 --ext=.png --force 会直接覆盖原始文件，官方提示要谨慎使用。",
+    "这是有损压缩，图片会转为 8 位调色板；--speed 设得较高时，颜色数较少的图片效果较差。",
+    "在 Mac 上使用 Cocoa 读取器时，元数据总会被移除。"
+  ],
+  "references": [],
+  "media": [],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "54fcd81006544aab8ef01d9934400264d63d62486ee348be1aaeda17fb6cf4cb",
+  "mediaStatus": "none_in_official_documents"
+}

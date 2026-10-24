@@ -1,0 +1,79 @@
+{
+  "schemaVersion": 1,
+  "key": "weizhena/deep-research-skills",
+  "status": "ready",
+  "reason": "",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/Weizhena/Deep-Research-skills/blob/6ce38f60e3f8b22502c29873f96503a4e0c5addb/README.md",
+  "sourceRevision": "6ce38f60e3f8b22502c29873f96503a4e0c5addb",
+  "canonicalKey": "Weizhena/Deep-Research-skills",
+  "summary": "一组用于 Claude Code、OpenCode 和 Codex 的结构化深度调研技能，按“生成大纲→逐项深度调研→生成 Markdown 报告”的流程工作，并在每个阶段由人确认。",
+  "intro": "适合需要做论文综述、技术选型对比、竞品与行业分析、公司尽职调查等系统性调研的用户。先用 `/research` 为主题生成调研对象（items）和字段（fields）大纲，可人工补充，再由并行 agent 联网逐项调研，最后汇总为带目录的 `report.md`。以下以 Claude Code 为宿主整理。",
+  "requirements": "已安装 Claude Code（2.1.0+ 可直接用 `/skill-name` 触发，旧版本需用 `run /skill-name`）；本机有 Git 与 Python/pip，用于安装 `pyyaml` 依赖。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "克隆技能仓库到本地",
+      "text": "使用 git 克隆 deep-research-skills 仓库并进入项目目录，后续复制技能与 agent 文件都在该目录下进行。",
+      "code": "git clone https://github.com/Weizhena/deep-research-skills.git\ncd deep-research-skills",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/Weizhena/Deep-Research-skills/blob/6ce38f60e3f8b22502c29873f96503a4e0c5addb/README.md?plain=1#L20"
+      }
+    },
+    {
+      "title": "安装技能、agent 与 Python 依赖",
+      "text": "在 Claude Code 路径下，将中文版 `skills/research-zh`（或英文版 `research-en`）复制到 `~/.claude/skills/`，再把 `web-search-agent.md` 和 `web-search-modules` 复制到 `~/.claude/agents/`，最后执行 `pip install pyyaml`。agent 和依赖均标注为必需。",
+      "code": "# 中文版\ncp -r skills/research-zh/* ~/.claude/skills/\n\n# 英文版\ncp -r skills/research-en/* ~/.claude/skills/\n\n# 必需：安装agent和模块\ncp agents/web-search-agent.md ~/.claude/agents/\ncp -r agents/web-search-modules ~/.claude/agents/\n\n# 必需：安装Python依赖\npip install pyyaml",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/Weizhena/Deep-Research-skills/blob/6ce38f60e3f8b22502c29873f96503a4e0c5addb/README.md?plain=1#L27"
+      }
+    },
+    {
+      "title": "用 /research 生成调研大纲",
+      "text": "在 Claude Code 中输入 `/research` 加上调研主题，它会生成待调研对象清单及每项需收集的字段。若不满意，可用 `/research-add-items` 补充调研对象，或用 `/research-add-fields` 补充字段定义，确认后再进入下一阶段。",
+      "code": "/research AI Agent Demo 2025\n\n/research-add-items\n/research-add-fields",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/Weizhena/Deep-Research-skills/blob/6ce38f60e3f8b22502c29873f96503a4e0c5addb/README.md?plain=1#L106"
+      }
+    },
+    {
+      "title": "运行 /research-deep 逐项深度调研",
+      "text": "大纲确认后执行 `/research-deep`，技能会使用并行 agent 针对大纲中的每个 item 联网搜索，按定义的字段收集详细信息，结果以 JSON 形式保存，供下一步生成报告。",
+      "code": "/research-deep",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/Weizhena/Deep-Research-skills/blob/6ce38f60e3f8b22502c29873f96503a4e0c5addb/README.md?plain=1#L106"
+      }
+    },
+    {
+      "title": "用 /research-report 生成报告",
+      "text": "执行 `/research-report`，将各项 JSON 调研结果汇总为 `report.md`，这是一份带目录的完整 Markdown 报告，可直接阅读或分享。",
+      "code": "/research-report",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/Weizhena/Deep-Research-skills/blob/6ce38f60e3f8b22502c29873f96503a4e0c5addb/README.md?plain=1#L106"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "Claude Code 2.1.0 以下版本不支持直接 `/skill-name` 触发，需改用 `run /skill-name` 格式。",
+    "深度调研阶段依赖联网搜索；若改用 OpenCode，任何模型都需设置 `OPENCODE_ENABLE_EXA=1` 才能使用 websearch，否则只有能力较弱的 web fetch。",
+    "若改用 Codex，需额外修改 `~/.codex/config.toml`，启用 `multi_agent` 等标注为不稳定的功能，并安装 `agents-codex` 下的专用文件，与 Claude Code 路径的文件不通用。",
+    "`/research-deep` 会启动多个并行 agent 逐项联网检索，会消耗相应宿主的模型用量。"
+  ],
+  "references": [
+    {
+      "label": "README.zh.md",
+      "url": "https://github.com/Weizhena/Deep-Research-skills/blob/6ce38f60e3f8b22502c29873f96503a4e0c5addb/README.zh.md"
+    }
+  ],
+  "media": [],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "4d3d8acc039735203e8bc0576794a2b09dbb1ee5adc62e9d423be5d51f0de152",
+  "mediaStatus": "none_in_official_documents"
+}

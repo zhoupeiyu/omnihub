@@ -1,0 +1,61 @@
+{
+  "schemaVersion": 1,
+  "key": "alin-mr/alin-skills",
+  "status": "ready",
+  "reason": "",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/ai-alin/alin-skills/blob/9438fbf09bec9fff8aa184b8ddc065f1732c2290/README.md",
+  "sourceRevision": "9438fbf09bec9fff8aa184b8ddc065f1732c2290",
+  "canonicalKey": "ai-alin/alin-skills",
+  "summary": "A-Lin 编写的 Claude Code Skill 合集，目前文档中的主要技能 obsidian-to-lark 可把 Obsidian Markdown 笔记连同图片同步到飞书文档。",
+  "intro": "适合用 Obsidian 写作、需要把笔记发布到飞书（Lark）的 Claude Code 用户。obsidian-to-lark 会上传本地图片和图床图片，转换 wikilink、callout、高亮等 Obsidian 语法，并根据 frontmatter 决定新建文档还是覆盖已有文档。同步完成后，它会把飞书文档链接和同步时间写回原文件。",
+  "requirements": "Claude Code；可运行 npx 和 npm 的 Node.js 环境；飞书应用的 App ID 与 App Secret，用于配置 @larksuite/cli 并登录授权。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "用 npx skills 安装技能",
+      "text": "在终端中用 npx skills add 安装。只装单个技能时，加上 --skill 并填写技能名，例如 obsidian-to-lark；省略 --skill 则一次性安装合集中的全部技能。",
+      "code": "npx skills add alin-mr/alin-skills --skill <skill-name>\n\nnpx skills add alin-mr/alin-skills",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/ai-alin/alin-skills/blob/9438fbf09bec9fff8aa184b8ddc065f1732c2290/README.md?plain=1#L7"
+      }
+    },
+    {
+      "title": "安装并授权飞书 lark-cli",
+      "text": "obsidian-to-lark 依赖飞书官方 CLI。先全局安装 @larksuite/cli，再运行 lark-cli config init，填入飞书应用的 App ID 和 App Secret，最后执行 lark-cli auth login --recommend 完成登录授权。",
+      "code": "npm install -g @larksuite/cli\nlark-cli config init       # 填入飞书 App ID 和 App Secret\nlark-cli auth login --recommend",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/ai-alin/alin-skills/blob/9438fbf09bec9fff8aa184b8ddc065f1732c2290/README.zh.md?plain=1#L23"
+      }
+    },
+    {
+      "title": "在 Claude Code 中用触发词同步",
+      "text": "在 Claude Code 对话里说出触发词并附上笔记路径，例如“同步到飞书：笔记路径.md”，英文可用 sync to feishu。技能会在一次 Bash 调用中完成图片上传、语法转换和文档创建或覆盖。更多细节见 skills/obsidian-to-lark/SKILL.md。",
+      "code": "# 在 Claude Code 里直接说：\n同步到飞书：笔记路径.md\n\n# In Claude Code, just say:\n同步到飞书：path/to/note.md\nsync to feishu: path/to/note.md",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/ai-alin/alin-skills/blob/9438fbf09bec9fff8aa184b8ddc065f1732c2290/README.zh.md?plain=1#L23"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "同步会根据 frontmatter 覆盖已有飞书文档，并向原 Markdown 文件写回 feishu_doc_url 和 feishu_synced_at，建议先备份或用版本管理保存笔记。",
+    "需要飞书应用的 App ID/App Secret 和账号授权，请妥善保管这些凭据。",
+    "README 中的安装地址为 alin-mr/alin-skills，文档来源链接却指向 ai-alin/alin-skills，仓库可能已改名，安装前请核对。",
+    "README 标注 MIT 许可，但仓库元数据未识别出许可证文件。"
+  ],
+  "references": [
+    {
+      "label": "README.zh.md",
+      "url": "https://github.com/ai-alin/alin-skills/blob/9438fbf09bec9fff8aa184b8ddc065f1732c2290/README.zh.md"
+    }
+  ],
+  "media": [],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "bc112dce23756df6fccad752d99eb42f6eea499a2cf9e749ef92c025d31e33ed",
+  "mediaStatus": "none_in_official_documents"
+}

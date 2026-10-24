@@ -1,0 +1,79 @@
+{
+  "schemaVersion": 1,
+  "key": "parthjadhav/app-store-screenshots",
+  "status": "ready",
+  "reason": "",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/ParthJadhav/app-store-screenshots/blob/8bd752043f33c54e69c2e77dd169fc3fbca8a4e4/README.md",
+  "sourceRevision": "8bd752043f33c54e69c2e77dd169fc3fbca8a4e4",
+  "canonicalKey": "ParthJadhav/app-store-screenshots",
+  "summary": "这是一个 AI 编码代理技能，会生成基于 Next.js 的截图编辑器，用来制作 App Store、Mac App Store 和 Google Play 的营销截图，并按商店要求的尺寸导出 PNG。",
+  "intro": "适合需要为 iOS、Mac 或 Android 应用制作商店宣传截图的开发者。安装技能后，向编码代理描述应用，代理会搭建一个带连接画布、设备边框、检查器和导出功能的编辑器项目。项目支持多设备、多语言（包括 RTL）和 18 种命名视觉风格。",
+  "requirements": "需要 Node.js 20.9+，以及 bun、pnpm、yarn、npm 中的任意一个。还需要一个 `skills` 工具支持的 AI 编码代理，例如 Claude Code、Cursor、Windsurf、OpenCode 或 Codex。另外要准备好从模拟器、模拟机或真机截取的应用截图。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "用 npx skills 安装技能",
+      "text": "在项目中运行 `npx skills add` 安装本技能。也可以加 `-a claude-code` 只为指定代理安装。这种安装方式适用于 `skills` 工具支持的代理。",
+      "code": "npx skills add ParthJadhav/app-store-screenshots\n\nnpx skills add ParthJadhav/app-store-screenshots -a claude-code",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/ParthJadhav/app-store-screenshots/blob/8bd752043f33c54e69c2e77dd169fc3fbca8a4e4/README.md?plain=1#L38"
+      }
+    },
+    {
+      "title": "准备真实应用截图和需求说明",
+      "text": "先从模拟器、模拟机或设备截取应用截图。README 建议 iPhone 截图用 6.1 英寸模拟器。同时整理好以下信息：一句话说明应用用途、3-5 个重点功能、目标平台与设备、视觉风格、截图张数、语言区域，以及截图路径和图标。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/ParthJadhav/app-store-screenshots/blob/8bd752043f33c54e69c2e77dd169fc3fbca8a4e4/README.md?plain=1#L157"
+      }
+    },
+    {
+      "title": "让代理生成截图编辑器项目",
+      "text": "向编码代理提出制作商店截图的请求。技能会引导代理先询问应用背景、源截图、平台、语言区域、视觉方向和截图张数，再生成或迁移编辑器项目。在提示中写明风格名称（如 Swiss Grid Bold），代理会套用该风格的完整规范。",
+      "code": "Build App Store and Google Play screenshots for my app.",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/ParthJadhav/app-store-screenshots/blob/8bd752043f33c54e69c2e77dd169fc3fbca8a4e4/README.md?plain=1#L64"
+      }
+    },
+    {
+      "title": "启动开发服务器编辑截图",
+      "text": "启动开发服务器并打开编辑器。在侧边栏里增删或拖动排序屏幕，在右侧检查器里修改文案、布局、截图和元素。如果需要元素跨越相邻屏幕，选择 Connected 模式；如果需要每屏独立，选择 Isolated 模式。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/ParthJadhav/app-store-screenshots/blob/8bd752043f33c54e69c2e77dd169fc3fbca8a4e4/README.md?plain=1#L157"
+      }
+    },
+    {
+      "title": "导出图片并提交项目文件",
+      "text": "点击 Export bundle，下载按平台、设备、分辨率和语言区域整理好的 PNG 压缩包。把 `app-store-screenshots.json` 和 `public/screenshots/uploaded/` 一起提交到 git，这样重新克隆后也能复现同一套截图。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/ParthJadhav/app-store-screenshots/blob/8bd752043f33c54e69c2e77dd169fc3fbca8a4e4/README.md?plain=1#L157"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "README 只提到用本技能生成的示例截图曾被 App Store 接受，并不保证你的截图一定能通过审核。",
+    "README 未给出启动开发服务器的具体命令，需按生成项目中的说明操作，或询问代理。",
+    "跨屏元素不应切断必要文字或关键界面，导出后的单张截图也要能独立成立。",
+    "Apple Watch、iPad、Android 等设备边框由 CSS 渲染，只有 iPhone 使用自带的 `mockup.png` 边框。导出时如果出现空白设备会有警告，需要检查。"
+  ],
+  "references": [],
+  "media": [
+    {
+      "url": "/assets/repository-guides/media-c55203cde0948fec63685b99.webp",
+      "alt": "ParthJadhav/app-store-screenshots 官方演示 1",
+      "sourceUrl": "https://github.com/ParthJadhav/app-store-screenshots/blob/8bd752043f33c54e69c2e77dd169fc3fbca8a4e4/README.md?plain=1#L5",
+      "originalUrl": "https://raw.githubusercontent.com/ParthJadhav/app-store-screenshots/8bd752043f33c54e69c2e77dd169fc3fbca8a4e4/example.png"
+    }
+  ],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "038c76e79d7d435c85c7ce787d68535840c9c1d194ff3036bf15eac209b61c0d",
+  "mediaStatus": "archived",
+  "mediaFailures": []
+}

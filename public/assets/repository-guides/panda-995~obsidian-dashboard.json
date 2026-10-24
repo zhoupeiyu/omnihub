@@ -1,0 +1,71 @@
+{
+  "schemaVersion": 1,
+  "key": "panda-995/obsidian-dashboard",
+  "status": "ready",
+  "reason": "",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/Panda-995/obsidian-dashboard/blob/d3bbfa142988fc5dee1515ecdcc4dc0000a03d54/README.md",
+  "sourceRevision": "d3bbfa142988fc5dee1515ecdcc4dc0000a03d54",
+  "canonicalKey": "Panda-995/obsidian-dashboard",
+  "summary": "这是一套 Obsidian 仪表盘模板，能扫描整个 Vault 的 Markdown 笔记，并展示字数、热力图、标签、分类等写作统计。",
+  "intro": "适合用 Obsidian 写作或积累笔记、想集中查看创作量和笔记完整度的人。主模板 `templates/仪表盘模板.md` 在一个文档里展示多项内容：统计卡片、年度热力图、连续创作记录、月度趋势、标签云、分类统计、文章健康度和最近更新等。另有 `templates/热点追踪仪表盘模板.md`，可以在 Obsidian 内查看多平台热榜、维护选题池并生成简报。",
+  "requirements": "需要 Obsidian，并安装 Dataview 插件（必须），同时在 Dataview 设置中开启 JavaScript Queries。Obsidian Style Settings 和 Datacore 是可选插件。使用热点追踪模板还需要 RedFox API Key。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "安装 Dataview 并开启 JS 查询",
+      "text": "在 Obsidian 中安装 Dataview 插件，这是必需的核心依赖。然后进入 设置 → Dataview，打开 Enable JavaScript Queries，让模板里的 DataviewJS 代码块能够执行。Style Settings 和 Datacore 不是必需的，可以按需安装。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/Panda-995/obsidian-dashboard/blob/d3bbfa142988fc5dee1515ecdcc4dc0000a03d54/README.md?plain=1#L37"
+      }
+    },
+    {
+      "title": "复制 CSS 片段并启用样式",
+      "text": "把仓库中的 `snippets/dashboard-stats.css` 复制到你 Vault 目录下的 `.obsidian/snippets/` 文件夹。然后在 设置 → 外观 → CSS 代码片段 中启用 `dashboard-stats`。",
+      "code": "你的Vault目录/\n└── .obsidian/\n    └── snippets/\n        └── dashboard-stats.css",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/Panda-995/obsidian-dashboard/blob/d3bbfa142988fc5dee1515ecdcc4dc0000a03d54/README.md?plain=1#L48"
+      }
+    },
+    {
+      "title": "复制模板创建仪表盘文档",
+      "text": "把 `templates/仪表盘模板.md` 的内容复制到 Vault 中任意位置，文档名建议用 `00-仪表盘` 或 `Dashboard`。打开该文档后，DataviewJS 会自动扫描全库并显示统计。首次加载可能需要 10-30 秒，具体取决于笔记数量。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/Panda-995/obsidian-dashboard/blob/d3bbfa142988fc5dee1515ecdcc4dc0000a03d54/README.md?plain=1#L61"
+      }
+    },
+    {
+      "title": "按自己的属性名修改 F 配置",
+      "text": "如果你的 frontmatter 字段名与默认值不同，编辑模板顶部的 `F` 配置对象，把创建时间、标签、分类等字段改成你实际使用的名称。同一项可以用数组写多个备选名，按顺序查找，也兼容 `tags`、`date` 等英文字段。",
+      "code": "const F = {\n  created: ['创建时间', '创建日期', 'ctime'],\n  updated: ['更新时间', '更新日期', 'utime'],\n  author:   '作者',\n  desc:     '简介',\n  tags:     ['标签', 'tags'],\n  category: '分类',\n  wordCount:'字数统计',\n  readTime: '阅读时间',\n};\n\nconst F = {\n  created: ['date', 'created', 'ctime'],\n  updated: ['updated', 'utime'],\n  author: 'author',\n  desc: 'description',\n  tags: ['tags', 'tag'],\n  category: 'category',\n  wordCount: 'wordCount',\n  readTime: 'readingTime',\n};",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/Panda-995/obsidian-dashboard/blob/d3bbfa142988fc5dee1515ecdcc4dc0000a03d54/README.md?plain=1#L99"
+      }
+    },
+    {
+      "title": "按需启用热点追踪仪表盘",
+      "text": "需要热点追踪时，把 `templates/热点追踪仪表盘模板.md` 复制到 Vault 中。这个模板已内嵌样式，不依赖 CSS 片段。打开后依次操作：在页面顶部输入 RedFox API Key 并点击「保存 Key」，配置关注词和屏蔽词，再点击「刷新全部榜单」。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/Panda-995/obsidian-dashboard/blob/d3bbfa142988fc5dee1515ecdcc4dc0000a03d54/README.md?plain=1#L61"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "热点追踪模板会直接调用 RedFox 热榜接口。刷新榜单和补抓历史都会消耗调用额度，补抓 14 天历史约需 84 次接口调用。",
+    "API Key、关注词、屏蔽词和选题池只保存在当前 Obsidian 的 localStorage 中，不会写入 Vault 文件。换设备或清理数据后需要重新配置。",
+    "如果要修改热力图颜色，需要同时改 `snippets/dashboard-stats.css` 和模板里的内联 SVG 颜色数组。",
+    "笔记缺少创建时间字段时，会改用文件修改时间来统计，热力图和趋势结果可能因此产生偏差。"
+  ],
+  "references": [],
+  "media": [],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "a9ec1130617119e9d0e1dc930ba167a81cc309e2fd2316cf82f338151e3c43af",
+  "mediaStatus": "none_in_official_documents"
+}

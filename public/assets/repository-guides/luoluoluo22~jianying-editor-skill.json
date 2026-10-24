@@ -1,0 +1,73 @@
+{
+  "schemaVersion": 1,
+  "key": "luoluoluo22/jianying-editor-skill",
+  "status": "ready",
+  "reason": "",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/luoluoluo22/jianying-editor-skill/blob/32c56928ded4f9e2c2b80e099dc7abb793d2c30b/README.md",
+  "sourceRevision": "32c56928ded4f9e2c2b80e099dc7abb793d2c30b",
+  "canonicalKey": "luoluoluo22/jianying-editor-skill",
+  "summary": "一个供 AI 编程助手调用的剪映 Skill，用自然语言让 AI 在桌面版剪映专业版中自动搭建草稿时间轴，包括素材导入、配音、字幕、配乐与特效。",
+  "intro": "适合使用 Claude Code、Cursor、Trae、Antigravity 等 AI 编辑器，同时使用国内版桌面剪映专业版（JianyingPro）的剪辑者。你可以用自然语言让 AI 生成剪映草稿，内容包括导入视频、音频和图片，生成 AI 配音和对齐字幕，添加本地或剪映云端音乐、剪映自带特效、转场和关键帧。它还支持把网页动效录制成素材、录屏加智能变焦。最终渲染仍在剪映中完成。在 Windows 上可尝试自动导出，在 macOS 上需要手动导出。",
+  "requirements": "需要已安装国内版桌面剪映专业版，支持 Windows 或 macOS，不支持 CapCut 国际版和手机端。需要能执行 git clone 和 pip 的 Python 环境。使用网页转视频功能还需安装 Playwright 的 chromium。若要无人值守自动导出，需要 Windows 加剪映 5.9 或更低版本。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "把 Skill 克隆到 Claude Code 目录",
+      "text": "以 Windows 上的 Claude Code 为例，在项目根目录执行手动安装命令，把仓库克隆到 .claude/skills/jianying-editor。如果使用 Trae、Antigravity 或 Cursor 等其他编辑器，请改用 README 中对应目录的命令，不要混用。",
+      "code": "git clone https://github.com/luoluoluo22/jianying-editor-skill.git .claude/skills/jianying-editor",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/luoluoluo22/jianying-editor-skill/blob/32c56928ded4f9e2c2b80e099dc7abb793d2c30b/README.md?plain=1#L4"
+      }
+    },
+    {
+      "title": "安装 Python 依赖与浏览器环境",
+      "text": "进入 Skill 目录，运行 pip install -r requirements.txt 安装依赖。如果要使用网页动效转视频功能，还需执行 playwright install chromium 初始化网页捕获环境。",
+      "code": "# 安装 Python 依赖\npip install -r requirements.txt\n\n# 初始化网页捕获环境 (Web-to-Video 功能必填)\nplaywright install chromium",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/luoluoluo22/jianying-editor-skill/blob/32c56928ded4f9e2c2b80e099dc7abb793d2c30b/README.md?plain=1#L118"
+      }
+    },
+    {
+      "title": "确认剪映草稿目录位置",
+      "text": "Skill 默认会自动探测剪映草稿目录。如果探测失败，直接在对话中告诉 AI 你的草稿目录路径，README 列出了 Windows 和 macOS 的默认位置。Mac 用户如果实际路径不同，应先手动确认。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/luoluoluo22/jianying-editor-skill/blob/32c56928ded4f9e2c2b80e099dc7abb793d2c30b/README.md?plain=1#L122"
+      }
+    },
+    {
+      "title": "用自然语言让 AI 生成剪映草稿",
+      "text": "在 AI 编辑器中描述你要的视频，例如素材文件夹、文案、配音、字幕和背景音乐需求，由 AI 调用 Skill 生成草稿。更多说法可查阅仓库中的 usage.md。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/luoluoluo22/jianying-editor-skill/blob/32c56928ded4f9e2c2b80e099dc7abb793d2c30b/README.md?plain=1#L24"
+      }
+    },
+    {
+      "title": "重启剪映查看草稿并导出",
+      "text": "剪映不会实时刷新列表，生成草稿后需要重启剪映，或进出一次旧草稿，才能看到新草稿。Windows 上自动导出时不要动鼠标和键盘；macOS 需在剪映内手动导出。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/luoluoluo22/jianying-editor-skill/blob/32c56928ded4f9e2c2b80e099dc7abb793d2c30b/README.md?plain=1#L150"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "官方文档中的高权限或远程脚本操作应单独核查，不要整段复制执行。",
+    "只适配国内版桌面剪映专业版（JianyingPro），不支持 CapCut 国际版和手机端剪映。",
+    "自动导出依赖 Windows UI Automation 模拟鼠标和键盘，在剪映 5.9 或更低版本上最稳，新版本可能受弹窗或控件变化影响。macOS 不支持自动导出。",
+    "智能抠图、美颜、语音识别字幕等需要剪映 GPU 实时处理的功能，以及一键成片等内置 AI 功能，无法通过本 Skill 调用。",
+    "README 中的更新命令使用 .agent/skills/jianying-editor 路径。如果你安装在其他目录，需要进入实际安装目录再执行 git pull。",
+    "仓库许可证元数据为 NOASSERTION，README 自述为 MIT 许可。内嵌的 pyJianYingDraft 遵循 Apache License 2.0。"
+  ],
+  "references": [],
+  "media": [],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "3640b69f2d2f4177cc29cd2696ba78b80ed844607615ac7f463a5563bb6a22f2",
+  "mediaStatus": "none_in_official_documents"
+}

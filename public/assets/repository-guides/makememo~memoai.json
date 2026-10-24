@@ -1,0 +1,74 @@
+{
+  "schemaVersion": 1,
+  "key": "makememo/memoai",
+  "status": "ready",
+  "reason": "",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/Makememo/MemoAI/blob/4291638b657814f5d6fb4bf6b12a82e718be0bb9/README.md",
+  "sourceRevision": "4291638b657814f5d6fb4bf6b12a82e718be0bb9",
+  "canonicalKey": "Makememo/MemoAI",
+  "summary": "MemoAI 是一款桌面工具，可把在线或本地音视频转写为文字和字幕，并支持翻译、配音以及导出 SRT、VTT 和 Markdown。",
+  "intro": "适合需要把 YouTube 视频、播客或本地音视频转成文字、生成字幕或翻译字幕的用户。它支持 MP4、MP3、AAC、M4A 等格式的本地转写，也可直接上传已有的 SRT 或 VTT 字幕进行翻译。内置 Google 和 Microsoft 翻译，也可选用 Volcano Translation、DeepL 和 AI 翻译，并能为译文配音。结果可导出为常见字幕格式，或同步导出到 Markdown 等工具。",
+  "requirements": "需要 macOS（Apple Silicon 或 Intel）或 Windows 电脑。安装包从官方发布页下载。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "从发布页下载对应平台版本",
+      "text": "打开 README 中的发布页（memo.ac/releases），按你的系统选择 macOS Silicon、macOS Intel 或 Windows 版本，下载并安装。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/Makememo/MemoAI/blob/4291638b657814f5d6fb4bf6b12a82e718be0bb9/README.md?plain=1#L21"
+      }
+    },
+    {
+      "title": "粘贴链接或导入本地文件转写",
+      "text": "在线内容：复制 YouTube 或播客链接，粘贴到 Memo 输入框，点击 transcribe 开始转写。本地文件：可直接导入 MP4、MP3 等格式，文件名不要包含特殊字符。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/Makememo/MemoAI/blob/4291638b657814f5d6fb4bf6b12a82e718be0bb9/README.md?plain=1#L29"
+      }
+    },
+    {
+      "title": "选择翻译服务翻译字幕",
+      "text": "转写完成后，可用内置的 Google 或 Microsoft 免费翻译，也可选择 Volcano Translation、DeepL 或 AI 翻译。对某行结果不满意时，可点击逐行翻译重新翻译。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/Makememo/MemoAI/blob/4291638b657814f5d6fb4bf6b12a82e718be0bb9/README.md?plain=1#L58"
+      }
+    },
+    {
+      "title": "导出字幕或同步笔记",
+      "text": "在导出功能中选择 SRT、VTT 等字幕格式，或同步导出到 Markdown 等工具。如有需要，也可先用语音合成为译文配音，覆盖到原媒体上。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/Makememo/MemoAI/blob/4291638b657814f5d6fb4bf6b12a82e718be0bb9/README.md?plain=1#L78"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "本地文件名包含特殊字符时，MemoAI 无法识别。",
+    "README 只说明 Google 和 Microsoft 翻译免费，未说明 DeepL、Volcano 和 AI 翻译的账号或费用要求。",
+    "仓库未声明许可证，README 只是应用使用说明，不含源码构建方式。发布页链接文本显示为 GitHub releases，实际指向 memo.ac/releases。"
+  ],
+  "references": [],
+  "media": [],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "578381d669e2e9826b9005c552d538695878311c75ff12748fd92e92797263e3",
+  "mediaStatus": "unavailable",
+  "mediaFailures": [
+    {
+      "sourceUrl": "https://github.com/Makememo/MemoAI/blob/4291638b657814f5d6fb4bf6b12a82e718be0bb9/README.md#L35",
+      "reason": "unsupported_media_host"
+    },
+    {
+      "sourceUrl": "https://github.com/Makememo/MemoAI/blob/4291638b657814f5d6fb4bf6b12a82e718be0bb9/README.md#L60",
+      "reason": "unsupported_media_host"
+    },
+    {
+      "sourceUrl": "https://github.com/Makememo/MemoAI/blob/4291638b657814f5d6fb4bf6b12a82e718be0bb9/README.md#L82",
+      "reason": "unsupported_media_host"
+    }
+  ]
+}

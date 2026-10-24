@@ -1,0 +1,53 @@
+{
+  "schemaVersion": 1,
+  "key": "kepano/obsidian-skills",
+  "status": "ready",
+  "reason": "",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/kepano/obsidian-skills/blob/3ccff5338ea700537839b21900aa5358a0402c98/README.md",
+  "sourceRevision": "3ccff5338ea700537839b21900aa5358a0402c98",
+  "canonicalKey": "kepano/obsidian-skills",
+  "summary": "一组遵循 Agent Skills 规范的技能，让兼容的 AI 代理能读写 Obsidian 的 Markdown、Bases、JSON Canvas 文件，并能调用 Obsidian CLI 等工具。",
+  "intro": "适合用 Obsidian 管理笔记、同时使用 Claude Code、Codex 或 OpenCode 等支持技能的代理的用户。安装后，代理可以按 Obsidian 专有语法编辑 .md 笔记，例如 wikilinks、embeds、callouts 和 properties。它也能创建 .base 数据库视图和 .canvas 画布，通过 Obsidian CLI 操作 vault 或开发插件、主题，用 Defuddle 提取网页正文，用 Knap 从 JSON 或 CSV 批量渲染 Markdown 模板。",
+  "requirements": "需要一个支持 Agent Skills 规范的代理宿主，例如 Claude Code、Codex 或 OpenCode。下文以 Claude Code 的插件市场安装为例。部分技能依赖对应的外部工具：obsidian-cli 需要 Obsidian CLI，defuddle 需要 Defuddle，knap 需要 Knap。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "对照技能表确认需要的能力",
+      "text": "先查看 README 的 Skills 表格。obsidian-markdown 处理 .md，obsidian-bases 处理 .base，json-canvas 处理 .canvas，obsidian-cli 用于操作 vault 和开发插件，defuddle 用于网页提取，knap 用于模板渲染。根据自己常用的文件类型确定要用哪些技能。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/kepano/obsidian-skills/blob/3ccff5338ea700537839b21900aa5358a0402c98/README.md?plain=1#L48"
+      }
+    },
+    {
+      "title": "在 Claude Code 中添加插件市场并安装",
+      "text": "以 Claude Code 为例，在会话中执行 README 给出的两条 /plugin 命令。第一条把 kepano/obsidian-skills 添加为插件市场，第二条从中安装 obsidian 插件。",
+      "code": "/plugin marketplace add kepano/obsidian-skills\n/plugin install obsidian@obsidian-skills",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/kepano/obsidian-skills/blob/3ccff5338ea700537839b21900aa5358a0402c98/README.md?plain=1#L7"
+      }
+    },
+    {
+      "title": "在 vault 目录中使用 Claude Code",
+      "text": "README 说明这些技能应放在 Obsidian vault 根目录，或你运行 Claude Code 的目录下的 .claude 文件夹中。因此请在 vault 目录中启动 Claude Code，再让它处理笔记、Bases 或 Canvas 文件。技能的加载机制详见官方 Claude Skills 文档。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/kepano/obsidian-skills/blob/3ccff5338ea700537839b21900aa5358a0402c98/README.md?plain=1#L28"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "README 中 npx skills 的 ssh 形式地址（D0C1）格式异常，看起来不像正常的 GitHub ssh 地址，不建议照抄。如需使用 npx skills，请改用 https 形式。",
+    "Codex 和 OpenCode 的安装位置不同：Codex 只复制 skills/ 目录；OpenCode 要克隆完整仓库，并在重启后才生效。不要混用这两种目录结构。",
+    "obsidian-cli、defuddle、knap 依赖各自的外部工具，本仓库只提供技能说明，不包含这些工具本身。"
+  ],
+  "references": [],
+  "media": [],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "a395f944ddce5efa92f52f5c947cec9d015e5c7448ae7f31eb41a0652c968c57",
+  "mediaStatus": "none_in_official_documents"
+}

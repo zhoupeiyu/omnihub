@@ -1,0 +1,72 @@
+{
+  "schemaVersion": 1,
+  "key": "repoprompt/repoprompt-classic",
+  "status": "ready",
+  "reason": "",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/repoprompt/repoprompt-classic/blob/4ea2b65727acafdcda9e853796560216b83bc0aa/README.md",
+  "sourceRevision": "4ea2b65727acafdcda9e853796560216b83bc0aa",
+  "canonicalKey": "repoprompt/repoprompt-classic",
+  "summary": "Repo Prompt 应用的归档源码快照，可以在 macOS 上用 Xcode 自行构建并启动调试版应用，或构建独立的 repoprompt-mcp CLI。",
+  "intro": "适合想研究 Repo Prompt 应用实现、或打算基于它做 fork 的 macOS 开发者。仓库定位是保留参考的教育性快照，官方不再支持。持续开发转到另一个代码库 RepoPrompt CE，两者功能不保证一致。",
+  "requirements": "macOS 26 或更高版本；Xcode 26 或更高版本，更早版本不受支持。默认使用 ad-hoc 本地签名，不需要开发者团队账号或 provisioning profile。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "确认 macOS 与 Xcode 版本",
+      "text": "构建前先确认本机是 macOS 26 及以上，并已安装 Xcode 26 及以上。README 明确说明更早的 macOS 和 Xcode 版本都不支持构建。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/repoprompt/repoprompt-classic/blob/4ea2b65727acafdcda9e853796560216b83bc0aa/README.md?plain=1#L9"
+      }
+    },
+    {
+      "title": "在 Xcode 中选择 RepoPrompt scheme",
+      "text": "用 Xcode 打开 RepoPrompt.xcodeproj，选择 RepoPrompt scheme，即可构建并运行常规 macOS 应用。如果只需要独立 CLI，改选 repoprompt-mcp scheme。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/repoprompt/repoprompt-classic/blob/4ea2b65727acafdcda9e853796560216b83bc0aa/README.md?plain=1#L9"
+      }
+    },
+    {
+      "title": "用 xcodebuild 构建并打开调试版",
+      "text": "如果习惯命令行，可以用 xcodebuild 构建 Debug 配置，读取构建设置中的产物路径，再用 open 启动应用。项目自带的签名配置为零账号本地构建。",
+      "code": "xcodebuild -project RepoPrompt.xcodeproj -scheme RepoPrompt -configuration Debug build\nAPP_PATH=\"$(xcodebuild -project RepoPrompt.xcodeproj -scheme RepoPrompt -configuration Debug -showBuildSettings | awk -F ' = ' '/TARGET_BUILD_DIR/ { dir=$2 } /FULL_PRODUCT_NAME/ { name=$2 } END { print dir \"/\" name }')\"\nopen \"$APP_PATH\"",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/repoprompt/repoprompt-classic/blob/4ea2b65727acafdcda9e853796560216b83bc0aa/README.md?plain=1#L9"
+      }
+    },
+    {
+      "title": "按需配置本地自签名证书",
+      "text": "需要经常重新构建、又希望隐私权限保持稳定时，可以在钥匙串访问中创建 Self Signed Root 类型的 Code Signing 证书，然后在构建时用 CODE_SIGN_IDENTITY 覆盖签名身份。不要把这个本机证书名提交到仓库。",
+      "code": "xcodebuild \\\n  -project RepoPrompt.xcodeproj \\\n  -scheme RepoPrompt \\\n  -configuration Debug \\\n  CODE_SIGN_IDENTITY=\"Repo Prompt Local Development\" \\\n  build",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/repoprompt/repoprompt-classic/blob/4ea2b65727acafdcda9e853796560216b83bc0aa/README.md?plain=1#L28"
+      }
+    },
+    {
+      "title": "查阅 AGENTS.md 等贡献文档",
+      "text": "仓库结构、原生构建命令、验证方法和并行 agent 安全说明见 AGENTS.md。贡献政策、安全政策和第三方声明清单分别见 CONTRIBUTING.md、SECURITY.md 和 docs/open-source-readiness.md。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/repoprompt/repoprompt-classic/blob/4ea2b65727acafdcda9e853796560216b83bc0aa/README.md?plain=1#L53"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "仓库已归档，不提供支持，上游 issue 和 PR 不会被主动处理，官方鼓励自行 fork。",
+    "ad-hoc 签名和本地自签名构建都只使用进程内的易失安全存储，API key 和安全权限改动在重启应用后会丢失。只有经过验证的 Apple 团队签名才会启用 Keychain。",
+    "如需分发，必须换成 Apple 签发的签名身份，并走公证流程。",
+    "Classic 与 RepoPrompt CE 是两套独立代码库，不保证功能一致。",
+    "原始代码采用 Apache-2.0 许可；第三方声明清单目前并不完整，见 THIRD_PARTY_NOTICES.md 和 ThirdPartyLicenses/。"
+  ],
+  "references": [],
+  "media": [],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "4c21d5cf0742c7e7c445e83ad305144a5ddae8087109e683ab19cadd153d490a",
+  "mediaStatus": "none_in_official_documents"
+}

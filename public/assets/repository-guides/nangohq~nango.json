@@ -1,0 +1,63 @@
+{
+  "schemaVersion": 1,
+  "key": "nangohq/nango",
+  "status": "ready",
+  "reason": "",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/NangoHQ/nango/blob/2a8c95c8e6bb36317674f93991a9a529c8e80f82/README.md",
+  "sourceRevision": "2a8c95c8e6bb36317674f93991a9a529c8e80f82",
+  "canonicalKey": "NangoHQ/nango",
+  "summary": "Nango 是一个开源的产品集成平台，提供托管鉴权、代理请求和 TypeScript Functions，用来把你的产品和 AI Agent 接入 1,000 多个外部 API。",
+  "intro": "适合需要为自己的产品或 AI Agent 接入第三方 API 的开发团队，可用于 AI 工具调用与 MCP、数据同步、Webhook 处理、统一 API、代用户写入数据，以及按客户定制集成行为。Nango 负责 OAuth、令牌刷新、凭据存储、重试和限流处理；集成逻辑以可审阅的 TypeScript 代码编写，也可以由 AI builder 生成。",
+  "requirements": "需要注册 Nango 账号（官方称注册免费、无需信用卡），也可以选择 BYOC 或自托管。后端调用需要 Nango Secret Key，以及集成 ID 和连接 ID；示例代码使用 @nangohq/node 包。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "注册并创建第一个集成",
+      "text": "在 app.nango.dev 注册账号，然后在 Integrations 标签页配置一个新的集成，选择要对接的外部 API。这个集成的 ID 会在后续代码中作为 providerConfigKey 使用。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/NangoHQ/nango/blob/2a8c95c8e6bb36317674f93991a9a529c8e80f82/README.md?plain=1#L87"
+      }
+    },
+    {
+      "title": "创建连接并完成授权流程",
+      "text": "在 Connections 标签页创建一个连接，并走完对应 API 的授权流程。确认可用后，在前端调用 nango.openConnectUI 嵌入白标授权界面，让你的用户自行完成授权，并在 onEvent 回调中处理授权完成事件。",
+      "code": "nango.openConnectUI({ onEvent: (event) => { /* handle completion */ } });",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/NangoHQ/nango/blob/2a8c95c8e6bb36317674f93991a9a529c8e80f82/README.md?plain=1#L87"
+      }
+    },
+    {
+      "title": "在后端读取凭据或代理请求",
+      "text": "在后端用 Secret Key 初始化 @nangohq/node 的 Nango 实例。可以调用 getConnection 获取某个连接的凭据；也可以用 nango.get 等方法通过 Proxy 发请求，由 Nango 注入凭据，并处理重试和限流。",
+      "code": "import { Nango } from '@nangohq/node';\n\nconst nango = new Nango({ secretKey: '<NANGO-SECRET-KEY>' });\n\nconst connection = await nango.getConnection('<INTEGRATION-ID>', '<CONNECTION-ID>');\nconsole.log(connection.credentials);\n\nimport { Nango } from '@nangohq/node';\n\nconst nango = new Nango({ secretKey: '<NANGO-SECRET-KEY>' });\n\n// Make an authenticated request to any API\nconst response = await nango.get({\n    endpoint: '/v3/contacts',\n    providerConfigKey: '<INTEGRATION-ID>',\n    connectionId: '<CONNECTION-ID>'\n});",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/NangoHQ/nango/blob/2a8c95c8e6bb36317674f93991a9a529c8e80f82/README.md?plain=1#L87"
+      }
+    },
+    {
+      "title": "用 Functions 编写自定义集成",
+      "text": "需要更复杂的逻辑时，把集成写成 TypeScript 函数，部署到 Nango 运行时执行。函数可以通过 nango.input 读取输入，并调用 nango.post 等方法访问 API。也可以用 AI builder 根据用例描述生成函数代码，审阅后再纳入版本管理。",
+      "code": "export default async function run(nango: Nango) {\n    const { owner, repo, title, body } = nango.input;\n    \n    const response = await nango.post({\n        endpoint: `/repos/${owner}/${repo}/issues`,\n        data: { title, body }\n    });\n    \n    return response.data;\n}",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/NangoHQ/nango/blob/2a8c95c8e6bb36317674f93991a9a529c8e80f82/README.md?plain=1#L55"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "Nango 采用 Elastic License，不是 MIT 等宽松许可，商业使用前请先阅读许可条款。",
+    "Nango Cloud 和 BYOC 的功能按套餐开放；免费自托管版的功能集有限。",
+    "Secret Key 只能放在后端，不要暴露到前端代码中。"
+  ],
+  "references": [],
+  "media": [],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "fb111d133b7bf13500069382537d3cfff1fdd10a379d9fccd69188807363a131",
+  "mediaStatus": "none_in_official_documents"
+}

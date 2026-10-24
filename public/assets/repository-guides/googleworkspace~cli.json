@@ -1,0 +1,76 @@
+{
+  "schemaVersion": 1,
+  "key": "googleworkspace/cli",
+  "status": "ready",
+  "reason": "",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/googleworkspace/cli/blob/a3768d0e82ad83cca2da97724e46bea4ff0e6dbd/README.md",
+  "sourceRevision": "a3768d0e82ad83cca2da97724e46bea4ff0e6dbd",
+  "canonicalKey": "googleworkspace/cli",
+  "summary": "gws 是一个命令行工具，可操作 Drive、Gmail、Calendar、Sheets、Docs、Chat、Admin 等 Google Workspace API，输出结构化 JSON，并附带 Agent 技能。",
+  "intro": "适合想在终端或脚本里直接调用 Workspace API、又不想手写 curl 的开发者，也适合需要让 AI Agent 管理 Workspace 数据的人。它运行时读取 Google Discovery Service 动态生成命令，并提供 +send、+agenda 等辅助命令，还有 --dry-run 预览、自动分页和结构化退出码。",
+  "requirements": "Node.js 18+（用于 npm 安装，也可改为从 GitHub Releases 下载预编译二进制）；一个 Google Cloud 项目，用于 OAuth 凭据；一个可访问 Google Workspace 的 Google 账号。使用 gws auth setup 时还需要已安装的 gcloud CLI。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "通过 npm 安装 gws",
+      "text": "本指南选用 npm 路径，适用于已装 Node.js 18+ 的系统。全局安装 @googleworkspace/cli 后，npm 会自动从 GitHub Releases 下载与系统匹配的二进制。官方首推的方式是到 Releases 页面手动下载并把 gws 放进 $PATH，两者任选其一即可。",
+      "code": "npm install -g @googleworkspace/cli",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/googleworkspace/cli/blob/a3768d0e82ad83cca2da97724e46bea4ff0e6dbd/README.md?plain=1#L39"
+      }
+    },
+    {
+      "title": "配置 Cloud 项目与 OAuth",
+      "text": "已安装并登录 gcloud 时，运行 gws auth setup，它会创建 Cloud 项目、启用 API 并完成登录。没有 gcloud 时，在 Cloud Console 中手动配置：同意屏幕选 External，客户端类型选 Desktop app，下载客户端 JSON 并保存为 ~/.config/gws/client_secret.json。",
+      "code": "gws auth setup       # one-time: creates a Cloud project, enables APIs, logs you in\ngws auth login       # subsequent scope selection and login",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/googleworkspace/cli/blob/a3768d0e82ad83cca2da97724e46bea4ff0e6dbd/README.md?plain=1#L111"
+      }
+    },
+    {
+      "title": "添加测试用户并登录",
+      "text": "在 OAuth 同意屏幕的 Test users 中加入自己的邮箱，否则登录会报 Access blocked。然后运行 gws auth login，打开输出的链接并授权。未验证的应用最多约 25 个 scope，官方建议用 -s 只选需要的服务，例如 drive,gmail,sheets。",
+      "code": "gws auth login",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/googleworkspace/cli/blob/a3768d0e82ad83cca2da97724e46bea4ff0e6dbd/README.md?plain=1#L141"
+      }
+    },
+    {
+      "title": "调用 API 并先预览请求",
+      "text": "按 gws <service> <resource> <method> 的格式调用，用 --params 和 --json 传参。每个资源都可以加 --help 查看用法，gws schema 可以查看方法的请求和响应结构。涉及写入的操作建议先加 --dry-run 预览。如果遇到 accessNotConfigured，按提示中的 enable_url 启用对应 API。",
+      "code": "# List the 10 most recent files\ngws drive files list --params '{\"pageSize\": 10}'\n\n# Create a spreadsheet\ngws sheets spreadsheets create --json '{\"properties\": {\"title\": \"Q1 Budget\"}}'\n\n# Send a Chat message\ngws chat spaces messages create \\\n  --params '{\"parent\": \"spaces/xyz\"}' \\\n  --json '{\"text\": \"Deploy complete.\"}' \\\n  --dry-run\n\n# Introspect any method's request/response schema\ngws schema drive.files.list\n\n# Stream paginated results as NDJSON\ngws drive files list --params '{\"pageSize\": 100}' --page-all | jq -r '.files[].name'",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/googleworkspace/cli/blob/a3768d0e82ad83cca2da97724e46bea4ff0e6dbd/README.md?plain=1#L81"
+      }
+    },
+    {
+      "title": "为 Agent 安装技能",
+      "text": "仓库提供 100 多个 SKILL.md 技能。可以用 npx skills add 一次安装全部技能，也可以只装 gws-drive、gws-gmail 等单项。使用 Gemini CLI 的话，先完成 gws 认证，再按 README 安装扩展，扩展会继承终端里的凭据。",
+      "code": "# Install all skills at once\nnpx skills add https://github.com/googleworkspace/cli\n\n# Or pick only what you need\nnpx skills add https://github.com/googleworkspace/cli/tree/main/skills/gws-drive\nnpx skills add https://github.com/googleworkspace/cli/tree/main/skills/gws-gmail",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/googleworkspace/cli/blob/a3768d0e82ad83cca2da97724e46bea4ff0e6dbd/README.md?plain=1#L218"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "README 明确说明这不是 Google 官方支持的产品。",
+    "项目仍在积极开发，v1.0 之前可能出现不兼容变更。",
+    "命令直接作用于真实账号数据（如发送邮件、修改表格），写操作建议先用 --dry-run 预览。",
+    "gws auth export --unmasked 会导出明文凭据，导出文件需要妥善保管。",
+    "Agent 读取的邮件、文档内容可能包含提示词注入；官方提供可选的 Model Armor 集成来扫描响应，该服务属于 Google Cloud。",
+    "在 bash 中使用 Sheets 范围时，! 会触发历史展开，值要用单引号包裹。"
+  ],
+  "references": [],
+  "media": [],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "499ff9600cc36f6c547e16ef5b56e7baee05afa35240c010b8873441928a39aa",
+  "mediaStatus": "none_in_official_documents"
+}

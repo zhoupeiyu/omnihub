@@ -1,0 +1,61 @@
+{
+  "schemaVersion": 1,
+  "key": "msitarzewski/agency-agents",
+  "status": "ready",
+  "reason": "",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/msitarzewski/agency-agents/blob/e31d699e06e78056489bb72282b754dfaa4b254a/README.md",
+  "sourceRevision": "e31d699e06e78056489bb72282b754dfaa4b254a",
+  "canonicalKey": "msitarzewski/agency-agents",
+  "summary": "一套按职能分组的 AI 代理人设与工作流 Markdown 文件，可以安装到 Claude Code、Cursor、Codex 等工具中按需调用。",
+  "intro": "适合想让 AI 编程或对话工具扮演特定专业角色的人。仓库按部门组织代理文件，包括工程、设计、付费投放、销售、市场等。每个文件包含身份与性格、核心任务与工作流、技术交付物示例、成功指标与沟通风格。既可以安装到工具中使用，也可以只当参考资料，挑选后自行改写。",
+  "requirements": "需要在本地获取仓库内容，因为安装依赖仓库中的 scripts/install.sh 和各部门目录下的 .md 文件。还需要已安装目标工具，下文以 Claude Code 为例。另有一个官方桌面应用可以免脚本安装，但它属于独立的仓库和发布渠道。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "按部门表格挑选需要的代理",
+      "text": "浏览 README 中各部门表格，例如 Engineering、Design、Paid Media、Sales、Marketing，根据 Specialty 和 When to Use 两列找到适合自己任务的代理。也可以直接打开对应的 .md 文件，阅读完整的工作流说明。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/msitarzewski/agency-agents/blob/e31d699e06e78056489bb72282b754dfaa4b254a/README.md?plain=1#L113"
+      }
+    },
+    {
+      "title": "安装代理到 Claude Code 目录",
+      "text": "在仓库根目录运行 install.sh --tool claude-code，可以安装全部代理。如果只需要某个部门，可以手动把该目录的 .md 文件复制到 ~/.claude/agents/，或用 --division 参数只装指定部门。",
+      "code": "# Install all agents to your Claude Code directory\n./scripts/install.sh --tool claude-code\n\n# Or manually copy a category if you only want one division\ncp engineering/*.md ~/.claude/agents/\n\n# Then activate any agent in your Claude Code sessions:\n# \"Hey Claude, activate Frontend Developer mode and help me build a React component\"\n\n./scripts/install.sh                                    # interactive wizard: pick tools + teams\n./scripts/install.sh --tool claude-code --division engineering,security\n./scripts/install.sh --tool cursor --agent frontend-developer,ui-designer\n./scripts/install.sh --list teams                       # see every team + agent count\n./scripts/install.sh --tool opencode --division engineering --dry-run",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/msitarzewski/agency-agents/blob/e31d699e06e78056489bb72282b754dfaa4b254a/README.md?plain=1#L46"
+      }
+    },
+    {
+      "title": "在对话中引用代理名称激活",
+      "text": "在 Claude Code 会话中直接点名要使用的代理，例如要求它进入 Frontend Developer 模式，再提出具体任务。README 的 Get Started 部分说明，代理是通过在对话中引用来激活的。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/msitarzewski/agency-agents/blob/e31d699e06e78056489bb72282b754dfaa4b254a/README.md?plain=1#L1155"
+      }
+    },
+    {
+      "title": "按自身需求修改代理文件",
+      "text": "代理是普通的 Markdown 文件。可以直接编辑已安装的文件，调整其中的性格、工作流和交付物要求，让它更贴合你的项目和团队习惯。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/msitarzewski/agency-agents/blob/e31d699e06e78056489bb72282b754dfaa4b254a/README.md?plain=1#L1155"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "README 提到 OpenCode 运行时目前只注册约 119 个代理，超出的部分会被静默丢弃。如果用 OpenCode，应借助 --division 只安装一部分。",
+    "README 中的“Production-Ready”“proven deliverables”等是项目方的自我描述，代理输出质量取决于所用模型和宿主工具。",
+    "桌面应用来自独立仓库 agency-agents-app，与脚本安装属于不同的分发方式。"
+  ],
+  "references": [],
+  "media": [],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "257da2b1303472a476f0e32d768de16026d7d25eb6cd21e8b7dce2cad0467347",
+  "mediaStatus": "none_in_official_documents"
+}

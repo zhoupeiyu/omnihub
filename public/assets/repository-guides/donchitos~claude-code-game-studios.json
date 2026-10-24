@@ -1,0 +1,75 @@
+{
+  "schemaVersion": 1,
+  "key": "donchitos/claude-code-game-studios",
+  "status": "ready",
+  "reason": "",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/Donchitos/Claude-Code-Game-Studios/blob/b21fa0f7f289fc3e726cf36fb12b9bc1e7a51e4d/README.md",
+  "sourceRevision": "b21fa0f7f289fc3e726cf36fb12b9bc1e7a51e4d",
+  "canonicalKey": "Donchitos/Claude-Code-Game-Studios",
+  "summary": "一个 Claude Code 项目模板，用 49 个代理、74 个斜杠命令 Skill、12 个 hook 和 13 条路径规则，把一个会话组织成分层协作的游戏开发团队。",
+  "intro": "适合用 Claude Code 开发游戏的独立开发者或小团队，尤其是使用 Godot 4、Unity 或 Unreal Engine 5 的项目。模板把开发流程从构思、设计、架构、故事拆分、开发、QA 一直覆盖到发布，每一步都有对应的斜杠命令。代理只负责提问、给出选项和起草，所有决定都由用户拍板。",
+  "requirements": "Git；Claude Code（推荐使用原生安装器）；Python 3（skill 和 hook 都要读取 project.yaml）；Bash（macOS、Linux 自带，Windows 上随 Git for Windows 提供）。建议安装 jq，用于 hook 校验。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "克隆模板作为新游戏项目",
+      "text": "把仓库克隆到一个以你的游戏命名的目录，然后进入该目录。也可以在 GitHub 上把它当作模板使用。这个仓库是项目起点，本身不包含任何示例游戏。",
+      "code": "   git clone https://github.com/Donchitos/Claude-Code-Game-Studios.git my-game\n   cd my-game",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/Donchitos/Claude-Code-Game-Studios/blob/b21fa0f7f289fc3e726cf36fb12b9bc1e7a51e4d/README.md?plain=1#L183"
+      }
+    },
+    {
+      "title": "在项目目录启动 Claude Code",
+      "text": "在项目根目录启动 Claude Code 会话。会话开始时，session-start 和 detect-gaps 等 hook 会自动运行，显示当前分支和最近的提交；如果识别到这是一个新项目，会提示你运行 /start。",
+      "code": "   claude",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/Donchitos/Claude-Code-Game-Studios/blob/b21fa0f7f289fc3e726cf36fb12b9bc1e7a51e4d/README.md?plain=1#L183"
+      }
+    },
+    {
+      "title": "运行 /start 进入合适的流程",
+      "text": "输入 /start，系统会询问项目当前所处的阶段（还没有想法、有模糊概念、设计已明确、已有作品），并据此引导你进入对应流程，同时写入 project.yaml。如果已经明确需求，也可以直接使用 /brainstorm、/setup-engine 或 /project-stage-detect。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/Donchitos/Claude-Code-Game-Studios/blob/b21fa0f7f289fc3e726cf36fb12b9bc1e7a51e4d/README.md?plain=1#L183"
+      }
+    },
+    {
+      "title": "用 /settings 调整流程强度",
+      "text": "modes.rigor 有 minimal、standard、full 三档，默认为 minimal。它统一控制 GDD 要求、文档详细程度、QA 证据和评审方式。用 /settings 可以查看或修改配置；加 --local 时写入 project.local.yaml，只对你本人生效。完整说明见 .claude/docs/effects-map.md。",
+      "code": "/settings                              # view effective config\n/settings modes.review_mode            # view one setting\n/settings modes.rigor=full             # write to project.yaml (team-wide)\n/settings --local modes.review_mode=solo   # write to project.local.yaml (just you)",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/Donchitos/Claude-Code-Game-Studios/blob/b21fa0f7f289fc3e726cf36fb12b9bc1e7a51e4d/README.md?plain=1#L204"
+      }
+    },
+    {
+      "title": "按阶段调用对应斜杠命令",
+      "text": "在 Claude Code 中输入 / 可以看到全部 Skill。它们按设计、架构、故事与冲刺、评审、QA、发布等类别划分，例如 /create-stories、/dev-story、/story-done。修改过 skill 后，可以用 /skill-test 检查改动是否破坏了原有行为。",
+      "code": "/skill-test static [name]     # structural linter — 7 compliance checks\n/skill-test category [name]   # category-specific quality rubric\n/skill-test spec [name]       # behavioral spec assertions\n/skill-test audit             # coverage report across skills and agents\n/skill-improve [name]         # test-fix-retest loop; keeps or reverts on score change",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/Donchitos/Claude-Code-Game-Studios/blob/b21fa0f7f289fc3e726cf36fb12b9bc1e7a51e4d/README.md?plain=1#L102"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "各代理在 frontmatter 中指定了模型：三位总监使用 Opus，lead-programmer 和十五个专家使用 Sonnet，其余代理沿用会话模型。实际用量和费用取决于你的 Claude Code 账户。",
+    "缺少 Python 时，所有配置会静默回退为默认值；暂存的提交中包含数据 JSON 而本机没有 Python 时，提交会被阻止。",
+    "官方文档中的高权限或远程脚本操作应单独核查，不要整段复制执行。",
+    "notify.sh 只在 Windows 上发送通知，macOS 和 Linux 上目前不会弹出桌面通知。",
+    "在任何流程强度下，改动了玩家可见内容的故事都必须实际运行游戏并保留截图证据，才能关闭。",
+    "从旧版本模板升级时，参照 UPGRADING.md 判断哪些文件可以直接覆盖、哪些需要手动合并。"
+  ],
+  "references": [],
+  "media": [],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "89ea6c28f235bf5b710cc41831091e6947e2baa71f2cd4add25c13b521593139",
+  "mediaStatus": "none_in_official_documents"
+}

@@ -1,0 +1,94 @@
+{
+  "schemaVersion": 1,
+  "key": "notracc1210/ai-monitor-public",
+  "status": "ready",
+  "reason": "",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/notracc1210/ai-monitor-public/blob/f42b34d74d90a190dd5adb9f3b3bf03f0e03a400/README.md",
+  "sourceRevision": "f42b34d74d90a190dd5adb9f3b3bf03f0e03a400",
+  "canonicalKey": "notracc1210/ai-monitor-public",
+  "summary": "一个开源、本地优先的 macOS 悬浮面板，汇总 Claude Code、Codex CLI、Cursor、浏览器 AI 应用等任务的运行、完成、失败和等待输入状态。",
+  "intro": "适合同时使用多个 AI 工具（Claude Code、Cursor、ChatGPT 网页等）、希望在 Mac 上集中查看各任务状态的用户。它由本地 daemon 接收各适配器上报的事件，在悬浮面板中显示，并默认发送本地桌面通知。目前只提供源码，需要通过命令行构建。",
+  "requirements": "macOS 13.0 或更高版本；Rust toolchain（运行 daemon）；Xcode Command Line Tools（编译悬浮面板）；Node.js（终端与 agent hook 集成）；使用浏览器集成需要 Chrome。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "安装 Rust 与 Xcode 命令行工具",
+      "text": "在 macOS 上，如果还没有 Rust，先用 rustup 安装脚本安装；再执行 xcode-select --install 安装 Xcode Command Line Tools，用于编译悬浮面板。终端与 hook 集成另外需要 Node.js。 原文包含需人工核查的高权限或删除命令，本站不提供一键复制；请查看该步骤的官方出处。",
+      "code": "xcode-select --install",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/notracc1210/ai-monitor-public/blob/f42b34d74d90a190dd5adb9f3b3bf03f0e03a400/README.zh-CN.md?plain=1#L19"
+      }
+    },
+    {
+      "title": "克隆仓库到本地",
+      "text": "克隆 ai-monitor-public 仓库并进入目录。后续的 daemon 配置文件 ./config/default.toml 和数据库 ./ai-monitor.db 都位于这个仓库目录中。",
+      "code": "git clone https://github.com/notracc1210/ai-monitor-public.git\ncd ai-monitor-public",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/notracc1210/ai-monitor-public/blob/f42b34d74d90a190dd5adb9f3b3bf03f0e03a400/README.zh-CN.md?plain=1#L48"
+      }
+    },
+    {
+      "title": "启动 daemon 并保持窗口开启",
+      "text": "用 cargo run 启动 daemon，绑定 127.0.0.1:4318。它是接收各 AI 工具事件的后台服务，使用期间这个终端窗口必须一直开着。首次运行时 Cargo 会下载并编译依赖，可能需要几分钟。",
+      "code": "cargo run -p ai-monitor-daemon -- --bind 127.0.0.1:4318 --database ./ai-monitor.db --config ./config/default.toml",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/notracc1210/ai-monitor-public/blob/f42b34d74d90a190dd5adb9f3b3bf03f0e03a400/README.zh-CN.md?plain=1#L55"
+      }
+    },
+    {
+      "title": "新开终端构建并打开悬浮面板",
+      "text": "新开一个终端窗口，运行 build_macos_app.sh 生成本地 app bundle，然后打开 AI Monitor.app。如果 macOS 提示无法验证开发者，右键点击 app → 打开 → 仍要打开。",
+      "code": "./scripts/build_macos_app.sh\nopen \"target/macos-app/AI Monitor.app\"",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/notracc1210/ai-monitor-public/blob/f42b34d74d90a190dd5adb9f3b3bf03f0e03a400/README.zh-CN.md?plain=1#L65"
+      }
+    },
+    {
+      "title": "获取 token 并连接 Chrome 扩展",
+      "text": "用 cat 读取 ~/.ai-monitor/api-token。在 Chrome 中打开 chrome://extensions，开启开发者模式，加载 integrations/browser-extension/chrome 文件夹；在扩展弹窗中填写 Daemon URL 和 token，点击 Test 确认 daemon 在线。",
+      "code": "cat ~/.ai-monitor/api-token",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/notracc1210/ai-monitor-public/blob/f42b34d74d90a190dd5adb9f3b3bf03f0e03a400/README.zh-CN.md?plain=1#L78"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "目前只有源码，没有打包好的安装程序；桌面端仅支持 macOS，Windows 和 Linux 尚未实现。",
+    "关闭 daemon 所在的终端窗口会停止所有监控。",
+    "Codex CLI 用户安装 hooks 后，需要在 Codex CLI 的 /hooks 中信任 AI Monitor hooks；JetBrains 插件仅以源码形式提供。",
+    "第三方通知渠道（Slack、Telegram、Discord 等）为可选功能，启用后通知内容会发往对应的外部服务；默认只有本地通知。",
+    "所有客户端共用同一个本地 API token，请妥善保管 ~/.ai-monitor/api-token。"
+  ],
+  "references": [
+    {
+      "label": "README.zh-CN.md",
+      "url": "https://github.com/notracc1210/ai-monitor-public/blob/f42b34d74d90a190dd5adb9f3b3bf03f0e03a400/README.zh-CN.md"
+    }
+  ],
+  "media": [
+    {
+      "url": "/assets/repository-guides/media-d7cb74af5711b18fad53b30e.webp",
+      "alt": "AI Monitor 悬浮面板预览",
+      "sourceUrl": "https://github.com/notracc1210/ai-monitor-public/blob/f42b34d74d90a190dd5adb9f3b3bf03f0e03a400/README.zh-CN.md?plain=1#L28",
+      "originalUrl": "https://raw.githubusercontent.com/notracc1210/ai-monitor-public/f42b34d74d90a190dd5adb9f3b3bf03f0e03a400/docs/images/floating-monitor.png"
+    },
+    {
+      "url": "/assets/repository-guides/media-fa168b3f8e72d5b0ec7a1c48.webp",
+      "alt": "AI Monitor 通知预览",
+      "sourceUrl": "https://github.com/notracc1210/ai-monitor-public/blob/f42b34d74d90a190dd5adb9f3b3bf03f0e03a400/README.zh-CN.md?plain=1#L30",
+      "originalUrl": "https://raw.githubusercontent.com/notracc1210/ai-monitor-public/f42b34d74d90a190dd5adb9f3b3bf03f0e03a400/docs/images/notification.png"
+    }
+  ],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "7c9fa49e06d091cdbe9a32f53259937dfef18efd1bab125303651da26f137d4b",
+  "mediaStatus": "archived",
+  "mediaFailures": []
+}

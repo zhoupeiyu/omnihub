@@ -1,0 +1,97 @@
+{
+  "schemaVersion": 1,
+  "key": "justvugg/colibri",
+  "status": "partial",
+  "reason": "已提供的资料包含硬件前提、预编译包入口和运行入口，但缺少 Quick Start 第 3 步“获取模型”的具体内容，包括约 372 GB 模型从哪里下载、如何用 Python 转换成 int4 容器，以及模型目录放在哪里。源码编译（第 1、2 节）的具体命令也没有提供。",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/JustVugg/colibri/blob/ce370e87d7b623d7759b52ec2007d75fc5b0e87e/README.md",
+  "sourceRevision": "ce370e87d7b623d7759b52ec2007d75fc5b0e87e",
+  "canonicalKey": "JustVugg/colibri",
+  "summary": "colibrì 是一个纯 C 编写的推理引擎，把专家权重放在磁盘上按需读取，让 744B 到 2.8T 参数的 MoE 大模型可以在消费级硬件上运行。",
+  "intro": "适合手上没有大显存服务器、但有大容量高速 SSD 的开发者和研究者，用来在本机运行 GLM-5.2、Kimi K3、DeepSeek V4 Flash、Qwen3.6 等 MoE 模型。前端统一为 `coli chat`、`coli serve`、`coli web`。它也是一个开放的推理系统研究平台，研究内容包括显存/内存/磁盘分层放置、I/O、调度和推测解码等，欢迎按基准协议提交可复现的实验结果。",
+  "requirements": "内存最低约 16 GB，推荐 24 GB 以上。int4 模型需要约 380 GB 可用磁盘，推荐使用快速 NVMe SSD。系统可以是 Linux、Windows 10/11 或 macOS。从源码构建需要 C 编译器、make、git 和 python3；使用预编译包只需要 Python 3。不需要 GPU，默认只用 CPU 运行。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "核对硬件与磁盘条件",
+      "text": "对照 Quick Start 的前提表确认几项条件：内存至少约 16 GB；磁盘至少有约 380 GB 空闲空间存放 int4 模型；系统为 Linux、Windows 或 macOS。磁盘读取速度直接决定生成速度，建议把模型放在快速 NVMe SSD 上。不需要 GPU。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/JustVugg/colibri/blob/ce370e87d7b623d7759b52ec2007d75fc5b0e87e/docs/quickstart.md?plain=1#L14"
+      }
+    },
+    {
+      "title": "下载预编译包并检查引擎",
+      "text": "以 Linux x86_64 为例：在 Releases 页面下载预编译压缩包，解压到 colibri 目录，安装 Python 3，再在目录内运行 `python3 coli info`，确认引擎已就绪。预编译包也提供 macOS 和 Windows 版本。ARM64 Linux 没有预编译包，需要从源码构建。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/JustVugg/colibri/blob/ce370e87d7b623d7759b52ec2007d75fc5b0e87e/docs/quickstart.md?plain=1#L28"
+      }
+    },
+    {
+      "title": "按官方指南准备模型文件",
+      "text": "引擎之外还需要约 372 GB 的模型文件。Python 只在准备模型文件时使用一次。具体的下载和转换步骤在 docs/quickstart.md 的“3. Get the model”一节，本次资料没有收录该节，请直接阅读原文操作。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/JustVugg/colibri/blob/ce370e87d7b623d7759b52ec2007d75fc5b0e87e/README.md?plain=1#L368"
+      }
+    },
+    {
+      "title": "启动聊天或网页面板",
+      "text": "模型准备好后，在程序目录运行 `./coli chat` 进入命令行对话，也可以运行 `./coli web` 打开网页面板。网页面板包含对话、Brio 模式、Brain 专家图谱和 Profiling 性能分析页。首次启动需要先加载约 10 GB 的常驻权重。",
+      "code": "$ ./coli chat\n  🐦 colibri v1.12.1 — GLM-5.2 · 744B MoE · int4 · streaming CPU\n  ✓ ready in 32s · resident 9.9 GB\n  › ciao!\n  ◆ Ciao! 😊 Come posso aiutarti oggi?",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/JustVugg/colibri/blob/ce370e87d7b623d7759b52ec2007d75fc5b0e87e/README.md?plain=1#L1"
+      }
+    },
+    {
+      "title": "遇到问题运行诊断命令",
+      "text": "运行失败时执行 `./coli doctor`。它会列出缺少的部分，例如编译器、模型文件或权限问题，并给出修复方法。如果有第二块 SSD，可以在上面放一份模型副本，通过 COLI_MODEL_MIRROR 让引擎同时从两块盘读取。",
+      "code": "COLI_MODEL_MIRROR=/second/glm52_i4 python3 ./coli chat --model /fast/glm52_i4",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/JustVugg/colibri/blob/ce370e87d7b623d7759b52ec2007d75fc5b0e87e/docs/quickstart.md?plain=1#L208"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "生成速度主要取决于磁盘，在慢盘或共享盘上可能远低于 1 token/s；项目明确表示不对速度做任何保证。",
+    "模型文件约 372 GB，需要预留大量磁盘空间和下载时间。",
+    "发布的 Linux 预编译包仅支持 x86_64，ARM64 Linux 必须从源码构建。",
+    "多 SSD 读取和多台 Mac 组成的局域网集群模式仍处于实验和测量阶段，加盘或加机器不保证速度按比例提升。",
+    "README 中列出的各硬件速度数字是项目自己的测量结果，不代表在你的机器上能达到同样速度。"
+  ],
+  "references": [
+    {
+      "label": "docs/quickstart.md",
+      "url": "https://github.com/JustVugg/colibri/blob/ce370e87d7b623d7759b52ec2007d75fc5b0e87e/docs/quickstart.md"
+    }
+  ],
+  "media": [
+    {
+      "url": "/assets/repository-guides/media-ba5c5ba4c27020274ba5a749.webp",
+      "alt": "JustVugg/colibri 官方演示 1",
+      "sourceUrl": "https://github.com/JustVugg/colibri/blob/ce370e87d7b623d7759b52ec2007d75fc5b0e87e/README.md?plain=1#L52",
+      "originalUrl": "https://raw.githubusercontent.com/JustVugg/colibri/ce370e87d7b623d7759b52ec2007d75fc5b0e87e/docs/media/colibri-dashboard.png"
+    },
+    {
+      "url": "/assets/repository-guides/media-e059931973551a1430dd2341.webp",
+      "alt": "JustVugg/colibri 官方演示 2",
+      "sourceUrl": "https://github.com/JustVugg/colibri/blob/ce370e87d7b623d7759b52ec2007d75fc5b0e87e/README.md?plain=1#L59",
+      "originalUrl": "https://raw.githubusercontent.com/JustVugg/colibri/ce370e87d7b623d7759b52ec2007d75fc5b0e87e/docs/media/colibri-brio.png"
+    },
+    {
+      "url": "/assets/repository-guides/media-c91718a975507c73d84ec398.webp",
+      "alt": "JustVugg/colibri 官方演示 3",
+      "sourceUrl": "https://github.com/JustVugg/colibri/blob/ce370e87d7b623d7759b52ec2007d75fc5b0e87e/README.md?plain=1#L81",
+      "originalUrl": "https://raw.githubusercontent.com/JustVugg/colibri/ce370e87d7b623d7759b52ec2007d75fc5b0e87e/docs/media/colibri-profiling.png"
+    }
+  ],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "95952d81da1cb03b310e24523ea93e1962e0bfc4d1849b40709325bc8ee22834",
+  "mediaStatus": "archived",
+  "mediaFailures": []
+}

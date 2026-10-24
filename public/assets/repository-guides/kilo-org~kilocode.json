@@ -1,0 +1,70 @@
+{
+  "schemaVersion": 1,
+  "key": "kilo-org/kilocode",
+  "status": "ready",
+  "reason": "",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/Kilo-Org/kilocode/blob/e0c27aa71f23f3b94916a9327eb22cd06bc28f0c/README.md",
+  "sourceRevision": "e0c27aa71f23f3b94916a9327eb22cd06bc28f0c",
+  "canonicalKey": "Kilo-Org/kilocode",
+  "summary": "Kilo Code 是开源 AI 编程代理，可在 VS Code、JetBrains 或命令行中根据自然语言生成和修改代码。",
+  "intro": "适合希望在编辑器或终端里使用 AI 编程代理的开发者。可以跨多个文件生成代码、补全行内代码、回答代码库相关问题、排查问题，还能在任务中途切换模型。CLI 的 `kilo run --auto` 可用于 CI/CD 流水线。本指南以 CLI 为入门路径；VS Code、JetBrains、Cloud Agent 的入口见官方 README。",
+  "requirements": "CLI 路径需要本机能使用 npm（官方也列出 curl、pnpm、bun、Homebrew、AUR 等方式，任选其一）。README 说明开始使用不需要 API Key；VS Code 路径需要创建 Kilo 账户。模型按供应商价格计费。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "用 npm 全局安装 Kilo CLI",
+      "text": "在终端执行代码块中 npm 一节的 `npm install -g @kilocode/cli`。代码块里还列出了 curl、pnpm、bun、Homebrew（macOS / Linux）和 AUR 等方式，它们互相替代，只选一种即可，不要重复安装。也可以从 GitHub Releases 下载对应平台的二进制包。 原文包含需人工核查的高权限或删除命令，本站不提供一键复制；请查看该步骤的官方出处。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/Kilo-Org/kilocode/blob/e0c27aa71f23f3b94916a9327eb22cd06bc28f0c/README.md?plain=1#L26"
+      }
+    },
+    {
+      "title": "在项目目录中启动 kilo",
+      "text": "进入要处理的项目目录，运行 `kilo` 启动 CLI。README 说明安装后可在任意项目目录中这样启动，之后用自然语言描述任务，由代理生成或修改代码，代码改动可以跨多个文件。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/Kilo-Org/kilocode/blob/e0c27aa71f23f3b94916a9327eb22cd06bc28f0c/README.md?plain=1#L26"
+      }
+    },
+    {
+      "title": "按任务类型切换内置代理",
+      "text": "根据任务选择代理：Code 是默认代理，负责实现和编辑代码；Plan 在写代码前设计架构、编写实施计划；Ask 只回答代码库问题，不改动文件；Debug 用于排查和追踪问题。也可以创建自定义代理，详见官方 agents 文档。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/Kilo-Org/kilocode/blob/e0c27aa71f23f3b94916a9327eb22cd06bc28f0c/README.md?plain=1#L112"
+      }
+    },
+    {
+      "title": "在 CI/CD 中使用自主模式",
+      "text": "在流水线中可以运行带 `--auto` 的 `kilo run`，让代理不弹出确认、全自动执行。`--auto` 会自动批准权限请求，除非有规则明确拒绝该操作，所以只应在受信任的环境中使用。更多配置项见 kilo.ai/docs。",
+      "code": "kilo run --auto \"run tests and fix any failures\"",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/Kilo-Org/kilocode/blob/e0c27aa71f23f3b94916a9327eb22cd06bc28f0c/README.md?plain=1#L132"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "`--auto` 会自动批准权限请求，包括运行终端命令等操作，只应在受信任的环境中使用。",
+    "可选模型超过 500 个，按模型供应商价格计费（README 称不加价），切换模型会影响费用与延迟。",
+    "代理具备终端和浏览器控制能力，可以执行命令、操作网页，使用前请确认权限规则。",
+    "Kilo CLI 是 OpenCode 的分支；项目采用 MIT 许可证，再分发时需保留署名和许可声明。"
+  ],
+  "references": [],
+  "media": [
+    {
+      "url": "/assets/repository-guides/media-4e3e70b35da0308e3cd505bc.webp",
+      "alt": "Kilo-Org/kilocode 官方演示 1",
+      "sourceUrl": "https://github.com/Kilo-Org/kilocode/blob/e0c27aa71f23f3b94916a9327eb22cd06bc28f0c/README.md?plain=1#L20",
+      "originalUrl": "https://github.com/user-attachments/assets/0536ca59-ed81-4512-9e05-d186187a1b52"
+    }
+  ],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "b0f214bc5c1a01324edd41e2424a91ab028c7d98e880173bb4475d74df8aab21",
+  "mediaStatus": "archived",
+  "mediaFailures": []
+}

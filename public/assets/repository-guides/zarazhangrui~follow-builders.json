@@ -1,0 +1,67 @@
+{
+  "schemaVersion": 1,
+  "key": "zarazhangrui/follow-builders",
+  "status": "ready",
+  "reason": "",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/zarazhangrui/follow-builders/blob/80babcc65fc6976bf87ed707918b0546f8dd1a96/README.md",
+  "sourceRevision": "80babcc65fc6976bf87ed707918b0546f8dd1a96",
+  "canonicalKey": "zarazhangrui/follow-builders",
+  "summary": "一个 agent skill，追踪 AI 领域建造者在 X、播客和官方博客上的内容，并按你的偏好生成每日或每周摘要。",
+  "intro": "适合想持续跟进 AI 研究员、创始人、产品经理和工程师一手观点的人。安装到 Claude Code 或 OpenClaw 后，通过对话设定推送频率、语言（英文、中文或双语）和推送方式，即可收到包含播客摘要、X 帖子要点、Anthropic Engineering 与 Claude Blog 文章以及原文链接的摘要。",
+  "requirements": "一个 AI agent（本指南以 Claude Code 为例）；网络连接，用于获取中心化 feed；安装命令用到 git 和 npm。拉取内容不需要 API key。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "克隆到 Claude Code 技能目录",
+      "text": "以 Claude Code 为例，把仓库克隆到 ~/.claude/skills/follow-builders，然后进入其中的 scripts 目录执行 npm install。OpenClaw 用户请改用 README 中 OpenClaw 小节的安装方式。",
+      "code": "git clone https://github.com/zarazhangrui/follow-builders.git ~/.claude/skills/follow-builders\ncd ~/.claude/skills/follow-builders/scripts && npm install",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/zarazhangrui/follow-builders/blob/80babcc65fc6976bf87ed707918b0546f8dd1a96/README.md?plain=1#L97"
+      }
+    },
+    {
+      "title": "在 agent 中启动设置流程",
+      "text": "在 Claude Code 中输入 \"set up follow builders\"，或执行 /follow-builders。agent 会以对话方式引导你完成设置，不需要手动编辑配置文件。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/zarazhangrui/follow-builders/blob/80babcc65fc6976bf87ed707918b0546f8dd1a96/README.md?plain=1#L23"
+      }
+    },
+    {
+      "title": "回答频率、语言与推送方式",
+      "text": "按提示选择推送频率（每日或每周）和时间、语言偏好，以及推送方式（Telegram、邮件或直接在聊天中显示）。设置完成后，第一期摘要会立即推送。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/zarazhangrui/follow-builders/blob/80babcc65fc6976bf87ed707918b0546f8dd1a96/README.md?plain=1#L23"
+      }
+    },
+    {
+      "title": "通过对话修改设置与摘要风格",
+      "text": "之后可以直接告诉 agent 修改需求，例如改成每周一早上推送、换成中文、让摘要更简短，或查看当前设置。高级用户也可以直接编辑 prompts/ 中的 summarize-tweets.md 等纯文本文件，修改后下一期即生效。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/zarazhangrui/follow-builders/blob/80babcc65fc6976bf87ed707918b0546f8dd1a96/README.md?plain=1#L37"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "信息源列表（建造者、播客、博客）由作者中心化维护并自动更新，README 未提供自行增删信息源的方法。",
+    "内容依赖作者运营的中心化 feed（博客通过网页抓取，YouTube 字幕通过 Supadata，X 通过官方 API），feed 不可用时将无法生成摘要。",
+    "使用 Telegram 或邮件推送时，相关 key 保存在本地 ~/.follow-builders/.env，需要妥善保管。",
+    "OpenClaw 的 clawhub install 方式在 README 中标注为“即将上线”。"
+  ],
+  "references": [
+    {
+      "label": "README.zh-CN.md",
+      "url": "https://github.com/zarazhangrui/follow-builders/blob/80babcc65fc6976bf87ed707918b0546f8dd1a96/README.zh-CN.md"
+    }
+  ],
+  "media": [],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "369e12a167cb750c8a521eade842d9ba0ea095fad02f526cd0c3141f24c52333",
+  "mediaStatus": "none_in_official_documents"
+}

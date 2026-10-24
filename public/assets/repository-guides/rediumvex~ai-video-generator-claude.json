@@ -1,0 +1,70 @@
+{
+  "schemaVersion": 1,
+  "key": "rediumvex/ai-video-generator-claude",
+  "status": "ready",
+  "reason": "",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/rediumvex/ai-video-generator-claude/blob/ffdad7d515f6579780749d1a90d9ed0945e3a4ac/README.md",
+  "sourceRevision": "ffdad7d515f6579780749d1a90d9ed0945e3a4ac",
+  "canonicalKey": "rediumvex/ai-video-generator-claude",
+  "summary": "一组共 10 个 Claude 技能。用户描述一个视频想法后，技能会生成可直接粘贴到 Higgsfield 的 Seedance 2.0 视频提示词，内容包含时间轴、镜头、灯光和声音设计。",
+  "intro": "适合用 Seedance 2.0 在 Higgsfield 上制作短视频的创作者、运营人员和品牌方。仓库按用途分为三组技能：流量向（Viral Hook、Faceless Channel、Podcast Visual）、商业向（SaaS Launch、Course Promo、Testimonial Story）和品牌向（Personal Brand、Luxury Aesthetic、Before-After、AI Avatar）。技能会针对 TikTok、Reels、Shorts、LinkedIn 等平台调整画幅比例和安全区，并标注 @image1、@video1、@audio1 素材引用应放在哪里。",
+  "requirements": "需要已安装 Claude Code，并能使用 git 克隆仓库到 ~/.claude/skills。生成的提示词需要在 Higgsfield 上配合 Seedance 2.0 使用。如果选择交互式安装脚本 install.py，还需要 Python。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "克隆仓库到 Claude 技能目录",
+      "text": "进入 ~/.claude/skills 目录，把仓库克隆为 ai-video-generator 文件夹。这是 README 给出的主要安装方式。如果使用 gstack，README 另外给出了克隆到 ~/.claude/skills/gstack 的路径，两种方式选一种即可。",
+      "code": "# Clone into your Claude skills folder\ncd ~/.claude/skills\ngit clone https://github.com/rediumvex/ai-video-generator-claude.git ai-video-generator",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/rediumvex/ai-video-generator-claude/blob/ffdad7d515f6579780749d1a90d9ed0945e3a4ac/README.md?plain=1#L67"
+      }
+    },
+    {
+      "title": "重启 Claude Code 加载技能",
+      "text": "克隆完成后重启 Claude Code。按 README 说明，仓库 skills/ 目录中的每个技能会在重启后可用。如果只想安装其中一部分，可以改用仓库自带的 install.py 交互式安装脚本挑选技能。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/rediumvex/ai-video-generator-claude/blob/ffdad7d515f6579780749d1a90d9ed0945e3a4ac/README.md?plain=1#L67"
+      }
+    },
+    {
+      "title": "按视频目的选择对应技能",
+      "text": "根据目标选择技能：要做开头钩子、无出镜内容或播客转视频，看 For views 分组；要做产品发布、课程宣传、用户证言，看 For business 分组；要做个人品牌、奢华风格、前后对比或数字分身，看 For brand 分组。不同技能也可以组合使用。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/rediumvex/ai-video-generator-claude/blob/ffdad7d515f6579780749d1a90d9ed0945e3a4ac/README.md?plain=1#L29"
+      }
+    },
+    {
+      "title": "在对话中描述视频概念",
+      "text": "在 Claude Code 中用自然语言说明视频的时长、用途、目标平台和风格。README 的 Usage 部分展示了请求会被路由到哪个技能。技能会返回 15–25 行的 Seedance 2.0 提示词，包含逐秒时间点、镜头运动、灯光和分层音效。",
+      "code": "\"I need a 10s product launch video for my SaaS app, dark mode UI, minimal aesthetic\"\n→ SaaS Launch skill generates a complete prompt with camera, lighting, sound, timing\n\n\"Create a 6s before-after for my client's brand redesign\"\n→ Before-After skill builds the contrast arc: cold→warm lighting, gray→saturated color, chaos→order\n\n\"Give me a viral TikTok hook for a faceless finance channel\"\n→ Viral Hook + Faceless Channel skills combine for a scroll-stopping 2-second opener\n\n\"Turn this podcast clip into a cinematic video for Reels\"\n→ Podcast Visual skill transforms the audio into visual storytelling with kinetic typography",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/rediumvex/ai-video-generator-claude/blob/ffdad7d515f6579780749d1a90d9ed0945e3a4ac/README.md?plain=1#L11"
+      }
+    },
+    {
+      "title": "将提示词粘贴到 Higgsfield",
+      "text": "把生成的提示词复制到 Higgsfield，用 Seedance 2.0 生成视频。如果提示词中标注了 @image1、@video1、@audio1，需要按标注位置准备并上传对应的图片、视频或音频素材。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/rediumvex/ai-video-generator-claude/blob/ffdad7d515f6579780749d1a90d9ed0945e3a4ac/README.md?plain=1#L3"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "本仓库只生成文字提示词，不直接生成视频。实际出片需要 Higgsfield 上的 Seedance 2.0，文档未说明该平台的账号要求和费用。",
+    "README 中关于成片质量和传播效果的描述来自作者自述，未提供可复核的测试结论。",
+    "克隆和安装脚本是两种安装方式，选择其一即可，避免重复安装。"
+  ],
+  "references": [],
+  "media": [],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "921a9f55a7e4d5e21aec5dbfe4e983f0f354545ffc2a6f1f512725f67ed8a3ae",
+  "mediaStatus": "none_in_official_documents"
+}

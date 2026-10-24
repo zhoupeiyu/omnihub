@@ -1,0 +1,77 @@
+{
+  "schemaVersion": 1,
+  "key": "koala73/worldmonitor",
+  "status": "ready",
+  "reason": "",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/koala73/worldmonitor/blob/438f1fbb966b2aa1bb74fdad1f9aa3bb25edd0ed/README.md",
+  "sourceRevision": "438f1fbb966b2aa1bb74fdad1f9aa3bb25edd0ed",
+  "canonicalKey": "koala73/worldmonitor",
+  "summary": "World Monitor 是一个实时全球情报仪表盘，在一个界面里汇总 AI 新闻聚合、地缘政治监测和基础设施追踪。",
+  "intro": "适合需要集中查看全球新闻、地缘局势、金融市场、能源和大宗商品信号的研究者、分析人员和开发者。它提供 3D 地球与平面地图两种地图视图，以及多种专题面板、国家不稳定指数（CII）和金融雷达。站点变体包括 world、tech、finance、commodity、happy、energy，都来自同一套代码。除浏览器界面外，还提供 MCP server、REST API、CLI 和 Python/Ruby/Go SDK，供智能体和脚本调用。",
+  "requirements": "本地运行需要 git 和 npm（README 的快速开始使用 npm install / npm run dev）。基础应用不需要任何环境变量；部分功能的数据源需要凭据，完整列表见 .env.example。通过 CLI 或 MCP 调用 tools/call 需要 API key，在 worldmonitor.app/pro 获取。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "克隆仓库并启动开发服务",
+      "text": "按官方快速开始，在终端克隆 worldmonitor 仓库，进入目录后执行 npm install 安装依赖，再执行 npm run dev 启动开发服务。README 说明应用不配置任何环境变量也能运行。",
+      "code": "git clone https://github.com/koala73/worldmonitor.git\ncd worldmonitor\nnpm install\nnpm run dev",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/koala73/worldmonitor/blob/438f1fbb966b2aa1bb74fdad1f9aa3bb25edd0ed/README.md?plain=1#L79"
+      }
+    },
+    {
+      "title": "在浏览器打开本地仪表盘",
+      "text": "浏览器访问 localhost:3000。如需改端口，在 .env.local 中设置 DEV_PORT。部分功能的数据源需要凭据，可对照 .env.example 中的完整列表按需填写。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/koala73/worldmonitor/blob/438f1fbb966b2aa1bb74fdad1f9aa3bb25edd0ed/README.md?plain=1#L79"
+      }
+    },
+    {
+      "title": "按专题启动对应站点变体",
+      "text": "只开发某个专题版本时，使用对应脚本启动，例如 npm run dev:tech、dev:finance、dev:commodity、dev:happy、dev:energy，分别对应线上的 tech、finance 等子站。部署方式（Vercel、Docker、静态托管）见官方自托管指南。",
+      "code": "npm run dev:tech       # tech.worldmonitor.app\nnpm run dev:finance    # finance.worldmonitor.app\nnpm run dev:commodity  # commodity.worldmonitor.app\nnpm run dev:happy      # happy.worldmonitor.app\nnpm run dev:energy     # energy.worldmonitor.app",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/koala73/worldmonitor/blob/438f1fbb966b2aa1bb74fdad1f9aa3bb25edd0ed/README.md?plain=1#L79"
+      }
+    },
+    {
+      "title": "通过 CLI 进行编程访问",
+      "text": "可选步骤。用 npx worldmonitor tools 临时列出全部 MCP 工具，这一步不需要 key；也可以全局安装 worldmonitor 命令（别名 wm）。实际查询需带 --api-key。MCP 地址为 https://worldmonitor.app/mcp，REST API 的规范见 OpenAPI 文件。",
+      "code": "  npx worldmonitor tools          # run ad-hoc — list every MCP tool (no key needed)\n  npm install -g worldmonitor     # or install the `worldmonitor` (alias `wm`) command\n  worldmonitor risk IR --api-key wm_xxx",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/koala73/worldmonitor/blob/438f1fbb966b2aa1bb74fdad1f9aa3bb25edd0ed/README.md?plain=1#L121"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "源代码采用 AGPL-3.0-only：Fork 修改或以 SaaS 形式提供服务时，需要按 AGPL 要求公开源代码；私有闭源使用或使用官方品牌，需要另行取得商业或商标许可。",
+    "MCP 的 tools/call、CLI 查询等功能需要 X-WorldMonitor-Key 或 OAuth 认证。API key 从 worldmonitor.app/pro 获取，README 未说明价格。",
+    "部分功能的数据源需要单独的凭据；各上游数据源的许可情况见官方数据源目录。",
+    "README 写明可用 Ollama 在本地运行 AI 功能，无需 API 密钥；技术栈中也列出了 Groq、OpenRouter 等可选提供方。"
+  ],
+  "references": [
+    {
+      "label": "README.zh-CN.md",
+      "url": "https://github.com/koala73/worldmonitor/blob/438f1fbb966b2aa1bb74fdad1f9aa3bb25edd0ed/README.zh-CN.md"
+    }
+  ],
+  "media": [
+    {
+      "url": "/assets/repository-guides/media-4913a6419907427b41852593.webp",
+      "alt": "koala73/worldmonitor 官方演示 1",
+      "sourceUrl": "https://github.com/koala73/worldmonitor/blob/438f1fbb966b2aa1bb74fdad1f9aa3bb25edd0ed/README.md?plain=1#L45",
+      "originalUrl": "https://raw.githubusercontent.com/koala73/worldmonitor/438f1fbb966b2aa1bb74fdad1f9aa3bb25edd0ed/docs/images/worldmonitor-7-mar-2026.jpg"
+    }
+  ],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "ac9aab02e7701008ff28d8fba9b5738dd9387ad46c17cbf4a96c5c9bd1cd0c70",
+  "mediaStatus": "archived",
+  "mediaFailures": []
+}

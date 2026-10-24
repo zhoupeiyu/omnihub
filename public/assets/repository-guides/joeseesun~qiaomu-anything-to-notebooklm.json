@@ -1,0 +1,64 @@
+{
+  "schemaVersion": 1,
+  "key": "joeseesun/qiaomu-anything-to-notebooklm",
+  "status": "ready",
+  "reason": "",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/joeseesun/qiaomu-anything-to-notebooklm/blob/cea6ceee8cdcd01a573af5ae75c2d3cffc20650b/README.md",
+  "sourceRevision": "cea6ceee8cdcd01a573af5ae75c2d3cffc20650b",
+  "canonicalKey": "joeseesun/qiaomu-anything-to-notebooklm",
+  "summary": "这是一个 Claude Code Skill，把网页、微信文章、YouTube、播客、PDF/EPUB、Office 文档等内容上传到 Google NotebookLM，再生成播客、PPT、思维导图、Quiz、报告等格式。",
+  "intro": "适合使用 Claude Code、希望把多来源资料交给 NotebookLM 加工的学习者和研究者。用自然语言说明内容来源（链接、本地文件路径或搜索词）和目标格式，Skill 会识别来源类型、获取并转换内容、上传 NotebookLM 后生成结果；还提供三轮递进提问的深度分析模式和飞书文档输出。",
+  "requirements": "Python 3.9+、Git、Claude Code；可登录的 NotebookLM 账号（需执行 notebooklm login）。微信公众号抓取需按安装提示配置 MCP；小宇宙、喜马拉雅、B站转写需 Get笔记 API 凭证（可选）。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "克隆到 Claude skills 目录",
+      "text": "进入 ~/.claude/skills/，克隆仓库并进入目录，运行 ./install.sh 一键安装依赖；随后按脚本提示配置 MCP，并重启 Claude Code 使 Skill 生效。",
+      "code": "# 1. 克隆到 Claude skills 目录\ncd ~/.claude/skills/\ngit clone https://github.com/joeseesun/qiaomu-anything-to-notebooklm\ncd qiaomu-anything-to-notebooklm\n\n# 2. 一键安装所有依赖\n./install.sh\n\n# 3. 按提示配置 MCP，然后重启 Claude Code",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/joeseesun/qiaomu-anything-to-notebooklm/blob/cea6ceee8cdcd01a573af5ae75c2d3cffc20650b/README.md?plain=1#L151"
+      }
+    },
+    {
+      "title": "完成 NotebookLM 认证",
+      "text": "首次使用执行 notebooklm login 登录（只需一次），再用 notebooklm list 验证是否成功；可选运行 ./check_env.py 做环境检查。认证失败或找不到 MCP 工具时参考 README 的故障排查小节。",
+      "code": "# NotebookLM 认证（只需一次）\nnotebooklm login\nnotebooklm list  # 验证成功\n\n# 环境检查（可选）\n./check_env.py",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/joeseesun/qiaomu-anything-to-notebooklm/blob/cea6ceee8cdcd01a573af5ae75c2d3cffc20650b/README.md?plain=1#L165"
+      }
+    },
+    {
+      "title": "可选：配置播客转写凭证",
+      "text": "如需处理小宇宙、喜马拉雅或B站内容，设置 GETNOTE_API_KEY 与 GETNOTE_CLIENT_ID 两个环境变量以使用 Get笔记 API 转写。YouTube 由 NotebookLM 直接处理，无需此配置。",
+      "code": "export GETNOTE_API_KEY=\"your_api_key\"\nexport GETNOTE_CLIENT_ID=\"your_client_id\"",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/joeseesun/qiaomu-anything-to-notebooklm/blob/cea6ceee8cdcd01a573af5ae75c2d3cffc20650b/README.md?plain=1#L176"
+      }
+    },
+    {
+      "title": "用自然语言指定来源和格式",
+      "text": "在 Claude Code 中给出链接、本地文件路径或搜索词，并说明想要的输出，如「生成播客」「做成PPT」「画个思维导图」「生成Quiz」「深度分析」。Skill 会自动判断来源类型；README 建议内容约 1000-10000 字。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/joeseesun/qiaomu-anything-to-notebooklm/blob/cea6ceee8cdcd01a573af5ae75c2d3cffc20650b/README.md?plain=1#L21"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "README 将许可写为 MIT 但注明「仅限个人学习研究使用」。",
+    "内置付费墙绕过（伪装爬虫 UA、Referer、存档站等）可能违反目标网站服务条款或当地法规，使用前自行评估，作者也建议购买正版订阅。",
+    "依赖 Google NotebookLM 账号及其可用性；中文播客为单人叙述，内容长度约 500 字至 50 万字。",
+    "微信抓取依赖 Playwright 浏览器模拟 MCP，播客转写依赖第三方 Get笔记 API。"
+  ],
+  "references": [],
+  "media": [],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "4a8901b9a9ee57fcdcc393e98f5c034bbf49e4c0b626c41a15452aa310e49969",
+  "mediaStatus": "none_in_official_documents"
+}

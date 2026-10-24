@@ -1,0 +1,75 @@
+{
+  "schemaVersion": 1,
+  "key": "ythx-101/x-tweet-fetcher",
+  "status": "ready",
+  "reason": "",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/ythx-101/x-tweet-fetcher/blob/40889cb10b8c9383afa67bc818745929e551463a/README.md",
+  "sourceRevision": "40889cb10b8c9383afa67bc818745929e551463a",
+  "canonicalKey": "ythx-101/x-tweet-fetcher",
+  "summary": "x-tweet-fetcher 是一个 Python 命令行工具兼库，无需登录或 API Key 即可抓取 X/Twitter 的推文、回复、时间线、列表和长文，并统一输出为 JSON。",
+  "intro": "适合需要让 AI Agent 或脚本读取 X/Twitter 内容的开发者。它通过 FxTwitter、Nitter 和浏览器驱动三种后端自动路由与回退。单条推文开箱即用；时间线、搜索、回复需要 Nitter 实例；X List 和 X Article 需要浏览器驱动。结果可以用 --ledger 归档到本地 SQLite 并离线检索，也可以在 Python 代码中通过 Router 调用。",
+  "requirements": "Python 3.10+，以及 git 和 pip。抓取时间线、搜索、回复或做 mentions 监控需要可访问的 Nitter 实例，官方强烈建议自建，示例使用 Docker。抓取 List 和 Article 需要 Camofox（默认端口 localhost:9377），或通过 playwright 可选依赖改用 Playwright。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "克隆仓库并用 pip 安装",
+      "text": "克隆仓库，进入目录后执行 pip install . 完成安装，之后即可使用 xtf 命令。如果不想安装，也可以在克隆目录里直接运行 python3 scripts/fetch_tweet.py --url ...，参数与 xtf 相同。",
+      "code": "git clone https://github.com/ythx-101/x-tweet-fetcher\ncd x-tweet-fetcher && pip install .\n\n# Single tweet — works instantly, zero configuration\nxtf --url https://x.com/user/status/1234567890\n\n# User timeline (needs a Nitter instance, see below)\nexport XTF_NITTER=http://127.0.0.1:8788\nxtf --user elonmusk --limit 20\n\n# Search\nxtf --search \"openclaw\" --limit 10\n\n# Human-readable output instead of JSON\nxtf --user elonmusk --text-only",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/ythx-101/x-tweet-fetcher/blob/40889cb10b8c9383afa67bc818745929e551463a/README.md?plain=1#L32"
+      }
+    },
+    {
+      "title": "用 --url 抓取单条推文",
+      "text": "执行 xtf --url 加推文链接即可获取单条推文的文本、统计、媒体和引用。这一功能走 fxtwitter 后端，无需额外配置。默认输出 JSON，加 --text-only 可改为便于阅读的文本。失败时返回 error 和 error_code，方便 Agent 按错误类型分支处理。",
+      "code": "git clone https://github.com/ythx-101/x-tweet-fetcher\ncd x-tweet-fetcher && pip install .\n\n# Single tweet — works instantly, zero configuration\nxtf --url https://x.com/user/status/1234567890\n\n# User timeline (needs a Nitter instance, see below)\nexport XTF_NITTER=http://127.0.0.1:8788\nxtf --user elonmusk --limit 20\n\n# Search\nxtf --search \"openclaw\" --limit 10\n\n# Human-readable output instead of JSON\nxtf --user elonmusk --text-only",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/ythx-101/x-tweet-fetcher/blob/40889cb10b8c9383afa67bc818745929e551463a/README.md?plain=1#L32"
+      }
+    },
+    {
+      "title": "自建 Nitter 并设置 XTF_NITTER",
+      "text": "时间线、搜索、回复和 mentions 监控依赖 Nitter。公共实例不稳定，官方建议用 Docker 运行 zedeus/nitter，再将 XTF_NITTER 设为实例地址。该变量可填写多个以逗号分隔的地址，工具会按顺序自动故障切换。",
+      "code": "# See https://github.com/zedeus/nitter for full setup\ndocker run -d -p 8788:8080 --name nitter zedeus/nitter:latest\nexport XTF_NITTER=http://127.0.0.1:8788\n\nexport XTF_NITTER=http://127.0.0.1:8788,https://your-backup-instance.example",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/ythx-101/x-tweet-fetcher/blob/40889cb10b8c9383afa67bc818745929e551463a/README.md?plain=1#L148"
+      }
+    },
+    {
+      "title": "抓取时间线、搜索和回复",
+      "text": "配置好 Nitter 后，可以用 --user 加 --limit 抓取用户时间线，用 --search 搜索，用 --url 加 --replies 获取回复。如需抓取 X List（--list）或长文（--article），需要浏览器驱动：默认使用 Camofox，Playwright 用户先安装可选依赖并设置 XTF_BROWSER=playwright。",
+      "code": "git clone https://github.com/ythx-101/x-tweet-fetcher\ncd x-tweet-fetcher && pip install .\n\n# Single tweet — works instantly, zero configuration\nxtf --url https://x.com/user/status/1234567890\n\n# User timeline (needs a Nitter instance, see below)\nexport XTF_NITTER=http://127.0.0.1:8788\nxtf --user elonmusk --limit 20\n\n# Search\nxtf --search \"openclaw\" --limit 10\n\n# Human-readable output instead of JSON\nxtf --user elonmusk --text-only\n\nxtf --user elonmusk                    # auto (default)\nxtf --user elonmusk --backend nitter   # direct HTTP only\nxtf --list 1455045069516357634         # lists always use the browser\n\npip install \".[playwright]\"            # from the clone\nexport XTF_BROWSER=playwright          # or: --browser-driver playwright",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/ythx-101/x-tweet-fetcher/blob/40889cb10b8c9383afa67bc818745929e551463a/README.md?plain=1#L76"
+      }
+    },
+    {
+      "title": "用 --ledger 归档并离线查询",
+      "text": "在抓取命令后加 --ledger 和数据库路径，结果会存入 SQLite，并按 tweet_id 去重。之后可以用 --query 离线检索，或用 --stats 查看总量、语言、时间范围等统计。归档失败不会影响抓取结果，此时 JSON 中会带上 ledger_error 字段。",
+      "code": "# Fetch + archive a timeline\nxtf --user YuLin807 --limit 20 --ledger ~/tweets.db\n\n# Search the archive (offline)\nxtf --ledger ~/tweets.db --query \"sop\"\n\n# Stats: totals, languages, media/urls, time ranges\nxtf --ledger ~/tweets.db --stats",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/ythx-101/x-tweet-fetcher/blob/40889cb10b8c9383afa67bc818745929e551463a/README.md?plain=1#L95"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "公共 Nitter 实例经常失效。没有可用实例时，时间线、搜索、回复会返回 all_backends_failed 错误。",
+    "从 v1 迁移时注意：--search 的单条推文字段已与 --user 统一，url、has_media、media_urls 等字段已移除，详见 MIGRATION.md。",
+    "X 或 Nitter 的页面结构变化可能导致解析失效。仓库通过 tests/fixtures 中的快照测试定位问题。",
+    "README 提到直接抓取容易被封禁，项目本身也依赖第三方服务（FxTwitter、Nitter）。使用前请自行确认是否符合 X 的服务条款。",
+    "--monitor 的退出码 1 同时表示出错和发现新 mentions，在 cron 脚本中需要结合输出区分这两种情况。"
+  ],
+  "references": [],
+  "media": [],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "56964609b7ccb95c9dfcdfc888447b199a2649b0e46c2a179977ab5f1797d20b",
+  "mediaStatus": "none_in_official_documents"
+}

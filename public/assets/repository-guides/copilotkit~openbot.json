@@ -1,0 +1,75 @@
+{
+  "schemaVersion": 1,
+  "key": "copilotkit/openbot",
+  "status": "ready",
+  "reason": "",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/CopilotKit/OpenBot/blob/2e096d685ff0f18b5e80fd72e4ad71edb1d0be43/README.md",
+  "sourceRevision": "2e096d685ff0f18b5e80fd72e4ad71edb1d0be43",
+  "canonicalKey": "CopilotKit/OpenBot",
+  "summary": "OpenBot 是一个可自托管的 AI 同事平台模板：每个 Bot 拥有独立的浏览器、文件和工具，所有操作都会先经策略判定、再记录审计。",
+  "intro": "适合想在自有基础设施上搭建内部 AI 助手的团队和工程师。任何 AG-UI 代理都可以作为 Bot 接入。平台通过 CEL 策略控制 Bot 对浏览器、Shell、文件和 MCP 工具的访问，并在 /admin/audit 记录每次操作。它是供克隆后自行定制的模板，不是托管产品。示例包内置 13 个以配置定义的同事 Bot。",
+  "requirements": "需要 Docker（运行 PostgreSQL 和内置 Bot）、Bun 1.3+、一个 CopilotKit Intelligence 项目（有免费计划，也可自托管）、一个模型密钥（概念验证 Bot 使用 OpenAI）。连接托管 Intelligence 的辅助脚本需要先安装 Chrome 或 Edge。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "复制环境模板并安装依赖",
+      "text": "在仓库根目录把 .env.example 复制为 .env，然后用 bun install 安装依赖。.env.example 默认开启 OPENBOT_SINGLE_USER=true，因此本机首次启动无需先注册 OAuth 客户端。",
+      "code": "   cp .env.example .env\n   bun install",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/CopilotKit/OpenBot/blob/2e096d685ff0f18b5e80fd72e4ad71edb1d0be43/README.md?plain=1#L68"
+      }
+    },
+    {
+      "title": "登录并连接 Intelligence 项目",
+      "text": "用 copilotkit CLI 登录并选择项目，再运行 scripts/setup-learning.ts。脚本会配置运行时密钥和 openbot Learning 容器，并写入 .env。如果是自托管 Intelligence，先设置 INTELLIGENCE_API_URL，然后跳过两条 npx 命令。",
+      "code": "   npx --yes copilotkit@latest login\n   npx --yes copilotkit@latest project select\n   bun scripts/setup-learning.ts",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/CopilotKit/OpenBot/blob/2e096d685ff0f18b5e80fd72e4ad71edb1d0be43/README.md?plain=1#L68"
+      }
+    },
+    {
+      "title": "填写模型密钥并生成加密密钥",
+      "text": "在 .env 中填写 OPENAI_API_KEY。示例中的 KEY_ENCRYPTION_KEY 是公开值，只适合本地使用，建议用 openssl 生成自己的密钥。缺少 DATABASE_URL、INTELLIGENCE_API_KEY 等必需变量时，API 服务器会拒绝启动。",
+      "code": "   openssl rand -base64 32",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/CopilotKit/OpenBot/blob/2e096d685ff0f18b5e80fd72e4ad71edb1d0be43/README.md?plain=1#L68"
+      }
+    },
+    {
+      "title": "运行启动脚本并打开本地页面",
+      "text": "执行 scripts/start.sh。它会启动 Docker 服务、执行数据库迁移，在 3001 端口启动 API，在 3010 端口启动应用，并做健康检查。完成后浏览器访问 http://localhost:3010。停止时用 scripts/stop.sh，数据卷会保留。",
+      "code": "   bash scripts/start.sh",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/CopilotKit/OpenBot/blob/2e096d685ff0f18b5e80fd72e4ad71edb1d0be43/README.md?plain=1#L68"
+      }
+    },
+    {
+      "title": "配置边界策略并查看审计记录",
+      "text": "在 /bot 或 /channel/:id 与 Bot 对话并观察它的屏幕。在 /admin/boundaries 添加拒绝规则或预设，在 /admin/audit 查看被允许、被拒绝和失败的操作。在 /agents 可以创建新的同事 Bot。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/CopilotKit/OpenBot/blob/2e096d685ff0f18b5e80fd72e4ad71edb1d0be43/README.md?plain=1#L145"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "项目处于 Alpha 阶段，README 明确说明会有粗糙之处和缺陷，功能也在变动。",
+    "OPENBOT_SINGLE_USER=true 会把所有请求都当作同一个管理员。让其他人访问部署之前，必须先配置登录（Sign-in）。",
+    "Bot 可以在工作区执行 Shell 命令、操作浏览器和文件。应通过 CEL 策略限制其能力；缺少策略时不允许任何操作。",
+    "AGENT_COMPUTER_ALLOW_PRIVATE_HOSTS 会允许 Bot 访问本机服务，仅限本地使用。",
+    "需要 CopilotKit Intelligence 项目和第三方模型密钥，模型调用按各提供方的规则计费。",
+    "项目采用 MIT 许可证，定位是供克隆后自行定制的模板，没有托管版本，也没有发布可直接依赖的包。"
+  ],
+  "references": [],
+  "media": [],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "dfed4e263af158bcfe0007a0fa1b3395a526e5f0b9448118992e65319ecd93a3",
+  "mediaStatus": "none_in_official_documents"
+}

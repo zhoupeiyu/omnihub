@@ -1,0 +1,60 @@
+{
+  "schemaVersion": 1,
+  "key": "emilkowalski/skills",
+  "status": "ready",
+  "reason": "",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/emilkowalski/skills/blob/d16ebe60d09a5ba2afcb7054ede9d0a10c9f6128/README.md",
+  "sourceRevision": "d16ebe60d09a5ba2afcb7054ede9d0a10c9f6128",
+  "canonicalKey": "emilkowalski/skills",
+  "summary": "这是一组面向设计师和工程师的 AI 代理技能，帮助代理在动画、界面设计和移动端体验上做出更合适的选择。",
+  "intro": "适合用 AI 代理构建前端或原生界面的设计师和工程师。这些技能列出了代理在动画缓动、时长、阴影、边框等细节上的常见错误和修正方法。具体用途包括：从零搭建动画、审查并改进现有动画、寻找值得加入动效的位置、为 React Native/Expo 编写动效、编写现代 Swift、让 Web 应用在手机上更像原生应用，以及使用 Sonner toast 库。",
+  "requirements": "需要能执行 npx 的环境来运行 skills CLI，以及能加载这些技能的 AI 代理宿主。README 没有列出具体支持哪些宿主。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "用 skills CLI 安装技能集",
+      "text": "在项目或终端中运行 README 提供的安装命令，用 skills CLI 添加 emilkowalski/skills 整个技能集。安装完成后，在你的代理宿主中确认这些技能已经可用。",
+      "code": "npx skills@latest add emilkowalski/skills",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/emilkowalski/skills/blob/d16ebe60d09a5ba2afcb7054ede9d0a10c9f6128/README.md?plain=1#L24"
+      }
+    },
+    {
+      "title": "先选用主技能或动画构建技能",
+      "text": "emil-design-eng 是主技能，以动画为主，也包含设计建议。要从零制作动画并选择正确的曲线、时长和属性，用 animate。项目基于 React Native 或 Expo 时，改用 animate-expo，它涵盖手势、sheet、触感反馈和转场等内容。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/emilkowalski/skills/blob/d16ebe60d09a5ba2afcb7054ede9d0a10c9f6128/README.md?plain=1#L42"
+      }
+    },
+    {
+      "title": "用评审类技能检查现有动画",
+      "text": "已有界面可以用 review-animations 按作者的规则严格审查动画。improve-animations 会审计整个代码库中的动画，并给出按优先级排列、可交给任何代理执行的计划。find-animation-opportunities 会找出适合加动效的位置，并说明哪些地方不该加。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/emilkowalski/skills/blob/d16ebe60d09a5ba2afcb7054ede9d0a10c9f6128/README.md?plain=1#L42"
+      }
+    },
+    {
+      "title": "按场景选用其余专项技能",
+      "text": "按需求选择其他技能：用 animation-vocabulary 学会精确描述动画需求。用 apple-design 参考 Apple 的设计与动效原则。写 Swift 用 write-swift。mobile-native 用于修复 Web 应用在手机上的体验问题。pick-ui-library 用于挑选可靠的 UI 库。prototype 可生成多个 UI 版本供切换比较。使用 Sonner 时可查 ask-sonner。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/emilkowalski/skills/blob/d16ebe60d09a5ba2afcb7054ede9d0a10c9f6128/README.md?plain=1#L42"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "README 没有说明这些技能支持哪些代理宿主、在宿主中如何触发，需要以你所用宿主的技能加载方式为准。",
+    "技能内容基于作者的个人经验和规则，属于设计取向建议，不能代替你自己的设计判断。"
+  ],
+  "references": [],
+  "media": [],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "c1ffaeb84dbeb2862f7a18e3bfd01e90a1f64b421b9c84c9942733de59b23449",
+  "mediaStatus": "none_in_official_documents"
+}

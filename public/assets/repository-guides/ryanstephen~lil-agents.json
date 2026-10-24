@@ -1,0 +1,60 @@
+{
+  "schemaVersion": 1,
+  "key": "ryanstephen/lil-agents",
+  "status": "ready",
+  "reason": "",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/ryanstephen/lil-agents/blob/6d639033852570fa6ffd640840cf9087486f1e44/README.md",
+  "sourceRevision": "6d639033852570fa6ffd640840cf9087486f1e44",
+  "canonicalKey": "ryanstephen/lil-agents",
+  "summary": "lil agents 是一个 macOS 程序坞上的动画小角色应用，点击角色即可打开对接本地 AI CLI 的聊天终端。",
+  "intro": "适合已经在用 Claude Code、OpenAI Codex、GitHub Copilot 或 Google Gemini CLI 的 macOS 用户。它在程序坞上方放了 Bruce 和 Jazz 两个动画角色，点击后会弹出带主题的终端窗口与 AI 对话。可以在菜单栏切换 CLI 与四种视觉主题，并支持 /clear、/copy、/help 等斜杠命令。",
+  "requirements": "macOS Sonoma 14.0 及以上（含 Sequoia 15.x），Apple Silicon 与 Intel 均可运行；至少安装 Claude Code、OpenAI Codex、GitHub Copilot、Google Gemini CLI 其中之一。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "先安装一个受支持的 AI CLI",
+      "text": "按 README 的 requirements 部分，选择 Claude Code、OpenAI Codex、GitHub Copilot 或 Google Gemini CLI 中的至少一个，用其列出的官方方式安装。对话由该 CLI 在本地处理。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/ryanstephen/lil-agents/blob/6d639033852570fa6ffd640840cf9087486f1e44/README.md?plain=1#L26"
+      }
+    },
+    {
+      "title": "从官网下载 macOS 应用",
+      "text": "在 macOS 上通过 README 中的 Download for macOS 链接（lilagents.xyz）下载应用。应用通过 Sparkle 自动更新。也可以在 Xcode 中打开 lil-agents.xcodeproj 自行构建运行。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/ryanstephen/lil-agents/blob/6d639033852570fa6ffd640840cf9087486f1e44/README.md?plain=1#L1"
+      }
+    },
+    {
+      "title": "点击角色打开 AI 终端",
+      "text": "启动后，Bruce 和 Jazz 会在程序坞上方来回走动。点击其中一个，会弹出主题化的聊天终端；智能体工作时会显示思考气泡，完成时播放提示音。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/ryanstephen/lil-agents/blob/6d639033852570fa6ffd640840cf9087486f1e44/README.md?plain=1#L1"
+      }
+    },
+    {
+      "title": "在菜单栏切换 CLI 与主题",
+      "text": "在菜单栏中切换 Claude、Codex、Copilot、Gemini，或选择 Peach、Midnight、Cloud、Moss 主题。在输入框中可使用 /clear、/copy、/help，标题栏按钮可复制上一条回复。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/ryanstephen/lil-agents/blob/6d639033852570fa6ffd640840cf9087486f1e44/README.md?plain=1#L13"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "应用本身不收集数据，但发送给 AI 提供商的内容受各提供商的条款与隐私政策约束。",
+    "Sparkle 检查更新时会发送应用版本与 macOS 版本。",
+    "仅支持 macOS 14.0 及以上，且必须先装好至少一个受支持的 CLI 才能对话。"
+  ],
+  "references": [],
+  "media": [],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "b2a770f9f6a82f5c4ec7baa98aab96676b7fff6010fdd0ba115f36fb7e762c0f",
+  "mediaStatus": "none_in_official_documents"
+}

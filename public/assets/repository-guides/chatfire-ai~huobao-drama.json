@@ -1,0 +1,95 @@
+{
+  "schemaVersion": 1,
+  "key": "chatfire-ai/huobao-drama",
+  "status": "ready",
+  "reason": "",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/chatfire-AI/huobao-drama/blob/f0f69ef5bedd312eb1f75f06941f0383c3b6656c/README.md",
+  "sourceRevision": "f0f69ef5bedd312eb1f75f06941f0383c3b6656c",
+  "canonicalKey": "chatfire-AI/huobao-drama",
+  "summary": "火宝短剧是一个 AI 短剧生产平台，把剧本改写、角色和场景素材生成、分镜拆分、视频生成与拼接导出串成一条流水线。",
+  "intro": "适合想把小说或创意改编成 AI 短剧的创作者和内容团队。平台内置 4 个 Mastra agent，分别负责剧本改写、角色/场景/道具提取、分镜拆分和提示词生成；文本、图片、视频模型可在 OpenAI、Gemini、火山引擎 Seedance 等之间选择，最后由 FFmpeg 拼接整集。界面支持中、英、日、韩四种语言。本指南走官方推荐的桌面版路径（macOS / Windows）。",
+  "requirements": "一台 macOS（Apple Silicon 或 Intel）或 Windows 电脑；一个 Huobao API Key（从 api.firemux.com 获取），或者文本、图片、视频各自对应的服务商密钥。桌面版内置 SQLite 和 FFmpeg，不需要另外安装。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "下载对应平台的安装包",
+      "text": "从 GitHub Releases 下载安装包，中国大陆用户可以用腾讯 COS 镜像。Apple Silicon 选 HuobaoDrama-4.0.5-arm64.dmg，Intel Mac 选 HuobaoDrama-4.0.5.dmg，Windows 选 HuobaoDrama.Setup.4.0.5.exe。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/chatfire-AI/huobao-drama/blob/f0f69ef5bedd312eb1f75f06941f0383c3b6656c/README.md?plain=1#L285"
+      }
+    },
+    {
+      "title": "安装并处理未签名提示",
+      "text": "该步骤涉及需要人工核查的高权限、远程脚本或破坏性操作。本站不提供直接执行指令，请先查看官方说明并确认影响。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/chatfire-AI/huobao-drama/blob/f0f69ef5bedd312eb1f75f06941f0383c3b6656c/README.md?plain=1#L285"
+      }
+    },
+    {
+      "title": "在设置页配置 AI 服务",
+      "text": "首次使用时页面顶部会有横幅提示。打开「设置」，在「火宝快捷配置」里粘贴 Huobao API Key，即可一次写入文本、图片、视频三条推荐配置；也可以用「手动模板」按厂商逐个添加，并测试连通性。三类配置都启用后，横幅自动消失。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/chatfire-AI/huobao-drama/blob/f0f69ef5bedd312eb1f75f06941f0383c3b6656c/README.zh-CN.md?plain=1#L198"
+      }
+    },
+    {
+      "title": "新建项目并选画幅与风格",
+      "text": "在首页点击「New Project」，选择画幅比例（16:9 横屏或 9:16 竖屏，创建后不能更改）和视觉风格，如 3D、写实等。所选风格会注入之后的每一条图片提示词。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/chatfire-AI/huobao-drama/blob/f0f69ef5bedd312eb1f75f06941f0383c3b6656c/README.md?plain=1#L215"
+      }
+    },
+    {
+      "title": "按工作台流程生成并导出",
+      "text": "在工作台粘贴原著小说，用「AI Rewrite」改写成剧本；接着提取角色、场景、道具并生成参考图；然后拆分分镜、选择视频模型，点「Batch Generate Videos」批量生成；最后选择镜头，点「Start Merging」拼接整集，可在线播放或下载。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/chatfire-AI/huobao-drama/blob/f0f69ef5bedd312eb1f75f06941f0383c3b6656c/README.md?plain=1#L235"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "README 的许可证徽章标为 CC BY-NC-SA 4.0（仓库元数据显示 NOASSERTION），商用前请先核实授权条款。",
+    "所有 AI 功能都依赖外部模型服务和 API Key，调用费用由所选服务商决定，README 没有说明价格。",
+    "桌面版没有公网入口，Seedance 视频模型引用本地素材时需要的 PUBLIC_BASE_URL 无法满足，这种场景会直接报错；其他能力不受影响。",
+    "macOS 和 Windows 安装包都没有签名，安装时需要手动放行系统的安全提示。",
+    "数据库、生成的媒体和 skills 都保存在用户数据目录（macOS 为 ~/Library/Application Support/HuobaoDrama/），卸载应用不会删除这些数据。"
+  ],
+  "references": [
+    {
+      "label": "README.zh-CN.md",
+      "url": "https://github.com/chatfire-AI/huobao-drama/blob/f0f69ef5bedd312eb1f75f06941f0383c3b6656c/README.zh-CN.md"
+    }
+  ],
+  "media": [
+    {
+      "url": "/assets/repository-guides/media-cc647fc8fa196fb075ff9008.webp",
+      "alt": "AI 服务配置",
+      "sourceUrl": "https://github.com/chatfire-AI/huobao-drama/blob/f0f69ef5bedd312eb1f75f06941f0383c3b6656c/README.zh-CN.md?plain=1#L233",
+      "originalUrl": "https://raw.githubusercontent.com/chatfire-AI/huobao-drama/f0f69ef5bedd312eb1f75f06941f0383c3b6656c/docs/screenshots/03-settings-quick.png"
+    },
+    {
+      "url": "/assets/repository-guides/media-0d60228afcd5cf33b9257360.webp",
+      "alt": "分镜拆分",
+      "sourceUrl": "https://github.com/chatfire-AI/huobao-drama/blob/f0f69ef5bedd312eb1f75f06941f0383c3b6656c/README.zh-CN.md?plain=1#L261",
+      "originalUrl": "https://raw.githubusercontent.com/chatfire-AI/huobao-drama/f0f69ef5bedd312eb1f75f06941f0383c3b6656c/docs/screenshots/07-storyboard.png"
+    },
+    {
+      "url": "/assets/repository-guides/media-c87af375e8c3bbe187d5db4a.webp",
+      "alt": "拼接导出",
+      "sourceUrl": "https://github.com/chatfire-AI/huobao-drama/blob/f0f69ef5bedd312eb1f75f06941f0383c3b6656c/README.zh-CN.md?plain=1#L273",
+      "originalUrl": "https://raw.githubusercontent.com/chatfire-AI/huobao-drama/f0f69ef5bedd312eb1f75f06941f0383c3b6656c/docs/screenshots/09-export.png"
+    }
+  ],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "84eb65888486cfe40abb9b1ffc04992017a6693e0c458cb5b1801077e12da71d",
+  "mediaStatus": "archived",
+  "mediaFailures": []
+}

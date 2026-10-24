@@ -1,0 +1,68 @@
+{
+  "schemaVersion": 1,
+  "key": "rvc-boss/gpt-sovits",
+  "status": "ready",
+  "reason": "",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/RVC-Boss/GPT-SoVITS/blob/48b1a0169a28582a8984402f82cf438d3bfa6aca/README.md",
+  "sourceRevision": "48b1a0169a28582a8984402f82cf438d3bfa6aca",
+  "canonicalKey": "RVC-Boss/GPT-SoVITS",
+  "summary": "GPT-SoVITS 是一个少样本语音克隆与文本转语音 WebUI，可用 5 秒样本零样本合成，也可用约 1 分钟数据微调模型。",
+  "intro": "适合想训练特定音色 TTS 模型的创作者和开发者。WebUI 集成了人声伴奏分离、训练集自动切分、多语种 ASR 和文本标注，可以从原始音频一路做到模型微调与推理。支持中、英、日、韩、粤语的跨语言推理。以下以官方 Windows 整合包为入门路径。",
+  "requirements": "Windows 10 及以上（整合包路径）；准备好用于训练或参考的语音素材。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "下载 Windows 整合包",
+      "text": "Windows 用户从 README 提供的 Hugging Face 链接下载整合包并解压。中国大陆用户可改用语雀文档中的下载地址。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/RVC-Boss/GPT-SoVITS/blob/48b1a0169a28582a8984402f82cf438d3bfa6aca/README.md?plain=1#L71"
+      }
+    },
+    {
+      "title": "双击 go-webui.bat 启动",
+      "text": "在整合包目录中双击 go-webui.bat，或运行 go-webui.ps1，即可启动 GPT-SoVITS-WebUI。如需切换到 V1，改用 go-webui-v1.bat 或 go-webui-v1.ps1。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/RVC-Boss/GPT-SoVITS/blob/48b1a0169a28582a8984402f82cf438d3bfa6aca/README.md?plain=1#L245"
+      }
+    },
+    {
+      "title": "按流程处理训练音频",
+      "text": "在 WebUI 中依次完成：填写音频路径、切分成小段、按需降噪、ASR 识别、校对识别文本。标注 .list 文件的格式为 vocal_path|speaker_name|language|text，语言代码有 zh/ja/en/ko/yue。",
+      "code": "\nvocal_path|speaker_name|language|text\n",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/RVC-Boss/GPT-SoVITS/blob/48b1a0169a28582a8984402f82cf438d3bfa6aca/README.md?plain=1#L266"
+      }
+    },
+    {
+      "title": "微调模型并进入推理页",
+      "text": "完成标注后进入下一个标签页微调模型。之后双击 go-webui-v2.bat 或运行 go-webui-v2.ps1，在 1-GPT-SoVITS-TTS/1C-inference 打开推理界面合成语音。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/RVC-Boss/GPT-SoVITS/blob/48b1a0169a28582a8984402f82cf438d3bfa6aca/README.md?plain=1#L266"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "整合包文件名为 GPT-SoVITS-v3lora-20250228.7z，可能不含仓库后续版本（如 v4、v2Pro）的变化；升级需按 Release Notes 下载对应的预训练模型。",
+    "在 macOS 上用 GPU 训练的模型质量明显偏低，官方暂时改用 CPU。",
+    "在 Windows 上使用 Docker Desktop 时默认共享内存偏小，需在 Compose 文件中调大 shm_size。",
+    "Lite 版 Docker 镜像不含 ASR 与 UVR5 模型；FunASR 模型会在首次使用时自动下载。",
+    "克隆他人声音前应取得本人授权。"
+  ],
+  "references": [
+    {
+      "label": "docs/cn/README.md",
+      "url": "https://github.com/RVC-Boss/GPT-SoVITS/blob/48b1a0169a28582a8984402f82cf438d3bfa6aca/docs/cn/README.md"
+    }
+  ],
+  "media": [],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "94f215782f6a97742d9aa8013aa22c00617fdbdc86037231b5f848d8964479b6",
+  "mediaStatus": "none_in_official_documents"
+}

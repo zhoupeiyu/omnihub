@@ -1,0 +1,78 @@
+{
+  "schemaVersion": 1,
+  "key": "rtk-ai/rtk",
+  "status": "ready",
+  "reason": "",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/rtk-ai/rtk/blob/234986584266ff328d7a66da2b9cd87410ae1774/README.md",
+  "sourceRevision": "234986584266ff328d7a66da2b9cd87410ae1774",
+  "canonicalKey": "rtk-ai/rtk",
+  "summary": "rtk 是一个 Rust 编写的 CLI 代理，在命令输出进入 LLM 上下文前进行过滤和压缩，减少 AI 编码助手需要读取的 bash 输出。",
+  "intro": "适合使用 Claude Code、Cursor、Codex、Gemini CLI、Hermes 等 AI 编码工具的开发者。rtk 会改写 git、测试、lint、包管理、docker 等常见命令，或由你直接调用 rtk 子命令，把冗长输出压缩为失败信息、分组摘要或确认行，并可以用 rtk gain 查看节省情况。",
+  "requirements": "以下以 macOS/Linux 下的 Homebrew 安装为例。安装后需要在所用的 AI 工具中执行 rtk init 完成集成，并重启该工具。部分过滤器会调用 ripgrep（rg），建议确保 rg 在 PATH 中。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "在 macOS/Linux 用 Homebrew 安装",
+      "text": "README 推荐的安装方式是 Homebrew，执行 brew install rtk 即可。Windows 用户可以改用 winget 或预编译包，本指南以 Homebrew 路径为准。",
+      "code": "brew install rtk",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/rtk-ai/rtk/blob/234986584266ff328d7a66da2b9cd87410ae1774/README.md?plain=1#L78"
+      }
+    },
+    {
+      "title": "验证版本并打开节省面板",
+      "text": "运行 rtk --version 确认安装成功，再运行 rtk gain 查看节省面板。crates.io 上有一个同名的 Rust Type Kit 项目，如果 rtk gain 运行失败，说明装错了包。",
+      "code": "rtk --version   # Should show \"rtk 0.28.2\"\nrtk gain        # Should show the savings dashboard",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/rtk-ai/rtk/blob/234986584266ff328d7a66da2b9cd87410ae1774/README.md?plain=1#L118"
+      }
+    },
+    {
+      "title": "为 AI 工具初始化改写钩子",
+      "text": "Claude Code 运行 rtk init -g，其他工具使用对应参数，例如 --gemini、--codex、--agent cursor。完成后重启 AI 工具，执行 git status 时会被自动改写为 rtk git status。",
+      "code": "# 1. Install for your AI tool\nrtk init -g                     # Claude Code / Copilot (default)\nrtk init -g --gemini            # Gemini CLI\nrtk init -g --codex             # Codex (OpenAI)\nrtk init -g --agent cursor      # Cursor\nrtk init -g --agent windsurf    # Windsurf\nrtk init --agent cline          # Cline / Roo Code\nrtk init --agent kilocode       # Kilo Code\nrtk init --agent antigravity    # Google Antigravity\nrtk init --agent kimi           # Kimi AI\nrtk init -g --agent pi          # Pi\nrtk init --agent omp            # Oh My Pi (OMP)\nrtk init --agent hermes         # Hermes\nrtk init -g --agent droid       # Factory Droid\nrtk init --agent trae           # Trae (project: .trae/hooks.json)\nrtk init -g --agent trae        # Trae global: ~/.trae and existing ~/.trae-cn\n\n# 2. Restart your AI tool, then test\ngit status  # Automatically rewritten to rtk git status",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/rtk-ai/rtk/blob/234986584266ff328d7a66da2b9cd87410ae1774/README.md?plain=1#L127"
+      }
+    },
+    {
+      "title": "在内置工具场景直接调用 rtk",
+      "text": "钩子只作用于 Bash 调用，Claude Code 内置的 Read、Grep、Glob 不会被改写。需要压缩这类输出时，可以直接使用 rtk read、rtk grep、rtk find 或 rtk git 等子命令。",
+      "code": "rtk ls .                        # Compact directory tree\nrtk read file.rs                # Smart file reading\nrtk read file.rs -l aggressive  # Signatures only (strips bodies)\nrtk smart file.rs               # 2-line heuristic code summary\nrtk find \"*.rs\" .               # Compact find results\nrtk grep \"pattern\" .            # Grouped search results\nrtk diff file1 file2            # Condensed diff (exit 0: identical, 1: different, 2: read error)\n\nrtk git status                  # Compact status\nrtk git log -n 10               # One-line commits\nrtk git diff                    # Condensed diff\nrtk git add                     # -> \"ok\"\nrtk git commit -m \"msg\"         # -> \"ok abc1234\"\nrtk git push                    # -> \"ok main\"\nrtk git pull                    # -> \"ok 3 files +10 -2\"",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/rtk-ai/rtk/blob/234986584266ff328d7a66da2b9cd87410ae1774/README.md?plain=1#L127"
+      }
+    },
+    {
+      "title": "编辑 config.toml 调整行为",
+      "text": "配置文件在 Linux 上位于 ~/.config/rtk/config.toml，在 macOS 上位于 ~/Library/Application Support/rtk/config.toml。可以设置 [awareness] level，让 Agent 了解 rtk gain 和 rtk proxy。命令失败时，rtk 会保存未过滤的完整输出，供 LLM 回看。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/rtk-ai/rtk/blob/234986584266ff328d7a66da2b9cd87410ae1774/README.md?plain=1#L397"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "文档中「最多减少 90%」指的是 bash 输出量，不等于费用减少 90%。rtk 按 bytes/4 估算 token，绝对数值只是近似值。",
+    "自动改写只覆盖 Bash 工具调用，AI 工具的内置读写和搜索工具不会经过 rtk。",
+    "遥测默认关闭，需要在 rtk init 时或通过 rtk telemetry enable 明确同意才会开启，收集的是匿名聚合指标。",
+    "通过 cargo 安装时要使用 --git 方式，避免装到 crates.io 上同名的另一个项目。"
+  ],
+  "references": [
+    {
+      "label": "docs/guide/getting-started/configuration.md",
+      "url": "https://github.com/rtk-ai/rtk/blob/234986584266ff328d7a66da2b9cd87410ae1774/docs/guide/getting-started/configuration.md"
+    }
+  ],
+  "media": [],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "8bd3a35d77e904ca8e72a70af0ef30c5140b96052d04bc492d1487461e424d90",
+  "mediaStatus": "none_in_official_documents"
+}

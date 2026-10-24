@@ -1,0 +1,83 @@
+{
+  "schemaVersion": 1,
+  "key": "memecalculate/moyin-creator",
+  "status": "ready",
+  "reason": "",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/MemeCalculate/moyin-creator/blob/7e5c5655de94d49885e13c369f0a71212893a0aa/README.md",
+  "sourceRevision": "7e5c5655de94d49885e13c369f0a71212893a0aa",
+  "canonicalKey": "MemeCalculate/moyin-creator",
+  "summary": "魔因漫创是基于 Electron 的 AI 影视创作桌面工具。它串联剧本、角色、场景、导演与 S级（Seedance 2.0）五个板块，可批量把剧本做成分镜图和视频。",
+  "intro": "面向制作短剧、动漫番剧、预告片的 AI 影视创作者。它可以把剧本拆解为场景、分镜和对白，通过角色圣经和参考图保持角色外观一致，生成场景图与专业分镜，并调用多家 AI 图像/视频服务商，以任务队列方式批量生图、生视频。",
+  "requirements": "Node.js >= 18、npm >= 9；git；至少一个 AI 服务商的 API Key（启动后在应用设置中填写）。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "克隆仓库并安装依赖",
+      "text": "先确认本机已安装 Node.js >= 18 和 npm >= 9。然后克隆 moyin-creator 仓库，进入项目目录，执行 npm install 安装依赖。",
+      "code": "# 克隆仓库\ngit clone https://github.com/MemeCalculate/moyin-creator.git\ncd moyin-creator\n\n# 安装依赖\nnpm install\n\n# 启动开发模式\nnpm run dev",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/MemeCalculate/moyin-creator/blob/7e5c5655de94d49885e13c369f0a71212893a0aa/README.md?plain=1#L137"
+      }
+    },
+    {
+      "title": "以开发模式启动桌面应用",
+      "text": "在项目目录执行 npm run dev 启动开发模式，打开桌面应用。如果需要安装包，README 提供了 npm run build，用于编译并打包 Windows 安装程序。",
+      "code": "# 克隆仓库\ngit clone https://github.com/MemeCalculate/moyin-creator.git\ncd moyin-creator\n\n# 安装依赖\nnpm install\n\n# 启动开发模式\nnpm run dev\n\n# 编译 + 打包 Windows 安装程序\nnpm run build\n\n# 仅编译（不打包）\nnpx electron-vite build",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/MemeCalculate/moyin-creator/blob/7e5c5655de94d49885e13c369f0a71212893a0aa/README.md?plain=1#L142"
+      }
+    },
+    {
+      "title": "在设置中填入 API Key",
+      "text": "启动后进入“设置 → API 配置”，填入你所用 AI 服务商的 API Key 即可开始使用。应用支持多个图像/视频生成服务商，可以对多个 API Key 轮询负载。README 还附有 B 站基础设置教程视频可供参考。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/MemeCalculate/moyin-creator/blob/7e5c5655de94d49885e13c369f0a71212893a0aa/README.md?plain=1#L156"
+      }
+    },
+    {
+      "title": "按五大板块推进创作流程",
+      "text": "依次使用“剧本 → 角色 → 场景 → 导演 → S级”五个板块：先导入剧本，自动拆解场景与分镜；再管理角色圣经和参考图，生成场景与分镜；最后在 S级板块用 Seedance 2.0 把多个分镜合并生成叙事视频。每一步的产出会自动流入下一步。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/MemeCalculate/moyin-creator/blob/7e5c5655de94d49885e13c369f0a71212893a0aa/README.md?plain=1#L68"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "生成功能依赖第三方 AI 服务商的 API Key，调用时按各服务商规则计费。README 顶部的 Memefast 是赞助商广告，不是必需依赖。",
+    "采用 AGPL-3.0 许可证，修改后的代码须以相同许可证开源；闭源使用或集成到商业产品需另行获取商业许可。",
+    "Seedance 2.0 有参数约束：最多 9 张图、3 段视频、3 段音频，prompt 不超过 5000 字符。",
+    "README 中的 0.1.7 打包程序只通过百度网盘链接分发，不在 GitHub 上，请自行判断来源可靠性；本指南采用源码运行路径。"
+  ],
+  "references": [],
+  "media": [
+    {
+      "url": "/assets/repository-guides/media-618a4bb932d7e5f1c0234bf2.webp",
+      "alt": "MemeCalculate/moyin-creator 官方演示 1",
+      "sourceUrl": "https://github.com/MemeCalculate/moyin-creator/blob/7e5c5655de94d49885e13c369f0a71212893a0aa/README.md?plain=1#L102",
+      "originalUrl": "https://github.com/user-attachments/assets/e42266c2-aaeb-4cc3-a734-65516774d495"
+    },
+    {
+      "url": "/assets/repository-guides/media-49873debfffe6454b720da9a.webp",
+      "alt": "MemeCalculate/moyin-creator 官方演示 2",
+      "sourceUrl": "https://github.com/MemeCalculate/moyin-creator/blob/7e5c5655de94d49885e13c369f0a71212893a0aa/README.md?plain=1#L108",
+      "originalUrl": "https://github.com/user-attachments/assets/763e6ced-43e2-4c7b-a5ea-b13535af5b2e"
+    },
+    {
+      "url": "/assets/repository-guides/media-346bda6392aa38c2ecd240b6.webp",
+      "alt": "MemeCalculate/moyin-creator 官方演示 3",
+      "sourceUrl": "https://github.com/MemeCalculate/moyin-creator/blob/7e5c5655de94d49885e13c369f0a71212893a0aa/README.md?plain=1#L119",
+      "originalUrl": "https://github.com/user-attachments/assets/94562cee-3827-4645-82fe-2123fdd86897"
+    }
+  ],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "50d10012b1a5bda4eaa794fb3685b91ee14ed37be639183eb049c493183c1652",
+  "mediaStatus": "archived",
+  "mediaFailures": []
+}

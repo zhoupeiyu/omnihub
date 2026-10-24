@@ -1,0 +1,76 @@
+{
+  "schemaVersion": 1,
+  "key": "yibie/skills-manager",
+  "status": "ready",
+  "reason": "",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/yibie/skills-manager/blob/505d1ffe2f2364c378063db2ef2813183f948b5d/README.md",
+  "sourceRevision": "505d1ffe2f2364c378063db2ef2813183f948b5d",
+  "canonicalKey": "yibie/skills-manager",
+  "summary": "Skills Manager 是一个原生 macOS 应用，在一个界面里发现、安装和管理多个编程 agent 的 skills。",
+  "intro": "适合同时使用 Claude Code、Cursor、Codex、Gemini CLI 等多个编程 agent 的 macOS 用户。可以从 skills.sh 搜索和安装 skills，一次安装到多个 agent；把 Library 中的 skills 组织成 Collection，再按需挂载到 agent；还能查看不同 agent 中同名 skill 的冲突，并在安装前用自己的 LLM 试用 skill。仓库另外附带一个终端 UI。",
+  "requirements": "需要 macOS 14（Sonoma）或更高版本，并已安装一个或多个编程 agent。Discover、翻译回退和 LLM 试用功能需要联网；试用功能需要你自己的 Claude、OpenAI、OpenRouter、Ollama 或 LM Studio。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "下载并安装 2.0.0 版本",
+      "text": "在 macOS 上从 Releases 页面下载 SkillsManager-v2.0.0.zip，解压后把应用拖到“应用程序”文件夹。该通用版应用使用 Developer ID 签名并经过 Apple 公证，可以用文档给出的 SHA-256 值校验下载文件。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/yibie/skills-manager/blob/505d1ffe2f2364c378063db2ef2813183f948b5d/README.md?plain=1#L67"
+      }
+    },
+    {
+      "title": "从 1.x 升级前先读指南",
+      "text": "如果之前用过 1.x 版本，先阅读 docs/releases/2.0.0.md 中的升级与回滚指南。2.0 改为以 Library → Collection → Mount 为核心的模型，并用持久的 skill ID 关联升级、收藏和 TUI 状态。",
+      "code": "Library      trusted, managed skill sources\n   ↓\nCollection   reusable groups for a project or workflow\n   ↓\nMount        links a Collection into one or more agents on demand",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/yibie/skills-manager/blob/505d1ffe2f2364c378063db2ef2813183f948b5d/README.md?plain=1#L67"
+      }
+    },
+    {
+      "title": "在 Discover 中查找并安装",
+      "text": "打开 Discover 浏览或全站搜索 skills.sh 上的 skill，选择一个或多个目标 agent 进行安装。安装会把 GitHub 上的 skill 包写入受管理的 Library，并在 agent 中创建链接，不依赖 Node 或 npx。注意部分 agent 只支持扫描，不能作为安装目标。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/yibie/skills-manager/blob/505d1ffe2f2364c378063db2ef2813183f948b5d/README.md?plain=1#L49"
+      }
+    },
+    {
+      "title": "用 Collection 按需挂载",
+      "text": "在侧边栏的 Control Center 中把 Library 里的 skills 组织成 Collection，再按项目需要挂载到指定 agent，或从 agent 卸载。卸载只会移除链接，Library 中的副本会保留；从 Library 删除是另一个需要确认的独立操作。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/yibie/skills-manager/blob/505d1ffe2f2364c378063db2ef2813183f948b5d/README.md?plain=1#L49"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "只有标记为 Yes 的 agent 可以作为多选安装目标，其余 agent 仅支持检测和扫描。",
+    "通过 Vercel Skills CLI 安装的 skill 由该 provider 管理；provider 不可用时，更新操作可能把原副本移到废纸篓，再纳入 Library 管理。",
+    "LLM 试用和翻译回退会调用你自己配置的模型服务，可能产生相应费用；应用本身没有后端。",
+    "TUI 中的直接安装目前只针对 Claude Code，TUI 需要通过 npm 运行。"
+  ],
+  "references": [],
+  "media": [
+    {
+      "url": "/assets/repository-guides/media-974ddfcea2757c56aaccff51.webp",
+      "alt": "yibie/skills-manager 官方演示 1",
+      "sourceUrl": "https://github.com/yibie/skills-manager/blob/505d1ffe2f2364c378063db2ef2813183f948b5d/README.md?plain=1#L13",
+      "originalUrl": "https://raw.githubusercontent.com/yibie/skills-manager/505d1ffe2f2364c378063db2ef2813183f948b5d/docs/screenshots/control-center.png"
+    },
+    {
+      "url": "/assets/repository-guides/media-bcbd09cfeb58b687fadb3843.webp",
+      "alt": "yibie/skills-manager 官方演示 2",
+      "sourceUrl": "https://github.com/yibie/skills-manager/blob/505d1ffe2f2364c378063db2ef2813183f948b5d/README.md?plain=1#L16",
+      "originalUrl": "https://raw.githubusercontent.com/yibie/skills-manager/505d1ffe2f2364c378063db2ef2813183f948b5d/docs/screenshots/collection-detail.png"
+    }
+  ],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "1f00aed3be4f74429ff459bcf4486eec809c16683d466ff42cd8fc21f94f4bc3",
+  "mediaStatus": "archived",
+  "mediaFailures": []
+}

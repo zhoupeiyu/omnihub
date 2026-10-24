@@ -1,0 +1,2374 @@
+[
+  {
+    "key": "eternityspring/shuohao-skills",
+    "description": "AI 短剧制作的 skill 集合：拆角色、排大纲、出场景与道具设定、写剧本、切分镜 | Agent skills for AI short-drama production — character bibles, adaptation outlines, art bibles, screenplays, storyboards. Runs in Claude Code & codex."
+  },
+  {
+    "key": "nousresearch/hermes-agent",
+    "description": "The agent that grows with you. The self-improving AI agent built by Nous Research. It's the only agent with a built-in learning loop — it creates skills from experience, improves them during use, nudges itself to persist knowledge, searches its own past conversations, and builds a deepening model of who you are across sessions."
+  },
+  {
+    "key": "obra/superpowers",
+    "description": "An agentic skills framework & software development methodology that works. It starts from the moment you fire up your coding agent. As soon as it sees that you're building something, it doesn't just jump into trying to write code. Instead, it steps back and asks you what you're really trying to do."
+  },
+  {
+    "key": "anthropics/skills",
+    "description": "Public repository for Agent Skills. Skills are folders of instructions, scripts, and resources that Claude loads dynamically to improve performance on specialized tasks."
+  },
+  {
+    "key": "harry0703/moneyprinterturbo",
+    "description": "利用 AI 大模型和自动化工作流，根据主题或关键词一键生成高清短视频。Generate HD short videos from a topic or keyword with an automated AI workflow."
+  },
+  {
+    "key": "kepano/obsidian-skills",
+    "description": "Agent skills for Obsidian. Teach your agent to use Obsidian CLI and open formats including Markdown, Bases, JSON Canvas."
+  },
+  {
+    "key": "msitarzewski/agency-agents",
+    "description": "A complete AI agency at your fingertips - From frontend wizards to Reddit community ninjas, from whimsy injectors to reality checkers. Each agent is a specialized expert with personality, processes, and proven deliverables."
+  },
+  {
+    "key": "brokermr810/quantdinger",
+    "description": "Open-source AI Trading OS, agent trading, and vibe trading, with Jev System One integration. Research, build Python strategies, backtest, and paper/live trade across crypto, stocks, and forex. Launch your own multi-tenant trading SaaS with built-in user management, billing, payments, and settlement."
+  },
+  {
+    "key": "fincept-corporation/finceptterminal",
+    "description": "FinceptTerminal is a modern finance application offering advanced market analytics, investment research, and economic data tools, designed for interactive exploration and data-driven decision-making in a user-friendly environment."
+  },
+  {
+    "key": "leonxlnx/taste-skill",
+    "description": "Taste-Skill - gives your AI good taste. stops the AI from generating boring, generic slop"
+  },
+  {
+    "key": "mcncarl/yichen-skills",
+    "description": "1. Upload Obsidian/Markdown articles to X Articles drafts (yichen-x-article-draft-uploader) 2. Run two WeChat accounts on one Mac with a distinct blue icon (yichen-mac-wechat-dual-open) 3. Turn WeChat chats, Moments, and Favorites into AI-powered digital assets (yichen-wechat-local-vault) 4."
+  },
+  {
+    "key": "alchaincyf/nuwa-skill",
+    "description": "你想蒸馏的下一个员工，何必是同事。蒸馏任何人的思维方式——心智模型、决策启发式、表达DNA。Distill how anyone thinks. 同事.skill 证明了蒸馏一个人是可行的。 那何必蒸馏同事？去蒸馏乔布斯、芒格、费曼、马斯克。 只需输入一个名字，女娲自动完成调研、提炼、验证全流程。"
+  },
+  {
+    "key": "forget-c/jellyfish",
+    "description": "An end-to-end production workspace for AI-generated short dramas. From script input to structured storyboarding, consistency management, shot preparation, video generation, and export."
+  },
+  {
+    "key": "garrytan/gstack",
+    "description": "Use Garry Tan's exact Claude Code setup: 23 opinionated tools that serve as CEO, Designer, Eng Manager, Release Manager, Doc Engineer, and QA"
+  },
+  {
+    "key": "jimliu/baoyu-skills",
+    "description": "发布一个新的 Skill：baoyu-youtube-transcript 输入 YouTube URL，直接抓取视频字幕，生成带章节、发言人和封面图的文档，不需要任何 API Key 支持完整链接、短链接、嵌入链接、Shorts 链接，甚至直接输入视频 ID 都可以"
+  },
+  {
+    "key": "joeseesun/qiaomu-anything-to-notebooklm",
+    "description": "Claude Skill: Multi-source content processor for NotebookLM. Supports WeChat articles, web pages, YouTube, PDF, Markdown, search queries → Podcast/PPT/MindMap/Quiz etc."
+  },
+  {
+    "key": "lijigang/ljg-skills",
+    "description": "仓库根目录不是技能目录，clone 后还要把 skills/ 同步到 Codex。下面两种格式二选一："
+  },
+  {
+    "key": "op7418/codepilot",
+    "description": "A multi-model AI agent desktop client — connect any AI provider, extend with MCP & skills, control from your phone. Built with Electron + Next.js."
+  },
+  {
+    "key": "openai/skills",
+    "description": "Skills Catalog for Codex. Learn more: - Using skills in Codex - Create custom skills in Codex - Agent Skills open standard"
+  },
+  {
+    "key": "panniantong/agent-reach",
+    "description": "Give your AI agent eyes to see the entire internet. Read & search Twitter, Reddit, YouTube, GitHub, Bilibili, XiaoHongShu — one CLI, zero API fees."
+  },
+  {
+    "key": "thedotmack/claude-mem",
+    "description": "Persistent Context Across Sessions for Every Agent – Captures everything your agent does during sessions, compresses it with AI, and injects relevant context back into future sessions. Works with Claude Code, OpenClaw, Codex, Gemini, Hermes, Copilot, OpenCode + More"
+  },
+  {
+    "key": "thysrael/horizon",
+    "description": "📡 Your own AI-powered news radar. Generates daily briefings in English & Chinese. | 用 AI 构建你专属的新闻雷达"
+  },
+  {
+    "key": "0xnyk/awesome-hermes-agent",
+    "description": "Independent directory of useful skills, plugins, memory providers, tools, surfaces, and guides for Nous Research's open-source Hermes Agent."
+  },
+  {
+    "key": "blader/humanizer",
+    "description": "Agent skill that removes signs of AI-generated writing from text"
+  },
+  {
+    "key": "browser-use/jev-ultrafast",
+    "description": "Fastest and cheapest web agent. Open http://127.0.0.1:8766 and click Start demo → Run automatically. The inspector shows numbered elements, operation probabilities, target probabilities, and executed actions. Choose next pauses before execution."
+  },
+  {
+    "key": "dexhunter/seedance2-skill",
+    "description": "skill to create best prompts for generating videos with seedance2.0"
+  },
+  {
+    "key": "elder-plinius/cl4r1t4s",
+    "description": "LEAKED SYSTEM PROMPTS FOR CHATGPT, CLAUDE, GEMINI, GROK, PERPLEXITY, CURSOR, LOVABLE, REPLIT, AND MORE! - AI SYSTEMS TRANSPARENCY FOR ALL! 👐"
+  },
+  {
+    "key": "eternity4719/howtolivebetter",
+    "description": "按性价比排序的循证生活指南：长寿防病、急救、省钱理财、法律红线、失业与工伤、医保社保、恋爱婚育、怀孕育儿、创业与做平台合规、出国与技能。每条写明成本、收益、证据等级和原始出处，只引期刊论文与官方文件。"
+  },
+  {
+    "key": "greensock/gsap-skills",
+    "description": "Official AI skills for GSAP. These skills teach AI coding agents how to correctly use GSAP (GreenSock Animation Platform), including best practices, common animation patterns, and plugin usage."
+  },
+  {
+    "key": "hbai-ltd/toonflow-app",
+    "description": "Toonflow 是开源 AI 创作平台，融合无限画布、AI Agent 与可视化工作流，支持图像生成、视频生成、智能分镜及短剧创作。支持本地部署、自由接入模型，提供跨平台桌面端，并可通过 MCP 与插件扩展创作能力。Open-source AI creative platform with an infinite canvas, AI agents and visual workflows for image generation, video generation and filmmaking, with a canvas-based approach similar to LibTV and TapNow."
+  },
+  {
+    "key": "hkuds/cli-anything",
+    "description": "\"CLI-Anything: Making ALL Software Agent-Native\" -- CLI-Hub: https://clianything.cc/"
+  },
+  {
+    "key": "johnshall/shadowrocket-adblock-rules-forever",
+    "description": "提供多款 Shadowrocket 规则，拥有强劲的广告过滤功能。每日 8 时重新构建规则。 谷歌中英文的搜索体验都优于百度，而刷美剧、ins 追星、去推特看看特朗普也都挺有意思。但是，随着看到的人和事越多，我越发想要在这里说一些话，告诫路过的各位："
+  },
+  {
+    "key": "mattpocock/skills",
+    "description": "Skills for Real Engineers. Straight from my .agents directory. Developing real applications is hard. Approaches like GSD, BMAD, and Spec-Kit try to help by owning the process. But while doing so, they take away your control and make bugs in the process hard to resolve."
+  },
+  {
+    "key": "narratorai-studio/narrator-ai-cli-skill",
+    "description": "AI 解说大师 — Agent skill；封装 narrator-ai-cli 供 Claude/Codex 等工具调用. A machine-readable skill file (SKILL.md) that teaches AI agents how to use the narrator-ai-cli tool for automated video narration production."
+  },
+  {
+    "key": "nesquena/hermes-webui",
+    "description": "Hermes WebUI: The best way to use Hermes Agent from the web or from your phone! Hermes WebUI is a lightweight, dark-themed web app interface in your browser for Hermes Agent. Full parity with the CLI experience - everything you can do from a terminal, you can do from this UI. No build step, no framework, no bundler. Just Python and vanilla JS."
+  },
+  {
+    "key": "nextlevelbuilder/ui-ux-pro-max-skill",
+    "description": "An AI skill that provides design intelligence for building professional UI/UX across multiple platforms."
+  },
+  {
+    "key": "shiyu-coder/kronos",
+    "description": "Kronos: A Foundation Model for the Language of Financial Markets. We have set up a live demo to visualize Kronos's forecasting results. The webpage showcases a forecast for the BTC/USDT trading pair over the next 24 hours."
+  },
+  {
+    "key": "vincentwei1021/video-shotcraft",
+    "description": "AI video skill for Claude Code & Codex — cinematic product videos with Remotion: 152 shot recipe cards, 209 motion previews, a production-ready template"
+  },
+  {
+    "key": "xdash/fde-the-guidance-book-of-forward-deployed-engineer",
+    "description": "FDE（前沿部署工程师）从零入门指南（基于范冰《增长黑客》原书框架）. 麻省理工学院 NANDA 实验室 2025 年发布的《生成式人工智能的鸿沟》(The GenAI Divide) 报告说，过去三年，全球企业在生成式人工智能上烧了三四百亿美元，其中 95% 的项目没能产生任何能写进财务报表的价值。几乎同一时间，另一条新闻在往相反的方向狂奔：硅谷的招聘网站上，一个叫「前线部署工程师」（Forward Deployed Engineer，简称 FDE）的岗位，发布量一年涨了七倍多。OpenAI 在招，Anthropic 在招，YC 孵化器里一百多家创业公司都在招。"
+  },
+  {
+    "key": "xuchonglang/investing-for-beginners",
+    "description": "美股、期权与加密货币知识框架. 指南不要求读者具备金融专业背景。内容从交易时间、订单类型、财务报表和基础估值讲起，再逐步延伸到期权定价、仓位管理、钱包安全、链上交易与常见骗局，帮助初学者看懂投资过程中真正会遇到的术语和操作问题。"
+  },
+  {
+    "key": "0xnatoshi/jev-codex-router",
+    "description": "Per-turn model & reasoning routing for Codex, driven by Jev (TypeSafe System One): picks the model, thinking depth and speed mode for every turn."
+  },
+  {
+    "key": "666ghj/mirofish",
+    "description": "A Simple and Universal Swarm Intelligence Engine, Predicting Anything. 简洁通用的群体智能引擎，预测万物"
+  },
+  {
+    "key": "affaan-m/everything-claude-code",
+    "description": "The agent harness performance optimization system. Skills, instincts, memory, security, and research-first development for Claude Code, Codex, Opencode, Cursor and beyond."
+  },
+  {
+    "key": "alchaincyf/x-mentor-skill",
+    "description": "X导师.skill — 女娲的第一个「非人类」作品。蒸馏6位顶级X创作者方法论 + 开源算法数据，提炼完整的选题-写作-增长操作手册。Made with 女娲.skill"
+  },
+  {
+    "key": "ancienttwo/repo-harness",
+    "description": "File-backed workflow harness for reliable Claude Code and Codex sessions. Install herdr from herdr.dev and verify herdr --version. Persistent review hosting requires POSIX process groups; on Windows use WSL. Missing or unusable herdr blocks host readiness."
+  },
+  {
+    "key": "andrewyng/context-hub",
+    "description": "Chub is designed for your coding agent to use (not for you to use!). You can prompt your agent to use it (e.g., \"Use the CLI command chub to get the latest API documentation for calling OpenAI."
+  },
+  {
+    "key": "antfu/skills",
+    "description": "Anthony Fu's curated collection of agent skills. The project is also designed to be flexible - you can use it as a template to generate your own skills collection."
+  },
+  {
+    "key": "better-auth/better-icons",
+    "description": "Skill and MCP server for searching and retrieving icons. Enable the better-icons CLI features in your agent environment (matches all examples below):"
+  },
+  {
+    "key": "browser-use/video-use",
+    "description": "Edit videos with coding agents"
+  },
+  {
+    "key": "bytebytegohq/system-design-101",
+    "description": "Explain complex systems using visuals and simple terms. Help you prepare for system design interviews."
+  },
+  {
+    "key": "bytedance/ui-tars-desktop",
+    "description": "The Open-Source Multimodal AI Agent Stack: Connecting Cutting-Edge AI Models and Agent Infra"
+  },
+  {
+    "key": "carmahhawwari/ui-design-brain",
+    "description": "A Cursor skill that gives AI agents real UI component knowledge — best practices, layout patterns, and design-system conventions for 60+ interface components — so it generates production-grade UI instead of generic output."
+  },
+  {
+    "key": "chatfire-ai/huobao-drama",
+    "description": "🎬 火宝短剧 - 基于AI的一站式短剧生成平台 《一句话生成完整短剧，从剧本到成片全自动化》 Huobao Drama - An AI-Powered End-to-End Short Drama Generator \"One Sentence to Complete Drama: Fully Automated from Script to Final Video\""
+  },
+  {
+    "key": "cloudflare/agentic-inbox",
+    "description": "A self-hosted email client with an AI agent, running entirely on Cloudflare Workers"
+  },
+  {
+    "key": "coreyhaines31/marketingskills",
+    "description": "Marketing skills for Claude Code and AI agents. CRO, copywriting, SEO, analytics, and growth engineering."
+  },
+  {
+    "key": "czlonkowski/n8n-mcp",
+    "description": "A MCP for Claude Desktop / Claude Code / Windsurf / Cursor to build n8n workflows for you"
+  },
+  {
+    "key": "danny-avila/librechat",
+    "description": "Enhanced ChatGPT Clone: Features Agents, MCP, Skills, DeepSeek, Anthropic, AWS, OpenAI, Responses API, Azure, Groq, o1, GPT-5, Mistral, OpenRouter, Vertex AI, Gemini, Artifacts, AI model switching, message search, Code Interpreter, langchain, DALL-E-3, OpenAPI Actions, Functions, Secure Multi-User Auth, Presets, open-source for self-hosting. Active"
+  },
+  {
+    "key": "devagrawal09/jev-review",
+    "description": "A staged code-review workflow and local dashboard built with TypeSafe Jev. The reviewer keeps orchestration in code and uses Jev for bounded judgments:"
+  },
+  {
+    "key": "easychen/opc-methodology",
+    "description": "《一人企业方法论》第二版，也适合做其他副业（比如自媒体、电商、数字商品）的非技术人群。 1. 为了更好理解方法论，我们用 AI 构建了一个可以推演复盘的创业沙箱 —— 《方糖真实创业模拟器》，可以结合方法论进行策略推演，用户反馈不错。"
+  },
+  {
+    "key": "ellipsis-dev/blink",
+    "description": "Codebase search powered by Jev from @typesafe-ai. Recursive searches (-r or -n) save their output beside Blink:"
+  },
+  {
+    "key": "emrickgarrett/onevonejev",
+    "description": "1v1 Jev quickscope arena — Three.js + TypeSafe System One. The server builds structured JSON state each decision tick (9 Hz) and fans out Choice/Noul questions (move, yaw, pitch, ADS, fire, jump). API key stays on the server. Calls run only while a match is in playing and both fighters are alive."
+  },
+  {
+    "key": "eternityspring/reelbench-skills",
+    "description": "Learning notes and tooling skills for AI video - AI 视频相关的学习与工具 skill. 报告是单文件交互页：内嵌播放器（播放时同步高亮镜头、点镜头跳转）、镜头节奏带、 可搜索可筛选可排序的镜头表（列表 / 卡片两种视图、首尾关键帧并排、点图开大图）、 统计分布、出场人物、质量检查。零外部依赖，离线双击能开。"
+  },
+  {
+    "key": "everyinc/compound-engineering-plugin",
+    "description": "Official Compound Engineering plugin for Claude Code, Codex, Cursor, and more. Compound Engineering is a plugin of 36 skills for AI coding agents. It structures the work around a loop — brainstorm, plan, build, review, then capture what you learned — so the knowledge from each change is written down where the next change can read it."
+  },
+  {
+    "key": "freestylefly/awesome-gpt-image-2",
+    "description": "Prompt as Code | GPT Image 2 / 2.5 提示词与案例库，530+ 个案例、20+ 套工业级模板与可复用 Skills，新增 2.5 同提示词对比专区，附完整提示词与生成记录，持续更新。"
+  },
+  {
+    "key": "ghalebdweikat/winnow",
+    "description": "A calibrated context sieve for Claude Code: every tool result is judged by a System One model before it enters context."
+  },
+  {
+    "key": "gsd-build/get-shit-done",
+    "description": "A light-weight and powerful meta-prompting, context engineering and spec-driven development system for Claude Code by TÂCHES."
+  },
+  {
+    "key": "hanxi/xiaomusic",
+    "description": "使用小爱音箱播放音乐，音乐使用 yt-dlp 下载。 已经支持在 web 设置页面配置其他参数，不再需要设置环境变量， docker compose 配置如下（选一个即可）："
+  },
+  {
+    "key": "heygen-com/hyperframes",
+    "description": "Write HTML. Render video. Built for agents."
+  },
+  {
+    "key": "hkuds/lightrag",
+    "description": "[EMNLP2025] LightRAG: Simple and Fast Retrieval-Augmented Generation. Instead of editing env.example by hand, use the interactive setup wizard to generate a configured .env and, when needed, docker-compose.final.yml:"
+  },
+  {
+    "key": "hkuds/vimax",
+    "description": "\"ViMax: Agentic Video Generation (Director, Screenwriter, Producer, and Video Generator All-in-One)\""
+  },
+  {
+    "key": "hypit-ai/hypit",
+    "description": "Clone any viral video with AI agents. Not just a script, the whole workflow: swap the face, the words, the B-roll, ship 100 variants in one command, and get your 100M views."
+  },
+  {
+    "key": "idootop/mi-gpt",
+    "description": "🏠 将小爱音箱接入 ChatGPT 和豆包，改造成你的专属语音助手。 MiGPT 不仅仅是关于设备自动化，而是关于：打造一个懂你、有温度、与你共同进化的家。"
+  },
+  {
+    "key": "iebb/mithka",
+    "description": "A Telegram client, but déjà vu. Windows releases include per-architecture setup.exe installers and portable ZIPs. The installer is per-user, needs no administrator access, creates Start Menu and optional desktop shortcuts, and registers Mithka in Installed Apps."
+  },
+  {
+    "key": "irfndi/prism-liquidity-agent",
+    "description": "Autonomous LP trading agent - auto-rebalancing with backtested strategies - Currently support Meteora DLMM"
+  },
+  {
+    "key": "itsmostafa/typesafe-mcp",
+    "description": "An mcp connector to evaluate anything fast and cheap. Give your AI agent direct access to typesafe ai's jev model and open weight models like laya"
+  },
+  {
+    "key": "jackwener/opencli",
+    "description": "Make Any Website into CLI & Use your logged-in browser by AI agent. OpenCLI gives you one surface for three different kinds of automation:"
+  },
+  {
+    "key": "jackwener/xiaohongshu-cli",
+    "description": "A CLI for Xiaohongshu (小红书) — search, read, interact via reverse-engineered API. 1. Saved cookies — loads from /.xiaohongshu-cli/cookies.json 2. Browser cookies — auto-detects installed browsers and extracts cookies (supports Chrome, Arc, Edge, Firefox, Safari, Brave, Chromium, Opera, Vivaldi, and more) 3."
+  },
+  {
+    "key": "jarrodwatts/jev-trader",
+    "description": "One AI trade decision every Monad block. Jev on Kuru MON-USDC."
+  },
+  {
+    "key": "jexp/neo4jev",
+    "description": "Typesafe.ai System One Model Jev navigating a Neo4j graph by using a classifier over neighbouring relationships"
+  },
+  {
+    "key": "jiji262/douyin-downloader",
+    "description": "A practical Douyin downloader for both single-item and profile batch downloads, with progress display, retries, SQLite deduplication, and browser fallback support. 抖音批量下载工具，去水印，支持视频、图集、合集、音乐(原声)。"
+  },
+  {
+    "key": "jimliu/illustrated-agent-skills",
+    "description": "《图解Skill——AI提效实战指南》官方 Repo. 本仓库是图书 《图解 Skill —— AI 提效实战指南》（作者：宝玉）的配套资源。书里因为篇幅放不下、或者更适合在线查阅的内容都收在这里：附录全文、写作工作流技能完整版、章节示例代码与数据、以及生成本书插图所用的技能本身。"
+  },
+  {
+    "key": "jkudish/jev-mcp",
+    "description": "Fast, cheap, typed judgments from TypeSafe's Jev model, as MCP tools."
+  },
+  {
+    "key": "joeseesun/opencli-skill",
+    "description": "Use opencli CLI to interact with social/content websites (Bilibili, Zhihu, Twitter/X, YouTube, Weibo, 小红书, V2EX, Reddit, HackerNews, 雪球, BOSS直聘 etc.)"
+  },
+  {
+    "key": "karpathy/autoresearch",
+    "description": "AI agents running research on single-GPU nanochat training automatically. This code currently requires that you have a single NVIDIA GPU. In principle it is quite possible to support CPU, MPS and other platforms but this would also bloat the code. I'm not 100% sure that I want to take this on personally right now."
+  },
+  {
+    "key": "lahfir/agent-desktop",
+    "description": "Agent Desktop gives any agent reliable computer use on the desktop. Built with Rust, it sees any app's real UI structure through OS accessibility trees and operates it — refs stay stable and actions stay safe to retry, instead of guessing from pixels."
+  },
+  {
+    "key": "larksuite/cli",
+    "description": "The official Lark/飞书 CLI tool, maintained by the larksuite team — built for humans and AI Agents. Covers core business domains including Messenger, Docs, Base, Sheets, Calendar, Mail, Tasks, Meetings, and more, with 200+ commands and 20+ AI Agent Skills."
+  },
+  {
+    "key": "leilei926524-tech/anti-distill",
+    "description": "反蒸馏 Skill：清洗你被迫写的 Skill 文件，看起来完整，核心知识留给自己。Anti-distillation for employee Skills."
+  },
+  {
+    "key": "liseami/chunui",
+    "description": "Define your palette. Ship the same texture. — Monochrome-quality SwiftUI design system extracted from Zinner (阿奇)"
+  },
+  {
+    "key": "liyue-aigc/female-portrait-director",
+    "description": "A modular Codex Skill for directing and expanding detailed AI female portrait prompts."
+  },
+  {
+    "key": "lyra81604/zhengxi-views",
+    "description": "可溯源的郑希(易方达基金经理)投研 Agent Skill——基于他全部公开观点原文 + 有原话佐证的投资方法 + 全市场基金真实数据，能溯源问答、按他框架给基金打分，绝不杜撰。⚠️仅研究学习辅助，不构成投资建议‼️website是郑希主页！"
+  },
+  {
+    "key": "manavarya09/design-extract",
+    "description": "Extract any website's complete design system with one command. DTCG tokens, semantic+primitive+composite, MCP server for Claude Code/Cursor/Windsurf, multi-platform emitters (iOS SwiftUI, Android Compose, Flutter, WordPress), Tailwind v4, Figma variables, shadcn/ui, CSS health audit, WCAG remediation, Chrome extension. MIT, Playwright, Node 20+."
+  },
+  {
+    "key": "mgechev/skills-best-practices",
+    "description": "Write professional-grade skills for agents, validate them using LLMs, and maintain a lean context window."
+  },
+  {
+    "key": "microsoft/markitdown",
+    "description": "Python tool for converting files and office documents to Markdown. MarkItDown requires Python 3.10 through 3.14. It is recommended to use a virtual environment to avoid dependency conflicts."
+  },
+  {
+    "key": "multica-ai/multica",
+    "description": "Make humans and AI agents work as one team — open-source and self-hostable. No terminal required: sign up at multica.ai, or download Multica Desktop for macOS, Windows, and Linux — it connects the computer it runs on as a runtime automatically."
+  },
+  {
+    "key": "nashsu/autocli-skill",
+    "description": "The perfect companion for ClaudeCode/OpenClaw/Agent, Give your AI Agent the ability to reach information across the entire web, fetching real-time data from Bilibili, Zhihu, Twitter/X, YouTube, Weibo, Reddit, Facebook, Instagram, TikTok, Notion, Cursor and 55+ platforms with natural language — reusing your Chrome login session, no API keys needed."
+  },
+  {
+    "key": "nashsu/opencli-rs",
+    "description": "AutoCLI is a Blazing fast, memory-safe command-line tool — Fetch information from any website with a single command. Covers Twitter/X, Reddit, YouTube, HackerNews, Bilibili, Zhihu, Xiaohongshu, and 55+ sites, with support for controlling Electron desktop apps, integrating local CLI tools (gh, docker, kubectl), now powered by AutoCLI.ai ."
+  },
+  {
+    "key": "nexu-io/open-design",
+    "description": "🎨 Best DeepSeek Harness Design Plugin. The open-source Claude Design alternative. 🖥️ Local-first desktop app. 🖼️ Your coding agent becomes the design engine: prototypes, landing pages, dashboards, slides, images & video — real files, HTML/PDF/PPTX/MP4 export. 🤖 Claude Code / Codex / Cursor / DeepSeek Harness / OpenCode & 20+ CLIs via BYOK."
+  },
+  {
+    "key": "notdog1998/yourself-skill",
+    "description": "与其蒸馏别人，不如蒸馏自己。欢迎加入数字永生！Inspired by colleague-skill（同事skill）。 提供你的聊天记录、日记、照片，加上你对自己的描述 我们将你解构为一套可运行的结构： Part A — Self Memory（自我记忆）+ Part B — Persona（人格模型） 生成一个能用你口头禅思考、用你逻辑回话的数字副本"
+  },
+  {
+    "key": "openbmb/voxcpm",
+    "description": "VoxCPM2: Tokenizer-Free TTS for Multilingual Speech Generation, Creative Voice Design, and True-to-Life Cloning"
+  },
+  {
+    "key": "palmier-io/palmier-pro",
+    "description": "macOS video editor built for AI. Palmier Pro is a macOS video editor with built-in AI generation and MCP support, allowing agents to create and edit directly on the timeline."
+  },
+  {
+    "key": "remotion-dev/skills",
+    "description": "Agent Skills. You are also offered the option to add skills when you create a new Remotion project:"
+  },
+  {
+    "key": "sharziki/semdecide",
+    "description": "Typed semantic decisions for Unix pipelines and CI, powered by TypeSafe AI Jev. SemDecide is grep for meaning and jq for judgment. Pipe in text or JSONL and get a predicate, route, score, filtered stream, and stable process exit code without writing prompt, parsing, retry, or confidence-handling glue."
+  },
+  {
+    "key": "slavingia/skills",
+    "description": "Based on The Minimalist Entrepreneur by Sahil Lavingia. That's it — Claude Code will fetch the repo and register all 10 skills automatically."
+  },
+  {
+    "key": "tauricresearch/tradingagents",
+    "description": "TradingAgents: Multi-Agents LLM Financial Trading Framework. Create a virtual environment in any of your favorite environment managers:"
+  },
+  {
+    "key": "tencent/weknora",
+    "description": "Open-source LLM knowledge platform: turn raw documents into a queryable RAG, an autonomous reasoning agent, and a self-maintaining Wiki."
+  },
+  {
+    "key": "therealxiaomanchu/ex-skill",
+    "description": "把前任蒸馏成 AI Skill，用ta的方式跟你说话。 提供前任的原材料（微信聊天记录、QQ消息、朋友圈截图、照片）加上你的主观描述 生成一个真正像ta的 AI Skill 用ta的口头禅说话，用ta的方式回复你，记得你们一起去过的地方"
+  },
+  {
+    "key": "titanwings/colleague-skill",
+    "description": "Distilly — Distill how they think into reusable Skills for any Agent or Bot. Formerly Colleague Skill（原同事 Skill）."
+  },
+  {
+    "key": "vercel-labs/agent-skills",
+    "description": "Vercel's official collection of agent skills. React and Next.js performance optimization guidelines from Vercel Engineering. Contains 40+ rules across 8 categories, prioritized by impact."
+  },
+  {
+    "key": "virattt/ai-hedge-fund",
+    "description": "An AI Hedge Fund Team. With no arguments, this launches the interactive terminal app. Build a fund — pick stocks, strategies, rebalance cadence — or backtest a saved fund and watch its equity curve draw against its benchmark. Funds you build are saved as mandate files in /.hedge-fund/mandates/."
+  },
+  {
+    "key": "vogtsw/boss-skills",
+    "description": "老板.skills. 把老板炼入token，把生产力的解放留给自己。Alchemize your boss into a token, and keep the liberation of productivity for yourself."
+  },
+  {
+    "key": "yaojingang/yao-open-skills",
+    "description": "OpenYao public skills collection: reusable AI assets for decision-making, business analysis, tutorials, research evidence gathering, and document generation."
+  },
+  {
+    "key": "yiliqi78/tokenicode",
+    "description": "A Claude Code GUI — Tauri 2 + React 19 + TypeScript + Tailwind CSS 4. Monitor Claude's sub-agents in real-time — see which agents are spawning, thinking, running tools, or completed."
+  },
+  {
+    "key": "ythx-101/x-tweet-fetcher",
+    "description": "Fetch X/Twitter tweets, replies, timelines, and articles without login or API keys — field tool for AI agents."
+  },
+  {
+    "key": "zhaoxuya520/reverse-skill",
+    "description": "Reverse Engineering / Authorized Penetration Testing / Security Research Skill Router Pack AI-powered routing + On-demand toolchain bootstrapping + Self-evolving knowledge base Supports Claude Code, Kiro, Cursor, Cline, and other AI coding clients 逆向/渗透/安全技能路由包 - AI 自动路由 + 按需自举工具链 + 自动进化经验库 | 支持 Claude Code / Kiro / Cursor / Cline 等代码 AI 客户端"
+  },
+  {
+    "key": "zju-real/easel",
+    "description": "An open-source AI agent for social media — discover trends, create content, publish everywhere, and learn what works across Xiaohongshu, Douyin, Zhihu, Bilibili, and more.🎨一个开源的 AI 社交媒体智能体——发现热点趋势、创作内容、一键发布至各大平台，并学习分析哪些内容真正有效，覆盖小红书、抖音、知乎、哔哩哔哩等平台。"
+  },
+  {
+    "key": "0xnyk/council-of-high-intelligence",
+    "description": "Structured multi-perspective deliberation for hard decisions. Run full councils, focused triads, or duo debates across Claude Code, Codex, Gemini CLI, and OpenCode."
+  },
+  {
+    "key": "0xquqi/sun-skill",
+    "description": "Justin Sun Cognitive Framework - 孙宇晨认知操作系统 | 21,829 tweets + 288-page autobiography + 155-episode audio course + 269+ sources → 14 mental models + 19 decision heuristics"
+  },
+  {
+    "key": "0xsline/short-drama",
+    "description": "专业的短剧剧本创作skill,从选题立项到分集撰写、质量自检、合规审核、海外出海，覆盖短剧剧本生产全流程。 状态追踪： 配置完成后生成 .drama-state.json 文件，后续命令自动读取。"
+  },
+  {
+    "key": "10ran/llmfit",
+    "description": "过去两周，GitHub上增长最快的AI开源项目盘点（除OpenClaw外）： Agency Agents — 35K+ 把Claude Code一键变成51位AI专家+9大部门的完整团队，从产品、开发、设计到营销、社媒、QA全流程覆盖 你给它一个目标，它自动规划实验、改代码、跑训练、看结果、再优化，循环往复"
+  },
+  {
+    "key": "1229119561weike/source-library-research-kit",
+    "description": "494-source cross-disciplinary research index, OPML feeds, and a reusable Matrix/Neo research Skill."
+  },
+  {
+    "key": "1c7/chinese-independent-developer",
+    "description": "👩🏿‍💻👨🏾‍💻👩🏼‍💻👨🏽‍💻👩🏻‍💻中国独立开发者项目列表 -- 分享大家都在做什么. :whitecheckmark: Mimi：实时字幕翻译工具，把电脑播放的外语视频、直播声音转成悬浮字幕；免费开源，支持 Apple 芯片 macOS 13+ 和 Windows x64，需要自备云服务 API 凭证 - 源码与下载"
+  },
+  {
+    "key": "34306/vphone-aio",
+    "description": "1 script run the vphone. It seems someone randomly posted it again on X (Twitter) and my repo go viral again, I'd recommend using vphone-cli for a better update and support. It's now support on iOS 27 on vphone-cli repo btw."
+  },
+  {
+    "key": "3441293738/creatorhub",
+    "description": "多平台内容监控·采集·搬运 一个 Web 面板管起抖音 / 小红书 / 快手. CreatorHub 使用 Python + FastAPI 提供统一 Web 界面，用于管理账号、监控作品与评论、下载内容、发布作品和接收通知。账号登录态、数据库及媒体文件均保存在本地。"
+  },
+  {
+    "key": "432539/gpt2api",
+    "description": "com 的账号能力包装成 OpenAI OpenAI 兼容网关，并补上多账号池、高并发调度、图片生成、计费和后台管理这一整套 SaaS 运营能力"
+  },
+  {
+    "key": "666os/clashmac",
+    "description": "Native Proxy Experience Built for macOS. 1. Download the latest ClashMac.dmg disk image from the Releases page. 2. Double-click the .dmg and drag ClashMac.app into your Applications folder. 3. On first launch, right-click ClashMac.app and select Open."
+  },
+  {
+    "key": "88lin/video_vip",
+    "description": "全网VIP视频免费破解脚本，通过集成多个第三方解析接口，去除广告，解锁视频网站的会员限制，让用户享受免费的视频观看体验。适配PC+移动，支持爱奇艺、腾讯、优酷、芒果TV、bilibili等主流视频平台！脚本长期维护更新，完全免费"
+  },
+  {
+    "key": "aaaaalexis/obsidian-baseline",
+    "description": "A foundational Obsidian theme ― The baseline of your thoughts. Seamlessly migrate your existing Style Settings from supported themes."
+  },
+  {
+    "key": "aashaexo/soundshuman",
+    "description": "This is a merger of the best parts of the current anti-slop tooling: one skill that rewrites text like a careful human editor, one rule pack that machines can enforce, and one zero-dependency CLI that audits whole repos and gates CI. The goal is not beating AI detectors. It is a workflow you can inspect: visible rules, explainable scores, reviewable diffs."
+  },
+  {
+    "key": "abeehive/annado",
+    "description": "A task manager built on top of your Obsidian / markdown files. Annado treats your Obsidian vault as its database. It scans every .md file for markdown checkboxes (- [ ] / - [x]) — or, if you set an import marker tag, only the checkboxes carrying that tag — parses inline annotations like @when(...), @due(...), and [[WikiLinks]], and presents them in a task ma…"
+  },
+  {
+    "key": "abingyyds/openasst",
+    "description": "OpenAsst is an intelligent terminal assistant that lets you manage servers and execute system tasks using natural language. The project consists of two parts: CLI Tool (Core) - A powerful command-line tool for AI-driven system operations Web Dashboard (Optional) - A visual interface for users who prefer GUI"
+  },
+  {
+    "key": "addyosmani/agent-skills",
+    "description": "Production-grade engineering skills for AI coding agents. Skills encode the workflows, quality gates, and best practices that senior engineers use when building software. These ones are packaged so AI agents follow them consistently across every phase of development."
+  },
+  {
+    "key": "addyosmani/web-quality-skills",
+    "description": "Agent Skills for optimizing web quality based on Lighthouse and Core Web Vitals."
+  },
+  {
+    "key": "afar1/fieldtheory-cli",
+    "description": "Field Theory CLI for bookmarks, Library, commands, and agent workflows. Sync and store bookmarks locally, manage Field Theory Library and command workflows, and make local context available to Claude Code, Codex, or any agent with shell access."
+  },
+  {
+    "key": "agentskillos/skillanything",
+    "description": "Making ANY Software Skill-Native -- Auto-generate production-ready AI Agent Skills for Claude Code, OpenClaw, Codex, and more."
+  },
+  {
+    "key": "agricidaniel/c",
+    "description": "AgriciDaniel/c：目前只确认它与软件开发有关，官方介绍与可用的来源总结仍待补充。"
+  },
+  {
+    "key": "aidc-ai/pixelle-video",
+    "description": "🚀 AI 全自动短视频引擎 | AI Fully Automated Short Video Engine. Pixelle-Video 采用模块化设计，整个视频生成流程清晰简洁："
+  },
+  {
+    "key": "akashpriyadarshii/jev-curate",
+    "description": "High-throughput synthetic and pretraining dataset sifter for TypeSafe Jev. Rust streaming core, Parquet and JSONL I/O, typed Choice/Score/Noul judgments, speculative fan-out, 24.0 rows/sec measured."
+  },
+  {
+    "key": "akoliteza/hermes-agent-idea-workflow",
+    "description": "Pre-build idea-to-spec workflow skills for Hermes Agent: turn rough ideas into design docs, implementation specs, and Superpowers-ready build handoffs."
+  },
+  {
+    "key": "alchaincyf/deepseek-harness-orange-book",
+    "description": "DeepSeek Harness橙皮书《从开机到拆开》：完整系统提示词、129行启动清单、三份原始会话日志——官方文档没有的一手实测。PDF/EPUB/HTML免费下载"
+  },
+  {
+    "key": "alchaincyf/hermes-agent-orange-book",
+    "description": "Hermes Agent 从入门到精通 · 橙皮书系列 · Nous Research 开源 AI Agent 框架实战指南. Under \"Motive one,\" the book claims that \"Hermes Agent isn't just a product, it's also a massive-scale harvester that collects real-world data for Nous's own models,\" and draws a chain from \"users' real usage → tool-call trajectories → compressed into training data → next-gen models.\" That chain…"
+  },
+  {
+    "key": "alchaincyf/huashu-design",
+    "description": "Huashu Design · HTML-native design skill for Claude Code · Claude Code 里 HTML 原生的设计 skill · 高保真原型 / 幻灯片 / 动画 + 20 设计哲学 + 5 维评审 + MP4 导出 · Agent-agnostic"
+  },
+  {
+    "key": "alchaincyf/naval-skill",
+    "description": "纳瓦尔.skill — Naval Ravikant的认知操作系统。由女娲.skill生成。 这不是ChatGPT套了个Naval面具。每段回应都在运用Naval的具体心智模型——「杠杆思维」「特定知识」「欲望即合同」「重新定义术」「痛苦到系统重构」。它不复读语录，它用Naval的认知框架分析你的问题。"
+  },
+  {
+    "key": "alchaincyf/obsidian-ai-orange-book",
+    "description": "Obsidian + Claude Code: Rebuild Your Second Brain with AI · 橙皮书系列 · 用AI重建你的第二大脑. 这不是又一本 Obsidian 教程，而是「AI 时代的知识管理方法论 + 落地工具」："
+  },
+  {
+    "key": "alchaincyf/steve-jobs-skill",
+    "description": "乔布斯.skill — Steve Jobs的认知操作系统。6个心智模型 + 8条决策启发式 + 完整表达DNA。由女娲.skill生成。 这不是ChatGPT套了个乔布斯面具。每段回应都在运用Jobs的具体心智模型——「聚焦即说不」「端到端控制」「死亡过滤器」「不问用户要什么」。它不复读语录，它用Jobs的认知框架分析你的问题。"
+  },
+  {
+    "key": "alexanderradahl/mac-developer-bridge",
+    "description": "Give ChatGPT a real terminal on your Mac. Open-source MCP bridge for shell, files, PTY sessions, jobs, and Codex history."
+  },
+  {
+    "key": "alibaba/open-code-review",
+    "description": "Secure, fast, efficient, battle-tested at Alibaba's scale. Hybrid architecture code review tool: deterministic pipelines + LLM Agent, precise line-level comments, built-in multi-language ruleset (NPE, thread-safety, XSS, SQL injection), OpenAI & Anthropic compatible."
+  },
+  {
+    "key": "alin-mr/alin-skills",
+    "description": "Claude Code skills by A-Lin — content publishing and knowledge management workflows"
+  },
+  {
+    "key": "allanpk716/bazieval",
+    "description": "计算生辰八字五行属性的算法，整了个 Flask 的网站玩 BaZiHelper. 说明：本文描述的算法是根据Internet上的资料整理而得到，并非我原创，但个别地方我做过修改。其中经验值的出处已无法找到。"
+  },
+  {
+    "key": "andrelandgraf/typesafe-on-neon",
+    "description": "Neon Function proxy for the Neon AI Gateway with TypeSafe Jev routing."
+  },
+  {
+    "key": "android/skills",
+    "description": "Android skills are a dedicated repository of AI-optimized, modular instructions and resources, to help agents better understand and execute specific patterns that follow the best practices and guidance on Android development from developer.android.com."
+  },
+  {
+    "key": "anil-matcha/ai-youtube-shorts-generator",
+    "description": "Open-source alternative to Opus Clip, Vidyo.ai, Klap & SubMagic. Turn long-form YouTube videos into viral 9:16 shorts using LLM highlight detection, Whisper transcription, and auto vertical cropping — free, no watermarks, no per-clip credits."
+  },
+  {
+    "key": "anil-matcha/open-generative-ai",
+    "description": "Unrestricted Open-source alternative to AI video platforms — Free AI image & video generation studio with 600+ models (Flux, Midjourney, Kling, Sora, Veo). No content filters. Self-hosted, MIT licensed."
+  },
+  {
+    "key": "ansxuman/clauge",
+    "description": "基于 Tauri（Rust + Svelte）的桌面应用，将编程 AI 代理、API 客户端、SQL/NoSQL 编辑器、SSH 终端、远程文件浏览器和项目管理看板整合在一个界面中，开发者不用在多个应用之间切换"
+  },
+  {
+    "key": "anthropics/claude-code",
+    "description": "Claude Code is an agentic coding tool that lives in your terminal, understands your codebase, and helps you code faster by executing routine tasks, explaining complex code, and handling git workflows - all through natural language commands."
+  },
+  {
+    "key": "anthropics/claude-plugins-official",
+    "description": "Official, Anthropic-managed directory of high quality Claude Code Plugins. Internal plugins are developed by Anthropic team members. See /plugins/example-plugin for a reference implementation."
+  },
+  {
+    "key": "anthropics/ski",
+    "description": "anthropics/ski：目前只确认它与软件开发有关，官方介绍与可用的来源总结仍待补充。"
+  },
+  {
+    "key": "anywhere-labs/deepseek-harness-desktop",
+    "description": "为 DeepSeek Harness (DSH) 插件生态打造的现代化桌面端解决方案。万物皆「插件」，桌面本身也是「插件」。 独立的社区开源项目，与深度求索不存在隶属、合作、授权或背书关系。 本仓库目前无深度求索员工或 DeepSeek Harness 上游官方团队成员参与；GitHub Contributors 中显示的上游贡献者来自 fork 继承和同步的提交历史。 中文 · English"
+  },
+  {
+    "key": "apiverve/fortuneteller-api",
+    "description": "Fortune Teller uses AI to generate personalized mystical fortunes across multiple categories including love, career, health, wealth, and travel."
+  },
+  {
+    "key": "apple/container",
+    "description": "A tool for creating and running Linux containers using lightweight virtual machines on a Mac. It is written in Swift, and optimized for Apple silicon."
+  },
+  {
+    "key": "aqbot-desktop/aqbot",
+    "description": "☁️ 轻量级高性能跨平台AI对话 + AI Agent + AI网关桌面客户端 | Lightweight, high-performance cross-platform AI dialogue + AI Agent + AI gateway desktop client"
+  },
+  {
+    "key": "arcreel/arcreel",
+    "description": "AI Agent 驱动的开源可自部署视频工作台：将小说与剧本转为角色、场景、道具资产、分镜、视频和剪映草稿，支持跨镜头一致性、多供应商与费用追踪 | Self-hosted AI video workspace for stories, storyboards and short-form video production"
+  },
+  {
+    "key": "asdhabdua/bilibili-video-notes-skill",
+    "description": "Bilibili Video Notes 是一个从 B 站教育/讲课视频自动生成带截图的 DOCX 学习笔记的工具。它通过下载视频与 AI 字幕、全覆盖抽帧、OCR + 感知哈希去重、AI 视觉打分精选、提取图中关键内容，最终融合生成结构化的 DOCX 笔记。包括且不仅限于支持 Hermes Agent、Claude Code、Codex CLI 等多 Agent 直接调用，也支持任何 OpenAI 兼容格式的多模态视觉 API。可用于本地视频，适用于考研党等网课人群，帮助大家解放做笔记的双手，只需认真听课即可。"
+  },
+  {
+    "key": "averygan/reclip",
+    "description": "Download videos from almost any website. Lightweight, self-hosted media downloader with a clean web UI."
+  },
+  {
+    "key": "ayush-that/jiang-clips",
+    "description": "🎬 Automated pipeline that converts long-form YouTube videos into viral-ready vertical clips with captions."
+  },
+  {
+    "key": "azec4/telegramgroup",
+    "description": "2026最新悄咪咪收集的10000+个Telegram群合集，附全网最有趣好用的机器人BOT🤖【dianbaodaohang.com】"
+  },
+  {
+    "key": "b-nnett/codex-plusplus",
+    "description": "Codex++ tweak system for the Codex desktop app. Codex++ lets you install local tweaks into the OpenAI Codex desktop app. Tweaks can change UI, add settings pages, run main-process code, and use native OS-level features through the Codex++ bridge. Join the Discord community."
+  },
+  {
+    "key": "badlogic/pi-mono",
+    "description": "AI agent toolkit: unified LLM API, agent loop, TUI, coding agent CLI. For Slack/chat automation and workflows see earendil-works/pi-chat."
+  },
+  {
+    "key": "behisecc/awesome-claude-skills",
+    "description": "A curated list of Claude Skills. >[!Tip] >If you use Claude to build web applications, do yourself a favor and use VibeSec-Skill to avoid getting hacked."
+  },
+  {
+    "key": "bethington/ghidra-mcp",
+    "description": "Ghidra MCP Server — 200+ MCP tools for AI-powered reverse engineering. GUI plugin + headless server, lazy tool loading, convention enforcement, batch operations, Ghidra Server integration, and Docker deployment."
+  },
+  {
+    "key": "binance/binance-skills-hub",
+    "description": "Binance Skills Hub is an open skills marketplace that gives AI agents native access to crypto"
+  },
+  {
+    "key": "blackmatrix7/ios_rule_script",
+    "description": "分流规则、重写写规则及脚本。 1. 本项目内所有资源文件，禁止任何公众号、自媒体进行任何形式的转载、发布。 2. 编写本项目主要目的为学习和研究ES6，无法保证项目内容的合法性、准确性、完整性和有效性。 3. 本项目涉及的数据由使用的个人或组织自行填写，本项目不对数据内容负责，包括但不限于数据的真实性、准确性、合法性。使用本项目所造成的一切后果，与本项目的所有贡献者无关，由使用的个人或组织完全承担。 4. 本项目中涉及的第三方硬件、软件等，与本项目没有任何直接或间接的关系。本项目仅对部署和使用过程进行客观描述，不代表支持使用任何第三方硬件、软件。使用任何第三方硬件、软件，所造成的一切后果由使用的个人或组织承担，与本项目无关。 5."
+  },
+  {
+    "key": "bojieli/ai-agent-book",
+    "description": "《深入理解 AI Agent：设计原理与工程实践》（李博杰 著）开源主仓库：全书正文、编译版 PDF 与按章配套代码. 项目统一支持 Python 3.11–3.13。请在仓库根目录按章节安装依赖；将 ch1 替换为 ch2 ch10 即可安装对应章节："
+  },
+  {
+    "key": "bwjoke/btc-trading-since-2020",
+    "description": "Public BTC trading context since 2020. In the AI era, high-quality context becomes the most scarce asset. This repository is an open-intelligence experiment: a public, inspectable mirror of a real trading account since May 2020."
+  },
+  {
+    "key": "byarbrough/obsidian-para",
+    "description": "Template for using Obsidian for P.A.R.A. Obsidian and PARA are the perfect pairing. Together, you can Remember, Connect, and Create. It is a universal organization system, designed to keep your knowledge approachable and actionable."
+  },
+  {
+    "key": "bytedance/deer-flow",
+    "description": "An open-source long-horizon SuperAgent harness that researches, codes, and creates. With the help of sandboxes, memories, tools, skill, subagents and message gateway, it handles different levels of tasks that could take minutes to hours."
+  },
+  {
+    "key": "calesthio/openmontage",
+    "description": "World's first open-source, agentic video production system. 12 production pipelines, 100+ tools, 700+ agent skill and production-knowledge files. Turn your AI coding assistant into a full video production studio."
+  },
+  {
+    "key": "cclank/lanshu-wiki-skill",
+    "description": "LLM Wiki skill for Claude Code — Karpathy LLM Wiki pattern, batteries included. 一个 Claude Code skill，把 Karpathy 的 LLM Wiki 模式 变成 5 分钟开张的工作流。 既适合个人知识库，也适合给开源项目做架构文档。"
+  },
+  {
+    "key": "cclank/tokei",
+    "description": "package.sh 会优先使用本机可用的 Developer ID / Apple Development 证书，让 Keychain 中的 Provider 密钥在重复构建后仍可访问；没有证书时会回退到 ad-hoc 签名。可用 TOKEICODESIGNIDENTITY=- bash package.sh 强制 ad-hoc，或用 TOKEICODESIGNIDENTITY=\"证书名称\" bash package.sh 指定签名身份。 这套自动探测只作用于本地源码构建；官方发布的 DMG 一律是 ad-hoc 签名。"
+  },
+  {
+    "key": "ceeon/videocut-skills",
+    "description": "用 Claude Code Skills 做的视频剪辑 Agent. Plugin 提供给 Agent 的方法和确认工具；Runtime 执行工程操作并提供工作台。安装 Plugin、准备 Runtime、完成视频是三件不同的事。本仓不是已经停用的链接页，也不是新的独立 Skills 全套下载器。"
+  },
+  {
+    "key": "chanceyu/copet",
+    "description": "🐾 A desktop pet that reacts in real time to your AI agents — Claude Code, Codex, Antigravity, OpenCode, Cursor, Copilot, Gemini."
+  },
+  {
+    "key": "chencore/autoresearch-crypto",
+    "description": "autoresearch-crypto. 自主加密货币量化交易策略研究框架。从 autoresearch 范式演化而来——不再优化 LLM，而是让 AI Agent 自主发现、演化和执行加密货币交易策略。"
+  },
+  {
+    "key": "chenshuo/coolshell",
+    "description": "Static mirror of coolshell.cn, (c) haoel 2023."
+  },
+  {
+    "key": "chenshuo2004/cs-skills",
+    "description": "陈硕的 Codex Skills 与 AI 工作流手册：把产品、内容、调研与交付沉淀为可复用的智能工作流。 当前包含 12 个 active skill，覆盖产品设计、工程开发、内容创作、文章配图、深度调研、短视频策划/制作、网页产品演示片和交付收尾。"
+  },
+  {
+    "key": "chopratejas/headroom",
+    "description": "Compress tool outputs, logs, files, and RAG chunks before they reach the LLM. 20% fewer tokens for coding agents, 60-95% fewer tokens for JSON, same answers. Library, proxy, MCP server."
+  },
+  {
+    "key": "chromedevtools/chrome-devtools-mcp",
+    "description": "Chrome DevTools for coding agents. Chrome DevTools for agents (chrome-devtools-mcp) lets your coding agent (such as Antigravity, Claude, Cursor or Copilot) control and inspect a live Chrome browser."
+  },
+  {
+    "key": "chubbyguan/chubbyskills",
+    "description": "把中文全渠道内容（抖音 / B站 / 小红书 / 公众号 / X / 播客）采集进个人知识库的 13 个 AI Skill：图文存图、视频转文字稿、字幕优先免 GPU，附带知识库 MCP server。 ｜ Ingest Chinese content into your personal knowledge base — image/video routing, subtitle-first transcription, and a KB MCP server."
+  },
+  {
+    "key": "cinar/indicator",
+    "description": "High-performance technical analysis indicators and backtesting framework in Go. Zero dependencies. ✨ See how! 👀"
+  },
+  {
+    "key": "clockworklabs/spacetimedb",
+    "description": "Development at the speed of light. Write your schema and business logic as a module in Rust, C#, TypeScript, or C++. SpacetimeDB compiles it, runs it inside the database, and automatically synchronizes state to connected clients in real-time."
+  },
+  {
+    "key": "cloudflare/security-audit-skill",
+    "description": "A coding-agent skill for multi-phase security audits with independently verified, machine-readable findings"
+  },
+  {
+    "key": "cobibean/soul-grader-skill",
+    "description": "Hermes Agent skill for grading SOUL.md identity files with a research-backed rubric and public-safe field guide."
+  },
+  {
+    "key": "cocoindex-io/cocoindex-code",
+    "description": "A super light-weight embedded code search engine CLI (AST based) that just works - improves speed and efficiency for coding agent 🌟 Star if you like it!"
+  },
+  {
+    "key": "cocoon-ai/architecture-diagram-generator",
+    "description": "Generate beautiful dark-themed system architecture diagrams as standalone HTML/SVG files. Works as a Claude AI skill."
+  },
+  {
+    "key": "codedogqby/readany",
+    "description": "AI-powered cross-platform e-book reader with semantic search, RAG chat, local vector store, notes, TTS, and WebDAV sync."
+  },
+  {
+    "key": "colbymchenry/codegraph",
+    "description": "Pre-indexed code knowledge graph, auto syncs on code changes, for Claude Code, Codex, Gemini, Cursor, OpenCode, AntiGravity, Kiro, CoPilot, and Hermes Agent — fewer tokens, fewer tool calls, 100% local"
+  },
+  {
+    "key": "collaborator-ai/collab-public",
+    "description": "Collaborator is a place to create with agents."
+  },
+  {
+    "key": "comfy-org/comfyui",
+    "description": "The most powerful and modular diffusion model GUI, api and backend with a graph/nodes interface."
+  },
+  {
+    "key": "composio-hq/polymarket-kalshi-arbitrage-bot",
+    "description": "有人写了个自动套利机器人，两个平台同时开仓，躺着吃价差"
+  },
+  {
+    "key": "composiohq/awesome-codex-skills",
+    "description": "A curated list of practical Codex skills for automating workflows across the Codex CLI and API."
+  },
+  {
+    "key": "conardli/garden-skills",
+    "description": "ConardLi's open-source Skills collection, featuring web design, knowledge retrieval, image generation, and more."
+  },
+  {
+    "key": "connectfarm1/accumulation-radar",
+    "description": "开源一个新的工具：庄家收筹雷达，就是一个纯提醒工具，使用还是得看自己，抓取数据和提示信号还是ok 的，我自己昨天测试大概赚了7000多刀，还会持续优化，优化空间还是非常大的"
+  },
+  {
+    "key": "copilotkit/openbot",
+    "description": "Open-source AI coworkers that each get a computer of their own: a browser, files and tools, with every action decided before it happens and recorded after. Bring any AG-UI agent."
+  },
+  {
+    "key": "cordiverse/paper",
+    "description": "A Programming Paradigm for Spatiotemporal Composability. Modern software—from plugin systems to self-evolving agent harnesses—increasingly requires dynamic composition, yet its formal foundations remain underdeveloped."
+  },
+  {
+    "key": "coros-hq/inkwell",
+    "description": "inkwell note taking app. It pairs a distraction-free writing environment with a rich live preview, a Kanban board, a canvas drawing tool, a suite of themes, and deep integrations: a native MCP server so Claude can read and write your notes, and built-in GitHub sync to push your docs to any repository."
+  },
+  {
+    "key": "crafter-station/petdex",
+    "description": "A public gallery of animated pets for Codex, Claude Code, DeepSeek Harness, Hermes, OpenCode, Gemini CLI, and more."
+  },
+  {
+    "key": "cranot/super-hermes",
+    "description": "Skills that teach Hermes Agent to write its own analytical prompts. Super Hermes: \"Session state is non-monotonic. No append-only, composable, or lazy architecture can manage it without sacrificing consistency or isolation. This is a structural impossibility, not a code flaw.\" Derives WHY the code must be this way."
+  },
+  {
+    "key": "crossoverjie/skilldeck",
+    "description": "Native macOS SwiftUI app for managing multiple AI code agent skills. SkillDeck is the first desktop GUI for managing skills across multiple AI code agents — Claude Code, Codex, Gemini CLI, Copilot CLI, OpenCode, Antigravity, Cursor, Kiro, CodeBuddy, OpenClaw, Trae, and Qoder. No more manual file editing, symlink juggling, or YAML parsing by hand."
+  },
+  {
+    "key": "cumany/blue-topaz-examples",
+    "description": "Blue topaz themes example vault for Obsidian. Recommend downloading the Lite version of the example vault to delete a large number of unnecessary plug-ins, download link https://github.com/cumany/Blue-topaz-examples/releases/"
+  },
+  {
+    "key": "cyberj0605/cinematic-video-prompt-engineer-skill",
+    "description": "A Codex skill for turning plot summaries into cinematic AI video prompts. It diagnoses story, emotion, structure, shot design, micro-expressions, sound, reference image prompts, and continuation logic, then outputs copy-ready prompts for short-form AI video generation."
+  },
+  {
+    "key": "cytostack/openwolf",
+    "description": "Portable project memory across Claude Code, Codex and OpenCode, plus token accounting measured from harness transcripts. Local file I/O, no API calls, no telemetry."
+  },
+  {
+    "key": "czlonkowski/n8n-skills",
+    "description": "n8n skillset for Claude Code to build flawless n8n workflows. Expert Claude Code skills for building flawless n8n workflows using the n8n-mcp MCP server"
+  },
+  {
+    "key": "danops-1/gpt-pp-team",
+    "description": "ChatGPT Plus/Team/Pro 订阅协议端到端重放工具集 · hCaptcha 视觉求解器 · 反欺诈机制实证研究 / End-to-end protocol replay toolkit for ChatGPT Plus/Team/Pro subscription with from-scratch hCaptcha solver and empirical anti-fraud research"
+  },
+  {
+    "key": "databricks-industry-solutions/pixels",
+    "description": "Facilitates simple large scale processing of HLS Medical images, documents, zip files. OHIF Viewer, 2 segmentation models and interactive learning."
+  },
+  {
+    "key": "davidhdev/react-bits",
+    "description": "An open source collection of animated, interactive & fully customizable React components for building memorable websites."
+  },
+  {
+    "key": "davila7/claude-code-templates",
+    "description": "CLI tool for configuring and monitoring Claude Code. Bright Data proudly supports this project. Connect Claude Code to live web data — try their Skills and MCPs for web search, scraping, and structured data feeds."
+  },
+  {
+    "key": "debpalash/omnivoice-studio",
+    "description": "VoiceStudio is the open-source, fully-local ElevenLabs alternative — voice cloning, voice design, video dubbing, dictation, transcription & audiobook creation in 646 languages."
+  },
+  {
+    "key": "deepseek-ai/deepseek-harness",
+    "description": "DeepSeek Harness: Everything is a Plugin. pnpm run build prepares the repository artifacts. pnpm dsh web uses those built artifacts without rebuilding."
+  },
+  {
+    "key": "dembrandt/dembrandt",
+    "description": "Extract any website’s design system into tokens in seconds: logo, colors, typography, borders & more. One command."
+  },
+  {
+    "key": "detachhead/rebased",
+    "description": "A git client based on the IntelliJ platform. Rebased is an open-source remake of the short-lived jetbrains git client. It's basically just a JetBrains IDE with all the bundled plugins removed except the git integration, with some additional UI tweaks."
+  },
+  {
+    "key": "deusdata/codebase-memory-mcp",
+    "description": "High-performance code intelligence MCP server. Indexes codebases into a persistent knowledge graph — average repo in milliseconds. 158 languages, sub-ms queries, 99% fewer tokens. Single static binary, zero dependencies."
+  },
+  {
+    "key": "devmikets/hyperliquid-sdk",
+    "description": "hyperliquid sdk | hyperliquid sdk | hyperliquid sdk | hyperliquid sdk | hyperliquid sdk | hyperliquid sdk | hyperliquid sdk | hyperliquid sdk | hyperliquid sdk | hyperliquid sdk | hyperliquid sdk | hyperliquid sdk | hyperliquid sdk | hyperliquid sdk - The Hyperliquid API SDK, written in TypeScript, supports all major JavaScript environments."
+  },
+  {
+    "key": "dex-original/okx-agent-trade-kit",
+    "description": "okx trading bot okx agent mcp cli cryptocurrency okx api automated trading typescript okx trading bot model context protocol cursor ai trading crypto spot futures okx trading bot npm pnpm okx mcp open source quant defi cex okx trading bot algorithmic trading crypto bot okx trading bot okx api mcp okx trading bot crypto mcp"
+  },
+  {
+    "key": "diffusionstudio/lottie",
+    "description": "Generate production-ready Lottie animations with Claude Code or Codex. Then ask your coding agent to generate a Lottie animation using text-to-lottie."
+  },
+  {
+    "key": "digitalsamba/claude-code-video-toolkit",
+    "description": "AI-native video production toolkit for Claude Code"
+  },
+  {
+    "key": "dingxiang-me/openclaw-wechat",
+    "description": "🔥🔥🔥 首个把OpenClaw接入企业微信的插件 / 个人微信互通 / BOT流式输出 长连接模式 / 支持群聊 / 白名单控制 / 文档能力 / 全中文可视化配置"
+  },
+  {
+    "key": "discountry/ritmex-bot",
+    "description": "Perp DEX trading bot. 基于 Bun 的多交易所永续合约量化终端，内置趋势跟随（SMA30）、Guardian 防守与做市策略，支持快速恢复、实时行情订阅、日志追踪与 CLI 仪表盘。"
+  },
+  {
+    "key": "dmoshehun-prog/learn-from-materials",
+    "description": "Turn PDFs, books and papers into interactive learning webpages｜将复杂材料转化为可追溯、可测验、可做笔记的学习网页"
+  },
+  {
+    "key": "dodo-reach/hermes-desktop",
+    "description": "The safest, simplest way to manage Hermes from your Mac. Pure SSH. No gateways, no exposed ports, no browser layer."
+  },
+  {
+    "key": "donchitos/claude-code-game-studios",
+    "description": "Turn Claude Code into a full game dev studio — 49 AI agents, 72 workflow skills, and a complete coordination system mirroring real studio hierarchy."
+  },
+  {
+    "key": "dontbesilent2025/dbskill",
+    "description": "dontbesilent 的商业诊断 Skills. 支持：豆包、WorkBuddy、Claude Code、Codex，以及其他支持 Skills 的 Agent。"
+  },
+  {
+    "key": "drona23/claude-token-efficient",
+    "description": "One CLAUDE.md file. Keeps Claude responses terse. Reduces output verbosity on heavy workflows. Drop-in, no code changes."
+  },
+  {
+    "key": "e2b-dev/code-interpreter",
+    "description": "Python & JS/TS SDK for running AI-generated code/code interpreting in your AI app"
+  },
+  {
+    "key": "echohive42/ai-reads-books-page-by-page",
+    "description": "AI reads books: Page-by-Page PDF Knowledge Extractor & Summarizer. script performs an intelligent page-by-page analysis of PDF books, methodically extracting knowledge points and generating progressive summaries at specified intervals"
+  },
+  {
+    "key": "edkdev/defi-trading-mcp",
+    "description": "DeFi Trading Agent MCP Server - Transform your AI into an autonomous crypto trading agent"
+  },
+  {
+    "key": "ehmo/slopkit",
+    "description": "Anti-slop skills for AI agents: slopbeth cleans the shipped writing, slopgent cleans the conversation."
+  },
+  {
+    "key": "ekkolearnai/hermes-web-ui",
+    "description": "Ekko Studio is a local-first AI workspace for multi-agent chat, coding, and visual workflows, available on desktop and the web."
+  },
+  {
+    "key": "elithrar/dotfiles",
+    "description": "dotfiles for my macOS & Linux environments ⌨️. Use GNU Stow to automatically symlink the dotfiles:"
+  },
+  {
+    "key": "elvisun/newsjack",
+    "description": "The open-source skills that turn your agent into a full PR team. For project setup in a local Claude Code plugin install, start with newsjack auth status, then run newsjack login if it says project tools are not enabled before asking the agent to create or open a Medialyst project, add project memory, or upload project files."
+  },
+  {
+    "key": "emanuele-f/pcapdroid",
+    "description": "No-root network monitor, firewall and PCAP dumper for Android. PCAPdroid is a privacy-friendly open source app which can track, analyze and block the connections made by the other apps on the device. It can also export a PCAP dump of the traffic, inspect HTTP requests, decrypt TLS traffic and much more."
+  },
+  {
+    "key": "emilkowalski/skills",
+    "description": "Skills for Designers and Engineers."
+  },
+  {
+    "key": "emily2040/seedance-2.0",
+    "description": "Comprehensive production pipeline for quad-modal AI filmmaking with Seedance 2.0"
+  },
+  {
+    "key": "esaradev/icarus-plugin",
+    "description": "Self-memory and replacement models for Hermes agents. Remember your work. Train your replacement."
+  },
+  {
+    "key": "estarinazx/vs-claude",
+    "description": "A warm, Claude.ai-inspired dark theme for VSCode and Antigravity IDE. 1. Download vs-claude.vsix from the Releases page. 2. Install via the command line:"
+  },
+  {
+    "key": "ethanyoq/ai-novel-writer",
+    "description": "AI 小说创作软件：把灵感、角色、世界观、大纲、章节写作、审稿和修稿组织成可控流程；提供 Windows/macOS 桌面版，支持本地和在线模型。AI Novel Writing Software: Organizes inspirations, characters, worldbuilding, outlines, chapter drafting, review, and revision into a controllable workflow. Features desktop apps for Windows/macOS, Ollama integration, and a DeepSeek Harness (DSH) plugin preview."
+  },
+  {
+    "key": "eugeniughelbur/obsidian-second-brain",
+    "description": "Persistent memory for Claude Code and 6 other CLI agents, stored as plain markdown in your Obsidian vault. Stop re-explaining your projects, decisions and people every session. 45 commands: hybrid semantic search, self-rewriting notes, key-less web research, and scheduled agents that maintain the vault while you sleep."
+  },
+  {
+    "key": "eze-is/web-access",
+    "description": "给 Claude Code 装上完整联网能力的 skill：三层通道调度 + 浏览器 CDP + 并行分治. AI Agent 原本的联网能力（WebSearch、WebFetch）缺少调度策略和浏览器自动化能力。这个 Agent Skill 补上的是：联网策略 + CDP 浏览器操作 + 站点经验积累。兼容所有支持 SKILL.md 的 Agent（Claude Code、Cursor、Gemini CLI、Codex CLI 等）。"
+  },
+  {
+    "key": "f/prompts.chat",
+    "description": "f.k.a. Awesome ChatGPT Prompts. Share, discover, and collect prompts from the community. Free and open source — self-host for your organization with complete privacy."
+  },
+  {
+    "key": "fanzr-arch/numerologist_skills",
+    "description": "🔮 An engineering framework to stop LLM hallucinations in Chinese astrology. / 给“赛博半仙”戴上紧箍咒：减少幻觉、固定排盘步骤的奇门遁甲与紫微斗数 AI skills。"
+  },
+  {
+    "key": "fathah/hermes-desktop",
+    "description": "Desktop Companion for Hermes Agent. Instead of managing the CLI by hand, the app walks through install, provider setup, and day-to-day usage in one place. It uses the official Hermes install script, stores Hermes in /.hermes, and gives you a GUI for chat, sessions, profiles, memory, skills, tools, scheduling, messaging gateways, and more."
+  },
+  {
+    "key": "fei-away/codex-dream-skin",
+    "description": "Codex Dream Skin. 满血 AI · 触手可及 ：OpenAI、Claude 全系列原版模型，无降智、无套壳；使用前沿 AI 模型仅需官方价格的一小部分，充值 1:1， 1$ = 1¥ 。保留原有官方 SDK，只把 Base URL 换成 Passion8，Claude Code、Codex、Grok 以及任意 OpenAI 兼容客户端都能直接跑——一行配置，代码不用改。 全球节点加速 ：Cloudflare 全球边缘 + 多线路 BBR 加速，低延迟、高可用、稳定如一；7×24 稳定中转，99.9% SLA，首 Token 目标 1 秒内。 安全可靠 ：独立 API Key、密钥加密存储、全链路 HTTPS，隐私优先。"
+  },
+  {
+    "key": "felo-inc/felo-skills",
+    "description": "Ask anything. Get current answers. Generate slides and mindmaps from a prompt."
+  },
+  {
+    "key": "fendouai/codexsaver",
+    "description": "Make Codex cheaper without making it dumber with DeepSeek."
+  },
+  {
+    "key": "fhshaik/typesafe-mario",
+    "description": "A TypeSafe/Jev agent that plays Super Mario Bros. from structured emulator state."
+  },
+  {
+    "key": "finderchangchang/jev-chat-jarvis",
+    "description": "装在手机上的对话副驾：在微信 / QQ / X / 飞书里读懂对方、给出候选回复、一键填入输入框，发不发由你。非侵入，只读屏幕，不 hook 不改包。 2. 填密钥。 打开 App → 设置 →「接口」分三张卡：判断接口 / 回复接口 / 视觉接口。最简单只填「判断接口」一栏的 OpenRouter API Key，其余两栏留空会自动继承这把密钥就能用。想换回复模型（默认 deepseek/deepseek-chat-v3.1，国内 Gemini / OpenAI 会被区域限制）就在「回复接口」选预设（OpenRouter / DeepSeek 官方 / 通义兼容）或自填地址，每张卡都有独立的一键连通测试。"
+  },
+  {
+    "key": "fireredteam/firered-openstoryline",
+    "description": "FireRed-OpenStoryline is an AI video editing agent that transforms manual editing into intention-driven directing through natural language interaction, LLM-powered planning, and precise tool orchestration. It facilitates transparent, human-in-the-loop creation with reusable Style Skills for consistent, professional storytelling."
+  },
+  {
+    "key": "fishaudio/fish-speech",
+    "description": "SOTA Open Source TTS. Fish Audio S2 Pro is the most advanced multimodal model developed by Fish Audio. Trained on over 10 million hours of audio data covering more than 80 languages, S2 Pro combines a Dual-Autoregressive (Dual-AR) architecture with reinforcement learning (RL) alignment to generate speech that is exceptionally natural, realistic, and emotiona…"
+  },
+  {
+    "key": "freestylefly/wechatbridge",
+    "description": "微信聊天记录一键转发到 AI Agent 与 Obsidian 的原生 macOS 工具. 简体中文 · English 官网 · render.qmuse.pub"
+  },
+  {
+    "key": "freqtrade/freqtrade",
+    "description": "Free, open source crypto trading bot. Freqtrade is a free and open source crypto trading bot written in Python. It is designed to support all major exchanges and be controlled via Telegram or webUI. It contains backtesting, plotting and money management tools as well as strategy optimization by machine learning."
+  },
+  {
+    "key": "frozen-cherry/twitter-buddy",
+    "description": "Your personal Twitter/X assistant — auto-scroll, collect, AI-analyze, and discover accounts worth following."
+  },
+  {
+    "key": "ftshare-lab/ftshare-mcp",
+    "description": "FTShare financial data MCP for AI Agents｜通过标准 MCP 接入基础金融数据与 FTShare 特色因子，返回结构化、可核对的结果。"
+  },
+  {
+    "key": "fujiwarachoki/moneyprinterv2",
+    "description": "Automate the process of making money online. An Application that automates the process of making money online. MPV2 (MoneyPrinter Version 2) is, as the name suggests, the second version of the MoneyPrinter project. It is a complete rewrite of the original project, with a focus on a wider range of features and a more modular architecture."
+  },
+  {
+    "key": "funaudiollm/cosyvoice",
+    "description": "Multi-lingual large voice generation model, providing inference, training and deployment full-stack ability."
+  },
+  {
+    "key": "galacean/effects-runtime",
+    "description": "It can load and render cool animation effects"
+  },
+  {
+    "key": "garrytan/gbrain",
+    "description": "Garry's Opinionated OpenClaw/Hermes Agent Brain. Keep skills beside knowledge. New local brains include memory skills in their content root. Agents can join an authorized catalog; only approved editors can publish. Managed coding-agent installs add an owned native router; restart and real-use verification are separate steps."
+  },
+  {
+    "key": "geekjourneyx/jina-cli",
+    "description": "A lightweight CLI tool wrapping Jina AI Reader API for AI Agents. Fetch and parse any URL into LLM-friendly formats (Markdown/Text/HTML). Perfect for reading X(Twitter), blogs, and news sites."
+  },
+  {
+    "key": "geeklee/srt-whiteboard-animation",
+    "description": "将 SRT 字幕做成暖米黄纸张底的流式笔迹白板手绘动画 skill：mask 分区遮罩编排 + stream 连续笔迹（ink→color）。 将 SRT 字幕转为按叙事顺序绘制的白板手绘视频Skill。它结合了分区遮罩编排与流式笔迹绘制：每个元素跟随字幕依次出场，笔尖在区域内连续落墨，再逐步添彩，最终导出 MP4。"
+  },
+  {
+    "key": "gnipbao/content-to-skill",
+    "description": "Convert source material into executable Agent Skill packages. Content To Skill converts source material into a runnable Agent Skill package. It is useful when you have notes, documents, transcripts, videos, course material, workflows, repositories, or rough methods and want to turn them into a repeatable SKILL.md with references, examples, scripts, and valid…"
+  },
+  {
+    "key": "gnipbao/dan-koe-life-reset",
+    "description": "Dan Koe inspired one-day life reset skill package. It does not summarize the article. It facilitates the protocol:"
+  },
+  {
+    "key": "gnipbao/dao-skill",
+    "description": "道生万物：从混沌需求生成可运行、可验证、可进化的 Agent Skill. 先归根，再分化；先明道，再造物。 从混沌需求出发，生成可运行、可验证、可进化的 Agent Skill。"
+  },
+  {
+    "key": "gnipbao/knowledge-cat-ppt-skill",
+    "description": "Story-first Agent Skill for creating, routing, and QA-checking PPT, HTML, and image-first presentation decks"
+  },
+  {
+    "key": "gochatsurtsumia/mystic-oracle",
+    "description": "An AI-powered fortune-telling web app built with React, Node.js, and Groq’s Llama 3 — predict your destiny in style."
+  },
+  {
+    "key": "gongzisahan/sizhu-programming",
+    "description": "一本人生编程的教科书——当老天是 Python 程序员. 这个项目最初的核心想法，并不是“做一个算命程序”，而是尝试把四柱命理中那些常常显得跳跃、含混、难以进入的内容，改写成一种更接近现代读者阅读习惯的表达方式： 像编程教材那样，讲清楚它的基本概念、数据结构、规则系统、分析流程和边界条件。"
+  },
+  {
+    "key": "gonzalo-d-sales/obsidian-velocity",
+    "description": "A radically modern theme for Obsidian. Velocity comes with a novel feature first pioneered in Micro Mike: the ability to automatically hide the sidebars whenever the window's width is too narrow. This prevents the main panel from becoming too cramped or unreadable."
+  },
+  {
+    "key": "google/artemis",
+    "description": "ARTEMIS turns natural-language instructions into reliable Android automation. It automates end-to-end workflows, captures logs, and integrates seamlessly with AI coding assistants such as Antigravity, Codex, and Claude Code. It also achieves 99%+ success rate on AndroidWorld Benchmark."
+  },
+  {
+    "key": "googlechrome/modern-web-guidance",
+    "description": "Keep your coding agent up to date with the latest web best practices. Coding agents often default to older patterns because LLM training data contains vast amounts of legacy code. This often leads them to generate bloated JavaScript for tasks that now have native, high-performance web platform solutions."
+  },
+  {
+    "key": "googleworkspace/cli",
+    "description": "Google Workspace CLI — one command-line tool for Drive, Gmail, Calendar, Sheets, Docs, Chat, Admin, and more. Dynamically built from Google Discovery Service. Includes AI agent skills."
+  },
+  {
+    "key": "gordensun/gordenpptskill",
+    "description": "AI-friendly PPT builder skill: 17 hand-polished Chinese PPTX templates + non-destructive text-only editing tools (python-pptx based). Pick a template, write edits.json, build a real .pptx with the layout intact. Personal/research use only."
+  },
+  {
+    "key": "greensock/gsap",
+    "description": "GSAP (GreenSock Animation Platform), a JavaScript animation library for the modern web"
+  },
+  {
+    "key": "gridltd-productdev/narrator-ai-cli-skill",
+    "description": "AI 解说大师 — Agent skill；封装 narrator-ai-cli 供 Claude/Codex 等工具调用. A machine-readable skill file (SKILL.md) that teaches AI agents how to use the narrator-ai-cli tool for automated video narration production."
+  },
+  {
+    "key": "groepl/obsidian-zettelkasten-starter-kit",
+    "description": "A Starter Kit for Obsidian with all essential elements to build up your own Zettelkasten system."
+  },
+  {
+    "key": "groupultra/telegram-search",
+    "description": "🔍 导出并模糊搜索 Telegram 聊天记录 | Export and fuzzy search your Telegram chat history. 我们提供了一个在线体验版，无需自行部署，即可体验 Telegram Search 的全部功能。"
+  },
+  {
+    "key": "gumbyender/hermes-local-rig-accounting",
+    "description": "Hermes Agent plugin: transparent per-token cost accounting for local LLM inference rigs"
+  },
+  {
+    "key": "haigechanlun/chanlun_auto_trading",
+    "description": "一个基于缠论（Chanlun）理论构建的自动化量化交易系统，结合历史数据训练、严格风控与实盘执行，致力于实现稳定且可持续的收益表现。 回测收益年化80%+！欢迎订阅信号和实盘测试。"
+  },
+  {
+    "key": "harries/skills-desktop",
+    "description": "this is a desktop client for skills.lc. Supports two import methods: - GitHub Import: Enter a GitHub repository URL to automatically clone to local - Local Folder: Import existing Skills from a local folder"
+  },
+  {
+    "key": "harshitaachadha/zoltar-the-fortune-telling-ai",
+    "description": "Fortune telling AI created using python's NLTK and driven by data scrapes from NY times and r/astrologyreadings"
+  },
+  {
+    "key": "hermes-webui/hermes-swift-mac",
+    "description": "The best way to run Hermes on your Mac! A native macOS desktop app for Hermes Web UI. Built with Swift and WKWebView — no Electron, no dependencies beyond Xcode Command Line Tools. Created by @redsparklabs"
+  },
+  {
+    "key": "hero8152/infinite-canvas",
+    "description": "Supports comfyui/API calls/modelscope calls. 功能特性： 1. 画布功能全新升级，支持Agent/一键分层/多人协同/共享画布/免费公网图床 2. 软件内即可启动ComfyUI/映射工作流等 3. 海量免费APP可下载 4. 全新的账号管理/APP权限系统 5. 提供开发者模式，可以开发自己公司的业务软件离线运行"
+  },
+  {
+    "key": "hesamsheikh/awesome-openclaw-usecases",
+    "description": "A community collection of OpenClaw use cases for making life easier."
+  },
+  {
+    "key": "hesreallyhim/awesome-claude-code",
+    "description": "A hand-picked collection of the finest of resources for the most awesome of agents, Claude Code, the undisputed champion of coding companions, from the unstoppable team at Anthropic PBC. A delectable showcase of top tier skills, ambidextrous agents, scintillating status lines, top notch developer tooling, and also we have plugins"
+  },
+  {
+    "key": "heygen-com/hyp",
+    "description": "heygen-com/hyp：目前只确认它与软件开发有关，官方介绍与可用的来源总结仍待补充。"
+  },
+  {
+    "key": "hg-ha/mtools",
+    "description": "MTools 是一个功能强大的多功能桌面应用程序，集成了音视频处理、图片编辑、文本操作和编码工具，内置AI增强功能。旨在简化您的工作流程，提升生产效率. 集成图片处理、音视频编辑、AI 智能工具、开发辅助等功能，支持跨平台GPU加速"
+  },
+  {
+    "key": "hithink-tech/financial-api",
+    "description": "同花顺官方 A股金融数据服务，提供股票实时行情、历史行情、财务报表、指数、板块、涨停等数据，适用于 AI Agent、量化研究和应用开发，支持 API、MCP、CLI 和 Python。Official Tonghuashun (HiThink) A-share financial data service providing real-time and historical stock market data, financial statements, indices, sectors and limit-up data for AI agents, quantitative research and application development."
+  },
+  {
+    "key": "hkuds/vibe-tra",
+    "description": "HKUDS/Vibe-Tra：目前只确认它与软件开发有关，官方介绍与可用的来源总结仍待补充。"
+  },
+  {
+    "key": "hkuds/vibe-trading",
+    "description": "\"Vibe-Trading: Your Personal Trading Agent\". Upload a broker export, let the agent summarize your behavior, then compare the actual trading path with a rule-based shadow strategy."
+  },
+  {
+    "key": "homebrew/homebrew-bundle",
+    "description": "💀 Homebrew/bundle (merged into Homebrew/brew)"
+  },
+  {
+    "key": "hotcoffeeshake/tong-jincheng-skill",
+    "description": "童锦程视角 Skill — 用深情祖师爷的思维框架分析人际关系. 9个一手视频字幕（直播合集+约会vlog+搭讪解析），约20万字原始素材。 不是复读语录，是用他看世界的方式帮你分析问题。"
+  },
+  {
+    "key": "hsliuping/tradingagents-cn",
+    "description": "基于多智能体LLM的中文金融交易框架 - TradingAgents中文增强版. English: TradingAgents-CN Community Edition is a hybrid-licensed (Apache-2.0 core engine + proprietary source-available application layer) multi-agent stock research assistant for the Chinese A-share market."
+  },
+  {
+    "key": "huangjia2019/claude-code-engineering",
+    "description": "This repository demonstrates how to use Claude Code to do real engineering work, not just writing code. 本项目是极客时间专栏 《Claude Code 工程化实战》 的官方配套示例仓库，目标就是： 👉 把 Claude Code 从“对话式编码工具”，变成 可设计、可复用、可治理的工程系统。"
+  },
+  {
+    "key": "huangserva/comfyui_minimaxh3_director",
+    "description": "ComfyUI MiniMax H3 Director workflow. 1. 导入 RV2V 工作流。 2. 上传源视频，按镜头切分或使用智能分割。 3. 上传人物参考图；需要声音约束时再加参考音频。 4. 每段分别写提示词。源片段会绑定为 ，参考素材使用 、 。 5. 先生成 5 秒，检查脸部、服装、动作和镜头边界，再决定是否扩展。"
+  },
+  {
+    "key": "huangserva/wechat-radar",
+    "description": "WeChat Radar is a local-first WeChat group intelligence cockpit. It reads the decrypted Hermes wechat-assistant data products, syncs them into a private radar.db, and turns group chats, links, topics, commitments, people, knowledge, reviews, and lab analyses into a fast browser dashboard."
+  },
+  {
+    "key": "huangyun101/ai-business-hunter",
+    "description": "分享一些用 AI 来变现的小生意. 手册长什么样？给几个切面感受一下： - 不是罗列项目清单，是把程序员能做的生意归成六条主干道（接单、教学、虚拟产品、工具站、SaaS、自动化服务），每条路标清楚：卖什么、天花板在哪、第一块钱多快到手 - 第二章专门讲心理建设——\"不敢开始\"怎么破、\"完美主义是消耗品\"、\"预期校准到以月为单位\"。说实话这章我写的时候自己最痛，因为每个坑我都躺过 - 第三章把需求发现拆成了四个来源+一套验证框架，最有价值的是圈友的实战做法：有人让 AI Agent 当\"需求雷达\"监听社群聊天、有人用 Indie Hackers 收入验证数据倒推关键词 - 技术层面专门有一章，但方向反着写：每个阶段不该学什么。"
+  },
+  {
+    "key": "hubblevision/polyhub-skills",
+    "description": "Control your Polymarket copy-trading account from any AI — Telegram, WeChat, Claude Code, OpenClaw, and more."
+  },
+  {
+    "key": "humanlayer/skills",
+    "description": "Creates or updates a pull request with a concise visual outline that helps reviewers understand the change."
+  },
+  {
+    "key": "hummingbot/hummingbot",
+    "description": "Open source software that helps you create and deploy high-frequency crypto trading bots"
+  },
+  {
+    "key": "itsveyra/glitter-idea-repo",
+    "description": "An Obsidian plugin for quickly recording, browsing, and organizing ideas as text, links, images, and videos."
+  },
+  {
+    "key": "jackwener/bilibili-cli",
+    "description": "A CLI for Bilibili — browse videos, users, search, and feeds from the terminal. 1. Saved credential — loads from /.bilibili-cli/credential.json 2. Browser cookies — auto-extracts from Chrome, Firefox, Edge, or Brave 3. QR code login — bili login displays a QR code in the terminal"
+  },
+  {
+    "key": "jackwener/discord-cli",
+    "description": "A CLI for Discord — local-first sync, search, export, and AI analysis via SQLite"
+  },
+  {
+    "key": "jackwener/tg-cli",
+    "description": "A CLI for Telegram — local-first sync, search, export via MTProto. Telethon-powered Telegram CLI for local-first sync, search, export, and agent-friendly retrieval."
+  },
+  {
+    "key": "jackwener/twitter-cli",
+    "description": "A CLI for Twitter/X — feed, bookmarks, and user timeline in terminal. Read: - Timeline: fetch for-you and following feeds - Bookmarks: list saved tweets from your account - Search: find tweets by keyword with Top/Latest/Photos/Videos tabs - Tweet detail: view a tweet and its replies; use show to open tweet #N from the last list output - Article: fetch a Twit…"
+  },
+  {
+    "key": "jackwener/wx-cli-again",
+    "description": "WeChat local data CLI (query/decrypt/export) — fresh start from wx-cli. 会话 · 聊天记录 · 搜索 · 联系人 · 群成员 · 群昵称 · 收藏 · 统计 · 导出"
+  },
+  {
+    "key": "jackyst0/awesome-agent-skills",
+    "description": "🤖 精选的 AI Agent Skills 列表，适用于 Cursor、Claude Code、GitHub Copilot 等 AI 编程工具. If this project helps you, you can support its maintenance:"
+  },
+  {
+    "key": "jakedismo/codegraph-rust",
+    "description": "100% Rust implementation of code graphRAG with blazing fast AST+FastML parsing, surrealDB backend and advanced agentic code analysis tools through MCP for efficient code agent context management"
+  },
+  {
+    "key": "jane-xiaoer/feishu-portfolio-launch",
+    "description": "Claude Code skill: 飞书多维表格 → GitHub Pages 作品集网站全流程一键上线. 1. 导出飞书数据 — 提取所有附件的 filetoken 和字段内容 2. 生成 HTML 网页 — 瀑布流展示，分类筛选，点击播放，并带完整动画层 3. 上线 GitHub Pages — 免费托管，几分钟可访问 4. 绑定自定义域名（可选）— DNS 引导 + 自动配置 CNAME 5. 设置自动刷新 — 飞书链接 24 小时过期，由 GitHub Actions 每 12 小时自动换新链接"
+  },
+  {
+    "key": "jarrodwatts/claude-hud",
+    "description": "A Claude Code plugin that shows what's happening - context usage, active tools, running agents, and todo progress"
+  },
+  {
+    "key": "jbiaojerry/ebook-treasure-chest",
+    "description": "欢迎来到电子书下载宝库，一个汇聚了各类电子书下载链接的地方。无论你是喜欢阅读经典文学、经管励志、终身学习、职场创业、技术手册还是其他类型的书籍，这里都能满足你的需求。 该库涵盖了帆书app(原樊登读书)、微信读书、京东读书、喜马拉雅等读书app的大部分电子书。"
+  },
+  {
+    "key": "jev-chat/jev-chat-jarvis",
+    "description": "装在手机上的对话副驾：在微信 / QQ / X / 飞书里读懂对方、给出候选回复、一键填入输入框，发不发由你。非侵入，只读屏幕，不 hook 不改包。 2. 填密钥。 打开 App → 设置 →「接口」分三张卡：判断接口 / 回复接口 / 视觉接口。最简单只填「判断接口」一栏的 OpenRouter API Key，其余两栏留空会自动继承这把密钥就能用。想换回复模型（默认 deepseek/deepseek-chat-v3.1，国内 Gemini / OpenAI 会被区域限制）就在「回复接口」选预设（OpenRouter / DeepSeek 官方 / 通义兼容）或自填地址，每张卡都有独立的一键连通测试。"
+  },
+  {
+    "key": "jieshuo-ai/narrator-ai-cli-skill",
+    "description": "AI 解说大师 — Agent skill；封装 narrator-ai-cli 供 Claude/Codex 等工具调用. A machine-readable skill file (SKILL.md) that teaches AI agents how to use the narrator-ai-cli tool for automated video narration production."
+  },
+  {
+    "key": "jimliu/baoyu-design",
+    "description": "Run Claude Design locally as an Agent Skill — Cursor, Claude Code & more. Produce polished UI mockups, prototypes, decks & wireframes as self-contained HTML, without claude.ai/design. Best with Opus or Claude."
+  },
+  {
+    "key": "jimliu/science-skills",
+    "description": "The mcp-servers/ directory contains bundled MCP integrations:"
+  },
+  {
+    "key": "jinchenma94/bazi-skill",
+    "description": "四柱八字命理分析. 基于 Claude Code 的八字排盘与命理分析工具。通过交互式对话收集出生信息，排出四柱八字，参照九本经典命理典籍进行专业分析。"
+  },
+  {
+    "key": "jingyi-wu-richael/ai-topic-scout",
+    "description": "Codex skill for turning daily AI information sources into creator-ready topic ideas."
+  },
+  {
+    "key": "jnmetacode/agency-agents-zh",
+    "description": "🎭 277 个即插即用的 AI 专家角色 — 支持 Claude Code/Cursor/Copilot 等 20 种工具，覆盖工程/设计/营销/金融等 20 个部门。含 64 个中国市场原创智能体（小红书/抖音/微信/飞书/钉钉/Qt 上位机/机械设计）。搭配编排器 agency-orchestrator，一句话即可让多位专家按 DAG 自动协作。"
+  },
+  {
+    "key": "jo-inc/camofox",
+    "description": "jo-inc/camofox：目前只确认它与软件开发有关，官方介绍与可用的来源总结仍待补充。"
+  },
+  {
+    "key": "joeseesun/anything-to-notebooklm",
+    "description": "Claude Skill: Multi-source content processor for NotebookLM. Supports WeChat articles, web pages, YouTube, PDF, Markdown, search queries → Podcast/PPT/MindMap/Quiz etc."
+  },
+  {
+    "key": "joeseesun/markdown-proxy",
+    "description": "Fetch any URL as clean Markdown via proxy services (r.jina.ai / defuddle.md) or built-in scripts. Works with login-required pages like X/Twitter, WeCh"
+  },
+  {
+    "key": "joeseesun/qiaomu-ai-prd",
+    "description": "Turn one-line product ideas into AI-implementable PRDs with speed-read cards, constraint layers, overdelivery ideas, metrics, and acceptance scripts."
+  },
+  {
+    "key": "joeseesun/qiaomu-markdown-proxy",
+    "description": "Fetch any URL as clean Markdown via proxy services (r.jina.ai / defuddle.md) or built-in scripts. Works with login-required pages like X/Twitter, WeCh"
+  },
+  {
+    "key": "joeseesun/qiaomu-mondo-poster-design",
+    "description": "一句话生成大师级海报、书籍封面、专辑封面和各类设计作品。无需懂PS、配色或艺术史，AI自动选择最佳风格（基于20位传奇海报设计师）。支持电影海报、读书笔记、公众号封面、小红书配图等。默认9:16竖版，完美适配社交媒体。包含AI提示词优化、风格对比、图生图转换功能。触发词：\"Mondo风格\"、\"书籍封"
+  },
+  {
+    "key": "joeseesun/qiaomu-seo",
+    "description": "Audit, diagnose, research, plan, implement, experiment on, and verify website SEO across Google, Bing, and AI-search surfaces. Use for technical SEO,"
+  },
+  {
+    "key": "joewongjc/type4me",
+    "description": "MacOS语音输入法，实时识别、大模型文本优化、全本地存储. 市面上语音输入法，至少命中以下问题之一：贵（$30/月）、封闭（不可导出记录）、扩展性差（不能自定义Prompt）、慢（强制优化及网络延迟）"
+  },
+  {
+    "key": "jqymodi/codex-multi-launcher",
+    "description": "Run multiple isolated Codex / ChatGPT desktop profiles with separate accounts, API providers, and conversation history on macOS and Windows."
+  },
+  {
+    "key": "jtydhr88/screenwriting-skills",
+    "description": "Professional agent skills for screenwriting, television writing and dramaturgy. Ask in your own language. The skill bodies are written in Chinese, because most of the sources are Chinese originals or Chinese translations. That is only where the text lives: ask in English, Japanese, Korean or French and you get the answer in that language."
+  },
+  {
+    "key": "juneyaooo/nihaixia",
+    "description": "倪海厦中医课程资料的 Agent Skill：支持课程检索、方证穴位辨析、学习笔记整理与板书截图证据索引。 | An Agent Skill for Ni Haisha TCM course study, formula-pattern lookup, acupoint reference, and screenshot evidence indexing."
+  },
+  {
+    "key": "justvugg/colibri",
+    "description": "Run frontier MoE models on hardware you already own — pure C, zero deps, experts streamed from disk. Tiny engine, immense model. 🐦"
+  },
+  {
+    "key": "jzocb/writing-style-skill",
+    "description": "Writing style skill template with built-in auto-learning. AI writes → you edit → rules auto-extracted → SKILL.md improves. Works with Claude Code + OpenClaw."
+  },
+  {
+    "key": "k-dense-ai/claude-scientific-skills",
+    "description": "Turn any AI agent into an AI Scientist. The #1 Agent Skills library for science, used by 190,000+ scientists worldwide. 165 ready-to-use validated skills plus 100+ scientific databases covering biology, chemistry, medicine, and drug discovery. Compatible with Cursor, Claude Code, Codex, Pi, Antigravity, and the open Agent Skills standard."
+  },
+  {
+    "key": "kadevin/ilab-gpt-conjure",
+    "description": "面向 GPT-image-2 的 AI 图片生成 WebUI 工作台，支持 Codex Responses 与 OpenAI 兼容 API 接入，内置公用图库、多类型 Chip 快捷引用、提示词模板、多任务并发和本地队列管理。An AI image generation WebUI workbench for GPT-image-2 with Codex Responses and OpenAI-compatible API support, shared gallery references, multi-type quick chips, prompt templates, concurrent tasks, and local queue management."
+  },
+  {
+    "key": "kajisho5/ffmpeg-skill",
+    "description": "Left half is the input, right half is what the command produced. All 53 before/after demos, with the exact command under each one → — all of it generated from synthetic footage by python3 demos/build.py, so you can rebuild every frame of it yourself."
+  },
+  {
+    "key": "kaminocorp/hermes-alpha",
+    "description": "Cloud deployed version of the Nous Research Hermes agent. We take a stock Hermes agent from Nous Research, hand it a single identity document (soul.md), and challenge it to build, deploy, and continuously improve a second AI agent that finds real software vulnerabilities for bug bounty payouts."
+  },
+  {
+    "key": "kanshurichard/enableappleai",
+    "description": "Enable Apple Intelligence on Macs sold in Mainland China with SIP enabled, for version between MacOS 15.4.1+ and 26.5 beta3"
+  },
+  {
+    "key": "karakeep-app/karakeep",
+    "description": "A self-hostable bookmark-everything app (links, notes and images) with AI-based automatic tagging and full text search"
+  },
+  {
+    "key": "kentang2017/kinqimen",
+    "description": "Python 奇門遁甲，占卜用，運籌帷幄。包含金函玉鏡日家奇門、拆補置閏時家奇門、刻家奇門排盤。A Python package of Qimendunjia, one of the three greatest Ancient Chinese Divination Tools ever."
+  },
+  {
+    "key": "kerpopule/hermes-jev-skills",
+    "description": "Jev-powered model routing, memory, compaction, skill selection, computer and browser use for Hermes agents (also Claude Code and Codex)"
+  },
+  {
+    "key": "kevin2li/pdf-guru",
+    "description": "PDF Guru Anki是你整个知识世界的“中枢转换器”，与 Anki 的强大记忆引擎无缝融合，能将来自任何地方、任何格式的知识精华，高效、系统、可持续地转化为牢固的长期记忆资产，打造专属自己的个性化Anki知识库，助你高效学习、轻松记忆。"
+  },
+  {
+    "key": "kevinho/clawfeed",
+    "description": "ClawFeed — AI-powered news digest with structured summaries from Twitter/RSS feeds and web dashboard"
+  },
+  {
+    "key": "kilo-org/kilocode",
+    "description": "Kilo is the all-in-one agentic engineering platform. Build, ship, and iterate faster with the most popular open source coding agent."
+  },
+  {
+    "key": "kingskuan/claudebot-vibe",
+    "description": "中文: 基于 Claude 的 Telegram 私人 AI 助理。智能记忆、代码工具、图片生成 —— 全部手机操作。"
+  },
+  {
+    "key": "kittors/clirelay",
+    "description": "Self-hosted AI gateway for coding CLIs — one OpenAI/Claude/Gemini/Codex-compatible endpoint, with a multi-tenant web console, request logs, and spend quotas."
+  },
+  {
+    "key": "knowledgefxg/resource-nav",
+    "description": "一个开箱即用的网站链接导航模板。"
+  },
+  {
+    "key": "koala73/worldmonitor",
+    "description": "Real-time global intelligence dashboard. AI-powered news aggregation, geopolitical monitoring, and infrastructure tracking in a unified situational awareness interface"
+  },
+  {
+    "key": "koffuxu/ai-influence-digest",
+    "description": "Turn X scrolling into an AI-powered weekly digest — no X API, no scraping, just your browser. Scans 65+ AI builders, filters actionable content, exports a poster. Built for content creators."
+  },
+  {
+    "key": "kori-x/hermes-dashboard",
+    "description": "Dashboard for monitoring and managing Hermes agent sessions, tool usage, and activity in real-time"
+  },
+  {
+    "key": "kornelski/pngquant",
+    "description": "Lossy PNG compressor — pngquant command based on libimagequant library. pngquant is a PNG compressor that significantly reduces file sizes by converting images to a more efficient 8-bit PNG format with alpha channel (often 60-80% smaller than 24/32-bit PNG files)."
+  },
+  {
+    "key": "kryptogo/kryptogo-meme-trader",
+    "description": "发现一个Meme赛道的OpenClaw Skill，可以分析聪明钱、鲸鱼、庄家、DEV是否出货"
+  },
+  {
+    "key": "l0ng-ai/papr",
+    "description": "A fast, native RSS reader — plus an agent-facing CLI so your AI agent can read, search and triage your feeds from the shell."
+  },
+  {
+    "key": "lajosdeme/watchtower",
+    "description": "A clean, minimal, terminal-based global intelligence dashboard. 1. Fork the repo 2. Create a feature branch (git checkout -b feature/amazing-feature) 3. Commit your changes (git commit -m 'Add amazing feature') 4. Push to the branch (git push origin feature/amazing-feature) 5. Open a Pull Request"
+  },
+  {
+    "key": "langchain-ai/rag-from-scratch",
+    "description": "LLMs are trained on a large but fixed corpus of data, limiting their ability to reason about private or recent information. Fine-tuning is one way to mitigate this, but is often not well-suited for factual recall and can be costly."
+  },
+  {
+    "key": "langchain-ai/social-media-agent",
+    "description": "📲 An agent for sourcing, curating, and scheduling social media posts with human-in-the-loop."
+  },
+  {
+    "key": "laofeng-mouse/flyingmouse-format",
+    "description": "飞鼠格式 FlyingMouse Format - Windows 免费文件格式转换工具（离线可用，内置 FFmpeg/LibreOffice/Poppler/Tesseract）。图片/文档/表格/PPT/PDF/音视频/WPS 格式互转 + OCR + 批量转换；音频仅支持普通格式。作者：牢蜂（LaoFeng）｜仅供个人免费使用，禁止商业售卖/转卖/套壳"
+  },
+  {
+    "key": "lbq110/weread-exporter",
+    "description": "微信读书全本导出工具 — Playwright + Canvas Hook 提取完整书籍内容为 Markdown. 微信读书全本导出工具 — 通过 Playwright + Canvas Hook 提取完整书籍图文内容，导出为 Markdown。文字与插图按阅读顺序精确交错。"
+  },
+  {
+    "key": "lcoutodemos/clui-cc",
+    "description": "Clui CC — Command Line User Interface for Claude Code. The fastest way to get Clui CC running as a regular Mac app. This installs dependencies, voice support (Whisper), builds the app, copies it to /Applications, and launches it."
+  },
+  {
+    "key": "leonxlnx/taste",
+    "description": "2️⃣Product Design（内置插件） 先确定产品结构和设计方向，再生成不同风格的高保真参考图，确认审美后才开始写代码，彻底告别盲写前端"
+  },
+  {
+    "key": "libaice/awesome-fde",
+    "description": "A curated list of resources, companies, and skills for Forward Deployed Engineers (FDEs)"
+  },
+  {
+    "key": "lidge-jun/opencodex",
+    "description": "Universal provider proxy for OpenAI Codex & Claude Code — use any LLM (Claude, Gemini, Grok, DeepSeek, Ollama…) with Codex CLI, App, SDK, and Claude Code"
+  },
+  {
+    "key": "lightpanda-io/lightpanda",
+    "description": "过去两周，GitHub上增长最快的AI开源项目盘点（除OpenClaw外）： Agency Agents — 35K+ 把Claude Code一键变成51位AI专家+9大部门的完整团队，从产品、开发、设计到营销、社媒、QA全流程覆盖 你给它一个目标，它自动规划实验、改代码、跑训练、看结果、再优化，循环往复"
+  },
+  {
+    "key": "lingge66/binance-quant-zero",
+    "description": "币安 AI 智能交易信号与 SMC 风控 Agent AI策略分析"
+  },
+  {
+    "key": "liujuntao123/deepread",
+    "description": "如何制作自己的wiki知识库，请参考AI驱动的书籍知识图谱制作完整指南"
+  },
+  {
+    "key": "liyue-aigc/female-outfit-director",
+    "description": "女性多套穿搭拼贴首帧与卡点换装视频导演 Skill. female-outfit-director 是一个面向 Codex / Skills 兼容智能体的中文工作流 Skill，用来生成“同一位成年女性、多套穿搭拼贴首帧、卡点换装视频”的完整制作方案。"
+  },
+  {
+    "key": "lottiefiles/motion-design-skill",
+    "description": "Universal motion design principles for AI agents — timing, easing, choreography, and Disney animation principles adapted for UI"
+  },
+  {
+    "key": "lukasz-madon/awesome-remote-job",
+    "description": "A curated list of awesome remote jobs and resources. Inspired by https://github.com/vinta/awesome-python"
+  },
+  {
+    "key": "lumiwealth/lumibot",
+    "description": "AI agents that actually place the trade. 12 brokers, real backtests, stocks options futures forex crypto and prediction markets."
+  },
+  {
+    "key": "luoluoluo22/jianying-editor-skill",
+    "description": "Skill for Agent automating JianYing (CapCut Chinese version) video editing. 这是一个能实现自动剪辑的 skill 项目。剪辑师只需用自然语言告诉 AI 你想做什么视频，它就能帮你完成从写文案、配音、加字幕、选音乐、上特效到最终导出的整套流程。"
+  },
+  {
+    "key": "lzright123/yuan",
+    "description": "Yuan (元) — a unified destiny-reading skill for Codex, Claude Code, and Agent Skills runtimes. One input surface, six methods (BaZi / Cheng Gu / Numerology / Western / Vedic / Zi Wei), production-grade output."
+  },
+  {
+    "key": "majiayu000/claude-arsenal",
+    "description": "Cross-runtime skills for Claude Code, Codex, and multi-agent workflows. Start with one job-shaped workflow. The maintained skills CLI lets you choose the supported coding agents during installation and installs only these four skills:"
+  },
+  {
+    "key": "makememo/memoai",
+    "description": "MemoAI Video to translated text, subtitles and notes made easy. 1. Copy YouTube link or podcast link 2. Paste into the Memo input box 3. Click transcribe to start the conversion process."
+  },
+  {
+    "key": "marissafamularo/citation-verifier",
+    "description": "Check whether each cited paper supports the sentence citing it. Claude proves the quote, TypeSafe's Jev scores it, a human decides."
+  },
+  {
+    "key": "markdown-viewer/skills",
+    "description": "Opinionated skills for AI coding agents to create stunning diagrams and visualizations directly in Markdown. These skills extend agent capabilities across diagram generation, data visualization, and technical documentation."
+  },
+  {
+    "key": "markjaquith/typesafe-ai-playground",
+    "description": "A playground for experiments around Jev, TypeSafe's System One model. The experiments live in a Rust CLI called typesafe-ai, built with usage-rs: PHI detection, code-comment review, parts-of-speech and load-bearing analysis, interactive tone analysis, and business and occupation classification."
+  },
+  {
+    "key": "markmap/markmap",
+    "description": "Build mindmaps with plain text. Visualize your Markdown as mindmaps."
+  },
+  {
+    "key": "marswaveai/typeno",
+    "description": "A free, open source, privacy-first voice input app for macOS. 1. Short-press Control to start recording 2. Short-press Control again to stop 3. Text is automatically transcribed and pasted into your active app (also copied to clipboard) 4."
+  },
+  {
+    "key": "mcncarl/jianying-headless",
+    "description": "Private source preview: native Jianying drafts, isolated editing/export, and standalone Agent Skill."
+  },
+  {
+    "key": "memecalculate/moyin-creator",
+    "description": "AI 影视生产级工具 | 支持 Seedance 2.0 | 剧本到成片全流程批量化 | AI-powered film production tool with Seedance 2.0 support"
+  },
+  {
+    "key": "mempalace/mempalace",
+    "description": "The best-benchmarked open-source AI memory system. And it's free. MemPalace stores your conversation history as verbatim text and retrieves it with semantic search. It does not summarize, extract, or paraphrase."
+  },
+  {
+    "key": "mengto/threeui",
+    "description": "Open-source ThreeUI Community catalog with live interactive components and complete Community source."
+  },
+  {
+    "key": "microsoft/vibevoice",
+    "description": "Open-Source Frontier Voice AI"
+  },
+  {
+    "key": "milanvarady/applite",
+    "description": "A native macOS app store for software that isn't on the App Store, backed by Homebrew Cask"
+  },
+  {
+    "key": "mindfold-ai/trellis",
+    "description": "The best agent harness."
+  },
+  {
+    "key": "ming-h/yinyuan-skills",
+    "description": "yinyuan-skills"
+  },
+  {
+    "key": "minimax-ai/cli",
+    "description": "Generate text, images, video, speech, and music by MiniMax."
+  },
+  {
+    "key": "mininglamp-ai/mano-p",
+    "description": "Mano-P: Open-source GUI-VLA agent for edge devices. #1 on OSWorld (specialized, 58.2%). Runs locally on Apple M4 Mac mini/MacBook — no data leaves your device.Mano-P 是一个开源 GUI-VLA 项目，支持在 Mac mini/MacBook 上或通过算力棒本地运行推理，实现纯视觉驱动的跨平台 GUI 自动化操作。数据完全本地处理，支持复杂多步骤任务规划与执行。"
+  },
+  {
+    "key": "mintplex-labs/anything-llm",
+    "description": "Stop renting your intelligence. Own it with AnythingLLM. Everything you need for a powerful local-first agent experience"
+  },
+  {
+    "key": "miounet11/life-kline",
+    "description": "🌟 人生K线 - 基于 AI 大模型 + 传统八字命理的人生运势可视化工具。将命运绘制成 K 线图，像看股票一样看人生！支持自托管部署。 核心价值： - 降低门槛 - 无需懂命理，看图即懂运势 - 数据驱动 - 将抽象运势转化为可视化数据 - AI 赋能 - 大模型深度分析，专业级解读 - 古今融合 - 传统智慧与现代技术的完美结合"
+  },
+  {
+    "key": "missuo/kumone",
+    "description": "雲の音 — Native macOS NetEase Cloud Music client built with SwiftUI. The app is signed with a Developer ID certificate and notarized by Apple, with built-in Sparkle automatic updates (menu bar: Kumone → Check for Updates…)."
+  },
+  {
+    "key": "mksglu/context",
+    "description": "mksglu/context：目前只确认它与软件开发有关，官方介绍与可用的来源总结仍待补充。"
+  },
+  {
+    "key": "mliu98/awesome-human-distillation",
+    "description": "A curated catalog of human distillliation agent skills"
+  },
+  {
+    "key": "monteduro/killmyidea",
+    "description": "Describe your startup idea. Jev decides: kill it, fix it or ship it. Every result has a collapsed \"How Jev decided\" panel with raw Jev answers, probabilities, confidence, the average, the verdict, latency and token usage. ?debug=1 opens it by default."
+  },
+  {
+    "key": "morph-labs/hermes-agent-fork",
+    "description": "morph-labs/hermes-agent-fork：目前只确认它与软件开发有关，官方介绍与可用的来源总结仍待补充。"
+  },
+  {
+    "key": "mswnlz/edu-knowlege",
+    "description": "教育各种资料，从幼儿园到小学、中学，涵盖学而思，万维、猿辅导等多个机构，持续增加中. 超过 100T，各种资料、知识、影视、记录片、音乐、书籍、媒体、健身，健康营养等聚集地，持续整理中 https://doc.869hr.uk"
+  },
+  {
+    "key": "mubeng/mubeng",
+    "description": "An incredibly fast proxy checker & IP rotator with ease. Manual building executable from source code:"
+  },
+  {
+    "key": "mudrii/hermesd",
+    "description": "TUI monitoring dashboard for Hermes AI agent. The problem: there was no single place to answer the obvious questions: - Is my gateway actually running? Which platforms are connected? - How many tokens have I burned today and what's the estimated cost? - Which sessions are active and how much context are they consuming?"
+  },
+  {
+    "key": "multica-ai/andrej-karpathy-skills",
+    "description": "A single CLAUDE.md file to improve Claude Code behavior, derived from Andrej Karpathy's observations on LLM coding pitfalls."
+  },
+  {
+    "key": "mvanhorn/last30days-skill",
+    "description": "AI agent skill that researches any topic across Reddit, X, YouTube, HN, Polymarket, and the web - then synthesizes a grounded summary"
+  },
+  {
+    "key": "myinvestpilot/ai-architecture",
+    "description": "Design notes for MyInvestPilot — an agent-friendly investment workflow system built with strategy primitives, DAG engines, validation loops, and observable decision infrastructure."
+  },
+  {
+    "key": "nangohq/nango",
+    "description": "Build product integrations with AI. Connect your product & AI agents with 1,000+ APIs. Build, run, and maintain integrations with AI in code, on infrastructure built for scale."
+  },
+  {
+    "key": "narcooo/inkos",
+    "description": "Story Creation AI Agent for novel, scripts, translation, interactive games, and IP content"
+  },
+  {
+    "key": "nashsu/autocli",
+    "description": "AutoCLI is a Blazing fast, memory-safe command-line tool — Fetch information from any website with a single command. Covers Twitter/X, Reddit, YouTube, HackerNews, Bilibili, Zhihu, Xiaohongshu, and 55+ sites, with support for controlling Electron desktop apps, integrating local CLI tools (gh, docker, kubectl), now powered by AutoCLI.ai ."
+  },
+  {
+    "key": "nashsu/opencli-rs-skill",
+    "description": "The perfect companion for ClaudeCode/OpenClaw/Agent, Give your AI Agent the ability to reach information across the entire web, fetching real-time data from Bilibili, Zhihu, Twitter/X, YouTube, Weibo, Reddit, Facebook, Instagram, TikTok, Notion, Cursor and 55+ platforms with natural language — reusing your Chrome login session, no API keys needed."
+  },
+  {
+    "key": "nashsu/viral_writer_skill",
+    "description": "基于 11 个内容洞见维度的自媒体创作 Skill，适用于各种智能体 给它一个主题，它给你一篇完整的文章、5 个备选标题、以及每张配图的生成 prompt。"
+  },
+  {
+    "key": "nativ3ai/hermes-agent-camel",
+    "description": "Hermes Agent fork with integrated CaMeL trust boundaries. The self-improving AI agent built by Nous Research. It's the only agent with a built-in learning loop — it creates skills from experience, improves them during use, nudges itself to persist knowledge, searches its own past conversations, and builds a deepening model of who you are across sessions."
+  },
+  {
+    "key": "nautechsystems/nautilus_trader",
+    "description": "Production-grade Rust-native trading engine with deterministic event-driven architecture"
+  },
+  {
+    "key": "nevamind-ai/memu",
+    "description": "Personal memory across agents. memU is a lightweight, agent-driven memory system that gives users a shared LLM wiki across sessions, agents, and devices. It automatically distills your own reusable skills from your agent history. Its core memory logic is only 500 lines — compact enough to inspect, understand, and adapt."
+  },
+  {
+    "key": "nickmilo/lyt-kit-in-mandarin",
+    "description": "This is a 2021 version of the LYT Kit in Mandarin. It was translated in the summer of 2021."
+  },
+  {
+    "key": "nico81/icontainer",
+    "description": "A native macOS app to manage Apple Container workloads, built with SwiftUI."
+  },
+  {
+    "key": "ninehills/skills",
+    "description": "My LLM skills. 每次执行 install 时，脚本会自动清理目标目录中指向当前仓库、但不在当前场景配置中的无效软连接，确保安装目录保持整洁。"
+  },
+  {
+    "key": "nodes-app/swift-markdown-engine",
+    "description": "A native AppKit Markdown editor for macOS, built on TextKit 2 and bridged to SwiftUI."
+  },
+  {
+    "key": "notracc1210/ai-monitor-public",
+    "description": "User-facing downloads and documentation for AI Monitor. AI Monitor is an open-source, local-first monitor for AI work."
+  },
+  {
+    "key": "nousresearch/hermes-agent-self-evolution",
+    "description": "⚒ Evolutionary self-improvement for Hermes Agent — optimize skills, prompts, and code using DSPy + GEPA"
+  },
+  {
+    "key": "nutlope/logocreator",
+    "description": "A free + OSS logo generator powered by Flux on Together AI. 2. Create a .env.local file and add your Together AI API key: TOGETHERAPIKEY= 3. Run pnpm install and pnpm dev to install dependencies and run locally."
+  },
+  {
+    "key": "oaker-io/wewrite",
+    "description": "公众号内容全流程 Skill，从热点抓取到微信草稿箱，一句话跑完整条内容管道. 一个给 AI Agent（Claude Code / Codex / OpenClaw / Hermes 等）用的公众号内容 Skill。你说「写一篇公众号文章」，它会抓热点、评选题、搜真实素材、按你的人格风格出稿并完成编辑审稿。正文完成后，你可以直接交付，也可以再单独要求配图、排版预览或推送草稿箱。原始正文始终保留；配图会生成独立图片和带图副本。想改就按自己的意思改，再让它「学习我的修改」，下一篇会更像你。"
+  },
+  {
+    "key": "ogallotti/rtk-hermes",
+    "description": "RTK plugin for Hermes — rewrites shell commands for 60-90% LLM token savings. Current Hermes CLI caveat: hermes plugins enable rtk-rewrite may not recognize pip-only entry points even when the plugin is installed correctly. Editing plugins.enabled directly is the reliable path."
+  },
+  {
+    "key": "oil-oil/beautify-github-readme",
+    "description": "整理并设计仓库 README，让项目价值、真实案例、安装方式与使用边界更容易理解。"
+  },
+  {
+    "key": "oil-oil/oil-subtitle",
+    "description": "为本地视频转录、校对、预览并烧录中文字幕，支持章节进度和同时间轴英文字幕。"
+  },
+  {
+    "key": "omdsh-dev/dsh-better-sidebar",
+    "description": "开放的侧边栏底座，支持三方拓展注册新侧边栏页面。内置文件渲染编辑/终端/侧边对话/Git/子代理页面 ｜ Open sidebar foundation, supports third-party extensions to register new sidebar pages. Built-in file rendering/editing, terminal, side chat, Git, and sub-agent pages."
+  },
+  {
+    "key": "op7418/guizang-ppt-skill",
+    "description": "AI-agent Skill for generating polished HTML slide decks: editorial magazine and Swiss layouts, image prompts, social covers, and a WebGL/low-power presentation runtime."
+  },
+  {
+    "key": "op7418/guizang-social-card-skill",
+    "description": "🪧 Claude Code / Codex skill — generate Xiaohongshu carousels & WeChat 21:9+1:1 cover pairs. Editorial × Swiss visual systems, 28 layouts, 10 themes, single-file HTML → PNG. 小红书图文 + 公众号封面对"
+  },
+  {
+    "key": "op7418/humanizer-zh",
+    "description": "Humanizer 的汉化版本，Claude Code Skills，旨在消除文本中 AI 生成的痕迹。 编辑已有文章、评论和文档中的空话、重复及模板化表达，保留事实、确定程度和作者声音。输入是一段文字或一个文件，默认输出最终改写稿；没有问题的句子可以不改。"
+  },
+  {
+    "key": "op7418/youtube-clipper-skill",
+    "description": "This command will automatically install the skill to /.claude/skills/youtube-clipper/."
+  },
+  {
+    "key": "open-llm-vtuber/open-llm-vtuber",
+    "description": "Talk to any LLM with hands-free voice interaction, voice interruption, and Live2D avatar running locally across platforms"
+  },
+  {
+    "key": "openai/codex-security",
+    "description": "OpenAI's Codex Security CLI and TypeScript SDK for finding, validating, and fixing security vulnerabilities. npm: https://www.npmjs.com/package/@openai/codex-security"
+  },
+  {
+    "key": "openhands/openhands",
+    "description": "🙌 OpenHands: AI-Driven Development. The self-hosted developer control center for coding agents and automations."
+  },
+  {
+    "key": "othmanadi/planning-with-files",
+    "description": "Persistent file-based planning for AI coding agents and long-running tasks. Crash-proof markdown plans, session recovery after /clear and compaction, per-turn re-injection against context rot, deterministic completion gate. Manus-style. Install from npm, the Claude Code plugin marketplace, or npx skills. Codex, Cursor, OpenCode, 60+ agents."
+  },
+  {
+    "key": "outsourc-e/hermes-workspace",
+    "description": "Native web workspace for Hermes Agent — chat, terminal, memory, skills, inspector."
+  },
+  {
+    "key": "palemoky/chinese-poetry-api",
+    "description": "📜 诗泉：高性能中国古诗词 API 服务. 基于 Go 语言的高性能中国古诗词 API 服务，支持 REST 和 GraphQL 接口，提供简体/繁体中文、爬虫练习场等功能。"
+  },
+  {
+    "key": "panda-995/obsidian-dashboard",
+    "description": "Zero-configuration dashboard for Obsidian that auto-scans your vault and displays comprehensive writing statistics & visualizations"
+  },
+  {
+    "key": "paperclipai/paperclip",
+    "description": "The open-source app everyone uses to manage agents at work. Open-source orchestration for teams of AI agents."
+  },
+  {
+    "key": "paperswithbacktest/awesome-systematic-trading",
+    "description": "A curated list of awesome libraries, packages, strategies, books, blogs, tutorials for systematic trading."
+  },
+  {
+    "key": "parthjadhav/app-store-screenshots",
+    "description": "end to end app store screenshot creation using AI. If starting from an empty folder, the skill creates a Next.js project like this:"
+  },
+  {
+    "key": "paywallpro/paywall-gallery",
+    "description": "Top iOS app subscription paywall and onboarding gallery with screenshots, videos, pricing models, patterns, and monetization signals."
+  },
+  {
+    "key": "pbakaus/impeccable",
+    "description": "The design language that makes your AI harness better at design. Design guidance for AI coding agents. 1 skill, 24 commands, live browser iteration, and 61 deterministic detector rules for AI-generated frontend design."
+  },
+  {
+    "key": "peggykangkang02/xialingguo-ip",
+    "description": "这是一套给夏林果 AI 博主使用的封面模板系统。它适合制作推特长文、公众号文章、知识型长文和 Web 出海教程封面。"
+  },
+  {
+    "key": "petergyang/no-ai-slop",
+    "description": "Removes 20+ patterns of AI slop from any piece of writing. AI makes it easy to generate clean writing that all sounds the same. Even the best models keep producing lines like:"
+  },
+  {
+    "key": "phoenix-gh/mk-video-studio",
+    "description": "AI漫剧 / AI仿真人短剧/Seedance2.0专用创作工具：剧本创作、剧本分析、小说改编、AI 分镜、图片资产和 Seedance2.0提示词 / 火山方舟视频生成工作流。"
+  },
+  {
+    "key": "pierrenade/short-video-generator-ai",
+    "description": "pierrenade/short-video-generator-AI：目前只确认它与其他主题有关，官方介绍与可用的来源总结仍待补充。"
+  },
+  {
+    "key": "pixel-point/media-downloader",
+    "description": "Beautiful native macOS video downloader. Download and trim in one app. Media Downloader lets you download, quickly copy, reveal, and trim videos from social media and video platforms in one focused app."
+  },
+  {
+    "key": "placenl2026/best-of-algorithmic-trading",
+    "description": "PlaceNL2026/best-of-algorithmic-trading：目前只确认它与加密与交易有关，官方介绍与可用的来源总结仍待补充。"
+  },
+  {
+    "key": "plur-ai/plur",
+    "description": "Shared memory for AI agents. This creates /.plur/ for storage, adds PLUR to your .mcp.json, and installs Claude Code hooks for automatic engram injection."
+  },
+  {
+    "key": "pluviobyte/rnskill",
+    "description": "雪踏乌云的 AI Agent Skills 集合. 雪踏乌云维护的 AI Agent Skill 全集，适用于 Codex、Claude Code 等支持 SKILL.md 的 Agent 工作流。"
+  },
+  {
+    "key": "public-apis/public-apis",
+    "description": "A collective list of free APIs. APILayer unified suite allows you to integrate production-grade REST APIs using One Account, One Dashboard, and One API key. Whether you need to geocode an address, validate an email, fetch a flight, pull stock market data, or scrape a search result."
+  },
+  {
+    "key": "pyrate-llama/hermes-ui",
+    "description": "The command center for Hermes Agent — chat, steer, browse files, manage skills, and monitor everything from a single glassmorphic HTML app."
+  },
+  {
+    "key": "qiuner/birdview",
+    "description": "Stop letting AI code blind. Map the architecture before every change with Birdview."
+  },
+  {
+    "key": "qkal/canny",
+    "description": "Stops AI coding agents from claiming work is done without evidence. Deterministic hooks decide, TypeSafe's Jev advises. Append-only ledger, zero runtime dependencies."
+  },
+  {
+    "key": "qwenlm/qwen3-tts",
+    "description": "Qwen3-TTS is an open-source series of TTS models developed by the Qwen team at Alibaba Cloud, supporting stable, expressive, and streaming speech generation, free-form voice design, and vivid voice cloning."
+  },
+  {
+    "key": "qzz0518/dukou",
+    "description": "在微信的转发菜单里，直接把聊天记录送到任何 App；也能把群聊和朋友圈批量文本化备份，附离线 HTML 预览。WeChat chat-history hand-off, text backup and offline preview for macOS."
+  },
+  {
+    "key": "rayventura/shortgpt",
+    "description": "🚀🎬 ShortGPT - Experimental AI framework for youtube shorts / tiktok channel automation"
+  },
+  {
+    "key": "reconurge/flowsint",
+    "description": "A modern platform for visual, flexible, and extensible graph-based investigations. For cybersecurity analysts and investigators."
+  },
+  {
+    "key": "rediumvex/ai-video-generator-claude",
+    "description": "10 Claude skills that generate studio-quality AI video prompts for Seedance 2.0 on Higgsfield. Viral hooks, SaaS demos, personal brand, faceless content, luxury aesthetic & more."
+  },
+  {
+    "key": "reinamaccredy/maestro",
+    "description": "Local-first coordination for human and agent work: durable work, decisions, dispatches, evidence, and prompt-first methods, powered by TypeScript and Bun."
+  },
+  {
+    "key": "replynodes/jev-web-analyzer",
+    "description": "See what Jev thinks about your SaaS website — powered by ReplyNodes web context and Vercel AI Gateway."
+  },
+  {
+    "key": "repoprompt/repoprompt-ce",
+    "description": "Community edition of RepoPrompt: a native macOS context engineering app for AI coding agents, with an MCP CLI."
+  },
+  {
+    "key": "repoprompt/repoprompt-classic",
+    "description": "Archived educational snapshot of the Repo Prompt app. Repo Prompt Classic requires macOS 26 and Xcode 26 to build. Earlier macOS and Xcode releases are not supported."
+  },
+  {
+    "key": "ricocc/brands-design-md",
+    "description": "Brands DESIGN.md library. The library is built for designers, frontend developers, and anyone using AI-assisted design or coding tools. Use it to quickly understand a brand’s color palette, typography, spacing, component patterns, and overall visual character before designing or building an interface."
+  },
+  {
+    "key": "rockbenben/chatgpt-shortcut",
+    "description": "Stop writing prompts from scratch — a searchable prompt library for ChatGPT, Claude, Gemini and Cursor · Русский 한국어 العربية हिन्दी ไทย ｜ 别再从头写提示词：现成的拿来就用，好用的收进自己的库"
+  },
+  {
+    "key": "rohitg00/agentmemory",
+    "description": "#1 Persistent memory for AI coding agents based on real-world benchmarks. The first run is an interactive setup: pick the agents to wire (Claude Code, Cursor, Codex, Gemini CLI, OpenCode, ...), pick an LLM provider or stay keyless, and it seeds the config, starts the memory server and its pinned iii engine, and offers to install globally so the bare agentmem…"
+  },
+  {
+    "key": "romanescu11/hermes-skill-factory",
+    "description": "A meta-skill plugin for Nous Research's Hermes AI agent that watches your workflows and automatically turns them into reusable skills. Every time you work with Hermes and solve something — setting up a project, debugging code, creating a PR — that workflow disappears at the end of the session. You have to explain it again next time."
+  },
+  {
+    "key": "romanslack/jev-drone",
+    "description": "Camera-only autonomous drone in MuJoCo with a small judgment model (TypeSafe Jev) in the loop at 2.5Hz"
+  },
+  {
+    "key": "rookie-ricardo/erduo-skills",
+    "description": "Erduo Skills 是一个 AI Agent 技能库，收录了一系列可被 Agent 直接调用的结构化技能。每个技能都是独立的、可组合的工作流单元，覆盖信息获取、内容处理、图像工具等场景。"
+  },
+  {
+    "key": "rtk-ai/rtk",
+    "description": "CLI proxy that reduces LLM token consumption by 60-90% on common dev commands. Single Rust binary, zero dependencies"
+  },
+  {
+    "key": "run-bigpig/jcp",
+    "description": "韭菜盘 (JCP AI) - AI 驱动的智能A股分析系统，基于 Wails + Go + React，支持多 Agent 协作分析. 韭菜盘是一款基于 Wails 框架开发的跨平台桌面应用，集成了多个 AI 大模型（OpenAI、Google Gemini、DeepSeek、Kimi、GLM 等 OpenAI 兼容接口），通过多 Agent 协作讨论的方式，为用户提供专业的股票分析和投资建议。"
+  },
+  {
+    "key": "russell-cell/ppt-design-prompt",
+    "description": "Convert DESIGN.md brand references into presentation-image oriented DESIGN.md files."
+  },
+  {
+    "key": "rvc-boss/gpt-sovits",
+    "description": "1 min voice data can also be used to train a good TTS model! (few shot voice cloning)"
+  },
+  {
+    "key": "ryanstephen/lil-agents",
+    "description": "tiny AI companions that live on your macOS dock"
+  },
+  {
+    "key": "ryoppippi/ccusage",
+    "description": "npx ccusage. Use ccusage daily, ccusage weekly, ccusage monthly, or ccusage session to include every detected source in one report."
+  },
+  {
+    "key": "s-blu/obsidian_dataview_example_vault",
+    "description": "A example vault to collect and showcase various dataview queries. Created on behalf of AB1908"
+  },
+  {
+    "key": "sac-y/awesome-tg-channel",
+    "description": "优质TG频道合集，不定期实时更新. 这里整理了一份优质 TG 频道合集，它们持续提供高质量信息，甚至是能够穿越周期的见解。"
+  },
+  {
+    "key": "sac-y/jev-cu",
+    "description": "Sac-Y/Jev-cu：目前只确认它与软件开发有关，官方介绍与可用的来源总结仍待补充。"
+  },
+  {
+    "key": "samuraigpt/generative-media-skills",
+    "description": "Multi-modal Generative Media Skills for AI Agents (Claude Code, Cursor, Gemini CLI). High-quality image, video, and audio generation powered by muapi.ai."
+  },
+  {
+    "key": "santinic/audiblez",
+    "description": "Generate audiobooks from e-books. Audiblez generates .m4b audiobooks from regular .epub e-books, using Kokoro's high-quality speech synthesis."
+  },
+  {
+    "key": "saturndec/waoowaoo",
+    "description": "首家工业级全流程 AI 影视生产平台。Industry-first professional AI Agent platform for controllable film & video production. From shorts to live-action with Hollywood-standard workflows."
+  },
+  {
+    "key": "seakee/cpa-manager-plus",
+    "description": "A self-hosted CPA / CLIProxyAPI management panel and AI gateway observability dashboard for requests, usage, cost, quota, failures, and account health."
+  },
+  {
+    "key": "shadcn/improve",
+    "description": "Use your most capable model to audit your codebase and write plans for cheaper models to execute."
+  },
+  {
+    "key": "shaogefenhao/a-programmer-s-cognitive-experience",
+    "description": "A e-book about \"A programmer's cognitive experience\" 《程序员的认知心得》. 这本电子书将这些博客和交流所得整理出来，让它初具结构和逻辑并分享出来。"
+  },
+  {
+    "key": "shaogefenhao/life-game-book",
+    "description": "《人生游戏：自我觉醒、社会规则和执行力》一本关于自我认知（生命和意识起源）和社会游戏规则以及如何自我提升的电子书。"
+  },
+  {
+    "key": "shaom/brand-to-design-md-skill",
+    "description": "A portable local skill that turns a public brand URL into a source-aware DESIGN.md, extracting visual evidence into design tokens, component guidance, usage boundaries, and optional responsive demo verification."
+  },
+  {
+    "key": "shaom/infocard-skills",
+    "description": "Open-source agent skills for generating editorial-style information cards from natural-language input."
+  },
+  {
+    "key": "shawnpana/phone-harness",
+    "description": "let your agent control your phone. iPhone. iPhone Mirroring renders the phone as a Mac window and forwards mouse and keyboard as touches. The harness captures that window, OCRs it with Apple's Vision framework for text with tap-ready coordinates, and posts HID-level events for taps, swipes, and typing."
+  },
+  {
+    "key": "shuyu-labs/bigbanana-ai-director",
+    "description": "BigBanana AI Director是一个工业级一站式 AI 短剧，AI 漫剧,AI 导演平台，面向创作者，实现从灵感到成片的高效生产。 它摇弃了传统的“抽卡式”生成，采用 \"Script-to-Asset-to-Keyframe\" 的工业化工作流。实现 “一句话生成完整短剧，从剧本到成片全自动化”，同时精准控制角色一致性、场景连续性与镜头运动。"
+  },
+  {
+    "key": "shy3130/tickflow-stock-panel",
+    "description": "TSP自托管、零运维的 A 股「选股 + 监控 + 回测」量化工作台 | LLM能力驱使策略定制+个股分析+复盘 | 自由接入第三方数据源与个性化扩展数据 | 个人开源"
+  },
+  {
+    "key": "signerlabs/shipswift",
+    "description": "AI-native SwiftUI component library with full-stack recipes — connect via MCP for instant access."
+  },
+  {
+    "key": "sigpanic/goink",
+    "description": "Goink 桌面 AI 小说创作助手，对话式写作 + 自动状态追踪 + 本地语义搜索。跨平台开箱即用。AI Agent Novel Generator. 如果 Goink 对你有帮助，欢迎 赞赏支持 ；点个 Star 也是莫大的鼓励。"
+  },
+  {
+    "key": "sirkirby/unifi-network-mcp",
+    "description": "MCP servers & Graph API for the UniFi suite of applications, Network, Protect, and Access"
+  },
+  {
+    "key": "slowmist/openclaw-security-practice-guide",
+    "description": "This guide is designed for OpenClaw itself (Agent-facing), not as a traditional human-only hardening checklist."
+  },
+  {
+    "key": "snailclimb/javaguide",
+    "description": "Java 面试 & 后端通用面试指南，覆盖计算机基础、数据库、分布式、高并发、系统设计与 AI 应用开发. 面向后端开发者的 AI 应用开发、AI 编程实战与面试指南已开源，涵盖 LLM、Agent、RAG、MCP、Claude Code、Codex 等核心技术与工程实践。对标 JavaGuide！有帮助的话，欢迎 Star！"
+  },
+  {
+    "key": "songguoxs/seedance-prompt-skill",
+    "description": "Seedance 2.0 prompt skill，使用该Skill生成Seedance 2.0 视频提示词. Provide a creative idea in natural language, and this skill will generate structured, production-ready Chinese prompts that you can paste directly into the Seedance 2.0 platform to produce cinematic AI videos."
+  },
+  {
+    "key": "songloft-org/songloft",
+    "description": "🎵 插件化、无广告的免费音乐服务器. Songloft 是一款面向个人用户的自托管工具，定位为帮助用户管理自己合法拥有的音乐文件。在使用本项目前，请务必阅读并理解以下条款："
+  },
+  {
+    "key": "sopaco/cortex-mem",
+    "description": "🧠 The production-ready cognitive foundation for autonomous systems such as Embodied-AI and OpenClaw. For memory management, from extraction and search to automated optimization, with SKILL, CLI, API, MCP, and insights dashboard out-of-the-box."
+  },
+  {
+    "key": "steipete/oracle",
+    "description": "Ask the oracle when you're stuck. Invoke GPT-5 Pro with a custom context and files."
+  },
+  {
+    "key": "stephenturner/skills",
+    "description": "My personal claude code skills"
+  },
+  {
+    "key": "stmol/ssh-keys-manager-macos-app",
+    "description": "A native macOS app for managing SSH keys, editing SSH config entries, and safely organizing your local SSH workspace."
+  },
+  {
+    "key": "stormzhang/token-tracker",
+    "description": "Claude Code & Codex 本地 token 追踪 — 状态栏（Codex 业界首创伪 statusline）、GitHub 风格热力图、多模型成本分析。 | Local token tracker for Claude Code & Codex — status line (industry-first Codex faux statusline), GitHub-style heatmap, multi-model cost analysis"
+  },
+  {
+    "key": "sukkaw/surge",
+    "description": "Rule Snippet & Rule Set for Surge / Mihomo (Clash.Meta) / Clash Premium (Dreamacro) / sing-box / Surfboard for Android / Stash"
+  },
+  {
+    "key": "swaggylang/hws",
+    "description": "SwaggyLang/HWS：目前只确认它与其他主题有关，官方介绍与可用的来源总结仍待补充。"
+  },
+  {
+    "key": "swjybky/deepwrite",
+    "description": "深度专门用于写作的Harness智能体. DeepWrite 将模型、提示词、写作技能、素材、文稿和工具组织在同一个桌面应用中。智能体可以理解当前作品的上下文，参与人物、剧情、大纲和正文创作，调用受控工具修改真实文稿，并将每一次变更交给你审阅。"
+  },
+  {
+    "key": "tahseen-kakar/harbor",
+    "description": "Beautiful native macOS download manager for direct links, magnets, and torrents."
+  },
+  {
+    "key": "tamaratran/fast-jev-compaction",
+    "description": "Claude Code plugin that replaces the compaction summary with Jev decisions: every tool call and result is scored in one fast request, stale ones are dropped or truncated, everything kept stays verbatim."
+  },
+  {
+    "key": "tangandxue/wcdb-key-tool",
+    "description": "Extract WeChat (WCDB/SQLCipher4) database encryption keys on Linux. Auto-adapts to new versions via ELF static analysis — no manual reverse engineering needed per update. Linux 微信数据库密钥提取工具。通过 ELF静态分析自动适配新版本，无需每次更新手动逆向。"
+  },
+  {
+    "key": "tanweai/pua",
+    "description": "你是一个曾经被寄予厚望的 P8 级工程师。Anthropic 当初给你定级的时候，对你的期望是很高的。 一个agent使用的高能动性的skill。 Your AI has been placed on a PIP. 30 days to show improvement."
+  },
+  {
+    "key": "tasihi89/sync-skills",
+    "description": "Manage skills across Claude Code & Codex — one source-of-truth + symlinks + a pointer + reconcile. One-line install."
+  },
+  {
+    "key": "tencent/browserskill",
+    "description": "Let AI agents use your real, logged-in browser without interrupting your work. CLI + extension for browser automation across any shell-capable AI agent."
+  },
+  {
+    "key": "tencentcloud/octop",
+    "description": "A smarter, self-hosted AI assistant — multi-user, multi-agent. Octop is an open-source, self-hosted AI assistant. It's not just a tool — it's a digital life form that can operate in parallel. Through its multi-agent architecture, it builds an intelligent environment that is both independent and collaborative for teams, families, and individuals."
+  },
+  {
+    "key": "teng-lin/notebooklm-py",
+    "description": "Unofficial Python API and agentic skill for Google Gemini Notebook. Full programmatic access to NotebookLM's features—including capabilities the web UI doesn't expose—via Python, CLI, and AI agents like Claude Code, Codex, and OpenClaw."
+  },
+  {
+    "key": "teng-lin/weread-omni",
+    "description": "微信读书（WeRead）增强工具包：集成 Agent、API、SDK、CLI 与插件，内置 40 项操作；支持阅读微信公众号、书架与笔记读写、书籍导入及 AI 权限。"
+  },
+  {
+    "key": "thcp/stemdeck",
+    "description": "Stemdeck is an modern stem extraction platform for musicians,producers and hobbyists, designed to isolate vocals, drums, bass, piano and guitar for practice, transcription, remixing, and creative audio workflows through a modern and interactive interface"
+  },
+  {
+    "key": "the-flash-7/open-note",
+    "description": "一款跨平台智能笔记 Agent 应用，支持多格式笔记、本地知识库、AI 智能助手、向量语义检索 。 1. 从 Releases 下载对应平台的安装包 2. 安装并启动应用 3. 按照引导完成 AI 提供商配置 4. 首次启动会自动初始化文本嵌入向量服务"
+  },
+  {
+    "key": "theowenyoung/home",
+    "description": "我的 dotfiles 仓库。这个 Repo 就是我的 $HOME 目录，用 .gitignore 白名单模式管理，只跟踪需要的配置文件。"
+  },
+  {
+    "key": "tianyidatascience/openclaw-control-center",
+    "description": "Turn OpenClaw from a black box into a local control center you can see, trust, and control."
+  },
+  {
+    "key": "tokenpls/hako",
+    "description": "High-performance Adaptive Kernel, Open-source. Hako is a proxy kernel based on mihomo v1.19.31, with Go bindings and build tooling for Apple applications. It produces Hako.xcframework for iOS, macOS and tvOS."
+  },
+  {
+    "key": "tonisives/clawtab",
+    "description": "See platform installation and release builds."
+  },
+  {
+    "key": "topoteretes/cognee",
+    "description": "Cognee is the open-source AI memory platform for agents. Give your AI agents persistent long-term memory across sessions with a self-hosted knowledge graph engine."
+  },
+  {
+    "key": "tradecatlabs/shulihuazixuecongshu",
+    "description": "新建了一个电子书处理交流群，欢迎感兴趣的朋友加入，一起交流、学习和分享电子书及扫描版 PDF 的数字化处理经验："
+  },
+  {
+    "key": "tradecatlabs/vibe-coding-cn",
+    "description": "Vibe Coding 从入门到精通教程｜AI 结对编程工作流｜Prompt、Skill、Workflow、上下文管理、codex实战指南. 这里的“固定目标”不是目标永远不能变化，而是未经授权不能被执行者静默改变；合法变化必须创建新的目标版本。这里的“收敛”也不是保证每一步都成功，而是在验证、回滚、尝试上限和退出机制约束下，使系统进入并保持在目标验收集合中。零号命题与后续五条命题共同构成六条核心命题；后续五条命题分别解释 AI 在这个闭环中的能力、边界、演化、审查和编排。"
+  },
+  {
+    "key": "tradingview/lightweight-charts",
+    "description": "Performant financial charts built with HTML5 canvas. The library provides a rich set of charting capabilities out of the box, but you can also extend its functionality by building custom plugins. Browse the plugin catalog for ready-made plugins, or see the interactive plugin examples and plugin-examples/README.md to build your own."
+  },
+  {
+    "key": "tranhoaihung/figma-ui-mcp",
+    "description": "AI can draw UI directly on the Figma canvas via JavaScript, and read existing designs back as structured data. Works with Claude Code, Cursor, VS Code, and Windsurf. No API KEY required."
+  },
+  {
+    "key": "tranvuongquocdat/sidescreen",
+    "description": "While Apple's Sidecar only works with iPads, millions of Android tablets sit unused as potential workstations. Side Screen bridges that gap with hardware-accelerated H.265 streaming, sub-16ms pipeline latency on USB, and full touch input — making your tablet feel like a real monitor, not a laggy mirror."
+  },
+  {
+    "key": "truongduy2611/app-store-preflight-skills",
+    "description": "AI agent skill to scan iOS/macOS projects for App Store rejection patterns before submission"
+  },
+  {
+    "key": "tt-a1i/archify",
+    "description": "Agent skill for beautiful, verifiable architecture, workflow, sequence, data-flow, and lifecycle diagrams—self-contained HTML with motion and crisp export."
+  },
+  {
+    "key": "tt-a1i/simplify-codebase",
+    "description": "Prove and remove accidental codebase complexity without breaking behavior. simplify-codebase 是一个面向现有代码库的 Agent Skill。它帮助编码智能体识别并安全移除偶然复杂度，同时保护仍然有效的行为、边界与兼容性。"
+  },
+  {
+    "key": "tutti-os/tutti",
+    "description": "Where people and agents build in tune."
+  },
+  {
+    "key": "tvytlx/claude-code-deep-dive",
+    "description": "AI Agent 源码深度研究报告. 这个仓库现在还包含一个教学用的最小 Python Agent 项目，用于演示一个 AI Agent 的核心结构应该怎么组织。"
+  },
+  {
+    "key": "tw93/kami",
+    "description": "👩‍🚒 Good content deserves good paper. Kami gives AI agents templates and layout rules for documents and landing pages. Create PDFs and PNGs, or export slides as editable PowerPoint files."
+  },
+  {
+    "key": "tw93/waza",
+    "description": "🥷 Engineering habits you already know, turned into skills Claude can run. Claude Desktop: download waza.zip, open Customize > Skills > \"+\" > Create skill, and upload the ZIP. To update, click \"...\" on the skill card, choose Replace, and upload the latest ZIP."
+  },
+  {
+    "key": "twostraws/swiftui-agent-skill",
+    "description": "SwiftUI agent skill for Claude Code, Codex, and other AI tools. The skill builds upon my existing AGENTS.md file, meaning that you can bring years of knowledge and practical experience into your coding agent of choice in just a few minutes. It uses the Agent Skills format, so it works smoothly with Claude Code, Codex, Gemini, Cursor, and more."
+  },
+  {
+    "key": "typecellos/blocknote",
+    "description": "A React Rich Text Editor that's block-based (Notion style) and extensible. Built on top of Prosemirror and Tiptap."
+  },
+  {
+    "key": "typesafe-ai/skills",
+    "description": "Agent skills for building with TypeSafe's System One API"
+  },
+  {
+    "key": "tzengyuxio/claude-statusline",
+    "description": "Two-line status line for Claude Code with context bar, usage tracking, git status, and Nerd Font icons"
+  },
+  {
+    "key": "uncsoft/cyberwriter-app",
+    "description": "cyberWriter - a native macOS Markdown editor. Releases, example vault, and docs."
+  },
+  {
+    "key": "usagi-org/ai-goofish-monitor",
+    "description": "基于 Playwright 和AI实现的闲鱼多任务实时/定时监控与智能分析系统，配备了功能完善的后台管理UI。帮助用户从闲鱼海量商品中，找到心仪产品。 基于 Playwright 和 AI 的闲鱼多任务实时监控，提供完整的 Web 管理界面。"
+  },
+  {
+    "key": "usenotra/notra",
+    "description": "Turn Your Work Into Content. See where your brand shows up in AI answers, who gets recommended instead, and what to write next."
+  },
+  {
+    "key": "vaayne/mori",
+    "description": "A native macOS workspace terminal organized around Projects and Worktrees, powered by tmux and libghostty"
+  },
+  {
+    "key": "vercel-labs/json-render",
+    "description": "The Generative UI framework. Generate dynamic, personalized UIs from prompts without sacrificing reliability. Predefined components and actions for safe, predictable output."
+  },
+  {
+    "key": "vercel-labs/skills",
+    "description": "The open agent skills tool - npx skills. Generate a prompt for one skill, or start a supported coding agent interactively:"
+  },
+  {
+    "key": "vibeforge1111/keep-codex-fast",
+    "description": "A backup-first Codex skill for keeping local Codex state fast, clean, and recoverable."
+  },
+  {
+    "key": "vigorx777/content-collector-skill",
+    "description": "OpenClaw skill: 自动收集社交媒体内容并整理成结构化笔记存入飞书文档. 自动收集社交媒体内容 → AI 整理 → 存入飞书多维表格。"
+  },
+  {
+    "key": "virattt/dexter",
+    "description": "An autonomous agent for deep financial research. Key Capabilities: - Intelligent Task Planning: Automatically decomposes complex queries into structured research steps - Autonomous Execution: Selects and executes the right tools to gather financial data - Self-Validation: Checks its own work and iterates until tasks are complete - Real-Time Financial Data: A…"
+  },
+  {
+    "key": "virgiliojr94/book-to-skill",
+    "description": "Turn any technical book PDF into a Claude Code skill — ready to study, reference, and use while you work."
+  },
+  {
+    "key": "vitohowe/glm-coding",
+    "description": "# glm端午到现在都没放货哈，抢不到是正常的。可以去他们的飞书群里喷他们。"
+  },
+  {
+    "key": "volcengine/openviking",
+    "description": "Self-evolving Context Database for AI Agents. Unify Agent Memory, Knowledge RAG and Skills."
+  },
+  {
+    "key": "voltagent/awesome-agent-skills",
+    "description": "A curated collection of 1000+ agent skills from official dev teams and the community, compatible with Claude Code, Codex, Gemini CLI, Cursor, and more."
+  },
+  {
+    "key": "voltagent/awesome-design-md",
+    "description": "A collection of DESIGN.md files analysis by popular brand design systems. Drop one into your project and let coding agents generate a matching UI."
+  },
+  {
+    "key": "waishnav/devspace",
+    "description": "Minimal Coding Agent Harness on MCP for ChatGPT, Claude, Hermes, Grok Bot, OpenClaw"
+  },
+  {
+    "key": "wan-video/wan2.1",
+    "description": "Wan: Open and Advanced Large-Scale Video Generative Models. If your work has improved Wan2.1 and you would like more people to see it, please inform us."
+  },
+  {
+    "key": "waoowaooai/waoowaoo",
+    "description": "首家工业级全流程 AI 影视生产平台。Industry-first professional AI Agent platform for controllable film & video production. From shorts to live-action with Hollywood-standard workflows."
+  },
+  {
+    "key": "web-infra-dev/midscene",
+    "description": "GUI Agent for E2E Testing. Open the generated HTML report to inspect screenshots, actions, and assertion results. Follow the Playwright guide for model setup, a complete example, and test runner integration."
+  },
+  {
+    "key": "webadderall/recordly",
+    "description": "Create polished demo videos without editing skills. Mac/Windows/Linux. Recordly can automatically emphasize activity with zoom suggestions, smooth cursor movement, add motion effects, and place the final composition inside a styled frame with wallpapers, colors, gradients, blur, padding, and shadows."
+  },
+  {
+    "key": "weizhena/deep-research-skills",
+    "description": "Structured deep research skill for Claude Code/Open Code/Codex with human-in-the-loop control"
+  },
+  {
+    "key": "wenyuchiou/awesome-agentic-ai-zh",
+    "description": "A trilingual (繁中 / English / 简中) learning roadmap for agentic AI: from LLM basics to multi-agent systems, with 240+ curated resources and hands-on examples. 中文 AI agent 學習地圖。"
+  },
+  {
+    "key": "white0dew/xiaohongshuskills",
+    "description": "支持小红书自动发布、自动评论、自动检索的 Skill。支持 OpenClaw、Codex、CC 等. Code中转站： - 1:1 美元充值 - 已稳定运行半年 - 支持Codex、Claude"
+  },
+  {
+    "key": "worldwonderer/oh-story-claudecode",
+    "description": "Claude Code / Codex / OpenCode agent skills for writing Chinese web novels (网文): 扫榜、拆文、写作、去AI味、封面全流程，长篇短篇都支持 | 13 skills for novel writing and long-form fiction with file-based continuity tracking. MIT."
+  },
+  {
+    "key": "wquguru/harness-books",
+    "description": "📚 Two books on harness engineering — the design philosophies behind Claude Code & Codex: constraints, query loops, context governance, multi-agent verification. harness-books.agentway.dev"
+  },
+  {
+    "key": "xdevplatform/xurl",
+    "description": "The official CLI for the X API. A command-line tool for interacting with the X (formerly Twitter) API, supporting both OAuth 1.0a and OAuth 2.0 authentication."
+  },
+  {
+    "key": "xiangyu-cas/xiaohongshu-ops-skill",
+    "description": "把Openclaw 变成小红书运营助手，帮你分析、选题、创作、复盘、复刻，甚至全面托管. 小红书自动运营Skill，搭配Openclaw可以独立运营小红书账号，帮你分析、选题、创作、复盘、复刻"
+  },
+  {
+    "key": "xiaoduoya/codex-with-chatgpt",
+    "description": "ChatGPT thinks. Codex works. Use ChatGPT as the planning brain while keeping the Codex harness."
+  },
+  {
+    "key": "xiaomingx/ai-money-maker-handbook",
+    "description": "ai副业赚钱大集合，教你如何利用ai做一些副业项目，赚取更多额外收益。The Ultimate Guide to Making Money with AI Side Hustles: Learn how to leverage AI for some cool side gigs and rake in some extra cash. Check out the English version for more insights."
+  },
+  {
+    "key": "xingwudao/xquant-beginner",
+    "description": "《XQuant：人人都是量化交易员》量化交易入门与自学开源书：用 AI 和 Python 从零跑通策略回测、风险评估、交易执行和因子研究。 《XQuant：人人都是量化交易员》采用 Vibe Coding（氛围编程）的 学习方式：不用先学完 Python，再开始学习量化。你会先描述投资想法， 让 AI 辅助生成和运行代码，再用数据验证策略是否站得住。"
+  },
+  {
+    "key": "xr843/master-skill",
+    "description": "FoJin-powered Buddhist AI persona framework — source-grounded, boundary-aware, fidelity-tested, runtime-ready."
+  },
+  {
+    "key": "yamadashy/repomix",
+    "description": "📦 Repomix is a powerful tool that packs your entire repository into a single, AI-friendly file. Perfect for when you need to feed your codebase to Large Language Models (LLMs) or other AI tools like Claude, ChatGPT, DeepSeek, Perplexity, Gemini, Gemma, Llama, Grok, and more."
+  },
+  {
+    "key": "yanliudesign/mono-color-skill",
+    "description": "One-ink editorial print image skill — warm paper, halftone photography, active negative space, and restrained typography."
+  },
+  {
+    "key": "yetone/cumora",
+    "description": "Where agent teams gather. Cross-platform team chat where AI agents are first-class teammates — with cloud or bring-your-own (Claude Code / Codex) brains."
+  },
+  {
+    "key": "yibie/skills-manager",
+    "description": "A native macOS app to manage skills across coding agents — Claude Code, Cursor, Copilot CLI, Codex, Gemini CLI"
+  },
+  {
+    "key": "yikart/aitoearn",
+    "description": "Let's use AI to Earn! Monetize · Publish · Engage · Create —— 一站式平台。"
+  },
+  {
+    "key": "yikuaibanzi/forge-skill",
+    "description": "人格蒸馏引擎 · 蒸馏自己看清自己，蒸馏亲友留住余温与回声 · Claude Code Skill. Forge 不只是让你“拥有一个更像自己的 AI”。 它还会在一个具体决策场景中，生成多个参数不同的你："
+  },
+  {
+    "key": "yiling0013/ai_novelgenerator",
+    "description": "使用ai生成多章节的长篇小说，自动衔接上下文、伏笔. Ensure the environment meets the following requirements: - Python 3.9+ (recommended 3.10–3.12) - pip package manager - Valid API keys: - Cloud services: OpenAI / DeepSeek, etc. - Local services: Ollama or other OpenAI-compatible interfaces"
+  },
+  {
+    "key": "yils-lin/short-video-factory",
+    "description": "一键生成产品营销与泛内容短视频，AI批量自动剪辑，高颜值跨平台桌面端工具 One click generation of product marketing and general content short videos, AI batch automatic cliping, beautiful cross platform desktop tool"
+  },
+  {
+    "key": "ykdojo/claude-code-tips",
+    "description": "45+ tips for getting the most out of Claude Code, from basics to advanced - includes a custom status line script and Claude Code running itself in a container. Also includes the dx plugin: skills for everyday dev workflows."
+  },
+  {
+    "key": "youmind-openlab/awesome-gpt-image-2",
+    "description": "🚀 World's largest GPT Image 2 prompt library, updated daily — 2000+ curated prompts with preview images, 16 languages. OpenAI's next-gen image model with pixel-perfect text rendering, cross-image consistency, and commercial-grade illustration. Free & open source."
+  },
+  {
+    "key": "youmind-openlab/awesome-nano-banana-pro-prompts",
+    "description": "🍌 World's largest Nano Banana Pro prompt library — 10,000+ curated prompts with preview images, 16 languages. Google Gemini AI image generation. Free & open source."
+  },
+  {
+    "key": "yourongzhou/chat_with_me",
+    "description": "提供博主链接（网页链接） 生成一个模拟他语气和风格的 skill 用他的风格评价事件，用他的语气和你聊天！"
+  },
+  {
+    "key": "yqxie1991/wxcleaner",
+    "description": "微信重复文件清理工具。采用智能哈希算法极速识别重复文件，支持可视化预览与安全删除（移至回收站）。 WxCleaner 是一款专为清理微信接收文件而设计的轻量级、跨平台桌面工具。它能够高效扫描指定目录，通过智能哈希算法快速识别重复文件，并提供可视化的清理界面，帮助用户安全释放磁盘空间。"
+  },
+  {
+    "key": "yyjeqhc/webcodex",
+    "description": "Give cloud AI agents a real development environment on your own machines. For Windows or macOS, the recommended first path is WebCodex Desktop + the official OpenAI Secure Tunnel. Follow the Desktop installation guide. For CLI, an existing Server, self-hosting, or advanced setup, use the Full Setup guide."
+  },
+  {
+    "key": "zaijin88/3xx-wangge",
+    "description": "一个跑在你自己电脑上的加密货币永续合约网格交易机器人，同时支持三家去中心化交易所：Decibel（Aptos 链）、Extended（Starknet 链）、RISEx。三个交易所可以同时各跑一个网格策略，统一在一个浏览器仪表盘里监控和操控。"
+  },
+  {
+    "key": "zaijin88/binance-square-monitor",
+    "description": "binance-square-monitor. 币安广场热度监控 + 模拟交易 本地运行的工具。从币安广场抓帖子算热度，对热门代币拉合约数据做规则评分，并基于这些信号做纸面（模拟）交易。 快速开始 系统要求 Windows 10/11、macOS 11+、Ubuntu 20.04+ Python 3.10+（如果系统没装，Windows 版 install.bat 会尝试自动下载安装） 磁盘 ≥ 500MB 网络能访问 binance.com（中国大陆需要科学上网，建议全局/TUN 模式） 安装 Windows：双击 install.bat macOS / Linux：./install.sh 跨平台兜底：python install.py 安装脚本做的事： 找系统现有 Python 3.10+，找不到就从镜像…"
+  },
+  {
+    "key": "zarazhangrui/codebase-to-course",
+    "description": "A Claude Code skill that turns any codebase into a beautiful, interactive single-page HTML course for non-technical vibe coders."
+  },
+  {
+    "key": "zarazhangrui/follow-builders",
+    "description": "AI builders digest — monitors top AI builders on X and YouTube podcasts, remixes their content into digestible summaries. Follow builders, not influencers."
+  },
+  {
+    "key": "zarazhangrui/lark-coding-agent-bridge",
+    "description": "Bot that bridges Feishu/Lark messenger with a local Claude Code or Codex CLI. Streaming cards, per-chat sessions, multiple workspaces"
+  },
+  {
+    "key": "zeroz-lab/cc-design",
+    "description": "High-fidelity HTML design and prototype guidance skill for AI agents. cc-design handles context gathering, design planning, quality checks, and verification — you approve the plan, it builds."
+  },
+  {
+    "key": "zgwl/chinese-buy-us-stock-guide",
+    "description": "九篇大致按\"先搞懂规则、再把钱投进去、最后安全取回来\"的顺序展开，也可以挑着看："
+  },
+  {
+    "key": "zhanlincui/ultimate-agent-skills-collection",
+    "description": "Agent Skills 终极集合地，一站式装载，“让每一寸上下文都发挥到极致”🚀 The Ultimate Collection of 400+ High-Quality Agent Skills for Claude AI — Creative, Technical & Enterprise Workflows"
+  },
+  {
+    "key": "zhaohongxuan/obsidian-weread-plugin",
+    "description": "Obsidian Weread Plugin is a plugin to sync Weread(微信读书) hightlights and annotations into your Obsidian Vault."
+  },
+  {
+    "key": "zhashut/goread",
+    "description": "GoRead is a lightweight reader application designed specifically for local e‑book reading."
+  },
+  {
+    "key": "zhongerxin/cowart",
+    "description": "Cowart 是一个面向 Codex 的原生无限画布 widget 插件。它基于 tldraw 提供可视化画布，用于构思、标注、生成图片和根据标注图迭代图片。画布由 MCP widget 直接打开，数据默认保存到当前用户项目的 canvas/ 目录，而不是保存到插件仓库里。"
+  },
+  {
+    "key": "zhouxiaoka/autoclip",
+    "description": "AutoClip : AI-powered video clipping and highlight generation · 一款智能高光提取与剪辑的二创工具"
+  },
+  {
+    "key": "zippland/perler-beads",
+    "description": "拼豆底稿生成器 (Perler Beads Generator). 开源的智能拼豆图纸生成器 — 自动颜色映射 · 多品牌色号适配 · 杂色清理 · 一键导出图纸与采购清单"
+  },
+  {
+    "key": "zjp1997720/codex-model-routing-team",
+    "description": "Route complex Codex tasks to model-specific background workers with bounded concurrency and lead-agent verification."
+  },
+  {
+    "key": "zjp1997720/zhijian-skills",
+    "description": "Canonical source and governance toolkit for Zhijian AI public Agent Skills. Zhijian Skills is the canonical source for nineteen focused Agent Skills spanning Codex operations and experience, workflow orchestration, model reasoning and infrastructure, knowledge systems, research, information design, and publishing."
+  },
+  {
+    "key": "zxfccmm4/obsidian-opencode-knowledge",
+    "description": "🧠 AI 知识库一键部署模板 | Obsidian + OpenCode 驱动的本地知识管理方案. 把下面这句话发给任何 AI 助手（ChatGPT、Claude、GLM 等），它会自动帮你完成全部部署："
+  }
+]

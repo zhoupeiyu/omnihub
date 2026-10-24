@@ -1,0 +1,263 @@
+/* Life Guide workspace v2 - scoped chapter nav + two-column result cards + inline details.
+   Owned file: public/life-guide/workspace-v2.css
+   No remote assets, no remote stylesheet imports. Every rule is gated on .lg-workspace
+   or body[data-life-guide-active=true]. */
+
+/* ---------- Host bridge: active only ---------- */
+body[data-life-guide-active=true] main.main > :not(#life-guide-workspace){display:none!important}
+body[data-life-guide-active=true] #workspace-sidebar .workspace-context{display:none!important}
+body[data-life-guide-active=true] aside#workspace-sidebar{width:var(--rail-width,64px)!important}
+body[data-life-guide-active=true].lg-mobile-collapsed aside#workspace-sidebar,
+body[data-life-guide-active=true] .app-shell.is-collapsed aside#workspace-sidebar{width:0!important}
+
+/* Selected nav entry + neutralised siblings, only while the guide is active */
+body[data-life-guide-active=true] #life-guide-entry{background:color-mix(in srgb,var(--text) 10%,transparent)!important}
+body[data-life-guide-active=true] .module-nav .active:not(#life-guide-entry){background:transparent!important}
+
+/* Rail caption for the guide entry only (never a global nav tweak) */
+#life-guide-entry{text-decoration:none}
+#life-guide-entry .module-icon{width:24px;height:24px}
+#life-guide-entry .module-icon svg{width:21px;height:21px;stroke-width:1.8}
+#life-guide-entry.is-active .module-icon svg,#life-guide-entry[aria-current="page"] .module-icon svg{stroke-width:2.2}
+#life-guide-entry.is-active,#life-guide-entry[aria-current="page"]{background-color:color-mix(in srgb,currentColor 10%,transparent)}
+aside#workspace-sidebar nav.module-nav .module-button[aria-label="全部资产"] .module-icon,aside#workspace-sidebar nav.module-nav .module-button[aria-label="我的作品"] .module-icon{width:24px;height:24px;background-color:currentColor;-webkit-mask:url("/life-guide/layers.svg") center/21px 21px no-repeat;mask:url("/life-guide/layers.svg") center/21px 21px no-repeat}
+aside#workspace-sidebar nav.module-nav .module-button[aria-label="全部资产"] .module-icon > svg,aside#workspace-sidebar nav.module-nav .module-button[aria-label="我的作品"] .module-icon > svg{display:none}
+
+/* ---------- Workspace root ---------- */
+.lg-workspace{display:block;box-sizing:border-box;width:100%;max-width:100%;overflow-x:hidden;font-family:var(--font-body);color:var(--text);background:var(--bg)}
+.lg-workspace *,.lg-workspace *::before,.lg-workspace *::after{box-sizing:border-box}
+.lg-workspace button,.lg-workspace input,.lg-workspace select{font:inherit;font-family:var(--font-body);color:inherit;min-height:36px}
+.lg-workspace :focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+
+/* ---------- Header ---------- */
+.lg-top{display:flex;flex-wrap:wrap;align-items:baseline;gap:4px 10px;padding:0 0 10px;border-bottom:1px solid var(--border)}
+.lg-top .lg-heading,.lg-top h2{margin:0;font-size:24px;line-height:1.2;font-weight:600}
+.lg-top .lg-source{font-size:12px;line-height:1.4;color:var(--text-3)}
+.lg-top .lg-source a{color:var(--accent);text-decoration:none}
+
+/* ---------- Toolbar: one row [filters + reset | ... | search] ----------
+   The search box is the last toolbar child and is pushed to the right edge by
+   margin-left:auto; when space runs out it wraps onto its own line. */
+.lg-toolbar{display:flex;flex-wrap:wrap;gap:8px;align-items:center;width:100%;min-width:0;max-width:100%;padding:10px 0;border-bottom:1px solid var(--border)}
+.lg-toolbar .lg-search,.lg-toolbar .lg-skel-search{flex:0 1 320px;width:320px;min-width:0;max-width:100%;height:36px;margin-left:auto;border-radius:6px}
+.lg-toolbar .lg-search{padding:0 10px;background:var(--surface);border:1px solid var(--border);font-size:14px}
+.lg-toolbar .lg-filters{display:flex;flex:0 1 auto;flex-wrap:wrap;gap:8px 10px;align-items:center;min-width:0;max-width:100%}
+.lg-toolbar .lg-filter-label{position:relative;display:inline-flex;flex:0 1 auto;align-items:center;gap:6px;max-width:100%;min-width:0;min-height:36px;padding:0 10px;font-size:13px;line-height:1.2;color:var(--text-3);background:var(--surface);border:1px solid var(--border);border-radius:6px;white-space:nowrap}
+.lg-toolbar .lg-filter-label:focus-within{outline:2px solid var(--accent);outline-offset:2px}
+.lg-toolbar .lg-filter-name{flex:0 0 auto;color:var(--text-3)}
+.lg-toolbar .lg-filter-mirror{display:inline-flex;align-items:center;gap:4px;min-width:0;color:var(--text)}
+.lg-toolbar .lg-filter-dot{color:var(--text-3)}
+.lg-toolbar .lg-filter-value{min-width:0;overflow:hidden;text-overflow:ellipsis}
+/* Filter arrow icon: "chevron-down" from Reicon (Outline), inlined as a CSS mask.
+   Source ink is centred at y=12.8333 of its 24-unit viewBox, so the viewBox is
+   shifted by 0.83333 to centre the glyph optically in the fixed 12px square.
+
+   MIT License
+
+   Copyright (c) 2025 REICON
+   Permission is hereby granted, free of charge, to any person obtaining a copy
+   of this software and associated documentation files (the "Software"), to deal
+   in the Software without restriction, including without limitation the rights
+   to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+   copies of the Software, and to permit persons to whom the Software is
+   furnished to do so, subject to the following conditions:
+
+   The above copyright notice and this permission notice shall be included in all
+   copies or substantial portions of the Software.
+
+   THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+   IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+   FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+   AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+   LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+   OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+   SOFTWARE. */.lg-toolbar .lg-filter-arrow{position:relative;display:inline-block;flex:0 0 12px;width:12px;height:12px;overflow:hidden;font-size:0;line-height:0;color:var(--text);user-select:none}
+.lg-toolbar .lg-filter-arrow::before{content:"";position:absolute;inset:0;background-color:currentColor;-webkit-mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0.83333 24 24' fill='none'%3E%3Cg transform='scale(1.33333)'%3E%3Cpolyline points='15.25 6.5 9 12.75 2.75 6.5' fill='none' stroke='black' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5'/%3E%3C/g%3E%3C/svg%3E") center/12px 12px no-repeat;mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0.83333 24 24' fill='none'%3E%3Cg transform='scale(1.33333)'%3E%3Cpolyline points='15.25 6.5 9 12.75 2.75 6.5' fill='none' stroke='black' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5'/%3E%3C/g%3E%3C/svg%3E") center/12px 12px no-repeat}
+.lg-toolbar .lg-filter-label--chapter .lg-filter-mirror{flex:0 1 auto}
+.lg-toolbar .lg-filter-label--chapter .lg-filter-value{max-width:min(56vw,240px)}
+.lg-toolbar select,.lg-toolbar .lg-filter{position:absolute;inset:0;width:100%;min-width:0;max-width:100%;margin:0;padding:0;border:0;border-radius:6px;background:transparent;font-size:13px;color:var(--text);opacity:0;cursor:pointer}
+.lg-toolbar .lg-filters .lg-reset{align-self:center;height:36px;padding:0 10px;background:transparent;border:0;border-radius:6px;color:var(--text-3);font-size:13px}
+.lg-toolbar .lg-filters .lg-reset:hover{background:var(--surface);color:var(--text)}
+
+/* ---------- Two columns: chapter nav + results ---------- */
+.lg-layout{display:grid;grid-template-columns:384px minmax(0,1fr);height:calc(100dvh - 230px);min-height:560px;margin-top:10px;border:1px solid var(--border);border-radius:6px;overflow:hidden}
+.lg-chapters,.lg-results{min-height:0;min-width:0;overflow-y:auto;overflow-x:hidden}
+.lg-chapters{display:flex;flex-direction:column;gap:6px;padding:0 10px 12px;border-right:1px solid var(--border)}
+.lg-results{padding:8px 16px 16px}
+
+/* ---------- Chapters: [index | title | count] rows echoing the result cards ----------
+   Natural height: one line is 12+20+12 (=44px); a wrapped title simply grows.
+   position:relative makes each row the containing block of its absolutely
+   positioned .lg-sr text, so hidden labels stay clipped inside the pane instead
+   of resolving against <body> and stretching the document scrollHeight. */
+.lg-workspace .lg-chapters .lg-chapters-head{flex:0 0 auto;margin:8px 0 0;padding:8px 2px;font-size:12px;line-height:1.4;color:var(--text-3);font-variant-numeric:tabular-nums}
+.lg-workspace .lg-chapters .lg-chapter,.lg-workspace .lg-chapters button{position:relative;display:flex;flex:0 0 auto;justify-content:flex-start;align-items:flex-start;gap:10px;width:100%;min-height:44px;height:auto;margin:0;padding:12px 10px;font-size:14px;line-height:20px;font-weight:400;text-align:left;color:var(--text-2);background:var(--surface);border:1px solid color-mix(in srgb,var(--border) 70%,transparent);border-radius:8px;cursor:pointer;white-space:normal}
+.lg-workspace .lg-chapters .lg-chapter:hover,.lg-workspace .lg-chapters button:hover{background:color-mix(in srgb,var(--text) 4%,var(--surface));color:var(--text)}
+.lg-workspace .lg-chapters .lg-chapter:focus-visible{outline:2px solid var(--accent);outline-offset:-2px}
+.lg-workspace .lg-chapters .is-active,.lg-workspace .lg-chapters .is-active:hover{background:var(--accent-soft);border-color:color-mix(in srgb,var(--accent) 24%,var(--border));color:var(--text);font-weight:500}
+.lg-chapters .lg-chapter-index{flex:0 0 24px;width:24px;min-width:24px;border-radius:5px;background:color-mix(in srgb,var(--text) 7%,transparent);color:var(--text-3);font-size:11px;line-height:20px;font-weight:400;text-align:center;font-variant-numeric:tabular-nums}
+.lg-chapters .lg-chapter-index.is-empty{background:transparent}
+.lg-chapters .lg-chapter-title{flex:1 1 auto;min-width:0;overflow-wrap:anywhere;white-space:normal}
+.lg-chapters .lg-count{flex:0 0 auto;margin-left:auto;font-size:12px;line-height:20px;font-weight:400;color:var(--text-3);font-variant-numeric:tabular-nums}
+.lg-chapters .lg-sr{position:absolute;top:0;left:0;width:1px;height:1px;margin:-1px;padding:0;overflow:hidden;clip:rect(0 0 0 0);clip-path:inset(50%);white-space:nowrap;border:0}
+
+/* ---------- Results: card grid (items keep their own column, natural height) ---------- */
+.lg-workspace .lg-results .lg-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));align-items:start;gap:12px;width:100%;margin:0}
+/* Independent columns (desktop): JS assigns each card column i%2+1 and an explicit
+   grid-row start/span on fine pixel rows (grid-auto-rows set inline). The 12px
+   vertical gap is folded into each span, so row-gap is zero here. */
+.lg-workspace .lg-results .lg-grid.is-masonry{row-gap:0;column-gap:12px;align-items:start}
+.lg-workspace .lg-results .lg-grid.is-masonry>.lg-item{align-self:start}
+.lg-workspace .lg-results .lg-item{min-width:0;max-width:none;margin:0;border:1px solid var(--border);border-radius:8px;background:var(--surface);box-shadow:none;overflow:hidden}
+.lg-workspace .lg-results .lg-item .lg-title{display:flex;align-items:flex-start;justify-content:flex-start;gap:12px;width:100%;min-height:0;height:auto;margin:0;padding:12px 14px;text-align:left;background:transparent;border:0;border-radius:0;cursor:pointer;color:var(--text);font-size:15px;line-height:1.5;font-weight:400;white-space:normal}
+.lg-workspace .lg-results .lg-item .lg-title:hover{background:color-mix(in srgb,var(--text) 4%,transparent)}
+.lg-workspace .lg-results .lg-item .lg-title:focus-visible{outline:2px solid var(--accent);outline-offset:-2px}
+.lg-workspace .lg-results .lg-item .lg-title[aria-expanded=true]{background:var(--accent-soft);font-weight:500}
+.lg-workspace .lg-results .lg-title .lg-index{flex:0 0 auto;min-width:32px;padding:0 7px;border-radius:6px;background:color-mix(in srgb,var(--text) 7%,transparent);color:var(--text-3);font-size:12px;line-height:22.5px;text-align:center;font-variant-numeric:tabular-nums}
+.lg-workspace .lg-results .lg-title .lg-title-text{flex:1 1 auto;min-width:0;font-size:15px;line-height:1.5;font-weight:450;color:var(--text);overflow-wrap:anywhere;white-space:normal}
+.lg-workspace .lg-results .lg-title .lg-chevron{flex:0 0 18px;width:18px;text-align:center;font-size:16px;line-height:22.5px;color:var(--text-3);transition:transform .15s ease}
+.lg-workspace .lg-results .lg-title[aria-expanded=true] .lg-chevron{transform:rotate(90deg);color:var(--text-2)}
+.lg-workspace .lg-results .lg-empty{margin:16px 10px;font-size:13px;color:var(--text-3)}
+.lg-workspace .lg-results .lg-loadmore{margin-top:12px}
+/* Pagination footer: also the auto-load sentinel. Fixed-height so the busy /
+   retry states never shift the cards above it. */
+.lg-workspace .lg-results .lg-more{display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:6px 10px;min-height:60px;padding:0 0 4px}
+.lg-workspace .lg-results .lg-more .lg-loadmore{margin-top:12px;font-size:13px;color:var(--text-2)}
+.lg-workspace .lg-results .lg-more .lg-loadmore[aria-disabled=true]{cursor:default;opacity:.7}
+.lg-workspace .lg-results .lg-more-error{flex:1 1 100%;margin:12px 0 0;font-size:12px;line-height:1.5;color:var(--text-3);text-align:center}
+
+/* ---------- Skeletons (static, no animation) ----------
+   Card matches a closed single-line card: 12px + 22.5px line + 12px + 2px border. */
+.lg-workspace .lg-skel{display:block;background:color-mix(in srgb,var(--text) 9%,transparent);border-radius:4px}
+.lg-workspace .lg-skel-card{display:flex;align-items:center;gap:12px;min-height:48.5px;padding:12px 14px;border:1px solid var(--border);border-radius:8px;background:var(--surface)}
+.lg-workspace .lg-skel-index{flex:0 0 32px;width:32px;height:22px;border-radius:6px}
+.lg-workspace .lg-skel-lines{display:flex;flex-direction:column;gap:9px;flex:1 1 auto;min-width:0;padding-right:30px}
+.lg-workspace .lg-skel-line{height:12px;width:100%}
+.lg-workspace .lg-skel-line--short{width:58%}
+.lg-workspace .lg-skel-chapter{flex:0 0 auto;height:14px;margin:12px 10px 18px;width:70%}
+/* Toolbar search placeholder shares the live search geometry (rule above). */
+.lg-workspace .lg-skel-ghost .lg-reset{display:inline-flex;align-items:center;font-size:13px;line-height:normal}
+.lg-workspace .lg-detail-skeleton{display:flex;flex-direction:column;gap:10px;max-width:100%;margin:12px 0 4px}
+.lg-workspace .lg-detail-skeleton .lg-skel-line{height:12px;max-width:100%}
+
+/* ---------- Inline detail panel (stays inside its card column) ---------- */
+.lg-detail{min-width:0;padding:4px 16px 16px 14px;background:color-mix(in srgb,var(--accent) 6%,var(--surface));border-top:1px solid var(--border)}
+.lg-detail .lg-body{max-width:82ch;margin-top:12px;font-size:14px;line-height:1.7;color:var(--text);overflow-wrap:anywhere}
+.lg-detail .lg-body>*{margin-top:0;margin-bottom:0}
+.lg-detail .lg-body>*+*{margin-top:.75em}
+.lg-detail .lg-body h1,.lg-detail .lg-body h2,.lg-detail .lg-body h3,.lg-detail .lg-body h4{margin:1.2em 0 .4em;font-size:16px;line-height:1.4;font-weight:600}
+.lg-detail .lg-body>h1:first-child,.lg-detail .lg-body>h2:first-child,.lg-detail .lg-body>h3:first-child,.lg-detail .lg-body>h4:first-child{margin-top:0}
+.lg-detail .lg-body a{color:var(--accent);text-decoration:underline}
+.lg-detail .lg-body ul,.lg-detail .lg-body ol{margin:.6em 0;padding-left:1.4em}
+.lg-detail .lg-body li{margin:0;padding-left:.15em}
+.lg-detail .lg-body li+li{margin-top:.4em}
+.lg-detail .lg-body li>p{margin:0}
+.lg-detail .lg-body li>p+p{margin-top:.4em}
+.lg-detail .lg-body li>ul,.lg-detail .lg-body li>ol{margin:.35em 0 0}
+.lg-detail .lg-body blockquote{margin:0;padding-left:12px;border-left:2px solid var(--border);color:var(--text-2)}
+.lg-detail .lg-body table{display:block;width:100%;max-width:100%;overflow-x:auto;border-collapse:collapse;font-size:13px}
+.lg-detail .lg-body th,.lg-detail .lg-body td{padding:6px 8px;border:1px solid var(--border);text-align:left}
+.lg-detail .lg-body pre{max-width:100%;overflow-x:auto}
+.lg-detail .lg-body img{max-width:100%;height:auto}
+
+/* ---------- Entry reading fields (entry detail body only) ----------
+   JS marks a top-level bullet list carrying the exact source labels 成本 / 说人话 /
+   收益 / 证据等级 / 来源 / 备注 as .lg-fields; recognized items drop the bullet
+   marker and become quiet labeled sections. Labels and text are the original
+   source words, unchanged and in order. Unknown items keep an ordinary bullet. */
+.lg-detail .lg-body ul.lg-fields{padding-left:0;list-style:none}
+.lg-detail .lg-body ul.lg-fields>li:not(.lg-field){margin-left:1.4em;list-style:disc}
+.lg-detail .lg-body ul.lg-fields>li.lg-field{padding-left:0;list-style:none;min-width:0;overflow-wrap:anywhere}
+.lg-detail .lg-body ul.lg-fields>li+li{margin-top:.9em}
+.lg-detail .lg-body ul.lg-fields>li.lg-field>p+p{margin-top:.45em}
+.lg-detail .lg-body .lg-field .lg-field-label{font-size:12px;line-height:1.6;font-weight:500;letter-spacing:.02em;color:var(--text-3)}
+/* Section fields: label sits on its own line above the reading text. */
+.lg-detail .lg-body .lg-field:not(.lg-field--compact) .lg-field-label{display:block;margin-bottom:2px}
+/* Compact inline label/value: 成本, 证据等级 */
+.lg-detail .lg-body .lg-field--compact{font-size:13px;line-height:1.6;color:var(--text-2)}
+.lg-detail .lg-body .lg-field--compact .lg-field-label{margin-right:.35em}
+.lg-detail .lg-body ul.lg-fields>li.lg-field--compact+li.lg-field--compact{margin-top:.3em}
+/* 说人话: the clearest reading block, comfortable measure */
+.lg-detail .lg-body ul.lg-fields>li.lg-field--action{max-width:40em;padding-left:10px;border-left:2px solid color-mix(in srgb,var(--accent) 35%,var(--border));font-size:15px;line-height:1.75;color:var(--text)}
+.lg-detail .lg-body .lg-field--action .lg-field-label{color:var(--text-2)}
+/* 收益: standard readable paragraph */
+.lg-detail .lg-body .lg-field--benefit{max-width:42em;font-size:14px;line-height:1.7;color:var(--text)}
+/* 来源: slightly smaller; long URLs wrap */
+.lg-detail .lg-body .lg-field--source{font-size:13px;line-height:1.65;color:var(--text-2);word-break:break-word}
+/* 来源 fold: native details, collapsed by default; label stays inline in summary. */
+.lg-detail .lg-body .lg-field--source .lg-source-fold{min-width:0;max-width:100%}
+.lg-detail .lg-body .lg-field--source .lg-source-fold>summary{display:list-item;cursor:pointer;width:max-content;max-width:100%}
+.lg-detail .lg-body .lg-field--source .lg-source-fold>summary .lg-field-label{display:inline;margin:0}
+.lg-detail .lg-body .lg-field--source .lg-source-body{margin-top:2px;min-width:0}
+.lg-detail .lg-body .lg-field--source .lg-source-body>p{margin:0}
+.lg-detail .lg-body .lg-field--source .lg-source-body>p+p{margin-top:.45em}
+/* 备注: light neutral inset */
+.lg-detail .lg-body ul.lg-fields>li.lg-field--note{padding:8px 10px;border-radius:6px;background:color-mix(in srgb,var(--text) 4%,transparent);font-size:13px;line-height:1.65;color:var(--text-2)}
+
+/* ---------- Footer: one attribution divider; chapter disclosure sits under it ---------- */
+.lg-detail .lg-attribution{margin-top:18px;padding-top:10px;border-top:1px solid var(--border);font-size:12px;line-height:1.6;color:var(--text-3);overflow-wrap:anywhere}
+.lg-detail .lg-notes{margin-top:16px;padding-top:10px;border-top:1px solid var(--border);font-size:12px;line-height:1.6;color:var(--text-3)}
+.lg-detail .lg-attribution .lg-notes{margin-top:6px;padding-top:0;border-top:0}
+.lg-detail .lg-attribution a,.lg-detail .lg-notes a{color:var(--accent)}
+.lg-notes summary{cursor:pointer;color:var(--text-2)}
+.lg-detail .lg-notes>.lg-body{margin-top:8px}
+.lg-detail-placeholder{margin:8px 0 0;font-size:13px;color:var(--text-3)}
+
+/* ---------- Responsive: keep two columns down to 761px ---------- */
+@media (max-width:1100px){
+  .lg-layout{grid-template-columns:368px minmax(0,1fr)}
+}
+/* Single-column cards when the results column gets narrow. Any leftover inline
+   placement is neutralised so cards flow in DOM order 1..N with normal gaps. */
+@media (max-width:1000px){
+  .lg-workspace .lg-results .lg-grid{grid-template-columns:minmax(0,1fr)}
+  .lg-workspace .lg-results .lg-grid.is-masonry{grid-auto-rows:auto!important;row-gap:12px}
+  .lg-workspace .lg-results .lg-grid>.lg-item{grid-column:auto!important;grid-row:auto!important}
+}
+
+/* ---------- Responsive: single list + inline accordion under 760px ---------- */
+@media (max-width:760px){
+  .lg-layout{display:flex;flex-direction:column;height:auto;min-height:0;border:1px solid var(--border);border-radius:6px}
+  .lg-chapters{display:none}
+  .lg-results{padding:6px 10px 12px}
+  .lg-workspace .lg-results .lg-grid,.lg-workspace .lg-results .lg-grid.is-masonry{grid-template-columns:minmax(0,1fr);gap:10px}
+  .lg-workspace .lg-results .lg-item .lg-title{padding:12px}
+  .lg-workspace .lg-skel-card{padding:12px}
+  .lg-detail{padding:4px 12px 16px 12px}
+  .lg-detail .lg-body{max-width:none}
+  .lg-detail .lg-body ul.lg-fields>li.lg-field--action,.lg-detail .lg-body .lg-field--benefit{max-width:none}
+}
+@media (max-width:390px){
+  .lg-detail .lg-body ul.lg-fields>li.lg-field--action{padding-left:8px;font-size:14.5px}
+  .lg-detail .lg-body ul.lg-fields>li.lg-field--note{padding:7px 8px}
+}
+@media (max-width:860px){body[data-life-guide-active=true] aside#workspace-sidebar.collapsed{width:0!important}}
+.lg-workspace .lg-reset,.lg-workspace .lg-loadmore,.lg-workspace .lg-retry{background:var(--surface);color:var(--text);border:1px solid var(--border);border-radius:6px;padding:6px 12px;cursor:pointer}
+.lg-workspace .lg-status{font-size:12px;color:var(--text-3);padding:8px 2px}
+
+/* ---------- Desktop viewport fit (active guide only) ----------
+   The host layout, sidebar and main.main are all bounded to the viewport below
+   the measured header (--lg-main-top, set by the bridge on <html> and removed on
+   exit), so the document has no overflow to scroll. The guide root clips;
+   heading + toolbar keep their natural height and only the chapter/result panes
+   scroll, with overscroll contained. Mobile keeps natural document scroll. */
+@media (min-width:761px){
+html[data-life-guide-active=true],html[data-life-guide-active=true] body{overflow:hidden!important;overscroll-behavior:none}
+body[data-life-guide-active=true] .layout,body[data-life-guide-active=true] aside#workspace-sidebar{height:calc(100vh - var(--lg-main-top,51px));height:calc(100dvh - var(--lg-main-top,51px));max-height:calc(100dvh - var(--lg-main-top,51px));min-height:0;box-sizing:border-box}
+body[data-life-guide-active=true] main.main{height:calc(100vh - var(--lg-main-top,51px));height:calc(100dvh - var(--lg-main-top,51px));max-height:calc(100dvh - var(--lg-main-top,51px));min-height:0;padding-bottom:14px;box-sizing:border-box;overflow:hidden}
+body[data-life-guide-active=true] #life-guide-workspace.lg-workspace:not([hidden]){display:flex;flex-direction:column;height:100%;min-height:0;overflow:hidden}
+body[data-life-guide-active=true] #life-guide-workspace .lg-top,body[data-life-guide-active=true] #life-guide-workspace .lg-toolbar,body[data-life-guide-active=true] #life-guide-workspace .lg-skel-shell{flex:0 0 auto}
+body[data-life-guide-active=true] #life-guide-workspace .lg-layout{flex:1 1 auto;height:auto;min-height:0;margin-top:10px}
+body[data-life-guide-active=true] #life-guide-workspace .lg-chapters,body[data-life-guide-active=true] #life-guide-workspace .lg-results{overscroll-behavior:contain}
+}
+
+/* ---------- Responsive filters: whole units wrap, chapter clips ---------- */
+@media (max-width:760px){
+  .lg-toolbar .lg-filter-label{max-width:100%}
+  .lg-toolbar .lg-filter-label--chapter{flex:1 1 auto}
+  .lg-toolbar .lg-filter-label--chapter .lg-filter-mirror{flex:0 1 auto;min-width:0}
+  .lg-toolbar .lg-filter-label--chapter .lg-filter-value{max-width:min(46vw,150px)}
+  /* Search drops below the filter group and spans the full toolbar width */
+  .lg-toolbar .lg-filters{flex:1 1 100%}
+  .lg-toolbar .lg-search,.lg-toolbar .lg-skel-search{flex:1 1 100%;width:100%;max-width:100%;margin-left:0}
+}

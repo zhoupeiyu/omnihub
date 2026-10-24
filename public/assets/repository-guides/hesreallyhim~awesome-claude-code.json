@@ -1,0 +1,69 @@
+{
+  "schemaVersion": 1,
+  "key": "hesreallyhim/awesome-claude-code",
+  "status": "ready",
+  "reason": "",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/hesreallyhim/awesome-claude-code/blob/e1ad6945d76dbd3a6faebf713aaedff4017d82cd/README.md",
+  "sourceRevision": "e1ad6945d76dbd3a6faebf713aaedff4017d82cd",
+  "canonicalKey": "hesreallyhim/awesome-claude-code",
+  "summary": "这是一个精选的 Claude Code 资源列表，收录技能、智能体、状态栏、开发工具、插件和学习资料。",
+  "intro": "适合 Claude Code 的新手和熟练用户，可按主题查找教程、官方资料、技能、编排工具、用量与成本监控、配置工具等。每条资源附有作者和简短点评，GitHub 项目还附有创建时间、最近提交和许可证等徽章。",
+  "requirements": "查阅无需准备。要使用其中收录的工具，需要自行安装 Claude Code 并按各资源自身的文档操作。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "通过目录定位所需的资源分类",
+      "text": "Table of Contents 列出了 Start Here、From Anthropic、Skills、Agent Orchestration、Observability & Monitoring、Configuration、Security、Testing 等分类，其中部分分类下还有子类，例如 Usage & Cost、Dynamic Workflows。点击目录可直接跳转到对应分类。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/hesreallyhim/awesome-claude-code/blob/e1ad6945d76dbd3a6faebf713aaedff4017d82cd/README.md?plain=1#L39"
+      }
+    },
+    {
+      "title": "新手先读 Start Here 部分",
+      "text": "Start Here 收录了入门向的资料，例如单页参考手册 Claude Code Guide、Hooks 完整指南，以及概念入门 Claude Code: Everything You Need to Know。适合先建立整体认识，再去看具体工具。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/hesreallyhim/awesome-claude-code/blob/e1ad6945d76dbd3a6faebf713aaedff4017d82cd/README.md?plain=1#L72"
+      }
+    },
+    {
+      "title": "优先参考 From Anthropic 的官方资料",
+      "text": "From Anthropic 分类汇总了官方资源，包括 Agent Skills 仓库、Claude Code Best Practices、Claude Code Cheatsheet、Claude Code GitHub Action 和安全审查 Action。需要权威说明时以这些资料为准。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/hesreallyhim/awesome-claude-code/blob/e1ad6945d76dbd3a6faebf713aaedff4017d82cd/README.md?plain=1#L100"
+      }
+    },
+    {
+      "title": "按具体需求查阅专题分类",
+      "text": "有明确需求时直接看对应专题，例如关注花费看 Usage & Cost（AgentWatch、better-ccflare、cc-costline 等），调整配置看 Configuration（Rulesync、tweakcc 等）。点击条目会跳转到原项目，按其自身文档操作。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/hesreallyhim/awesome-claude-code/blob/e1ad6945d76dbd3a6faebf713aaedff4017d82cd/README.md?plain=1#L604"
+      }
+    },
+    {
+      "title": "在 README_ALTERNATIVES 找旧版条目",
+      "text": "当前列表是重新整理后的版本，旧版收录的资源正在逐步迁回。如果找不到某个曾经收录的项目，可以到 README_ALTERNATIVES 目录查看旧版存档。注意存档内容已不再更新。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/hesreallyhim/awesome-claude-code/blob/e1ad6945d76dbd3a6faebf713aaedff4017d82cd/README.md?plain=1#L1"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "收录的均为第三方资源，入选不代表经过安全审计。安装插件、hooks 或修改系统提示词前，应自行审查其源码。",
+    "tweakcc 等工具会修改 Claude Code 安装本身，可能影响稳定性。",
+    "README_ALTERNATIVES 中的旧版条目不再更新。",
+    "仓库 license 字段为 NOASSERTION。"
+  ],
+  "references": [],
+  "media": [],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "6ab722f7a401152c02ed98eb9fd7f4f7b8cf259a2abdb5b056c3a7c4632b22a3",
+  "mediaStatus": "none_in_official_documents"
+}

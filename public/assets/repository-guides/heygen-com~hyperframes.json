@@ -1,0 +1,84 @@
+{
+  "schemaVersion": 1,
+  "key": "heygen-com/hyperframes",
+  "status": "ready",
+  "reason": "",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/heygen-com/hyperframes/blob/f2ef034fabedef79ae7f312703a8bb490de5af4a/README.md",
+  "sourceRevision": "f2ef034fabedef79ae7f312703a8bb490de5af4a",
+  "canonicalKey": "heygen-com/hyperframes",
+  "summary": "HyperFrames 是一个开源框架，可以把 HTML、CSS、媒体和可寻址动画渲染成确定性的 MP4 视频，支持 CLI 和 AI 编程代理技能两种用法。",
+  "intro": "适合想用网页技术制作视频的开发者，以及希望让 AI 编程代理生成视频的用户。可以用它制作产品发布视频、PR 讲解视频、数据可视化动画、带字幕的社交视频和动态图形等。用法是在 HTML 中用 data-* 属性定义时间轴和轨道，先在浏览器里预览，再在本地渲染成 MP4。",
+  "requirements": "Node.js 22 及以上版本，以及 FFmpeg。如果通过 AI 代理使用，需要支持 skills 的宿主，例如文档提到的 Claude Code、Codex、Cursor、Gemini CLI 等。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "用 CLI 初始化一个视频项目",
+      "text": "确认已安装 Node.js 22+ 和 FFmpeg，然后用 npx hyperframes init 创建项目目录（示例名为 my-video），并进入该目录。这是文档中手动使用 CLI 的入门路径。",
+      "code": "npx hyperframes init my-video\ncd my-video\nnpx hyperframes preview      # preview in browser with live reload\nnpx hyperframes render       # render to MP4",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/heygen-com/hyperframes/blob/f2ef034fabedef79ae7f312703a8bb490de5af4a/README.md?plain=1#L128"
+      }
+    },
+    {
+      "title": "用 HTML 编写视频合成结构",
+      "text": "在 HTML 中定义一个带 data-composition-id、宽高和起始时间的舞台。为视频、标题、音频等元素设置 class=\"clip\"、data-start、data-duration、data-track-index。动画可以用 GSAP、CSS、Lottie 等可寻址方式编写；示例把暂停状态的 GSAP 时间线注册到 window.__timelines。",
+      "code": "<div id=\"stage\" data-composition-id=\"launch\" data-start=\"0\" data-width=\"1920\" data-height=\"1080\">\n  <video\n    class=\"clip\"\n    data-start=\"0\"\n    data-duration=\"6\"\n    data-track-index=\"0\"\n    src=\"intro.mp4\"\n    muted\n    playsinline\n  ></video>\n\n  <h1 id=\"title\" class=\"clip\" data-start=\"1\" data-duration=\"4\" data-track-index=\"1\">Launch day</h1>\n\n  <audio\n    data-start=\"0\"\n    data-duration=\"6\"\n    data-track-index=\"2\"\n    data-volume=\"0.5\"\n    src=\"music.wav\"\n  ></audio>\n\n  <script src=\"https://cdn.jsdelivr.net/npm/gsap@3/dist/gsap.min.js\"></script>\n  <script>\n    const tl = gsap.timeline({ paused: true });\n    tl.from(\"#title\", { opacity: 0, y: 40, duration: 0.8 }, 1);\n    window.__timelines = window.__timelines || {};\n    window.__timelines.launch = tl;\n  </script>\n</div>",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/heygen-com/hyperframes/blob/f2ef034fabedef79ae7f312703a8bb490de5af4a/README.md?plain=1#L213"
+      }
+    },
+    {
+      "title": "在浏览器预览后渲染为 MP4",
+      "text": "运行 npx hyperframes preview，在浏览器中实时预览（支持热更新）；确认无误后运行 npx hyperframes render 输出 MP4。渲染器在无头 Chrome 中逐帧寻址，再用 FFmpeg 编码，因此相同输入会得到相同的视频。",
+      "code": "npx hyperframes init my-video\ncd my-video\nnpx hyperframes preview      # preview in browser with live reload\nnpx hyperframes render       # render to MP4",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/heygen-com/hyperframes/blob/f2ef034fabedef79ae7f312703a8bb490de5af4a/README.md?plain=1#L128"
+      }
+    },
+    {
+      "title": "可选：在 Claude Code 中安装插件",
+      "text": "如果想让代理来完成制作，可以在 Claude Code 中添加 hyperframes marketplace 并安装插件，在 /plugin → Marketplaces 里开启自动更新，然后使用 /hyperframes:hyperframes。Copilot、Cursor、Gemini CLI 等宿主的用法请看官方 plugin guide。",
+      "code": "claude plugin marketplace add heygen-com/hyperframes\nclaude plugin install hyperframes@hyperframes",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/heygen-com/hyperframes/blob/f2ef034fabedef79ae7f312703a8bb490de5af4a/README.md?plain=1#L36"
+      }
+    },
+    {
+      "title": "按需求选择创作工作流技能",
+      "text": "先读 /hyperframes 路由技能，它会根据需求选择工作流：网站或产品宣传用 /product-launch-video，概念讲解用 /faceless-explainer，PR 讲解用 /pr-to-video，给已有视频加字幕用 /embedded-captions，配乐卡点视频用 /music-to-video，从 Remotion 迁移用 /remotion-to-hyperframes。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/heygen-com/hyperframes/blob/f2ef034fabedef79ae7f312703a8bb490de5af4a/README.md?plain=1#L65"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "独立安装技能时，非交互或代理环境下运行 skills add 且不加 --skill，会装上全部 21 个技能；如果只需要核心集，文档建议用 npx hyperframes skills update。",
+    "skills add 依赖 skills.sh 注册表，可能比 main 分支滞后数小时；需要最新版本时应使用 npx hyperframes skills update。",
+    "/pr-to-video 通过 gh CLI 读取 PR，需要另外准备 gh。",
+    "/slideshow 的输出是可导航的演示文稿，不是渲染好的视频。",
+    "文档示例 HTML 从 jsDelivr CDN 加载 GSAP，渲染时需要能访问该资源，或改用本地文件。"
+  ],
+  "references": [],
+  "media": [],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "aff852e0f586d5ce546d553398535453371ae3a30aeb46adb6febb678e10b079",
+  "mediaStatus": "unavailable",
+  "mediaFailures": [
+    {
+      "sourceUrl": "https://github.com/heygen-com/hyperframes/blob/f2ef034fabedef79ae7f312703a8bb490de5af4a/README.md#L161",
+      "reason": "unsupported_media_host"
+    },
+    {
+      "sourceUrl": "https://github.com/heygen-com/hyperframes/blob/f2ef034fabedef79ae7f312703a8bb490de5af4a/README.md#L165",
+      "reason": "unsupported_media_host"
+    }
+  ]
+}

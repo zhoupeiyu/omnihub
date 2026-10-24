@@ -1,0 +1,55 @@
+{
+  "schemaVersion": 1,
+  "key": "shaom/brand-to-design-md-skill",
+  "status": "ready",
+  "reason": "",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/shaom/brand-to-design-md-skill/blob/f7fe99e7a2985d4457d44bfab8399bb1cf1896c0/README.md",
+  "sourceRevision": "f7fe99e7a2985d4457d44bfab8399bb1cf1896c0",
+  "canonicalKey": "shaom/brand-to-design-md-skill",
+  "summary": "一个可移植的本地技能，把公开品牌网址整理成带来源依据的 DESIGN.md，并可选生成响应式 HTML 演示。",
+  "intro": "适合需要快速整理某品牌视觉规范的设计师、前端开发者和智能体用户。它从官网、新闻资料包、CSS、SVG、图片等公开来源收集证据，输出颜色、字体、布局、组件、图像、Logo 使用边界和 Do/Don't 指南。",
+  "requirements": "一个支持本地技能的智能体环境，README 列出 Codex、Claude Code、Cursor、OpenClaw；使用 skills CLI 安装需要能运行 npx；需要一个公开可访问的品牌网址。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "用 skills CLI 安装技能",
+      "text": "在支持 skills CLI 的环境（例如 Claude Code）中运行 README 给出的 npx skills add 命令，并加上 --skill brand-to-design-md 参数，直接从 GitHub 安装。技能入口文件位于 skills/brand-to-design-md/SKILL.md。",
+      "code": "npx skills add https://github.com/shaom/brand-to-design-md-skill --skill brand-to-design-md\n\nskills/brand-to-design-md/SKILL.md",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/shaom/brand-to-design-md-skill/blob/f7fe99e7a2985d4457d44bfab8399bb1cf1896c0/README.md?plain=1#L30"
+      }
+    },
+    {
+      "title": "用品牌网址发起提取请求",
+      "text": "在智能体中参照 README 的示例提示，让 brand-to-design-md 把一个公开品牌网址提取为 DESIGN.md，并按需要同时生成演示 HTML。把示例中的 https://example.com 换成目标品牌的官方网址。",
+      "code": "Use brand-to-design-md to extract https://example.com into a DESIGN.md and demo HTML.",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/shaom/brand-to-design-md-skill/blob/f7fe99e7a2985d4457d44bfab8399bb1cf1896c0/README.md?plain=1#L30"
+      }
+    },
+    {
+      "title": "审阅 DESIGN.md 与演示页",
+      "text": "检查生成的 DESIGN.md 中的设计 token、组件指南、Logo 使用边界和 Do/Don't 条目，并核对其标注的来源。如果请求了演示，再查看技能创建并验证的响应式 HTML 页面。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/shaom/brand-to-design-md-skill/blob/f7fe99e7a2985d4457d44bfab8399bb1cf1896c0/README.md?plain=1#L13"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "仓库未声明许可证，复用或分发技能代码前需要先确认授权。",
+    "输出基于公开品牌素材，Logo 和品牌资产的实际使用仍受品牌方授权约束。",
+    "README 提到的在线试用由第三方站点 Socialistic 提供，使用时会把网址提交给外部服务。",
+    "仓库刻意不包含特定智能体的元数据，个别环境可能需要按其本地技能规则放置文件夹。"
+  ],
+  "references": [],
+  "media": [],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "256e43f8f36b7fd456c6a59387da0d75ff3649d6625971735f157783bda1de82",
+  "mediaStatus": "none_in_official_documents"
+}

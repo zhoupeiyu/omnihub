@@ -74,10 +74,16 @@ const IconUpload = (props) => (
 const IconDownload = (props) => (
   <svg {...dIconBase} {...props}><path d="M12 4v12" /><path d="M7 11l5 5 5-5" /><path d="M20 20H4" /></svg>
 );
+const IconInbox = (props) => (
+  <svg {...dIconBase} {...props}><path d="M4 4h16l2 9v6a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2v-6z" /><path d="M2 13h5l2 3h6l2-3h5" /></svg>
+);
+const IconBookOpen = (props) => (
+  <svg {...dIconBase} {...props}><path d="M2 4h6a4 4 0 0 1 4 4v13a3 3 0 0 0-3-3H2z" /><path d="M22 4h-6a4 4 0 0 0-4 4v13a3 3 0 0 1 3-3h7z" /></svg>
+);
 
 Object.assign(window, {
   IconBookmark, IconRss, IconWrench, IconSun, IconMoon, IconPlus, IconTrash,
   IconX, IconRefresh, IconCopy, IconCheck, IconSearch, IconPalette, IconKey,
   IconClock, IconType, IconDroplet, IconDice, IconTimer, IconFilePdf,
-  IconUpload, IconDownload,
+  IconUpload, IconDownload, IconInbox, IconBookOpen,
 });

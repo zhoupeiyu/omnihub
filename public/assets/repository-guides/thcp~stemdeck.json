@@ -1,0 +1,78 @@
+{
+  "schemaVersion": 1,
+  "key": "thcp/stemdeck",
+  "status": "ready",
+  "reason": "",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/stemdeckapp/stemdeck/blob/96647d715fc4a7e6abbcc4875016df1595fad58f/README.md",
+  "sourceRevision": "96647d715fc4a7e6abbcc4875016df1595fad58f",
+  "canonicalKey": "stemdeckapp/stemdeck",
+  "summary": "StemDeck 是一个在本地运行的音轨分离工具，可以把歌曲拆成人声、鼓、贝斯、吉他、钢琴和其他共最多 6 条音轨，并在多轨混音界面中播放和导出。",
+  "intro": "适合需要扒谱、练习、转录或做 remix 的音乐人、制作人和爱好者。导入 MP3、WAV、FLAC、OGG/Opus、MP4、M4A 文件，或粘贴 YouTube 链接后，StemDeck 会用 Demucs htdemucs_6s 模型分离音轨。分离结果可以在 DAW 风格的界面里静音、独奏、调节音量和循环片段，并导出单条音轨或自选混音。界面还会显示 BPM、调性和响度分析。全部处理在本机完成，无需账号或上传。",
+  "requirements": "使用预编译桌面版时无需安装 Python 或系统依赖。首次启动需要联网下载运行时（macOS 约 500 MB）、FFmpeg 和 Demucs 模型（约 170 MB）。处理速度取决于本机硬件：有 GPU 时较快，仅用 CPU 时较慢。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "下载对应芯片的 macOS 安装包",
+      "text": "以 macOS 为例，在 GitHub Releases 页面下载安装包：Apple Silicon（M1 及以后）选择 StemDeck-macOS-arm64.dmg，可使用 MPS 加速；Intel 机型选择 StemDeck-macOS-x64.dmg，仅使用 CPU。打开 DMG 后，把 StemDeck 拖入“应用程序”文件夹。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/stemdeckapp/stemdeck/blob/96647d715fc4a7e6abbcc4875016df1595fad58f/README.md?plain=1#L129"
+      }
+    },
+    {
+      "title": "首次启动完成环境下载",
+      "text": "首次启动时，设置界面会下载 Python 运行时、FFmpeg 和 Demucs 模型，之后再启动会跳过这一步。如果 macOS 出现 Gatekeeper 提示，可以右键点击应用并选择“打开”。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/stemdeckapp/stemdeck/blob/96647d715fc4a7e6abbcc4875016df1595fad58f/README.md?plain=1#L129"
+      }
+    },
+    {
+      "title": "选择音轨并导入音频处理",
+      "text": "在导入栏点击音轨标签，选择要提取的音轨（默认全选 6 条）。然后粘贴 YouTube 链接或拖入音频文件，点击 Process，依次等待上传/下载、分析、分离、混合各阶段完成。只选部分音轨时，会额外生成一条 Original 轨，内容为原曲减去所选音轨。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/stemdeckapp/stemdeck/blob/96647d715fc4a7e6abbcc4875016df1595fad58f/README.md?plain=1#L311"
+      }
+    },
+    {
+      "title": "在混音台调节并设置循环",
+      "text": "使用 Play/Pause/Stop 控制播放。M 静音、S 独奏，Monitor 只播放当前音轨。双击音量推子可以复位到 0 dB。在标尺上拖动划定循环区域后点击 Loop 启用，用 +、-、Fit 缩放波形。快捷键包括空格播放/暂停，以及 [、] 跳转 5 秒。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/stemdeckapp/stemdeck/blob/96647d715fc4a7e6abbcc4875016df1595fad58f/README.md?plain=1#L311"
+      }
+    },
+    {
+      "title": "用 Download Mix 导出混音",
+      "text": "处理完成后，点击底部的 Download Mix，可以得到一个由所选音轨合并而成的 mix.wav。各条音轨也可以单独导出。任务和音乐库数据默认保存在 ~/Documents/StemDeck，可以在设置中更改位置。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/stemdeckapp/stemdeck/blob/96647d715fc4a7e6abbcc4875016df1595fad58f/README.md?plain=1#L311"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "YouTube 导入只应用于你有权处理的内容。StemDeck 定位是音轨分离工具，不是下载器。",
+    "仅用 CPU 时分离速度较慢，且一次只能处理一个任务，不支持批量处理。",
+    "根据官方配置说明，默认会拒绝超过 1200 秒的音频，上限由 STEMDECK_MAX_DURATION_SEC 控制。",
+    "分离质量取决于开源模型 Demucs htdemucs_6s。官方自述在质量、速度和附加功能上不及 Moises 等商业服务，也不提供移动端。",
+    "Windows 版另有 CPU 版和 NVIDIA CUDA 版 zip 包，体积分别约 700 MB 和 1.6 GB，需要按自己的硬件选择。"
+  ],
+  "references": [],
+  "media": [
+    {
+      "url": "/assets/repository-guides/media-2934ec150f1159cf245f0c18.webp",
+      "alt": "stemdeckapp/stemdeck 官方演示 1",
+      "sourceUrl": "https://github.com/stemdeckapp/stemdeck/blob/96647d715fc4a7e6abbcc4875016df1595fad58f/README.md?plain=1#L37",
+      "originalUrl": "https://raw.githubusercontent.com/stemdeckapp/stemdeck/96647d715fc4a7e6abbcc4875016df1595fad58f/imgs/screenshot/stemdeck.png"
+    }
+  ],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "2bd0f6ebacee79720cac285c4007664cf9d8ba9d18e95046c3e412f01cd788c1",
+  "mediaStatus": "archived",
+  "mediaFailures": []
+}

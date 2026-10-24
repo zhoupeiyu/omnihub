@@ -1,0 +1,82 @@
+{
+  "schemaVersion": 1,
+  "key": "sopaco/cortex-mem",
+  "status": "ready",
+  "reason": "",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/sopaco/cortex-mem/blob/82a1c83c4b1c2d03d69d825309040f370dc16635/README.md",
+  "sourceRevision": "82a1c83c4b1c2d03d69d825309040f370dc16635",
+  "canonicalKey": "sopaco/cortex-mem",
+  "summary": "Cortex Memory 是用 Rust 编写的 AI 长期记忆框架，可从对话中提取、存储和语义检索记忆，并提供 CLI、REST API、MCP 服务和 Web 看板。",
+  "intro": "适合为 LLM 聊天机器人、智能体或个人助手增加跨会话记忆能力的开发者。它用 cortex:// 虚拟文件系统把记忆存成 Markdown 文件，借助 Qdrant 做向量检索，并采用 L0/L1/L2 三层结构控制上下文用量。可以通过 cortex-mem-service 的 REST API 接入应用，也可以使用 cortex-mem-mcp 接入支持 MCP 的 AI 助手，或通过 Rig 框架、Rust 库直接集成。",
+  "requirements": "Rust 1.86 或更高版本；Qdrant 向量数据库 1.7+；一个 OpenAI 兼容的 LLM API 端点和一个 OpenAI 兼容的 Embedding API 端点；如需运行 Insights 看板，还需要 bun。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "用 cargo 安装各组件",
+      "text": "在仓库源码根目录下，用 cargo install --path 依次安装 cortex-mem-cli（命令行管理）、cortex-mem-service（REST API 服务）和 cortex-mem-mcp（MCP 服务），可按需只安装其中一部分。",
+      "code": "# Install the CLI for command-line management\ncargo install --path cortex-mem-cli\n\n# Install the REST API Service for application integration\ncargo install --path cortex-mem-service\n\n# Install the MCP server for AI assistant integrations\ncargo install --path cortex-mem-mcp",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/sopaco/cortex-mem/blob/82a1c83c4b1c2d03d69d825309040f370dc16635/README.md?plain=1#L439"
+      }
+    },
+    {
+      "title": "编写 config.toml 配置",
+      "text": "按示例创建 config.toml，填写 Qdrant 地址和 embedding_dim、LLM 与 Embedding 的 api_base_url、api_key（支持引用环境变量）、模型名，以及 data_dir 数据目录。CLI 默认读取当前目录下的该文件，也可以用 -c 指定路径。",
+      "code": "# -----------------------------------------------------------------------------\n# Qdrant Vector Database Configuration\n# -----------------------------------------------------------------------------\n[qdrant]\nurl = \"http://localhost:6334\"     # URL of your Qdrant instance (gRPC port)\nhttp_url = \"http://localhost:6333\" # HTTP URL for REST API\ncollection_name = \"cortex-memory\"  # Base name for collections (tenant suffix added)\ntimeout_secs = 5                  # Timeout for Qdrant operations\nembedding_dim = 1536              # Embedding dimension (e.g., 1536 for text-embedding-3-small)\n\n# -----------------------------------------------------------------------------\n# LLM (Large Language Model) Configuration (for reasoning, extraction)\n# -----------------------------------------------------------------------------\n[llm]\napi_base_url = \"https://api.openai.com/v1\" # Base URL of your LLM provider\napi_key = \"${OPENAI_API_KEY}\"              # API key (supports env variable)\nmodel_efficient = \"gpt-5-mini\"            # Model for extraction and classification\nmodel_reasoning = \"o1-preview\"             # Model for complex reasoning (optional)\ntemperature = 0.7                          # Sampling temperature for LLM responses\nmax_tokens = 8192                          # Max tokens for LLM generation\ntimeout_secs = 60                           # Timeout for LLM requests\n\n# -----------------------------------------------------------------------------\n# Embedding Service Configuration\n# -----------------------------------------------------------------------------\n[embedding]\napi_base_url = \"https://api.openai.com/v1\" # Base URL of your embedding provider\napi_key = \"${OPENAI_API_KEY}\"              # API key (supports env variable)\nmodel_name = \"text-embedding-3-small\"      # Name of the embedding model to use\nbatch_size = 32                            # Number of texts to embed in a single batch\ntimeout_secs = 30                          # Timeout for embedding requests\n\n# -----------------------------------------------------------------------------\n# Cortex Data Directory Configuration\n# -----------------------------------------------------------------------------\n[cortex]\ndata_dir = \"./cortex-data\"  # Directory for storing memory files and sessions",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/sopaco/cortex-mem/blob/82a1c83c4b1c2d03d69d825309040f370dc16635/README.md?plain=1#L458"
+      }
+    },
+    {
+      "title": "启动 REST API 服务",
+      "text": "运行 cortex-mem-service 并指定配置文件、host 和端口，默认端口为 8085；加上 --verbose 可以输出详细日志。服务通过 /api/v2/* 端点提供全部记忆操作。",
+      "code": "# Start the API server with default settings (port 8085)\ncortex-mem-service --config config.toml --host 127.0.0.1 --port 8085\n\n# Enable verbose logging\ncortex-mem-service --config config.toml -h 127.0.0.1 -p 8085 --verbose",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/sopaco/cortex-mem/blob/82a1c83c4b1c2d03d69d825309040f370dc16635/README.md?plain=1#L595"
+      }
+    },
+    {
+      "title": "通过 API 写入并检索记忆",
+      "text": "先调用 /api/v2/sessions 创建会话并添加消息，再在会话结束时调用 automation/extract 接口提取记忆，最后用 /api/v2/search 配合 X-Tenant-ID 请求头进行语义搜索。",
+      "code": "# Create a new session\ncurl -X POST http://localhost:8085/api/v2/sessions \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\n    \"thread_id\": \"thread-123\",\n    \"title\": \"Support Conversation\"\n  }'\n\n# Add a message to the session\ncurl -X POST http://localhost:8085/api/v2/sessions/thread-123/messages \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\n    \"role\": \"user\",\n    \"content\": \"I just upgraded to the premium plan.\"\n  }'\n\n# Extract memories from a session (typically called when session is closed)\ncurl -X POST http://localhost:8085/api/v2/automation/extract/thread-123 \\\n  -H \"Content-Type: application/json\" \\\n  -d '{ \"auto_save\": true }'\n\ncurl -X POST http://localhost:8085/api/v2/search \\\n  -H \"Content-Type: application/json\" \\\n  -H \"X-Tenant-ID: acme\" \\\n  -d '{\n    \"query\": \"What is the user's current subscription?\",\n    \"thread\": \"thread-123\",\n    \"scope\": \"session\",\n    \"limit\": 5,\n    \"min_score\": 0.5\n  }'",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/sopaco/cortex-mem/blob/82a1c83c4b1c2d03d69d825309040f370dc16635/README.md?plain=1#L636"
+      }
+    },
+    {
+      "title": "运行 Insights 监控看板",
+      "text": "保持后端服务运行，在另一个终端进入 cortex-mem-insights 目录，执行 bun install 和 bun run dev，然后访问 http://localhost:5173，即可查看租户、浏览记忆文件、执行语义搜索和检查服务健康状态。",
+      "code": "# Start the backend service first\ncortex-mem-service --data-dir ./cortex-data --port 8085\n\n# In another terminal, start the insights dashboard\ncd cortex-mem-insights\nbun install\nbun run dev",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/sopaco/cortex-mem/blob/82a1c83c4b1c2d03d69d825309040f370dc16635/README.md?plain=1#L245"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "记忆提取和向量化都依赖外部 LLM 与 Embedding API，调用可能产生费用，API Key 写在 config.toml 中时需注意保管。",
+    "需要自行部署并维护 Qdrant；embedding_dim 必须与所用的 Embedding 模型一致。",
+    "README 中的基准成绩和 token 节省比例来自项目方自测，并非独立验证结果。",
+    "MemClaw 是社区展示项目，当前维护状态请以其项目说明为准。"
+  ],
+  "references": [],
+  "media": [
+    {
+      "url": "/assets/repository-guides/media-82a253c54a7c5f6b420335f9.webp",
+      "alt": "sopaco/cortex-mem 官方演示 1",
+      "sourceUrl": "https://github.com/sopaco/cortex-mem/blob/82a1c83c4b1c2d03d69d825309040f370dc16635/README.md?plain=1#L250",
+      "originalUrl": "https://raw.githubusercontent.com/sopaco/cortex-mem/82a1c83c4b1c2d03d69d825309040f370dc16635/assets/snapshots/insights/snapshot_dashboard.png"
+    }
+  ],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "d3757676aa8eaaf99d805d6d270b5f93bd27fa62a0bb892145b49ff716e4553c",
+  "mediaStatus": "archived",
+  "mediaFailures": []
+}

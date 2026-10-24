@@ -1,0 +1,73 @@
+{
+  "schemaVersion": 1,
+  "key": "koffuxu/ai-influence-digest",
+  "status": "ready",
+  "reason": "",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/koffuxu/ai-influence-digest/blob/dd9c31ae7cf2fcdbdf4f03237cdfe99c72566d24/README.md",
+  "sourceRevision": "dd9c31ae7cf2fcdbdf4f03237cdfe99c72566d24",
+  "canonicalKey": "koffuxu/ai-influence-digest",
+  "summary": "ai-influence-digest 不使用 X API，而是复用已登录的浏览器会话，扫描指定 X 账号近 7 天的推文，帮你整理出中文周报，并导出长图海报。",
+  "intro": "适合需要定期追踪 AI 从业者在 X 上分享的工具、工作流、教程和 Prompt 的内容创作者。流程分三段：先用脚本按账号清单收集候选推文，输出 candidates.json 和 candidates.md；再按筛选标准人工整理成周报 Markdown；最后渲染成小红书风格的长图，便于发布到 Telegram、知识星球或 Notion。",
+  "requirements": "需要 Python 3.9+，以及 requirements.txt 中的 requests、jinja2、playwright；用 npm 全局安装 opencli；准备 Chrome、opencli 的 Browser Bridge 扩展，以及一个已登录 X 的独立 Chrome Profile（建议使用副号）。涉及 opencli 的发现阶段必须在系统环境中执行，不能在沙箱中执行。示例命令使用 venv 和 ~/.zshrc，对应 macOS/Linux 的 shell 环境。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "创建虚拟环境并安装依赖",
+      "text": "在仓库目录用 python3 -m venv 创建 .venv 并激活，再用 pip 安装 requirements.txt，执行 playwright install chromium 安装截图用的浏览器，最后用 npm 全局安装 @jackwener/opencli。",
+      "code": "python3 -m venv .venv\nsource .venv/bin/activate\npip install -r requirements.txt\nplaywright install chromium\nnpm install -g @jackwener/opencli",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/koffuxu/ai-influence-digest/blob/dd9c31ae7cf2fcdbdf4f03237cdfe99c72566d24/README.md?plain=1#L29"
+      }
+    },
+    {
+      "title": "配置浏览器扩展和专用 Profile",
+      "text": "安装 opencli 的 Browser Bridge 扩展，并新建一个单独的 Chrome Profile 登录 X 副号。然后在 ~/.zshrc 中设置 OPENCLI_CHROME_PROFILE 为该 Profile 的名称，脚本启动时会打印出来供你确认。",
+      "code": "export OPENCLI_CHROME_PROFILE=<your-alt-account-profile-name>",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/koffuxu/ai-influence-digest/blob/dd9c31ae7cf2fcdbdf4f03237cdfe99c72566d24/README.md?plain=1#L29"
+      }
+    },
+    {
+      "title": "扫描账号清单收集候选推文",
+      "text": "运行 scripts/scan_x_weekly.py，指定账号清单 references/accounts_65.txt、天数 7 和输出目录，生成 candidates.json 与 candidates.md。默认 auto 模式会依次尝试 opencli-google、opencli-twitter、syndication。做日报时可显式指定 opencli-twitter；已有推文 URL 时可用 --discover-backend none 加 --seed-urls 跳过发现阶段。",
+      "code": "python3 scripts/scan_x_weekly.py \\\n  --accounts references/accounts_65.txt \\\n  --days 7 \\\n  --outdir ./output/ai-influence-digest\n\npython3 scripts/scan_x_weekly.py \\\n  --accounts references/accounts_65.txt \\\n  --discover-backend opencli-twitter \\\n  --fetch-backend oembed \\\n  --outdir ./output/ai-influence-digest\n\npython3 scripts/scan_x_weekly.py \\\n  --accounts references/accounts_65.txt \\\n  --discover-backend none \\\n  --seed-urls ./output/ai-influence-digest/seed_urls.txt \\\n  --fetch-backend oembed \\\n  --outdir ./output/ai-influence-digest",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/koffuxu/ai-influence-digest/blob/dd9c31ae7cf2fcdbdf4f03237cdfe99c72566d24/README.md?plain=1#L52"
+      }
+    },
+    {
+      "title": "人工筛选并写成周报 Markdown",
+      "text": "对照 references/filters.md 中的筛选标准阅读 candidates.md，挑出对内容创作者能直接用上的条目，整理成中文周报。建议保存为 ./output/ai-influence-digest/weekly_report.md，供下一步渲染。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/koffuxu/ai-influence-digest/blob/dd9c31ae7cf2fcdbdf4f03237cdfe99c72566d24/README.md?plain=1#L98"
+      }
+    },
+    {
+      "title": "把周报渲染成海报长图",
+      "text": "用 scripts/render_weekly_screenshots.sh 传入周报 Markdown、输出 PNG 路径和日期，生成一张完整长图。需要设置作者名、头像等更多参数时，直接调用 scripts/render_poster.py。如需调整样式，修改 scripts/poster_template.html。",
+      "code": "bash scripts/render_weekly_screenshots.sh \\\n  ./output/ai-influence-digest/weekly_report.md \\\n  ./output/ai-influence-digest/weekly_report.png \\\n  \"2026年04月18日\"\n\npython3 scripts/render_poster.py \\\n  --md ./output/ai-influence-digest/weekly_report.md \\\n  --out ./output/ai-influence-digest/weekly_report.png \\\n  --date \"2026年04月18日\" \\\n  --author-name \"你的名字\" \\\n  --avatar-url /path/to/avatar.jpg",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/koffuxu/ai-influence-digest/blob/dd9c31ae7cf2fcdbdf4f03237cdfe99c72566d24/README.md?plain=1#L104"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "该流程需要复用已登录 X 的浏览器会话。README 建议使用副号和独立 Chrome Profile，不要用主账号。",
+    "项目规定绝对禁止使用 X API，只读调用 opencli google search / opencli twitter search。",
+    "opencli-google 对 X 推文的索引有 1-3 天延迟，1 天窗口基本搜不到内容；syndication 兜底时时间线可能不完整；oEmbed 抓取失败的推文会被跳过，只记录 warn 日志。",
+    "opencli 需要直接访问本机 Chrome Profile 和 Browser Bridge 扩展，因此不能在沙箱环境中运行。"
+  ],
+  "references": [],
+  "media": [],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "07b2496d7873be3e95678aad3032bf5628ed5a5d4531eb421e5d6a2f254cc560",
+  "mediaStatus": "none_in_official_documents"
+}

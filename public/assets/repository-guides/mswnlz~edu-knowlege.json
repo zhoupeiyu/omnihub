@@ -1,0 +1,44 @@
+{
+  "schemaVersion": 1,
+  "key": "mswnlz/edu-knowlege",
+  "status": "partial",
+  "reason": "README 只列出 202607.md、202510.md 等按月份命名的索引文件，以及作者其他仓库和外部站点的链接。提供的材料没有说明这些索引文件里有哪些资料、资料放在哪里、如何获取，也没有说明资料来源和授权情况，因此无法整理出完整的查阅方法。",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/mswnlz/edu-knowlege/blob/8293e80b263ef1dfc35b0b1e1da40ea1e4be4e9d/README.md",
+  "sourceRevision": "8293e80b263ef1dfc35b0b1e1da40ea1e4be4e9d",
+  "canonicalKey": "mswnlz/edu-knowlege",
+  "summary": "一个按月份整理的教育资料索引仓库，声称收录从幼儿园到大学阶段的学习资料。",
+  "intro": "适合想了解该仓库收录了哪些教育类资料的读者。README 称资料覆盖幼儿园、小学、中学、大学及毕业论文，并提到学而思、万维、猿辅导、作业帮等机构。仓库本身是资料集合，不是应用，没有需要安装或运行的程序，只能通过月份索引文件查阅。",
+  "requirements": "能访问 GitHub 并阅读 Markdown 文件即可，不需要安装任何程序。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "打开仓库 README 首页",
+      "text": "在 GitHub 上打开 mswnlz/edu-knowlege 仓库的 README，先看开头的简介，了解作者描述的资料范围：从幼儿园到大学，涵盖多个教育机构的资料。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/mswnlz/edu-knowlege/blob/8293e80b263ef1dfc35b0b1e1da40ea1e4be4e9d/README.md?plain=1#L1"
+      }
+    },
+    {
+      "title": "按月份进入索引文件",
+      "text": "README 中列出了 202607.md、202510.md、202508.md、202507.md、202506.md、202505.md 等按月份命名的文件。按需要的时间点点开对应文件查看当期收录内容。提供的材料没有说明这些文件的具体内容格式。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/mswnlz/edu-knowlege/blob/8293e80b263ef1dfc35b0b1e1da40ea1e4be4e9d/README.md?plain=1#L9"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "README 声称收录学而思、猿辅导、作业帮等商业机构的资料，但没有说明是否获得授权。使用或传播前请自行确认版权和合法性。仓库的 MIT 许可证只针对仓库本身，并不代表其中引用的第三方资料可以自由使用。",
+    "作者其他关联仓库中有“绿色破解版工具”等描述，相关链接存在版权和安全风险，不建议跟随。",
+    "README 引导访问的外部站点 doc.869hr.uk 不在 GitHub 上，内容无法从提供的材料核实。"
+  ],
+  "references": [],
+  "media": [],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "4dad0bfd116ba76f48a7cbf4ad49159c610cde0257b12993c6571240615f9c96",
+  "mediaStatus": "none_in_official_documents"
+}

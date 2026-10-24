@@ -1,0 +1,90 @@
+{
+  "schemaVersion": 1,
+  "key": "666os/clashmac",
+  "status": "ready",
+  "reason": "",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/666OS/ClashMac/blob/6bd4eee77ac3face93d6ba38fdc505e15a4e376e/README.md",
+  "sourceRevision": "6bd4eee77ac3face93d6ba38fdc505e15a4e376e",
+  "canonicalKey": "666OS/ClashMac",
+  "summary": "ClashMac 是一款 macOS 原生代理客户端，提供 TUN 全局代理、实时连接与规则管理、流量仪表盘和路由地图等功能。",
+  "intro": "适合在 macOS 15 及以上系统上需要图形化代理客户端的用户。它常驻菜单栏，可以查看各应用的实时连接、速度与匹配规则，一键为当前浏览器标签或进程添加代理或屏蔽规则，并通过仪表盘查看带宽曲线和资源占用。它还内置多配置隔离的指纹浏览器和 `cm fp` 命令行工具。",
+  "requirements": "macOS 15.0+（Sequoia 或更高版本）；首次启动时需要授权安装系统网络助手（helper），并联网下载与 CPU 架构（Apple Silicon 或 Intel）匹配的内核。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "从 Releases 下载 ClashMac.dmg",
+      "text": "打开仓库的 Releases 页面（latest），下载最新的 `ClashMac.dmg` 磁盘镜像。该软件为闭源二进制发行，仓库只提供安装包，不包含源码。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/666OS/ClashMac/blob/6bd4eee77ac3face93d6ba38fdc505e15a4e376e/README.md?plain=1#L83"
+      }
+    },
+    {
+      "title": "将应用拖入 Applications 文件夹",
+      "text": "双击 `.dmg`，把 `ClashMac.app` 拖进“应用程序”（Applications）文件夹。不要直接在 dmg 窗口里运行，否则 macOS 沙盒会阻止保存设置和安装系统网络服务。系统助手也只会从 `/Applications/ClashMac.app/` 运行核心文件。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/666OS/ClashMac/blob/6bd4eee77ac3face93d6ba38fdc505e15a4e376e/README.md?plain=1#L83"
+      }
+    },
+    {
+      "title": "首次右键打开并完成初始化",
+      "text": "首次启动时，右键点击 `ClashMac.app` 并选择“打开”。应用会注册系统助手，并自动下载与本机 CPU 架构匹配的内核。助手授权一次后，之后不再反复要求输入管理员密码。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/666OS/ClashMac/blob/6bd4eee77ac3face93d6ba38fdc505e15a4e376e/README.md?plain=1#L83"
+      }
+    },
+    {
+      "title": "遇到 Gatekeeper 拦截时放行",
+      "text": "如果系统提示“无法验证开发者”，可以到“系统设置 → 隐私与安全性”找到拦截提示并点击“仍要打开”。也可以在终端执行文档给出的命令，清除应用的隔离属性。 原文包含需人工核查的高权限或删除命令，本站不提供一键复制；请查看该步骤的官方出处。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/666OS/ClashMac/blob/6bd4eee77ac3face93d6ba38fdc505e15a4e376e/README.md?plain=1#L92"
+      }
+    },
+    {
+      "title": "在仪表盘查看连接与规则",
+      "text": "在菜单栏或仪表盘中，可以查看实时连接列表：各应用的速度、协议和命中的规则。右键可断开某个连接，也可以一键为当前浏览器标签或进程添加代理或屏蔽规则；仪表盘显示 60 秒带宽曲线和热门域名排行。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/666OS/ClashMac/blob/6bd4eee77ac3face93d6ba38fdc505e15a4e376e/README.md?plain=1#L49"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "ClashMac 是专有闭源软件，仅提供二进制发行，第三方组件许可见 THIRD_PARTY_LICENSES。",
+    "需要授予系统网络助手权限，并启用 TUN 接管系统全部 TCP/UDP 流量，请确认信任该软件后再安装。",
+    "官方文档中的高权限或远程脚本操作应单独核查，不要整段复制执行。",
+    "README 未说明代理节点或订阅配置的来源与导入方法，需另行查阅官网用户手册。",
+    "内置“反检测指纹浏览器”和 CDP 自动化功能，使用时须遵守目标网站的服务条款。"
+  ],
+  "references": [],
+  "media": [
+    {
+      "url": "/assets/repository-guides/media-734832cb2e63127adc1b6682.webp",
+      "alt": "666OS/ClashMac 官方演示 1",
+      "sourceUrl": "https://github.com/666OS/ClashMac/blob/6bd4eee77ac3face93d6ba38fdc505e15a4e376e/README.md?plain=1#L29",
+      "originalUrl": "https://raw.githubusercontent.com/666OS/ClashMac/6bd4eee77ac3face93d6ba38fdc505e15a4e376e/assets/dashboard_b.jpg"
+    },
+    {
+      "url": "/assets/repository-guides/media-1af78654dfee4200199c8cb2.webp",
+      "alt": "666OS/ClashMac 官方演示 2",
+      "sourceUrl": "https://github.com/666OS/ClashMac/blob/6bd4eee77ac3face93d6ba38fdc505e15a4e376e/README.md?plain=1#L32",
+      "originalUrl": "https://raw.githubusercontent.com/666OS/ClashMac/6bd4eee77ac3face93d6ba38fdc505e15a4e376e/assets/Route_b.jpg"
+    },
+    {
+      "url": "/assets/repository-guides/media-d743fd76e72e672e437263a9.webp",
+      "alt": "666OS/ClashMac 官方演示 3",
+      "sourceUrl": "https://github.com/666OS/ClashMac/blob/6bd4eee77ac3face93d6ba38fdc505e15a4e376e/README.md?plain=1#L38",
+      "originalUrl": "https://raw.githubusercontent.com/666OS/ClashMac/6bd4eee77ac3face93d6ba38fdc505e15a4e376e/assets/menu_b.jpg"
+    }
+  ],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "f51c5f0c4388f36c06db5aaf27c9600da3c3339d1d43800de06ce819a5979e0b",
+  "mediaStatus": "archived",
+  "mediaFailures": []
+}

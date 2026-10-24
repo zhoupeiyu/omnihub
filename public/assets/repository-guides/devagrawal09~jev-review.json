@@ -1,0 +1,71 @@
+{
+  "schemaVersion": 1,
+  "key": "devagrawal09/jev-review",
+  "status": "ready",
+  "reason": "",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/devagrawal09/jev-review/blob/31f89602797fb7bea007f8a480bf368bf564954e/README.md",
+  "sourceRevision": "31f89602797fb7bea007f8a480bf368bf564954e",
+  "canonicalKey": "devagrawal09/jev-review",
+  "summary": "一个基于 TypeSafe Jev 的分阶段代码审查工具，可以审查 Git diff 或扫描整个代码库，并在本地仪表盘中展示结果。",
+  "intro": "适合想尝试用模型辅助代码审查的开发者。它有两个入口：审查当前 Git 改动，或扫描一个代码库或包内所有未被忽略的源文件。审查会从正确性、安全性、可靠性、兼容性和测试覆盖几个方面筛查问题，结果可以输出为 JSON，也可以保存后在本地仪表盘中查看。",
+  "requirements": "需要 Node.js 24+、Git，以及从 console.typesafe.ai 获取的 TypeSafe API key。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "安装依赖并配置 API key",
+      "text": "在仓库目录运行 npm install，然后把 .env.example 复制为 .env，并在其中填入 TYPESAFE_API_KEY。",
+      "code": "npm install\ncp .env.example .env\n# Add TYPESAFE_API_KEY to .env\n\n# Review the current Git diff\nnpm run review:changes:save -- /path/to/git/repository\n\n# Or scan every non-ignored source file under a scope\nnpm run review:codebase:save -- /path/to/git/repository-or-package\nnpm run dashboard",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/devagrawal09/jev-review/blob/31f89602797fb7bea007f8a480bf368bf564954e/README.md?plain=1#L29"
+      }
+    },
+    {
+      "title": "审查当前 Git 改动",
+      "text": "对目标 Git 仓库运行 npm run review:changes:save -- <path>，把当前 diff 的审查结果保存给仪表盘使用。如果只想在终端查看 JSON，改用 npm run review:changes -- <path>。",
+      "code": "npm install\ncp .env.example .env\n# Add TYPESAFE_API_KEY to .env\n\n# Review the current Git diff\nnpm run review:changes:save -- /path/to/git/repository\n\n# Or scan every non-ignored source file under a scope\nnpm run review:codebase:save -- /path/to/git/repository-or-package\nnpm run dashboard",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/devagrawal09/jev-review/blob/31f89602797fb7bea007f8a480bf368bf564954e/README.md?plain=1#L29"
+      }
+    },
+    {
+      "title": "或扫描完整代码库",
+      "text": "如果要检查整个仓库或某个包，运行 npm run review:codebase:save -- <path>，它会扫描该范围内所有未被忽略的源文件并保存结果。若只想输出 JSON，使用 npm run review:codebase -- <path>。",
+      "code": "npm install\ncp .env.example .env\n# Add TYPESAFE_API_KEY to .env\n\n# Review the current Git diff\nnpm run review:changes:save -- /path/to/git/repository\n\n# Or scan every non-ignored source file under a scope\nnpm run review:codebase:save -- /path/to/git/repository-or-package\nnpm run dashboard",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/devagrawal09/jev-review/blob/31f89602797fb7bea007f8a480bf368bf564954e/README.md?plain=1#L29"
+      }
+    },
+    {
+      "title": "启动本地仪表盘查看结果",
+      "text": "运行 npm run dashboard，然后在浏览器打开 http://127.0.0.1:4317 查看保存的审查报告。较大的报告会以可折叠分区显示。仪表盘只绑定在 127.0.0.1，不会提供环境变量文件。",
+      "code": "npm install\ncp .env.example .env\n# Add TYPESAFE_API_KEY to .env\n\n# Review the current Git diff\nnpm run review:changes:save -- /path/to/git/repository\n\n# Or scan every non-ignored source file under a scope\nnpm run review:codebase:save -- /path/to/git/repository-or-package\nnpm run dashboard",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/devagrawal09/jev-review/blob/31f89602797fb7bea007f8a480bf368bf564954e/README.md?plain=1#L29"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "作者将本项目定位为实验，目前未集成编译器诊断、静态分析器或仓库索引。审查结果只是提示，不能证明代码一定存在缺陷。",
+    "审查依赖 TypeSafe 的模型调用，需要有效的 TYPESAFE_API_KEY；README 未说明相关费用。"
+  ],
+  "references": [],
+  "media": [
+    {
+      "url": "/assets/repository-guides/media-48fd8366a709fbb66c621f65.webp",
+      "alt": "devagrawal09/jev-review 官方演示 1",
+      "sourceUrl": "https://github.com/devagrawal09/jev-review/blob/31f89602797fb7bea007f8a480bf368bf564954e/README.md?plain=1#L5",
+      "originalUrl": "https://raw.githubusercontent.com/devagrawal09/jev-review/31f89602797fb7bea007f8a480bf368bf564954e/docs/dashboard.png"
+    }
+  ],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "d8d98618015949ce1ab1c820d28d84ed64601fa7dd81c4bdbfde2fb9e30a9afe",
+  "mediaStatus": "archived",
+  "mediaFailures": []
+}

@@ -1,0 +1,85 @@
+{
+  "schemaVersion": 1,
+  "key": "knowledgefxg/resource-nav",
+  "status": "ready",
+  "reason": "",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/knowledgefxg/resource-nav/blob/9a31ccad510d8a8157310dbbd3e24319655f5c32/README.md",
+  "sourceRevision": "9a31ccad510d8a8157310dbbd3e24319655f5c32",
+  "canonicalKey": "knowledgefxg/resource-nav",
+  "summary": "一个基于 Next.js 和 SQLite 的网站链接导航模板，前台可按分类浏览、搜索，后台可视化管理分类和链接。",
+  "intro": "适合想搭建个人书签页、工具合集、行业导航或团队资源库的人。前台提供左侧分类导航和资源卡片，支持搜索和深色模式，网站图标自动显示；后台在 `/admin` 登录后即可增删改分类和链接，不需要改代码或操作数据库。",
+  "requirements": "需要 Node.js 20 或更高版本，以及 git 和一个代码编辑器。安装时 better-sqlite3 需要编译：Windows 可能需要安装 Visual Studio Build Tools，Linux 需要 python3、make、g++。要上线公网，还需要一台支持 Node.js 的服务器。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "克隆仓库并安装依赖",
+      "text": "在终端执行 git clone 并进入 resource-nav 目录，再运行 `npm install`。首次安装需要下载依赖，等待一两分钟属正常现象。如果报错提到 better-sqlite3，按常见问题安装对应平台的编译工具。",
+      "code": "git clone https://github.com/knowledgefxg/resource-nav.git\ncd resource-nav\n\nnpm install",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/knowledgefxg/resource-nav/blob/9a31ccad510d8a8157310dbbd3e24319655f5c32/README.md?plain=1#L56"
+      }
+    },
+    {
+      "title": "复制并修改 .env.local 配置",
+      "text": "在 macOS / Linux 终端用 cp 把 `.env.example` 复制为 `.env.local`（Windows PowerShell 改用 copy），然后按需修改 SITE_NAME、首页标题、ADMIN_PASSWORD、AUTH_SECRET 等。只改 `.env.example` 不会生效；本地试用时可以跳过这一步，使用默认配置。",
+      "code": "cp .env.example .env.local",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/knowledgefxg/resource-nav/blob/9a31ccad510d8a8157310dbbd3e24319655f5c32/README.md?plain=1#L71"
+      }
+    },
+    {
+      "title": "启动开发服务并打开前后台",
+      "text": "运行 `npm run dev`，看到 Ready 后在浏览器打开 http://localhost:3000 查看前台，打开 /admin 进入后台，默认密码为 `admin123`。首次启动会自动创建数据库并写入演示数据。修改 `.env.local` 后需重启服务才会生效。",
+      "code": "npm run dev",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/knowledgefxg/resource-nav/blob/9a31ccad510d8a8157310dbbd3e24319655f5c32/README.md?plain=1#L79"
+      }
+    },
+    {
+      "title": "在后台维护分类与资源链接",
+      "text": "在 `/admin/categories` 填写名称、Slug、上级分类和排序来新增分类，Slug 全站唯一；在 `/admin/resources` 填写名称、网址、描述、所属分类和排序来添加链接，添加后前台会自动显示。数据保存在 `data/app.db`。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/knowledgefxg/resource-nav/blob/9a31ccad510d8a8157310dbbd3e24319655f5c32/README.md?plain=1#L139"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "上线前务必修改 ADMIN_PASSWORD 和 AUTH_SECRET，并建议设置 `SHOW_ADMIN_LINK=false`。",
+    "数据存放在 SQLite 文件 `data/app.db` 中。纯 PHP 虚拟主机无法运行本项目；Vercel 等 Serverless 平台难以持久保存该文件，部署时需保证 `data/` 目录持久化。",
+    "删除 `data/app.db` 后重新启动会恢复为演示数据，原有修改将全部丢失。",
+    "卡片图标会根据链接域名从 Google 图标服务自动获取，需要能访问该服务。",
+    "仓库未声明许可证，二次分发或商用前请先确认授权。"
+  ],
+  "references": [],
+  "media": [
+    {
+      "url": "/assets/repository-guides/media-5a0d1a42a5c77773be044f1e.webp",
+      "alt": "前台首页：分类导航、搜索与资源卡片",
+      "sourceUrl": "https://github.com/knowledgefxg/resource-nav/blob/9a31ccad510d8a8157310dbbd3e24319655f5c32/README.md?plain=1#L15",
+      "originalUrl": "https://raw.githubusercontent.com/knowledgefxg/resource-nav/9a31ccad510d8a8157310dbbd3e24319655f5c32/docs/screenshots/frontend.png"
+    },
+    {
+      "url": "/assets/repository-guides/media-74760fe49d4a876473eb302c.webp",
+      "alt": "后台分类管理：新增分类、层级与排序",
+      "sourceUrl": "https://github.com/knowledgefxg/resource-nav/blob/9a31ccad510d8a8157310dbbd3e24319655f5c32/README.md?plain=1#L23",
+      "originalUrl": "https://raw.githubusercontent.com/knowledgefxg/resource-nav/9a31ccad510d8a8157310dbbd3e24319655f5c32/docs/screenshots/admin-categories.png"
+    },
+    {
+      "url": "/assets/repository-guides/media-62b32ef317d195483b182be2.webp",
+      "alt": "后台资源管理：新增链接、筛选与搜索",
+      "sourceUrl": "https://github.com/knowledgefxg/resource-nav/blob/9a31ccad510d8a8157310dbbd3e24319655f5c32/README.md?plain=1#L23",
+      "originalUrl": "https://raw.githubusercontent.com/knowledgefxg/resource-nav/9a31ccad510d8a8157310dbbd3e24319655f5c32/docs/screenshots/admin-resources.png"
+    }
+  ],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "aba5e8c861f441c3dcfa7d3334c7595f144c5c28ea10488905cd475f4e86bd12",
+  "mediaStatus": "archived",
+  "mediaFailures": []
+}

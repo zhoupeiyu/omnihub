@@ -1,0 +1,92 @@
+{
+  "schemaVersion": 1,
+  "key": "vaayne/mori",
+  "status": "ready",
+  "reason": "",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/vaayne/mori/blob/ff206eec6b7c62ccebfa0a8c38499d2792bfccfe/README.md",
+  "sourceRevision": "ff206eec6b7c62ccebfa0a8c38499d2792bfccfe",
+  "canonicalKey": "vaayne/mori",
+  "summary": "Mori 是一个原生 macOS 终端，按项目和 git worktree 组织工作区。每个分支对应一个持久的 tmux 会话，可以在侧边栏中一键切换。",
+  "intro": "适合同时在多个 git 分支上工作的 macOS 开发者。Mori 为每个 worktree 创建独立目录和 tmux 会话，关闭应用后进程仍在运行。它支持本地仓库和 SSH 远程服务器，使用 libghostty 的 GPU 渲染。另外提供 mori CLI，可以通过 Unix socket 编写脚本或接入 AI agent。iPhone/iPad 用户还可以使用 MoriRemote 通过 SSH/tmux 访问。",
+  "requirements": "macOS，并已安装 Homebrew（也可以从 GitHub Releases 下载）。Mori 基于 tmux 运行。从源码构建需要 macOS 14+、tmux、mise、Zig 0.15.2 和 Xcode。MoriRemote 要求服务器上的 tmux 为 3.2 或更高版本。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "用 Homebrew 安装 Mori",
+      "text": "在 macOS 上添加 vaayne/tap，然后用 cask 方式安装 mori。也可以改从 GitHub Releases 下载安装包。iOS 端的 MoriRemote 通过 TestFlight 获取。",
+      "code": "brew tap vaayne/tap\nbrew install --cask mori",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/vaayne/mori/blob/ff206eec6b7c62ccebfa0a8c38499d2792bfccfe/README.md?plain=1#L49"
+      }
+    },
+    {
+      "title": "注册项目并创建 worktree",
+      "text": "在仓库目录用 mori project open . 把当前目录注册为项目，再用 mori worktree new 创建 git worktree，同时生成对应的 tmux 会话（命名为 <project>/<branch>）。CLI 会在需要时自动启动 Mori。",
+      "code": "mori project open .                          # register current directory as a project\nmori worktree new feat/auth --project myapp  # create git worktree + tmux session\nmori pane read --lines 100                   # capture pane output (great for agents)\nmori focus --project myapp --worktree feat/auth  # switch to a worktree instantly",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/vaayne/mori/blob/ff206eec6b7c62ccebfa0a8c38499d2792bfccfe/README.md?plain=1#L95"
+      }
+    },
+    {
+      "title": "在侧边栏切换分支工作区",
+      "text": "侧边栏列出所有项目和 worktree，点击即可附加到对应会话。每个 worktree 下可以按 ⌘+T 新建窗口（标签），按 ⌘+D 或 ⌘+⇧+D 分屏，按 ⌃+Tab 在 worktree 之间循环切换。完整快捷键见 docs/keymaps.md。",
+      "code": "Project  (git repo)\n└── Worktree  (branch)          ← tmux session  e.g. myapp/feat-auth\n    ├── Window  (tab)           ← tmux window   e.g. \"shell\"\n    │   ├── Pane  (split left)  ← tmux pane\n    │   └── Pane  (split right) ← tmux pane\n    └── Window  (tab)           ← tmux window   e.g. \"logs\"\n        └── Pane",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/vaayne/mori/blob/ff206eec6b7c62ccebfa0a8c38499d2792bfccfe/README.md?plain=1#L28"
+      }
+    },
+    {
+      "title": "调整终端与 tmux 预设",
+      "text": "终端外观等配置写在 Ghostty 的 ~/.config/ghostty/config 中。Mori 默认会为它管理的 tmux 会话开启鼠标支持并关闭状态栏。如果想保留自己 tmux.conf 中的设置，可以在 Settings → Tools 中关闭这个预设。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/vaayne/mori/blob/ff206eec6b7c62ccebfa0a8c38499d2792bfccfe/README.md?plain=1#L108"
+      }
+    },
+    {
+      "title": "用 CLI 给脚本或 agent 调用",
+      "text": "在会话中，地址参数默认读取每个 pane 中设置的 MORI_* 环境变量，可以省略。mori pane read 用于读取 pane 输出，mori focus 用于切换 worktree。所有命令都支持 --json 输出，完整参考见 docs/cli-redesign.md。",
+      "code": "mori project open .                          # register current directory as a project\nmori worktree new feat/auth --project myapp  # create git worktree + tmux session\nmori pane read --lines 100                   # capture pane output (great for agents)\nmori focus --project myapp --worktree feat/auth  # switch to a worktree instantly",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/vaayne/mori/blob/ff206eec6b7c62ccebfa0a8c38499d2792bfccfe/README.md?plain=1#L95"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "仅支持 macOS 桌面端；MoriRemote 是 SSH/tmux 伴侣应用，不是远程桌面，并要求服务器 tmux 版本不低于 3.2。",
+    "MoriRemote 会把从相册或剪贴板选择的图片通过已认证的 SSH 连接上传到远程服务器，并插入远程路径，使用时请注意数据去向。",
+    "Mori 默认修改其管理的 tmux 会话的鼠标和状态栏设置，可能与已有的 tmux.conf 习惯冲突。"
+  ],
+  "references": [],
+  "media": [
+    {
+      "url": "/assets/repository-guides/media-486137c154fdc7ba0ab8dc61.webp",
+      "alt": "vaayne/mori 官方演示 1",
+      "sourceUrl": "https://github.com/vaayne/mori/blob/ff206eec6b7c62ccebfa0a8c38499d2792bfccfe/README.md?plain=1#L15",
+      "originalUrl": "https://raw.githubusercontent.com/vaayne/mori/ff206eec6b7c62ccebfa0a8c38499d2792bfccfe/docs/screenshots/light-mode.jpeg"
+    },
+    {
+      "url": "/assets/repository-guides/media-3aaa36faab2465dec17b3655.webp",
+      "alt": "vaayne/mori 官方演示 2",
+      "sourceUrl": "https://github.com/vaayne/mori/blob/ff206eec6b7c62ccebfa0a8c38499d2792bfccfe/README.md?plain=1#L15",
+      "originalUrl": "https://raw.githubusercontent.com/vaayne/mori/ff206eec6b7c62ccebfa0a8c38499d2792bfccfe/docs/screenshots/lazygit.png"
+    },
+    {
+      "url": "/assets/repository-guides/media-59c4e3bddcc60680d687aaf2.webp",
+      "alt": "vaayne/mori 官方演示 3",
+      "sourceUrl": "https://github.com/vaayne/mori/blob/ff206eec6b7c62ccebfa0a8c38499d2792bfccfe/README.md?plain=1#L15",
+      "originalUrl": "https://raw.githubusercontent.com/vaayne/mori/ff206eec6b7c62ccebfa0a8c38499d2792bfccfe/docs/screenshots/settings.jpeg"
+    }
+  ],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "f6067fa8be2b5c672d97eedb1e70395972a24c6f460865f567c5934d93dad869",
+  "mediaStatus": "archived",
+  "mediaFailures": []
+}

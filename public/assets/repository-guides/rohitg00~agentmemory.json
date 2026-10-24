@@ -1,0 +1,89 @@
+{
+  "schemaVersion": 1,
+  "key": "rohitg00/agentmemory",
+  "status": "ready",
+  "reason": "",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/rohitg00/agentmemory/blob/29ecfde4df5998d913991049629014baa024600a/README.md",
+  "sourceRevision": "29ecfde4df5998d913991049629014baa024600a",
+  "canonicalKey": "rohitg00/agentmemory",
+  "summary": "agentmemory 为 Claude Code、Cursor、Codex CLI、Gemini CLI 等 AI 编码代理提供跨会话的持久记忆，可通过 MCP 或 REST 接入。",
+  "intro": "适合使用 AI 编码代理、希望代理在不同会话之间记住项目上下文的开发者。它通过 hooks 自动记录会话中的提示词、工具调用等信息，并提供 BM25、向量和图检索，以及实时 viewer 和会话回放。以下以 macOS/Linux 上的 npx 官方安装路径为准。",
+  "requirements": "Node.js 20 或更高版本，并带有 npm 和 npx。在 macOS/Linux 上自动安装 iii-engine 还需要 curl、POSIX sh 和 tar。本地需要空出端口 3111、3112、3113、49134。原生 Windows 需要手动安装 iii.exe，官方推荐改用 WSL2。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "用 npx 运行交互式安装",
+      "text": "在 macOS/Linux 终端运行官方推荐的 npx 命令。首次运行会进入交互式设置：选择要接入的 agent，选择 LLM provider 或保持无 key 模式，然后生成配置、启动记忆服务和配套的 iii engine，并询问是否全局安装。",
+      "code": "npx -y @agentmemory/agentmemory@latest",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/rohitg00/agentmemory/blob/29ecfde4df5998d913991049629014baa024600a/README.md?plain=1#L76"
+      }
+    },
+    {
+      "title": "运行 demo 并给 agent 添加技能",
+      "text": "服务运行后，执行 demo 写入 3 个示例会话并测试召回，再用 npx skills 添加技能，让 agent 知道何时调用记忆。在无 key 模式下，语义查询可能返回空结果，这是预期行为。",
+      "code": "npx -y @agentmemory/agentmemory@latest demo  # seed sample sessions + exercise recall\nnpx skills add rohitg00/agentmemory -y   # 17 native skills so your agent knows when to reach for memory",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/rohitg00/agentmemory/blob/29ecfde4df5998d913991049629014baa024600a/README.md?plain=1#L76"
+      }
+    },
+    {
+      "title": "验证服务健康与重启持久化",
+      "text": "用 curl 检查 livez 和 health 接口以及 viewer，再运行 status。接着写入一条探针记忆并搜索；执行 stop 后重新启动，确认这条探针仍能被搜到。如果使用了自定义 --data-dir，重启时要传入同一个目录。",
+      "code": "curl -fsS http://localhost:3111/agentmemory/livez\ncurl -fsS http://localhost:3111/agentmemory/health\ncurl -fsS -o /dev/null http://localhost:3113/\nnpx -y @agentmemory/agentmemory@latest status\n\ncurl -fsS -X POST http://localhost:3111/agentmemory/remember \\\n  -H 'Content-Type: application/json' \\\n  -d '{\"content\":\"agentmemory restart persistence probe\",\"concepts\":[\"install-check\"]}'\n\ncurl -fsS -X POST http://localhost:3111/agentmemory/smart-search \\\n  -H 'Content-Type: application/json' \\\n  -d '{\"query\":\"restart persistence probe\",\"limit\":5}'",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/rohitg00/agentmemory/blob/29ecfde4df5998d913991049629014baa024600a/README.md?plain=1#L515"
+      }
+    },
+    {
+      "title": "在 .env 中配置嵌入与 LLM",
+      "text": "运行时配置写在 ~/.agentmemory/.env 中。设置 EMBEDDING_PROVIDER=local 后重启，即可启用本地语义检索，首次使用会下载模型。如需让 LLM 撰写观察压缩，除了配置 provider，还要设置 AGENTMEMORY_AUTO_COMPRESS=true。",
+      "code": "GRAPH_EXTRACTION_ENABLED=true\n# CONSOLIDATION_ENABLED=false   # opt out of auto-consolidation",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/rohitg00/agentmemory/blob/29ecfde4df5998d913991049629014baa024600a/README.md?plain=1#L76"
+      }
+    },
+    {
+      "title": "用日常命令管理服务与接入",
+      "text": "日常使用 agentmemory 启动服务，stop 停止，connect <agent> 接入更多 agent，doctor 做诊断，remove 卸载。浏览器打开 localhost:3113 可以查看 viewer，其中的 Replay 标签用于回放会话。",
+      "code": "agentmemory                    # start the server\nagentmemory stop               # stop it cleanly\nagentmemory connect <agent>    # wire another agent\nagentmemory doctor             # interactive diagnostics + fix prompts\nagentmemory remove             # uninstall everything we created",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/rohitg00/agentmemory/blob/29ecfde4df5998d913991049629014baa024600a/README.md?plain=1#L540"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "hooks 会记录用户提示词（经过隐私过滤）、工具输入输出、文件访问等内容，请确认这些数据适合保存在本地。",
+    "无 key 模式不启用向量嵌入，只使用 BM25 检索。配置外部 LLM provider 可能产生 API 费用；使用 Claude Code 订阅替代 API key 需要设置 AGENTMEMORY_ALLOW_AGENT_SDK=true 显式开启。",
+    "原生 Windows 不会自动解压 iii-engine，需要手动安装 v0.22.1 的 iii.exe，或改用 WSL2、Docker Desktop。",
+    "README 中的检索准确率和 token 节省数据来自项目自测或自建语料，不代表在你的项目中的实际效果。",
+    "如果不走 /plugin install、直接配置 MCP 接入 Claude Code，升级后需要重新运行 connect claude-code --with-hooks 来刷新 hook 路径。",
+    "Claude Code 默认会清理 30 天前的 JSONL 记录，依赖 import-jsonl 导入历史会话时要注意这一点。"
+  ],
+  "references": [],
+  "media": [
+    {
+      "url": "/assets/repository-guides/media-0cfd4fdd590a42d01268334a.webp",
+      "alt": "rohitg00/agentmemory 官方演示 1",
+      "sourceUrl": "https://github.com/rohitg00/agentmemory/blob/29ecfde4df5998d913991049629014baa024600a/README.md?plain=1#L1208",
+      "originalUrl": "https://raw.githubusercontent.com/rohitg00/agentmemory/29ecfde4df5998d913991049629014baa024600a/assets/iii-console/workers.png"
+    }
+  ],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "695727a8b1581612e264dfd4dd05be2af4bfc5307f7d1e1a9f16322dc4cc4af7",
+  "mediaStatus": "archived",
+  "mediaFailures": [
+    {
+      "sourceUrl": "https://github.com/rohitg00/agentmemory/blob/29ecfde4df5998d913991049629014baa024600a/README.md#L57",
+      "reason": "response_too_large"
+    }
+  ]
+}

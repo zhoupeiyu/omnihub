@@ -1,0 +1,71 @@
+{
+  "schemaVersion": 1,
+  "key": "mattpocock/skills",
+  "status": "ready",
+  "reason": "",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/mattpocock/skills/blob/d81f3a183412e71a5b1e84ca21bc1a35eea03a60/README.md",
+  "sourceRevision": "d81f3a183412e71a5b1e84ca21bc1a35eea03a60",
+  "canonicalKey": "mattpocock/skills",
+  "summary": "Matt Pocock 维护的一组 Agent Skills，覆盖需求澄清、领域建模、TDD、调试、架构改进、拆分任务等工程流程，可在 Claude Code 等编程 Agent 中使用。",
+  "intro": "适合用 Claude Code、Codex 等编程 Agent 做实际工程开发的人，用来应对几类常见问题：Agent 没理解需求、输出啰嗦、代码跑不通、代码库越写越乱。技能分两类：用户调用型，如 /grill-me、/to-spec、/triage，负责编排流程；模型调用型，如 tdd、diagnosing-bugs，Agent 遇到合适的任务时也会自动使用。不确定该用哪个时，可以先问 ask-matt。",
+  "requirements": "Claude Code（通过官方插件市场安装）。使用 Codex 或其他 Agent 时需要 npx，通过 skills.sh 安装器安装。工程类技能需要配合一个 issue tracker（GitHub、Linear 或本地文件）。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "在 Claude Code 安装技能插件",
+      "text": "以 Claude Code 为例，在终端执行 claude plugins install mattpocock-skills，或在会话中运行 /plugin install mattpocock-skills。插件已在官方市场上架，无需另外添加 marketplace，以只读形式安装并自动更新。Codex 等其他 Agent 请改用 npx skills@latest add mattpocock/skills，并勾选 setup-matt-pocock-skills。",
+      "code": "claude plugins install mattpocock-skills\n\n/plugin install mattpocock-skills",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/mattpocock/skills/blob/d81f3a183412e71a5b1e84ca21bc1a35eea03a60/README.md?plain=1#L25"
+      }
+    },
+    {
+      "title": "每个仓库运行一次初始化技能",
+      "text": "在 Agent 中运行 /setup-matt-pocock-skills。它会询问你使用哪种 issue tracker（GitHub、Linear 或本地文件）、分诊时给工单打哪些标签（/triage 会用到），以及生成的文档保存在哪里。使用其他工程类技能之前，每个仓库都需要先完成这一步。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/mattpocock/skills/blob/d81f3a183412e71a5b1e84ca21bc1a35eea03a60/README.md?plain=1#L74"
+      }
+    },
+    {
+      "title": "改动前先用 grill 技能对齐需求",
+      "text": "准备做改动时，先运行 /grill-me（不涉及代码的场景）或 /grill-with-docs，让 Agent 就你的计划详细追问。/grill-with-docs 还会在过程中整理项目术语，更新 GLOSSARY.md 和 ADR，为后续会话建立共享语言。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/mattpocock/skills/blob/d81f3a183412e71a5b1e84ca21bc1a35eea03a60/README.md?plain=1#L88"
+      }
+    },
+    {
+      "title": "把计划转成规格与任务并实现",
+      "text": "讨论清楚后，用 /to-spec 把当前对话整理成规格并发布到 issue tracker，用 /to-tickets 拆成带依赖关系的工单，再用 /implement 或 /implement-spec 实现。实现阶段会在约定的切入点驱动 /tdd 的红绿重构循环，并在提交前执行 /code-review。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/mattpocock/skills/blob/d81f3a183412e71a5b1e84ca21bc1a35eea03a60/README.md?plain=1#L188"
+      }
+    },
+    {
+      "title": "定期调试与审视代码架构",
+      "text": "遇到难以定位的 bug 或性能回退时，用 diagnosing-bugs 按阶段收敛问题。作者建议每隔几天运行一次 /improve-codebase-architecture，它会扫描代码库中可以加深模块的候选点并生成 HTML 报告，再针对你选中的一项展开追问。拿不准该用哪个技能时，可以问 /ask-matt。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/mattpocock/skills/blob/d81f3a183412e71a5b1e84ca21bc1a35eea03a60/README.md?plain=1#L142"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "Claude Code 插件和 skills.sh 只能二选一，同时安装会让每个技能出现两次。",
+    "插件版是只读的，会随作者发布自动更新；想修改技能文件，请用 skills.sh 安装到仓库里，并通过 npx skills update 手动拉取更新。",
+    "/to-spec、/to-tickets 等技能会把内容发布到 GitHub 或 Linear 等 issue tracker，属于对外写入操作。",
+    "improve-codebase-architecture 只负责找出改进候选，不会替你整理混乱的旧代码库。",
+    "作者说明原生 Codex 插件仍在规划中，Codex 目前通过 skills.sh 安装器使用。"
+  ],
+  "references": [],
+  "media": [],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "a0ec5e84e3412c62340b17ce641aa6be96988f9e89e967bbce7c1c0597dae333",
+  "mediaStatus": "none_in_official_documents"
+}

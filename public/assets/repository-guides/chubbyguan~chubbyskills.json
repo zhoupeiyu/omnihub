@@ -1,0 +1,81 @@
+{
+  "schemaVersion": 1,
+  "key": "chubbyguan/chubbyskills",
+  "status": "ready",
+  "reason": "",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/chubbyguan/chubbyskills/blob/5039531a6841c508cf016acada7466f001ef325a/README.md",
+  "sourceRevision": "5039531a6841c508cf016acada7466f001ef325a",
+  "canonicalKey": "chubbyguan/chubbyskills",
+  "summary": "Chubby Skills 提供 14 个 Agent Skills 和一套命令行工具，把视频、播客、文章和本地文档整理成可搜索、可追溯来源的本地 Markdown 知识库。",
+  "intro": "适合经常收藏抖音、B站、小红书、公众号、X、播客等内容，写作时需要找回原文、核对出处的内容创作者。用法有两种：直接运行 tools/chubby.py，完成导入、搜索和带出处资料包的导出；或者按需把单个 Skill 安装到 Agent 的 skills 目录，交给 Agent 处理素材。知识库还可以通过可选的 MCP 服务接入 Agent。",
+  "requirements": "建议 Python 3.11 或 3.12，在 macOS / Linux shell 中使用；统一流程需要完整克隆仓库。本地文档导入、关键词搜索和资料包只用 Python 标准库；平台采集、转录、MCP 需按能力另装依赖（如 yt-dlp、ffmpeg、MCP SDK）。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "克隆仓库并初始化知识库",
+      "text": "在 macOS 或 Linux 上克隆仓库，创建并激活虚拟环境，再运行 chubby.py init 指定 vault 目录。这一步会生成 chubby.yaml 和知识库目录，后续命令都在仓库根目录运行。",
+      "code": "git clone https://github.com/chubbyguan/chubbyskills.git\ncd chubbyskills\npython3 -m venv .venv\nsource .venv/bin/activate\npython3 tools/chubby.py init --vault \"$PWD/creator-vault\"",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/chubbyguan/chubbyskills/blob/5039531a6841c508cf016acada7466f001ef325a/README.md?plain=1#L42"
+      }
+    },
+    {
+      "title": "导入本地文档并导出资料包",
+      "text": "用 import 导入自己的 .md、.txt 或 PDF 文件（PDF 只提取文字层）；知道原始网页时加 --source-url。然后用 search 检索，用 brief 导出含逐字摘录、行号和来源的资料包。这一步在本地完成，不调用云模型。",
+      "code": "python3 tools/chubby.py import \"/你的资料目录/report.md\" --no-enrich\npython3 tools/chubby.py import \"/你的资料目录/report.pdf\" \\\n  --source-url \"https://example.org/original-report\" --no-enrich\n\npython3 tools/chubby.py search \"内容复用\"\npython3 tools/chubby.py brief --topic \"内容复用\" \\\n  --output \"$PWD/creator-vault/30_Output/brief.md\"\npython3 tools/chubby.py status --latest",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/chubbyguan/chubbyskills/blob/5039531a6841c508cf016acada7466f001ef325a/README.md?plain=1#L58"
+      }
+    },
+    {
+      "title": "选择技能并安装到 Agent 目录",
+      "text": "先用 install_skill.py --list 查看 14 个技能，按 Skill 目录表选择平台。以 Codex 为例，把技能安装到 ~/.codex/skills；其他客户端把 --dest 换成各自实际的 skills 目录。安装器会打包公共模块，避免漏装依赖。",
+      "code": "python3 tools/install_skill.py --list\npython3 tools/install_skill.py --all --dest /path/to/agent/skills\n\npython3 tools/install_skill.py knowledge-base-management --dest ~/.codex/skills",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/chubbyguan/chubbyskills/blob/5039531a6841c508cf016acada7466f001ef325a/README.md?plain=1#L159"
+      }
+    },
+    {
+      "title": "按所需能力安装运行依赖",
+      "text": "安装器不会安装 Python 包。按需运行 setup.sh：light 用于图文轻量能力，video 用于视频转录，podcast-transcribe 用于播客，wechat-article-ingest 用于公众号；doctor 可查看当前环境。B站和 YouTube 只走字幕路径时，装 yt-dlp 即可。",
+      "code": "bash setup.sh light                   # 图文和文本处理的轻量能力\nbash setup.sh bilibili-transcribe     # 与 video 档相同，安装音频转录依赖\nbash setup.sh video                   # 视频音频转录依赖\nbash setup.sh podcast-transcribe      # 播客依赖\nbash setup.sh wechat-article-ingest    # 公众号与 PDF 处理依赖\nbash setup.sh doctor                  # 查看当前环境",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/chubbyguan/chubbyskills/blob/5039531a6841c508cf016acada7466f001ef325a/docs/installation.md?plain=1#L29"
+      }
+    },
+    {
+      "title": "可选：通过 MCP 接入知识库",
+      "text": "安装 knowledge-base-management 目录下的 MCP 依赖，再运行 mcp_smoke.py 检查服务能否启动。连接自己的 Agent 时，还需要配置服务器命令和 VAULT_DIR，具体见 MCP 配置文档。",
+      "code": "python3 -m pip install -r knowledge-base-management/requirements-mcp.txt\npython3 tools/mcp_smoke.py --json",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/chubbyguan/chubbyskills/blob/5039531a6841c508cf016acada7466f001ef325a/README.md?plain=1#L180"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "采集类技能仅供个人学习与研究，需遵守平台条款和 robots.txt，不要批量抓取、商用或二次分发；MIT 代码许可不授予第三方内容的使用权。",
+    "平台抓取受 Cookie、字幕、地区和页面改版影响，可能失败；在线采集与音频转录要分别验收。",
+    "content-enrich、学习笔记等功能会把内容发送到 DeepSeek API；OpenAI 向量检索、Atlas / MuAPI 云转录也会上传数据，并可能计费。云转录尚未完成真实验收，--resubmit 可能重复计费。",
+    "API 密钥和 XHS_COOKIE 不要写入笔记或提交到仓库。",
+    "PDF 导入不做 OCR，扫描件要先用其他工具识别；本地视频转录需要系统 ffmpeg，首次运行会下载模型。",
+    "目标目录已有同名技能时，安装器会拒绝覆盖；升级时应先装到临时目录核对差异。"
+  ],
+  "references": [
+    {
+      "label": "docs/installation.md",
+      "url": "https://github.com/chubbyguan/chubbyskills/blob/5039531a6841c508cf016acada7466f001ef325a/docs/installation.md"
+    }
+  ],
+  "media": [],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "db7ac732b695fba918b791f068040412935186175128184ed49865acd47bbe78",
+  "mediaStatus": "none_in_official_documents"
+}

@@ -1,0 +1,97 @@
+{
+  "schemaVersion": 1,
+  "key": "tianyidatascience/openclaw-control-center",
+  "status": "ready",
+  "reason": "",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/TianyiDataScience/openclaw-control-center/blob/5d1e3245d9540b676aca7069c3f900bb36d8d44f/README.md",
+  "sourceRevision": "5d1e3245d9540b676aca7069c3f900bb36d8d44f",
+  "canonicalKey": "TianyiDataScience/openclaw-control-center",
+  "summary": "为已有的 OpenClaw 部署提供本地 Web 控制中心，集中查看健康状态、用量、任务、多 Agent 协作、文档与记忆。",
+  "intro": "适合已经在本机或可达环境中运行 OpenClaw 的个人或团队，尤其是需要直观观测、而不想直接看原始后端数据的非技术运维人员。主要用途：在 Overview 判断 OpenClaw 是否正常；在 Usage 查看用量、花费和上下文压力；在 Staff 区分正在执行和排队中的 Agent；在 Collaboration 的 hall 中让多个 Agent 讨论、按顺序执行并交接；在 Documents 和 Memory 中直接查看和编辑源文件。",
+  "requirements": "需要：一个可用的 OpenClaw 安装；可连接的 OpenClaw Gateway；本机已安装 node 和 npm；对 OpenClaw 主目录有读取权限。可选：如果本机能读到 ~/.openclaw、~/.codex 和订阅快照文件，用量和订阅信息会更完整。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "确认 OpenClaw 与 Gateway 可用",
+      "text": "开始前确认本机已有可用的 OpenClaw 安装、可连接的 Gateway，并已安装 node 和 npm，同时对 OpenClaw 主目录有读取权限。订阅、Codex 等数据源属于可选增强，缺少时控制中心仍可以安全只读方式运行。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/TianyiDataScience/openclaw-control-center/blob/5d1e3245d9540b676aca7069c3f900bb36d8d44f/README.md?plain=1#L237"
+      }
+    },
+    {
+      "title": "克隆仓库并安装依赖",
+      "text": "克隆仓库并进入目录，执行 npm install，再从 .env.example 复制出 .env。如果之后提示缺少 src/runtime 等核心文件，先检查当前目录是否为仓库根目录、克隆是否完整，不要直接修改代码。",
+      "code": "git clone https://github.com/TianyiDataScience/openclaw-control-center.git\ncd openclaw-control-center\nnpm install\ncp .env.example .env",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/TianyiDataScience/openclaw-control-center/blob/5d1e3245d9540b676aca7069c3f900bb36d8d44f/README.md?plain=1#L249"
+      }
+    },
+    {
+      "title": "在 .env 中设置本地访问令牌",
+      "text": "首次接入保持安全默认值。只有在 OpenClaw 路径不是默认位置时，才修改 GATEWAY_URL 或相关路径。如果要测试保存、导入或 hall 写操作，需保持 LOCAL_TOKEN_AUTH_REQUIRED=true，并把 LOCAL_API_TOKEN 设为一串足够长的随机字符串；可选用 UI_TIMEZONE 设置时间显示时区。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/TianyiDataScience/openclaw-control-center/blob/5d1e3245d9540b676aca7069c3f900bb36d8d44f/README.zh-CN.md?plain=1#L182"
+      }
+    },
+    {
+      "title": "构建、测试并启动 UI",
+      "text": "依次执行 npm run build、npm test、npm run smoke:ui、npm run smoke:hall，最后用 npm run dev:ui 启动界面。dev:ui 是更可靠的跨平台入口，在 Windows shell 下也推荐使用；npm run dev 只执行一次监控，不会启动 HTTP UI。",
+      "code": "npm install\ncp .env.example .env\nnpm run build\nnpm test\nnpm run smoke:ui\nnpm run smoke:hall\nnpm run dev:ui",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/TianyiDataScience/openclaw-control-center/blob/5d1e3245d9540b676aca7069c3f900bb36d8d44f/README.md?plain=1#L95"
+      }
+    },
+    {
+      "title": "打开总览页并检查连接状态",
+      "text": "在浏览器访问 http://127.0.0.1:4310/?section=overview&lang=zh 查看总览。接着到 Settings 页查看 Connection health、Security risk summary 和 Update status，确认哪些数据源已接通、哪些仍不完整。受保护的写操作会提示输入 LOCAL_API_TOKEN。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/TianyiDataScience/openclaw-control-center/blob/5d1e3245d9540b676aca7069c3f900bb36d8d44f/README.md?plain=1#L95"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "本项目不能替代 OpenClaw，也不是通用 Agent 仪表盘或托管 SaaS，必须配合已有的 OpenClaw 环境使用。",
+    "默认只读并启用本地令牌鉴权；未设置 LOCAL_API_TOKEN 时，受保护的写操作会被拦截。",
+    "Documents 和 Memory 工作台会直接写回真实源文件；hall 的讨论、分配和交接会通过真实的 openclaw agent 运行时执行，可能产生模型用量。",
+    "设置 OPENCLAW_CONTROL_UI_URL 后 UI 默认绑定 0.0.0.0，通过局域网、反向代理或 Tailscale 暴露前应确认访问控制。",
+    "README 也提供 Docker 部署方式，但容器必须能访问同一套 OpenClaw 数据路径并连通 Gateway，需要自行修改挂载路径。"
+  ],
+  "references": [
+    {
+      "label": "README.zh-CN.md",
+      "url": "https://github.com/TianyiDataScience/openclaw-control-center/blob/5d1e3245d9540b676aca7069c3f900bb36d8d44f/README.zh-CN.md"
+    }
+  ],
+  "media": [
+    {
+      "url": "/assets/repository-guides/media-6fc49a59cd39d95dd2009587.webp",
+      "alt": "OpenClaw Control Center 总览横幅截图",
+      "sourceUrl": "https://github.com/TianyiDataScience/openclaw-control-center/blob/5d1e3245d9540b676aca7069c3f900bb36d8d44f/README.zh-CN.md?plain=1#L5",
+      "originalUrl": "https://raw.githubusercontent.com/TianyiDataScience/openclaw-control-center/5d1e3245d9540b676aca7069c3f900bb36d8d44f/docs/assets/overview-hero-zh.png"
+    },
+    {
+      "url": "/assets/repository-guides/media-0adff5a6601a6122a16a51e3.webp",
+      "alt": "OpenClaw Control Center 中文协作页截图",
+      "sourceUrl": "https://github.com/TianyiDataScience/openclaw-control-center/blob/5d1e3245d9540b676aca7069c3f900bb36d8d44f/README.zh-CN.md?plain=1#L63",
+      "originalUrl": "https://raw.githubusercontent.com/TianyiDataScience/openclaw-control-center/5d1e3245d9540b676aca7069c3f900bb36d8d44f/docs/assets/collaboration-zh.png"
+    },
+    {
+      "url": "/assets/repository-guides/media-2026e83e582ae903a3ef3fa0.webp",
+      "alt": "OpenClaw Control Center 中文安全与更新状态截图",
+      "sourceUrl": "https://github.com/TianyiDataScience/openclaw-control-center/blob/5d1e3245d9540b676aca7069c3f900bb36d8d44f/README.zh-CN.md?plain=1#L66",
+      "originalUrl": "https://raw.githubusercontent.com/TianyiDataScience/openclaw-control-center/5d1e3245d9540b676aca7069c3f900bb36d8d44f/docs/assets/settings-insights-zh.png"
+    }
+  ],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "198de767d78adcdc092b02106be6f706e2f308ec3695d586183d711f9d3d6a3d",
+  "mediaStatus": "archived",
+  "mediaFailures": []
+}

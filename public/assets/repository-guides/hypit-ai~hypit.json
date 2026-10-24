@@ -1,0 +1,78 @@
+{
+  "schemaVersion": 1,
+  "key": "hypit-ai/hypit",
+  "status": "ready",
+  "reason": "",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/hypit-ai/hypit/blob/e8f94006e1eed9b299448fe5bce6afa5646e2ba5/README.md",
+  "sourceRevision": "e8f94006e1eed9b299448fe5bce6afa5646e2ba5",
+  "canonicalKey": "hypit-ai/hypit",
+  "summary": "Hypit 是供 Claude Code、Codex 等编码 Agent 使用的视频制作 Skill，可以克隆参考视频的完整工作流，也可以从描述出发编写可编辑、可重复运行的视频合成。",
+  "intro": "适合已经在使用编码 Agent、需要批量制作短视频的人，例如社交广告、TikTok/Reel/Short 风格视频、口播与 UGC、播客或采访切片、多语言版本。给 Agent 一段参考视频，它会把素材、字幕、B-roll 和特效拆成以「词」而不是「秒」为锚点的工作流。替换主持人、文案、产品或语言后可以重新生成变体。也可以从模板开始，或直接描述想要的视频。生成模型不是必需的：仅用字幕、动态图形和代码渲染画面也能合成成片。",
+  "requirements": "需要一个支持 Skill 的编码 Agent 环境（README 提到 Claude Code、Codex 等）。安装命令使用 npx，README 徽章标注 Node.js 22.15+。如果要调用生成模型，需要相应模型服务的账号和凭据，可以用 HypiHub、自有 API 或本地模型。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "全局安装 Hypit Skill",
+      "text": "在终端运行官方提供的安装命令，把 Hypit Skill 全局安装到 Agent 环境中。首次使用时，Agent 会检查本机是否已有 Hypit 可执行程序，缺少时会协助准备。视频项目可以放在任意目录。",
+      "code": "npx skills add hypit-ai/hypit -g",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/hypit-ai/hypit/blob/e8f94006e1eed9b299448fe5bce6afa5646e2ba5/README.md?plain=1#L59"
+      }
+    },
+    {
+      "title": "选择并接入模型服务",
+      "text": "Hypit 本身免费，但编码 Agent 和模型服务各自有账号和计费。可以使用官方推荐的托管服务 HypiHub，也可以用自己的 API 或本地模型；后两种情况需要把服务名称和 API 文档告诉 Agent，让它配置连接。只做字幕、动态图形和代码渲染画面时可以不接生成模型。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/hypit-ai/hypit/blob/e8f94006e1eed9b299448fe5bce6afa5646e2ba5/README.md?plain=1#L59"
+      }
+    },
+    {
+      "title": "用 /hypit 克隆参考视频",
+      "text": "在任意空目录或已有项目目录中启动 Agent 会话，用 /hypit 加上本地视频路径和替换要求下达任务。Agent 会检查环境，向你索取视频所需的凭据，然后生成素材并搭建完整合成。",
+      "code": "/hypit Clone this video: /path/to/video.mp4, and replace the ranking content with a comparison of Hypit (official website: hypit.ai) with other AI video products.",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/hypit-ai/hypit/blob/e8f94006e1eed9b299448fe5bce6afa5646e2ba5/README.md?plain=1#L143"
+      }
+    },
+    {
+      "title": "无参考视频时直接描述需求",
+      "text": "没有参考视频时，直接用 /hypit 描述想要的视频，Agent 会从零编写工作流。另一个入口是从官方模板开始。两种方式得到的都是可编辑、可重复运行的合成，不是一次性渲染结果。",
+      "code": "/hypit Make a ranking video that puts Hypit in S tier.",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/hypit-ai/hypit/blob/e8f94006e1eed9b299448fe5bce6afa5646e2ba5/README.md?plain=1#L143"
+      }
+    },
+    {
+      "title": "复用工作流生成多个变体",
+      "text": "成片对应的工作流可以继续复用：保留合成结构和已有素材，只重新生成需要变化的部分，例如开头、主持人、产品或语言。组件可以替换，例如更换主持人而不影响字幕；也可以使用组件库、fork 或自己编写组件。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/hypit-ai/hypit/blob/e8f94006e1eed9b299448fe5bce6afa5646e2ba5/README.md?plain=1#L162"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "Hypit 不收座席费或按次渲染费，但调用的生成模型服务按所选服务商计费，编码 Agent 也有自己的费用。",
+    "README 中各示例的成本数字是作者给出的单次案例数据，实际费用取决于所用模型和服务。",
+    "许可证徽章标注为「Apache-2.0 with conditions」，GitHub 识别为 NOASSERTION，商用前请阅读仓库 LICENSE 原文。",
+    "克隆或替换他人视频中的人物、文案和素材时，需要自行确认肖像权、版权和平台规则。"
+  ],
+  "references": [],
+  "media": [],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "c0f419fae5b0d55abd4db54b8ba4af2e651177880f44bfd447c52524678a001c",
+  "mediaStatus": "unavailable",
+  "mediaFailures": [
+    {
+      "sourceUrl": "https://github.com/hypit-ai/hypit/blob/e8f94006e1eed9b299448fe5bce6afa5646e2ba5/README.md#L55",
+      "reason": "response_too_large"
+    }
+  ]
+}

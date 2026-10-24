@@ -1,0 +1,74 @@
+{
+  "schemaVersion": 1,
+  "key": "affaan-m/everything-claude-code",
+  "status": "ready",
+  "reason": "",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/affaan-m/ECC/blob/c70874fae9eb0e5ad0365beb7e2955899fd1d30f/README.md",
+  "sourceRevision": "c70874fae9eb0e5ad0365beb7e2955899fd1d30f",
+  "canonicalKey": "affaan-m/ECC",
+  "summary": "ECC 是一套面向 Claude Code、Codex、OpenCode、Cursor 等 agent 宿主的技能、子代理、命令、规则与 hooks 集合，用于规划、TDD、代码审查和安全扫描等开发工作流。",
+  "intro": "适合已经在用 Claude Code 等 AI 编程 agent、希望用现成工作流规范开发过程的开发者。仓库包含 agents、skills、commands、rules、hooks 等目录。可以按场景选用入口：新功能用 /ecc:plan 加 tdd-workflow，审查代码用 /code-review，修构建用 /build-fix，长会话结束用 /save-session。本指南以 Claude Code 的 universal guided setup 为入门路径。",
+  "requirements": "Node.js 18 或更新版本；Claude 插件安装还需要 Git，以及 PATH 上可用的 Claude Code 2.1 或更新版本。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "确认 Node.js 与 Claude Code 版本",
+      "text": "先确认本机满足官方要求：Node.js 18 或更新，系统 PATH 上有 Git 和 Claude Code 2.1 或更新版本。ECC 2.2 的引导安装支持 Claude Code、Codex 和 Kimi Code，本指南以 Claude Code 为例。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/affaan-m/ECC/blob/c70874fae9eb0e5ad0365beb7e2955899fd1d30f/README.md?plain=1#L162"
+      }
+    },
+    {
+      "title": "运行 universal 引导安装",
+      "text": "在 Claude Code 环境下运行官方推荐的引导安装命令。它同时负责插件安装、更新、作用域切换和 hook 配置变更，安装的是 ecc@ecc 插件。引导安装和原生插件命令只选一种，不要再叠加一套完整的手动安装。",
+      "code": "npx ecc-universal@2.2.2 setup",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/affaan-m/ECC/blob/c70874fae9eb0e5ad0365beb7e2955899fd1d30f/README.md?plain=1#L70"
+      }
+    },
+    {
+      "title": "在 Claude Code 中确认插件已安装",
+      "text": "在 Claude Code 里用 /plugin list 查看 ecc@ecc 是否已安装。插件命令采用带命名空间的形式（如 /ecc:plan），手动安装时可能只暴露较短的兼容形式。skills 是主要的工作流入口，commands 只是便捷入口。",
+      "code": "/plugin list ecc@ecc",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/affaan-m/ECC/blob/c70874fae9eb0e5ad0365beb7e2955899fd1d30f/README.md?plain=1#L653"
+      }
+    },
+    {
+      "title": "按任务选择对应工作流入口",
+      "text": "不必通读整个目录，按当前任务选入口即可：构建新功能用 /ecc:plan 描述需求，再用 tdd-workflow skill；审查新代码用 /code-review；修复构建用 /build-fix；检查上下文压力用 /context-budget；之后继续会话用 /resume-session。",
+      "code": "/ecc:plan \"Add authentication\"\n\n/ecc:plan \"Add user authentication with OAuth\"\n                                              -> planner creates implementation blueprint\ntdd-workflow skill                            -> tdd-guide enforces write-tests-first\n/code-review                                  -> code-reviewer checks your work",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/affaan-m/ECC/blob/c70874fae9eb0e5ad0365beb7e2955899fd1d30f/README.md?plain=1#L653"
+      }
+    },
+    {
+      "title": "用 doctor 检查并按需卸载",
+      "text": "在当初安装时所在的项目目录中运行 list-installed、doctor、repair 来检查和修复安装状态。卸载前可以先用 uninstall --dry-run 预览。ECC 只删除自己 install-state 中记录的文件，不会处理无关文件。",
+      "code": "npx ecc-universal@2.2.2 list-installed\nnpx ecc-universal@2.2.2 doctor\nnpx ecc-universal@2.2.2 repair\nnpx ecc-universal@2.2.2 uninstall --dry-run\nnpx ecc-universal@2.2.2 uninstall",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/affaan-m/ECC/blob/c70874fae9eb0e5ad0365beb7e2955899fd1d30f/README.md?plain=1#L612"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "不要把仓库里的 hooks/hooks.json 直接复制到 ~/.claude/settings.json。通过 /plugin install 安装时，Claude Code v2.1+ 会自动加载插件 hooks，重复登记会导致 hook 重复执行。",
+    "Claude 插件安装不会自动启用 ECC 自带的 MCP 服务器定义，需要通过 /mcp 或 .mcp.json 手动配置，并把 YOUR_*_HERE 占位符替换成自己的 API key。",
+    "/multi-plan、/multi-execute 等 multi-* 命令需要另外安装第三方 ccg-workflow runtime。ECC 不捆绑 CCG，也不担保其版本兼容性或安全性。",
+    "开源仓库采用 MIT 许可；ECC Pro（托管 GitHub App）用于私有仓库时收费，官方标注起价为每席位每月 19 美元。",
+    "如果叠加了多种安装方式，需按官方顺序清理：先移除插件，再运行 ECC uninstall，然后删除手动复制的规则目录，最后只用一种方式重装。"
+  ],
+  "references": [],
+  "media": [],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "e4ce58161b3c1d67c0bf6b7b607328d3c92fdf5d74b86481b0df0bc4afd8e675",
+  "mediaStatus": "none_in_official_documents"
+}

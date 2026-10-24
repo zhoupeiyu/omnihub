@@ -1,0 +1,75 @@
+{
+  "schemaVersion": 1,
+  "key": "qkal/canny",
+  "status": "ready",
+  "reason": "",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/qkal/Canny/blob/f2c5e53779445d60dc4a09d2dbced2308fccb820/README.md",
+  "sourceRevision": "f2c5e53779445d60dc4a09d2dbced2308fccb820",
+  "canonicalKey": "qkal/Canny",
+  "summary": "通过 Claude Code 和 Codex CLI 的钩子记录 Agent 实际执行的操作，在没有通过检查时阻止它宣称工作已完成。",
+  "intro": "适合使用 Claude Code 或 Codex CLI 写代码、希望强制 Agent 在结束前真正跑过测试、构建、lint 或类型检查的开发者。它维护只追加的会话账本，代码文件改动后若没有通过的检查就拦截 Stop；还会拦截写入密钥形态内容、删除或跳过测试等操作。可选接入 TypeSafe 的 Jev 模型做判断，但 Jev 只给提示、不负责拦截。",
+  "requirements": "git 与 Node 22 或更高版本；已安装 Claude Code 或 Codex CLI。Jev 判断功能为可选，需要设置 TYPESAFE_API_KEY。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "确认 Node 与 git 版本",
+      "text": "Canny 未发布到 npm，而是从仓库克隆使用，编译好的 CLI 已提交在仓库中，无需构建。开始前请确认本机已安装 git，且 Node 版本为 22 或更高。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/qkal/Canny/blob/f2c5e53779445d60dc4a09d2dbced2308fccb820/README.md?plain=1#L47"
+      }
+    },
+    {
+      "title": "在项目中粘贴安装提示词",
+      "text": "在要保护的项目里打开 Claude Code 或 Codex，粘贴官方给出的安装提示词。Agent 会检查 Node 版本、把仓库克隆到 ~/.canny/src，并在项目根目录运行 init，为检测到的 Agent 写入钩子配置。如需指定可改用 init --claude 或 init --codex。",
+      "code": "Install Canny (https://github.com/qkal/canny), a supervisor that checks your work through this agent's hooks, and hook it into this project.\n\n1. Confirm `node --version` is 22 or newer. If not, stop and tell me.\n2. If ~/.canny/src exists, run `git -C ~/.canny/src pull --ff-only`. Otherwise run `git clone https://github.com/qkal/canny.git ~/.canny/src`. There is nothing to build or install.\n3. From the root of this project, run `node ~/.canny/src/dist/cli.js init` and show me the hook entries it wrote.\n4. Run `echo canny-check`, then `node ~/.canny/src/dist/cli.js status`. If status lists a session with at least one event, the hooks are live. If it says no sessions were recorded: on Claude Code ask me to restart you; on Codex remind me to run /hooks to trust the new hooks.\n5. Change nothing else. Tell me what you did in five lines or fewer.",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/qkal/Canny/blob/f2c5e53779445d60dc4a09d2dbced2308fccb820/README.md?plain=1#L47"
+      }
+    },
+    {
+      "title": "确认钩子已经生效",
+      "text": "按提示词第 4 步运行 status，若列出含事件的会话即表示钩子已启用。若显示没有记录会话：Claude Code 需要重启；Codex 需要运行 /hooks 信任新钩子。命令中的 canny 等同于 node ~/.canny/src/dist/cli.js，可自行设置 alias。",
+      "code": "canny init [--claude] [--codex] [--global]   write hook config for this project, or your home\ncanny remove [--global]                      take Canny's entries out again, leave the rest\ncanny trust                                  accept this project's .canny.json as it stands\ncanny status [session-file]                  the latest session of the project you are in, and any hook crashes\ncanny sessions                               list recorded sessions with their projects\ncanny replay [session-file]                  re-derive every Stop verdict; exit 1 on a mismatch\ncanny hook --agent claude|codex              what the hook config runs; reads one event on stdin",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/qkal/Canny/blob/f2c5e53779445d60dc4a09d2dbced2308fccb820/README.md?plain=1#L47"
+      }
+    },
+    {
+      "title": "按需编写 .canny.json",
+      "text": "可在项目或上级目录放置 .canny.json：verify 指定哪些命令算检查，ignore 指定无需检查的路径，rules 指定交给 Jev 的规则，allow 关闭某些检查，strict 让 Stop 持续拦截。其中 verify、ignore、rules、allow 需运行 canny trust 后才生效。",
+      "code": "{\n  \"verify\": [\"^just check\", \"uv run pytest\"],\n  \"ignore\": [\"^generated/\"],\n  \"rules\": [\"Never hardcode model IDs.\", \"Use pnpm, not npm.\"],\n  \"allow\": [\"test-removal\"],\n  \"strict\": false\n}\n\ncanny trust     trusted /work/api/.canny.json: verify, allow now take effect",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/qkal/Canny/blob/f2c5e53779445d60dc4a09d2dbced2308fccb820/README.md?plain=1#L184"
+      }
+    },
+    {
+      "title": "用 status 与 replay 复查",
+      "text": "运行 canny status 查看当前项目最新会话及钩子崩溃记录，canny sessions 列出所有会话，canny replay 根据账本重新推导每次 Stop 的判定，出现不一致时以退出码 1 结束。移除时在项目根目录运行 canny remove。",
+      "code": "canny init [--claude] [--codex] [--global]   write hook config for this project, or your home\ncanny remove [--global]                      take Canny's entries out again, leave the rest\ncanny trust                                  accept this project's .canny.json as it stands\ncanny status [session-file]                  the latest session of the project you are in, and any hook crashes\ncanny sessions                               list recorded sessions with their projects\ncanny replay [session-file]                  re-derive every Stop verdict; exit 1 on a mismatch\ncanny hook --agent claude|codex              what the hook config runs; reads one event on stdin",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/qkal/Canny/blob/f2c5e53779445d60dc4a09d2dbced2308fccb820/README.md?plain=1#L216"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "会话账本保存在 ~/.canny/sessions/，记录每条 shell 命令行、退出码和输出末行；命令行中出现的密钥会被写入账本。",
+    "设置 TYPESAFE_API_KEY 后，每次编辑的增删文本（截断至 4000 字符）、提取的项目规则和 Agent 最终消息会发送到 TypeSafe，且请求与回答缓存在 ~/.canny/jev/；不设密钥则不外传。",
+    "canny trust 只是减速带而非沙箱，拥有 shell 权限的 Agent 也能自行运行它。",
+    "官方文档中的高权限或远程脚本操作应单独核查，不要整段复制执行。",
+    "Codex 没有 ask 决策，删除或跳过测试在 Codex 上会被直接拒绝；Codex 的退出码需从会话记录读取，读取失败时该命令不算通过的检查。",
+    "钩子出错时一律放行并记录到 ~/.canny/errors.log，故障不会阻塞但也可能静默，需通过 status 查看。"
+  ],
+  "references": [],
+  "media": [],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "fc546cbd551ce74a6a0888a875b53ab310a7bdbae47fc344fdbfc8f544429968",
+  "mediaStatus": "none_in_official_documents"
+}

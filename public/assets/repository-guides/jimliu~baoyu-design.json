@@ -1,0 +1,96 @@
+{
+  "schemaVersion": 1,
+  "key": "jimliu/baoyu-design",
+  "status": "ready",
+  "reason": "",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/JimLiu/baoyu-design/blob/6530033592bf7fa58bc1a5a2a2ad278da45213a9/README.md",
+  "sourceRevision": "6530033592bf7fa58bc1a5a2a2ad278da45213a9",
+  "canonicalKey": "JimLiu/baoyu-design",
+  "summary": "把 Claude Design 的设计方法打包成 Agent Skill，在本地 Agent 中生成 UI 稿、交互原型、线框图和幻灯片等自包含 HTML。",
+  "intro": "适合使用 Cursor、Claude Code、Codex 等本地编码 Agent，想在编辑器内直接产出设计稿的开发者和设计人员。可用于高保真界面、交互原型、线框图、落地页、仪表盘、移动端原型和幻灯片。它支持从截图、Figma .fig、GitHub 仓库或现有 HTML/CSS 导入设计上下文，还能绑定设计系统，并导出 PDF、PPTX 等格式。产物保存在 designs/<project>/ 下。",
+  "requirements": "需要一个本地 Agent（Cursor、Claude Code、Codex 或安装器支持的其他 Agent），以及运行 npx 安装器所需的 Node.js。Python 3 可用于手动启动本地预览服务。README 建议选用 Claude Opus 4.8 模型以获得最佳效果。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "用 skills CLI 安装到 Claude Code",
+      "text": "以 Claude Code 为例，在项目目录运行 npx skills add JimLiu/baoyu-design，也可以加 --agent claude-code 明确指定宿主。技能会装到 .claude/skills/，加 -g 则装到用户级目录。",
+      "code": "# Install into the current project (auto‑detects your agent)\nnpx skills add JimLiu/baoyu-design\n\n# …or install globally, for every project\nnpx skills add JimLiu/baoyu-design -g\n\n# Target a specific agent explicitly\nnpx skills add JimLiu/baoyu-design --agent claude-code\nnpx skills add JimLiu/baoyu-design --agent cursor\nnpx skills add JimLiu/baoyu-design --agent codex\n\n# Just list what's in the repo first\nnpx skills add JimLiu/baoyu-design --list",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/JimLiu/baoyu-design/blob/6530033592bf7fa58bc1a5a2a2ad278da45213a9/README.md?plain=1#L134"
+      }
+    },
+    {
+      "title": "用自然语言或命令触发技能",
+      "text": "直接用自然语言描述设计任务，技能会根据自身描述自动激活。在 Claude Code 里也可以用 /baoyu-design 显式触发。Agent 会先问几个澄清问题，然后在 designs/ 下生成 HTML。提供截图、UI Kit、.fig 或代码库作为设计上下文，对结果质量影响最大。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/JimLiu/baoyu-design/blob/6530033592bf7fa58bc1a5a2a2ad278da45213a9/README.md?plain=1#L185"
+      }
+    },
+    {
+      "title": "通过本地 HTTP 预览产物",
+      "text": "产物需要通过 HTTP 预览，多文件原型无法从 file:// 打开。Agent 通常会自动启动预览服务；如需手动启动，可用 python3 -m http.server 指向 designs 目录。在预览里点选元素并说明要改什么，Agent 会修改对应源码。",
+      "code": "python3 -m http.server 4311 --directory designs\n# then open http://localhost:4311/<project>/<file>.html",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/JimLiu/baoyu-design/blob/6530033592bf7fa58bc1a5a2a2ad278da45213a9/README.md?plain=1#L193"
+      }
+    },
+    {
+      "title": "按需构建 PPTX 导出工具",
+      "text": "如果要把幻灯片导出为 PPTX，Claude Code 下需要先做一次性构建：在 skills/baoyu-design/agents/gen-pptx 中安装依赖和 Playwright Chromium，然后执行 build。之后在对话里说出“导出成 PPTX”即可，导出分可编辑和截图两种模式。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/JimLiu/baoyu-design/blob/6530033592bf7fa58bc1a5a2a2ad278da45213a9/README.md?plain=1#L238"
+      }
+    },
+    {
+      "title": "用 skills CLI 更新技能",
+      "text": "通过 skills CLI 安装的用户，可以用 npx skills update baoyu-design 更新，项目级和全局安装分别加 -p 或 -g。更新后需要重启 Claude Code 或开启新会话，新的技能文件才会生效。",
+      "code": "# Update and let the CLI prompt for the install scope\nnpx skills update baoyu-design\n\n# Update the project-level install\nnpx skills update baoyu-design -p -y\n\n# Update the global install\nnpx skills update baoyu-design -g -y",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/JimLiu/baoyu-design/blob/6530033592bf7fa58bc1a5a2a2ad278da45213a9/README.md?plain=1#L156"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "这是在本地 Agent 中运行的技能包，README 称其覆盖 claude.ai/design 的大部分能力，不是全部。实际效果取决于所用模型，README 推荐 Opus 4.8。",
+    "PPTX 导出依赖本地 Playwright 和无头 Chromium，需要额外安装，并且只能导出本技能生成的幻灯片，不支持任意 HTML。",
+    "导入 GitHub 仓库作为设计源时，会使用 gh api 浏览并 sparse-checkout 到临时目录。"
+  ],
+  "references": [
+    {
+      "label": "README.zh-CN.md",
+      "url": "https://github.com/JimLiu/baoyu-design/blob/6530033592bf7fa58bc1a5a2a2ad278da45213a9/README.zh-CN.md"
+    }
+  ],
+  "media": [
+    {
+      "url": "/assets/repository-guides/media-29a2b5892eb0b31740506728.webp",
+      "alt": "JimLiu/baoyu-design 官方演示 1",
+      "sourceUrl": "https://github.com/JimLiu/baoyu-design/blob/6530033592bf7fa58bc1a5a2a2ad278da45213a9/README.md?plain=1#L21",
+      "originalUrl": "https://raw.githubusercontent.com/JimLiu/baoyu-design/6530033592bf7fa58bc1a5a2a2ad278da45213a9/assets/screenshots/claude-reader-mac-app.webp"
+    },
+    {
+      "url": "/assets/repository-guides/media-c76a4464c7493f19d342132e.webp",
+      "alt": "JimLiu/baoyu-design 官方演示 2",
+      "sourceUrl": "https://github.com/JimLiu/baoyu-design/blob/6530033592bf7fa58bc1a5a2a2ad278da45213a9/README.md?plain=1#L21",
+      "originalUrl": "https://raw.githubusercontent.com/JimLiu/baoyu-design/6530033592bf7fa58bc1a5a2a2ad278da45213a9/assets/screenshots/cursor-reader-mac-app.webp"
+    },
+    {
+      "url": "/assets/repository-guides/media-4649245018ad50320264ca3a.webp",
+      "alt": "JimLiu/baoyu-design 官方演示 3",
+      "sourceUrl": "https://github.com/JimLiu/baoyu-design/blob/6530033592bf7fa58bc1a5a2a2ad278da45213a9/README.md?plain=1#L234",
+      "originalUrl": "https://raw.githubusercontent.com/JimLiu/baoyu-design/6530033592bf7fa58bc1a5a2a2ad278da45213a9/assets/screenshots/figma-import-chakra-preview.webp"
+    }
+  ],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "fdb0b9daf69a83b1f41921408ea6156e5be7a11f09b626dfe1a3b2507ac70862",
+  "mediaStatus": "archived",
+  "mediaFailures": []
+}

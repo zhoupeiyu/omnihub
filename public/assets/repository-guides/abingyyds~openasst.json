@@ -1,0 +1,70 @@
+{
+  "schemaVersion": 1,
+  "key": "abingyyds/openasst",
+  "status": "ready",
+  "reason": "",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/abingyyds/OpenAsst/blob/ca54e917722b2bf92791ac09b48c989d47126b28/README.md",
+  "sourceRevision": "ca54e917722b2bf92791ac09b48c989d47126b28",
+  "canonicalKey": "abingyyds/OpenAsst",
+  "summary": "OpenAsst 是一个 AI 终端助手 CLI，可以用自然语言描述来执行系统任务、管理多台服务器。",
+  "intro": "适合需要在终端中用自然语言完成软件安装、系统检查、部署等运维操作的开发者或运维人员。核心是 CLI 工具，支持 `openasst do` 执行任务、从文档或 Git 仓库部署、多服务器集群控制，以及与 Claude Code、Cursor 等工具共享 AI API。另有可选的 Web Dashboard。",
+  "requirements": "macOS 或 Linux（Windows 有单独的 PowerShell 安装方式）；README 徽章标注需要 Node.js 16+；需要 AI API Key，配置示例使用 Anthropic API。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "在 macOS/Linux 上一键安装",
+      "text": "以 macOS / Linux 为例，在终端执行 README 提供的 curl 安装命令，它会下载仓库中的 install.sh 并交给 bash 执行。Windows 用户应改用 README 中的 PowerShell 命令，两种方式不要混用。 原文包含需人工核查的高权限或删除命令，本站不提供一键复制；请查看该步骤的官方出处。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/abingyyds/OpenAsst/blob/ca54e917722b2bf92791ac09b48c989d47126b28/README.md?plain=1#L60"
+      }
+    },
+    {
+      "title": "运行 openasst config 配置密钥",
+      "text": "执行 `openasst config` 配置 API Key。CLI 配置保存在 `~/.openasst-cli/config.json`，包含 apiKey、baseUrl 和 model 字段，示例中 baseUrl 指向 Anthropic API。",
+      "code": "# Configure your API key\nopenasst config\n\n# Start using with natural language!\nopenasst do \"install nginx and configure it for port 8080\"\n\n{\n  \"apiKey\": \"your-anthropic-api-key\",\n  \"baseUrl\": \"https://api.anthropic.com\",\n  \"model\": \"claude-sonnet-4-20250514\"\n}",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/abingyyds/OpenAsst/blob/ca54e917722b2bf92791ac09b48c989d47126b28/README.md?plain=1#L85"
+      }
+    },
+    {
+      "title": "用 openasst do 执行自然语言任务",
+      "text": "用 `openasst do \"任务描述\"` 让工具完成安装软件、检查磁盘、创建项目等操作。加上 `-y` 会自动确认执行。也可以用 `openasst deploy` 按文档部署，或用 `openasst auto` 从 Git 仓库部署。",
+      "code": "# Install software\nopenasst do \"install docker and start it\"\n\n# System operations\nopenasst do \"check disk usage and clean up if over 80%\"\n\n# Development tasks\nopenasst do \"create a new React project with TypeScript\"\n\n# Auto-confirm mode\nopenasst do \"update all npm packages\" -y\n\n# From URL\nopenasst deploy https://example.com/install-guide.md\n\n# From local file\nopenasst deploy ./INSTALL.md\n\n# Auto deploy from Git\nopenasst auto https://github.com/user/repo.git",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/abingyyds/OpenAsst/blob/ca54e917722b2bf92791ac09b48c989d47126b28/README.md?plain=1#L112"
+      }
+    },
+    {
+      "title": "按需添加设备进行集群控制",
+      "text": "如需管理多台服务器，先用 `openasst devices add` 添加设备，再用 `openasst run ... --all` 在所有服务器上执行命令，或用 `openasst do ... --all` 批量下发 AI 任务。主机与服务器之间通过 WebSocket 连接。",
+      "code": "┌─────────────────────────────────────────────────┐\n│              Master (Your Machine)               │\n│  ┌──────────┐  ┌──────────┐  ┌──────────────┐  │\n│  │ CLI      │  │ WSHub    │  │ DeviceManager│  │\n│  └──────────┘  └──────────┘  └──────────────┘  │\n└─────────────────────┬───────────────────────────┘\n                      │ WebSocket\n       ┌──────────────┼──────────────┐\n       ▼              ▼              ▼\n ┌──────────┐  ┌──────────┐  ┌──────────┐\n │ Server A │  │ Server B │  │ Server C │\n └──────────┘  └──────────┘  └──────────┘\n\n# Add devices\nopenasst devices add\n\n# Execute on all servers\nopenasst run \"uname -a\" --all\n\n# AI tasks on cluster\nopenasst do \"install nginx\" --all",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/abingyyds/OpenAsst/blob/ca54e917722b2bf92791ac09b48c989d47126b28/README.md?plain=1#L161"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "官方文档中的高权限或远程脚本操作应单独核查，不要整段复制执行。",
+    "该工具会根据 AI 输出在本机或远程服务器上执行系统命令。虽然文档称会拦截危险命令、并要求确认破坏性操作，使用 `-y` 自动确认或 `--all` 批量执行时仍需格外谨慎。",
+    "需要提供自己的 AI API Key，调用会产生对应服务商的用量费用。",
+    "仓库元数据中未识别到许可证，README 则声明为 MIT，使用前请自行核实 LICENSE 文件。"
+  ],
+  "references": [],
+  "media": [],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "99152e30c2f06907b3012da9805b15b3e204eb40632a99b9681561247861eb7b",
+  "mediaStatus": "unavailable",
+  "mediaFailures": [
+    {
+      "sourceUrl": "https://github.com/abingyyds/OpenAsst/blob/ca54e917722b2bf92791ac09b48c989d47126b28/README.md#L23",
+      "reason": "media_http_404"
+    }
+  ]
+}

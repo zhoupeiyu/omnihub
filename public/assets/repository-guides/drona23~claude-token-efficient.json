@@ -1,0 +1,71 @@
+{
+  "schemaVersion": 1,
+  "key": "drona23/claude-token-efficient",
+  "status": "ready",
+  "reason": "",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/drona23/claude-token-efficient/blob/0d30a6db75af983b8ababf585f28faefdfc87895/README.md",
+  "sourceRevision": "0d30a6db75af983b8ababf585f28faefdfc87895",
+  "canonicalKey": "drona23/claude-token-efficient",
+  "summary": "提供一份可直接放入项目根目录的 CLAUDE.md 规则文件及多种 profile，用于让 Claude 的回复更简洁、减少输出 token。",
+  "intro": "适合在 Claude Code 中处理大量输出的用户，例如自动化流水线、agent 循环、代码生成或重复性结构化任务。仓库是一组提示词规则文件，不是应用程序：通用的 CLAUDE.md 适用于任意项目；profiles/ 目录按编码、agent、数据分析、benchmark 等场景提供不同规则；另有 v5、v6、v8 三套版本化配置，适合不同的工具调用预算。",
+  "requirements": "需要使用会读取 CLAUDE.md 的 Claude Code。下载单个文件需要 curl，使用 profile 需要 git。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "先判断场景是否适合使用",
+      "text": "README 说明，这个文件在每条消息中都会占用输入 token，只有输出量足够大时才可能整体节省。它适合高输出的自动化流水线和重复性任务，不适合单次短问答、偶尔使用或以讨论架构为主的工作。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/drona23/claude-token-efficient/blob/0d30a6db75af983b8ababf585f28faefdfc87895/README.md?plain=1#L1"
+      }
+    },
+    {
+      "title": "下载通用 CLAUDE.md 到项目",
+      "text": "在项目根目录执行 curl 命令，下载通用版 CLAUDE.md。放好后，Claude Code 会在每条消息中自动应用这些规则，不需要修改代码。也可以手动把仓库中 CLAUDE.md 的内容复制到项目根目录。",
+      "code": "curl -o CLAUDE.md https://raw.githubusercontent.com/drona23/claude-token-efficient/main/CLAUDE.md\n\nyour-project/\n└── CLAUDE.md    <- one file, zero setup, no code changes",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/drona23/claude-token-efficient/blob/0d30a6db75af983b8ababf585f28faefdfc87895/README.md?plain=1#L233"
+      }
+    },
+    {
+      "title": "按项目类型改用对应 profile",
+      "text": "如果需要针对特定场景的规则，可以克隆仓库，将 profiles/ 下的文件（如 CLAUDE.coding.md、CLAUDE.agents.md、CLAUDE.analysis.md）复制为项目的 CLAUDE.md，替换通用版。v5、v6、v8 三套配置分别对应结构化多步骤、一次性执行和 20 次工具调用的极简预算。",
+      "code": "git clone https://github.com/drona23/claude-token-efficient\ncp claude-token-efficient/profiles/CLAUDE.coding.md your-project/CLAUDE.md",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/drona23/claude-token-efficient/blob/0d30a6db75af983b8ababf585f28faefdfc87895/README.md?plain=1#L180"
+      }
+    },
+    {
+      "title": "按实际问题精简并分层放置规则",
+      "text": "建议只针对实际遇到的失败模式添加具体规则。语气和格式类偏好放在全局 ~/.claude/CLAUDE.md，项目约束放在项目级文件，任务规则放在子目录文件。README 还提到，当前模型的基线输出已经很少出现客套开场或谄媚，针对这些行为的规则可以删除。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/drona23/claude-token-efficient/blob/0d30a6db75af983b8ababf585f28faefdfc87895/README.md?plain=1#L165"
+      }
+    },
+    {
+      "title": "需要详细回答时直接说明",
+      "text": "文件中包含覆盖规则：用户指令始终优先。如果某次需要详细解释或较长的输出，直接在对话里明确提出即可，规则文件不会阻止。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/drona23/claude-token-efficient/blob/0d30a6db75af983b8ababf585f28faefdfc87895/README.md?plain=1#L251"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "CLAUDE.md 在每条消息中都会增加输入 token。输出量低时，总消耗可能反而上升，文件应保持简短。",
+    "README 中 63% 的缩减来自 5 个提示词的单次字数统计，没有方差控制。按仓库自带 benchmark 测量，当前通用 CLAUDE.md 在 haiku、sonnet、opus 上的输出 token 缩减约为 4%、12%、7%。",
+    "benchmark 仅在 Claude 上运行，llama.cpp、Mistral 等本地模型的效果未经测试。",
+    "如果需要可靠的可解析输出，README 建议使用 API 的结构化输出功能，而不是依赖提示词格式规则。"
+  ],
+  "references": [],
+  "media": [],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "f2ef4199cb99bcfe316dc69b219893ac874c34f863db999ad78e10452e35a3fc",
+  "mediaStatus": "none_in_official_documents"
+}

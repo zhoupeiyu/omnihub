@@ -1,0 +1,93 @@
+{
+  "schemaVersion": 1,
+  "key": "mubeng/mubeng",
+  "status": "ready",
+  "reason": "",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/mubeng/mubeng/blob/963b14d9cff6d9530a8f8abec7f9862e847b6cb8/README.md",
+  "sourceRevision": "963b14d9cff6d9530a8f8abec7f9862e847b6cb8",
+  "canonicalKey": "mubeng/mubeng",
+  "summary": "mubeng 是用 Go 编写的命令行工具，可以批量检测代理是否可用，也可以作为本地代理服务器在代理池中轮换出口 IP。",
+  "intro": "适合在获得授权的渗透测试或安全评估中需要管理代理池的人员。它有两种用法：一是用 --check 检测代理存活情况，并按国家代码筛选和导出结果；二是用 -a 启动本地 HTTP 代理服务器，每隔若干请求切换一次出口 IP，可作为 Burp Suite 或 OWASP ZAP 的上游代理。支持 HTTP、SOCKS v4(A)/v5 和 Amazon API Gateway 代理协议。",
+  "requirements": "已安装 Go 编译器（本指南采用 go install 方式，Windows、Linux、macOS 均适用）；准备好自己的代理列表文件；如需配合 Burp Suite 或 OWASP ZAP 使用，需要另行安装这两款工具。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "用 go install 安装 mubeng",
+      "text": "在已安装 Go 的电脑上（Windows、Linux、macOS 均可）运行官方给出的 go install 命令，安装最新版 mubeng。官方也提供 releases 页面的预编译二进制和 Docker 镜像作为其他安装方式。",
+      "code": "▶ go install -v github.com/mubeng/mubeng@latest",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/mubeng/mubeng/blob/963b14d9cff6d9530a8f8abec7f9862e847b6cb8/README.md?plain=1#L92"
+      }
+    },
+    {
+      "title": "编写代理池文件 proxies.txt",
+      "text": "新建一个文本文件，每行写一个代理地址，可以混用多种协议，例如 http://、https://、socks4://、socks5:// 开头的地址。无论是检测代理还是做 IP 轮换，都必须提供这个文件。带认证的代理可以用 {{VARIABLE}} 的写法引用环境变量，避免把账号密码直接写进文件。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/mubeng/mubeng/blob/963b14d9cff6d9530a8f8abec7f9862e847b6cb8/README.md?plain=1#L111"
+      }
+    },
+    {
+      "title": "检测代理并导出可用列表",
+      "text": "运行带 --check 参数的命令检测代理池。--only-cc 只保留指定国家代码（ISO-3166 alpha-2）的代理，--output 把可用代理保存到 live.txt。如需自定义输出格式，可以使用 --output-format 参数。",
+      "code": "▶ mubeng -f proxies.txt --check --only-cc AU,US,UK --output live.txt",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/mubeng/mubeng/blob/963b14d9cff6d9530a8f8abec7f9862e847b6cb8/README.md?plain=1#L225"
+      }
+    },
+    {
+      "title": "启动本地 IP 轮换代理服务",
+      "text": "用 -a 指定监听地址，-f 读入 live.txt。-r 10 表示每 10 个请求切换一次 IP，-m random 表示随机选取代理。服务默认异步运行，如果要求严格按次数轮换，需要加 -s/--sync 参数。",
+      "code": "▶ mubeng -a localhost:8089 -f live.txt -r 10 -m random",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/mubeng/mubeng/blob/963b14d9cff6d9530a8f8abec7f9862e847b6cb8/README.md?plain=1#L281"
+      }
+    },
+    {
+      "title": "在 Burp Suite 中设上游代理",
+      "text": "在 Burp Suite 中依次进入 Project options → Connections → Upstream Proxy Servers，勾选 Override user options，点击 Add，填写 Destination host、Proxy host 和 Proxy port 后点 OK 保存。OWASP ZAP 的设置位置是 Tools → Options → Connection 下的 Use proxy chain。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/mubeng/mubeng/blob/963b14d9cff6d9530a8f8abec7f9862e847b6cb8/README.md?plain=1#L296"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "文档提到该工具可用于绕过暴力破解防护、API 限流和 WAF 封禁。只能在获得明确授权的测试目标上使用，未经授权用于绕过访问控制可能违法。",
+    "IP 轮换服务器只以 HTTP 协议对外提供服务，即使代理池中是 SOCKS 代理，本地监听端仍然是 HTTP。",
+    "轮换计数包含失败的请求。默认异步模式下，不能保证第 N 次请求之后一定会切换 IP。",
+    "要拦截 HTTPS 流量，需要在 mubeng 运行时访问 http://mubeng/cert 导出内置 CA 证书并安装到系统或浏览器。信任该证书有安全风险，测试结束后应及时移除。",
+    "使用 Amazon API Gateway 方式时，需要提供具备相应区域 API Gateway 权限的 AWS 凭证，请妥善保管，不要把密钥明文写入代理文件。"
+  ],
+  "references": [],
+  "media": [
+    {
+      "url": "/assets/repository-guides/media-4440b26192b795abdea23c1a.webp",
+      "alt": "mubeng/mubeng 官方演示 1",
+      "sourceUrl": "https://github.com/mubeng/mubeng/blob/963b14d9cff6d9530a8f8abec7f9862e847b6cb8/README.md?plain=1#L236",
+      "originalUrl": "https://github.com/user-attachments/assets/97b9e5ad-64bd-403a-bd3a-1bc4eb7fb3f1"
+    },
+    {
+      "url": "/assets/repository-guides/media-09860b905b974e1a153538f6.webp",
+      "alt": "mubeng/mubeng 官方演示 2",
+      "sourceUrl": "https://github.com/mubeng/mubeng/blob/963b14d9cff6d9530a8f8abec7f9862e847b6cb8/README.md?plain=1#L292",
+      "originalUrl": "https://github.com/user-attachments/assets/b86a5bf4-41e6-43ac-8077-9f82442e9577"
+    },
+    {
+      "url": "/assets/repository-guides/media-2fe1a9819d9a90a399c31f78.webp",
+      "alt": "mubeng/mubeng 官方演示 3",
+      "sourceUrl": "https://github.com/mubeng/mubeng/blob/963b14d9cff6d9530a8f8abec7f9862e847b6cb8/README.md?plain=1#L301",
+      "originalUrl": "https://user-images.githubusercontent.com/25837540/107985702-24d0ba00-6ffd-11eb-9489-c19e52c921f5.jpg"
+    }
+  ],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "c793b452772764451e13881eb54696140f6d54ba8801e3e6e51e049acfb0bfb7",
+  "mediaStatus": "archived",
+  "mediaFailures": []
+}

@@ -1,0 +1,77 @@
+{
+  "schemaVersion": 1,
+  "key": "eternityspring/reelbench-skills",
+  "status": "ready",
+  "reason": "",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/eternityspring/reelbench-skills/blob/1b51af897b6a57556b85dfe96e0427e231b4b613/README.md",
+  "sourceRevision": "1b51af897b6a57556b85dfe96e0427e231b4b613",
+  "canonicalKey": "eternityspring/reelbench-skills",
+  "summary": "面向 Claude Code / Codex 的 AI 视频技能集合，提供拉片分析、带分镜信息的视频合成和视频元数据清理三个 skill。",
+  "intro": "适合做 AI 视频或视频分析、需要在 Claude Code 或 Codex 中处理视频的用户。三个 skill 分别是：video-shots 把成片拆成逐镜头分析表并生成交互报告；video-sync 合成画面与分镜信息并排、随镜头切换的视频；video-scrub 重建只含画面和声音的干净文件，去除 GPS、设备等元数据。",
+  "requirements": "已安装 Claude Code 或 Codex；node 18 及以上；ffmpeg / ffprobe（macOS 上 README 给出的方式是 brew install node ffmpeg）。不需要 npm 依赖或 API key。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "按需求选择要用的 skill",
+      "text": "需要逐镜头分析时长、景别、运镜和节奏，选 video-shots；需要输出画面与分镜表同步滚动的视频，选 video-sync；需要清除视频中的元数据，包括 SEI、AAC DSE 等 ffprobe 看不到的部分，选 video-scrub。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/eternityspring/reelbench-skills/blob/1b51af897b6a57556b85dfe96e0427e231b4b613/README.md?plain=1#L6"
+      }
+    },
+    {
+      "title": "克隆仓库并运行安装脚本",
+      "text": "克隆仓库后，在仓库目录执行 `./scripts/install.sh`。脚本会把 skill 软链到 `~/.claude/skills/` 和/或 `~/.codex/skills/`，已安装哪个宿主就装到哪个。之后 `git pull` 更新会立即生效。",
+      "code": "git clone https://github.com/eternityspring/reelbench-skills.git\ncd reelbench-skills\n./scripts/install.sh",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/eternityspring/reelbench-skills/blob/1b51af897b6a57556b85dfe96e0427e231b4b613/README.md?plain=1#L24"
+      }
+    },
+    {
+      "title": "按宿主或单个 skill 安装",
+      "text": "该步骤涉及需要人工核查的高权限、远程脚本或破坏性操作。本站不提供直接执行指令，请先查看官方说明并确认影响。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/eternityspring/reelbench-skills/blob/1b51af897b6a57556b85dfe96e0427e231b4b613/README.md?plain=1#L24"
+      }
+    },
+    {
+      "title": "查看仓库内的示例产物",
+      "text": "demo-report/ 是 video-shots 的完整产物，其中 shots-report.html 可以离线双击打开，内含播放器、可筛选的镜头表和质量检查。demo-scrub/ 是 video-scrub 的对账文本，demo-sync/ 是 video-sync 输出的示例视频。",
+      "code": "demo-report/\n├── shots-report.html   ← 克隆下来双击就能开\n├── shots.json          ← 53 镜的拉片主数据\n├── shots.md            ← Markdown 镜头表\n├── track.json          ← 逐帧差分的运动曲线（机器证据）\n└── frames/             ← 每镜首尾两张关键帧，共 106 张",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/eternityspring/reelbench-skills/blob/1b51af897b6a57556b85dfe96e0427e231b4b613/README.md?plain=1#L46"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "运行依赖本机安装的 node 18 及以上版本和 ffmpeg / ffprobe。",
+    "skill 调用会消耗当前 Claude Code / Codex 会话的额度。",
+    "README 中的微信交流群为付费社群，与使用这些 skill 无关。",
+    "采用 Apache-2.0 许可证。"
+  ],
+  "references": [],
+  "media": [
+    {
+      "url": "/assets/repository-guides/media-b94d2eb4be80bcae630c95bd.webp",
+      "alt": "拉片报告",
+      "sourceUrl": "https://github.com/eternityspring/reelbench-skills/blob/1b51af897b6a57556b85dfe96e0427e231b4b613/README.md?plain=1#L54",
+      "originalUrl": "https://raw.githubusercontent.com/eternityspring/reelbench-skills/1b51af897b6a57556b85dfe96e0427e231b4b613/skills/video-shots/assets/report.png"
+    },
+    {
+      "url": "/assets/repository-guides/media-fbf99de477d52ec0bbde28cf.webp",
+      "alt": "窄屏下的镜头表",
+      "sourceUrl": "https://github.com/eternityspring/reelbench-skills/blob/1b51af897b6a57556b85dfe96e0427e231b4b613/README.md?plain=1#L60",
+      "originalUrl": "https://raw.githubusercontent.com/eternityspring/reelbench-skills/1b51af897b6a57556b85dfe96e0427e231b4b613/skills/video-shots/assets/report-mobile.png"
+    }
+  ],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "a727442b54443c1dac97cc9e318d98c5802359fca163d177b89fe557f3359b34",
+  "mediaStatus": "archived",
+  "mediaFailures": []
+}

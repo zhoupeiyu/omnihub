@@ -1,0 +1,64 @@
+{
+  "schemaVersion": 1,
+  "key": "f/prompts.chat",
+  "status": "ready",
+  "reason": "",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/f/prompts.chat/blob/f78a1c5136fa080155d928e0d7e2b4a41ddef03e/README.md",
+  "sourceRevision": "f78a1c5136fa080155d928e0d7e2b4a41ddef03e",
+  "canonicalKey": "f/prompts.chat",
+  "summary": "prompts.chat 是一个面向 AI 聊天模型的开源提示词库，可在线浏览、下载数据文件，也可通过 MCP 接入或自建私有提示词库。",
+  "intro": "适合经常使用 ChatGPT、Claude、Gemini、Llama、Mistral 等 AI 助手、需要现成提示词参考的用户，也适合想为组织部署私有提示词库的团队。提示词可在网站、PROMPTS.md、prompts.csv 或 Hugging Face 数据集中查阅；仓库还附带免费的交互式提示工程教程和面向 8–14 岁儿童的游戏化学习内容。",
+  "requirements": "仅查阅提示词时只需浏览器。使用 MCP 需要支持 mcpServers 配置的 AI 工具。自建部署需要 Node.js/npx 环境，数据库使用 PostgreSQL。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "在线浏览或下载提示词数据",
+      "text": "打开 prompts.chat/prompts 在线浏览提示词；如需离线查阅或批量处理，可使用仓库中的 PROMPTS.md、prompts.csv，或 Hugging Face 上的 fka/prompts.chat 数据集。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/f/prompts.chat/blob/f78a1c5136fa080155d928e0d7e2b4a41ddef03e/README.md?plain=1#L59"
+      }
+    },
+    {
+      "title": "把选中的提示词用于 AI 助手",
+      "text": "将选中的提示词复制到所用的 AI 聊天工具中。README 说明这些提示词最初为 ChatGPT 编写，也可用于 Claude、Gemini、Llama、Mistral 等现代 AI 助手。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/f/prompts.chat/blob/f78a1c5136fa080155d928e0d7e2b4a41ddef03e/README.md?plain=1#L1"
+      }
+    },
+    {
+      "title": "以远程 MCP 方式接入 AI 工具",
+      "text": "如果希望在 AI 工具中直接调用提示词库，可在该工具的 MCP 配置中加入官方推荐的远程地址 https://prompts.chat/api/mcp。具体用法见 prompts.chat/docs/api 中的 MCP 文档。",
+      "code": "{\n  \"mcpServers\": {\n    \"prompts.chat\": {\n      \"url\": \"https://prompts.chat/api/mcp\"\n    }\n  }\n}",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/f/prompts.chat/blob/f78a1c5136fa080155d928e0d7e2b4a41ddef03e/README.md?plain=1#L150"
+      }
+    },
+    {
+      "title": "用快速开始方式自建私有库",
+      "text": "如需为组织部署私有提示词库，可按 Quick Start 用 npx 创建新项目并进入目录。设置向导会配置品牌、主题、认证方式（GitHub/Google/Azure AD）和功能，完整步骤见 SELF-HOSTING.md 和 DOCKER.md。",
+      "code": "npx prompts.chat new my-prompt-library\ncd my-prompt-library",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/f/prompts.chat/blob/f78a1c5136fa080155d928e0d7e2b4a41ddef03e/README.md?plain=1#L100"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "许可分为两部分：源代码和站点自写内容（含交互式教程）采用 MIT，提示词内容和数据（prompts.csv、PROMPTS.md、用户提交内容）以 CC0 1.0 放入公有领域。",
+    "自建部署使用 PostgreSQL 数据库，需要自行准备数据库服务；README 推荐的托管数据库服务同时是赞助方。",
+    "README 中 Claude Code 插件安装代码的第二行是邮箱地址，不是有效的插件名，不建议照抄；请以仓库内 CLAUDE-PLUGIN.md 为准。",
+    "README 只列出 `npx prompts.chat` 这条 CLI 命令，没有说明其具体功能。",
+    "交互式教程的阅读链接指向 Gumroad 页面。"
+  ],
+  "references": [],
+  "media": [],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "580241073020148096fb32d9731c9068ec5110b06d92c6e7f32816d2076d94d2",
+  "mediaStatus": "none_in_official_documents"
+}

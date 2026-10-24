@@ -1,0 +1,73 @@
+{
+  "schemaVersion": 1,
+  "key": "1229119561weike/source-library-research-kit",
+  "status": "ready",
+  "reason": "",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/1229119561Weike/source-library-research-kit/blob/ceeaa80962059dc99f22d57977f6f51e93effb4d/README.md",
+  "sourceRevision": "ceeaa80962059dc99f22d57977f6f51e93effb4d",
+  "canonicalKey": "1229119561Weike/source-library-research-kit",
+  "summary": "一个跨学科研究信息源索引与配套 Skill，提供 494 个去重来源的目录、可导入 RSS 阅读器的 OPML 订阅文件，以及按引用角色筛选来源的研究流程说明。",
+  "intro": "适合做选题、事实核查、带出处写作的研究者、写作者和内容创作者。可以用它查找某个领域的候选信息源，把订阅源导入 RSS 阅读器建立阅读清单，或交给 AI agent 按“证据、解释、观点、线索、灵感”五种引用角色筛选来源。它是发现索引，不是事实数据库。",
+  "requirements": "获取本仓库文件。导入订阅需要支持 OPML 的 RSS 阅读器。直接查询目录需要能运行 README 中 Python 示例的环境。走 Matrix 路径需要 macOS 版 Matrix。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "先看目录结构与入口文件",
+      "text": "打开仓库中的 high-quality-source-library/ 目录。给人阅读的入口是 human_guide_zh.md，给 agent 的入口是 START_HERE_AGENT.md。主目录数据在 source_catalog.json、source_catalog.csv 和 source_library.xlsx 中。视觉前沿与课程两个附加层分别放在 visual_frontier_projects/ 和其下的 courses/。",
+      "code": "high-quality-source-library/\n├── START_HERE_AGENT.md\n├── PROMPT_FOR_AGENT_ZH.md\n├── human_guide_zh.md\n├── manifest.json\n├── source_catalog.json\n├── source_catalog.csv\n├── source_library.xlsx\n├── opml/\n│   ├── all_feeds.opml\n│   ├── core_feeds.opml\n│   ├── karpathy_hn2025_original.opml\n│   ├── mind_health_growth_business.opml\n│   └── youtube_channels.opml\n└── visual_frontier_projects/\n    ├── START_HERE.md\n    ├── FULL_INDEX.md\n    ├── visual_sources.json\n    ├── visual_feeds.opml\n    └── courses/\n        ├── START_HERE.md\n        ├── FULL_COURSE_INDEX.md\n        ├── LEARNING_PATHS.md\n        ├── RESOURCE_CURATORS.md\n        ├── course_sources.json\n        └── course_video_feeds.opml\n\nskills/source-library-research/\n└── SKILL.md",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/1229119561Weike/source-library-research-kit/blob/ceeaa80962059dc99f22d57977f6f51e93effb4d/README.md?plain=1#L1"
+      }
+    },
+    {
+      "title": "从 core_feeds.opml 导入订阅",
+      "text": "在支持 OPML 的 RSS 阅读器中导入 core_feeds.opml。它包含 70 个高优先级条目，README 建议从这里起步，不要第一天就导入 342 条的 all_feeds.opml。之后可按需追加 YouTube 频道、Karpathy 分享的 HN 2025 起步清单、视觉前沿或课程订阅文件。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/1229119561Weike/source-library-research-kit/blob/ceeaa80962059dc99f22d57977f6f51e93effb4d/README.md?plain=1#L138"
+      }
+    },
+    {
+      "title": "用 Python 按字段筛选目录",
+      "text": "读取 source_catalog.json，按 category、citation_role、priority 等字段过滤，并输出名称和主页。可用字段还包括 subcategory、score、feed_status、x_use、why、verify_note、validation_note。注意示例中的分类与角色取值是中文。",
+      "code": "import json\nfrom pathlib import Path\n\ncatalog = json.loads(\n    Path(\"high-quality-source-library/source_catalog.json\").read_text()\n)\n\nselected = [\n    source\n    for source in catalog\n    if source[\"category\"] == \"数据与可视化\"\n    and source[\"citation_role\"] in {\"证据源\", \"解释源\"}\n    and source[\"priority\"] in {\"S\", \"A\"}\n]\n\nfor source in selected[:10]:\n    print(source[\"name\"], source[\"citation_role\"], source[\"homepage\"])",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/1229119561Weike/source-library-research-kit/blob/ceeaa80962059dc99f22d57977f6f51e93effb4d/README.md?plain=1#L114"
+      }
+    },
+    {
+      "title": "交给 agent 按引用角色选源",
+      "text": "在任意 agent 工作流中，让 agent 先读取 START_HERE_AGENT.md、manifest.json、source_catalog.json 和 human_guide_zh.md，再按主题筛选，并给每个来源分配引用角色。中文提示词可直接使用 PROMPT_FOR_AGENT_ZH.md。在 macOS 版 Matrix 中，请 Lead/Neo 通过当前产品内流程注册 source-library-research Skill。",
+      "code": "Read high-quality-source-library/START_HERE_AGENT.md, manifest.json, source_catalog.json, and human_guide_zh.md. Filter the catalog for the topic, assign each selected source a citation role, then verify every publishable claim at its current original source. Do not cite a catalog row or RSS URL as evidence.",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/1229119561Weike/source-library-research-kit/blob/ceeaa80962059dc99f22d57977f6f51e93effb4d/README.md?plain=1#L104"
+      }
+    },
+    {
+      "title": "发布前回到原始来源核实",
+      "text": "目录行和 RSS 地址都不能当作证据引用。每一条要发布的说法，都要到当前的原文、论文、数据集、官方页面、法律或判决中核实。高分只代表阅读优先级。feed_status 只是快照日的网络检查结果，不代表内容准确，也不代表有转载权。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/1229119561Weike/source-library-research-kit/blob/ceeaa80962059dc99f22d57977f6f51e93effb4d/README.md?plain=1#L1"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "主目录、视觉层、课程层分别是 2026-08-17、08-18、08-19 的快照，政策、价格、链接、课程状态和 feed 状态都需要实时核对。",
+    "Matrix 官方文档目前没有定义稳定的手动安装自定义 Skill 的路径、GitHub 导入按钮或斜杠命令，不要依赖猜测的文件路径或命令。",
+    "仓库自身的整理内容按 CC BY 4.0 授权；所链接的第三方文章、图片、数据仍受各自所有者条款约束，截图、嵌入或转载前要逐一检查授权。",
+    "课程层 167 条中只有 11 个唯一 URL 可以订阅，其余是平台入口；课程费用、讲师和授权可能已变化。",
+    "“Karpathy 92”只表示由 Karpathy 分享的 HN 2025 RSS 起步清单，不表示他逐一审阅或背书。"
+  ],
+  "references": [],
+  "media": [],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "bc3d92bfee853de64bce3de9745be1f0f2245e71aad84427980aacc0c7f29417",
+  "mediaStatus": "none_in_official_documents"
+}

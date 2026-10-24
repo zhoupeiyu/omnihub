@@ -1,0 +1,51 @@
+{
+  "schemaVersion": 1,
+  "key": "voltagent/awesome-agent-skills",
+  "status": "partial",
+  "reason": "提供的 README 片段只有按厂商分组的技能链接列表（指向 officialskills.sh）。正文提到的各宿主安装路径与文档表格没有包含在证据中，因此无法给出在 Claude Code、Codex 等工具里放置或启用技能的具体方法。",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/VoltAgent/awesome-agent-skills/blob/af465bbef5632ee23cf20a2291df31b29d3fd0c9/README.md",
+  "sourceRevision": "af465bbef5632ee23cf20a2291df31b29d3fd0c9",
+  "canonicalKey": "VoltAgent/awesome-agent-skills",
+  "summary": "一个人工整理的 Agent Skills 目录，收录各大开发团队官方发布的技能和社区技能，并提供跳转链接。",
+  "intro": "适合使用 Claude Code、Codex、Gemini CLI、Cursor、GitHub Copilot 等编码 Agent，想查找现成官方技能的开发者。例如可以按厂商找到 Microsoft Azure 各语言 SDK 技能，或 Supabase、Stripe、Vercel 等团队发布的技能。",
+  "requirements": "需要一个支持 Agent Skills 的宿主工具；README 列出的兼容宿主包括 Claude Code、Codex、Antigravity、Gemini CLI、Cursor、GitHub Copilot、OpenCode、Windsurf。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "按厂商索引定位技能分组",
+      "text": "在 README 的「Official Skills by」表格中，点击目标团队名（如 Microsoft、Supabase、Stripe）跳转到对应分组。也可以选择 Community 查看社区技能。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/VoltAgent/awesome-agent-skills/blob/af465bbef5632ee23cf20a2291df31b29d3fd0c9/README.md?plain=1#L57"
+      }
+    },
+    {
+      "title": "按语言或场景挑选具体技能",
+      "text": "部分厂商按子类划分，例如 Microsoft 下分为 Core、.NET、Java、Python 等。每条记录写明技能名和一句用途说明，先根据技术栈和需求筛选出候选技能。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/VoltAgent/awesome-agent-skills/blob/af465bbef5632ee23cf20a2291df31b29d3fd0c9/README.md?plain=1#L624"
+      }
+    },
+    {
+      "title": "打开技能详情并确认宿主",
+      "text": "点击技能名会进入 officialskills.sh 的详情页。在详情页和 README 的路径表格中，确认你使用的宿主工具对应的技能存放路径和官方文档后，再按该宿主的说明接入。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/VoltAgent/awesome-agent-skills/blob/af465bbef5632ee23cf20a2291df31b29d3fd0c9/README.md?plain=1#L32"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "本仓库是链接目录，技能内容由各原作者维护。接入前请检查技能本身的许可和来源。",
+    "README 中夹杂赞助商推广内容，与技能本身无关。"
+  ],
+  "references": [],
+  "media": [],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "c3bb1c2b4380c5d7862040bf628c61e3bb43dcc2a0159127b4db1ae285f315d7",
+  "mediaStatus": "none_in_official_documents"
+}

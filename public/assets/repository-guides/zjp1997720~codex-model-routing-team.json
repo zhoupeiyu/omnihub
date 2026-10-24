@@ -1,0 +1,66 @@
+{
+  "schemaVersion": 1,
+  "key": "zjp1997720/codex-model-routing-team",
+  "status": "ready",
+  "reason": "",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/zjp1997720/codex-model-routing-team/blob/8a3eda4276f2d297f22f478598fb962b88a7140e/README.md",
+  "sourceRevision": "8a3eda4276f2d297f22f478598fb962b88a7140e",
+  "canonicalKey": "zjp1997720/codex-model-routing-team",
+  "summary": "一个 Codex Skill：由主 Agent 把复杂的可并行任务拆分为指定模型和推理级别的后台任务，并负责整合与验证结果。",
+  "intro": "适合在 Codex App 中处理复杂并行工作的用户，例如多来源调研、多章节内容、大型 Skill 或演示文稿，以及互不重叠的工程模块。主 Agent 负责规划、分配文件归属、验证和整合；每个后台任务被分配明确的模型与推理级别，并受数量上限约束：每波最多 3 个新任务、同时最多 6 个、单个请求累计最多 8 个。它也可以作为 Deep Research 等上游 Skill 的 Thread Orchestrator。",
+  "requirements": "需要带后台任务工具的 Codex App，能够发现项目、创建、读取、追加消息和归档任务。还需要有权使用主 Agent 所选的模型和推理级别。安装要用到 npx skills。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "用 npx skills 全局安装到 Codex",
+      "text": "在终端使用 skills CLI，以复制方式（不使用符号链接）把 codex-model-routing-team 全局安装给 Codex。README 也给出了简写和完整 GitHub URL 两种安装写法，任选其一即可。",
+      "code": "npx skills add zjp1997720/codex-model-routing-team \\\n  -g -a codex --skill codex-model-routing-team --copy -y",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/zjp1997720/codex-model-routing-team/blob/8a3eda4276f2d297f22f478598fb962b88a7140e/README.md?plain=1#L16"
+      }
+    },
+    {
+      "title": "核对安装包含全部支持文件",
+      "text": "列出已安装的 Skill，并查看安装目录中的文件。文件列表必须包含 SKILL.md、references/routing-policy.md、references/task-packet.md 和 references/thread-lifecycle.md。如果只有 SKILL.md，说明安装不完整，应删除后重新安装。",
+      "code": "npx skills ls -g -a codex\nfind ~/.agents/skills/codex-model-routing-team -maxdepth 2 -type f | sort",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/zjp1997720/codex-model-routing-team/blob/8a3eda4276f2d297f22f478598fb962b88a7140e/README.md?plain=1#L16"
+      }
+    },
+    {
+      "title": "在请求中显式调用技能",
+      "text": "安装后即可显式调用：在 Codex 请求中写上 $codex-model-routing-team，并说明要并行处理的独立任务以及最后的验证与整合要求。README 给出了并行调研、多模块开发、制作培训材料、配合 $deep-research 等请求写法。",
+      "code": "Use $codex-model-routing-team to research these six independent topics in parallel, then verify and synthesize the findings.\n\nUse $codex-model-routing-team to implement, test, and review three independent modules without overlapping file ownership.\n\nUse $codex-model-routing-team as the Thread Orchestrator for $deep-research. Preserve its verifier and reviewer stages.",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/zjp1997720/codex-model-routing-team/blob/8a3eda4276f2d297f22f478598fb962b88a7140e/README.md?plain=1#L46"
+      }
+    },
+    {
+      "title": "按需在 AGENTS.md 添加自动授权",
+      "text": "如果希望 Codex 在合适的复杂任务中自动启用此 Skill，把 README 提供的授权段落加入 ~/.codex/AGENTS.md；只想对单个项目生效时，改为放入该项目的 AGENTS.md。不添加这段授权时，显式调用仍然可用。",
+      "code": "## Codex background model-routing authorization\n\n- The user authorizes Codex to use `$codex-model-routing-team` automatically for complex, parallelizable tasks, create independent background tasks, and assign a model and reasoning level to each task. Before dispatch, briefly state the number of tasks, model, reasoning level, and responsibility. No additional confirmation is required.\n- The lead agent keeps its current model and owns planning, file ownership, integration, verification, and final delivery.\n- Run at most 6 background tasks concurrently and create at most 8 for one root task. Background tasks must not create more background tasks or subagents.\n- Background tasks must not use Ultra. Terra is excluded from automatic routing by default. If Codex App background-task tools are unavailable, complete the work locally and do not use MultiAgentV2 `spawn_agent` as a substitute for model routing.\n- Do not auto-dispatch simple questions, status checks, small single-file edits, strongly sequential work, publishing, sending, payment, deletion, account, or production operations.",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/zjp1997720/codex-model-routing-team/blob/8a3eda4276f2d297f22f478598fb962b88a7140e/README.md?plain=1#L46"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "本仓库是自动生成的兼容镜像，可编辑源码、Issues 和贡献都在 zjp1997720/zhijian-skills。",
+    "添加 AGENTS.md 授权后，派发后台任务前不再需要额外确认；每个后台任务都会消耗所选模型的用量。",
+    "默认路由为 Sol 和 Luna，禁止使用 Ultra，Terra 默认不参与自动路由。",
+    "它不会修改 MultiAgentV2，也不会让原生 subagent 支持按 Agent 选择模型；后台任务工具不可用时会改为本地完成。",
+    "发布、支付、删除、账号变更和生产环境操作始终保留在主任务中，不会派发给后台任务。"
+  ],
+  "references": [],
+  "media": [],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "fb0de7c8fa48b41b479de59c164c4ccb8bc211e6acb12837c46f40e4d0b87151",
+  "mediaStatus": "none_in_official_documents"
+}

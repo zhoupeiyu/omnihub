@@ -1,0 +1,87 @@
+{
+  "schemaVersion": 1,
+  "key": "tzengyuxio/claude-statusline",
+  "status": "ready",
+  "reason": "",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/tzengyuxio/claude-statusline/blob/7dc647a9332dcbcb9f250bf1cf4882dea6e548cc/README.md",
+  "sourceRevision": "7dc647a9332dcbcb9f250bf1cf4882dea6e548cc",
+  "canonicalKey": "tzengyuxio/claude-statusline",
+  "summary": "为 Claude Code 提供双行状态栏，显示模型、上下文进度条、会话费用、API 配额、Git 状态等信息。",
+  "intro": "适合日常使用 Claude Code、希望在终端中一眼看到上下文用量、5 小时/7 天配额与重置倒数，以及当前目录、Git 分支和文件变更数、Python venv、vim 模式的用户。支持深色/浅色主题自动检测，可通过脚本变量自定义。",
+  "requirements": "已安装 Claude Code；需要 bash 4.0+、jq、git，并在终端中使用 Nerd Font 字体。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "确认依赖与 Nerd Font",
+      "text": "安装前确认系统中已有 bash 4.0 及以上版本、jq 和 git，并在终端中切换为 Nerd Font 字体，否则状态栏图标无法正常显示。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/tzengyuxio/claude-statusline/blob/7dc647a9332dcbcb9f250bf1cf4882dea6e548cc/README.md?plain=1#L11"
+      }
+    },
+    {
+      "title": "运行一键安装脚本",
+      "text": "在终端执行官方安装命令，它会从仓库下载并运行 install.sh。如果更想自己控制，也可以按 README 中的手动安装：下载 statusline-command.sh 到 ~/.claude/ 并在 settings.json 中添加 statusLine 配置。 原文包含需人工核查的高权限或删除命令，本站不提供一键复制；请查看该步骤的官方出处。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/tzengyuxio/claude-statusline/blob/7dc647a9332dcbcb9f250bf1cf4882dea6e548cc/README.md?plain=1#L11"
+      }
+    },
+    {
+      "title": "重启 Claude Code 生效",
+      "text": "安装完成后重启 Claude Code，状态栏会显示两行：第一行是模型、上下文进度条、会话费用和配额；第二行是目录、Git 状态、venv 和 vim 模式。上下文超过 90% 时会出现红色警示。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/tzengyuxio/claude-statusline/blob/7dc647a9332dcbcb9f250bf1cf4882dea6e548cc/README.md?plain=1#L11"
+      }
+    },
+    {
+      "title": "按需固定深色或浅色主题",
+      "text": "状态栏默认按 macOS 外观或 COLORFGBG 自动判断背景，检测不到时使用深色。如需固定主题，在启动 Claude Code 前设置 STATUSLINE_THEME，可选值为 light、dark、auto。",
+      "code": "export STATUSLINE_THEME=light  # or: dark, auto (default)",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/tzengyuxio/claude-statusline/blob/7dc647a9332dcbcb9f250bf1cf4882dea6e548cc/README.md?plain=1#L82"
+      }
+    },
+    {
+      "title": "编辑脚本调整显示细节",
+      "text": "打开 statusline-command.sh，修改 BAR_SEGMENTS 可调整进度条格数，CACHE_TTL 控制配额刷新秒数（默认 60），pct_color() 调整颜色阈值，ICON_* 用于替换 Nerd Font 图标。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/tzengyuxio/claude-statusline/blob/7dc647a9332dcbcb9f250bf1cf4882dea6e548cc/README.md?plain=1#L73"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "一键安装通过 curl 管道直接执行远程脚本，执行前可先查看 install.sh 内容，或改用手动安装方式。",
+    "配额信息依赖后台缓存的 API 调用，默认每 60 秒刷新一次，显示的数值可能存在延迟。"
+  ],
+  "references": [
+    {
+      "label": "README.zh-TW.md",
+      "url": "https://github.com/tzengyuxio/claude-statusline/blob/7dc647a9332dcbcb9f250bf1cf4882dea6e548cc/README.zh-TW.md"
+    }
+  ],
+  "media": [
+    {
+      "url": "/assets/repository-guides/media-2c612bc31e7025d73046747c.webp",
+      "alt": "tzengyuxio/claude-statusline 官方演示 1",
+      "sourceUrl": "https://github.com/tzengyuxio/claude-statusline/blob/7dc647a9332dcbcb9f250bf1cf4882dea6e548cc/README.md?plain=1#L7",
+      "originalUrl": "https://raw.githubusercontent.com/tzengyuxio/claude-statusline/7dc647a9332dcbcb9f250bf1cf4882dea6e548cc/screenshot-dark.png"
+    },
+    {
+      "url": "/assets/repository-guides/media-55cf17ea3cdc06aaf35d9403.webp",
+      "alt": "tzengyuxio/claude-statusline 官方演示 2",
+      "sourceUrl": "https://github.com/tzengyuxio/claude-statusline/blob/7dc647a9332dcbcb9f250bf1cf4882dea6e548cc/README.md?plain=1#L7",
+      "originalUrl": "https://raw.githubusercontent.com/tzengyuxio/claude-statusline/7dc647a9332dcbcb9f250bf1cf4882dea6e548cc/screenshot-light.png"
+    }
+  ],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "a41453e935d409f22846230537bbf7b1745ffcdadaef797f885f18ec394dc73a",
+  "mediaStatus": "archived",
+  "mediaFailures": []
+}

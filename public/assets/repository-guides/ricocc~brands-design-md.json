@@ -1,0 +1,75 @@
+{
+  "schemaVersion": 1,
+  "key": "ricocc/brands-design-md",
+  "status": "ready",
+  "reason": "",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/ricocc/brands-design-md/blob/a3ad408b354e2f0ee7a5702b783e2d4b218955f7/README.md",
+  "sourceRevision": "a3ad408b354e2f0ee7a5702b783e2d4b218955f7",
+  "canonicalKey": "ricocc/brands-design-md",
+  "summary": "一个品牌设计参考资料库，收录了 69 个品牌的 DESIGN.md、浏览器预览页、网站截图和设计令牌文件。",
+  "intro": "适合设计师、前端开发者，以及使用 AI 辅助设计或编码的人。在开始做页面或组件之前，可以先了解某个品牌的色彩、字体、间距、圆角、组件样式和整体视觉气质，也可以把 DESIGN.md 作为上下文提供给 AI 工具。这是资料集合，不是需要安装的应用。",
+  "requirements": "浏览器，用于打开 preview.html 和查看截图；需要获取仓库文件，可以克隆仓库或在 GitHub 上在线浏览。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "在 brands 目录中选择品牌",
+      "text": "先查看 README 中的已收录品牌列表，或直接浏览 brands/ 目录，找到目标品牌的独立目录。注意并非每个品牌都包含全部可选文件，以目录中的实际文件为准。",
+      "code": "brands/\n└── <brand>/\n    ├── DESIGN.md             # 品牌设计参考文档\n    ├── preview.html          # 可在浏览器中打开的视觉预览\n    ├── cover_<domain>.webp   # 品牌网站截图封面\n    ├── favicon.*             # 网站图标（部分品牌提供）\n    ├── tokens.json           # 结构化设计令牌\n    ├── variables.css         # CSS 自定义属性\n    └── theme.css             # 可复用的主题样式\n\nregistry.json                 # 品牌条目索引与元数据",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/ricocc/brands-design-md/blob/a3ad408b354e2f0ee7a5702b783e2d4b218955f7/README.md?plain=1#L21"
+      }
+    },
+    {
+      "title": "先看截图和 preview.html",
+      "text": "打开 cover_<domain>.webp 截图和 preview.html，快速感受品牌的色彩、字体层级、组件和整体风格，判断它是否适合当前项目，再决定是否细读文档。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/ricocc/brands-design-md/blob/a3ad408b354e2f0ee7a5702b783e2d4b218955f7/README.md?plain=1#L138"
+      }
+    },
+    {
+      "title": "阅读 DESIGN.md 提取设计规则",
+      "text": "DESIGN.md 结构化地整理了视觉方向、色彩、字体字号、行高字距、间距圆角栅格、常见组件描述，以及建议保留和应避免的做法。它可以直接给人阅读，也适合作为 AI 设计或编码工具的上下文。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/ricocc/brands-design-md/blob/a3ad408b354e2f0ee7a5702b783e2d4b218955f7/README.md?plain=1#L28"
+      }
+    },
+    {
+      "title": "用令牌和 CSS 文件辅助实现",
+      "text": "准备落地时，把 tokens.json、variables.css 和 theme.css 当作实现参考。如果要按条目批量检索品牌，可以查看根目录的 registry.json 索引与元数据。",
+      "code": "brands/\n└── <brand>/\n    ├── DESIGN.md             # Brand design reference\n    ├── preview.html          # Browser-ready visual preview\n    ├── cover_<domain>.webp   # Screenshot cover of the brand website\n    ├── favicon.*             # Website icon, where available\n    ├── tokens.json           # Structured design tokens\n    ├── variables.css         # CSS custom properties\n    └── theme.css             # Reusable theme styles\n\nregistry.json                 # Brand index and metadata",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/ricocc/brands-design-md/blob/a3ad408b354e2f0ee7a5702b783e2d4b218955f7/README.md?plain=1#L21"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "内容是基于公开资料的非官方整理，不是品牌官方设计规范；各品牌官网仍是最主要的参考来源。",
+    "品牌名称、商标和视觉资产归各自权利人所有。本仓库仅供学习、研究和设计参考，收录不代表获得授权或背书。",
+    "仓库元数据中没有标注许可证，复用文件前请自行确认使用条款。"
+  ],
+  "references": [
+    {
+      "label": "README.zh-CN.md",
+      "url": "https://github.com/ricocc/brands-design-md/blob/a3ad408b354e2f0ee7a5702b783e2d4b218955f7/README.zh-CN.md"
+    }
+  ],
+  "media": [
+    {
+      "url": "/assets/repository-guides/media-c1cb16d2f28c39cfd6a4d58b.webp",
+      "alt": "ricocc/brands-design-md 官方演示 1",
+      "sourceUrl": "https://github.com/ricocc/brands-design-md/blob/a3ad408b354e2f0ee7a5702b783e2d4b218955f7/README.md?plain=1#L15",
+      "originalUrl": "https://raw.githubusercontent.com/ricocc/brands-design-md/a3ad408b354e2f0ee7a5702b783e2d4b218955f7/public/preview.jpg"
+    }
+  ],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "01b196abe1ba5feb3347360d4d6b22ead9ebb2045e6ddbd30b4387a98b1a8362",
+  "mediaStatus": "archived",
+  "mediaFailures": []
+}

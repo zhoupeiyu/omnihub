@@ -1,0 +1,82 @@
+{
+  "schemaVersion": 1,
+  "key": "cytostack/openwolf",
+  "status": "ready",
+  "reason": "",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/cytostack/openwolf/blob/04b75ca9c40d10c345ae4f5157e033d7397f1b7a/README.md",
+  "sourceRevision": "04b75ca9c40d10c345ae4f5157e033d7397f1b7a",
+  "canonicalKey": "cytostack/openwolf",
+  "summary": "OpenWolf 在项目本地的 .wolf/ 目录中保存任务上下文、项目索引和已知修复，供 Claude Code、Codex、OpenCode 跨会话复用，并按代理和模型汇总已记录的 token 用量。",
+  "intro": "适合经常在多个编程代理之间切换、或会话常被压缩和重启的开发者。它能保存检查点并恢复未完成的任务，通过项目地图查找文件和符号，记录项目笔记与 bug 修复，识别对未改动文件的重复读取，还提供本地 dashboard 查看用量和 API 费用估算。",
+  "requirements": "需要 Node.js 20 或更高版本，以及至少一个受支持的代理（Claude Code、Codex CLI、OpenCode 等）。可在 macOS、Linux 和 Windows 上运行。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "全局安装并在项目中初始化",
+      "text": "通过 npm 全局安装 openwolf，进入项目目录后执行 openwolf init。init 会创建 .wolf/ 目录，自动检测已安装的代理，并注册 hooks 或插件。如需指定代理，可以加 --agent claude codex opencode 参数。",
+      "code": "npm install -g openwolf\ncd your-project\nopenwolf init",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/cytostack/openwolf/blob/04b75ca9c40d10c345ae4f5157e033d7397f1b7a/README.md?plain=1#L59"
+      }
+    },
+    {
+      "title": "完成信任审查并开启新会话",
+      "text": "如果代理弹出项目或 hook 的信任审查，先完成审查，再开启一个新会话，集成才会生效。各代理的集成深度不同：Claude Code 和 Codex 使用 hooks，OpenCode 使用插件，Cursor、Gemini CLI 等只注入上下文。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/cytostack/openwolf/blob/04b75ca9c40d10c345ae4f5157e033d7397f1b7a/README.md?plain=1#L59"
+      }
+    },
+    {
+      "title": "检查安装状态与项目索引",
+      "text": "用 openwolf status 检查安装情况和 hook 健康状态，用 openwolf scan 刷新项目索引，再用 openwolf find 查找已索引的符号或文件。命令列表里还有 bug search、memory archive、handoff 等子命令。",
+      "code": "openwolf init               Set up .wolf/ and detected agents\nopenwolf status             Check installation and hook health\nopenwolf scan               Refresh the project index\nopenwolf scan --check       Check index freshness without writing\nopenwolf find <query>       Find an indexed symbol or file\nopenwolf find --file <p>    Show one file's description and symbol map\nopenwolf map                Show a focused project overview\nopenwolf report             Review operational records and usage\nopenwolf usage report       Report available provider token counters\nopenwolf handoff list       Find saved Claude and Codex sessions\nopenwolf handoff search <q> Search saved task evidence\nopenwolf memory archive     Archive eligible older session notes\nopenwolf bench              Compare supported tasks (--yes required)\nopenwolf bug search <term>  Search known problems and fixes\nopenwolf dashboard          Open the local dashboard\nopenwolf cron list          List scheduled maintenance tasks\nopenwolf update             Refresh registered projects from the installed package\nopenwolf self-update        Check npm and prepare a compatible project runtime\nopenwolf restore [backup]   List backups or restore the selected snapshot",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/cytostack/openwolf/blob/04b75ca9c40d10c345ae4f5157e033d7397f1b7a/README.md?plain=1#L219"
+      }
+    },
+    {
+      "title": "打开本地 dashboard 查看记录",
+      "text": "运行 openwolf dashboard 打开本地面板，可以查看项目记忆、代码索引、交接记录、hook 健康状态，以及按代理和模型汇总的 token 用量与 API 费用估算。升级 npm 包后，需要重启 daemon 才能加载新的面板代码。",
+      "code": "openwolf dashboard",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/cytostack/openwolf/blob/04b75ca9c40d10c345ae4f5157e033d7397f1b7a/README.md?plain=1#L203"
+      }
+    },
+    {
+      "title": "用 report 查看用量报告",
+      "text": "运行 openwolf report 查看运行记录和用量。用量数据来自各代理保存的计数器，缺失的项会标为不可用，不会记作零。费用估算按 API 标价计算，不等于订阅实际扣费。本地的内容体积估算与服务商计数分开统计。",
+      "code": "openwolf report",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/cytostack/openwolf/blob/04b75ca9c40d10c345ae4f5157e033d7397f1b7a/README.md?plain=1#L125"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "项目采用 AGPL-3.0 许可证，集成或分发前请确认是否符合其要求。",
+    "openwolf bench 会调用真实模型，可能产生付费用量，必须加 --yes 才会运行。",
+    "可选的后台更新进程会联网访问 npm 检查新版本；dashboard 默认只绑定 127.0.0.1，并需要项目 token 才能访问。",
+    "分享项目前请检查 .wolf/ 中保存的笔记、bug 记录和索引内容，自动的敏感文件过滤有局限。",
+    "hook 支持范围因代理及其版本而异；Claude 与 Codex 之间完整的实时交接、以及更广泛的 token 节省效果，官方尚未验证。"
+  ],
+  "references": [],
+  "media": [
+    {
+      "url": "/assets/repository-guides/media-c9292aa73377f7cb480efbac.webp",
+      "alt": "cytostack/openwolf 官方演示 1",
+      "sourceUrl": "https://github.com/cytostack/openwolf/blob/04b75ca9c40d10c345ae4f5157e033d7397f1b7a/README.md?plain=1#L27",
+      "originalUrl": "https://raw.githubusercontent.com/cytostack/openwolf/04b75ca9c40d10c345ae4f5157e033d7397f1b7a/assets/openwolf-dashboard.png"
+    }
+  ],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "f7e3df5a7a93cc819423990ac98940d7b2d3d10ed6eb9d9372d0299ae94e6163",
+  "mediaStatus": "archived",
+  "mediaFailures": []
+}

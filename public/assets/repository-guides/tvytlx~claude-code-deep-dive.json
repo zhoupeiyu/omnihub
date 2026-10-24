@@ -1,0 +1,62 @@
+{
+  "schemaVersion": 1,
+  "key": "tvytlx/claude-code-deep-dive",
+  "status": "ready",
+  "reason": "",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/tvytlx/ai-agent-deep-dive/blob/dd317160d270ad14f8d3f756bd3436b91eaae5d8/README.md",
+  "sourceRevision": "dd317160d270ad14f8d3f756bd3436b91eaae5d8",
+  "canonicalKey": "tvytlx/ai-agent-deep-dive",
+  "summary": "这是一个 AI Agent 源码研究资料仓库，提供 Claude Code 源码深度分析的 PDF 报告，并附带一个教学用的最小 Python Agent 项目。",
+  "intro": "适合想了解 Claude Code 等 AI Agent 内部结构的学习者和开发者。主要用法是查阅仓库中的 PDF 报告，其中 v2.1 版新增了记忆系统一章。另外可以阅读并运行教学用的最小 Agent，学习 Agent 主循环、Fake LLM 接口、Skills 发现和 CLI 骨架的组织方式。",
+  "requirements": "阅读报告只需要 PDF 阅读器。运行教学项目需要 Python 环境和 Poetry，依赖由 Poetry 管理。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "下载并阅读 PDF 研究报告",
+      "text": "在仓库根目录打开 ai-agent-deep-dive-v2.1.pdf。该版本新增了第八章「记忆系统」，也可以查看较早的 ai-agent-deep-dive-v2.pdf。《Hermes Agent 源码深度解析》发布在作者的知识星球，不在本仓库中。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/tvytlx/ai-agent-deep-dive/blob/dd317160d270ad14f8d3f756bd3436b91eaae5d8/README.md?plain=1#L11"
+      }
+    },
+    {
+      "title": "阅读教学 Agent 的核心代码",
+      "text": "Agent 核心代码在 src/agt/agent.py，CLI 入口在 src/agt/cli.py，教学文档在 docs/ 目录。这个项目刻意保持结构简单，重点演示 Agent 主循环、Fake LLM 接口、Skills 发现和 CLI 骨架。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/tvytlx/ai-agent-deep-dive/blob/dd317160d270ad14f8d3f756bd3436b91eaae5d8/README.md?plain=1#L22"
+      }
+    },
+    {
+      "title": "用 Poetry 安装项目依赖",
+      "text": "进入仓库目录，运行 poetry install 安装教学项目所需的依赖。",
+      "code": "poetry install",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/tvytlx/ai-agent-deep-dive/blob/dd317160d270ad14f8d3f756bd3436b91eaae5d8/README.md?plain=1#L37"
+      }
+    },
+    {
+      "title": "运行最小 Agent 并列出 Skills",
+      "text": "用 poetry run agt 加一段输入文字运行 CLI。内置的 Fake LLM 会以流式文本块返回测试响应。加上 --skills-dir ./skills --list-skills 参数，可以查看程序发现的 Skills。",
+      "code": "poetry run agt \"你好\"\n\npoetry run agt --skills-dir ./skills --list-skills",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/tvytlx/ai-agent-deep-dive/blob/dd317160d270ad14f8d3f756bd3436b91eaae5d8/README.md?plain=1#L47"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "教学项目目前没有接入真实的远程模型 API，内置的是可替换的 Fake LLM，只返回测试响应。",
+    "仓库没有声明许可证，复用其中的报告或代码前，请先确认授权。",
+    "Hermes Agent 解析报告发布在外部的知识星球平台，不包含在本仓库中。"
+  ],
+  "references": [],
+  "media": [],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "f33f246abf7b0c2b9f57063ac3a4301c0d948d357a8cbfdbdd68bbc5a15e3d98",
+  "mediaStatus": "none_in_official_documents"
+}

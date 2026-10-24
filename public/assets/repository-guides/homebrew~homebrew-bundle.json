@@ -1,0 +1,42 @@
+{
+  "schemaVersion": 1,
+  "key": "homebrew/homebrew-bundle",
+  "status": "partial",
+  "reason": "仓库已归档，README 只说明功能已整体并入 Homebrew/brew，没有提供 brew bundle 的配置文件写法、命令参数等操作说明，具体用法需要查阅 Homebrew/brew 的文档。",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/Homebrew/homebrew-bundle/blob/a3265c84b232e13048ecbf6fc18a2eedfadbeb08/README.md",
+  "sourceRevision": "a3265c84b232e13048ecbf6fc18a2eedfadbeb08",
+  "canonicalKey": "Homebrew/homebrew-bundle",
+  "summary": "已归档的 Homebrew tap，曾为 Homebrew、Homebrew Cask、Mac App Store 和 Visual Studio Code 等非 Ruby 依赖提供 brew bundle 功能，现已并入 Homebrew/brew。",
+  "intro": "适合在旧脚本或文档中仍引用 Homebrew/bundle tap 的用户，用来确认迁移状态。brew bundle 命令照常可用，只是不再由这个 tap 提供。",
+  "requirements": "已安装 Homebrew（brew bundle 现在随 Homebrew/brew 提供）。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "确认此 tap 已归档停止维护",
+      "text": "该仓库已归档，brew bundle 功能已整体合并到 Homebrew/brew，不需要再单独使用这个 tap。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/Homebrew/homebrew-bundle/blob/a3265c84b232e13048ecbf6fc18a2eedfadbeb08/README.md?plain=1#L1"
+      }
+    },
+    {
+      "title": "改用 Homebrew 自带的 brew bundle",
+      "text": "brew bundle 仍按原方式工作。使用说明和问题反馈请转到 https://github.com/Homebrew/brew。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/Homebrew/homebrew-bundle/blob/a3265c84b232e13048ecbf6fc18a2eedfadbeb08/README.md?plain=1#L1"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "仓库已归档，不再接收更新，问题应到 Homebrew/brew 反馈。"
+  ],
+  "references": [],
+  "media": [],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "804d2d2d6996f1b51e402e06aa1dc8a4a4f565adc5b09fbffe2a7230fcafa5c8",
+  "mediaStatus": "none_in_official_documents"
+}

@@ -1,0 +1,79 @@
+{
+  "schemaVersion": 1,
+  "key": "steipete/oracle",
+  "status": "ready",
+  "reason": "",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/steipete/oracle/blob/180656be68c9f3d07c70bd36acdb8f6be8fe02e3/README.md",
+  "sourceRevision": "180656be68c9f3d07c70bd36acdb8f6be8fe02e3",
+  "canonicalKey": "steipete/oracle",
+  "summary": "Oracle 是一个 CLI 和 MCP 服务器：把提示词和你选定的项目文件打包，通过 API 或已登录的浏览器发给 AI 模型，并把结果保存为会话。",
+  "intro": "适合需要让另一个模型基于真实项目代码做复核的开发者和编码代理。典型用途有三类：先在本地渲染并检查将要发送的提示词和文件内容；对指定文件做审查或排查问题；保存、回看和续问长时间运行的会话。它也提供 oracle-mcp stdio 服务器和 Oracle skill，可接入 Claude Code、Codex、Cursor 等 MCP 客户端。",
+  "requirements": "需要 Node.js 24 或更新版本。API 模式需要为所用服务商设置环境变量密钥，例如 OPENAI_API_KEY、ANTHROPIC_API_KEY、GEMINI_API_KEY、OPENROUTER_API_KEY，或 Azure OpenAI 的密钥、端点和部署名。浏览器模式需要安装 Chrome，并完成一次性登录 ChatGPT 或 Gemini。只用 --render 预览时不需要账号或密钥。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "用 Homebrew 安装 Oracle",
+      "text": "在 macOS 或 Linux 上，通过作者的 Homebrew tap 安装 oracle 命令。官方同时提供 npm 全局安装和 npx 免安装运行，按需任选其一即可，不必同时使用。安装后可以用 oracle --version 确认当前版本。",
+      "code": "brew install steipete/tap/oracle",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/steipete/oracle/blob/180656be68c9f3d07c70bd36acdb8f6be8fe02e3/README.md?plain=1#L19"
+      }
+    },
+    {
+      "title": "先用 --render 预览发送内容",
+      "text": "连接任何模型之前，先加 --render 参数，配合 -p 写提示词、--file 指定文件。Oracle 会打印出完整的提示词和带行号的文件内容，也就是实际会发送的内容。这一步不需要凭据，也不会联系模型。",
+      "code": "oracle --render \\\n  -p \"Review the package metadata for release risks\" \\\n  --file package.json",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/steipete/oracle/blob/180656be68c9f3d07c70bd36acdb8f6be8fe02e3/README.md?plain=1#L41"
+      }
+    },
+    {
+      "title": "用 dry-run 核对文件和 token",
+      "text": "--file 可以接受文件、目录、glob，也支持用 ! 排除，并且可以重复使用来组合上下文。正式发送前，用 --dry-run summary --files-report 查看实际解析到的文件列表和 token 估算，确认没有多选或漏选文件。",
+      "code": "oracle --dry-run summary --files-report \\\n  -p \"Audit the model runner for race conditions\" \\\n  --file \"src/oracle/**/*.ts\" \\\n  --file \"!**/*.test.ts\"",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/steipete/oracle/blob/180656be68c9f3d07c70bd36acdb8f6be8fe02e3/README.md?plain=1#L74"
+      }
+    },
+    {
+      "title": "选择引擎后正式提问",
+      "text": "有 OpenAI 密钥时，Oracle 默认使用 API 模式，否则使用浏览器模式。也可以用 --engine api 或 --engine browser 明确指定。准备好引擎后，去掉 --render 即可发送请求并获得回答。",
+      "code": "oracle \\\n  -p \"Audit the model runner for race conditions\" \\\n  --file \"src/oracle/**/*.ts\" \\\n  --file \"!**/*.test.ts\"",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/steipete/oracle/blob/180656be68c9f3d07c70bd36acdb8f6be8fe02e3/README.md?plain=1#L41"
+      }
+    },
+    {
+      "title": "查看和续接历史会话",
+      "text": "每次运行都保存在 ~/.oracle/sessions 下，长回答可以在后台完成。用 oracle status 列出近期运行；用 oracle session 重新连接某次运行，用 oracle restart 重跑；对于支持的 API 或 ChatGPT 对话，可用 --followup 追加上下文继续提问。",
+      "code": "oracle status --hours 72",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/steipete/oracle/blob/180656be68c9f3d07c70bd36acdb8f6be8fe02e3/README.md?plain=1#L87"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "API 模式按各服务商的接口计费。--models 会同时调用多个模型，并记录每个模型的用量和成本。",
+    "选中的文件内容会发送给第三方模型服务。发送前建议先用 --render 或 --dry-run 确认没有包含敏感文件。",
+    "浏览器模式依赖 Chrome 自动化和已登录的会话，并可能把 ChatGPT cookie 保存在 ~/.oracle/cookies.json。不同服务商的限制请参阅 browser mode 文档。",
+    "续问（--followup）只支持部分 API 和 ChatGPT 对话，具体限制见 follow-ups 文档。"
+  ],
+  "references": [
+    {
+      "label": "docs/install.md",
+      "url": "https://github.com/steipete/oracle/blob/180656be68c9f3d07c70bd36acdb8f6be8fe02e3/docs/install.md"
+    }
+  ],
+  "media": [],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "41b3d9be445d102c5d41b86e79f13f02789518168f3afc5863edaecb022f20e1",
+  "mediaStatus": "none_in_official_documents"
+}

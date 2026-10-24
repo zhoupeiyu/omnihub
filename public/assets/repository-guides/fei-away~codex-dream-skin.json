@@ -1,0 +1,96 @@
+{
+  "schemaVersion": 1,
+  "key": "fei-away/codex-dream-skin",
+  "status": "ready",
+  "reason": "",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/Fei-Away/Codex-Dream-Skin/blob/34335d27d54300eccb325cc652f6c93fef428b84/README.md",
+  "sourceRevision": "34335d27d54300eccb325cc652f6c93fef428b84",
+  "canonicalKey": "Fei-Away/Codex-Dream-Skin",
+  "summary": "Codex Dream Skin 是 Codex/ChatGPT 桌面端的外部换肤工具，通过本机 CDP 注入背景和主题，不修改官方安装包。",
+  "intro": "适合想给 Codex 桌面端更换背景和配色的用户。安装后可从 macOS 菜单栏或 Windows 托盘切换已保存的主题、更换背景图、导入 .zip 主题包，或在 DreamSkin.cc 主题库中一键换肤，也可一键恢复官方外观。下面以 macOS 的 Release DMG 安装为例。",
+  "requirements": "需要先安装官方 ChatGPT/Codex 桌面应用，并至少启动、退出一次。使用 macOS 的 Release DMG 安装时，不需要 clone 仓库、安装 Node.js 或运行脚本。一键换肤需要 v1.5.0 或更新的客户端（建议 v1.5.5 及以上）。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "先启动并退出一次官方 Codex",
+      "text": "安装官方 ChatGPT/Codex 桌面应用，至少启动一次后完全退出，让它在本机生成配置文件。之后再安装 Dream Skin。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/Fei-Away/Codex-Dream-Skin/blob/34335d27d54300eccb325cc652f6c93fef428b84/docs/install-macos.md?plain=1#L5"
+      }
+    },
+    {
+      "title": "下载 DMG 并拖入应用程序",
+      "text": "在 macOS 上，从 GitHub Releases 下载最新的 CodexDreamSkin-vX.Y.Z.dmg（可选用 SHA256SUMS.txt 校验完整性），双击打开后把 Codex Dream Skin.app 拖到 Applications 文件夹。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/Fei-Away/Codex-Dream-Skin/blob/34335d27d54300eccb325cc652f6c93fef428b84/docs/install-macos.md?plain=1#L5"
+      }
+    },
+    {
+      "title": "在隐私与安全性中允许打开",
+      "text": "安装包没有 Apple Developer ID 签名，首次打开会被拦截。点击“完成”后，进入“系统设置 → 隐私与安全性”，找到被阻止的 Codex Dream Skin，点击“仍要打开”并输入登录密码确认。不需要关闭 Gatekeeper。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/Fei-Away/Codex-Dream-Skin/blob/34335d27d54300eccb325cc652f6c93fef428b84/docs/install-macos.md?plain=1#L5"
+      }
+    },
+    {
+      "title": "从菜单栏安装或升级主题引擎",
+      "text": "应用启动后会部署主题引擎。如果 Codex 正在运行，按提示先退出 Codex，再从菜单选择“安装 / 升级引擎”。完成后菜单栏右上角会出现 Dream Skin 图标，可以启动、暂停或切换主题。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/Fei-Away/Codex-Dream-Skin/blob/34335d27d54300eccb325cc652f6c93fef428b84/docs/install-macos.md?plain=1#L5"
+      }
+    },
+    {
+      "title": "一键换肤或导入主题 ZIP",
+      "text": "在 DreamSkin.cc 上对支持的主题点击“一键换肤”，确认客户端弹出的主题名称和 SHA-256 后即可应用；也可以从菜单选择“导入主题 ZIP…”导入普通 .zip 主题包。导入的主题只会加入主题库，需要手动切换后才生效。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/Fei-Away/Codex-Dream-Skin/blob/34335d27d54300eccb325cc652f6c93fef428b84/README.md?plain=1#L102"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "CDP 只绑定 127.0.0.1，但没有身份认证，同一台电脑上的其他进程可能连接并读取或控制 Codex 界面。暂停主题不会关闭调试端口，需要执行完整的 Restore，或退出全部 Codex 后从官方入口重新打开。",
+    "安装包未签名，每次下载新版本后都可能再次触发 macOS 的安全提示。",
+    "手动放入主题文件夹的目录不经过 ZIP 导入器校验，只应使用可信来源的主题。",
+    "这不是 OpenAI 官方产品。仓库中的人物和 IP 示例素材仅作示意，商用或公开再分发前需要自行确认肖像、素材和商标权利。",
+    "卸载时请先在菜单中选择“恢复原状并卸载”。删除 ~/Library/Application Support/CodexDreamSkinStudio 会永久移除自定义主题和图片，删除前请先备份。",
+    "README 中的 API 中转服务内容属于赞助信息，与换肤功能无关；本工具不会改写你的 API Key 或 Base URL。"
+  ],
+  "references": [
+    {
+      "label": "docs/install-macos.md",
+      "url": "https://github.com/Fei-Away/Codex-Dream-Skin/blob/34335d27d54300eccb325cc652f6c93fef428b84/docs/install-macos.md"
+    }
+  ],
+  "media": [
+    {
+      "url": "/assets/repository-guides/media-c2522bd7ad32a2ee67dc58b6.webp",
+      "alt": "哥特虚空远征主题实机效果",
+      "sourceUrl": "https://github.com/Fei-Away/Codex-Dream-Skin/blob/34335d27d54300eccb325cc652f6c93fef428b84/README.md?plain=1#L127",
+      "originalUrl": "https://raw.githubusercontent.com/Fei-Away/Codex-Dream-Skin/34335d27d54300eccb325cc652f6c93fef428b84/docs/images/presets/gothic-void-crusade-preview.jpg"
+    },
+    {
+      "url": "/assets/repository-guides/media-690c3c08c87b004cfbc344c4.webp",
+      "alt": "在 DreamSkin.cc 在线 Studio 里调好的一套自定义背景效果",
+      "sourceUrl": "https://github.com/Fei-Away/Codex-Dream-Skin/blob/34335d27d54300eccb325cc652f6c93fef428b84/README.md?plain=1#L95",
+      "originalUrl": "https://raw.githubusercontent.com/Fei-Away/Codex-Dream-Skin/34335d27d54300eccb325cc652f6c93fef428b84/docs/images/studio-custom-look.png"
+    },
+    {
+      "url": "/assets/repository-guides/media-a32085dd9c4b162b92bcb8da.webp",
+      "alt": "社区主题「悟空（WUKONG）」在桌面模拟器里的实机效果",
+      "sourceUrl": "https://github.com/Fei-Away/Codex-Dream-Skin/blob/34335d27d54300eccb325cc652f6c93fef428b84/README.md?plain=1#L81",
+      "originalUrl": "https://raw.githubusercontent.com/Fei-Away/Codex-Dream-Skin/34335d27d54300eccb325cc652f6c93fef428b84/docs/images/%E6%82%9F%E7%A9%BA.png"
+    }
+  ],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "75350563de4df303dd127b3e88678317cd20e0ceb56ef2567720f7dec5f92438",
+  "mediaStatus": "archived",
+  "mediaFailures": []
+}

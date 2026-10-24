@@ -1,0 +1,86 @@
+{
+  "schemaVersion": 1,
+  "key": "lcoutodemos/clui-cc",
+  "status": "ready",
+  "reason": "",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/lcoutodemos/clui-cc/blob/58d18bb7a58fbe23e70f9f025b6a167008851913/README.md",
+  "sourceRevision": "58d18bb7a58fbe23e70f9f025b6a167008851913",
+  "canonicalKey": "lcoutodemos/clui-cc",
+  "summary": "macOS 上的 Claude Code 桌面悬浮界面，提供多标签会话、工具调用审批、历史会话恢复、语音输入和技能市场。",
+  "intro": "适合已经在用 Claude Code CLI、希望用图形界面管理多个会话并在界面中审批工具调用的 macOS 用户。它本身不是独立的 AI 客户端，而是包装本地 claude CLI 的界面层：每个标签运行一个独立的 claude -p 进程，可以浏览并恢复过去的会话，也可以粘贴截图或附加文件。",
+  "requirements": "macOS 13 及以上，以及以下环境：Xcode Command Line Tools、Node.js（最低 18，推荐 20 或 22 LTS）、带 setuptools 的 Python、已登录的 Claude Code CLI（Pro/Team/Enterprise 订阅），语音输入还需要 Whisper。不需要 API key 或 .env 文件。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "安装编译所需的基础工具",
+      "text": "在 macOS 终端中依次安装 Xcode Command Line Tools 和 Node.js，然后确认 node 在 PATH 中可用。如果 Python 是 3.12 及以上版本，还需要升级 pip 并安装 setuptools，原生模块编译依赖它。",
+      "code": "xcode-select --install\n\nbrew install node\n\nnode --version\n\npython3 -m pip install --upgrade pip setuptools",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/lcoutodemos/clui-cc/blob/58d18bb7a58fbe23e70f9f025b6a167008851913/README.md?plain=1#L102"
+      }
+    },
+    {
+      "title": "安装并登录 Claude Code CLI",
+      "text": "通过 npm 全局安装 @anthropic-ai/claude-code，然后运行 claude，按提示完成登录。Clui CC 直接使用这份 CLI 登录状态，不需要额外配置 API key。",
+      "code": "npm install -g @anthropic-ai/claude-code\n\nclaude",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/lcoutodemos/clui-cc/blob/58d18bb7a58fbe23e70f9f025b6a167008851913/README.md?plain=1#L102"
+      }
+    },
+    {
+      "title": "克隆 clui-cc 仓库",
+      "text": "用 git 把 clui-cc 仓库克隆到本地。README 推荐的安装方式是双击仓库根目录下的 install-app.command，以普通 Mac 应用的形式安装。",
+      "code": "git clone https://github.com/lcoutodemos/clui-cc.git",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/lcoutodemos/clui-cc/blob/58d18bb7a58fbe23e70f9f025b6a167008851913/README.md?plain=1#L38"
+      }
+    },
+    {
+      "title": "双击 install-app.command 安装",
+      "text": "在 Finder 中打开 clui-cc 文件夹，双击 install-app.command。脚本会安装依赖和 Whisper 语音支持，构建应用，复制到 /Applications 并启动。如果首次启动被系统拦截，到「系统设置 → 隐私与安全性」中点击「仍要打开」。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/lcoutodemos/clui-cc/blob/58d18bb7a58fbe23e70f9f025b6a167008851913/README.md?plain=1#L38"
+      }
+    },
+    {
+      "title": "用快捷键唤出悬浮窗口",
+      "text": "安装完成后，以后可以直接从「应用程序」文件夹或 Spotlight 打开 Clui CC。按 ⌥ + Space 显示或隐藏悬浮窗口；如果该组合键被输入法占用，改用 Cmd+Shift+K。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/lcoutodemos/clui-cc/blob/58d18bb7a58fbe23e70f9f025b6a167008851913/README.md?plain=1#L38"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "只支持 macOS，目前没有实现 Windows 和 Linux 版本。",
+    "依赖已登录的 Claude Code CLI，需要 Pro/Team/Enterprise 订阅，相关费用由 Anthropic 订阅决定。",
+    "应用未签名，首次启动需要在「隐私与安全性」中手动放行。",
+    "技能市场目录和启动时的技能自动安装会访问 GitHub 上 anthropics 的仓库；访问失败时会跳过，不影响核心功能。",
+    "作者的测试环境为 macOS 15、Node 20/22、Python 3.12、Claude Code CLI 2.1.71，其他版本组合没有验证。"
+  ],
+  "references": [],
+  "media": [
+    {
+      "url": "/assets/repository-guides/media-0ea93500250509a192d02124.webp",
+      "alt": "lcoutodemos/clui-cc 官方演示 1",
+      "sourceUrl": "https://github.com/lcoutodemos/clui-cc/blob/58d18bb7a58fbe23e70f9f025b6a167008851913/README.md?plain=1#L55",
+      "originalUrl": "https://raw.githubusercontent.com/lcoutodemos/clui-cc/58d18bb7a58fbe23e70f9f025b6a167008851913/docs/shortcut.png"
+    }
+  ],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "e4bb78ae9c24464011d1de9844387056c23338fc583b7e6ae5a8bccb71ada110",
+  "mediaStatus": "archived",
+  "mediaFailures": [
+    {
+      "sourceUrl": "https://github.com/lcoutodemos/clui-cc/blob/58d18bb7a58fbe23e70f9f025b6a167008851913/README.md#L7",
+      "reason": "unsupported_media_host"
+    }
+  ]
+}

@@ -1,0 +1,79 @@
+{
+  "schemaVersion": 1,
+  "key": "op7418/youtube-clipper-skill",
+  "status": "ready",
+  "reason": "",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/op7418/Youtube-clipper-skill/blob/f31f077ee0905c95a510a6f34bbd0c3c85b15129/README.md",
+  "sourceRevision": "f31f077ee0905c95a510a6f34bbd0c3c85b15129",
+  "canonicalKey": "op7418/Youtube-clipper-skill",
+  "summary": "一个 Claude Code Skill，可以下载 YouTube 视频，按内容生成语义章节，剪出片段，生成中英双语字幕并烧录进视频，还能生成社交媒体文案。",
+  "intro": "适合想从访谈、课程等 YouTube 长视频中截取片段并配双语字幕的创作者。在 Claude Code 中给出视频链接后，Claude 会分析字幕，生成每段约 2–5 分钟的章节；由你选择要剪的章节和处理选项，结果按章节输出到 ./youtube-clips/<时间戳>/。",
+  "requirements": "Claude Code；Python 3.8+；yt-dlp；带 libass 的 FFmpeg（macOS 需要 ffmpeg-full）；运行安装脚本需要 git 和 bash。Python 包 yt-dlp、pysrt、python-dotenv 由安装脚本自动安装。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "在 macOS 安装 ffmpeg-full",
+      "text": "以 macOS 为例，Homebrew 的标准 ffmpeg 不含字幕烧录所需的 libass，需要先卸载 ffmpeg，再安装 ffmpeg-full。依赖表还列出可用 brew install yt-dlp 安装 yt-dlp；Python 需要 3.8 或以上版本。",
+      "code": "# Remove standard ffmpeg (if installed)\nbrew uninstall ffmpeg\n\n# Install ffmpeg-full (includes libass)\nbrew install ffmpeg-full",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/op7418/Youtube-clipper-skill/blob/f31f077ee0905c95a510a6f34bbd0c3c85b15129/README.md?plain=1#L52"
+      }
+    },
+    {
+      "title": "确认 FFmpeg 支持字幕滤镜",
+      "text": "运行文档给出的检查命令，在 ffmpeg 的滤镜列表中查找 subtitles。能看到 subtitles 这一行，说明 libass 可用。若之后出现 “Option not found: subtitles” 或 “filter not found”，也要回到这一步排查。 原文包含需人工核查的高权限或删除命令，本站不提供一键复制；请查看该步骤的官方出处。",
+      "code": "ffmpeg -filters 2>&1 | grep subtitles\n# Should output: subtitles    V->V  (...)",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/op7418/Youtube-clipper-skill/blob/f31f077ee0905c95a510a6f34bbd0c3c85b15129/README.md?plain=1#L67"
+      }
+    },
+    {
+      "title": "克隆仓库并运行安装脚本",
+      "text": "克隆仓库，进入目录后运行 install_as_skill.sh。按文档说明，脚本会把文件复制到 ~/.claude/skills/youtube-clipper/，安装 Python 依赖，检查系统依赖，并创建 .env 配置文件。README 推荐的另一种方式是 npx skills add。",
+      "code": "git clone https://github.com/op7418/Youtube-clipper-skill.git\ncd Youtube-clipper-skill\nbash install_as_skill.sh",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/op7418/Youtube-clipper-skill/blob/f31f077ee0905c95a510a6f34bbd0c3c85b15129/README.md?plain=1#L34"
+      }
+    },
+    {
+      "title": "按需修改 .env 配置",
+      "text": "编辑 ~/.claude/skills/youtube-clipper/.env，可以设置 FFmpeg 路径、输出目录、最大分辨率、翻译批大小、目标语言和章节目标时长。下载慢时可以设置 YT_DLP_PROXY。完整选项见仓库中的 .env.example。",
+      "code": "# FFmpeg path (auto-detected if empty)\nFFMPEG_PATH=\n\n# Output directory (default: current working directory)\nOUTPUT_DIR=./youtube-clips\n\n# Video quality limit (720, 1080, 1440, 2160)\nMAX_VIDEO_HEIGHT=1080\n\n# Translation batch size (20-25 recommended)\nTRANSLATION_BATCH_SIZE=20\n\n# Target language for translation\nTARGET_LANGUAGE=中文\n\n# Target chapter duration in seconds (180-300 recommended)\nTARGET_CHAPTER_DURATION=180\n\nYT_DLP_PROXY=http://proxy-server:port\n# or\nYT_DLP_PROXY=socks5://proxy-server:port",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/op7418/Youtube-clipper-skill/blob/f31f077ee0905c95a510a6f34bbd0c3c85b15129/README.md?plain=1#L127"
+      }
+    },
+    {
+      "title": "在 Claude Code 中提交视频链接",
+      "text": "在 Claude Code 中直接说要剪辑某个 YouTube 视频，并附上链接。它会先检测环境，然后下载视频和英文字幕、分析章节，再让你选择章节以及是否翻译、烧录字幕。每个章节的原片段、带字幕视频、双语 SRT 和文案 md 会输出到 ./youtube-clips/ 下。",
+      "code": "剪辑这个 YouTube 视频：https://youtube.com/watch?v=VIDEO_ID\n\n./youtube-clips/20260122_143022/\n└── Chapter_Title/\n    ├── Chapter_Title_clip.mp4              # Original clip (no subtitles)\n    ├── Chapter_Title_with_subtitles.mp4    # With burned subtitles\n    ├── Chapter_Title_bilingual.srt         # Bilingual subtitle file\n    └── Chapter_Title_summary.md            # Social media content",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/op7418/Youtube-clipper-skill/blob/f31f077ee0905c95a510a6f34bbd0c3c85b15129/README.zh-CN.md?plain=1#L89"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "macOS 上标准 Homebrew ffmpeg 不支持字幕烧录，必须使用 ffmpeg-full；Ubuntu 需要安装 libass-dev。",
+    "字幕翻译依赖 Claude API，可能遇到限流或网络问题。工具会自动重试 3 次，持续失败时可以调小 TRANSLATION_BATCH_SIZE。",
+    "视频下载最高默认为 1080p，由 MAX_VIDEO_HEIGHT 控制。",
+    "下载、剪辑和再发布 YouTube 视频前，请自行确认内容版权和平台条款。"
+  ],
+  "references": [
+    {
+      "label": "README.zh-CN.md",
+      "url": "https://github.com/op7418/Youtube-clipper-skill/blob/f31f077ee0905c95a510a6f34bbd0c3c85b15129/README.zh-CN.md"
+    }
+  ],
+  "media": [],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "f1298248bbb86e20578caded82bb967ae0bdb893bfe7debe2d563cff03fea56b",
+  "mediaStatus": "none_in_official_documents"
+}

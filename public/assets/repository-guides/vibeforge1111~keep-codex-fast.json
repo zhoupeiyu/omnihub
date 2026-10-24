@@ -1,0 +1,74 @@
+{
+  "schemaVersion": 1,
+  "key": "vibeforge1111/keep-codex-fast",
+  "status": "ready",
+  "reason": "",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/vibeforge1111/keep-codex-fast/blob/e74c4496aca550c54228740fcc144372308da529/README.md",
+  "sourceRevision": "e74c4496aca550c54228740fcc144372308da529",
+  "canonicalKey": "vibeforge1111/keep-codex-fast",
+  "summary": "一个 Codex 技能，先备份、后归档，用来检查和整理 Codex 本地状态，减轻长期使用后的卡顿。",
+  "intro": "适合长期使用 Codex 的人，例如保留大量长对话、经常恢复旧线程、跨多个仓库工作或同时开多个终端和开发服务的用户。它默认只出报告。只有在你明确要求时，才会备份并归档旧会话、移走过期 worktree、轮转大日志、清理失效的项目引用。另外，它会报告占用较重的 Node/开发进程，但不会结束它们。",
+  "requirements": "已安装并在使用 Codex。若绕过 Codex 直接运行脚本，需要能执行 python 命令。执行任何变更前需要先关闭 Codex。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "在 Codex 中安装该技能",
+      "text": "在 Codex 对话里发送官方提供的安装提示，让 Codex 从仓库安装 keep-codex-fast。也可以把仓库文件夹克隆或复制到 Codex 的 skills 目录，并将文件夹命名为 keep-codex-fast。",
+      "code": "Install the keep-codex-fast skill from https://github.com/vibeforge1111/keep-codex-fast",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/vibeforge1111/keep-codex-fast/blob/e74c4496aca550c54228740fcc144372308da529/README.md?plain=1#L146"
+      }
+    },
+    {
+      "title": "先以只读模式检查本地状态",
+      "text": "向 Codex 发送 Quick Start 提示，用 $keep-codex-fast 检查本地状态并生成维护建议。这一步默认只出报告，不写文件、不备份、不移动目录。看完报告后，再决定哪些对话需要交接、哪些保持活跃、哪些可以归档。",
+      "code": "Use $keep-codex-fast to inspect my Codex local state and recommend a safe maintenance plan.",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/vibeforge1111/keep-codex-fast/blob/e74c4496aca550c54228740fcc144372308da529/README.md?plain=1#L45"
+      }
+    },
+    {
+      "title": "为重要对话生成交接文档",
+      "text": "归档旧对话之前，在每个仍需继续的仓库对话里粘贴官方交接提示。交接文档会记录目标、已完成内容、相关文件、已运行的命令、未解决的问题和后续步骤，并附带一段可在新对话中继续工作的提示，默认保存在 docs/codex-handoffs/ 这类仓库内位置。",
+      "code": "Create a comprehensive handoff document for this repo/session before I archive Codex history.\n\nInclude:\n- repo/path and branch\n- current goal\n- what we already completed\n- files touched or investigated\n- commands/tests already run\n- known errors, warnings, or failing checks\n- open decisions\n- constraints, user preferences, and do-not-touch areas\n- the next 3-7 concrete steps\n\nAlso include a reactivation prompt I can paste into a fresh Codex chat so it can continue from this handoff without relying on the old chat context.\n\nSave the handoff in a sensible repo-local place like docs/codex-handoffs/YYYY-MM-DD-topic.md unless this repo already has a better handoff location.",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/vibeforge1111/keep-codex-fast/blob/e74c4496aca550c54228740fcc144372308da529/README.md?plain=1#L55"
+      }
+    },
+    {
+      "title": "关闭 Codex 后执行安全维护",
+      "text": "确认交接文档已经准备好，再发送 Safe Apply 提示。按流程，它会先备份，再归档而不是删除，然后移动过期 worktree、轮转大日志、清理失效配置并验证结果。如果 Codex 仍在运行，它不会修改本地状态，而是提示你先关闭 Codex。",
+      "code": "Use $keep-codex-fast to apply safe Codex maintenance.\n\nBefore changing anything, confirm that important active repo chats have handoff docs or do not need them.\n\nThen back up first, archive instead of deleting, move stale worktrees, rotate large logs, prune dead config references, and verify the result.\n\nIf Codex is currently running, do not mutate local state. Tell me to close Codex first.",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/vibeforge1111/keep-codex-fast/blob/e74c4496aca550c54228740fcc144372308da529/README.md?plain=1#L91"
+      }
+    },
+    {
+      "title": "按需设置定期提醒",
+      "text": "如果需要定期维护，可以发送官方提醒提示，让 Codex 每周或每两周只运行报告并提醒你。这个提醒永远不会加 --apply，也不会自动归档、移动或删除任何内容。实际变更仍需你在确认交接文档、关闭 Codex 后手动执行。",
+      "code": "Use $keep-codex-fast to create a recurring Codex maintenance reminder.\n\nSchedule it weekly if I use Codex heavily, or biweekly if that seems safer.\n\nThe reminder should:\n- run the keep-codex-fast report first\n- never pass --apply or run mutating maintenance automatically\n- never archive, move, prune, rotate, normalize, delete, or mutate local Codex state\n- remind me to create comprehensive handoff docs and reactivation prompts for active repo chats before any manual apply\n- summarize active session size, archived session size, extended path candidates, old session candidates, worktree candidates, log size, and top Node/dev processes\n- report heavy Node/dev processes without killing them\n- tell me that manual apply should only happen after I confirm handoffs exist or are not needed and Codex is closed",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/vibeforge1111/keep-codex-fast/blob/e74c4496aca550c54228740fcc144372308da529/README.md?plain=1#L123"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "备份目录里可能有私密的 Codex 元数据，特别是 thread-metadata-repairs.jsonl 和 restore-thread-metadata.py。请只保存在本机，不要公开或分享。",
+    "--repair-thread-metadata-bloat 会截短 state_5.sqlite 中的标题和预览元数据，只建议在报告显示这类数据异常庞大时使用。它不会删除对话记录本身。",
+    "普通维护不会删除内容，只会移到归档目录。但归档前如果没有写交接文档，旧对话的上下文以后会不方便继续使用。",
+    "--details 会显示原始线程 ID、标题和路径，请只在需要排查细节时使用。"
+  ],
+  "references": [],
+  "media": [],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "f4c854d951a8dad9d8732881aabbdd249760ae00b2e1bfba765b7dbe4d524126",
+  "mediaStatus": "none_in_official_documents"
+}

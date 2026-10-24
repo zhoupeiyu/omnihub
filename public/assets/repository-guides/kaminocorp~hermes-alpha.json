@@ -1,0 +1,60 @@
+{
+  "schemaVersion": 1,
+  "key": "kaminocorp/hermes-alpha",
+  "status": "ready",
+  "reason": "",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/kaminocorp/hermes-alpha/blob/85006e4e63bf4e30d6085b36945c75eaf99d72a0/README.md",
+  "sourceRevision": "85006e4e63bf4e30d6085b36945c75eaf99d72a0",
+  "canonicalKey": "kaminocorp/hermes-alpha",
+  "summary": "一个基于 Hermes 的实验项目，通过带密码的浏览器终端观察多 Agent 安全研究流程。",
+  "intro": "项目用 Overseer 协调研究 Agent，并通过终端、日志和长期记忆记录工作过程。适合研究 Agent 编排与受控代码审计，不是可以承诺漏洞发现率或收入的成熟服务。下面仅整理官方本地启动与查看入口。",
+  "requirements": "本地路径使用 Docker Compose。需要在项目的 .env 中配置模型服务凭证和终端密码；长期记忆与消息渠道按需另行配置。模型 API 会产生调用消耗。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "先明确实验范围",
+      "text": "阅读 README 的 Safety & Ethics。项目要求只做源码分析和隔离环境验证，研究目标必须在明确授权范围内；提交报告之前仍须人工批准。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/kaminocorp/hermes-alpha/blob/85006e4e63bf4e30d6085b36945c75eaf99d72a0/README.md?plain=1#L237"
+      }
+    },
+    {
+      "title": "准备本地环境配置",
+      "text": "在已下载的项目目录中参照 .env.example 建立 .env，配置 OPENROUTER_API_KEY 和 TTYD_PASS。模型密钥与密码只留在本地环境文件中，不提交到仓库或粘贴进公开对话。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/kaminocorp/hermes-alpha/blob/85006e4e63bf4e30d6085b36945c75eaf99d72a0/README.md?plain=1#L191"
+      }
+    },
+    {
+      "title": "启动并登录浏览器终端",
+      "text": "官方本地启动命令是 make up，入口为 http://localhost:8081。打开页面后先用终端密码认证，再观察 Hermes 的交互。README 同一示例中的 make down 是停止命令，不要把启动与停止整段一起执行。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/kaminocorp/hermes-alpha/blob/85006e4e63bf4e30d6085b36945c75eaf99d72a0/README.md?plain=1#L191"
+      }
+    },
+    {
+      "title": "检查预算与运行记录",
+      "text": "用自己的离线代码样本进行首次观察，并核对任务范围、预算停止条件和审计记录。不要因为 README 描述了自我改进能力，就省略对具体操作与输出的检查。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/kaminocorp/hermes-alpha/blob/85006e4e63bf4e30d6085b36945c75eaf99d72a0/README.md?plain=1#L237"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "这是实验项目，本站没有实测部署、权限隔离、预算限制或研究效果。",
+    "浏览器终端连接到 Agent 的系统环境，应限制访问范围并设置独立密码，不直接对公网开放。",
+    "官方列出的收益估算是项目作者的假设，不代表使用后能够获得收入。"
+  ],
+  "references": [],
+  "media": [],
+  "generatedBy": "GPT",
+  "documentHash": "3aea541a15e77030c8871a9071a0aff35aa7d2eb68e3e95d0ab9f39ab00882ea",
+  "mediaStatus": "none_in_official_documents"
+}

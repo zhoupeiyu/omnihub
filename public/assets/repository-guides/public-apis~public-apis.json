@@ -1,0 +1,70 @@
+{
+  "schemaVersion": 1,
+  "key": "public-apis/public-apis",
+  "status": "ready",
+  "reason": "",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/public-apis/public-apis/blob/8939d468fa4580039c4e22cc4998eb3fef8130d1/README.md",
+  "sourceRevision": "8939d468fa4580039c4e22cc4998eb3fef8130d1",
+  "canonicalKey": "public-apis/public-apis",
+  "summary": "一份按领域分类整理的免费公共 API 清单，并附带一组可安装到 AI 客户端的 MCP 服务器条目。",
+  "intro": "适合正在为个人项目、原型或学习练习寻找现成数据接口的开发者。可以按动物、动漫、反恶意软件、天气、金融等类别查找 API，并通过表格里的 Auth、HTTPS、CORS 列初步判断是否适合前端直连或需要申请密钥。README 开头部分为 APILayer 的推广内容，查阅时可直接跳到 Index。",
+  "requirements": "浏览器即可查阅；具体某个 API 是否需要注册或密钥，以表格 Auth 列和该 API 官方文档为准。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "从 Index 选择目标领域",
+      "text": "打开仓库 README，跳过开头的 APILayer 推广区块，找到 Index 目录。目录列出 Animals、Anime、Anti-Malware、Weather 等几十个类别，点击对应锚点即可跳到该类别的 API 表格，每个表格末尾有 Back to Index 链接可返回目录。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/public-apis/public-apis/blob/8939d468fa4580039c4e22cc4998eb3fef8130d1/README.md?plain=1#L90"
+      }
+    },
+    {
+      "title": "按表格列筛选可用 API",
+      "text": "在类别表格中逐行查看：Description 说明接口提供的数据；Auth 为 No 表示无需认证，apiKey 或 OAuth 表示需注册获取凭据；HTTPS 列说明是否支持加密访问；CORS 列为 Yes 时更适合浏览器端直接调用，Unknown 表示未确认。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/public-apis/public-apis/blob/8939d468fa4580039c4e22cc4998eb3fef8130d1/README.md?plain=1#L145"
+      }
+    },
+    {
+      "title": "跳转官方文档确认用法",
+      "text": "点击表格中 API 名称的链接进入该服务自己的文档页，接口地址、请求参数、配额和使用条款都以对方文档为准。本仓库只做索引整理，不提供各 API 的调用代码。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/public-apis/public-apis/blob/8939d468fa4580039c4e22cc4998eb3fef8130d1/README.md?plain=1#L145"
+      }
+    },
+    {
+      "title": "查阅 MCP Servers 条目",
+      "text": "如果要让 AI 客户端调用工具，查看 MCP Servers 表格。该表不列 HTTPS/CORS，而是列出 Auth、Transport（stdio 或 HTTP）以及可安装的位置，如 Glama、Cursor、npm、MCP Registry；具体安装方式需进入对应链接查看。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/public-apis/public-apis/blob/8939d468fa4580039c4e22cc4998eb3fef8130d1/README.md?plain=1#L60"
+      }
+    },
+    {
+      "title": "通过贡献指南补充条目",
+      "text": "若想提交新的 API 或开源 MCP 服务器，先阅读 CONTRIBUTING.md，再通过 Issues 或 Pull Requests 参与。Learn more 部分还给出了本项目自身的 API 项目链接和 LICENSE。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/public-apis/public-apis/blob/8939d468fa4580039c4e22cc4998eb3fef8130d1/README.md?plain=1#L78"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "README 开头的 APILayer Unified Suite 及其产品表格为赞助推广内容，与社区整理的分类清单性质不同，需自行判断。",
+    "清单中 Auth 为 apiKey 或 OAuth 的接口需要在服务方注册，费用、配额和条款由各服务方决定，本仓库未说明。",
+    "部分条目 CORS 标为 Unknown，HTTPS 也有标 No 的情况，接入前需自行验证。",
+    "MCP 表中 corpusAI Cloud Pricing 注明部分数据为按次付费；IPstack MCP 需要 apiKey。",
+    "Anti-Malware 类别中包含恶意样本下载与分析服务，使用时应遵守相关授权与安全规范。"
+  ],
+  "references": [],
+  "media": [],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "078ba68ac522e0e3eab120393a79e9e4aa5b42ec60ce76fefe6d392b4195c6f7",
+  "mediaStatus": "none_in_official_documents"
+}

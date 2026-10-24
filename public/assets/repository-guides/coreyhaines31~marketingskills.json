@@ -1,0 +1,71 @@
+{
+  "schemaVersion": 1,
+  "key": "coreyhaines31/marketingskills",
+  "status": "ready",
+  "reason": "",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/coreyhaines31/marketingskills/blob/5b2c0007766c6a1cf1d53fd8fc73e979e0821022/README.md",
+  "sourceRevision": "5b2c0007766c6a1cf1d53fd8fc73e979e0821022",
+  "canonicalKey": "coreyhaines31/marketingskills",
+  "summary": "一套面向营销任务的 Agent Skills 集合，让 AI 编程代理在转化优化、文案、SEO、数据分析和增长工程等任务中套用对应框架与流程。",
+  "intro": "适合希望借助 AI 编程代理处理营销工作的技术型营销人员和创始人。仓库中的每个技能是一份 markdown 文件，覆盖 cro、copywriting、seo-audit、ai-seo、analytics、ab-testing、emails、ads、pricing、churn-prevention 等主题。代理识别到相关营销任务时会调用对应技能；其中 product-marketing 是基础技能，其他技能会先读取它来了解产品、受众和定位。",
+  "requirements": "需要一个支持 Agent Skills 规范的宿主，文档列出的有 Claude Code、OpenAI Codex、Cursor、Windsurf。推荐的安装方式依赖 npx skills 命令行工具，因此本地需能运行 npx。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "按营销任务挑选所需技能",
+      "text": "先查看 README 中的技能表和分类，例如转化优化（cro、signup、onboarding）、内容文案（copywriting、cold-email、emails）、SEO（seo-audit、ai-seo、schema）、测量（analytics、ab-testing）等，确定要全部安装还是只装几个。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/coreyhaines31/marketingskills/blob/5b2c0007766c6a1cf1d53fd8fc73e979e0821022/README.md?plain=1#L66"
+      }
+    },
+    {
+      "title": "用 npx skills 安装技能",
+      "text": "使用官方推荐的 CLI 方式安装：可以一次装全部技能，也可以用 --skill 只装指定技能，或用 --list 先列出可选技能。CLI 会检测已安装的代理并询问安装位置；Claude Code 安装到 .claude/skills/，通用代理共用 .agents/skills/。",
+      "code": "# Install all skills\nnpx skills add coreyhaines31/marketingskills\n\n# Install specific skills\nnpx skills add coreyhaines31/marketingskills --skill cro copywriting\n\n# List available skills\nnpx skills add coreyhaines31/marketingskills --list",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/coreyhaines31/marketingskills/blob/5b2c0007766c6a1cf1d53fd8fc73e979e0821022/README.md?plain=1#L125"
+      }
+    },
+    {
+      "title": "在代理会话内安装时指定宿主",
+      "text": "如果在代理会话里（比如让 Claude Code 帮你安装）运行该命令，CLI 会以非交互方式运行，可能只装到 Claude Code 不读取的 .agents/skills/ 目录。这种情况下要加 -a claude-code 参数，明确指定目标代理。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/coreyhaines31/marketingskills/blob/5b2c0007766c6a1cf1d53fd8fc73e979e0821022/README.md?plain=1#L125"
+      }
+    },
+    {
+      "title": "准备 product-marketing 上下文",
+      "text": "product-marketing 技能是其他技能的基础，它们会先读取它来了解你的产品、受众和定位。v2.0 起，上下文文件位于 .agents/product-marketing.md。旧位置 .claude/ 和旧文件名 product-marketing-context.md 仍会作为后备被读取。",
+      "code": "                            ┌──────────────────────────────────────┐\n                            │          product-marketing           │\n                            │    (read by all other skills first)  │\n                            └──────────────────┬───────────────────┘\n                                               │\n    ┌──────────────┬─────────────┬─────────────┼─────────────┬──────────────┬──────────────┐\n    ▼              ▼             ▼             ▼             ▼              ▼              ▼\n┌──────────┐ ┌──────────┐ ┌──────────┐ ┌────────────┐ ┌──────────┐ ┌─────────────┐ ┌───────────┐\n│  SEO &   │ │   CRO    │ │Content & │ │  Paid &    │ │ Growth & │ │  Sales &    │ │ Strategy  │\n│ Content  │ │          │ │   Copy   │ │Measurement │ │Retention │ │    GTM      │ │           │\n├──────────┤ ├──────────┤ ├──────────┤ ├────────────┤ ├──────────┤ ├─────────────┤ ├───────────┤\n│seo-audit │ │cro       │ │copywritng│ │ads         │ │referrals │ │revops       │ │mktg-ideas │\n│ai-seo    │ │signup    │ │copy-edit │ │ad-creative │ │free-tools│ │sales-enable │ │mktg-psych │\n│site-arch │ │onboarding│ │cold-email│ │ab-testing  │ │churn-    │ │launch       │ │customer-  │\n│programm  │ │popups    │ │emails    │ │analytics   │ │ prevent  │ │pricing      │ │ research  │\n│schema    │ │paywalls  │ │social    │ │            │ │community │ │competitors  │ │           │\n│content   │ │          │ │video     │ │            │ │lead-magnt│ │comp-profile │ │           │\n│aso       │ │          │ │image     │ │            │ │co-mktg   │ │directory    │ │           │\n│          │ │          │ │sms       │ │            │ │          │ │prospecting  │ │           │\n└────┬─────┘ └────┬─────┘ └────┬─────┘ └─────┬──────┘ └────┬─────┘ └──────┬──────┘ └─────┬─────┘\n     │            │            │              │             │              │              │\n     └────────────┴─────┬──────┴──────────────┴─────────────┴──────────────┴──────────────┘\n                        │\n         Skills cross-reference each other:\n           copywriting ↔ cro ↔ ab-testing\n           revops ↔ sales-enablement ↔ cold-email\n           seo-audit ↔ schema ↔ ai-seo\n           customer-research → copywriting, cro, competitors",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/coreyhaines31/marketingskills/blob/5b2c0007766c6a1cf1d53fd8fc73e979e0821022/README.md?plain=1#L29"
+      }
+    },
+    {
+      "title": "用自然语言或斜杠命令调用技能",
+      "text": "安装后，直接向代理描述营销任务即可，代理会匹配对应技能，例如优化落地页时使用 cro。也可以用 /cro、/emails、/seo-audit 这类斜杠命令直接调用某个技能。",
+      "code": "\"Help me optimize this landing page for conversions\"\n→ Uses cro skill\n\n\"Write homepage copy for my SaaS\"\n→ Uses copywriting skill\n\n\"Set up GA4 tracking for signups\"\n→ Uses analytics skill\n\n\"Create a 5-email welcome sequence\"\n→ Uses emails skill\n\n/cro\n/emails\n/seo-audit",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/coreyhaines31/marketingskills/blob/5b2c0007766c6a1cf1d53fd8fc73e979e0821022/README.md?plain=1#L255"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "官方文档中的高权限或远程脚本操作应单独核查，不要整段复制执行。",
+    "README 中包含作者的机构、课程、产品链接和 Verified Partners 工具集成。文档称合作方不影响核心技能的建议，但这些服务是否收费需自行确认。",
+    "技能只为代理提供框架和工作流，输出质量仍取决于所用代理和你提供的产品上下文。"
+  ],
+  "references": [],
+  "media": [],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "6f370f8f639f0dd4c86e4057328b95ac3761b9d97cd9f02957fb70ac890349b2",
+  "mediaStatus": "none_in_official_documents"
+}

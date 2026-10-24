@@ -1,0 +1,30 @@
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import {DatabaseSync} from 'node:sqlite';
+import {prepareLibrarySeed,applyLibrarySeed,promptSeedFields,knowledgeSeedFields,claimSeedFields,seedSourceHash} from '../lib/library-seed.js';
+
+test('public seed is additive, source-checked and remaps evidence to target IDs',t=>{
+  const db=new DatabaseSync(':memory:');t.after(()=>db.close());
+  db.exec(`CREATE TABLE users(id INTEGER PRIMARY KEY,username TEXT);INSERT INTO users VALUES(9,'zane');
+    CREATE TABLE inbox(id INTEGER PRIMARY KEY,user_id INTEGER,source TEXT,external_id TEXT,content TEXT,metrics TEXT,media TEXT,visibility TEXT,status TEXT);
+    INSERT INTO inbox VALUES(501,9,'x','10001','完整原文','{}','[]','public','pending');
+    CREATE TABLE prompts(id INTEGER PRIMARY KEY,user_id INTEGER,source_inbox_id INTEGER,${promptSeedFields.map(x=>x+' TEXT').join(',')});
+    CREATE TABLE knowledge(id INTEGER PRIMARY KEY,user_id INTEGER,${knowledgeSeedFields.map(x=>x+' TEXT').join(',')});
+    CREATE TABLE knowledge_sources(knowledge_id INTEGER,inbox_id INTEGER,external_id TEXT,citation_key TEXT);
+    CREATE TABLE knowledge_claims(knowledge_id INTEGER,${claimSeedFields.map(x=>x+' TEXT').join(',')});`);
+  const p=Object.fromEntries(promptSeedFields.map(x=>[x,'']));
+  const k={...Object.fromEntries(knowledgeSeedFields.map(x=>[x,''])),title:'知识',subject_id:'one',status:'ready',body:'正文 [S:10001]'};
+  const seed={version:1,sources:{10001:seedSourceHash(db.prepare('SELECT * FROM inbox').get())},prompts:[{externalId:'10001',data:p}],articles:[{data:k,sources:['10001'],claims:[]}]};
+  const plan=prepareLibrarySeed(db,seed);
+  assert.equal(plan.prompts[0].inboxId,501);
+  assert.deepEqual(applyLibrarySeed(db,plan),{promptsAdded:1,articlesAdded:1});
+  db.prepare("UPDATE prompts SET title='线上手动编辑'").run();
+  assert.deepEqual(applyLibrarySeed(db,prepareLibrarySeed(db,seed)),{promptsAdded:0,articlesAdded:0});
+  assert.equal(db.prepare('SELECT title FROM prompts').get().title,'线上手动编辑');
+  assert.equal(db.prepare('SELECT inbox_id FROM knowledge_sources').get().inbox_id,501);
+  assert.throws(()=>prepareLibrarySeed(db,{...seed,articles:[{...seed.articles[0],data:{...k,body:'[S:99999]'}}]}),/Unknown article citation/);
+  db.prepare("UPDATE inbox SET visibility='private'").run();
+  assert.throws(()=>prepareLibrarySeed(db,seed),/Public seed source changed/);
+  db.prepare("UPDATE inbox SET visibility='public',content='修改过的原文'").run();
+  assert.throws(()=>prepareLibrarySeed(db,seed),/Public seed source changed/);
+});

@@ -1,0 +1,87 @@
+{
+  "schemaVersion": 1,
+  "key": "yanliudesign/mono-color-skill",
+  "status": "ready",
+  "reason": "",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/yanliudesign/mono-color-skill/blob/c8ff70597ddedcd65f21a0b528f6a70c35690b0a/README.md",
+  "sourceRevision": "c8ff70597ddedcd65f21a0b528f6a70c35690b0a",
+  "canonicalKey": "yanliudesign/mono-color-skill",
+  "summary": "一个 Claude Code Skill，可以把主题、文字、物件或照片转成单色或受控双色的编辑印刷风格图像，同时给出生成提示词和配方。",
+  "intro": "适合设计师、内容创作者和小品牌，用来制作海报、Zine、小红书或公众号封面、播客封面、包装、请柬、明信片和书籍扉页等。默认使用受控双色：一块主墨版加一块辅墨版；明确要求单色时只用一块墨版。风格特点是网点照片、保留纸面留白和克制的排版。",
+  "requirements": "需要已安装 Claude Code，并能使用 git 克隆仓库；也可以在其他支持把 SKILL.md 作为 skill 入口加载的 Agent 环境中使用。要得到图像文件，宿主环境需要提供图像生成工具，否则只会输出提示词和配方。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "克隆到 Claude Code 技能目录",
+      "text": "以 Claude Code 为宿主，用官方 git clone 命令把仓库克隆到 ~/.claude/skills/mono-color。克隆完成后重启 Claude Code，让它加载这个 skill。",
+      "code": "git clone https://github.com/yanliudesign/mono-color-skill.git \\\n\t~/.claude/skills/mono-color",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/yanliudesign/mono-color-skill/blob/c8ff70597ddedcd65f21a0b528f6a70c35690b0a/README.md?plain=1#L144"
+      }
+    },
+    {
+      "title": "准备输入内容与用途",
+      "text": "先确定要处理的输入：一个主题、一句话、一个物件、一个文章想法，或一张你提供的照片。同时说明用途，例如海报、Zine 封面、包装或播客封面，并写明需要原样出现的标题文字。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/yanliudesign/mono-color-skill/blob/c8ff70597ddedcd65f21a0b528f6a70c35690b0a/README.md?plain=1#L57"
+      }
+    },
+    {
+      "title": "在请求中指定油墨方案",
+      "text": "在对话中用 mono-color 发起请求，可以从文档列出的单色油墨（如 Cobalt、Signal Red）或双色配方（如 Cobalt + Terracotta）中选择。如果需要纯单色，请明确写出 one-ink，否则默认使用受控双色。未指定时默认比例为 3:4、底色为中性白。",
+      "code": "Use mono-color to make a vertical poster about a midnight convenience store.\nThe exact headline is “still open”.",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/yanliudesign/mono-color-skill/blob/c8ff70597ddedcd65f21a0b528f6a70c35690b0a/README.md?plain=1#L90"
+      }
+    },
+    {
+      "title": "查看交付的图像与配方",
+      "text": "每次运行会返回三样内容：图像（宿主提供图像生成工具时）、实际使用的完整提示词，以及说明印刷模式、油墨色值、版式、字体搭配和原创性改动的配方。如果没有图像生成能力，则只返回提示词，并说明这一限制。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/yanliudesign/mono-color-skill/blob/c8ff70597ddedcd65f21a0b528f6a70c35690b0a/README.md?plain=1#L222"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "examples/ 中的原创示例图版权归 Yan Liu 所有（© 2026），不在 MIT 许可范围内；十二张研究参考图归各自权利人所有，详见 ASSET-LICENSE.md 和 REFERENCES.md。",
+    "该 skill 只提取色板、印刷工艺、留白等系统层面的特征，不会复刻参考作品的构图、文字或 Logo；请求复制参考海报不在其设计目标之内。",
+    "能否得到图像文件取决于宿主是否提供图像生成工具，skill 本身不生成图像。"
+  ],
+  "references": [
+    {
+      "label": "README.zh.md",
+      "url": "https://github.com/yanliudesign/mono-color-skill/blob/c8ff70597ddedcd65f21a0b528f6a70c35690b0a/README.zh.md"
+    }
+  ],
+  "media": [
+    {
+      "url": "/assets/repository-guides/media-9fd1d527ab735258f3c88eac.webp",
+      "alt": "yanliudesign/mono-color-skill 官方演示 1",
+      "sourceUrl": "https://github.com/yanliudesign/mono-color-skill/blob/c8ff70597ddedcd65f21a0b528f6a70c35690b0a/README.md?plain=1#L27",
+      "originalUrl": "https://raw.githubusercontent.com/yanliudesign/mono-color-skill/c8ff70597ddedcd65f21a0b528f6a70c35690b0a/examples/example-cycling.png"
+    },
+    {
+      "url": "/assets/repository-guides/media-f44a42bd777f1acfd422093e.webp",
+      "alt": "yanliudesign/mono-color-skill 官方演示 2",
+      "sourceUrl": "https://github.com/yanliudesign/mono-color-skill/blob/c8ff70597ddedcd65f21a0b528f6a70c35690b0a/README.md?plain=1#L31",
+      "originalUrl": "https://raw.githubusercontent.com/yanliudesign/mono-color-skill/c8ff70597ddedcd65f21a0b528f6a70c35690b0a/examples/example-sardines.png"
+    },
+    {
+      "url": "/assets/repository-guides/media-065e29572d79870754103321.webp",
+      "alt": "yanliudesign/mono-color-skill 官方演示 3",
+      "sourceUrl": "https://github.com/yanliudesign/mono-color-skill/blob/c8ff70597ddedcd65f21a0b528f6a70c35690b0a/README.md?plain=1#L39",
+      "originalUrl": "https://raw.githubusercontent.com/yanliudesign/mono-color-skill/c8ff70597ddedcd65f21a0b528f6a70c35690b0a/examples/example-night-photography.png"
+    }
+  ],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "21e4052c6826a73b31673c73ad101a879376425d0bbf97913c8311c8974b083b",
+  "mediaStatus": "archived",
+  "mediaFailures": []
+}

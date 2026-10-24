@@ -1,0 +1,79 @@
+{
+  "schemaVersion": 1,
+  "key": "kanshurichard/enableappleai",
+  "status": "ready",
+  "reason": "",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/kanshurichard/enableAppleAI/blob/3f38c39e969151e95564372e3397bdbafad07822/README.md",
+  "sourceRevision": "3f38c39e969151e95564372e3397bdbafad07822",
+  "canonicalKey": "kanshurichard/enableAppleAI",
+  "summary": "一个 Shell 脚本，通过修改 macOS 系统缓存文件，在中国大陆销售的 Mac 上开启 Apple Intelligence（Apple 智能）。",
+  "intro": "适合使用国行 Mac（M1 或以上）并想开启 Apple 智能的用户。用户需要能进入恢复模式、愿意在终端里操作。脚本 enable_ai.sh 提供两种方法：方法1用 lldb 临时注入 eligibilityd，再修改 eligibility.plist；方法2只修改 plist 缓存文件。两种方法都会用 uchg 标记锁定文件。在 macOS 26 上还可以选择把 countryd 缓存的地区改为 US，用于 ChatGPT 整合等受地区限制的功能。脚本带有卸载选项，可以恢复文件状态。",
+  "requirements": "官方文档包含需人工核查的系统操作，请先查看原文和适用条件。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "确认系统版本与地区语言设置",
+      "text": "先确认 Mac 为 M1 或以上芯片，系统在 macOS 15.1 以上、低于 26.5 beta 4，因为更高版本上该方法会失效。然后把系统地区设为“美国”，系统语言和 Siri 语言设为 Apple 智能支持的语言。如果设为不支持的地区，开启会失败。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/kanshurichard/enableAppleAI/blob/3f38c39e969151e95564372e3397bdbafad07822/README.md?plain=1#L5"
+      }
+    },
+    {
+      "title": "在恢复模式中禁用 SIP",
+      "text": "如果 SIP 已禁用，可跳过这一步。否则先重启 Mac，开机时长按电源键进入恢复模式，在菜单栏选择“实用工具 > 终端”，输入 csrutil disable 并按 y 确认。看到 SIP 已禁用的提示后，输入 reboot 重启回到系统。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/kanshurichard/enableAppleAI/blob/3f38c39e969151e95564372e3397bdbafad07822/README.md?plain=1#L56"
+      }
+    },
+    {
+      "title": "下载、审查并运行 enable_ai.sh",
+      "text": "该步骤涉及需要人工核查的高权限、远程脚本或破坏性操作。本站不提供直接执行指令，请先查看官方说明并确认影响。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/kanshurichard/enableAppleAI/blob/3f38c39e969151e95564372e3397bdbafad07822/README.md?plain=1#L70"
+      }
+    },
+    {
+      "title": "按脚本提示选择方法并重启",
+      "text": "在脚本中选择中文或英文，再选“启用 Apple Intelligence”。作者建议优先尝试方法1，方法1失败时再用只修改 plist 的方法2。在 macOS 26 上，脚本会询问是否把地区强制改为美国；如果要用 iPhone 镜像，必须在确认这一步之前先完成配对。脚本执行完后重启 Mac。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/kanshurichard/enableAppleAI/blob/3f38c39e969151e95564372e3397bdbafad07822/README.md?plain=1#L114"
+      }
+    },
+    {
+      "title": "检查功能并重新启用 SIP",
+      "text": "重启后打开“系统设置 > Apple 智能与 Siri”，确认功能是否已开启。确认正常后，建议重新进入恢复模式执行 csrutil enable 恢复 SIP。如需撤销，可再次运行脚本，在主菜单选择“2. 解锁文件 (卸载)”，恢复文件权限和状态。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/kanshurichard/enableAppleAI/blob/3f38c39e969151e95564372e3397bdbafad07822/README.md?plain=1#L114"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "仓库已归档。作者说明在 macOS 26.5 beta 4 及以上版本该方法失效；需要使用 Apple 智能时，不要升级到这些版本。",
+    "官方文档中的高权限或远程脚本操作应单独核查，不要整段复制执行。",
+    "通过修改设备地区信息来绕过 Apple 的区域限制，可能违反 Apple 的服务条款或当地相关规定，请自行判断是否合规。",
+    "强制修改地区为美国后，可能导致 iPhone 镜像无法配对，需要先卸载、配对，再重新启用。",
+    "ChatGPT 整合等功能仍依赖受支持地区的网络环境。繁体中文等语言能否使用，取决于 Apple 是否已下发对应语言包。",
+    "官方文档中的高权限或远程脚本操作应单独核查，不要整段复制执行。"
+  ],
+  "references": [],
+  "media": [
+    {
+      "url": "/assets/repository-guides/media-99f599fe067c488363f73642.webp",
+      "alt": "截屏2025-05-04 09 42 49",
+      "sourceUrl": "https://github.com/kanshurichard/enableAppleAI/blob/3f38c39e969151e95564372e3397bdbafad07822/README.md?plain=1#L9",
+      "originalUrl": "https://github.com/user-attachments/assets/eeb7a4ef-2d6d-46d5-8305-dd2daaafcd04"
+    }
+  ],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "bc93e7e3e7a09b0cf275946560ac85a7a613febcd0f4e1f661604e988ff1deb8",
+  "mediaStatus": "archived",
+  "mediaFailures": []
+}

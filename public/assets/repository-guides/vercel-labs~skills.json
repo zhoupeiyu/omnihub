@@ -1,0 +1,74 @@
+{
+  "schemaVersion": 1,
+  "key": "vercel-labs/skills",
+  "status": "ready",
+  "reason": "",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/vercel-labs/skills/blob/3694740352eeef5cdd689af694c485f1ff62eec3/README.md",
+  "sourceRevision": "3694740352eeef5cdd689af694c485f1ff62eec3",
+  "canonicalKey": "vercel-labs/skills",
+  "summary": "skills 是开放 agent skills 生态的 CLI，可以通过 npx skills 搜索、安装、临时使用、更新和移除 SKILL.md 技能，安装目标支持 Claude Code、Codex、Cursor 等众多编码 agent。",
+  "intro": "适合使用编码 agent、想复用或分享技能（可复用的指令集）的开发者和团队。技能可以来自 GitHub、GitLab、Azure Repos、任意 git URL、本地路径或直接下载链接。可以安装到项目范围随代码提交、与团队共享，也可以全局安装供所有项目使用。也可以用 skills init 创建自己的 SKILL.md 模板。技能目录可以在 skills.sh 浏览。",
+  "requirements": "能够运行 npx 的 Node.js 环境，以及至少一个受支持的编码 agent。安装私有仓库时需要已配置好的 Git 凭据、GitHub CLI 登录或 SSH；GITHUB_TOKEN/GH_TOKEN 可选。需要对目标技能目录有写权限。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "搜索或浏览可用技能",
+      "text": "用 npx skills find 交互式搜索，或按关键词、按某个组织或用户（--owner）搜索技能，也可以在 skills.sh 浏览。确定来源仓库后，先加 --list 参数列出仓库中的技能，不会执行安装。",
+      "code": "# Interactive search (fzf-style)\nnpx skills find\n\n# Search by keyword\nnpx skills find typescript\n\n# Search across every repository owned by an organization or user\nnpx skills find react --owner vercel\n\n# List skills in a repository\nnpx skills add vercel-labs/agent-skills --list\n\n# Install specific skills\nnpx skills add vercel-labs/agent-skills --skill frontend-design --skill skill-creator\n\n# Install a skill with spaces in the name (must be quoted)\nnpx skills add owner/repo --skill \"Convex Best Practices\"\n\n# Install to specific agents\nnpx skills add vercel-labs/agent-skills -a claude-code -a opencode\n\n# Non-interactive installation (CI/CD friendly)\nnpx skills add vercel-labs/agent-skills --skill frontend-design -g -a claude-code -y\n\n# Install all skills from a repo to all agents\nnpx skills add vercel-labs/agent-skills --all\n\n# Install all skills to specific agents\nnpx skills add vercel-labs/agent-skills --skill '*' -a claude-code\n\n# Install specific skills to all agents\nnpx skills add vercel-labs/agent-skills --agent '*' --skill frontend-design\n\n# Install from a direct SKILL.md or archive download URL\nnpx skills add https://example.com/download/my-skill",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/vercel-labs/skills/blob/3694740352eeef5cdd689af694c485f1ff62eec3/README.md?plain=1#L170"
+      }
+    },
+    {
+      "title": "安装指定技能到目标 agent",
+      "text": "用 npx skills add <来源> 安装，通过 --skill 指定技能名，-a 指定 agent（例如 claude-code）。默认装到项目目录，加 -g 则装到用户目录；交互模式下推荐选择 Symlink 方式。CI 环境中可以加 -y 跳过所有确认。",
+      "code": "npx skills add vercel-labs/agent-skills\n\n# List skills in a repository\nnpx skills add vercel-labs/agent-skills --list\n\n# Install specific skills\nnpx skills add vercel-labs/agent-skills --skill frontend-design --skill skill-creator\n\n# Install a skill with spaces in the name (must be quoted)\nnpx skills add owner/repo --skill \"Convex Best Practices\"\n\n# Install to specific agents\nnpx skills add vercel-labs/agent-skills -a claude-code -a opencode\n\n# Non-interactive installation (CI/CD friendly)\nnpx skills add vercel-labs/agent-skills --skill frontend-design -g -a claude-code -y\n\n# Install all skills from a repo to all agents\nnpx skills add vercel-labs/agent-skills --all\n\n# Install all skills to specific agents\nnpx skills add vercel-labs/agent-skills --skill '*' -a claude-code\n\n# Install specific skills to all agents\nnpx skills add vercel-labs/agent-skills --agent '*' --skill frontend-design\n\n# Install from a direct SKILL.md or archive download URL\nnpx skills add https://example.com/download/my-skill",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/vercel-labs/skills/blob/3694740352eeef5cdd689af694c485f1ff62eec3/README.md?plain=1#L17"
+      }
+    },
+    {
+      "title": "不安装直接临时使用技能",
+      "text": "skills use 会把选中的技能写入临时目录，并把生成的提示词输出到 stdout，可以通过管道交给 claude。加 --agent 参数则直接以该提示词交互式启动一个受支持的 agent。",
+      "code": "npx skills use vercel-labs/agent-skills@web-design-guidelines | claude\nnpx skills use vercel-labs/agent-skills --skill web-design-guidelines --agent claude-code",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/vercel-labs/skills/blob/3694740352eeef5cdd689af694c485f1ff62eec3/README.md?plain=1#L23"
+      }
+    },
+    {
+      "title": "查看、更新与移除已装技能",
+      "text": "用 npx skills list 查看已安装的技能，可以按 -g 或 -a 过滤。update 用于更新到最新版本，可用 -g 或 -p 限定范围。remove 用于移除技能，可以指定 agent 或技能，--all 会一次性全部移除且不再确认。",
+      "code": "# List all installed skills (project and global)\nnpx skills list\n\n# List only global skills\nnpx skills ls -g\n\n# Filter by specific agents\nnpx skills ls -a claude-code -a cursor\n\n# Update all skills (interactive scope prompt)\nnpx skills update\n\n# Update a single skill by name\nnpx skills update my-skill\n\n# Update multiple specific skills\nnpx skills update frontend-design web-design-guidelines\n\n# Update only global or project skills\nnpx skills update -g\nnpx skills update -p\n\n# Non-interactive (auto-detects scope: project if in a project, else global)\nnpx skills update -y\n\n# Remove interactively (select from installed skills)\nnpx skills remove\n\n# Remove specific skill by name\nnpx skills remove web-design-guidelines\n\n# Remove multiple skills\nnpx skills remove frontend-design web-design-guidelines\n\n# Remove from global scope\nnpx skills remove --global web-design-guidelines\n\n# Remove from specific agents only\nnpx skills remove --agent claude-code cursor my-skill\n\n# Remove all installed skills without confirmation\nnpx skills remove --all\n\n# Remove all skills from a specific agent\nnpx skills remove --skill '*' -a cursor\n\n# Remove a specific skill from all agents\nnpx skills remove my-skill --agent '*'\n\n# Use 'rm' alias\nnpx skills rm my-skill",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/vercel-labs/skills/blob/3694740352eeef5cdd689af694c485f1ff62eec3/README.md?plain=1#L155"
+      }
+    },
+    {
+      "title": "用 skills init 编写自己的技能",
+      "text": "运行 npx skills init 生成 SKILL.md 模板。frontmatter 中必须填写 name（小写，可含连字符）和 description，否则会提示 No skills found。如果技能加载失败，先检查安装路径和 YAML 是否有效。",
+      "code": "# Create SKILL.md in current directory\nnpx skills init\n\n# Create a new skill in a subdirectory\nnpx skills init my-skill\n\n---\nname: my-skill\ndescription: What this skill does and when to use it\n---\n\n# My Skill\n\nInstructions for the agent to follow when this skill is activated.\n\n## When to Use\n\nDescribe the scenarios where this skill should be used.\n\n## Steps\n\n1. First, do this\n2. Then, do that",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/vercel-labs/skills/blob/3694740352eeef5cdd689af694c485f1ff62eec3/README.md?plain=1#L212"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "CLI 默认收集匿名使用数据，非 GitHub 来源可能会在遥测中包含来源和技能标识。可以设置 DISABLE_TELEMETRY=1 或 DO_NOT_TRACK=1 关闭。",
+    "技能本质上是交给 agent 执行的指令，请只安装可信来源的技能。只有在信任来源时，才应调高下载和解压上限（SKILLS_DOWNLOAD_MAX_BYTES 等）。",
+    "各 agent 对 allowed-tools、context: fork、Hooks 等特性的支持不同，同一技能在不同 agent 中的行为可能有差异。",
+    "remove --all 会在不确认的情况下移除所有已安装技能，使用前请确认范围。"
+  ],
+  "references": [],
+  "media": [],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "ec12d27cafb4d6153770a319f6d88a6936729a48e6aceba8a7d6a0574573bdf7",
+  "mediaStatus": "none_in_official_documents"
+}

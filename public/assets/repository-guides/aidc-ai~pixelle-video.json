@@ -1,0 +1,80 @@
+{
+  "schemaVersion": 1,
+  "key": "aidc-ai/pixelle-video",
+  "status": "ready",
+  "reason": "",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/ATH-MaaS/Pixelle-Video/blob/848b054e4fae40dabc62ec58e960b573e83793ac/README.md",
+  "sourceRevision": "848b054e4fae40dabc62ec58e960b573e83793ac",
+  "canonicalKey": "ATH-MaaS/Pixelle-Video",
+  "summary": "Pixelle-Video 是一个 AI 短视频生成引擎：输入一个主题，即可自动写文案、生成配图或视频片段、合成语音和背景音乐，并输出完整视频。",
+  "intro": "适合没有剪辑经验、想用 AI 批量制作解说类短视频的创作者，也适合熟悉 ComfyUI 想自定义工作流的用户。它提供 Streamlit Web 界面，可选择 LLM、TTS、图像/视频生成工作流（本地 ComfyUI、RunningHub 或直连 DashScope、OpenAI、Kling 等 API），以及视频模板和尺寸。另有数字人口播、图生视频、动作迁移等扩展模块。",
+  "requirements": "源码方式需要先安装 `uv` 和 `ffmpeg`。使用时需要准备一个 LLM 的 API Key（或本地 Ollama），以及图像生成能力：本地 ComfyUI、RunningHub API Key，或某个直连媒体模型供应商的密钥。Windows 用户可改用官方一键整合包，不需要自行安装环境。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "安装 uv 和 ffmpeg（macOS）",
+      "text": "本指南以 macOS 源码方式为例。按 uv 官方安装指南安装 uv，并用 `uv --version` 验证；再用 Homebrew 安装 ffmpeg，并用 `ffmpeg -version` 验证。",
+      "code": "brew install ffmpeg",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/ATH-MaaS/Pixelle-Video/blob/848b054e4fae40dabc62ec58e960b573e83793ac/README.md?plain=1#L201"
+      }
+    },
+    {
+      "title": "克隆项目并进入目录",
+      "text": "用 git clone 下载 Pixelle-Video 仓库，然后进入 `Pixelle-Video` 目录，后续命令都在这个目录中执行。",
+      "code": "git clone https://github.com/AIDC-AI/Pixelle-Video.git\ncd Pixelle-Video",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/ATH-MaaS/Pixelle-Video/blob/848b054e4fae40dabc62ec58e960b573e83793ac/README.md?plain=1#L232"
+      }
+    },
+    {
+      "title": "用 uv 启动 Web 界面",
+      "text": "在项目目录运行 `uv run streamlit run web/app.py`。uv 会自动安装依赖，随后浏览器会打开 http://localhost:8501 。",
+      "code": "# 使用 uv 运行（推荐，会自动安装依赖）\nuv run streamlit run web/app.py",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/ATH-MaaS/Pixelle-Video/blob/848b054e4fae40dabc62ec58e960b573e83793ac/README.md?plain=1#L239"
+      }
+    },
+    {
+      "title": "在系统配置中填写模型与密钥",
+      "text": "展开「⚙️ 系统配置」：选择 LLM 预设并填写 API Key；如使用工作流，填写本地 ComfyUI 地址（默认 http://127.0.0.1:8188，可点「测试连接」）或 RunningHub Key；若要用 `api/...` 工作流，还需填写对应供应商的密钥。最后点击「保存配置」。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/ATH-MaaS/Pixelle-Video/blob/848b054e4fae40dabc62ec58e960b573e83793ac/README.md?plain=1#L248"
+      }
+    },
+    {
+      "title": "选择内容与模板后生成视频",
+      "text": "选择「AI 生成内容」并输入主题，或选择「固定文案内容」粘贴现成文案；再选好 TTS 工作流、图像工作流、视频模板和 BGM，点击「🎬 生成视频」。界面会显示实时进度，生成的视频保存在 `output/` 文件夹。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/ATH-MaaS/Pixelle-Video/blob/848b054e4fae40dabc62ec58e960b573e83793ac/README.md?plain=1#L314"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "费用取决于所选方案：官方 FAQ 称使用 Ollama 和本地 ComfyUI 可免费运行，但需要本地显卡；使用 OpenAI、RunningHub 或直连 API 媒体模型会产生供应商费用。",
+    "开启「打印模型请求参数」后，终端会输出 prompt、模型名和输入文件路径，共享日志前请先检查内容。",
+    "图像提示词前缀需要用英文；不同模型对图像尺寸有各自的限制。",
+    "声音克隆只在支持该功能的 TTS 工作流（如 Index-TTS）中可用，请确认你有权使用所上传的参考音频。"
+  ],
+  "references": [],
+  "media": [
+    {
+      "url": "/assets/repository-guides/media-736e166069281b3568554a3a.webp",
+      "alt": "Web UI界面",
+      "sourceUrl": "https://github.com/ATH-MaaS/Pixelle-Video/blob/848b054e4fae40dabc62ec58e960b573e83793ac/README.md?plain=1#L31",
+      "originalUrl": "https://raw.githubusercontent.com/ATH-MaaS/Pixelle-Video/848b054e4fae40dabc62ec58e960b573e83793ac/resources/webui.png"
+    }
+  ],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "1a6e9c26be45d679eea7041208e0620727f83db82d5f3c710108a1246b654093",
+  "mediaStatus": "archived",
+  "mediaFailures": []
+}

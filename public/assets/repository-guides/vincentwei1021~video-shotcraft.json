@@ -1,0 +1,77 @@
+{
+  "schemaVersion": 1,
+  "key": "vincentwei1021/video-shotcraft",
+  "status": "ready",
+  "reason": "",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/Vincentwei1021/video-shotcraft/blob/5ddbf521038b0a7accfb6dc1e0a9eb29c67277ab/README.md",
+  "sourceRevision": "5ddbf521038b0a7accfb6dc1e0a9eb29c67277ab",
+  "canonicalKey": "Vincentwei1021/video-shotcraft",
+  "summary": "video-shotcraft 是用于 Claude Code / Codex 的 agent 技能，基于 Remotion 制作产品宣传片和演示视频，附带镜头配方卡与成片模板。",
+  "intro": "适合想让 AI agent 为网页或桌面产品制作宣传片、发布视频或功能演示的开发者和产品团队。技能包含镜头配方卡（用途、时长、参数和常见坑）、对应的 Remotion 实现、在线 Gallery 动态样片、已验收的 Ink Press 成片模板、音效素材和制作方法论。交付后还可以在浏览器动效工作台里继续编辑，或导出为剪映工程。",
+  "requirements": "需要 Claude Code 或 Codex。本指南以 Claude Code 手动安装为例，需要 git 和支持 ln -s 的 shell 环境。视频由 Remotion 渲染；文档提到无头 Linux 环境用 Node 22 测试过。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "克隆仓库并链接到 Claude Code",
+      "text": "克隆 video-shotcraft 仓库，然后在仓库目录里用 ln -s 把它链接到 ~/.claude/skills/video-shotcraft，Claude Code 即可识别这个技能。用 Codex 的话链接到 ~/.codex/skills/ 下对应位置。",
+      "code": "git clone https://github.com/Vincentwei1021/video-shotcraft.git\ncd video-shotcraft\nln -s \"$(pwd)\" ~/.claude/skills/video-shotcraft   # Claude Code\n# or\nln -s \"$(pwd)\" ~/.codex/skills/video-shotcraft    # Codex",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/Vincentwei1021/video-shotcraft/blob/5ddbf521038b0a7accfb6dc1e0a9eb29c67277ab/README.md?plain=1#L99"
+      }
+    },
+    {
+      "title": "在 Gallery 中挑选镜头卡",
+      "text": "开始之前，可以先在线浏览 Gallery，按类别搜索、筛选和切换样式，多选后复制镜头卡名称。不指定镜头卡也可以，技能会先介绍内置成片模板，再询问是否采用。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/Vincentwei1021/video-shotcraft/blob/5ddbf521038b0a7accfb6dc1e0a9eb29c67277ab/README.md?plain=1#L99"
+      }
+    },
+    {
+      "title": "在 Claude Code 中提出视频需求",
+      "text": "在 Claude Code 里说明要用 video-shotcraft 为你的产品制作视频，可以点名想用的镜头卡。想走最快的路径，就明确要求使用 Ink Press 模板，agent 会替换成你产品的截图、文案和品牌信息。",
+      "code": "Use video-shotcraft to create a promo for my desktop product.\nUse the deck-deal-flyin and row-embed shot cards to present this feature.\nDesign a product close-up inspired by spotlight-hero-card.\n\nUse video-shotcraft to make a promo for my product with the Ink Press template.",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/Vincentwei1021/video-shotcraft/blob/5ddbf521038b0a7accfb6dc1e0a9eb29c67277ab/README.md?plain=1#L99"
+      }
+    },
+    {
+      "title": "交付后在动效工作台继续编辑",
+      "text": "成片交付后，技能会通过 node workbench/scripts/open.mjs 打开浏览器工作台。影片会按镜头、转场、字幕和音效拆成多条轨道，可以修改文案、字号和颜色，挪动、裁剪镜头或调整变速，也能从素材库拖入 demo 动效，最后用 Remotion 导出。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/Vincentwei1021/video-shotcraft/blob/5ddbf521038b0a7accfb6dc1e0a9eb29c67277ab/README.md?plain=1#L35"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "Remotion 有自己的许可证：个人和小团队免费，公司可能需要购买付费许可。",
+    "assets/audio/ 下的音频要按各自的许可使用，来源和条款见 ATTRIBUTION.md。",
+    "模板自带的产品截图只是演示素材，发布前要换成目标产品的截图，并确认是否需要对产品、客户或个人数据做匿名处理。",
+    "在低核数无头 Linux 上渲染时，可能需要加 --concurrency=1、改用 chrome-headless-shell，并通过 --browser-executable 指定本地浏览器路径。",
+    "剪映工程导出只在 macOS 剪映 Pro 11.2 上验证过，Windows 安装器未测试。"
+  ],
+  "references": [
+    {
+      "label": "README_CN.md",
+      "url": "https://github.com/Vincentwei1021/video-shotcraft/blob/5ddbf521038b0a7accfb6dc1e0a9eb29c67277ab/README_CN.md"
+    }
+  ],
+  "media": [
+    {
+      "url": "/assets/repository-guides/media-9d18cadf89b1cbf84e323f63.webp",
+      "alt": "Vincentwei1021/video-shotcraft 官方演示 1",
+      "sourceUrl": "https://github.com/Vincentwei1021/video-shotcraft/blob/5ddbf521038b0a7accfb6dc1e0a9eb29c67277ab/README.md?plain=1#L63",
+      "originalUrl": "https://raw.githubusercontent.com/Vincentwei1021/video-shotcraft/5ddbf521038b0a7accfb6dc1e0a9eb29c67277ab/workbench/docs/overview.png"
+    }
+  ],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "6c61d6123cc40004c6d56be4cceae0b3627b1021d017b25b1ceddcb61c901c8e",
+  "mediaStatus": "archived",
+  "mediaFailures": []
+}

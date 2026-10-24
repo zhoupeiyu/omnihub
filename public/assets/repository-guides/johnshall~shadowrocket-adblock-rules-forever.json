@@ -1,0 +1,77 @@
+{
+  "schemaVersion": 1,
+  "key": "johnshall/shadowrocket-adblock-rules-forever",
+  "status": "ready",
+  "reason": "",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/Johnshall/Shadowrocket-ADBlock-Rules-Forever/blob/2b1461db10b540f856b69a9794aec3509e557d73/readme.md",
+  "sourceRevision": "2b1461db10b540f856b69a9794aec3509e557d73",
+  "canonicalKey": "Johnshall/Shadowrocket-ADBlock-Rules-Forever",
+  "summary": "一组为 Shadowrocket 生成的分流与广告过滤规则文件，按名单定义哪些网站直连、哪些走代理，每天北京时间 8:00 重新构建发布。",
+  "intro": "适合 iOS 上的 Shadowrocket 用户。规则包括黑名单、白名单、国内外划分、全局直连或代理去广告、回国规则、仅去广告和懒人配置等多种版本，可以按需要导入一个或多个并切换使用。规则本身是纯文本文件，只决定流量走向，不提供代理服务。需要定制规则的用户可以 Fork 仓库，用 Actions 自行构建。",
+  "requirements": "已安装 Shadowrocket；规则中走代理的部分需要用户自备可用的代理节点。如需每日自动更新，还要使用 iOS 的“快捷指令”应用。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "按需求选定一个规则文件",
+      "text": "参考规则列表和选择指南图确定版本。黑名单对未知网站默认直连，白名单对未知网站默认代理。两种名单都有带去广告和不带去广告的版本。另有国内外划分、回国规则、仅去广告等选项，懒人配置面向不想折腾的用户。所有规则对局域网请求都直连。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/Johnshall/Shadowrocket-ADBlock-Rules-Forever/blob/2b1461db10b540f856b69a9794aec3509e557d73/readme.md?plain=1#L36"
+      }
+    },
+    {
+      "title": "在 Shadowrocket 中添加规则地址",
+      "text": "打开 Shadowrocket 的[配置]页面，点击右上角加号，在 url 处粘贴所选规则的地址，比如“黑名单过滤 + 广告”对应 sr_top500_banlist_ad.conf 的 GitHub Pages 地址，然后点击“下载”。也可以用 Safari 或 Shadowrocket 扫描对应的二维码导入。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/Johnshall/Shadowrocket-ADBlock-Rules-Forever/blob/2b1461db10b540f856b69a9794aec3509e557d73/readme.md?plain=1#L59"
+      }
+    },
+    {
+      "title": "断开并重新连接使规则生效",
+      "text": "下载规则后，在 Shadowrocket 中断开连接再重新连接一次，确保新规则文件生效。如果下载了多个规则，可以在配置页面之间切换使用。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/Johnshall/Shadowrocket-ADBlock-Rules-Forever/blob/2b1461db10b540f856b69a9794aec3509e557d73/readme.md?plain=1#L59"
+      }
+    },
+    {
+      "title": "用快捷指令设置每日自动更新",
+      "text": "安装 README 提供的捷径，并填入规则文件地址。然后在“快捷指令 > 自动化”中创建个人自动化：选择“特定时间”，时间设为 8:05 或更晚，动作选“运行快捷指令”中的“Shadowrocket 规则自动更新”，可按需关闭运行前询问。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/Johnshall/Shadowrocket-ADBlock-Rules-Forever/blob/2b1461db10b540f856b69a9794aec3509e557d73/readme.md?plain=1#L66"
+      }
+    },
+    {
+      "title": "通过日志定位问题并反馈",
+      "text": "遇到网站被墙却走直连、或能直连却走了代理的情况，可以打开 Shadowrocket 的日志功能找出对应域名，再到 Issues 反馈。贡献规则时修改 factory 目录下的 manual_*.txt，Pull request 需提交到 build 分支。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/Johnshall/Shadowrocket-ADBlock-Rules-Forever/blob/2b1461db10b540f856b69a9794aec3509e557d73/readme.md?plain=1#L122"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "规则只定义直连或代理的分流，本身不提供任何代理服务，代理节点需要另外准备。",
+    "广告过滤不保证 100% 有效，视频 App 和 YouTube 广告尤其难以完全屏蔽。",
+    "处理 google.cn 跳转问题需要开启 HTTPS 解密，并安装、完全信任一个根证书。这会让 Shadowrocket 能够解密 HTTPS 流量，请在了解风险后再操作。",
+    "规则每天北京时间 8:00 重新生成，自动更新时间应设在 8:05 或更晚。",
+    "仓库许可证标注为 NOASSERTION，二次分发或修改前请自行确认授权情况；部分规则基于 GFWList、blackmatrix7/ios_rule_script、LOWERTOP/Shadowrocket 等上游项目生成。",
+    "在当地使用相关网络工具前，请自行确认是否符合所在地的法律法规。"
+  ],
+  "references": [],
+  "media": [],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "80b99a91f4dd43dacb3a9e4436db344ba67856ee7c03e06662748459f37deb46",
+  "mediaStatus": "unavailable",
+  "mediaFailures": [
+    {
+      "sourceUrl": "https://github.com/Johnshall/Shadowrocket-ADBlock-Rules-Forever/blob/2b1461db10b540f856b69a9794aec3509e557d73/readme.md#L38",
+      "reason": "unsupported_media_host"
+    }
+  ]
+}

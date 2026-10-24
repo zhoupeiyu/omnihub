@@ -10,7 +10,7 @@
 要求 Node.js ≥ 22.5（你机器上是 v25，满足）：
 
 ```bash
-cd ~/Desktop/omnihub
+cd /Users/zhoupeiyu/Path/playground/web/omnihub
 node server.js
 ```
 
@@ -29,6 +29,58 @@ node server.js
 - **流式回复**：AI 回答逐字呈现（SSE 转发），并以 **Markdown 渲染**（标题/列表/代码块/表格/引用，由本地 vendor 的 marked + DOMPurify 解析与消毒，无 XSS 风险）
 - 聊天支持多轮对话、新对话、Enter 发送；切换模块不丢聊天记录
 - 提示词库每张卡片有「**试跑**」按钮：一键把提示词带进聊天框直接发给 AI
+
+### TypeSafe 收件箱预分类
+
+新收录的单条内容会先保存原文，再由 TypeSafe Jev 建议存为提示词、资源或知识。判断不清晰、密钥不可用或服务超时时，内容仍留在收件箱，用户可以手动选类型。已有条目可在详情里点击「TypeSafe 判断」重新分析。最终分发仍由用户确认；批量导入暂不自动调用 TypeSafe。
+
+服务端默认读取 `~/.config/typesafe-ai/api-key`，文件权限需仅允许所有者访问（如 `0600`）。也可以设置 `TYPESAFE_API_KEY_FILE` 指向另一个私有密钥文件，或通过 `TYPESAFE_API_KEY` 提供密钥。它与「AI 设置」里的个人聊天 Key 分开，密钥不会返回浏览器。判断时会把该条内容的标题、网址和正文前 4000 个字符发给 TypeSafe；不要把不应外发的内容放进需要自动判断的收件箱。
+
+`POST /api/inbox/:id/analyze` 可对待处理条目重新判断。返回的 `aiType` 只是建议，`aiConfidence` 表示答案分布的集中程度，不能当成分类准确率。当前 `0.5` 的建议门槛需要用自己的已标注内容继续校准。
+
+### 导入 X 收藏
+
+X 收藏按“全量导出、分类与同主题分组、图片归档、核对、入站”的顺序处理。旧导出保留在原目录；新的导出写入独立目录，支持从已保存的分页续跑。导出脚本要求设置本轮费用上限，并按每条 $0.015 保守限制请求数量：按普通帖子读取 $0.005，加上展开作者资料时可能产生的用户读取 $0.010 估算。符合条件的本人收藏读取可能更便宜。这个数值是本地估算，实际费用和开发者账户的硬性消费限制以 [X 开发者控制台](https://docs.x.com/x-api/getting-started/pricing)为准。
+
+```bash
+node scripts/export-x-bookmarks.mjs --user-id <X 用户 ID> --max-usd <本轮上限> --out <新的绝对目录>
+node scripts/organize-x-bookmarks.mjs --raw <导出目录>/bookmarks.raw.jsonl --out <整理目录> --previous <旧导出目录>/bookmarks.raw.jsonl
+node scripts/archive-x-media.mjs --organized <整理目录>/bookmarks.organized.jsonl --out <整理目录>
+node scripts/render-x-review.mjs --organized <整理目录>/bookmarks.organized.jsonl --media-manifest <整理目录>/media-manifest.json --out <整理目录>/分类复核.md
+```
+
+不使用付费开发者 API 时，也可用 [xarchive](https://github.com/sytelus/xarchive) 在已登录的 X 浏览器中执行 **Full refresh**，下载 **latest snapshot**。它通过 X 网页内部接口读取，需授予扩展 X 站点、Cookie 和请求头访问权；内部接口或 X 返回范围变化时，完整性仍需核对。OmniHub 的转换脚本只接受账号匹配、收藏分页完成的 full snapshot；累计档案或中断快照不会被标为全量。
+
+```bash
+node scripts/convert-xarchive.mjs --archive <latest snapshot JSON> --user-id <X 用户 ID> --out <新的绝对目录>
+node scripts/organize-x-bookmarks.mjs --raw <新目录>/bookmarks.raw.jsonl --out <整理目录> --previous <旧导出目录>/bookmarks.raw.jsonl
+```
+
+若 Full refresh 因 `pagination_guard` 停止，快照只能按 `partial_xarchive_scan` 保全和整理，不能标为全量。显式加 `--allow-partial` 转换，再按 `--coverage partial_xarchive_scan` 整理；导入时同样需要 `--allow-partial` 和对应 `manifest.json`。后续真正完整的快照会按帖子 ID 原位升级这些记录。
+
+浏览器页面只采集到一部分时，可在本地整理这份快照。转换脚本按帖子 ID 与旧导出对照，只用旧文件补齐匹配帖子的正文和媒体；旧文件里未在本轮页面出现的帖子单独列在 `scan-manifest.json`，不计入当前收藏。X Article 卡片只有标题和摘要，折叠长文也不能视为全文。这些条目会进入待核对清单。以下命令只读取本地文件，分类阶段会把可用文字发送给 TypeSafe，不再访问 X。
+
+```bash
+node scripts/convert-x-ui-scan.mjs --scan <页面快照 JSON> --historical <旧 raw.jsonl> --account <X 用户名> --out <新的绝对目录>
+node scripts/organize-x-bookmarks.mjs --raw <新目录>/bookmarks.raw.jsonl --coverage partial_ui_scan --out <整理目录>
+node scripts/render-x-review.mjs --organized <整理目录>/bookmarks.organized.jsonl --media-manifest <旧媒体目录>/media-manifest.json --out <整理目录>/分类复核.md
+```
+
+`partial_ui_scan` 可以作为明确标记的部分批次先导入收件箱，网站会显示覆盖范围和正文缺口，不能把它当作全量收藏。后续导入完整批次时，同一帖子 ID 会补全原记录，不会再增加一条。新图片和视频预览图只保留页面读到的源链接；没有下载成功的媒体不标为本地归档。
+
+若要由本机脚本导入当前部分批次，先用 `--dry-run` 核对账号、范围和条数，再去掉该参数执行。脚本要求目标 OmniHub 账号已经存在且有收件箱权限；写入前会在本机 `data/backups/` 保存数据库快照。
+
+```bash
+node scripts/import-x-organized-local.mjs --file <整理目录>/bookmarks.organized.jsonl --username <OmniHub 账号> --allow-partial --scan-manifest <页面转换目录>/scan-manifest.json --account <X 用户名> --dry-run
+```
+
+`manifest.json` 的 `complete` 为 `true` 且导出数量与解析数量一致后，整理脚本才会运行。TypeSafe Jev 分别建议资产类型和浏览主题；当前浏览主题固定为八类。同一作者有多条收藏时，再判断它们是否属于同一具体事项或连续系列。内部 `groupId` 只用来串联相关原帖，单帖不会成为一个新的浏览主题。复核页先按浏览主题、再按资产类型排列；每条帖子仍保留原文、作者 ID、来源、外链和媒体。整理结果包括 `bookmarks.organized.jsonl`、`groups.json`、`needs-review.jsonl` 与数量摘要。判断不明确的条目留待核对。Jev 目前只读取文字和图片说明，不能判断图片画面；效果图本身另行归档。
+
+旧导出可用 `--snapshot` 单独整理，用来提前核对分类与图片。它会被明确标为历史快照；网站导入接口接受完整批次，以及明确选择导入的部分页面采集批次，不接受历史快照。
+
+图片归档脚本把 X 返回的图片或视频预览图下载到整理目录，记录校验和；失败项会列在 `media-manifest.json`，不能当作已经保存。现阶段网站展示的是 X 媒体链接，归档的本地图片文件尚未上传到网站的媒体存储，因此网站中的图片仍依赖原链接可访问。
+
+核对完成后，登录 OmniHub，在「收件箱」选择 `bookmarks.organized.jsonl`。页面按请求大小分批上传，以帖子 ID 去重；重复上传会跳过已导入的记录。X 收藏有独立视图，可按 TypeSafe 建议类型和主题筛选；同一作者的同主题内容连续显示。提示词转入资料库时，保留原文、来源链接和媒体记录，并显示可访问的效果图。网站不接收 X 访问令牌，也不会在批量导入时重新调用 TypeSafe。
 
 ### 提示词灵感库（AI 图像 / 视频创作管理）
 - **完整字段**：标题、提示词、负面提示词、使用模型、标签、分类、效果图、参考帖子链接、备注、成功原因、失败点、复现技巧、收藏、归档、创建/更新时间

@@ -1,0 +1,92 @@
+{
+  "schemaVersion": 1,
+  "key": "nesquena/hermes-webui",
+  "status": "ready",
+  "reason": "",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/nesquena/hermes-webui/blob/dd5451903686d480c9813cc350097cd07285dfa1/README.md",
+  "sourceRevision": "dd5451903686d480c9813cc350097cd07285dfa1",
+  "canonicalKey": "nesquena/hermes-webui",
+  "summary": "Hermes WebUI 是 Hermes Agent 的浏览器界面，可以在网页或手机上完成与 CLI 基本一致的聊天、会话和工作区操作。",
+  "intro": "适合已经在自己服务器上运行 Hermes Agent、希望改用浏览器或手机访问的用户。界面分三栏：左侧是会话与导航，中间是聊天，右侧浏览工作区文件。底部输入区可以切换模型、profile 和工作区，设置集中在 Hermes Control Center。WebUI 默认在进程内运行 Hermes agent，直接读取 HERMES_HOME 配置，沿用已有的 agent 和模型。",
+  "requirements": "需要 Linux、macOS 或 WSL2（bootstrap 暂不支持原生 Windows），并且可以使用 git 和 python3。最好已安装 Hermes Agent；若未安装，bootstrap 会尝试运行官方安装脚本。模型提供商需要单独配置，没配完时可在终端用 hermes model 补齐。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "确认平台与 Hermes Agent 环境",
+      "text": "bootstrap 方式只支持 Linux、macOS 或 WSL2，原生 Windows 不在官方支持范围内。WebUI 会沿用现有 Hermes Agent 的配置和模型，所以最好先在同一台机器上装好 Hermes Agent。没装的话，bootstrap 会尝试执行官方安装脚本。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/nesquena/hermes-webui/blob/dd5451903686d480c9813cc350097cd07285dfa1/README.md?plain=1#L166"
+      }
+    },
+    {
+      "title": "克隆仓库并运行 bootstrap.py",
+      "text": "克隆 hermes-webui 仓库，进入目录后运行 python3 bootstrap.py。脚本会检测 Hermes Agent，查找或创建带 WebUI 依赖的 Python 环境，启动 Web 服务并等待 /health 就绪，然后自动打开浏览器。不想自动打开浏览器可加 --no-browser。",
+      "code": "git clone https://github.com/nesquena/hermes-webui.git hermes-webui\ncd hermes-webui\npython3 bootstrap.py",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/nesquena/hermes-webui/blob/dd5451903686d480c9813cc350097cd07285dfa1/README.md?plain=1#L114"
+      }
+    },
+    {
+      "title": "在浏览器中完成首次引导向导",
+      "text": "首次进入 WebUI 会出现 onboarding 向导。安装完成后如果模型提供商仍未配置好，向导会提示回终端用 hermes model 完成配置，而不会在浏览器里重复整套 CLI 设置。向导的详细说明见 docs/onboarding.md。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/nesquena/hermes-webui/blob/dd5451903686d480c9813cc350097cd07285dfa1/README.md?plain=1#L166"
+      }
+    },
+    {
+      "title": "用 /health 检查服务是否正常",
+      "text": "默认端口是 8787，可以用 HERMES_WEBUI_PORT 或启动参数修改。服务启动后，请求本机的 /health 接口即可确认 WebUI 在运行。状态目录默认在 ~/.hermes/webui。",
+      "code": "curl http://127.0.0.1:8787/health",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/nesquena/hermes-webui/blob/dd5451903686d480c9813cc350097cd07285dfa1/README.md?plain=1#L460"
+      }
+    },
+    {
+      "title": "按启动方式正确停止服务",
+      "text": "python3 bootstrap.py 在前台运行，在终端按 Ctrl-C 即可停止。ctl.sh stop 只能停止由 ctl.sh start 启动的进程，管不了 bootstrap.py 或 start.sh 直接启动的服务。后台启动的实例需要用 lsof -i :8787 找到 PID 再 kill。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/nesquena/hermes-webui/blob/dd5451903686d480c9813cc350097cd07285dfa1/README.md?plain=1#L114"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "bootstrap 在找不到 Hermes Agent 时，会通过 curl 管道 bash 的方式运行官方安装脚本，介意的话请先手动安装 Hermes Agent。",
+    "如果把端口暴露到 127.0.0.1 之外，文档要求开启密码保护；远程访问推荐用 SSH 隧道。",
+    "聊天调用的是你自己配置的模型提供商，输入区会显示 token 用量和费用，实际花费取决于所用提供商。",
+    "HERMES_API_URL 只用于 Tasks/cron 健康探测，不会改变聊天路由；如需改用外部 Gateway，见 docs/advanced-chat-setup.md。",
+    "遇到危险 shell 命令时会弹出审批卡片，选择总是允许之前请先确认风险。"
+  ],
+  "references": [],
+  "media": [
+    {
+      "url": "/assets/repository-guides/media-beef1e37e8f3568de2f62249.webp",
+      "alt": "nesquena/hermes-webui 官方演示 1",
+      "sourceUrl": "https://github.com/nesquena/hermes-webui/blob/dd5451903686d480c9813cc350097cd07285dfa1/README.md?plain=1#L21",
+      "originalUrl": "https://github.com/user-attachments/assets/4ef3a59c-7a66-4705-b4e7-cb9148fe4c47"
+    },
+    {
+      "url": "/assets/repository-guides/media-1eaee53d0de3783fdd398152.webp",
+      "alt": "nesquena/hermes-webui 官方演示 2",
+      "sourceUrl": "https://github.com/nesquena/hermes-webui/blob/dd5451903686d480c9813cc350097cd07285dfa1/README.md?plain=1#L34",
+      "originalUrl": "https://raw.githubusercontent.com/nesquena/hermes-webui/dd5451903686d480c9813cc350097cd07285dfa1/docs/images/ui-workspace.png"
+    },
+    {
+      "url": "/assets/repository-guides/media-8b8eda4f37b275c83248afdc.webp",
+      "alt": "nesquena/hermes-webui 官方演示 3",
+      "sourceUrl": "https://github.com/nesquena/hermes-webui/blob/dd5451903686d480c9813cc350097cd07285dfa1/README.md?plain=1#L38",
+      "originalUrl": "https://raw.githubusercontent.com/nesquena/hermes-webui/dd5451903686d480c9813cc350097cd07285dfa1/docs/images/ui-sessions.png"
+    }
+  ],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "f8fe143747e1a44fe49ee0596d8b779ae9637533114cbe1ad5d4653d75d0c542",
+  "mediaStatus": "archived",
+  "mediaFailures": []
+}

@@ -1,0 +1,93 @@
+{
+  "schemaVersion": 1,
+  "key": "ykdojo/claude-code-tips",
+  "status": "ready",
+  "reason": "",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/ykdojo/claude-code-tips/blob/577ac89252195d61283b334c4b9d292b52c82203/README.md",
+  "sourceRevision": "577ac89252195d61283b334c4b9d292b52c82203",
+  "canonicalKey": "ykdojo/claude-code-tips",
+  "summary": "汇集 45 条以上 Claude Code 使用技巧，并附带可安装的 dx 插件和自定义状态栏脚本。",
+  "intro": "适合已经在用或准备使用 Claude Code 的开发者，用来系统查阅斜杠命令、上下文管理、Git/GitHub CLI、worktree、语音输入、计划模式等实践经验。也可以把仓库作为名为 dx 的 Claude Code 插件安装，获得 /dx:gha、/dx:handoff、/dx:half-clone 等日常开发技能。",
+  "requirements": "已安装并可使用 Claude Code CLI。安装 dx 插件需要使用 claude plugin 命令。自定义状态栏需要使用仓库内 scripts/context-bar.sh 并按 scripts/README.md 配置。部分技巧会用到 Git、GitHub CLI（gh）、VS Code、GitHub Desktop 等工具，可按需准备。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "按目录挑选需要的技巧",
+      "text": "打开 README 的 Table of Contents，按主题定位所需技巧。例如 Tip 1 介绍 /usage、/chrome、/mcp、/stats、/clear 等内置斜杠命令，Tip 6 介绍用 /copy 或 pbcopy 导出输出，Tip 14 讲解用 git worktree 并行处理多个分支。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/ykdojo/claude-code-tips/blob/577ac89252195d61283b334c4b9d292b52c82203/README.md?plain=1#L10"
+      }
+    },
+    {
+      "title": "用两条命令安装 dx 插件",
+      "text": "在终端先把本仓库添加为插件市场，再安装 dx@ykdojo。安装后可以在 Claude Code 中使用 /dx:half-clone、/dx:handoff、/dx:gha 等命令；reddit-fetch 技能会在你询问 Reddit 链接时自动触发。",
+      "code": "claude plugin marketplace add ykdojo/claude-code-tips\nclaude plugin install dx@ykdojo",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/ykdojo/claude-code-tips/blob/577ac89252195d61283b334c4b9d292b52c82203/README.md?plain=1#L922"
+      }
+    },
+    {
+      "title": "按需调用 dx 技能",
+      "text": "参照技能表选择命令：/dx:gha <url> 分析 GitHub Actions 失败，/dx:handoff 生成交接文档以延续上下文，/dx:half-clone 和 /dx:quarter-clone 用于压缩上下文，/dx:review-claudemd 根据近期对话建议如何改进 CLAUDE.md。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/ykdojo/claude-code-tips/blob/577ac89252195d61283b334c4b9d292b52c82203/README.md?plain=1#L922"
+      }
+    },
+    {
+      "title": "配置自定义状态栏",
+      "text": "使用仓库中的 scripts/context-bar.sh，并按照 scripts/README.md 完成设置。配置后状态栏会显示模型、当前目录、git 分支、未提交文件数、与 origin 的同步状态、token 用量进度条和上一条消息，脚本提供 10 种配色。",
+      "code": "Opus 4.5 | 📁claude-code-tips | 🔀main (scripts/context-bar.sh uncommitted, synced 12m ago) | ██░░░░░░░░ 18% of 200k tokens\n💬 This is good. I don't think we need to change the documentation as long as we don't say that the default color is orange el...",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/ykdojo/claude-code-tips/blob/577ac89252195d61283b334c4b9d292b52c82203/README.md?plain=1#L65"
+      }
+    },
+    {
+      "title": "设置终端别名以快速启动",
+      "text": "在 ~/.zshrc 或 ~/.bashrc 中添加作者示例的别名，例如用 c 启动 claude、用 ch 启动带 Chrome 集成的会话。之后可以结合参数使用，c -c 继续上一次对话，c -r 列出最近的对话以便恢复。",
+      "code": "alias c='claude'\nalias ch='claude --chrome'\nalias cr='claude remote-control'\nalias gb='github'\nalias co='code'\nalias q='cd ~/Desktop/projects'",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/ykdojo/claude-code-tips/blob/577ac89252195d61283b334c4b9d292b52c82203/README.md?plain=1#L277"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "官方文档中的高权限或远程脚本操作应单独核查，不要整段复制执行。",
+    "half-clone 命令需要授予 Read(~/.claude) 权限才能读取对话历史，请参考 README 中推荐的权限设置。",
+    "/dx:private-github-search 会对你所有 GitHub 仓库做全文搜索，包括私有仓库，请注意访问范围。",
+    "仓库许可证标记为 NOASSERTION，复用其中的代码前应自行确认授权条款。",
+    "Tip 7 别名示例中的 gb='github'、q 等路径对应作者本机环境，使用前需要按自己的实际情况修改。"
+  ],
+  "references": [],
+  "media": [
+    {
+      "url": "/assets/repository-guides/media-8b2677ddbee7c3b83ec28190.webp",
+      "alt": "ykdojo/claude-code-tips 官方演示 1",
+      "sourceUrl": "https://github.com/ykdojo/claude-code-tips/blob/577ac89252195d61283b334c4b9d292b52c82203/README.md?plain=1#L76",
+      "originalUrl": "https://raw.githubusercontent.com/ykdojo/claude-code-tips/577ac89252195d61283b334c4b9d292b52c82203/scripts/color-preview.png"
+    },
+    {
+      "url": "/assets/repository-guides/media-8ea2fae15549300a5bb95245.webp",
+      "alt": "ykdojo/claude-code-tips 官方演示 2",
+      "sourceUrl": "https://github.com/ykdojo/claude-code-tips/blob/577ac89252195d61283b334c4b9d292b52c82203/README.md?plain=1#L179",
+      "originalUrl": "https://raw.githubusercontent.com/ykdojo/claude-code-tips/577ac89252195d61283b334c4b9d292b52c82203/assets/voice-transcription-mistakes.png"
+    },
+    {
+      "url": "/assets/repository-guides/media-ba6c5306ca1af487e7fa199f.webp",
+      "alt": "ykdojo/claude-code-tips 官方演示 3",
+      "sourceUrl": "https://github.com/ykdojo/claude-code-tips/blob/577ac89252195d61283b334c4b9d292b52c82203/README.md?plain=1#L449",
+      "originalUrl": "https://raw.githubusercontent.com/ykdojo/claude-code-tips/577ac89252195d61283b334c4b9d292b52c82203/assets/multitasking-terminal-tabs.png"
+    }
+  ],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "890f99880048168a0ab12d0f52f9d214990422a29c31dc490d85b97b60a58a78",
+  "mediaStatus": "archived",
+  "mediaFailures": []
+}

@@ -1,0 +1,52 @@
+{
+  "schemaVersion": 1,
+  "key": "sac-y/awesome-tg-channel",
+  "status": "ready",
+  "reason": "",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/Sac-Y/awesome-tg-channel/blob/fefffae7f7ff79765c652c6f118fc40ea800d3c1/README.md",
+  "sourceRevision": "fefffae7f7ff79765c652c6f118fc40ea800d3c1",
+  "canonicalKey": "Sac-Y/awesome-tg-channel",
+  "summary": "一份按地区和类型分类整理的 Telegram 频道清单，内容以加密货币、Web3、投资和 AI 资讯为主。",
+  "intro": "适合想找 Web3、加密投资、AI 相关 Telegram 信息源的读者。清单分为中文区 KOL、中文区媒体、英文区、韩文区和外文区媒体，每个条目给出名称、对应的 X 账号、TG 频道链接和一句话介绍，方便按语言和类型筛选要订阅的频道。",
+  "requirements": "需要能够访问 Telegram，才能打开 t.me 频道链接。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "按分类选择要浏览的表格",
+      "text": "README 按「中文区 KOL」「中文区媒体」「英文区」「韩文区」「外文区媒体」分组列出频道。先根据你偏好的语言，以及想看个人观点还是新闻资讯，选定对应的表格。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/Sac-Y/awesome-tg-channel/blob/fefffae7f7ff79765c652c6f118fc40ea800d3c1/README.md?plain=1#L17"
+      }
+    },
+    {
+      "title": "根据介绍列筛选频道",
+      "text": "每一行都有名称、TG 频道和介绍三列。介绍列说明了频道的大致方向，例如新闻快讯、链上分析、交易记录、AI 见解等。根据这一列挑选感兴趣的条目。作者注明排名不分先后。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/Sac-Y/awesome-tg-channel/blob/fefffae7f7ff79765c652c6f118fc40ea800d3c1/README.md?plain=1#L1"
+      }
+    },
+    {
+      "title": "通过 TG 链接打开频道",
+      "text": "点击表格中的 t.me 链接，在 Telegram 中打开对应频道，自行查看内容后再决定是否订阅。名称列的链接一般指向作者的 X 账号，可以用来进一步了解作者背景。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/Sac-Y/awesome-tg-channel/blob/fefffae7f7ff79765c652c6f118fc40ea800d3c1/README.md?plain=1#L17"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "清单中大量频道涉及加密货币交易、空投、小市值币和期货等内容，介绍文字是整理者的主观描述，不构成投资建议。相关操作风险较高，请自行判断。",
+    "清单由作者不定期更新，频道的现状可能与描述不一致。",
+    "仓库未声明许可证。"
+  ],
+  "references": [],
+  "media": [],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "2690018f2d07231b1c730e40a7314b4d33dd42167974fdcf1659c4a60ad19d4c",
+  "mediaStatus": "none_in_official_documents"
+}

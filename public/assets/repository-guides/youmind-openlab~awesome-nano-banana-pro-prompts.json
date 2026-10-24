@@ -1,0 +1,78 @@
+{
+  "schemaVersion": 1,
+  "key": "youmind-openlab/awesome-nano-banana-pro-prompts",
+  "status": "ready",
+  "reason": "",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/YouMind-OpenLab/awesome-nano-banana-pro-prompts/blob/b34e81374ef7d5345fa57221019efd2e4c5e7efe/README.md",
+  "sourceRevision": "b34e81374ef7d5345fa57221019efd2e4c5e7efe",
+  "canonicalKey": "YouMind-OpenLab/awesome-nano-banana-pro-prompts",
+  "summary": "收集社区分享的 Google Nano Banana Pro 图像生成提示词，每条附有预览图、作者和来源。",
+  "intro": "适合使用 Google Nano Banana Pro 做图像生成的创作者，可以快速找到引语卡片、信息图、手绘头图、地图、多宫格人像等可直接改用的提示词。仓库是资料集合，可在 GitHub README 中检索，也可在 YouMind 网页画廊中按分类浏览。",
+  "requirements": "浏览资料只需要访问 GitHub 或 youmind.com。实际生成图片需要你自己能使用 Nano Banana Pro，README 没有说明模型的接入方式。部分提示词需要上传参考图片。若想替换动态参数，可选用 Raycast Snippets。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "选择查阅入口",
+      "text": "可以在 GitHub README（提供简体中文等 16 种语言）中用 Ctrl+F 搜索，也可以打开 YouMind Nano Banana Pro Prompts 网页画廊。画廊支持全文搜索、筛选、分类浏览和移动端适配。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/YouMind-OpenLab/awesome-nano-banana-pro-prompts/blob/b34e81374ef7d5345fa57221019efd2e4c5e7efe/README.md?plain=1#L11"
+      }
+    },
+    {
+      "title": "按分类链接筛选提示词",
+      "text": "在「Browse by Category」中，从 Use Cases、Style、Subjects 三组分类里选择，例如 Infographic / Edu Visual、Ink / Chinese Style、Product，进入画廊中对应的筛选结果。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/YouMind-OpenLab/awesome-nano-banana-pro-prompts/blob/b34e81374ef7d5345fa57221019efd2e4c5e7efe/README.md?plain=1#L50"
+      }
+    },
+    {
+      "title": "核对说明、输入要求和预览图",
+      "text": "打开条目后阅读 Description 和 Prompt。注意有些提示词需要额外输入，例如手绘头图和四宫格拼图需要上传人物参考图，黑板风新闻总结需要粘贴新闻内容，Bento 信息图需要填写产品名称和语言。",
+      "code": "Input Variable: [insert product name]\nLanguage: [insert language]\n\nSystem Instruction:\nCreate an image of premium liquid glass Bento grid product infographic with 8 modules (card 2 to 8 show text titles only).\n1) Product Analysis:\n→ Identify product's dominant natural color → \"hero color\"\n→ Identify category: FOOD / MEDICINE / TECH\n2) Color Palette (derived from hero):\n→ Product + accents: full saturation hero color\n→ Icons, borders: muted hero (30-40% saturation, never black)\n3) Visual Style:\n→ Hero product: real photography (authentic, premium), 3D Glass version [choose one]\n→ Cards: Apple liquid glass (85-90% transparent) with Whisper-thin borders and Subtle drop shadow for floating depth and reflecting the background color\n→ Background stays behind cards and high blur where cards are [choose one]:\n  - Ethereal: product essence, light caustics, abstract glow\n  - Macro: product texture close-up, heavily blurred\n  - Pattern: product repeated softly at 10-15% opacity\n  - Context: relevant environment, blurred + desaturated\n→ Add subtle motion effect\n→ Asymmetric Bento grid, 16:9 landscape\n→ Hero card: 28-30% | Info modules: 70-72%\n4) Module Content (8 Cards):\nM1 — Hero: Product displayed as real photo / 3D glass / stylized interpretation (choose one)in beautiful form + product name label\nM2 — Core Benefits: 4 unique benefits + hero-color icons\nM3 — How to Use: 4 usage methods + icons\nM4 — Key Metrics: 5 EXACT data points\nFormat: [icon] [Label] [Bold Value] [Unit]\nFOOD: Calories: [X] kcal/100g, Carbs: [X]g (fiber [X]g, sugar [X]g), Protein: [X]g, [Key Vitamin]: [X]mg ([X]% DV), [Key Mineral]: [X]mg ([X]% DV)\nMEDICINE:Active: [name], Strength: [X] mg, Onset: [X] min, Duration: [X] hrs, Half-life: [X] hrs \nTECH:Chip: [model], Battery: [X] hrs, Weight: [X]g,[Key spec]: [value], Connectivity: [protocols]\nM5 — Who It's For: 4 recommended groups with green checkmark icons | 3 caution groups with amber warning icons\nM6 — Important Notes: 4 precautions + warning icons\nM7 — Quick Reference:\n→ FOOD: Glycemic Index + dietary tags with icons\n→ MEDICINE: Side effects + severity with icons\n→ TECH: Compatibility + certifications with icons\nM8 — Did You Know: 3 facts (origin, science, global stat) + icons\nOutput: 1 image, 16:9 landscape, ultra-premium liquid glass infographic.\n\nCompletely recreate the uploaded person.\nMake it a header image for a note article where that person introduces “Nano Banana Pro”.\nAspect ratio: horizontal 16:9.\nStyle and colors: simple, hand-drawn style, italic, with a blue and green gradient.\nTitle text: “In-depth explanation of Google’s new AI ‘Nano Banana Pro’”.\n\nUsing the following content, summarize the news in a chalkboard-style, hand‑written look, and break it down with diagrams and easy‑to‑understand expressions as if a teacher had written it.\n—-\nSearch results from Grok",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/YouMind-OpenLab/awesome-nano-banana-pro-prompts/blob/b34e81374ef7d5345fa57221019efd2e4c5e7efe/README.md?plain=1#L164"
+      }
+    },
+    {
+      "title": "替换 Raycast 参数后使用",
+      "text": "带 Raycast Friendly 标记的提示词使用 {argument name=... default=...} 语法，可以在 Raycast Snippets 中动态替换，也可以手动把默认值改成自己的内容，例如把引语卡片中的名言和作者换掉。",
+      "code": "A quote card with \"{argument name=\"quote\" default=\"Stay hungry, stay foolish\"}\"\nby {argument name=\"author\" default=\"Steve Jobs\"}\n\nA wide quote card featuring a famous person, with a brown background and a light-gold serif font for the quote: “{argument name=\"famous_quote\" default=\"Stay Hungry, Stay Foolish\"}” and smaller text: “—{argument name=\"author\" default=\"Steve Jobs\"}.” There is a large, subtle quotation mark before the text. The portrait of the person is on the left, the text on the right. The text occupies two-thirds of the image and the portrait one-third, with a slight gradient transition effect on the portrait.",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/YouMind-OpenLab/awesome-nano-banana-pro-prompts/blob/b34e81374ef7d5345fa57221019efd2e4c5e7efe/README.md?plain=1#L126"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "提示词由社区收集，README 声明仅供教育用途，内容可能涉及版权。商用前应核对 Details 中列出的原始来源。",
+    "需要上传人物照片的提示词会处理肖像，请只使用你有权使用的照片。",
+    "Bento 信息图提示词会生成食品营养数据或药物剂量等数值，这些由模型生成，不能当作事实或医疗信息使用。",
+    "README 中对模型能力的介绍属于宣传性描述，实际效果需要自行验证。",
+    "README 徽章标注 CC BY 4.0，但仓库元数据中的许可证为 NOASSERTION。"
+  ],
+  "references": [],
+  "media": [],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "bf5c887207ef9bc0953e8a41d6ca242511b6bdbef93dbf4f376c3118ebb728f2",
+  "mediaStatus": "unavailable",
+  "mediaFailures": [
+    {
+      "sourceUrl": "https://github.com/YouMind-OpenLab/awesome-nano-banana-pro-prompts/blob/b34e81374ef7d5345fa57221019efd2e4c5e7efe/README.md#L179",
+      "reason": "unsupported_media_host"
+    },
+    {
+      "sourceUrl": "https://github.com/YouMind-OpenLab/awesome-nano-banana-pro-prompts/blob/b34e81374ef7d5345fa57221019efd2e4c5e7efe/README.md#L269",
+      "reason": "unsupported_media_host"
+    },
+    {
+      "sourceUrl": "https://github.com/YouMind-OpenLab/awesome-nano-banana-pro-prompts/blob/b34e81374ef7d5345fa57221019efd2e4c5e7efe/README.md#L422",
+      "reason": "unsupported_media_host"
+    }
+  ]
+}

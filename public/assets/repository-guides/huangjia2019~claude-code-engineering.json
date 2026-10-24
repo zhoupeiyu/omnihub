@@ -1,0 +1,52 @@
+{
+  "schemaVersion": 1,
+  "key": "huangjia2019/claude-code-engineering",
+  "status": "partial",
+  "reason": "README 主要是课程大纲和书籍、专栏宣传。仓库给出了 projects/ 和 99-书籍代码/ 的目录位置，但没有说明各项目的运行环境、依赖或运行步骤，需进入子目录自行查看。",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/huangjia2019/claude-code-engineering/blob/89fea03bf9d577c608bce49c66d942996e801b19/README.md",
+  "sourceRevision": "89fea03bf9d577c608bce49c66d942996e801b19",
+  "canonicalKey": "huangjia2019/claude-code-engineering",
+  "summary": "《Claude Code 工程化实战》专栏和《Claude Code 实战》一书的配套示例仓库，按主题收录 Claude Code 工程化用法的项目与代码片段。",
+  "intro": "适合正在使用 Claude Code、想系统学习其扩展机制的开发者。内容按讲次覆盖 CLAUDE.md 记忆、子代理、Agent Teams、Skills、Hooks、MCP、Tools、Headless 与 CI/CD、Rules、Agent SDK 和 Plugins。每讲对应一个 projects/ 子目录，书籍代码片段另收在 99-书籍代码/ 中。",
+  "requirements": "需要能使用 Claude Code；部分讲次涉及 Agent SDK（query() 与 ClaudeCodeOptions）。README 未列出具体运行环境和依赖。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "按课程大纲选择学习主题",
+      "text": "先阅读 README 中第 1～23 讲的大纲，按需要的机制定位讲次。例如：子代理看第 3～7 讲，Skills 看第 9～14 讲，Hooks 看第 15～16 讲，MCP 看第 17 讲，Headless 看第 19 讲，Agent SDK 看第 21～22 讲，Plugins 看第 23 讲。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/huangjia2019/claude-code-engineering/blob/89fea03bf9d577c608bce49c66d942996e801b19/README.md?plain=1#L120"
+      }
+    },
+    {
+      "title": "进入对应章节的 projects 目录",
+      "text": "各章节目录下的 projects/ 子目录是课程配套的可运行项目，例如 03-SubAgents/projects/、07-MCP/projects/。README 没有给出运行说明，请在对应子目录中查看自带的文件与说明后再在 Claude Code 中使用。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/huangjia2019/claude-code-engineering/blob/89fea03bf9d577c608bce49c66d942996e801b19/README.md?plain=1#L208"
+      }
+    },
+    {
+      "title": "查阅 99-书籍代码 章节片段",
+      "text": "如果你在读《Claude Code 实战》，可在 99-书籍代码/ 下按章节查找配套片段。每章一个子文件夹（第1章-登高望远/ 至 第10章-炉火纯青/），片段按章内出现顺序编号，共 226 个，可直接复制参考。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/huangjia2019/claude-code-engineering/blob/89fea03bf9d577c608bce49c66d942996e801b19/README.md?plain=1#L208"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "仓库未声明许可证（license 为空），复用代码前需确认授权。",
+    "README 中大量内容为书籍和极客时间专栏的推广链接，讲解正文在外部课程中，仓库本身只提供配套代码。",
+    "第 4、5 讲等项目涉及子代理的工具权限配置，建议先在测试仓库中试用。"
+  ],
+  "references": [],
+  "media": [],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "3884c0b32057fafea75a275f6fc58300a5062d4952acb799a31abf4b8f9d144e",
+  "mediaStatus": "none_in_official_documents"
+}

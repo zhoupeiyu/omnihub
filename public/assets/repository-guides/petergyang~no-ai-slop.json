@@ -1,0 +1,63 @@
+{
+  "schemaVersion": 1,
+  "key": "petergyang/no-ai-slop",
+  "status": "ready",
+  "reason": "",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/petergyang/no-ai-slop/blob/000650b156983f5159695b441477f4e63b25dc85/README.md",
+  "sourceRevision": "000650b156983f5159695b441477f4e63b25dc85",
+  "canonicalKey": "petergyang/no-ai-slop",
+  "summary": "一个写作编辑技能，用于识别并去除 20 多种常见的 AI 腔写法，同时尽量保留作者自己的语气。",
+  "intro": "适合用 AI 辅助写作、又不希望文章出现“It’s not X. It’s Y.”、“What nobody tells you is…”这类套路句式的作者。它可以直接修改文本并列出改动，也可以只检测并引用文本中的套路句式，还会检查主动语态、先说重点、具体细节等写作基本功。",
+  "requirements": "需要 Claude Code、Codex 等支持技能的编程代理，或使用 ChatGPT 中的插件版本。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "让代理全局安装该技能",
+      "text": "以 Claude Code 或 Codex 为例，官方推荐的最简单方式是把仓库提供的安装指令原样粘贴给代理，让其从 GitHub 仓库全局安装 /no-ai-slop 技能。",
+      "code": "Install the /no-ai-slop skill globally from https://github.com/petergyang/no-ai-slop",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/petergyang/no-ai-slop/blob/000650b156983f5159695b441477f4e63b25dc85/README.md?plain=1#L17"
+      }
+    },
+    {
+      "title": "调用技能改写你的文本",
+      "text": "在代理中输入 /no-ai-slop，后面附上需要修改的文字。技能会去除 AI 腔句式、保留个人语气，并列出它做了哪些改动，便于逐条核对。",
+      "code": "/no-ai-slop (your writing)",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/petergyang/no-ai-slop/blob/000650b156983f5159695b441477f4e63b25dc85/README.md?plain=1#L33"
+      }
+    },
+    {
+      "title": "只检测不改写时加问句",
+      "text": "如果只想检查，输入 /no-ai-slop is this slop? 并附上文本。技能会逐条引用找到的套路句式，但不会判断这段文字是否由 AI 写成。",
+      "code": "/no-ai-slop is this slop? (your writing)",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/petergyang/no-ai-slop/blob/000650b156983f5159695b441477f4e63b25dc85/README.md?plain=1#L41"
+      }
+    },
+    {
+      "title": "查阅规则文件了解检测范围",
+      "text": "如需了解具体规则，打开 skills/no-ai-slop/SKILL.md 查看编辑规则与流程，eval.md 中是技能对自身结果执行的检查项；README 也列出了二元对比、空洞开场、模糊归因等主要模式。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/petergyang/no-ai-slop/blob/000650b156983f5159695b441477f4e63b25dc85/README.md?plain=1#L57"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "检测模式只标出套路句式，不能作为判断文本是否由 AI 生成的依据。",
+    "技能会改动原文措辞，发布前应对照其列出的改动清单核对是否改变原意。",
+    "项目采用 MIT 许可证。"
+  ],
+  "references": [],
+  "media": [],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "a2e24837d6531c2e827876123d05ea482a21bcfc25358dbdacbf581fb1e51d81",
+  "mediaStatus": "none_in_official_documents"
+}

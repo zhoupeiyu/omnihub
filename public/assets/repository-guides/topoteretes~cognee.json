@@ -1,0 +1,73 @@
+{
+  "schemaVersion": 1,
+  "key": "topoteretes/cognee",
+  "status": "ready",
+  "reason": "",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/topoteretes/cognee/blob/ba3631f2ed363a6ea50d649c34c56885af6b36fe/README.md",
+  "sourceRevision": "ba3631f2ed363a6ea50d649c34c56885af6b36fe",
+  "canonicalKey": "topoteretes/cognee",
+  "summary": "Cognee 是开源的 AI 记忆平台，可把文档、代码和对话转成知识图谱，供代理跨会话检索和复用。",
+  "intro": "适合需要为 AI 代理或应用提供持久长期记忆的开发者和团队，例如搭建团队知识库（Company Brain）、为代理保留项目上下文和过往决策，或基于自定义数据模型和本体组织领域知识。它提供 Python API、CLI、Claude Code/Codex 插件、MCP 和 REST API 等接入方式。",
+  "requirements": "Python 3.10–3.14。不配置 LLM 时使用本地 GLiNER 抽取模型和本地嵌入模型，首次使用时会自动下载。如需生成式回答，需要 LLM API Key（默认使用 OpenAI）。本地 UI 启动器需要 Node.js/npm，其 MCP 服务需要 Docker。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "安装带 gliner 的 Cognee",
+      "text": "使用 pip、uv 或其他 Python 包管理器安装 cognee[gliner]。gliner extra 会带上本地抽取模型，在未配置 LLM Key 时也能建图和检索。",
+      "code": "uv pip install \"cognee[gliner]\"",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/topoteretes/cognee/blob/ba3631f2ed363a6ea50d649c34c56885af6b36fe/README.md?plain=1#L84"
+      }
+    },
+    {
+      "title": "用本地模型存入并检索记忆",
+      "text": "将示例保存为 quickstart.py 并运行：remember 把文本写入名为 local_quickstart 的数据集，recall 取回匹配的原文。也可以改用 cognee-cli 的 remember/recall 命令完成同样流程。无 LLM 时依赖 LLM 的增强阶段会自动跳过。",
+      "code": "import asyncio\n\nimport cognee\n\n\nasync def main():\n    # Extract a knowledge graph and embed the text with local models.\n    await cognee.remember(\n        \"Marie Curie was born in Warsaw and worked at the University of Paris.\",\n        dataset_name=\"local_quickstart\",\n    )\n\n    # Retrieve the matching source text; no LLM generates an answer.\n    results = await cognee.recall(\n        \"Where was Marie Curie born?\",\n        datasets=[\"local_quickstart\"],\n    )\n    for result in results:\n        print(result)\n\n\nif __name__ == \"__main__\":\n    asyncio.run(main())\n\ncognee-cli remember \"Marie Curie was born in Warsaw.\" -d local_quickstart\ncognee-cli recall \"Where was Marie Curie born?\" -d local_quickstart",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/topoteretes/cognee/blob/ba3631f2ed363a6ea50d649c34c56885af6b36fe/README.md?plain=1#L94"
+      }
+    },
+    {
+      "title": "按需配置 LLM 获取生成回答",
+      "text": "如需生成式回答而不只是检索片段，可设置 LLM_API_KEY 环境变量，或按官方模板创建 .env 文件。设置后默认使用 OpenAI 的语言模型和嵌入。其他提供商或本地 Ollama 请参考官方文档。",
+      "code": "import os\n\nos.environ[\"LLM_API_KEY\"] = \"YOUR OPENAI_API_KEY\"",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/topoteretes/cognee/blob/ba3631f2ed363a6ea50d649c34c56885af6b36fe/README.md?plain=1#L139"
+      }
+    },
+    {
+      "title": "为 Claude Code 安装记忆插件",
+      "text": "在 Claude Code 中添加 topoteretes/cognee-integrations marketplace，然后安装 cognee-memory 插件，并按插件设置指南配置本地或远程记忆。Codex 需先启用 hooks 再添加插件；其他 MCP 客户端可参考 MCP 指南。",
+      "code": "claude plugin marketplace add topoteretes/cognee-integrations\nclaude plugin install cognee-memory@cognee",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/topoteretes/cognee/blob/ba3631f2ed363a6ea50d649c34c56885af6b36fe/README.md?plain=1#L189"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "设置 LLM Key 后，数据处理和生成回答都会调用外部提供商，可能产生费用，数据也会发送给该提供商。",
+    "自带的 GLiNER 抽取器属于演示级的小模型管线，官方表示更高精度的版本需另行联系获取。",
+    "用 Postgres 承载图存储目前是演示功能，生产就绪版本为授权产品。",
+    "Docker 示例中的 ENABLE_BACKEND_ACCESS_CONTROL=false 是单用户本地设置；超出本地演示的部署需要配置认证、持久存储和兼容后端。",
+    "dlt 现已成为核心依赖，手动管理依赖时需确认已安装。",
+    "BEAM 评测分数依赖特定的数据格式、提示词和检索配置，与其他系统对比前应阅读评测方法说明。"
+  ],
+  "references": [],
+  "media": [],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "c483ca4aa67c92ba906f810a85dae519c84034c2984ded304d6fbd92022c1726",
+  "mediaStatus": "unavailable",
+  "mediaFailures": [
+    {
+      "sourceUrl": "https://github.com/topoteretes/cognee/blob/ba3631f2ed363a6ea50d649c34c56885af6b36fe/README.md#L61",
+      "reason": "media_too_large"
+    }
+  ]
+}

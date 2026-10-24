@@ -1,0 +1,98 @@
+{
+  "schemaVersion": 1,
+  "key": "lidge-jun/opencodex",
+  "status": "ready",
+  "reason": "",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/lidge-jun/opencodex/blob/ef0297f86c4540c7d757c8595170d66f9c584aec/README.md",
+  "sourceRevision": "ef0297f86c4540c7d757c8595170d66f9c584aec",
+  "canonicalKey": "lidge-jun/opencodex",
+  "summary": "一个本地代理，把 Codex、Claude Code、Claude Desktop、Grok Build 的请求转换到任意 LLM 提供商，并提供 Web 仪表盘管理。",
+  "intro": "适合想在 OpenAI Codex、Claude Code 等工具中改用 Claude、Gemini、Grok、DeepSeek、Ollama 等其他模型的开发者。它在本地翻译 Codex 的 Responses API（含流式、工具调用、推理 token、图像），支持 40+ 内置提供商或任意 OpenAI 兼容端点，并可管理 ChatGPT 账号池、组合模型（Combos）与子代理模型路由。",
+  "requirements": "CLI 安装方式需要 Node 18+（npm 安装时会自动捆绑 Bun 运行时，Windows 无需 WSL）；支持 macOS、Linux、Windows x64。还需要准备所要接入的模型提供商的 API Key 或 OAuth 登录。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "用 npm 全局安装并启动",
+      "text": "以下为 CLI 安装路径（macOS / Linux / Windows 通用，需 Node 18+）。用 npm 全局安装 @bitkyc08/opencodex，然后运行 ocx start，会在 localhost:10100 启动代理和仪表盘。",
+      "code": "npm install -g @bitkyc08/opencodex   # Node 18+; the Bun runtime is bundled automatically\nocx start                         # proxy + dashboard on localhost:10100",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/lidge-jun/opencodex/blob/ef0297f86c4540c7d757c8595170d66f9c584aec/README.md?plain=1#L92"
+      }
+    },
+    {
+      "title": "在 Web 仪表盘配置提供商",
+      "text": "浏览器打开 http://localhost:10100，在仪表盘中添加提供商（内置 40+ 或任意 OpenAI 兼容端点）、选择模型并管理账号。xAI、Anthropic、Kimi 支持 OAuth 登录，也可粘贴 Key 或使用 ${ENV_VAR} 引用。之后可随时用 ocx gui 重新打开仪表盘。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/lidge-jun/opencodex/blob/ef0297f86c4540c7d757c8595170d66f9c584aec/README.md?plain=1#L92"
+      }
+    },
+    {
+      "title": "用 provider/model 指定模型",
+      "text": "在 Codex 中用 -m 参数以 provider/model 语法指定已配置的提供商和模型。省略 provider/ 前缀时会使用默认提供商或按模型名自动匹配；模型 id 本身含 / 时，内部斜杠会被别名为 -，原始写法也可用。",
+      "code": "codex -m \"anthropic/claude-opus-5\" \"Explain this stack trace\"\ncodex -m \"google/gemini-3-pro\" \"Write unit tests for auth.ts\"\ncodex -m \"ollama/llama3\" \"Refactor this function\"",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/lidge-jun/opencodex/blob/ef0297f86c4540c7d757c8595170d66f9c584aec/README.md?plain=1#L338"
+      }
+    },
+    {
+      "title": "选择后台服务或按需 shim",
+      "text": "需要常驻且崩溃自动重启时使用 ocx service；希望不运行后台守护进程、按需启动时使用 ocx codex-shim install。对应卸载命令分别为 ocx service uninstall 和 ocx codex-shim uninstall。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/lidge-jun/opencodex/blob/ef0297f86c4540c7d757c8595170d66f9c584aec/README.md?plain=1#L419"
+      }
+    },
+    {
+      "title": "停止或彻底卸载",
+      "text": "ocx stop 会把 Codex 恢复到原始配置。若要完全移除，运行 ocx uninstall 停止服务、移除 service/shim、恢复原生 Codex 并清理状态，再用 npm 卸载全局包。配置与状态默认位于 ~/.opencodex（或 $OPENCODEX_HOME）。",
+      "code": "ocx uninstall                  # stop, remove service/shim, restore native Codex, clean up state\nnpm uninstall -g @bitkyc08/opencodex",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/lidge-jun/opencodex/blob/ef0297f86c4540c7d757c8595170d66f9c584aec/README.md?plain=1#L425"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "ChatGPT 账号池仅用于路由和可用性，官方说明不保证免受提供商限流、封禁等处理，也不支持用多账号规避限制或多人共享凭据，需自行遵守各提供商条款。",
+    "调用第三方模型提供商会产生其各自的费用或配额消耗。",
+    "两个实例不能共用同一个 OPENCODEX_HOME，独立实例需设置各自目录。",
+    "~/.opencodex 下保存 config.json 与 admin-api-token 等敏感文件，应注意保护。",
+    "Docker Compose 部署默认仅绑定 127.0.0.1，远程暴露需显式设置 OPENCODEX_BIND_ADDRESS。"
+  ],
+  "references": [
+    {
+      "label": "AGENTS_INSTALL.md",
+      "url": "https://github.com/lidge-jun/opencodex/blob/ef0297f86c4540c7d757c8595170d66f9c584aec/AGENTS_INSTALL.md"
+    }
+  ],
+  "media": [
+    {
+      "url": "/assets/repository-guides/media-0986c0530ca254b5ce6f2363.webp",
+      "alt": "lidge-jun/opencodex 官方演示 1",
+      "sourceUrl": "https://github.com/lidge-jun/opencodex/blob/ef0297f86c4540c7d757c8595170d66f9c584aec/README.md?plain=1#L38",
+      "originalUrl": "https://raw.githubusercontent.com/lidge-jun/opencodex/ef0297f86c4540c7d757c8595170d66f9c584aec/assets/claude-code-models.gif"
+    },
+    {
+      "url": "/assets/repository-guides/media-1cb2b5f3abd7170e6f3e754f.webp",
+      "alt": "lidge-jun/opencodex 官方演示 2",
+      "sourceUrl": "https://github.com/lidge-jun/opencodex/blob/ef0297f86c4540c7d757c8595170d66f9c584aec/README.md?plain=1#L50",
+      "originalUrl": "https://raw.githubusercontent.com/lidge-jun/opencodex/main/assets/demo.gif"
+    },
+    {
+      "url": "/assets/repository-guides/media-bb2900fb0764c197a24ba8a7.webp",
+      "alt": "lidge-jun/opencodex 官方演示 3",
+      "sourceUrl": "https://github.com/lidge-jun/opencodex/blob/ef0297f86c4540c7d757c8595170d66f9c584aec/README.md?plain=1#L62",
+      "originalUrl": "https://raw.githubusercontent.com/lidge-jun/opencodex/main/assets/claude-desktop-subagent.gif"
+    }
+  ],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "d34d16a7a0fe5f06d84f3b883bb00d415f11d01837ed3420f7476e49c1bbf31f",
+  "mediaStatus": "archived",
+  "mediaFailures": []
+}

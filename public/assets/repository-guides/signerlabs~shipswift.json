@@ -1,0 +1,73 @@
+{
+  "schemaVersion": 1,
+  "key": "signerlabs/shipswift",
+  "status": "ready",
+  "reason": "",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/signerlabs/ShipSwift/blob/f71ada2ea5187c316a3e67a37a6c8f5932ca13b2/README.md",
+  "sourceRevision": "f71ada2ea5187c316a3e67a37a6c8f5932ca13b2",
+  "canonicalKey": "signerlabs/ShipSwift",
+  "summary": "ShipSwift 是一个面向 AI 编程助手的 SwiftUI 组件库，提供动画、图表、UI 组件、多文件功能模块和全栈 recipe，可通过 Skills 与 MCP 让 AI 按需读取源码。",
+  "intro": "适合使用 Claude Code、Gemini CLI 等 AI 编程工具开发 iOS 应用的 Swift 开发者。仓库包含 SWAnimation（约 30 个动画）、SWChart（折线、柱状、环形、雷达、热力图等）、SWComponent（弹窗、加载、引导页、搜索栏等）以及 SWAuth、SWCamera、SWPaywall、SWChat 等模块。AI 可以通过 listRecipes、getRecipe、searchRecipes 检索 recipe，再把对应代码接入项目。也可以不借助 AI，直接把源码文件复制到 Xcode 项目中使用。",
+  "requirements": "README 徽章标注 Swift 5.0+、iOS 18.0+。推荐路径需要一个支持 Skills 的 AI 编程工具，本文以 Claude Code 为例；安装 Skills 使用 npx 命令。连接 recipe 服务器时需要访问 https://api.shipswift.app/mcp。复制源码或运行演示 App 需要 Xcode。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "安装 ShipSwift Skills",
+      "text": "按官方推荐的 Option 1，先在终端运行 npx skills add signerlabs/shipswift-skills，为 AI 助手安装 ShipSwift Skills。如果只想离线读取本仓库源码、不连接服务器，README 另提供 Option 2 本地 Skills，两种方式任选其一即可。",
+      "code": "npx skills add signerlabs/shipswift-skills",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/signerlabs/ShipSwift/blob/f71ada2ea5187c316a3e67a37a6c8f5932ca13b2/README.md?plain=1#L45"
+      }
+    },
+    {
+      "title": "在 Claude Code 中连接 MCP",
+      "text": "以 Claude Code 为例，运行代码块中的 claude mcp add 命令，以 http 方式添加名为 shipswift 的 recipe 服务器。代码块里的 gemini 命令供 Gemini CLI 用户使用。Cursor、VS Code Copilot、Windsurf 等工具的配置方法见 shipswift-skills 仓库。",
+      "code": "# Claude Code\nclaude mcp add --transport http shipswift https://api.shipswift.app/mcp\n\n# Gemini CLI\ngemini mcp add --transport http shipswift https://api.shipswift.app/mcp",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/signerlabs/ShipSwift/blob/f71ada2ea5187c316a3e67a37a6c8f5932ca13b2/README.md?plain=1#L45"
+      }
+    },
+    {
+      "title": "向 AI 描述要添加的功能",
+      "text": "连接完成后，直接在 AI 助手中用自然语言提出需求，例如添加 shimmer 加载动画、构建基于 Cognito 的登录流程、列出所有图表组件。AI 会通过 listRecipes、getRecipe、searchRecipes 三个工具检索 recipe，并获取源码和实现步骤。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/signerlabs/ShipSwift/blob/f71ada2ea5187c316a3e67a37a6c8f5932ca13b2/README.md?plain=1#L45"
+      }
+    },
+    {
+      "title": "按依赖规则手动复制组件",
+      "text": "如果不使用 AI，可以克隆仓库，从 ShipSwift/SWPackage/ 复制需要的文件到 Xcode 项目。动画、图表和 UI 组件都可以单独使用，必要时连同 SWUtil/ 一起复制。SWModule 还可能依赖 SWComponent。类型统一使用 SW 前缀，修饰符使用 .sw 前缀。",
+      "code": "ShipSwift/\n├── SWPackage/\n│   ├── SWAnimation/          # Animation components\n│   ├── SWChart/              # Chart components\n│   ├── SWComponent/          # UI components\n│   │   ├── Display/          #   Display components\n│   │   ├── Feedback/         #   Feedback components\n│   │   └── Input/            #   Input components\n│   ├── SWModule/             # Multi-file frameworks\n│   │   ├── SWAuth/           #   Authentication\n│   │   ├── SWCamera/         #   Camera + face detection\n│   │   ├── SWPaywall/        #   Subscription paywall\n│   │   ├── SWChat/           #   Chat + voice input\n│   │   ├── SWSetting/        #   Settings page\n│   │   ├── SWSubjectLifting/ #   Background removal\n│   │   └── SWTikTokTracking/ #   TikTok attribution\n│   └── SWUtil/               # Shared utilities\n├── View/                     # Showcase app views\n├── Service/                  # App services\n└── Component/                # Shared app components\n\nSWUtil        ← no dependencies on other SWPackage directories\nSWAnimation   ← may depend on SWUtil only\nSWChart       ← may depend on SWUtil only\nSWComponent   ← may depend on SWUtil only\nSWModule      ← may depend on SWUtil and SWComponent",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/signerlabs/ShipSwift/blob/f71ada2ea5187c316a3e67a37a6c8f5932ca13b2/README.md?plain=1#L85"
+      }
+    },
+    {
+      "title": "运行 Showcase App 预览组件",
+      "text": "如需在真机或模拟器上预览全部组件，可以克隆仓库并用 Xcode 打开 ShipSwift.xcodeproj，选择模拟器或设备后按 Cmd+R 构建运行。也可以从 App Store 下载官方 Showcase App 直接查看。",
+      "code": "git clone https://github.com/signerlabs/ShipSwift.git\ncd ShipSwift\nopen ShipSwift.xcodeproj",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/signerlabs/ShipSwift/blob/f71ada2ea5187c316a3e67a37a6c8f5932ca13b2/README.md?plain=1#L91"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "iOS 客户端代码以 MIT 协议开源；SWPaywall、SWTikTokTracking 等模块的后端实现、合规模板和避坑指南属于 Pro recipe，需要按官网 pricing 页面另行购买，README 未列出价格。",
+    "Option 1 会连接第三方托管的 api.shipswift.app 服务；需要完全离线时，请改用 Option 2 本地 Skills 或直接复制文件。",
+    "部分模块依赖外部服务：SWAuth 使用 Amplify/Cognito，SWChat 的语音识别使用 VolcEngine ASR，SWTikTokTracking 对接 TikTok Events API。这些服务需要自行准备账号与配置。",
+    "README 中的定制开发服务属于商业推广内容，与使用开源组件库无关。"
+  ],
+  "references": [],
+  "media": [],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "7a80ceffdd2f654ead095072be6b1bab37132554ce3463246c13d649a95d22cf",
+  "mediaStatus": "none_in_official_documents"
+}

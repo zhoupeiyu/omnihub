@@ -1,0 +1,86 @@
+{
+  "schemaVersion": 1,
+  "key": "volcengine/openviking",
+  "status": "ready",
+  "reason": "",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/volcengine/OpenViking/blob/dd19acc14161847f546e3c12eb0e780899a9009a/README.md",
+  "sourceRevision": "dd19acc14161847f546e3c12eb0e780899a9009a",
+  "canonicalKey": "volcengine/OpenViking",
+  "summary": "OpenViking 是面向 AI Agent 的开源上下文数据库，用 viking:// 虚拟文件系统统一管理知识、记忆和技能，并提供语义检索。",
+  "intro": "适合希望给 Claude Code、Codex、Cursor 等编码 Agent 加上跨会话记忆的开发者，也适合需要把文档、代码仓库导入后按目录做语义检索的团队。上下文以文件形式组织，每个目录带自动生成的摘要，可以直接查看和编辑 Agent 记住的内容。",
+  "requirements": "官方文档包含需人工核查的系统操作，请先查看原文和适用条件。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "安装并运行配置向导",
+      "text": "这里以自行部署为例，适用于 macOS/Linux。用 uv 安装 openviking 后运行 openviking-server init。向导会配置模型并写入 ~/.openviking/ov.conf，支持火山引擎、OpenAI、Codex OAuth、Kimi、GLM 和本地 Ollama。",
+      "code": "uv tool install openviking --upgrade && openviking-server init",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/volcengine/OpenViking/blob/dd19acc14161847f546e3c12eb0e780899a9009a/README.md?plain=1#L122"
+      }
+    },
+    {
+      "title": "保持服务在前台运行",
+      "text": "服务器在前台运行，部署后不要关闭这个终端。如果不想自己部署，也可以在火山引擎开通托管的 OpenViking Service，在控制台「用户管理 → API Key」创建密钥，再使用文档给出的服务地址。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/volcengine/OpenViking/blob/dd19acc14161847f546e3c12eb0e780899a9009a/README.md?plain=1#L122"
+      }
+    },
+    {
+      "title": "用 ov CLI 导入并检索资源",
+      "text": "openviking 包自带 ov 命令。服务运行后，先用 ov status 检查状态，再用 ov add-resource 导入仓库，并用 ov task status 轮询到 completed。之后可以用 ls、tree、find、grep 浏览和检索 viking://resources/ 下的内容。",
+      "code": "ov status\nov add-resource https://github.com/volcengine/OpenViking\n# Replace TASK_ID with the returned task_id; repeat until status is completed\nov task status TASK_ID\nov ls viking://resources/\nov tree viking://resources/volcengine -L 2\nov find \"what is openviking\"\nov grep \"openviking\" --uri viking://resources/volcengine/OpenViking/docs/en",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/volcengine/OpenViking/blob/dd19acc14161847f546e3c12eb0e780899a9009a/README.md?plain=1#L166"
+      }
+    },
+    {
+      "title": "为编码 Agent 安装记忆插件",
+      "text": "在 macOS/Linux 上运行安装脚本，按提示选择要接入的工具和服务器类型：本机选 Self-hosted / local，托管服务选 Volcengine OpenViking Cloud，其他地址选 Custom URL。如果服务开启了鉴权，要填写 user key，不能用 root key。 原文包含需人工核查的高权限或删除命令，本站不提供一键复制；请查看该步骤的官方出处。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/volcengine/OpenViking/blob/dd19acc14161847f546e3c12eb0e780899a9009a/README.md?plain=1#L185"
+      }
+    },
+    {
+      "title": "重启 Agent 并验证接入",
+      "text": "安装器结束时会列出各工具的后续步骤，例如 Claude Code 需要重启，再在会话中运行 /openviking-memory:ov 验证。Codex 首次启动会停在 Hooks need review，选择 Trust all and continue 即可。记忆在后台处理，刚说完就查不到属于正常情况。",
+      "code": "  Claude Code\n    Next: restart Claude Code\n    ⋮\n    Verify: run /openviking-memory:ov in a session",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/volcengine/OpenViking/blob/dd19acc14161847f546e3c12eb0e780899a9009a/README.md?plain=1#L185"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "开源服务器采用 AGPLv3 许可，商业使用前需评估许可义务。",
+    "开放给非本机访问前，必须先配置身份认证。",
+    "记忆插件安装脚本需要联网，并会写入用户主目录。",
+    "托管的 OpenViking Service 仅前 50 个文件免费，套餐和限制以火山引擎服务文档为准。",
+    "自部署需要自备模型服务 API key，相关调用费用由模型提供商收取。"
+  ],
+  "references": [
+    {
+      "label": "README_CN.md",
+      "url": "https://github.com/volcengine/OpenViking/blob/dd19acc14161847f546e3c12eb0e780899a9009a/README_CN.md"
+    }
+  ],
+  "media": [
+    {
+      "url": "/assets/repository-guides/media-9e91421a2968b5e7ae40ef67.webp",
+      "alt": "volcengine/OpenViking 官方演示 1",
+      "sourceUrl": "https://github.com/volcengine/OpenViking/blob/dd19acc14161847f546e3c12eb0e780899a9009a/README.md?plain=1#L50",
+      "originalUrl": "https://raw.githubusercontent.com/volcengine/OpenViking/dd19acc14161847f546e3c12eb0e780899a9009a/docs/images/studio-playground.png"
+    }
+  ],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "bccc8b518585d6d7b5ebb1bd7f2289ac8d39afd80ed4a814b7e462cadd29abf5",
+  "mediaStatus": "archived",
+  "mediaFailures": []
+}

@@ -1,0 +1,66 @@
+{
+  "schemaVersion": 1,
+  "key": "anthropics/claude-code",
+  "status": "ready",
+  "reason": "",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/anthropics/claude-code/blob/525d3b35312636cf8c001ecb3df2be0324a48b43/README.md",
+  "sourceRevision": "525d3b35312636cf8c001ecb3df2be0324a48b43",
+  "canonicalKey": "anthropics/claude-code",
+  "summary": "在终端中运行的 agentic 编程工具，用自然语言理解代码库、执行常规任务、解释代码并处理 git 工作流。",
+  "intro": "适合希望在终端、IDE 或 GitHub 中借助 AI 处理代码的开发者，可用来执行日常编码任务、解释复杂代码、处理 git 操作等。仓库本身还附带若干扩展命令和 agent 的 Claude Code 插件。下文以官方推荐的 macOS/Linux 安装脚本为入门路径。",
+  "requirements": "macOS 或 Linux 终端（Windows 有单独的推荐安装命令）。README 徽章标注 Node.js 18+，主要与已弃用的 npm 安装方式相关。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "用官方脚本安装 Claude Code",
+      "text": "在 macOS 或 Linux 终端运行官方推荐的安装脚本。npm 安装方式已弃用。更多安装选项、卸载步骤和故障排查见官方 setup 文档。 原文包含需人工核查的高权限或删除命令，本站不提供一键复制；请查看该步骤的官方出处。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/anthropics/claude-code/blob/525d3b35312636cf8c001ecb3df2be0324a48b43/README.md?plain=1#L13"
+      }
+    },
+    {
+      "title": "进入项目目录运行 claude",
+      "text": "在终端切换到你的项目目录，运行 claude 启动，之后用自然语言描述想完成的编码、解释代码或 git 相关任务。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/anthropics/claude-code/blob/525d3b35312636cf8c001ecb3df2be0324a48b43/README.md?plain=1#L13"
+      }
+    },
+    {
+      "title": "查看仓库内的插件文档",
+      "text": "仓库的 plugins 目录收录了若干扩展自定义命令和 agent 的插件，具体用法见 plugins/README.md。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/anthropics/claude-code/blob/525d3b35312636cf8c001ecb3df2be0324a48b43/README.md?plain=1#L48"
+      }
+    },
+    {
+      "title": "用 /bug 反馈使用问题",
+      "text": "遇到问题时，可以在 Claude Code 中使用 /bug 命令直接提交反馈，也可以到 GitHub issues 提交。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/anthropics/claude-code/blob/525d3b35312636cf8c001ecb3df2be0324a48b43/README.md?plain=1#L52"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "Claude Code 会收集反馈数据，包括代码接受/拒绝等使用数据、相关对话数据和通过 /bug 提交的内容，详见官方数据使用政策和隐私政策。",
+    "npm 安装方式已弃用，建议使用官方脚本、Homebrew 或 WinGet。",
+    "仓库元数据中未标注开源许可证，使用条款以 Anthropic 商业服务条款为准。"
+  ],
+  "references": [],
+  "media": [],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "aa0d8b80ac083e1591be0789273f447058cc9187b4331634a5614155da27778d",
+  "mediaStatus": "unavailable",
+  "mediaFailures": [
+    {
+      "sourceUrl": "https://github.com/anthropics/claude-code/blob/525d3b35312636cf8c001ecb3df2be0324a48b43/README.md#L11",
+      "reason": "response_too_large"
+    }
+  ]
+}

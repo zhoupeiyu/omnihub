@@ -1,0 +1,74 @@
+{
+  "schemaVersion": 1,
+  "key": "jackwener/bilibili-cli",
+  "status": "ready",
+  "reason": "",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/public-clis/bilibili-cli/blob/dbe28551930df43b633baa52e9639832aeada967/README.md",
+  "sourceRevision": "dbe28551930df43b633baa52e9639832aeada967",
+  "canonicalKey": "public-clis/bilibili-cli",
+  "summary": "bilibili-cli 是一个 B 站命令行工具，可以在终端查看视频详情和字幕、搜索、浏览热门和动态、管理收藏，并支持结构化输出供 AI Agent 调用。",
+  "intro": "适合习惯在终端工作、或者想让 AI Agent 读取 B 站内容的用户。可以获取视频字幕和 AI 总结、查看 UP 主与排行榜、浏览收藏和历史，也可以执行点赞、投币等互动操作；输出支持 `--yaml` 和 `--json`。",
+  "requirements": "需要 uv 或 pipx 来安装 Python 命令行工具。需要登录的功能可以从 Chrome/Firefox/Edge/Brave 中已登录的 bilibili.com 读取 Cookie，也可以扫码登录。音频提取需要安装可选依赖组 `audio`。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "用 uv tool 安装命令行",
+      "text": "官方推荐用 `uv tool install bilibili-cli` 安装（也可以改用 pipx，二选一即可）。如果需要音频提取功能，就安装 `bilibili-cli[audio]`。之后可用 `uv tool upgrade bilibili-cli` 定期升级，避免旧版本的 API 调用出错。",
+      "code": "# 推荐：uv tool（快速、隔离环境）\nuv tool install bilibili-cli\n\n# 或者：pipx\npipx install bilibili-cli\n\n# 如果需要音频提取功能\nuv tool install \"bilibili-cli[audio]\"\n# 或\npipx install \"bilibili-cli[audio]\"\n\nuv tool upgrade bilibili-cli\n# 或：pipx upgrade bilibili-cli",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/public-clis/bilibili-cli/blob/dbe28551930df43b633baa52e9639832aeada967/README.md?plain=1#L258"
+      }
+    },
+    {
+      "title": "检查登录状态并扫码登录",
+      "text": "先运行 `bili status` 查看认证状态。工具会依次尝试已保存凭证、浏览器 Cookie 和扫码登录；需要时运行 `bili login`，在终端扫描二维码。字幕、收藏、动态和互动类命令都需要登录。",
+      "code": "# 登录与账号\nbili status                    # 检查登录状态\nbili status --yaml             # 结构化认证状态\nbili login                     # 扫码登录\nbili whoami                    # 查看个人信息（等级、硬币、粉丝数）\nbili whoami --yaml             # 结构化个人信息\n\n# 视频\nbili video BV1ABcsztEcY                 # 视频详情\nbili video BV1ABcsztEcY --subtitle      # 显示字幕（纯文本）\nbili video BV1ABcsztEcY --subtitle-timeline        # 显示带时间线的字幕\nbili video BV1ABcsztEcY -st --subtitle-format srt  # 导出为 SRT\nbili video BV1ABcsztEcY --ai            # AI 总结\nbili video BV1ABcsztEcY --comments      # 热门评论\nbili video BV1ABcsztEcY --related       # 相关推荐\nbili video BV1ABcsztEcY --yaml          # 适合 AI Agent 的 YAML\nbili video BV1ABcsztEcY --json          # 规范化 JSON envelope\nbili video BV1ABcsztEcY --subtitle-timeline --comments --json  # 额外内容也会进入 payload\n\n# 用户\nbili user 946974                        # UP 主资料\nbili user \"影视飓风\"                     # 按用户名搜索\nbili user-videos 946974 --max 20        # 视频列表\n\n# 发现\nbili hot                                # 热门视频（第1页）\nbili hot --page 2 --max 10              # 第2页，前10条\nbili rank                               # 全站排行榜（3日）\nbili rank --day 7 --max 30              # 7日榜，前30条\nbili search \"关键词\"                     # 搜索用户\nbili search \"关键词\" --type video --max 5 # 搜索视频（前5条）\nbili search \"关键词\" --page 2            # 第2页结果\nbili feed                               # 动态时间线\nbili feed --offset 1234567890           # 使用上一页游标翻页\nbili my-dynamics                         # 我发布的动态\nbili dynamic-post \"抽个奖，明天开奖\"       # 发布文字动态\nbili dynamic-delete 123456789012345678   # 删除单条动态\n\n# 收藏\nbili favorites                          # 收藏夹列表\nbili following                          # 关注列表\nbili watch-later                        # 稍后再看\nbili history                            # 观看历史\n\n# 音频提取\nbili audio BV1ABcsztEcY                 # 下载并切分为 25 秒 WAV 片段\nbili audio BV1ABcsztEcY --segment 60    # 每段 60 秒\nbili audio BV1ABcsztEcY --no-split      # 完整 m4a，不切分\nbili audio BV1ABcsztEcY -o ~/data/      # 自定义输出目录\n\n# 互动\nbili like BV1ABcsztEcY                  # 点赞\nbili coin BV1ABcsztEcY                  # 投币\nbili triple BV1ABcsztEcY                # 一键三连 🎉\nbili unfollow 946974                    # 取消关注（按 UID）\nbili like BV1ABcsztEcY --json           # 结构化写操作结果\nbili coin BV1ABcsztEcY --yaml           # 结构化写操作结果",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/public-clis/bilibili-cli/blob/dbe28551930df43b633baa52e9639832aeada967/README.md?plain=1#L367"
+      }
+    },
+    {
+      "title": "查询视频、用户和热门内容",
+      "text": "使用 `bili video <BV号>` 查看视频详情，加 `--subtitle`、`--ai`、`--comments` 获取字幕、AI 总结或评论；用 `bili user`、`bili search`、`bili hot`、`bili rank` 浏览用户、搜索结果和榜单；用 `bili favorites`、`bili history` 查看个人收藏和观看历史。",
+      "code": "# 登录与账号\nbili status                    # 检查登录状态\nbili status --yaml             # 结构化认证状态\nbili login                     # 扫码登录\nbili whoami                    # 查看个人信息（等级、硬币、粉丝数）\nbili whoami --yaml             # 结构化个人信息\n\n# 视频\nbili video BV1ABcsztEcY                 # 视频详情\nbili video BV1ABcsztEcY --subtitle      # 显示字幕（纯文本）\nbili video BV1ABcsztEcY --subtitle-timeline        # 显示带时间线的字幕\nbili video BV1ABcsztEcY -st --subtitle-format srt  # 导出为 SRT\nbili video BV1ABcsztEcY --ai            # AI 总结\nbili video BV1ABcsztEcY --comments      # 热门评论\nbili video BV1ABcsztEcY --related       # 相关推荐\nbili video BV1ABcsztEcY --yaml          # 适合 AI Agent 的 YAML\nbili video BV1ABcsztEcY --json          # 规范化 JSON envelope\nbili video BV1ABcsztEcY --subtitle-timeline --comments --json  # 额外内容也会进入 payload\n\n# 用户\nbili user 946974                        # UP 主资料\nbili user \"影视飓风\"                     # 按用户名搜索\nbili user-videos 946974 --max 20        # 视频列表\n\n# 发现\nbili hot                                # 热门视频（第1页）\nbili hot --page 2 --max 10              # 第2页，前10条\nbili rank                               # 全站排行榜（3日）\nbili rank --day 7 --max 30              # 7日榜，前30条\nbili search \"关键词\"                     # 搜索用户\nbili search \"关键词\" --type video --max 5 # 搜索视频（前5条）\nbili search \"关键词\" --page 2            # 第2页结果\nbili feed                               # 动态时间线\nbili feed --offset 1234567890           # 使用上一页游标翻页\nbili my-dynamics                         # 我发布的动态\nbili dynamic-post \"抽个奖，明天开奖\"       # 发布文字动态\nbili dynamic-delete 123456789012345678   # 删除单条动态\n\n# 收藏\nbili favorites                          # 收藏夹列表\nbili following                          # 关注列表\nbili watch-later                        # 稍后再看\nbili history                            # 观看历史\n\n# 音频提取\nbili audio BV1ABcsztEcY                 # 下载并切分为 25 秒 WAV 片段\nbili audio BV1ABcsztEcY --segment 60    # 每段 60 秒\nbili audio BV1ABcsztEcY --no-split      # 完整 m4a，不切分\nbili audio BV1ABcsztEcY -o ~/data/      # 自定义输出目录\n\n# 互动\nbili like BV1ABcsztEcY                  # 点赞\nbili coin BV1ABcsztEcY                  # 投币\nbili triple BV1ABcsztEcY                # 一键三连 🎉\nbili unfollow 946974                    # 取消关注（按 UID）\nbili like BV1ABcsztEcY --json           # 结构化写操作结果\nbili coin BV1ABcsztEcY --yaml           # 结构化写操作结果",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/public-clis/bilibili-cli/blob/dbe28551930df43b633baa52e9639832aeada967/README.md?plain=1#L305"
+      }
+    },
+    {
+      "title": "为脚本或 Agent 输出 YAML",
+      "text": "需要机器可读结果时，优先使用 `--yaml`，只有配合 `jq` 或下游严格要求 JSON 时才用 `--json`。可以用 `--max`、`--page`、`--offset` 缩小结果集。总结视频时应先拉取字幕，字幕不足时再改用 AI 总结或评论。",
+      "code": "bili status --yaml\nbili video BV1ABcsztEcY --yaml\nbili hot --max 5 --yaml\nbili user-videos 946974 --max 3 --yaml",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/public-clis/bilibili-cli/blob/dbe28551930df43b633baa52e9639832aeada967/README.md?plain=1#L391"
+      }
+    },
+    {
+      "title": "通过 Skills CLI 安装技能",
+      "text": "仓库自带 `SKILL.md`，可以用推荐的 Skills CLI 执行 `npx skills add jackwener/bilibili-cli` 安装，并按需加 `-g` 全局安装或 `-a claude-code` 指定 Agent。ClawHub 安装方式已过时，不再支持。",
+      "code": "npx skills add jackwener/bilibili-cli",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/public-clis/bilibili-cli/blob/dbe28551930df43b633baa52e9639832aeada967/README.md?plain=1#L199"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "点赞、投币、三连、取消关注、发布或删除动态都会真实修改你的 B 站账号数据，并且需要包含 `bili_jct` 的可写凭证。",
+    "工具会读取本机浏览器的 B 站 Cookie，凭证保存在 `~/.bilibili-cli/credential.json`，请注意本机安全。",
+    "遇到 HTTP 412 / RateLimitError 说明触发了 B 站反爬，应稍后重试或减小 `--max`。",
+    "音频提取依赖可选组 `audio`（即 `av`），基础安装不包含。"
+  ],
+  "references": [],
+  "media": [],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "0adf4cc788a262c2e1b19cbaf68839bb93722c3fd8e7af59331d97ed2816fe0f",
+  "mediaStatus": "none_in_official_documents"
+}

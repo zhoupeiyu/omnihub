@@ -1,0 +1,64 @@
+{
+  "schemaVersion": 1,
+  "key": "thedotmack/claude-mem",
+  "status": "ready",
+  "reason": "",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/thedotmack/claude-mem/blob/939e85021b5574e4661749e267e3811bd5e8d0df/README.md",
+  "sourceRevision": "939e85021b5574e4661749e267e3811bd5e8d0df",
+  "canonicalKey": "thedotmack/claude-mem",
+  "summary": "claude-mem 是一个面向 Claude Code 等 Agent 的持久记忆插件：它记录会话中的操作，用 AI 压缩，并在之后的会话中注入相关上下文。",
+  "intro": "适合经常使用 Claude Code，希望新会话自动带上以往项目上下文的开发者。它通过生命周期 hook 记录观察，存入本地 SQLite 并结合 Chroma 做检索，提供 mem-search 技能和 search / timeline / get_observations 等 MCP 搜索工具，并附带一个 Web 查看界面。文档也提供 OpenCode、OpenClaw 等宿主的安装方式，本指南以 Claude Code 插件市场为路径。",
+  "requirements": "Node.js 20.0.0 或以上。支持插件的最新版 Claude Code。Bun 和 uv 如果缺失会自动安装；SQLite 已内置。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "在 Claude Code 中添加插件市场",
+      "text": "在 Claude Code 内，先用 /plugin marketplace add 添加 thedotmack/claude-mem 市场，再用 /plugin install 安装 claude-mem。注意不要用 npm install -g claude-mem：那样只会安装 SDK 库，不会注册插件 hook，也不会配置 worker 服务。",
+      "code": "/plugin marketplace add thedotmack/claude-mem\n\n/plugin install claude-mem",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/thedotmack/claude-mem/blob/939e85021b5574e4661749e267e3811bd5e8d0df/README.md?plain=1#L135"
+      }
+    },
+    {
+      "title": "重启 Claude Code 加载记忆",
+      "text": "安装后重启 Claude Code。之后新会话会自动出现以往会话的上下文，无需手动操作。worker 启动时会打印一个 URL，在浏览器打开该地址的 Web 查看界面，可以看到实时记忆流。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/thedotmack/claude-mem/blob/939e85021b5574e4661749e267e3811bd5e8d0df/README.md?plain=1#L135"
+      }
+    },
+    {
+      "title": "在 settings.json 中设置中文模式",
+      "text": "配置文件 ~/.claude-mem/settings.json 在首次运行时自动生成。如果希望生成的观察记录使用简体中文，把 CLAUDE_MEM_MODE 设为 code--zh（该模式已内置），保存后重启 Claude Code 生效。",
+      "code": "{\n  \"CLAUDE_MEM_MODE\": \"code--zh\"\n}",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/thedotmack/claude-mem/blob/939e85021b5574e4661749e267e3811bd5e8d0df/README.md?plain=1#L330"
+      }
+    },
+    {
+      "title": "用分层方式检索历史记忆",
+      "text": "Claude 可以通过 MCP 工具检索记忆：先用 search 获取带 ID 的简要索引，再用 timeline 查看某条结果前后发生了什么，最后只对筛选出的 ID 调用 get_observations 获取完整内容，以减少 Token 消耗。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/thedotmack/claude-mem/blob/939e85021b5574e4661749e267e3811bd5e8d0df/README.md?plain=1#L261"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "它会记录 Agent 在会话中的操作。敏感内容需要用 <private> 标签排除，避免被存储。",
+    "若改用 npx claude-mem install，安装程序会引导你在浏览器登录 claude-mem 账号，并默认启用托管的 observer。免费期最长 14 天，到期后如未订阅，会回退为使用你的 Anthropic 计划额度。可以用 --provider 参数或设置 CLAUDE_MEM_ONLINE_OPTIN=false 跳过登录。",
+    "Cloud Sync 会把记忆备份到 cmem.ai，启用前请评估数据外传是否可以接受。",
+    "README 中提到的 CMEM 是第三方发行的代币。文档内容与安装和使用插件无关，不应把它当作使用前提。",
+    "Windows 上如果提示无法识别 npm，需要先安装 Node.js 并把它加入 PATH，然后重启终端。"
+  ],
+  "references": [],
+  "media": [],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "4c41dfd9ab92f94372f46fffe70bab3146e39e9c1a7dcb79107bb9b6f55eb9cf",
+  "mediaStatus": "none_in_official_documents"
+}

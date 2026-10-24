@@ -1,0 +1,64 @@
+{
+  "schemaVersion": 1,
+  "key": "russell-cell/ppt-design-prompt",
+  "status": "ready",
+  "reason": "",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/Russell-cell/PPT-Design-Prompt/blob/a195f1445d4559516c7d7f66e769a30d6d03ec06/README.md",
+  "sourceRevision": "a195f1445d4559516c7d7f66e769a30d6d03ec06",
+  "canonicalKey": "Russell-cell/PPT-Design-Prompt",
+  "summary": "一个 Python 命令行工具兼提示词库，用于把面向网页的品牌 DESIGN.md 转换成面向演示文稿配图的 DESIGN.md。",
+  "intro": "适合用图像模型或设计 Agent 为 PowerPoint、Keynote、PDF 演示稿或视觉长文生成配图的人。它把来自 VoltAgent/awesome-design-md 的品牌 DESIGN.md 转写成 ppt-image/<brand>/DESIGN.md，仓库根目录还附有一份通用的演示配图 DESIGN.md。它不生成完整幻灯片，也不导出 PowerPoint。",
+  "requirements": "Python 与 pip，并在仓库根目录本地安装；如需转换真实品牌，需自行把源文件放到 source/<brand>/DESIGN.md，来源为 VoltAgent/awesome-design-md。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "在仓库根目录本地安装",
+      "text": "在仓库根目录执行 python -m pip install -e .，以可编辑模式安装。安装后即可使用 design-md-ppt 命令。",
+      "code": "python -m pip install -e .",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/Russell-cell/PPT-Design-Prompt/blob/a195f1445d4559516c7d7f66e769a30d6d03ec06/README.md?plain=1#L75"
+      }
+    },
+    {
+      "title": "用合成示例验证工具链",
+      "text": "用仓库自带的 examples/minimal 合成示例跑一次转换，无需下载第三方数据。转换结果会写到 examples/minimal/output，同时生成 manifest.json。",
+      "code": "design-md-ppt convert \\\n  --source-root ./examples/minimal/source \\\n  --output-root ./examples/minimal/output \\\n  --manifest ./examples/minimal/manifest.json \\\n  --brands-file ./examples/minimal/brands.txt",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/Russell-cell/PPT-Design-Prompt/blob/a195f1445d4559516c7d7f66e769a30d6d03ec06/README.md?plain=1#L104"
+      }
+    },
+    {
+      "title": "放入品牌源文件并转换",
+      "text": "把上游的品牌文件按 source/<brand>/DESIGN.md 的结构放好，再执行 design-md-ppt convert。默认输出到 ./ppt-image，清单写入 ./conversion_manifest.json；需要时可显式指定各路径和 brands.txt。",
+      "code": "design-md-ppt convert\n\ndesign-md-ppt convert \\\n  --source-root ./source \\\n  --output-root ./ppt-image \\\n  --manifest ./conversion_manifest.json \\\n  --brands-file ./catalog/brands.txt",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/Russell-cell/PPT-Design-Prompt/blob/a195f1445d4559516c7d7f66e769a30d6d03ec06/README.md?plain=1#L81"
+      }
+    },
+    {
+      "title": "查阅输出并核对授权",
+      "text": "在 ppt-image/<brand>/DESIGN.md 中查看转换结果，或直接使用根目录的通用 DESIGN.md 作为配图指引。如果要公开发布品牌输出，先阅读 ATTRIBUTION.md 中的法律说明。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/Russell-cell/PPT-Design-Prompt/blob/a195f1445d4559516c7d7f66e769a30d6d03ec06/README.md?plain=1#L42"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "第三方品牌名与源材料归其所有者所有；仓库许可证只覆盖仓库自写的代码与文档。",
+    "source/ 目录已被 .gitignore 忽略；如果本地副本中已有内容，公开提交前要再检查一遍。",
+    "仓库中已有的 ppt-image/ 输出可能与上游品牌材料过于接近，发布前需逐项审查。",
+    "本仓库是转换工具，不是幻灯片生成器、PowerPoint 导出器或截图抓取工具。"
+  ],
+  "references": [],
+  "media": [],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "0748ed253c1d87278b3359bf5a29e7c7a042b832bba67512d81f2276eaadb65d",
+  "mediaStatus": "none_in_official_documents"
+}

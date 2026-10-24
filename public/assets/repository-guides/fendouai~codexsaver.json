@@ -1,0 +1,74 @@
+{
+  "schemaVersion": 1,
+  "key": "fendouai/codexsaver",
+  "status": "ready",
+  "reason": "",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/fendouai/CodexSaver/blob/fe44dc105070c1f40eef29d9be76438edeab9987/README.md",
+  "sourceRevision": "fe44dc105070c1f40eef29d9be76438edeab9987",
+  "canonicalKey": "fendouai/CodexSaver",
+  "summary": "CodexSaver 是一个 MCP 工具，把 Codex 变成按成本分流的路由器：解释、搜索、审查等低风险工作交给 Pi Agent 等较便宜的 worker，高风险判断和最终审查仍由 Codex 负责。",
+  "intro": "适合已在使用 Codex、希望降低代码解释、仓库扫描、文档维护、有边界的测试生成等工作开销的开发者。v2 通道处理带文件范围、验收标准和白名单命令的单个有边界任务（work packet）；v3 通道编排只读 specialist 并行运行；v3.6 默认以 Pi Agent 作为 worker。认证、安全、支付、破坏性迁移等任务会被保留给 Codex。",
+  "requirements": "Python 3.10+（CodexSaver CLI 与 MCP 服务）；Node.js 与 npm（安装 Pi Agent CLI @earendil-works/pi-coding-agent）；DeepSeek API Key；以及 Codex（CodexSaver 作为其 MCP 工具使用）。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "克隆仓库并安装两个 CLI",
+      "text": "克隆 CodexSaver 仓库并进入目录，执行 python -m pip install -e . 以可编辑方式安装 codexsaver CLI，再用 npm install -g @earendil-works/pi-coding-agent 安装 Pi Agent 的 pi CLI。这是文档推荐的 v3.6 全局安装路径。",
+      "code": "git clone https://github.com/fendouai/CodexSaver\ncd CodexSaver\n\npython -m pip install -e .\nnpm install -g @earendil-works/pi-coding-agent\ncodexsaver auth set --provider deepseek --api-key YOUR_DEEPSEEK_API_KEY\ncodexsaver install\ncodexsaver doctor --workspace .\ncodexsaver agents list --workspace .\ncodexsaver orchestrate \"Explain config loader logic and review performance\" --files codexsaver/config.py --workspace .",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/fendouai/CodexSaver/blob/fe44dc105070c1f40eef29d9be76438edeab9987/README.md?plain=1#L525"
+      }
+    },
+    {
+      "title": "保存 DeepSeek 密钥一次",
+      "text": "执行 codexsaver auth set --provider deepseek 并传入你的 API Key。密钥会同时写入 ~/.codexsaver/config.json 和 ~/.pi/agent/auth.json，文件权限为 0600，此后无需重复导出环境变量。",
+      "code": "git clone https://github.com/fendouai/CodexSaver\ncd CodexSaver\n\npython -m pip install -e .\nnpm install -g @earendil-works/pi-coding-agent\ncodexsaver auth set --provider deepseek --api-key YOUR_DEEPSEEK_API_KEY\ncodexsaver install\ncodexsaver doctor --workspace .\ncodexsaver agents list --workspace .\ncodexsaver orchestrate \"Explain config loader logic and review performance\" --files codexsaver/config.py --workspace .",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/fendouai/CodexSaver/blob/fe44dc105070c1f40eef29d9be76438edeab9987/README.md?plain=1#L525"
+      }
+    },
+    {
+      "title": "安装全局 Codex MCP 入口",
+      "text": "执行 codexsaver install，会在 ~/.codex/config.toml 写入全局 MCP 配置，指向 ~/.codexsaver/codexsaver_mcp.py。此后每个 Codex 工作区都可调用 delegate_task、orchestrate_task、run_specialist 等工具。只想在单个仓库配置时改用 codexsaver install --project。",
+      "code": "git clone https://github.com/fendouai/CodexSaver\ncd CodexSaver\n\npython -m pip install -e .\nnpm install -g @earendil-works/pi-coding-agent\ncodexsaver auth set --provider deepseek --api-key YOUR_DEEPSEEK_API_KEY\ncodexsaver install\ncodexsaver doctor --workspace .\ncodexsaver agents list --workspace .\ncodexsaver orchestrate \"Explain config loader logic and review performance\" --files codexsaver/config.py --workspace .\n\ncodexsaver.delegate_task\ncodexsaver.orchestrate_task\ncodexsaver.run_specialist\n\ncodexsaver install --project",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/fendouai/CodexSaver/blob/fe44dc105070c1f40eef29d9be76438edeab9987/README.md?plain=1#L525"
+      }
+    },
+    {
+      "title": "用 doctor 与 agents list 自检",
+      "text": "在工作区执行 codexsaver doctor --workspace .，检查 CodexSaver、Pi Agent 和密钥是否就绪；再执行 codexsaver agents list --workspace .，确认能发现 pi-agent-default。若已打开的 Codex 窗口仍在用旧的 MCP 进程，需要停止或重新加载该 MCP 服务。",
+      "code": "codexsaver agents list --workspace .\ncodexsaver agents init --workspace .\ncodexsaver orchestrate \"Explain config loader logic and review performance\" --files codexsaver/config.py --dry-run",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/fendouai/CodexSaver/blob/fe44dc105070c1f40eef29d9be76438edeab9987/README.md?plain=1#L707"
+      }
+    },
+    {
+      "title": "先 dry-run 再执行编排任务",
+      "text": "用 codexsaver orchestrate 加任务描述和 --files 指定文件，先加 --dry-run 查看路由计划和选中的 worker，再正式执行。只需单个 specialist 时可用 codexsaver specialist explainer。有边界的单文件修改可使用 codexsaver work-packet 并指定允许文件与验收命令。 该步骤涉及需要人工核查的高权限、远程脚本或破坏性操作。本站不提供直接执行指令，请先查看官方说明并确认影响。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/fendouai/CodexSaver/blob/fe44dc105070c1f40eef29d9be76438edeab9987/README.md?plain=1#L379"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "worker 模型调用使用你自己的 DeepSeek 等服务商密钥，按服务商规则计费。",
+    "codexsaver install 默认修改全局 ~/.codex/config.toml；如只想影响单个仓库，请使用 --project。",
+    "codexsaver superpower install --profile full 会额外写入 .codex/hooks.json、提示钩子脚本和本地功能开关，侵入性较高；basic 只修改 AGENTS.md。",
+    "文档说明多补丁的 v3 编排仍在完善中，复杂补丁任务可能返回 needs_codex；Pi 命令不可用时 v3.6 也会返回 needs_codex。",
+    "worker 产出的补丁仍需 Codex 或人工审查后再采用。"
+  ],
+  "references": [],
+  "media": [],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "5ea294a238e575a2dcf7d50409568abe78bf8fe7c37c06f646a938f81a4c6b1a",
+  "mediaStatus": "none_in_official_documents"
+}

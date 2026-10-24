@@ -1,0 +1,43 @@
+{
+  "schemaVersion": 1,
+  "key": "nickmilo/lyt-kit-in-mandarin",
+  "status": "partial",
+  "reason": "README 只说明这是 2021 年由 Lioyeah 翻译的 LYT Kit 中文版，没有介绍仓库的目录结构、内容组成，也没有说明如何导入或打开（例如是否作为 Obsidian 库使用），缺少查阅和使用方法。",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/nickmilo/LYT-Kit-in-Mandarin/blob/dd516c148215e9d2cb22533225584ca838a4e050/README.md",
+  "sourceRevision": "dd516c148215e9d2cb22533225584ca838a4e050",
+  "canonicalKey": "nickmilo/LYT-Kit-in-Mandarin",
+  "summary": "这是 LYT Kit 的 2021 年中文（普通话）翻译版资料合集。",
+  "intro": "适合想阅读 LYT Kit 中文版的读者。译文由 Obsidian Discord 社区用户 Lioyeah 在 2021 年夏季完成。README 没有说明具体内容和使用方式。",
+  "requirements": "现有资料没有说明任何准备条件。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "确认版本与翻译来源",
+      "text": "README 说明，这是 LYT Kit 的 2021 年版本，于 2021 年夏季由 Obsidian Discord 用户 Lioyeah 翻译成中文。阅读前请注意内容基于 2021 年版本，可能与后来的 LYT Kit 不同。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/nickmilo/LYT-Kit-in-Mandarin/blob/dd516c148215e9d2cb22533225584ca838a4e050/README.md?plain=1#L1"
+      }
+    },
+    {
+      "title": "下载仓库自行查阅内容",
+      "text": "README 提到希望大家下载使用，但没有给出目录说明或打开方式。可以下载仓库后自行浏览其中的文件；具体如何导入使用，需要参考原版 LYT Kit 的相关说明。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/nickmilo/LYT-Kit-in-Mandarin/blob/dd516c148215e9d2cb22533225584ca838a4e050/README.md?plain=1#L1"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "仓库没有声明许可证，转载或再分发前请先与作者确认授权。",
+    "内容是 2021 年的翻译版本，可能不是最新版。"
+  ],
+  "references": [],
+  "media": [],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "cbbc7dd0821ebfaed968abcb1a0069061060789b84355261f1b6dcbb6a894379",
+  "mediaStatus": "none_in_official_documents"
+}

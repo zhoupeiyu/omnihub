@@ -1,0 +1,66 @@
+{
+  "schemaVersion": 1,
+  "key": "dexhunter/seedance2-skill",
+  "status": "ready",
+  "reason": "",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/dexhunter/seedance2-skill/blob/516284d5bab58361bfdfed3cc96cee3e837d4c44/README.md",
+  "sourceRevision": "516284d5bab58361bfdfed3cc96cee3e837d4c44",
+  "canonicalKey": "dexhunter/seedance2-skill",
+  "summary": "一套 Agent Skills 格式的提示词撰写技能，让 AI 代理帮你写即梦 Seedance 2.0 视频生成提示词。",
+  "intro": "适合使用即梦 Seedance 2.0 生成视频、同时在用 Claude Code、Cursor、Cline 等兼容代理的创作者。技能内容包括输入约束、@ 引用语法、运镜语言、提示词结构模式，以及广告、短剧、MV、科普教育等场景的模版。提供英文版 SKILL.md 和中文版 zh/SKILL.md，内容据 README 称基于字节跳动官方使用手册和实测案例整理。",
+  "requirements": "需要一个支持 Agent Skills 的 AI 代理（README 列出 Claude Code、Cursor、Cline 等）；按推荐的手动复制方式安装时，需要能访问 Claude skills 目录 ~/.claude/skills。实际生成视频需另外使用即梦 Seedance 2.0。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "克隆或下载本仓库到本地",
+      "text": "推荐路径是手动复制（以 Claude Code 为例）。先把仓库克隆或下载到本地，后续要从中取出技能文件 SKILL.md 或 zh/SKILL.md。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/dexhunter/seedance2-skill/blob/516284d5bab58361bfdfed3cc96cee3e837d4c44/README-zh.md?plain=1#L13"
+      }
+    },
+    {
+      "title": "选择中文或英文技能文件",
+      "text": "仓库提供两份技能：根目录 SKILL.md 为英文版，zh/SKILL.md 为中文版，内容都是 Seedance 2.0 提示词撰写指南。按你平时和代理交流、写提示词的语言选择其一，也可以两份都装。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/dexhunter/seedance2-skill/blob/516284d5bab58361bfdfed3cc96cee3e837d4c44/README-zh.md?plain=1#L35"
+      }
+    },
+    {
+      "title": "复制到 Claude skills 目录",
+      "text": "在仓库目录下创建 ~/.claude/skills，再把选中的文件复制进去，分别命名为 seedance-prompt-zh.md 或 seedance-prompt-en.md。也可改用 README 中的 skills CLI 方式，两种方式选一种即可。",
+      "code": "mkdir -p ~/.claude/skills\n\n# 中文版\ncp zh/SKILL.md ~/.claude/skills/seedance-prompt-zh.md\n\n# 英文版\ncp SKILL.md ~/.claude/skills/seedance-prompt-en.md",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/dexhunter/seedance2-skill/blob/516284d5bab58361bfdfed3cc96cee3e837d4c44/README-zh.md?plain=1#L13"
+      }
+    },
+    {
+      "title": "让代理撰写 Seedance 提示词",
+      "text": "安装后，直接让你的 AI 代理帮你撰写 Seedance 2.0 视频提示词。技能涵盖素材输入约束、@ 引用语法、运镜和结构模式，可按广告、短剧、MV、科普等场景选用模版。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/dexhunter/seedance2-skill/blob/516284d5bab58361bfdfed3cc96cee3e837d4c44/README-zh.md?plain=1#L27"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "该技能只负责撰写提示词，不会直接生成视频；生成视频需要在即梦 Seedance 2.0 中操作，相关账号与费用规则 README 未说明。",
+    "技能内容基于字节跳动飞书文档整理，若官方参数或语法更新，技能文件可能滞后，建议对照原始使用手册。",
+    "手动复制方式给出的是 Claude 的 ~/.claude/skills 路径，其他代理的放置位置 README 未单独说明。"
+  ],
+  "references": [
+    {
+      "label": "README-zh.md",
+      "url": "https://github.com/dexhunter/seedance2-skill/blob/516284d5bab58361bfdfed3cc96cee3e837d4c44/README-zh.md"
+    }
+  ],
+  "media": [],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "a68bdebc21c8388fda0236d720665216d9edf4a0093c1d23aa75d6cebc0e8ec8",
+  "mediaStatus": "none_in_official_documents"
+}

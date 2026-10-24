@@ -1,0 +1,92 @@
+{
+  "schemaVersion": 1,
+  "key": "shy3130/tickflow-stock-panel",
+  "status": "partial",
+  "reason": "提供的资料只包含“方式 C：本机 AI 代部署”的提示词和 .env 配置示例，没有给出 Docker 镜像运行命令、Dev 模式的依赖安装与启动命令（即方式 A/B 的具体步骤），因此无法整理出手动部署流程。",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/shy3130/tick-stock-panel/blob/d00a94ea94a2c85e8b6b92967f10d4209af482ae/README.md",
+  "sourceRevision": "d00a94ea94a2c85e8b6b92967f10d4209af482ae",
+  "canonicalKey": "shy3130/tick-stock-panel",
+  "summary": "一个自托管的 A 股量化工作台，在本地完成选股扫描、策略与因子回测、盘中异动监控和 AI 复盘，并通过 Open API 和 MCP 对外开放能力。",
+  "intro": "适合想在本机搭建 A 股量化研究环境的个人研究者和开发者，可用于策略选股、带 T+1/手续费/滑点的回测、因子检验与挖掘、规则监控与提醒，以及接入第三方数据源。项目声明只用于学习研究，不是投资软件或看盘软件。",
+  "requirements": "一个本机 AI 编程助手（如 Trae、Codex、OpenCode 等）用于代部署；部署过程会用到 Docker 或 Python/Node 环境。TICKFLOW_API_KEY 可留空（None 模式，历史日 K 免费）；启用 AI 功能需要填写 AI_API_KEY，对话助手要求使用支持工具调用的 OpenAI 兼容接口。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "让本机 AI 助手代为部署",
+      "text": "新建一个空文件夹并用本机 AI 编程助手打开，把文档给出的部署提示词原样发给它。助手会克隆仓库：有 Docker 时优先使用 ghcr.io 上的现成镜像，没有则走 Dev 模式，并安装缺少的依赖。完成后在浏览器打开 http://localhost:3018。",
+      "code": "帮我部署开源项目 https://github.com/shy3130/tick-stock-panel 到本机:\n克隆到当前文件夹;有 Docker 优先拉 ghcr.io/shy3130/tick-stock-panel:latest 现成镜像,没有就走 Dev 模式;\n缺少的依赖(Docker / Python / Node)帮我一起装好;\n最后告诉我浏览器打开哪个地址、需要填哪些 Key。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/shy3130/tick-stock-panel/blob/d00a94ea94a2c85e8b6b92967f10d4209af482ae/README.md?plain=1#L547"
+      }
+    },
+    {
+      "title": "在 .env 中填写关键配置",
+      "text": "复制根目录的 .env.example 为 .env，按需填写 TICKFLOW_API_KEY（留空即 None 模式）、AI_API_KEY（留空则关闭 AI）和 PORT。这些配置也可以在面板的“设置”页修改，完整配置项见 docs/configuration.md。",
+      "code": "TICKFLOW_API_KEY=              # 留空 = None 模式(历史日K免费);填 Key 解锁更多\nAI_API_KEY=                    # 留空 = 关闭 AI;填 Key 启用策略生成与 AI 对话助手\nPORT=3018                      # 服务端口",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/shy3130/tick-stock-panel/blob/d00a94ea94a2c85e8b6b92967f10d4209af482ae/README.md?plain=1#L581"
+      }
+    },
+    {
+      "title": "检测能力并跑盘后管道",
+      "text": "进入“设置 → 凭据与能力”，点击“重新检测”，确认档位标签和能力路由矩阵。然后在设置中点击“立即跑盘后管道”，拉取日 K 并计算 enriched 表。None/Free 档位下，当日数据要在收盘后 1-2 小时才可用。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/shy3130/tick-stock-panel/blob/d00a94ea94a2c85e8b6b92967f10d4209af482ae/README.md?plain=1#L569"
+      }
+    },
+    {
+      "title": "选股回测并配置监控规则",
+      "text": "先在“自选”页添加标的，到“选股”页点击策略卡片扫描，或配置自定义信号。在“回测”页选择策略和区间，查看净值、夏普、交易明细，结果可导出 CSV。最后在“监控中心”配置规则，用于盘中弹窗提醒。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/shy3130/tick-stock-panel/blob/d00a94ea94a2c85e8b6b92967f10d4209af482ae/README.md?plain=1#L569"
+      }
+    },
+    {
+      "title": "启用 AI 助手或开放接口",
+      "text": "配置好 AI Key 后，通过悬浮球或 ⌘K 呼出 AI 对话助手，写操作需要你在确认卡上确认后才会执行。如果要接入自己的程序，在“设置 → 开放接口”中创建 Token，参考 examples/open-api 示例，或按 mcp-server 文档配置 MCP。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/shy3130/tick-stock-panel/blob/d00a94ea94a2c85e8b6b92967f10d4209af482ae/README.md?plain=1#L569"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "项目明确声明仅供学习研究，不作为投资软件，也不提供 AI 荐股或涨停预测。",
+    "AI 代部署会在本机自动安装 Docker、Python、Node 等依赖，执行前请确认助手要运行的操作。",
+    "数据能力取决于 TickFlow 档位（None/Free/Starter/Pro/Expert），不填 Key 时只能使用有限数据。",
+    "Open API 的 Token 分六档权限，并按 Token 限流（默认 120 次/分）；数据同步、表结构、设置等管理功能不对 Token 开放。创建 Token 时请按需分配权限。",
+    "AI 对话助手依赖支持工具调用的 OpenAI 兼容接口，AI 调用可能由所选模型服务商计费。"
+  ],
+  "references": [],
+  "media": [
+    {
+      "url": "/assets/repository-guides/media-3b871a5e158cf1b33403e557.webp",
+      "alt": "看板页面",
+      "sourceUrl": "https://github.com/shy3130/tick-stock-panel/blob/d00a94ea94a2c85e8b6b92967f10d4209af482ae/README.md?plain=1#L227",
+      "originalUrl": "https://raw.githubusercontent.com/shy3130/tick-stock-panel/d00a94ea94a2c85e8b6b92967f10d4209af482ae/screenshots/%E7%9C%8B%E6%9D%BF.png"
+    },
+    {
+      "url": "/assets/repository-guides/media-fddb66763577ec727b97badf.webp",
+      "alt": "回测页",
+      "sourceUrl": "https://github.com/shy3130/tick-stock-panel/blob/d00a94ea94a2c85e8b6b92967f10d4209af482ae/README.md?plain=1#L235",
+      "originalUrl": "https://raw.githubusercontent.com/shy3130/tick-stock-panel/d00a94ea94a2c85e8b6b92967f10d4209af482ae/screenshots/%E5%9B%9E%E6%B5%8B.png"
+    },
+    {
+      "url": "/assets/repository-guides/media-10418d00605d64df57081ea2.webp",
+      "alt": "AI 对话助手 — 市场总览问答",
+      "sourceUrl": "https://github.com/shy3130/tick-stock-panel/blob/d00a94ea94a2c85e8b6b92967f10d4209af482ae/README.md?plain=1#L442",
+      "originalUrl": "https://raw.githubusercontent.com/shy3130/tick-stock-panel/d00a94ea94a2c85e8b6b92967f10d4209af482ae/screenshots/AI%E5%AF%B9%E8%AF%9D%E5%8A%A9%E6%89%8B.png"
+    }
+  ],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "389097dad13c1ba135b55c0038ed478e5e178b7a83ebc187d717428708bce3e8",
+  "mediaStatus": "archived",
+  "mediaFailures": []
+}

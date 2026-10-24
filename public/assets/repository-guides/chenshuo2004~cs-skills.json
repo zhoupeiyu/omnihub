@@ -1,0 +1,72 @@
+{
+  "schemaVersion": 1,
+  "key": "chenshuo2004/cs-skills",
+  "status": "ready",
+  "reason": "",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/ChenShuo2004/cs-skills/blob/0b27495ba82a9297eb4028ee443edb69b7a0ef31/README.md",
+  "sourceRevision": "0b27495ba82a9297eb4028ee443edb69b7a0ef31",
+  "canonicalKey": "ChenShuo2004/cs-skills",
+  "summary": "CS Skills 是一组面向 Codex 和 Claude Code 的 Agent Skills，涵盖调研、写作、配图、视频、前端、代码整理和 GitHub 交付等工作流。",
+  "intro": "适合使用 Codex、Claude Code 或其他能读取 `SKILL.md` 的 Agent 的用户。仓库包含 14 个任务 Skill，可以单独安装。目标不明确时，先用 `cs-run` 把需求整理成 Goal Card，由它选出一个主 Skill。也可以直接调用专项 Skill，例如用 `cs-writer` 写文章、用 `cs-search-skill` 做调研、用 `cs-github-push` 提交并推送改动。",
+  "requirements": "需要 Codex、Claude Code，或能读取 `SKILL.md` 的 Agent。克隆仓库和运行安装脚本需要 Git 和 Bash，脚本在 macOS 的 Bash 环境下完成过自测。视频、图像和部署类 Skill 可能需要额外的工具或账号，具体要求见各自的 `SKILL.md`。发布类 Skill 需要目标仓库的 GitHub 写权限。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "克隆仓库并安装到 Codex",
+      "text": "本指南以 Codex 为例。克隆仓库后运行 `./scripts/install.sh --codex`，脚本会把全部 14 个任务 Skill 软链接到 Codex 的技能目录。如果想先预览改动，可以加 `--dry-run`。安装到 Claude Code 时改用 `--claude` 参数，目标目录是 `$HOME/.claude/skills`。",
+      "code": "git clone https://github.com/ChenShuo2004/cs-skills.git\ncd cs-skills\n./scripts/install.sh --codex",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/ChenShuo2004/cs-skills/blob/0b27495ba82a9297eb4028ee443edb69b7a0ef31/README.md?plain=1#L57"
+      }
+    },
+    {
+      "title": "按需只链接单个 Skill",
+      "text": "不想用脚本时，可以手动把某一个 Skill 目录链接到 `$HOME/.codex/skills`。注意，只安装 `cs-run` 不会自动安装下游 Skill，需要执行哪个专项工作流，就要同时安装对应的目录。",
+      "code": "mkdir -p \"$HOME/.codex/skills\"\nln -s \"$PWD/cs-run\" \"$HOME/.codex/skills/cs-run\"",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/ChenShuo2004/cs-skills/blob/0b27495ba82a9297eb4028ee443edb69b7a0ef31/README.md?plain=1#L57"
+      }
+    },
+    {
+      "title": "用 cs-run 描述目标发起任务",
+      "text": "在 Agent 会话中用 `$cs-run` 加一句话描述你的目标。它会读取项目上下文，整理出 Goal Card，并选择一个主 Skill，在你要求执行时继续完成任务。如果已经知道要用哪个 Skill，也可以直接调用，例如 `$cs-writer`。",
+      "code": "$cs-run 我想做一个帮助创作者管理 AI 工作流的工具。先做最小可用原型，并告诉我如何验收。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/ChenShuo2004/cs-skills/blob/0b27495ba82a9297eb4028ee443edb69b7a0ef31/README.md?plain=1#L9"
+      }
+    },
+    {
+      "title": "保留克隆目录以便更新",
+      "text": "软链接依赖克隆目录的位置，安装后不要移动或删除该目录。以后在目录中执行 `git pull`，再重新开始 Agent 会话，就能读取更新后的 Skill。全部安装参数可以用 `./scripts/install.sh --help` 查看。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/ChenShuo2004/cs-skills/blob/0b27495ba82a9297eb4028ee443edb69b7a0ef31/README.md?plain=1#L57"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "安装脚本不会覆盖已有目录或来自其他位置的链接，遇到冲突会报告路径，需要你手动处理。",
+    "`cs-github-push` 和 `cs-ending-time` 会向目标仓库推送代码或执行上线检查，需要 GitHub 写权限。使用前请确认目标仓库和分支。",
+    "视频、图像和部署类 Skill 可能需要额外的渲染环境、第三方服务或账号，请以各自 `SKILL.md` 的说明为准。",
+    "`cs-recover-skill` 是模型执行校准的辅助项，不在默认安装范围内。"
+  ],
+  "references": [],
+  "media": [
+    {
+      "url": "/assets/repository-guides/media-9b61d73eddc5e59d3ff3e809.webp",
+      "alt": "小黄轻手绘示例：抓住一个核心动作",
+      "sourceUrl": "https://github.com/ChenShuo2004/cs-skills/blob/0b27495ba82a9297eb4028ee443edb69b7a0ef31/README.md?plain=1#L49",
+      "originalUrl": "https://raw.githubusercontent.com/ChenShuo2004/cs-skills/0b27495ba82a9297eb4028ee443edb69b7a0ef31/cs-xiaohuang-skill/assets/examples/01-cognitive-anchor.png"
+    }
+  ],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "f68ab99ed06abe7f4e22ad04bf34155f70971054bb45452be3df87d4390e4f5b",
+  "mediaStatus": "archived",
+  "mediaFailures": []
+}

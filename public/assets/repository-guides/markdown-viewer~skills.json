@@ -1,0 +1,64 @@
+{
+  "schemaVersion": 1,
+  "key": "markdown-viewer/skills",
+  "status": "ready",
+  "reason": "",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/markdown-viewer/skills/blob/2b0adca6d1bafffe9cdfc32f278869c3eeb8b4a9/README.md",
+  "sourceRevision": "2b0adca6d1bafffe9cdfc32f278869c3eeb8b4a9",
+  "canonicalKey": "markdown-viewer/skills",
+  "summary": "为 AI 编程代理提供 documd-visuals 技能包，用于在 Markdown 中按需求生成图表和可视化内容。",
+  "intro": "适合用 Claude Code、Codex、Cursor 等 AI 编程代理编写技术文档、报告或架构说明的人。技能包按读者目标划分为 31 个领域，由 SKILL.md 把需求路由到对应目标文档和示例，使用 plantuml、vega/vega-lite、echarts、infographic 或原生 HTML 五种引擎生成图形。内含 242 个示例和九套主题。",
+  "requirements": "快速安装需要能运行 npx，宿主为支持 Agent Skills 格式的代理（如 Claude Code、Codex、Cursor）。图表需要由 docu.md / Markdown Viewer 扩展渲染；如需导出整篇文档，另行使用 @markdown-viewer/documd CLI。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "用 npx 安装技能包",
+      "text": "在项目中运行 npx skills add markdown-viewer/skills。这种方式适用于 Claude Code、Codex、Cursor 等多种 AI 编程代理，会识别出唯一的技能包 documd-visuals。如果之前安装过旧的 14 个按引擎或领域命名的技能，需要重新安装以获得新包。",
+      "code": "npx skills add markdown-viewer/skills",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/markdown-viewer/skills/blob/2b0adca6d1bafffe9cdfc32f278869c3eeb8b4a9/README.md?plain=1#L23"
+      }
+    },
+    {
+      "title": "了解技能如何路由请求",
+      "text": "技能包入口是 SKILL.md：它先把需求匹配到 31 个目标领域之一，再由 goals/<domain>.md 列出该领域的场景和示例文件，最后由 engines/<engine>.md 说明所选引擎的限制和反模式。按目标描述需求，比直接指定引擎更容易得到合适的图形。",
+      "code": "skills/\n├── documd-visuals/        ← the skill package — the only skill here, and the only thing installed\n│   ├── SKILL.md           ← router: iron rules, 31 goals, capability boundaries\n│   ├── converting.md      ← the documd CLI: install, formats, flags, what survives an export\n│   ├── catalog/           ← every scenario: domain, engines, tier, example files\n│   ├── goals/             ← one guide per goal domain\n│   ├── engines/           ← per-engine reference + coverage/ ledgers (units, then examples by goal)\n│   ├── examples/          ← 242 verified examples, grouped by goal domain\n│   └── styles/            ← palette.md (the contract) + themes/<theme>.md (values + a block per engine)\n├── research/              ← engine dossiers: coverage ledgers + verification notes (repo-only, never shipped)\n└── scripts/               ← repo-level gates (not shipped)",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/markdown-viewer/skills/blob/2b0adca6d1bafffe9cdfc32f278869c3eeb8b4a9/README.md?plain=1#L74"
+      }
+    },
+    {
+      "title": "按代码围栏选择渲染引擎",
+      "text": "推荐使用 plantuml/puml（UML、架构、流程，输出 SVG）、vega/vega-lite（需要数据变换的图表）、echarts（报表级图表和仪表盘）、infographic（路线图、对比等模板信息图），以及不加围栏的原生 HTML（系统架构图、卡片和页面布局）。其他引擎不在推荐范围内，技能会对此类请求说明不支持。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/markdown-viewer/skills/blob/2b0adca6d1bafffe9cdfc32f278869c3eeb8b4a9/README.md?plain=1#L90"
+      }
+    },
+    {
+      "title": "用 documd CLI 导出成品",
+      "text": "安装技能并不会安装 CLI。需要把整篇 Markdown 导出为 docx、pdf、epub、html，或把 .puml 源文件导出为 svg/png 时，可直接通过 npx @markdown-viewer/documd 运行；如果需要反复使用，可全局安装以获得 documd 命令。",
+      "code": "npx @markdown-viewer/documd report.md report.docx                 # also .pdf .epub .html\nnpx @markdown-viewer/documd architecture.puml architecture.svg    # also .png\n\nnpm install -g @markdown-viewer/documd",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/markdown-viewer/skills/blob/2b0adca6d1bafffe9cdfc32f278869c3eeb8b4a9/README.md?plain=1#L106"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "npm 上不带作用域的 documd 是另一个无关包，必须写成 @markdown-viewer/documd。",
+    "技能包采用 CC-BY-4.0，再分发时需要署名；documd CLI 及 draw-uml、drawio2svg 渲染引擎为独立的 GPL-3.0-only 作品，不在该授权范围内。",
+    "图表的实际渲染依赖 Markdown Viewer 扩展（docu.md）或 documd CLI，仅安装技能本身不能完成渲染。",
+    "旧版 14 个技能没有兼容存根，需要重新安装新包。"
+  ],
+  "references": [],
+  "media": [],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "85441ed2ba6e752ee1f4524f6739aff2fa0b9ef1b33f3d92edf16a5f2f502233",
+  "mediaStatus": "none_in_official_documents"
+}

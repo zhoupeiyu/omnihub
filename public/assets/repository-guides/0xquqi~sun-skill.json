@@ -1,0 +1,61 @@
+{
+  "schemaVersion": 1,
+  "key": "0xquqi/sun-skill",
+  "status": "ready",
+  "reason": "",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/0xquqi/sun-skill/blob/f34609682095665e37d283bd6fdf6e0c2fceb492/README.md",
+  "sourceRevision": "f34609682095665e37d283bd6fdf6e0c2fceb492",
+  "canonicalKey": "0xquqi/sun-skill",
+  "summary": "一个基于孙宇晨公开推文、自传、音频课和访谈提炼的认知框架技能，让 AI 助手能用他的心智模型和决策启发式来分析问题。",
+  "intro": "适合想研究某位加密行业人物的思维方式、表达风格和决策逻辑的读者，也适合研究“人物认知框架提炼”方法的人。核心文件 SKILL.md 包含 1 个元模型、13 个心智模型、19 条决策启发式、表达 DNA、6 大核心矛盾、价值观与诚实边界，以及 5 个时期的认知演变。research/ 目录收录了来源索引。",
+  "requirements": "使用 Claude Code，或者任何允许自定义系统提示词、custom instructions 的 AI 助手。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "在 Claude Code 中安装技能",
+      "text": "Claude Code 用户可以按 README 给出的命令，用 skills 工具把本仓库添加为技能。不使用 Claude Code 时，可以手动把 SKILL.md 的内容复制到 AI 助手的系统提示词或自定义指令中。",
+      "code": "npx skills add 0xquqi/sun-skill",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/0xquqi/sun-skill/blob/f34609682095665e37d283bd6fdf6e0c2fceb492/README.md?plain=1#L68"
+      }
+    },
+    {
+      "title": "用触发短语切换视角",
+      "text": "在对话中输入 README 列出的触发短语来启用框架，例如“用孙宇晨的视角”“如果孙哥会怎么做”“切换到孙哥”，英文可用 “Use Justin Sun's perspective”。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/0xquqi/sun-skill/blob/f34609682095665e37d283bd6fdf6e0c2fceb492/README.md?plain=1#L76"
+      }
+    },
+    {
+      "title": "查阅 SKILL.md 中的模型与边界",
+      "text": "阅读 SKILL.md，了解各个心智模型（如“增量 vs 存量”“注意力 = 质量”）、决策启发式，以及“诚实边界”和“核心矛盾”部分，以便判断框架输出的适用范围。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/0xquqi/sun-skill/blob/f34609682095665e37d283bd6fdf6e0c2fceb492/README.md?plain=1#L43"
+      }
+    },
+    {
+      "title": "核对 research 目录中的来源",
+      "text": "如需追溯结论依据，可以查看 research/english-source-catalog.md 和 research/supplementary-sources.md 中的来源索引，以及推文统计、访谈交叉分析等研究文档。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/0xquqi/sun-skill/blob/f34609682095665e37d283bd6fdf6e0c2fceb492/README.md?plain=1#L53"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "本技能是基于公开资料对人物认知方式的提炼与模拟，输出内容不代表本人观点；涉及加密资产的观点不应直接当作投资依据。",
+    "自传和付费音频课的内容仅用于分析，README 建议从作者处购买原作；使用时应注意相关版权。",
+    "仓库元数据中未识别到许可证，README 中声明为 MIT，使用前请自行核对仓库中的许可证文件。"
+  ],
+  "references": [],
+  "media": [],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "402eb0f76349d25446e0ef9ddf7df6a9a0ead3693a8aa15cd94c1c7be5180112",
+  "mediaStatus": "none_in_official_documents"
+}

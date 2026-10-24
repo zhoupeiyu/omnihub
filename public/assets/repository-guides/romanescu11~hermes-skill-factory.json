@@ -1,0 +1,71 @@
+{
+  "schemaVersion": 1,
+  "key": "romanescu11/hermes-skill-factory",
+  "status": "ready",
+  "reason": "",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/Romanescu11/hermes-skill-factory/blob/ca38242c8f39bf89f88a348e26d8bee817ba9dd3/README.md",
+  "sourceRevision": "ca38242c8f39bf89f88a348e26d8bee817ba9dd3",
+  "canonicalKey": "Romanescu11/hermes-skill-factory",
+  "summary": "Skill Factory 是 Hermes Agent 的元技能插件，在会话中识别重复工作流，并生成可复用的 SKILL.md 和斜杠命令插件。",
+  "intro": "适合已经在用 Nous Research Hermes Agent 的开发者。它可以把搭建项目、调试、创建 PR 等反复操作沉淀为 Hermes 技能，下次会话直接调用，不必重新解释。安装后插件在后台运行，在合适时机提出生成技能的建议，也可以通过 /skill-factory 命令手动触发、查看和保存。",
+  "requirements": "需要 Hermes Agent v2026.3 或更高版本。README 中的安装命令使用 ~/.hermes 路径和 bash/mkdir/cp，适合类 Unix 终端环境。还需要获取本仓库的文件，包括 skills/ 与 plugins/ 目录。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "获取仓库文件并确认目录结构",
+      "text": "先把本仓库下载到本地，确认其中有 skills/skill-factory/SKILL.md 和 plugins/skill_factory.py 两个核心文件。README 自带的 git clone 地址是 your-username 占位符，不能照抄，应改用本仓库的实际地址。",
+      "code": "hermes-skill-factory/\n├── skills/\n│   └── skill-factory/\n│       └── SKILL.md          # The meta-skill (core AI instructions)\n├── plugins/\n│   └── skill_factory.py      # Plugin: /skill-factory commands\n├── templates/\n│   ├── SKILL_TEMPLATE.md     # Template for generated skills\n│   └── PLUGIN_TEMPLATE.py    # Template for generated plugins\n├── examples/\n│   └── generated/\n│       └── git-pr-workflow/  # Example of a Skill Factory output\n│           └── SKILL.md\n├── docs/\n│   └── how-it-works.md       # Architecture deep-dive\n└── install.sh                # One-command installer",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/Romanescu11/hermes-skill-factory/blob/ca38242c8f39bf89f88a348e26d8bee817ba9dd3/README.md?plain=1#L42"
+      }
+    },
+    {
+      "title": "手动复制元技能与插件文件",
+      "text": "在仓库根目录下，把 SKILL.md 复制到 ~/.hermes/skills/meta/skill-factory/，再把 skill_factory.py 复制到 ~/.hermes/plugins/。仓库里也提供 install.sh 一键安装脚本，可二选一。",
+      "code": "# Install the meta-skill\nmkdir -p ~/.hermes/skills/meta/skill-factory\ncp skills/skill-factory/SKILL.md ~/.hermes/skills/meta/skill-factory/\n\n# Install the plugin\ncp plugins/skill_factory.py ~/.hermes/plugins/",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/Romanescu11/hermes-skill-factory/blob/ca38242c8f39bf89f88a348e26d8bee817ba9dd3/README.md?plain=1#L42"
+      }
+    },
+    {
+      "title": "在 Hermes 中重新加载并启用",
+      "text": "运行 hermes skills reload 重新加载技能，然后运行 hermes skills enable skill-factory 启用。启用后，Skill Factory 会在每次会话中于后台记录工作流。",
+      "code": "hermes skills reload\nhermes skills enable skill-factory",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/Romanescu11/hermes-skill-factory/blob/ca38242c8f39bf89f88a348e26d8bee817ba9dd3/README.md?plain=1#L42"
+      }
+    },
+    {
+      "title": "用斜杠命令查看和生成技能",
+      "text": "/skill-factory propose 会立即分析会话并给出建议；status 和 queue 用来查看正在跟踪的模式；save <name> 可为最近一次建议自定义名称。收到提案时，选 A、B、C 分别生成 SKILL.md、plugin.py 或两者都生成。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/Romanescu11/hermes-skill-factory/blob/ca38242c8f39bf89f88a348e26d8bee817ba9dd3/README.md?plain=1#L10"
+      }
+    },
+    {
+      "title": "检查生成文件与官方示例",
+      "text": "生成的技能写入 ~/.hermes/skills/<category>/<name>/SKILL.md，插件写入 ~/.hermes/plugins/<name>.py。可以对照 examples/generated/git-pr-workflow 中的示例，检查生成内容是否符合预期。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/Romanescu11/hermes-skill-factory/blob/ca38242c8f39bf89f88a348e26d8bee817ba9dd3/README.md?plain=1#L10"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "README 安装示例中的 clone 地址是 your-username 占位符，需要替换为实际仓库地址。",
+    "插件会自动生成可执行的 Python 插件文件并放入 ~/.hermes/plugins/，启用前应先审阅生成内容。",
+    "仓库元数据中的 license 字段为空，但 README 末尾写的是 MIT，使用前请以仓库中的实际 LICENSE 文件为准。"
+  ],
+  "references": [],
+  "media": [],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "6be34c4d43dbe824a02a1b76e14778d8c7e7dc33e27bda0754918cf72ca17dc0",
+  "mediaStatus": "none_in_official_documents"
+}

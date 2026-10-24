@@ -1,0 +1,64 @@
+{
+  "schemaVersion": 1,
+  "key": "ehmo/slopkit",
+  "status": "ready",
+  "reason": "",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/ehmo/slopkit/blob/b33718bb9283c11b09567dc714f92d90ffb7bd16/README.md",
+  "sourceRevision": "b33718bb9283c11b09567dc714f92d90ffb7bd16",
+  "canonicalKey": "ehmo/slopkit",
+  "summary": "Slopkit 提供 slopbeth 和 slopgent 两个编码代理技能，分别清理交付文档中的 AI 腔调，以及代理自身回复中的空话和夸大表述。",
+  "intro": "适合使用 Codex、Claude Code、Hermes、OpenClaw、OpenCode 或 Pi 等编码代理的用户。slopbeth 用于改写和审阅 README、事故复盘、发布说明等交付文本，去掉无依据的说法，同时保留有来源的事实。slopgent 约束代理的状态汇报和“已完成”说法，要求如实说明实际运行过什么，并把下一步操作放在前面。两个技能相互独立，可以都装，也可以只保留其中一个。",
+  "requirements": "Node 18 或更高版本（README 徽章标注），用于通过 npx 安装。slopbeth 的运行依赖 Node 和 Python，slopgent 依赖 Python（记忆辅助功能需要 Node）。本机至少已安装一个受支持的代理，且其目录已存在。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "按用途选择要用的技能",
+      "text": "需要编辑你交给代理的文档时，用 slopbeth。需要约束代理在工作中对你的汇报和完成声明时，用 slopgent。官方说明大多数人两个都需要，默认安装也会同时装上两个；删掉其中一个目录不影响另一个。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/ehmo/slopkit/blob/b33718bb9283c11b09567dc714f92d90ffb7bd16/README.md?plain=1#L14"
+      }
+    },
+    {
+      "title": "用 npx 安装到已有代理目录",
+      "text": "在终端运行安装命令。它会为家目录下已经存在的 Codex、Claude Code、Hermes、OpenClaw、OpenCode、Pi 目录安装 slopbeth 和 slopgent，未使用的代理会被跳过。两个技能分别放在各代理 skills/ 目录下的 skills/slopbeth 和 skills/slopgent。",
+      "code": "npx github:ehmo/slopkit install",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/ehmo/slopkit/blob/b33718bb9283c11b09567dc714f92d90ffb7bd16/README.md?plain=1#L42"
+      }
+    },
+    {
+      "title": "需要时为全部代理安装",
+      "text": "如果某个代理的目录还没有创建，也想预先装好技能，可以加上 --all 参数，或者使用 installnpx 别名。这样会安装到所有受支持的代理，不论对应目录是否已经存在。",
+      "code": "npx github:ehmo/slopkit install --all\nnpx github:ehmo/slopkit installnpx",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/ehmo/slopkit/blob/b33718bb9283c11b09567dc714f92d90ffb7bd16/README.md?plain=1#L42"
+      }
+    },
+    {
+      "title": "查阅各技能的完整文档",
+      "text": "slopbeth 的写作标准、示例和证据见 skills/slopbeth/README.md，完整评测见 BENCHMARKS.md。slopgent 的三类修正和启用方法见 skills/slopgent/README.md。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/ehmo/slopkit/blob/b33718bb9283c11b09567dc714f92d90ffb7bd16/README.md?plain=1#L155"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "README 中的基准测试只是一次运行，用例由作者构造，评分来自小规模评审，作者明确说明这不是长期排行榜，也不能证明普遍优势。",
+    "两个技能都不保证能躲过 AI 文本检测器。",
+    "不要把 slopgent 用于改写文档，也不要让 slopbeth 叙述构建过程。官方说明两者分工不同，互换使用会得到不理想的结果。",
+    "slopgent 的检查只有 Python 版本。在 PowerShell 环境下没有 python3 时，这部分检查会被跳过。",
+    "README 中从克隆仓库安装的代码块（含 PowerShell 版）给出的仓库地址格式异常，不能直接照抄；本指南只采用 npx 安装路径。"
+  ],
+  "references": [],
+  "media": [],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "40bfca8de4eb2336ba72631b04e40f2beb6b62875886df3017b8af05082dfb25",
+  "mediaStatus": "none_in_official_documents"
+}

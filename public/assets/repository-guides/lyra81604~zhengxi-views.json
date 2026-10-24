@@ -1,0 +1,84 @@
+{
+  "schemaVersion": 1,
+  "key": "lyra81604/zhengxi-views",
+  "status": "ready",
+  "reason": "",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/lyra81604/zhengxi-views/blob/304ac3e404a4c5f5c85d927840fefb028bebb536/README.md",
+  "sourceRevision": "304ac3e404a4c5f5c85d927840fefb028bebb536",
+  "canonicalKey": "lyra81604/zhengxi-views",
+  "summary": "基于易方达基金经理郑希公开观点原文、方法框架和基金数据的 Agent Skill，可以带出处地回答其观点，并按其框架对全市场基金做对比和评分。",
+  "intro": "适合研究、学习郑希投资观点的使用者。可以检索 2012 到 2026 年的定期报告、基金经理手记和媒体采访原文，追溯观点的出处与变化；也可以把他的表态与 8 只基金的季度持仓对照，或在全市场约 2.7 万只基金中查询、抓取数据并按六维评分卡打分。语料未覆盖的话题，回答会声明为按其方法推演。",
+  "requirements": "Claude Code（README 推荐的原生方式）；已获取仓库文件；只做语料检索时无需第三方库，抓取基金数据或评分需要 Python 和联网，并安装 requirements.txt 中的依赖（requests、beautifulsoup4、lxml）。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "复制文件到 Claude Code 技能目录",
+      "text": "以 macOS 或 Linux 为例，在仓库根目录下创建 ~/.claude/skills/zhengxi-views，然后把 SKILL.md、README.md、references 和 scripts 复制进去。Windows 用户可改用 README 中的 PowerShell 版本。",
+      "code": "mkdir -p \"$HOME/.claude/skills/zhengxi-views\"\ncp -R SKILL.md README.md references scripts \"$HOME/.claude/skills/zhengxi-views\"/",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/lyra81604/zhengxi-views/blob/304ac3e404a4c5f5c85d927840fefb028bebb536/README.md?plain=1#L201"
+      }
+    },
+    {
+      "title": "安装抓取与评分所需的依赖",
+      "text": "如果需要抓取全市场基金数据或使用 score_fund 评分，先执行 pip install -r requirements.txt。只做原文检索和问答时可以跳过这一步。",
+      "code": "pip install -r requirements.txt   # requests / beautifulsoup4 / lxml",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/lyra81604/zhengxi-views/blob/304ac3e404a4c5f5c85d927840fefb028bebb536/README.md?plain=1#L220"
+      }
+    },
+    {
+      "title": "完整重启 Claude Code 后提问",
+      "text": "安装后完整重启 Claude Code，然后直接提问，例如“郑希怎么看光通信”，即可触发 Skill。还可以要求用郑希的标准给某只基金打分，或把两只基金放在一起对比。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/lyra81604/zhengxi-views/blob/304ac3e404a4c5f5c85d927840fefb028bebb536/README.md?plain=1#L201"
+      }
+    },
+    {
+      "title": "了解脚本分工以便核对结果",
+      "text": "Skill 在 Claude Code 中会自行调用脚本：search_corpus.py 检索语料并返回出处，fund_lookup.py 查询基金代码，fetch_any_fund.py 抓取基金数据，score_fund.py 完成评分。可以据此核对回答引用的来源。",
+      "code": "search_corpus.py \"光通信\"                  在语料里检索，返回命中段落 + 出处（新→旧）\nsearch_corpus.py \"ROE\" \"弹性\" --any        命中任一关键词\nfund_lookup.py 中欧医疗                      全市场按名称/代码/类型查基金代码\nfetch_any_fund.py 003095                    按需抓取任意基金的持仓/净值/业绩到缓存\nscore_fund.py 招商中证白酒                   郑希框架评分一键入口（找代码+备数据+算指标）\nbuild_index.py / build_fund_list.py        语料 / 全市场列表更新后重建",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/lyra81604/zhengxi-views/blob/304ac3e404a4c5f5c85d927840fefb028bebb536/README.md?plain=1#L316"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "仅作研究与学习辅助，不构成投资建议，不预测涨跌，也不给出买卖指令。评分衡量的是“与郑希风格的契合度”，并非基金优劣。",
+    "实时抓取依赖天天基金等公开数据源，需要联网。自带的基金数据是截至 2026-06 的季度快照，可能已经过时。",
+    "README 提供的可选配置会在 settings.json 中放行所有 python 命令。作者建议只在个人机器上使用。",
+    "仓库元数据中的 license 为 NOASSERTION，README 写明 MIT，以仓库实际 LICENSE 文件为准。"
+  ],
+  "references": [],
+  "media": [
+    {
+      "url": "/assets/repository-guides/media-4e9061d33e55459bb120cff3.webp",
+      "alt": "WorkBuddy 自动化任务配置",
+      "sourceUrl": "https://github.com/lyra81604/zhengxi-views/blob/304ac3e404a4c5f5c85d927840fefb028bebb536/README.md?plain=1#L60",
+      "originalUrl": "https://raw.githubusercontent.com/lyra81604/zhengxi-views/304ac3e404a4c5f5c85d927840fefb028bebb536/assets/recommended-usage/01-workbuddy-automation-config.jpg"
+    },
+    {
+      "url": "/assets/repository-guides/media-e1671d7b5dde636c2b40ea1a.webp",
+      "alt": "郑希视角分析",
+      "sourceUrl": "https://github.com/lyra81604/zhengxi-views/blob/304ac3e404a4c5f5c85d927840fefb028bebb536/README.md?plain=1#L69",
+      "originalUrl": "https://raw.githubusercontent.com/lyra81604/zhengxi-views/304ac3e404a4c5f5c85d927840fefb028bebb536/assets/recommended-usage/05-zhengxi-view-analysis.jpg"
+    },
+    {
+      "url": "/assets/repository-guides/media-d0fcb197a73d289ca0f06c59.webp",
+      "alt": "按郑希方法框架推演",
+      "sourceUrl": "https://github.com/lyra81604/zhengxi-views/blob/304ac3e404a4c5f5c85d927840fefb028bebb536/README.md?plain=1#L70",
+      "originalUrl": "https://raw.githubusercontent.com/lyra81604/zhengxi-views/304ac3e404a4c5f5c85d927840fefb028bebb536/assets/recommended-usage/06-method-deduction.jpg"
+    }
+  ],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "4be2b963763cee746830d29fe4c9e5b58d69ac539804e742c246d6ad5ce51f5e",
+  "mediaStatus": "archived",
+  "mediaFailures": []
+}

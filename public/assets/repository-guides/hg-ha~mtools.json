@@ -1,0 +1,91 @@
+{
+  "schemaVersion": 1,
+  "key": "hg-ha/mtools",
+  "status": "ready",
+  "reason": "",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/HG-ha/MTools/blob/0ee5523db50a80603d3951ecfa5c32998575e762/README.md",
+  "sourceRevision": "0ee5523db50a80603d3951ecfa5c32998575e762",
+  "canonicalKey": "HG-ha/MTools",
+  "summary": "MTools 是基于 Python 与 Flet 的跨平台桌面工具集，集成图片处理、音视频编辑、AI 工具和开发辅助功能，并内置 MCP 服务供 Agent 调用。",
+  "intro": "适合需要在本地完成图片、音视频、OCR、语音识别、证件照、去水印等处理的用户；也适合想让 Cursor、OpenClaw、Hermes 等 Agent 通过 MCP 调用这些本地能力的开发者。下文以 Windows 发布版为主路径。",
+  "requirements": "Windows 10/11 x64，可直接下载发布版，无需安装 Python。若选择 CUDA 版本，需要预先安装 CUDA 12.x 和 cuDNN 9.x。若要接入 MCP，需要 Cursor 等支持 HTTP MCP 的客户端。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "在 Releases 选择 Windows 版本",
+      "text": "在 Windows 10/11 x64 上，从 Releases 页面（国内用户可用文档给出的镜像）下载。共有三个版本：MTools_Windows_amd64 体积最小，支持 N/A/I 卡加速，适合显存低于 8GB 或较老的显卡；CUDA 版需要自行安装 CUDA 12.x 和 cuDNN 9.x；CUDA_FULL 版内置完整 CUDA 运行时，体积最大。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/HG-ha/MTools/blob/0ee5523db50a80603d3951ecfa5c32998575e762/README.md?plain=1#L73"
+      }
+    },
+    {
+      "title": "解压后启动 MTools",
+      "text": "下载完成后解压即可使用，无需安装 Python。部分 AI 功能首次使用时，需要先在对应的功能页面下载模型，否则会失败。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/HG-ha/MTools/blob/0ee5523db50a80603d3951ecfa5c32998575e762/README.md?plain=1#L73"
+      }
+    },
+    {
+      "title": "在设置中开启 MCP 服务",
+      "text": "如需让 Agent 调用 MTools，打开 MTools，进入“设置 → MCP 服务”并启用。默认地址为 http://127.0.0.1:8765/mcp，端口可在设置中修改。",
+      "code": "http://127.0.0.1:8765/mcp",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/HG-ha/MTools/blob/0ee5523db50a80603d3951ecfa5c32998575e762/README.md?plain=1#L138"
+      }
+    },
+    {
+      "title": "在 Cursor 的 mcp.json 中添加配置",
+      "text": "在 Cursor → Settings → MCP 中编辑 mcp.json，加入 mtools 的 url 配置；也可以在 MTools 的 MCP 设置页点击“复制 Cursor 配置”。可选：把 skills/mtools 复制到项目的 .agents/skills/mtools/ 或个人目录 ~/.agents/skills/mtools/。",
+      "code": "{\n  \"mcpServers\": {\n    \"mtools\": {\n      \"url\": \"http://127.0.0.1:8765/mcp\"\n    }\n  }\n}",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/HG-ha/MTools/blob/0ee5523db50a80603d3951ecfa5c32998575e762/skills/mtools/install.md?plain=1#L79"
+      }
+    },
+    {
+      "title": "按自检清单验证 MCP 连接",
+      "text": "依次确认：MCP 状态为“运行中”；能访问 8765 端口地址；调用 mtools_status 返回 ok: true；调用 mtools_help(\"image.compress\") 能看到参数说明。连接失败时，检查防火墙设置和端口是否被占用。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/HG-ha/MTools/blob/0ee5523db50a80603d3951ecfa5c32998575e762/skills/mtools/install.md?plain=1#L99"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "macOS 仅支持 M 系列芯片，macOS 与 Linux 版本均为实验性支持。",
+    "DirectML 版本不能限制显存，只有 CUDA 版本可以限制显存大小。",
+    "通过 MCP 调用时必须使用本机绝对路径；录屏功能仅能在桌面 GUI 中使用，MCP 不支持。",
+    "项目使用了 imagetourl.net、catbox.moe 等外部上传服务，以及 gh-proxy.com 代理。上传文件前请注意隐私。",
+    "字幕修复、AI 翻译等功能需要另行配置 OpenAI 兼容的 API 服务，可能产生费用，详见 docs/ai_providers.md。"
+  ],
+  "references": [
+    {
+      "label": "skills/mtools/install.md",
+      "url": "https://github.com/HG-ha/MTools/blob/0ee5523db50a80603d3951ecfa5c32998575e762/skills/mtools/install.md"
+    }
+  ],
+  "media": [
+    {
+      "url": "/assets/repository-guides/media-51e5f913737ff6d1b891db0e.webp",
+      "alt": "HG-ha/MTools 官方演示 1",
+      "sourceUrl": "https://github.com/HG-ha/MTools/blob/0ee5523db50a80603d3951ecfa5c32998575e762/README.md?plain=1#L56",
+      "originalUrl": "https://raw.githubusercontent.com/HG-ha/MTools/0ee5523db50a80603d3951ecfa5c32998575e762/assets/MTools_Light.png"
+    },
+    {
+      "url": "/assets/repository-guides/media-4363d210edd9aee2b359296b.webp",
+      "alt": "HG-ha/MTools 官方演示 2",
+      "sourceUrl": "https://github.com/HG-ha/MTools/blob/0ee5523db50a80603d3951ecfa5c32998575e762/README.md?plain=1#L60",
+      "originalUrl": "https://raw.githubusercontent.com/HG-ha/MTools/0ee5523db50a80603d3951ecfa5c32998575e762/assets/MTools_Dark.png"
+    }
+  ],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "a38b53633c1d422578920f406103c333a169d555e7a960e90a6a756c4c8a0061",
+  "mediaStatus": "archived",
+  "mediaFailures": []
+}

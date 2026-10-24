@@ -1,0 +1,72 @@
+{
+  "schemaVersion": 1,
+  "key": "kingskuan/claudebot-vibe",
+  "status": "ready",
+  "reason": "",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/kingskuan/Claudebot-vibe/blob/20ff99cefa91f10f257be5daa39e20204d6ec492/README.md",
+  "sourceRevision": "20ff99cefa91f10f257be5daa39e20204d6ec492",
+  "canonicalKey": "kingskuan/Claudebot-vibe",
+  "summary": "一个部署在 Railway 上、基于 Claude 的 Telegram 私人 AI 助理，支持记忆、代码工具、写作工具和图片生成。",
+  "intro": "适合想在手机上通过 Telegram 使用个人 Claude 助理的用户。它可以对话并保留跨会话记忆，分为 Soul / Projects / Tasks / Notes 四层；可以解释、评审代码并生成测试；可以翻译、润色和头脑风暴；能解析 PDF、DOCX、XLSX 等文件，自动总结链接；还支持设置提醒和查看用量。",
+  "requirements": "需要 Telegram 账号（通过 @BotFather 创建 Bot）、Anthropic API Key、Supabase 项目（启用 vector 扩展）、Railway 账号和 GitHub 账号（用于 Fork）。Voyage AI Key 为推荐项，用于向量记忆；Gemini API Key 仅 `/imagine` 出图需要。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "通过 BotFather 创建 Telegram Bot",
+      "text": "在 Telegram 打开 @BotFather，发送 `/newbot`，按提示完成创建，然后复制得到的 BOT_TOKEN，后面要填入环境变量。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/kingskuan/Claudebot-vibe/blob/20ff99cefa91f10f257be5daa39e20204d6ec492/README.md?plain=1#L35"
+      }
+    },
+    {
+      "title": "准备各服务的 API Key",
+      "text": "在 console.anthropic.com 获取 Anthropic API Key，在 Supabase 新建项目，并到 Settings → API 获取项目 URL 和 service_role key。如需向量记忆，到 voyageai.com 申请 Key；如需 `/imagine` 出图，到 aistudio.google.com 申请 Gemini Key。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/kingskuan/Claudebot-vibe/blob/20ff99cefa91f10f257be5daa39e20204d6ec492/README.md?plain=1#L40"
+      }
+    },
+    {
+      "title": "在 Supabase 执行建表 SQL",
+      "text": "进入 Supabase 项目，打开 SQL Editor，运行 README 提供的 SQL。它会启用 vector 扩展，创建 conversations、user_docs、conversation_summaries、memories 表以及 search_memories 函数。记忆失效时，先检查 vector 扩展是否已启用。",
+      "code": "create extension if not exists vector;\n\ncreate table if not exists conversations (\n  id bigserial primary key,\n  user_id bigint not null,\n  role text not null,\n  content text not null,\n  created_at timestamptz default now()\n);\n\ncreate table if not exists user_docs (\n  user_id bigint not null,\n  doc_type text not null,\n  content text,\n  updated_at timestamptz default now(),\n  primary key (user_id, doc_type)\n);\n\ncreate table if not exists conversation_summaries (\n  user_id bigint primary key,\n  summary text,\n  updated_at timestamptz default now()\n);\n\ncreate table if not exists memories (\n  id bigserial primary key,\n  user_id bigint not null,\n  content text not null,\n  memory_type text default 'general',\n  embedding vector(1024),\n  created_at timestamptz default now()\n);\n\ncreate or replace function search_memories(\n  query_embedding vector(1024),\n  match_user_id bigint,\n  match_count int default 5\n) returns table (content text, similarity float)\nlanguage sql stable as $$\n  select content, 1 - (embedding <=> query_embedding) as similarity\n  from memories\n  where user_id = match_user_id and embedding is not null\n  order by embedding <=> query_embedding\n  limit match_count;\n$$;\n\nalter table conversations disable row level security;\nalter table user_docs disable row level security;\nalter table conversation_summaries disable row level security;\nalter table memories disable row level security;",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/kingskuan/Claudebot-vibe/blob/20ff99cefa91f10f257be5daa39e20204d6ec492/README.md?plain=1#L50"
+      }
+    },
+    {
+      "title": "Fork 后在 Railway 部署并填变量",
+      "text": "Fork 本仓库，在 railway.app 依次选 New Project → Deploy from GitHub，选择你的 Fork，然后按环境变量清单添加 BOT_TOKEN、ANTHROPIC_API_KEY、SUPABASE_URL、SUPABASE_KEY 等必填项，以及可选的 VOYAGE_API_KEY、GEMINI_API_KEY。",
+      "code": "# ✅ Required / 必须\nBOT_TOKEN=                     # @BotFather 给的 token\nANTHROPIC_API_KEY=             # console.anthropic.com\nWEBHOOK_URL=                   # Railway 域名（不带末尾斜杠）\nSUPABASE_URL=                  # Supabase project URL\nSUPABASE_KEY=                  # service_role key（不是 anon key）\n\n# 💡 Recommended / 推荐\nVOYAGE_API_KEY=                # 向量记忆搜索\nGEMINI_API_KEY=                # /imagine 图片生成",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/kingskuan/Claudebot-vibe/blob/20ff99cefa91f10f257be5daa39e20204d6ec492/README.md?plain=1#L109"
+      }
+    },
+    {
+      "title": "设置 WEBHOOK_URL 并用 /help 验证",
+      "text": "部署完成后，复制 Railway 公网域名，填入环境变量 `WEBHOOK_URL`（末尾不带斜杠），然后重新部署。给 Bot 发 `/help`，看到命令列表即表示已上线。如果没有回复，检查 BOT_TOKEN、ANTHROPIC_API_KEY、WEBHOOK_URL 和 Railway 日志。",
+      "code": "WEBHOOK_URL=https://your-app.up.railway.app",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/kingskuan/Claudebot-vibe/blob/20ff99cefa91f10f257be5daa39e20204d6ec492/README.md?plain=1#L115"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "建表 SQL 会对所有表关闭 row level security，且 `SUPABASE_KEY` 要求填 service_role key，务必妥善保管密钥，不要泄露。",
+    "Claude 调用按 Anthropic API 用量计费。可用 `/stats` 查看用量，定期用 `/forget` 清理长历史，并保持 `/soul`、`/projects` 内容精简，以控制费用。",
+    "未配置 `VOYAGE_API_KEY` 时向量搜索不可用（其他记忆仍可工作）；未配置 Gemini Key 时 `/imagine` 无法使用。",
+    "README 中的 Railway 一键部署按钮链接带有 referralCode 参数；也可以按 Step 4 手动从 GitHub 部署。"
+  ],
+  "references": [],
+  "media": [],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "2406f2a097c817d719d4d4b411f3d4f25aa2dbe13c7ff5dfbe97a1cabd0218bc",
+  "mediaStatus": "none_in_official_documents"
+}

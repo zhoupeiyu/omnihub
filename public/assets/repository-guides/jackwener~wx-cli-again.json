@@ -1,0 +1,64 @@
+{
+  "schemaVersion": 1,
+  "key": "jackwener/wx-cli-again",
+  "status": "partial",
+  "reason": "README 说明源码和发布仓库 botiverse/wx-cli 目前是 private 仓库，匿名用户无法获取最新二进制；公开 npm 包 @jackwener/wx-cli 版本严重滞后。另外，文档中给出的 git clone 地址格式异常，不能直接使用。没有该仓库读权限的用户缺少可用的安装来源。",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/jackwener/wx-cli-again/blob/077a54cbfe679bda963cd038d8440422907fc797/README.md",
+  "sourceRevision": "077a54cbfe679bda963cd038d8440422907fc797",
+  "canonicalKey": "jackwener/wx-cli-again",
+  "summary": "wx-cli 是一个本地运行的 Rust 命令行工具，可解密并查询你自己电脑上微信 4.x 的本地数据，包括会话、聊天记录、联系人、群成员、朋友圈和公众号文章，并支持导出。",
+  "intro": "适合需要在命令行或 AI Agent 中检索自己微信本地数据的用户。工具通过后台 daemon 缓存解密后的数据库，可执行 sessions、history、search、unread、new-messages、members、stats、导出、图片附件提取等操作。默认输出 YAML，也可输出 JSON；部分命令的返回结果带有 meta 字段，用于说明数据的新鲜度和来源。",
+  "requirements": "官方文档包含需人工核查的系统操作，请先查看原文和适用条件。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "获得仓库权限后从源码构建",
+      "text": "README 推荐的安装方式是：在有 botiverse/wx-cli 读权限的前提下，克隆源码，执行 cargo build --release，再把生成的 wx 复制到 ~/.local/bin。以后已有 clone 时，可按升级流程执行 git pull 后重新构建。这里以 macOS 为例。",
+      "code": "git pull\ncargo build --release\ncp target/release/wx ~/.local/bin/wx",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/jackwener/wx-cli-again/blob/077a54cbfe679bda963cd038d8440422907fc797/README.md?plain=1#L46"
+      }
+    },
+    {
+      "title": "在 macOS 本机终端执行初始化",
+      "text": "该步骤涉及需要人工核查的高权限、远程脚本或破坏性操作。本站不提供直接执行指令，请先查看官方说明并确认影响。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/jackwener/wx-cli-again/blob/077a54cbfe679bda963cd038d8440422907fc797/README.md?plain=1#L123"
+      }
+    },
+    {
+      "title": "用 wx doctor 验证状态",
+      "text": "该步骤涉及需要人工核查的高权限、远程脚本或破坏性操作。本站不提供直接执行指令，请先查看官方说明并确认影响。",
+      "code": "wx --version\nwx doctor          # 密钥 / 分片 / SQLCipher 健康检查\nwx sessions",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/jackwener/wx-cli-again/blob/077a54cbfe679bda963cd038d8440422907fc797/README.md?plain=1#L169"
+      }
+    },
+    {
+      "title": "查询会话与聊天记录",
+      "text": "wx sessions 查看最近会话，wx unread 查看未读，wx history 拉取指定聊天的记录，wx search 进行全库搜索。可以用 -n、--since、--until、--in 限定条数、时间范围和会话。",
+      "code": "wx sessions                                      # 最近 20 个会话\nwx unread                                        # 有未读消息的会话\nwx unread --filter private,group                 # 只看真人未读（过滤公众号/折叠入口）\nwx new-messages                                  # 上次检查后的新消息（增量）\nwx history \"张三\"                                # 最近 50 条记录\nwx history \"张三\" -n 2000                        # 拉更多历史消息\nwx history \"AI群\" --since 2026-04-01 --until 2026-04-15\nwx search \"关键词\"                               # 全库搜索\nwx search \"关键词\" -n 500                        # 放宽搜索结果条数\nwx search \"会议\" --in \"工作群\" --since 2026-01-01",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/jackwener/wx-cli-again/blob/077a54cbfe679bda963cd038d8440422907fc797/README.md?plain=1#L204"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "README 免责声明写明：本工具仅用于解密自己的微信数据，不得用于未经授权的数据访问。",
+    "官方文档中的高权限或远程脚本操作应单独核查，不要整段复制执行。",
+    "Linux 平台不支持 V2 格式图片附件的解码；朋友圈数据只包含本地已经刷到过的帖子。",
+    "公开 npm 包版本严重滞后，README 明确表示不要把它当作主要的安装途径。"
+  ],
+  "references": [],
+  "media": [],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "9ccb95135941dca17522dc05eeb30c53017efc9e59e3e4dd8aa6df3a7ffe7f47",
+  "mediaStatus": "none_in_official_documents"
+}

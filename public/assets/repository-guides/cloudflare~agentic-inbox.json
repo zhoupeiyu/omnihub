@@ -1,0 +1,78 @@
+{
+  "schemaVersion": 1,
+  "key": "cloudflare/agentic-inbox",
+  "status": "ready",
+  "reason": "",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/cloudflare/agentic-inbox/blob/48039bb6785af34e592c2966f87cde2b255c4c80/README.md",
+  "sourceRevision": "48039bb6785af34e592c2966f87cde2b255c4c80",
+  "canonicalKey": "cloudflare/agentic-inbox",
+  "summary": "Agentic Inbox 是一个完全运行在 Cloudflare Workers 上的自托管邮件客户端，内置可以读信、搜索、起草回复的 AI agent。",
+  "intro": "适合在 Cloudflare 上托管了域名、想自建带 AI 助手的收发件箱的个人或团队。收件走 Cloudflare Email Routing，每个邮箱是一个独立的 Durable Object（使用 SQLite），附件存放在 R2。侧边栏的 Email Agent 基于 Agents SDK 和 Workers AI 构建，提供 9 个邮件工具，新邮件到达时会自动起草回复，但发送前必须经过确认。",
+  "requirements": "一个绑定了域名的 Cloudflare 账号；为该域名启用 Email Routing（收信）和 Email Service（发信）；启用 Workers AI；在部署或共享环境中配置 Cloudflare Access（生产环境必需）。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "一键部署到 Cloudflare",
+      "text": "点击 README 里的「Deploy to Cloudflare」按钮。部署流程会自动创建 R2、Durable Objects 和 Workers AI 资源，并要求填写 DOMAINS，即你要收信的域名。注意部署只是第一步，后面的配置也必须完成。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/cloudflare/agentic-inbox/blob/48039bb6785af34e592c2966f87cde2b255c4c80/README.md?plain=1#L20"
+      }
+    },
+    {
+      "title": "启用 Access 并设置密钥",
+      "text": "在 Worker 的 Settings > Domains & Routes 中开启一键 Cloudflare Access。弹窗会显示 POLICY_AUD 和 TEAM_DOMAIN 的值，把它们设置为 Worker 的 secrets。如果之后看到 Invalid or expired Access token，通常是这两个值不对，可以关闭再重新开启 Access 获取最新值。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/cloudflare/agentic-inbox/blob/48039bb6785af34e592c2966f87cde2b255c4c80/README.md?plain=1#L20"
+      }
+    },
+    {
+      "title": "创建全收邮件路由规则",
+      "text": "在 Cloudflare 控制台进入你的域名 > Email Routing，新建一条 catch-all 规则，把所有来信转发给这个 Worker，域名下各地址的邮件就会进入应用。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/cloudflare/agentic-inbox/blob/48039bb6785af34e592c2966f87cde2b255c4c80/README.md?plain=1#L20"
+      }
+    },
+    {
+      "title": "启用 Email Service 发信",
+      "text": "Worker 需要 send_email 绑定才能发出邮件。按 README 链接的 Email Service 文档完成启用，否则只能收信，不能发信。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/cloudflare/agentic-inbox/blob/48039bb6785af34e592c2966f87cde2b255c4c80/README.md?plain=1#L20"
+      }
+    },
+    {
+      "title": "创建邮箱并使用 AI 面板",
+      "text": "打开部署好的应用，为域名下任意地址（如 hello@example.com）创建邮箱。之后可以收发邮件、按文件夹整理、搜索，并在侧边栏让 Email Agent 读信、搜索和起草回复；每个邮箱可以单独设置 system prompt。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/cloudflare/agentic-inbox/blob/48039bb6785af34e592c2966f87cde2b255c4c80/README.md?plain=1#L20"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "Cloudflare Access 是唯一的信任边界：通过 Access 策略的用户都能访问所有邮箱，包括 /mcp 接口。接入 MCP 的外部 AI 工具只要传入 mailboxId，就能操作任意邮箱，项目没有按邮箱区分的授权。",
+    "生产环境强制要求配置 Access，未配置时会报 Cloudflare Access must be configured in production。",
+    "应用会使用你账号下的 Workers AI、R2、Durable Objects 等资源，费用按 Cloudflare 账号的计费规则计算，README 没有说明。",
+    "AI agent 会自动为新邮件起草回复，发送前需要你明确确认。",
+    "带截图的完整部署步骤在 issue #4 的一条评论里，README 正文只给了概要。"
+  ],
+  "references": [],
+  "media": [
+    {
+      "url": "/assets/repository-guides/media-94fa841951820bbc3dfbda21.webp",
+      "alt": "cloudflare/agentic-inbox 官方演示 1",
+      "sourceUrl": "https://github.com/cloudflare/agentic-inbox/blob/48039bb6785af34e592c2966f87cde2b255c4c80/README.md?plain=1#L10",
+      "originalUrl": "https://raw.githubusercontent.com/cloudflare/agentic-inbox/48039bb6785af34e592c2966f87cde2b255c4c80/demo_app.png"
+    }
+  ],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "f597303201a1429ffe52557e3ab5e95138e1ef77d4015adcf6f236fb654c2ed0",
+  "mediaStatus": "archived",
+  "mediaFailures": []
+}

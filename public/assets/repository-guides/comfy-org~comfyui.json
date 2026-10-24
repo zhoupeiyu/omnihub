@@ -1,0 +1,71 @@
+{
+  "schemaVersion": 1,
+  "key": "comfy-org/comfyui",
+  "status": "ready",
+  "reason": "",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/Comfy-Org/ComfyUI/blob/651ca296a73cd21c12a57eb8741d52e40dc6528f/README.md",
+  "sourceRevision": "651ca296a73cd21c12a57eb8741d52e40dc6528f",
+  "canonicalKey": "Comfy-Org/ComfyUI",
+  "summary": "ComfyUI 是一个基于节点图的扩散模型图形界面、API 与后端，可在本地生成图像、视频、3D、音频等内容。",
+  "intro": "适合想在本地硬件上精细控制模型、参数和输出的视觉创作者与开发者。你可以用可视化节点搭建并复用文生图、图像编辑、视频与音频生成等工作流。工作流可以保存为 JSON，并通过本地 API 接入生产管线。也可以通过自定义节点扩展功能。",
+  "requirements": "本指南采用 Windows 便携版路径：需要 Windows 电脑和 NVIDIA 显卡，也可以只用 CPU 运行；需要 7-Zip 或较新版本 Windows 自带的资源管理器来解压；还需要自行准备模型文件（ckpt/safetensors）。便携版自带 python 3.13 和 pytorch cuda 13.0，无法启动时需更新 Nvidia 驱动。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "下载对应显卡的 Windows 便携版",
+      "text": "在官方 Releases 下载 Windows 便携版。NVIDIA 20 系列及以上显卡使用 ComfyUI_windows_portable_nvidia.7z。10 系列及更旧的显卡使用 cu126 版本，新显卡不要用这个版本。AMD 与 Intel 显卡也各有对应的便携包。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/Comfy-Org/ComfyUI/blob/651ca296a73cd21c12a57eb8741d52e40dc6528f/README.md?plain=1#L156"
+      }
+    },
+    {
+      "title": "解压便携包并解除文件锁定",
+      "text": "用 7-Zip 或新版 Windows 资源管理器解压下载的 .7z 文件。如果解压出错，在该文件上右键，依次进入“属性”并勾选“解除锁定”后再解压。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/Comfy-Org/ComfyUI/blob/651ca296a73cd21c12a57eb8741d52e40dc6528f/README.md?plain=1#L156"
+      }
+    },
+    {
+      "title": "把模型文件放入 models 目录",
+      "text": "较小的模型通常只需把 checkpoint 大文件放进 ComfyUI\\models\\checkpoints。较大的模型往往包含多个文件，要按各自说明放入 ComfyUI\\models\\ 下对应的子文件夹。如果想与其他 UI 共享模型，可以把 extra_model_paths.yaml.example 重命名为 extra_model_paths.yaml 并编辑搜索路径。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/Comfy-Org/ComfyUI/blob/651ca296a73cd21c12a57eb8741d52e40dc6528f/README.md?plain=1#L156"
+      }
+    },
+    {
+      "title": "运行并加载工作流开始生成",
+      "text": "运行便携版后进入节点界面。可以从官方模板工作流或旧版示例工作流入手：Ctrl+O 加载工作流，Ctrl+Enter 把当前图加入生成队列，Ctrl+Alt+Enter 取消当前生成，Ctrl+S 保存工作流。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/Comfy-Org/ComfyUI/blob/651ca296a73cd21c12a57eb8741d52e40dc6528f/README.md?plain=1#L156"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "项目采用 GPL-3.0 许可证，二次分发或修改时需遵守其条款。",
+    "可选的 Comfy API 节点（Partner nodes）属于付费服务，会连接闭源模型。启动时加 --disable-api-nodes 可禁用这类节点，让内置功能保持离线。",
+    "README 说明便携版不推荐普通用户使用，Windows 和 macOS 普通用户官方更推荐桌面应用。",
+    "稳定版标签之外的提交可能很不稳定，并可能导致大量自定义节点失效。",
+    "README 给出的自签名 TLS 证书方法不适合共享或生产环境。",
+    "Comfy Cloud 是官方的付费云端版本。"
+  ],
+  "references": [],
+  "media": [
+    {
+      "url": "/assets/repository-guides/media-a7907385d64907626313bb89.webp",
+      "alt": "Comfy-Org/ComfyUI 官方演示 1",
+      "sourceUrl": "https://github.com/Comfy-Org/ComfyUI/blob/651ca296a73cd21c12a57eb8741d52e40dc6528f/README.md?plain=1#L34",
+      "originalUrl": "https://github.com/user-attachments/assets/36e065e0-bfae-4456-8c7f-8369d5ea48a2"
+    }
+  ],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "9e3730235b5e88ca5db52c62c0116235bd8064c4b2dffb81e410eebb64d0c555",
+  "mediaStatus": "archived",
+  "mediaFailures": []
+}

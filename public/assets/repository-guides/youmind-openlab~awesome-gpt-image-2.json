@@ -1,0 +1,78 @@
+{
+  "schemaVersion": 1,
+  "key": "youmind-openlab/awesome-gpt-image-2",
+  "status": "ready",
+  "reason": "",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/YouMind-OpenLab/awesome-gpt-image-2/blob/2f6f46096a5816c2f256cf91d379014d1d230aa0/README.md",
+  "sourceRevision": "2f6f46096a5816c2f256cf91d379014d1d230aa0",
+  "canonicalKey": "YouMind-OpenLab/awesome-gpt-image-2",
+  "summary": "收集社区分享的 OpenAI GPT Image 2 图像生成提示词，每条附有预览图、作者和来源。",
+  "intro": "适合需要为 GPT Image 2 寻找现成提示词的设计、运营和内容创作者，可用于头像、社交媒体配图、信息图、电商主图、海报、UI 原型等场景。仓库本身是资料集合而非应用，可以在 GitHub README 中检索，也可以在 YouMind 网页画廊中按分类浏览。",
+  "requirements": "浏览资料只需要访问 GitHub 或 youmind.com。实际生成图片需要你自己能使用 GPT Image 2，README 没有说明模型的获取方式。若想替换动态参数，可选用 Raycast Snippets。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "选择查阅入口",
+      "text": "可以直接在 GitHub README 中用 Ctrl+F 搜索，也可以打开 YouMind GPT Image 2 Prompts 网页画廊。按 README 的对比表，画廊提供瀑布流布局、带筛选的全文搜索、分类浏览和移动端适配，README 中则是线性列表。README 另有简体中文等 16 种语言版本。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/YouMind-OpenLab/awesome-gpt-image-2/blob/2f6f46096a5816c2f256cf91d379014d1d230aa0/README.md?plain=1#L7"
+      }
+    },
+    {
+      "title": "按用途、风格或主题筛选",
+      "text": "在「Browse by Category」中，从 Use Cases（如 YouTube Thumbnail、E-commerce Main Image、Poster / Flyer）、Style（如 Pixel Art、Watercolor）和 Subjects（如 Product、Diagram / Chart）三组分类链接中选择，进入对应的筛选结果。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/YouMind-OpenLab/awesome-gpt-image-2/blob/2f6f46096a5816c2f256cf91d379014d1d230aa0/README.md?plain=1#L46"
+      }
+    },
+    {
+      "title": "阅读条目说明并复制提示词",
+      "text": "每个条目包含 Description、Prompt 代码块、预览图和 Details。Details 中列出作者、原始推文来源、发布日期和语言。先对照描述与预览图确认是否符合需求，再复制 Prompt 内容。Featured Prompts 一节是团队精选的条目。",
+      "code": "{\n  \"type\": \"exploded view product diagram poster\",\n  \"subject\": \"VR headset\",\n  \"style\": \"clean high-tech 3D render, studio lighting, glowing accents\",\n  \"background\": \"{argument name=\\\"background color\\\" default=\\\"soft purple and blue gradient\\\"}\",\n  \"header\": {\n    \"logo\": \"∞ {argument name=\\\"product name\\\" default=\\\"Meta Quest 3\\\"}\",\n    \"subtitle\": \"{argument name=\\\"main catchphrase\\\" default=\\\"まったく新しい現実を、まったく新しい構造から。\\\"}\"\n  },\n  \"layout\": {\n    \"centerpiece\": \"vertically stacked exploded view of a VR headset showing 9 distinct layers of internal components: outer shell, camera sensors, motherboard with chip, pancake lenses, internal frame, battery packs, side straps, top strap, and facial interface cushion.\",\n    \"callout_labels\": {\n      \"count\": 8,\n      \"left_side\": [\n        \"Snapdragon® XR2 Gen 2\\n圧倒的な処理性能でリアルタイムな体験を。\",\n        \"調整可能なIPD機構\\n幅広いユーザーに快適なフィット感を。\",\n        \"精密設計されたヘッドストラップ\\n快適さと安定性を追求したエルゴノミクス。\"\n      ],\n      \"right_side\": [\n        \"フェイスプレート\\n洗練されたデザインと最適な重量バランス。\",\n        \"トラッキングカメラ\\n高精度な位置トラッキングと環境認識を実現。\",\n        \"パンケーキレンズ\\n薄型設計で広い視野角と鮮明な映像を提供。\",\n        \"高性能バッテリー\\n長時間駆動を支える最適化された電源設計。\",\n        \"柔らかなフェイスインターフェース\\n長時間でも快適な装着感を実現。\"\n      ]\n    },\n    \"footer\": {\n      \"left_text_block\": {\n        \"headline\": \"{argument name=\\\"bottom headline\\\" default=\\\"体験は、構造から進化する。\\\"}\",\n        \"body\": \"一つひとつのパーツに、没入体験を支える最先端テクノロジーとこだわりの設計。Meta Quest 3は、未来を感じさせる体験を内部から生み出しています。\"\n      },\n      \"right_logo\": \"∞ Meta\"\n    }\n  }\n}",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/YouMind-OpenLab/awesome-gpt-image-2/blob/2f6f46096a5816c2f256cf91d379014d1d230aa0/README.md?plain=1#L150"
+      }
+    },
+    {
+      "title": "替换提示词中的动态参数",
+      "text": "带 🚀 Raycast Friendly 标记的提示词使用 {argument name=... default=...} 语法。在 Raycast Snippets 中使用时可以动态替换这些参数；不使用 Raycast 时，可以手动把 default 的值改成你自己的内容。",
+      "code": "A quote card with \"{argument name=\"quote\" default=\"Stay hungry, stay foolish\"}\"\nby {argument name=\"author\" default=\"Steve Jobs\"}\n\nCreate an explanatory slide ({argument name=\"format\" default=\"ponchi-e diagram\"}) for {argument name=\"theme\" default=\"Momotaro\"} that fuses the gentle atmosphere of \"Irasutoya\" with the overwhelming information density of \"Kasumigaseki slides\".",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/YouMind-OpenLab/awesome-gpt-image-2/blob/2f6f46096a5816c2f256cf91d379014d1d230aa0/README.md?plain=1#L122"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "提示词由社区收集，README 声明仅供教育用途，内容可能涉及版权，如有侵权可提 issue 要求删除。商业使用前应核对原始来源。",
+    "部分示例提示词的默认值包含真实人物（如 Elon Musk）和品牌（如 Meta、Tesla），直接生成可能涉及肖像权和商标风险，建议替换参数。",
+    "README 对模型能力的描述来自社区测试，并非官方结论，实际效果需要自行验证。",
+    "仓库简介写的是 2000+ 条提示词，统计表显示 17700 条，数量以实际页面为准。",
+    "README 徽章标注 CC BY 4.0，但仓库元数据中的许可证为 NOASSERTION，再分发前应确认署名要求。"
+  ],
+  "references": [],
+  "media": [],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "be93554227a0998634b39cdf87193b52dce02a69116ad774f9603660a2c991ff",
+  "mediaStatus": "unavailable",
+  "mediaFailures": [
+    {
+      "sourceUrl": "https://github.com/YouMind-OpenLab/awesome-gpt-image-2/blob/2f6f46096a5816c2f256cf91d379014d1d230aa0/README.md#L209",
+      "reason": "unsupported_media_host"
+    },
+    {
+      "sourceUrl": "https://github.com/YouMind-OpenLab/awesome-gpt-image-2/blob/2f6f46096a5816c2f256cf91d379014d1d230aa0/README.md#L278",
+      "reason": "unsupported_media_host"
+    },
+    {
+      "sourceUrl": "https://github.com/YouMind-OpenLab/awesome-gpt-image-2/blob/2f6f46096a5816c2f256cf91d379014d1d230aa0/README.md#L400",
+      "reason": "unsupported_media_host"
+    }
+  ]
+}

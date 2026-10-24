@@ -1,0 +1,74 @@
+{
+  "schemaVersion": 1,
+  "key": "afar1/fieldtheory-cli",
+  "status": "ready",
+  "reason": "",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/afar1/fieldtheory-cli/blob/542c1167c127a788940731a2ef60493f0f522533/README.md",
+  "sourceRevision": "542c1167c127a788940731a2ef60493f0f522533",
+  "canonicalKey": "afar1/fieldtheory-cli",
+  "summary": "Field Theory CLI 把 X 书签同步到本地，提供全文检索、分类和知识库导出，并能为 Claude Code、Codex 等代理安装检索技能。",
+  "intro": "适合想把自己的 X（Twitter）书签保存在本地并加以整理的用户，尤其是 Mac 用户和使用 Claude Code、Codex 等可执行 shell 的代理的开发者。它可以同步书签及媒体，用 BM25 全文搜索，按类别和领域分类，导出 Markdown 或生成互相链接的 wiki 知识库。它也是 Field Theory Mac 应用的命令行配套工具，可以管理 `~/.fieldtheory` 下的 Library 页面和可复用命令。",
+  "requirements": "需要 Node.js 20+。会话同步推荐使用已登录 X 的 Chrome 系浏览器或 Firefox；不支持的浏览器或平台可改用 `ft auth` + `ft sync --api`（OAuth）。项目以 Mac 为主要设计平台。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "用 npm 全局安装 CLI",
+      "text": "确认本机 Node.js 版本为 20 或更高，然后用 npm 全局安装 fieldtheory 包。安装完成后即可使用 `ft` 命令。以下流程以官方主推的 macOS 为例。",
+      "code": "npm install -g fieldtheory",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/afar1/fieldtheory-cli/blob/542c1167c127a788940731a2ef60493f0f522533/README.md?plain=1#L1"
+      }
+    },
+    {
+      "title": "首次运行 ft sync 同步书签",
+      "text": "先在受支持的浏览器中登录 X，再运行 `ft sync`。首次运行时，它会从浏览器读取 X 会话，把书签下载到 `~/.fieldtheory/bookmarks/`，并补抓缺失的媒体。若只想同步文本，可加 `--no-media`；中断后可用 `--continue` 续传。",
+      "code": "# 1. Sync your bookmarks (needs a supported browser logged into X)\nft sync\n\n# 2. Search them\nft search \"distributed systems\"\n\n# 3. Explore\nft viz\nft categories\nft stats",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/afar1/fieldtheory-cli/blob/542c1167c127a788940731a2ef60493f0f522533/README.md?plain=1#L28"
+      }
+    },
+    {
+      "title": "搜索并浏览本地书签",
+      "text": "用 `ft search \"关键词\"` 做全文检索。`ft list` 可按作者、日期、类别或领域筛选，`ft show <id>` 查看单条详情，`ft viz`、`ft stats`、`ft categories` 用于概览统计。",
+      "code": "# 1. Sync your bookmarks (needs a supported browser logged into X)\nft sync\n\n# 2. Search them\nft search \"distributed systems\"\n\n# 3. Explore\nft viz\nft categories\nft stats",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/afar1/fieldtheory-cli/blob/542c1167c127a788940731a2ef60493f0f522533/README.md?plain=1#L63"
+      }
+    },
+    {
+      "title": "分类书签并导出知识库",
+      "text": "`ft classify` 用 LLM 按类别和领域分类，`--regex` 改用简单正则。之后可以用 `ft md` 导出 Markdown 文件，或用 `ft wiki` 生成互相链接的知识库，再用 `ft ask <question>` 对知识库提问。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/afar1/fieldtheory-cli/blob/542c1167c127a788940731a2ef60493f0f522533/README.md?plain=1#L78"
+      }
+    },
+    {
+      "title": "为代理安装 /fieldtheory 技能",
+      "text": "运行 `ft skill install`，它会自动检测 Claude Code 和 Codex 并安装 `/fieldtheory` 技能，让代理在需要时检索你的书签。用 `ft skill show` 查看技能内容，`ft skill uninstall` 卸载。",
+      "code": "ft skill install     # Auto-detects Claude Code and Codex",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/afar1/fieldtheory-cli/blob/542c1167c127a788940731a2ef60493f0f522533/README.md?plain=1#L140"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "默认同步走 X 内部的 GraphQL API，并会读取浏览器本地数据库中的 cookie；如需官方 v2 API，请用 `ft auth` + `ft sync --api`。",
+    "`~/.fieldtheory/bookmarks/oauth-token.json` 以及 `ct0`、`auth_token` 等 cookie 都应当作密码保管，不要贴到日志、issue 或聊天中。",
+    "`ft classify`、`ft sync --classify` 等功能依赖 LLM 引擎，可通过 `ft model` 查看或更改默认引擎。",
+    "在 Windows PowerShell 中 `ft` 是 `Format-Table` 的内置别名，需改用 `fieldtheory` 或 `ft.cmd`；Windows 下使用 Firefox 需要 Node.js 22.5+ 或 PATH 中有 `sqlite3`。",
+    "疑似安全漏洞不要公开提 issue，应通过 `SECURITY.md` 中的私密渠道联系维护者。"
+  ],
+  "references": [],
+  "media": [],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "bc1ff647f270cad68c74363067a4bfa94350aaaef6a2408b8866a97823a16ffc",
+  "mediaStatus": "none_in_official_documents"
+}

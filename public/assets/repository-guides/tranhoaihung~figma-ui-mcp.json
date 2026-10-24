@@ -1,0 +1,65 @@
+{
+  "schemaVersion": 1,
+  "key": "tranhoaihung/figma-ui-mcp",
+  "status": "ready",
+  "reason": "",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/TranHoaiHung/figma-ui-mcp/blob/f001ff81e715cd6a254e4e147e99e7f891c23006/README.md",
+  "sourceRevision": "f001ff81e715cd6a254e4e147e99e7f891c23006",
+  "canonicalKey": "TranHoaiHung/figma-ui-mcp",
+  "summary": "figma-ui-mcp 是一个双向 Figma MCP 桥，让 AI 助手直接在 Figma 画布上绘制 UI，并把现有设计读回为结构化数据、截图或代码可用的 token。",
+  "intro": "适合使用 Claude Code、Cursor、VS Code、Windsurf、Antigravity 等 MCP 客户端的设计师和前端开发者。可以用自然语言让 AI 绘制页面、修改现有节点，也可以读取选中 frame 的颜色、排版、组件信息，或导出 CSS 后转成代码。不需要 Figma API key，通信只走本机 localhost。",
+  "requirements": "需要 Figma Desktop（网页版不能访问 localhost），一个支持 MCP stdio 的 AI 客户端（下文以 Claude Code 为例），以及能运行 npx 的环境。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "在 Claude Code 添加 MCP 服务",
+      "text": "本指南以 Claude Code（CLI）为例。用 claude mcp add 把 figma-ui-mcp 添加为 MCP 服务器，可选项目范围或用 --scope user 全局生效。添加后必须完全退出并重新打开客户端，MCP 服务器只在启动时加载。",
+      "code": "# Project scope (default)\nclaude mcp add figma-ui-mcp -- npx figma-ui-mcp\n\n# Global scope (all projects)\nclaude mcp add --scope user figma-ui-mcp -- npx figma-ui-mcp",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/TranHoaiHung/figma-ui-mcp/blob/f001ff81e715cd6a254e4e147e99e7f891c23006/README.md?plain=1#L87"
+      }
+    },
+    {
+      "title": "在 Figma Desktop 导入插件",
+      "text": "下载并解压仓库提供的 plugin.zip，打开 Figma Desktop，依次进入 Plugins → Development → Import plugin from manifest...，选择解压目录中的 manifest.json。然后运行 Plugins → Development → Figma UI MCP Bridge，插件界面出现绿点即表示已连上 MCP 服务器。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/TranHoaiHung/figma-ui-mcp/blob/f001ff81e715cd6a254e4e147e99e7f891c23006/README.md?plain=1#L207"
+      }
+    },
+    {
+      "title": "让 AI 确认 Figma 连接",
+      "text": "在 AI 助手中输入连接提示，AI 会调用 figma_status 检查插件连接和活动会话。如果提示 Plugin not connected，请确认 Figma 插件正在运行。打开多个 Figma 文件时，可以用 sessionId 参数指定目标文件。",
+      "code": "\"Connect to figma-ui-mcp\"",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/TranHoaiHung/figma-ui-mcp/blob/f001ff81e715cd6a254e4e147e99e7f891c23006/README.md?plain=1#L240"
+      }
+    },
+    {
+      "title": "用自然语言绘制或读取设计",
+      "text": "连接后直接描述需求。README 说明 AI 会依次调用 figma_docs 加载 API 参考、调用 figma_read 了解画布、调用 figma_write 绘制，再截图核对结果。描述时写清风格和平台尺寸效果更好，也可以先选中 frame 让 AI 读取后再改。",
+      "code": "\"Use figma-ui-mcp to draw a login screen for mobile\"",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/TranHoaiHung/figma-ui-mcp/blob/f001ff81e715cd6a254e4e147e99e7f891c23006/README.md?plain=1#L256"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "必须使用 Figma Desktop。插件通过 localhost:38451 的 HTTP 长轮询与 MCP 服务器通信，Figma 网页版不允许访问 localhost。",
+    "Figma 插件不会自动更新。升级 npm 版本后要重启 AI 客户端，并在 Figma 中删除旧插件、重新导入 manifest.json，否则插件版本可能与服务器版本不一致。",
+    "AI 生成的 JS 会在 VM 沙箱中执行，只接受 56 种预定义操作，并有超时和单次请求 5 MB 的限制。复杂操作可能受这些限制影响。",
+    "loadImage、loadIcon 等辅助操作会在服务器端从 URL 或开源图标库下载资源，需要相应的网络访问。",
+    "README 标注已测试 Claude Code 和 Antigravity；Cursor、VS Code、Windsurf、Zed 只标注为兼容。"
+  ],
+  "references": [],
+  "media": [],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "d3c0ef298595520258acce8909fdcd2729bcb55602266551d3cdc2655f8047a7",
+  "mediaStatus": "none_in_official_documents"
+}

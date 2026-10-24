@@ -1,0 +1,57 @@
+{
+  "schemaVersion": 1,
+  "key": "zhaoxuya520/reverse-skill",
+  "status": "partial",
+  "reason": "已核对项目用途、环境准备与工具索引流程。不同 AI 客户端的接入方式放在单独的引导文档中，这里尚未逐项验证，不能把克隆仓库等同于插件安装完成。",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/zhaoxuya520/reverse-skill/blob/cab634bd855fc287f6e420c1f36fd1a6b9245960/README.md",
+  "sourceRevision": "cab634bd855fc287f6e420c1f36fd1a6b9245960",
+  "canonicalKey": "zhaoxuya520/reverse-skill",
+  "summary": "为已获授权的安全研究、逆向分析和 CTF 任务选择技能及本机工具的一套路由规则。",
+  "intro": "它按 APK、二进制、前端脚本等任务类型寻找对应的方法和工具，并维护本机工具索引。适合已经有安全研究基础、希望让编程 Agent 按明确流程协助分析的使用者。仓库文档中的操作仍需要人工核对目标与授权范围。",
+  "requirements": "官方列出 Java/JDK、Node.js 22.12 及以上、Python 3.x，以及一个兼容的编程 AI 客户端。具体工具按任务准备，不需要为了阅读技能文件先安装全部工具。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "下载并查看技能入口",
+      "text": "先克隆仓库，阅读 skills/SKILL.md 与 skills/MASTER-ROUTING.md，了解主入口和任务分流方式。客户端接入请继续查看 README_AI.md，不把第三方规则直接覆盖到已有项目配置里。",
+      "code": "git clone https://github.com/zhaoxuya520/reverse-skill.git",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/zhaoxuya520/reverse-skill/blob/cab634bd855fc287f6e420c1f36fd1a6b9245960/README.md?plain=1#L154"
+      }
+    },
+    {
+      "title": "核对本机工具索引",
+      "text": "按当前系统选择官方列出的工具索引刷新脚本，再查看 skills/tool-index.md 中的检测结果。缺少哪个工具，再依据对应平台文档核查安装来源与版本。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/zhaoxuya520/reverse-skill/blob/cab634bd855fc287f6e420c1f36fd1a6b9245960/README.md?plain=1#L154"
+      }
+    },
+    {
+      "title": "限定到自己的样本或练习环境",
+      "text": "先使用自己的程序、明确授权的样本或 CTF 练习材料，确认任务范围后再让 Agent 查阅相应技能。不要把任意公网目标作为试用对象。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/zhaoxuya520/reverse-skill/blob/cab634bd855fc287f6e420c1f36fd1a6b9245960/README.md?plain=1#L322"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "源码与下载工具需要分别检查；下载成功不等于二进制可信。官方安全说明明确要求核验来源与校验值，不关闭安全软件来处理警告。",
+    "这份指南仅整理项目文档，没有执行任何扫描、渗透、工具安装或客户端配置。"
+  ],
+  "references": [
+    {
+      "label": "docs/UV-AND-DOWNLOAD-SECURITY.md",
+      "url": "https://github.com/zhaoxuya520/reverse-skill/blob/cab634bd855fc287f6e420c1f36fd1a6b9245960/docs/UV-AND-DOWNLOAD-SECURITY.md"
+    }
+  ],
+  "media": [],
+  "generatedBy": "GPT",
+  "documentHash": "aa24cb312f232754651915278ad5b08e105d6d72bbf30ea66b3a5a398704e357",
+  "mediaStatus": "none_in_official_documents"
+}

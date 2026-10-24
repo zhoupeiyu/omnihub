@@ -1,0 +1,63 @@
+{
+  "schemaVersion": 1,
+  "key": "android/skills",
+  "status": "ready",
+  "reason": "",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/android/skills/blob/42dc2270e96032bd860bb94511e440aa00a43125/README.md",
+  "sourceRevision": "42dc2270e96032bd860bb94511e440aa00a43125",
+  "canonicalKey": "android/skills",
+  "summary": "Android 官方的 AI agent 技能集合，以 SKILL.md 形式为 LLM 提供符合 Android 开发最佳实践的任务说明。",
+  "intro": "适合使用 AI 编程 agent 做 Android 开发的开发者。仓库是遵循开放 agent skills 标准的技能文件集合，按 developer.android.com 的指引编写，侧重评估中 LLM 表现较弱的场景，例如 R8 分析、Wear Compose M3、edge-to-edge 界面适配等。通过 Android CLI 安装到 agent 目录后，agent 会在相关任务中自动调用这些技能。",
+  "requirements": "需要已安装 Android CLI（安装方法见官方 Android CLI 文档，本 README 未给出），并使用支持 agent skills 的 agent，如 Gemini、Antigravity 或 Android Studio 中的 Gemini。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "阅读官方文档了解技能用途",
+      "text": "先阅读 README 链接的 Android skills、Android CLI 和 Android Studio 官方文档，确认你的 agent 是否支持 agent skills。也可以了解本仓库重点覆盖哪些 LLM 容易出错的 Android 开发场景，再决定安装哪些技能。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/android/skills/blob/42dc2270e96032bd860bb94511e440aa00a43125/README.md?plain=1#L1"
+      }
+    },
+    {
+      "title": "用 Android CLI 安装单个技能",
+      "text": "在项目根目录用 android skills add 加技能名安装指定技能，--project 指定安装到哪个项目根目录。若想为所有检测到的 agent 安装全部技能，可改用 --all；用 --agent 可传入逗号分隔的 agent 列表。未检测到 agent 目录时，技能默认装到 ~/.gemini/antigravity/skills。",
+      "code": "android skills add r8-analyzer --project=.\n\nandroid skills add --all",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/android/skills/blob/42dc2270e96032bd860bb94511e440aa00a43125/README.md?plain=1#L23"
+      }
+    },
+    {
+      "title": "在 agent 中提出相关任务",
+      "text": "技能无需手动调用。直接让 agent 完成与某个技能相关的任务即可，例如让它把应用界面改成 edge-to-edge。技能已安装时，agent 会自动找到并使用它。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/android/skills/blob/42dc2270e96032bd860bb94511e440aa00a43125/README.md?plain=1#L54"
+      }
+    },
+    {
+      "title": "定期更新已安装的技能",
+      "text": "用 android skills update 更新技能：加 --all 更新全部技能，也可以只写某个技能名（如 wear-compose-m3）单独更新。",
+      "code": "android skills update --all\nandroid skills update wear-compose-m3",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/android/skills/blob/42dc2270e96032bd860bb94511e440aa00a43125/README.md?plain=1#L23"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "官方声明 AI 可能出错，agent 借助技能生成的结果仍需人工复核。",
+    "不带 --all 时只会安装 android-cli 技能。",
+    "仓库目前不接受公开贡献，反馈和新技能需求请通过 GitHub issue 提交。",
+    "采用 Apache-2.0 许可。"
+  ],
+  "references": [],
+  "media": [],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "5527c093ce1c4607ed57e903cf954455988e5da6bc0ff4f0cea606145d195c75",
+  "mediaStatus": "none_in_official_documents"
+}

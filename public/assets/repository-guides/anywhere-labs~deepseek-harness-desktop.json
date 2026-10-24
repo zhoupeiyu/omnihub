@@ -1,0 +1,83 @@
+{
+  "schemaVersion": 1,
+  "key": "anywhere-labs/deepseek-harness-desktop",
+  "status": "ready",
+  "reason": "",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/anywhere-labs/dsh-desktop/blob/1030515b4358b39633c80d5857cab6114b9e3ba8/README.md",
+  "sourceRevision": "1030515b4358b39633c80d5857cab6114b9e3ba8",
+  "canonicalKey": "anywhere-labs/dsh-desktop",
+  "summary": "DSH Desktop 是基于 DeepSeek Harness 的 Windows 和 macOS 开源桌面客户端，把本地 Web UI、Host 服务与插件系统集成到原生应用中。",
+  "intro": "适合想在桌面上直接使用 DeepSeek Harness、不想自己安装 Node.js 或执行命令的用户；它负责启动和管理本地 Harness 服务，提供窗口、托盘、终端、更新与工作配置，并内置插件市场。插件开发者也可通过 Desktop 服务把插件与桌面能力集成。",
+  "requirements": "Windows x64 或 macOS（Universal 安装包）。官方说明安装包无需额外环境。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "下载 macOS 版 DMG 安装包",
+      "text": "本指南以 macOS 为例（Windows x64 用户请改用官方提供的 NSIS 安装程序并按提示安装）。通过 README 中指向 dshdesktop.cn 的下载链接获取 macOS Universal 的 DMG 文件。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/anywhere-labs/dsh-desktop/blob/1030515b4358b39633c80d5857cab6114b9e3ba8/README.md?plain=1#L36"
+      }
+    },
+    {
+      "title": "将应用拖入 Applications",
+      "text": "打开下载好的 DMG，把 DSH Desktop 拖入 Applications 文件夹完成安装。应用会自动启动和管理本地 Harness 服务，并集成系统托盘与桌面窗口，无需安装 Node.js 或执行命令。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/anywhere-labs/dsh-desktop/blob/1030515b4358b39633c80d5857cab6114b9e3ba8/README.md?plain=1#L36"
+      }
+    },
+    {
+      "title": "完成或跳过首次设置向导",
+      "text": "首次启动时会显示原生 Setup Wizard，可设置窗口模式与系统材质、插件市场、通知、是否用系统默认浏览器打开以及 Web 访问范围，也可直接跳过。完成或跳过之前，Host 与主窗口不会启动。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/anywhere-labs/dsh-desktop/blob/1030515b4358b39633c80d5857cab6114b9e3ba8/README.md?plain=1#L113"
+      }
+    },
+    {
+      "title": "用内置插件市场管理插件",
+      "text": "DSH Community Market 已内置，可在其中发现插件、查看详情、安装和管理。可使用的插件需与 DSH Desktop 所固定的上游 DeepSeek Harness 版本兼容。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/anywhere-labs/dsh-desktop/blob/1030515b4358b39633c80d5857cab6114b9e3ba8/README.md?plain=1#L88"
+      }
+    },
+    {
+      "title": "查阅用户指南与常见问题",
+      "text": "详细步骤、插件命令和故障排查见 docs/user-guide.md 与 docs/faq.md，数据处理说明见 PRIVACY.zh.md。若想通过命令行运行 DeepSeek Harness 或参与核心开发，请查看上游仓库。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/anywhere-labs/dsh-desktop/blob/1030515b4358b39633c80d5857cab6114b9e3ba8/README.md?plain=1#L36"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "局域网访问不提供鉴权，开启后同一局域网内的任何人都能打开 DSH 并操作你的电脑，只应在完全信任的网络中开启。",
+    "自动更新检查会发送当前版本、更新通道以及一个本机生成并持久保存的随机 UUID 安装标识。",
+    "这是独立社区项目，与深度求索不存在隶属、合作、授权或背书关系。",
+    "手机远程控制需 2.0.9 及以上版本；DSH Community Fabric 目前仅为文档草案，没有可用的 runtime 或 SDK。",
+    "项目声明完全开源免费，如有人出售此软件应拒绝交易。"
+  ],
+  "references": [
+    {
+      "label": "dsh-community-fabric/README.zh.md",
+      "url": "https://github.com/anywhere-labs/dsh-desktop/blob/1030515b4358b39633c80d5857cab6114b9e3ba8/dsh-community-fabric/README.zh.md"
+    }
+  ],
+  "media": [
+    {
+      "url": "/assets/repository-guides/media-b17b73467039d43c4db37b45.webp",
+      "alt": "DSH Desktop 中文对话界面",
+      "sourceUrl": "https://github.com/anywhere-labs/dsh-desktop/blob/1030515b4358b39633c80d5857cab6114b9e3ba8/README.md?plain=1#L20",
+      "originalUrl": "https://raw.githubusercontent.com/anywhere-labs/dsh-desktop/1030515b4358b39633c80d5857cab6114b9e3ba8/assets/desktop-chat-zh.png"
+    }
+  ],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "f7b31e0b7a8c62c1ccdfaf1c57624885fa3a0e9e1e600de77361025615e2c93b",
+  "mediaStatus": "archived",
+  "mediaFailures": []
+}

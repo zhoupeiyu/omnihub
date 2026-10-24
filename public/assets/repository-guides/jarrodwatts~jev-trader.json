@@ -1,0 +1,61 @@
+{
+  "schemaVersion": 1,
+  "key": "jarrodwatts/jev-trader",
+  "status": "ready",
+  "reason": "",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/jarrodwatts/jev-trader/blob/b587759e459ea049590102e54a0b07800864cdc3/README.md",
+  "sourceRevision": "b587759e459ea049590102e54a0b07800864cdc3",
+  "canonicalKey": "jarrodwatts/jev-trader",
+  "summary": "jev-trader 是一个在 Monad 链上运行的实验性交易机器人：每个区块让 Jev 模型（或 mock 模型）对 Kuru MON-USDC 订单簿给出买卖判断，挂出 post-only 限价单，并通过 HTTP/SSE 推送每个区块的事件。",
+  "intro": "适合研究链上做市、低延迟交易循环，或想了解 TypeSafe Jev 在实时决策中如何使用的开发者。不设置私钥时为 dry run 模式：读取真实订单簿、做出真实决策，但成交是模拟的。服务提供快照、历史和 SSE 端点，可供仪表盘消费。",
+  "requirements": "Bun 运行时；从 .env.example 复制得到的 .env 配置文件。使用 Jev 模型需要 TYPESAFE_AI_API_KEY。实盘交易需要 PRIVATE_KEY 以及钱包中的 MON 和保证金资金。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "复制环境变量模板",
+      "text": "把 .env.example 复制为 .env。不填写 PRIVATE_KEY 时以 dry run 模式运行，读取真实订单簿和决策，但成交为模拟。具体字段请参照 .env.example 和 src/config.ts。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/jarrodwatts/jev-trader/blob/b587759e459ea049590102e54a0b07800864cdc3/README.md?plain=1#L5"
+      }
+    },
+    {
+      "title": "选择 mock 或 Jev 模型",
+      "text": "默认 MODEL 为 mock，是一个基于动量启发式的替代模型。如果要使用 Jev，在 .env 中设置 MODEL=jev 和 TYPESAFE_AI_API_KEY。HORIZON_BLOCKS、TRADE_SIZE_MON、QUOTE_INSIDE_TICKS 等参数会影响预测区间、下单数量和挂单价位。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/jarrodwatts/jev-trader/blob/b587759e459ea049590102e54a0b07800864cdc3/README.md?plain=1#L5"
+      }
+    },
+    {
+      "title": "用 Bun 安装依赖并启动",
+      "text": "按文档 Run 一节，依次执行 bun install 和 bun run start。启动后，服务会按区块运行决策循环，并开启 HTTP 服务。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/jarrodwatts/jev-trader/blob/b587759e459ea049590102e54a0b07800864cdc3/README.md?plain=1#L5"
+      }
+    },
+    {
+      "title": "通过 HTTP/SSE 端点查看事件",
+      "text": "GET / 返回快照，GET /history 返回最近 1000 个区块事件，GET /events 以 SSE 推送 block、quote、fill 事件。各事件字段的含义见 README 的 Endpoints 一节和 src/trader.ts 中的类型定义。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/jarrodwatts/jev-trader/blob/b587759e459ea049590102e54a0b07800864cdc3/README.md?plain=1#L13"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "设置 PRIVATE_KEY 后会在 Monad 主网的 Kuru 上发送真实限价单，存在亏损风险。Monad 按 gas limit 收费，无论订单是否成功上链都会产生 gas 费用。",
+    "使用 Jev 模型会产生 TypeSafe API 调用成本，事件中的 jevUsd 字段会记录这部分成本。",
+    "实盘订单采用 fire-and-forget 方式发送，可能以 reverted 或 lost 状态结束。",
+    "dry run 的模拟成交和延迟数据是在 mock 模型下得到的，不能代表实盘表现。"
+  ],
+  "references": [],
+  "media": [],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "f84691a188a7380ed35ae315b7ab18ff4a19c9408de1f6b755f6690296091861",
+  "mediaStatus": "none_in_official_documents"
+}

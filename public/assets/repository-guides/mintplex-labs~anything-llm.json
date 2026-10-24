@@ -1,0 +1,67 @@
+{
+  "schemaVersion": 1,
+  "key": "mintplex-labs/anything-llm",
+  "status": "ready",
+  "reason": "",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/Mintplex-Labs/anything-llm/blob/fb299da0767060400212ca8b2a365dc92234dae5/README.md",
+  "sourceRevision": "fb299da0767060400212ca8b2a365dc92234dae5",
+  "canonicalKey": "Mintplex-Labs/anything-llm",
+  "summary": "AnythingLLM 是一个一体化 AI 应用，可以接入本地或云端大模型，导入文档后对话，并使用内置 agent。",
+  "intro": "适合想搭建私有 ChatGPT 式助手的个人或团队，用来与 PDF、TXT、DOCX 等文档对话，并带来源引用。它还支持 AI Agent、MCP、定时任务、多用户权限（仅 Docker 版）和开发者 API。可以选择桌面版（Mac、Windows、Linux）或自托管部署。",
+  "requirements": "桌面版需要从官网下载安装包，支持 Mac、Windows、Linux。还需要准备一个可用的 LLM：可以是 Ollama、LM Studio 等本地模型，也可以是 OpenAI、Anthropic 等云端服务的账号与密钥。多用户和网页嵌入组件只在 Docker 版提供。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "下载并安装桌面版",
+      "text": "本指南采用桌面版路径：从 README 中的 anythingllm.com/download 入口下载适合 Mac、Windows 或 Linux 的 AnythingLLM 桌面版并安装。如果需要多用户或网页嵌入，应改走 Docker 等自托管方式。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/Mintplex-Labs/anything-llm/blob/fb299da0767060400212ca8b2a365dc92234dae5/README.md?plain=1#L1"
+      }
+    },
+    {
+      "title": "连接本地或云端大模型",
+      "text": "在应用中选择要使用的 LLM 提供方，可以是 llama.cpp 兼容模型、Ollama、LM Studio 等本地方案，也可以是 OpenAI、Anthropic、Gemini 等云端服务。嵌入模型默认使用内置的 Native Embedder，向量库默认使用 LanceDB。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/Mintplex-Labs/anything-llm/blob/fb299da0767060400212ca8b2a365dc92234dae5/README.md?plain=1#L54"
+      }
+    },
+    {
+      "title": "导入文档并开始对话",
+      "text": "在聊天界面拖拽上传 PDF、TXT、DOCX 等文档，系统会解析并建立向量索引，之后就可以围绕这些文档提问，回答会附带来源引用。需要时，还可以在工作区内启用 agent 来浏览网页或执行其他工具。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/Mintplex-Labs/anything-llm/blob/fb299da0767060400212ca8b2a365dc92234dae5/README.md?plain=1#L54"
+      }
+    },
+    {
+      "title": "在隐私设置中关闭遥测",
+      "text": "AnythingLLM 默认收集匿名使用数据。如不希望上报，可在应用侧边栏的 Privacy 中关闭遥测；Docker 或服务端部署则在 .env 中设置 DISABLE_TELEMETRY 为 true。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/Mintplex-Labs/anything-llm/blob/fb299da0767060400212ca8b2a365dc92234dae5/README.md?plain=1#L208"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "默认开启匿名遥测（通过 PostHog），需要手动关闭。",
+    "关闭遥测后，仍会连接所用的 LLM、嵌入或向量库服务商，以及 cdn.anythingllm.com 和 GitHub 等域名。",
+    "使用云端 LLM 时，需遵守相应服务商的条款并承担其费用。",
+    "多用户权限和网页嵌入聊天组件仅 Docker 版提供。"
+  ],
+  "references": [],
+  "media": [],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "1ddced19c04258cdf3cf932a48f5cb3f39769624a5ea9d835b6bac5f2f35e5d0",
+  "mediaStatus": "unavailable",
+  "mediaFailures": [
+    {
+      "sourceUrl": "https://github.com/Mintplex-Labs/anything-llm/blob/fb299da0767060400212ca8b2a365dc92234dae5/README.md#L45",
+      "reason": "response_too_large"
+    }
+  ]
+}

@@ -1,0 +1,72 @@
+{
+  "schemaVersion": 1,
+  "key": "coros-hq/inkwell",
+  "status": "ready",
+  "reason": "",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/coros-hq/inkwell/blob/d8549d4fce2a914c30db2ba2dd84b256f19bd1ba/README.md",
+  "sourceRevision": "d8549d4fce2a914c30db2ba2dd84b256f19bd1ba",
+  "canonicalKey": "coros-hq/inkwell",
+  "summary": "inkwell 是一款本地优先的 Markdown 桌面笔记应用，笔记以 .md 文件保存在用户自己的 vault 文件夹中。",
+  "intro": "适合希望在本地管理 Markdown 笔记、不依赖云端账号的用户和开发者。应用提供以下功能：\n- 实时预览、KaTeX 数学公式和图表\n- Kanban 看板和 Canvas 绘图\n- 多套主题，可导出为 Markdown、HTML 或 PDF\n- 内置 GitHub 同步\n- 原生 MCP server，让 Claude Desktop 读写笔记\n\n仓库 README 只提供从源码开发和构建的方式。",
+  "requirements": "Node.js 18+、pnpm、Rust stable 工具链；macOS 还需要 Xcode Command Line Tools。Linux 和 Windows 需要的系统依赖见 README Prerequisites 一节。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "在 macOS 上准备构建环境",
+      "text": "以下以 macOS 为例。先安装 Node.js 18+、pnpm 和 Rust stable 工具链，再运行 xcode-select --install 安装 Xcode Command Line Tools。Linux 和 Windows 需要另外安装 README 列出的 WebKit/GTK 依赖或 C++ Build Tools 与 WebView2。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/coros-hq/inkwell/blob/d8549d4fce2a914c30db2ba2dd84b256f19bd1ba/README.md?plain=1#L112"
+      }
+    },
+    {
+      "title": "克隆仓库并启动开发模式",
+      "text": "按 Development 一节的代码克隆仓库，进入目录后执行 pnpm install 安装依赖，再用 pnpm tauri dev 启动开发版。注意示例中的仓库地址是占位符，需要替换为实际的仓库地址。开发模式下，前端改动会热更新，Rust 改动会重新编译。",
+      "code": "# Clone and install dependencies\ngit clone https://github.com/your-username/inkwell.git\ncd inkwell\npnpm install\n\n# Start the dev server (hot-reload on frontend changes, recompile on Rust changes)\npnpm tauri dev",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/coros-hq/inkwell/blob/d8549d4fce2a914c30db2ba2dd84b256f19bd1ba/README.md?plain=1#L121"
+      }
+    },
+    {
+      "title": "构建正式安装包",
+      "text": "执行 pnpm tauri build 构建正式版，产物输出到 src-tauri/target/release/bundle/，macOS 上是 .app 和 .dmg。更新已安装的版本时，把新的 .app 拖到 /Applications 中的旧版本上，然后点击 Replace。",
+      "code": "pnpm tauri build",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/coros-hq/inkwell/blob/d8549d4fce2a914c30db2ba2dd84b256f19bd1ba/README.md?plain=1#L133"
+      }
+    },
+    {
+      "title": "构建 MCP server 并接入 Claude",
+      "text": "进入 src-tauri 目录，执行 cargo build --release -p inkwell-mcp 构建 MCP server。然后在 Claude Desktop 配置文件 claude_desktop_config.json 的 mcpServers 中加入 inkwell，把 command 指向生成的 inkwell-mcp 路径。",
+      "code": "cd src-tauri\ncargo build --release -p inkwell-mcp\n\n{\n  \"mcpServers\": {\n    \"inkwell\": {\n      \"command\": \"/path/to/inkwell-mcp\"\n    }\n  }\n}",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/coros-hq/inkwell/blob/d8549d4fce2a914c30db2ba2dd84b256f19bd1ba/README.md?plain=1#L143"
+      }
+    },
+    {
+      "title": "在应用内打开 vault",
+      "text": "在 inkwell 中打开一个 vault 文件夹后，应用会自动把当前 vault 路径写入 ~/.inkwell/active-vault，MCP server 从这里读取要操作的笔记目录。笔记以带 YAML frontmatter 的 .md 文件保存，与 Obsidian 兼容。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/coros-hq/inkwell/blob/d8549d4fce2a914c30db2ba2dd84b256f19bd1ba/README.md?plain=1#L143"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "Development 示例中的 git clone 地址是 your-username 占位符，需要替换为实际的仓库地址。",
+    "通过 MCP server 接入后，Claude 可以读写 vault 中的笔记，请留意授权范围。",
+    "GitHub 同步需要在 Settings → GitHub 中连接 GitHub 账号，会把笔记推送到仓库。",
+    "仓库元数据未标注许可证，README 中写的是 MIT。"
+  ],
+  "references": [],
+  "media": [],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "77177cd5a012c972b95d387f6f6f6d45fb5bf5a105649d89d8178c452151e3af",
+  "mediaStatus": "none_in_official_documents"
+}

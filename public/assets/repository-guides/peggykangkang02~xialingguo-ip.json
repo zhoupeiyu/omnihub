@@ -1,0 +1,89 @@
+{
+  "schemaVersion": 1,
+  "key": "peggykangkang02/xialingguo-ip",
+  "status": "partial",
+  "reason": "README 只说明了调用后的交互流程、风格选择和所需素材，没有说明如何安装该 Skill、支持在哪些宿主工具中使用，也没有说明依赖哪个图片生成模型或所需配置。",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/peggykangkang02/xialingguo-ip/blob/bdd8174660011fdfb97c0447f5f46443db91144c/README.md",
+  "sourceRevision": "bdd8174660011fdfb97c0447f5f46443db91144c",
+  "canonicalKey": "peggykangkang02/xialingguo-ip",
+  "summary": "一个用于生成真人 IP 文章封面的 Skill，提供九种视觉风格，默认输出 21:9 高清横版封面。",
+  "intro": "适合需要为推特长文、公众号文章、知识型长文或 Web 出海教程制作封面的 AI 博主与内容作者。使用者提供标题、风格、视觉重点和自己的真人 IP 参考图后，Skill 会安排人物、标题、产品界面和装饰元素的主次关系，生成封面；比例可改为 3:2、4:3、1:1、9:16 等。",
+  "requirements": "需要一个能加载该 Skill 并具备图片生成能力的宿主环境（文档未说明具体工具）；如需真人出镜，需准备自己的清晰真人 IP 图片，最好按打招呼、AI 讲解、举食指等姿势分别准备。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "对照速查表选定封面风格",
+      "text": "在 README 的九种风格速查表中，根据想突出的内容选风格标识，例如产品与 UI 选 🟢💻 产品主视觉风，长文分析选 ⚪🟠 编辑杂志风。样图仅用于选风格，不要求复刻其中的标题和人物位置；更完整说明见 references/style-library.md。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/peggykangkang02/xialingguo-ip/blob/bdd8174660011fdfb97c0447f5f46443db91144c/README.md?plain=1#L35"
+      }
+    },
+    {
+      "title": "准备真人 IP 参考图",
+      "text": "首次使用时提供自己的真人 IP 参考图，并说明每张图的姿势名称（打招呼版、AI 讲解版、举食指版）。之后只需说“使用举食指版”即可。若要原图直接放入，需明确要求不改表情动作、不美化、不加滤镜。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/peggykangkang02/xialingguo-ip/blob/bdd8174660011fdfb97c0447f5f46443db91144c/README.md?plain=1#L102"
+      }
+    },
+    {
+      "title": "调用 Skill 并填写信息表单",
+      "text": "在宿主中说“调用 xialingguo-ip，帮我做一张文章封面”。Skill 会展示简短表单，优先确认文章标题/主题、视觉风格、本次视觉重点和真人 IP 四项；比例、截图、Logo 等为可选项，未提供时默认 21:9。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/peggykangkang02/xialingguo-ip/blob/bdd8174660011fdfb97c0447f5f46443db91144c/README.md?plain=1#L7"
+      }
+    },
+    {
+      "title": "用一句话说清本次视觉重点",
+      "text": "无需描述版式，只说明希望读者先看到什么，例如“这次突出标题，人物做辅助”或“这次突出网站界面和五步流程”。风格决定颜色与质感，视觉重点决定主角；不确定时可直接说“帮我选风格”。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/peggykangkang02/xialingguo-ip/blob/bdd8174660011fdfb97c0447f5f46443db91144c/README.md?plain=1#L114"
+      }
+    },
+    {
+      "title": "长标题改用底稿加后期排版",
+      "text": "标题很长或要求零错字时，Skill 会提示中文错字风险；经你同意后，改为只生成高清视觉底稿，再用 Canva、Figma 等排版工具重新输入标题。没有产品截图时，可用抽象浏览器窗口、地图等元素代替。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/peggykangkang02/xialingguo-ip/blob/bdd8174660011fdfb97c0447f5f46443db91144c/README.md?plain=1#L19"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "公开仓库不包含任何特定用户的真人 IP 素材，需要自行提供参考图。",
+    "图片模型生成中文标题存在错字风险，要求准确时应采用视觉底稿加后期排版的方式。",
+    "README 中的风格样图只是风格缩略图，不会被当作真人 IP 素材使用。",
+    "仓库未声明许可证，复用其中文件前需自行确认授权。"
+  ],
+  "references": [],
+  "media": [
+    {
+      "url": "/assets/repository-guides/media-8463efcd280cf3264da7d71b.webp",
+      "alt": "暖色手绘教程风 21:9",
+      "sourceUrl": "https://github.com/peggykangkang02/xialingguo-ip/blob/bdd8174660011fdfb97c0447f5f46443db91144c/README.md?plain=1#L57",
+      "originalUrl": "https://raw.githubusercontent.com/peggykangkang02/xialingguo-ip/bdd8174660011fdfb97c0447f5f46443db91144c/assets/style-samples/thumbs/warm-handdrawn.png"
+    },
+    {
+      "url": "/assets/repository-guides/media-1b09bd14bb4888162ab40fa6.webp",
+      "alt": "产品主视觉风 21:9",
+      "sourceUrl": "https://github.com/peggykangkang02/xialingguo-ip/blob/bdd8174660011fdfb97c0447f5f46443db91144c/README.md?plain=1#L58",
+      "originalUrl": "https://raw.githubusercontent.com/peggykangkang02/xialingguo-ip/bdd8174660011fdfb97c0447f5f46443db91144c/assets/style-samples/thumbs/product-main.png"
+    },
+    {
+      "url": "/assets/repository-guides/media-cdc32e294f0173cdb0702264.webp",
+      "alt": "黑金步骤爆款风 21:9",
+      "sourceUrl": "https://github.com/peggykangkang02/xialingguo-ip/blob/bdd8174660011fdfb97c0447f5f46443db91144c/README.md?plain=1#L66",
+      "originalUrl": "https://raw.githubusercontent.com/peggykangkang02/xialingguo-ip/bdd8174660011fdfb97c0447f5f46443db91144c/assets/style-samples/thumbs/black-gold.png"
+    }
+  ],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "9a9ab8f6467c44a0cac0c86f9825cb8ece2275833fc611edb0fc81b23f97fc57",
+  "mediaStatus": "archived",
+  "mediaFailures": []
+}

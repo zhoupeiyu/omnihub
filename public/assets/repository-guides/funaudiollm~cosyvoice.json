@@ -1,0 +1,76 @@
+{
+  "schemaVersion": 1,
+  "key": "funaudiollm/cosyvoice",
+  "status": "ready",
+  "reason": "",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/QwenAudio/CosyVoice/blob/074ca6dc9e80a2f424f1f74b48bdd7d3fea531cc/README.md",
+  "sourceRevision": "074ca6dc9e80a2f424f1f74b48bdd7d3fea531cc",
+  "canonicalKey": "QwenAudio/CosyVoice",
+  "summary": "基于大语言模型的多语言语音合成（TTS）项目，提供 CosyVoice 系列预训练模型的推理、训练和部署代码，支持零样本声音克隆和流式合成。",
+  "intro": "适合需要在本地部署语音合成的开发者和研究者。可用于 9 种常用语言和 18 种以上中文方言/口音的文本转语音、多语言及跨语言零样本声音克隆、拼音/音素级发音修正，以及按语言、方言、情绪、语速等指令控制合成。官方推荐使用 Fun-CosyVoice3-0.5B 模型；进阶用户可参考 `examples/libritts` 中的训练脚本。",
+  "requirements": "Conda（文档使用 Python 3.10 环境）；可访问 ModelScope 或 Hugging Face 以下载预训练模型；遇到 sox 兼容问题时需安装 sox 系统库。可选的 vLLM 加速、Docker 部署和 TensorRT-LLM 部署各有额外要求，Docker 部署示例使用 NVIDIA runtime。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "递归克隆仓库及子模块",
+      "text": "使用 `git clone --recursive` 克隆 CosyVoice 仓库。如果因网络问题导致子模块克隆失败，进入目录后反复执行 `git submodule update --init --recursive`，直到成功为止。",
+      "code": "    git clone --recursive https://github.com/FunAudioLLM/CosyVoice.git\n    # If you failed to clone the submodule due to network failures, please run the following command until success\n    cd CosyVoice\n    git submodule update --init --recursive",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/QwenAudio/CosyVoice/blob/074ca6dc9e80a2f424f1f74b48bdd7d3fea531cc/README.md?plain=1#L86"
+      }
+    },
+    {
+      "title": "创建 Conda 环境并安装依赖",
+      "text": "先安装 Conda，然后创建名为 cosyvoice 的 Python 3.10 环境并激活，再执行 `pip install -r requirements.txt` 安装依赖。如果遇到 sox 兼容问题，Ubuntu 用 apt 安装 sox 和 libsox-dev，CentOS 用 yum 安装对应的包。 原文包含需人工核查的高权限或删除命令，本站不提供一键复制；请查看该步骤的官方出处。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/QwenAudio/CosyVoice/blob/074ca6dc9e80a2f424f1f74b48bdd7d3fea531cc/README.md?plain=1#L86"
+      }
+    },
+    {
+      "title": "下载推荐的预训练模型",
+      "text": "用 modelscope 的 `snapshot_download` 下载模型到 `pretrained_models/` 目录，海外用户可改用 huggingface_hub。官方强烈推荐下载 Fun-CosyVoice3-0.5B。ttsfrd 资源是可选项，不安装时默认使用 wetext 做文本规范化。",
+      "code": "# modelscope SDK model download\nfrom modelscope import snapshot_download\nsnapshot_download('FunAudioLLM/Fun-CosyVoice3-0.5B-2512', local_dir='pretrained_models/Fun-CosyVoice3-0.5B')",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/QwenAudio/CosyVoice/blob/074ca6dc9e80a2f424f1f74b48bdd7d3fea531cc/README.md?plain=1#L111"
+      }
+    },
+    {
+      "title": "运行 example.py 体验推理",
+      "text": "执行 `python example.py`，按其中的代码了解各个模型的具体用法。官方推荐使用 Fun-CosyVoice3-0.5B 以获得更好的效果。",
+      "code": "python example.py",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/QwenAudio/CosyVoice/blob/074ca6dc9e80a2f424f1f74b48bdd7d3fea531cc/README.md?plain=1#L146"
+      }
+    },
+    {
+      "title": "启动 Web Demo 快速熟悉",
+      "text": "运行 `webui.py` 并指定端口和模型目录，即可在网页上体验 CosyVoice。文档示例使用 CosyVoice-300M；如需 SFT 推理或指令推理，把模型目录换成 CosyVoice-300M-SFT 或 CosyVoice-300M-Instruct。",
+      "code": "# change iic/CosyVoice-300M-SFT for sft inference, or iic/CosyVoice-300M-Instruct for instruct inference\npython3 webui.py --port 50000 --model_dir pretrained_models/CosyVoice-300M",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/QwenAudio/CosyVoice/blob/074ca6dc9e80a2f424f1f74b48bdd7d3fea531cc/README.md?plain=1#L170"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "可选的 ttsfrd 安装包是 cp310、linux_x86_64 平台的 wheel，其他平台不能直接使用，可以跳过这一步，改用默认的 wetext。",
+    "vLLM 加速仅支持 vLLM 0.9.0 和 0.11.x 及以上版本，低于 0.9.0 的版本不支持，0.10.x 未经测试。建议另建 Conda 环境，以免破坏原有环境。",
+    "Docker 部署示例使用 `--runtime=nvidia`，需要 NVIDIA GPU 环境；TensorRT-LLM 加速方案针对 CosyVoice2。",
+    "零样本声音克隆涉及他人声音，请确保已取得声音所有者的授权。官方声明相关内容仅用于学术用途。"
+  ],
+  "references": [],
+  "media": [],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "66436370172c2830ed98aa643b31898c65e16eee14ade68f00828d21fae602e0",
+  "mediaStatus": "none_in_official_documents",
+  "reviewedEdits": [
+    "下载示例只保留官方推荐模型的原文代码，避免一次下载全部可选模型。"
+  ]
+}

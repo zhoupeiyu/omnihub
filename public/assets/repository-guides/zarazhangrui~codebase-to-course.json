@@ -1,0 +1,80 @@
+{
+  "schemaVersion": 1,
+  "key": "zarazhangrui/codebase-to-course",
+  "status": "ready",
+  "reason": "",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/zarazhangrui/codebase-to-course/blob/ff8837ecf8e9f6ce9874ffa42e42633394a52a00/README.md",
+  "sourceRevision": "ff8837ecf8e9f6ce9874ffa42e42633394a52a00",
+  "canonicalKey": "zarazhangrui/codebase-to-course",
+  "summary": "一个 Claude Code skill，可把任意代码库生成为可离线打开的单页交互式 HTML 课程，讲解代码如何运作。",
+  "intro": "适合用自然语言指挥 AI 编程工具、但没有系统 CS 背景的“vibe coders”。它会沿着应用的实际使用流程讲解代码，帮助你更好地驾驭 AI 编程工具、发现 AI 的错误、在 AI 卡住时自行排查，并能和工程师顺畅沟通。课程包含代码与白话对照、动画图解、应用型测验和术语悬停解释。",
+  "requirements": "已安装 Claude Code，并能访问本仓库中的 codebase-to-course 文件夹（包含 SKILL.md 和 references/ 目录）。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "把 skill 文件夹放入技能目录",
+      "text": "将仓库中的 codebase-to-course 文件夹整体复制到 ~/.claude/skills/ 下。该文件夹应包含主说明文件 SKILL.md，以及 references/ 中的 design-system.md 和 interactive-elements.md。",
+      "code": "codebase-to-course/\n├── SKILL.md                          # Main skill instructions\n└── references/\n    ├── design-system.md              # CSS tokens, typography, colors, layout\n    └── interactive-elements.md       # Quiz, animation, and visualization patterns",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/zarazhangrui/codebase-to-course/blob/ff8837ecf8e9f6ce9874ffa42e42633394a52a00/README.md?plain=1#L43"
+      }
+    },
+    {
+      "title": "在 Claude Code 中打开目标项目",
+      "text": "用 Claude Code 打开你想学习的项目，可以是自己做的应用，也可以是从 GitHub 获取的代码库。skill 会以当前打开的代码库作为生成课程的素材。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/zarazhangrui/codebase-to-course/blob/ff8837ecf8e9f6ce9874ffa42e42633394a52a00/README.md?plain=1#L43"
+      }
+    },
+    {
+      "title": "用触发语句请求生成课程",
+      "text": "在对话中输入 \"Turn this codebase into an interactive course\"，或使用 README 列出的其他触发语句，例如 \"Teach me how this code works\"、\"Make a course from this project\"。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/zarazhangrui/codebase-to-course/blob/ff8837ecf8e9f6ce9874ffa42e42633394a52a00/README.md?plain=1#L43"
+      }
+    },
+    {
+      "title": "打开生成的单个 HTML 课程",
+      "text": "课程以单个 HTML 文件交付，无需依赖或额外设置，可以离线打开。阅读时可以滚动或用键盘切换模块，悬停术语查看解释，并完成测验来检验能否用学到的知识解决新问题。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/zarazhangrui/codebase-to-course/blob/ff8837ecf8e9f6ce9874ffa42e42633394a52a00/README.md?plain=1#L21"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "仓库未声明许可证（license 为空），复用或二次分发前需自行确认授权。",
+    "README 只给出了复制文件夹的安装方式，没有说明其他 AI 宿主下的用法。"
+  ],
+  "references": [],
+  "media": [
+    {
+      "url": "/assets/repository-guides/media-f8419c66e69d1fcb3f6e300a.webp",
+      "alt": "zarazhangrui/codebase-to-course 官方演示 1",
+      "sourceUrl": "https://github.com/zarazhangrui/codebase-to-course/blob/ff8837ecf8e9f6ce9874ffa42e42633394a52a00/README.md?plain=1#L27",
+      "originalUrl": "https://github.com/user-attachments/assets/fb9e7fac-05c1-4f98-b80c-46543ef81afc"
+    },
+    {
+      "url": "/assets/repository-guides/media-5113be494012d2c9022c41dc.webp",
+      "alt": "zarazhangrui/codebase-to-course 官方演示 2",
+      "sourceUrl": "https://github.com/zarazhangrui/codebase-to-course/blob/ff8837ecf8e9f6ce9874ffa42e42633394a52a00/README.md?plain=1#L30",
+      "originalUrl": "https://github.com/user-attachments/assets/20fb403e-7dfd-4a47-989b-bbae86ca8041"
+    },
+    {
+      "url": "/assets/repository-guides/media-8531932021ce203d028657c9.webp",
+      "alt": "zarazhangrui/codebase-to-course 官方演示 3",
+      "sourceUrl": "https://github.com/zarazhangrui/codebase-to-course/blob/ff8837ecf8e9f6ce9874ffa42e42633394a52a00/README.md?plain=1#L33",
+      "originalUrl": "https://github.com/user-attachments/assets/57706496-9fa8-457a-8450-3da22789951c"
+    }
+  ],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "dfce5b89aa6e0af49c96f010c498a8ea6e3c2c7a365d461d92a5b47c35fcffe1",
+  "mediaStatus": "archived",
+  "mediaFailures": []
+}

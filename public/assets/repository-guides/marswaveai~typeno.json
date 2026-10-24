@@ -1,0 +1,82 @@
+{
+  "schemaVersion": 1,
+  "key": "marswaveai/typeno",
+  "status": "ready",
+  "reason": "",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/marswaveai/TypeNo/blob/cc4c3f1e40713f336e7f745e1be8cdb8d824902e/README.md",
+  "sourceRevision": "cc4c3f1e40713f336e7f745e1be8cdb8d824902e",
+  "canonicalKey": "marswaveai/TypeNo",
+  "summary": "TypeNo 是 macOS 菜单栏语音输入工具。短按 Control 即可录音，本地转录后自动粘贴到当前应用。",
+  "intro": "适合在 macOS 上想用语音代替打字、又希望在本地完成识别的用户。它可以在任意正在使用的应用中语音输入文字，结果同时复制到剪贴板。也可以把 .m4a/.mp3/.wav/.aac 音频文件拖到菜单栏图标进行转录。",
+  "requirements": "macOS；Node.js（推荐从 nodejs.org 安装 LTS 版本）；ffmpeg（可用 Homebrew 安装）；本地语音识别引擎 coli CLI；首次转录时需能访问 GitHub 下载语音模型；需授予麦克风与辅助功能两项系统权限。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "安装 coli 本地语音引擎",
+      "text": "先准备好 Node.js 和 ffmpeg，然后在终端用 npm 全局安装 coli。这一步只安装 coli 命令本身，不会提前下载语音模型。如果使用 Node 24+ 时遇到 sherpa-onnx-node 错误，按 README 说明改用 --build-from-source 从源码编译安装。",
+      "code": "npm install -g @marswave/coli",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/marswaveai/TypeNo/blob/cc4c3f1e40713f336e7f745e1be8cdb8d824902e/README.md?plain=1#L38"
+      }
+    },
+    {
+      "title": "下载并安装 TypeNo.app",
+      "text": "从 GitHub Releases 下载最新的 TypeNo.app.zip，解压后把 TypeNo.app 移到 /Applications 再打开。该应用已通过 Apple 签名和公证。如果尚未安装 Coli，应用内会弹出安装引导。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/marswaveai/TypeNo/blob/cc4c3f1e40713f336e7f745e1be8cdb8d824902e/README.md?plain=1#L28"
+      }
+    },
+    {
+      "title": "首次启动完成两项系统授权",
+      "text": "按应用引导授予两项权限：麦克风用于录音，辅助功能用于把文字粘贴到其他应用。如果在“系统设置 → 隐私与安全性 → 辅助功能”中开启后仍无效，先选中 TypeNo 点 − 删除，再点 + 从 /Applications 重新添加。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/marswaveai/TypeNo/blob/cc4c3f1e40713f336e7f745e1be8cdb8d824902e/README.md?plain=1#L59"
+      }
+    },
+    {
+      "title": "短按 Control 录音并自动粘贴",
+      "text": "短按 Control（少于 300ms，且不按其他键）开始录音，再短按一次停止。录音时悬浮条约每秒显示一次分段预览；停止后会执行完整转录，再把结果粘贴到当前应用并复制到剪贴板。首次转录时，coli 会下载模型到 ~/.coli/models/。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/marswaveai/TypeNo/blob/cc4c3f1e40713f336e7f745e1be8cdb8d824902e/README.md?plain=1#L17"
+      }
+    },
+    {
+      "title": "用菜单栏切换麦克风或转录文件",
+      "text": "通过菜单栏图标可以完成以下操作：选择麦克风（自动或指定设备）、用 Record 开始或停止录音、检查更新、退出应用。把 .m4a/.mp3/.wav/.aac 文件拖到菜单栏图标上，即可转录该文件。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/marswaveai/TypeNo/blob/cc4c3f1e40713f336e7f745e1be8cdb8d824902e/README.md?plain=1#L102"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "语音模型从 GitHub 下载，网络无法访问 GitHub 时首次转录会失败。README 建议在代理工具中开启 TUN 模式后重新触发转录，并先删除 ~/.coli/models/ 中残留的不完整 .tar.bz2 文件。",
+    "项目处于低调维护模式：仍受支持并接受 bug 报告，但新功能开发已暂停。",
+    "卸载时除删除 TypeNo.app 外，还需另行删除 ~/.coli/ 并执行 npm uninstall -g @marswave/coli。",
+    "从源码构建的应用位于 dist/TypeNo.app，需移动到 /Applications/ 才能保持权限。",
+    "项目采用 GPL-3.0 许可证。"
+  ],
+  "references": [
+    {
+      "label": "README_CN.md",
+      "url": "https://github.com/marswaveai/TypeNo/blob/cc4c3f1e40713f336e7f745e1be8cdb8d824902e/README_CN.md"
+    }
+  ],
+  "media": [],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "dfaa78dc8ae5780eaa7f29f604c97f93558d0ffce32a26a837cce9b9d9295127",
+  "mediaStatus": "unavailable",
+  "mediaFailures": [
+    {
+      "sourceUrl": "https://github.com/marswaveai/TypeNo/blob/cc4c3f1e40713f336e7f745e1be8cdb8d824902e/README.md#L89",
+      "reason": "media_too_large"
+    }
+  ]
+}

@@ -1,0 +1,86 @@
+{
+  "schemaVersion": 1,
+  "key": "pyrate-llama/hermes-ui",
+  "status": "partial",
+  "reason": "提供的资料只有功能介绍、截图和各版本更新说明，缺少安装、下载与启动 Python 代理服务器的具体步骤和命令，也未说明如何连接已有的 Hermes Agent，因此无法给出完整的上手流程。",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/pyrate-llama/hermes-ui/blob/5a78cf40158468d784b10e53691562bec25c3e48/README.md",
+  "sourceRevision": "5a78cf40158468d784b10e53691562bec25c3e48",
+  "canonicalKey": "pyrate-llama/hermes-ui",
+  "summary": "为 Hermes Agent 提供的单文件 HTML 网页控制台，可聊天、查看日志、浏览文件、管理技能和监控任务。",
+  "intro": "适合已经在使用 Hermes Agent、希望用图形界面替代纯终端操作的用户。它基于 React 18 的单个 HTML 文件，通过轻量 Python 代理服务器提供聊天界面、实时日志流、文件浏览、记忆查看、Tasks 看板、Health 状态页、Spaces 工作区切换、定时任务和 MCP 工具查看等功能。",
+  "requirements": "需要已安装的 Hermes Agent（v3.2 说明曾在 Hermes Agent v0.12.0 上验证）；界面依赖随附的 Python 代理服务器运行。具体安装方式资料中未给出。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "准备 Hermes Agent 环境",
+      "text": "Hermes UI 是 Hermes Agent 的前端控制台，并通过一个轻量 Python 代理服务器工作。使用前应先准备好 Hermes Agent；v3.2 说明提到已针对官方 Hermes Agent v0.12.0 验证。具体安装与启动命令需查阅仓库完整文档。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/pyrate-llama/hermes-ui/blob/5a78cf40158468d784b10e53691562bec25c3e48/README.md?plain=1#L1"
+      }
+    },
+    {
+      "title": "对外暴露前设置访问密码",
+      "text": "默认面向本机使用。若要让局域网内其他设备访问，需要在启动前设置环境变量 HERMES_UI_PASSWORD 启用可选的 LAN 密码认证，避免未经授权的人操作你的 Agent 和文件。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/pyrate-llama/hermes-ui/blob/5a78cf40158468d784b10e53691562bec25c3e48/README.md?plain=1#L236"
+      }
+    },
+    {
+      "title": "在 Spaces 中设定工作区",
+      "text": "打开 Spaces 页面添加、重命名或切换工作区根目录，可用文件夹选择器从 Home、Desktop、Documents 等位置挑选。新聊天会把当前工作区作为上下文传给 Hermes，Files 视图也会跟随当前 Space；在输入框中也可用 /workspace 切换。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/pyrate-llama/hermes-ui/blob/5a78cf40158468d784b10e53691562bec25c3e48/README.md?plain=1#L261"
+      }
+    },
+    {
+      "title": "用 Tasks 与 Health 跟踪工作",
+      "text": "在输入框输入 /tasks 打开 Kanban 风格的任务看板，卡片来自 Hermes 的 todo、子代理工作和聊天状态，点击可跳回来源聊天。Health 页面汇总心跳、模型与提供方状态以及已脱敏的近期日志片段。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/pyrate-llama/hermes-ui/blob/5a78cf40158468d784b10e53691562bec25c3e48/README.md?plain=1#L236"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "设置界面中的 Update & Full Restart 会拉取并更新 Hermes UI 与 Hermes Agent 的仓库，更新失败时会在 Settings 中显示输出。",
+    "聊天记录会保存在本地，例如 ~/.hermes/ui-conversations.json；上传的视频会保存到当前工作区的 uploads/ 文件夹。",
+    "Firefox 下会启用性能模式，关闭部分装饰动画和背景滤镜。",
+    "README 中的版本说明更新频繁，功能以你所安装的版本为准。"
+  ],
+  "references": [
+    {
+      "label": "README.zh-CN.md",
+      "url": "https://github.com/pyrate-llama/hermes-ui/blob/5a78cf40158468d784b10e53691562bec25c3e48/README.zh-CN.md"
+    }
+  ],
+  "media": [
+    {
+      "url": "/assets/repository-guides/media-6d0211c0a923b4992b0c5c0f.webp",
+      "alt": "pyrate-llama/hermes-ui 官方演示 1",
+      "sourceUrl": "https://github.com/pyrate-llama/hermes-ui/blob/5a78cf40158468d784b10e53691562bec25c3e48/README.md?plain=1#L14",
+      "originalUrl": "https://raw.githubusercontent.com/pyrate-llama/hermes-ui/5a78cf40158468d784b10e53691562bec25c3e48/screenshots/chat.png"
+    },
+    {
+      "url": "/assets/repository-guides/media-b229da4d2e9c86cd223bca1e.webp",
+      "alt": "pyrate-llama/hermes-ui 官方演示 2",
+      "sourceUrl": "https://github.com/pyrate-llama/hermes-ui/blob/5a78cf40158468d784b10e53691562bec25c3e48/README.md?plain=1#L18",
+      "originalUrl": "https://raw.githubusercontent.com/pyrate-llama/hermes-ui/5a78cf40158468d784b10e53691562bec25c3e48/screenshots/tasks.png"
+    },
+    {
+      "url": "/assets/repository-guides/media-e6969c01da1e834cfe31077a.webp",
+      "alt": "pyrate-llama/hermes-ui 官方演示 3",
+      "sourceUrl": "https://github.com/pyrate-llama/hermes-ui/blob/5a78cf40158468d784b10e53691562bec25c3e48/README.md?plain=1#L21",
+      "originalUrl": "https://raw.githubusercontent.com/pyrate-llama/hermes-ui/5a78cf40158468d784b10e53691562bec25c3e48/screenshots/dashboard.png"
+    }
+  ],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "04f536d9b1d6b808744c419ac8181d63648773fa703a4a25434584f9bd0fe4ca",
+  "mediaStatus": "archived",
+  "mediaFailures": []
+}

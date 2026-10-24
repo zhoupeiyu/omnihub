@@ -1,0 +1,94 @@
+{
+  "schemaVersion": 1,
+  "key": "zhongerxin/cowart",
+  "status": "ready",
+  "reason": "",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/zhongerxin/Cowart/blob/82dc322b64f5ca867fb2899fc563ba26c9837f02/README.md",
+  "sourceRevision": "82dc322b64f5ca867fb2899fc563ba26c9837f02",
+  "canonicalKey": "zhongerxin/Cowart",
+  "summary": "Cowart 是面向 Codex 的 tldraw 无限画布插件，可在画布中构思、标注、生成图片、生成 AI HTML 和 AI Slides。",
+  "intro": "适合已经在用 Codex，希望在同一处完成视觉构思和迭代的用户。它在 Codex 中打开原生画布 widget：可以创建「AI 图片」框，输入 prompt 并选择参考图来生成图片；可以根据标注截图生成修订图；也可以生成 16:9 单文件 HTML，或把图片和 HTML 组织成可全屏播放的 AI Slides。画布数据保存在当前项目的 canvas/ 目录。",
+  "requirements": "需要已安装并可使用 codex plugin 命令的 Codex。安装后必须完全退出并重启一次 Codex。文档说明运行时不需要另装 npm、tldraw 或执行 npm install。另有网页版 cowart.jiqiren.ai，可在 Codex 内置浏览器中登录后使用。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "注册 Cowart 的 Git marketplace",
+      "text": "在 Codex 环境中，先把 Cowart 的 Git 仓库注册为 Codex marketplace，引用 main 分支。如果 cowart-github 已经注册，可以跳过这一步。也可以把 README 中的安装说明整段发给 Codex，让它代为执行。",
+      "code": "codex plugin marketplace add zhongerxin/Cowart --ref main",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/zhongerxin/Cowart/blob/82dc322b64f5ca867fb2899fc563ba26c9837f02/README.md?plain=1#L32"
+      }
+    },
+    {
+      "title": "安装插件并确认已启用",
+      "text": "从 cowart-github marketplace 安装 cowart，再用 codex plugin list 确认插件已启用。不需要手动查找插件缓存目录，也不要在仓库、插件缓存或 marketplace 快照目录手动安装依赖。",
+      "code": "codex plugin add cowart@cowart-github\ncodex plugin list",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/zhongerxin/Cowart/blob/82dc322b64f5ca867fb2899fc563ba26c9837f02/README.md?plain=1#L46"
+      }
+    },
+    {
+      "title": "完全退出并重启 Codex",
+      "text": "安装完成后，完全退出 Codex 并重新启动一次，新的技能、MCP 工具和预构建 Widget 才会完整加载。以后通过 marketplace upgrade 更新插件后，同样需要重启。",
+      "code": "codex plugin marketplace upgrade cowart-github",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/zhongerxin/Cowart/blob/82dc322b64f5ca867fb2899fc563ba26c9837f02/README.md?plain=1#L27"
+      }
+    },
+    {
+      "title": "在项目中打开 Cowart 画布",
+      "text": "在 Codex 中发送打开画布的请求，Cowart 会通过 render_cowart_canvas_widget 打开原生 widget，不需要启动本地网页服务。画布页面和图片资源保存在当前项目的 canvas/pages/<page-id>/ 下。",
+      "code": "Open the Cowart canvas for this project.\n\ncanvas/pages/<page-id>/cowart-canvas.json\ncanvas/pages/<page-id>/assets/",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/zhongerxin/Cowart/blob/82dc322b64f5ca867fb2899fc563ba26c9837f02/README.md?plain=1#L75"
+      }
+    },
+    {
+      "title": "用 AI 图片框生成或按标注修图",
+      "text": "在画布中创建并选中「AI 图片」框，在生成面板输入 prompt，可选参考图后发送，生成结果会替换该框。若要修图，先标注图片，选中后点「按标注修改」，新图会放在原图旁边，原图和标注保持不动。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/zhongerxin/Cowart/blob/82dc322b64f5ca867fb2899fc563ba26c9837f02/README.md?plain=1#L94"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "Widget 会记录匿名产品事件（如 canvas_opened、ai_generation_requested），通过 GA4 与 PostHog 投递；文档称不包含 prompt、文件名或画布内容。",
+    "更新可能会替换插件缓存，更新后需完全重启 Codex。",
+    "画布数据写入当前用户项目的 canvas/ 目录，提交代码时请留意是否要把它纳入版本控制。",
+    "npm install、npm run dev 和 scripts/start-canvas.sh 仅用于维护者本地开发，普通使用不需要。",
+    "网页版需要登录。"
+  ],
+  "references": [],
+  "media": [
+    {
+      "url": "/assets/repository-guides/media-405df998e04ed2f5fd59310c.webp",
+      "alt": "在 Codex 中打开 Cowart 画布",
+      "sourceUrl": "https://github.com/zhongerxin/Cowart/blob/82dc322b64f5ca867fb2899fc563ba26c9837f02/README.md?plain=1#L92",
+      "originalUrl": "https://raw.githubusercontent.com/zhongerxin/Cowart/82dc322b64f5ca867fb2899fc563ba26c9837f02/assets/open-canvas.png"
+    },
+    {
+      "url": "/assets/repository-guides/media-2562f4c0ea4065d1a47054cd.webp",
+      "alt": "使用 Cowart 生成并插入新图",
+      "sourceUrl": "https://github.com/zhongerxin/Cowart/blob/82dc322b64f5ca867fb2899fc563ba26c9837f02/README.md?plain=1#L102",
+      "originalUrl": "https://raw.githubusercontent.com/zhongerxin/Cowart/82dc322b64f5ca867fb2899fc563ba26c9837f02/assets/generate-image.png"
+    },
+    {
+      "url": "/assets/repository-guides/media-eab9c61868bdaa875ce8cccf.webp",
+      "alt": "根据 Cowart 标注截图生成修订图",
+      "sourceUrl": "https://github.com/zhongerxin/Cowart/blob/82dc322b64f5ca867fb2899fc563ba26c9837f02/README.md?plain=1#L112",
+      "originalUrl": "https://raw.githubusercontent.com/zhongerxin/Cowart/82dc322b64f5ca867fb2899fc563ba26c9837f02/assets/annotation-edit.png"
+    }
+  ],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "7f6f2b4efaf2c8a82b6887f27efae61a5c4003bc0f9a53a1deda3d47bb977165",
+  "mediaStatus": "archived",
+  "mediaFailures": []
+}

@@ -1,0 +1,80 @@
+{
+  "schemaVersion": 1,
+  "key": "phoenix-gh/mk-video-studio",
+  "status": "ready",
+  "reason": "",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/phoenix-gh/mk-video-studio/blob/6e9733928c9d637e50fdabc404b17a445591a8d5/README.md",
+  "sourceRevision": "6e9733928c9d637e50fdabc404b17a445591a8d5",
+  "canonicalKey": "phoenix-gh/mk-video-studio",
+  "summary": "虾客漫是一套本地运行、源码公开的 AI 视频创作工作台，可把小说、剧本或故事梗概整理成角色、分镜、AI 图片、视频片段并合成成片。",
+  "intro": "适合个人创作者和小团队在自己电脑上制作 AI 漫剧或短剧。它覆盖小说改编、剧本整理与分集设计，自动提取角色、场景、道具和分镜，生成人物参考图、场景图和故事板，批量生成视频片段，并添加原声、音效和 BGM 后导出成片。另有独立的图片工作台、视频工作台和节点画布。对话、图片、视频、语音服务需要自行接入 API。",
+  "requirements": "Node.js 20.19 或更高版本；自备对话、图片、视频、语音等模型服务的 API Key（社区版不含共享密钥或免费额度）；需要合成成片、音视频转换或部分导出功能时还需安装 FFmpeg 与 ffprobe。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "安装 Node.js 20.19 以上",
+      "text": "先在电脑上安装 Node.js 20.19 或更高版本。这是本地启动虾客漫的前提条件，README 中没有给出其他运行时要求。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/phoenix-gh/mk-video-studio/blob/6e9733928c9d637e50fdabc404b17a445591a8d5/README.md?plain=1#L32"
+      }
+    },
+    {
+      "title": "在 Windows 上下载并启动",
+      "text": "以 Windows 为例：用 git clone 获取源码并进入目录，然后直接双击 start.bat。第一次启动会自动安装依赖，完成后在浏览器打开 http://localhost:8022。注意 README 中的克隆地址指向 XiakeMan777/xiakeman-ai-short-drama 仓库。",
+      "code": "git clone https://github.com/XiakeMan777/xiakeman-ai-short-drama.git\ncd xiakeman-ai-short-drama\n\nhttp://localhost:8022",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/phoenix-gh/mk-video-studio/blob/6e9733928c9d637e50fdabc404b17a445591a8d5/README.md?plain=1#L36"
+      }
+    },
+    {
+      "title": "在 API 设置中填写自己的服务",
+      "text": "进入页面后点击右上角“API 设置”：先配置对话模型，用于改编、分析和生成提示词；需要出图时再配图片模型；需要视频时选择并配置视频服务；需要语音、音效或转写时补充语音服务。建议先用低额度 Key 做小测试。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/phoenix-gh/mk-video-studio/blob/6e9733928c9d637e50fdabc404b17a445591a8d5/README.md?plain=1#L64"
+      }
+    },
+    {
+      "title": "为节点画布单独配置模型",
+      "text": "主工作流和节点画布使用两套独立设置。如果主工作流已配置好，但进入画布后仍提示未配置，需要在画布中再打开一次“画布设置”，选择对应模型。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/phoenix-gh/mk-video-studio/blob/6e9733928c9d637e50fdabc404b17a445591a8d5/README.md?plain=1#L87"
+      }
+    },
+    {
+      "title": "定期导出项目做备份",
+      "text": "项目和 API 设置默认只保存在当前浏览器，不会同步到虾客漫服务器。清理浏览器数据、重装系统或更换浏览器都可能导致未导出的项目丢失，请定期使用导出功能备份；换电脑时也通过导入、导出迁移。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/phoenix-gh/mk-video-studio/blob/6e9733928c9d637e50fdabc404b17a445591a8d5/README.md?plain=1#L75"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "许可证为 PolyForm Noncommercial License 1.0.0，仅允许非商业使用、修改和再分发，任何商业使用需事先取得版权方书面授权；它不是 OSI 定义的开源许可证。",
+    "不附送模型额度，所有对话、图片、视频、语音调用费用由你自己选择的服务商收取；不同厂商的地址、模型名和返回格式可能不同，首次请用小任务测试。",
+    "API Key 保存在当前浏览器中，不要在网吧、公共电脑或不可信设备上保存私人密钥；在 Issue 中反馈问题时不要公开 API Key 或私人素材。",
+    "项目保留 Google Analytics 页面访问统计；README 称项目内容、模型配置和 API Key 不会作为统计内容主动发送。",
+    "README 中的 git clone 地址（XiakeMan777/xiakeman-ai-short-drama）与当前仓库名（phoenix-gh/mk-video-studio）不一致，获取源码前请自行确认来源。",
+    "调用的模型、上传的素材和生成的内容需遵守对应服务商与素材来源的规则。"
+  ],
+  "references": [],
+  "media": [
+    {
+      "url": "/assets/repository-guides/media-b7d65883657a5924e4578419.webp",
+      "alt": "虾客漫首页预览",
+      "sourceUrl": "https://github.com/phoenix-gh/mk-video-studio/blob/6e9733928c9d637e50fdabc404b17a445591a8d5/README.md?plain=1#L10",
+      "originalUrl": "https://raw.githubusercontent.com/phoenix-gh/mk-video-studio/6e9733928c9d637e50fdabc404b17a445591a8d5/docs/images/xiakeman-homepage.webp"
+    }
+  ],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "63b1ea5df54b3daac45fec8db00bc031c2dc51b012d6c1fe0625ad590ff4d3d6",
+  "mediaStatus": "archived",
+  "mediaFailures": []
+}

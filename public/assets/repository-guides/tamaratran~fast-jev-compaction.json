@@ -1,0 +1,64 @@
+{
+  "schemaVersion": 1,
+  "key": "tamaratran/fast-jev-compaction",
+  "status": "ready",
+  "reason": "",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/tamaratran/fast-jev-compaction/blob/e3f262a7f4d42bd8dd32ced30d26176f7cb545b0/README.md",
+  "sourceRevision": "e3f262a7f4d42bd8dd32ced30d26176f7cb545b0",
+  "canonicalKey": "tamaratran/fast-jev-compaction",
+  "summary": "一个 Claude Code 插件（也可作为 npm 库），在压缩上下文时用 Jev 为每个工具调用和结果打分，删除或截断过时内容并原样保留其余消息，以替代内置的摘要式压缩。",
+  "intro": "适合在长会话中频繁触发压缩、又担心摘要丢失文件路径、错误信息或约束的 Claude Code 用户。插件会把整个会话发给 TypeSafe 的 Jev 判断哪些工具调用和结果仍需要，只删除或截断工具调用与结果，用户和助手文本保持原文与顺序。开发者也可通过 npm 包的 compactMessages 等接口自行接入。本指南采用 Claude Code 插件路径。",
+  "requirements": "Claude Code 2.1.274 或更高版本（function hooks 为早期访问功能，需开启 CLAUDE_CODE_ENABLE_FUNCTION_HOOKS）；TypeSafe API key，默认从环境变量 TYPESAFE_API_KEY 读取。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "开启函数钩子并配置密钥",
+      "text": "在运行 Claude Code 的环境中开启 function hooks，例如在 ~/.claude/settings.json 的 env 中设置 CLAUDE_CODE_ENABLE_FUNCTION_HOOKS 为 1，并填入 TYPESAFE_API_KEY。不要把密钥提交到仓库或写入源码文件。",
+      "code": "{ \"env\": { \"CLAUDE_CODE_ENABLE_FUNCTION_HOOKS\": \"1\", \"TYPESAFE_API_KEY\": \"<your key>\" } }",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/tamaratran/fast-jev-compaction/blob/e3f262a7f4d42bd8dd32ced30d26176f7cb545b0/README.md?plain=1#L136"
+      }
+    },
+    {
+      "title": "添加插件市场并安装插件",
+      "text": "将本仓库添加为插件 marketplace，再安装 fast-jev-compaction 插件；可在 shell 中执行，也可在会话内以斜杠命令完成。无需额外发布步骤，marketplace 即仓库内的 .claude-plugin/marketplace.json。",
+      "code": "claude plugin marketplace add tamaratran/fast-jev-compaction\nclaude plugin install fast-jev-compaction@fast-jev-compaction",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/tamaratran/fast-jev-compaction/blob/e3f262a7f4d42bd8dd32ced30d26176f7cb545b0/README.md?plain=1#L136"
+      }
+    },
+    {
+      "title": "在安装提示中设置插件选项",
+      "text": "安装时会提示填写 API key、阈值、truncateHeadChars 等选项；保持默认即使用环境中的 TYPESAFE_API_KEY。默认 keepThreshold 为 0.5、preserveRecentMessages 为 6、truncateHeadChars 为 300。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/tamaratran/fast-jev-compaction/blob/e3f262a7f4d42bd8dd32ced30d26176f7cb545b0/README.md?plain=1#L136"
+      }
+    },
+    {
+      "title": "重载后通过 /compact 使用",
+      "text": "重启 Claude Code 或运行 /reload-plugins。之后 /compact 与自动压缩都会经过 Jev：提示显示 kept N/M messages, no summary 表示已用裁剪后的历史替代摘要；显示 fallback to built-in summary 则表示删减不足或调用失败，已回退到内置摘要。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/tamaratran/fast-jev-compaction/blob/e3f262a7f4d42bd8dd32ced30d26176f7cb545b0/README.md?plain=1#L136"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "压缩时会把整个会话（工具结果以简短说明替代）发送到 TypeSafe 的 System One 接口，需评估会话内容外发的可接受性。",
+    "依赖 TypeSafe API key；完整状态会随每个请求重复发送，接近上限的长历史会产生多次请求。",
+    "function hooks 是 Claude Code 2.1.274+ 的早期访问功能，必须显式开启。",
+    "Jev 给出的保留概率不等于删除安全的证明；token 数为按字符估算，并非真实分词结果。",
+    "Jev 失败、密钥缺失或历史无法放入上限时会抛错，插件回退到内置摘要。"
+  ],
+  "references": [],
+  "media": [],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "5499bdb4f3ec13ac9e228cb09ab2894fd1a4e3128db04722735dbfc794f27299",
+  "mediaStatus": "none_in_official_documents"
+}

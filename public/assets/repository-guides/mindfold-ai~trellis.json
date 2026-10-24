@@ -1,0 +1,77 @@
+{
+  "schemaVersion": 1,
+  "key": "mindfold-ai/trellis",
+  "status": "ready",
+  "reason": "",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/mindfold-ai/Trellis/blob/f089cb3286071199e84118dee86b6d76aab032f1/README.md",
+  "sourceRevision": "f089cb3286071199e84118dee86b6d76aab032f1",
+  "canonicalKey": "mindfold-ai/Trellis",
+  "summary": "Trellis 是面向 AI 编程的工程框架，把规范、任务和项目记忆保存在仓库中，让各类编码代理在每次会话都按团队标准工作。",
+  "intro": "适合使用 AI 编码代理的个人开发者和团队。它把约定写入 .trellis/spec/ 并自动注入会话；把 PRD 和任务状态保存在 .trellis/tasks/；在 .trellis/workspace/ 记录日志作为项目记忆。整个流程按规划、实现、校验、收尾四个阶段运行，同一套结构可用于多个 AI 编码平台。",
+  "requirements": "需要 Node.js 18 或更高版本，以及 Python 3.9 或更高版本。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "全局安装 Trellis 命令行",
+      "text": "确认已安装 Node.js 18 及以上和 Python 3.9 及以上，然后用 npm 全局安装 @mindfoldhq/trellis@latest，以获得 trellis 命令。",
+      "code": "# 1. Install Trellis\nnpm install -g @mindfoldhq/trellis@latest\n\n# 2. Initialize in your repo\ntrellis init -u your-name\n\n# 3. Or initialize with the platforms you actually use\ntrellis init --cursor --opencode --codex -u your-name",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/mindfold-ai/Trellis/blob/f089cb3286071199e84118dee86b6d76aab032f1/README.md?plain=1#L49"
+      }
+    },
+    {
+      "title": "在仓库中初始化 Trellis",
+      "text": "进入项目仓库，执行 trellis init -u 并附上你的名字完成初始化。也可以加上 --cursor、--opencode、--codex 等参数，只为实际使用的平台生成文件。各平台的差异请查阅官方 Supported Platforms 文档。",
+      "code": "# 1. Install Trellis\nnpm install -g @mindfoldhq/trellis@latest\n\n# 2. Initialize in your repo\ntrellis init -u your-name\n\n# 3. Or initialize with the platforms you actually use\ntrellis init --cursor --opencode --codex -u your-name",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/mindfold-ai/Trellis/blob/f089cb3286071199e84118dee86b6d76aab032f1/README.md?plain=1#L54"
+      }
+    },
+    {
+      "title": "在 spec 目录写入项目规范",
+      "text": "把项目约定写进 .trellis/spec/，Trellis 会在每次会话中注入相关内容。规范不必全部手写：可以先让 AI 根据现有代码起草，再手动收紧关键规则，并纳入版本管理。官方也提供了 Spec Templates 可作为起点。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/mindfold-ai/Trellis/blob/f089cb3286071199e84118dee86b6d76aab032f1/README.md?plain=1#L39"
+      }
+    },
+    {
+      "title": "用自然语言描述并梳理需求",
+      "text": "在编码代理中用自然语言描述目标。trellis-brainstorm 会逐个提问，直到写出清晰的 prd.md；随后 trellis-implement 子代理按 PRD 编写代码，trellis-check 对照规范运行 lint、类型检查和测试。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/mindfold-ai/Trellis/blob/f089cb3286071199e84118dee86b6d76aab032f1/README.md?plain=1#L69"
+      }
+    },
+    {
+      "title": "用 finish-work 归档任务",
+      "text": "工作完成或会话上下文快满时，输入 /trellis:finish-work。Trellis 会归档任务、更新日志，并把新的经验写回 .trellis/spec/，供下一次会话使用。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/mindfold-ai/Trellis/blob/f089cb3286071199e84118dee86b6d76aab032f1/README.md?plain=1#L69"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "项目采用 AGPL-3.0 许可，用于分发或网络服务时需注意许可义务。",
+    "trellis ablate 会在项目外创建恢复事务，其中包含 .trellis 下任务、规范和工作区的原始内容，可能含有敏感文本，会一直保留到 restore 验证成功。",
+    "trellis uninstall 是永久移除，TRELLIS_HOOKS=0 只关闭 hooks，两者都不同于可恢复的 ablate。",
+    "实现阶段的子代理不会自动提交 git，需要自行检查并提交改动。"
+  ],
+  "references": [],
+  "media": [],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "7b03ee0029255e80efe94ebad11886142c0d327f6c731ff77504706f9353b3f2",
+  "mediaStatus": "unavailable",
+  "mediaFailures": [
+    {
+      "sourceUrl": "https://github.com/mindfold-ai/Trellis/blob/f089cb3286071199e84118dee86b6d76aab032f1/README.md#L36",
+      "reason": "response_too_large"
+    }
+  ]
+}

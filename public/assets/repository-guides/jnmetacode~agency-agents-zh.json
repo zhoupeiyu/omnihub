@@ -1,0 +1,77 @@
+{
+  "schemaVersion": 1,
+  "key": "jnmetacode/agency-agents-zh",
+  "status": "ready",
+  "reason": "",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/jnMetaCode/agency-agents-zh/blob/811e51c370f26ec4f37ca277b4368b4ff895741f/README.md",
+  "sourceRevision": "811e51c370f26ec4f37ca277b4368b4ff895741f",
+  "canonicalKey": "jnMetaCode/agency-agents-zh",
+  "summary": "一套中文 AI 专家角色库，可以安装到 Claude Code 等 AI 编程工具，用自然语言调用不同领域的专家智能体。",
+  "intro": "适合想在 AI 编程工具里调用特定专业角色的开发者和团队，例如前端开发者、安全工程师、CEO/CTO，以及小红书、抖音、微信公众号运营等。每个智能体都定义了身份、关键规则、工作流程和交付物。仓库是上游 agency-agents 的中文社区版，另外增加了面向中国市场的原创角色。也可以只把它当作提示词参考来查阅。",
+  "requirements": "需要把本仓库放到本地，以便运行 scripts 目录下的脚本。下面以 Claude Code 为例，需已安装 Claude Code。其他工具大多要先运行 ./scripts/convert.sh 转换格式。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "先按部门挑选需要的角色",
+      "text": "在 README 的部门列表中浏览各角色的专长和适用场景，比如工程部、设计部、营销部。也可以打开在线专家库，搜索、按部门筛选，并查看完整提示词。如果只想参考写法，直接复制或改编角色文件即可，不必安装。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/jnMetaCode/agency-agents-zh/blob/811e51c370f26ec4f37ca277b4368b4ff895741f/README.md?plain=1#L199"
+      }
+    },
+    {
+      "title": "安装到 Claude Code",
+      "text": "在仓库目录运行安装脚本并指定 claude-code。智能体会直接复制到 ~/.claude/agents/，不需要转换格式。如果只想要某个部门，也可以手动复制该部门的 .md 文件到同一目录。",
+      "code": "./scripts/install.sh --tool claude-code\n\n# Claude Code / GitHub Copilot（直接复制即可）\ncp -r marketing/*.md ~/.claude/agents/\n\n# 在 Claude Code 中激活：\n# \"激活前端开发者模式，帮我构建一个 React 组件\"",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/jnMetaCode/agency-agents-zh/blob/811e51c370f26ec4f37ca277b4368b4ff895741f/README.md?plain=1#L222"
+      }
+    },
+    {
+      "title": "在对话中用自然语言激活",
+      "text": "在 Claude Code 中用自然语言点名角色和任务，例如“激活前端开发者模式，帮我审查这个组件”。角色会按自己的流程和交付物要求来回应。",
+      "code": "激活前端开发者模式，帮我审查这个组件。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/jnMetaCode/agency-agents-zh/blob/811e51c370f26ec4f37ca277b4368b4ff895741f/README.md?plain=1#L212"
+      }
+    },
+    {
+      "title": "修改后检查智能体文件格式",
+      "text": "如果你改编了角色文件，或自己新增了角色，可以运行仓库提供的 lint 脚本检查智能体文件格式。",
+      "code": "# 第一步：转换格式（Claude Code 和 GitHub Copilot 可跳过此步）\n./scripts/convert.sh                    # 转换为所有工具格式\n./scripts/convert.sh --tool cursor      # 只转换 Cursor 格式\n\n# 第二步：安装到本地\n./scripts/install.sh                    # 自动检测并安装\n./scripts/install.sh --tool cursor      # 安装到指定工具\n\n# 检查智能体文件格式\n./scripts/lint-agents.sh",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/jnMetaCode/agency-agents-zh/blob/811e51c370f26ec4f37ca277b4368b4ff895741f/README.md?plain=1#L704"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "除 Claude Code 和 GitHub Copilot 外，其他工具需要先运行 ./scripts/convert.sh 转换格式，安装位置也各不相同。",
+    "README 提醒：在 Cursor 和 Trae 中一次装入全部规则会稀释 description 匹配，几乎无法自动触发，建议只精选安装 10 到 20 个，或用 @ 显式调用。",
+    "README 中的赞助商内容、桌面客户端、在线体验和课程都是外部服务，并非使用本角色库的必要条件。",
+    "多专家自动协作依赖另一个项目 agency-orchestrator，需要单独安装。"
+  ],
+  "references": [
+    {
+      "label": "README.zh-TW.md",
+      "url": "https://github.com/jnMetaCode/agency-agents-zh/blob/811e51c370f26ec4f37ca277b4368b4ff895741f/README.zh-TW.md"
+    }
+  ],
+  "media": [
+    {
+      "url": "/assets/repository-guides/media-e01be822e1ccec6f25c7f1b2.webp",
+      "alt": "agency-agents 专家库在线浏览",
+      "sourceUrl": "https://github.com/jnMetaCode/agency-agents-zh/blob/811e51c370f26ec4f37ca277b4368b4ff895741f/README.md?plain=1#L205",
+      "originalUrl": "https://raw.githubusercontent.com/jnMetaCode/agency-agents-zh/811e51c370f26ec4f37ca277b4368b4ff895741f/assets/experts-gallery.png"
+    }
+  ],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "343003e8f1002d621b1dd4c49c93c70fcf7f76cd6d43da6d2e715e51a4a36886",
+  "mediaStatus": "archived",
+  "mediaFailures": []
+}

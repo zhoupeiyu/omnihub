@@ -1,0 +1,94 @@
+{
+  "schemaVersion": 1,
+  "key": "tencent/weknora",
+  "status": "ready",
+  "reason": "",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/Tencent/WeKnora/blob/bccb4b151bae403508da77fbb174efc79dc47c1a/README.md",
+  "sourceRevision": "bccb4b151bae403508da77fbb174efc79dc47c1a",
+  "canonicalKey": "Tencent/WeKnora",
+  "summary": "WeKnora 是腾讯开源的 LLM 知识平台，可把团队文档变成可检索并带引用的 RAG 问答、可调用工具的多步推理智能体，以及自动维护的 Wiki。",
+  "intro": "适合需要在私有环境中管理企业文档、做语义检索与问答的团队和开发者。三种模式共用同一知识库：快速问答带出处引用，智能推理由智能体规划多步任务并调用技能、MCP 工具和本地浏览器，Wiki 模式自动生成互链页面和知识图谱。支持飞书、Confluence、Notion 等数据源同步，以及 PDF、Word、Excel 等 10 余种格式。",
+  "requirements": "自托管的 Docker Compose 方式需要 Docker、Docker Compose 和 Git。需要可用的 LLM（支持多家厂商或本地 Ollama）。若使用本地 Ollama，需先启动 ollama serve。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "克隆仓库并准备 .env 配置",
+      "text": "以 Docker Compose 自托管为例：克隆 WeKnora 仓库并进入目录，将 .env.example 复制为 .env，按文件内注释修改需要的配置项。模型、存储等更详细的说明见官方 Configuration 文档。",
+      "code": "git clone https://github.com/Tencent/WeKnora.git\ncd WeKnora\ncp .env.example .env    # Edit .env as needed, see comments in the file\ndocker compose pull     # Pull the latest images\ndocker compose up -d    # Start core services",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/Tencent/WeKnora/blob/bccb4b151bae403508da77fbb174efc79dc47c1a/README.md?plain=1#L95"
+      }
+    },
+    {
+      "title": "拉取镜像并启动核心服务",
+      "text": "在仓库目录执行 docker compose pull 拉取最新镜像，再执行 docker compose up -d 启动核心服务（命令已包含在同一代码块中）。若使用本地 Ollama 模型，需先运行 ollama serve。",
+      "code": "git clone https://github.com/Tencent/WeKnora.git\ncd WeKnora\ncp .env.example .env    # Edit .env as needed, see comments in the file\ndocker compose pull     # Pull the latest images\ndocker compose up -d    # Start core services",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/Tencent/WeKnora/blob/bccb4b151bae403508da77fbb174efc79dc47c1a/README.md?plain=1#L95"
+      }
+    },
+    {
+      "title": "打开 Web 界面完成初始引导",
+      "text": "浏览器访问 http://localhost，按引导完成初始化。后端 API 位于 http://localhost:8080，Langfuse 追踪位于 http://localhost:3000。官方 Quickstart 文档提供带示例数据的完整演练。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/Tencent/WeKnora/blob/bccb4b151bae403508da77fbb174efc79dc47c1a/README.md?plain=1#L95"
+      }
+    },
+    {
+      "title": "按需启用知识图谱等可选组件",
+      "text": "通过 --profile 参数追加组件：neo4j 启用知识图谱，minio 启用对象存储，langfuse 启用追踪，full 启用全部功能，多个 profile 可组合。使用 docker compose down 停止服务。",
+      "code": "docker compose --profile neo4j --profile minio pull\ndocker compose --profile neo4j --profile minio up -d\ndocker compose down     # Stop services",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/Tencent/WeKnora/blob/bccb4b151bae403508da77fbb174efc79dc47c1a/README.md?plain=1#L118"
+      }
+    },
+    {
+      "title": "升级时先拉取新镜像再重建容器",
+      "text": "下载新版本后，在 .env 中设置 WEKNORA_VERSION（或保持 latest），先执行 docker compose pull 再执行 docker compose up -d。只运行 up -d 会复用本地缓存镜像，可能导致界面版本不一致。从 v0.8.0 升级前请阅读升级说明。",
+      "code": "# Set WEKNORA_VERSION in .env to the target release (e.g. 0.8.2), or keep latest\ndocker compose pull     # Pull images matching WEKNORA_VERSION\ndocker compose up -d    # Recreate containers with new images",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/Tencent/WeKnora/blob/bccb4b151bae403508da77fbb174efc79dc47c1a/README.md?plain=1#L136"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "官方强烈建议生产环境部署在内网，不要直接暴露到公网，并配置防火墙与访问控制、及时更新版本。",
+    "v0.8.2 起沙箱命令以 root 运行、钉钉渠道仅支持 Stream 模式，属于破坏性变更，升级前需阅读升级说明。",
+    "智能体可通过 BrowserSkill 扩展操作用户自己的 Chrome/Edge 浏览器，启用前应评估权限风险。",
+    "仓库许可证元数据为 NOASSERTION，README 徽章标注 MIT，使用前请以仓库 LICENSE 文件为准。",
+    "调用云端 LLM 会产生对应厂商的费用；桌面应用目前无安装包，需从源码构建。"
+  ],
+  "references": [],
+  "media": [
+    {
+      "url": "/assets/repository-guides/media-b08efc7a35bbdde8acf03d91.webp",
+      "alt": "Tencent/WeKnora 官方演示 1",
+      "sourceUrl": "https://github.com/Tencent/WeKnora/blob/bccb4b151bae403508da77fbb174efc79dc47c1a/README.md?plain=1#L230",
+      "originalUrl": "https://raw.githubusercontent.com/Tencent/WeKnora/bccb4b151bae403508da77fbb174efc79dc47c1a/docs/images/readme/spotlight-qa-light.webp"
+    },
+    {
+      "url": "/assets/repository-guides/media-6d9c5a36c71f73d318ffb22a.webp",
+      "alt": "Tencent/WeKnora 官方演示 2",
+      "sourceUrl": "https://github.com/Tencent/WeKnora/blob/bccb4b151bae403508da77fbb174efc79dc47c1a/README.md?plain=1#L274",
+      "originalUrl": "https://raw.githubusercontent.com/Tencent/WeKnora/bccb4b151bae403508da77fbb174efc79dc47c1a/docs/images/readme/spotlight-wiki-light.webp"
+    },
+    {
+      "url": "/assets/repository-guides/media-c507fe75d94ceb732a270e35.webp",
+      "alt": "Tencent/WeKnora 官方演示 3",
+      "sourceUrl": "https://github.com/Tencent/WeKnora/blob/bccb4b151bae403508da77fbb174efc79dc47c1a/README.md?plain=1#L252",
+      "originalUrl": "https://raw.githubusercontent.com/Tencent/WeKnora/bccb4b151bae403508da77fbb174efc79dc47c1a/docs/images/readme/spotlight-sandbox-light.webp"
+    }
+  ],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "63733f25438fec7493a0ef3f87da9047ddc9f0534e95c332d4db02460fa2eef6",
+  "mediaStatus": "archived",
+  "mediaFailures": []
+}

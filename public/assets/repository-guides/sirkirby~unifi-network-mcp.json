@@ -1,0 +1,64 @@
+{
+  "schemaVersion": 1,
+  "key": "sirkirby/unifi-network-mcp",
+  "status": "ready",
+  "reason": "",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/sirkirby/unifi-mcp/blob/6b3465740a83d6d2d5da06af3cd65159be5f4c49/README.md",
+  "sourceRevision": "6b3465740a83d6d2d5da06af3cd65159be5f4c49",
+  "canonicalKey": "sirkirby/unifi-mcp",
+  "summary": "UniFi MCP 提供 Network、Protect、Access 三个 MCP 服务器，让 AI 助手可以查询和管理 Ubiquiti UniFi 控制器；仓库还包含独立的 REST/GraphQL API 服务和云中继组件。",
+  "intro": "适合管理 UniFi 网络、摄像头或门禁的管理员，可以借助 Claude Code、Codex、OpenClaw、Claude Desktop 等 MCP 客户端，用自然语言完成相关操作。例如查看指定 VLAN 的客户端、审计防火墙规则、查询摄像头的移动侦测事件、查看门禁刷卡记录。所有变更操作都会先预览，确认后才执行。插件还附带网络健康检查、防火墙审计、安全摘要等 Agent Skills。需要开发自定义应用的用户可以改用 unifi-api-server。",
+  "requirements": "需要一台可访问的 UniFi 控制器，以及一个本地管理员或服务账号。不能使用 Ubiquiti SSO 云账号；Network MCP 目前不支持开启 MFA 或 2FA 的账号。至少需要配置 UNIFI_HOST、UNIFI_USERNAME、UNIFI_PASSWORD。本文以官方推荐的 Claude Code 插件方式为例；README 徽章标注 Python 3.13+。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "准备本地服务账号",
+      "text": "在 UniFi 控制器上创建一个专用的本地管理员或服务账号。不要使用 Ubiquiti SSO 账号，也不要开启 MFA，并按你愿意授予 MCP 服务器的范围限制该账号的权限。之后需要准备好控制器地址、用户名和密码。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/sirkirby/unifi-mcp/blob/6b3465740a83d6d2d5da06af3cd65159be5f4c49/README.md?plain=1#L149"
+      }
+    },
+    {
+      "title": "在 Claude Code 安装插件",
+      "text": "在 Claude Code 中添加 sirkirby/unifi-mcp 插件市场，安装 unifi-network@unifi-plugins，然后运行 /unifi-network:unifi-network-setup。该插件包含 MCP 服务器、Agent Skill 和引导式设置，setup 会带你完成控制器连接和权限配置。",
+      "code": "/plugin marketplace add sirkirby/unifi-mcp\n/plugin install unifi-network@unifi-plugins\n/unifi-network:unifi-network-setup",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/sirkirby/unifi-mcp/blob/6b3465740a83d6d2d5da06af3cd65159be5f4c49/README.md?plain=1#L117"
+      }
+    },
+    {
+      "title": "按需添加 Protect 或 Access",
+      "text": "如果还需要管理摄像头或门禁，用同样方式安装 unifi-protect 或 unifi-access 插件，并运行对应的 setup。如果这些服务器连接到不同的控制器，可以使用 UNIFI_PROTECT_*、UNIFI_ACCESS_* 等专属变量分别配置；它们的优先级高于共享的 UNIFI_* 变量。",
+      "code": "/plugin install unifi-protect@unifi-plugins\n/plugin install unifi-access@unifi-plugins",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/sirkirby/unifi-mcp/blob/6b3465740a83d6d2d5da06af3cd65159be5f4c49/README.md?plain=1#L117"
+      }
+    },
+    {
+      "title": "用自然语言查询与管理",
+      "text": "连接完成后，直接用自然语言向 AI 提问，例如列出访客 VLAN 上的客户端、审计防火墙策略、查询今天前门摄像头的人车检测事件。所有变更都会先展示预览，确认后才执行。跨产品的关联查询需要配合 relay 组件才能获得完整体验。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/sirkirby/unifi-mcp/blob/6b3465740a83d6d2d5da06af3cd65159be5f4c49/README.md?plain=1#L227"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "MCP HTTP 传输本身没有认证，默认关闭，开启后只绑定本机回环地址。需要远程访问时，应使用带认证的 TLS 代理或 Cloud Relay，不要直接暴露后端。",
+    "工具返回结果默认会脱敏 Wi-Fi 密码、VPN 密钥、API token 等敏感字段。关闭脱敏会把这些秘密暴露给 Agent 上下文和日志；更新配置时也不要把 ***REDACTED*** 标记回传。",
+    "服务器不会自动加载工作目录中的 .env 或 config.yaml。可以改用 UNIFI_PASSWORD_FILE 或 UNIFI_PASSWORD_COMMAND，避免把密码直接写进客户端配置。",
+    "Cloud Relay 与 unifi-api-server 目前为 Beta 状态；Cloud Relay 的 Worker 部署在 Cloudflare 上。",
+    "防火墙规则排序、部分 Protect 设置等功能还需要额外配置 UNIFI_API_KEY。"
+  ],
+  "references": [],
+  "media": [],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "d765a73f3e92423b45ceea9f1c7d0e213f04006a3792f91420c75f4cb61d8392",
+  "mediaStatus": "none_in_official_documents"
+}

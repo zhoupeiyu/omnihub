@@ -1,0 +1,63 @@
+{
+  "schemaVersion": 1,
+  "key": "vercel-labs/agent-skills",
+  "status": "ready",
+  "reason": "",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/vercel-labs/agent-skills/blob/063bee94c3f4df8453406c830b0a7df0f2860278/README.md",
+  "sourceRevision": "063bee94c3f4df8453406c830b0a7df0f2860278",
+  "canonicalKey": "vercel-labs/agent-skills",
+  "summary": "Vercel 官方维护的 Agent Skills 集合，为 AI 编码 Agent 提供 Vercel 优化、React/Next.js 性能、UI 与文档审查、部署等打包好的指令和脚本。",
+  "intro": "适合使用 AI 编码 Agent 开发 React、Next.js、React Native 或部署到 Vercel 的开发者。可按任务选用对应技能：vercel-optimize 审查 Vercel 项目的成本与性能，react-best-practices 和 composition-patterns 指导组件编写，web-design-guidelines 与 writing-guidelines 审查 UI 和文档，vercel-deploy-claimable 从对话中直接部署。",
+  "requirements": "需要一个支持 Agent Skills 格式的 AI 编码 Agent，以及能运行 npx 的环境。使用 vercel-optimize 时需要一个已部署的 Vercel 项目。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "按任务挑选需要的技能",
+      "text": "先阅读 README 中各技能的 Use when 部分，找到适合当前任务的技能。例如：要降低 Vercel 费用、排查慢路由，选 vercel-optimize；写 React 或 Next.js 页面，选 react-best-practices；审查无障碍与 UX，选 web-design-guidelines；实现页面过渡动画，选 react-view-transitions。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/vercel-labs/agent-skills/blob/063bee94c3f4df8453406c830b0a7df0f2860278/README.md?plain=1#L11"
+      }
+    },
+    {
+      "title": "用 skills CLI 安装技能集合",
+      "text": "在终端运行 README 给出的安装命令，把整个仓库的技能添加到 Agent。每个技能包含给 Agent 的 SKILL.md 指令，有的还带 scripts/ 辅助脚本和 references/ 参考文档。",
+      "code": "npx skills add vercel-labs/agent-skills",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/vercel-labs/agent-skills/blob/063bee94c3f4df8453406c830b0a7df0f2860278/README.md?plain=1#L194"
+      }
+    },
+    {
+      "title": "在 Agent 中直接描述任务",
+      "text": "技能安装后会自动生效，Agent 识别到相关任务时会自行调用，不需要额外指定。直接用自然语言描述需求即可，例如部署应用、审查 React 组件性能、优化 Next.js 页面。",
+      "code": "Deploy my app\n\nReview this React component for performance issues\n\nHelp me optimize this Next.js page",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/vercel-labs/agent-skills/blob/063bee94c3f4df8453406c830b0a7df0f2860278/README.md?plain=1#L200"
+      }
+    },
+    {
+      "title": "部署后认领 Vercel 项目",
+      "text": "使用 vercel-deploy-claimable 时，技能会把项目打包成 tarball，从 package.json 识别框架后上传，并返回预览 URL 和认领 URL。上传时会排除 node_modules 和 .git。打开认领 URL，可以把部署的所有权转移到自己的 Vercel 账号。",
+      "code": "Deployment successful!\n\nPreview URL: https://skill-deploy-abc123.vercel.app\nClaim URL:   https://vercel.com/claim-deployment?code=...",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/vercel-labs/agent-skills/blob/063bee94c3f4df8453406c830b0a7df0f2860278/README.md?plain=1#L160"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "vercel-deploy-claimable 会把项目文件打包上传到部署服务，上传前请确认项目中没有不应公开的内容。",
+    "vercel-optimize 需要先收集 Vercel 项目的指标，才会审查相关路由和文件。",
+    "仓库元数据中没有标注 license，README 末尾写的是 MIT，以仓库实际 LICENSE 文件为准。"
+  ],
+  "references": [],
+  "media": [],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "7c02f64b08fc6c4eef03c01d64f3e2ed478193ccfcbd14edba379abe23304651",
+  "mediaStatus": "none_in_official_documents"
+}

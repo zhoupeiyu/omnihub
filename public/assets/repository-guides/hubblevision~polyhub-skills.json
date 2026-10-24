@@ -1,0 +1,64 @@
+{
+  "schemaVersion": 1,
+  "key": "hubblevision/polyhub-skills",
+  "status": "partial",
+  "reason": "README 只给出了环境变量设置和 API Key 获取方式，各宿主（OpenClaw、Codex、Claude Code）的具体安装步骤写在 OPENCLAW.md、CODEX.md、CLAUDE.md 中，这些文件内容未提供。",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/HubbleVision/polyhub-skills/blob/b7890f6dbb1e47cb5cb58861d7737da8f15a181f/README.md",
+  "sourceRevision": "b7890f6dbb1e47cb5cb58861d7737da8f15a181f",
+  "canonicalKey": "HubbleVision/polyhub-skills",
+  "summary": "一组让 AI 代理查询 Polymarket 交易员排行榜、管理跟单和查看 PolyHub 账户的 Skills。",
+  "intro": "适合已使用 OpenClaw、Claude Code 或 Codex，并且想通过对话来操作 PolyHub 跟单账户的用户。包含三个技能：polyhub_discover 浏览交易员排行榜、按标签筛选、查询地址；polyhub_copy 创建、暂停、删除跟单，并跟踪持仓、信号和成交；polyhub_account 查看组合统计、费用记录，以及手动下单。Telegram 和微信用户可以通过 OpenClaw 使用。",
+  "requirements": "支持 Skills 的宿主（OpenClaw、Claude Code 或 Codex 之一）；使用跟单和账户功能需要 PolyHub 账户及其 Skills API Key；polyhub_discover 不需要 API Key。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "先配置 Discover 的服务地址",
+      "text": "polyhub_discover 不需要 API Key，开箱即可使用。README 给出的默认主机是通过环境变量 POLYHUB_API_BASE_URL 设置的，设置后即可让 AI 浏览排行榜、查询交易员地址。",
+      "code": "# Default host\nexport POLYHUB_API_BASE_URL=\"https://polyhub.skill-test.bedev.hubble-rpc.xyz\"",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/HubbleVision/polyhub-skills/blob/b7890f6dbb1e47cb5cb58861d7737da8f15a181f/README.md?plain=1#L31"
+      }
+    },
+    {
+      "title": "在 PolyHub Web 申请 API Key",
+      "text": "如需跟单和账户功能，打开 PolyHub Web，点击头像菜单进入 Skills API Key，点击 Request API Key。该 Key 只显示一次，请立即复制并妥善保存。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/HubbleVision/polyhub-skills/blob/b7890f6dbb1e47cb5cb58861d7737da8f15a181f/README.md?plain=1#L40"
+      }
+    },
+    {
+      "title": "设置服务地址与 Key 环境变量",
+      "text": "在运行 AI 宿主的环境中，同时设置 POLYHUB_API_BASE_URL 和 POLYHUB_API_KEY 两个环境变量，其中 POLYHUB_API_KEY 填入上一步获得的以 phub_ 开头的 Key。",
+      "code": "export POLYHUB_API_BASE_URL=\"https://polyhub.skill-test.bedev.hubble-rpc.xyz\"\nexport POLYHUB_API_KEY=\"phub_...\"",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/HubbleVision/polyhub-skills/blob/b7890f6dbb1e47cb5cb58861d7737da8f15a181f/README.md?plain=1#L40"
+      }
+    },
+    {
+      "title": "以 Claude Code 为例按指南安装",
+      "text": "以 Claude Code 为例，按仓库中的 CLAUDE.md 完成安装。从目录结构看，Claude Code 版本是 claude/.claude/commands/ 下的 polyhub-discover.md、polyhub-copy.md、polyhub-account.md 三个命令文件。OpenClaw 和 Codex 用户请改看 OPENCLAW.md 或 CODEX.md。",
+      "code": "openclaw/skills/\n  polyhub_discover/SKILL.md\n  polyhub_copy/SKILL.md\n  polyhub_account/SKILL.md\ncodex/skills/\n  polyhub-discover/SKILL.md\n  polyhub-copy/SKILL.md\n  polyhub-account/SKILL.md\nclaude/.claude/commands/\n  polyhub-discover.md\n  polyhub-copy.md\n  polyhub-account.md",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/HubbleVision/polyhub-skills/blob/b7890f6dbb1e47cb5cb58861d7737da8f15a181f/README.md?plain=1#L40"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "仓库已归档（archived），后续可能不再维护或更新。",
+    "README 中的默认主机域名含 skill-test 字样，看起来像测试环境，正式使用前请确认地址是否正确。",
+    "polyhub_copy 和 polyhub_account 可以创建跟单并手动下单，涉及真实资金交易，交给 AI 操作前需自行评估风险。",
+    "API Key 只显示一次，且拥有账户操作权限，不要泄露或提交到代码仓库。"
+  ],
+  "references": [],
+  "media": [],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "c7ba31a11e6e66ea2b520ac8df9001414a0406c4a6c258cca8f08b60b9337749",
+  "mediaStatus": "none_in_official_documents"
+}

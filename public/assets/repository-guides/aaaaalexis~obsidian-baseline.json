@@ -1,0 +1,79 @@
+{
+  "schemaVersion": 1,
+  "key": "aaaaalexis/obsidian-baseline",
+  "status": "ready",
+  "reason": "",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/svnaxis/obsidian-baseline/blob/8c56e831e1abb1d3841c4ffdecbe06b5182fbc68/README.md",
+  "sourceRevision": "8c56e831e1abb1d3841c4ffdecbe06b5182fbc68",
+  "canonicalKey": "svnaxis/obsidian-baseline",
+  "summary": "Baseline 是一款 Obsidian 主题，提供简洁的默认界面，可通过 Style Settings 深度定制，并兼容 Minimal 的辅助类。",
+  "intro": "适合想要一个开箱即用、风格干净的 Obsidian 主题，又希望逐步自定义颜色、间距和字体的用户。它针对移动端优化了导航与菜单，支持 Minimal 的全部筛选器和辅助类（卡片、表格、图片网格、横幅等），还提供从其他主题迁移 Style Settings 设置的工具和社区预设市场。",
+  "requirements": "已安装 Obsidian；深度定制需要配合 Style Settings 插件；`cards` 类作用于 Dataview 表格，需要 Dataview。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "通过 Open in Obsidian 链接安装",
+      "text": "点击 README 中的“Open in Obsidian”徽章链接（aaaaalexis.github.io/obsidian-baseline/install?name=Baseline），按提示在 Obsidian 中安装并启用 Baseline 主题。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/svnaxis/obsidian-baseline/blob/8c56e831e1abb1d3841c4ffdecbe06b5182fbc68/README.md?plain=1#L5"
+      }
+    },
+    {
+      "title": "用 Style Settings 调整外观",
+      "text": "Baseline 深度集成 Style Settings 插件。安装该插件后，可以调整颜色、间距、字体等细节。不做任何设置时，主题也能直接使用。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/svnaxis/obsidian-baseline/blob/8c56e831e1abb1d3841c4ffdecbe06b5182fbc68/README.md?plain=1#L31"
+      }
+    },
+    {
+      "title": "迁移旧主题设置或套用预设",
+      "text": "如果之前在其他受支持主题中用过 Style Settings，可以用 Style Settings Migration Tool 迁移设置；也可以到 Baseline Marketplace 浏览并使用社区分享的预设。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/svnaxis/obsidian-baseline/blob/8c56e831e1abb1d3841c4ffdecbe06b5182fbc68/README.md?plain=1#L17"
+      }
+    },
+    {
+      "title": "在笔记中使用辅助类与图片语法",
+      "text": "按 README 的表格使用 Minimal 兼容类，例如 `wide`、`table-lines`、`cards`。横幅写作 `![[image.jpeg|banner]]`，图片滤镜写作 `![[image.jpeg#invert]]`，任务列表还可以使用 `- [?]`、`- [!]` 等替代复选框。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/svnaxis/obsidian-baseline/blob/8c56e831e1abb1d3841c4ffdecbe06b5182fbc68/README.md?plain=1#L63"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "README 只列出了类名，未说明如何为笔记添加类，需要参考 Minimal 指南的相关说明。",
+    "迁移工具只支持部分主题，README 未列出具体名单。"
+  ],
+  "references": [],
+  "media": [
+    {
+      "url": "/assets/repository-guides/media-1da3c9cceead68edbd249f3d.webp",
+      "alt": "svnaxis/obsidian-baseline 官方演示 1",
+      "sourceUrl": "https://github.com/svnaxis/obsidian-baseline/blob/8c56e831e1abb1d3841c4ffdecbe06b5182fbc68/README.md?plain=1#L35",
+      "originalUrl": "https://raw.githubusercontent.com/svnaxis/obsidian-baseline/8c56e831e1abb1d3841c4ffdecbe06b5182fbc68/img/elements.png"
+    },
+    {
+      "url": "/assets/repository-guides/media-a8d392aa733623ace8b940c6.webp",
+      "alt": "svnaxis/obsidian-baseline 官方演示 2",
+      "sourceUrl": "https://github.com/svnaxis/obsidian-baseline/blob/8c56e831e1abb1d3841c4ffdecbe06b5182fbc68/README.md?plain=1#L39",
+      "originalUrl": "https://raw.githubusercontent.com/svnaxis/obsidian-baseline/8c56e831e1abb1d3841c4ffdecbe06b5182fbc68/img/colors.png"
+    },
+    {
+      "url": "/assets/repository-guides/media-0ba3303b46da412381dbd9e3.webp",
+      "alt": "svnaxis/obsidian-baseline 官方演示 3",
+      "sourceUrl": "https://github.com/svnaxis/obsidian-baseline/blob/8c56e831e1abb1d3841c4ffdecbe06b5182fbc68/README.md?plain=1#L43",
+      "originalUrl": "https://raw.githubusercontent.com/svnaxis/obsidian-baseline/8c56e831e1abb1d3841c4ffdecbe06b5182fbc68/img/mobile.png"
+    }
+  ],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "9d637663651e5d5ee29cc6c184d8c672abd778540915fe507ce61b0825ddd198",
+  "mediaStatus": "archived",
+  "mediaFailures": []
+}

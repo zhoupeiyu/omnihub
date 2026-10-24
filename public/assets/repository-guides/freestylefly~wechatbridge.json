@@ -1,0 +1,90 @@
+{
+  "schemaVersion": 1,
+  "key": "freestylefly/wechatbridge",
+  "status": "ready",
+  "reason": "",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/freestylefly/WeChatBridge/blob/e3479b0f14a8e82a16ee5a6e38d401ff11a50524/README.md",
+  "sourceRevision": "e3479b0f14a8e82a16ee5a6e38d401ff11a50524",
+  "canonicalKey": "freestylefly/WeChatBridge",
+  "summary": "WeChatBridge（微信流）是 macOS 原生工具，把微信合并转发的聊天记录直接送到 AI Agent 应用、Obsidian、剪贴板或自定义应用。",
+  "intro": "适合在 macOS 上使用微信、希望把群聊或对话记录交给 Codex、Claude、豆包等 AI 应用分析，或沉淀为 Obsidian Markdown 笔记的用户。它在微信“转发到其他应用”菜单中提供十个入口，可附加场景提示词、管理 SKILL.md 技能，并在本地保存批次记录以便重发与清理。",
+  "requirements": "macOS 14 Sonoma 或更高版本；macOS 微信 4.1.13 及以上（支持合并转发给第三方应用）；需要转发到的目标应用已安装；自动粘贴需授予辅助功能权限，聊天名识别需授予屏幕录制权限。从源码构建另需 Xcode 16 或兼容 Swift 6 的 Command Line Tools。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "下载 DMG 并安装到应用程序",
+      "text": "前往 GitHub Releases 下载最新的已签名公证 DMG，打开后把“微信流”拖入“应用程序”文件夹。安装包同时支持 Apple Silicon 和 Intel Mac。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/freestylefly/WeChatBridge/blob/e3479b0f14a8e82a16ee5a6e38d401ff11a50524/README.md?plain=1#L124"
+      }
+    },
+    {
+      "title": "在设置中启用分享入口",
+      "text": "打开“微信流 → 设置 → 入口”，按需开启 Codex、Claude、Obsidian、剪贴板等入口，未安装的目标应用会被标注；也可在“系统设置 → 通用 → 登录项与扩展 → 共享”中管理。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/freestylefly/WeChatBridge/blob/e3479b0f14a8e82a16ee5a6e38d401ff11a50524/README.md?plain=1#L128"
+      }
+    },
+    {
+      "title": "授予辅助功能与屏幕录制权限",
+      "text": "如需自动激活目标应用并粘贴，在系统设置中为微信流授予辅助功能权限；如需识别微信标题栏中的聊天名，再授予屏幕录制权限，图像仅在内存中处理。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/freestylefly/WeChatBridge/blob/e3479b0f14a8e82a16ee5a6e38d401ff11a50524/README.md?plain=1#L117"
+      }
+    },
+    {
+      "title": "在微信中合并转发聊天记录",
+      "text": "在 macOS 微信中多选聊天记录，选择合并转发到其他应用，在列表中直接点选微信流的目标入口，无需打开主窗口。微信会生成含 TXT、图片和视频的 ZIP 交给目标处理。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/freestylefly/WeChatBridge/blob/e3479b0f14a8e82a16ee5a6e38d401ff11a50524/README.md?plain=1#L22"
+      }
+    },
+    {
+      "title": "按需配置场景与技能",
+      "text": "在场景页为不同群聊保存提示词与适用 Agent，转发时选择对应场景；在技能中心管理兼容 Agent 的 SKILL.md。完整操作和常见问题见仓库内 USAGE.zh-CN.md。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/freestylefly/WeChatBridge/blob/e3479b0f14a8e82a16ee5a6e38d401ff11a50524/README.md?plain=1#L38"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "依赖 macOS 微信 4.1.13 起的合并转发能力，旧版本微信无法使用。",
+    "自动粘贴与聊天名识别分别需要辅助功能和屏幕录制权限；本地构建若用 ad-hoc 签名，macOS 可能要求重新授权。",
+    "转发给 AI Agent 应用后，聊天内容由对应应用处理，需自行评估其中的隐私信息。",
+    "目标应用未安装或权限不足时文件会保留在剪贴板，需手动粘贴。",
+    "当前源码配置尚未启用自动更新检查，新版本需自行到 Releases 下载。"
+  ],
+  "references": [],
+  "media": [
+    {
+      "url": "/assets/repository-guides/media-e83d08a0521891de714496e4.webp",
+      "alt": "微信转发菜单中的微信流入口",
+      "sourceUrl": "https://github.com/freestylefly/WeChatBridge/blob/e3479b0f14a8e82a16ee5a6e38d401ff11a50524/README.md?plain=1#L71",
+      "originalUrl": "https://raw.githubusercontent.com/freestylefly/WeChatBridge/e3479b0f14a8e82a16ee5a6e38d401ff11a50524/Resources/Screenshots/usage-wechat-share-menu.png"
+    },
+    {
+      "url": "/assets/repository-guides/media-aaeb6698669dcb785b8e4010.webp",
+      "alt": "入口设置页",
+      "sourceUrl": "https://github.com/freestylefly/WeChatBridge/blob/e3479b0f14a8e82a16ee5a6e38d401ff11a50524/README.md?plain=1#L80",
+      "originalUrl": "https://raw.githubusercontent.com/freestylefly/WeChatBridge/e3479b0f14a8e82a16ee5a6e38d401ff11a50524/Resources/Screenshots/usage-entries.png"
+    },
+    {
+      "url": "/assets/repository-guides/media-499944a50dcfcfcff0a6688d.webp",
+      "alt": "Obsidian 中的聊天记录与附件",
+      "sourceUrl": "https://github.com/freestylefly/WeChatBridge/blob/e3479b0f14a8e82a16ee5a6e38d401ff11a50524/README.md?plain=1#L93",
+      "originalUrl": "https://raw.githubusercontent.com/freestylefly/WeChatBridge/e3479b0f14a8e82a16ee5a6e38d401ff11a50524/Resources/Screenshots/usage-obsidian-attachments.png"
+    }
+  ],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "95860d075940cb8e4d21909215cbe3bcb809e2afdf4d1f3c2afcb3702abe05af",
+  "mediaStatus": "archived",
+  "mediaFailures": []
+}

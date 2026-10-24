@@ -1,0 +1,70 @@
+{
+  "schemaVersion": 1,
+  "key": "narratorai-studio/narrator-ai-cli-skill",
+  "status": "ready",
+  "reason": "",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/NarratorAI-Studio/narrator-ai-cli-skill/blob/4b17c6f2175bd532c92db778a847f8fb6bdd3177/README.md",
+  "sourceRevision": "4b17c6f2175bd532c92db778a847f8fb6bdd3177",
+  "canonicalKey": "NarratorAI-Studio/narrator-ai-cli-skill",
+  "summary": "一个 Agent Skill（SKILL.md 加 references/ 目录），教 AI Agent 调用 narrator-ai-cli，完成从选片、配乐、配音、文案到合成的电影解说视频制作流程。",
+  "intro": "适合想在 Claude Code、OpenClaw、Windsurf、Cursor 等 Agent 中用自然语言制作电影解说视频的用户。Skill 本身只是说明书，必须配合 narrator-ai-cli 和 API Key 使用。它提供两条工作流：Fast Path 用于原创文案，Standard Path 用于二创文案。此外还包括声音克隆、TTS 等独立任务，内置影片、BGM、配音和模板资源的选择规则，以及 API 错误码的处理方法。",
+  "requirements": "Python 3.10+；narrator-ai-cli v1.0.0+，依赖 typer、httpx[socks]、httpx-sse、pyyaml、rich；需要向项目方申请 narrator-ai-cli 的 API Key（README 提供邮箱和微信联系方式）；需要 git，以及一个支持 Markdown 技能文件的 Agent。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "用 pip 安装 narrator-ai-cli",
+      "text": "用 pip 从 GitHub 仓库安装 narrator-ai-cli 命令行工具。Skill 只负责教 Agent 怎么用命令，实际执行依赖这个 CLI。更多安装选项请看 narrator-ai-cli 仓库。",
+      "code": "pip install \"narrator-ai-cli @ git+https://github.com/NarratorAI-Studio/narrator-ai-cli.git\"",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/NarratorAI-Studio/narrator-ai-cli-skill/blob/4b17c6f2175bd532c92db778a847f8fb6bdd3177/README.md?plain=1#L31"
+      }
+    },
+    {
+      "title": "配置 narrator-ai-cli 的 API Key",
+      "text": "先通过 README 中的联系方式向项目方获取 API Key，然后执行 narrator-ai-cli config set app_key 写入配置。SKILL.md 的前置条件假定 CLI 已安装，且 NARRATOR_APP_KEY 已设置。",
+      "code": "narrator-ai-cli config set app_key <your_app_key>",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/NarratorAI-Studio/narrator-ai-cli-skill/blob/4b17c6f2175bd532c92db778a847f8fb6bdd3177/README.md?plain=1#L39"
+      }
+    },
+    {
+      "title": "克隆 Skill 到 Claude Code 技能目录",
+      "text": "以 Claude Code 为例，把整个仓库 git clone 到项目的 .skills/narrator-ai-cli 目录。SKILL.md 和 references/ 目录缺一不可，不能只复制单个文件。以后升级时，在克隆目录中执行 git pull 即可。OpenClaw、Cursor 等平台的目标目录不同，请参照 README 对应的小节。",
+      "code": "mkdir -p /path/to/your/project/.skills\ngit clone https://github.com/NarratorAI-Studio/narrator-ai-cli-skill.git \\\n  /path/to/your/project/.skills/narrator-ai-cli",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/NarratorAI-Studio/narrator-ai-cli-skill/blob/4b17c6f2175bd532c92db778a847f8fb6bdd3177/README.md?plain=1#L47"
+      }
+    },
+    {
+      "title": "用自然语言向 Agent 发起制作",
+      "text": "安装完成后，直接用自然语言告诉 Agent 想做哪部影片的解说、什么风格，或者先请它列出可用的内置影片素材。按 SKILL.md 的规则，Agent 会在执行操作前向你确认，然后依次选择模板、BGM 和配音，生成文案并合成视频。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/NarratorAI-Studio/narrator-ai-cli-skill/blob/4b17c6f2175bd532c92db778a847f8fb6bdd3177/README.md?plain=1#L85"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "需要向项目方申请 API Key。README 提到创建任务前可以预估积分消耗，说明任务会消耗账户积分，具体计费请向提供方确认。",
+    "制作过程中，素材和请求会发送到 narrator-ai-cli 的 API 服务，数据处理方式见 SKILL.md 的 Data & Privacy 章节。",
+    "Skill 不能单独使用，必须先安装 narrator-ai-cli 并配置好 Key。",
+    "在 WorkBuddy、QClaw 等平台通过界面上传时，必须保持 references/ 作为 SKILL.md 同级子目录，否则相对路径引用会失效。",
+    "README 中各平台的“已验证”状态由项目方自行声明。"
+  ],
+  "references": [
+    {
+      "label": "README_CN.md",
+      "url": "https://github.com/NarratorAI-Studio/narrator-ai-cli-skill/blob/4b17c6f2175bd532c92db778a847f8fb6bdd3177/README_CN.md"
+    }
+  ],
+  "media": [],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "7e944c4c30154d759301cb02f71c52f36ddd01a47b9bedaccfed3c9cb0361834",
+  "mediaStatus": "none_in_official_documents"
+}

@@ -1,0 +1,79 @@
+{
+  "schemaVersion": 1,
+  "key": "dontbesilent2025/dbskill",
+  "status": "ready",
+  "reason": "",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/dontbesilent2025/dbskill/blob/a0e6fa356c58eca1a6e804c319ea7aac3db4a9af/README.md",
+  "sourceRevision": "a0e6fa356c58eca1a6e804c319ea7aac3db4a9af",
+  "canonicalKey": "dontbesilent2025/dbskill",
+  "summary": "一套面向创业者和内容创作者的中文 AI Skills 工具箱，可以在支持 Skills 的 Agent 中处理商业诊断、内容策划与优化、行动卡点分析和决策记录等问题。",
+  "intro": "适合需要判断生意、定价和客群问题，或者需要策划短视频、小红书内容的个人创业者和内容创作者。通过 /dbs 总入口描述实际处境，它会推荐单个 Skill 或组合方案，并生成可以直接继续发送的提示词；如果已经清楚需求，也可以直接调用 /dbs-diagnosis、/dbs-hook 等具体 Skill。仓库同时公开了结构化知识原子库和推文集，可供查阅。",
+  "requirements": "一个支持 Skills 的 Agent，例如豆包、WorkBuddy、Claude Code 或 Codex；可以在终端执行安装命令。使用隐藏编号功能时需要能访问 GitHub。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "在终端安装全部 Skills",
+      "text": "README 推荐的通用安装方式是在终端执行 skills add 命令，适用于 Claude Code、豆包、WorkBuddy、Codex 等支持 Skills 的 Agent。这个命令只安装 Skills，不会下载公开推文集。",
+      "code": "npx -y skills add dontbesilent2025/dbskill -g --all",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/dontbesilent2025/dbskill/blob/a0e6fa356c58eca1a6e804c319ea7aac3db4a9af/README.md?plain=1#L85"
+      }
+    },
+    {
+      "title": "输入 /dbs 新手入门开始",
+      "text": "安装完成后回到 Agent，输入“/dbs 新手入门”开始使用。完整的 33 个 Skill 目录、各自的适用时机和输入示例，见仓库中的 docs/新手入门.md。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/dontbesilent2025/dbskill/blob/a0e6fa356c58eca1a6e804c319ea7aac3db4a9af/README.md?plain=1#L85"
+      }
+    },
+    {
+      "title": "用 /dbs 描述真实业务处境",
+      "text": "在 /dbs 后面写下你的业务情况和要做的判断。它会读取当前对话，说明推荐理由，并生成可以直接发送的提示词。一轮结束后补充新的事实或反馈，再次输入 /dbs，它会重新判断用单个 Skill 还是组合。",
+      "code": "/dbs 我做少儿编程课，已经有 40 个付费学员，但续费率很低。\n我需要判断问题出在产品、定价，还是我找错了客户。\n\n真实任务\n   ↓\n/dbs 读取上下文并判断单项或组合\n   ↓\n生成一段可直接继续发送的提示词\n   ↓\n入选 Skill 交付一份统一结果\n   ↓\n补充结果与反馈，再重新编排",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/dontbesilent2025/dbskill/blob/a0e6fa356c58eca1a6e804c319ea7aac3db4a9af/README.md?plain=1#L34"
+      }
+    },
+    {
+      "title": "直接调用对应的具体 Skill",
+      "text": "需求明确时，可以直接调用对应的 Skill：商业诊断用 /dbs-diagnosis，短视频开头用 /dbs-hook，找对标用 /dbs-benchmark，把本地文件夹建成知识库用 /dbs-knowledge。各 Skill 的分工见“能力一览”表。",
+      "code": "/dbs-diagnosis 我做面向宝妈的收纳咨询，客户总觉得贵。我该调整什么？\n/dbs-content-value 这条内容适合哪些观众？可能带来什么流量和商业价值？\n/dbs-hook 这是我短视频前 20 秒的逐字稿，帮我优化开头：……\n/dbs-benchmark 我想研究企业服务内容账号，应该找哪些对标？\n/dbs-knowledge 帮我把这个文件夹变成知识库，以后我想直接从里面找资料。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/dontbesilent2025/dbskill/blob/a0e6fa356c58eca1a6e804c319ea7aac3db4a9af/README.md?plain=1#L34"
+      }
+    },
+    {
+      "title": "在对话中更新 dbskill",
+      "text": "已经安装后，直接对 Agent 说“更新 dbskill”即可同步官方版本，~/.dbs/ 中的存档、报告和决策记录不会被修改。如需跨对话保留工作，使用 /dbs-save、/dbs-restore 和 /dbs-report。",
+      "code": "更新 dbskill",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/dontbesilent2025/dbskill/blob/a0e6fa356c58eca1a6e804c319ea7aac3db4a9af/README.md?plain=1#L110"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "许可证为 CC BY-NC 4.0：个人使用、学习、研究和非商业项目可以直接使用，商业用途需联系作者单独授权，公开发布衍生作品时需注明来源。",
+    "隐藏编号的内容在使用时从 GitHub 读取，网络无法访问 GitHub 时不可用。",
+    "存档、报告和决策记录默认保存在本机 ~/.dbs/ 目录。",
+    "如果改用 Claude Code 插件市场安装，Skill 会带命名空间，主入口变为 /dbs:dbs，具体能力如 /dbs:dbs-diagnosis。",
+    "公开推文集（Markdown 版和 PDF 版）需要单独在仓库 books/ 目录中查阅，安装 Skills 时不会一并下载。"
+  ],
+  "references": [
+    {
+      "label": "README.zh-TW.md",
+      "url": "https://github.com/dontbesilent2025/dbskill/blob/a0e6fa356c58eca1a6e804c319ea7aac3db4a9af/README.zh-TW.md"
+    }
+  ],
+  "media": [],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "9305671f1adce330ed5a954fa73ddbabc05003dd2632ccbd33d08fba541a89da",
+  "mediaStatus": "none_in_official_documents"
+}

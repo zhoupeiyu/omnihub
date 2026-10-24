@@ -1,0 +1,75 @@
+{
+  "schemaVersion": 1,
+  "key": "fishaudio/fish-speech",
+  "status": "partial",
+  "reason": "README 只提供功能介绍、基准数据和指向 speech.fish.audio 的安装、命令行推理、WebUI、服务端和 Docker 文档链接，未在仓库内给出具体安装命令、模型下载步骤和推理命令，需前往外部官方文档获取。",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/fishaudio/fish-speech/blob/214da3cd841bda85da2496b96cd3c4d7edb1337e/README.md",
+  "sourceRevision": "214da3cd841bda85da2496b96cd3c4d7edb1337e",
+  "canonicalKey": "fishaudio/fish-speech",
+  "summary": "Fish Speech 提供开源多语言文本转语音模型 Fish Audio S2 Pro 的代码与权重，支持语音克隆和自然语言标签情绪控制。",
+  "intro": "适合需要本地部署 TTS 的研究者和开发者，用于多语言语音合成（80 多种语言）、用 10–30 秒参考音频做语音克隆、通过 [whisper]、[excited] 等行内标签控制韵律与情绪，以及在一次生成中包含多个说话人。可通过命令行、WebUI、服务端或 Docker 方式推理，也可配合 SGLang、vLLM Omni 部署。",
+  "requirements": "需遵守 FISH AUDIO RESEARCH LICENSE；模型权重 S2-Pro（4B 参数）发布在 HuggingFace（fishaudio/s2-pro）；具体环境与硬件要求见 speech.fish.audio 安装文档。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "阅读许可证确认使用范围",
+      "text": "代码库及模型权重均以 FISH AUDIO RESEARCH LICENSE 发布，官方声明会对违规使用采取行动，并提示参照当地 DMCA 等法律。使用前先阅读仓库 LICENSE 文件确认用途是否允许。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/fishaudio/fish-speech/blob/214da3cd841bda85da2496b96cd3c4d7edb1337e/README.md?plain=1#L1"
+      }
+    },
+    {
+      "title": "按官方文档完成安装",
+      "text": "前往 speech.fish.audio 的中文安装页，按文档安装与配置 Fish Audio S2；若使用 LLM Agent 协助安装，可将仓库提供的指引文本交给 Agent，让其先阅读该安装文档。",
+      "code": "请先阅读 https://speech.fish.audio/zh/install/ ，并按文档安装和配置 Fish Audio S2。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/fishaudio/fish-speech/blob/214da3cd841bda85da2496b96cd3c4d7edb1337e/docs/README.zh.md?plain=1#L55"
+      }
+    },
+    {
+      "title": "选择一种推理方式运行",
+      "text": "根据需求在官方文档中选择命令行推理、WebUI 推理、服务端推理或 Docker 部署之一。如需 SGLang 或 vLLM Omni 服务端，分别参考 SGLang-Omni README 与 vLLM-Omni 的 S2 Pro Recipe。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/fishaudio/fish-speech/blob/214da3cd841bda85da2496b96cd3c4d7edb1337e/docs/README.zh.md?plain=1#L55"
+      }
+    },
+    {
+      "title": "用行内标签控制情绪与韵律",
+      "text": "在待合成文本的任意位置插入 [tag] 形式的指令，如 [pause]、[whisper]、[excited]，也支持自由文本描述（如 [professional broadcast tone]），用于细粒度控制语气、音量和停顿。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/fishaudio/fish-speech/blob/214da3cd841bda85da2496b96cd3c4d7edb1337e/docs/README.zh.md?plain=1#L112"
+      }
+    },
+    {
+      "title": "准备参考音频进行语音克隆",
+      "text": "准备通常 10–30 秒的参考音频即可克隆音色与说话风格，无需微调；多说话人场景可上传含多人的参考音频，再用 <|speaker:i|> 令牌指定说话人。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/fishaudio/fish-speech/blob/214da3cd841bda85da2496b96cd3c4d7edb1337e/docs/README.zh.md?plain=1#L160"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "代码和权重采用 FISH AUDIO RESEARCH LICENSE（非常规开源许可），商用等用途需先核对许可条款。",
+    "语音克隆涉及他人声音，需遵守当地法律；官方声明不对非法使用承担责任。",
+    "README 中的 RTF、首音延迟等性能数据基于单张 NVIDIA H200 GPU 与 SGLang，普通硬件上表现可能不同。",
+    "README 未给出安装命令，实际步骤以 speech.fish.audio 文档为准。"
+  ],
+  "references": [
+    {
+      "label": "docs/README.zh.md",
+      "url": "https://github.com/fishaudio/fish-speech/blob/214da3cd841bda85da2496b96cd3c4d7edb1337e/docs/README.zh.md"
+    }
+  ],
+  "media": [],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "cdc0b5e0046216b7337ec5ebf9e470614d8e863b5ce363401c60dc043b15aea4",
+  "mediaStatus": "none_in_official_documents"
+}

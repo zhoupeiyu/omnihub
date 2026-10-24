@@ -1,0 +1,87 @@
+{
+  "schemaVersion": 1,
+  "key": "kajisho5/ffmpeg-skill",
+  "status": "ready",
+  "reason": "",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/kajisho5/ffmpeg-skill/blob/df5d2736b171473742b86789e5179bdfb0976373/README.md",
+  "sourceRevision": "df5d2736b171473742b86789e5179bdfb0976373",
+  "canonicalKey": "kajisho5/ffmpeg-skill",
+  "summary": "一个面向 Claude Code、Cursor、Codex 等 AI 编程代理的 Agent Skill。它在本地调用 FFmpeg，提供 42 个结构化工具，可以完成剪切、拼接、字幕、画幅适配、响度处理和交付检查等视频与音频处理。",
+  "intro": "适合已经在使用 Claude Code、Cursor、Codex 或 MCP 客户端，并希望让代理在本机处理媒体文件的用户。安装后，代理按 SKILL.md 的固定流程工作：先用 probe.py 测量文件，尽量无损编辑，再检查和验证结果。它也能为 TikTok、Reels、YouTube 等平台按模板导出。各脚本也可以在 shell 中单独调用，并支持 --dry-run 和 --json 输出。项目只负责执行剪辑、测量和导出，不负责决定剪哪里或字幕写什么。",
+  "requirements": "FFmpeg 5.0+，且包含 libx264、aac 以及 drawtext、subtitles（libass）、loudnorm、xfade、acrossfade、scdet、silencedetect、tile 等滤镜；Python 3.9+（只用标准库）；使用 npx 安装器时需要 Node 16+；需要一个读取 SKILL.md 的代理宿主，本指南以 Claude Code 为例。不需要 API key 或账号。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "按系统安装完整版 FFmpeg",
+      "text": "该步骤涉及需要人工核查的高权限、远程脚本或破坏性操作。本站不提供直接执行指令，请先查看官方说明并确认影响。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/kajisho5/ffmpeg-skill/blob/df5d2736b171473742b86789e5179bdfb0976373/README.md?plain=1#L450"
+      }
+    },
+    {
+      "title": "用 npx 安装到 Claude Code",
+      "text": "在终端运行 npx ffmpeg-skill。它默认把技能安装到 ~/.claude/skills/ffmpeg-skill，供 Claude Code 使用。Cursor 用户改加 --cursor，Codex 用户改加 --codex。已安装的副本不会自动更新，需要时重新运行同一命令刷新。 原文包含需人工核查的高权限或删除命令，本站不提供一键复制；请查看该步骤的官方出处。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/kajisho5/ffmpeg-skill/blob/df5d2736b171473742b86789e5179bdfb0976373/README.md?plain=1#L87"
+      }
+    },
+    {
+      "title": "运行 doctor 检查 FFmpeg 组件",
+      "text": "安装后运行 npx ffmpeg-skill doctor，检查 ffmpeg、ffprobe 和各工具所需组件是否齐全。整体 ok 只表示所有工具都需要的组件没有缺失，单个工具仍可能不可用。应查看 doctor --json 的 tools 字段，确认每个工具是否可用。需要给代理框架读取接口时，可再运行 contract --json。",
+      "code": "npx ffmpeg-skill doctor           # every required FFmpeg component present?\nnpx ffmpeg-skill contract --json  # what the agent framework will see",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/kajisho5/ffmpeg-skill/blob/df5d2736b171473742b86789e5179bdfb0976373/README.md?plain=1#L87"
+      }
+    },
+    {
+      "title": "在代理中用自然语言描述剪辑需求",
+      "text": "打开 Claude Code，直接说明要处理的文件、保留的时间段、目标时长、画幅或目标平台。代理会按 SKILL.md 的流程依次调用 probe.py、cut.py、fit.py、export.py、check.py 等工具。画面有变化时，代理还会用 look.py 生成 contact sheet 供它查看。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/kajisho5/ffmpeg-skill/blob/df5d2736b171473742b86789e5179bdfb0976373/README.md?plain=1#L87"
+      }
+    },
+    {
+      "title": "在 shell 中单独调用脚本预览",
+      "text": "也可以不经过代理，直接在 shell 中把 S 指向 ~/.claude/skills/ffmpeg-skill/scripts 并调用 python3 脚本。建议先加 --dry-run 只打印计划、不写文件，确认无误后再执行；加 --json 可以拿到包含输出文件探测信息的结构化结果。平台交付可用 render.py 的 --template 套用内置模板。",
+      "code": "S=~/.claude/skills/ffmpeg-skill/scripts\npython3 $S/probe.py input.mp4 --compact\npython3 $S/fit.py input.mp4 --duration 60 --aspect 9:16 --dry-run    # print the plan, run nothing\npython3 $S/export.py input.mp4 --preset reels --json                 # structured result with a probe of the output\n\npython3 $S/render.py talk.mp4 --template tiktok --cues cues.txt",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/kajisho5/ffmpeg-skill/blob/df5d2736b171473742b86789e5179bdfb0976373/README.md?plain=1#L110"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "macOS 上 Homebrew 的普通 ffmpeg 可能缺少 libass、libfreetype、libzimg，doctor 整体仍可能显示 ok，但 caption.py 等工具无法运行，需要查看每个工具的 usable 状态。",
+    "通过 npx 安装的是复制件，不会自动更新，需要重新运行 npx ffmpeg-skill 刷新；Claude Code 插件方式则用 claude plugin update 更新。",
+    "每次实际调用 ffmpeg 默认有 1800 秒超时，超时后会终止进程并删除部分输出；较长的 --accurate 重编码需要调高 --timeout 或 FFMPEG_SKILL_TIMEOUT。",
+    "转写功能（caption.py --transcribe、silence.py --filler --transcribe）需要本机另外安装 whisper，属于可选项，未安装时工具会拒绝执行并给出安装说明。",
+    "本项目不识别人脸、主体或精彩片段；裁切取景和画面检查依赖调用它的代理自身的视觉能力。字幕按用户提供的文本原样烧录，不会被改写。",
+    "Windows 的 Git Bash 中，从 python.org 安装的 Python 可能只提供 python 或 py 命令，此时需要把示例中的 python3 替换掉。"
+  ],
+  "references": [],
+  "media": [],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "da5b531f4e40fa1e78a7f0ffc7f187a3e97ca294982f3fcb18fe5cfa4c0c8263",
+  "mediaStatus": "unavailable",
+  "mediaFailures": [
+    {
+      "sourceUrl": "https://github.com/kajisho5/ffmpeg-skill/blob/df5d2736b171473742b86789e5179bdfb0976373/README.md#L33",
+      "reason": "non_demo_dimensions"
+    },
+    {
+      "sourceUrl": "https://github.com/kajisho5/ffmpeg-skill/blob/df5d2736b171473742b86789e5179bdfb0976373/README.md#L34",
+      "reason": "non_demo_dimensions"
+    },
+    {
+      "sourceUrl": "https://github.com/kajisho5/ffmpeg-skill/blob/df5d2736b171473742b86789e5179bdfb0976373/README.md#L37",
+      "reason": "non_demo_dimensions"
+    }
+  ]
+}

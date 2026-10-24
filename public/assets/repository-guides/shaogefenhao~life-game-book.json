@@ -1,0 +1,52 @@
+{
+  "schemaVersion": 1,
+  "key": "shaogefenhao/life-game-book",
+  "status": "ready",
+  "reason": "",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/shaogefenhao/life-game-book/blob/729c83e031748e7e3ba80e9dcfb60f2099cc004a/README.adoc",
+  "sourceRevision": "729c83e031748e7e3ba80e9dcfb60f2099cc004a",
+  "canonicalKey": "shaogefenhao/life-game-book",
+  "summary": "《人生游戏：自我觉醒、社会规则和执行力》中文开源电子书，可在线阅读，也可用 Asciidoctor 构建 HTML、PDF、EPUB。",
+  "intro": "适合对自我认知、社会运行规则和执行力话题感兴趣的读者。全书分为三个专栏，每个专栏包含 10 个问题。也适合想用 Asciidoctor 参与按章节撰写或构建该书的贡献者。",
+  "requirements": "阅读只需浏览器。贡献内容需要一个 Asciidoctor 编辑器（IntelliJ + Asciidoctor 插件、Visual Studio Code 或 AsciidoctorFx）。构建时 README 给出的是 Mac 上通过 brew 安装 Asciidoctor 的路径。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "打开在线阅读版本",
+      "text": "访问 README 中的“人生游戏在线阅读”链接 https://shaogefenhao.github.io/life-game-book/ 阅读全书。全书包含自我认知、社会游戏规则、成事与执行力三部分。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/shaogefenhao/life-game-book/blob/729c83e031748e7e3ba80e9dcfb60f2099cc004a/README.adoc?plain=1#L1"
+      }
+    },
+    {
+      "title": "选择 Asciidoctor 编辑器贡献",
+      "text": "如果想为仓库贡献内容，先从 README 推荐的 IntelliJ + Asciidoctor 插件、Visual Studio Code 或 AsciidoctorFx 中选一个编辑器，然后按章节编写 .adoc 内容。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/shaogefenhao/life-game-book/blob/729c83e031748e7e3ba80e9dcfb60f2099cc004a/README.adoc?plain=1#L1"
+      }
+    },
+    {
+      "title": "在 Mac 上构建电子书文件",
+      "text": "按 README 的“如何构建电子书”段落，在 Mac 上用 brew 安装 Asciidoctor，再对 index.adoc 生成 docs/index.html。PDF 需配合仓库 themes 下的 CJK 主题，EPUB 使用 asciidoctor-epub3。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/shaogefenhao/life-game-book/blob/729c83e031748e7e3ba80e9dcfb60f2099cc004a/README.adoc?plain=1#L1"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "仓库标注为 CC0-1.0 协议。",
+    "README 只写了 brew 安装 Asciidoctor，没有说明 asciidoctor-pdf 和 asciidoctor-epub3 的安装方式，生成 PDF/EPUB 前需要自行确认这两个工具已安装。",
+    "书中内容是作者对人性与社会的个人观点模型，阅读时请自行判断。"
+  ],
+  "references": [],
+  "media": [],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "ebbad1c101fdce3593334ce6bd6d418a1ed241a070f7fb8d3ffef3edcb40e239",
+  "mediaStatus": "none_in_official_documents"
+}

@@ -1,0 +1,73 @@
+{
+  "schemaVersion": 1,
+  "key": "geekjourneyx/jina-cli",
+  "status": "ready",
+  "reason": "",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/geekjourneyx/jina-cli/blob/e59bcb26599ddae1a8b06aafe485eaedadf28645/README.md",
+  "sourceRevision": "e59bcb26599ddae1a8b06aafe485eaedadf28645",
+  "canonicalKey": "geekjourneyx/jina-cli",
+  "summary": "封装 Jina AI Reader API 的命令行工具，可把任意网页转换为 Markdown/Text/HTML 等适合 LLM 读取的格式，并支持网络搜索。",
+  "intro": "适合需要在终端、脚本或 AI agent 中读取网页内容的开发者，尤其是 X (Twitter)、博客、新闻站等结构复杂的页面。read 命令可抓取单个或批量 URL，search 命令可按关键词和站点搜索。仓库同时提供 OpenClaw 和 Claude Code 的 Skill 安装方式；本指南采用 Linux/macOS 下的 CLI 二进制安装路径。",
+  "requirements": "Linux 或 macOS（amd64/arm64）；可访问 GitHub 和 Jina AI 服务的网络环境。API Key 可选，用于获得更高的速率限制。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "一键安装 CLI 二进制",
+      "text": "在 Linux 或 macOS 终端运行官方安装脚本。脚本会检测系统架构、下载对应二进制，安装到 ~/.local/bin/jina 或 ~/bin/jina，必要时提示把目录加入 PATH。自动安装失败时可改用 README 中的手动下载方式。 原文包含需人工核查的高权限或删除命令，本站不提供一键复制；请查看该步骤的官方出处。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/geekjourneyx/jina-cli/blob/e59bcb26599ddae1a8b06aafe485eaedadf28645/README.md?plain=1#L98"
+      }
+    },
+    {
+      "title": "验证安装并试读网页",
+      "text": "运行 jina --version 确认已安装，再用 jina read --url 读取一个测试页面，检查基本功能是否正常。",
+      "code": "# 检查是否安装成功\njina --version\n# 预期输出: jina version 1.0.0 (构建时间: ..., 提交: ...)\n\n# 测试基本功能\njina read --url \"https://example.com\"",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/geekjourneyx/jina-cli/blob/e59bcb26599ddae1a8b06aafe485eaedadf28645/README.md?plain=1#L114"
+      }
+    },
+    {
+      "title": "用 read 读取网页内容",
+      "text": "用 jina read -u 指定 URL：--output markdown 输出 Markdown，--output-file 保存到文件，读取 X 帖子时可加 --with-alt 生成图片描述。批量处理时可用 --file 传入 URL 列表文件。默认输出 JSON。",
+      "code": "# 读取单个 URL\njina read --url \"https://example.com\"\n\n# 读取 X (Twitter) 帖子\njina read -u \"https://x.com/user/status/123456789\" --with-alt\n\n# 输出 Markdown 格式\njina read -u \"https://example.com\" --output markdown\n\n# 保存到文件\njina read -u \"https://example.com\" --output-file result.md\n\n# 从文件读取 URL 列表\ncat > urls.txt << EOF\nhttps://example.com/page1\nhttps://example.com/page2\nhttps://x.com/user/status/123\nEOF\n\njina read --file urls.txt",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/geekjourneyx/jina-cli/blob/e59bcb26599ddae1a8b06aafe485eaedadf28645/README.md?plain=1#L179"
+      }
+    },
+    {
+      "title": "用 search 搜索网络内容",
+      "text": "用 jina search -q 输入关键词，可用多个 --site 限定站点，用 --limit 限制结果数量。",
+      "code": "# 搜索关键词\njina search --query \"golang latest news\"\n\n# 限定搜索站点\njina search -q \"AI developments\" --site techcrunch.com --site theverge.com\n\n# 限制结果数量\njina search -q \"climate change\" --limit 10",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/geekjourneyx/jina-cli/blob/e59bcb26599ddae1a8b06aafe485eaedadf28645/README.md?plain=1#L208"
+      }
+    },
+    {
+      "title": "配置 API Key 与其他选项",
+      "text": "可用 jina config set api_key、环境变量 JINA_API_KEY 或 -k 参数设置密钥以提高速率限制。超时、代理等配置保存在 ~/.jina-reader/config.yaml。优先级：命令行参数 > 环境变量 > 配置文件 > 默认值。",
+      "code": "# 查看所有配置\njina config list\n\n# 设置配置项\njina config set timeout 60\njina config set with-generated-alt true\n\n# 获取单个配置\njina config get timeout\n\n# 查看配置文件路径\njina config path\n\n# 方式 1：配置文件设置\njina config set api_key jina_xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx\n\n# 方式 2：环境变量\nexport JINA_API_KEY=jina_xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx\n\n# 方式 3：命令行参数\njina read -u \"https://example.com\" -k jina_xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/geekjourneyx/jina-cli/blob/e59bcb26599ddae1a8b06aafe485eaedadf28645/README.md?plain=1#L221"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "工具依赖 Jina AI 的远程服务（r.jina.ai / s.jina.ai），请求的 URL 和查询内容会发送给该服务；不配置 API Key 时速率受限。",
+    "API Key 需在 Jina AI Reader 官网注册获取；写入配置文件或命令行时注意避免泄露。",
+    "官方文档中的高权限或远程脚本操作应单独核查，不要整段复制执行。",
+    "Claude Code Skill 方式在文件系统访问和脚本执行上受限（据 README 对比表）；需要完整权限时应使用 CLI 二进制。"
+  ],
+  "references": [],
+  "media": [],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "a49800d6b948aca38eec02377976f0bbdea29deb9e1aaf5f8d092d3b005303e0",
+  "mediaStatus": "none_in_official_documents"
+}

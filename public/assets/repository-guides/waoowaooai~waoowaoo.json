@@ -1,0 +1,69 @@
+{
+  "schemaVersion": 1,
+  "key": "waoowaooai/waoowaoo",
+  "status": "ready",
+  "reason": "",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/waooAI/waoowaoo/blob/dfec20e32298ed675050329e4a41477024148399/README.md",
+  "sourceRevision": "dfec20e32298ed675050329e4a41477024148399",
+  "canonicalKey": "waooAI/waoowaoo",
+  "summary": "waoowaoo 是一个可自托管的 AI 图片与视频创作工作台，通过右侧 Assistant 对话、画布素材管理和 OpenRouter 模型生成并迭代作品。",
+  "intro": "适合想在本地部署 AI 图像和视频创作环境的个人或团队，可用于制作角色设定图、品牌视觉、动画短片等。你可以上传参考素材，并按模型能力选择画幅、时长、分辨率，以及首帧、首尾帧或参考图模式；也可以在保留原结果的前提下生成新版本，或合并视频片段。当前是预览版，界面支持中文和英文。",
+  "requirements": "推荐使用预构建 Docker 镜像，主机需要 Docker Engine/Desktop、Compose v2、Git 和 flock，无需在主机安装 Node.js、MySQL、Redis、Temporal 或 FFmpeg。官方快速开始需要一个能访问本地终端的 AI 编程助手，以及一个自付费用的 OpenRouter API key。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "把安装提示词交给编程助手",
+      "text": "将 README 中官方提供的安装提示词复制给能访问本地终端的 AI 编程助手。助手会检查系统和 Docker 环境，阅读 docs/INSTALL.md 与所选 Release，然后使用预构建镜像完成安装。过程中可能需要你批准系统安装程序，或手动启动 Docker Desktop。",
+      "code": "请帮我在本机安装 waoowaoo，公开仓库是：\nhttps://github.com/waooAI/waoowaoo\n\n先检查我的操作系统、Docker 环境，以及是否已有 waoowaoo 安装和数据。\n阅读仓库的 docs/INSTALL.md 与准备安装的 Release 发布说明，使用同一发布版本的安装文件。\n优先按照文档使用预构建 Docker 镜像，安装应用和配套 Codex runtime，\n并准备文档要求的依赖；不要自行猜测镜像地址、标签、digest 或启动顺序。\n若该版本没有可用的发布产物，请明确说明缺少什么，不要改用不明来源镜像。\n\n为所需密钥生成独立的安全随机值，按文档配置关联项。\n密钥只保存在本地必要的配置中，不要打印到对话、日志或提交到 Git。\n保留已有配置和数据；不要覆盖已有安装、清空卷或删除文件。\n发现现有安装时，先说明保留数据的升级方案，再进行需要我确认的操作。\n需要操作系统权限或手动步骤时，说明用途并指导我完成。\n使用同一发布版本的 docker/caddy/Caddyfile，让 Compose 默认启动 Caddy。\n保留 SELF_HOSTED_HOST=localhost、SELF_HOSTED_HTTPS_PORT=1443，\nAPP_HOST_PORT=13000 只用于 HTTP 重定向；NEXTAUTH_URL 由 overlay 派生。\n保留 Caddy 的 /data 和 /config 命名卷。只导出 root.crt，说明信任证书的影响，\n取得我的明确批准后，协助导入浏览器所在宿主系统的信任库；Windows 与 WSL 的信任库不同。\n不得导出 root.key 或跳过 TLS 校验。检查 https://localhost:1443 无证书警告，\n并在浏览器中确认请求实际使用 h2，包括多标签页的事件流。\nSSE 多标签页连接数量不等于 AI 任务并发额度。\n\n完成后检查服务健康状态与网页是否可访问，告诉我访问地址和首次使用步骤。\n指导我在网页配置自己的 OpenRouter API Key，不要要求我把密钥发到聊天里。\n不要自动调用付费生成接口；如果安装受阻，给出具体原因和下一步。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/waooAI/waoowaoo/blob/dfec20e32298ed675050329e4a41477024148399/README_zh.md?plain=1#L36"
+      }
+    },
+    {
+      "title": "批准本地证书并打开应用",
+      "text": "发布版 Compose 会自动启动 Caddy。助手会说明信任本地 root.crt 的影响，你明确批准后再导入证书。之后访问 https://localhost:1443；13000 端口只做 HTTP 重定向。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/waooAI/waoowaoo/blob/dfec20e32298ed675050329e4a41477024148399/README_zh.md?plain=1#L36"
+      }
+    },
+    {
+      "title": "在个人资料中填入 OpenRouter Key",
+      "text": "登录后打开个人资料中的 API 配置，添加你的 OpenRouter API key。不要把密钥发到聊天或支持日志里。模型调用费用由你的 OpenRouter 账户承担。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/waooAI/waoowaoo/blob/dfec20e32298ed675050329e4a41477024148399/README.md?plain=1#L68"
+      }
+    },
+    {
+      "title": "在画布与 Assistant 中创作",
+      "text": "在项目中上传参考素材，并通过右侧 Assistant 描述创作目标。在草稿卡中选择模型支持的画幅、时长和参考方式，确认参数和费用提示后再提交生成。之后可以继续基于已有结果制作新版本。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/waooAI/waoowaoo/blob/dfec20e32298ed675050329e4a41477024148399/README_zh.md?plain=1#L22"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "当前为预览/测试版，存在 bug 和不完善之处。",
+    "自 v0.5.0-beta.1 起采用 Elastic License 2.0，属于源码可用而非 OSI 开源；向第三方提供主要功能的托管服务需另行授权。",
+    "图片、视频和对话调用都通过 OpenRouter 计费，本地运行不代表免费；建议先用较短时长和较低规格尝试。",
+    "提示词和参考素材会发送给模型服务商。",
+    "安装需要信任本地 Caddy 根证书；Windows 与 WSL 的证书信任库不同，不要导出 root.key 或跳过 TLS 校验。",
+    "不同模型支持的参数不同，例如 H3 Max 目前只接受单个首帧；预览版不含音乐和配音功能。"
+  ],
+  "references": [
+    {
+      "label": "README_zh.md",
+      "url": "https://github.com/waooAI/waoowaoo/blob/dfec20e32298ed675050329e4a41477024148399/README_zh.md"
+    }
+  ],
+  "media": [],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "cff8fa599334b5b2465726253d499aa3a8fe65da9ed9dbd30ae6dd542f8ee08d",
+  "mediaStatus": "none_in_official_documents"
+}

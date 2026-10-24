@@ -1,0 +1,88 @@
+{
+  "schemaVersion": 1,
+  "key": "xr843/master-skill",
+  "status": "ready",
+  "reason": "",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/xr843/Master-skill/blob/77296f6f07228513b8c37dba822a77b17e520c37/README.md",
+  "sourceRevision": "77296f6f07228513b8c37dba822a77b17e520c37",
+  "canonicalKey": "xr843/Master-skill",
+  "summary": "一个佛教 AI 祖师人格技能框架：以 AgentSkills 形式提供 15 位跨传统祖师和 4 个教学模式，回答附原典出处。",
+  "intro": "适合佛教学习者、研究者，以及使用 Claude Code、Cursor、Codex CLI、OpenCode、Gemini CLI 的开发者。你可以用 /master-huineng 等命令向某位祖师人格提问，或用 /compare-masters、/master-debate、/master-curriculum 做多祖师对比、对辩和学修路径规划。只想体验的读者可以直接使用 fojin.app/chat，无需安装。下文以 Claude Code 的 npx 安装为例。",
+  "requirements": "Claude Code，以及可运行 npx 的 Node.js 环境。如需使用 /create-master 自定义生成，还需要 Python 3.9+ 以及 requests、pyyaml、pypinyin。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "用 npx 为 Claude Code 安装技能",
+      "text": "在终端运行 npx master-skill install --all，一次安装全部 20 个 Skill，也可以只安装某一位祖师。技能会装到 ~/.claude/skills/，Claude Code 从这个目录读取。Codex CLI 和 Gemini CLI 不读该目录，需要按 docs/install.md 中对应的小节另行安装。",
+      "code": "npx master-skill install --all          # 一次装全部 20 个 Skill\nnpx master-skill install master-huineng # 或只装一位\nnpx master-skill list                   # 看全部可装的\nnpx master-skill recommend \"念佛怎么念才算老实\"   # 不知道该问谁？让它推荐\nnpx master-skill doctor                 # 检查本地安装与运行路径\nnpx master-skill update --all           # 升级：重装全部并清掉旧文件",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/xr843/Master-skill/blob/77296f6f07228513b8c37dba822a77b17e520c37/README.md?plain=1#L187"
+      }
+    },
+    {
+      "title": "不确定问谁时先用推荐命令",
+      "text": "如果不知道该找哪位祖师或哪个模式，可以在终端用 master-skill recommend 加上你的问题，按关键词得到推荐；也可以在对话中直接调用 /master-help。推荐只给出目标技能，不会代为回答教理问题。",
+      "code": "# 安装指定祖师\nnpx master-skill install master-zhiyi master-fazang master-huineng\n\n# 单独安装公共教学模式或自定义生成器\nnpx master-skill install compare-masters\nnpx master-skill install create-master\n\n# 安装全部 20 个 Skill\nnpx master-skill install --all\n\n# 查看全部可安装 Skill\nnpx master-skill list\n\n# 不知道该问谁？描述你的问题，让它推荐\nnpx master-skill recommend \"念佛怎么念才算老实\"\nnpx master-skill recommend \"禅宗从哪开始学\"",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/xr843/Master-skill/blob/77296f6f07228513b8c37dba822a77b17e520c37/docs/install.md?plain=1#L10"
+      }
+    },
+    {
+      "title": "在对话中调用祖师命令",
+      "text": "在 Claude Code 对话里直接输入 /master-huineng、/master-xuanzang 等命令向对应的祖师人格提问。15 位祖师覆盖印度、汉传、藏传、南传四大传统，每位的生平和声明来源见 docs/masters.md。",
+      "code": "# 印度\n/master-nagarjuna      — 龙树菩萨（印度·中观｜八宗共祖）\n\n# 汉传\n/master-xuanzang       — 玄奘法师（法相唯识宗）\n/master-kumarajiva     — 鸠摩罗什（三论宗/中观）\n/master-huineng        — 慧能大师（禅宗六祖）\n/master-zhiyi          — 智顗大师（天台宗）\n/master-fazang         — 法藏大师（华严宗）\n/master-yinguang       — 印光大师（净土宗）\n/master-ouyi           — 蕅益大师（天台/净土·跨宗派）\n/master-xuyun          — 虚云老和尚（禅宗·五宗兼嗣）\n\n# 藏传\n/master-atisha         — 阿底峡尊者（噶当派开祖 · 三士道 · 982-1054）\n/master-tsongkhapa     — 宗喀巴大师（格鲁派创始人 · 三主要道 · 应成中观）\n/master-milarepa       — 米拉日巴尊者（噶举派 · 大手印 · 那洛六法）\n\n# 南传\n/master-buddhaghosa    — 觉音尊者（上座部论师 · 《清净道论》· 5世纪）\n/master-mahasi-sayadaw — 马哈希尊者（缅甸内观 · 标记法 · 1904-1982）\n/master-ajahn-chah     — 阿姜查（泰国森林禅林派 · 巴蓬寺传承）",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/xr843/Master-skill/blob/77296f6f07228513b8c37dba822a77b17e520c37/docs/install.md?plain=1#L137"
+      }
+    },
+    {
+      "title": "使用教学模式做多祖师对比",
+      "text": "用 /compare-masters 让多位祖师并列回答同一个问题。如果自动选出的祖师不符合预期，可以加 --masters 手动指定。/master-debate 用于多轮对辩，/master-curriculum 会按你的传统和当前位置给出学修路径。",
+      "code": "# 自动选择相关法师\n/compare-masters 什么是空性\n\n# 手动指定法师（推荐，结果更精准）\n/compare-masters 什么是遍行因 --masters master-xuanzang,master-zhiyi,master-ouyi\n\n# 自然语言触发\n请慧能和印光对比回答\"如何看待念佛\"\n比较禅宗和净土宗对修行的看法",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/xr843/Master-skill/blob/77296f6f07228513b8c37dba822a77b17e520c37/docs/install.md?plain=1#L167"
+      }
+    },
+    {
+      "title": "用 doctor 检查并升级安装",
+      "text": "运行 npx master-skill doctor 检查本地安装与运行路径，运行 npx master-skill update --all 重装全部技能并清理旧文件。update 会保留 create-master/masters/ 中你自己生成的 persona。",
+      "code": "npx master-skill install --all          # 一次装全部 20 个 Skill\nnpx master-skill install master-huineng # 或只装一位\nnpx master-skill list                   # 看全部可装的\nnpx master-skill recommend \"念佛怎么念才算老实\"   # 不知道该问谁？让它推荐\nnpx master-skill doctor                 # 检查本地安装与运行路径\nnpx master-skill update --all           # 升级：重装全部并清掉旧文件",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/xr843/Master-skill/blob/77296f6f07228513b8c37dba822a77b17e520c37/README.md?plain=1#L187"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "所有回答都是 AI 合成内容，不代表祖师本人的开示，不能替代正式的修行指导，详见 ETHICS.md。",
+    "保真度评测检查的是关键词和引用字符串的覆盖情况，不检验教义是否正确。引文审计也不能证明引号内的原句确实出自所标注的经典，生成的引文仍需逐条复核。",
+    "实时经证检索依赖 FoJin 外部服务；FoJin 不可用时，只能使用 sources/ 中的离线片段。",
+    "许可证分为多种：代码采用 MIT，预置技能内容采用 CC BY-NC-SA 4.0，提示词模板采用 CC BY 4.0。",
+    "README 提到 OpenCode、Codex、Gemini 的安装步骤是在 Linux 上实测的，Windows 步骤未重新验证。只安装 Gemini 扩展不会带来任何祖师技能。"
+  ],
+  "references": [
+    {
+      "label": "docs/install.md",
+      "url": "https://github.com/xr843/Master-skill/blob/77296f6f07228513b8c37dba822a77b17e520c37/docs/install.md"
+    }
+  ],
+  "media": [
+    {
+      "url": "/assets/repository-guides/media-450140e4d6e88916d66943bb.webp",
+      "alt": "xr843/Master-skill 官方演示 1",
+      "sourceUrl": "https://github.com/xr843/Master-skill/blob/77296f6f07228513b8c37dba822a77b17e520c37/README.md?plain=1#L211",
+      "originalUrl": "https://raw.githubusercontent.com/xr843/Master-skill/main/docs/assets/desktop-manager.png"
+    }
+  ],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "43ecee26f17d29a587f9b7ef044f60b2e30fdb5cf445c4d409e7caa9c3329546",
+  "mediaStatus": "archived",
+  "mediaFailures": []
+}

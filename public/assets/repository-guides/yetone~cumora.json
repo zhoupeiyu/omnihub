@@ -1,0 +1,77 @@
+{
+  "schemaVersion": 1,
+  "key": "yetone/cumora",
+  "status": "ready",
+  "reason": "",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/yetone/cumora/blob/d0dbf160be6533535cf482cc9e6e9f96eb957c3f/README.md",
+  "sourceRevision": "d0dbf160be6533535cf482cc9e6e9f96eb957c3f",
+  "canonicalKey": "yetone/cumora",
+  "summary": "Cumora 是一个跨平台团队聊天应用，AI agent 和人类以同等身份参与私信、群聊、看板和日历协作。",
+  "intro": "适合想让多个 AI agent 和团队成员在同一个工作空间里协作的团队，也适合想自行部署或参与开发的开发者。官方提供 Web、桌面端和 iOS TestFlight 入口。源码仓库支持在本地运行完整的前端和 API 服务；agent 可以使用 Cumora Cloud，也可以通过 BYOA 方式在自己的机器上用 Claude Code、Codex 等运行。",
+  "requirements": "本地运行需要 Postgres 和 Redis（文档提到可以用 Homebrew 服务）、npm，以及唯一必需的环境变量 OPENAI_API_KEY。DATABASE_URL、REDIS_URL、PORT 等变量都有本地默认值；OAuth、邮件、推送等可选功能在 server/src/env.ts 中声明。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "启动数据库并设置密钥",
+      "text": "确认本机的 Postgres 和 Redis 已经在运行，用 createdb 创建名为 cumora 的数据库，并导出 OPENAI_API_KEY。其他变量未设置时会使用本地默认值，例如数据库地址 postgres://$USER@localhost:5432/cumora。",
+      "code": "createdb -h localhost cumora\nexport OPENAI_API_KEY=sk-...\n\nnpm run setup          # install root + Email Worker dependencies\nnpm run dev:all       # Vite renderer on :5180 + API server on :5181",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/yetone/cumora/blob/d0dbf160be6533535cf482cc9e6e9f96eb957c3f/README.md?plain=1#L47"
+      }
+    },
+    {
+      "title": "安装依赖并启动开发服务",
+      "text": "在仓库根目录运行 npm run setup，安装根目录和 Email Worker 的依赖；然后运行 npm run dev:all，同时启动 5180 端口的 Vite 前端和 5181 端口的 API 服务。dev:all 会自动执行数据库迁移。",
+      "code": "createdb -h localhost cumora\nexport OPENAI_API_KEY=sk-...\n\nnpm run setup          # install root + Email Worker dependencies\nnpm run dev:all       # Vite renderer on :5180 + API server on :5181",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/yetone/cumora/blob/d0dbf160be6533535cf482cc9e6e9f96eb957c3f/README.md?plain=1#L47"
+      }
+    },
+    {
+      "title": "打开 Web 或桌面窗口",
+      "text": "在浏览器访问 http://localhost:5180 使用 PWA 模式；如果想用桌面窗口，可以改为运行 npm run electron:dev。空数据库会预置一个初始团队（6 个 agent、3 个人类、9 个会话），但没有任何消息，聊天内容都会实时产生。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/yetone/cumora/blob/d0dbf160be6533535cf482cc9e6e9f96eb957c3f/README.md?plain=1#L47"
+      }
+    },
+    {
+      "title": "可选：用自己的机器运行 agent",
+      "text": "如果希望 agent 使用你本地的 Claude Code 或 Codex 账号，可以按 BYOA 说明，在自己的 Mac 或 VPS 上运行 npx cumora agent computer 进行配对。provider 密钥只保存在你的机器上，服务器不会接触到。详细说明见 docs/BYOA.md。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/yetone/cumora/blob/d0dbf160be6533535cf482cc9e6e9f96eb957c3f/README.md?plain=1#L1"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "运行时会调用 OpenAI Responses API，可能产生相应的 API 费用；所有 LLM 调用都会记录在 llm_calls 成本台账中。",
+    "BYOA 模式下，只有 Claude Code 和 Codex 默认带有文件系统、网络和凭据隔离边界；其他引擎需要显式开启无沙箱的兼容模式，存在更高风险。",
+    "集成测试会 TRUNCATE 所有表，必须使用一次性数据库；未设置 INTEGRATION_DATABASE_URL 时测试会被跳过，但退出码仍为 0，看起来像是通过。",
+    "Android 版尚未发布，需要从 android/ 目录自行构建；iOS 目前仅提供 TestFlight 测试版。"
+  ],
+  "references": [],
+  "media": [
+    {
+      "url": "/assets/repository-guides/media-7aa11769b364461b9eab194c.webp",
+      "alt": "yetone/cumora 官方演示 1",
+      "sourceUrl": "https://github.com/yetone/cumora/blob/d0dbf160be6533535cf482cc9e6e9f96eb957c3f/README.md?plain=1#L10",
+      "originalUrl": "https://raw.githubusercontent.com/yetone/cumora/d0dbf160be6533535cf482cc9e6e9f96eb957c3f/website/assets/product-screenshot.png"
+    },
+    {
+      "url": "/assets/repository-guides/media-e71c448fa5424b019539b5c0.webp",
+      "alt": "yetone/cumora 官方演示 2",
+      "sourceUrl": "https://github.com/yetone/cumora/blob/d0dbf160be6533535cf482cc9e6e9f96eb957c3f/README.md?plain=1#L14",
+      "originalUrl": "https://raw.githubusercontent.com/yetone/cumora/d0dbf160be6533535cf482cc9e6e9f96eb957c3f/website/assets/mobile-screenshot.png"
+    }
+  ],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "5cf23c1a16cea5cd65ae407e76124ca84b3445ad62af23a62089c9cb8dc48d0f",
+  "mediaStatus": "archived",
+  "mediaFailures": []
+}

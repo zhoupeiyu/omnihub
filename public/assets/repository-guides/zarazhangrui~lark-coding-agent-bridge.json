@@ -1,0 +1,78 @@
+{
+  "schemaVersion": 1,
+  "key": "zarazhangrui/lark-coding-agent-bridge",
+  "status": "ready",
+  "reason": "",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/zarazhangrui/lark-coding-agent-bridge/blob/589868119ce9a0a860aaf4936b5f9bac14e72681/README.md",
+  "sourceRevision": "589868119ce9a0a860aaf4936b5f9bac14e72681",
+  "canonicalKey": "zarazhangrui/lark-coding-agent-bridge",
+  "summary": "一个 Node.js 命令行 bot，把飞书 / Lark 消息转发给本机的 Claude Code 或 Codex CLI，让你在聊天里使用本地编程助手。",
+  "intro": "适合已在本机使用 Claude Code 或 Codex CLI、希望通过飞书私聊、群聊 @bot 或云文档评论远程下达任务的开发者。它支持流式卡片回复、按聊天隔离会话、用 /cd 和 /ws 切换工作目录、接收图片与文件，并提供访问白名单和权限模式配置。",
+  "requirements": "Node.js >= 20.12.0；本机已安装并登录 claude 或 codex 中至少一个；一个飞书 / Lark PersonalAgent 应用（首次运行的扫码向导可以帮你创建并绑定）。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "全局安装 lark-channel-bridge",
+      "text": "用 npm 或 pnpm 全局安装 lark-channel-bridge。README 建议全局安装，因为后台服务会记录 CLI 路径；如果通过 npx 的临时缓存启动，缓存被清理后后台服务可能失效。",
+      "code": "npm i -g lark-channel-bridge\n# or\npnpm add -g lark-channel-bridge",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/zarazhangrui/lark-coding-agent-bridge/blob/589868119ce9a0a860aaf4936b5f9bac14e72681/README.md?plain=1#L28"
+      }
+    },
+    {
+      "title": "前台运行并扫码绑定应用",
+      "text": "执行 lark-channel-bridge run，终端会显示二维码。用飞书 App 扫码，选择或创建 PersonalAgent 应用，按提示选择 agent，配置会写入 ~/.lark-channel/config.json。Lark 国际版需加 --tenant lark。",
+      "code": "lark-channel-bridge run",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/zarazhangrui/lark-coding-agent-bridge/blob/589868119ce9a0a860aaf4936b5f9bac14e72681/README.md?plain=1#L36"
+      }
+    },
+    {
+      "title": "在飞书里切换到实际项目",
+      "text": "启动后私聊 bot，发送 /cd <path> 切换到真实项目目录，可用 /ws save <name> 保存为常用工作空间。用 /status 查看 agent、目录和会话状态，用 /new 开启新会话。群聊中默认需要 @bot。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/zarazhangrui/lark-coding-agent-bridge/blob/589868119ce9a0a860aaf4936b5f9bac14e72681/README.md?plain=1#L36"
+      }
+    },
+    {
+      "title": "改用系统服务在后台运行",
+      "text": "确认可以正常收发消息后，按 Ctrl-C 停止前台进程，再用 start、status、stop 管理后台服务。服务在 macOS 上对应 launchd，在 Linux 上对应 systemd 用户单元，在 Windows 上对应任务计划程序。",
+      "code": "lark-channel-bridge start\nlark-channel-bridge status\nlark-channel-bridge stop",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/zarazhangrui/lark-coding-agent-bridge/blob/589868119ce9a0a860aaf4936b5f9bac14e72681/README.md?plain=1#L62"
+      }
+    },
+    {
+      "title": "按需开放给同事或群组",
+      "text": "默认只有扫码创建应用的人能使用 bot。如需开放，可由创建者或管理员发送 /invite user @某人、在群内发送 /invite group，或用 /invite admin @某人 添加管理员，用 /remove 撤销。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/zarazhangrui/lark-coding-agent-bridge/blob/589868119ce9a0a860aaf4936b5f9bac14e72681/README.md?plain=1#L239"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "新建 profile 默认权限为 full，对应 Claude 的 bypassPermissions 和 Codex 的 danger-full-access；如需收紧，请把 permissions 设为 workspace 或 read-only。",
+    "工作目录只是 agent 运行时的当前目录，不是文件系统沙箱，实际可访问范围取决于本地 agent 进程及其权限模式。",
+    "云文档评论按文档范围生效：任何能在支持的文档中评论并 @bot 的人都能触发回复，不受聊天白名单约束。",
+    "profile export 加上 --include-secrets --yes 会导出敏感配置，profile remove 加上 --purge --yes 会永久删除本地状态。",
+    "bot 无响应时，常见原因是本地 claude 或 codex 未登录，或会话指向的工作目录已不存在。"
+  ],
+  "references": [
+    {
+      "label": "README.zh.md",
+      "url": "https://github.com/zarazhangrui/lark-coding-agent-bridge/blob/589868119ce9a0a860aaf4936b5f9bac14e72681/README.zh.md"
+    }
+  ],
+  "media": [],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "4ba3492c4c96283c9f4e2d66e058d6bfceffb62c7df07bbf31ef3234668b235a",
+  "mediaStatus": "none_in_official_documents"
+}

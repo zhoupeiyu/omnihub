@@ -1,0 +1,93 @@
+{
+  "schemaVersion": 1,
+  "key": "abeehive/annado",
+  "status": "ready",
+  "reason": "",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/ABeehive/Annado/blob/a67c744468c5aa24a21a7533ba78bd5bd30f5460/README.md",
+  "sourceRevision": "a67c744468c5aa24a21a7533ba78bd5bd30f5460",
+  "canonicalKey": "ABeehive/Annado",
+  "summary": "Annado 是一款 macOS 任务管理应用，直接读写 Obsidian 库或普通 Markdown 文件中的复选框任务，不使用私有数据库。",
+  "intro": "适合用 Obsidian 或 Markdown 文件管理笔记、又想要原生桌面任务界面的 macOS 用户。它会扫描 .md 文件中的 `- [ ]` 任务，解析 `@when(...)`、`@due(...)`、`[[WikiLinks]]` 等行内标注，并提供 Inbox、Today、Agenda、Review 等视图。所有修改直接写回原 Markdown 文件，在 Obsidian 中打开同一个库也能看到。",
+  "requirements": "macOS；一个 Obsidian 库或包含 Markdown 文件的文件夹；README 给出的运行方式需要使用 npm（`npm install`、`npm run tauri dev`）。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "安装依赖并以开发模式运行",
+      "text": "在 macOS 上进入仓库目录，按 README「Install and run」一节执行 `npm install` 安装依赖，再执行 `npm run tauri dev` 启动应用。现有文档只提供这一种运行方式。",
+      "code": "npm install\nnpm run tauri dev",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/ABeehive/Annado/blob/a67c744468c5aa24a21a7533ba78bd5bd30f5460/README.md?plain=1#L556"
+      }
+    },
+    {
+      "title": "在设置中配置文件夹路径",
+      "text": "按 `Cmd+,` 打开 Settings → Folder Paths，按需调整 Projects、Persons、Areas 的匹配名称，以及 Daily notes 的文件夹和文件名格式。如果是已配置 Daily Notes 插件的 Obsidian 库，Annado 会优先采用该插件的设置。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/ABeehive/Annado/blob/a67c744468c5aa24a21a7533ba78bd5bd30f5460/README.md?plain=1#L567"
+      }
+    },
+    {
+      "title": "按任务语法在 Markdown 中写任务",
+      "text": "在笔记中用复选框加行内标注写任务：`@when` 表示计划日期，`@time` 和 `@duration` 表示时间与时长，`@due` 表示截止日期，`!(1-3)` 表示优先级，`#tag` 表示标签，`[[Project]]` 用于关联项目或人员。缩进 4 个空格可以写备注和子项。",
+      "code": "- [ ] Task title @when(tomorrow) @time(09:00) @duration(1h30m) [[Project]] !(1) #tag @due(2025-03-01)\n    Notes go here, indented 4 spaces\n    - [x] Checklist sub-item",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/ABeehive/Annado/blob/a67c744468c5aa24a21a7533ba78bd5bd30f5460/README.md?plain=1#L53"
+      }
+    },
+    {
+      "title": "用 Quick Add 快速记录任务",
+      "text": "在应用内按 `Cmd+N`，或在后台按 `Cmd+Shift+Space` 打开 Quick Add。标题中的日期短语（英语或荷兰语）会触发排期提示。新任务会追加到当天日记的 `## Tasks` 标题下，日记不存在时会自动创建。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/ABeehive/Annado/blob/a67c744468c5aa24a21a7533ba78bd5bd30f5460/README.md?plain=1#L316"
+      }
+    },
+    {
+      "title": "选择任务格式并开始日常使用",
+      "text": "如果库里已有 Obsidian Tasks 或 Dataview 格式的任务，可在 Settings → General → Task format 中选择写入格式。Annado 能读取三种格式，但只按所选格式写入。之后可用 `Cmd+1` 至 `Cmd+0` 切换视图，用 `Cmd+R` 进行每周回顾。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/ABeehive/Annado/blob/a67c744468c5aa24a21a7533ba78bd5bd30f5460/README.md?plain=1#L84"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "Annado 的所有编辑都会直接写回 Markdown 文件，不经过同步或导出步骤，建议先备份库再使用。",
+    "现有文档只提供 `npm run tauri dev` 开发模式的运行方式，没有说明预编译安装包。",
+    "Obsidian Tasks 有五级优先级，Annado 只有三级：`🔺`、`⏬` 会被归并为高、低，重写该行时会变成 `⏫`、`🔽`。",
+    "选择 Obsidian Tasks 格式时，时间和时长仍写成 Annado 自己的 `@time`、`@duration` 标记。",
+    "复杂的 Obsidian Tasks 重复规则会原样保留，但 Annado 不计算其下次日期，只以只读方式显示。",
+    "任务格式设置作用于整个库，不能按文件或按任务单独设置；从旧 `@recurring(id)` 模板迁移前，文档建议先预览并备份库。"
+  ],
+  "references": [],
+  "media": [
+    {
+      "url": "/assets/repository-guides/media-a70e673faeab4f9cd6dd9b19.webp",
+      "alt": "ABeehive/Annado 官方演示 1",
+      "sourceUrl": "https://github.com/ABeehive/Annado/blob/a67c744468c5aa24a21a7533ba78bd5bd30f5460/README.md?plain=1#L5",
+      "originalUrl": "https://raw.githubusercontent.com/ABeehive/Annado/a67c744468c5aa24a21a7533ba78bd5bd30f5460/docs/images/today.png"
+    },
+    {
+      "url": "/assets/repository-guides/media-392f0eb7348f066c1f62d07b.webp",
+      "alt": "ABeehive/Annado 官方演示 2",
+      "sourceUrl": "https://github.com/ABeehive/Annado/blob/a67c744468c5aa24a21a7533ba78bd5bd30f5460/README.md?plain=1#L24",
+      "originalUrl": "https://raw.githubusercontent.com/ABeehive/Annado/a67c744468c5aa24a21a7533ba78bd5bd30f5460/docs/images/markdown-side-by-side.png"
+    },
+    {
+      "url": "/assets/repository-guides/media-f20b81280d09f9b8d782b888.webp",
+      "alt": "ABeehive/Annado 官方演示 3",
+      "sourceUrl": "https://github.com/ABeehive/Annado/blob/a67c744468c5aa24a21a7533ba78bd5bd30f5460/README.md?plain=1#L324",
+      "originalUrl": "https://raw.githubusercontent.com/ABeehive/Annado/a67c744468c5aa24a21a7533ba78bd5bd30f5460/docs/images/quick-add.png"
+    }
+  ],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "471e808ae152db36d3872e909650b8ad233a215e3a41d7d37fbf5ad486711439",
+  "mediaStatus": "archived",
+  "mediaFailures": []
+}

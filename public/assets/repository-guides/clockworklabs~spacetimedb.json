@@ -1,0 +1,73 @@
+{
+  "schemaVersion": 1,
+  "key": "clockworklabs/spacetimedb",
+  "status": "ready",
+  "reason": "",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/clockworklabs/SpacetimeDB/blob/257a1916ca8cdc20367b321e28e4593d31e2cd5d/README.md",
+  "sourceRevision": "257a1916ca8cdc20367b321e28e4593d31e2cd5d",
+  "canonicalKey": "clockworklabs/SpacetimeDB",
+  "summary": "SpacetimeDB 是一个兼作服务器的关系型数据库，可以把应用逻辑以模块形式上传到数据库中运行，并把状态实时同步给客户端。",
+  "intro": "适合想省去独立 Web 或游戏服务器的开发者，尤其是实时多人游戏、聊天等需要低延迟状态同步的应用。服务端模块可用 Rust、C#、TypeScript 或 C++ 编写，用 tables 定义数据，用 reducers 定义逻辑。客户端可通过 TypeScript（React、Next.js、Vue 等）、Rust、C#（含 Unity）或 C++（Unreal Engine）SDK 连接，订阅表数据并接收自动推送的更新。",
+  "requirements": "需要 macOS/Linux 终端或 Windows PowerShell 来运行官方安装脚本。登录发布需要 GitHub 账号。如果要从源码构建，需要 Rust 工具链和 wasm32-unknown-unknown target。也可以改用 Docker 运行。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "在 macOS/Linux 安装 CLI",
+      "text": "以 macOS / Linux 为例，在终端运行代码块中标注为 macOS / Linux 的那一行 curl 安装脚本，安装 spacetime 命令行工具。Windows 用户请改用同一代码块中的 PowerShell 那一行，两者只选其一。 原文包含需人工核查的高权限或删除命令，本站不提供一键复制；请查看该步骤的官方出处。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/clockworklabs/SpacetimeDB/blob/257a1916ca8cdc20367b321e28e4593d31e2cd5d/README.md?plain=1#L89"
+      }
+    },
+    {
+      "title": "用 spacetime login 登录账号",
+      "text": "运行 spacetime login，命令会打开浏览器，通过 GitHub 完成认证。认证后你的身份会关联到账户，之后才能发布数据库。",
+      "code": "spacetime login",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/clockworklabs/SpacetimeDB/blob/257a1916ca8cdc20367b321e28e4593d31e2cd5d/README.md?plain=1#L99"
+      }
+    },
+    {
+      "title": "用模板启动开发模式",
+      "text": "运行 spacetime dev --template chat-react-ts。按 README 说明，该命令会从模板创建项目并发布到 Maincloud，同时监听文件变化，保存后自动重新构建和发布。Maincloud 计费请参阅官方 pricing 页面。",
+      "code": "spacetime dev --template chat-react-ts",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/clockworklabs/SpacetimeDB/blob/257a1916ca8cdc20367b321e28e4593d31e2cd5d/README.md?plain=1#L107"
+      }
+    },
+    {
+      "title": "在模块中定义表和 reducer",
+      "text": "在服务端模块中用 table 属性定义数据表，用 reducer 编写业务逻辑，作用相当于 API 端点。示例是 Rust 写法：定义 Message 表和 send_message reducer。权限与鉴权逻辑也写在模块内。",
+      "code": "// Define a table\n#[spacetimedb::table(accessor = messages, public)]\npub struct Message {\n    #[primary_key]\n    #[auto_inc]\n    id: u64,\n    sender: Identity,\n    text: String,\n}\n\n// Define a reducer (your API endpoint)\n#[spacetimedb::reducer]\npub fn send_message(ctx: &ReducerContext, text: String) {\n    ctx.db.messages().insert(Message {\n        id: 0,\n        sender: ctx.sender,\n        text,\n    });\n}",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/clockworklabs/SpacetimeDB/blob/257a1916ca8cdc20367b321e28e4593d31e2cd5d/README.md?plain=1#L68"
+      }
+    },
+    {
+      "title": "在客户端订阅表获取实时更新",
+      "text": "客户端连接后调用 reducer，并订阅表。服务端数据变化时，SpacetimeDB 会自动推送给订阅者。示例为 TypeScript 的 useTable 用法。其他 SDK 的接入方式请参阅 Client SDKs 中对应语言的 Quickstart。",
+      "code": "const [messages] = useTable(tables.message);\n// messages updates automatically when the server state changes.\n// No polling. No refetching.",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/clockworklabs/SpacetimeDB/blob/257a1916ca8cdc20367b321e28e4593d31e2cd5d/README.md?plain=1#L115"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "许可证为 Business Source License 1.1，数年后转为带链接例外的 AGPL v3.0。商业使用前请阅读 LICENSE.txt。",
+    "spacetime dev 会把项目发布到 Maincloud 云服务，费用请参阅官方 pricing 页面。",
+    "安装方式是通过 curl 或 iwr 直接执行远程脚本。",
+    "从源码构建需要 Rust 工具链和 wasm32-unknown-unknown target，适用于需要 master 分支上尚未发布功能的情况。"
+  ],
+  "references": [],
+  "media": [],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "4ed499b6f95d91bc6b9b15194325366d79ca27d9ba9896986b95ca88027b7d08",
+  "mediaStatus": "none_in_official_documents"
+}

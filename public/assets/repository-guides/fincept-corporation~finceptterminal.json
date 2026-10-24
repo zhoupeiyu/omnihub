@@ -1,0 +1,91 @@
+{
+  "schemaVersion": 1,
+  "key": "fincept-corporation/finceptterminal",
+  "status": "ready",
+  "reason": "",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/Fincept-Corporation/FinceptTerminal/blob/b7d850b49dc033bb133e6e5d2476444ac5c422b1/README.md",
+  "sourceRevision": "b7d850b49dc033bb133e6e5d2476444ac5c422b1",
+  "canonicalKey": "Fincept-Corporation/FinceptTerminal",
+  "summary": "Fincept Terminal 是一款原生 C++20/Qt6 金融研究桌面终端，内嵌 Python 3.11，提供分析、数据接入、AI 智能体与模拟交易等功能。",
+  "intro": "本仓库是免费的 AGPL-3.0 开源版。官方说明它适合学生、爱好者和学术研究者用于学习、个人使用和学术研究。开源版包含：DCF、组合优化、VaR/Sharpe、衍生品与固定收益等分析工具及 18 模块的 QuantLib 套件；37 个交易者/投资者、经济与地缘政治 AI 智能体（需自备密钥）；FRED、IMF、World Bank、Yahoo Finance 等 100+ 数据连接器；加密货币与股票行情、模拟交易引擎和 16 个券商集成；可视化节点编辑器、MCP 工具与 AI Quant Lab。仓库每月发布一个版本。",
+  "requirements": "安装包支持 Windows x64、Linux x64（.run/.deb/.rpm）和 macOS Apple Silicon。使用 AI 功能需要自备 LLM 密钥（OpenAI、Anthropic、Gemini、Groq、DeepSeek、OpenRouter、Ollama 等），部分数据源需要自备 API 密钥。如果从源码构建，需使用锁定的工具链：CMake 3.27.7、Ninja 1.11.1、Qt 6.8.3、Python 3.11.9，以及 MSVC 19.40+、GCC 12.3+ 或 Apple Clang 15.0+ 编译器。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "从 Releases 下载 Windows 安装包",
+      "text": "以 Windows x64 为例：打开仓库 Releases 页面，找到 README 下载表中列出的最新版本 v4.5.0，下载 FinceptTerminal-4.5.0-windows-x64-setup.exe。Linux 和 macOS Apple Silicon 用户应改为下载对应平台的 .run/.deb/.rpm 或 .dmg 安装包。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/Fincept-Corporation/FinceptTerminal/blob/b7d850b49dc033bb133e6e5d2476444ac5c422b1/README.md?plain=1#L114"
+      }
+    },
+    {
+      "title": "运行安装程序并启动终端",
+      "text": "在 Windows 上运行下载好的 setup.exe，完成安装后启动 FinceptTerminal.exe。这是 README 下载表中 Windows 平台对应的官方运行方式，无需另外安装 Node.js 或浏览器运行时。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/Fincept-Corporation/FinceptTerminal/blob/b7d850b49dc033bb133e6e5d2476444ac5c422b1/README.md?plain=1#L114"
+      }
+    },
+    {
+      "title": "准备自有 LLM 与数据密钥",
+      "text": "开源版的 AI 智能体采用自带密钥模式，支持 OpenAI、Anthropic、Gemini、Groq、DeepSeek、OpenRouter、Ollama。数据部分使用免费公开数据源，部分需要自备 API 密钥。启用相关功能前，先准备好你要使用的服务商密钥。仓库文档没有说明在应用内的具体填写位置。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/Fincept-Corporation/FinceptTerminal/blob/b7d850b49dc033bb133e6e5d2476444ac5c422b1/README.md?plain=1#L134"
+      }
+    },
+    {
+      "title": "查阅官方手册了解各模块用法",
+      "text": "README 列出了开源版包含的分析、AI、数据、交易、自动化和全球情报等模块，但没有给出应用内的逐项操作说明。需要了解具体用法时，可查阅 README 链接的官方手册（fincept.in/manual），也可以到 GitHub Discussions 或 Discord 社区提问。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/Fincept-Corporation/FinceptTerminal/blob/b7d850b49dc033bb133e6e5d2476444ac5c422b1/README.md?plain=1#L134"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "开源版采用 AGPL-3.0 强传染性许可证。如果将其用于商业或对外提供服务，需要自行评估 copyleft 义务；仓库元数据中的 license 字段显示为 NOASSERTION。",
+    "开源版本身免费，但官方说明其真实成本是你自己的数据和 LLM 账单，按 token 计费且没有上限，使用 AI 功能前应关注服务商费用。",
+    "开源版只提供模拟交易和券商接入；实时券商路由和实时算法部署属于 Enterprise。接入真实券商账户前，应自行评估资金风险。",
+    "Enterprise 是独立的闭源付费版本，不从本仓库构建，需要单独账号，免费 Fincept 账号无法登录。README 中的价格是限时上线特价，以官网为准。",
+    "macOS 安装包仅支持 Apple Silicon。从源码构建时工具链版本是锁定的，官方说明更新或更旧的版本都不受支持。"
+  ],
+  "references": [
+    {
+      "label": "docs/translations/README.zh-CN.md",
+      "url": "https://github.com/Fincept-Corporation/FinceptTerminal/blob/b7d850b49dc033bb133e6e5d2476444ac5c422b1/docs/translations/README.zh-CN.md"
+    },
+    {
+      "label": "docs/GETTING_STARTED.md",
+      "url": "https://github.com/Fincept-Corporation/FinceptTerminal/blob/b7d850b49dc033bb133e6e5d2476444ac5c422b1/docs/GETTING_STARTED.md"
+    }
+  ],
+  "media": [
+    {
+      "url": "/assets/repository-guides/media-61c54f2057e81cff2af32f75.webp",
+      "alt": "Fincept-Corporation/FinceptTerminal 官方演示 1",
+      "sourceUrl": "https://github.com/Fincept-Corporation/FinceptTerminal/blob/b7d850b49dc033bb133e6e5d2476444ac5c422b1/README.md?plain=1#L63",
+      "originalUrl": "https://raw.githubusercontent.com/Fincept-Corporation/FinceptTerminal/main/images/EquityResearch.png"
+    },
+    {
+      "url": "/assets/repository-guides/media-0d0b9b06ee59c1360accaff9.webp",
+      "alt": "Fincept-Corporation/FinceptTerminal 官方演示 2",
+      "sourceUrl": "https://github.com/Fincept-Corporation/FinceptTerminal/blob/b7d850b49dc033bb133e6e5d2476444ac5c422b1/README.md?plain=1#L64",
+      "originalUrl": "https://raw.githubusercontent.com/Fincept-Corporation/FinceptTerminal/main/images/Portfolio.png"
+    },
+    {
+      "url": "/assets/repository-guides/media-0f64c87e0ab9b5c1677b9ab1.webp",
+      "alt": "Fincept-Corporation/FinceptTerminal 官方演示 3",
+      "sourceUrl": "https://github.com/Fincept-Corporation/FinceptTerminal/blob/b7d850b49dc033bb133e6e5d2476444ac5c422b1/README.md?plain=1#L66",
+      "originalUrl": "https://raw.githubusercontent.com/Fincept-Corporation/FinceptTerminal/main/images/NodeEditor.png"
+    }
+  ],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "8fcdf711f9ad5fa0428aca070b3b23d72889e7a4e2c3288c44e0626955cbc023",
+  "mediaStatus": "archived",
+  "mediaFailures": []
+}

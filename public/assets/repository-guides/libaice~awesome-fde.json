@@ -1,0 +1,73 @@
+{
+  "schemaVersion": 1,
+  "key": "libaice/awesome-fde",
+  "status": "ready",
+  "reason": "",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/libaice/Awesome-FDE/blob/b9135a9fbc61ef9bdf3faf31dc8dda4a692fa8c7/README.md",
+  "sourceRevision": "b9135a9fbc61ef9bdf3faf31dc8dda4a692fa8c7",
+  "canonicalKey": "libaice/Awesome-FDE",
+  "summary": "一份关于前沿部署工程师（FDE）的资料清单，汇总角色定义、招聘公司、核心技能、面试准备与学习资源。",
+  "intro": "适合想了解或转型为 Forward Deployed Engineer 的工程师，尤其是 README 中点名的加密/区块链、金融科技、基础设施或后端背景开发者。可用来理解 FDE 与软件工程师、解决方案工程师的区别，整理目标公司名单，对照技能清单查漏补缺，并按面试章节准备模糊问题诊断和客户案例。",
+  "requirements": "无需安装，直接在 GitHub 上阅读 README.md（英文）或 README_CN.md（简体中文）即可；部分资源和职位链接指向外部网站。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "选择语言版本并浏览目录",
+      "text": "在仓库首页通过顶部链接选择 README.md（English）或 README_CN.md（简体中文）。根据 Table of Contents 了解全文结构：FDE 定义、招聘公司、核心技能、面试、学习资源、从加密行业转型和贡献说明，再按需跳转到对应章节。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/libaice/Awesome-FDE/blob/b9135a9fbc61ef9bdf3faf31dc8dda4a692fa8c7/README.md?plain=1#L1"
+      }
+    },
+    {
+      "title": "先读 FDE 角色定义与能力模型",
+      "text": "阅读“What is a Forward Deployed Engineer?”章节，了解 FDE 贴近客户构建、集成、部署方案的工作方式，以及它与传统软件工程师、解决方案工程师的差别。章节用工程、咨询、产品思维三项能力概括该角色，中文版内容对应在 README_CN.md。",
+      "code": "Engineering + Consulting + Product Thinking = Forward Deployed Engineering",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/libaice/Awesome-FDE/blob/b9135a9fbc61ef9bdf3faf31dc8dda4a692fa8c7/README.md?plain=1#L53"
+      }
+    },
+    {
+      "title": "按地区和类型查看招聘公司",
+      "text": "在 Companies Hiring FDEs 章节，按 AI Labs、AI 应用公司、企业/传统公司、中国/亚洲四类表格查看公司及说明。中国/亚洲部分列出了 FDE 在国内常见的对应职位名称，如解决方案工程师、AI 实施工程师，可用于搜索岗位。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/libaice/Awesome-FDE/blob/b9135a9fbc61ef9bdf3faf31dc8dda4a692fa8c7/README.md?plain=1#L87"
+      }
+    },
+    {
+      "title": "对照技能清单与面试题准备",
+      "text": "用 Core Skills 中的技术、面向客户、心态三组清单自查短板。随后阅读 The FDE Interview：理解 Palantir 式模糊问题考察点，练习 10 道常见面试题，并按 How to Prepare 的建议准备真实项目、架构取舍说明和 3 个客户故事。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/libaice/Awesome-FDE/blob/b9135a9fbc61ef9bdf3faf31dc8dda4a692fa8c7/README.md?plain=1#L144"
+      }
+    },
+    {
+      "title": "利用学习资源与求职渠道",
+      "text": "在 Resources 中按 Learning、Reading、Job Boards 分类打开外部链接，如 LangGraph、Anthropic 文档和招聘网站。若来自加密行业，再阅读 From Crypto/Blockchain to FDE 及技能转换表，把已有经历翻译成企业 AI 团队能理解的表述。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/libaice/Awesome-FDE/blob/b9135a9fbc61ef9bdf3faf31dc8dda4a692fa8c7/README.md?plain=1#L231"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "README 中的薪酬数字、公司岗位说明均为作者整理的信息，未附来源验证，求职时应以各公司官方招聘页为准。",
+    "职位链接和外部文章可能随时间失效或变更。"
+  ],
+  "references": [
+    {
+      "label": "README_CN.md",
+      "url": "https://github.com/libaice/Awesome-FDE/blob/b9135a9fbc61ef9bdf3faf31dc8dda4a692fa8c7/README_CN.md"
+    }
+  ],
+  "media": [],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "d73b2e50665f0aff81dd6fb23cf9b8d0dd947a946d1cce2a7a3bf704ce5ab5d5",
+  "mediaStatus": "none_in_official_documents"
+}

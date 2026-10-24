@@ -1,0 +1,63 @@
+{
+  "schemaVersion": 1,
+  "key": "antfu/skills",
+  "status": "ready",
+  "reason": "",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/antfu/skills/blob/e53a142a2420e8cd812cfe9ed0484ab01bc856aa/README.md",
+  "sourceRevision": "e53a142a2420e8cd812cfe9ed0484ab01bc856aa",
+  "canonicalKey": "antfu/skills",
+  "summary": "Anthony Fu 维护的 Agent Skills 合集，覆盖 Vue、Nuxt、Vite、Vitest、UnoCSS、pnpm 等工具的使用知识与个人最佳实践。",
+  "intro": "适合主要使用 Vue/Vite/Nuxt 技术栈、并在支持 Agent Skills 的 AI 编码代理中工作的开发者。合集分为两类：一类是 Anthony Fu 手工维护的偏好与约定（如 antfu、antfu-create-pr），另一类是从官方文档生成并微调的技能（vue、nuxt、pinia、vite、vitepress、vitest、unocss、pnpm）。仓库通过 git submodules 直接引用上游文档，便于技能随上游同步更新。它也可以作为模板，用来生成你自己的技能合集。",
+  "requirements": "需要可使用 pnpx 的 pnpm 环境，以及支持 Agent Skills 格式的 AI 编码代理；安装命令依赖 skills CLI，更多用法见 vercel-labs/skills。如需自行生成技能，还需 fork 或 clone 本仓库并执行 pnpm install。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "按技术栈挑选所需技能",
+      "text": "先查看 README 中的两张技能表：手工维护的 antfu（eslint、pnpm、vitest、vue 等项目约定）和 antfu-create-pr（规范化 PR），以及从官方文档生成的 vue、nuxt、pinia、vite、vitepress、vitest、unocss、pnpm。根据项目实际用到的工具确定需要哪些技能。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/antfu/skills/blob/e53a142a2420e8cd812cfe9ed0484ab01bc856aa/README.md?plain=1#L23"
+      }
+    },
+    {
+      "title": "用 skills CLI 安装技能",
+      "text": "在项目目录中运行 README 给出的 pnpx skills add 命令，通过 --skill='*' 安装合集中的技能。如果希望在所有项目中全局可用，README 另给出了带 -g 参数的全局安装命令，二者按需选择其一。",
+      "code": "pnpx skills add antfu/skills --skill='*'\n\npnpx skills add antfu/skills --skill='*' -g",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/antfu/skills/blob/e53a142a2420e8cd812cfe9ed0484ab01bc856aa/README.md?plain=1#L9"
+      }
+    },
+    {
+      "title": "在 AGENTS.md 中固定常用技能",
+      "text": "技能是按需加载的，代理有时不会在你期望时主动调用。作者建议：如果希望某些技能始终生效，可以在项目的 AGENTS.md 中直接引用这些技能。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/antfu/skills/blob/e53a142a2420e8cd812cfe9ed0484ab01bc856aa/README.md?plain=1#L66"
+      }
+    },
+    {
+      "title": "按需生成自己的技能合集",
+      "text": "若要定制，fork 本仓库后执行 pnpm install，修改 meta.ts 中的项目和技能来源，依次运行 pnpm start cleanup、pnpm start init、pnpm start sync，再让代理逐个执行 Generate skills for <project>。详细规范见 AGENTS.md。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/antfu/skills/blob/e53a142a2420e8cd812cfe9ed0484ab01bc856aa/README.md?plain=1#L74"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "作者说明这是概念验证项目，尚未充分测试技能在实际使用中的表现。",
+    "手工维护的技能带有作者个人偏好（opinionated），不一定符合你团队的约定。",
+    "技能可能出现漏触发：代理未在预期时加载技能。",
+    "自行生成技能会消耗代理 token，作者建议一次只生成一个项目。",
+    "技能与脚本采用 MIT 许可证。"
+  ],
+  "references": [],
+  "media": [],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "7364b34a65036984caf4714434fe50e9c11b4543f33c7b575bc8b3f691246846",
+  "mediaStatus": "none_in_official_documents"
+}

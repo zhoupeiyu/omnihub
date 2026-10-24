@@ -1,0 +1,64 @@
+{
+  "schemaVersion": 1,
+  "key": "gnipbao/dan-koe-life-reset",
+  "status": "ready",
+  "reason": "",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/gnipbao/dan-koe-life-reset/blob/7f6f91db2c01539e3991ef62eddcdc642c6f913b/README.md",
+  "sourceRevision": "7f6f91db2c01539e3991ef62eddcdc642c6f913b",
+  "canonicalKey": "gnipbao/dan-koe-life-reset",
+  "summary": "一个受 Dan Koe 文章启发的 Agent Skill，引导用户用一天时间完成从动机挖掘到 game board 的人生重启流程。",
+  "intro": "适合想做人生重启、生活审计、anti-vision / vision 梳理或身份转变反思的个人用户。它不负责总结原文章，而是按协议引导你：从行为中挖掘隐藏动机，建立 anti-vision 和 vision MVP，白天打断自动驾驶状态，最后整理成聚焦的 life game board。",
+  "requirements": "需要一个支持 skills 的 Agent 运行环境。如要做结构校验，还需要 Python 3 和 `gnipbao/content-to-skill` 仓库中的校验脚本。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "复制文件夹到运行时 skills 目录",
+      "text": "先创建你所用运行时的 skills 目录，再把 `dan-koe-life-reset` 整个文件夹复制进去，目标路径为 `<your-runtime-skills-dir>/dan-koe-life-reset`。",
+      "code": "<your-runtime-skills-dir>/dan-koe-life-reset\n\nmkdir -p <your-runtime-skills-dir>\ncp -R dan-koe-life-reset <your-runtime-skills-dir>/dan-koe-life-reset",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/gnipbao/dan-koe-life-reset/blob/7f6f91db2c01539e3991ef62eddcdc642c6f913b/README.md?plain=1#L42"
+      }
+    },
+    {
+      "title": "用 $dan-koe-life-reset 发起重启",
+      "text": "在对话中用 `$dan-koe-life-reset` 调用，并说明你空出了哪一天、希望覆盖早晨心理挖掘、白天提醒和晚上整理 game board 的完整流程。",
+      "code": "Use $dan-koe-life-reset. 我明天空出一整天，想做一次完整的人生重启。请带我从早晨心理挖掘，到白天提醒，再到晚上整理 game board。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/gnipbao/dan-koe-life-reset/blob/7f6f91db2c01539e3991ef62eddcdc642c6f913b/README.md?plain=1#L59"
+      }
+    },
+    {
+      "title": "查阅协议与来源边界文件",
+      "text": "`references/reset-protocol.md` 记录了重启协议，`references/source-boundary.md` 说明了证据边界和已弱化的表述。使用前可以先读这两个文件，了解流程依据。",
+      "code": "dan-koe-life-reset/\n├── SKILL.md\n├── agents/openai.yaml\n├── references/\n│   ├── reset-protocol.md\n│   └── source-boundary.md\n├── examples/retest-prompts.md\n├── test-prompts.json\n├── results.tsv\n├── README.md\n├── LICENSE\n└── .gitignore",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/gnipbao/dan-koe-life-reset/blob/7f6f91db2c01539e3991ef62eddcdc642c6f913b/README.md?plain=1#L25"
+      }
+    },
+    {
+      "title": "用 content-to-skill 校验结构",
+      "text": "借助 content-to-skill 仓库中的 `check_skill_package.py` 对本包做结构校验。目前 `results.tsv` 只记录了 dry-run 评估结果，完整评估需要独立的评审 Agent 或等效的全新上下文测试。",
+      "code": "python3 /path/to/content-to-skill/scripts/check_skill_package.py /path/to/dan-koe-life-reset",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/gnipbao/dan-koe-life-reset/blob/7f6f91db2c01539e3991ef62eddcdc642c6f913b/README.md?plain=1#L73"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "本 Skill 只提供教练式反思结构，不构成心理治疗、诊断、医疗、财务或法律建议，也不能用于危机干预。如果出现自伤风险、急性危机或受虐情况，应停止流程，并寻求当地紧急服务或专业人员帮助。",
+    "转换所依据的是用户粘贴的双语文本，并非经过核验的原始网页，部分表述已做弱化处理。",
+    "现有评估仅为 dry-run，尚未经过独立评审验证。"
+  ],
+  "references": [],
+  "media": [],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "df211546bd662441f514ee2d1148cf1641415156db4aa7911700e3e8f09d0312",
+  "mediaStatus": "none_in_official_documents"
+}

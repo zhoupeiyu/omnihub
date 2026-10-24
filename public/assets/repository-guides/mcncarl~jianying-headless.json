@@ -1,0 +1,93 @@
+{
+  "schemaVersion": 1,
+  "key": "mcncarl/jianying-headless",
+  "status": "ready",
+  "reason": "",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/mcncarl/jianying-headless/blob/42b3d75b15bd9f3a9bb4c11b2f5205f7b4312252/README.md",
+  "sourceRevision": "42b3d75b15bd9f3a9bb4c11b2f5205f7b4312252",
+  "canonicalKey": "mcncarl/jianying-headless",
+  "summary": "在 macOS 上根据 JSON 剪辑计划生成可编辑的剪映专业版草稿，并可调用本机剪映引擎导出 MP4。",
+  "intro": "适合使用剪映专业版 macOS 的用户，用于 AI 视频工作流的工程交接、批量生成草稿或 Agent 辅助剪辑。它可以生成含视频分段、多轨、字幕标题的草稿，在独立副本中修改已有工程而不覆盖原项目，并导出 H.264/AAC MP4。仓库附带 Agent Skill。",
+  "requirements": "Apple Silicon Mac，macOS 26.0 或以上；国内版剪映专业版 11.5.0（11.4.2 有兼容配置），安装在 /Applications/VideoFusion-macOS.app，并能通过项目的身份检查；Xcode Command Line Tools（已验证组合为 Apple clang 21.0.0 / macOS SDK 26.5）；Python 3.9+、FFmpeg/ffprobe；git；至少 2 秒、有权使用的本地 H.264 yuv420p 视频。不支持 Intel Mac、Rosetta 终端和 CapCut 国际版。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "确认芯片并安装命令行工具",
+      "text": "在终端确认 uname -m 输出 arm64，且系统版本为 26.x 或以上。接着检查 Xcode 命令行工具，缺失时用 xcode-select --install 安装。之后通过 Homebrew 安装 python 和 ffmpeg，确认三个工具都能打印版本，且 Python 不低于 3.9。",
+      "code": "uname -m\nsw_vers -productVersion\n\nxcode-select -p\nxcrun clang++ --version\nxcrun --show-sdk-version\n\nxcode-select --install\n\nbrew install python ffmpeg\npython3 --version\nffmpeg -version\nffprobe -version",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/mcncarl/jianying-headless/blob/42b3d75b15bd9f3a9bb4c11b2f5205f7b4312252/docs/GETTING-STARTED.md?plain=1#L28"
+      }
+    },
+    {
+      "title": "在剪映中初始化首页草稿目录",
+      "text": "打开匹配版本的剪映，在“关于”中确认版本。首次使用时先创建并保存一个空白工程，返回首页，保持默认草稿位置。然后通过剪映菜单正常退出。这样剪映会自行建立首页索引，后续登记才能成功。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/mcncarl/jianying-headless/blob/42b3d75b15bd9f3a9bb4c11b2f5205f7b4312252/docs/GETTING-STARTED.md?plain=1#L78"
+      }
+    },
+    {
+      "title": "克隆源码并构建桥接组件",
+      "text": "把仓库克隆到“文稿”目录并进入项目根目录。先运行 start_here.py check，确认没有 FAIL 后执行 build_native_codec.py 构建桥接组件，再运行 doctor。构建应输出 built-and-verified 或 already-valid，doctor 应输出 \"status\": \"ok\"。",
+      "code": "cd ~/Documents\ngit clone https://github.com/mcncarl/jianying-headless.git\ncd jianying-headless\n\npython3 tools/start_here.py check\n\npython3 tools/build_native_codec.py\npython3 skills/yichen-jianying-edit/scripts/headless_draft.py doctor",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/mcncarl/jianying-headless/blob/42b3d75b15bd9f3a9bb4c11b2f5205f7b4312252/docs/GETTING-STARTED.md?plain=1#L89"
+      }
+    },
+    {
+      "title": "用本地视频生成第一个草稿",
+      "text": "运行 start_here.py build，按提示把一个视频文件从访达拖入终端并回车。脚本会取视频前 2 秒，生成一条视频轨和一条文字轨，并输出 \"status\": \"build-verified\"。本次的后续命令会写入 work/first-draft-…/next-steps.md。",
+      "code": "python3 tools/start_here.py build",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/mcncarl/jianying-headless/blob/42b3d75b15bd9f3a9bb4c11b2f5205f7b4312252/docs/GETTING-STARTED.md?plain=1#L145"
+      }
+    },
+    {
+      "title": "登记到首页并保存验收",
+      "text": "确认剪映已完全退出后，执行脚本打印的整行 publish 命令（只登记到本机首页，不会上传）。在剪映中打开草稿检查后，保存、退出、重新打开，再执行 next-steps.md 中的 verify 命令，期望输出 \"status\": \"verified\"。需要成片时，再执行其中的 export 命令。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/mcncarl/jianying-headless/blob/42b3d75b15bd9f3a9bb4c11b2f5205f7b4312252/docs/GETTING-STARTED.md?plain=1#L164"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "原创部分采用个人学习和非商业使用许可，商业使用需取得作者书面授权。代码许可不包含剪映集成授权、账号权益或素材许可。",
+    "项目只适配特定剪映版本与安装身份，尚未在另一台独立 Mac 上完成完整验收。项目不提供剪映安装包，文档提醒不要为了试用而降级剪映或覆盖旧草稿。",
+    "export 导出的是最初构建的快照，不包含之后在剪映中手工修改的内容。",
+    "蒙版、转场、特效等资源不随源码分发，需要本机已有匹配资源和使用权限。",
+    "构建出现 Compiler output differs 时，不能修改固定哈希强行通过。",
+    "已知限制：复合片段仅为实验性支持；图片/GIF 曾出现间歇少一帧；不支持任意剪映版本或在线模板。"
+  ],
+  "references": [
+    {
+      "label": "docs/GETTING-STARTED.md",
+      "url": "https://github.com/mcncarl/jianying-headless/blob/42b3d75b15bd9f3a9bb4c11b2f5205f7b4312252/docs/GETTING-STARTED.md"
+    }
+  ],
+  "media": [
+    {
+      "url": "/assets/repository-guides/media-1f72f85d9c0c9011abbad923.webp",
+      "alt": "Hypit 原成片六帧",
+      "sourceUrl": "https://github.com/mcncarl/jianying-headless/blob/42b3d75b15bd9f3a9bb4c11b2f5205f7b4312252/README.md?plain=1#L61",
+      "originalUrl": "https://raw.githubusercontent.com/mcncarl/jianying-headless/42b3d75b15bd9f3a9bb4c11b2f5205f7b4312252/docs/media/hypit-original-frames.png"
+    },
+    {
+      "url": "/assets/repository-guides/media-1ce3ec481c22e412dda6c0c5.webp",
+      "alt": "剪映导出六帧",
+      "sourceUrl": "https://github.com/mcncarl/jianying-headless/blob/42b3d75b15bd9f3a9bb4c11b2f5205f7b4312252/README.md?plain=1#L61",
+      "originalUrl": "https://raw.githubusercontent.com/mcncarl/jianying-headless/42b3d75b15bd9f3a9bb4c11b2f5205f7b4312252/docs/media/jianying-import-frames.png"
+    }
+  ],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "999ab40050a59f3fc3092bdda97ac2c532196d9d26dcaa0b752dc61b1c24b6d0",
+  "mediaStatus": "archived",
+  "mediaFailures": []
+}

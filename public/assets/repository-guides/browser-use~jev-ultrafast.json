@@ -1,0 +1,72 @@
+{
+  "schemaVersion": 1,
+  "key": "browser-use/jev-ultrafast",
+  "status": "ready",
+  "reason": "",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/browser-use/jev-ultrafast/blob/1231850a0bf1a0c0341fe408ef1668dbbfdfac46/README.md",
+  "sourceRevision": "1231850a0bf1a0c0341fe408ef1668dbbfdfac46",
+  "canonicalKey": "browser-use/jev-ultrafast",
+  "summary": "Jev Ultrafast 是一个浏览器智能体：给出一个自然语言目标，它由 TypeSafe 的 Jev 在网页元素表中选择操作和目标，并由小型 LLM 生成需要输入的文本。",
+  "intro": "适合想研究或试用低延迟浏览器自动化的开发者。它把页面转成带编号的元素表，每轮通过一次请求同时决定操作（CLICK、TYPE_TEXT、SELECT、滚动等）和目标元素。项目提供本地 inspector 用来观察每一步决策，也可以作为 Python 库调用，代码量小，适合阅读和改造。",
+  "requirements": "需要 git、uv、本机 Chrome（通过 uv sync 安装的 Browser Harness 连接，需要允许远程调试）；需要 TYPESAFE_API_KEY 和 TEXT_MODEL_API_KEY，示例配置中后者是 OpenRouter 密钥。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "克隆仓库并配置两个 API 密钥",
+      "text": "克隆仓库后执行 uv sync，把 .env.example 复制为 .env，填入 TYPESAFE_API_KEY 和 TEXT_MODEL_API_KEY，然后用 uv run jev 启动。当前 demo 的文本模型是 inception/mercury-2.5 且关闭推理；改用 Gemini、GLM、DeepSeek 时需要配置相应的模型、端点和推理设置。",
+      "code": "git clone https://github.com/browser-use/jev-ultrafast.git\ncd jev-ultrafast\nuv sync\ncp .env.example .env\n# Add TYPESAFE_API_KEY and TEXT_MODEL_API_KEY.\nuv run jev",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/browser-use/jev-ultrafast/blob/1231850a0bf1a0c0341fe408ef1668dbbfdfac46/README.md?plain=1#L53"
+      }
+    },
+    {
+      "title": "连接 Chrome 并允许远程调试",
+      "text": "项目通过 Browser Harness 控制你本机的 Chrome。如果没有连上，执行 uv run browser-harness --doctor 检查连接，Chrome 弹出提示时允许远程调试。注意智能体打开的标签页与现有 Chrome 配置文件共用登录状态。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/browser-use/jev-ultrafast/blob/1231850a0bf1a0c0341fe408ef1668dbbfdfac46/README.md?plain=1#L53"
+      }
+    },
+    {
+      "title": "在本地 inspector 中运行演示",
+      "text": "浏览器打开 http://127.0.0.1:8766，点击 Start demo → Run automatically。inspector 会显示带编号的元素、操作概率、目标概率和已执行的动作；使用 Choose next 可以在每一步执行前暂停，逐步观察决策。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/browser-use/jev-ultrafast/blob/1231850a0bf1a0c0341fe408ef1668dbbfdfac46/README.md?plain=1#L53"
+      }
+    },
+    {
+      "title": "在 Python 脚本中调用 Agent",
+      "text": "从 jev_ultrafast 导入 Agent，传入起始 URL 和目标，遍历 agent.run() 读取每轮的耗时和状态，再用 uv run --env-file .env python 运行脚本。也可以用 examples/run.py 通过 --url 和 --goal 参数让同一策略执行其他任务。",
+      "code": "from jev_ultrafast import Agent\n\nwith Agent(\n    \"https://www.google.com/travel/flights?hl=en\",\n    \"Find one-way flights from Zurich to London on September 20, 2026, \"\n    \"for one adult in economy. Stop when matching flight options are visible.\",\n) as agent:\n    for state in agent.run():\n        print(state[\"elapsed_ms\"], state[\"status\"])\n\nuv run --env-file .env python examples/run.py \\\n  --url https://en.wikipedia.org/wiki/Main_Page \\\n  --goal 'Find and open the Wikipedia article about Gödel’s incompleteness theorems.'",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/browser-use/jev-ultrafast/blob/1231850a0bf1a0c0341fe408ef1668dbbfdfac46/README.md?plain=1#L70"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "实时示例和录制脚本会调用付费 API，费用由 TypeSafe 和文本模型服务商计费；离线测试不产生模型调用。",
+    "智能体操作的标签页共用现有 Chrome 配置文件，会带上其中的登录状态，建议使用不含敏感账号的配置文件。",
+    "智能体给出 DONE 后仍需独立核对结果，Flights 示例只完成搜索和核对，不会选择或预订航班。",
+    "当前 MVP 不支持 Shadow DOM、iframe、canvas、文件上传、弹出标签页、嵌套滚动和任意键盘组件，DOM 读取只覆盖常见 HTML 与 ARIA 控件。",
+    "README 中的耗时数据来自单一任务的少量重复运行，作者说明这不是通用的可靠性基准。"
+  ],
+  "references": [],
+  "media": [
+    {
+      "url": "/assets/repository-guides/media-4e27094d47ac207fe2de3f36.webp",
+      "alt": "browser-use/jev-ultrafast 官方演示 1",
+      "sourceUrl": "https://github.com/browser-use/jev-ultrafast/blob/1231850a0bf1a0c0341fe408ef1668dbbfdfac46/README.md?plain=1#L15",
+      "originalUrl": "https://raw.githubusercontent.com/browser-use/jev-ultrafast/1231850a0bf1a0c0341fe408ef1668dbbfdfac46/docs/demo.gif"
+    }
+  ],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "29f5276b3e6295cabe322cda598e354a9e053dbfd9d831d20f09d0cca279a379",
+  "mediaStatus": "archived",
+  "mediaFailures": []
+}

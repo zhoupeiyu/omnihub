@@ -1,0 +1,66 @@
+{
+  "schemaVersion": 1,
+  "key": "wquguru/harness-books",
+  "status": "ready",
+  "reason": "",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/wquguru/harness-books/blob/fbf2b43e352443eea00eb9e4a32709a9f2c11a76/README.md",
+  "sourceRevision": "fbf2b43e352443eea00eb9e4a32709a9f2c11a76",
+  "canonicalKey": "wquguru/harness-books",
+  "summary": "这是两本讨论 Harness Engineering 的书，分析 Claude Code 的运行时设计，以及它与 Codex 在控制结构上的差异。",
+  "intro": "适合关注 AI 编程 Agent 架构、想自己搭建 harness 或做选型判断的工程师和团队。第一本以 Claude Code 为对象，讲 Prompt 控制面、Query Loop、权限、上下文治理、错误恢复、多 Agent 验证和团队制度。第二本对比 Claude Code 与 Codex 把秩序放在哪一层。这是资料集合，主要用途是阅读。",
+  "requirements": "在线阅读或下载 PDF 只需要浏览器。如果要在本地构建站点，需要 Python 3 和可运行 npx 的环境，构建会用到 Honkit。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "按需求选择阅读路径",
+      "text": "想先建立完整框架，就先读第一本再读第二本。已经熟悉 Agent 编程工具、想直接看架构分歧，就从第二本开始。只关心结论，读第一本第 9 章「十条原则」和第二本第 7 章即可。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/wquguru/harness-books/blob/fbf2b43e352443eea00eb9e4a32709a9f2c11a76/README.zh-CN.md?plain=1#L71"
+      }
+    },
+    {
+      "title": "在线阅读或下载 PDF",
+      "text": "中文 README 为两本书都提供了在线阅读链接和 PDF 下载链接，英文 README 提供对应的英文版本。可以按阅读习惯选择网页或 PDF，站点地址是 harness-books.agentway.dev。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/wquguru/harness-books/blob/fbf2b43e352443eea00eb9e4a32709a9f2c11a76/README.zh-CN.md?plain=1#L1"
+      }
+    },
+    {
+      "title": "通过完整目录定位章节",
+      "text": "展开 README 中的完整目录，可以直接跳到仓库里对应的 Markdown 章节。第一本附录 C、第二本附录 A 是源码地图，说明各章主要依据哪些文件；两本书的检查清单附录可以用来对照评估自己的 harness。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/wquguru/harness-books/blob/fbf2b43e352443eea00eb9e4a32709a9f2c11a76/README.zh-CN.md?plain=1#L80"
+      }
+    },
+    {
+      "title": "可选：在本地构建静态站点",
+      "text": "如果需要离线浏览站点，可以先分别用 Honkit 构建两本书，再运行 build_pages_site.py 组装统一的 Pages 站点，最终输出到 dist/ 目录。",
+      "code": "cd book1-claude-code && npx --yes honkit build . _book && cd ..\ncd book2-comparing && npx --yes honkit build . _book && cd ..\npython3 tools/book-kit/build_pages_site.py",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/wquguru/harness-books/blob/fbf2b43e352443eea00eb9e4a32709a9f2c11a76/README.zh-CN.md?plain=1#L130"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "仓库没有声明许可证，转载或二次分发前请先确认授权。",
+    "书中内容不是逐行源码解读，而是对设计思路的分析与判断。",
+    "AgentWay 是与本书相关但彼此独立的实践平台，不属于本仓库内容。"
+  ],
+  "references": [
+    {
+      "label": "README.zh-CN.md",
+      "url": "https://github.com/wquguru/harness-books/blob/fbf2b43e352443eea00eb9e4a32709a9f2c11a76/README.zh-CN.md"
+    }
+  ],
+  "media": [],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "ffa491a42010cb97b4509ed781a8435b4850d0dc9b3583ac3feb0d491ce841a7",
+  "mediaStatus": "none_in_official_documents"
+}

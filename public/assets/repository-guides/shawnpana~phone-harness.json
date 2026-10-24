@@ -1,0 +1,71 @@
+{
+  "schemaVersion": 1,
+  "key": "shawnpana/phone-harness",
+  "status": "ready",
+  "reason": "",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/ShawnPana/phone-harness/blob/88b3642ac4733c47daf12e0f2837bc789eda63c6/README.md",
+  "sourceRevision": "88b3642ac4733c47daf12e0f2837bc789eda63c6",
+  "canonicalKey": "ShawnPana/phone-harness",
+  "summary": "让 Claude Code、Codex 等 Agent 通过截图/OCR 读取真实手机屏幕，并执行点击、滑动和输入：iPhone 通过 Mac 的 iPhone Mirroring 控制，Android 通过 adb 控制。",
+  "intro": "适合希望让编码 Agent 操作自己真实手机的开发者或重度 Agent 用户，可用于打开应用、按文字定位并点击、输入文本、读取屏幕结果。手机端无需越狱、无需 Xcode、也不安装任何东西。本指南选择 macOS + iPhone 路径；Android 也可以在 macOS、Linux、Windows 上通过 adb 使用。",
+  "requirements": "Python 3.10+；iPhone 路径需要运行 macOS Sequoia 及以上的 Mac，并已与手机完成 iPhone Mirroring 配对（配对需要实体手机）；终端需要获得“辅助功能”和“屏幕录制”权限；需要 Claude Code 或 Codex 等 Agent 宿主。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "克隆并安装、注册为技能",
+      "text": "在 Mac 上把仓库克隆到 ~/.phone-harness，执行 pip install -e . 获得全局 phone-harness 命令（macOS 上会拉取 pyobjc），然后用 phone-harness skill 生成 SKILL.md，分别写入 Claude Code 和 Codex 的 skills 目录。也可以把 README 中的 setup 提示词交给 Agent，由它代为完成。",
+      "code": "git clone https://github.com/ShawnPana/phone-harness ~/.phone-harness   # canonical home\ncd ~/.phone-harness\npip install -e .                      # the global `phone-harness` command (pulls pyobjc on macOS only)\n\n# register as an agent skill so Claude Code / Codex reach for it automatically\nmkdir -p ~/.claude/skills/phone-harness\nphone-harness skill > ~/.claude/skills/phone-harness/SKILL.md\nmkdir -p \"${CODEX_HOME:-$HOME/.codex}/skills/phone-harness\"\nphone-harness skill > \"${CODEX_HOME:-$HOME/.codex}/skills/phone-harness/SKILL.md\"",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/ShawnPana/phone-harness/blob/88b3642ac4733c47daf12e0f2837bc789eda63c6/install.md?plain=1#L8"
+      }
+    },
+    {
+      "title": "配对镜像并授予终端权限",
+      "text": "先打开一次 iPhone Mirroring 应用，按提示完成与手机的配对。然后在“系统设置 → 隐私与安全性”中，为你的终端开启“辅助功能”（用于点击和键入，立即生效）和“屏幕录制”（用于查看手机画面，需重启终端后生效）。可以用文档给出的 open 命令直接跳转到对应设置页。",
+      "code": "  open \"x-apple.systempreferences:com.apple.preference.security?Privacy_Accessibility\"\n  open \"x-apple.systempreferences:com.apple.preference.security?Privacy_ScreenCapture\"",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/ShawnPana/phone-harness/blob/88b3642ac4733c47daf12e0f2837bc789eda63c6/install.md?plain=1#L38"
+      }
+    },
+    {
+      "title": "设默认平台并运行自检",
+      "text": "执行 phone-harness config set platform ios，把 iPhone 设为默认手机，再运行 phone-harness --doctor ios 按顺序检查整条链路。如果出现画面空白或黑屏、点击无效等问题，参考 If It Fails 一节逐项排查，例如重启终端、清除镜像窗口的提示页。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/ShawnPana/phone-harness/blob/88b3642ac4733c47daf12e0f2837bc789eda63c6/README.md?plain=1#L76"
+      }
+    },
+    {
+      "title": "通过 heredoc 调用辅助函数",
+      "text": "把 Python 片段通过 heredoc 传给 phone-harness 运行，open_app、tap_text、type_text、ocr 等辅助函数已预先导入。Agent 日常使用时以 SKILL.md 为指南，完整函数列表见 src/phone_harness/helpers.py。",
+      "code": "phone-harness <<'PY'\nopen_app(\"Notes\")\ntap_text(\"New Note\")\ntype_text(\"hello from the harness\")\nprint([o[\"text\"] for o in ocr()][:10])\nPY",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/ShawnPana/phone-harness/blob/88b3642ac4733c47daf12e0f2837bc789eda63c6/README.md?plain=1#L46"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "Agent 操作的是你的真实手机和账号，可能执行下单、发送消息等真实操作，委托任务前请自行评估风险。",
+    "已知限制：解锁 iPhone 会暂停镜像；OCR 只识别文字，无法识别图标，无文字的控件需要截图加支持视觉的模型；不支持多点触控、相机和 Face ID 流程；DRM 视频显示为黑屏；连接手机必须由用户亲自完成。",
+    "文档说明权限可能不止“辅助功能”和“屏幕录制”两项，新机器首次执行操作时可能弹出更多 macOS 权限请求。",
+    "默认开启匿名使用遥测，可通过 phone-harness config set telemetry false 关闭。",
+    "Phone Harness Cloud 云端 Android 按用量计费，新账号赠送 $5 额度（100 分钟），用完后请执行 phone-harness cloud stop 停止计费。",
+    "拉取更新后需重新运行 phone-harness skill > …/SKILL.md，让 Agent 使用的技能副本与代码保持一致。"
+  ],
+  "references": [
+    {
+      "label": "install.md",
+      "url": "https://github.com/ShawnPana/phone-harness/blob/88b3642ac4733c47daf12e0f2837bc789eda63c6/install.md"
+    }
+  ],
+  "media": [],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "d4916a847389d2c7e864bdf11562de35fecacef6c7181470d413b2a1a21c0751",
+  "mediaStatus": "none_in_official_documents"
+}

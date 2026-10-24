@@ -1,0 +1,63 @@
+{
+  "schemaVersion": 1,
+  "key": "kentang2017/kinqimen",
+  "status": "ready",
+  "reason": "",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/kentang2017/kinqimen/blob/e6680ac4ca0b0da5ce3fe637e05f9fc32066ec5a/README.md",
+  "sourceRevision": "e6680ac4ca0b0da5ce3fe637e05f9fc32066ec5a",
+  "canonicalKey": "kentang2017/kinqimen",
+  "summary": "kinqimen 是一个纯 Python 奇门遁甲排盘库，可按日期时间生成时家、刻家和金函玉镜日家奇门盘。",
+  "intro": "适合研究传统术数、需要在自己的 Python 项目中嵌入奇门遁甲排盘功能的开发者或爱好者。它支持以时辰起盘的时家奇门、以分钟精算的刻家奇门、金函玉镜日家奇门，并提供拆补法与置闰法两种计算方式；不想安装时也可以使用作者提供的 Streamlit 在线排盘页面。",
+  "requirements": "需要可用 pip 安装包的 Python 环境。README 列出的依赖为 sxtwl（农历/节气计算）、kinliuren、streamlit 和 pendulum。README 中没有写明具体的 Python 版本要求。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "用 pip 安装依赖与本库",
+      "text": "在 Python 环境中，按 README 的安装说明先安装农历节气计算库 sxtwl，再安装 kinqimen。其余依赖（kinliuren、streamlit、pendulum）在依赖列表中有说明，如果安装后导入失败，可以对照该列表检查。",
+      "code": "pip install sxtwl\npip install kinqimen",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/kentang2017/kinqimen/blob/e6680ac4ca0b0da5ce3fe637e05f9fc32066ec5a/README.md?plain=1#L49"
+      }
+    },
+    {
+      "title": "传入年月日时分创建排盘对象",
+      "text": "从 kinqimen 导入 kinqimen 模块，把年、月、日、时、分五个整数传给 kinqimen.Qimen(...) 创建对象。后续各种排盘方法都基于这个对象调用。",
+      "code": "from kinqimen import kinqimen\n\nyear, month, day, hour, minute = 2024, 6, 15, 14, 30\n\n# 時家奇門（拆補法） | Hour-based Qimen (Chabu method)\nresult = kinqimen.Qimen(year, month, day, hour, minute).pan(1)   # 1=拆補, 2=置閏\n\n# 刻家奇門（置閏法） | Minute-based Qimen (Zhirun method)\nresult = kinqimen.Qimen(year, month, day, hour, minute).pan_minute(2)\n\n# 金函玉鏡日家奇門 | Golden Letter Jade Mirror daily chart\nresult = kinqimen.Qimen(year, month, day, hour, minute).gpan()\n\n# 綜合排盤（時家 + 金函） | Combined chart (Hour-based + Golden Mirror)\nresult = kinqimen.Qimen(year, month, day, hour, minute).overall()",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/kentang2017/kinqimen/blob/e6680ac4ca0b0da5ce3fe637e05f9fc32066ec5a/README.md?plain=1#L58"
+      }
+    },
+    {
+      "title": "按需求选择排盘方法",
+      "text": "pan(1) 或 pan(2) 生成时家奇门盘，1 为拆补法，2 为置闰法；pan_minute(...) 生成刻家奇门盘；gpan() 生成金函玉镜日家奇门盘；overall() 生成时家与金函的综合盘。README 中有九宫盘面的文本示意，但没有说明返回值的数据结构。",
+      "code": "from kinqimen import kinqimen\n\nyear, month, day, hour, minute = 2024, 6, 15, 14, 30\n\n# 時家奇門（拆補法） | Hour-based Qimen (Chabu method)\nresult = kinqimen.Qimen(year, month, day, hour, minute).pan(1)   # 1=拆補, 2=置閏\n\n# 刻家奇門（置閏法） | Minute-based Qimen (Zhirun method)\nresult = kinqimen.Qimen(year, month, day, hour, minute).pan_minute(2)\n\n# 金函玉鏡日家奇門 | Golden Letter Jade Mirror daily chart\nresult = kinqimen.Qimen(year, month, day, hour, minute).gpan()\n\n# 綜合排盤（時家 + 金函） | Combined chart (Hour-based + Golden Mirror)\nresult = kinqimen.Qimen(year, month, day, hour, minute).overall()",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/kentang2017/kinqimen/blob/e6680ac4ca0b0da5ce3fe637e05f9fc32066ec5a/README.md?plain=1#L58"
+      }
+    },
+    {
+      "title": "免安装时使用在线排盘页面",
+      "text": "如果只想查看排盘结果、不打算写代码，可以在浏览器中打开 README 提供的 Streamlit 在线排盘地址 kinqimen.streamlitapp.com，直接使用 Web 界面起盘。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/kentang2017/kinqimen/blob/e6680ac4ca0b0da5ce3fe637e05f9fc32066ec5a/README.md?plain=1#L111"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "README 写明采用 MIT 授权，但仓库元数据中的 license 字段为空。若要商用或再分发，请先核对仓库内的 LICENSE 文件。",
+    "排盘结果属于传统术数推演，README 对其用途的描述是文化性介绍，并非经过验证的预测能力，不宜作为重要决策的依据。",
+    "在线排盘页面由作者托管在 Streamlit 上，可用性和数据处理方式 README 未作说明。"
+  ],
+  "references": [],
+  "media": [],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "b9aaacb9ddd63d08b88eedbe4da9d516bd05c6b990d6581a56091dd7c675bb23",
+  "mediaStatus": "none_in_official_documents"
+}

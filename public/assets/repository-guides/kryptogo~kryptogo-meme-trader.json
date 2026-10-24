@@ -1,0 +1,70 @@
+{
+  "schemaVersion": 1,
+  "key": "kryptogo/kryptogo-meme-trader",
+  "status": "ready",
+  "reason": "",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/kryptogo/kryptogo-meme-trader/blob/a97dee48636871414bcab21932a4ce5f2bd33e07/README.md",
+  "sourceRevision": "a97dee48636871414bcab21932a4ce5f2bd33e07",
+  "canonicalKey": "kryptogo/kryptogo-meme-trader",
+  "summary": "一个 MCP 服务器兼技能包，让 AI 助手查询链上代币的集群持仓、钱包标签和信号，并可在 Solana 上执行代币兑换。",
+  "intro": "适合在 Claude Code 等 AI 宿主里做 meme 币链上分析的用户。它提供 22 个工具，覆盖集群分析、持仓历史、热门代币、地址标签、Rug 风险评估，以及 Solana 代币兑换（swap_tokens）。分析支持 Solana、BSC、Base、Monad，交易仅支持 Solana。官方公告称，kg-xyz 分析后端将于 2026-05-04 停服，之后只有 swap_tokens 会继续可用。",
+  "requirements": "需要从 kryptogo.xyz/account 获取 KRYPTOGO_API_KEY，并准备 Python 3.10+。官方命令通过 uvx 启动服务器。如果要启用交易，还需要 SOLANA_PRIVATE_KEY（Base58 私钥）和 SOLANA_WALLET_ADDRESS。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "获取 KryptoGO API 密钥",
+      "text": "登录 kryptogo.xyz/account 获取 API 密钥。它对应必填环境变量 KRYPTOGO_API_KEY。同时确认本机已安装 Python 3.10 或更高版本。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/kryptogo/kryptogo-meme-trader/blob/a97dee48636871414bcab21932a4ce5f2bd33e07/README.md?plain=1#L38"
+      }
+    },
+    {
+      "title": "在 Claude Code 中添加 MCP 服务器",
+      "text": "以 Claude Code 为例，使用官方的 claude mcp add 命令注册 kryptogo-meme-trader。把 your_key 换成自己的 API 密钥，服务器会通过 uvx kryptogo-meme-trader 启动。这种方式只开启分析类工具。",
+      "code": "claude mcp add kryptogo-meme-trader -e KRYPTOGO_API_KEY=your_key -- uvx kryptogo-meme-trader",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/kryptogo/kryptogo-meme-trader/blob/a97dee48636871414bcab21932a4ce5f2bd33e07/README.md?plain=1#L61"
+      }
+    },
+    {
+      "title": "按需启用 Solana 交易功能",
+      "text": "如果需要 swap_tokens，改用带交易参数的添加命令，额外传入 SOLANA_PRIVATE_KEY 和 SOLANA_WALLET_ADDRESS。官方说明交易在本机构建并签名，私钥不会发送给 KryptoGO，只把已签名交易提交到 Solana RPC。",
+      "code": "claude mcp add kryptogo-meme-trader \\\n  -e KRYPTOGO_API_KEY=your_key \\\n  -e SOLANA_PRIVATE_KEY=your_base58_key \\\n  -e SOLANA_WALLET_ADDRESS=your_wallet \\\n  -- uvx kryptogo-meme-trader",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/kryptogo/kryptogo-meme-trader/blob/a97dee48636871414bcab21932a4ce5f2bd33e07/README.md?plain=1#L67"
+      }
+    },
+    {
+      "title": "对照工具列表确认可用性",
+      "text": "使用前查看 Available Tools 表。标记 ⚠️ 的分析、发现、标签类工具在 2026-05-04 后不可用，get_portfolio 会降级为仅显示原始余额，swap_tokens 继续通过 OKX DEX 聚合器工作。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/kryptogo/kryptogo-meme-trader/blob/a97dee48636871414bcab21932a4ce5f2bd33e07/README.md?plain=1#L1"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "kg-xyz 分析后端（wallet-data.kryptogo.app）将于 2026-05-04 停服。集群分析、钱包标签、信号仪表板和 DCA/限价单重建都会失效。",
+    "启用交易需要把 Base58 私钥写进 MCP 配置环境变量，请自行评估本机和配置文件的安全性。",
+    "swap_tokens 按方案收取手续费：Free 1%、Pro 0.5%、Alpha 0%。每日 API 调用上限分别为 100、1,000、5,000。",
+    "免费版有功能限制，例如 analyze_token 只显示前 2 个集群，get_signal_dashboard 仅限 Pro/Alpha 使用。",
+    "交易只支持 Solana，BSC、Base、Monad 仅支持分析。",
+    "README 中的吸筹/出货阶段解读属于项目方的分析观点，不构成交易依据。"
+  ],
+  "references": [
+    {
+      "label": "README.zh-TW.md",
+      "url": "https://github.com/kryptogo/kryptogo-meme-trader/blob/a97dee48636871414bcab21932a4ce5f2bd33e07/README.zh-TW.md"
+    }
+  ],
+  "media": [],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "88cc8f525dedefd8c401529b646a6e2244e871d8d32ec6d93a4a6c8f6d03ff0c",
+  "mediaStatus": "none_in_official_documents"
+}

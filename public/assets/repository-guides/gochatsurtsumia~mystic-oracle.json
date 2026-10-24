@@ -1,0 +1,55 @@
+{
+  "schemaVersion": 1,
+  "key": "gochatsurtsumia/mystic-oracle",
+  "status": "partial",
+  "reason": "README 中的克隆命令指向 Gochatsurtsumia/experiment，而不是本仓库 mystic-oracle，两者关系没有说明。安装说明被混在一个格式错乱的代码块里，并混入了作者联系方式等无关内容。文档也没有写明 Node.js 版本要求，也没有说明如何获取 Groq API Key。",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/Gochatsurtsumia/mystic-oracle/blob/3a444e03071a9bc2fe48c835c7abd321f336fa71/README.md",
+  "sourceRevision": "3a444e03071a9bc2fe48c835c7abd321f336fa71",
+  "canonicalKey": "Gochatsurtsumia/mystic-oracle",
+  "summary": "一个基于 React 前端和 Node.js/Express 后端的网页应用，通过 Groq 的 Llama 3 模型生成「占卜」风格的文字回复。",
+  "intro": "适合想了解或改造一个前后端分离 AI 聊天类小应用的开发者。前端使用 React + Vite，部署在 Netlify。后端使用 Node.js + Express，作为 Groq API 的代理，避免在前端暴露 API Key，部署在 Render。README 提供了在线演示地址 https://mystic-oracle-app.netlify.app。",
+  "requirements": "需要可运行 npm 的 Node.js 环境，以及一个 Groq API Key（填入后端 .env 的 GROQ_API_KEY）。前端需要能访问到已启动的后端接口地址。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "获取源码并核对仓库地址",
+      "text": "README 给出的克隆命令指向 experiment 仓库，与当前仓库名 mystic-oracle 不一致。克隆前请先确认 backend 和 frontend 目录实际位于哪个仓库，再进入项目根目录。",
+      "code": "git clone https://github.com/Gochatsurtsumia/experiment.git\ncd experiment\n2️⃣ Setup backend\nbash\nCopy code\ncd backend\nnpm install\ncp .env.example .env    # Fill in your API key\nnpm start\n3️⃣ Setup frontend\nbash\nCopy code\ncd ../frontend\nnpm install\ncp .env.example .env    # Add your backend API URL\nnpm run dev\n📁 Environment Files\nbackend/.env.example\n\nbash\nCopy code\nGROQ_API_KEY=your_api_key_here\nPORT=5000\nfrontend/.env.example\n\nbash\nCopy code\nVITE_API_URL=https://your-backend-url.onrender.com/api/chat\n🖼️ Preview\n\n🧠 About the Developer\n👤 Gocha Tsurtsumia\n💼 LinkedIn\n💻 GitHub\n📧 gochatsurtsumia05@gmail.com\n📱 +995 571 103 081\n\n📜 License\nMIT License © 2025 Gocha Tsurtsumia\n\n\n\n\n\nyaml\nCopy code\n\n---\n\nIf you paste that straight into GitHub, it’ll render beautifully — badges on top, colored sections, screenshot, everything 🎨\n\nWould you like me to also make a **short description and tags** (for the GitHub sidebar and SEO — e.g. “Re",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/Gochatsurtsumia/mystic-oracle/blob/3a444e03071a9bc2fe48c835c7abd321f336fa71/README.md?plain=1#L37"
+      }
+    },
+    {
+      "title": "配置并启动后端代理",
+      "text": "进入 backend 目录安装依赖，把 .env.example 复制为 .env，填写 GROQ_API_KEY 和 PORT（示例值为 5000），然后启动后端。后端负责代理 Groq API 请求，使密钥只保存在服务端环境变量中。",
+      "code": "git clone https://github.com/Gochatsurtsumia/experiment.git\ncd experiment\n2️⃣ Setup backend\nbash\nCopy code\ncd backend\nnpm install\ncp .env.example .env    # Fill in your API key\nnpm start\n3️⃣ Setup frontend\nbash\nCopy code\ncd ../frontend\nnpm install\ncp .env.example .env    # Add your backend API URL\nnpm run dev\n📁 Environment Files\nbackend/.env.example\n\nbash\nCopy code\nGROQ_API_KEY=your_api_key_here\nPORT=5000\nfrontend/.env.example\n\nbash\nCopy code\nVITE_API_URL=https://your-backend-url.onrender.com/api/chat\n🖼️ Preview\n\n🧠 About the Developer\n👤 Gocha Tsurtsumia\n💼 LinkedIn\n💻 GitHub\n📧 gochatsurtsumia05@gmail.com\n📱 +995 571 103 081\n\n📜 License\nMIT License © 2025 Gocha Tsurtsumia\n\n\n\n\n\nyaml\nCopy code\n\n---\n\nIf you paste that straight into GitHub, it’ll render beautifully — badges on top, colored sections, screenshot, everything 🎨\n\nWould you like me to also make a **short description and tags** (for the GitHub sidebar and SEO — e.g. “Re",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/Gochatsurtsumia/mystic-oracle/blob/3a444e03071a9bc2fe48c835c7abd321f336fa71/README.md?plain=1#L17"
+      }
+    },
+    {
+      "title": "配置并启动前端界面",
+      "text": "进入 frontend 目录安装依赖，把 .env.example 复制为 .env，将 VITE_API_URL 设为后端的 /api/chat 接口地址，然后运行开发服务器。前端基于 React + Vite 构建，README 称其适配移动端。",
+      "code": "git clone https://github.com/Gochatsurtsumia/experiment.git\ncd experiment\n2️⃣ Setup backend\nbash\nCopy code\ncd backend\nnpm install\ncp .env.example .env    # Fill in your API key\nnpm start\n3️⃣ Setup frontend\nbash\nCopy code\ncd ../frontend\nnpm install\ncp .env.example .env    # Add your backend API URL\nnpm run dev\n📁 Environment Files\nbackend/.env.example\n\nbash\nCopy code\nGROQ_API_KEY=your_api_key_here\nPORT=5000\nfrontend/.env.example\n\nbash\nCopy code\nVITE_API_URL=https://your-backend-url.onrender.com/api/chat\n🖼️ Preview\n\n🧠 About the Developer\n👤 Gocha Tsurtsumia\n💼 LinkedIn\n💻 GitHub\n📧 gochatsurtsumia05@gmail.com\n📱 +995 571 103 081\n\n📜 License\nMIT License © 2025 Gocha Tsurtsumia\n\n\n\n\n\nyaml\nCopy code\n\n---\n\nIf you paste that straight into GitHub, it’ll render beautifully — badges on top, colored sections, screenshot, everything 🎨\n\nWould you like me to also make a **short description and tags** (for the GitHub sidebar and SEO — e.g. “Re",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/Gochatsurtsumia/mystic-oracle/blob/3a444e03071a9bc2fe48c835c7abd321f336fa71/README.md?plain=1#L10"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "调用 Groq API 需要自备 API Key，相关额度或费用以 Groq 官方说明为准，README 未涉及。",
+    "仓库没有声明许可证（license 为空）。README 末尾虽写有 MIT 字样，但仓库层面未确认，复用代码前请先核实授权。",
+    "生成内容是 AI 模型输出的「占卜」文本，仅供娱乐，不应作为决策依据。"
+  ],
+  "references": [],
+  "media": [],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "e1db575c28b897ad7ddb741af608e057e96404587089c038d3948735bbc5bc65",
+  "mediaStatus": "none_in_official_documents"
+}

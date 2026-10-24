@@ -1,0 +1,79 @@
+{
+  "schemaVersion": 1,
+  "key": "czlonkowski/n8n-skills",
+  "status": "ready",
+  "reason": "",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/czlonkowski/n8n-skills/blob/19cd793f4789e3ef9c657ccf26e097f641a77df0/README.md",
+  "sourceRevision": "19cd793f4789e3ef9c657ccf26e097f641a77df0",
+  "canonicalKey": "czlonkowski/n8n-skills",
+  "summary": "一组 Claude Code 技能，配合 n8n-mcp MCP 服务器，指导 AI 助手正确搭建、配置、校验 n8n 工作流，并部署自托管 n8n。",
+  "intro": "适合已经在用 n8n，并希望借助 Claude Code 等 AI 助手编写或排查 n8n 工作流的开发者和自动化工程师。仓库包含 14 个技能，另有一个常驻路由技能和一层 hooks 提醒机制。技能主题包括 n8n 表达式语法、n8n-mcp 工具用法、工作流模式、节点配置、校验错误处理、Code 节点（JavaScript/Python）、Code Tool、错误处理、二进制数据、子工作流、AI Agent、多实例切换。另有一个独立的自托管部署技能，用于把 n8n 部署到 Linux VM。",
+  "requirements": "1. 已安装并配置 n8n-mcp MCP 服务器，且在 `.mcp.json` 中完成配置。2. 拥有 Claude Code、Claude.ai 或 Claude API 的访问权限。3. 如需让 AI 创建或管理工作流，还要在 `.mcp.json` 中填写 `N8N_API_URL` 和 `N8N_API_KEY`（可选；不填时仅能使用搜索、校验、模板等只读工具）。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "安装并配置 n8n-mcp 服务器",
+      "text": "先按文档用 npm 全局安装 n8n-mcp。然后在 `.mcp.json` 中添加 `n8n-mcp` 服务器配置。如果希望 AI 能创建和管理工作流，需填写自己 n8n 实例的 `N8N_API_URL` 和 `N8N_API_KEY`。不填时技能仍可配合只读工具使用。",
+      "code": "npm install -g n8n-mcp\n\n{\n  \"mcpServers\": {\n    \"n8n-mcp\": {\n      \"command\": \"npx\",\n      \"args\": [\"n8n-mcp\"],\n      \"env\": {\n        \"MCP_MODE\": \"stdio\",\n        \"LOG_LEVEL\": \"error\",\n        \"DISABLE_CONSOLE_OUTPUT\": \"true\",\n        \"N8N_API_URL\": \"https://your-n8n-instance.com\",\n        \"N8N_API_KEY\": \"your-api-key-here\"\n      }\n    }\n  }\n}",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/czlonkowski/n8n-skills/blob/19cd793f4789e3ef9c657ccf26e097f641a77df0/README.md?plain=1#L224"
+      }
+    },
+    {
+      "title": "在 Claude Code 中以插件方式安装",
+      "text": "以 Claude Code 为平台，README 推荐的方式是直接安装插件：在 Claude Code 中执行 `/plugin install czlonkowski/n8n-skills`。只有插件方式安装才包含路由技能和 hooks 提醒层；在 Claude.ai 单独上传技能时，这部分不会生效。",
+      "code": "# Install directly as a Claude Code plugin\n/plugin install czlonkowski/n8n-skills",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/czlonkowski/n8n-skills/blob/19cd793f4789e3ef9c657ccf26e097f641a77df0/README.md?plain=1#L230"
+      }
+    },
+    {
+      "title": "用自然语言提问以自动触发技能",
+      "text": "技能无需手动调用。在对话中提出与 n8n 相关的问题，例如表达式写法、查找节点、校验失败原因或 Code 节点取数，系统会根据问题内容自动激活对应技能。处理较复杂的请求时，多个技能会配合工作：从选择工作流模式、搜索节点、配置节点到最终校验。",
+      "code": "\"How do I write n8n expressions?\"\n→ Activates: n8n Expression Syntax\n\n\"Find me a Slack node\"\n→ Activates: n8n MCP Tools Expert\n\n\"Build a webhook workflow\"\n→ Activates: n8n Workflow Patterns\n\n\"Why is validation failing?\"\n→ Activates: n8n Validation Expert\n\n\"How do I configure the HTTP Request node?\"\n→ Activates: n8n Node Configuration\n\n\"How do I access webhook data in a Code node?\"\n→ Activates: n8n Code JavaScript\n\n\"Can I use pandas in Python Code node?\"\n→ Activates: n8n Code Python\n\n\"Why does my Code Tool throw 'Wrong output type returned'?\"\n→ Activates: n8n Code Tool",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/czlonkowski/n8n-skills/blob/19cd793f4789e3ef9c657ccf26e097f641a77df0/README.md?plain=1#L272"
+      }
+    },
+    {
+      "title": "按任务类型选择相关技能",
+      "text": "可以对照 README 的技能列表找到对应领域：写 Code 节点时看 JavaScript 或 Python 技能；给 AI Agent 挂载代码工具时看 Code Tool 技能；账户下有多个实例时看 Multi-Instance 技能。Self-Hosting 是唯一的部署类技能，按自身描述触发，不属于搭建工作流的路由流程。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/czlonkowski/n8n-skills/blob/19cd793f4789e3ef9c657ccf26e097f641a77df0/README.md?plain=1#L101"
+      }
+    },
+    {
+      "title": "排查技能或 MCP 工具不可用",
+      "text": "如果提示 n8n-mcp 工具不可用，先检查 `.mcp.json` 的位置，并确认 n8n-mcp 已安装，然后重启 Claude Code。如果技能没有被激活，检查 `~/.claude/skills/` 下每个技能目录是否都有带 frontmatter 的 `SKILL.md`，再重新加载 Claude Code。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/czlonkowski/n8n-skills/blob/19cd793f4789e3ef9c657ccf26e097f641a77df0/docs/INSTALLATION.md?plain=1#L223"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "本仓库本身只是技能文档，必须依赖另行安装的 n8n-mcp MCP 服务器才能发挥作用。",
+    "`.mcp.json` 中的 `N8N_API_KEY` 属于实例凭据，请妥善保管，不要提交到公开仓库。",
+    "hooks 提醒层只在 Claude Code / Codex 插件安装方式下运行；Claude.ai 上传单个技能时只能按描述触发，没有主动提醒。",
+    "README 提醒，工作流通过 validate_workflow 校验只是必要条件，不代表工作流一定正确。",
+    "多实例场景下，如果显式切换到了错误实例，写入凭据时不会报错，凭据会被静默写入错误实例；写入前应先确认 current 实例。",
+    "Python Code 节点除非实例加入白名单，否则所有 import 都被禁止（n8n Cloud 上没有白名单）；文档建议约 95% 的场景使用 JavaScript。"
+  ],
+  "references": [
+    {
+      "label": "docs/INSTALLATION.md",
+      "url": "https://github.com/czlonkowski/n8n-skills/blob/19cd793f4789e3ef9c657ccf26e097f641a77df0/docs/INSTALLATION.md"
+    }
+  ],
+  "media": [],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "ccbefc92a0b6c4c37d281f809d2f25a4a2895f0ea8ac34b73d60a26430a1532f",
+  "mediaStatus": "none_in_official_documents"
+}

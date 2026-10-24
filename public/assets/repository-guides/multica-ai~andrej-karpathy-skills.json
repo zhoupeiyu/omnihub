@@ -1,0 +1,68 @@
+{
+  "schemaVersion": 1,
+  "key": "multica-ai/andrej-karpathy-skills",
+  "status": "ready",
+  "reason": "",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/multica-ai/andrej-karpathy-skills/blob/2c606141936f1eeef17fa3043a72095b4765b9c2/README.md",
+  "sourceRevision": "2c606141936f1eeef17fa3043a72095b4765b9c2",
+  "canonicalKey": "multica-ai/andrej-karpathy-skills",
+  "summary": "一份基于 Andrej Karpathy 对 LLM 编码问题的观察整理而成的 CLAUDE.md 行为准则，可以作为 Claude Code 插件安装，用来约束 AI 编码助手的行为。",
+  "intro": "适合使用 Claude Code 的开发者，希望减少 AI 擅自假设、过度设计和顺手改动无关代码等问题。准则包含四条原则：编码前思考、简洁优先、精准修改、目标驱动执行。本指南采用官方推荐的 Claude Code 插件方式安装。仓库还附带 Cursor 项目规则文件 .cursor/rules/karpathy-guidelines.mdc，Cursor 用户可参考 CURSOR.md。",
+  "requirements": "已安装并能使用 Claude Code。插件安装命令在 Claude Code 会话内输入。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "在 Claude Code 中添加插件市场",
+      "text": "在 Claude Code 会话内输入官方给出的 /plugin marketplace add 命令，添加该准则所在的插件市场。注意命令中的仓库路径是 forrestchang/andrej-karpathy-skills。",
+      "code": "/plugin marketplace add forrestchang/andrej-karpathy-skills",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/multica-ai/andrej-karpathy-skills/blob/2c606141936f1eeef17fa3043a72095b4765b9c2/README.md?plain=1#L99"
+      }
+    },
+    {
+      "title": "安装 andrej-karpathy-skills 插件",
+      "text": "继续在 Claude Code 中输入 /plugin install 命令安装插件。安装后这份准则会作为 Claude Code 插件生效，在你的所有项目中都可以使用，不需要逐个项目复制 CLAUDE.md。",
+      "code": "/plugin install andrej-karpathy-skills@karpathy-skills",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/multica-ai/andrej-karpathy-skills/blob/2c606141936f1eeef17fa3043a72095b4765b9c2/README.md?plain=1#L99"
+      }
+    },
+    {
+      "title": "补充项目专属规则到 CLAUDE.md",
+      "text": "这份准则设计上可以和项目自己的指令合并。如有项目特定要求，在项目的 CLAUDE.md 中增加类似 Project-Specific Guidelines 的章节，写明语言规范、测试要求、错误处理约定等。",
+      "code": "## Project-Specific Guidelines\n\n- Use TypeScript strict mode\n- All API endpoints must have tests\n- Follow the existing error handling patterns in `src/utils/errors.ts`",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/multica-ai/andrej-karpathy-skills/blob/2c606141936f1eeef17fa3043a72095b4765b9c2/README.md?plain=1#L149"
+      }
+    },
+    {
+      "title": "对照四项原则检查改动效果",
+      "text": "在后续任务中观察：diff 里不必要的改动是否减少，是否少了因过度复杂导致的返工，澄清问题是否在动手实现之前提出，PR 是否保持精简、没有顺带重构。文档以这几点作为判断准则是否起作用的依据。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/multica-ai/andrej-karpathy-skills/blob/2c606141936f1eeef17fa3043a72095b4765b9c2/README.md?plain=1#L140"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "准则倾向于“谨慎优先于速度”。对于拼写修正、一行改动这类简单任务，作者建议自行判断，不必每次都走完整流程。",
+    "安装命令中的插件市场和下载地址指向 forrestchang/andrej-karpathy-skills，与当前仓库 multica-ai/andrej-karpathy-skills 的路径不同，安装前请确认来源是否一致。",
+    "README 写明许可证为 MIT，但仓库元数据中没有识别到 license 字段。如需复用或再分发，请先核实许可证文件。"
+  ],
+  "references": [
+    {
+      "label": "README.zh.md",
+      "url": "https://github.com/multica-ai/andrej-karpathy-skills/blob/2c606141936f1eeef17fa3043a72095b4765b9c2/README.zh.md"
+    }
+  ],
+  "media": [],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "5fe5df6418c716ca407aeaf5b5f32a6ea86dd8817763094a3acbbd52a9d991bc",
+  "mediaStatus": "none_in_official_documents"
+}

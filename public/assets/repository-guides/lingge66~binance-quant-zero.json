@@ -1,0 +1,75 @@
+{
+  "schemaVersion": 1,
+  "key": "lingge66/binance-quant-zero",
+  "status": "ready",
+  "reason": "",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/lingge66/binance-Quant-Zero/blob/278e714de3d27ca906dccaccd020c78df57fb518/README.md",
+  "sourceRevision": "278e714de3d27ca906dccaccd020c78df57fb518",
+  "canonicalKey": "lingge66/binance-Quant-Zero",
+  "summary": "一个通过 Telegram 交互的币安合约 AI 交易 Agent，支持自然语言下单、条件单风控、持仓查看、一键平仓和自动交易。",
+  "intro": "适合有币安合约账户、熟悉 Python 部署并希望用 Telegram 机器人管理交易的用户。项目以 telegram_gateway.py 作为人工指挥入口，结合大语言模型解析自然语言指令，提供 /balance 查看持仓盈亏、/closeall 紧急平仓、为持仓补挂止盈止损条件单，以及可选的 main_auto_bot.py 自动轮询交易与基于 SQLite 记录的策略优化分析。",
+  "requirements": "Python 3.9+（Ubuntu/Debian Linux、macOS、Windows）；一个新建的专属 Telegram Bot Token；币安 API Key/Secret（文档建议先用模拟/测试网）；大语言模型（如 OpenAI / DeepSeek）的 API Key 和 Base URL；如需 PM2 守护进程还需 Node.js。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "通过 BotFather 新建专属机器人",
+      "text": "在 Telegram 搜索 @BotFather，发送 /newbot 创建一个全新的机器人，并复制得到的 Bot Token。文档要求不要复用已有机器人的 Token，以免与 OpenClaw 或其他机器人产生消息拦截冲突。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/lingge66/binance-Quant-Zero/blob/278e714de3d27ca906dccaccd020c78df57fb518/README.md?plain=1#L52"
+      }
+    },
+    {
+      "title": "克隆代码并创建 venv 环境",
+      "text": "以 Linux/macOS 为例：克隆仓库并进入目录，用 python3 -m venv quant_venv 创建虚拟环境，source 激活后 pip install -r requirements.txt（Windows 激活命令为 quant_venv\\Scripts\\activate）。如计划用 PM2 守护，再全局安装 pm2。",
+      "code": "git clone https://github.com/lingge66/binance-Quant-Zero.git\ncd binance-Quant-Zero\npython3 -m venv quant_venv\nsource quant_venv/bin/activate  # Windows 用户: quant_venv\\Scripts\\activate\npip install -r requirements.txt\n# 安装 PM2 进程守护 (需先安装 Node.js)\nnpm install -g pm2",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/lingge66/binance-Quant-Zero/blob/278e714de3d27ca906dccaccd020c78df57fb518/README.md?plain=1#L60"
+      }
+    },
+    {
+      "title": "复制并填写 .env 密钥",
+      "text": "将 .env.example 复制为 .env，填入 TELEGRAM_BOT_TOKEN、BINANCE_API_KEY / SECRET 以及 LLM_API_KEY 与 Base URL。币安 API 只勾选“允许读取”和“允许合约交易”，禁止勾选提现；实盘 API 须绑定 IP，建议先用 demo.binance.com 的模拟 API。",
+      "code": "cp .env.example .env",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/lingge66/binance-Quant-Zero/blob/278e714de3d27ca906dccaccd020c78df57fb518/README.md?plain=1#L74"
+      }
+    },
+    {
+      "title": "启动 Telegram 网关",
+      "text": "在项目目录运行 python telegram_gateway.py 启动人工指挥网关，或用 pm2 start 以 quant-zero-gateway 名称常驻运行。之后在 Telegram 中向新机器人发送 /balance 查看持仓、/closeall 紧急平仓或自然语言开仓指令。",
+      "code": "# 启动 Telegram 独立网关 (人工指挥所)\npython telegram_gateway.py\n## 建议使用 PM2 启动网关，确保 7x24 小时在线\npm2 start telegram_gateway.py --name quant-zero-gateway\n\n# (可选) 新开一个终端窗口，启动全自动交易引擎\npython main_auto_bot.py",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/lingge66/binance-Quant-Zero/blob/278e714de3d27ca906dccaccd020c78df57fb518/README.md?plain=1#L94"
+      }
+    },
+    {
+      "title": "按需开启自动交易引擎",
+      "text": "自动交易为可选功能：另开终端运行 python main_auto_bot.py，或在 Telegram 发送“开启自动交易”启动无人值守轮询。v1.1 会把交易记录存入 SQLite，可发送“策略优化”让 AI 分析明细并给出建议。",
+      "code": "# 启动 Telegram 独立网关 (人工指挥所)\npython telegram_gateway.py\n## 建议使用 PM2 启动网关，确保 7x24 小时在线\npm2 start telegram_gateway.py --name quant-zero-gateway\n\n# (可选) 新开一个终端窗口，启动全自动交易引擎\npython main_auto_bot.py",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/lingge66/binance-Quant-Zero/blob/278e714de3d27ca906dccaccd020c78df57fb518/README.md?plain=1#L10"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "加密货币合约交易风险极高，作者声明代码仅供技术交流与比赛演示，实盘前须在测试网充分验证，交易结果由使用者自负。",
+    "币安 API 严禁开启提现权限，实盘 API 必须绑定 IP；.env 中的密钥不要提交或泄露。",
+    "自动交易为无人值守执行，会在无人工确认下下单，需谨慎开启。",
+    "调用大语言模型 API 会产生对应服务商费用。",
+    "README 中的风控、防插针等描述为作者宣称，未经实测验证。",
+    "常见问题提到可能需要代理才能正常访问网络；项目以 GPL-3.0 许可证发布。"
+  ],
+  "references": [],
+  "media": [],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "c9576c772f18b400d5fabe7812b447822fab0db634403cd4b9d469027d1ec13b",
+  "mediaStatus": "none_in_official_documents"
+}

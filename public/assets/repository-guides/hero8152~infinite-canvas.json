@@ -1,0 +1,61 @@
+{
+  "schemaVersion": 1,
+  "key": "hero8152/infinite-canvas",
+  "status": "partial",
+  "reason": "README 写明项目已于 2026/08/28 停更，并引导用户前往外部网站下载新版本。仓库文档只有功能列表、外链和截图，没有下载、安装、启动或配置 API 的具体步骤。截图没有说明文字，无法判断各自展示的是哪项功能。",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/hero8152/Infinite-Canvas/blob/67f49e4b9a0ac090bad1f5bd62ae385f8fb5394e/README.md",
+  "sourceRevision": "67f49e4b9a0ac090bad1f5bd62ae385f8fb5394e",
+  "canonicalKey": "hero8152/Infinite-Canvas",
+  "summary": "Infinite-Canvas 是一个已停更的 AI 画布工具，可接入 ComfyUI、多种 API 协议和 ModelScope 模型，用于生图和生视频。",
+  "intro": "适合想了解这个画布项目功能范围、并考虑是否迁移到作者新版本的用户。旧版功能包括：调用 OpenAI、Gemini、方舟协议的 API；调用 RunningHub 工作流、火山引擎、Modelscope 免费模型、即梦 CLI 和局域网 ComfyUI；扩展图片、360 全景预览、视频抽帧等。tools 文件夹中另有 chrome 采集插件和 PS 直连插件。",
+  "requirements": "文档没有给出运行环境要求。按功能说明，使用相应能力需要自备对应的 API 服务、RunningHub/火山引擎账号、即梦高级会员积分或局域网内的 ComfyUI。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "先确认项目已停更的状态",
+      "text": "README 顶部说明本项目已停更，新版本需到作者提供的外部网站下载。新版宣称支持 Agent、分层、多人协同等功能，但仓库中没有相关文档可供核实。决定使用前，请先判断是继续研究旧代码，还是转向新版本。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/hero8152/Infinite-Canvas/blob/67f49e4b9a0ac090bad1f5bd62ae385f8fb5394e/README.md?plain=1#L1"
+      }
+    },
+    {
+      "title": "对照功能列表确认所需接入方式",
+      "text": "阅读“支持的功能”列表，确认你要用的模型来源：OpenAI/Gemini/方舟协议 API、RunningHub、火山引擎、Modelscope、即梦 CLI 或局域网 ComfyUI。注意火山引擎人脸认证仍标注为有 bug。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/hero8152/Infinite-Canvas/blob/67f49e4b9a0ac090bad1f5bd62ae385f8fb5394e/README.md?plain=1#L1"
+      }
+    },
+    {
+      "title": "通过作者视频教程了解操作",
+      "text": "仓库没有文字版操作步骤。README 指向一个 YouTube 详细教程和作者的 B 站主页，功能请求和教程更新也在 B 站获取。需要具体操作时，请以这些外部教程为准。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/hero8152/Infinite-Canvas/blob/67f49e4b9a0ac090bad1f5bd62ae385f8fb5394e/README.md?plain=1#L1"
+      }
+    },
+    {
+      "title": "按需决定是否保留 version 文件",
+      "text": "仓库中的 version 文件用于更新提醒：保留时，打开项目后导航栏的 GitHub 按键会提示新版本；不想看到提示，删除该文件即可。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/hero8152/Infinite-Canvas/blob/67f49e4b9a0ac090bad1f5bd62ae385f8fb5394e/README.md?plain=1#L1"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "项目已停更，旧版不再更新，部分 API 网址可能已失效。",
+    "作者声明禁止商业用途，商用须取得授权；基于代码二次开发的软件必须保持开源并注明原作者。仓库 license 字段为 NOASSERTION。",
+    "README 中推荐的 API 网址带有推广邀请参数，属于第三方付费服务，使用前请自行评估。",
+    "即梦 CLI 调用会消耗即梦高级会员积分；RunningHub 收费模型也会产生费用。"
+  ],
+  "references": [],
+  "media": [],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "b3e4b3d0a9d9945eb864c785b7769f00457a1c683c681b41492614ccad1fa765",
+  "mediaStatus": "none_in_official_documents"
+}

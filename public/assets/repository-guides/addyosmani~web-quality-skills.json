@@ -1,0 +1,63 @@
+{
+  "schemaVersion": 1,
+  "key": "addyosmani/web-quality-skills",
+  "status": "ready",
+  "reason": "",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/addyosmani/web-quality-skills/blob/afa8da942115f2961fdbfa80807ea0b232ff6c00/README.md",
+  "sourceRevision": "afa8da942115f2961fdbfa80807ea0b232ff6c00",
+  "canonicalKey": "addyosmani/web-quality-skills",
+  "summary": "web-quality-skills 是一组非官方 Agent Skills，让 AI 编码代理基于 Lighthouse、Core Web Vitals、WCAG 和搜索指南，审计并优化网页的性能、无障碍、SEO 与最佳实践。",
+  "intro": "适合使用 Claude Code、Codex、Gemini CLI 等 AI 编码代理的 Web 开发者，不限框架。包含 web-quality-audit、performance、core-web-vitals、accessibility、seo、best-practices 六个技能，强调先测量，并区分 CrUX 现场数据、RUM、实验室跟踪和静态检查。",
+  "requirements": "一个受支持的 AI 编码代理（下文以 Claude Code 插件为例；Codex 插件需 CLI v0.122+）。Chrome DevTools MCP 为可选项。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "在 Claude Code 中安装插件",
+      "text": "在 Claude Code 中执行 `/plugin marketplace add addyosmani/web-quality-skills`，再执行 `/plugin install web-quality-skills@addy-web-quality-skills`。安装后技能带命名空间，例如 `/web-quality-skills:performance`，可用 `/plugin update` 更新。",
+      "code": "/plugin marketplace add addyosmani/web-quality-skills\n/plugin install web-quality-skills@addy-web-quality-skills",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/addyosmani/web-quality-skills/blob/afa8da942115f2961fdbfa80807ea0b232ff6c00/README.md?plain=1#L64"
+      }
+    },
+    {
+      "title": "可选接入 Chrome DevTools MCP",
+      "text": "如果代理可以使用 Chrome DevTools MCP，技能会优先调用 `performance_start_trace`、`lighthouse_audit` 等工具获取实时数据。不接入时，会改用 Lighthouse CLI、PageSpeed Insights/CrUX、手动浏览器检查或静态检查。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/addyosmani/web-quality-skills/blob/afa8da942115f2961fdbfa80807ea0b232ff6c00/README.md?plain=1#L119"
+      }
+    },
+    {
+      "title": "用匹配描述的请求触发技能",
+      "text": "技能会在请求与其描述匹配时自动激活。例如要求代理审计页面质量、优化性能与 Core Web Vitals、审查无障碍问题，或让页面符合 SEO 要求。可对照技能表中的触发短语来表述请求。",
+      "code": "Audit this page for web quality issues\n\nOptimize performance and fix Core Web Vitals\n\nReview accessibility and suggest improvements\n\nMake this SEO-ready",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/addyosmani/web-quality-skills/blob/afa8da942115f2961fdbfa80807ea0b232ff6c00/README.md?plain=1#L99"
+      }
+    },
+    {
+      "title": "按测量模型解读审计结果",
+      "text": "阅读结果时区分证据类型：CrUX 现场数据反映用户实际影响，DevTools 跟踪或 Lighthouse 用于复现和诊断，静态检查只能提示可能的问题。比较分数时应使用相同的工具版本和测试条件。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/addyosmani/web-quality-skills/blob/afa8da942115f2961fdbfa80807ea0b232ff6c00/README.md?plain=1#L29"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "该项目为非官方技能集合，并非 Google 或 Chrome 官方出品。",
+    "Lighthouse 分数只能帮助发现回归，不能证明无障碍、安全、SEO 排名或用户体验达标；无障碍仍需人工检查。",
+    "README 中的性能预算仅是初始参考，应根据目标设备、网络和页面类型自行设定。",
+    "Core Web Vitals 达标不保证搜索排名会变化。"
+  ],
+  "references": [],
+  "media": [],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "0cef8773a21f03db19fc08ab21e56261a459525273e90e4a6cef746d8e3ee768",
+  "mediaStatus": "none_in_official_documents"
+}

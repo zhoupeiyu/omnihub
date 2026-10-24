@@ -1,0 +1,69 @@
+{
+  "schemaVersion": 1,
+  "key": "detachhead/rebased",
+  "status": "ready",
+  "reason": "",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/DetachHead/rebased/blob/3f9618604fda6da593f8b86892b83d23b72ba48b/README.md",
+  "sourceRevision": "3f9618604fda6da593f8b86892b83d23b72ba48b",
+  "canonicalKey": "DetachHead/rebased",
+  "summary": "Rebased 是一个基于 IntelliJ 平台的独立 git 图形客户端，保留了 JetBrains IDE 的 git 集成，并移除了其他捆绑插件。",
+  "intro": "适合习惯 JetBrains IDE 的 git 工具、但只想用单独 git 客户端的开发者。它保留 IntelliJ IDEA Community Edition 的 git 功能，并做了一些界面调整：git log 默认显示在主编辑区，可以关闭 .idea 目录生成，也可以关闭索引。它还为 vue 等语言附带了额外的 TextMate 语法高亮。",
+  "requirements": "需要 Linux（x86_64/aarch64）、Windows（x86_64/aarch64）或 macOS（Apple Silicon/Intel）其中之一。本指南使用 macOS 路径，需要已安装 Homebrew。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "在 macOS 用 Homebrew 安装",
+      "text": "本指南以 macOS 为例。在终端执行官方给出的 brew 命令，从 detachhead/tap 安装 Rebased。Linux 用户可改用 AppImage（推荐配合 AppManager），Windows 用户可改用安装包或 winget。不同平台的安装方式不要混用。",
+      "code": "brew install detachhead/tap/rebased",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/DetachHead/rebased/blob/3f9618604fda6da593f8b86892b83d23b72ba48b/README.md?plain=1#L42"
+      }
+    },
+    {
+      "title": "调整 git log 的显示位置",
+      "text": "Rebased 默认把 git log 图放在主编辑窗口。如果想像 JetBrains IDE 那样放在底部工具窗口，打开 Settings > Version Control > Log，取消勾选「Show the log in the editor window」。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/DetachHead/rebased/blob/3f9618604fda6da593f8b86892b83d23b72ba48b/README.md?plain=1#L71"
+      }
+    },
+    {
+      "title": "关闭项目根目录的 .idea 生成",
+      "text": "打开不面向 JetBrains IDE 的仓库时，为避免在项目根目录生成 .idea 配置，进入 Settings > Appearance and Behavior > System Settings，取消勾选「Store project settings in the project root directory」。之后项目配置会集中存放在全局设置目录中。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/DetachHead/rebased/blob/3f9618604fda6da593f8b86892b83d23b72ba48b/README.md?plain=1#L79"
+      }
+    },
+    {
+      "title": "按需关闭文件搜索索引",
+      "text": "如果不需要在 Rebased 中搜索项目（例如已经用其他 IDE 搜索），可在 Settings > Appearance and Behavior > System Settings 中取消勾选「Enable indexing files for search」。为了在变更列表中显示未纳入版本控制的文件，部分扫描仍会保留。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/DetachHead/rebased/blob/3f9618604fda6da593f8b86892b83d23b72ba48b/README.md?plain=1#L93"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "许可证标记为 NOASSERTION，使用或分发前请自行确认授权条款。",
+    "Rebased 禁用了很多 JetBrains IDE 的核心组件，从插件市场安装的插件可能无法正常工作；与 git 无关的插件问题通常不在项目支持范围内。",
+    "在 macOS 手动安装 .dmg 时，系统可能提示应用「已损坏」。文档说明这是因为应用没有 Apple 开发者签名，需要自行移除隔离属性；是否这样做请自行评估风险。"
+  ],
+  "references": [],
+  "media": [
+    {
+      "url": "/assets/repository-guides/media-5a2705c5cb93e12a223dffd9.webp",
+      "alt": "DetachHead/rebased 官方演示 1",
+      "sourceUrl": "https://github.com/DetachHead/rebased/blob/3f9618604fda6da593f8b86892b83d23b72ba48b/README.md?plain=1#L7",
+      "originalUrl": "https://raw.githubusercontent.com/DetachHead/rebased/3f9618604fda6da593f8b86892b83d23b72ba48b/screenshot.png"
+    }
+  ],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "54c9a250dff5ea92ea8744a7b8e2bd2fe8f619bdb68b9a308714ae6ab34ce5dc",
+  "mediaStatus": "archived",
+  "mediaFailures": []
+}

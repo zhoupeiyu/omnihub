@@ -1,0 +1,64 @@
+{
+  "schemaVersion": 1,
+  "key": "alchaincyf/x-mentor-skill",
+  "status": "ready",
+  "reason": "",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/alchaincyf/x-mentor-skill/blob/f913c720135e54828dc1ea8f4fa256a5e32fe5bb/README.md",
+  "sourceRevision": "f913c720135e54828dc1ea8f4fa256a5e32fe5bb",
+  "canonicalKey": "alchaincyf/x-mentor-skill",
+  "summary": "X导师.skill 是一个基于 Agent Skills 协议的提示词技能，为 X/Twitter 运营提供选题、推文与 Hook 写作、审阅、增长策略和账号诊断的操作指引。",
+  "intro": "适合在 X/Twitter 上做内容创作或账号运营、并且使用 Claude Code、Codex、Cursor 等支持 skills 的 agent 的用户。这个 skill 整理了 6 位 X 创作者的方法论和 X 开源算法的权重资料，提供 5 个场景：写推文、选题、审阅、增长策略、账号诊断。仓库中的 references/ 和 research/ 目录也可以直接当作资料查阅。",
+  "requirements": "一个支持 Agent Skills 的 AI agent runtime，例如 Claude Code、Codex CLI、Cursor、OpenClaw 等。如果 runtime 不支持自动加载 skill，也可以把 SKILL.md 当作参考资料粘贴进对话。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "用 skills 安装器添加技能",
+      "text": "运行官方推荐的一行命令，通用安装器 vercel-labs/skills 会自动识别当前 runtime，并把 skill 放进对应目录。以 Claude Code 为例，需要指定 runtime 时可以加 -a claude-code 参数，最终安装位置对应 ~/.claude/skills/x-mentor-skill/。",
+      "code": "npx skills add alchaincyf/x-mentor-skill",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/alchaincyf/x-mentor-skill/blob/f913c720135e54828dc1ea8f4fa256a5e32fe5bb/README.md?plain=1#L199"
+      }
+    },
+    {
+      "title": "用自然语言触发技能场景",
+      "text": "安装后，在 agent 对话中直接说出需求即可激活，例如「帮我写条推文」「X策略」「推特怎么涨粉」「帮我审阅这条tweet」「分析我的X账号」。SKILL.md 中的路由表会根据场景按需加载相应的 references 文件。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/alchaincyf/x-mentor-skill/blob/f913c720135e54828dc1ea8f4fa256a5e32fe5bb/README.md?plain=1#L234"
+      }
+    },
+    {
+      "title": "使用账号诊断并查看本地数据",
+      "text": "账号诊断会通过 computer-use 或浏览器工具采集近 100 条推文；采集失败时会引导你手动提供数据，然后生成 HTML 诊断报告。数据和报告保存在 user-data/{username}/ 目录下，再次激活时会读取这些数据，超过 30 天会提醒重新诊断。",
+      "code": "user-data/{username}/\n├── profile.md              # 账号基本信息\n├── tweets_{date}.json      # 推文原始数据\n├── tweets_{date}.md        # 可读版汇总\n├── report_{date}.html      # 诊断报告\n└── strategy.md             # 个性化策略",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/alchaincyf/x-mentor-skill/blob/f913c720135e54828dc1ea8f4fa256a5e32fe5bb/README.md?plain=1#L51"
+      }
+    },
+    {
+      "title": "直接查阅 references 资料",
+      "text": "不通过 agent 也可以直接阅读资料：references/ 下有写作工坊、算法速查、增长变现、质量复盘、心智模型五份文件，references/research/ 下有六份原始调研报告，适合追溯观点来源或系统学习。",
+      "code": "x-mentor-skill/\n├── README.md\n├── SKILL.md                              # 路由+执行规则（249行，v2.0精简版）\n├── references/\n│   ├── writing-workshop.md               # 写作工坊（按需加载）\n│   ├── algorithm-niche.md                # 算法+AI赛道（按需加载）\n│   ├── growth-monetization.md            # 增长+变现（按需加载）\n│   ├── quality-analytics.md              # 质量+复盘+报告模板（按需加载）\n│   ├── mental-models-heuristics.md       # 心智模型+启发式（按需加载）\n│   └── research/                         # 6个调研文件（2475行，追溯来源时读取）\n├── user-data/                            # 用户诊断数据（自动生成）\n└── examples/\n    └── account-diagnosis-demo.md         # 真实X账号诊断案例",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/alchaincyf/x-mentor-skill/blob/f913c720135e54828dc1ea8f4fa256a5e32fe5bb/README.md?plain=1#L291"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "账号诊断会借助浏览器或 computer-use 工具访问你的 X 账号数据，并把推文数据和报告保存到本地 user-data/ 目录，请自行评估数据隐私。",
+    "README 中的 A/B 测试评分来自作者自己的对比，不是独立验证的结论。",
+    "算法权重数据标注为 2026 年 4 月依据开源代码整理，平台机制可能变化，引用前应核对时效。",
+    "方法论来自 6 位特定创作者的公开资料，属于经验总结，不保证增长效果。"
+  ],
+  "references": [],
+  "media": [],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "9753acb3e1a9d7c203ab837367459b223b51337418f70ca644c1eebf4d112142",
+  "mediaStatus": "none_in_official_documents"
+}

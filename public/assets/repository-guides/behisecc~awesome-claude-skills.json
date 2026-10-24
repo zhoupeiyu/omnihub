@@ -1,0 +1,61 @@
+{
+  "schemaVersion": 1,
+  "key": "behisecc/awesome-claude-skills",
+  "status": "ready",
+  "reason": "",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/BehiSecc/awesome-claude-skills/blob/c368a0ae3c61e226af761fe975cf869c0f3a087d/README.md",
+  "sourceRevision": "c368a0ae3c61e226af761fe975cf869c0f3a087d",
+  "canonicalKey": "BehiSecc/awesome-claude-skills",
+  "summary": "按用途分类整理 Claude Skills 链接的清单，用于查找合适的第三方或官方技能仓库。",
+  "intro": "适合使用 Claude 或 Claude Code、想按场景寻找现成技能的人。清单按文档处理、开发与代码工具、数据分析、科研、写作、学习知识库、媒体内容、健康、协作、安全测试、自动化等分类，每条附技能仓库链接和一句话功能描述。本仓库只提供索引，不包含技能本身的安装方法，具体用法要到各条目链接的仓库中查阅。",
+  "requirements": "能访问 GitHub 以打开各条目链接。使用其中具体技能所需的宿主环境和依赖，以各技能仓库自身说明为准。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "通过目录定位所需分类",
+      "text": "打开 README 的 Table of Contents，按需求进入对应分类，例如 Document Skills、Development & Code Tools、Data & Analysis、Scientific & Research Tools、Media & Content 等。目录还包含文章博客与合集类条目。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/BehiSecc/awesome-claude-skills/blob/c368a0ae3c61e226af761fe975cf869c0f3a087d/README.md?plain=1#L8"
+      }
+    },
+    {
+      "title": "对比条目描述筛选候选技能",
+      "text": "在分类下阅读每条一句话描述，判断是否符合需求。例如 Document Skills 中列出了 anthropics/skills 的 docx、pdf、pptx、xlsx 等文档技能；Data & Analysis 中有面向 PostgreSQL、MySQL、MSSQL 的只读查询技能。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/BehiSecc/awesome-claude-skills/blob/c368a0ae3c61e226af761fe975cf869c0f3a087d/README.md?plain=1#L32"
+      }
+    },
+    {
+      "title": "进入技能仓库查看接入方式",
+      "text": "点击条目链接进入原仓库，阅读其 README 或 SKILL 文件，确认支持的宿主（如 Claude Code、claude.ai 等）、安装方式和依赖。本清单本身不提供安装命令，应以每个技能仓库的官方说明为准。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/BehiSecc/awesome-claude-skills/blob/c368a0ae3c61e226af761fe975cf869c0f3a087d/README.md?plain=1#L32"
+      }
+    },
+    {
+      "title": "核对是否依赖外部服务",
+      "text": "使用前检查描述中提到的外部 API 或账号，例如 Polaris AI DataInsight、TasteRay API、ElevenLabs、Google Cloud TTS、Gemini、TranscriptAPI、deAPI 等，确认所需凭据和计费条件后再接入。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/BehiSecc/awesome-claude-skills/blob/c368a0ae3c61e226af761fe975cf869c0f3a087d/README.md?plain=1#L32"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "README 顶部的 Atlas Cloud、APIMart 为赞助商推广内容，其中的价格信息不属于技能清单本身。",
+    "清单中的技能大多由第三方维护，质量、安全性与维护状态需自行到原仓库核实。",
+    "部分技能需要连接数据库、加密钱包或第三方付费 API，涉及凭据与可能的费用。",
+    "本仓库未声明许可证（license 为 null）。"
+  ],
+  "references": [],
+  "media": [],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "7ad97b51a1ee7a8eb255a27cc7006e80fa81444def1a9eb3de1cd9ae5742ea8c",
+  "mediaStatus": "none_in_official_documents"
+}

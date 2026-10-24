@@ -1,0 +1,62 @@
+{
+  "schemaVersion": 1,
+  "key": "k-dense-ai/claude-scientific-skills",
+  "status": "partial",
+  "reason": "资料提供了前提条件、uv 安装方法和技能目录说明，但缺少 Getting Started 一节的内容，没有说明如何把技能文件安装到 Cursor、Claude Code、Codex 等具体客户端，也没有给出插件安装命令或目录路径。",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/K-Dense-AI/scientific-agent-skills/blob/91497e335489dcb544ec8ddc8f6b7ce5fd6d1121/README.md",
+  "sourceRevision": "91497e335489dcb544ec8ddc8f6b7ce5fd6d1121",
+  "canonicalKey": "K-Dense-AI/scientific-agent-skills",
+  "summary": "Scientific Agent Skills（原名 Claude Scientific Skills）是一套面向科研的 Agent Skills 库，覆盖生物、化学、医学、药物研发等领域的数据库查询、Python 分析包、实验平台集成和科研写作流程。",
+  "intro": "适合使用支持 Agent Skills 标准的 AI 智能体做研究的科研人员。每个技能目录都有一个 SKILL.md，写明用途、工作流程和版本信息，可按任务挑选使用。主要类别：统一的数据库查询技能（PubChem、ChEMBL、UniProt、ClinicalTrials.gov 等）；RDKit、Scanpy、BioPython 等 Python 包的工作流；Benchling、Opentrons 等平台集成；文献综述、论文写作、海报和幻灯片制作；PK/PD 建模、方法学验证等研究工具。",
+  "requirements": "仓库工具需要 Python 3.13 以上（单个技能的依赖可能支持更多 Python 版本）。需要用 uv 安装技能依赖。需要一个支持 Agent Skills 标准的客户端，例如 Cursor、Claude Code、Gemini CLI、Codex 或 Google Antigravity。系统为 macOS、Linux 或 Windows WSL2。各技能所需的软件包、系统工具、账号凭据和网络访问，以该技能的 compatibility 字段为准。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "安装并验证 uv 包管理器",
+      "text": "以 macOS 和 Linux 为例：用官方脚本安装 uv，再运行 `uv --version` 确认安装成功。Windows 用户请改用 README 中的 PowerShell 安装方式，或按 WSL2 环境处理。 原文包含需人工核查的高权限或删除命令，本站不提供一键复制；请查看该步骤的官方出处。",
+      "code": "uv --version",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/K-Dense-AI/scientific-agent-skills/blob/91497e335489dcb544ec8ddc8f6b7ce5fd6d1121/README.md?plain=1#L306"
+      }
+    },
+    {
+      "title": "按研究任务挑选所需技能",
+      "text": "在 README 的 What's Included 和 Available Skills 部分，按类别浏览数据库、Python 包、平台集成和分析写作等技能。也可以参考 Recently added workflows 表格，例如引物设计、流式细胞术、NMR 等，再打开 skills/<name>/SKILL.md 了解它的用途和工作流程。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/K-Dense-AI/scientific-agent-skills/blob/91497e335489dcb544ec8ddc8f6b7ce5fd6d1121/README.md?plain=1#L79"
+      }
+    },
+    {
+      "title": "安装前审查技能内容",
+      "text": "按官方安全建议，安装前完整阅读该技能的 SKILL.md 和 scripts/ 目录，做一次扫描，并固定使用某个版本，不要直接跟随分支更新。需要更强隔离时，可参考官方博客介绍的沙箱运行方式。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/K-Dense-AI/scientific-agent-skills/blob/91497e335489dcb544ec8ddc8f6b7ce5fd6d1121/README.md?plain=1#L708"
+      }
+    },
+    {
+      "title": "按技能说明单独配置依赖",
+      "text": "安装技能文件不会自动安装它的依赖。请按每个技能的 compatibility 字段和配置说明，安装对应的软件包、凭据和网络权限。不同科研流程可能要求不同的 Python 版本或互相冲突的包版本，应分别放在独立环境中。`uv sync` 只安装仓库自身的开发和校验工具。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/K-Dense-AI/scientific-agent-skills/blob/91497e335489dcb544ec8ddc8f6b7ce5fd6d1121/README.md?plain=1#L296"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "本次资料没有包含把技能接入各客户端的具体安装步骤，请阅读仓库 README 的 Getting Started 一节。",
+    "临床相关技能只用于汇总性研究、证据整理和格式化已有的临床文档，不做诊断，不推荐治疗方案，也不判断个体是否符合入组条件。",
+    "数据库查询、托管模型和云平台需要联网；Benchling、DNAnexus 等平台集成需要你自己的账号和凭据。",
+    "技能可能附带可执行脚本，安装前请先审查内容并固定版本。"
+  ],
+  "references": [],
+  "media": [],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "2d65254212d4292e61559e7958d2236f45e05801c4b14bafc69dfc604bf59a1a",
+  "mediaStatus": "none_in_official_documents"
+}

@@ -1,0 +1,70 @@
+{
+  "schemaVersion": 1,
+  "key": "cocoindex-io/cocoindex-code",
+  "status": "ready",
+  "reason": "",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/cocoindex-io/cocoindex-code/blob/8ec0ff3510be526e699028db5b64e10a0a8359b3/README.md",
+  "sourceRevision": "8ec0ff3510be526e699028db5b64e10a0a8359b3",
+  "canonicalKey": "cocoindex-io/cocoindex-code",
+  "summary": "cocoindex-code 是一个基于 AST 的轻量嵌入式语义代码搜索 CLI（ccc），可以单独使用，也可以通过 Skill 或 MCP 接入编码智能体。",
+  "intro": "适合希望用自然语言检索代码库的开发者，以及希望让 Claude Code、Codex、Cursor 等编码智能体在 grep 效果不佳时改用语义搜索的用户。它支持 Python、JS/TS、Rust、Go、Java、C/C++ 等语言，只对变更文件增量重建索引，无需配置数据库。另提供不需要索引的结构化搜索 ccc grep。",
+  "requirements": "需要 pipx 或 uv 来安装 Python CLI。full 版自带本地 embedding，无需 API key，但依赖较大；slim 版需要云端 embedding 服务商和 API key。安装 Skill 需要 npx。也可以改用 Docker 镜像，主机上无需 Python。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "用 pipx 安装 full 版 CLI",
+      "text": "运行 pipx install 'cocoindex-code[full]'，安装自带本地 embedding 的版本，无需 API key。如果你使用 uv，可以改用 uv tool install，两种方式只选其一。",
+      "code": "pipx install 'cocoindex-code[full]'          # batteries included (local embeddings)\npipx upgrade cocoindex-code                  # upgrade",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/cocoindex-io/cocoindex-code/blob/8ec0ff3510be526e699028db5b64e10a0a8359b3/README.md?plain=1#L45"
+      }
+    },
+    {
+      "title": "为编码智能体安装 ccc 技能",
+      "text": "运行 npx skills add cocoindex-io/cocoindex-code，安装官方推荐的 ccc 技能，适用于 Claude Code 等支持技能的智能体。安装后无需手动执行 ccc init 或 ccc index，智能体会自行处理初始化、建索引并保持索引更新。",
+      "code": "npx skills add cocoindex-io/cocoindex-code",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/cocoindex-io/cocoindex-code/blob/8ec0ff3510be526e699028db5b64e10a0a8359b3/README.md?plain=1#L68"
+      }
+    },
+    {
+      "title": "在智能体中触发语义搜索",
+      "text": "智能体会在需要时自动使用语义搜索。你也可以明确让它搜索代码库，例如询问用户会话是如何管理的，或者输入 /ccc 直接调用该技能。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/cocoindex-io/cocoindex-code/blob/8ec0ff3510be526e699028db5b64e10a0a8359b3/README.md?plain=1#L68"
+      }
+    },
+    {
+      "title": "需要时手动用 CLI 建索引搜索",
+      "text": "不经过智能体时，在项目目录依次执行 ccc init、ccc index、ccc search。首次使用时后台 daemon 会自动启动。可用 ccc status 查看索引统计，用 ccc doctor 运行诊断。",
+      "code": "ccc init                                # initialize project (creates settings)\nccc index                               # build the index\nccc search \"authentication logic\"       # search!",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/cocoindex-io/cocoindex-code/blob/8ec0ff3510be526e699028db5b64e10a0a8359b3/README.md?plain=1#L268"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "full 版会引入约 1 GB 的 torch 与 transformers 依赖。slim 版需要云端 embedding 服务商的 API key，可能产生服务商费用。",
+    "使用 Docker 时默认挂载 $HOME，容器可读写其下全部内容。建议用 COCOINDEX_HOST_WORKSPACE 限定为代码目录。",
+    "在 macOS 的 Docker 中运行 :full 镜像时，本地推理只能用 CPU，无法使用 Metal GPU。",
+    "ccc grep 依赖 cocoindex 的 code_match 功能，在该功能正式发布前需要本地构建的 cocoindex。"
+  ],
+  "references": [],
+  "media": [],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "6dbd4e9d33a5ccac4894d59a7124ea273a9de2fadccefdf935cd4c884fd3e070",
+  "mediaStatus": "unavailable",
+  "mediaFailures": [
+    {
+      "sourceUrl": "https://github.com/cocoindex-io/cocoindex-code/blob/8ec0ff3510be526e699028db5b64e10a0a8359b3/README.md#L8",
+      "reason": "media_too_large"
+    }
+  ]
+}

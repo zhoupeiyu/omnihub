@@ -1,0 +1,82 @@
+{
+  "schemaVersion": 1,
+  "key": "hkuds/lightrag",
+  "status": "ready",
+  "reason": "",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/HKUDS/LightRAG/blob/453dce83d6d0354a06e46c8d4029a0895c4e054b/README.md",
+  "sourceRevision": "453dce83d6d0354a06e46c8d4029a0895c4e054b",
+  "canonicalKey": "HKUDS/LightRAG",
+  "summary": "LightRAG 是一个基于知识图谱和向量双层结构的轻量级 RAG 框架，提供带 WebUI 的 API Server 和 Python SDK。",
+  "intro": "适合需要基于自有文档搭建检索增强问答的开发者和团队，特别是需要跨文档、全局理解的场景。它可以对文档建立图结构索引并做双层检索，支持增量更新和删除文档、多种解析引擎和分块策略，并能通过 WebUI 插入、查询和可视化知识。",
+  "requirements": "需要 Python 环境（徽章标注为 3.10），文档推荐用 uv 管理包，也可以用 pip。需要可用的 LLM 和 embedding 服务，并在 .env 中配置。生产环境建议使用 PostgreSQL 等外部存储。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "安装 uv 包管理工具",
+      "text": "项目推荐用 uv 管理 Python 包。Unix/macOS 按文档执行 curl 安装脚本，Windows 按文档执行 PowerShell 安装命令。也可以改用 pip。离线或隔离网络环境请参考 Offline Deployment Guide。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/HKUDS/LightRAG/blob/453dce83d6d0354a06e46c8d4029a0895c4e054b/README.md?plain=1#L117"
+      }
+    },
+    {
+      "title": "从 PyPI 安装 LightRAG Server",
+      "text": "用 uv tool install \"lightrag-hku[api]\" 把 LightRAG Server 安装为工具，也可以在虚拟环境中用 pip 安装同一个包。这是文档推荐的方式；从源码安装或用 Docker Compose 部署是另外两条路径。",
+      "code": "### Install LightRAG Server as tool using uv (recommended)\nuv tool install \"lightrag-hku[api]\"\n\n### Or using pip\n# python -m venv .venv\n# source .venv/bin/activate  # Windows: .venv\\Scripts\\activate\n# pip install \"lightrag-hku[api]\"\n\n# Setup env file\n# Obtain the env.example file by downloading it from the GitHub repository root\n# or by copying it from a local source checkout.\ncp env.example .env  # Update the .env with your LLM and embedding configurations\n# Launch the server. It binds to all interfaces (0.0.0.0) by default.\n# SECURITY: before exposing it on a network, configure authentication in .env\n# (LIGHTRAG_API_KEY, or AUTH_ACCOUNTS together with TOKEN_SECRET), or bind to\n# 127.0.0.1 for local-only access; without auth every endpoint is public.\n# Note: the Ollama-compatible /api/* routes stay open by default for client\n# compatibility; set WHITELIST_PATHS=/health to require auth on them too.\nlightrag-server",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/HKUDS/LightRAG/blob/453dce83d6d0354a06e46c8d4029a0895c4e054b/README.md?plain=1#L125"
+      }
+    },
+    {
+      "title": "准备 .env 并配置模型连接",
+      "text": "从仓库根目录下载 env.example，复制为 .env，填写 LLM 和 embedding 的配置。如需按需求调整，可以参考文档里的 SUMMARY_LANGUAGE、MAX_TOTAL_TOKENS、ENABLE_LLM_CACHE 等变量。在源码目录中也可以用 make env-base 交互式生成配置。",
+      "code": "### Install LightRAG Server as tool using uv (recommended)\nuv tool install \"lightrag-hku[api]\"\n\n### Or using pip\n# python -m venv .venv\n# source .venv/bin/activate  # Windows: .venv\\Scripts\\activate\n# pip install \"lightrag-hku[api]\"\n\n# Setup env file\n# Obtain the env.example file by downloading it from the GitHub repository root\n# or by copying it from a local source checkout.\ncp env.example .env  # Update the .env with your LLM and embedding configurations\n# Launch the server. It binds to all interfaces (0.0.0.0) by default.\n# SECURITY: before exposing it on a network, configure authentication in .env\n# (LIGHTRAG_API_KEY, or AUTH_ACCOUNTS together with TOKEN_SECRET), or bind to\n# 127.0.0.1 for local-only access; without auth every endpoint is public.\n# Note: the Ollama-compatible /api/* routes stay open by default for client\n# compatibility; set WHITELIST_PATHS=/health to require auth on them too.\nlightrag-server\n\nmake env-base           # Required first step: LLM, embedding, reranker\nmake env-storage        # Optional: storage backends and database services\nmake env-server         # Optional: server port, auth, and SSL\nmake env-base-rewrite   # Optional: force-regenerate wizard-managed compose services\nmake env-storage-rewrite # Optional: force-regenerate wizard-managed compose services\nmake env-security-check # Optional: audit the current .env for security risks",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/HKUDS/LightRAG/blob/453dce83d6d0354a06e46c8d4029a0895c4e054b/README.md?plain=1#L125"
+      }
+    },
+    {
+      "title": "配置访问认证后启动服务",
+      "text": "lightrag-server 默认绑定 0.0.0.0，没有认证时所有接口都是公开的。如果要暴露到网络，先在 .env 中设置 LIGHTRAG_API_KEY，或同时设置 AUTH_ACCOUNTS 和 TOKEN_SECRET，或者改为只绑定 127.0.0.1；之后再运行 lightrag-server。",
+      "code": "### Install LightRAG Server as tool using uv (recommended)\nuv tool install \"lightrag-hku[api]\"\n\n### Or using pip\n# python -m venv .venv\n# source .venv/bin/activate  # Windows: .venv\\Scripts\\activate\n# pip install \"lightrag-hku[api]\"\n\n# Setup env file\n# Obtain the env.example file by downloading it from the GitHub repository root\n# or by copying it from a local source checkout.\ncp env.example .env  # Update the .env with your LLM and embedding configurations\n# Launch the server. It binds to all interfaces (0.0.0.0) by default.\n# SECURITY: before exposing it on a network, configure authentication in .env\n# (LIGHTRAG_API_KEY, or AUTH_ACCOUNTS together with TOKEN_SECRET), or bind to\n# 127.0.0.1 for local-only access; without auth every endpoint is public.\n# Note: the Ollama-compatible /api/* routes stay open by default for client\n# compatibility; set WHITELIST_PATHS=/health to require auth on them too.\nlightrag-server",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/HKUDS/LightRAG/blob/453dce83d6d0354a06e46c8d4029a0895c4e054b/README.md?plain=1#L125"
+      }
+    },
+    {
+      "title": "按需优化文档解析流水线",
+      "text": "文档指出默认流水线配置效果不是最佳，建议启用 MinerU 解析引擎和图像分析：设置 LIGHTRAG_PARSER，并开启 VLM_PROCESS_ENABLE、指定 VLM 模型。云端 MinerU 有用量、文件大小和页数限制，文档建议使用本地部署的 MinerU。",
+      "code": "LIGHTRAG_PARSER=*:native-iteP,*:mineru-iteP,*:legacy-R\n\nVLM_PROCESS_ENABLE=true\nVLM_LLM_MODEL=<your_vlm_model_name>",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/HKUDS/LightRAG/blob/453dce83d6d0354a06e46c8d4029a0895c4e054b/README.md?plain=1#L322"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "默认的 KV、向量和图存储是内存数据库加本地文件持久化，只适合小规模测试，不适合生产；生产环境推荐 PostgreSQL 等后端。",
+    "兼容 Ollama 的 /api/* 路由默认不需要认证；如需对它们也要求认证，要设置 WHITELIST_PATHS=/health。",
+    "云端 MinerU 服务在用量、文件大小和页数上有限制。",
+    "渲染 Markdown 中嵌入的 SVG 需要主机安装系统库 libcairo，缺少时这些 SVG 会被跳过；启用 docx smart_heading 时需要额外下载 spaCy 模型。",
+    "部分功能只能通过 SDK 使用，且通常是实验性的，未来版本可能不兼容。"
+  ],
+  "references": [],
+  "media": [
+    {
+      "url": "/assets/repository-guides/media-7fef2801d2c67831c53abbaf.webp",
+      "alt": "HKUDS/LightRAG 官方演示 1",
+      "sourceUrl": "https://github.com/HKUDS/LightRAG/blob/453dce83d6d0354a06e46c8d4029a0895c4e054b/README.md?plain=1#L283",
+      "originalUrl": "https://raw.githubusercontent.com/HKUDS/LightRAG/453dce83d6d0354a06e46c8d4029a0895c4e054b/README.assets/iShot_2025-03-23_12.40.08.png"
+    }
+  ],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "7b394a331a17be0fe27b14800984c0abba94dba6f08e4f14f89a4e762cd350a5",
+  "mediaStatus": "archived",
+  "mediaFailures": []
+}

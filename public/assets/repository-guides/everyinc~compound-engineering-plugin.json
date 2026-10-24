@@ -1,0 +1,77 @@
+{
+  "schemaVersion": 1,
+  "key": "everyinc/compound-engineering-plugin",
+  "status": "ready",
+  "reason": "",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/EveryInc/compound-engineering-plugin/blob/23c308a7b0cd0bc17bab7efd00ddb60fa6714cce/README.md",
+  "sourceRevision": "23c308a7b0cd0bc17bab7efd00ddb60fa6714cce",
+  "canonicalKey": "EveryInc/compound-engineering-plugin",
+  "summary": "Compound Engineering 是一个包含 36 个技能的 AI 编程代理插件，按“头脑风暴、规划、实现、简化、评审、沉淀经验”的循环组织工程工作。",
+  "intro": "适合在 Claude Code、Cursor、Codex 等代理宿主中做日常开发的工程师或团队。它让每次改动前先梳理需求和计划，改动后做评审，并把经验写入 docs/solutions/，供后续的规划步骤读取。它也提供 ce-debug、ce-explain、Git 提交与 PR 管理等按需技能。文档列出 14 个受支持的宿主，本指南以 Claude Code 为入门路径。",
+  "requirements": "需要已安装受支持的代理宿主，本指南以 Claude Code 为例。安装插件不需要 Bun，Bun 仅用于仓库开发和转换器维护。已安装过旧版本的用户，需要先按 docs/install/upgrading.md 刷新 marketplace。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "在 Claude Code 中安装插件",
+      "text": "在 Claude Code 中先用 /plugin marketplace add 添加 EveryInc/compound-engineering-plugin 市场，再用 /plugin install 安装 compound-engineering。Cursor、Codex 等其他宿主各有独立的安装方式，请查阅 README 对应章节。",
+      "code": "/plugin marketplace add EveryInc/compound-engineering-plugin\n/plugin install compound-engineering",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/EveryInc/compound-engineering-plugin/blob/23c308a7b0cd0bc17bab7efd00ddb60fa6714cce/README.md?plain=1#L25"
+      }
+    },
+    {
+      "title": "在项目中运行 /ce-setup 初始化",
+      "text": "安装后，在任意项目中运行 /ce-setup。它会报告可选工具能力；仓库缺少 .compound-engineering/config.yaml 时会创建该文件，同时刷新已提交的示例，并把已存在的本地覆盖配置加入 gitignore。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/EveryInc/compound-engineering-plugin/blob/23c308a7b0cd0bc17bab7efd00ddb60fa6714cce/README.md?plain=1#L151"
+      }
+    },
+    {
+      "title": "按标准循环逐步推进需求",
+      "text": "依次使用 /ce-brainstorm 梳理需求，/ce-plan 生成实现计划，/ce-work 执行计划，/ce-simplify-code 精简代码，/ce-code-review 做只出报告的评审，最后用 /ce-compound 把经验写入 docs/solutions/。在 Codex 中，技能调用改用 $skill-name 形式。",
+      "code": "/ce-brainstorm make background job retries safer\n/ce-plan\n/ce-work\n/ce-simplify-code\n/ce-code-review\n/ce-compound",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/EveryInc/compound-engineering-plugin/blob/23c308a7b0cd0bc17bab7efd00ddb60fa6714cce/README.md?plain=1#L126"
+      }
+    },
+    {
+      "title": "需要时用 /lfg 自动跑完整流程",
+      "text": "先用 /ce-brainstorm 明确需求，再运行 /lfg。它会依次完成规划或调试修复、实现、简化、评审并应用修复、沉淀经验、浏览器测试和提交。存在 git remote 时，它还会推送代码、开 PR 并跟踪 CI；未经授权不会合并。",
+      "code": "/ce-brainstorm describe the feature\n/lfg",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/EveryInc/compound-engineering-plugin/blob/23c308a7b0cd0bc17bab7efd00ddb60fa6714cce/README.md?plain=1#L151"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "已安装旧版本时，必须先刷新 marketplace 再更新插件。只运行 /plugin update 会停留在旧版本。",
+    "/lfg 在检测到 git remote 时会自动推送并开 PR；修复预算用尽时，可能留下未完成项。",
+    "早期通过 Bun convert/install 安装到 Codex 的用户，可能在 ~/.codex/AGENTS.md 中残留过时的 tool map 块，需要按升级文档清除。",
+    "Compound Packs 功能标注为实验性。"
+  ],
+  "references": [
+    {
+      "label": "docs/install/upgrading.md",
+      "url": "https://github.com/EveryInc/compound-engineering-plugin/blob/23c308a7b0cd0bc17bab7efd00ddb60fa6714cce/docs/install/upgrading.md"
+    }
+  ],
+  "media": [
+    {
+      "url": "/assets/repository-guides/media-84d18505a56dd44fc72ac8de.webp",
+      "alt": "EveryInc/compound-engineering-plugin 官方演示 1",
+      "sourceUrl": "https://github.com/EveryInc/compound-engineering-plugin/blob/23c308a7b0cd0bc17bab7efd00ddb60fa6714cce/README.md?plain=1#L141",
+      "originalUrl": "https://raw.githubusercontent.com/EveryInc/compound-engineering-plugin/23c308a7b0cd0bc17bab7efd00ddb60fa6714cce/assets/demo/compound-loop.gif"
+    }
+  ],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "a935ce7750089603f227aacc279fb35f419470bd4a37ac752ecd68a459a8417f",
+  "mediaStatus": "archived",
+  "mediaFailures": []
+}

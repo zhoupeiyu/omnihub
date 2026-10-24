@@ -1,0 +1,44 @@
+{
+  "schemaVersion": 1,
+  "key": "harshitaachadha/zoltar-the-fortune-telling-ai",
+  "status": "partial",
+  "reason": "README 只说明代码在名为 “Final deliverable” 的 notebook 中、数据集在 “Final Dataset” 文件中。没有给出 Python 版本、NLTK 以外的依赖、notebook 运行环境，也没有任何运行步骤。",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/harshitaachadha/Zoltar-The-fortune-telling-AI/blob/966bcce4cb25b8f79386b50cf5f046d017adaed1/README.md",
+  "sourceRevision": "966bcce4cb25b8f79386b50cf5f046d017adaed1",
+  "canonicalKey": "harshitaachadha/Zoltar-The-fortune-telling-AI",
+  "summary": "一个用 Python NLTK 构建的算命对话 AI 项目，数据集由 Reddit 帖子抓取内容和 NY Times 的 fortunes 合并而成。",
+  "intro": "适合想学习如何用 NLTK 和自建文本数据集做小型对话或文本生成实验的学习者。可以通过阅读 notebook 了解实现思路，并查看作者合并整理的数据集。",
+  "requirements": "需要能打开 Jupyter notebook 的环境，并了解 Python 和 NLTK。具体依赖文档未说明。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "打开 Final deliverable 笔记本",
+      "text": "在仓库中找到名为 “Final deliverable” 的 notebook，按顺序阅读其中的代码，了解基于 NLTK 的实现流程。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/harshitaachadha/Zoltar-The-fortune-telling-AI/blob/966bcce4cb25b8f79386b50cf5f046d017adaed1/README.md?plain=1#L1"
+      }
+    },
+    {
+      "title": "查看 Final Dataset 数据集",
+      "text": "打开名为 “Final Dataset” 的文件，查看作者合并 Reddit 抓取内容和 NY Times fortunes 后形成的数据。README 提到 fortunes 数据集也可以在 Kaggle 上找到。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/harshitaachadha/Zoltar-The-fortune-telling-AI/blob/966bcce4cb25b8f79386b50cf5f046d017adaed1/README.md?plain=1#L1"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "仓库未声明许可证，复用代码前请先确认授权。",
+    "数据来自 Reddit 和 NY Times 内容的抓取，再分发或商用前需要自行确认相关内容的使用条款。",
+    "项目仅用于娱乐性质的算命文本，输出不具有任何预测依据。"
+  ],
+  "references": [],
+  "media": [],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "7ce6fa365530b258f674113dc55d3af0cdf3e739bf838024d7bfe64445322571",
+  "mediaStatus": "none_in_official_documents"
+}

@@ -1,0 +1,79 @@
+{
+  "schemaVersion": 1,
+  "key": "alchaincyf/hermes-agent-orange-book",
+  "status": "ready",
+  "reason": "",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/alchaincyf/hermes-agent-orange-book/blob/9ac06e1d05373c3b8b6d49751e8a59c1475f9867/README.md",
+  "sourceRevision": "9ac06e1d05373c3b8b6d49751e8a59c1475f9867",
+  "canonicalKey": "alchaincyf/hermes-agent-orange-book",
+  "summary": "一本围绕 Hermes Agent v0.16.0 的中英文实战指南，以 PDF 形式提供，讲解自改进循环、三层记忆、Skill、多 Agent 看板和安全模型。",
+  "intro": "这是资料型仓库，提供电子书下载。适合用过 Claude Code、OpenClaw 或 Cursor、想了解 Hermes Agent 的开发者，也适合使用 Hermes 桌面 App、不常用命令行的重度 AI 用户。全书 21 节分 6 部分，涵盖定位与动机、自改进机制、记忆与 Skill、工具与 MCP 及多平台接入、多 Agent 编排，以及部署与安全边界。",
+  "requirements": "能阅读 PDF 的设备。中文版和英文版各有一份 PDF。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "下载中文或英文版 PDF",
+      "text": "在 README 的下载表中选择中文版 Hermes-Agent橙皮书2.0-v260607.pdf，或英文版 Hermes-Agent-The-Complete-Guide-v260607.pdf。两者都是基于 Hermes Agent v0.16.0 重写的第二版。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/alchaincyf/hermes-agent-orange-book/blob/9ac06e1d05373c3b8b6d49751e8a59c1475f9867/README_zh.md?plain=1#L22"
+      }
+    },
+    {
+      "title": "阅读前先看 §03 的勘误",
+      "text": "README 指出，§03“Nous 为什么做这件事”中关于“采集用户数据训练模型”的推断是错误的。官方 FAQ 说明 Hermes Agent 不收集遥测数据，数据存放在本地 ~/.hermes/。由于 PDF 尚未重新生成，读到这一节时应以勘误和官方文档为准。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/alchaincyf/hermes-agent-orange-book/blob/9ac06e1d05373c3b8b6d49751e8a59c1475f9867/README_zh.md?plain=1#L29"
+      }
+    },
+    {
+      "title": "按 6 个部分选择阅读重点",
+      "text": "参照目录表挑选章节：入门了解看 §01-03；自改进与 Curator 看 §04-06；记忆、会话搜索与 Skill 看 §07-10；工具、MCP 与平台接入看 §11-14；多 Agent 与 Kanban 看 §15-17；部署与安全看 §18-21。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/alchaincyf/hermes-agent-orange-book/blob/9ac06e1d05373c3b8b6d49751e8a59c1475f9867/README_zh.md?plain=1#L44"
+      }
+    },
+    {
+      "title": "在 WorkBuddy 上分章查阅",
+      "text": "本书也同步到了 WorkBuddy 资料库，每章对应一个网页，README 给出了链接。可以在线阅读，也可以把章节链接交给 agent 作为上下文。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/alchaincyf/hermes-agent-orange-book/blob/9ac06e1d05373c3b8b6d49751e8a59c1475f9867/README_zh.md?plain=1#L102"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "本书基于 Hermes Agent v0.16.0，产品迭代较快，部分内容可能已过时，产品事实以官方文档为准。",
+    "PDF 中 §03 的数据采集论述已被作者在 README 中勘误，正文尚未修订。",
+    "2.0 版改用 MIT 许可证（初版为 CC BY-NC-SA 4.0），使用初版时请注意两者条款不同。"
+  ],
+  "references": [
+    {
+      "label": "README_zh.md",
+      "url": "https://github.com/alchaincyf/hermes-agent-orange-book/blob/9ac06e1d05373c3b8b6d49751e8a59c1475f9867/README_zh.md"
+    }
+  ],
+  "media": [
+    {
+      "url": "/assets/repository-guides/media-6ff74c3b1f66f81a7e50699a.webp",
+      "alt": "alchaincyf/hermes-agent-orange-book 官方演示 1",
+      "sourceUrl": "https://github.com/alchaincyf/hermes-agent-orange-book/blob/9ac06e1d05373c3b8b6d49751e8a59c1475f9867/README.md?plain=1#L19",
+      "originalUrl": "https://raw.githubusercontent.com/alchaincyf/hermes-agent-orange-book/9ac06e1d05373c3b8b6d49751e8a59c1475f9867/screenshots/page-toc.png"
+    },
+    {
+      "url": "/assets/repository-guides/media-b6f8f228cf27067f2a03c0e6.webp",
+      "alt": "alchaincyf/hermes-agent-orange-book 官方演示 2",
+      "sourceUrl": "https://github.com/alchaincyf/hermes-agent-orange-book/blob/9ac06e1d05373c3b8b6d49751e8a59c1475f9867/README.md?plain=1#L62",
+      "originalUrl": "https://raw.githubusercontent.com/alchaincyf/hermes-agent-orange-book/9ac06e1d05373c3b8b6d49751e8a59c1475f9867/screenshots/page-ch01.png"
+    }
+  ],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "ef84474b1438f661b5b9672b39a453c7bb78a6ad072815eb7d049f9800ed530d",
+  "mediaStatus": "archived",
+  "mediaFailures": []
+}

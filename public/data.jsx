@@ -39,8 +39,8 @@ const SKIN_LIST = [
   { id: "playful", name: "活泼多彩", dot: "oklch(68% 0.19 25)" },
 ];
 
-const FAV_CATEGORIES = ["常用", "学习", "开发", "娱乐"];
-const PROMPT_CATEGORIES = ["图像", "视频", "写作", "编程", "学习"];
+const FAV_CATEGORIES = ["常用", "AI工具", "开发", "学习", "内容", "资料", "娱乐"];
+const PROMPT_CATEGORIES = ["写作", "编程", "学习", "图像", "视频", "Agent", "运营"];
 const FEED_CATEGORIES = ["全部", "科技", "资讯", "设计"];
 
 /** AI HOT 分类编码 → 中文标签（用于信息流分类筛选） */

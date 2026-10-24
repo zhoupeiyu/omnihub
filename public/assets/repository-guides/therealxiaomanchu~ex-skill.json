@@ -1,0 +1,65 @@
+{
+  "schemaVersion": 1,
+  "key": "therealxiaomanchu/ex-skill",
+  "status": "ready",
+  "reason": "",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/therealXiaomanChu/ex-skill/blob/a7c06380fe74d0872840830fa6d4b863363c1f12/README.md",
+  "sourceRevision": "a7c06380fe74d0872840830fa6d4b863363c1f12",
+  "canonicalKey": "therealXiaomanChu/ex-skill",
+  "summary": "一个 Claude Code Skill，根据用户提供的聊天记录、照片和主观描述生成模仿特定前任说话方式的对话型 Skill。",
+  "intro": "面向想借助 AI 做个人回忆与情感整理的 Claude Code 用户。运行 /create-ex 后按提示录入代号、基本信息和性格画像，可选导入微信、QQ 聊天记录、朋友圈截图或照片，生成由“关系记忆”和“人物性格”两部分组成的 Skill，之后可通过 /{slug} 对话，并支持追加记忆、对话纠正和版本回滚。项目遵循 AgentSkills 标准。",
+  "requirements": "Claude Code（需要 Node.js 18+），以及 Claude Pro / Max 订阅或在 Claude Code 中配置的 Anthropic API Key；git。解析聊天记录等工具可选安装 Python 依赖（README 徽章标注 Python 3.9+）。不需要 GPU、本地模型或 Docker。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "把仓库克隆到 Claude Code 技能目录",
+      "text": "在 git 仓库根目录下创建 .claude/skills 并克隆到 .claude/skills/create-ex，仅当前项目可用；或克隆到 ~/.claude/skills/create-ex 供所有项目使用。Claude Code 只会从 git 仓库根目录的 .claude/skills/ 查找项目级 skill。",
+      "code": "# 安装到当前项目（在 git 仓库根目录执行）\nmkdir -p .claude/skills\ngit clone https://github.com/therealXiaomanChu/ex-skill .claude/skills/create-ex\n\n# 或安装到全局（所有项目都能用）\ngit clone https://github.com/therealXiaomanChu/ex-skill ~/.claude/skills/create-ex",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/therealXiaomanChu/ex-skill/blob/a7c06380fe74d0872840830fa6d4b863363c1f12/README.md?plain=1#L26"
+      }
+    },
+    {
+      "title": "按需安装可选的 Python 依赖",
+      "text": "如需使用 tools/ 下的微信、QQ、社交媒体和照片解析工具，在 skill 目录中执行 pip3 install -r requirements.txt。README 将该依赖标为可选，仅凭文字描述生成时可跳过。",
+      "code": "pip3 install -r requirements.txt",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/therealXiaomanChu/ex-skill/blob/a7c06380fe74d0872840830fa6d4b863363c1f12/README.md?plain=1#L39"
+      }
+    },
+    {
+      "title": "运行 /create-ex 录入信息",
+      "text": "在 Claude Code 中输入 /create-ex，按提示填写代号、基本信息、性格画像并选择数据来源。所有字段均可跳过。支持的数据源包括 WeChatMsg/留痕/PyWxDump 导出的微信记录、QQ 的 txt/mht 导出、截图、照片和纯文本口述。",
+      "code": "/create-ex",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/therealXiaomanChu/ex-skill/blob/a7c06380fe74d0872840830fa6d4b863363c1f12/README.md?plain=1#L59"
+      }
+    },
+    {
+      "title": "用生成的命令调用和管理 Skill",
+      "text": "生成后用 /{slug} 进入完整对话，/{slug}-memory 进入回忆模式，/{slug}-persona 仅使用性格部分。/list-exes 列出全部，/ex-rollback 回滚版本，/delete-ex 删除，/let-go 放下。对话中说“ta不会这样说”可写入纠正层。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/therealXiaomanChu/ex-skill/blob/a7c06380fe74d0872840830fa6d4b863363c1f12/README.md?plain=1#L71"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "涉及另一位真实个人的聊天记录、照片（含 EXIF 位置）等隐私数据；项目声明仅用于个人回忆与情感疗愈，不得用于骚扰、跟踪或侵犯他人隐私。",
+    "创建一个 Skill 约消耗 5k–15k tokens（视聊天记录量而定），会占用订阅额度或按 API 用量计费。",
+    "作者提醒不鼓励不健康的执念，如发现过度沉浸应寻求专业帮助。",
+    "生成效果取决于提供的聊天记录质量，仅凭口述的还原度较低。",
+    "README 提到也可用 OpenClaw 运行，但未给出具体步骤，本指南仅按 Claude Code 路径说明。"
+  ],
+  "references": [],
+  "media": [],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "c507c617fe2af1587f24742f78cfefcaa3c430a3b826dc479103d31689cd1c84",
+  "mediaStatus": "none_in_official_documents"
+}

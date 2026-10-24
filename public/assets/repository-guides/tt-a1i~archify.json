@@ -1,0 +1,93 @@
+{
+  "schemaVersion": 1,
+  "key": "tt-a1i/archify",
+  "status": "ready",
+  "reason": "",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/tt-a1i/archify/blob/d5a1333d7447c866a765adac7d4d062f2f02e4d2/README.md",
+  "sourceRevision": "d5a1333d7447c866a765adac7d4d062f2f02e4d2",
+  "canonicalKey": "tt-a1i/archify",
+  "summary": "Archify 是一个 Agent Skill，可以根据文字描述或代码仓库，生成可交互、可导出的架构图、工作流图、时序图、数据流图和生命周期图，输出为独立 HTML 文件。",
+  "intro": "适合用 Cursor、Claude Code、Codex CLI 或 OpenCode 等编码智能体工作，并希望把系统设计、请求链路或仓库结构整理成可视化图表的开发者。也适合需要在设计评审或 PR 评审中解释组件关系的人。用户可以只用一句描述起图，也可以让智能体读取仓库，生成带源码依据的运行时架构图，然后在对话中继续修改。生成的 HTML 可以直接在浏览器中打开和分享。",
+  "requirements": "需要一个官方列出的宿主：Cursor、Claude Code、Codex CLI 或 OpenCode。安装方式使用 npx 命令。查看生成的 HTML 只需要浏览器，不需要安装 Archify。在 Claude.ai 中上传 archify.zip 时，能否完整使用取决于沙盒是否提供 Node.js。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "用 npx 全局安装 Archify Skill",
+      "text": "在终端运行 README 给出的全局安装命令，把 Archify 安装为 Agent Skill。官方说明该方式适用于 Cursor、Claude Code、Codex CLI 和 OpenCode。各宿主的 Skill 目录也可以手动放置，例如 Claude Code 使用 ~/.claude/skills/。",
+      "code": "npx skills add tt-a1i/archify -g",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/tt-a1i/archify/blob/d5a1333d7447c866a765adac7d4d062f2f02e4d2/README.md?plain=1#L55"
+      }
+    },
+    {
+      "title": "用一句描述让智能体画图",
+      "text": "不需要准备仓库。直接把 README 中的示例提示词发给智能体，用箭头或自然语言写清组件和调用顺序即可。选图类型时可参考官方表格：架构、工作流、时序、数据流、生命周期分别需要在提示词中说明不同要素。",
+      "code": "Use Archify to draw: Browser -> API -> Redis cache -> PostgreSQL fallback.",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/tt-a1i/archify/blob/d5a1333d7447c866a765adac7d4d062f2f02e4d2/README.md?plain=1#L55"
+      }
+    },
+    {
+      "title": "打开仓库生成有源码依据的架构图",
+      "text": "如果需要源码依据，先在智能体中打开目标仓库，再使用官方提供的提示词。提示词要求智能体先分析仓库，再生成高层运行时架构图，包含 8–12 个核心组件、一条主路径、外部依赖和信任边界，补充细节放进卡片。",
+      "code": "Analyze this repository, then use archify to create a high-level runtime architecture diagram.\nShow 8–12 core components, one primary path, external dependencies, and trust boundaries.\nPut supporting detail in cards instead of adding more edges.",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/tt-a1i/archify/blob/d5a1333d7447c866a765adac7d4d062f2f02e4d2/README.md?plain=1#L211"
+      }
+    },
+    {
+      "title": "在对话中继续细化图表",
+      "text": "生成后继续发送有针对性的修改请求，例如添加 Redis、把认证模块移到左侧、高亮回滚路径或切换主题。Archify 会保留带类型的源数据，便于逐步迭代。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/tt-a1i/archify/blob/d5a1333d7447c866a765adac7d4d062f2f02e4d2/README.md?plain=1#L225"
+      }
+    },
+    {
+      "title": "在浏览器中查看并导出 HTML",
+      "text": "输出是独立的 HTML 文件，可在浏览器中打开，查看节点详情、追踪路径、切换深浅主题。导出菜单支持把 PNG 复制到剪贴板，下载静态或动态格式，还可以生成路径或影响范围分享卡片。仓库内的 examples/web-app.html 可在本地打开体验完整查看器。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/tt-a1i/archify/blob/d5a1333d7447c866a765adac7d4d062f2f02e4d2/README.md?plain=1#L135"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "Archify 可能请求固定的稳定版清单，用于显示可选的更新提醒，但不会自动下载或安装更新。服务器能看到 IP 和请求时间等常规 HTTP 元数据。设置 ARCHIFY_UPDATE_CHECK_DISABLED=1 可以关闭这类联网请求和提醒状态写入。",
+    "在 Claude.ai 上传 archify.zip 时，能否完整使用取决于沙盒是否提供 Node.js。作为 Project Knowledge 上传时，只能使用基于提示词的降级模式。",
+    "Hermes Agent 和 DeepSeek Harness 都是社区集成，并非对应厂商的官方产品，且各自有 Node.js 版本要求。",
+    "图中的可达范围、路径和影响范围分享卡片只反映用户编写的关系，不代表真实运行时的影响。deployment-ownership 配置也不会检查线上基础设施。",
+    "HTML 中的外部网站链接和地图链接需要联网才能打开。"
+  ],
+  "references": [],
+  "media": [
+    {
+      "url": "/assets/repository-guides/media-5ba9f407ab09d019d4872cc0.webp",
+      "alt": "tt-a1i/archify 官方演示 1",
+      "sourceUrl": "https://github.com/tt-a1i/archify/blob/d5a1333d7447c866a765adac7d4d062f2f02e4d2/README.md?plain=1#L104",
+      "originalUrl": "https://raw.githubusercontent.com/tt-a1i/archify/d5a1333d7447c866a765adac7d4d062f2f02e4d2/docs/assets/archify-demo-route.png"
+    },
+    {
+      "url": "/assets/repository-guides/media-40a75adcc0cc719dd5ba0812.webp",
+      "alt": "tt-a1i/archify 官方演示 2",
+      "sourceUrl": "https://github.com/tt-a1i/archify/blob/d5a1333d7447c866a765adac7d4d062f2f02e4d2/README.md?plain=1#L104",
+      "originalUrl": "https://raw.githubusercontent.com/tt-a1i/archify/d5a1333d7447c866a765adac7d4d062f2f02e4d2/docs/assets/archify-demo-reach.png"
+    },
+    {
+      "url": "/assets/repository-guides/media-a8d9ce5cf43df0ae4222401f.webp",
+      "alt": "tt-a1i/archify 官方演示 3",
+      "sourceUrl": "https://github.com/tt-a1i/archify/blob/d5a1333d7447c866a765adac7d4d062f2f02e4d2/README.md?plain=1#L164",
+      "originalUrl": "https://raw.githubusercontent.com/tt-a1i/archify/d5a1333d7447c866a765adac7d4d062f2f02e4d2/docs/assets/archify-menu.png"
+    }
+  ],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "344ac3ac6393fbac334771fc3275866b5519dd5e26d0f43cac77af8ead629df0",
+  "mediaStatus": "archived",
+  "mediaFailures": []
+}

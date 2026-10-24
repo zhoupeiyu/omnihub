@@ -1,0 +1,70 @@
+{
+  "schemaVersion": 1,
+  "key": "anil-matcha/open-generative-ai",
+  "status": "ready",
+  "reason": "",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/Anil-matcha/Open-Generative-AI/blob/efd5e786e99fbe636c7550e9d428b3651640a736/README.md",
+  "sourceRevision": "efd5e786e99fbe636c7550e9d428b3651640a736",
+  "canonicalKey": "Anil-matcha/Open-Generative-AI",
+  "summary": "可自托管的 AI 图像、视频、音频与对口型生成工作室，通过 Muapi 调用多种模型，也支持部分本地推理。",
+  "intro": "适合想在一个桌面或网页界面里使用多种生成模型的创作者，可做文生图、图生图、文生视频、图生视频、对口型、工作流编排等。云端模型通过 Muapi.ai 调用。桌面版另外支持 sd.cpp 本地生图，以及连接自建 Wan2GP 服务器跑视频和大型图像模型。下文以 macOS Apple Silicon 预构建安装包为入门路径。",
+  "requirements": "macOS Apple Silicon 电脑（其他平台见 Releases 页）。使用云端模型需要 Muapi.ai access key。仅使用本地 sd.cpp 模型时可以不填 key，但需预留数 GB 磁盘空间存放模型。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "下载 macOS 版 DMG 安装包",
+      "text": "在 README 的 Download Desktop App 表格中，下载 macOS Apple Silicon 对应的 arm64 DMG（当前列出 v1.0.9）。Intel Mac 请选 x64 DMG。所有版本也可以在 GitHub Releases 页面找到。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/Anil-matcha/Open-Generative-AI/blob/efd5e786e99fbe636c7550e9d428b3651640a736/README.md?plain=1#L81"
+      }
+    },
+    {
+      "title": "安装应用并解除隔离属性",
+      "text": "该步骤涉及需要人工核查的高权限、远程脚本或破坏性操作。本站不提供直接执行指令，请先查看官方说明并确认影响。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/Anil-matcha/Open-Generative-AI/blob/efd5e786e99fbe636c7550e9d428b3651640a736/README.md?plain=1#L94"
+      }
+    },
+    {
+      "title": "右键打开并完成首次启动",
+      "text": "在 /Applications 中右键点击应用，选择 Open，在弹窗中再点一次 Open。此操作只需做一次。如果不想用终端，也可以在 System Settings → Privacy & Security 中找到拦截提示，点击 Open Anyway。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/Anil-matcha/Open-Generative-AI/blob/efd5e786e99fbe636c7550e9d428b3651640a736/README.md?plain=1#L94"
+      }
+    },
+    {
+      "title": "填入 Muapi access key",
+      "text": "首次使用时应用会要求输入 Muapi API key。请在 Muapi 的 access keys 页面生成 key，粘贴 key 的值，不要填 key 的名称或标签。key 保存在本地 localStorage 中。只打算用本地模型时可以跳过此步。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/Anil-matcha/Open-Generative-AI/blob/efd5e786e99fbe636c7550e9d428b3651640a736/README.md?plain=1#L456"
+      }
+    },
+    {
+      "title": "按需配置本地 sd.cpp 模型",
+      "text": "打开 Settings → Local Models，一键安装 sd.cpp 引擎并下载所需模型（Z-Image 还需要额外的辅助文件）。然后在 Image Studio 中打开 ⚡ Local 开关，选择本地模型即可生成，无需 API key。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/Anil-matcha/Open-Generative-AI/blob/efd5e786e99fbe636c7550e9d428b3651640a736/README.md?plain=1#L181"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "云端生成依赖 Muapi 服务和 access key，具体费用以 Muapi 官方说明为准。README 中的 White Label 是另行收费的商业服务（文中写 $49/mo 起）。",
+    "安装包未经 Apple 公证、Windows 版未签名，需要手动绕过 Gatekeeper 或 SmartScreen，请只从官方 Releases 下载。",
+    "README 宣称无内容过滤，生成和发布内容的合法合规责任由使用者自行承担。",
+    "本地模型体积从 2 GB 到近 7 GB 不等，Z-Image 内存占用高。Wan2GP 需要在服务器上配备 NVIDIA/AMD GPU。",
+    "Ubuntu 24.04+ 上的 AppImage 方案需要放宽 AppArmor 用户命名空间限制，会降低系统安全性，官方更推荐使用 .deb。"
+  ],
+  "references": [],
+  "media": [],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "3c9b5718476a2e17ee71faf85162ee384b8e9c88f52567103f4267159469e341",
+  "mediaStatus": "none_in_official_documents"
+}

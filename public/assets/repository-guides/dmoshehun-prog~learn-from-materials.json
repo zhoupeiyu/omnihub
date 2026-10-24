@@ -1,0 +1,99 @@
+{
+  "schemaVersion": 1,
+  "key": "dmoshehun-prog/learn-from-materials",
+  "status": "ready",
+  "reason": "",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/dmoshehun-prog/learn-from-materials/blob/c3c9d10786e51d27845600122d091706fa3ea142/README.md",
+  "sourceRevision": "c3c9d10786e51d27845600122d091706fa3ea142",
+  "canonicalKey": "dmoshehun-prog/learn-from-materials",
+  "summary": "一个基于 Agent Skills 规范的学习 Skill，可把书籍、PDF、PPT、Word、网页等材料整理成可追溯的知识库、交互式学习网页和同步 Markdown。",
+  "intro": "适合需要系统学习长书、论文、报告或多份资料的人。它在支持 Skill 的 Agent 中运行：先完整读取材料，再生成核心框架、内容导学、术语表、行动规则、自测和本地笔记等模块，并标注每条内容的出处，区分材料原文事实与模型补充内容。支持“快速了解”和“系统学习”两种深度。",
+  "requirements": "Python 3.10 或更高版本；一个能读取文件、运行本地 Python 命令并识别 SKILL.md 的 Agent，例如 WorkBuddy、Codex、Claude Code 或 GitHub Copilot CLI。扫描版 PDF 和图片较多的幻灯片需要 OCR 或视觉能力。Node.js、Playwright 和 Chromium 只在可选的浏览器交互验证中使用。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "克隆到 Claude Code 技能目录",
+      "text": "以 Claude Code 为例，把仓库克隆到用户级技能目录 ~/.claude/skills/learn-from-materials。其他 Agent 的目录见 README 安装表。如果目标目录已经存在，先自行备份，不要直接覆盖。云端或托管式 Agent 可能读不到本机目录，需要改用该产品的 Skill 导入或项目级目录。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/dmoshehun-prog/learn-from-materials/blob/c3c9d10786e51d27845600122d091706fa3ea142/README_CN.md?plain=1#L107"
+      }
+    },
+    {
+      "title": "检查本机可用的解析能力",
+      "text": "在仓库根目录运行解析能力检查，确认 PDF、EPUB、DOCX 等格式各自可以走哪条解析路径。缺少可选组件时会自动回退或标记为待复核；MOBI/AZW 格式没有内置回退，需要 Calibre。项目不会自动安装任何依赖。",
+      "code": "python3 scripts/extract.py --check",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/dmoshehun-prog/learn-from-materials/blob/c3c9d10786e51d27845600122d091706fa3ea142/README.md?plain=1#L155"
+      }
+    },
+    {
+      "title": "在对话中提交材料并说明需求",
+      "text": "在 Agent 对话里附上材料，用自然语言说明要系统学习还是快速了解，以及需要的产出，例如可追溯知识库、学习网页，或保留每页出处的离线 HTML。README 提供了中文表述示例。",
+      "code": "请用 learn-from-materials 系统学习这本 PDF，并生成可追溯知识库和学习网页。\n\n请快速了解这份 PPT，保留每页出处并生成离线学习 HTML。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/dmoshehun-prog/learn-from-materials/blob/c3c9d10786e51d27845600122d091706fa3ea142/README_CN.md?plain=1#L121"
+      }
+    },
+    {
+      "title": "选择快速了解或系统学习",
+      "text": "Skill 会先请你在“快速了解”和“系统学习”之间选择，之后按 SKILL.md 中定义的流程处理。长书、多份材料交叉分析、专业论文更适合使用长上下文、推理能力较强的模型。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/dmoshehun-prog/learn-from-materials/blob/c3c9d10786e51d27845600122d091706fa3ea142/README_CN.md?plain=1#L121"
+      }
+    },
+    {
+      "title": "校验覆盖情况并打包交付",
+      "text": "如需在命令行自行完成交付，可依次运行覆盖校验、渲染检查和 finalize，输出 HTML、Markdown 和知识库。新的系统学习概览需要先完成逐单元的 action-rule-ledger.json。如果本机已装好 Playwright 和 Chromium，还可以运行浏览器交互验证。",
+      "code": "python3 scripts/verify_coverage.py page.json --knowledge-base <topic>.learnkb\npython3 scripts/render_page.py page.json --output learning.html --check-only\npython3 scripts/finalize.py page.json --knowledge-base <topic>.learnkb --output-dir ./delivery --name learning\n\nnode scripts/verify-page.js learning.html",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/dmoshehun-prog/learn-from-materials/blob/c3c9d10786e51d27845600122d091706fa3ea142/README.md?plain=1#L174"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "只处理你有权使用的材料；不要公开分发包含受版权保护的原文、内部文档或个人敏感信息的知识库。",
+    "项目脚本本身不联网，但提交给 AI Agent 的内容如何存储、处理或用于模型训练，取决于所用平台和账户设置。",
+    "纯聊天环境如果无法访问文件系统或执行 Python，就不能完成材料提取、覆盖校验和 HTML 渲染。",
+    "当前版本为 v0.2.0（尚未稳定）。结构、引用和覆盖检查只能核对格式与出处，不能证明首次阅读找全了重要观点，也不能保证解读语义正确。",
+    "扫描 PDF 在缺少 OCR 或视觉能力时，相关范围会被标记为未核验。",
+    "页面笔记、学习者档案和错题记录只保存在浏览器本地存储中，没有云同步。"
+  ],
+  "references": [
+    {
+      "label": "README_CN.md",
+      "url": "https://github.com/dmoshehun-prog/learn-from-materials/blob/c3c9d10786e51d27845600122d091706fa3ea142/README_CN.md"
+    }
+  ],
+  "media": [
+    {
+      "url": "/assets/repository-guides/media-9785b26399d22dd5b8bfb55b.webp",
+      "alt": "首次使用引导：学习模块、出处、自检与本地笔记的说明",
+      "sourceUrl": "https://github.com/dmoshehun-prog/learn-from-materials/blob/c3c9d10786e51d27845600122d091706fa3ea142/README_CN.md?plain=1#L65",
+      "originalUrl": "https://raw.githubusercontent.com/dmoshehun-prog/learn-from-materials/c3c9d10786e51d27845600122d091706fa3ea142/assets/showcase/01-onboarding-cn.png"
+    },
+    {
+      "url": "/assets/repository-guides/media-c8c70c81b344b0e7a6a603cb.webp",
+      "alt": "金融市场展望报告的内容导学：PDF 页段、核心思想、关键框架和行动要点",
+      "sourceUrl": "https://github.com/dmoshehun-prog/learn-from-materials/blob/c3c9d10786e51d27845600122d091706fa3ea142/README_CN.md?plain=1#L89",
+      "originalUrl": "https://raw.githubusercontent.com/dmoshehun-prog/learn-from-materials/c3c9d10786e51d27845600122d091706fa3ea142/assets/showcase/06-market-outlook-guided-content-cn.png"
+    },
+    {
+      "url": "/assets/repository-guides/media-22f5f1a35864736486232652.webp",
+      "alt": "《埃隆·马斯克传》框架关系图的编号节点与连线",
+      "sourceUrl": "https://github.com/dmoshehun-prog/learn-from-materials/blob/c3c9d10786e51d27845600122d091706fa3ea142/README_CN.md?plain=1#L77",
+      "originalUrl": "https://raw.githubusercontent.com/dmoshehun-prog/learn-from-materials/c3c9d10786e51d27845600122d091706fa3ea142/assets/showcase/04-musk-framework-relationships-cn.png"
+    }
+  ],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "a4b46524f289694de4641903a4e288e8d5f8ac2c979ca513a3ae3773a7ff3f7e",
+  "mediaStatus": "archived",
+  "mediaFailures": []
+}

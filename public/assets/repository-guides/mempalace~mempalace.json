@@ -1,0 +1,71 @@
+{
+  "schemaVersion": 1,
+  "key": "mempalace/mempalace",
+  "status": "ready",
+  "reason": "",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/MemPalace/mempalace/blob/5ea40d30caf0ed2ff6e49623e386a0863b28edaa/README.md",
+  "sourceRevision": "5ea40d30caf0ed2ff6e49623e386a0863b28edaa",
+  "canonicalKey": "MemPalace/mempalace",
+  "summary": "MemPalace 是本地优先的 AI 记忆系统。它原文保存对话与项目内容，用语义检索召回，并可通过 CLI 或 MCP 服务器接入编码 Agent。",
+  "intro": "适合使用 Claude Code、Codex CLI、Cursor 等编码 Agent，希望长期保存并检索会话历史和项目资料的开发者。内容按 wing/room/drawer 结构组织，搜索可以限定范围。它还提供时序知识图谱、45 个 MCP 工具和可插拔的存储后端；除非主动开启，数据不会离开本机。",
+  "requirements": "Python 3.9+；推荐 uv（也可用 pipx）；默认的 ChromaDB 向量后端；约 300 MB 磁盘空间用于嵌入模型，首次需要嵌入时会联网下载；核心路径不需要 API Key。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "用 uv 安装 CLI 并初始化",
+      "text": "官方推荐用 uv 把 CLI 安装到隔离环境，以避免 PEP 668 错误和依赖冲突：执行 uv tool install mempalace，再用 mempalace init 初始化项目目录（示例为 ~/projects/myapp）。偏好 pipx 的用户可改用 pipx install mempalace。",
+      "code": "uv tool install mempalace\nmempalace init ~/projects/myapp",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/MemPalace/mempalace/blob/5ea40d30caf0ed2ff6e49623e386a0863b28edaa/README.md?plain=1#L73"
+      }
+    },
+    {
+      "title": "把项目和会话导入记忆库",
+      "text": "用 mempalace mine 导入项目文件。Claude Code 会话可以用 --mode convos 从 ~/.claude/projects/ 导入，并用 --wing 按项目限定范围。首次需要嵌入时会下载嵌入模型，耗时会较长。",
+      "code": "# Mine content into the palace\nmempalace mine ~/projects/myapp                    # project files\nmempalace mine ~/.claude/projects/ --mode convos   # Claude Code sessions (scope with --wing per project)\n\n# Search\nmempalace search \"why did we switch to GraphQL\"\n\n# Load context for a new session\nmempalace wake-up\n\n# Score how well organized the palace is (read-only, safe while the MCP server runs)\nmempalace audit",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/MemPalace/mempalace/blob/5ea40d30caf0ed2ff6e49623e386a0863b28edaa/README.md?plain=1#L212"
+      }
+    },
+    {
+      "title": "检索内容并为新会话加载上下文",
+      "text": "mempalace search 用自然语言检索已保存的原文；mempalace wake-up 为新会话加载上下文；mempalace audit 只读评估记忆库的组织情况，可在 MCP 服务器运行时安全执行。",
+      "code": "# Mine content into the palace\nmempalace mine ~/projects/myapp                    # project files\nmempalace mine ~/.claude/projects/ --mode convos   # Claude Code sessions (scope with --wing per project)\n\n# Search\nmempalace search \"why did we switch to GraphQL\"\n\n# Load context for a new session\nmempalace wake-up\n\n# Score how well organized the palace is (read-only, safe while the MCP server runs)\nmempalace audit",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/MemPalace/mempalace/blob/5ea40d30caf0ed2ff6e49623e386a0863b28edaa/README.md?plain=1#L212"
+      }
+    },
+    {
+      "title": "为编码 Agent 配置自动保存钩子",
+      "text": "按官方文档 mempalaceofficial.com/guide/hooks，为 Claude Code 或 Codex 配置自动保存钩子（Cursor 有单独页面），然后备份现有 JSONL 会话并用 mine --mode convos 回填。接入 MCP 客户端的方法见官方 getting-started 页面。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/MemPalace/mempalace/blob/5ea40d30caf0ed2ff6e49623e386a0863b28edaa/README.md?plain=1#L311"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "只有 GitHub 仓库、PyPI 包和 mempalaceofficial.com 是官方来源，其他域名可能是冒充站点并分发恶意软件。",
+    "README 提示：未配置自动保存钩子时，Claude Code 会话会在 30 天后过期。",
+    "安装 MemPalace skills 本身不会安装 CLI 或 MCP 服务器，需要由 setup skill 引导完成。",
+    "如果改用 openai-compat 在服务器上计算嵌入，内容会发送到该端点；切换后需执行 mempalace repair rebuild-index。",
+    "Android 不支持在 Termux 中原生安装，需要使用 Debian PRoot 容器；PRoot 不是安全边界。",
+    "在 Linux 上使用 Docker 镜像时，挂载目录须对 uid 1000 可读。GPU 镜像未发布，需自行构建，且仅支持 x86_64。"
+  ],
+  "references": [
+    {
+      "label": "website/guide/termux.md",
+      "url": "https://github.com/MemPalace/mempalace/blob/5ea40d30caf0ed2ff6e49623e386a0863b28edaa/website/guide/termux.md"
+    }
+  ],
+  "media": [],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "c64b72c400b0b09e8ffb1c276cbf9df1a8608c82e417cf27237c1e45ebf920b9",
+  "mediaStatus": "none_in_official_documents"
+}

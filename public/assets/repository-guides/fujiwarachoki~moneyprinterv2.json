@@ -1,0 +1,64 @@
+{
+  "schemaVersion": 1,
+  "key": "fujiwarachoki/moneyprinterv2",
+  "status": "partial",
+  "reason": "README 只给出克隆、复制 config.example.json、安装依赖和运行 `python src/main.py` 的命令。它没有说明 config.json 中各字段的含义和需要填写的账号或服务凭据，也没有说明进入程序后如何使用 Twitter Bot、YouTube Shorts、联盟营销、本地商家外联这几项功能。scripts 目录中的脚本只举了一个示例。详细文档指向 docs/ 目录，但本次没有提供该目录的内容。",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/FujiwaraChoki/MoneyPrinterV2/blob/a734fa924adb9ffe5ab8472aa5526e469e42a8b5/README.md",
+  "sourceRevision": "a734fa924adb9ffe5ab8472aa5526e469e42a8b5",
+  "canonicalKey": "FujiwaraChoki/MoneyPrinterV2",
+  "summary": "一个 Python 应用，用于自动化 Twitter 机器人发帖、YouTube Shorts 制作、Amazon+Twitter 联盟营销和本地商家冷外联等流程。",
+  "intro": "适合想研究或搭建社交媒体内容自动化流程的开发者。按 README 的描述，它支持带定时任务（scheduler）的 Twitter Bot 和 YouTube Shorts 自动化、Amazon 与 Twitter 结合的联盟营销，以及查找本地商家并发起外联。项目是原 MoneyPrinter 的完全重写版，结构更模块化。",
+  "requirements": "Python 3.12；如需通过邮件联系抓取到的商家，还要先安装 Go 语言；需要复制并填写 config.json，具体字段文档未说明。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "克隆仓库并创建配置文件",
+      "text": "克隆 MoneyPrinterV2 仓库并进入目录，执行 `cp config.example.json config.json` 复制示例配置，然后在 config.json 中填写所需的值。README 没有逐项说明字段含义，请参考 config.example.json 和 docs/ 目录。",
+      "code": "git clone https://github.com/FujiwaraChoki/MoneyPrinterV2.git\n\ncd MoneyPrinterV2\n# Copy Example Configuration and fill out values in config.json\ncp config.example.json config.json\n\n# Create a virtual environment\npython -m venv venv\n\n# Activate the virtual environment - Windows\n.\\venv\\Scripts\\activate\n\n# Activate the virtual environment - Unix\nsource venv/bin/activate\n\n# Install the requirements\npip install -r requirements.txt",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/FujiwaraChoki/MoneyPrinterV2/blob/a734fa924adb9ffe5ab8472aa5526e469e42a8b5/README.md?plain=1#L35"
+      }
+    },
+    {
+      "title": "创建虚拟环境并安装依赖",
+      "text": "以 Unix 系统为例：用 `python -m venv venv` 创建虚拟环境，执行 `source venv/bin/activate` 激活，再运行 `pip install -r requirements.txt` 安装依赖。Windows 的激活命令不同，见同一代码块。注意项目要求 Python 3.12。",
+      "code": "git clone https://github.com/FujiwaraChoki/MoneyPrinterV2.git\n\ncd MoneyPrinterV2\n# Copy Example Configuration and fill out values in config.json\ncp config.example.json config.json\n\n# Create a virtual environment\npython -m venv venv\n\n# Activate the virtual environment - Windows\n.\\venv\\Scripts\\activate\n\n# Activate the virtual environment - Unix\nsource venv/bin/activate\n\n# Install the requirements\npip install -r requirements.txt",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/FujiwaraChoki/MoneyPrinterV2/blob/a734fa924adb9ffe5ab8472aa5526e469e42a8b5/README.md?plain=1#L1"
+      }
+    },
+    {
+      "title": "运行主程序进入应用",
+      "text": "在项目根目录执行 `python src/main.py` 启动应用。README 没有描述启动后的交互流程，各功能的具体操作需要查阅 docs/ 目录中的文档。",
+      "code": "# Run the application\npython src/main.py",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/FujiwaraChoki/MoneyPrinterV2/blob/a734fa924adb9ffe5ab8472aa5526e469e42a8b5/README.md?plain=1#L59"
+      }
+    },
+    {
+      "title": "按需使用 scripts 目录脚本",
+      "text": "scripts 目录提供了一些脚本，可以不经交互直接调用核心功能，例如 `bash scripts/upload_video.sh`。所有脚本都必须在项目根目录下运行。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/FujiwaraChoki/MoneyPrinterV2/blob/a734fa924adb9ffe5ab8472aa5526e469e42a8b5/README.md?plain=1#L70"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "项目采用 AGPL-3.0 许可证，修改后对外提供服务或分发时需要遵守其开源义务。",
+    "作者声明项目仅用于教育目的，不对任何滥用或损失负责。",
+    "自动化发帖、上传视频、联盟营销推广和向抓取到的商家群发邮件，都可能违反 Twitter/X、YouTube、Amazon 联盟计划的规则或当地反垃圾邮件法规，使用前需自行确认合规。",
+    "邮件外联功能需要额外安装 Go 语言。"
+  ],
+  "references": [],
+  "media": [],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "9f916931c0a3d40de3e3ab11ca6ebbf0839b6786027f1f922dfa07b9a27b4862",
+  "mediaStatus": "none_in_official_documents"
+}

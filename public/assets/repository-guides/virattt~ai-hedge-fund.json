@@ -1,0 +1,73 @@
+{
+  "schemaVersion": 1,
+  "key": "virattt/ai-hedge-fund",
+  "status": "ready",
+  "reason": "",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/virattt/ai-hedge-fund/blob/5d2c7ca2d02c6501692a58bb363dfab1916890ba/README.md",
+  "sourceRevision": "5d2c7ca2d02c6501692a58bb363dfab1916890ba",
+  "canonicalKey": "virattt/ai-hedge-fund",
+  "summary": "一个用 AI 投资者 Agent 做交易决策的概念验证终端工具，可以构建模拟基金、运行决策周期并回测，不会执行真实交易。",
+  "intro": "适合想研究 AI 如何参与投资决策的学习者和研究者。你可以在交互式终端应用中选股票、策略和调仓频率来组建基金，也可以在命令行用 mandate 文件运行单个基金周期，或按调仓频率回测历史表现。项目仅用于教育和研究目的。",
+  "requirements": "需要 pipx（或 uv、pip）来安装 aihf。还需要一个 Financial Datasets API key，用于获取价格、基本面和财报数据；以及一个模型 API key，支持 Anthropic、OpenAI、DeepSeek、Google、xAI、Kimi 或 TypeSafe (Jev)。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "用 pipx 安装 aihf",
+      "text": "在终端用 pipx 安装 aihf 命令行工具。README 也提到可以改用 uv tool install aihf，或在自选环境中用 pip install aihf。安装后可以在任意目录运行 aihf。",
+      "code": "pipx install aihf",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/virattt/ai-hedge-fund/blob/5d2c7ca2d02c6501692a58bb363dfab1916890ba/README.md?plain=1#L24"
+      }
+    },
+    {
+      "title": "启动交互式终端应用",
+      "text": "不带参数运行 aihf，会进入交互式终端应用。第一次需要 API key 时，应用会提示输入并保存到 ~/.hedge-fund/.env。如果 shell 中已导出同名环境变量，会优先使用环境变量。",
+      "code": "aihf",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/virattt/ai-hedge-fund/blob/5d2c7ca2d02c6501692a58bb363dfab1916890ba/README.md?plain=1#L38"
+      }
+    },
+    {
+      "title": "在应用中组建并保存基金",
+      "text": "在交互界面中选择股票、策略和调仓频率来组建基金，也可以对已保存的基金做回测，查看权益曲线与基准的对比。组建的基金会保存为 mandate 文件，存放在 ~/.hedge-fund/mandates/ 目录。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/virattt/ai-hedge-fund/blob/5d2c7ca2d02c6501692a58bb363dfab1916890ba/README.md?plain=1#L49"
+      }
+    },
+    {
+      "title": "用 mandate 文件运行一个周期",
+      "text": "在命令行指定 mandate 文件，并用 --tickers 指定本次要分析的股票，即可运行一个基金周期。完整周期记录以 JSON 输出到 stdout，简短摘要输出到 stderr。mandate 本身只定义策略、人员、风险、资金和频率，不包含股票代码。",
+      "code": "aihf ~/.hedge-fund/mandates/example.yaml --tickers AAPL,MSFT",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/virattt/ai-hedge-fund/blob/5d2c7ca2d02c6501692a58bb363dfab1916890ba/README.md?plain=1#L57"
+      }
+    },
+    {
+      "title": "加 --backtest 回测历史表现",
+      "text": "在同一命令后加上 --backtest，会按 mandate 的调仓频率回测历史数据。回测时，投资者 Agent 的提示词中会隐去股票代码、行业和日期，以减少模型凭记忆作答，但无法完全消除。选择模型训练截止日期之后的时间窗口，结果最可靠。",
+      "code": "aihf ~/.hedge-fund/mandates/example.yaml --tickers AAPL,MSFT --backtest",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/virattt/ai-hedge-fund/blob/5d2c7ca2d02c6501692a58bb363dfab1916890ba/README.md?plain=1#L57"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "项目仅用于教育和研究，不用于真实交易或投资，不构成投资建议；作者不对任何财务损失负责。",
+    "系统不会实际下单交易。",
+    "需要 Financial Datasets 和模型服务的第三方 API key，调用产生的费用以各服务商规定为准；key 会明文保存在 ~/.hedge-fund/.env。",
+    "回测即使隐去了公司信息，模型仍可能通过特征明显的数字认出公司，导致结果偏乐观。"
+  ],
+  "references": [],
+  "media": [],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "88276caf00bffcb1168da9eaf30568ac304eabc982675e734efb15c093ef1731",
+  "mediaStatus": "none_in_official_documents"
+}

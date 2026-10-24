@@ -1,0 +1,82 @@
+{
+  "schemaVersion": 1,
+  "key": "op7418/guizang-social-card-skill",
+  "status": "ready",
+  "reason": "",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/op7418/guizang-social-card-skill/blob/cf4b810fac1c73fb65a2bb31d8c9278d82cbc4c5/README.md",
+  "sourceRevision": "cf4b810fac1c73fb65a2bb31d8c9278d82cbc4c5",
+  "canonicalKey": "op7418/guizang-social-card-skill",
+  "summary": "guizang-social-card-skill 是一个 Agent Skill，可以把文章、截图、照片或视频做成小红书 3:4 组图、公众号 21:9 + 1:1 封面对和 Live Photo 动态卡，并渲染为 PNG 等文件。",
+  "intro": "适合在 Claude Code 或 Codex 中制作小红书图文、公众号封面、教程拆页、产品测评、旅行攻略的内容创作者。它提供电子杂志风和瑞士风两套视觉系统、28 个版式骨架和 10 套主题。Agent 按 7 步工作流取图、排版，再通过 node render.mjs 输出 PNG。用户提供的视频可以做成 Live Photo。不适合横向翻页 PPT 和长视频剪辑。",
+  "requirements": "Claude Code 或 Codex（其他能读写文件并执行 shell 的本地 Agent 也可用）；用一行命令安装需要 npx；渲染和校验需要 Node 与 Playwright；Live Photo 发布通常需要 iPhone。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "用 npx skills 安装 Skill",
+      "text": "以 Claude Code / Codex 为例，执行 README 推荐的一行命令安装 guizang-social-card-skill。之后需要更新时，重新运行安装命令，或在本地 skill 目录执行 git pull。",
+      "code": "npx skills add https://github.com/op7418/guizang-social-card-skill --skill guizang-social-card-skill",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/op7418/guizang-social-card-skill/blob/cf4b810fac1c73fb65a2bb31d8c9278d82cbc4c5/README.md?plain=1#L24"
+      }
+    },
+    {
+      "title": "说明平台、风格并提供素材",
+      "text": "告诉 Agent 目标平台（小红书或公众号封面对）、风格和张数，并附上文章或图片。如果没有图片，Agent 会一次性给出三个选项：自己拍、AI 生图或网络取图。主题只能从 10 套预设中选。",
+      "code": "帮我基于这篇文章做一套瑞士风小红书图文,5 张,IKB 蓝。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/op7418/guizang-social-card-skill/blob/cf4b810fac1c73fb65a2bb31d8c9278d82cbc4c5/README.md?plain=1#L183"
+      }
+    },
+    {
+      "title": "查看渲染出的 PNG 并反馈",
+      "text": "Agent 复制种子模板、填入版式后，通过 node render.mjs 渲染出 PNG，先交给你查看。你提出修改意见后，Agent 会调整样式、更换版式或替换图片，然后重新渲染。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/op7418/guizang-social-card-skill/blob/cf4b810fac1c73fb65a2bb31d8c9278d82cbc4c5/README.md?plain=1#L196"
+      }
+    },
+    {
+      "title": "按需运行版式校验脚本",
+      "text": "默认不会自动校验。需要检查时，对任务目录运行 validate-social-deck.mjs，它会基于 Playwright 的真实渲染检测溢出、footer 碰撞、最小字号、标题间距等 9 条规则。",
+      "code": "node validate-social-deck.mjs path/to/task-dir",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/op7418/guizang-social-card-skill/blob/cf4b810fac1c73fb65a2bb31d8c9278d82cbc4c5/README.md?plain=1#L212"
+      }
+    },
+    {
+      "title": "把视频做成 Live Photo",
+      "text": "提供自己的视频并说明平台：小红书按 5s 规划，公众号文章内按 3s。Agent 先检查首帧裁切，再输出 JPG、MOV 和 .pvt。通常需要把 .pvt 传到 iPhone，再从对应 App 发布。",
+      "code": "把这个咖啡视频做成小红书 5 秒 Live Photo,标题只放一组,避开杯子和手。\n这四段旅行视频素材质量很好,帮我做成四宫格 Live Photo,不加文字。\n这段 2 分钟游戏视频先做 contact sheet,帮我判断适合截哪 5 秒做攻略 Live Photo。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/op7418/guizang-social-card-skill/blob/cf4b810fac1c73fb65a2bb31d8c9278d82cbc4c5/README.md?plain=1#L88"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "AGPL-3.0 许可证：修改版本或把它部署成网络服务都需要公开源代码。",
+    "从 Unsplash、Pexels、Wallhaven 等网络取图时会写入 SOURCES.md，使用前需自行确认图片的授权和署名要求。",
+    "AI 生图能力取决于当前 Agent 接入的模型，不属于 Skill 本身。",
+    "电脑端或网页端一般不能直接发布 Live Photo；Live Photo 只应使用用户自己的视频。",
+    "OOTD 实拍、仿胶片调色等强依赖摄影后期的赛道不在能力范围内。"
+  ],
+  "references": [],
+  "media": [
+    {
+      "url": "/assets/repository-guides/media-747d124a2aa34c3d8b8efd9f.webp",
+      "alt": "Guizang Social Card Skill 效果展示",
+      "sourceUrl": "https://github.com/op7418/guizang-social-card-skill/blob/cf4b810fac1c73fb65a2bb31d8c9278d82cbc4c5/README.md?plain=1#L22",
+      "originalUrl": "https://github.com/user-attachments/assets/d370abcc-1fc4-4de1-903a-09020a6556ce"
+    }
+  ],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "d15bbc144338964f151a2520ac8691d4356cc470eb6d3148c69ceab61e0cd434",
+  "mediaStatus": "archived",
+  "mediaFailures": []
+}

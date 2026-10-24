@@ -1,0 +1,81 @@
+{
+  "schemaVersion": 1,
+  "key": "santinic/audiblez",
+  "status": "ready",
+  "reason": "",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/santinic/audiblez/blob/788a6a817e7bf7502d56c5fa9dd74ff3861c5dcb/README.md",
+  "sourceRevision": "788a6a817e7bf7502d56c5fa9dd74ff3861c5dcb",
+  "canonicalKey": "santinic/audiblez",
+  "summary": "Audiblez 使用 Kokoro-82M 语音合成模型，把 .epub 电子书转换成 .m4b 有声书，提供命令行和图形界面两种用法。",
+  "intro": "适合想把自己的 EPUB 电子书转成有声书收听的用户。它支持美式英语、英式英语、西班牙语、法语、印地语、意大利语、日语、巴西葡萄牙语和普通话等多种语音，可以设置语速、手动挑选章节、指定输出目录，也可以用 --cuda 通过 GPU 加速。",
+  "requirements": "需要 Python 3 和 pip，并在系统中安装 ffmpeg 和 espeak-ng。生成最终的 .m4b 文件必须有 ffmpeg。使用 GUI 还需要 pillow 和 wxpython，Ubuntu/Debian 上另需 libgtk-3-dev。使用 CUDA 需要按 PyTorch 官方说明安装对应版本。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "在 Ubuntu/Debian 安装依赖和工具",
+      "text": "以下以 Ubuntu/Debian 为例。先用 apt 安装 ffmpeg 和 espeak-ng，再用 pip install audiblez 安装命令行工具。macOS 用户改用 brew 安装这两个依赖；Windows 用户请按 README 的说明在 Python venv 中安装。 原文包含需人工核查的高权限或删除命令，本站不提供一键复制；请查看该步骤的官方出处。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/santinic/audiblez/blob/788a6a817e7bf7502d56c5fa9dd74ff3861c5dcb/README.md?plain=1#L24"
+      }
+    },
+    {
+      "title": "指定语音转换 epub 文件",
+      "text": "运行 audiblez 加上 epub 文件路径，并用 -v 指定语音。程序会先在同一目录生成 book_chapter_1.wav 等按章节拆分的音频，最后合成完整的 book.m4b，可以用 VLC 或其他有声书播放器收听。",
+      "code": "audiblez book.epub -v af_sky",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/santinic/audiblez/blob/788a6a817e7bf7502d56c5fa9dd74ff3861c5dcb/README.md?plain=1#L24"
+      }
+    },
+    {
+      "title": "选择语音并调整朗读语速",
+      "text": "语音名的第一个字母代表语言，第二个字母代表性别，例如 zf_xiaoxiao 是普通话女声。可用语音见 README 中的语音表。用 -s 设置 0.5 到 2.0 之间的语速，默认是正常速度。",
+      "code": "audiblez book.epub -v af_sky -s 1.5",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/santinic/audiblez/blob/788a6a817e7bf7502d56c5fa9dd74ff3861c5dcb/README.md?plain=1#L81"
+      }
+    },
+    {
+      "title": "用帮助页查看章节和输出选项",
+      "text": "运行 audiblez --help 查看全部参数：-p 以交互方式挑选要朗读的章节，-o 指定有声书和临时文件的输出目录，-c 尝试通过 Torch 使用 CUDA 设备。",
+      "code": "usage: audiblez [-h] [-v VOICE] [-p] [-s SPEED] [-c] [-o FOLDER] epub_file_path\n\npositional arguments:\n  epub_file_path        Path to the epub file\n\noptions:\n  -h, --help            show this help message and exit\n  -v VOICE, --voice VOICE\n                        Choose narrating voice: a, b, e, f, h, i, j, p, z\n  -p, --pick            Interactively select which chapters to read in the audiobook\n  -s SPEED, --speed SPEED\n                        Set speed from 0.5 to 2.0\n  -c, --cuda            Use GPU via Cuda in Torch if available\n  -o FOLDER, --output FOLDER\n                        Output folder for the audiobook and temporary files\n\nexample:\n  audiblez book.epub -l en-us -v af_sky\n\nto use the GUI, run:\n  audiblez-ui",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/santinic/audiblez/blob/788a6a817e7bf7502d56c5fa9dd74ff3861c5dcb/README.md?plain=1#L118"
+      }
+    },
+    {
+      "title": "按需安装并启动图形界面",
+      "text": "如果想用图形界面，在 Ubuntu/Debian 上额外安装 libgtk-3-dev，并用 pip 安装 pillow 和 wxpython，然后运行 audiblez-ui 打开 GUI。 原文包含需人工核查的高权限或删除命令，本站不提供一键复制；请查看该步骤的官方出处。",
+      "code": "audiblez-ui",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/santinic/audiblez/blob/788a6a817e7bf7502d56c5fa9dd74ff3861c5dcb/README.md?plain=1#L50"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "没有安装 ffmpeg 时，只会生成章节 wav 文件，不会生成 .m4b。",
+    "默认使用 CPU 运行。作者在 M2 MacBook Pro 上用 CPU 转换约 16 万字符的书耗时约 1 小时，长书需要预留足够时间。",
+    "目前不支持 Apple Silicon 的 GPU 加速。--cuda 需要可用的 CUDA 设备和对应版本的 PyTorch。",
+    "Kokoro-82M 模型采用 Apache 许可证，项目本身为 MIT 许可证。"
+  ],
+  "references": [],
+  "media": [
+    {
+      "url": "/assets/repository-guides/media-eb87a47d5d55d070a7be8b78.webp",
+      "alt": "santinic/audiblez 官方演示 1",
+      "sourceUrl": "https://github.com/santinic/audiblez/blob/788a6a817e7bf7502d56c5fa9dd74ff3861c5dcb/README.md?plain=1#L10",
+      "originalUrl": "https://raw.githubusercontent.com/santinic/audiblez/788a6a817e7bf7502d56c5fa9dd74ff3861c5dcb/imgs/mac.png"
+    }
+  ],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "6c704ead971a147c1533ffc9d377fed5b3f75c50a3545eb50cc4741a41c4e2be",
+  "mediaStatus": "archived",
+  "mediaFailures": []
+}

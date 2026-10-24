@@ -1,0 +1,64 @@
+{
+  "schemaVersion": 1,
+  "key": "apiverve/fortuneteller-api",
+  "status": "ready",
+  "reason": "",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/apiverve/fortuneteller-api/blob/364dcb03b2af9aec1bf58b7e62dc536c5645a850/README.md",
+  "sourceRevision": "364dcb03b2af9aec1bf58b7e62dc536c5645a850",
+  "canonicalKey": "apiverve/fortuneteller-api",
+  "summary": "APIVerve 的 Fortune Teller API，通过 AI 按爱情、事业、健康、财富、旅行等类别生成占卜文本。",
+  "intro": "适合需要在网页、移动应用或自动化流程中接入占卜类内容的开发者。仓库提供 REST 调用示例、统一响应格式说明、OpenAPI 规范，以及多语言 SDK 包的安装入口。",
+  "requirements": "需要在 apiverve.com 获取 API key，并有可发送 HTTP GET 请求的环境（如 cURL）。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "在 APIVerve 获取 API key",
+      "text": "所有请求都需要在请求头中携带 API key。先到 apiverve.com 获取自己的 key，之后以 x-api-key 请求头发送。",
+      "code": "x-api-key: YOUR_API_KEY_HERE",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/apiverve/fortuneteller-api/blob/364dcb03b2af9aec1bf58b7e62dc536c5645a850/README.md?plain=1#L186"
+      }
+    },
+    {
+      "title": "用 cURL 发送 GET 请求",
+      "text": "以官方 cURL 示例为入口，向 https://api.apiverve.com/v1/fortuneteller 发起 GET 请求，通过 category 和 question 查询参数提交内容，并把 YOUR_API_KEY_HERE 替换为自己的 key。",
+      "code": "curl -X GET \"https://api.apiverve.com/v1/fortuneteller?category=general&question=What%20does%20the%20future%20hold%20for%20me%3F\" \\\n  -H \"x-api-key: YOUR_API_KEY_HERE\"",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/apiverve/fortuneteller-api/blob/364dcb03b2af9aec1bf58b7e62dc536c5645a850/README.md?plain=1#L55"
+      }
+    },
+    {
+      "title": "按统一响应格式读取结果",
+      "text": "APIVerve 所有接口返回相同结构：先检查 status，再读取 data。官方示例响应中 data 包含 fortune、insight、timeframe、category 以及 luckyNumbers 等字段。",
+      "code": "{\n  \"status\": \"ok\",\n  \"error\": null,\n  \"data\": { ... }\n}\n\n{\n  \"status\": \"ok\",\n  \"error\": null,\n  \"data\": {\n    \"fortune\": \"The threads of destiny are weaving a tapestry of unexpected joy; embrace the unknown, for within its depths lie blossoms of serendipity. A golden opportunity awaits, carried upon the wings of synchronicity.\",\n    \"insight\": \"Trust in the whispers of your intuition; it shall guide you through the maze of life.\",\n    \"timeframe\": \"in the coming weeks\",\n    \"category\": \"general\",\n    \"question\": null,\n    \"luckyNumbers\": [\n      87,\n      10,\n      16,\n      83,\n      99,\n      34\n    ],\n    \"luckyElement\": \"Wood\",\n    \"luckyColor\": \"Purple\",\n    \"luckyDay\": \"Tuesday\",\n    \"timestamp\": \"2025-12-16T22:23:31.796Z\"\n  }\n}",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/apiverve/fortuneteller-api/blob/364dcb03b2af9aec1bf58b7e62dc536c5645a850/README.md?plain=1#L194"
+      }
+    },
+    {
+      "title": "查阅 API 参考与 SDK 目录",
+      "text": "完整参数和可选类别以 docs.apiverve.com/ref/fortuneteller 与仓库内 openapi.yaml 为准。若要在 Node.js、Python 等项目中接入，可查看对应包目录（如 ./npm/、./python/）和 examples/ 文件夹。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/apiverve/fortuneteller-api/blob/364dcb03b2af9aec1bf58b7e62dc536c5645a850/README.md?plain=1#L163"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "API key 需妥善保管，不要写入前端代码或公开仓库。",
+    "README 未说明价格、调用额度或免费范围，使用前需到 APIVerve 官网确认。",
+    "返回内容由 AI 生成，README 未说明其准确性，不宜作为实际决策依据。",
+    "README 只给出各 SDK 的安装命令，未给出 SDK 的调用示例，具体用法需查看各包目录。"
+  ],
+  "references": [],
+  "media": [],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "7b9b2f7694b652c6ca9db35f64421d7ca2ac7bea56b83cfd24ae5d43839157c0",
+  "mediaStatus": "none_in_official_documents"
+}

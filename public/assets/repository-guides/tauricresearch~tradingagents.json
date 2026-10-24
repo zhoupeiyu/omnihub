@@ -1,0 +1,96 @@
+{
+  "schemaVersion": 1,
+  "key": "tauricresearch/tradingagents",
+  "status": "ready",
+  "reason": "",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/TauricResearch/TradingAgents/blob/8b22d43d01d9ddda5d686d093d5385884622f3de/README.md",
+  "sourceRevision": "8b22d43d01d9ddda5d686d093d5385884622f3de",
+  "canonicalKey": "TauricResearch/TradingAgents",
+  "summary": "TradingAgents 是基于 LangGraph 的多智能体 LLM 交易研究框架，由分析师、多空研究员、交易员和风控/组合经理角色协作，针对指定股票和日期给出交易决策报告。",
+  "intro": "适合研究 LLM 多智能体在金融分析中表现的开发者和研究人员。可通过交互式 CLI 选择股票代码、分析日期、模型提供商和研究深度运行分析，也可在 Python 中调用 TradingAgentsGraph().propagate() 获取决策，并支持传入持仓、断点续跑和按代码/日期网格回测。支持 Yahoo Finance 覆盖的市场（含港股、A 股、加密货币等）。",
+  "requirements": "Python 3.11 或更高版本；git；至少一个受支持 LLM 提供商的 API Key（如 OpenAI、Anthropic、Google、DeepSeek、Qwen 等），或本地 Ollama / OpenAI 兼容服务。可选：FRED、Alpha Vantage、TypeSafe 等数据或筛选服务的 Key。也可使用 Docker 运行。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "克隆仓库并进入项目目录",
+      "text": "使用 git 克隆 TradingAgents 仓库并 cd 进入 TradingAgents 目录。后续创建环境、安装依赖和配置 .env 都在该目录中进行。",
+      "code": "git clone https://github.com/TauricResearch/TradingAgents.git\ncd TradingAgents",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/TauricResearch/TradingAgents/blob/8b22d43d01d9ddda5d686d093d5385884622f3de/README.md?plain=1#L115"
+      }
+    },
+    {
+      "title": "用 conda 创建 Python 环境并安装",
+      "text": "项目要求 Python 3.11 及以上。按 README 示例用 conda 创建名为 tradingagents 的 Python 3.13 环境并激活，然后在仓库根目录执行 pip install . 安装包及依赖。README 也给出了 uv 方式，二选一即可。",
+      "code": "conda create -n tradingagents python=3.13\nconda activate tradingagents\n\npip install .",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/TauricResearch/TradingAgents/blob/8b22d43d01d9ddda5d686d093d5385884622f3de/README.md?plain=1#L115"
+      }
+    },
+    {
+      "title": "配置所选模型提供商的 API Key",
+      "text": "将仓库中的 .env.example 复制为 .env，填入你所用提供商的 Key（如 OPENAI_API_KEY、ANTHROPIC_API_KEY、DEEPSEEK_API_KEY 等），也可直接用 export 设置环境变量。Azure、AWS Bedrock、Ollama 和 OpenAI 兼容服务各有单独配置说明。",
+      "code": "cp .env.example .env\n\nexport OPENAI_API_KEY=...          # OpenAI (GPT)\nexport GOOGLE_API_KEY=...          # Google (Gemini)\nexport ANTHROPIC_API_KEY=...       # Anthropic (Claude)\nexport XAI_API_KEY=...             # xAI (Grok)\nexport DEEPSEEK_API_KEY=...        # DeepSeek\nexport DASHSCOPE_API_KEY=...       # Qwen (international, dashscope-intl.aliyuncs.com)\nexport DASHSCOPE_CN_API_KEY=...    # Qwen (China, dashscope.aliyuncs.com)\nexport ZHIPU_API_KEY=...           # GLM via Z.AI (international)\nexport ZHIPU_CN_API_KEY=...        # GLM via BigModel (China, open.bigmodel.cn)\nexport MINIMAX_API_KEY=...         # MiniMax (global, api.minimax.io)\nexport MINIMAX_CN_API_KEY=...      # MiniMax (China, api.minimaxi.com)\nexport OPENROUTER_API_KEY=...      # OpenRouter\nexport MISTRAL_API_KEY=...         # Mistral\nexport MOONSHOT_API_KEY=...        # Kimi (Moonshot)\nexport GROQ_API_KEY=...            # Groq\nexport NVIDIA_API_KEY=...          # NVIDIA NIM\nexport FRED_API_KEY=...            # FRED macro data (free, optional)\nexport ALPHA_VANTAGE_API_KEY=...   # Alpha Vantage\nexport TYPESAFE_API_KEY=...        # Jev social-post screening (optional)",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/TauricResearch/TradingAgents/blob/8b22d43d01d9ddda5d686d093d5385884622f3de/README.md?plain=1#L157"
+      }
+    },
+    {
+      "title": "启动交互式 CLI 运行一次分析",
+      "text": "执行 tradingagents 命令（或从源码运行 python -m cli.main），在界面中选择股票代码、分析日期、LLM 提供商和研究深度等。运行时界面会实时展示各智能体进度。股票代码需带交易所后缀，如 0700.HK、600519.SS。",
+      "code": "tradingagents          # installed command\npython -m cli.main     # alternative: run directly from source",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/TauricResearch/TradingAgents/blob/8b22d43d01d9ddda5d686d093d5385884622f3de/README.md?plain=1#L198"
+      }
+    },
+    {
+      "title": "需要时改用 Python 代码调用",
+      "text": "在自己的代码中导入 TradingAgentsGraph 和 DEFAULT_CONFIG，调用 propagate(代码, 日期) 得到决策，并可用 save_reports 保存报告。复制默认配置后可修改 llm_provider、deep_think_llm、quick_think_llm、max_debate_rounds 等，全部选项见 tradingagents/default_config.py。",
+      "code": "from tradingagents.graph.trading_graph import TradingAgentsGraph\nfrom tradingagents.default_config import DEFAULT_CONFIG\n\nta = TradingAgentsGraph(debug=True, config=DEFAULT_CONFIG.copy())\n\n# forward propagate\nstate, decision = ta.propagate(\"NVDA\", \"2026-09-01\")\nprint(decision)\n\n# the same report tree the CLI saves, under results_dir/reports\nta.save_reports(state, \"NVDA\")\n\nfrom tradingagents.graph.trading_graph import TradingAgentsGraph\nfrom tradingagents.default_config import DEFAULT_CONFIG\n\nconfig = DEFAULT_CONFIG.copy()\nconfig[\"llm_provider\"] = \"openai\"        # e.g. openai, google, anthropic, deepseek, groq, ollama; openai_compatible covers any OpenAI-compatible endpoint (vLLM, LM Studio, llama.cpp, ...)\nconfig[\"deep_think_llm\"] = \"gpt-6-sol\"    # Model for complex reasoning\nconfig[\"quick_think_llm\"] = \"gpt-6-luna\"   # Model for quick tasks\nconfig[\"max_debate_rounds\"] = 2\n\nta = TradingAgentsGraph(debug=True, config=config)\n_, decision = ta.propagate(\"NVDA\", \"2026-09-01\")\nprint(decision)",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/TauricResearch/TradingAgents/blob/8b22d43d01d9ddda5d686d093d5385884622f3de/README.md?plain=1#L245"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "官方声明该框架仅用于研究，不构成金融、投资或交易建议；交易表现受模型、温度、时段、数据质量等多种因素影响。",
+    "需要调用第三方 LLM API，运行会产生相应费用；具体价格以各提供商为准。",
+    "LLM 输出具有非确定性，且新闻、StockTwits、Reddit 等数据随时间变化，同一股票和日期多次运行结果可能不同。",
+    "SEC EDGAR 要求请求方标识身份，建议设置自己的 SEC_EDGAR_USER_AGENT；非美股的 Yahoo 财报和内部人交易在历史日期运行时会被屏蔽。",
+    "每次完成的运行会追加写入 ~/.tradingagents/memory/trading_memory.md，并影响同一代码后续运行的提示内容。",
+    "传入持仓（portfolio）时，空 positions 表示空仓，与不传持仓含义不同。"
+  ],
+  "references": [],
+  "media": [
+    {
+      "url": "/assets/repository-guides/media-fc56e74f4fb2e230bcc7854e.webp",
+      "alt": "TauricResearch/TradingAgents 官方演示 1",
+      "sourceUrl": "https://github.com/TauricResearch/TradingAgents/blob/8b22d43d01d9ddda5d686d093d5385884622f3de/README.md?plain=1#L226",
+      "originalUrl": "https://raw.githubusercontent.com/TauricResearch/TradingAgents/8b22d43d01d9ddda5d686d093d5385884622f3de/assets/cli/cli_init.png"
+    },
+    {
+      "url": "/assets/repository-guides/media-4d66aa1fc090988c443e310a.webp",
+      "alt": "TauricResearch/TradingAgents 官方演示 2",
+      "sourceUrl": "https://github.com/TauricResearch/TradingAgents/blob/8b22d43d01d9ddda5d686d093d5385884622f3de/README.md?plain=1#L232",
+      "originalUrl": "https://raw.githubusercontent.com/TauricResearch/TradingAgents/8b22d43d01d9ddda5d686d093d5385884622f3de/assets/cli/cli_news.png"
+    },
+    {
+      "url": "/assets/repository-guides/media-43f13e48d53ca1628a1e3b01.webp",
+      "alt": "TauricResearch/TradingAgents 官方演示 3",
+      "sourceUrl": "https://github.com/TauricResearch/TradingAgents/blob/8b22d43d01d9ddda5d686d093d5385884622f3de/README.md?plain=1#L236",
+      "originalUrl": "https://raw.githubusercontent.com/TauricResearch/TradingAgents/8b22d43d01d9ddda5d686d093d5385884622f3de/assets/cli/cli_transaction.png"
+    }
+  ],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "c7bef0df9a7447fb5230dfdee87a17c6731f0ae6c2e543c9b285618eecdb856a",
+  "mediaStatus": "archived",
+  "mediaFailures": []
+}

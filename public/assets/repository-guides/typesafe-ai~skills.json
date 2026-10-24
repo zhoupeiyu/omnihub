@@ -1,0 +1,61 @@
+{
+  "schemaVersion": 1,
+  "key": "typesafe-ai/skills",
+  "status": "ready",
+  "reason": "",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/typesafe-ai/skills/blob/65a39f393687675ce170e6094757de20370365b9/README.md",
+  "sourceRevision": "65a39f393687675ce170e6094757de20370365b9",
+  "canonicalKey": "typesafe-ai/skills",
+  "summary": "为 AI 编程代理提供 TypeSafe 技能，帮助代理基于 System One 模型设计返回类型化决策和概率的工作流。",
+  "intro": "适合使用 Claude Code 或其他支持 skills.sh 的代理、并打算接入 TypeSafe System One API 的开发者。仓库提供一个名为 typesafe-ai 的技能，用于设计 TypeSafe 工作流、查找当前文档和 cookbook，并在代码中组合类型化判断。",
+  "requirements": "已安装 Claude Code 并可在终端运行 claude 命令（本指南采用 Claude Code 插件路径）。其他代理可改用 skills.sh 安装，需要 npx 环境。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "在 Claude Code 中添加插件市场",
+      "text": "在终端中运行代码块的第一行，把 typesafe-ai/skills 添加为 Claude Code 插件市场。本指南只采用 Claude Code 插件路径，不与 skills.sh 安装方式混用。",
+      "code": "claude plugin marketplace add typesafe-ai/skills\nclaude plugin install typesafe@typesafe-ai",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/typesafe-ai/skills/blob/65a39f393687675ce170e6094757de20370365b9/README.md?plain=1#L9"
+      }
+    },
+    {
+      "title": "安装 typesafe 插件",
+      "text": "继续运行代码块的第二行 claude plugin install typesafe@typesafe-ai，完成插件安装。之后 typesafe-ai 技能会出现在 Claude Code 中，可由代理自动选用。",
+      "code": "claude plugin marketplace add typesafe-ai/skills\nclaude plugin install typesafe@typesafe-ai",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/typesafe-ai/skills/blob/65a39f393687675ce170e6094757de20370365b9/README.md?plain=1#L9"
+      }
+    },
+    {
+      "title": "显式调用 typesafe-ai 技能",
+      "text": "在 Claude Code 中输入 /typesafe:typesafe-ai 显式调用该技能，然后用自然语言描述要用 TypeSafe 完成的决策类工作流。代理会据此设计工作流、查找文档并在代码中组合类型化判断。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/typesafe-ai/skills/blob/65a39f393687675ce170e6094757de20370365b9/README.md?plain=1#L28"
+      }
+    },
+    {
+      "title": "阅读 SKILL.md 了解技能内容",
+      "text": "打开仓库中的 skills/typesafe-ai/SKILL.md，可在 GitHub 页面阅读，也可获取 raw Markdown，了解该技能会指导代理做什么。安装、手动安装和更新的说明见官方 installation guide。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/typesafe-ai/skills/blob/65a39f393687675ce170e6094757de20370365b9/README.md?plain=1#L1"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "该技能用于基于 TypeSafe System One API 进行开发，实际调用需要遵循 TypeSafe 服务本身的账号与使用条款；README 未说明费用。",
+    "如改用 skills.sh 安装，默认只在当前项目内生效，加 -g 才会全局安装。"
+  ],
+  "references": [],
+  "media": [],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "799ce1dc39dc1cb98977f930610bf693a26d1a78e5912b860014447d97390282",
+  "mediaStatus": "none_in_official_documents"
+}

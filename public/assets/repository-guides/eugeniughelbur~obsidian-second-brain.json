@@ -1,0 +1,83 @@
+{
+  "schemaVersion": 1,
+  "key": "eugeniughelbur/obsidian-second-brain",
+  "status": "partial",
+  "reason": "提供的材料只有 Install 一节的前置条件说明，提到了 Claude Code 插件路径和 scripts/setup.sh 脚本路径，但没有给出任何一条具体安装命令（代码块为空）；八个平台各自的安装目录和分发文件的操作细节也未包含在内。",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/eugeniughelbur/obsidian-second-brain/blob/b0089f7666d0c1e3db41c9d587b6f3c997665235/README.md",
+  "sourceRevision": "b0089f7666d0c1e3db41c9d587b6f3c997665235",
+  "canonicalKey": "eugeniughelbur/obsidian-second-brain",
+  "summary": "obsidian-second-brain 是一个跨平台的 Agent 技能包，把 Obsidian vault 作为 Claude Code 等 CLI Agent 的持久记忆，提供保存、检索、导入、整合与调研等斜杠命令。",
+  "intro": "适合已经在用 Obsidian 记笔记、同时用 Claude Code、Codex CLI、Gemini CLI、OpenCode 等 Agent 工作的开发者、创业者、写作者和研究者。它以 Markdown 形式把会话中的决策、人物、任务写入 vault，并用这些内容为后续会话提供上下文。此外还提供可选的定时整理 Agent，以及基于 Perplexity、Grok、Gemini 的联网调研命令。",
+  "requirements": "Claude Code（或 README 列出的其他受支持平台之一）、git，以及用于 Python 辅助脚本的 uv。走经典脚本安装时还需要 jq；插件路径不需要 jq。可选：Ollama（本地语义搜索）、openai-whisper（首次导入音频时安装，会附带 PyTorch）。核心 vault 命令不需要 API Key。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "准备前置工具",
+      "text": "安装 Claude Code（或其他受支持平台）、git 和 uv。如果打算用 scripts/setup.sh 的经典方式安装，还需要先安装 jq，否则脚本会直接退出；走插件路径则不需要 jq。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/eugeniughelbur/obsidian-second-brain/blob/b0089f7666d0c1e3db41c9d587b6f3c997665235/README.md?plain=1#L612"
+      }
+    },
+    {
+      "title": "按 README 的 Claude Code 段落安装",
+      "text": "README 的 Install 一节为八个平台分别提供了构建版本，Claude Code 是默认路径，支持插件 marketplace 安装。本次材料没有包含具体命令，请直接阅读仓库 README 中 Claude Code (default) 段落的原文操作。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/eugeniughelbur/obsidian-second-brain/blob/b0089f7666d0c1e3db41c9d587b6f3c997665235/README.md?plain=1#L612"
+      }
+    },
+    {
+      "title": "用三个基础命令起步",
+      "text": "README 建议先掌握三个命令：用 /obsidian-init 完成初始化设置，用 /obsidian-save 把当前会话中的决策、人物、任务等内容保存到对应笔记，用 /obsidian-find 检索已保存的内容。其余命令可在需要时再查阅。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/eugeniughelbur/obsidian-second-brain/blob/b0089f7666d0c1e3db41c9d587b6f3c997665235/README.md?plain=1#L1"
+      }
+    },
+    {
+      "title": "查阅官方命令参考",
+      "text": "完整命令清单及各命令的触发说法，见官方命令参考页 eugeniughelbur.github.io/obsidian-second-brain，提供英、德、西、葡和简体中文版本。问题和功能建议可提交到 GitHub Issues。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/eugeniughelbur/obsidian-second-brain/blob/b0089f7666d0c1e3db41c9d587b6f3c997665235/README.md?plain=1#L912"
+      }
+    },
+    {
+      "title": "按项目区分 vault 路径（可选）",
+      "text": "默认的 setup.sh 会把 OBSIDIAN_VAULT_PATH 写入全局 ~/.claude/settings.json。如需每个仓库使用独立 vault，可在该仓库的 .claude/settings.json 的 env 中设置 OBSIDIAN_VAULT_PATH；同一个 vault 内部目前无法隔离。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/eugeniughelbur/obsidian-second-brain/blob/b0089f7666d0c1e3db41c9d587b6f3c997665235/README.md?plain=1#L896"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "/x-read、/x-pulse、/research、/research-deep、/youtube、/podcast 会调用 Grok、Perplexity、Gemini 等付费接口。README 给出的是 2026-04 的大致单次费用，且没有硬性费用上限，需要自行监控 ~/.research-toolkit/usage.log。",
+    "/obsidian-ingest、/obsidian-reconcile 及夜间定时 Agent 会改写已有笔记，而不只是追加新内容。",
+    "经典脚本安装会修改 ~/.claude/settings.json。",
+    "音频导入首次使用时会安装 openai-whisper 及 PyTorch。"
+  ],
+  "references": [],
+  "media": [
+    {
+      "url": "/assets/repository-guides/media-db0b7e7b52a2ffa63b90fd49.webp",
+      "alt": "eugeniughelbur/obsidian-second-brain 官方演示 1",
+      "sourceUrl": "https://github.com/eugeniughelbur/obsidian-second-brain/blob/b0089f7666d0c1e3db41c9d587b6f3c997665235/README.md?plain=1#L59",
+      "originalUrl": "https://raw.githubusercontent.com/eugeniughelbur/obsidian-second-brain/b0089f7666d0c1e3db41c9d587b6f3c997665235/media/obsidian-save.gif"
+    },
+    {
+      "url": "/assets/repository-guides/media-65cc9597758914d689cf4bf0.webp",
+      "alt": "eugeniughelbur/obsidian-second-brain 官方演示 2",
+      "sourceUrl": "https://github.com/eugeniughelbur/obsidian-second-brain/blob/b0089f7666d0c1e3db41c9d587b6f3c997665235/README.md?plain=1#L646",
+      "originalUrl": "https://raw.githubusercontent.com/eugeniughelbur/obsidian-second-brain/b0089f7666d0c1e3db41c9d587b6f3c997665235/media/plugin-install.gif"
+    }
+  ],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "59e04ab842f3e63817f1dc0aa383d9a13e703cc3532404ec033ed5fba47585bf",
+  "mediaStatus": "archived",
+  "mediaFailures": []
+}

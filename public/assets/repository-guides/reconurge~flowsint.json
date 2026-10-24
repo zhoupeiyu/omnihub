@@ -1,0 +1,71 @@
+{
+  "schemaVersion": 1,
+  "key": "reconurge/flowsint",
+  "status": "ready",
+  "reason": "",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/reconurge/flowsint/blob/4c05849bc6ca5055ad187d056ef26e61b3bc2fea/README.md",
+  "sourceRevision": "4c05849bc6ca5055ad187d056ef26e61b3bc2fea",
+  "canonicalKey": "reconurge/flowsint",
+  "summary": "Flowsint 是一个开源的图谱式 OSINT 调查工具，通过可视化关系图和自动化 enricher 探索域名、IP、组织、邮箱等实体之间的关联。",
+  "intro": "适合网络安全研究员、记者、OSINT 调查人员、反欺诈团队及做内部威胁情报的组织，用于合法、合乎伦理的调查研究。可在图界面中添加实体，并调用域名解析、子域名发现、WHOIS、IP 信息、ASN/CIDR、邮箱泄露查询、加密钱包交易、网站爬取等 enricher 扩展关系图；数据存储在本机。",
+  "requirements": "Linux / macOS 需要 Docker 和 Make（Windows 需 Docker Desktop 和 Git，命令不同）；首次使用需在本地注册账号，默认没有内置账号；对网络开放部署前需修改 .env 中的默认密钥。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "安装 Docker 与 Make",
+      "text": "本指南以 Linux / macOS 为例，先安装 Docker 和 Make 这两个前置工具。Windows 用户的官方路径不同，需要 Docker Desktop 和 Git，并手动复制 .env 文件后用 docker compose 启动。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/reconurge/flowsint/blob/4c05849bc6ca5055ad187d056ef26e61b3bc2fea/README.md?plain=1#L36"
+      }
+    },
+    {
+      "title": "克隆仓库并执行 make prod",
+      "text": "按代码块克隆 flowsint 仓库，进入目录后执行 make prod 完成安装和启动。生产模式会从 GitHub Container Registry 拉取预构建镜像，不需要本地构建。",
+      "code": "git clone https://github.com/reconurge/flowsint.git\ncd flowsint\nmake prod",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/reconurge/flowsint/blob/4c05849bc6ca5055ad187d056ef26e61b3bc2fea/README.md?plain=1#L41"
+      }
+    },
+    {
+      "title": "注册账号并登录界面",
+      "text": "启动后在浏览器访问 http://localhost:5173/register 创建账号，系统没有默认凭据或账号。登录后即可在图界面中开展调查，所有数据保存在本机。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/reconurge/flowsint/blob/4c05849bc6ca5055ad187d056ef26e61b3bc2fea/README.md?plain=1#L78"
+      }
+    },
+    {
+      "title": "对外部署前修改密钥与白名单",
+      "text": "若要让团队通过网络访问，先在 .env 中替换 AUTH_SECRET、MASTER_VAULT_KEY_V1、NEO4J_PASSWORD 的默认值，并在 flowsint-app/nginx.conf 的 Host 白名单中加入服务器主机名或 IP。可信局域网以外建议在 5173 端口前加反向代理启用 HTTPS。",
+      "code": "git clone https://github.com/reconurge/flowsint.git\ncd flowsint\ncp .env.example .env\n# Edit .env — see \"Before exposing to a network\" below\ndocker compose -f docker-compose.prod.yml up -d\n\nflowsint.example.com {\n    reverse_proxy 127.0.0.1:5173\n}",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/reconurge/flowsint/blob/4c05849bc6ca5055ad187d056ef26e61b3bc2fea/README.md?plain=1#L85"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "官方要求仅用于合法、合乎伦理的调查研究，禁止未授权的入侵、监控或数据收集，以及骚扰、人肉搜索等用途，使用前应阅读 ETHICS.md。",
+    "对外暴露服务前必须修改 .env 中的默认密钥；Host 白名单默认只允许 localhost，局域网或公网部署需手动加入自己的主机名。",
+    "项目仍处于早期开发阶段，各模块测试套件尚不完整。",
+    "MASTER_VAULT_KEY_V1 用于加密存储的 API 密钥，部分 enricher 可能需要另行配置第三方服务的 API key。"
+  ],
+  "references": [],
+  "media": [
+    {
+      "url": "/assets/repository-guides/media-29f07f37b42ca061c9d1273a.webp",
+      "alt": "reconurge/flowsint 官方演示 1",
+      "sourceUrl": "https://github.com/reconurge/flowsint/blob/4c05849bc6ca5055ad187d056ef26e61b3bc2fea/README.md?plain=1#L14",
+      "originalUrl": "https://github.com/user-attachments/assets/01eb128e-bef4-486e-9276-c4da58f829ae"
+    }
+  ],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "f3d9611a410e9ff8b5c5b946421fa6d261367f59a1696ffe30ab479cd31e9cb6",
+  "mediaStatus": "archived",
+  "mediaFailures": []
+}

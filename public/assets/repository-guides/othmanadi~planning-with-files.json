@@ -1,0 +1,75 @@
+{
+  "schemaVersion": 1,
+  "key": "othmanadi/planning-with-files",
+  "status": "ready",
+  "reason": "",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/OthmanAdi/planning-with-files/blob/51c1caa27f9fefe259e45a7cc92fa79ee8787cd7/README.md",
+  "sourceRevision": "51c1caa27f9fefe259e45a7cc92fa79ee8787cd7",
+  "canonicalKey": "OthmanAdi/planning-with-files",
+  "summary": "一个面向 AI 编码智能体的文件化规划技能，把计划、发现和进度写入磁盘上的 Markdown 文件，并通过钩子在 /clear、压缩或崩溃后恢复任务上下文。",
+  "intro": "适合用 Claude Code、Codex、OpenCode、Hermes Agent 等智能体执行长时间、多步骤任务的开发者。它会在项目中维护 task_plan.md、findings.md、progress.md，并在每轮注入规划上下文。其他宿主可以通过 Agent Skills 标准、npm 或各自的原生插件安装。本指南以 Claude Code 插件路线为例。",
+  "requirements": "需要 Claude Code；文档说明插件生命周期针对当前稳定版测试，未声明更早的最低版本。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "在 Claude Code 安装插件",
+      "text": "在 Claude Code 中先添加插件市场，再安装 planning-with-files 插件。官方推荐这条路线，因为它会同时提供技能、钩子和斜杠命令。",
+      "code": "/plugin marketplace add OthmanAdi/planning-with-files\n/plugin install planning-with-files@planning-with-files",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/OthmanAdi/planning-with-files/blob/51c1caa27f9fefe259e45a7cc92fa79ee8787cd7/README.md?plain=1#L391"
+      }
+    },
+    {
+      "title": "验证插件与钩子已生效",
+      "text": "运行 claude plugin list，再在 /plugin 或 /hooks 中检查插件，也可以运行 /plan-doctor 自检。在没有活动计划的项目中，启动时没有提示属于正常现象。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/OthmanAdi/planning-with-files/blob/51c1caa27f9fefe259e45a7cc92fa79ee8787cd7/docs/installation.md?plain=1#L117"
+      }
+    },
+    {
+      "title": "触发规划工作流",
+      "text": "在任务中输入 /plan，或直接让智能体\"plan this task\"。遇到多步骤任务时，技能也会自动触发。v3 的自主模式（--autonomous）和门控模式（--gated）等功能需通过对应命令或参数开启。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/OthmanAdi/planning-with-files/blob/51c1caa27f9fefe259e45a7cc92fa79ee8787cd7/README.md?plain=1#L391"
+      }
+    },
+    {
+      "title": "查阅磁盘上的三份规划文件",
+      "text": "计划写在项目根目录：task_plan.md 记录阶段和勾选项，findings.md 记录研究与决策，progress.md 记录会话日志与测试结果。并行任务使用 .planning/日期-slug/ 目录，并通过 .active_plan 选择当前计划。",
+      "code": "your-project/\n├── task_plan.md   ← phases + checkboxes; the resume point after /clear\n├── findings.md    ← research notes and decisions, appended as you go\n└── progress.md    ← session log and test results",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/OthmanAdi/planning-with-files/blob/51c1caa27f9fefe259e45a7cc92fa79ee8787cd7/README.md?plain=1#L80"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "通过 npx skills add 或手动复制等技能路线安装时，可能出现钩子未生效的情况。例如项目信任未接受，或技能尚未被调用。需要钩子时请用插件路线。",
+    "规划文件默认被 gitignore，不会自动归档，下一个任务会覆盖根目录计划。需要保留的内容应自行转入代码、提交或文档。",
+    "显式的 --metadata / --replay 模式会读取同项目的本地智能体会话记录。",
+    "README 中的基准与 A/B 数据来自项目自身测量。",
+    "PLANNING_DISABLED=1 对 .gemini 路线无效。"
+  ],
+  "references": [
+    {
+      "label": "docs/installation.md",
+      "url": "https://github.com/OthmanAdi/planning-with-files/blob/51c1caa27f9fefe259e45a7cc92fa79ee8787cd7/docs/installation.md"
+    }
+  ],
+  "media": [],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "91c588cf6d54c8a55c99fef6b01882b2ff83a57fa6f42c4d2c691d6d6f330d4f",
+  "mediaStatus": "unavailable",
+  "mediaFailures": [
+    {
+      "sourceUrl": "https://github.com/OthmanAdi/planning-with-files/blob/51c1caa27f9fefe259e45a7cc92fa79ee8787cd7/README.md#L67",
+      "reason": "response_too_large"
+    }
+  ]
+}

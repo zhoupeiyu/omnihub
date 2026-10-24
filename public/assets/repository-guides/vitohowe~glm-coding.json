@@ -1,0 +1,45 @@
+{
+  "schemaVersion": 1,
+  "key": "vitohowe/glm-coding",
+  "status": "partial",
+  "reason": "本指南不提炼启动、导入 Token、定时抢购或代理池等操作步骤。文档显示，项目的核心链路是用内置 OCR 自动破解腾讯点选验证码，按账号伪装浏览器 TLS/UA 指纹以规避风控，并配合代理池定时抢购限量套餐。这类自动化可能违反 BigModel 的服务条款，作者在免责声明中也表示不支持违反服务条款的自动化操作。",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/VitoHowe/glm-coding/blob/b92f56a9ed750b3782cc75409b94203d9b2816af/README.md",
+  "sourceRevision": "b92f56a9ed750b3782cc75409b94203d9b2816af",
+  "canonicalKey": "VitoHowe/glm-coding",
+  "summary": "AegisFlow 是一个本地运行的后台，用于多账号自动过验证码、伪装指纹并定时抢购 GLM Coding 套餐、生成支付二维码。",
+  "intro": "README 描述的用途是：管理多个 BigModel 账号，自动走完验证码、preview、签单、出支付二维码的链路，并支持按启动时间定时开抢。由于它依赖验证码自动识别和反风控伪装，本指南只说明项目性质与风险，供评估是否使用，不提供运行方法。",
+  "requirements": "文档列出的运行环境为 Windows 或 macOS、Python 3.12+、在 PATH 中可用的 Node.js，另需 BigModel 账号的 bigmodel_token_production。本指南不展开配置。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "先阅读免责声明与服务条款",
+      "text": "作者声明项目仅供学习研究，因使用导致的账号封禁、财产损失或法律责任由使用者自行承担，且不支持违反服务条款的自动化操作。评估前请先对照 BigModel 的用户协议，确认这类自动化是否被允许。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/VitoHowe/glm-coding/blob/b92f56a9ed750b3782cc75409b94203d9b2816af/README.md?plain=1#L740"
+      }
+    },
+    {
+      "title": "了解项目实际做了什么",
+      "text": "功能概览显示，项目会在后端拉取腾讯验证码，用 OCR 识别点位并自动提交 verify；每个账号随机绑定浏览器指纹以避免风控命中；还可通过代理池切换出口。项目不包含账号密码登录自动化。如需正常购买套餐，请走官方页面和渠道。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/VitoHowe/glm-coding/blob/b92f56a9ed750b3782cc75409b94203d9b2816af/README.md?plain=1#L23"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "项目核心功能是自动识别验证码和伪装浏览器指纹以绕过风控，可能违反 BigModel 及腾讯验证码的使用条款，存在账号被封禁的风险。",
+    "需要导入账号 Token，数据保存在本地 data 目录。Token 一旦泄露，账号可能被他人操作。",
+    "涉及真实支付二维码和订单，误操作可能造成资金损失。",
+    "README 提到上游接口常返回 555/系统繁忙，可用性不受作者保证。"
+  ],
+  "references": [],
+  "media": [],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "6da2ed775e6772f7e52190a559024ac0d28ca628a636441369e8a2a4159ef18b",
+  "mediaStatus": "none_in_official_documents"
+}

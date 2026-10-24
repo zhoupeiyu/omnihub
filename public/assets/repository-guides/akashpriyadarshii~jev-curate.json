@@ -1,0 +1,63 @@
+{
+  "schemaVersion": 1,
+  "key": "akashpriyadarshii/jev-curate",
+  "status": "ready",
+  "reason": "",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/AkashPriyadarshii/jev-curate/blob/837478efb70e16a14c97946007b9864711a4230a/README.md",
+  "sourceRevision": "837478efb70e16a14c97946007b9864711a4230a",
+  "canonicalKey": "AkashPriyadarshii/jev-curate",
+  "summary": "jev-curate 是一个 Rust 编写的数据集筛选 CLI，调用 TypeSafe AI 的 Jev 模型，按预设评分标准把 Parquet/JSONL 数据分成保留和剔除两部分。",
+  "intro": "适合需要清洗合成推理数据、指令微调数据或预训练语料的数据工程师和模型训练人员。它对每一行调用 Jev 进行类型化判断（Choice/Score/Noul），并提供三个预设：`reasoning-math`（数学推理）、`anti-sycophancy`（去除谄媚和 AI 免责声明）、`code-correctness`（代码完整性）。原始记录逐字保留，不做改写。项目还提供仅含构造函数的 Python 绑定。",
+  "requirements": "需要 Rust/Cargo 环境，以及 TypeSafe AI 的 API Key（环境变量 `TYPESAFE_API_KEY`）；使用 `--dry-run` 时不需要 Key。输入文件须为 `.parquet` 或 `.jsonl`。若要使用 Python 绑定，需要用 maturin 从源码构建。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "用 Cargo 安装并设置 API Key",
+      "text": "运行 `cargo install jev-curate` 安装 CLI，再把 TypeSafe AI 的密钥导出为环境变量 `TYPESAFE_API_KEY`。",
+      "code": "# Install via Cargo\ncargo install jev-curate\n\n# Set your TypeSafe AI key\nexport TYPESAFE_API_KEY=\"your-api-key\"\n\n# Filter a Parquet dataset using the math reasoning preset:\njev-curate filter train.parquet \\\n  --preset reasoning-math \\\n  --out ./output/ \\\n  --concurrency 32",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/AkashPriyadarshii/jev-curate/blob/837478efb70e16a14c97946007b9864711a4230a/README.md?plain=1#L50"
+      }
+    },
+    {
+      "title": "根据数据类型选择预设",
+      "text": "按数据内容选择 `--preset`：数学推理数据用 `reasoning-math`，对话数据用 `anti-sycophancy`，代码数据用 `code-correctness`。不指定时默认使用 `reasoning-math`。各预设评估的字段和保留阈值见 Presets 表。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/AkashPriyadarshii/jev-curate/blob/837478efb70e16a14c97946007b9864711a4230a/README.md?plain=1#L83"
+      }
+    },
+    {
+      "title": "先用 --dry-run 离线演练",
+      "text": "正式调用前，可以给 filter 加上 `--dry-run`。它会在本机做预过滤模拟，不发出任何 API 请求，也不需要 `TYPESAFE_API_KEY`，适合先检查输入文件和参数是否正确。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/AkashPriyadarshii/jev-curate/blob/837478efb70e16a14c97946007b9864711a4230a/README.md?plain=1#L83"
+      }
+    },
+    {
+      "title": "执行 filter 并查看输出",
+      "text": "运行 `jev-curate filter <文件> --preset ... --out ./output/ --concurrency 32`。结果会写入输出目录下的 `clean.jsonl` 和 `rejected.jsonl`；默认输出目录为 `./curated/`，默认并发为 32。",
+      "code": "# Install via Cargo\ncargo install jev-curate\n\n# Set your TypeSafe AI key\nexport TYPESAFE_API_KEY=\"your-api-key\"\n\n# Filter a Parquet dataset using the math reasoning preset:\njev-curate filter train.parquet \\\n  --preset reasoning-math \\\n  --out ./output/ \\\n  --concurrency 32",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/AkashPriyadarshii/jev-curate/blob/837478efb70e16a14c97946007b9864711a4230a/README.md?plain=1#L50"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "项目处于 Beta（v0.1.1），作者说明仍有不完善之处。",
+    "调用 Jev 需要付费：README 写明输入按 $0.042/Mtok 计费、输出不计费，单节点受 1,200 req/min 速率限制。价格和对比倍数均为文档自述，请以 TypeSafe 官方为准。",
+    "README 中的 24.0 rows/sec 是在本地 mock 基准 `examples/bench_mock.rs` 上测得的，1,500+ rows/sec 只是集群目标，并非实测结果。",
+    "Python 绑定 `PyJevCurator` 目前只有构造函数，逐行筛选请使用 CLI。"
+  ],
+  "references": [],
+  "media": [],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "e2e2a7bf7f7ac78956a3c7bcfe3e9d181ec0b095025d0168b0f998bff78bed6d",
+  "mediaStatus": "none_in_official_documents"
+}

@@ -1,0 +1,61 @@
+{
+  "schemaVersion": 1,
+  "key": "mliu98/awesome-human-distillation",
+  "status": "ready",
+  "reason": "",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/mliu98/awesome-human-distillation/blob/ded2e84dab2f09495309683b12eadec2644ba1e6/README.md",
+  "sourceRevision": "ded2e84dab2f09495309683b12eadec2644ba1e6",
+  "canonicalKey": "mliu98/awesome-human-distillation",
+  "summary": "这是一个资料清单，收集把同事、导师、亲友、公众人物等真实人物「蒸馏」成 Claude Code Agent Skill 的开源项目。",
+  "intro": "适合想了解或寻找「人物蒸馏」类 Agent Skill 的 Claude Code 用户和开发者。仓库本身不是应用，也不提供可安装的 Skill。它按关系类型分类整理各项目链接、作者和一句话描述，具体安装和使用方法要到对应项目的仓库中查看。也可以通过 Issue 提交新的条目。",
+  "requirements": "只查阅清单不需要任何准备。要使用其中列出的 Skill，需要 Claude Code 环境（README 说明这些项目面向 Claude Code Agent Skill），并按各项目仓库自己的说明操作。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "按关系分类浏览目录",
+      "text": "打开 README 的目录。条目分为「其他 / 泛用工具」「职场关系」「学术关系」「亲密关系」「家庭关系」「公众人物」六类，先按想蒸馏的对象类型选定分类。也可以切换到 README_EN.md 阅读英文版本。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/mliu98/awesome-human-distillation/blob/ded2e84dab2f09495309683b12eadec2644ba1e6/README.md?plain=1#L26"
+      }
+    },
+    {
+      "title": "对照描述挑选目标项目",
+      "text": "每个分类的表格列出名字、Skill 仓库链接、作者和描述。根据描述判断该项目处理的是什么材料，例如聊天记录、视频、PDF，或本地 Claude Code 会话记录，再判断它是蒸馏他人、蒸馏自己，还是提炼公众人物的思维框架。表格里的 Stars 徽章不代表质量评估。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/mliu98/awesome-human-distillation/blob/ded2e84dab2f09495309683b12eadec2644ba1e6/README.md?plain=1#L38"
+      }
+    },
+    {
+      "title": "进入原仓库查看用法",
+      "text": "点击 Skill 列的链接进入对应项目，阅读该项目自己的安装和使用说明，再在 Claude Code 中按其文档加载和调用。本清单不提供统一的安装命令，各项目的材料格式和使用方式可能不同。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/mliu98/awesome-human-distillation/blob/ded2e84dab2f09495309683b12eadec2644ba1e6/README.md?plain=1#L20"
+      }
+    },
+    {
+      "title": "提交新的 Skill 条目",
+      "text": "发现清单未收录的 Human Distillation Skill 时，可以通过仓库提供的 add-skill Issue 模板提交，README 称无需会用 GitHub。想自己制作的话，README 建议参考 colleague-skill 的结构，收集材料后发布到 GitHub 再提交到本列表。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/mliu98/awesome-human-distillation/blob/ded2e84dab2f09495309683b12eadec2644ba1e6/README.md?plain=1#L280"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "蒸馏真实人物需要用到对方的聊天记录、文字或声音材料，涉及他人隐私和同意问题，请谨慎处理并遵守相关法律。",
+    "部分条目涉及逝去的亲人、前任等情感场景，可能带来心理影响；各项目的护栏程度不一，需自行查看原仓库说明。",
+    "清单收录的是第三方项目，本仓库未说明经过审查；安装前请自行检查各仓库的代码与许可证。",
+    "本仓库未声明开源许可证。"
+  ],
+  "references": [],
+  "media": [],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "5d5185ee9537a826821d5db83fc0bd2d7794cdaed0030b4898c464ccc09f76eb",
+  "mediaStatus": "none_in_official_documents"
+}

@@ -1,0 +1,82 @@
+{
+  "schemaVersion": 1,
+  "key": "galacean/effects-runtime",
+  "status": "ready",
+  "reason": "",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/galacean/effects-runtime/blob/07ee4fad186f2f16af96112e533f687309b50810/README.md",
+  "sourceRevision": "07ee4fad186f2f16af96112e533f687309b50810",
+  "canonicalKey": "galacean/effects-runtime",
+  "summary": "Galacean Effects 的 Web 运行时，可在网页中加载并播放由 Galacean Effects 编辑器导出的图层、粒子等动效。",
+  "intro": "适合需要在网页中播放动效的前端开发者，以及希望通过 effects-core 提供的 API 让自有引擎读取图层、粒子等动画数据的引擎开发者。典型做法是先用 Galacean Effects 编辑器制作动效并导出 JSON 产物，再在页面中用 Player 加载播放。",
+  "requirements": "一个使用 npm（或 pnpm）管理依赖的前端项目；页面中需要一个容器 DOM 元素；需要由 Galacean Effects 编辑器导出的动效产物（如 demo.json）。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "用 npm 安装 effects 包",
+      "text": "在前端项目根目录用 npm 安装 @galacean/effects。README 同时给出 pnpm add 的写法，二者任选其一即可，这里以 npm 为例。",
+      "code": "npm install @galacean/effects",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/galacean/effects-runtime/blob/07ee4fad186f2f16af96112e533f687309b50810/README.md?plain=1#L34"
+      }
+    },
+    {
+      "title": "从编辑器导出动效产物",
+      "text": "在 Galacean Effects 编辑器中制作或打开动效，并导出 JSON 产物（README 中以 demo.json 为例），把它放到页面可以访问到的路径下。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/galacean/effects-runtime/blob/07ee4fad186f2f16af96112e533f687309b50810/README.md?plain=1#L44"
+      }
+    },
+    {
+      "title": "在页面中放置播放容器",
+      "text": "在 HTML 中添加一个带 id 的容器元素（示例为 J-Container），播放器会把动效渲染到这个容器里。",
+      "code": "<div id=\"J-Container\"></div>",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/galacean/effects-runtime/blob/07ee4fad186f2f16af96112e533f687309b50810/README.md?plain=1#L44"
+      }
+    },
+    {
+      "title": "创建 Player 并加载场景",
+      "text": "从 @galacean/effects 导入 Player，以容器元素实例化播放器，再调用 loadScene 传入动效 JSON 的路径，即可加载并播放。更多参数请参考官方接入指南和 API 文档。",
+      "code": "import { Player } from '@galacean/effects';\n\n// 1. Instantiate a player\nconst player = new Player({\n  container: document.getElementById('J-Container'),\n});\n\n// 2. Load and play the animation resource\nplayer.loadScene('./demo.json');",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/galacean/effects-runtime/blob/07ee4fad186f2f16af96112e533f687309b50810/README.md?plain=1#L44"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "使用 @galacean/effects-plugin-spine 插件（2D 骨骼动画）时，每位使用者都必须持有有效的 Spine Editor 许可证；Galacean Effects 不承担 Spine 授权费用。",
+    "动效产物需通过 Galacean Effects 编辑器获取，README 未说明手写 JSON 的格式。",
+    "原生客户端版本在单独的 effects-native 仓库中，本仓库面向 Web 运行时。"
+  ],
+  "references": [
+    {
+      "label": "README-zh_CN.md",
+      "url": "https://github.com/galacean/effects-runtime/blob/07ee4fad186f2f16af96112e533f687309b50810/README-zh_CN.md"
+    }
+  ],
+  "media": [],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "595247b595ddd6ec6cc34faaed6f3969601a8d390787fa2f4577751d4b056fae",
+  "mediaStatus": "unavailable",
+  "mediaFailures": [
+    {
+      "sourceUrl": "https://github.com/galacean/effects-runtime/blob/07ee4fad186f2f16af96112e533f687309b50810/README.md#L16",
+      "reason": "unsupported_media_host"
+    },
+    {
+      "sourceUrl": "https://github.com/galacean/effects-runtime/blob/07ee4fad186f2f16af96112e533f687309b50810/README.md#L17",
+      "reason": "unsupported_media_host"
+    },
+    {
+      "sourceUrl": "https://github.com/galacean/effects-runtime/blob/07ee4fad186f2f16af96112e533f687309b50810/README.md#L18",
+      "reason": "unsupported_media_host"
+    }
+  ]
+}

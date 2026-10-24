@@ -1,0 +1,61 @@
+{
+  "schemaVersion": 1,
+  "key": "zippland/perler-beads",
+  "status": "ready",
+  "reason": "",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/Zippland/perler-beads/blob/2efee730f73dd4eb472ebde443a022d11f98bc21/README.md",
+  "sourceRevision": "2efee730f73dd4eb472ebde443a022d11f98bc21",
+  "canonicalKey": "Zippland/perler-beads",
+  "summary": "perler-beads 把任意图片转换成拼豆底稿，自动映射品牌色号、清理杂色，并导出图纸和采购清单。",
+  "intro": "适合想把图片做成拼豆作品的爱好者，也适合想研究或改进拼豆配色算法的开发者。它提供 MARD、COCO、漫漫、盼盼、咪小窝五个品牌色号体系，支持背景移除、颜色排除与重映射、单格手动修改，可导出带色号和网格线的 PNG 图纸及颜色用量清单。维护者另运营了免费在线版：移动端为 perlerbeadsold.zippland.com，桌面端为 perlerbeads.zippland.com。",
+  "requirements": "直接使用在线版只需要浏览器。本地运行需要 git 和 npm（Node.js 环境），项目基于 Next.js，图像处理在浏览器端完成。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "克隆仓库并启动开发服务",
+      "text": "在本地克隆仓库，进入 perler-beads 目录，执行 npm install 安装依赖，再执行 npm run dev 启动开发服务。如果不想本地部署，也可以直接打开 README 中给出的移动端或桌面端在线地址。",
+      "code": "git clone https://github.com/Zippland/perler-beads.git\ncd perler-beads\nnpm install\nnpm run dev",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/Zippland/perler-beads/blob/2efee730f73dd4eb472ebde443a022d11f98bc21/README.md?plain=1#L31"
+      }
+    },
+    {
+      "title": "在浏览器打开本地页面",
+      "text": "启动后，在浏览器中访问 http://localhost:3000 进入工具页面。README 说明移动端（竖屏）适合快速生成，桌面端（横屏）是完整工作台，更适合精细编辑。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/Zippland/perler-beads/blob/2efee730f73dd4eb472ebde443a022d11f98bc21/README.md?plain=1#L31"
+      }
+    },
+    {
+      "title": "选择品牌色板并调整杂色合并",
+      "text": "按手头的拼豆品牌选择色号体系和色板规格（如 168、144、96 色）。工具会按主导色映射颜色，并通过可调的相似度阈值合并杂色；不需要的颜色可以排除，系统会自动重映射到最接近的可用色。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/Zippland/perler-beads/blob/2efee730f73dd4eb472ebde443a022d11f98bc21/README.md?plain=1#L20"
+      }
+    },
+    {
+      "title": "精修后导出图纸和采购清单",
+      "text": "需要时对单个像素格手动着色修改，然后下载带色号标注和网格线的 PNG 图纸用于打印，同时导出按颜色统计用量的采购清单图。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/Zippland/perler-beads/blob/2efee730f73dd4eb472ebde443a022d11f98bc21/README.md?plain=1#L20"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "README 声明许可证为 AGPL-3.0（仓库元数据显示为 NOASSERTION）。衍生作品须保留原始版权声明并以相同协议开源，作者明确反对把代码包装为闭源商业产品。",
+    "颜色距离目前使用 RGB 欧氏距离；CIEDE2000、抖动、自定义色板上传等仍在 Roadmap 中，尚未提供。",
+    "色板数据位于 src/app/colorSystemMapping.json，实际色号以该文件为准。"
+  ],
+  "references": [],
+  "media": [],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "f35561821c3810639b1b7575200cddc71e10d4c2177c123a3f4566c57404ca48",
+  "mediaStatus": "none_in_official_documents"
+}

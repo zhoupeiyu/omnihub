@@ -1,0 +1,63 @@
+{
+  "schemaVersion": 1,
+  "key": "cloudflare/security-audit-skill",
+  "status": "ready",
+  "reason": "",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/cloudflare/security-audit-skill/blob/c1c8a8c1471069fb0e188eeaff69b8e8db6564a8/README.md",
+  "sourceRevision": "c1c8a8c1471069fb0e188eeaff69b8e8db6564a8",
+  "canonicalKey": "cloudflare/security-audit-skill",
+  "summary": "security-audit 是一个编码智能体技能，用多阶段流程对代码库做安全审计，并输出经过独立验证、机器可读的发现记录。",
+  "intro": "适合需要对自有或已授权代码库做安全审计的开发者和安全工程师。它让编码智能体分六个阶段工作：侦察、按覆盖账本分配猎查、候选漏洞验证、结构化输出、独立记录复核、生成报告。产物包括 findings.json、coverage-ledger.json、REPORT.md 等。对同一仓库多次运行时，结果会累加，用于补齐覆盖缺口。",
+  "requirements": "需要一个编码智能体，其模型支持工具调用和并行子智能体。需要 Node.js，用于运行零依赖的 findings 和 coverage-ledger 校验器。还需要操作系统级沙箱来执行目标代码：禁用外网、使用净化后的白名单环境、限制资源、只允许写入指定临时路径。安装技能需使用 Skills CLI（npx skills）。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "准备运行目标代码的隔离沙箱",
+      "text": "确认智能体支持工具调用和并行子智能体，本机已安装 Node.js。为构建、测试、模糊测试等目标代码执行准备 OS 级沙箱：禁外网、限资源、仅写临时目录。没有沙箱时，相关线索只会保持 needs_validation，不会执行目标代码。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/cloudflare/security-audit-skill/blob/c1c8a8c1471069fb0e188eeaff69b8e8db6564a8/README.md?plain=1#L86"
+      }
+    },
+    {
+      "title": "用 Skills CLI 安装技能",
+      "text": "运行 npx skills add 安装 security-audit 技能。需要用户级安装时加 --global 参数。选择具体智能体或使用非交互选项，可运行 npx skills --help 查看。",
+      "code": "npx skills add https://github.com/cloudflare/security-audit-skill \\\n  --skill security-audit\n\nnpx skills add https://github.com/cloudflare/security-audit-skill \\\n  --skill security-audit \\\n  --global",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/cloudflare/security-audit-skill/blob/c1c8a8c1471069fb0e188eeaff69b8e8db6564a8/README.md?plain=1#L49"
+      }
+    },
+    {
+      "title": "在目标代码库中发起审计请求",
+      "text": "在要审计的代码库中启动编码智能体，然后用自然语言请求审计，例如审计整个代码库、只查 ./src，或指定输出目录。直接请求审计或渗透测试会进入完整审计模式；一般安全问题则进入指导模式。",
+      "code": "security audit this codebase\n\nfind security vulnerabilities in ./src\n\ndo a security review, output to ~/audits/my-project",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/cloudflare/security-audit-skill/blob/c1c8a8c1471069fb0e188eeaff69b8e8db6564a8/README.md?plain=1#L68"
+      }
+    },
+    {
+      "title": "查阅已验证的发现与报告",
+      "text": "未指定输出目录时，产物默认写入 ~/security-audit-skill/<repo-name>/run-<N>。在 findings.json 中区分三种结论：confirmed、needs_validation、rejected。再阅读由已验证记录生成的 REPORT.md、FINDINGS-DETAIL.md 和 NEEDS-VALIDATION.md。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/cloudflare/security-audit-skill/blob/c1c8a8c1471069fb0e188eeaff69b8e8db6564a8/README.md?plain=1#L7"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "只应审计自有或已获授权的代码库。",
+    "缺少满足要求的 OS 级沙箱时，工作流不会执行目标代码，相关线索会停留在 needs_validation。",
+    "只有在你显式指定一个被版本控制忽略的目录时，工作流才会写入目标仓库内部。",
+    "README 提到在其测试中单次运行约发现多次运行总量的一半漏洞，覆盖面依赖重复运行。"
+  ],
+  "references": [],
+  "media": [],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "55e793bbea3563f8246735997c07aaee360e043eeb626f0b56ea6161c8618ae7",
+  "mediaStatus": "none_in_official_documents"
+}

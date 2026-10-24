@@ -1,0 +1,94 @@
+{
+  "schemaVersion": 1,
+  "key": "eternityspring/shuohao-skills",
+  "status": "ready",
+  "reason": "",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/eternityspring/shuohao-skills/blob/ef4ac0c313c7eeb1f918db5f0f0eb319745900bc/README.md",
+  "sourceRevision": "ef4ac0c313c7eeb1f918db5f0f0eb319745900bc",
+  "canonicalKey": "eternityspring/shuohao-skills",
+  "summary": "一组供 Claude Code 和 codex 使用的 AI 短剧制作 skill，可以把小说依次整理为改编大纲、角色设定、美术设定、剧本和分镜素材。",
+  "intro": "适合用 AI 编码 agent 做短剧改编的创作者和制作者。仓库包含 novel-outline、novel-characters、novel-art、novel-script、novel-storyboard 五段管线 skill，分别负责大纲五件套、角色设定集、场景与道具设定、剧本台词本和分镜投产包。另有 character-refs，可为任意故事角色生成参考图。各段报告可以用 report.mjs 合成一张单页查看。",
+  "requirements": "Node ≥ 18。skill 脚本只用标准库，不需要 npm install。本机需装有 Claude Code 或 codex 作为运行环境，并消耗当前会话的模型额度，不需要 API key。只有 character-refs 需要出图模型，四选一：自己的 ComfyUI（Qwen Image）、本机 codex 内置出图、OpenAI API key（GPT Image 2）或自定义命令。作者只在 macOS + Node 24 上验证过。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "克隆仓库并运行安装脚本",
+      "text": "以 macOS 为例，克隆仓库后在根目录执行 ./scripts/install.sh。脚本会自动检测本机装的是 Claude Code 还是 codex，并把所有 skill 软链过去。之后 git pull 即可生效，不用重装。",
+      "code": "git clone https://github.com/eternityspring/shuohao-skills.git\ncd shuohao-skills\n./scripts/install.sh",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/eternityspring/shuohao-skills/blob/ef4ac0c313c7eeb1f918db5f0f0eb319745900bc/README.md?plain=1#L88"
+      }
+    },
+    {
+      "title": "按需只装单个 skill 或指定宿主",
+      "text": "该步骤涉及需要人工核查的高权限、远程脚本或破坏性操作。本站不提供直接执行指令，请先查看官方说明并确认影响。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/eternityspring/shuohao-skills/blob/ef4ac0c313c7eeb1f918db5f0f0eb319745900bc/README.md?plain=1#L88"
+      }
+    },
+    {
+      "title": "运行全部自测确认脚本可用",
+      "text": "每个 skill 都带有 scripts/selftest.mjs。自测不调用模型、不花额度，覆盖全部确定性逻辑。用循环逐个执行一遍，可以确认本机的 Node 环境能正常运行这些脚本。",
+      "code": "for f in skills/*/scripts/selftest.mjs; do node \"$f\"; done",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/eternityspring/shuohao-skills/blob/ef4ac0c313c7eeb1f918db5f0f0eb319745900bc/README.md?plain=1#L120"
+      }
+    },
+    {
+      "title": "按五段目录约定组织工作目录",
+      "text": "从小说跑完整管线时，建议为 outline、characters、art、script、storyboard 各建一个目录，存放对应的 json、md、html 产物。分镜的段文件夹不要再收进下一层目录，否则报告里的图会静默变成「未生成」占位。",
+      "code": "<demo>/\n├── outline/       ← novel-outline 产出：<剧>-outline.json / .md / -report.html\n├── characters/    ← novel-characters 产出：<剧>-cast.json / .md / -report.html\n├── art/           ← novel-art 产出：<剧>-art.json / .md / -report.html\n├── script/        ← novel-script 产出：<剧>-script.json / .md / -report.html\n├── storyboard/    ← novel-storyboard 产出：<剧>-storyboard.json / .md / -report.html\n│   ├── manifest.json  ← export 产出\n│   ├── E01-01/        ← export 的分镜投产包，每段一个文件夹（prompt.md + f1..fN.png）\n│   ├── E01-02/\n│   └── …\n├── docs/          ← 自己写的使用说明、PR 草稿等（与机器产物解耦）\n└── scripts/       ← 跑管线的辅助脚本（探索期脚本用 _ 前缀保留溯源）",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/eternityspring/shuohao-skills/blob/ef4ac0c313c7eeb1f918db5f0f0eb319745900bc/README.md?plain=1#L149"
+      }
+    },
+    {
+      "title": "把各段报告合成一张单页",
+      "text": "在仓库中执行 scripts/report.mjs，用 --from 指向 demo 目录，脚本会自动发现各段的 json；也可以用 --outline、--cast 等参数逐个指定。已经跑过哪几段就生成哪几个面板，缺少的段不会报错。",
+      "code": "node scripts/report.mjs --from <demo目录> --out report.html",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/eternityspring/shuohao-skills/blob/ef4ac0c313c7eeb1f918db5f0f0eb319745900bc/README.md?plain=1#L36"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "五段管线 skill 运行时会消耗当前 Claude Code 或 codex 会话的模型额度。",
+    "character-refs 选择 codex 内置出图时会占用 ChatGPT 订阅额度，选择 GPT Image 2 时需要 OpenAI API key。",
+    "作者只在 macOS + Node 24 上验证过，Linux 和更低版本的 Node 未经验证。",
+    "分镜报告依赖相对路径找图。段文件夹位置不对时，报告不会报错，图片会静默显示为占位。",
+    "README 中提到的付费交流群和 ReelBench 工作台都是独立服务，不属于本仓库的功能。"
+  ],
+  "references": [],
+  "media": [
+    {
+      "url": "/assets/repository-guides/media-edd70276f7b1f619018e3cd2.webp",
+      "alt": "eternityspring/shuohao-skills 官方演示 1",
+      "sourceUrl": "https://github.com/eternityspring/shuohao-skills/blob/ef4ac0c313c7eeb1f918db5f0f0eb319745900bc/README.md?plain=1#L64",
+      "originalUrl": "https://raw.githubusercontent.com/eternityspring/shuohao-skills/ef4ac0c313c7eeb1f918db5f0f0eb319745900bc/skills/novel-outline/assets/report.webp"
+    },
+    {
+      "url": "/assets/repository-guides/media-8f18efb89a854c2bb712ad08.webp",
+      "alt": "eternityspring/shuohao-skills 官方演示 2",
+      "sourceUrl": "https://github.com/eternityspring/shuohao-skills/blob/ef4ac0c313c7eeb1f918db5f0f0eb319745900bc/README.md?plain=1#L68",
+      "originalUrl": "https://raw.githubusercontent.com/eternityspring/shuohao-skills/ef4ac0c313c7eeb1f918db5f0f0eb319745900bc/skills/novel-characters/assets/report.webp"
+    },
+    {
+      "url": "/assets/repository-guides/media-265cf3a97d0d75e151b39cda.webp",
+      "alt": "eternityspring/shuohao-skills 官方演示 3",
+      "sourceUrl": "https://github.com/eternityspring/shuohao-skills/blob/ef4ac0c313c7eeb1f918db5f0f0eb319745900bc/README.md?plain=1#L80",
+      "originalUrl": "https://raw.githubusercontent.com/eternityspring/shuohao-skills/ef4ac0c313c7eeb1f918db5f0f0eb319745900bc/skills/novel-storyboard/assets/report.webp"
+    }
+  ],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "2f7bc319ce325d96d21d4a0711384515ae469e4a821f8072bfd3a794fedc99c5",
+  "mediaStatus": "archived",
+  "mediaFailures": []
+}

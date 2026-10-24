@@ -1,0 +1,84 @@
+{
+  "schemaVersion": 1,
+  "key": "kittors/clirelay",
+  "status": "ready",
+  "reason": "",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/kittors/CliRelay/blob/6477b9b747414dc15d001dd9669df6b312b19e24/README.md",
+  "sourceRevision": "6477b9b747414dc15d001dd9669df6b312b19e24",
+  "canonicalKey": "kittors/CliRelay",
+  "summary": "CliRelay 是自托管的 AI 网关，把多种 AI CLI 订阅、OAuth 凭据和 API Key 统一成一个兼容 OpenAI / Claude / Gemini / Codex 的接口，并配有多租户 Web 管理面板。",
+  "intro": "适合需要为个人或团队统一管理 AI 编程工具上游的运维者或团队管理员。它可以让 Claude Code、Gemini CLI、Codex 等客户端通过 `http://localhost:8317` 访问多个上游，并在 `/manage` 面板里配置渠道分组和故障切换、按 Key 设置配额与限流、查看 PostgreSQL 中的请求日志，以及管理租户、用户、角色和审计日志。",
+  "requirements": "需要 git 和 Docker Compose。官方推荐的 Compose 方式会同时启动 CliRelay、PostgreSQL 15、Redis 7 和 updater sidecar。还需要准备要接入的上游 API Key 或 OAuth 凭据。在 Linux 上使用 bind mount 时，需要让 UID 10001 拥有写权限。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "克隆仓库并用 Compose 启动",
+      "text": "克隆仓库并进入目录，执行 `docker compose up -d`。首次启动时，clirelay-init 会自动生成 `.env`，包括 CLIRELAY_ADMIN_PASSWORD 等随机密钥；如果缺少 `config.yaml`，还会从 config.example.yaml 生成。Linux bind mount 需先按注释把 auths、logs、data 的属主改为 10001:10001。 原文包含需人工核查的高权限或删除命令，本站不提供一键复制；请查看该步骤的官方出处。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/kittors/CliRelay/blob/6477b9b747414dc15d001dd9669df6b312b19e24/README.md?plain=1#L260"
+      }
+    },
+    {
+      "title": "编辑 config.yaml 后重启服务",
+      "text": "打开生成的 `config.yaml`，加入上游 API Key 或 OAuth 凭据，然后重启 cli-proxy-api。确保该文件对容器用户 10001 可读；如果要在面板里保存配置，还需要写权限。需要 OAuth 登录时，可用 `docker compose exec cli-proxy-api ./cli-proxy-api -login`。",
+      "code": "docker compose restart cli-proxy-api",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/kittors/CliRelay/blob/6477b9b747414dc15d001dd9669df6b312b19e24/README.md?plain=1#L260"
+      }
+    },
+    {
+      "title": "登录 /manage 面板创建客户端 Key",
+      "text": "访问 `http://localhost:8317/manage`，用 admin 账户登录，初始密码是 `.env` 中的 CLIRELAY_ADMIN_PASSWORD。默认情况下 `/v1`、`/v1beta` 路由必须带 API Key，而生成的配置里没有任何 Key，所以要先在 API Keys 页面创建一个。示例里的 `your-api-key-*` 是占位符，始终会被拒绝。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/kittors/CliRelay/blob/6477b9b747414dc15d001dd9669df6b312b19e24/README.md?plain=1#L260"
+      }
+    },
+    {
+      "title": "将客户端指向统一接口",
+      "text": "把 AI 编程工具或其他 OpenAI 兼容客户端的接口地址设为 `http://localhost:8317`，并使用上一步创建的 Key。之后可在面板中配置渠道分组、故障切换、每个 Key 的配额与限流，查看请求日志。运行日志用 `docker compose logs -f cli-proxy-api` 查看。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/kittors/CliRelay/blob/6477b9b747414dc15d001dd9669df6b312b19e24/README.md?plain=1#L260"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "设置 `allow-unauthenticated: true` 后，客户端无需 Key 即可访问，官方不建议在生产环境使用。",
+    "请求日志会把完整的请求/响应消息内容压缩存入 PostgreSQL，部署时需考虑数据保留期限和隐私问题。",
+    "通过网关转发 AI 订阅或 OAuth 凭据时，请自行确认各上游服务的使用条款是否允许。",
+    "自定义的 CLIRELAY_ADMIN_PASSWORD 至少 12 位，且须包含大写字母、小写字母和非字母数字字符；不符合规则的值会在下次启动时被替换。",
+    "默认开启在线更新检查（stable 通道），可在 `config.yaml` 的 auto-update 中关闭，或切换到 dev 通道。",
+    "本项目是 CLIProxyAPI 的分支；多实例部署和团队部署清单见仓库 docs 目录。"
+  ],
+  "references": [],
+  "media": [
+    {
+      "url": "/assets/repository-guides/media-c2ded787d6bafd37a89f496a.webp",
+      "alt": "kittors/CliRelay 官方演示 1",
+      "sourceUrl": "https://github.com/kittors/CliRelay/blob/6477b9b747414dc15d001dd9669df6b312b19e24/README.md?plain=1#L174",
+      "originalUrl": "https://raw.githubusercontent.com/kittors/CliRelay/6477b9b747414dc15d001dd9669df6b312b19e24/docs/images/readme-showcase/dashboard.png"
+    },
+    {
+      "url": "/assets/repository-guides/media-0999ea83f4e93c9ef90632b4.webp",
+      "alt": "kittors/CliRelay 官方演示 2",
+      "sourceUrl": "https://github.com/kittors/CliRelay/blob/6477b9b747414dc15d001dd9669df6b312b19e24/README.md?plain=1#L184",
+      "originalUrl": "https://raw.githubusercontent.com/kittors/CliRelay/6477b9b747414dc15d001dd9669df6b312b19e24/docs/images/readme-showcase/ai-providers.png"
+    },
+    {
+      "url": "/assets/repository-guides/media-faf5a20aff526593b1e15c67.webp",
+      "alt": "kittors/CliRelay 官方演示 3",
+      "sourceUrl": "https://github.com/kittors/CliRelay/blob/6477b9b747414dc15d001dd9669df6b312b19e24/README.md?plain=1#L178",
+      "originalUrl": "https://raw.githubusercontent.com/kittors/CliRelay/6477b9b747414dc15d001dd9669df6b312b19e24/docs/images/readme-showcase/request-logs.png"
+    }
+  ],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "5d989478f0dc47f64e441ae4f23f7501a8afb2621ac4848931b871008b0bb563",
+  "mediaStatus": "archived",
+  "mediaFailures": []
+}

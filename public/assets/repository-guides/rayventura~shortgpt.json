@@ -1,0 +1,53 @@
+{
+  "schemaVersion": 1,
+  "key": "rayventura/shortgpt",
+  "status": "partial",
+  "reason": "README 给出了 Docker 构建和运行命令，但运行时需要的 .env 文件中具体有哪些变量（如 OpenAI、ElevenLabs、Pexels 等服务的密钥名）未在提供材料中说明，相关细节指向的 installation-notes.md 也未提供；Web 界面的具体操作流程同样没有文字说明。",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/RayVentura/ShortGPT/blob/3df4e0f7a422bf7386565d498bf4521a2544c614/README.md",
+  "sourceRevision": "3df4e0f7a422bf7386565d498bf4521a2544c614",
+  "canonicalKey": "RayVentura/ShortGPT",
+  "summary": "ShortGPT 是一个实验性的 AI 视频自动化框架，用于自动生成短视频与长视频的脚本、配音、字幕和素材，并支持视频翻译配音。",
+  "intro": "适合想尝试用 AI 自动制作 YouTube Shorts、TikTok 等短内容的创作者或开发者。框架包含用于短视频的 ContentShortEngine、用于长视频的 ContentVideoEngine、用于视频转录翻译并重新配音的 ContentTranslationEngine，以及面向大模型的 EditingEngine；配音可使用 ElevenLabs 或 EdgeTTS，素材可从 Pexels 和 Bing Image 获取。",
+  "requirements": "本地运行需要 Docker；运行容器时需提供 .env 文件（具体变量需参考仓库中的 installation-notes.md）；功能依赖 OpenAI、ElevenLabs、Pexels 等外部服务。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "准备 Docker 与 .env 文件",
+      "text": "本地运行 ShortGPT 需要先安装 Docker。在仓库根目录准备容器使用的 .env 文件，其中所需的服务密钥等变量需按仓库中 installation-notes.md 的说明填写，提供材料中未列出具体变量名。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/RayVentura/ShortGPT/blob/3df4e0f7a422bf7386565d498bf4521a2544c614/README.md?plain=1#L71"
+      }
+    },
+    {
+      "title": "构建并运行 Docker 镜像",
+      "text": "在仓库根目录用代码块中的 docker build 构建 short_gpt_docker 镜像，再用 docker run 通过 --env-file .env 传入配置，并映射 31415 端口启动容器。",
+      "code": "docker build -t short_gpt_docker:latest .\ndocker run -p 31415:31415 --env-file .env short_gpt_docker:latest",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/RayVentura/ShortGPT/blob/3df4e0f7a422bf7386565d498bf4521a2544c614/README.md?plain=1#L75"
+      }
+    },
+    {
+      "title": "打开本地 Gradio 网页界面",
+      "text": "容器启动后，在浏览器访问 http://localhost:31415 打开 Gradio 界面，在其中使用 ShortGPT 的视频生成功能。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/RayVentura/ShortGPT/blob/3df4e0f7a422bf7386565d498bf4521a2544c614/README.md?plain=1#L84"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "项目自称实验性框架，README 注明更多文档仍在补充中。",
+    "脚本生成依赖 OpenAI，配音可用 ElevenLabs，素材依赖 Pexels API，这些外部服务需要各自账号和密钥，可能产生费用。",
+    "官方另外推荐使用 Google Colab 笔记本运行，从上到下依次执行单元格即可，无需本地安装；这是与 Docker 不同的另一条路径。"
+  ],
+  "references": [],
+  "media": [],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "1acbaa17ea48a5c200ab19a7363f294583d73ee6aa4b44fe1d8ff7520fa3e88e",
+  "mediaStatus": "none_in_official_documents"
+}

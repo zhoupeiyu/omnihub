@@ -1,0 +1,98 @@
+{
+  "schemaVersion": 1,
+  "key": "bethington/ghidra-mcp",
+  "status": "ready",
+  "reason": "",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/bethington/ghidra-mcp/blob/d66702c63b7149453d0686e58f7fb29f3140d5d3/README.md",
+  "sourceRevision": "d66702c63b7149453d0686e58f7fb29f3140d5d3",
+  "canonicalKey": "bethington/ghidra-mcp",
+  "summary": "把 Ghidra 逆向分析能力以 MCP 工具形式提供给 AI 客户端的服务器与 Ghidra 插件。",
+  "intro": "适合使用 Ghidra 做二进制逆向、并希望让 Cursor、Claude 等 MCP 客户端直接读取和修改分析结果的逆向工程人员。项目提供 GUI 插件与 headless 模式，工具覆盖重命名、类型设置、注释、结构体创建、脚本执行、P-code 模拟、调试器集成等写操作，并附带函数文档化、批量文档化、孤立代码发现等工作流提示词（docs/prompts）。以下以 Linux（Ubuntu/Debian）官方路径为例。",
+  "requirements": "Java 21 LTS（推荐 OpenJDK）、Apache Maven 3.9+、Ghidra 12.1.3（或兼容版本）、Python 3.10+，推荐使用 uv（或 pip + venv）。连接共享 Ghidra Server 时，服务器需为 12.1、12.0.5 或更新的兼容版本。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "克隆 ghidra-mcp 仓库",
+      "text": "在 Ubuntu/Debian 上克隆仓库并进入目录，后续 tools.setup 命令都在仓库根目录执行。",
+      "code": "   git clone https://github.com/bethington/ghidra-mcp.git\n   cd ghidra-mcp",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/bethington/ghidra-mcp/blob/d66702c63b7149453d0686e58f7fb29f3140d5d3/README.md?plain=1#L195"
+      }
+    },
+    {
+      "title": "安装 JDK、Maven 等系统依赖",
+      "text": "用 apt 安装 openjdk-21-jdk、maven、python3、python3-venv 等。Debian 12+、Kali、Ubuntu 23.04+ 受 PEP 668 限制，不能全局 pip install，应使用 uv 或虚拟环境，不要加 --break-system-packages。 原文包含需人工核查的高权限或删除命令，本站不提供一键复制；请查看该步骤的官方出处。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/bethington/ghidra-mcp/blob/d66702c63b7149453d0686e58f7fb29f3140d5d3/README.md?plain=1#L195"
+      }
+    },
+    {
+      "title": "运行环境预检 preflight",
+      "text": "把 --ghidra-path 指向本机的 Ghidra 12.1.3 安装目录（示例为 ~/ghidra_12.1.3_PUBLIC），运行 preflight 检查环境是否满足构建与部署要求。",
+      "code": "   python -m tools.setup preflight --ghidra-path ~/ghidra_12.1.3_PUBLIC",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/bethington/ghidra-mcp/blob/d66702c63b7149453d0686e58f7fb29f3140d5d3/README.md?plain=1#L195"
+      }
+    },
+    {
+      "title": "构建并部署扩展到 Ghidra",
+      "text": "依次执行 ensure-prereqs、build、deploy。会把 Ghidra JAR 装入 ~/.m2、用 Maven 构建 GhidraMCP-<version>.zip、解压到 ~/.config/ghidra/ghidra_<version>_PUBLIC/Extensions/，并安装 Python 依赖。",
+      "code": "   python -m tools.setup ensure-prereqs --ghidra-path ~/ghidra_12.1.3_PUBLIC\n   python -m tools.setup build\n   python -m tools.setup deploy --ghidra-path ~/ghidra_12.1.3_PUBLIC",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/bethington/ghidra-mcp/blob/d66702c63b7149453d0686e58f7fb29f3140d5d3/README.md?plain=1#L195"
+      }
+    },
+    {
+      "title": "在 MCP 客户端配置绝对路径",
+      "text": "在 Cursor/Claude 的 MCP 配置中，command 填写 uv 的绝对路径（用 which uv 查询），不要只写 uv。从桌面图标或 systemd 启动的客户端不继承 shell 的 PATH，否则会出现 spawn uv ENOENT。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/bethington/ghidra-mcp/blob/d66702c63b7149453d0686e58f7fb29f3140d5d3/README.md?plain=1#L266"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "扩展 zip 必须与所用 Ghidra 版本完全匹配，为 12.1.3 构建的包不能在 12.1.4 中加载。",
+    "Ghidra 12.1.3 的 Jython 为可选扩展，ghidra_scripts/ 中的 .py 脚本需先通过 File > Install Extensions 安装 Jython 并重启 Ghidra。",
+    "工具具备重命名、改类型、执行脚本等写权限，会直接修改 Ghidra 项目内容。",
+    "deploy 会在需要时保存并关闭正在运行的匹配 Ghidra 实例，并修改 Ghidra 用户配置。",
+    "Docker 模式默认绑定 0.0.0.0（端口 8089），对外暴露前需考虑访问控制。"
+  ],
+  "references": [
+    {
+      "label": "docs/INSTALL_GUI.md",
+      "url": "https://github.com/bethington/ghidra-mcp/blob/d66702c63b7149453d0686e58f7fb29f3140d5d3/docs/INSTALL_GUI.md"
+    }
+  ],
+  "media": [
+    {
+      "url": "/assets/repository-guides/media-886f213be69330c96f8646c9.webp",
+      "alt": "bethington/ghidra-mcp 官方演示 1",
+      "sourceUrl": "https://github.com/bethington/ghidra-mcp/blob/d66702c63b7149453d0686e58f7fb29f3140d5d3/docs/INSTALL_GUI.md?plain=1#L58",
+      "originalUrl": "https://raw.githubusercontent.com/bethington/ghidra-mcp/d66702c63b7149453d0686e58f7fb29f3140d5d3/docs/images/install/02-file-menu-install-extensions.png"
+    },
+    {
+      "url": "/assets/repository-guides/media-d733937fd34457dce584a325.webp",
+      "alt": "bethington/ghidra-mcp 官方演示 2",
+      "sourceUrl": "https://github.com/bethington/ghidra-mcp/blob/d66702c63b7149453d0686e58f7fb29f3140d5d3/docs/INSTALL_GUI.md?plain=1#L98",
+      "originalUrl": "https://raw.githubusercontent.com/bethington/ghidra-mcp/d66702c63b7149453d0686e58f7fb29f3140d5d3/docs/images/install/07-utility-plugins-ghidramcp.png"
+    },
+    {
+      "url": "/assets/repository-guides/media-4e77804b6e71ca2d3fce5b8f.webp",
+      "alt": "bethington/ghidra-mcp 官方演示 3",
+      "sourceUrl": "https://github.com/bethington/ghidra-mcp/blob/d66702c63b7149453d0686e58f7fb29f3140d5d3/docs/INSTALL_GUI.md?plain=1#L114",
+      "originalUrl": "https://raw.githubusercontent.com/bethington/ghidra-mcp/d66702c63b7149453d0686e58f7fb29f3140d5d3/docs/images/install/09-server-status.png"
+    }
+  ],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "2bd121a2dcd05a36dc260e69d725dea79d8947659f18969219fe8ee3a4e6ac42",
+  "mediaStatus": "archived",
+  "mediaFailures": []
+}

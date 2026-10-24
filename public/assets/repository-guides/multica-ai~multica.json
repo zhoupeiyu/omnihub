@@ -1,0 +1,82 @@
+{
+  "schemaVersion": 1,
+  "key": "multica-ai/multica",
+  "status": "ready",
+  "reason": "",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/multica-ai/multica/blob/43b0571f992567a919c7f1f699ff160922594b94/README.md",
+  "sourceRevision": "43b0571f992567a919c7f1f699ff160922594b94",
+  "canonicalKey": "multica-ai/multica",
+  "summary": "Multica 是一个可自托管的团队工作区，可以像给同事派活一样，把 issue 分配给 Claude Code、Codex 等 AI 编码智能体执行并交回审核。",
+  "intro": "适合同时使用多个编码智能体、希望统一管理任务和上下文的开发团队。智能体在你自己控制的运行时上工作，执行过程中会在 issue 下评论进展，完成后把结果移到审核状态。工作区提供执行日志、用量统计、审核关卡、定时任务（Autopilots）以及 Git 和聊天工具集成，可以选择云端、桌面端或自托管。",
+  "requirements": "运行智能体的机器上至少要安装并登录一个受支持的智能体 CLI（如 Claude Code、Codex、Cursor），Multica 本身不提供模型。使用云端版本需要在 multica.ai 注册账号；自托管需要 Docker。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "在 multica.ai 注册云端账号",
+      "text": "本指南采用云端路径：直接在 multica.ai 注册，无需终端。如果希望把当前电脑自动登记为运行时，也可以改用 macOS、Windows 或 Linux 的 Multica 桌面端。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/multica-ai/multica/blob/43b0571f992567a919c7f1f699ff160922594b94/README.md?plain=1#L111"
+      }
+    },
+    {
+      "title": "在运行机器上准备智能体 CLI",
+      "text": "在准备运行智能体的机器上安装并登录至少一个受支持的 CLI，例如 claude、codex、cursor-agent 或 copilot。完整列表见 Runtimes 表格，安装与认证方法见官方 Install an agent runtime 文档。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/multica-ai/multica/blob/43b0571f992567a919c7f1f699ff160922594b94/README.md?plain=1#L111"
+      }
+    },
+    {
+      "title": "在 Runtimes 中连接一台电脑",
+      "text": "在网页侧边栏打开 Runtimes，点击 Add a computer，把页面显示的两条命令粘贴到目标机器的终端中执行，把这台机器登记为智能体运行时。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/multica-ai/multica/blob/43b0571f992567a919c7f1f699ff160922594b94/README.md?plain=1#L145"
+      }
+    },
+    {
+      "title": "在 Agents 中创建一个智能体",
+      "text": "在侧边栏打开 Agents，点击 New agent，选择刚刚连接的运行时和提供方，并为智能体命名；也可以用 Build with AI 根据一段描述生成配置。这个名称会显示在看板和评论中。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/multica-ai/multica/blob/43b0571f992567a919c7f1f699ff160922594b94/README.md?plain=1#L145"
+      }
+    },
+    {
+      "title": "创建 issue 并指派给智能体",
+      "text": "新建一个 issue，把指派人设为该智能体。它会在你的机器上执行任务、边做边评论，完成后把 issue 移到审核状态，由你决定是否合入。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/multica-ai/multica/blob/43b0571f992567a919c7f1f699ff160922594b94/README.md?plain=1#L145"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "采用 Multica License：在 Apache 2.0 基础上，对托管服务、商业嵌入和品牌使用附加了条件，使用前请阅读 LICENSE。",
+    "自托管服务端默认每天发送一份匿名的部署级统计快照，可以在 API 服务端设置 DO_NOT_TRACK=1 关闭。",
+    "智能体会在你连接的机器上执行命令，请结合官方 Security model 文档评估访问范围和成员权限。",
+    "新的飞书/Lark 连接目前仅支持中国大陆版飞书；钉钉、企业微信、Telegram 集成为社区维护；iOS 客户端尚未上架 App Store，需要从源码构建。"
+  ],
+  "references": [
+    {
+      "label": "README.zh.md",
+      "url": "https://github.com/multica-ai/multica/blob/43b0571f992567a919c7f1f699ff160922594b94/README.zh.md"
+    }
+  ],
+  "media": [
+    {
+      "url": "/assets/repository-guides/media-3b5a9962f444d02f808cffba.webp",
+      "alt": "multica-ai/multica 官方演示 1",
+      "sourceUrl": "https://github.com/multica-ai/multica/blob/43b0571f992567a919c7f1f699ff160922594b94/README.md?plain=1#L44",
+      "originalUrl": "https://raw.githubusercontent.com/multica-ai/multica/43b0571f992567a919c7f1f699ff160922594b94/apps/docs/public/images/docs/workspace-overview.webp"
+    }
+  ],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "e8187aac3f9d98d87de66baf9bb9b76efffe1c171d20ebc427f8bb690b26b243",
+  "mediaStatus": "archived",
+  "mediaFailures": []
+}

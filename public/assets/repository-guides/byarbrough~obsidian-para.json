@@ -1,0 +1,81 @@
+{
+  "schemaVersion": 1,
+  "key": "byarbrough/obsidian-para",
+  "status": "ready",
+  "reason": "",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/byarbrough/obsidian-para/blob/83da427385df3bbdfee30817a63f464f0016ac3f/README.md",
+  "sourceRevision": "83da427385df3bbdfee30817a63f464f0016ac3f",
+  "canonicalKey": "byarbrough/obsidian-para",
+  "summary": "一个按 PARA 方法（Projects、Areas、Resources、Archives）预先组织好的 Obsidian 笔记库模板。",
+  "intro": "适合想用 Obsidian 以纯文本 Markdown 管理个人知识的用户。模板提供四个顶层 PARA 文件夹、templates/ 中的标准化页头模板，以及已启用部分核心插件的 .obsidian/ 设置。README 还给出了把旧笔记迁移进 PARA 结构的具体做法。",
+  "requirements": "需要安装 Obsidian（支持 Windows、macOS、Linux、Android、iPhone）。获取模板可以下载 zip，也可以使用 git。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "下载并解压模板到库位置",
+      "text": "从 README 提供的链接下载仓库的 main.zip，解压到你希望存放 Obsidian 库的位置。作者建议放在会自动备份的目录，例如 iCloud 或 Google Drive。如果用 git 获取，请先把 remote 改成你自己的仓库；不打算用 git 的话，直接删除隐藏的 .git/ 文件夹。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/byarbrough/obsidian-para/blob/83da427385df3bbdfee30817a63f464f0016ac3f/README.md?plain=1#L1"
+      }
+    },
+    {
+      "title": "在 Obsidian 中打开为库",
+      "text": "安装 Obsidian 后启动它，选择“Open folder as vault”，再选中刚解压的文件夹。库的设置保存在隐藏的 .obsidian/ 目录中：当前启用了几个核心插件，社区插件和主题均为关闭状态，可以在设置中修改。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/byarbrough/obsidian-para/blob/83da427385df3bbdfee30817a63f464f0016ac3f/README.md?plain=1#L76"
+      }
+    },
+    {
+      "title": "把旧笔记整体放入归档",
+      "text": "在 4. Archives 下新建一个以当天日期命名的文件夹，把现有文件夹按原有层级整体移入，不要先逐条分类。以后每次从归档中取用某条旧笔记时，再把它移到新分类里的合适位置，这样常用的笔记会自然浮现出来。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/byarbrough/obsidian-para/blob/83da427385df3bbdfee30817a63f464f0016ac3f/README.md?plain=1#L100"
+      }
+    },
+    {
+      "title": "为当前项目建立项目文件夹",
+      "text": "在 1. Projects 下为每个正在进行的项目建一个文件夹，每个 PARA 文件夹下只保留一层子文件夹。给每个项目写一个目标；如果写不出目标，考虑把它移到 2. Areas。3. Resources 先不建文件夹，等阅读或发现新主题时再按需创建。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/byarbrough/obsidian-para/blob/83da427385df3bbdfee30817a63f464f0016ac3f/README.md?plain=1#L100"
+      }
+    },
+    {
+      "title": "用命令面板插入笔记模板",
+      "text": "新建笔记并命名后，按 Ctrl + p 打开命令面板，输入“templates”，选择 templates/ 目录中的模板，为笔记插入统一的页头。具体用法可参考 Obsidian 官方的 Templates 帮助文档。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/byarbrough/obsidian-para/blob/83da427385df3bbdfee30817a63f464f0016ac3f/README.md?plain=1#L90"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "在多台设备上使用时，作者推荐 Obsidian Sync，这是需要购买的服务。",
+    "README 提到 obsidian-git 插件不支持 Snap 版 Obsidian。",
+    "仓库未声明许可证。"
+  ],
+  "references": [],
+  "media": [
+    {
+      "url": "/assets/repository-guides/media-8b853475f2462e8543891404.webp",
+      "alt": "byarbrough/obsidian-para 官方演示 1",
+      "sourceUrl": "https://github.com/byarbrough/obsidian-para/blob/83da427385df3bbdfee30817a63f464f0016ac3f/README.md?plain=1#L96",
+      "originalUrl": "https://raw.githubusercontent.com/byarbrough/obsidian-para/83da427385df3bbdfee30817a63f464f0016ac3f/images/obsidian-insert-template.png"
+    }
+  ],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "d122f8f3b71922bf4f87be502ed5eb75545ba1af9e257a5a3fdcbbcdc3824cc9",
+  "mediaStatus": "archived",
+  "mediaFailures": [
+    {
+      "sourceUrl": "https://github.com/byarbrough/obsidian-para/blob/83da427385df3bbdfee30817a63f464f0016ac3f/README.md#L82",
+      "reason": "non_demo_dimensions"
+    }
+  ]
+}

@@ -1,0 +1,61 @@
+{
+  "schemaVersion": 1,
+  "key": "ming-h/yinyuan-skills",
+  "status": "ready",
+  "reason": "",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/Ming-H/yinyuan-skills/blob/b091c8861a148b8260dedfbd06fc10daf7f886fc/README.md",
+  "sourceRevision": "b091c8861a148b8260dedfbd06fc10daf7f886fc",
+  "canonicalKey": "Ming-H/yinyuan-skills",
+  "summary": "这是一个供 Claude Code 使用的姻缘测算技能，提供八字合婚、生肖配对、求签等六种娱乐性测算模式。",
+  "intro": "适合已经在用 Claude Code、对中华传统术数文化感兴趣的用户，用来做娱乐性质的姻缘测算。仓库由主技能文件 SKILL.md 和 references 目录下的知识参考库组成，参考库包括八字合婚规则、生肖配对表、紫微夫妻宫解读、100 签姻缘签诗和桃花运势体系。",
+  "requirements": "需要可用的 Claude Code，并能在其中加载本仓库的 SKILL.md。README 没有写具体的加载方法。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "了解仓库文件与知识库结构",
+      "text": "先看文件结构。SKILL.md 是主技能文件，references 目录下按主题放着 bazi-matching.md、zodiac-compatibility.md、ziwei-marriage.md、fortune-sticks.md、taohua-luck.md 等参考资料。测算依据来自这些结构化知识库。",
+      "code": "yinyuan-skills/\n├── SKILL.md                          # 主技能文件\n├── README.md                         # 本文件\n└── references/                       # 知识参考库\n    ├── bazi-matching.md              # 八字合婚规则\n    ├── zodiac-compatibility.md       # 生肖配对表\n    ├── ziwei-marriage.md             # 紫微夫妻宫解读\n    ├── fortune-sticks.md             # 100签姻缘签诗系统\n    └── taohua-luck.md                # 桃花运势体系",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/Ming-H/yinyuan-skills/blob/b091c8861a148b8260dedfbd06fc10daf7f886fc/README.md?plain=1#L28"
+      }
+    },
+    {
+      "title": "在 Claude Code 中加载 SKILL.md",
+      "text": "在 Claude Code 中加载仓库里的 SKILL.md 技能文件。README 只写了“加载 SKILL.md 后”即可使用，没有给出具体的安装命令或放置路径，请按 Claude Code 官方的技能加载方式操作。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/Ming-H/yinyuan-skills/blob/b091c8861a148b8260dedfbd06fc10daf7f886fc/README.md?plain=1#L42"
+      }
+    },
+    {
+      "title": "用 /yinyuan 选择测算模式",
+      "text": "输入 /yinyuan 进入选择界面，按编号 1～6 选择模式：八字合婚、生肖配对、紫微夫妻宫、求签问姻缘、桃花运势、红线测算。也可以直接用自然语言发起，例如“帮我测姻缘”“求一支姻缘签”。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/Ming-H/yinyuan-skills/blob/b091c8861a148b8260dedfbd06fc10daf7f886fc/README.md?plain=1#L5"
+      }
+    },
+    {
+      "title": "按模式提供所需的个人信息",
+      "text": "不同模式需要的信息不同。八字合婚需要双方的出生日期、时间和性别；生肖配对需要双方生肖或出生年份；求签只需提出想问的问题；桃花运势需要生肖和当前感情状态；红线测算需要出生日期、时间和你的期待。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/Ming-H/yinyuan-skills/blob/b091c8861a148b8260dedfbd06fc10daf7f886fc/README.md?plain=1#L5"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "项目自述“娱乐为主，理性参考”，测算结果不应作为婚恋决策依据。",
+    "多数模式需要输入出生日期、时间等个人信息，请留意这些信息在所用 AI 服务中的处理方式。",
+    "仓库未声明许可证，转用或再分发前需自行确认授权。"
+  ],
+  "references": [],
+  "media": [],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "78560fecdf5f4e33842705b0c5bfbbe36487a70d13c19a307ea83d71d0780e72",
+  "mediaStatus": "none_in_official_documents"
+}

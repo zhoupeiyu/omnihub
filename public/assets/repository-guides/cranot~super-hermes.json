@@ -1,0 +1,73 @@
+{
+  "schemaVersion": 1,
+  "key": "cranot/super-hermes",
+  "status": "ready",
+  "reason": "",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/Cranot/super-hermes/blob/ffe2d10042041dcc23325f013e8b7e607e069952/README.md",
+  "sourceRevision": "ffe2d10042041dcc23325f013e8b7e607e069952",
+  "canonicalKey": "Cranot/super-hermes",
+  "summary": "Super Hermes 是一组 Hermes Agent 技能，让智能体针对具体代码或文档先生成分析提示词（prism）再执行，并报告分析未覆盖的方面。",
+  "intro": "适合已经在使用 Hermes Agent、想对单个代码文件或文档做结构化深度分析的开发者。仓库提供五个技能：\n- /prism-scan\n- /prism-full\n- /prism-3way\n- /prism-discover\n- /prism-reflect\n\n另外附带 7 个预置分析 prism 文件，也可以在任何支持 system prompt 的工具中单独使用。",
+  "requirements": "技能需要已安装 Hermes Agent，可配合 Hermes 支持的任意模型使用。单独使用 prism 文件时，需要一个支持 system prompt 的工具，例如 claude CLI 或 Anthropic API。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "通过 Skills Hub 安装 prism-scan",
+      "text": "在已安装 Hermes Agent 的环境中执行 hermes skills install 安装 prism-scan，无需克隆仓库。这个技能同时附带 7 个预置 prism 作为参考文件。",
+      "code": "hermes skills install Cranot/super-hermes/skills/prism-scan",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/Cranot/super-hermes/blob/ffe2d10042041dcc23325f013e8b7e607e069952/README.md?plain=1#L107"
+      }
+    },
+    {
+      "title": "按需安装其余四个技能",
+      "text": "用同样的命令安装 prism-full、prism-3way、prism-discover 和 prism-reflect。如果想在 Hermes 内搜索这些技能，先 tap add 本仓库，再用 search prism 查找。",
+      "code": "hermes skills install Cranot/super-hermes/skills/prism-full\nhermes skills install Cranot/super-hermes/skills/prism-3way\nhermes skills install Cranot/super-hermes/skills/prism-discover\nhermes skills install Cranot/super-hermes/skills/prism-reflect\n\nhermes skills tap add Cranot/super-hermes\nhermes skills search prism",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/Cranot/super-hermes/blob/ffe2d10042041dcc23325f013e8b7e607e069952/README.md?plain=1#L111"
+      }
+    },
+    {
+      "title": "重置会话让技能生效",
+      "text": "新安装的技能在新会话中生效。如果要在当前会话中使用，执行 /reset，或在安装时加上 --now 参数。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/Cranot/super-hermes/blob/ffe2d10042041dcc23325f013e8b7e607e069952/README.md?plain=1#L111"
+      }
+    },
+    {
+      "title": "按分析目标选择技能",
+      "text": "选择方法：\n- /prism-scan：为单个文件生成分析 prism 并执行，可加上 focusing on X 指定关注点\n- /prism-full：多轮分析，后面的轮次会反驳前面的结论\n- /prism-3way：从 WHERE/WHEN/WHY 三个角度分析\n- /prism-discover：列出可分析的领域\n- /prism-reflect：额外报告遗漏的方面，并写入 .prism-history.md",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/Cranot/super-hermes/blob/ffe2d10042041dcc23325f013e8b7e607e069952/README.md?plain=1#L43"
+      }
+    },
+    {
+      "title": "在 Hermes 中对文件运行分析",
+      "text": "在 Hermes 会话中输入 /prism-scan analyze，并附上文件路径，例如仓库自带的 examples/circuit_breaker.py。技能会先读取项目中已有的 .prism-history.md，再生成 Generated Lens 并输出分析结果。",
+      "code": "hermes> /prism-scan analyze examples/circuit_breaker.py",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/Cranot/super-hermes/blob/ffe2d10042041dcc23325f013e8b7e607e069952/README.md?plain=1#L166"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "技能依赖 Hermes Agent；只有 skills/prism-scan/references/ 下的 7 个 prism 文件可以脱离 Hermes 单独使用。",
+    "技能一次只分析一个文件，不支持跨文件的架构分析。",
+    "README 中的深度评分来自 AI 评估的实验，不是标准化的外部基准；分析质量取决于所用模型。",
+    "分析时会把代码内容发送给所用模型服务，需要自行承担相应的调用费用，并评估数据外发是否合规。",
+    "/prism-reflect 会在项目中写入 .prism-history.md；该文件只追加不清理。"
+  ],
+  "references": [],
+  "media": [],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "cf47b29ff3a08b45468f975a5cdce30bfb939df82944ed736007719028b1f2f2",
+  "mediaStatus": "none_in_official_documents"
+}

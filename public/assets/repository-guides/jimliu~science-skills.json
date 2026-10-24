@@ -1,0 +1,62 @@
+{
+  "schemaVersion": 1,
+  "key": "jimliu/science-skills",
+  "status": "partial",
+  "reason": "README 只介绍了目录结构、技能分类、Agent 配置和 MCP 服务器，并给出几条查看文件的命令。文档没有说明如何把这些技能、SYSTEM_PROMPT.md 或 MCP 服务器装进任何宿主（如 Claude Code）、如何配置 MCP 连接，也没有列出运行依赖。",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/JimLiu/science-skills/blob/fb309c32ee9a54dad169fa845638057d1cfac77f/README.md",
+  "sourceRevision": "fb309c32ee9a54dad169fa845638057d1cfac77f",
+  "canonicalKey": "JimLiu/science-skills",
+  "summary": "一组面向科学计算助手的提示词、技能包、Agent 配置和 MCP 服务器资产，涵盖生物分子建模、文献分析、单细胞组学等工作流。",
+  "intro": "适合想了解或复用 Claude Science 风格科学计算助手配置的研究人员和开发者。可以查阅 skills/ 下各领域工作流，例如 alphafold2、boltz、literature-review、scvi-tools；也可以查看 agents/ 中的通用科学 Agent、审稿 Agent 等配置，以及 mcp-servers/ 中的 bio-tools 和 ketcher-chemistry 集成代码。README 明确说明这些文件是配置资产，不是独立应用。",
+  "requirements": "文档未给出运行环境或安装要求。查阅时只需获取仓库内容；README 中的检索命令依赖类 Unix shell 的 find、sort、sed。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "按目录结构定位所需资产",
+      "text": "先阅读 README 的目录说明：SYSTEM_PROMPT.md 是基础系统提示词，skills/ 是技能包，agents/ 是 Agent 配置，mcp-servers/ 是 MCP 集成。根据你关心的领域（生物分子、文献、组学、计算环境）确定要查看的部分。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/JimLiu/science-skills/blob/fb309c32ee9a54dad169fa845638057d1cfac77f/README.md?plain=1#L15"
+      }
+    },
+    {
+      "title": "列出全部技能与 Agent 配置",
+      "text": "用 README 提供的 find 命令列出所有 SKILL.md、agents 下的 metadata.yaml，以及 bio-tools 中可启动的 MCP 服务器名称，快速了解仓库包含哪些内容。",
+      "code": "# List all skills\nfind skills -maxdepth 2 -name SKILL.md | sort\n\n# List agent profiles\nfind agents -maxdepth 2 -name metadata.yaml | sort\n\n# Show launchable bio-tools MCP servers\nfind mcp-servers/bio-tools/lib -maxdepth 2 -name server.py \\\n  | sed 's#^mcp-servers/bio-tools/lib/##; s#/server.py$##' \\\n  | sort",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/JimLiu/science-skills/blob/fb309c32ee9a54dad169fa845638057d1cfac77f/README.md?plain=1#L83"
+      }
+    },
+    {
+      "title": "完整阅读目标技能的 SKILL.md",
+      "text": "每个技能以 SKILL.md 为中心，开头是包含 name、description、license 的 YAML front matter，正文写操作流程、输入、失败模式和验证步骤。修改前请通读全文，并保留其中的安全、溯源和验证规则。",
+      "code": "---\nname: example-skill\ndescription: When and why this skill should be loaded.\nlicense: Apache-2.0\n---",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/JimLiu/science-skills/blob/fb309c32ee9a54dad169fa845638057d1cfac77f/README.md?plain=1#L24"
+      }
+    },
+    {
+      "title": "查看 MCP 服务器入口",
+      "text": "bio-tools 通过 run_server.py 从 mcp-servers/bio-tools/lib/ 启动指定的 stdio 服务器；ketcher-chemistry 包含化学结构编辑相关的服务器和组件。README 没有给出接入宿主的配置方法，修改这部分时需同时核对入口和返回数据的结构。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/JimLiu/science-skills/blob/fb309c32ee9a54dad169fa845638057d1cfac77f/README.md?plain=1#L70"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "仓库未声明许可证，README 又称提示词和技能来源于 Claude Science 产品，复用和再分发的授权情况不明确。",
+    "技能涉及的第三方服务、模型权重和 API 各有许可、条款和数据流转问题，README 要求在对应技能的元数据中查阅和记录。",
+    "仓库没有提供安装或接入宿主的说明，无法直接作为可运行的技能套件使用。"
+  ],
+  "references": [],
+  "media": [],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "fc2559e6dd8ee343de8c2da911580617c6df65f03f65726c505003a67394313d",
+  "mediaStatus": "none_in_official_documents"
+}

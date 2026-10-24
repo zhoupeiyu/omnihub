@@ -1,0 +1,63 @@
+{
+  "schemaVersion": 1,
+  "key": "anthropics/skills",
+  "status": "ready",
+  "reason": "",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/anthropics/skills/blob/8a1541c4a3ffa5a20a5a91de0dcf3f0bab1d1ef4/README.md",
+  "sourceRevision": "8a1541c4a3ffa5a20a5a91de0dcf3f0bab1d1ef4",
+  "canonicalKey": "anthropics/skills",
+  "summary": "Anthropic 官方的 Agent Skills 示例仓库，提供可安装到 Claude Code 的技能插件、技能规范和编写模板。",
+  "intro": "适合想给 Claude 增加专门能力，或想学习如何编写 skill 的用户和开发者。仓库包含创意设计、开发技术、企业沟通和文档处理（docx、pdf、pptx、xlsx）等类别的 skill 示例，以及 spec 规范和 template 模板，可以直接在 Claude Code 中作为插件安装，也可以当作参考来编写自己的 skill。",
+  "requirements": "在 Claude Code 中安装时需要使用 /plugin 命令。Claude.ai 上的这些示例 skill 面向付费计划提供。通过 Claude API 使用时，需参考官方 Skills API Quickstart。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "在 Claude Code 中注册插件市场",
+      "text": "在 Claude Code 中运行 /plugin marketplace add 命令，把本仓库注册为 Claude Code 的插件市场。",
+      "code": "/plugin marketplace add anthropics/skills",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/anthropics/skills/blob/8a1541c4a3ffa5a20a5a91de0dcf3f0bab1d1ef4/README.md?plain=1#L33"
+      }
+    },
+    {
+      "title": "安装 document 或 example 技能集",
+      "text": "在插件界面中依次选择 Browse and install plugins、anthropic-agent-skills，再选 document-skills 或 example-skills，最后选 Install now。也可以直接用 /plugin install 命令安装。",
+      "code": "/plugin install document-skills@anthropic-agent-skills\n/plugin install example-skills@anthropic-agent-skills",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/anthropics/skills/blob/8a1541c4a3ffa5a20a5a91de0dcf3f0bab1d1ef4/README.md?plain=1#L33"
+      }
+    },
+    {
+      "title": "在对话中点名使用对应技能",
+      "text": "插件装好后，在对话中提到 skill 名称即可使用。例如安装 document-skills 后，可以让 Claude Code 使用 PDF skill 提取某个 PDF 文件的表单字段。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/anthropics/skills/blob/8a1541c4a3ffa5a20a5a91de0dcf3f0bab1d1ef4/README.md?plain=1#L33"
+      }
+    },
+    {
+      "title": "参照模板编写自己的技能",
+      "text": "每个 skill 是一个包含 SKILL.md 的文件夹。可以以 template-skill 为起点编写：frontmatter 中只需要 name 和 description 两个字段，下方用 markdown 写指令、示例和准则。",
+      "code": "---\nname: my-skill-name\ndescription: A clear description of what this skill does and when to use it\n---\n\n# My Skill Name\n\n[Add your instructions here that Claude will follow when this skill is active]\n\n## Examples\n- Example usage 1\n- Example usage 2\n\n## Guidelines\n- Guideline 1\n- Guideline 2",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/anthropics/skills/blob/8a1541c4a3ffa5a20a5a91de0dcf3f0bab1d1ef4/README.md?plain=1#L14"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "这些 skill 仅用于演示和教学，Claude 实际产品中的行为可能与示例不同。用于关键任务前，请先在自己的环境中充分测试。",
+    "skills/docx、pdf、pptx、xlsx 是 source-available，不是开源许可。其他多数 skill 采用 Apache 2.0，使用前请确认各目录的许可。",
+    "在 Claude.ai 中使用这些示例 skill 需要付费计划。"
+  ],
+  "references": [],
+  "media": [],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "2fb9c4cc026366ea6e21c60cb23c908a4d27c62071819cc06beffaac102d0694",
+  "mediaStatus": "none_in_official_documents"
+}

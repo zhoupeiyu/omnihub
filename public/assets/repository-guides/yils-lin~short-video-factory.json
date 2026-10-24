@@ -1,0 +1,52 @@
+{
+  "schemaVersion": 1,
+  "key": "yils-lin/short-video-factory",
+  "status": "partial",
+  "reason": "README 只提供 GitHub Release 下载入口和外部官方文档链接，没有写明各平台安装包的选择方法，也没有写 AI 文案接口、EdgeTTS 语音和视频素材导入的具体配置与操作流程，具体用法需要查阅 short-video-factory.yils.blog 的使用手册。",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/YILS-LIN/short-video-factory/blob/eb3128e4aa8402fbb7c872d6931006c74f22fc54/README.md",
+  "sourceRevision": "eb3128e4aa8402fbb7c872d6931006c74f22fc54",
+  "canonicalKey": "YILS-LIN/short-video-factory",
+  "summary": "短视频工厂是一个跨平台桌面应用，用提示词和视频分镜素材自动生成文案、合成语音、加字幕并混剪成产品营销或泛内容短视频，支持批量任务。",
+  "intro": "适合需要批量制作产品营销短视频或语录类泛内容短视频的运营人员和创作者。该应用集成了文案生成（兼容 OpenAI 接口格式）、EdgeTTS 语音合成、自动混剪和批量处理，支持 Windows、macOS 和 Linux。",
+  "requirements": "Windows、macOS 或 Linux 桌面系统；自备视频分镜素材。文案生成需要兼容 OpenAI 格式的接口，具体配置方式 README 未说明。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "从 Release 页下载安装包",
+      "text": "前往 GitHub Release 页面，下载适合你操作系统的最新版本。README 说明支持 Windows、macOS 和 Linux，但没有列出各平台的具体文件名和安装方式。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/YILS-LIN/short-video-factory/blob/eb3128e4aa8402fbb7c872d6931006c74f22fc54/README.md?plain=1#L65"
+      }
+    },
+    {
+      "title": "查阅官方使用手册完成配置",
+      "text": "打开 short-video-factory.yils.blog 上的官方文档，按手册完成文案接口、语音合成和素材的配置，以及批量任务的设置。README 本身没有提供这些操作步骤。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/YILS-LIN/short-video-factory/blob/eb3128e4aa8402fbb7c872d6931006c74f22fc54/README.md?plain=1#L65"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "许可证为 AGPL-3.0。",
+    "README 中的示例视频素材来源于网络、仅用于展示效果；实际使用时应确认自己有权使用相关素材。",
+    "语音合成目前仅支持 EdgeTTS，更多语音 API 和字幕特效仍在路线图中，尚未实现。"
+  ],
+  "references": [],
+  "media": [
+    {
+      "url": "/assets/repository-guides/media-c3db6451e7b8f447ef712b5c.webp",
+      "alt": "YILS-LIN/short-video-factory 官方演示 1",
+      "sourceUrl": "https://github.com/YILS-LIN/short-video-factory/blob/eb3128e4aa8402fbb7c872d6931006c74f22fc54/README.md?plain=1#L5",
+      "originalUrl": "https://raw.githubusercontent.com/YILS-LIN/short-video-factory/eb3128e4aa8402fbb7c872d6931006c74f22fc54/images/ScreenShot.png"
+    }
+  ],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "35544697e602bc4eb94cbde6df297427172097ceb3a87fb6a2c0b2618c3a3637",
+  "mediaStatus": "archived",
+  "mediaFailures": []
+}

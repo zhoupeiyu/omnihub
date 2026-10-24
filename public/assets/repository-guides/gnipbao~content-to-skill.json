@@ -1,0 +1,64 @@
+{
+  "schemaVersion": 1,
+  "key": "gnipbao/content-to-skill",
+  "status": "ready",
+  "reason": "",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/gnipbao/content-to-skill/blob/ce5776a5161065836ed4647f9b96629d062ffdee/README.md",
+  "sourceRevision": "ce5776a5161065836ed4647f9b96629d062ffdee",
+  "canonicalKey": "gnipbao/content-to-skill",
+  "summary": "把笔记、文档、转录稿、工作流备忘等原始材料转换为包含 SKILL.md、示例与验证提示词的可复用 Agent Skill 包。",
+  "intro": "适合手里有零散方法、课程资料、会议转录或工作流说明的人。可以把这些材料沉淀为结构化的 `SKILL.md`，也可以审计并修复已有的薄弱 Skill。如果要公开发布，它还能生成带 README、LICENSE、验证脚本和复测提示词的 Skill 仓库。",
+  "requirements": "需要一个支持 skills 的 Agent 运行环境，README 列出的本地路径对应 Codex 和 Claude Code。安装时文件夹名需保持为 `content-to-skill`。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "复制到 Codex 的 skills 目录",
+      "text": "本指南以 Codex 为例。把整个仓库文件夹复制到 `$CODEX_HOME/skills/content-to-skill` 或 `~/.codex/skills/content-to-skill`，文件夹名保持为 `content-to-skill`。如果运行环境自带 skill 安装器，也可以用安装器安装。",
+      "code": "$CODEX_HOME/skills/content-to-skill\n~/.codex/skills/content-to-skill\n$CLAUDE_HOME/skills/<skill-name>\n~/.claude/skills/<skill-name>",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/gnipbao/content-to-skill/blob/ce5776a5161065836ed4647f9b96629d062ffdee/README.md?plain=1#L21"
+      }
+    },
+    {
+      "title": "按名称调用转换原始材料",
+      "text": "在 Agent 对话中用 `$content-to-skill` 按名称调用，并提供要转换的转录稿、文档或笔记。最小产物包含 `SKILL.md`、`agents/openai.yaml` 和 `examples/retest-prompts.md`。",
+      "code": "Use $content-to-skill to convert this transcript into a runnable skill package.\n\nskill-name/\n├── SKILL.md\n├── agents/openai.yaml\n└── examples/retest-prompts.md",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/gnipbao/content-to-skill/blob/ce5776a5161065836ed4647f9b96629d062ffdee/README.md?plain=1#L36"
+      }
+    },
+    {
+      "title": "需要公开发布时生成完整仓库",
+      "text": "如果要做成开源 Skill 仓库，就在调用时明确要求附带 README、LICENSE、验证脚本和复测提示词。材料较丰富时，产物还可能包含 references、scripts、test-prompts.json 等文件。",
+      "code": "Use $content-to-skill to turn this workflow memo into an open-source skill repository with README, LICENSE, validation script, and retest prompts.\n\nreferences/\nscripts/\ntest-prompts.json\nREADME.md\nLICENSE\n.gitignore",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/gnipbao/content-to-skill/blob/ce5776a5161065836ed4647f9b96629d062ffdee/README.md?plain=1#L36"
+      }
+    },
+    {
+      "title": "运行本地校验脚本检查包结构",
+      "text": "在 Skill 包目录中运行 `scripts/check_skill_package.py .`，检查包结构是否完整。如果该目录嵌套在一个带有通用质量检查器的更大 Skill 仓库中，还应另外运行那个检查器。",
+      "code": "scripts/check_skill_package.py .",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/gnipbao/content-to-skill/blob/ce5776a5161065836ed4647f9b96629d062ffdee/README.md?plain=1#L76"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "生成前必须先说明证据边界：视频、文档、私有仓库等来源无法访问时，生成的 Skill 应注明这一点，并请求可访问的材料或把结果标记为 dry-run。",
+    "目标是保留原材料中可复用的方法，而不是整段照搬原文，转换受版权保护的内容时需自行确认授权。",
+    "Claude Code 的安装路径在 README 中写作 `<skill-name>` 占位，并未明确给出具体文件夹名。"
+  ],
+  "references": [],
+  "media": [],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "49a44ab9bf4b69efc792685482efaa8b4d346ed3b66b6e076ae464ece89a7bcd",
+  "mediaStatus": "none_in_official_documents"
+}

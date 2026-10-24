@@ -1,0 +1,80 @@
+{
+  "schemaVersion": 1,
+  "key": "discountry/ritmex-bot",
+  "status": "ready",
+  "reason": "",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/discountry/ritmex-bot/blob/0a757985b87cd9e0733800da8bb584820ed749de/README.md",
+  "sourceRevision": "0a757985b87cd9e0733800da8bb584820ed749de",
+  "canonicalKey": "discountry/ritmex-bot",
+  "summary": "ritmex-bot 是基于 Bun 的多交易所永续合约量化终端，内置 SMA30 趋势、Guardian 止损守护和做市等策略，提供 Ink 交互菜单和适合 Agent 调用的结构化命令模式。",
+  "intro": "适合在 Aster、Binance、StandX、GRVT、Lighter、Backpack、Paradex、Nado、Ondo Perps 等交易所进行永续合约量化交易、并且了解相关风险的用户。可以在交互式 CLI 中选择策略运行，也可以通过 ritmex-bot 命令查询行情、账户和仓位，或者下单、撤单、启动策略；写操作支持 --dry-run 模拟执行和 --json 输出。",
+  "requirements": "需要 Bun ≥ 1.2（含 bun 和 bunx），运行在 macOS、Linux 或 Windows（推荐 WSL）上。至少要有一个受支持交易所的 API 凭据，并在交易所后台开启合约读写权限；账户需设为单向持仓模式，杠杆需要提前在交易所手动设置。还要保证系统时间与真实时间同步。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "克隆仓库到本地",
+      "text": "以 macOS/Linux 手动安装为例，用 git clone 获取源码并进入 ritmex-bot 目录。不方便使用 Git 时，也可以在仓库页面下载 ZIP 后解压。",
+      "code": "   git clone https://github.com/discountry/ritmex-bot.git\n   cd ritmex-bot",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/discountry/ritmex-bot/blob/0a757985b87cd9e0733800da8bb584820ed749de/README.md?plain=1#L83"
+      }
+    },
+    {
+      "title": "安装 Bun 和项目依赖",
+      "text": "按 README 的说明安装 Bun，重新打开终端后确认 bun -v 能输出版本号，再在项目根目录执行 bun install 安装依赖。",
+      "code": "   bun install",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/discountry/ritmex-bot/blob/0a757985b87cd9e0733800da8bb584820ed749de/README.md?plain=1#L83"
+      }
+    },
+    {
+      "title": "复制并填写 .env 配置",
+      "text": "把 .env.example 复制为 .env，填写 EXCHANGE、TRADE_SYMBOL、TRADE_AMOUNT 以及所选交易所的必填凭据。各交易所的凭据获取方法、网络选择和符号格式，见 docs/exchanges 下对应的配置教程。如需英文界面，设置 LANG=en。",
+      "code": "   cp .env.example .env",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/discountry/ritmex-bot/blob/0a757985b87cd9e0733800da8bb584820ed749de/README.md?plain=1#L83"
+      }
+    },
+    {
+      "title": "启动交互式 CLI 选择策略",
+      "text": "运行 bun run index.ts 进入 Ink 菜单，用方向键选择策略，回车启动；按 Esc 返回菜单，按 Ctrl+C 退出。也可以用 --exchange 和 --strategy 参数临时覆盖 .env 中的设置。",
+      "code": "   bun run index.ts",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/discountry/ritmex-bot/blob/0a757985b87cd9e0733800da8bb584820ed749de/README.md?plain=1#L83"
+      }
+    },
+    {
+      "title": "跳过菜单静默运行指定策略",
+      "text": "确认策略配置无误后，可以用 --strategy 加 --silent 直接启动 trend、maker、offset-maker 等策略，不进入菜单；需要时再叠加 --exchange 指定交易所。如果需要进程守护和自动重启，可参考 README 中的 pm2 用法。",
+      "code": "bun run index.ts --strategy trend --silent\nbun run index.ts --strategy maker --silent\nbun run index.ts --strategy offset-maker --silent",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/discountry/ritmex-bot/blob/0a757985b87cd9e0733800da8bb584820ed749de/README.md?plain=1#L187"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "程序会使用真实资金交易永续合约，存在亏损风险。官方建议先在仿真或小额账户中验证，API Key 只开启必要权限并妥善保管。",
+    "命令模式的 --dry-run 只对下单、撤单和策略运行生效；不加该参数时会发送真实请求。",
+    "不同交易所支持的能力不一致，不支持的操作会返回 UNSUPPORTED 错误；Lighter 默认使用 testnet。",
+    "一键安装脚本通过 curl 管道直接执行远程 setup.sh，运行前应先自行审阅脚本内容。",
+    "README 中包含多家交易所的邀请/返佣注册链接，与项目功能本身无关；仓库没有声明开源许可证。"
+  ],
+  "references": [
+    {
+      "label": "cli-guide.md",
+      "url": "https://github.com/discountry/ritmex-bot/blob/0a757985b87cd9e0733800da8bb584820ed749de/cli-guide.md"
+    }
+  ],
+  "media": [],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "a169c2e1bc725f7468c1b18f1a900cb9087ff753ebc5fd9c5ab76df2cf7ba66a",
+  "mediaStatus": "none_in_official_documents"
+}

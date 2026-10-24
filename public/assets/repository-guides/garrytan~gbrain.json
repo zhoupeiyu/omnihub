@@ -1,0 +1,81 @@
+{
+  "schemaVersion": 1,
+  "key": "garrytan/gbrain",
+  "status": "ready",
+  "reason": "",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/garrytan/gbrain/blob/a4c5ea3c99d41fa601f48c0cc5d73b4adea3b873/README.md",
+  "sourceRevision": "a4c5ea3c99d41fa601f48c0cc5d73b4adea3b873",
+  "canonicalKey": "garrytan/gbrain",
+  "summary": "为你已有的 AI agent 提供可自行掌控的记忆库：保存带来源的事实，支持纠正、撤回、检索，并可通过 MCP 供多个 agent 共享。",
+  "intro": "适合使用 Claude Code、Codex、OpenClaw、Hermes 等 agent 的个人或团队，用来给 agent 增加可追溯来源的长期记忆。也可以不接 agent，单独用 CLI 索引并搜索本地 Markdown 笔记。默认从无需密钥的关键词检索开始，语义搜索、综合回答和后台富化都是可选项。本指南采用 README 中的 CLI 独立安装路径，并可选择接入 Claude Code。",
+  "requirements": "Bun 1.3.11 或更新版本；只能从 GitHub 安装，不能使用 npm 上同名的 gbrain 包。接入 agent 时需要已安装 Claude Code 或 Codex。启用语义检索等能力需要另外配置 API 密钥。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "从 GitHub 用 Bun 安装 gbrain",
+      "text": "按 CLI 独立安装路径，执行 bun install -g github:garrytan/gbrain。不要运行 npm install -g gbrain 或 bun add -g gbrain，那是无关的同名包，并可能遮蔽 PATH 中的真正命令。",
+      "code": "bun install -g github:garrytan/gbrain\ngbrain init --pglite --no-embedding  # keyless; no server, no Docker\ngbrain doctor            # verify health\ngbrain import ~/notes/ --no-embed   # index your markdown\ngbrain search \"a phrase from a note\" --json",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/garrytan/gbrain/blob/a4c5ea3c99d41fa601f48c0cc5d73b4adea3b873/README.md?plain=1#L86"
+      }
+    },
+    {
+      "title": "初始化无密钥本地记忆库",
+      "text": "运行 gbrain init --pglite --no-embedding，创建一个不需要服务器、Docker 和 API 密钥的本地记忆库，再运行 gbrain doctor 检查健康状态。若有黄色提示，按输出中给出的修复命令处理。",
+      "code": "bun install -g github:garrytan/gbrain\ngbrain init --pglite --no-embedding  # keyless; no server, no Docker\ngbrain doctor            # verify health\ngbrain import ~/notes/ --no-embed   # index your markdown\ngbrain search \"a phrase from a note\" --json",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/garrytan/gbrain/blob/a4c5ea3c99d41fa601f48c0cc5d73b4adea3b873/README.md?plain=1#L197"
+      }
+    },
+    {
+      "title": "导入 Markdown 笔记并搜索",
+      "text": "用 gbrain import 指定笔记目录（示例为 ~/notes/，附带 --no-embed 参数），对 Markdown 建立索引，再用 gbrain search 加关键词检索，--json 参数输出 JSON 结果。",
+      "code": "bun install -g github:garrytan/gbrain\ngbrain init --pglite --no-embedding  # keyless; no server, no Docker\ngbrain doctor            # verify health\ngbrain import ~/notes/ --no-embed   # index your markdown\ngbrain search \"a phrase from a note\" --json",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/garrytan/gbrain/blob/a4c5ea3c99d41fa601f48c0cc5d73b4adea3b873/README.md?plain=1#L197"
+      }
+    },
+    {
+      "title": "可选：通过 MCP 接入 Claude Code",
+      "text": "若要让编程 agent 使用这个记忆库，可用 claude mcp add 把 gbrain serve 注册为 MCP 服务；Codex 用户可改用注释里的 codex mcp add。--surface verbs 只暴露 recall、remember 等七个记忆动词。",
+      "code": "gbrain init --pglite --no-embedding                     # keyless local brain (no Docker)\nclaude mcp add gbrain -- gbrain serve --surface verbs   # or: codex mcp add gbrain -- gbrain serve --surface verbs",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/garrytan/gbrain/blob/a4c5ea3c99d41fa601f48c0cc5d73b4adea3b873/README.md?plain=1#L173"
+      }
+    },
+    {
+      "title": "运行完整安装校验命令",
+      "text": "可用 gbrain doctor --json 做完整健康检查，用 gbrain models 和 gbrain models doctor 查看并探测已配置的模型。schema 过期时，文档建议使用 gbrain upgrade --force-schema。",
+      "code": "gbrain bootstrap verify           # the whole install contract; exits non-zero on failure\ngbrain doctor --json              # full health check\ngbrain models                     # which AI models are configured for what\ngbrain models doctor              # 1-token probe per configured model",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/garrytan/gbrain/blob/a4c5ea3c99d41fa601f48c0cc5d73b4adea3b873/docs/INSTALL.md?plain=1#L186"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "GBrain 不在 npm 上发布，npm 上的 gbrain 是无关包；误装后应先卸载，再从 GitHub 重新安装，gbrain doctor 可检测这种遮蔽情况。",
+    "agent 保存的记忆默认对整个记忆库可见，所有已连接的 agent 都能召回；只想保留在本地的事实需要设置 visibility: \"private\"。",
+    "启用云端模型时，文本会发送给云服务商；Markdown 导出不是完整的数据库备份。",
+    "可选的 Memorable 中继默认关闭，开启后会把脱敏后的轨迹和查询文本发送到本机以外。",
+    "OpenClaw/Hermes 常驻方案需要 8GB 以上内存的服务器，API token 用量会随使用强度增长，是成本最高的路径。",
+    "共享为公司记忆库时，本地文件和共享数据库凭据不受 source 授权隔离；配置前应阅读共享边界文档。"
+  ],
+  "references": [
+    {
+      "label": "docs/INSTALL.md",
+      "url": "https://github.com/garrytan/gbrain/blob/a4c5ea3c99d41fa601f48c0cc5d73b4adea3b873/docs/INSTALL.md"
+    }
+  ],
+  "media": [],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "8c627e6e1a98794a55e450f305fd5c4d27f54f031f28e5d21b06904e7ad58b7b",
+  "mediaStatus": "none_in_official_documents"
+}

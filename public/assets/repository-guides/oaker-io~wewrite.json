@@ -1,0 +1,93 @@
+{
+  "schemaVersion": 1,
+  "key": "oaker-io/wewrite",
+  "status": "ready",
+  "reason": "",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/imraywang/wewrite/blob/3d9e335ab9e180474308acb214c76e8d1113cc29/README.md",
+  "sourceRevision": "3d9e335ab9e180474308acb214c76e8d1113cc29",
+  "canonicalKey": "imraywang/wewrite",
+  "summary": "WeWrite 是一组面向 AI Agent 的公众号内容 Skill，配套 wewrite CLI，覆盖选题、写作、审稿、配图、排版到推送草稿箱的流程。",
+  "intro": "适合在 Claude Code、Codex、OpenClaw、Hermes 等 Agent 中写公众号文章的创作者，也适合只需要其中某个环节（选题、封面、质量自检、排版发布）的人，以及想把文章改写成小红书、抖音版本的人。它包含 1 个主入口和 9 个独立模块 skill；CLI 也可以脱离 Agent，单独作为排版、发布、评分工具使用。README 明确说明它不适合普通网页排版、PPT、邮件、博客等场景。",
+  "requirements": "需要一个支持 skill 的 AI Agent（Claude Code / Codex / OpenClaw / Hermes 等）。安装脚本会用 uv 或 pipx 安装 wewrite CLI，没有时回退到 venv。只写作不需要任何密钥。推送草稿箱需要微信公众号 appid/secret，生图需要图片 API key。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "用 install.sh 一键安装 skill 与 CLI",
+      "text": "这是 README 推荐的方式一：克隆仓库到 ~/wewrite 并运行 install.sh。脚本会安装 wewrite CLI，把 10 个 skill 链接到 ~/.claude/skills/ 和 ~/.agents/skills/（检测到 OpenClaw 或 Codex 时会一并链接），并把旧版状态迁移到 ~/.wewrite/。",
+      "code": "git clone --depth 1 https://github.com/imraywang/wewrite.git ~/wewrite\ncd ~/wewrite && bash install.sh",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/imraywang/wewrite/blob/3d9e335ab9e180474308acb214c76e8d1113cc29/README.md?plain=1#L73"
+      }
+    },
+    {
+      "title": "按需复制配置文件填写凭证",
+      "text": "只需要写作时可以跳过这一步。需要推送草稿箱或 AI 配图时，把 config.example.yaml 复制为 ~/.wewrite/config.yaml，填入公众号 appid/secret 和图片 API key。也可以配置 WEWRITE_WRITER_API_KEY，把正文交给独立的写作模型。",
+      "code": "cp config.example.yaml ~/.wewrite/config.yaml",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/imraywang/wewrite/blob/3d9e335ab9e180474308acb214c76e8d1113cc29/README.md?plain=1#L131"
+      }
+    },
+    {
+      "title": "在 Agent 中用自然语言触发流程",
+      "text": "安装完成后，直接在 Agent 里对话即可。说“写一篇公众号文章”，会得到审过稿的本地成稿，默认不生图也不发布。“完整制作”会额外配图并生成本地预览。只有明确说“推到公众号草稿箱”才会发布。",
+      "code": "你：写一篇公众号文章                → 审过的本地成稿（默认不生图、不发布）\n你：完整制作一篇公众号文章          → 成稿 + 配图 + 本地预览\n你：推到公众号草稿箱                → 明确授权后才发布\n你：今天写什么                      → 只要选题\n你：检查一下                        → 生成档案 + 质量自检\n你：改写成小红书                    → 多平台改写\n你：学习我的修改                    → 编辑飞轮\n你：看看有什么主题 / 换成 sspai 主题 → 主题画廊 / 重排版\n你：做一个小绿书                    → 图片帖（横滑轮播）\n你：更新                            → 升级到最新版",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/imraywang/wewrite/blob/3d9e335ab9e180474308acb214c76e8d1113cc29/README.md?plain=1#L90"
+      }
+    },
+    {
+      "title": "对照模块速查只调用单个环节",
+      "text": "每个环节都是独立的 skill。例如 wewrite-topic 只出选题，wewrite-visual 只做封面或配图，wewrite-rewrite 负责改写成其他平台版本。每篇文章保存在 ~/.wewrite/runs/<任务编号>/，进度可以恢复，说“继续上次”就能接着做。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/imraywang/wewrite/blob/3d9e335ab9e180474308acb214c76e8d1113cc29/README.md?plain=1#L139"
+      }
+    },
+    {
+      "title": "用 wewrite CLI 预览主题与排版",
+      "text": "CLI 不依赖 Agent。wewrite gallery 会在浏览器中并排对比所有主题，wewrite themes 列出主题名称。也可以用 wewrite preview 把 Markdown 转成微信 HTML 预览，或用 wewrite diagnose 自检环境和配置。",
+      "code": "wewrite gallery    # 浏览器内预览所有主题（并排对比 + 一键复制）\nwewrite themes     # 列出主题名称\n\nwewrite preview article.md --theme sspai            # Markdown → 微信 HTML 预览\nwewrite publish article.md --cover cover.png --title \"标题\"   # 推送草稿箱\nwewrite image-post p1.jpg p2.jpg -t \"周末探店\"       # 小绿书/图片帖（横滑轮播）\nwewrite score article.md --verbose                  # 写作质量评分（11 项检测）\nwewrite content-eval --draft draft.md --final article.md --assessment assessment.yaml --json # 编辑结果\nwewrite hotspots --limit 20                         # 抓热点\nwewrite search-articles \"AI编程\" -n 15 -t 2         # 搜公众号文章（-t 时间过滤，-r 解析直链）\nwewrite seo --json \"AI大模型\" \"科技股\"               # SEO 分析\nwewrite exemplar article.md / --list                # 范文风格库\nwewrite fetch-article <url> -o out.md               # 公众号文章 → Markdown\nwewrite learn-theme <url> --name my-style           # 学排版主题\nwewrite validate article.html                       # 微信兼容性校验\nwewrite diagnose                                    # 环境 + 配置自检\nwewrite run start/list/resume/show/finish/permission # 独立文章任务、恢复与发布授权\nwewrite sources add/list                            # 保存和查看事实来源\nwewrite home                                        # 查看状态目录\nwewrite migrate --from <旧仓库路径>                  # 从 v2.1 及更早版本迁移状态",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/imraywang/wewrite/blob/3d9e335ab9e180474308acb214c76e8d1113cc29/README.md?plain=1#L230"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "本条目的 key 是 oaker-io/wewrite，但 README 中的链接和安装命令都指向 imraywang/wewrite。安装前请确认来源仓库。",
+    "install.sh 会在 ~/.claude/skills/、~/.agents/skills/ 等目录创建链接，并在 ~/.wewrite/ 中保存凭证和状态。",
+    "推送草稿箱需要微信公众号 appid/secret，执行前要明确授权。AI 配图和独立写作模型会产生第三方服务费用，金额以所用服务为准。",
+    "热点抓取、搜狗微信搜索、SEO 评分、公众号文章采集等功能依赖微博、头条、百度、360、搜狗等第三方站点。导入第三方文章作为范文时，请注意版权。"
+  ],
+  "references": [],
+  "media": [
+    {
+      "url": "/assets/repository-guides/media-7c4a92296e65bcfadb4ffa04.webp",
+      "alt": "imraywang/wewrite 官方演示 1",
+      "sourceUrl": "https://github.com/imraywang/wewrite/blob/3d9e335ab9e180474308acb214c76e8d1113cc29/README.md?plain=1#L52",
+      "originalUrl": "https://raw.githubusercontent.com/imraywang/wewrite/main/docs/screenshots/professional-clean.png"
+    },
+    {
+      "url": "/assets/repository-guides/media-1595921c5e938739b50d3ecd.webp",
+      "alt": "imraywang/wewrite 官方演示 2",
+      "sourceUrl": "https://github.com/imraywang/wewrite/blob/3d9e335ab9e180474308acb214c76e8d1113cc29/README.md?plain=1#L53",
+      "originalUrl": "https://raw.githubusercontent.com/imraywang/wewrite/main/docs/screenshots/sspai.png"
+    },
+    {
+      "url": "/assets/repository-guides/media-9b256c4a5a00a42d4d0c7fad.webp",
+      "alt": "imraywang/wewrite 官方演示 3",
+      "sourceUrl": "https://github.com/imraywang/wewrite/blob/3d9e335ab9e180474308acb214c76e8d1113cc29/README.md?plain=1#L54",
+      "originalUrl": "https://raw.githubusercontent.com/imraywang/wewrite/main/docs/screenshots/warm-editorial.png"
+    }
+  ],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "67e7d28f8f7e425f1f84c0bd5c9c9c4321e43fb1d3b98f50974437bfac430a09",
+  "mediaStatus": "archived",
+  "mediaFailures": []
+}

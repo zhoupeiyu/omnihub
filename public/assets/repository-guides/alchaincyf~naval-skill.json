@@ -1,0 +1,71 @@
+{
+  "schemaVersion": 1,
+  "key": "alchaincyf/naval-skill",
+  "status": "ready",
+  "reason": "",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/alchaincyf/naval-skill/blob/0de29b12a7c47088c9e1c0b144d6eb0ed1a04b49/README.md",
+  "sourceRevision": "0de29b12a7c47088c9e1c0b144d6eb0ed1a04b49",
+  "canonicalKey": "alchaincyf/naval-skill",
+  "summary": "一个按 Agent Skills 协议编写的技能，让 AI agent 以 Naval Ravikant 的心智模型和决策启发式来分析你的问题。",
+  "intro": "适合已经在用 Claude Code、Codex、Cursor 等 skills-compatible agent，并想借 Naval 的财富、杠杆、欲望等框架思考职业或创业选择的用户。仓库提供 5 个心智模型、8 条决策启发式和表达风格。它们由女娲.skill 基于 30+ 来源调研生成，调研文件放在 references/ 目录。",
+  "requirements": "需要一个支持 Agent Skills 的 AI agent runtime，README 列举了 Claude Code、Codex、Cursor、OpenClaw、Hermes Agent、Gemini CLI 等。推荐安装方式使用 npx 命令。如果 runtime 不支持自动加载，也可以直接使用 SKILL.md 文本。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "确认所用 agent 支持 Skills",
+      "text": "先确认你使用的 AI agent runtime 支持开放的 Agent Skills 协议，例如 Claude Code、Codex、Cursor、OpenClaw 等。README 称该 skill 可在 50+ 兼容 runtime 中运行。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/alchaincyf/naval-skill/blob/0de29b12a7c47088c9e1c0b144d6eb0ed1a04b49/README.md?plain=1#L114"
+      }
+    },
+    {
+      "title": "用 npx skills add 一键安装",
+      "text": "在终端执行官方推荐的一行命令。通用安装器 vercel-labs/skills 会自动识别当前 runtime，并把 skill 放进正确目录。需要指定 runtime 时，可追加 -a claude-code、-a codex 等参数。",
+      "code": "npx skills add alchaincyf/naval-skill",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/alchaincyf/naval-skill/blob/0de29b12a7c47088c9e1c0b144d6eb0ed1a04b49/README.md?plain=1#L118"
+      }
+    },
+    {
+      "title": "在对话中让 agent 调用视角",
+      "text": "安装完成后，直接在 agent 对话里用自然语言发起请求，例如让它用 Naval 的视角分析职业选择，或判断某份工作有没有杠杆。README 给出了几条可参考的提问方式。",
+      "code": "> 用Naval的视角帮我分析这个职业选择\n> 纳瓦尔会怎么看AI创业？\n> 这份工作有杠杆吗？\n> 我欲望太多怎么办？\n> 什么是真正的财富？",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/alchaincyf/naval-skill/blob/0de29b12a7c47088c9e1c0b144d6eb0ed1a04b49/README.md?plain=1#L149"
+      }
+    },
+    {
+      "title": "不支持自动加载时粘贴 SKILL.md",
+      "text": "如果你的 runtime 不能自动加载 Agent Skills，可以打开仓库中的 SKILL.md，把内容粘贴进对话使用。它本质上是一份带 YAML frontmatter 的 markdown 文件。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/alchaincyf/naval-skill/blob/0de29b12a7c47088c9e1c0b144d6eb0ed1a04b49/README.md?plain=1#L145"
+      }
+    },
+    {
+      "title": "查阅示例与调研依据",
+      "text": "想了解回答风格和依据，可以查看 examples/ 中的 4 轮对话记录，以及 references/quality-validation.md 中的调研与质量验证内容。README 的来源列表包含一手资料和外部批评。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/alchaincyf/naval-skill/blob/0de29b12a7c47088c9e1c0b144d6eb0ed1a04b49/README.md?plain=1#L86"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "这是由女娲.skill 自动生成的人物思维模拟，并非 Naval 本人观点或授权内容。",
+    "README 说明其表达风格是“不给具体建议只给框架”，涉及跳槽、创业等现实决策时不应替代专业判断。",
+    "README 保留了 Naval 的内在矛盾和外部批评来源（如 Decoding the Gurus、Zcash 利益冲突报道），使用时应注意其视角局限。",
+    "许可证为 MIT。"
+  ],
+  "references": [],
+  "media": [],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "b68cbc66417ca33d942e4d82af7eb8db3bcad0526053e8c0a4986eeefd6a987d",
+  "mediaStatus": "none_in_official_documents"
+}

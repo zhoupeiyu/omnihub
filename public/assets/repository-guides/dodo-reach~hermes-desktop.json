@@ -1,0 +1,94 @@
+{
+  "schemaVersion": 1,
+  "key": "dodo-reach/hermes-desktop",
+  "status": "ready",
+  "reason": "",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/dodo-reach/hermes-desktop/blob/3b772afa366d331f63a8b3bd8d66b5159fcab615/README.md",
+  "sourceRevision": "3b772afa366d331f63a8b3bd8d66b5159fcab615",
+  "canonicalKey": "dodo-reach/hermes-desktop",
+  "summary": "Hermes Agent 的原生 macOS 桌面客户端，可在本机或通过 SSH 直接管理会话、工作流、Kanban、文件、技能、定时任务、用量，并提供内置终端。",
+  "intro": "适合已经在使用 Hermes Agent、希望在 Mac 上集中处理日常工作的人。Hermes 装在本机时用 This Mac 模式；Hermes 运行在树莓派、另一台 Mac、VPS 或远程服务器上时用 SSH 模式。应用直接读写 Hermes 主机上的真实数据，不依赖网关 API，也不维护本地镜像，可以按 Hermes profile 切换多代理工作环境。",
+  "requirements": "macOS 14 或更高版本（支持 Apple Silicon 与 Intel）；运行 Hermes 的机器上能找到 python3；Hermes 数据位于该用户的 ~/.hermes、某个命名 profile 或已配置的自定义 Hermes home。使用 SSH 时还需要：SSH 访问权限、已接受的主机密钥、非交互式认证和可用的网络连接。Sessions Chat、终端恢复会话和工作流启动需要 hermes CLI 出现在应用准备的 PATH 中。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "下载并安装 Release 版本",
+      "text": "在 macOS 上，从最新的 GitHub Release 下载 HermesDesktop.app.zip，双击解压得到 HermesDesktop.app。如果旧版本正在运行，先退出，再把应用拖进 Applications，系统询问时替换旧版本。可以先计算 zip 的 SHA-256，与同一 Release 附带的 checksum 文件核对。",
+      "code": "shasum -a 256 HermesDesktop.app.zip",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/dodo-reach/hermes-desktop/blob/3b772afa366d331f63a8b3bd8d66b5159fcab615/README.md?plain=1#L136"
+      }
+    },
+    {
+      "title": "通过右键菜单完成首次启动",
+      "text": "首次启动时右键点击 HermesDesktop.app，选择“打开”，再次确认“打开”。如果出现“无法识别的开发者”警告，点“完成”，不要点“移到废纸篓”；必要时到“系统设置 > 隐私与安全性”中点“仍要打开”。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/dodo-reach/hermes-desktop/blob/3b772afa366d331f63a8b3bd8d66b5159fcab615/README.md?plain=1#L136"
+      }
+    },
+    {
+      "title": "SSH 模式先验证终端免密登录",
+      "text": "如果 Hermes 在远程主机上，先在这台 Mac 的终端里试一次 SSH 登录，确认不会要求输入密码，也不会弹出主机密钥确认。终端能免交互连上，应用通常也能连上。Hermes 在本机时可以跳过这一步。",
+      "code": "ssh your-host",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/dodo-reach/hermes-desktop/blob/3b772afa366d331f63a8b3bd8d66b5159fcab615/README.md?plain=1#L109"
+      }
+    },
+    {
+      "title": "创建连接并运行 Test 检查",
+      "text": "打开应用进入 Connections，新建 profile。Hermes 在本机就选 This Mac；在远程就选 SSH Host，填写 SSH alias（来自 ~/.ssh/config），或填写 Host、User、Port。然后点 Test 做预检：确认能启动命令、能找到 python3；SSH 模式下还会检查连通性和非交互认证。",
+      "code": "ssh hermes-home\n\nHost hermes-home\n  HostName vps.example.com\n  User alex",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/dodo-reach/hermes-desktop/blob/3b772afa366d331f63a8b3bd8d66b5159fcab615/README.md?plain=1#L205"
+      }
+    },
+    {
+      "title": "选择 Hermes profile 开始工作",
+      "text": "Hermes profile 留空时使用 ~/.hermes；填 researcher 则对应 ~/.hermes/profiles/researcher。选定后，Sessions、Workflows、Cron Jobs、Kanban、Files、Usage、Skills 和 Terminal 都会切换到这个连接和 profile 下。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/dodo-reach/hermes-desktop/blob/3b772afa366d331f63a8b3bd8d66b5159fcab615/README.md?plain=1#L260"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "当前公开版本只做了 ad-hoc 签名，未经 Apple 公证，首次启动出现警告属于预期情况。对来源有顾虑时，可阅读 SECURITY.md 和 docs/distribution.md，或改为从源码构建。",
+    "官方文档中的高权限或远程脚本操作应单独核查，不要整段复制执行。",
+    "Kanban 需要主机上的 Hermes Agent 版本支持上游 Kanban 功能；hermes CLI 路径和 Kanban 支持要等进入对应功能时才会检查。",
+    "内置的更新检查会访问 GitHub Releases，只检查 Hermes Desktop 自身的版本，不会更新 Hermes Agent。",
+    "Files 不是完整的文件管理器或 IDE，只能编辑 10 MB 以内的文本文件；如果文件在打开后被其他程序修改，保存会被阻止。",
+    "连接配置、工作流预设等应用状态保存在 ~/Library/Application Support/HermesDesktop。"
+  ],
+  "references": [],
+  "media": [
+    {
+      "url": "/assets/repository-guides/media-a991df47f93ef03c6115b3b4.webp",
+      "alt": "dodo-reach/hermes-desktop 官方演示 1",
+      "sourceUrl": "https://github.com/dodo-reach/hermes-desktop/blob/3b772afa366d331f63a8b3bd8d66b5159fcab615/README.md?plain=1#L27",
+      "originalUrl": "https://raw.githubusercontent.com/dodo-reach/hermes-desktop/3b772afa366d331f63a8b3bd8d66b5159fcab615/assets/sessions.png"
+    },
+    {
+      "url": "/assets/repository-guides/media-837832996e95452cd25ecb34.webp",
+      "alt": "dodo-reach/hermes-desktop 官方演示 2",
+      "sourceUrl": "https://github.com/dodo-reach/hermes-desktop/blob/3b772afa366d331f63a8b3bd8d66b5159fcab615/README.md?plain=1#L35",
+      "originalUrl": "https://raw.githubusercontent.com/dodo-reach/hermes-desktop/3b772afa366d331f63a8b3bd8d66b5159fcab615/assets/kanban.png"
+    },
+    {
+      "url": "/assets/repository-guides/media-5e02f00ac5151abd3ce3c96b.webp",
+      "alt": "dodo-reach/hermes-desktop 官方演示 3",
+      "sourceUrl": "https://github.com/dodo-reach/hermes-desktop/blob/3b772afa366d331f63a8b3bd8d66b5159fcab615/README.md?plain=1#L30",
+      "originalUrl": "https://raw.githubusercontent.com/dodo-reach/hermes-desktop/3b772afa366d331f63a8b3bd8d66b5159fcab615/assets/terminal.png"
+    }
+  ],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "f87a146656f9be7c86a8acfd0be471b824c21d2f195a88904aa74ee99a073fd8",
+  "mediaStatus": "archived",
+  "mediaFailures": []
+}

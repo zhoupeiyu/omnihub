@@ -1,0 +1,93 @@
+{
+  "schemaVersion": 1,
+  "key": "liseami/chunui",
+  "status": "ready",
+  "reason": "",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/liseami/ChunUI/blob/b240cbbdb9c6d7afc9f02d9ce4ddff5a25ce73bb/README.md",
+  "sourceRevision": "b240cbbdb9c6d7afc9f02d9ce4ddff5a25ce73bb",
+  "canonicalKey": "liseami/ChunUI",
+  "summary": "从 iOS 应用 Zinner 中提取的 SwiftUI 设计系统，只需定义配色，即可获得统一的黑白灰加单一品牌色质感组件、Sheet 标准、Toast 和 Metal 特效。",
+  "intro": "适合用 SwiftUI 开发 iOS 应用、希望直接使用成套组件和视觉规范的开发者。库内包含 CCColors 语义调色板、三档字号与间距令牌、CCNeoButton 等按钮、原生 Sheet 封装、CCToastCenter、Metal shader 特效、氛围动效、表单卡片组件和 1225 个 PikaIcon 图标。仓库还附带一个供 AI 编程助手参考的 Skill。",
+  "requirements": "iOS 18.6 及以上（iOS 26 会启用 Liquid Glass）；通过 Swift Package Manager 接入；运行示例 App 需要 Xcode 和模拟器。唯一第三方依赖为 Pow（MIT）。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "用 Swift Package Manager 添加依赖",
+      "text": "在项目的 Package 依赖中加入 ChunUI 仓库地址，并指定 main 分支。最低系统版本为 iOS 18.6；iOS 26 会自动启用 Liquid Glass，18.6 到 25 之间会降级为同形状的微拟物样式。",
+      "code": ".package(url: \"https://github.com/liseami/ChunUI\", branch: \"main\")",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/liseami/ChunUI/blob/b240cbbdb9c6d7afc9f02d9ce4ddff5a25ce73bb/README.md?plain=1#L51"
+      }
+    },
+    {
+      "title": "启动时调用 ChunUI.configure 换肤",
+      "text": "在 App 启动时以 CCColors.default 为基础，修改 primary 等颜色，再调用 ChunUI.configure(colors:)。这是唯一的初始化入口，之后 CCNeoButton、ccText 等组件会自动套用配色。文案表 CCStrings 也可以整体覆写，用于本地化。",
+      "code": "import ChunUI\n\n// App 启动时，一行换肤\nvar colors = CCColors.default          // Zinner 同款极致黑白粉\ncolors.primary = .hex(\"007aff\")        // 换成你的品牌色\nChunUI.configure(colors: colors)\n\n// 之后全组件族自动着装\nCCNeoButton(\"开始\", variant: .primary) { await start() }\nText(\"标题\").ccText(font: .cc.lgBold, color: .cc.foreground)",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/liseami/ChunUI/blob/b240cbbdb9c6d7afc9f02d9ce4ddff5a25ce73bb/README.md?plain=1#L1"
+      }
+    },
+    {
+      "title": "按需接入触觉、埋点与图片加载",
+      "text": "宿主应用可以通过接线座注入自己的逻辑：hapticsEnabled 控制触觉开关，sheetPresentHook 和 CCTrack.onTap 用于埋点，CCImageLoader.custom 可替换网络图片加载方式，toastRouteResolver 用于定制 toast 路由。",
+      "code": "ChunUI.hapticsEnabled = userPrefs.haptics          // 触觉总开关\nChunUI.sheetPresentHook = { _, name in Analytics.page(name) }  // sheet 呈现埋点\nCCTrack.onTap = { Analytics.tap($0) }              // 组件级点击埋点\nCCImageLoader.custom = { url, _ in                 // 用 Kingfisher 接管网络图\n    AnyView(KFImage(url).resizable())\n}\nAppHelper.toastRouteResolver = { ... }             // toast 气泡路由策略",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/liseami/ChunUI/blob/b240cbbdb9c6d7afc9f02d9ce4ddff5a25ce73bb/README.md?plain=1#L80"
+      }
+    },
+    {
+      "title": "运行示例画廊查看全部组件",
+      "text": "在 Xcode 中打开 Example/ChunUIGallery.xcodeproj，选择模拟器直接运行。画廊按 Foundation、Controls、Feedback、Effects、Ambient、Icons 等分区展示组件，源码位于 Sources/ChunUIDemo/。",
+      "code": "open Example/ChunUIGallery.xcodeproj   # 选模拟器直接 Run",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/liseami/ChunUI/blob/b240cbbdb9c6d7afc9f02d9ce4ddff5a25ce73bb/README.md?plain=1#L96"
+      }
+    },
+    {
+      "title": "为 AI 助手安装 chunui Skill",
+      "text": "如果使用 Claude Code，可将 skills/chunui 复制到项目的 .claude/skills/ 目录（README 推荐项目级安装）。Skill 内含 SKILL.md、用法文档、组件参考和五个生产页面示例，供 Agent 在开发时遵循组件规范。",
+      "code": "# 项目级（推荐，随仓库走）\nmkdir -p .claude/skills && cp -R /path/to/ChunUI/skills/chunui .claude/skills/\n# 或全局\ncp -R /path/to/ChunUI/skills/chunui ~/.claude/skills/\n# 或经 skills CLI\nnpx skills add liseami/ChunUI",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/liseami/ChunUI/blob/b240cbbdb9c6d7afc9f02d9ce4ddff5a25ce73bb/README.md?plain=1#L26"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "安装说明指定的是 main 分支而非版本号，上游变动可能影响构建稳定性。",
+    "依赖第三方库 Pow（MIT）。",
+    "README 规定使用沉底双胶囊 Alert 并禁止 UIAlert。采用前请确认这些交互规范适合你的产品。"
+  ],
+  "references": [],
+  "media": [
+    {
+      "url": "/assets/repository-guides/media-a8630dab0c0b9453b4cafff3.webp",
+      "alt": "liseami/ChunUI 官方演示 1",
+      "sourceUrl": "https://github.com/liseami/ChunUI/blob/b240cbbdb9c6d7afc9f02d9ce4ddff5a25ce73bb/README.md?plain=1#L10",
+      "originalUrl": "https://raw.githubusercontent.com/liseami/ChunUI/b240cbbdb9c6d7afc9f02d9ce4ddff5a25ce73bb/docs/screenshots/gallery-home.jpg"
+    },
+    {
+      "url": "/assets/repository-guides/media-32ca5dd6f7b2f4211cf1908f.webp",
+      "alt": "liseami/ChunUI 官方演示 2",
+      "sourceUrl": "https://github.com/liseami/ChunUI/blob/b240cbbdb9c6d7afc9f02d9ce4ddff5a25ce73bb/README.md?plain=1#L10",
+      "originalUrl": "https://raw.githubusercontent.com/liseami/ChunUI/b240cbbdb9c6d7afc9f02d9ce4ddff5a25ce73bb/docs/screenshots/buttons.jpg"
+    },
+    {
+      "url": "/assets/repository-guides/media-2d50c1f8cc859b1145aa8444.webp",
+      "alt": "liseami/ChunUI 官方演示 3",
+      "sourceUrl": "https://github.com/liseami/ChunUI/blob/b240cbbdb9c6d7afc9f02d9ce4ddff5a25ce73bb/README.md?plain=1#L10",
+      "originalUrl": "https://raw.githubusercontent.com/liseami/ChunUI/b240cbbdb9c6d7afc9f02d9ce4ddff5a25ce73bb/docs/screenshots/ai-effects.jpg"
+    }
+  ],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "4cfa96bac584f29fe5dfcfbd6d87bcdcf8e404ac818b656dba4bc0d1f8f75da4",
+  "mediaStatus": "archived",
+  "mediaFailures": []
+}

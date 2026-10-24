@@ -1,0 +1,75 @@
+{
+  "schemaVersion": 1,
+  "key": "chencore/autoresearch-crypto",
+  "status": "ready",
+  "reason": "",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/chencore/autoresearch-crypto/blob/ec86e44a6f0b4063e79f33253e00fefb4249ec88/README.md",
+  "sourceRevision": "ec86e44a6f0b4063e79f33253e00fefb4249ec88",
+  "canonicalKey": "chencore/autoresearch-crypto",
+  "summary": "autoresearch-crypto 是一个 Python 加密货币量化研究框架，支持下载行情数据、搜索和演化策略、回测，并能连接 Nado DEX、OKX、Binance 进行实盘或模拟盘交易。",
+  "intro": "适合有 Python 基础、想研究加密货币量化策略的研究者和开发者。框架内置 11 种策略类，提供 ATLAS 多策略进化、GEPA 反思式进化、市场机制检测和多窗口样本外验证，并用风险惩罚评分代替原始夏普比率。项目声明仅供研究和教育用途。",
+  "requirements": "需要 Python 3.10+，推荐安装 uv 包管理器。NVIDIA GPU 为可选项，用于策略搜索，建议 8GB 以上显存。连接交易所需要在 `.env` 中填写相应的 API 密钥或私钥。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "克隆仓库并安装依赖",
+      "text": "克隆仓库后进入目录，用 `uv sync` 安装依赖。然后把 `.env.example` 复制为 `.env`，按需填入交易所 API 密钥或私钥。注意 README 中的仓库地址是占位符 `<repo-url>`，需要换成本仓库的实际地址。",
+      "code": "# 1. 克隆仓库\ngit clone <repo-url> autoresearch-crypto\ncd autoresearch-crypto\n\n# 2. 安装依赖\nuv sync\n\n# 3. 准备环境变量\ncp .env.example .env\n# 编辑 .env，添加你的 API 密钥 / 私钥",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/chencore/autoresearch-crypto/blob/ec86e44a6f0b4063e79f33253e00fefb4249ec88/README.md?plain=1#L32"
+      }
+    },
+    {
+      "title": "下载 ETH 5 分钟行情数据",
+      "text": "用 `prepare_crypto.py` 下载回测和搜索所需的数据。README 的示例是下载 ETHUSDT 最近 60 天的 5 分钟 K 线，可通过 `--symbol`、`--interval`、`--days` 参数调整。",
+      "code": "# 下载 ETH 5分钟数据（60天）\nuv run python prepare_crypto.py --symbol ETHUSDT --interval 5m --days 60",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/chencore/autoresearch-crypto/blob/ec86e44a6f0b4063e79f33253e00fefb4249ec88/README.md?plain=1#L53"
+      }
+    },
+    {
+      "title": "运行策略搜索与回测",
+      "text": "先用 `search_eth_optimal.py --quick` 快速扫描，或运行完整搜索（README 标注约 20 分钟）。然后用 `backtest_quant.py` 按默认策略或指定 checkpoint 回测。初始资金、手续费、滑点和最大回撤阈值集中在 `dex/config.py` 中配置。",
+      "code": "# 快速扫描（5分钟）\nuv run python search_eth_optimal.py --quick\n\n# 完整搜索（推荐，约20分钟）\nuv run python search_eth_optimal.py\n\n# 使用默认策略回测\nuv run python backtest_quant.py --symbol ETHUSDT --interval 5m --days 60\n\n# 使用指定 checkpoint 回测\nuv run python backtest_quant.py \\\n    --symbol ETHUSDT --interval 5m --days 60 \\\n    --checkpoint checkpoints/hybrid_mm_eth60d.pt",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/chencore/autoresearch-crypto/blob/ec86e44a6f0b4063e79f33253e00fefb4249ec88/README.md?plain=1#L60"
+      }
+    },
+    {
+      "title": "可选：运行 ATLAS 或 GEPA 进化",
+      "text": "需要多 Agent 演化策略时，运行 `scripts/evolve.py` 执行 ATLAS 多策略进化，或运行 `scripts/evolve_gepa.py` 执行每 5 轮记录一次假设的 GEPA 反思式进化。策略类型和适用市场见 `docs/STRATEGIES.md`。",
+      "code": "uv run python scripts/evolve.py --generations 30\n\nuv run python scripts/evolve_gepa.py --cycles 30",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/chencore/autoresearch-crypto/blob/ec86e44a6f0b4063e79f33253e00fefb4249ec88/README.md?plain=1#L151"
+      }
+    },
+    {
+      "title": "先在 Binance Testnet 模拟验证",
+      "text": "README 建议先用 `live_binance_quant.py` 的 `--demo` 模式在 Testnet 模拟盘测试。同一代码块里的 `--live` 命令会用真实资金交易，并带杠杆参数，确认策略稳定后再考虑使用。",
+      "code": "# Testnet 模拟盘（推荐先用这个测试）\nuv run python live_binance_quant.py \\\n    --symbol BTCUSDT --interval 5m --demo --capital 100\n\n# 实盘交易（真钱！策略稳定后再用）\nuv run python live_binance_quant.py \\\n    --symbol BTCUSDT --interval 5m --live --capital 500 --leverage 2",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/chencore/autoresearch-crypto/blob/ec86e44a6f0b4063e79f33253e00fefb4249ec88/README.md?plain=1#L92"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "项目声明仅供研究和教育用途。加密货币交易风险很高，过往表现不代表未来收益，使用风险自负。",
+    "`--live` 模式和 Nado DEX 实盘脚本会使用真实资金下单，示例中还包含 `--leverage 2` 杠杆参数。",
+    "`.env` 中保存的是交易所 API 密钥或钱包私钥，不要提交到版本库或分享给他人。",
+    "回测中的手续费、滑点等是 `dex/config.py` 中的默认假设，不一定等于实际成交成本。",
+    "GPU 仅在策略搜索时可选使用。没有 GPU 时，README 没有说明搜索耗时。"
+  ],
+  "references": [],
+  "media": [],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "110c2089f37a2c233407530882e1553f24fd269e61ca95a9902893e2f291c620",
+  "mediaStatus": "none_in_official_documents"
+}

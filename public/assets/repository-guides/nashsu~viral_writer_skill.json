@@ -1,0 +1,65 @@
+{
+  "schemaVersion": 1,
+  "key": "nashsu/viral_writer_skill",
+  "status": "ready",
+  "reason": "",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/nashsu/Viral_Writer_Skill/blob/1c76f891fb928ceb22fd101044d100d759f8cee5/README.md",
+  "sourceRevision": "1c76f891fb928ceb22fd101044d100d759f8cee5",
+  "canonicalKey": "nashsu/Viral_Writer_Skill",
+  "summary": "这是一个自媒体写作 Skill：给出主题后，它会生成一篇完整文章、5 个备选标题和每张配图的生成 prompt，并输出为 Markdown。",
+  "intro": "适合自媒体从业者、内容运营和需要多平台产出内容的团队。它会按微信公众号、小红书、抖音三种平台的规范分别写作，在创作前按 11 个内容维度做内部构思，并给出封面和正文配图的 AI 生图 prompt。",
+  "requirements": "需要 git，以及支持 skills 目录的宿主。README 只给出了 Claude Code 的安装路径，同时说明可以在 Claude Code / OpenClaw / OpenCode 中用自然语言触发。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "克隆仓库到 skills 目录",
+      "text": "这里以 Claude Code 为例。克隆 Viral_Writer_Skill 仓库，把整个目录复制到 ~/.claude/skills/Viral_Writer_Skill，确保其中包含 SKILL.md 文件。",
+      "code": "# 克隆仓库\ngit clone https://github.com/nashsu/Viral_Writer_Skill.git\n\n# 复制到 Claude Code skills 目录\ncp -r Viral_Writer_Skill ~/.claude/skills/Viral_Writer_Skill",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/nashsu/Viral_Writer_Skill/blob/1c76f891fb928ceb22fd101044d100d759f8cee5/README.md?plain=1#L41"
+      }
+    },
+    {
+      "title": "用自然语言说明主题和平台",
+      "text": "在 Claude Code 中直接说明要写哪个平台（公众号、小红书或抖音）的内容以及主题，即可触发 Skill。不同平台的字数、语气、标题和封面比例各不相同。",
+      "code": "帮我写一篇公众号文章，主题是\"为什么年轻人开始反消费主义\"",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/nashsu/Viral_Writer_Skill/blob/1c76f891fb928ceb22fd101044d100d759f8cee5/README.md?plain=1#L53"
+      }
+    },
+    {
+      "title": "补充受众和风格要求",
+      "text": "可以在请求中加入目标受众和风格倾向，比如理性深度或轻松口语。Skill 的第一步就是确认平台、受众和调性，信息越完整，后续创作越贴近需求。",
+      "code": "写一篇公众号文章，主题是远程办公的利与弊，\n目标受众是互联网从业者，风格偏理性深度",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/nashsu/Viral_Writer_Skill/blob/1c76f891fb928ceb22fd101044d100d759f8cee5/README.md?plain=1#L53"
+      }
+    },
+    {
+      "title": "查看生成的 Markdown 成稿",
+      "text": "每次创作会生成一个 Markdown 文件，包含正文、5 个标注策略的备选标题，以及封面图和正文配图的推荐比例、视觉风格与生图 prompt。配图 prompt 可以交给你自己的 AI 绘图工具使用。",
+      "code": "# 不是买不起，是想明白了：年轻人正在退出消费游戏\n\n> 平台：微信公众号 | 字数：约2500字 | 调性：理性深度 + 情感共鸣\n\n---\n\n[完整正文]\n\n---\n\n## 备选标题\n\n1. 不是买不起，是想明白了：年轻人正在退出消费游戏 — 策略：痛点共鸣\n2. 月薪两万，全年消费不到三万：这届年轻人在想什么？ — 策略：数据冲击\n3. 为什么你的购物车越来越空了？答案比你想的更深刻 — 策略：好奇心缺口\n4. \"不买立省百分百\"：50万年轻人的反消费宣言 — 策略：社交货币\n5. 你以为你在消费商品，其实商品在消费你的人生 — 策略：反常识\n\n## 配图指导\n\n### 封面图\n- 推荐比例：2.35:1\n- 视觉风格：极简主义，少即是多\n- 生成 prompt：一个年轻人坐在空旷整洁的房间里，身边只有一杯茶和一本书，\n  窗外是繁华的城市天际线，暖色调偏米白，扁平插画风格...\n\n### 正文配图\n#### 配图1（位置：第一节之后）\n- 作用：情绪强化\n- 生成 prompt：一个年轻人被堆积如山的购物袋包围淹没...",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/nashsu/Viral_Writer_Skill/blob/1c76f891fb928ceb22fd101044d100d759f8cee5/README.md?plain=1#L76"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "README 只给出了 Claude Code 的安装路径，OpenClaw / OpenCode 的放置位置请以各自宿主的官方说明为准。",
+    "README 说明它不适合学术论文、技术文档等场景。如果 AI 不能联网，它也无法提供实时热点数据。",
+    "README 中的 A/B 测试数据由作者自述，并非独立验证结果。",
+    "配图只提供 prompt，实际出图需要另外使用图片生成工具。"
+  ],
+  "references": [],
+  "media": [],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "e962071166c7e946a14d09a65ae30550005d826c06bedb7c499bc5437018da3b",
+  "mediaStatus": "none_in_official_documents"
+}

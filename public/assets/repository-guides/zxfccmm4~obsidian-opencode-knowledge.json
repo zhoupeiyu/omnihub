@@ -1,0 +1,74 @@
+{
+  "schemaVersion": 1,
+  "key": "zxfccmm4/obsidian-opencode-knowledge",
+  "status": "ready",
+  "reason": "",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/zxfccmm4/Obsidian-OpenCode-Knowledge/blob/72e3580378ee9a82d8c2b90253e51aec97428bd2/README.md",
+  "sourceRevision": "72e3580378ee9a82d8c2b90253e51aec97428bd2",
+  "canonicalKey": "zxfccmm4/Obsidian-OpenCode-Knowledge",
+  "summary": "一键部署的本地 AI 知识库模板，用 Obsidian 搭配 OpenCode、Claude Code、Codex 或 Pi，实现素材录入、社交媒体内容归档、对话式查询和知识库体检。",
+  "intro": "适合希望在本机用 Obsidian 管理笔记、又想让 AI 自动整理资料的非技术用户。脚本会创建知识库目录，分发预装技能和 AGENTS.md 规则，并配置所选模型服务；之后可在 Obsidian 中让 AI 把文章、PDF、截图整理进 wiki/，按主题查询已有笔记，或定期检查死链、重复和孤岛页面。",
+  "requirements": "一键脚本仅支持 macOS（文档建议 macOS 12 或更高），需联网；脚本依赖 Homebrew 与 Node.js（缺失时可引导安装）；需安装 Obsidian；需准备所选模型服务商（智谱 GLM、Anthropic、OpenAI、Google Gemini、OpenRouter、DeepSeek 之一）的 API Key。Linux 需手动调整 setup.sh，Windows 建议用 WSL2。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "先运行只读环境检查",
+      "text": "在 macOS 上克隆仓库后，先运行 scripts/verify.sh 做只读检查，确认仓库状态和本机环境；该检查不安装也不改动文件，安装失败时也可先用它排查。",
+      "code": "bash scripts/verify.sh",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/zxfccmm4/Obsidian-OpenCode-Knowledge/blob/72e3580378ee9a82d8c2b90253e51aec97428bd2/README.md?plain=1#L78"
+      }
+    },
+    {
+      "title": "克隆仓库并运行安装脚本",
+      "text": "按手动安装方式克隆仓库并执行 bash setup.sh。脚本会选择 Agent、检查 Node.js、安装对应 CLI 和 OpenCLI、复制知识库模板、分发技能规则，并让你选择模型服务商、粘贴 API Key。",
+      "code": "# 第 1 步：克隆仓库\ngit clone https://github.com/zxfccmm4/Obsidian-OpenCode-Knowledge.git\ncd Obsidian-OpenCode-Knowledge\n\n# 第 2 步：运行安装脚本（macOS）\nbash setup.sh\n\n# 第 3 步：在 Obsidian 中打开生成的「我的知识库」文件夹",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/zxfccmm4/Obsidian-OpenCode-Knowledge/blob/72e3580378ee9a82d8c2b90253e51aec97428bd2/README.md?plain=1#L42"
+      }
+    },
+    {
+      "title": "按需指定使用的 AI Agent",
+      "text": "默认使用 OpenCode；如想用 Claude Code、Codex 或 Pi，可在运行 setup.sh 时用 --agent 参数指定。四者共用同一套规则与技能，差异只在安装方式和配置文件格式。",
+      "code": "bash setup.sh --agent opencode        # 默认，推荐大多数用户\nbash setup.sh --agent claude-code     # Claude Code\nbash setup.sh --agent codex           # OpenAI Codex\nbash setup.sh --agent pi              # Pi（开源轻量）",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/zxfccmm4/Obsidian-OpenCode-Knowledge/blob/72e3580378ee9a82d8c2b90253e51aec97428bd2/README.md?plain=1#L57"
+      }
+    },
+    {
+      "title": "在 Obsidian 打开知识库",
+      "text": "安装完成后在 Obsidian 中打开生成的“我的知识库”文件夹。原始素材放在 raw/，AI 整理的笔记在 wiki/，可编辑根目录的 AI_CONFIG.md 自定义知识域、触发词和输出语言。",
+      "code": "我的知识库/\n├── 📄 AGENTS.md               # AI 规则（由系统维护）\n├── 📄 AI_CONFIG.md            # ⚙️ AI 配置文件（用户可自定义）\n├── 📁 raw/                   # 原始素材（PDF/文章/截图等）\n│   ├── 按主题分类存放...\n│   └── 📁 social/            # 社交媒体原始内容（按知识域分类）\n│       ├── 消费研究/          # 探店、测评、好物推荐\n│       ├── 技能方法/          # 教程、攻略、经验分享\n│       ├── 行业洞察/          # 趋势分析、商业观察\n│       ├── 生活方式/          # 旅行、美食、穿搭\n│       ├── 观点思考/          # 深度评论、价值观输出\n│       ├── 创意灵感/          # 设计、文案、营销案例\n│       └── 资源收藏/          # 工具推荐、书单、资源清单\n├── 📁 wiki/                  # AI 整理的笔记\n│   ├── index.md              # 📇 全局索引（AI 自动更新）\n│   ├── log.md                # 📝 操作日志（AI 自动记录）\n│   └── 各主题笔记...         # 含社交媒体消化后的知识文章\n├── 📁 assets/                # 配图资源\n└── 📁 .opencode/            # AI 技能目录（opencode）\n  │                          #   claude-code 用 .claude/skills/\n  │                          #   codex 用 ~/.codex/skills/（用户级）\n    └── 📁 skill/             # AI 技能（内容三者通用）\n        ├── obsidian-cli/     # Obsidian 操作能力\n        ├── obsidian-markdown/ # Markdown 生成能力\n        ├── defuddle/         # 网页内容提取能力\n        ├── opencli-usage/    # OpenCLI 命令参考（100+ 网站适配器）\n        ├── smart-search/     # 智能搜索路由器\n        ├── opencli-browser/  # 浏览器自动化\n        ├── opencli-autofix/  # 适配器自动修复\n        ├── opencli-explorer/ # 适配器开发指南\n        └── opencli-oneshot/  # 单点快速 CLI 生成",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/zxfccmm4/Obsidian-OpenCode-Knowledge/blob/72e3580378ee9a82d8c2b90253e51aec97428bd2/README.md?plain=1#L42"
+      }
+    },
+    {
+      "title": "让 AI 录入和查询笔记",
+      "text": "在 Agent 对话中把文章内容或链接交给 AI 录入 wiki，AI 会保存原文、生成结构化笔记并更新索引与日志；之后可直接用自然语言询问 wiki 中某个主题的已有内容。",
+      "code": "帮我把这个加到 wiki：\n[粘贴文章内容 / 网页链接 / 描述你想记录的内容]\n\n我的 wiki 里关于项目管理有什么内容？",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/zxfccmm4/Obsidian-OpenCode-Knowledge/blob/72e3580378ee9a82d8c2b90253e51aec97428bd2/README.md?plain=1#L228"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "笔记保存在本地，但使用 AI 时对话内容会发送给你配置的模型服务商，需自备该服务商的 API Key。",
+    "社交媒体采集依赖 OpenCLI 复用浏览器登录状态，自动抓取可能违反小红书、抖音、微博等平台服务条款，存在限流或封号风险，项目声明仅供个人学习研究。",
+    "uninstall.sh 的 --remove-vault 会永久删除全部笔记，使用前务必备份。",
+    "若检测到已有 Agent 配置，脚本会先询问并备份，再更新模型与 Key；upgrade.sh 仅刷新规则、技能和脚本，不改动 raw/、wiki/、assets/。"
+  ],
+  "references": [],
+  "media": [],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "5c6f039b2d74203070027fc031b40ebf6f852f0b78ae95d8b18856cac3ae0b3e",
+  "mediaStatus": "none_in_official_documents"
+}

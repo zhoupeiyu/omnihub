@@ -1,0 +1,74 @@
+{
+  "schemaVersion": 1,
+  "key": "joeseesun/anything-to-notebooklm",
+  "status": "ready",
+  "reason": "",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/joeseesun/qiaomu-anything-to-notebooklm/blob/cea6ceee8cdcd01a573af5ae75c2d3cffc20650b/README.md",
+  "sourceRevision": "cea6ceee8cdcd01a573af5ae75c2d3cffc20650b",
+  "canonicalKey": "joeseesun/qiaomu-anything-to-notebooklm",
+  "summary": "一个 Claude Code Skill：从网页、公众号、YouTube、PDF、电子书等来源获取内容，上传到 Google NotebookLM，生成播客、PPT、思维导图、Quiz 等格式。",
+  "intro": "适合用 Claude Code 整理学习和研究资料的个人用户。用自然语言给出内容来源（链接、本地文件或搜索关键词）和想要的格式，Skill 会自动识别来源类型、获取并转换内容，再交给 NotebookLM 生成播客、PPT、思维导图、Quiz、报告、闪卡等。另有深度分析模式，可分三轮向 NotebookLM 递进提问。",
+  "requirements": "Python 3.9+、Git、Claude Code，以及可用于 notebooklm login 的 NotebookLM 账号。抓取微信公众号需要配置 MCP。小宇宙、喜马拉雅、B站转写需要 Get笔记 API 凭据（可选）。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "克隆到 Claude skills 目录",
+      "text": "以 macOS/Linux 为例：进入 ~/.claude/skills/ 克隆仓库，然后在仓库目录运行 ./install.sh，一次装好依赖。",
+      "code": "# 1. 克隆到 Claude skills 目录\ncd ~/.claude/skills/\ngit clone https://github.com/joeseesun/qiaomu-anything-to-notebooklm\ncd qiaomu-anything-to-notebooklm\n\n# 2. 一键安装所有依赖\n./install.sh\n\n# 3. 按提示配置 MCP，然后重启 Claude Code",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/joeseesun/qiaomu-anything-to-notebooklm/blob/cea6ceee8cdcd01a573af5ae75c2d3cffc20650b/README.md?plain=1#L144"
+      }
+    },
+    {
+      "title": "按提示配置 MCP 并重启",
+      "text": "根据安装脚本的提示配置 MCP，然后重启 Claude Code。MCP 只用于抓取微信公众号，网页、YouTube、PDF 等来源不需要它。如果提示找不到 MCP 工具，可参考 README 的排查章节。",
+      "code": "# 1. 克隆到 Claude skills 目录\ncd ~/.claude/skills/\ngit clone https://github.com/joeseesun/qiaomu-anything-to-notebooklm\ncd qiaomu-anything-to-notebooklm\n\n# 2. 一键安装所有依赖\n./install.sh\n\n# 3. 按提示配置 MCP，然后重启 Claude Code",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/joeseesun/qiaomu-anything-to-notebooklm/blob/cea6ceee8cdcd01a573af5ae75c2d3cffc20650b/README.md?plain=1#L151"
+      }
+    },
+    {
+      "title": "完成 NotebookLM 登录认证",
+      "text": "首次使用时运行 notebooklm login 完成认证（只需一次），再用 notebooklm list 确认登录成功。可选运行 ./check_env.py 做环境检查。",
+      "code": "# NotebookLM 认证（只需一次）\nnotebooklm login\nnotebooklm list  # 验证成功\n\n# 环境检查（可选）\n./check_env.py",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/joeseesun/qiaomu-anything-to-notebooklm/blob/cea6ceee8cdcd01a573af5ae75c2d3cffc20650b/README.md?plain=1#L165"
+      }
+    },
+    {
+      "title": "可选：配置播客转写 API",
+      "text": "如果要处理小宇宙、喜马拉雅或 B站内容，需要通过环境变量配置 Get笔记 API 的 key 和 client id。YouTube 由 NotebookLM 直接处理，不需要这一步。",
+      "code": "export GETNOTE_API_KEY=\"your_api_key\"\nexport GETNOTE_CLIENT_ID=\"your_client_id\"",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/joeseesun/qiaomu-anything-to-notebooklm/blob/cea6ceee8cdcd01a573af5ae75c2d3cffc20650b/README.md?plain=1#L176"
+      }
+    },
+    {
+      "title": "用自然语言指定来源和格式",
+      "text": "在 Claude Code 中同时给出内容来源和目标格式，比如“生成播客”“做成PPT”“画个思维导图”“出题”。Skill 会根据链接或文件路径自动判断来源类型，也支持把多个来源合并处理。",
+      "code": "https://mp.weixin.qq.com/s/xxx        → 微信公众号\nhttps://xiaoyuzhoufm.com/episode/xxx  → 小宇宙播客\nhttps://x.com/user/status/xxx         → X/Twitter\nhttps://youtube.com/watch?v=xxx       → YouTube 视频\n/path/to/file.epub                    → EPUB 电子书\n\"搜索 'AI 趋势'\"                       → 搜索查询",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/joeseesun/qiaomu-anything-to-notebooklm/blob/cea6ceee8cdcd01a573af5ae75c2d3cffc20650b/README.md?plain=1#L127"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "项目内置了针对付费新闻网站的付费墙绕过逻辑，可能违反目标网站条款或侵犯版权。README 写明仅限个人学习研究使用，并建议购买订阅，使用前请自行确认合规性。",
+    "生成依赖 Google NotebookLM 和你的账号认证。播客转写依赖第三方 Get笔记 API，需要自备凭据。",
+    "README 给出的内容长度约 500 字到 50 万字，推荐 1000 到 10000 字。中文播客为单人叙述。",
+    "内容会上传到 NotebookLM 等外部服务，敏感资料请谨慎处理。"
+  ],
+  "references": [],
+  "media": [],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "4a8901b9a9ee57fcdcc393e98f5c034bbf49e4c0b626c41a15452aa310e49969",
+  "mediaStatus": "none_in_official_documents"
+}

@@ -1,0 +1,79 @@
+{
+  "schemaVersion": 1,
+  "key": "larksuite/cli",
+  "status": "ready",
+  "reason": "",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/larksuite/cli/blob/7beffb086d7fa3c5b843d8affa7c089f49cfc65e/README.md",
+  "sourceRevision": "7beffb086d7fa3c5b843d8affa7c089f49cfc65e",
+  "canonicalKey": "larksuite/cli",
+  "summary": "飞书/Lark 官方命令行工具，可在终端或由 AI Agent 调用，操作消息、文档、多维表格、日历、邮件、任务等业务。",
+  "intro": "适合希望在终端里操作飞书，或让自己的 AI Agent 代为处理日程、消息、文档、表格、审批等工作的个人开发者；企业 IT/ISV 若要把 lark-cli 嵌入自研 Agent 并集中管理凭证，官方另有接入文档与 extension/ 扩展包。命令分为 + 前缀快捷命令、API 命令和原始 API 调用三层。",
+  "requirements": "需要 Node.js（npm/npx）；需要飞书/Lark 账号，并能在浏览器中完成应用配置与授权登录。仅从源码构建时才需要 Go v1.23+ 和 Python 3。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "通过 npm 安装 lark-cli",
+      "text": "官方提供 npm 与源码两种安装方式，二选一。推荐使用 npm 方式运行 npx @larksuite/cli@latest install 完成安装。",
+      "code": "npx @larksuite/cli@latest install",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/larksuite/cli/blob/7beffb086d7fa3c5b843d8affa7c089f49cfc65e/README.zh.md?plain=1#L68"
+      }
+    },
+    {
+      "title": "初始化应用凭证配置",
+      "text": "运行 lark-cli config init，按交互式引导一次性配置应用凭证。面向 Agent 的流程使用 config init --new，命令会输出授权链接，需用户在浏览器中完成设置。",
+      "code": "# 1. Configure app credentials (one-time, interactive guided setup)\nlark-cli config init\n\n# 2. Log in (--recommend auto-selects commonly used scopes)\nlark-cli auth login --recommend\n\n# 3. Start using\nlark-cli calendar +agenda\n\nlark-cli config init --new",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/larksuite/cli/blob/7beffb086d7fa3c5b843d8affa7c089f49cfc65e/README.md?plain=1#L91"
+      }
+    },
+    {
+      "title": "登录并检查授权状态",
+      "text": "运行 auth login --recommend 自动选择常用权限范围并登录，之后用 auth status 查看当前登录状态和已授予的 scope。也可用 --domain 或 --scope 精确限定权限。",
+      "code": "lark-cli auth login --recommend\n\nlark-cli auth status\n\n# Interactive login (TUI guides domain and permission level selection)\nlark-cli auth login\n\n# Filter by domain\nlark-cli auth login --domain calendar,task\n\n# Recommended auto-approval scopes\nlark-cli auth login --recommend\n\n# Exact scope\nlark-cli auth login --scope \"calendar:calendar:read\"\n\n# Agent mode: return verification URL immediately, non-blocking\nlark-cli auth login --domain calendar --no-wait\n# Resume polling later\nlark-cli auth login --device-code <DEVICE_CODE>\n\n# DPoP (Demonstrating Proof of Possession) is enabled in preferred mode by default for new local credentials\nlark-cli config set dpop preferred\n# Or disable DPoP\nlark-cli config set dpop disabled\n# Or require DPoP without Bearer fallback\nlark-cli config set dpop required\n# Re-authorize after choosing a different policy\nlark-cli auth login\n\n# Identity switching: execute commands as user or bot\nlark-cli calendar +agenda --as user\nlark-cli im +messages-send --as bot --chat-id \"oc_xxx\" --text \"Hello\"",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/larksuite/cli/blob/7beffb086d7fa3c5b843d8affa7c089f49cfc65e/README.md?plain=1#L104"
+      }
+    },
+    {
+      "title": "用快捷命令开始使用",
+      "text": "先试 lark-cli calendar +agenda 查看日程；+ 前缀快捷命令带智能默认值和表格输出。运行 lark-cli <service> --help 可列出某个业务的全部快捷命令。",
+      "code": "# 1. Configure app credentials (one-time, interactive guided setup)\nlark-cli config init\n\n# 2. Log in (--recommend auto-selects commonly used scopes)\nlark-cli auth login --recommend\n\n# 3. Start using\nlark-cli calendar +agenda\n\nlark-cli calendar +agenda\nlark-cli im +messages-send --chat-id \"oc_xxx\" --text \"Hello\"\nlark-cli docs +create --doc-format markdown --content $'<title>Weekly Report</title>\\n# Progress\\n- Completed feature X'",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/larksuite/cli/blob/7beffb086d7fa3c5b843d8affa7c089f49cfc65e/README.md?plain=1#L91"
+      }
+    },
+    {
+      "title": "有副作用操作先用 dry-run",
+      "text": "发送消息等会产生实际影响的命令，先加 --dry-run 预览请求内容，确认无误后再去掉该参数执行。判断成功应看返回中的 ok 字段或退出码。",
+      "code": "lark-cli im +messages-send --chat-id oc_xxx --text \"hello\" --dry-run\n\n{ \"ok\": true, \"identity\": \"user\", \"data\": { \"guid\": \"...\" }, \"meta\": { \"count\": 1 } }",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/larksuite/cli/blob/7beffb086d7fa3c5b843d8affa7c089f49cfc65e/README.md?plain=1#L279"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "官方提示：授权后 AI Agent 会以你的用户身份在授权范围内操作，存在模型幻觉、提示词注入、敏感数据泄露和越权操作等风险，不建议修改默认安全配置。",
+    "官方建议将对接的飞书机器人仅作私人助手使用，不要拉入群聊或让他人与其交互。",
+    "CLI 默认会向飞书/Lark 官方域名发送操作系统类型和设备硬件型号作为风控信号，可按 workspace 关闭。",
+    "飞书项目（Meegle）功能需另行安装独立的 meegle-cli。"
+  ],
+  "references": [
+    {
+      "label": "README.zh.md",
+      "url": "https://github.com/larksuite/cli/blob/7beffb086d7fa3c5b843d8affa7c089f49cfc65e/README.zh.md"
+    }
+  ],
+  "media": [],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "7f80b2df7dc68dc575f1a576a01657c1edbe99ae26542861e25b82e5522d5864",
+  "mediaStatus": "none_in_official_documents"
+}

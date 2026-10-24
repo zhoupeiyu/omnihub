@@ -1,0 +1,77 @@
+{
+  "schemaVersion": 1,
+  "key": "tokenpls/hako",
+  "status": "ready",
+  "reason": "",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/TokenPLS/Hako/blob/9437767346a63957c60bf027b6d9fb27e51d89c4/README.md",
+  "sourceRevision": "9437767346a63957c60bf027b6d9fb27e51d89c4",
+  "canonicalKey": "TokenPLS/Hako",
+  "summary": "Hako 是基于 mihomo v1.19.31 的代理内核，提供 Go 绑定和构建工具，可生成支持 iOS、macOS、tvOS 的 Hako.xcframework。",
+  "intro": "适合需要在 Apple 平台应用中集成代理内核的开发者。仓库包含代理引擎（协议、DNS、路由规则、代理组）、通过 gomobile 暴露的 bind/hako 接口、SDK 打包工具，以及配置参考 docs/config.yaml。普通用户如果只想使用应用，应通过 App Store 安装官方应用，而不是使用本仓库。",
+  "requirements": "需要 macOS、完整的 Xcode，以及 iOS、macOS、tvOS SDK（README 称当前构建已用 Xcode 27.0 验证）。绑定模块声明 Go 1.25.0 并选择 Go 1.26.6 工具链，需要允许 Go 自动获取该工具链或自行安装。克隆时需保留完整历史和标签。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "准备 macOS、Xcode 与 Go 环境",
+      "text": "在 macOS 上安装完整的 Xcode，并确认已包含 iOS、macOS、tvOS SDK。安装 Go，并允许它按 bind/hako/go.mod 获取 Go 1.26.6 工具链，或手动安装该版本。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/TokenPLS/Hako/blob/9437767346a63957c60bf027b6d9fb27e51d89c4/README.zh-CN.md?plain=1#L49"
+      }
+    },
+    {
+      "title": "克隆仓库并构建 xcframework",
+      "text": "完整克隆仓库（包括历史和标签），安装固定版本 v0.1.13 的 gomobile 和 gobind，再执行 make lib_apple 生成 Hako.xcframework。产物包含 iOS 真机、iOS 模拟器、macOS、tvOS 真机、tvOS 模拟器五个切片。没有发布标签的源码构建会标记为 dev-<提交>。",
+      "code": "git clone https://github.com/TokenPLS/Hako.git\ncd Hako\ngo install github.com/sagernet/gomobile/cmd/gomobile@v0.1.13\ngo install github.com/sagernet/gomobile/cmd/gobind@v0.1.13\nmake lib_apple",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/TokenPLS/Hako/blob/9437767346a63957c60bf027b6d9fb27e51d89c4/README.zh-CN.md?plain=1#L49"
+      }
+    },
+    {
+      "title": "在 Xcode 工程中链接 SDK",
+      "text": "Hako.xcframework 是静态框架。直接链接时，嵌入选项选择 Do Not Embed，并链接 libresolv。如果应用和扩展都要使用内核，可以用一个共享的动态框架封装它，避免重复打包。具体接口以所固定提交生成的头文件为准。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/TokenPLS/Hako/blob/9437767346a63957c60bf027b6d9fb27e51d89c4/README.zh-CN.md?plain=1#L49"
+      }
+    },
+    {
+      "title": "参考 Hako-Client 完成应用接入",
+      "text": "内核本身不包含配置、存储、Network Extension 接入和签名，这些需要由应用实现。完整的应用接入可参考 Hako-Client 仓库；Swift 数据包桥接和扩展生命周期组件在 Hako-Adapter 中。配置写法可查阅 docs/config.yaml。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/TokenPLS/Hako/blob/9437767346a63957c60bf027b6d9fb27e51d89c4/README.zh-CN.md?plain=1#L38"
+      }
+    },
+    {
+      "title": "运行根模块构建与测试",
+      "text": "修改内核后，在仓库根目录执行 go build ./... 和 go test ./...。Apple 绑定在 bind/hako 下有独立的模块和测试。提交问题时附上源码提交、平台、复现步骤，以及去除密钥后的精简配置。",
+      "code": "go build ./...\ngo test ./...",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/TokenPLS/Hako/blob/9437767346a63957c60bf027b6d9fb27e51d89c4/README.zh-CN.md?plain=1#L77"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "项目采用 GPL-3.0 许可证，集成到应用中分发时需遵守相应的开源义务，并查阅 NOTICE 和 THIRD_PARTY_LICENSES.md。",
+    "Hako 与 MetaCubeX 无隶属关系；上游要求无隶属关系的下游项目不要在名称中使用「mihomo」。",
+    "main 分支上未打标签的源码属于预发布版本，集成时应固定到具体提交；已发布的 SDK 可从 Releases 下载，并用 SHA256SUMS 校验。",
+    "iOS 和 tvOS 切片使用 no_easytier，不包含 EasyTier；配置能被解析不代表所有协议都已在每个平台完成端到端验证。",
+    "SDK 构建成功不代表在签名真机上的运行行为已验证；实际使用还依赖 Network Extension 权限和签名配置。"
+  ],
+  "references": [
+    {
+      "label": "README.zh-CN.md",
+      "url": "https://github.com/TokenPLS/Hako/blob/9437767346a63957c60bf027b6d9fb27e51d89c4/README.zh-CN.md"
+    }
+  ],
+  "media": [],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "ee655b5e280b4d821ce6a90a2aadd3f8682c873a4b062d79de8bf3dcaba9c903",
+  "mediaStatus": "none_in_official_documents"
+}

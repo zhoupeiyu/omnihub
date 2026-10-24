@@ -1,0 +1,53 @@
+{
+  "schemaVersion": 1,
+  "key": "nutlope/logocreator",
+  "status": "ready",
+  "reason": "",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/Nutlope/logocreator/blob/268916b2e5de54af11e0248bbf4b4144dc547c59/README.md",
+  "sourceRevision": "268916b2e5de54af11e0248bbf4b4144dc547c59",
+  "canonicalKey": "Nutlope/logocreator",
+  "summary": "LogoCreator 是一个开源 AI Logo 生成器，借助 Together AI 上的 FLUX 模型生成 Logo，并可导出品牌素材包。",
+  "intro": "适合想在本地自行部署 Logo 生成网站的开发者，或想参考 Next.js + Together AI 图像生成应用结构的人。README 说明，生成使用 FLUX.2 pro，编辑使用 FLUX.1 Kontext。不配置 Clerk 和 Upstash 时，应用以免账号、自带 API Key 的方式运行。",
+  "requirements": "需要 git、pnpm，以及一个 Together AI API Key。项目基于 Next.js（App Router）和 TypeScript。Clerk（登录）和 Upstash Redis（限流）为可选项。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "克隆 LogoCreator 仓库到本地",
+      "text": "按 README 的“Cloning and running”一节，用 git 将 https://github.com/Nutlope/logocreator 克隆到本地，然后进入项目目录。README 只给出了这个克隆地址，仓库中没有提供独立的代码块。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/Nutlope/logocreator/blob/268916b2e5de54af11e0248bbf4b4144dc547c59/README.md?plain=1#L17"
+      }
+    },
+    {
+      "title": "在 .env.local 中填写 Together AI 密钥",
+      "text": "在项目根目录新建 .env.local 文件，加入 TOGETHER_API_KEY= 并填上你在 Together AI 后台（api.together.xyz 的 API keys 设置页）创建的密钥。Logo 生成和编辑都通过 Together AI 上的 FLUX 模型完成，缺少这个密钥就无法生成。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/Nutlope/logocreator/blob/268916b2e5de54af11e0248bbf4b4144dc547c59/README.md?plain=1#L17"
+      }
+    },
+    {
+      "title": "安装依赖并启动本地开发服务",
+      "text": "在项目目录依次执行 pnpm install 和 pnpm dev，安装依赖并在本地运行。README 说明，不配置 Clerk 和 Upstash 也能运行，此时是免账号、自带 Key 的模式。需要登录或限流时，再另行接入这两项服务。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/Nutlope/logocreator/blob/268916b2e5de54af11e0248bbf4b4144dc547c59/README.md?plain=1#L17"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "每次生成和编辑都会调用 Together AI 的付费模型。README 提到使用自有 Key 时会显示大致价格，实际费用以 Together AI 计费为准。",
+    "输入资料中 license 为空，仓库未声明开源许可证。二次分发或商用前，请先自行确认授权。",
+    "Clerk 登录和 Upstash 限流默认不启用。公开部署时如果不启用，任何访问者都会消耗你配置的 API 额度。",
+    "README 的 Future Tasks 显示，图片尺寸下拉选择等功能尚未完成。"
+  ],
+  "references": [],
+  "media": [],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "952920c20b9173239e79fa63a2dab826c7e1391cbb41794b05a9c0d20309c5ce",
+  "mediaStatus": "none_in_official_documents"
+}

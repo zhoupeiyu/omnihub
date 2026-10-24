@@ -1,0 +1,63 @@
+{
+  "schemaVersion": 1,
+  "key": "jzocb/writing-style-skill",
+  "status": "ready",
+  "reason": "",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/jzOcb/writing-style-skill/blob/d94826e1cd48f5403b82a5a909efdfab96221259/README.md",
+  "sourceRevision": "d94826e1cd48f5403b82a5a909efdfab96221259",
+  "canonicalKey": "jzOcb/writing-style-skill",
+  "summary": "一个可复用的写作风格 Skill 模板，能对比 AI 初稿和你的最终修改稿，自动提取写作规则并更新 SKILL.md。",
+  "intro": "适合在 Claude Code 或 OpenClaw 中让 AI 代写内容、又希望它逐步贴近自己文风的用户。使用方法是：用 SKILL.md 描述风格；每次让 AI 写完初稿后自己改到满意；用脚本记录初稿和定稿；再让 LLM 分析两版的差异，提取规则写回 SKILL.md。",
+  "requirements": "需要 git 和 Python 3，以及 Claude Code（或 OpenClaw/ClawHub）。observe.py 不依赖任何第三方库。improve.py 需要一个 LLM 命令行工具，会依次查找：Claude Code 的 `claude` 命令、`llm` 工具，或通过 IMPROVE_LLM_CMD 环境变量指定的自定义命令。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "安装到 Claude Code 技能目录",
+      "text": "以 Claude Code 为例：克隆仓库，然后复制到 ~/.claude/skills/my-writing-style 目录。使用 OpenClaw 的用户请改用同一代码块里的 clawhub 安装命令，两种方式选一种即可。",
+      "code": "# Claude Code\ngit clone https://github.com/jzOcb/writing-style-skill.git\ncp -r writing-style-skill ~/.claude/skills/my-writing-style\n\n# OpenClaw / ClawHub\nnpx clawhub@latest install jz-writing-style-skill",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/jzOcb/writing-style-skill/blob/d94826e1cd48f5403b82a5a909efdfab96221259/README.md?plain=1#L15"
+      }
+    },
+    {
+      "title": "把 SKILL.md 改成你的风格",
+      "text": "打开 SKILL.md，把模板里的风格规则替换成你自己的写作要求。也可以先留空，后续靠自动学习逐步补充。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/jzOcb/writing-style-skill/blob/d94826e1cd48f5403b82a5a909efdfab96221259/README.md?plain=1#L26"
+      }
+    },
+    {
+      "title": "记录 AI 初稿与你的定稿",
+      "text": "让 AI 用这个 skill 写一篇内容，先用 observe.py record-original 记录初稿；你修改到满意后，再用 record-final 记录定稿。只需要这两个版本，中间改了几轮都不影响。",
+      "code": "python3 scripts/observe.py record-original draft.md\n# ... 你修改 ...\npython3 scripts/observe.py record-final final.md",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/jzOcb/writing-style-skill/blob/d94826e1cd48f5403b82a5a909efdfab96221259/README.md?plain=1#L26"
+      }
+    },
+    {
+      "title": "运行 improve.py 提取规则",
+      "text": "在 skill 目录运行 improve.py auto。它会调用 LLM 分析两版的差异并提取写作规则。规则按置信度分为 P0、P1、P2 三级，其中 P0 会自动写入 SKILL.md。每次更新前会自动备份，需要时可以一键回滚。",
+      "code": "python3 scripts/improve.py auto --skill .",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/jzOcb/writing-style-skill/blob/d94826e1cd48f5403b82a5a909efdfab96221259/README.md?plain=1#L26"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "improve.py 会把初稿和定稿的差异交给你本机配置的 LLM 命令行工具处理，文稿内容会经过该工具对应的服务。",
+    "P0 规则会自动写入 SKILL.md，建议定期检查改动，不满意时用自带的回滚功能恢复。",
+    "仓库元数据没有标注许可证，README 中写的是 MIT，复用前请以仓库实际的许可证文件为准。"
+  ],
+  "references": [],
+  "media": [],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "426b24874d6cbcda1d8aeda70f66dfe5b86f72cd00b2fccc1f703d6082541bce",
+  "mediaStatus": "none_in_official_documents"
+}

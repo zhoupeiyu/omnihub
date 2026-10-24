@@ -1,0 +1,92 @@
+{
+  "schemaVersion": 1,
+  "key": "finderchangchang/jev-chat-jarvis",
+  "status": "ready",
+  "reason": "",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/jev-chat/jev-chat-jarvis/blob/1af6f3d2d50df8ae1abd0c53790737cdaf45a0c3/README.md",
+  "sourceRevision": "1af6f3d2d50df8ae1abd0c53790737cdaf45a0c3",
+  "canonicalKey": "jev-chat/jev-chat-jarvis",
+  "summary": "Android 端聊天副驾：通过无障碍服务读取 QQ、X 私信、飞书等当前聊天界面，判断对方意图与风险，给出 3 条候选回复并填入输入框，是否发送由用户决定。",
+  "intro": "适合在 Android 手机上用 QQ、X/Twitter 私信或飞书聊天、希望在回复前获得意图分析和候选回复参考的用户。应用先用判断模型给出真实意图、危险等级、是否该马上回，再生成并排序 3 条候选；点一下即可复制或填入输入框，从不自动发送。还可配置本地知识库与联系人档案，让分析带上相关背景。Windows 和 macOS 版在独立仓库中。",
+  "requirements": "Android 11 及以上、ARM64（arm64-v8a）设备；至少一个模型服务的 API Key（文档以 OpenRouter 为最简方式）；需授予无障碍、悬浮窗、自启动和省电无限制权限。用 adb 安装时需要 adb 环境，也可直接下载 APK。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "安装 Android v1.4 APK",
+      "text": "本指南以 Android 版为例。从 README 链接下载 jev-assistant-v1.4-release.apk 安装，或连接电脑用 adb install -r 安装仓库 apk 目录中的包。若装过 debug 包，需先卸载再装 release，卸载会清除密钥和设置。",
+      "code": "adb install -r apk/jev-assistant-v1.4-release.apk",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/jev-chat/jev-chat-jarvis/blob/1af6f3d2d50df8ae1abd0c53790737cdaf45a0c3/README.md?plain=1#L85"
+      }
+    },
+    {
+      "title": "在设置中填写判断接口密钥",
+      "text": "打开 App → 设置 →「接口」，有判断、回复、视觉三张卡。最简单的做法是只在判断接口填 OpenRouter API Key，其余两栏留空会自动继承。也可选择博查 Jev、DeepSeek 官方、通义兼容等预设，每张卡都可一键连通测试。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/jev-chat/jev-chat-jarvis/blob/1af6f3d2d50df8ae1abd0c53790737cdaf45a0c3/README.md?plain=1#L85"
+      }
+    },
+    {
+      "title": "按主页向导开启所需权限",
+      "text": "按主页向导开启无障碍、悬浮窗（显示在其他应用上层）、自启动与省电无限制。小米 / HyperOS 必须开后两项，否则后台会被冻结；重装后悬浮窗权限会被重置。从旧版升级到 1.3+ 后，需要把无障碍关掉再打开一次。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/jev-chat/jev-chat-jarvis/blob/1af6f3d2d50df8ae1abd0c53790737cdaf45a0c3/README.md?plain=1#L85"
+      }
+    },
+    {
+      "title": "在聊天中查看分析并填入回复",
+      "text": "在 QQ、X 私信或飞书聊天界面，悬浮窗会显示危险等级、对方意图和排序后的 3 条候选回复，点选即可复制或填入输入框，发送需自己点击。未适配的 App（微信除外）可在悬浮窗菜单中手动「截屏识别一次」。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/jev-chat/jev-chat-jarvis/blob/1af6f3d2d50df8ae1abd0c53790737cdaf45a0c3/README.md?plain=1#L105"
+      }
+    },
+    {
+      "title": "可选：配置知识库与联系人",
+      "text": "在设置 → 分析 →「知识库与联系人」中添加笔记和联系人。笔记靠标签或标题包含匹配命中，联系人按姓名或别名匹配会话标题。本机聊天历史记录默认关闭，可按需开启，也可在设置里一键清空知识库与历史。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/jev-chat/jev-chat-jarvis/blob/1af6f3d2d50df8ae1abd0c53790737cdaf45a0c3/README.md?plain=1#L111"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "触发分析时，聊天文字及已启用的联系人备注、知识库命中内容和历史记录会发送到你配置的第三方模型服务商；截图仅在本机 OCR。使用前请阅读 PRIVACY.md 与服务商政策。",
+    "模型调用使用你自己的 API Key，按用量由服务商计费；部分预设标注为限时免费或有输入计费。",
+    "仅支持 Android 11+ ARM64；微信 Android 版已全面下架，不提供采集与分析。",
+    "X 仅在中文界面实测；群聊按一对一分析，结果不准；飞书正文依赖 OCR，可能识别错字或判反我方/对方。",
+    "小米 / HyperOS 等 ROM 可能冻结后台或拒绝截屏，受保护窗口（FLAG_SECURE）无法识别。",
+    "请遵守 QQ、X、飞书等软件的许可协议和当地法律，仅读取自己有权查看的聊天。"
+  ],
+  "references": [],
+  "media": [
+    {
+      "url": "/assets/repository-guides/media-689b9adb583facd3328adca2.webp",
+      "alt": "悬浮窗：聊天上方的 Jev 分析面板",
+      "sourceUrl": "https://github.com/jev-chat/jev-chat-jarvis/blob/1af6f3d2d50df8ae1abd0c53790737cdaf45a0c3/README.md?plain=1#L57",
+      "originalUrl": "https://raw.githubusercontent.com/jev-chat/jev-chat-jarvis/1af6f3d2d50df8ae1abd0c53790737cdaf45a0c3/docs/images/overlay.png"
+    },
+    {
+      "url": "/assets/repository-guides/media-40d69240ca4ca0aec1ab7545.webp",
+      "alt": "设置页",
+      "sourceUrl": "https://github.com/jev-chat/jev-chat-jarvis/blob/1af6f3d2d50df8ae1abd0c53790737cdaf45a0c3/README.md?plain=1#L58",
+      "originalUrl": "https://raw.githubusercontent.com/jev-chat/jev-chat-jarvis/1af6f3d2d50df8ae1abd0c53790737cdaf45a0c3/docs/images/settings.png"
+    },
+    {
+      "url": "/assets/repository-guides/media-23a3d88bd0a01a36cb1abb30.webp",
+      "alt": "Jev Android 对话副驾关键流程：本机读取与 OCR、发送文字到用户配置的模型接口、展示候选并由用户决定是否发送",
+      "sourceUrl": "https://github.com/jev-chat/jev-chat-jarvis/blob/1af6f3d2d50df8ae1abd0c53790737cdaf45a0c3/README.md?plain=1#L191",
+      "originalUrl": "https://raw.githubusercontent.com/jev-chat/jev-chat-jarvis/1af6f3d2d50df8ae1abd0c53790737cdaf45a0c3/assets/android-core-flow-illustrations/01-chat-copilot-flow.png"
+    }
+  ],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "38a9c568410853cb90f12bd8e957e159c53037dd6a0d2933d2cfa3a0849bbf87",
+  "mediaStatus": "archived",
+  "mediaFailures": []
+}

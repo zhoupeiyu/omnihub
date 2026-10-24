@@ -1,0 +1,63 @@
+{
+  "schemaVersion": 1,
+  "key": "tradingview/lightweight-charts",
+  "status": "ready",
+  "reason": "",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/tradingview/lightweight-charts/blob/20c226ca55a41c0f354d682a70ca352c272bee8e/README.md",
+  "sourceRevision": "20c226ca55a41c0f354d682a70ca352c272bee8e",
+  "canonicalKey": "tradingview/lightweight-charts",
+  "summary": "Lightweight Charts™ 是基于 HTML5 canvas 的轻量金融图表库，可在网页中显示可交互的金融数据图表。",
+  "intro": "适合需要在网页上展示金融数据的前端开发者。可以用它把静态图片图表换成可交互图表，README 称对页面加载速度和性能的影响很小。库内置了常用图表能力，也可以通过自定义插件扩展。仓库还附带两个 Agent Skills，供 Claude Code、Codex 等 AI 编码助手参考 v5 API。",
+  "requirements": "需要可以使用 npm 的前端项目，以及一个用于挂载图表的网页 DOM 容器（示例中使用 document.body）。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "通过 npm 安装图表库",
+      "text": "在前端项目中用 npm 安装 lightweight-charts 包，这是 README 给出的 es6 模块接入方式。如果想试用尚未发布的 master 构建，README 另外提供了 pkg.pr.new 安装地址；稳定使用建议选正式发布版本。",
+      "code": "npm install lightweight-charts",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/tradingview/lightweight-charts/blob/20c226ca55a41c0f354d682a70ca352c272bee8e/README.md?plain=1#L33"
+      }
+    },
+    {
+      "title": "导入并创建折线图",
+      "text": "从 lightweight-charts 导入 createChart 和 LineSeries，用 createChart 在页面容器上创建图表并指定宽高，再用 chart.addSeries(LineSeries) 添加系列，最后用 setData 传入由 time 和 value 组成的数据数组。",
+      "code": "import { createChart, LineSeries } from 'lightweight-charts';\n\nconst chart = createChart(document.body, { width: 400, height: 300 });\nconst lineSeries = chart.addSeries(LineSeries);\nlineSeries.setData([\n    { time: '2019-04-11', value: 80.01 },\n    { time: '2019-04-12', value: 96.63 },\n    { time: '2019-04-13', value: 76.64 },\n    { time: '2019-04-14', value: 81.89 },\n    { time: '2019-04-15', value: 74.43 },\n    { time: '2019-04-16', value: 80.01 },\n    { time: '2019-04-17', value: 96.63 },\n    { time: '2019-04-18', value: 76.64 },\n    { time: '2019-04-19', value: 81.89 },\n    { time: '2019-04-20', value: 74.43 },\n]);",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/tradingview/lightweight-charts/blob/20c226ca55a41c0f354d682a70ca352c272bee8e/README.md?plain=1#L39"
+      }
+    },
+    {
+      "title": "按需选择构建产物",
+      "text": "README 列出了几种构建变体：不含依赖的 production/development 版 .mjs，以及包含依赖的 standalone 版（同时有 ES module 和 IIFE 形式，IIFE 会创建 window.LightweightCharts）。可按打包方式和开发或生产环境选择对应文件。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/tradingview/lightweight-charts/blob/20c226ca55a41c0f354d682a70ca352c272bee8e/README.md?plain=1#L68"
+      }
+    },
+    {
+      "title": "为 AI 助手安装官方技能",
+      "text": "如果用 Claude Code、Codex 等 AI 编码助手开发，可用 skills CLI 安装仓库附带的技能：lightweight-charts 讲库的用法，lightweight-charts-plugin-authoring 讲插件编写。加上 --skill <name> 可以只装其中一个。",
+      "code": "npx skills add tradingview/lightweight-charts",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/tradingview/lightweight-charts/blob/20c226ca55a41c0f354d682a70ca352c272bee8e/README.md?plain=1#L102"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "采用 Apache-2.0 许可，并要求注明 TradingView 为产品创作者：需在面向用户的网站或应用页面加入 NOTICE 文件中的署名声明和 https://www.tradingview.com/ 链接。也可以用 attributionLogo 图表选项在图表上显示链接，以满足链接要求。",
+    "README 中的示例基于 v5 API（chart.addSeries(LineSeries)）。官方技能的作用之一就是避免 AI 助手沿用过时的旧代码片段。",
+    "pkg.pr.new 提供的是未发布的 master 构建，不等同于正式发布版本。"
+  ],
+  "references": [],
+  "media": [],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "ab4bb0bf16d36e75a97f44fab90515e3e4c2cde8f8e2563cdb98a1dac4d6d922",
+  "mediaStatus": "none_in_official_documents"
+}

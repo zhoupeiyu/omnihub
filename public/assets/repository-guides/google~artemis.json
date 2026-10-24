@@ -1,0 +1,91 @@
+{
+  "schemaVersion": 1,
+  "key": "google/artemis",
+  "status": "ready",
+  "reason": "",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/google/artemis/blob/351ca8422f7b5b54e80a9c1ce03a222e02415b6b/README.md",
+  "sourceRevision": "351ca8422f7b5b54e80a9c1ce03a222e02415b6b",
+  "canonicalKey": "google/artemis",
+  "summary": "把自然语言指令转换为 Android 真机或模拟器上的自动化操作，可通过 Web 控制台、CLI、MCP 服务或 Python SDK 驱动测试流程，并收集日志和截图。",
+  "intro": "适合移动端测试工程师和 Android 开发者：可以用自然语言描述测试场景，让 ARTEMIS 在真实设备上执行跨应用流程、复现 Bug，并收集 Logcat 和截图。它也可以作为 MCP 服务接入 Antigravity、Claude Code、Codex、Windsurf 等 AI 编程助手，或作为 Python 库接入 pytest 和 CI 流程。提供 Flash（快速响应）和 Pro（规划与校验）两种执行模式。",
+  "requirements": "需要一台已开启 USB 调试的 Android 设备或已连接的模拟器。README 徽章标注 Python 3.12+。启动脚本会检测并自动安装 ADB、scrcpy、FFmpeg 和基于 uv 的 Python 依赖。以下按 macOS/Linux 路径说明。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "连接开启 USB 调试的设备",
+      "text": "先把开启了 USB 调试的 Android 手机连接到电脑，或启动并连接一个 Android 模拟器。启动脚本和后续任务都依赖已连接的设备。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/google/artemis/blob/351ca8422f7b5b54e80a9c1ce03a222e02415b6b/README.md?plain=1#L76"
+      }
+    },
+    {
+      "title": "克隆仓库并运行 start.sh",
+      "text": "在 macOS 或 Linux 上克隆仓库，进入目录后运行 ./start.sh。脚本会自动安装系统工具链和 Python 依赖，并询问是否为检测到的 AI IDE 安装全局 MCP 配置和测试规则 rules.md。完成后会在浏览器打开 http://localhost:8000。",
+      "code": "# 1. Clone repo & navigate to directory\ngit clone https://github.com/google/artemis.git && cd artemis\n\n# 2. One-click launch\n./start.sh",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/google/artemis/blob/351ca8422f7b5b54e80a9c1ce03a222e02415b6b/README.md?plain=1#L76"
+      }
+    },
+    {
+      "title": "在 Web 控制台下发测试任务",
+      "text": "使用 uv run artemis ui 打开的 Web 控制台提供设备连接向导、实时投屏、自然语言任务输入、动作轨迹和执行回放。可用 uv run artemis status、stop、restart 管理服务。也可以直接用 uv run artemis run 加 --profile flash 或 pro 在终端执行任务。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/google/artemis/blob/351ca8422f7b5b54e80a9c1ce03a222e02415b6b/README.md?plain=1#L92"
+      }
+    },
+    {
+      "title": "为 AI IDE 安装 MCP 服务",
+      "text": "如需让 AI 编程助手驱动设备，可运行 uv run artemis mcp --install 并指定客户端（如 antigravity），或使用 all 为所有支持的 IDE 安装。如偏好手动配置，可用 --generate-config 生成对应 IDE 的配置片段。",
+      "code": "# Auto-install MCP server & global rules for Antigravity / Jetski:\nuv run artemis mcp --install antigravity\n\n# Or install for all supported AI IDEs (including Codex):\nuv run artemis mcp --install all",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/google/artemis/blob/351ca8422f7b5b54e80a9c1ce03a222e02415b6b/README.md?plain=1#L116"
+      }
+    },
+    {
+      "title": "挂载 rules.md 测试规则",
+      "text": "将 mcp_server/rules.md 加入所用 IDE 的规则配置。Claude Code 可通过 artemis mcp --install claude 安装到 ~/.claude/rules/artemis.md，并且只应放在一个位置以免重复占用上下文。Cursor、Codex 等则按 README 指定的规则文件路径复制内容。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/google/artemis/blob/351ca8422f7b5b54e80a9c1ce03a222e02415b6b/README.md?plain=1#L183"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "首次在设备上执行任务时，会安装 Artemis Accessibility Helper 无障碍服务，并显示常驻通知。可用 uv run artemis helper uninstall 移除，或在 .env 中设置 ARTEMIS_HELPER_AUTO_INSTALL=false 阻止自动安装。",
+    "启动脚本会在本机自动安装 ADB、scrcpy、FFmpeg 等系统工具，运行前请确认这些改动可以接受。",
+    "Flash 模式没有任务计划、执行前安全检查、检查点校验和最终报告。Pro 模式更完整，但每步约需 15–40 秒。",
+    "README 列出 Gemini、Claude、GPT-4o、Qwen-VL 等多模态模型，但提供的文档未说明模型凭据的配置方式及可能产生的费用。",
+    "AndroidWorld 99%+ 完成率为项目 README 的自述结果；iOS 和 Android Studio 集成仍在路线图中，尚未支持。"
+  ],
+  "references": [],
+  "media": [
+    {
+      "url": "/assets/repository-guides/media-f35eb2f3922e2ca02da4b964.webp",
+      "alt": "google/artemis 官方演示 1",
+      "sourceUrl": "https://github.com/google/artemis/blob/351ca8422f7b5b54e80a9c1ce03a222e02415b6b/README.md?plain=1#L244",
+      "originalUrl": "https://raw.githubusercontent.com/google/artemis/351ca8422f7b5b54e80a9c1ce03a222e02415b6b/docs/assets/artemis-ui-showcase-en.png"
+    },
+    {
+      "url": "/assets/repository-guides/media-cfb3b0fefb909d5a05dcc02b.webp",
+      "alt": "google/artemis 官方演示 2",
+      "sourceUrl": "https://github.com/google/artemis/blob/351ca8422f7b5b54e80a9c1ce03a222e02415b6b/README.md?plain=1#L65",
+      "originalUrl": "https://raw.githubusercontent.com/google/artemis/351ca8422f7b5b54e80a9c1ce03a222e02415b6b/docs/assets/workflow-3-exec.png"
+    }
+  ],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "81f270ad4930dd28b5a7280f1a66afd70114fcbbbf268743c2ce31954691533a",
+  "mediaStatus": "archived",
+  "mediaFailures": [
+    {
+      "sourceUrl": "https://github.com/google/artemis/blob/351ca8422f7b5b54e80a9c1ce03a222e02415b6b/README.md#L29",
+      "reason": "media_too_large"
+    }
+  ]
+}

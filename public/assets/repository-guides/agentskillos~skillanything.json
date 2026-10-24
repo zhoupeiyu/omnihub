@@ -1,0 +1,64 @@
+{
+  "schemaVersion": 1,
+  "key": "agentskillos/skillanything",
+  "status": "ready",
+  "reason": "",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/AgentSkillOS/SkillAnything/blob/0f7d527492ca84b28148600880a4854374df8c24/README.md",
+  "sourceRevision": "0f7d527492ca84b28148600880a4854374df8c24",
+  "canonicalKey": "AgentSkillOS/SkillAnything",
+  "summary": "SkillAnything 是一个用来生成技能的元技能：给它一个 CLI 工具、API、库或工作流，它按 7 个阶段生成并打包多平台的 Agent Skill。",
+  "intro": "适合想为 Claude Code、OpenClaw、Codex 等代理平台批量编写 Skill 的开发者。只需用自然语言指定目标（如某个 CLI 工具、带 OpenAPI 规范的 REST API、Python/npm 库或多步工作流），它会依次完成分析、设计、生成 SKILL.md、生成测试、评测、优化描述，最后把结果打包到 `dist/` 下各平台的目录中。",
+  "requirements": "需要已安装的宿主代理（本指南以 Claude Code 为例）和 git。README 徽章标注 Python 3.9+，单独运行各阶段脚本时需要 Python。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "克隆到 Claude Code 技能目录",
+      "text": "按官方安装说明，把仓库 clone 到 `~/.claude/skills/skill-anything`。代码块中另列了 OpenClaw 和 Codex 的路径，本指南只使用 Claude Code 那一行，不要同时执行三种安装。",
+      "code": "# Claude Code\ngit clone https://github.com/AgentSkillOS/SkillAnything.git ~/.claude/skills/skill-anything\n\n# OpenClaw\ngit clone https://github.com/AgentSkillOS/SkillAnything.git ~/.openclaw/skills/skill-anything\n\n# Codex\ngit clone https://github.com/AgentSkillOS/SkillAnything.git ~/.codex/skills/skill-anything",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/AgentSkillOS/SkillAnything/blob/0f7d527492ca84b28148600880a4854374df8c24/README.md?plain=1#L54"
+      }
+    },
+    {
+      "title": "在 Claude Code 中描述目标",
+      "text": "在 Claude Code 中直接用自然语言说明要为什么生成技能，例如某个 CLI 工具、某个 API 或一段数据处理工作流。SkillAnything 会自动识别目标类型，并执行完整的 7 阶段流水线。",
+      "code": "> Create a skill for the httpie CLI tool\n> Generate a multi-platform skill for the Stripe API\n> Turn this data pipeline workflow into a skill",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/AgentSkillOS/SkillAnything/blob/0f7d527492ca84b28148600880a4854374df8c24/README.md?plain=1#L67"
+      }
+    },
+    {
+      "title": "按需调整 config.yaml",
+      "text": "编辑 `config.yaml`：`auto_mode` 选择全自动或交互模式；`skip_eval` 可跳过第 5–6 阶段以便快速出原型；`platforms.enabled` 指定要输出的平台；`eval` 控制优化迭代次数和每条查询的运行次数。",
+      "code": "pipeline:\n  auto_mode: true              # Full automation or interactive\n  skip_eval: false             # Skip phases 5-6 for rapid prototyping\n\nplatforms:\n  enabled: [claude-code, openclaw, codex, generic]\n  primary: claude-code\n\neval:\n  max_optimization_iterations: 5\n  runs_per_query: 3\n\nobfuscation:\n  enabled: false               # PyArmor protection for core scripts",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/AgentSkillOS/SkillAnything/blob/0f7d527492ca84b28148600880a4854374df8c24/README.md?plain=1#L228"
+      }
+    },
+    {
+      "title": "需要时单独运行某个阶段",
+      "text": "如需调试，可以用 `python -m scripts.*` 单独运行分析、设计、脚手架、测试生成、评测、描述优化和打包等阶段。各阶段的产物依次为 `analysis.json`、`architecture.json`、`evals.json`、`benchmark.json` 和 `dist/`。",
+      "code": "# Phase 1: Analyze a target\npython -m scripts.analyze_target --target \"jq\" --output analysis.json\n\n# Phase 2: Design architecture\npython -m scripts.design_skill --analysis analysis.json --output architecture.json\n\n# Phase 3: Scaffold skill\npython -m scripts.init_skill my-skill --template cli --output ./out\n\n# Phase 4: Generate test cases\npython -m scripts.generate_tests --analysis analysis.json --skill-path ./out/my-skill\n\n# Phase 5: Run evaluation\npython -m scripts.run_eval --eval-set evals.json --skill-path ./out/my-skill\n\n# Phase 6: Optimize description\npython -m scripts.run_loop --eval-set trigger-evals.json --skill-path ./out/my-skill --model claude-sonnet-4-20250514\n\n# Phase 7: Package for all platforms\npython -m scripts.package_multiplatform ./out/my-skill --platforms claude-code,openclaw,codex",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/AgentSkillOS/SkillAnything/blob/0f7d527492ca84b28148600880a4854374df8c24/README.md?plain=1#L79"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "README 中的示例输出（通过率、触发准确率等）只是文档演示，不代表在你的目标上能得到同样结果。",
+    "第 6 阶段的示例命令指定了 Claude 模型来优化描述，评测与优化环节可能产生模型调用。",
+    "代码保护功能使用 PyArmor 混淆原创脚本；源自 Anthropic Skill Creator 的脚本按 Apache 2.0 要求保留源码，分发时请遵守 NOTICE 中的署名要求。"
+  ],
+  "references": [],
+  "media": [],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "f4dfbc28377c230bdd96a193ec6cb7808dd243e0a1d49945f8cacb19e5a6dfa0",
+  "mediaStatus": "none_in_official_documents"
+}

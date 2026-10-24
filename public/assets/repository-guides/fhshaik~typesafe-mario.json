@@ -1,0 +1,73 @@
+{
+  "schemaVersion": 1,
+  "key": "fhshaik/typesafe-mario",
+  "status": "ready",
+  "reason": "",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/fhshaik/typesafe-mario/blob/ca22449ed187118d19326d1f54b01b6636578aa4/README.md",
+  "sourceRevision": "ca22449ed187118d19326d1f54b01b6636578aa4",
+  "canonicalKey": "fhshaik/typesafe-mario",
+  "summary": "一个实验性控制器：把 NES 模拟器遥测和 RAM 解析为结构化 JSON，交给 TypeSafe 的 Jev 模型选择 Super Mario Bros. 的手柄动作。",
+  "intro": "适合想研究“结构化状态 + 模型决策”式游戏代理的开发者或研究者。模型不接收截图，而是读取包含 Mario 运动、跳跃轨迹、敌人、地形、反应延迟和回合进度的 JSON，从 noop、right、right_jump 等少量合法动作中选择一个。项目带实时面板显示动作概率、置信度、延迟和危险分数，并把每次决策记录为 JSONL，可用于分析或制作叠加画面。",
+  "requirements": "Python 3.13 或更新版本；环境变量 TYPESAFE_API_KEY 中的 TypeSafe API Key；合法获得的 Super Mario Bros. 本地运行环境（仓库不含 ROM）。文档示例命令为 Windows PowerShell 写法。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "创建虚拟环境并安装依赖",
+      "text": "以下以文档中的 Windows PowerShell 为例。用 py -3.13 -m venv .venv 创建虚拟环境，再用 .venv\\Scripts\\python -m pip install -e \".[mario,dev]\" 安装项目及 mario、dev 附加依赖。",
+      "code": "py -3.13 -m venv .venv\n.venv\\Scripts\\python -m pip install -e \".[mario,dev]\"\n$env:TYPESAFE_API_KEY = \"your-key\"",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/fhshaik/typesafe-mario/blob/ca22449ed187118d19326d1f54b01b6636578aa4/README.md?plain=1#L29"
+      }
+    },
+    {
+      "title": "设置 TYPESAFE_API_KEY",
+      "text": "在 PowerShell 中通过 $env:TYPESAFE_API_KEY 设置你的 TypeSafe API Key。之后运行游戏时，每次决策都会用它调用 Jev 模型。",
+      "code": "py -3.13 -m venv .venv\n.venv\\Scripts\\python -m pip install -e \".[mario,dev]\"\n$env:TYPESAFE_API_KEY = \"your-key\"",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/fhshaik/typesafe-mario/blob/ca22449ed187118d19326d1f54b01b6636578aa4/README.md?plain=1#L29"
+      }
+    },
+    {
+      "title": "用 state-demo 预览模型输入",
+      "text": "执行 typesafe-mario state-demo，可以在不启动游戏、不调用 API 的情况下，查看将发送给 TypeSafe 的确切 JSON 和文本，便于理解 player、hazard、terrain 等字段结构。",
+      "code": ".venv\\Scripts\\typesafe-mario state-demo",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/fhshaik/typesafe-mario/blob/ca22449ed187118d19326d1f54b01b6636578aa4/README.md?plain=1#L39"
+      }
+    },
+    {
+      "title": "运行 World 1-1 并观察面板",
+      "text": "执行 typesafe-mario play --env SuperMarioBros-1-1-v0 --frames-per-decision 8，让 Jev 每 8 个模拟器步做一次决策。默认窗口同时显示游戏和遥测；按 R 重开，按 Esc 或 Q 退出。--display game 只显示游戏，--display none 用于无界面基准。",
+      "code": ".venv\\Scripts\\typesafe-mario play --env SuperMarioBros-1-1-v0 --frames-per-decision 8",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/fhshaik/typesafe-mario/blob/ca22449ed187118d19326d1f54b01b6636578aa4/README.md?plain=1#L39"
+      }
+    },
+    {
+      "title": "查看 artifacts 中的决策日志",
+      "text": "每次决策都会写入 artifacts/run-<timestamp>.jsonl，内容包括延迟、动作概率、置信度、模型状态、原始调试状态和游戏结果，可用于事后分析或制作实时叠加画面。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/fhshaik/typesafe-mario/blob/ca22449ed187118d19326d1f54b01b6636578aa4/README.md?plain=1#L39"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "仓库不包含任何 Nintendo ROM 或受版权保护的游戏数据，模拟器和游戏文件需自行合法获取和使用。",
+    "运行时每次决策都会调用 TypeSafe API，需要有效的 API Key；文档未说明费用。",
+    "项目为实验性质，动作集刻意保持精简。",
+    "文档仅给出 Windows PowerShell 风格的命令路径，其他平台需自行对应调整。"
+  ],
+  "references": [],
+  "media": [],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "c489f93504144937f7c8088f681d0d6370d46114ca6d09987f405b120a357504",
+  "mediaStatus": "none_in_official_documents"
+}

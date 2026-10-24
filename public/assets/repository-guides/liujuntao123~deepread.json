@@ -1,0 +1,51 @@
+{
+  "schemaVersion": 1,
+  "key": "liujuntao123/deepread",
+  "status": "partial",
+  "reason": "README 只提供在线网站入口、已制作书籍的链接列表和外部制作教程链接，没有说明本仓库的文件结构、本地构建或部署方法，也没有在仓库内给出生成知识图谱的具体操作步骤（相关方法在外部网站教程和另一个仓库 DeepReadTools 中）。",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/liujuntao123/DeepRead/blob/7ba9b715a842b27853573f102c677d33e1d5f1bf/README.md",
+  "sourceRevision": "7ba9b715a842b27853573f102c677d33e1d5f1bf",
+  "canonicalKey": "liujuntao123/DeepRead",
+  "summary": "一个把书籍内容整理为可交互 wiki 知识图谱的项目，提供多本书籍的在线知识库浏览。",
+  "intro": "适合想以网状结构阅读书籍、梳理人物关系与概念联系的读者。可直接在 DeepRead 网站浏览已收录的《三体》《红楼梦》《资本论》《乡土中国》等书籍知识库，通过双向链接在知识点之间跳转；想自己制作知识库的用户可参考作者提供的外部教程。",
+  "requirements": "浏览器即可访问在线网站；自行制作知识库所需的条件 README 未说明，需查看外部教程。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "打开 DeepRead 在线网站",
+      "text": "访问 README 中给出的 https://deepread.aizhi.site/ 首页，进入在线知识图谱站点。项目以知识网络和可视化图谱形式呈现书籍内容结构，支持通过双向链接在知识点之间跳转。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/liujuntao123/DeepRead/blob/7ba9b715a842b27853573f102c677d33e1d5f1bf/README.md?plain=1#L1"
+      }
+    },
+    {
+      "title": "从书籍列表选择要读的知识库",
+      "text": "在 README 的 wiki 知识库列表中按书名找到目标书籍，点击“探索”链接进入对应知识库。表格同时列出各书的节点数和特色说明，例如人物关系、家族脉络或哲学概念体系，可据此挑选。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/liujuntao123/DeepRead/blob/7ba9b715a842b27853573f102c677d33e1d5f1bf/README.md?plain=1#L48"
+      }
+    },
+    {
+      "title": "参考外部教程制作自己的知识库",
+      "text": "如需为其他书籍制作 wiki 知识库，打开 README 链接的《AI驱动的书籍知识图谱制作完整指南》，并查看配套的 DeepReadTools 工具库仓库。本仓库 README 本身未给出具体制作步骤。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/liujuntao123/DeepRead/blob/7ba9b715a842b27853573f102c677d33e1d5f1bf/README.md?plain=1#L43"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "知识图谱内容由大语言模型分析生成，README 未说明准确性校验方式，阅读时应结合原书核对。",
+    "在线网站和外部教程托管在作者站点，可用性取决于其维护情况。"
+  ],
+  "references": [],
+  "media": [],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "41886e6e8cf10efa84ee31858fdd15b533621e3c1b0fcc6ee51753b0160c6a5f",
+  "mediaStatus": "none_in_official_documents"
+}

@@ -1,0 +1,42 @@
+{
+  "schemaVersion": 1,
+  "key": "gsd-build/get-shit-done",
+  "status": "partial",
+  "reason": "仓库已归档，README 只说明项目已迁移到 open-gsd/gsd-core，没有安装、配置或使用 GSD 的任何操作说明。",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/gsd-build/get-shit-done/blob/bdcaab2c752d9a33a1a1ca9acf3a3c81fb991815/README.md",
+  "sourceRevision": "bdcaab2c752d9a33a1a1ca9acf3a3c81fb991815",
+  "canonicalKey": "gsd-build/get-shit-done",
+  "summary": "这是 GSD（面向 Claude Code 的元提示与规格驱动开发系统）的旧仓库，已归档，项目现以 GSD Core 名称在新仓库继续开发。",
+  "intro": "适合在找 GSD 原项目的 Claude Code 用户确认新位置。当前仓库不再是活跃开发地，源码、issue、发布版本和贡献都应转到 GSD Core 仓库。",
+  "requirements": "文档未提供具体准备条件。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "确认本仓库已归档停止开发",
+      "text": "本仓库已归档，README 明确说明这里不再是 GSD 的活跃开发地，因此不要从这里获取最新代码或提交 issue。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/gsd-build/get-shit-done/blob/bdcaab2c752d9a33a1a1ca9acf3a3c81fb991815/README.md?plain=1#L3"
+      }
+    },
+    {
+      "title": "前往 GSD Core 新仓库查阅",
+      "text": "打开 https://github.com/open-gsd/gsd-core，在该仓库获取当前源码、查看 issue 和发布版本，或参与贡献。安装和使用方法以新仓库的文档为准。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/gsd-build/get-shit-done/blob/bdcaab2c752d9a33a1a1ca9acf3a3c81fb991815/README.md?plain=1#L3"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "仓库已归档，内容可能已过时；不要依据此仓库安装或使用 GSD。"
+  ],
+  "references": [],
+  "media": [],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "6530ef6aad23383980a7c405d32c40e73c798ee4263a883f804aef31548569b6",
+  "mediaStatus": "none_in_official_documents"
+}

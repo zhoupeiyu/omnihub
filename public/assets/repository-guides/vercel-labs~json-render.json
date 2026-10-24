@@ -1,0 +1,72 @@
+{
+  "schemaVersion": 1,
+  "key": "vercel-labs/json-render",
+  "status": "ready",
+  "reason": "",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/vercel-labs/json-render/blob/c2600d73908ed505e6d726f5b6f969ba8f597ce7/README.md",
+  "sourceRevision": "c2600d73908ed505e6d726f5b6f969ba8f597ce7",
+  "canonicalKey": "vercel-labs/json-render",
+  "summary": "json-render 是一个 Generative UI 框架：先定义允许使用的组件目录，让 AI 只在这个目录范围内生成 JSON，再安全地渲染成界面。",
+  "intro": "适合想让 AI 根据自然语言生成界面、又需要输出可控的前端开发者。你用 zod 定义组件和动作目录，AI 生成的 JSON spec 会受这个目录约束，然后由 React、Vue、Svelte、Solid 或 React Native 渲染器渲染。它还提供 shadcn/ui 预置组件，以及 Next.js、TanStack Start 整站、Remotion 视频、PDF、邮件、图片、3D 和终端 UI 等渲染包，并支持流式渲染和 devtools 调试。",
+  "requirements": "一个 JavaScript/TypeScript 项目，用 npm 安装对应包。以下以 React 为例，需要 @json-render/core、@json-render/react，定义目录时还要用到 zod。AI 模型和调用方式需要自行准备，README 没有提供。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "安装 React 渲染所需包",
+      "text": "在 React 项目中安装 @json-render/core 和 @json-render/react。如果想直接使用预置的 shadcn/ui 组件，再安装 @json-render/shadcn。其他平台（Vue、Svelte、React Native、PDF 等）的安装组合见同一个代码块，选择一种即可。",
+      "code": "# for React\nnpm install @json-render/core @json-render/react\n# for React with pre-built shadcn/ui components\nnpm install @json-render/shadcn\n# or for React Native\nnpm install @json-render/core @json-render/react-native\n# or for video\nnpm install @json-render/core @json-render/remotion\n# or for PDF documents\nnpm install @json-render/core @json-render/react-pdf\n# or for HTML email\nnpm install @json-render/core @json-render/react-email @react-email/components @react-email/render\n# or for Vue\nnpm install @json-render/core @json-render/vue\n# or for Svelte\nnpm install @json-render/core @json-render/svelte\n# or for SolidJS\nnpm install @json-render/core @json-render/solid\n# or for terminal UIs\nnpm install @json-render/core @json-render/ink ink react\n# or for full Next.js apps (routes, layouts, SSR, metadata)\nnpm install @json-render/core @json-render/react @json-render/next\n# or for 3D scenes (and gaussian splatting via the GaussianSplat component)\nnpm install @json-render/core @json-render/react-three-fiber @react-three/fiber @react-three/drei three",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/vercel-labs/json-render/blob/c2600d73908ed505e6d726f5b6f969ba8f597ce7/README.md?plain=1#L1"
+      }
+    },
+    {
+      "title": "用 defineCatalog 定义组件目录",
+      "text": "用 defineCatalog 和 React schema 声明 AI 可以使用的组件（props 用 zod 描述，并附上 description）以及可以触发的 actions。这个目录就是 AI 生成内容的边界，AI 只能使用其中的组件。",
+      "code": "import { defineCatalog } from \"@json-render/core\";\nimport { schema } from \"@json-render/react/schema\";\nimport { z } from \"zod\";\n\nconst catalog = defineCatalog(schema, {\n  components: {\n    Card: {\n      props: z.object({ title: z.string() }),\n      description: \"A card container\",\n    },\n    Metric: {\n      props: z.object({\n        label: z.string(),\n        value: z.string(),\n        format: z.enum([\"currency\", \"percent\", \"number\"]).nullable(),\n      }),\n      description: \"Display a metric value\",\n    },\n    Button: {\n      props: z.object({\n        label: z.string(),\n        action: z.string(),\n      }),\n      description: \"Clickable button\",\n    },\n  },\n  actions: {\n    export_report: { description: \"Export dashboard to PDF\" },\n    refresh_data: { description: \"Refresh all metrics\" },\n  },\n});",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/vercel-labs/json-render/blob/c2600d73908ed505e6d726f5b6f969ba8f597ce7/README.md?plain=1#L53"
+      }
+    },
+    {
+      "title": "用 defineRegistry 实现组件",
+      "text": "用 defineRegistry 为目录中的每个组件提供实际的 React 实现，组件通过 emit 触发事件。也可以直接从 @json-render/shadcn 选取预置的组件定义和对应实现。",
+      "code": "import { defineRegistry, Renderer } from \"@json-render/react\";\n\nconst { registry } = defineRegistry(catalog, {\n  components: {\n    Card: ({ props, children }) => (\n      <div className=\"card\">\n        <h3>{props.title}</h3>\n        {children}\n      </div>\n    ),\n    Metric: ({ props }) => (\n      <div className=\"metric\">\n        <span>{props.label}</span>\n        <span>{format(props.value, props.format)}</span>\n      </div>\n    ),\n    Button: ({ props, emit }) => (\n      <button onClick={() => emit(\"press\")}>{props.label}</button>\n    ),\n  },\n});\n\nimport { defineCatalog } from \"@json-render/core\";\nimport { schema } from \"@json-render/react/schema\";\nimport { defineRegistry, Renderer } from \"@json-render/react\";\nimport { shadcnComponentDefinitions } from \"@json-render/shadcn/catalog\";\nimport { shadcnComponents } from \"@json-render/shadcn\";\n\n// Pick components from the 36 standard definitions\nconst catalog = defineCatalog(schema, {\n  components: {\n    Card: shadcnComponentDefinitions.Card,\n    Stack: shadcnComponentDefinitions.Stack,\n    Heading: shadcnComponentDefinitions.Heading,\n    Button: shadcnComponentDefinitions.Button,\n  },\n  actions: {},\n});\n\n// Use matching implementations\nconst { registry } = defineRegistry(catalog, {\n  components: {\n    Card: shadcnComponents.Card,\n    Stack: shadcnComponents.Stack,\n    Heading: shadcnComponents.Heading,\n    Button: shadcnComponents.Button,\n  },\n});\n\n<Renderer spec={spec} registry={registry} />;",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/vercel-labs/json-render/blob/c2600d73908ed505e6d726f5b6f969ba8f597ce7/README.md?plain=1#L89"
+      }
+    },
+    {
+      "title": "用 Renderer 渲染 AI 生成的 spec",
+      "text": "把 AI 返回的 JSON spec 和 registry 一起传给 Renderer 进行渲染。spec 采用扁平格式：一个 root 键加一个 elements 映射。README 还提供了 SpecStream 流式渲染，以及根据目录生成系统提示词的能力，但相关代码不在本材料中。",
+      "code": "function Dashboard({ spec }) {\n  return <Renderer spec={spec} registry={registry} />;\n}\n\nimport { defineRegistry, Renderer } from \"@json-render/react\";\nimport { schema } from \"@json-render/react/schema\";\n\n// Flat spec format (root key + elements map)\nconst spec = {\n  root: \"card-1\",\n  elements: {\n    \"card-1\": {\n      type: \"Card\",\n      props: { title: \"Hello\" },\n      children: [\"button-1\"],\n    },\n    \"button-1\": {\n      type: \"Button\",\n      props: { label: \"Click me\" },\n      children: [],\n    },\n  },\n};\n\n// defineRegistry creates a type-safe component registry\nconst { registry } = defineRegistry(catalog, { components });\n<Renderer spec={spec} registry={registry} />;",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/vercel-labs/json-render/blob/c2600d73908ed505e6d726f5b6f969ba8f597ce7/README.md?plain=1#L115"
+      }
+    },
+    {
+      "title": "接入 Devtools 调试",
+      "text": "安装与渲染器匹配的 devtools 适配器（React 对应 @json-render/devtools-react），就能查看 spec 树、状态、动作日志和流日志。页面右下角会出现悬浮开关，快捷键是 Ctrl/Cmd + Shift + J。生产构建中 devtools 会被 tree-shake 为 null。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/vercel-labs/json-render/blob/c2600d73908ed505e6d726f5b6f969ba8f597ce7/README.md?plain=1#L627"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "框架本身不包含 AI 模型，生成 spec 需要自行接入模型服务，相关费用另计。",
+    "渲染到 PNG 需要额外安装 @resvg/resvg-js。",
+    "Jev 组合功能是实验性且未发布的，需要从源码构建。"
+  ],
+  "references": [],
+  "media": [],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "4f0b85cbce1da48fa5a698cf559df7d6a858fbc444d810f0899355a10ac6326a",
+  "mediaStatus": "none_in_official_documents"
+}

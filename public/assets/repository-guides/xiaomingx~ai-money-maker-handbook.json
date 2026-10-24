@@ -1,0 +1,65 @@
+{
+  "schemaVersion": 1,
+  "key": "xiaomingx/ai-money-maker-handbook",
+  "status": "ready",
+  "reason": "",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/XiaomingX/ai-money-maker-handbook/blob/e5b58f8dae933e43110aa0307475eb018c4dbcaa/README.md",
+  "sourceRevision": "e5b58f8dae933e43110aa0307475eb018c4dbcaa",
+  "canonicalKey": "XiaomingX/ai-money-maker-handbook",
+  "summary": "一个 AI 副业思路与案例的中文资料合集，包括副业方向清单、程序员副业章节和初创公司知识文章链接。",
+  "intro": "适合想了解 AI 副业方向的读者和程序员。内容可以按分类查阅：图片、文案、音频、视频、直播等副业思路，以及「程序员的副业赚钱宝典」中的单章分析（含需求验证、MVP、财务测算、避坑等结构）。这是阅读型资料，没有可运行的软件。",
+  "requirements": "能访问 GitHub 阅读 Markdown 文件即可。初创公司系列文章托管在 CSDN 和掘金，需要能访问这些外部站点。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "先浏览 README 的分类清单",
+      "text": "打开仓库 README.md，先读「四条建议」「一条策略」和「技术赚钱的一些认知」，然后按兴趣查看 AI 图片、AI 文案、AI 音频、AI 直播、视频翻译等分类下的副业思路条目。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/XiaomingX/ai-money-maker-handbook/blob/e5b58f8dae933e43110aa0307475eb018c4dbcaa/README.md?plain=1#L7"
+      }
+    },
+    {
+      "title": "阅读程序员副业宝典章节",
+      "text": "在 README 的「程序员的副业赚钱宝典」目录中挑选章节，例如 程序员的副业赚钱宝典/ch0444.md。每章按需求验证、MVP 模式、财务测算、关键指标、避坑指南的顺序展开，可以重点阅读其中的避坑部分。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/XiaomingX/ai-money-maker-handbook/blob/e5b58f8dae933e43110aa0307475eb018c4dbcaa/README.md?plain=1#L63"
+      }
+    },
+    {
+      "title": "按需查看初创公司系列外链",
+      "text": "如果关心融资、定价、留存、合规等创业基础知识，可以在 README 的「写给 0-1 岁的初创公司合伙人」列表中点击对应文章。这些文章发布在 CSDN 和掘金等外部平台，不在仓库内。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/XiaomingX/ai-money-maker-handbook/blob/e5b58f8dae933e43110aa0307475eb018c4dbcaa/README.md?plain=1#L30"
+      }
+    },
+    {
+      "title": "通过 Issue 投稿或推荐资源",
+      "text": "如果想补充 AI 赚钱相关的文章、网站或软件，按 README「贡献方法」的说明在仓库提交 issue 进行推荐或自荐。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/XiaomingX/ai-money-maker-handbook/blob/e5b58f8dae933e43110aa0307475eb018c4dbcaa/README.md?plain=1#L3"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "章节中的收费和收益数字是作者标注的「预估模型」，「模拟实战」部分是虚构案例，不代表实际收入。",
+    "部分列出的方向（如 AI 论文代写、视频搬运、发卡站售卖 AI 账号、API 代购）可能涉及学术诚信、版权或平台条款问题，实施前需要自行核实合规性。",
+    "ch0444 自身也提醒：远程安装时要注意客户 API Key 的安全，并事先说明付费 API 的调用消耗。"
+  ],
+  "references": [
+    {
+      "label": "程序员的副业赚钱宝典/ch0444.md",
+      "url": "https://github.com/XiaomingX/ai-money-maker-handbook/blob/e5b58f8dae933e43110aa0307475eb018c4dbcaa/程序员的副业赚钱宝典/ch0444.md"
+    }
+  ],
+  "media": [],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "36ce31bfd81e2750dd7b6355fc98bb647144cc52cdc5d2b6297ec607ad766138",
+  "mediaStatus": "none_in_official_documents"
+}

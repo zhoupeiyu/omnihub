@@ -1,0 +1,65 @@
+{
+  "schemaVersion": 1,
+  "key": "monteduro/killmyidea",
+  "status": "ready",
+  "reason": "",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/monteduro/killmyidea/blob/84f37b2e96922ccab12dcf44af2bf071bbdbf4c0/README.md",
+  "sourceRevision": "84f37b2e96922ccab12dcf44af2bf071bbdbf4c0",
+  "canonicalKey": "monteduro/killmyidea",
+  "summary": "Kill My Idea 用 TypeSafe 的 Jev 对创业点子做多维度打分，按加权平均分给出 KILL IT、FIX IT 或 SHIP IT 的结论。",
+  "intro": "适合想快速粗评创业或副业点子的独立开发者，也适合想自行部署、修改这套评分逻辑的开发者。它不使用生成式 LLM：一次请求并行询问 Jev 10 个问题，包括 8 个 0–4 分的评分问题，以及点子类别和点子是否表述清楚。评分会按目标（money、open_source、fun）调整权重，结果页附有「How Jev decided」原始数据面板。",
+  "requirements": "需要 npm（用于安装依赖和运行脚本）和 TypeSafe API Key（TYPESAFE_API_KEY）。只调试 UI 时可以设置 TYPESAFE_MOCK=1 使用假数据，不需要 Key。查询或导出本地评估归档需要 sqlite3 命令行工具。可选部署到 Vercel，或部署到有持久磁盘的 Node 主机。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "安装依赖并复制环境变量",
+      "text": "在仓库根目录执行 npm install。然后执行 cp .env.example .env，并在 .env 中填写 TYPESAFE_API_KEY。这个 Key 只由 api/evaluate.ts 读取，不会发送到浏览器。只调试界面时可设置 TYPESAFE_MOCK=1，接口会返回标有 MOCK DATA 的固定假答案。",
+      "code": "npm install\n\ncp .env.example .env\n\nTYPESAFE_API_KEY=your_key",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/monteduro/killmyidea/blob/84f37b2e96922ccab12dcf44af2bf071bbdbf4c0/README.md?plain=1#L13"
+      }
+    },
+    {
+      "title": "本地启动并提交点子评估",
+      "text": "执行 npm run dev，访问 http://127.0.0.1:5317，同一个服务也提供 /api/evaluate 接口。输入点子描述后，Jev 按目标加权计分：低于 50 分为 KILL，50–64 分为 FIX，65 分及以上为 SHIP。如果点子的可理解度低于 0.3，界面会要求补充细节，不给出结论。",
+      "code": "npm run dev          # http://127.0.0.1:5317 (serves /api/evaluate too)\nnpm test             # unit tests\nnpm run benchmark    # balanced scoring benchmark; requires the app to be running\n\nidea → Jev (8 scores) → each × 25 → weighted average → clarity gate → KILL / FIX / SHIP",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/monteduro/killmyidea/blob/84f37b2e96922ccab12dcf44af2bf071bbdbf4c0/README.md?plain=1#L42"
+      }
+    },
+    {
+      "title": "查看评分依据与调试面板",
+      "text": "每个结果下方都有一个折叠的「How Jev decided」面板，显示 Jev 原始答案、概率、置信度、平均分、结论、延迟和 token 用量。在 URL 后加上 ?debug=1 可以让该面板默认展开。评分逻辑位于 src/lib/scoring.ts 和 src/lib/verdict.ts。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/monteduro/killmyidea/blob/84f37b2e96922ccab12dcf44af2bf071bbdbf4c0/README.md?plain=1#L42"
+      }
+    },
+    {
+      "title": "构建或部署到 Vercel",
+      "text": "执行 npm run build 会先做类型检查，再把静态文件构建到 dist/。部署到 Vercel 时，导入仓库后在 Project → Settings → Environment Variables 中添加 TYPESAFE_API_KEY 再部署。需要保留 SQLite 归档数据的话，应改用有持久磁盘的 Node 部署方式：npm run build:server && npm start。",
+      "code": "npm run build        # typecheck + static build in dist/",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/monteduro/killmyidea/blob/84f37b2e96922ccab12dcf44af2bf071bbdbf4c0/README.md?plain=1#L53"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "默认情况下，每次成功的评估都会把点子原文和评分写入服务端 SQLite（data/analytics.sqlite），用户需在表单中勾选退出才不会归档。生产环境应通过 ANALYTICS_DB_PATH 指向持久磁盘上的路径。",
+    "Vercel Functions 没有持久文件系统，在 Vercel 上 SQLite 归档数据不可依赖；Vercel 上也会忽略 Mock 模式。",
+    "生产构建默认会加载 DataFast 无 Cookie 统计脚本，使用写在 vite.config.ts 中的原作者站点 id。自行部署前应检查并替换或关闭；README 说明统计不会发送点子原文。",
+    "每次评估都会调用 TypeSafe API，需要有效的 API Key。README 未说明调用费用，请以 TypeSafe 官方信息为准。",
+    "仓库未声明开源许可证。"
+  ],
+  "references": [],
+  "media": [],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "7db5cea5304f3ea7f9f225f8037207df2e1535b200bfecacf5858af931b25cec",
+  "mediaStatus": "none_in_official_documents"
+}

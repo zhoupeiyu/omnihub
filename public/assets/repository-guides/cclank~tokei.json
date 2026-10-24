@@ -1,0 +1,72 @@
+{
+  "schemaVersion": 1,
+  "key": "cclank/tokei",
+  "status": "ready",
+  "reason": "",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/cclank/tokei/blob/ebd197fcb2373ab3545b5ae710d8a620a446c6cd/README.md",
+  "sourceRevision": "ebd197fcb2373ab3545b5ae710d8a620a446c6cd",
+  "canonicalKey": "cclank/tokei",
+  "summary": "Tokei 是一款 macOS 菜单栏应用，基于本地日志统计 20 多款 AI 编程工具的 Token 用量、估算成本和额度。",
+  "intro": "适合同时使用 Claude Code、Codex CLI、Gemini CLI、Cursor、Kimi Code 等多款 AI 编程工具，想集中查看用量和成本的 macOS 用户。功能包括 30 秒刷新的菜单栏额度显示、按工具展示的卡片、每日成本折线图和每周热力图、按项目统计用量、基于 Git 的多设备同步，以及年度回顾。",
+  "requirements": "macOS 13+。需要统计的 AI 编程工具已在本机产生日志。外部额度卡需要对应工具的本机登录态，或在设置中保存的 API Key。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "从 Releases 下载最新 DMG",
+      "text": "以 macOS 官方安装包为准：从 GitHub Releases 页面下载最新的 DMG，打开后把 Tokei.app 拖进 Applications 文件夹。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/cclank/tokei/blob/ebd197fcb2373ab3545b5ae710d8a620a446c6cd/README.md?plain=1#L125"
+      }
+    },
+    {
+      "title": "处理首次启动被系统拦截",
+      "text": "该步骤涉及需要人工核查的高权限、远程脚本或破坏性操作。本站不提供直接执行指令，请先查看官方说明并确认影响。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/cclank/tokei/blob/ebd197fcb2373ab3545b5ae710d8a620a446c6cd/README.md?plain=1#L125"
+      }
+    },
+    {
+      "title": "在菜单栏查看用量与数据面板",
+      "text": "启动后，Tokei 会读取本地日志，在菜单栏和各工具卡片中显示用量与额度，每 30 秒刷新一次。可以切换今天、本周、本月等时间范围，在数据面板中查看成本折线图、热力图和项目维度统计。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/cclank/tokei/blob/ebd197fcb2373ab3545b5ae710d8a620a446c6cd/README.md?plain=1#L64"
+      }
+    },
+    {
+      "title": "按需开启 Provider 额度卡",
+      "text": "Cursor、Zed、Sub2API、z.ai 等外部额度卡默认关闭，需要在设置中开启。Sub2API、z.ai 和 MiniMax 需要在「设置 → Provider 额度」中填入 Key，Key 保存在 macOS Keychain 里。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/cclank/tokei/blob/ebd197fcb2373ab3545b5ae710d8a620a446c6cd/README.md?plain=1#L105"
+      }
+    },
+    {
+      "title": "可选：开启多设备同步",
+      "text": "在 Mac 端打开「设置 → 多设备同步」，选择一个私有 Git 仓库目录。远程 Linux 服务器可以按文档脚本克隆该仓库，下载采集脚本，并用 crontab 每 30 分钟采集和推送一次。",
+      "code": "git clone <你的私有仓库> ~/.tokei/sync\ncurl -fsSL https://dl.lanshuagent.com/tokei/usage.30s.py -o ~/.tokei/usage.30s.py\necho '{\"sync_dir\":\"~/.tokei/sync\",\"device_id\":\"'$(hostname -s)'\",\"auto_sync\":true,\"sync_interval\":30}' > ~/.tokei/config.json\ncat > ~/.tokei/tokei-sync.sh <<'SH'\n#!/bin/bash\nset -euo pipefail\nexec 9>\"$HOME/.tokei/sync.lock\"\nflock -n 9 || exit 0\ncd \"$HOME/.tokei/sync\"\npython3 \"$HOME/.tokei/usage.30s.py\" --json >/dev/null\ndevice_file=$(find . -maxdepth 1 -type f -iname \"$(hostname -s).json\" -print -quit)\n[ -n \"$device_file\" ] || device_file=\"./$(hostname -s).json\"\nfor peer_file in ./*.json; do\n  [ \"$peer_file\" = \"$device_file\" ] && continue\n  git restore --staged --worktree -- \"$peer_file\" 2>/dev/null || true\ndone\ngit add -- \"$device_file\"\ngit diff --cached --quiet || git commit -qm \"chore(sync): update $(hostname -s) usage\"\nfor attempt in 1 2 3; do\n  git fetch -q origin main\n  if ! git rebase -q origin/main; then\n    git rebase --abort 2>/dev/null || true\n    exit 1\n  fi\n  git push -q origin HEAD:main && exit 0\n  sleep \"$attempt\"\ndone\nexit 1\nSH\nchmod +x ~/.tokei/tokei-sync.sh\n# 每 30 分钟自动采集并同步，日志写入 ~/.tokei/sync.log\n(crontab -l 2>/dev/null | grep -v 'tokei-sync.sh'; echo '*/30 * * * * ~/.tokei/tokei-sync.sh >> ~/.tokei/sync.log 2>&1') | crontab -",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/cclank/tokei/blob/ebd197fcb2373ab3545b5ae710d8a620a446c6cd/README.md?plain=1#L91"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "应用活跃统计默认开启，会上报随机安装 ID、版本号和系统版本，并记录来源 IP。可在「设置 → 隐私与额度」中关闭，已发送的数据不会自动删除。",
+    "成本是按 API 定价估算的，不代表订阅费用。未知模型会兜底按 Opus 价格计算，结果偏保守。",
+    "官方 DMG 使用 ad-hoc 签名，需要手动移除隔离标记才能打开，存在绕过 Gatekeeper 校验的风险。",
+    "部分额度查询会复用 Codex、Kimi Code、Grok Bot 等工具的本机登录态并联网请求官方接口；Grok Bot 官方用量需要明确授权。",
+    "Linux 同步脚本需要从 dl.lanshuagent.com 下载采集脚本，并定期向你的私有 Git 仓库推送数据。",
+    "仓库元数据未识别出许可证，README 写的是 MIT，使用前请以仓库内的 LICENSE 文件为准。"
+  ],
+  "references": [],
+  "media": [],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "2f061086f63fa285a7b2b2fc6de3badc0d5da6ecbbabf733f55b6d8873419aa3",
+  "mediaStatus": "none_in_official_documents"
+}

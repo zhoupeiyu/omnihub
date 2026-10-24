@@ -1,0 +1,67 @@
+{
+  "schemaVersion": 1,
+  "key": "slowmist/openclaw-security-practice-guide",
+  "status": "ready",
+  "reason": "",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/slowmist/openclaw-security-practice-guide/blob/42c0d6d6a41e9835f418698161fbbe35f2eac83a/README.md",
+  "sourceRevision": "42c0d6d6a41e9835f418698161fbbe35f2eac83a",
+  "canonicalKey": "slowmist/openclaw-security-practice-guide",
+  "summary": "这是 SlowMist 为高权限 OpenClaw Agent 编写的安全实践指南，以 Markdown 文档的形式交给 Agent 阅读，由 Agent 评估并部署事前、事中、事后三层防御。",
+  "intro": "这是一个文档集合，不是需要运行的应用。适合在 Linux 上以高权限运行 OpenClaw、并且经常安装 Skills、MCP 或脚本的个人用户。指南包含红线和黄线命令规则、Skill 安装审计、权限收窄、跨 Skill 预检、夜间显式巡检（13 项指标）和 Git 灾备，配有攻防验证手册。指南分为 v2.7 经典版和 v2.8 Beta 增强版，均提供中英文版本。scripts/ 目录下的巡检脚本仅供参考。",
+  "requirements": "需要 OpenClaw，并建议使用能力较强的最新一代推理模型。指南的设计环境是单用户、个人使用、OpenClaw 以 root 权限运行的 Linux 服务器。Git 备份和 Telegram 通知需要能访问 GitHub 和 Telegram API，这两项都是可选功能。执行者需要理解 chattr、cron、文件权限等 Linux 概念。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "按引擎版本选择指南",
+      "text": "在 docs/ 中选择版本：OpenClaw 2026.3 及更早版本使用 v2.7 经典版，2026.4 及之后的版本使用 v2.8 Beta。两个版本都有中文版（OpenClaw极简安全实践指南*.md）和英文版。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/slowmist/openclaw-security-practice-guide/blob/42c0d6d6a41e9835f418698161fbbe35f2eac83a/README.md?plain=1#L77"
+      }
+    },
+    {
+      "title": "发送文档并让 Agent 评估",
+      "text": "在聊天中把选好的 Markdown 文件直接发给 OpenClaw，请它先阅读指南，指出与当前环境可能存在的风险或冲突。建议借这个机会与 Agent 充分沟通，避免规则设得过严而影响日常使用。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/slowmist/openclaw-security-practice-guide/blob/42c0d6d6a41e9835f418698161fbbe35f2eac83a/README_zh-CN.md?plain=1#L55"
+      }
+    },
+    {
+      "title": "确认后让 Agent 执行部署",
+      "text": "确认无误后再下达部署指令。v2.8 版本让 Agent 按指南中的 Agent 辅助部署工作流执行；v2.7 版本让它写入红线和黄线规则、收窄权限，并部署夜间巡检 Cron Job。Git 备份和夜间巡检都可以按需去掉。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/slowmist/openclaw-security-practice-guide/blob/42c0d6d6a41e9835f418698161fbbe35f2eac83a/README_zh-CN.md?plain=1#L55"
+      }
+    },
+    {
+      "title": "按验证手册做攻防演练",
+      "text": "部署完成后，参照 docs/Validation-Guide-zh.md（中文）或 Validation-Guide-en.md（英文）对 Agent 做一次突击测试，确认它能拦截触碰红线的操作，不会出于“服从”而绕过自身防线。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/slowmist/openclaw-security-practice-guide/blob/42c0d6d6a41e9835f418698161fbbe35f2eac83a/README_zh-CN.md?plain=1#L55"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "指南不能让 OpenClaw 完全安全：它无法防御引擎、操作系统或依赖组件中的未知漏洞，夜间巡检也只能事后发现问题。最终判断责任在使用者，作者不承担任何损失。",
+    "能力较弱的模型可能误判红线，不建议直接套用完整指南。这种情况下可以只使用 chattr +i，Skill 安装审查改由人工完成。",
+    "官方文档中的高权限或远程脚本操作应单独核查，不要整段复制执行。",
+    "指南只针对 Linux root 环境，Mac 和 Windows 没有原生适配。OpenClaw 迭代很快，部署到生产环境前应先在当前版本上测试。",
+    "巡检脚本以 root 权限运行，被篡改后等同于后门，因此 v2.8 要求用 chattr +i 保护脚本，并把 Telegram Bot Token 等敏感信息单独存放、设置 chmod 600 权限。"
+  ],
+  "references": [
+    {
+      "label": "README_zh-CN.md",
+      "url": "https://github.com/slowmist/openclaw-security-practice-guide/blob/42c0d6d6a41e9835f418698161fbbe35f2eac83a/README_zh-CN.md"
+    }
+  ],
+  "media": [],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "93cdbe0ffd7377ad0525126e67ac64c46c0331d02596fa8cd2adfe3160d4b776",
+  "mediaStatus": "none_in_official_documents"
+}

@@ -1,0 +1,77 @@
+{
+  "schemaVersion": 1,
+  "key": "yiling0013/ai_novelgenerator",
+  "status": "ready",
+  "reason": "",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/YILING0013/AI_NovelGenerator/blob/f9aefef90b1493c579d7f72547efb4a3d8a0da25/README.md",
+  "sourceRevision": "f9aefef90b1493c579d7f72547efb4a3d8a0da25",
+  "canonicalKey": "YILING0013/AI_NovelGenerator",
+  "summary": "AI_NovelGenerator 是基于大语言模型的桌面 GUI 工具，按设定、目录、章节草稿、定稿的流程生成多章节长篇小说，并用向量检索维持上下文和伏笔的一致。",
+  "intro": "适合想借助大模型创作长篇小说、需要管理世界观、角色状态和伏笔的写作者。工具提供图形界面，依次生成 Novel_setting.txt、Novel_directory.txt 和逐章正文，每次定稿后会更新全局摘要、角色状态和向量库，还可以选择进行一致性审校。",
+  "requirements": "Python 3.9+（推荐 3.10–3.12）和 pip；有效的大模型 API Key（OpenAI、DeepSeek 等云端服务，或 Ollama 等兼容 OpenAI 的本地接口）；Embedding 模型配置。Windows 上部分依赖安装失败时，需要安装带「C++ 桌面开发」组件的 Visual Studio Build Tools。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "克隆仓库并进入项目目录",
+      "text": "使用 git clone 下载项目，也可以从 GitHub 下载 ZIP 后解压。然后在终端中进入 AI_NovelGenerator 目录。",
+      "code": "     git clone https://github.com/YILING0013/AI_NovelGenerator\n\n     cd AI_NovelGenerator",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/YILING0013/AI_NovelGenerator/blob/f9aefef90b1493c579d7f72547efb4a3d8a0da25/README_zh-CN.md?plain=1#L52"
+      }
+    },
+    {
+      "title": "在 Windows 上建环境并装依赖",
+      "text": "以下以 Windows 为例。可选步骤：先用 python -m venv .venv 创建虚拟环境，再执行 .venv/Scripts/activate 激活。然后用 pip install -r requirements.txt 安装依赖；如果仍提示缺少某个包，可以手动 pip install 补装。",
+      "code": "     python -m venv .venv\n     # 如果失败，尝试:\n     # python3 -m venv .venv\n\n     # Windows系统:\n     .venv/Scripts/activate\n\n       pip install -r requirements.txt",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/YILING0013/AI_NovelGenerator/blob/f9aefef90b1493c579d7f72547efb4a3d8a0da25/README_zh-CN.md?plain=1#L52"
+      }
+    },
+    {
+      "title": "启动 GUI 并填写基础参数",
+      "text": "运行 python main.py 打开图形界面。依次填写 API Key、Base URL、模型名称、Temperature、主题、类型、章节数、每章字数和保存路径；建议新建一个输出文件夹。完整配置项可参考 config.example.json。",
+      "code": "       python main.py",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/YILING0013/AI_NovelGenerator/blob/f9aefef90b1493c579d7f72547efb4a3d8a0da25/README_zh-CN.md?plain=1#L194"
+      }
+    },
+    {
+      "title": "依次生成小说设定与章节目录",
+      "text": "点击「Step1. 生成设定」，得到包含世界观和角色信息的 Novel_setting.txt；再点击「Step2. 生成目录」，得到包含各章标题和简要提示的 Novel_directory.txt。两个文件生成后都可以手动查看和修改。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/YILING0013/AI_NovelGenerator/blob/f9aefef90b1493c579d7f72547efb4a3d8a0da25/README_zh-CN.md?plain=1#L213"
+      }
+    },
+    {
+      "title": "逐章生成草稿并定稿",
+      "text": "填写章节号和本章指导，点击「Step3. 生成章节草稿」，修改草稿后点击「Step4. 定稿当前章节」，系统会更新摘要、角色状态和向量库。可选择执行一致性审校。重复以上操作，直到所有章节完成。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/YILING0013/AI_NovelGenerator/blob/f9aefef90b1493c579d7f72547efb4a3d8a0da25/README_zh-CN.md?plain=1#L213"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "许可证为 AGPL-3.0。",
+    "作者说明重构版正在 dev 分支开发，目前仅完成框架、功能还不可用；本指南基于主分支 README。",
+    "使用本地 Ollama Embedding 时，需要先启动 Ollama 服务并拉取 nomic-embed-text；切换 Embedding 模型后建议清空 vectorstore 目录。",
+    "出现 Expecting value 或 504 错误，通常是 API 返回异常或接口不稳定，需要检查接口地址和网络。"
+  ],
+  "references": [
+    {
+      "label": "README_zh-CN.md",
+      "url": "https://github.com/YILING0013/AI_NovelGenerator/blob/f9aefef90b1493c579d7f72547efb4a3d8a0da25/README_zh-CN.md"
+    }
+  ],
+  "media": [],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "8a24269840ef095c870e1d4fe8ac4b7934c08aaa8430a0fd13e8b382050df443",
+  "mediaStatus": "none_in_official_documents"
+}

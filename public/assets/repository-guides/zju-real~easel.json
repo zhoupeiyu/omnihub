@@ -1,0 +1,93 @@
+{
+  "schemaVersion": 1,
+  "key": "zju-real/easel",
+  "status": "ready",
+  "reason": "",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/ZJU-REAL/Easel/blob/4b9c03cf2129b6155595b66fc1e604546a3aa4ad/README.md",
+  "sourceRevision": "4b9c03cf2129b6155595b66fc1e604546a3aa4ad",
+  "canonicalKey": "ZJU-REAL/Easel",
+  "summary": "Easel 是基于 OpenClaw Agent 的开源社媒运营工作台，可以在小红书、抖音、知乎、B 站等平台上完成热点发现、选题策划、图文与音视频创作、发布和数据复盘。",
+  "intro": "适合需要长期运营一个或多个社媒账号的创作者和运营人员。你可以为账号建立画像，记录定位、受众、风格和红线，再由 Agent 依据画像筛选热点、规划内容日历、生成文案、卡片和视频等素材，按平台适配后发布，最后回收数据，把有效经验沉淀回画像。官方推荐使用 Web 工作台，它比单独使用 CLI 功能更完整。",
+  "requirements": "操作系统为 Linux、macOS 或 Windows 10/11；需要 Python 3.10 及以上、Python venv 模块和 git。安装向导会检查 Node.js 22.19+、FFmpeg、Playwright/Chromium。还需要至少一个可用的 LLM API（Anthropic、OpenAI/OpenAI-compatible 或其他 Anthropic-compatible 服务）。浏览器发布需要对应平台的有效账号。视频、音乐、语音等能力需另外配置相应的生成服务。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "克隆仓库并运行安装向导",
+      "text": "以 macOS/Linux 为例：克隆仓库，进入目录后执行 bash setup.sh。向导会检查环境，创建 .venv，安装 OpenClaw 并建立独立的 easel profile，不会覆盖已有的 ~/.openclaw/。随后安装 Python、Web、媒体和浏览器依赖，构建 Web 工作台，并安装 Chromium。",
+      "code": "git clone https://github.com/ZJU-REAL/Easel.git\ncd Easel\nbash setup.sh",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/ZJU-REAL/Easel/blob/4b9c03cf2129b6155595b66fc1e604546a3aa4ad/README.md?plain=1#L202"
+      }
+    },
+    {
+      "title": "配置 Agent 使用的模型",
+      "text": "安装过程中，向导会在终端引导你选择模型服务并输入 API Key。你也可以提前在项目根目录的 .env 中写好最小配置，向导会直接复用。如果聊天 API 不提供向量模型，需要单独配置 Embedding API；不配置时，Easel 会改用关键词记忆检索。",
+      "code": "ANTHROPIC_API_KEY=你的_API_Key\nCLAUDE_MODEL=anthropic/claude-sonnet-4-6",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/ZJU-REAL/Easel/blob/4b9c03cf2129b6155595b66fc1e604546a3aa4ad/README.md?plain=1#L202"
+      }
+    },
+    {
+      "title": "激活虚拟环境并检查连通性",
+      "text": "easel 命令安装在项目的 .venv 中，每次新开终端都要先激活虚拟环境。激活后运行 easel doctor 检查运行环境，运行 easel ping 测试 gateway 和 Agent 的连通性，再用 easel web 启动工作台，在浏览器访问 http://localhost:7860。",
+      "code": "source .venv/bin/activate    # 激活后 easel 命令才可用（Windows：.venv\\Scripts\\activate）\neasel doctor                 # 检查运行环境\neasel ping                   # 实际测试 gateway 和 Agent\neasel web                    # 启动 Web 工作台\n# 或：easel chat              # 启动终端对话",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/ZJU-REAL/Easel/blob/4b9c03cf2129b6155595b66fc1e604546a3aa4ad/README.md?plain=1#L202"
+      }
+    },
+    {
+      "title": "在工作台创建账号画像",
+      "text": "在 Web 的“画像”页面创建并编辑画像，填写基础信息、社媒链接、运营意图和偏好红线。每个画像对应 profiles/<名字>/ 目录，包含定位、风格、受众、平台、偏好与红线、长期记忆六个维度，同一画像可以跨多个平台和会话使用。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/ZJU-REAL/Easel/blob/4b9c03cf2129b6155595b66fc1e604546a3aa4ad/README.md?plain=1#L335"
+      }
+    },
+    {
+      "title": "在发布中心检查后再发布",
+      "text": "先在 Web 的“账号”页面登录目标平台，再到发布中心从母版内容生成各平台版本，完成格式适配、发布前检查和预览后发布。小红书可能检测自动化操作，官方建议预览确认后手动发布。产物会保存在 outputs/ 中。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/ZJU-REAL/Easel/blob/4b9c03cf2129b6155595b66fc1e604546a3aa4ad/README.md?plain=1#L88"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "向小红书自动发布可能触发验证、限流或账号风控，官方建议预览确认后手动发布。",
+    "需要自备 LLM API Key，模型调用费用由所选服务商决定；可选的视频、音乐、云端配音能力需要另外配置第三方生成服务。",
+    "聊天 API 不提供向量模型时，OpenClaw 默认会请求 text-embedding-3-small，可能报“模型不可用”，需要单独配置 Embedding API 或接受关键词检索。",
+    "浏览器发布依赖 Playwright Chromium 和有效的平台账号登录；目前支持七个平台的登录与发布。",
+    "Roadmap 仍将完善原生 Windows 下的安装、路径编码和浏览器发布兼容列为待办；部分终端显示问题见 docs/known-issues.md。"
+  ],
+  "references": [],
+  "media": [
+    {
+      "url": "/assets/repository-guides/media-7ee0826db14943813a40d3bd.webp",
+      "alt": "Easel 账号画像配置",
+      "sourceUrl": "https://github.com/ZJU-REAL/Easel/blob/4b9c03cf2129b6155595b66fc1e604546a3aa4ad/README.md?plain=1#L98",
+      "originalUrl": "https://raw.githubusercontent.com/ZJU-REAL/Easel/4b9c03cf2129b6155595b66fc1e604546a3aa4ad/assets/readme/features/profile.png"
+    },
+    {
+      "url": "/assets/repository-guides/media-1e39d89f42da093c380996cd.webp",
+      "alt": "Easel 多平台热点雷达",
+      "sourceUrl": "https://github.com/ZJU-REAL/Easel/blob/4b9c03cf2129b6155595b66fc1e604546a3aa4ad/README.md?plain=1#L103",
+      "originalUrl": "https://raw.githubusercontent.com/ZJU-REAL/Easel/4b9c03cf2129b6155595b66fc1e604546a3aa4ad/assets/readme/features/discover.png"
+    },
+    {
+      "url": "/assets/repository-guides/media-acda46ebb8704d8595f23739.webp",
+      "alt": "Easel 多平台发布中心",
+      "sourceUrl": "https://github.com/ZJU-REAL/Easel/blob/4b9c03cf2129b6155595b66fc1e604546a3aa4ad/README.md?plain=1#L115",
+      "originalUrl": "https://raw.githubusercontent.com/ZJU-REAL/Easel/4b9c03cf2129b6155595b66fc1e604546a3aa4ad/assets/readme/features/publish.png"
+    }
+  ],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "50297f17d183c37f262ecba10ede3992509bddd2099878ad5d298b6b617f87f6",
+  "mediaStatus": "archived",
+  "mediaFailures": []
+}

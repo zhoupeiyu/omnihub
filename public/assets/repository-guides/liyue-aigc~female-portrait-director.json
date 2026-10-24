@@ -1,0 +1,88 @@
+{
+  "schemaVersion": 1,
+  "key": "liyue-aigc/female-portrait-director",
+  "status": "ready",
+  "reason": "",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/liyue-aigc/female-portrait-director/blob/8cddecd6786d187688e8e89a1f606540186a962f/README.md",
+  "sourceRevision": "8cddecd6786d187688e8e89a1f606540186a962f",
+  "canonicalKey": "liyue-aigc/female-portrait-director",
+  "summary": "一个女性人像提示词导演 Skill：把少量写真参数扩写为参数锁定结果、模块解析、完整提示词和负面约束，宿主支持时也可以直接出图。",
+  "intro": "适合在 Codex 等 Agent 中撰写 AI 人像写真提示词的创作者，例如电商服装模特图、古风、港风、法式等 20 种风格。它会锁定用户已填写的参数，只选用一个风格 Route，再补全五官、服装、场景、镜头、光线和滤镜。在获得授权的前提下，也可以基于本人或产品参考图生成。",
+  "requirements": "一键安装需要包含 npx 的 Node.js；需要支持 Agent Skills 的宿主（README 中 Codex 经过实机运行验证）；直接出图需要宿主提供图像生成能力。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "用 skills CLI 全局安装 Skill",
+      "text": "使用开源 skills CLI 的 npx skills add 命令，从仓库的 skills/female-portrait-director 路径全局安装。安装器会复制 SKILL.md 及其引用的全部 Route、安全规则和示例。",
+      "code": "npx skills add https://github.com/liyue-aigc/female-portrait-director/tree/main/skills/female-portrait-director -g",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/liyue-aigc/female-portrait-director/blob/8cddecd6786d187688e8e89a1f606540186a962f/README_zh.md?plain=1#L23"
+      }
+    },
+    {
+      "title": "无参数调用查看首次使用教程",
+      "text": "重新开始一个 Agent 对话（以 Codex 为例），输入 $female-portrait-director 且不带参数。Skill 会显示 V1.6 教程，内容包括 20 种风格菜单、基础与高级模板、风格与气质的组合规则，以及直接出图和授权参考图的用法。",
+      "code": "$female-portrait-director",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/liyue-aigc/female-portrait-director/blob/8cddecd6786d187688e8e89a1f606540186a962f/README_zh.md?plain=1#L101"
+      }
+    },
+    {
+      "title": "按模板填写风格、场景等参数",
+      "text": "参照 README 模板逐行填写风格、场景、服装、气质和画幅。保留“直接生成图片”会尝试出图；删掉这一句则只返回可复制的提示词，以及参数锁定结果和负面约束。",
+      "code": "使用 $female-portrait-director 直接生成图片：\n风格：清纯生活照\n场景：午后安静的咖啡馆靠窗座位\n服装：米白针织开衫 + 浅色内搭\n气质：温柔、自然、明确成年\n画幅：3:4",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/liyue-aigc/female-portrait-director/blob/8cddecd6786d187688e8e89a1f606540186a962f/README_zh.md?plain=1#L23"
+      }
+    },
+    {
+      "title": "用 update 命令更新已安装版本",
+      "text": "之后需要更新时，用 npx skills@latest update female-portrait-director 加 -g -y 参数，更新全局安装的副本。",
+      "code": "npx skills@latest update female-portrait-director -g -y",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/liyue-aigc/female-portrait-director/blob/8cddecd6786d187688e8e89a1f606540186a962f/README_zh.md?plain=1#L93"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "README 写明本次发布只在 Codex 上做了实际运行验证。Claude Code、Cursor、GitHub Copilot 和 Gemini CLI 仅确认安装包结构兼容，直接出图取决于所连接的图像工具。",
+    "默认生成虚构且明确成年的人物；参考图只能使用本人、已授权成年人或有权使用的产品。禁止用于未成年人性化、色情裸露、非自愿图像、身份欺骗等用途，详见 docs/prompt_safety.md 和 DISCLAIMER.md。"
+  ],
+  "references": [
+    {
+      "label": "README_zh.md",
+      "url": "https://github.com/liyue-aigc/female-portrait-director/blob/8cddecd6786d187688e8e89a1f606540186a962f/README_zh.md"
+    }
+  ],
+  "media": [
+    {
+      "url": "/assets/repository-guides/media-9c94c38ce08a65ed1c687c2f.webp",
+      "alt": "古风仙侠参数扩写示例",
+      "sourceUrl": "https://github.com/liyue-aigc/female-portrait-director/blob/8cddecd6786d187688e8e89a1f606540186a962f/README_zh.md?plain=1#L143",
+      "originalUrl": "https://raw.githubusercontent.com/liyue-aigc/female-portrait-director/8cddecd6786d187688e8e89a1f606540186a962f/assets/examples/gufeng-director-output.jpg"
+    },
+    {
+      "url": "/assets/repository-guides/media-3c1f8f95b656b43547d9ce71.webp",
+      "alt": "咖啡馆窗边清纯生活照",
+      "sourceUrl": "https://github.com/liyue-aigc/female-portrait-director/blob/8cddecd6786d187688e8e89a1f606540186a962f/README_zh.md?plain=1#L17",
+      "originalUrl": "https://raw.githubusercontent.com/liyue-aigc/female-portrait-director/8cddecd6786d187688e8e89a1f606540186a962f/assets/cases/01-clean-lifestyle.png"
+    },
+    {
+      "url": "/assets/repository-guides/media-4c3ac1f8a807d53a7c38da86.webp",
+      "alt": "商场外都市时尚街拍",
+      "sourceUrl": "https://github.com/liyue-aigc/female-portrait-director/blob/8cddecd6786d187688e8e89a1f606540186a962f/README_zh.md?plain=1#L17",
+      "originalUrl": "https://raw.githubusercontent.com/liyue-aigc/female-portrait-director/8cddecd6786d187688e8e89a1f606540186a962f/assets/cases/02-urban-fashion.png"
+    }
+  ],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "02ac45e9faea1d38945f2a3588789f6ae86142023c6db4e79dc9874499011158",
+  "mediaStatus": "archived",
+  "mediaFailures": []
+}

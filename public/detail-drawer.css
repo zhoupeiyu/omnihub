@@ -1,0 +1,56 @@
+/* One shell, shared by the document and repository Shadow DOM. */
+html { scrollbar-gutter:stable; }
+.detail-drawer-layer[hidden] { display:none; }
+.detail-drawer-backdrop { position:fixed; inset:0; z-index:60; background:rgb(15 23 42 / .22); animation:detail-backdrop-in 180ms ease-out; }
+.detail-drawer { box-sizing:border-box; position:fixed; inset:0 0 0 auto; z-index:61; width:min(680px,100vw); height:100dvh; max-height:100dvh; min-width:0; margin:0; padding:0; display:flex; flex-direction:column; overflow:hidden; border:0; border-left:1px solid var(--border); border-radius:0; background:var(--surface); color:var(--text); box-shadow:-12px 0 36px rgb(15 23 42 / .12); animation:detail-drawer-in 240ms cubic-bezier(.2,0,0,1); }
+.detail-drawer:focus { outline:none; }
+.detail-drawer-header { box-sizing:border-box; flex:none; display:flex; align-items:center; justify-content:space-between; gap:16px; min-height:60px; padding:10px 24px; border-bottom:1px solid var(--border); background:var(--surface); }
+.detail-drawer-label { min-width:0; font-size:13px; line-height:1.5; font-weight:600; color:var(--text-2); }
+.detail-drawer-actions { flex:none; display:flex; align-items:center; gap:8px; }
+.detail-drawer-close { display:inline-flex; align-items:center; justify-content:center; flex:none; width:36px; height:36px; padding:0; border:0; border-radius:8px; background:transparent; color:var(--text-2); cursor:pointer; }
+.detail-drawer-close svg { width:20px; height:20px; }
+.detail-drawer-close:hover { color:var(--text); background:var(--bg-sunken); }
+.detail-drawer-close:focus-visible { outline:2px solid var(--accent); outline-offset:2px; }
+.detail-drawer-body { flex:1; min-height:0; overflow-y:auto; overscroll-behavior:contain; padding:24px; overflow-wrap:anywhere; }
+.detail-drawer-body > :first-child { margin-top:0; }
+.detail-drawer .drawer-foot { flex:none; padding:12px 24px; }
+.account-settings-body { display:flex; flex-direction:column; gap:16px; line-height:1.65; }
+.account-settings-intro { margin:0; color:var(--text-2); font-size:13px; }
+.account-notice { margin:0; padding:10px 12px; border:1px solid color-mix(in srgb, var(--accent) 28%, var(--border)); border-radius:10px; background:color-mix(in srgb, var(--accent) 8%, var(--surface)); color:var(--text); font-size:13px; }
+.connection-section { padding:18px; border:1px solid var(--border); border-radius:14px; background:var(--surface); }
+.connection-section-heading { display:flex; align-items:flex-start; justify-content:space-between; gap:12px; }
+.connection-eyebrow { display:block; margin-bottom:3px; color:var(--text-3); font-size:11px; font-weight:700; letter-spacing:.06em; text-transform:uppercase; }
+.account-settings-body h3 { margin:0; font-size:17px; line-height:1.35; }
+.account-settings-body p { margin:8px 0 0; }
+.connection-summary { color:var(--text-2); }
+.connection-actions { display:flex; flex-wrap:wrap; gap:8px; margin-top:14px; }
+.connection-subsection { margin-top:18px; padding-top:16px; border-top:1px solid var(--border); }
+.connection-subsection > div:first-child { display:flex; align-items:baseline; justify-content:space-between; gap:12px; }
+.connection-subsection strong { font-size:14px; }
+.connection-subsection p { color:var(--text-2); font-size:13px; }
+.connection-error { margin-top:12px; padding:12px; border:1px solid color-mix(in srgb, #dc2626 28%, var(--border)); border-radius:10px; background:color-mix(in srgb, #dc2626 7%, var(--surface)); }
+.connection-error p, .connection-error-text { color:var(--danger, #b42318); }
+.connection-error .btn { margin-top:10px; }
+.connection-field { display:grid; gap:6px; margin-top:14px; color:var(--text-2); font-size:13px; }
+.connection-field input { min-width:0; width:100%; box-sizing:border-box; min-height:38px; padding:8px 10px; border:1px solid var(--border); border-radius:9px; background:var(--bg-sunken); color:var(--text); font:inherit; }
+.connection-field input:focus { outline:2px solid color-mix(in srgb, var(--accent) 55%, transparent); outline-offset:1px; border-color:var(--accent); }
+.device-summary { display:flex; flex-wrap:wrap; gap:8px; margin-top:16px; color:var(--text-2); font-size:13px; }
+.device-summary span { padding:3px 8px; border-radius:999px; background:var(--bg-sunken); }
+.device-list { display:grid; gap:8px; margin-top:10px; }
+.device-row { display:flex; align-items:center; justify-content:space-between; gap:12px; padding:10px 0; border-bottom:1px solid var(--border); }
+.device-row:last-child { border-bottom:0; }
+.device-row strong { display:block; font-size:14px; }
+.device-row p { margin:2px 0 0; color:var(--text-3); font-size:12px; }
+.device-state { color:var(--success, #16803c); }
+.device-state.inactive { color:var(--text-3); }
+.device-create { display:flex; align-items:end; gap:10px; margin-top:12px; }
+.device-create .connection-field { flex:1; margin-top:0; }
+.local-curation-help, .chatgpt-limitations { margin-top:16px; padding-top:14px; border-top:1px solid var(--border); color:var(--text-2); font-size:13px; }
+.local-curation-help summary, .chatgpt-limitations summary { cursor:pointer; color:var(--text); font-weight:600; }
+.local-curation-help code { display:block; margin-top:10px; padding:9px 10px; overflow-x:auto; border-radius:8px; background:var(--bg-sunken); color:var(--text); font-size:12px; white-space:nowrap; }
+.account-settings .btn:disabled { opacity:.45; cursor:not-allowed; }
+@media (max-width:460px) { .connection-section { padding:15px; } .device-create { align-items:stretch; flex-direction:column; } .device-create .btn { width:100%; } }
+@keyframes detail-drawer-in { from { transform:translateX(24px); opacity:.85; } to { transform:translateX(0); opacity:1; } }
+@keyframes detail-backdrop-in { from { opacity:0; } to { opacity:1; } }
+@media (max-width:600px) { .detail-drawer { width:100%; border-left:0; } .detail-drawer-header { padding-inline:16px; } .detail-drawer-body { padding:20px 16px; } .detail-drawer .drawer-foot { padding-inline:16px; } }
+@media (prefers-reduced-motion:reduce) { .detail-drawer, .detail-drawer-backdrop { animation:none; } }

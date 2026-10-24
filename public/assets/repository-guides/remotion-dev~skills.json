@@ -1,0 +1,68 @@
+{
+  "schemaVersion": 1,
+  "key": "remotion-dev/skills",
+  "status": "ready",
+  "reason": "",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/remotion-dev/skills/blob/a9b199e165505267eda1ed3e0ef3dd3567c43411/README.md",
+  "sourceRevision": "a9b199e165505267eda1ed3e0ef3dd3567c43411",
+  "canonicalKey": "remotion-dev/skills",
+  "summary": "这是 Remotion 官方维护的一组 Agent Skills，为 AI 编程智能体提供 Remotion 项目的最佳实践，涵盖创建、编写、预览、渲染、字幕、地图动画和升级等任务。",
+  "intro": "适合用 Claude Code、Codex、Kimi Code 或 Cursor 开发 Remotion 视频项目的开发者。安装后，可以按任务调用对应技能：创建项目或合成、编写 React 标记与动画、启动 Studio 预览、渲染视频或静帧、处理字幕、制作地图动画、查询文档、升级依赖等。",
+  "requirements": "支持 Agent Skills 的智能体（如 Claude Code、Codex、Kimi Code、Cursor），以及能运行 npx 的环境。新建项目时可用 bun create video。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "用 npx 安装 Remotion 技能",
+      "text": "在项目中运行 npx skills add remotion-dev/skills 安装这组技能。如果是新建 Remotion 项目，运行 bun create video 时也会提供添加技能的选项。",
+      "code": "npx skills add remotion-dev/skills\n\nbun create video",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/remotion-dev/skills/blob/a9b199e165505267eda1ed3e0ef3dd3567c43411/README.md?plain=1#L3"
+      }
+    },
+    {
+      "title": "不确定时选 best-practices",
+      "text": "/remotion-best-practices 包含其他所有技能。不确定该用哪个具体技能时，优先在智能体中调用它。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/remotion-dev/skills/blob/a9b199e165505267eda1ed3e0ef3dd3567c43411/README.md?plain=1#L25"
+      }
+    },
+    {
+      "title": "按任务选择对应的专项技能",
+      "text": "新建项目或合成用 /remotion-create；写组件、动画、排版、字体、音频等用 /remotion-markup；做地图与路线动画用 /remotion-maps；处理字幕用 /remotion-captions；搭建基于 Remotion 的产品架构用 /remotion-saas；让元素在 Studio 中可编辑用 /remotion-interactivity；读取音视频元数据用 /remotion-multimedia。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/remotion-dev/skills/blob/a9b199e165505267eda1ed3e0ef3dd3567c43411/README.md?plain=1#L31"
+      }
+    },
+    {
+      "title": "预览、渲染与查询文档",
+      "text": "用 /remotion-studio 启动 Studio 预览视频，用 /remotion-render 渲染成视频或静帧。实现功能前，可用 /remotion-docs 搜索 Remotion 文档并以 Markdown 形式获取页面，查阅最新 API 和组件属性。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/remotion-dev/skills/blob/a9b199e165505267eda1ed3e0ef3dd3567c43411/README.md?plain=1#L45"
+      }
+    },
+    {
+      "title": "用 upgrade 技能保持版本同步",
+      "text": "需要升级时调用 /remotion-upgrade，它会升级 Remotion 及相关包、兼容的 Mediabunny 包，以及已安装的 Remotion Agent Skills。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/remotion-dev/skills/blob/a9b199e165505267eda1ed3e0ef3dd3567c43411/README.md?plain=1#L89"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "仓库元数据中没有声明许可证，在商业或二次分发场景下使用前请自行确认授权。",
+    "技能的具体调用方式取决于所用的智能体宿主；更多说明见 Remotion Agent Skills 官方文档。"
+  ],
+  "references": [],
+  "media": [],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "6e0e9a0bf53e2c7f14b3f35a5ad6195cc07ac20c5a0bb1fd8ffe3198408cf50d",
+  "mediaStatus": "none_in_official_documents"
+}

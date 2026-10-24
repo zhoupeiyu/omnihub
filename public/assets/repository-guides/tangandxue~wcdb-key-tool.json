@@ -1,0 +1,52 @@
+{
+  "schemaVersion": 1,
+  "key": "tangandxue/wcdb-key-tool",
+  "status": "partial",
+  "reason": "已核对用途与适用平台。具体操作涉及进程调试、本机解密密钥和系统权限，尚未在目标版本上验证；这里不提供密钥读取或改变系统防护的直接执行步骤。",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/TANGandXUE/wcdb-key-tool/blob/79f1b5b92e12c66aa281b4a60a3c478b5f547dfa/README.md",
+  "sourceRevision": "79f1b5b92e12c66aa281b4a60a3c478b5f547dfa",
+  "canonicalKey": "TANGandXUE/wcdb-key-tool",
+  "summary": "用于研究和读取本人设备上、本人微信账号的 WCDB 数据库密钥的工具。",
+  "intro": "仓库针对不同操作系统和微信版本提供本地数据库密钥读取方案。它处理的是密钥，不是完整的聊天记录导出或备份应用。涉及的输出属于敏感资料，使用前需要核对设备、账号与数据的所有权。",
+  "requirements": "README 分别列出了 Linux、macOS 和 Windows 的兼容范围与平台文件。先确认自己的系统和微信版本，不能把其中一个平台的示例直接用于另一个平台。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "核对平台与版本范围",
+      "text": "先查看兼容性表，确认当前系统、微信版本与对应的平台文件。版本表是作者的测试声明，本站没有重复验证。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/TANGandXUE/wcdb-key-tool/blob/79f1b5b92e12c66aa281b4a60a3c478b5f547dfa/README.md?plain=1#L20"
+      }
+    },
+    {
+      "title": "了解权限与数据边界",
+      "text": "阅读安全说明和 FAQ，确认所有操作只针对本人设备和本人账号的数据。涉及调试或系统权限的方案应单独评估，不因脚本要求就默认改变系统保护。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/TANGandXUE/wcdb-key-tool/blob/79f1b5b92e12c66aa281b4a60a3c478b5f547dfa/README.md?plain=1#L113"
+      }
+    },
+    {
+      "title": "把输出按敏感资料管理",
+      "text": "FAQ 说明工具会在本机保留用于后续处理的敏感材料。不要把这些内容放入网站、公开仓库、截图或分享链接；保留与清理方式需要自己明确管理。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/TANGandXUE/wcdb-key-tool/blob/79f1b5b92e12c66aa281b4a60a3c478b5f547dfa/README.md?plain=1#L120"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "原文关于账号安全的绝对保证没有经过本站验证，不应据此判断操作没有风险。",
+    "仅限本人数据或明确获得授权的场景，不用于获取其他人的聊天数据或密钥。",
+    "本站未读取微信进程、未获取任何实际密钥，也没有改变系统安全设置。"
+  ],
+  "references": [],
+  "media": [],
+  "generatedBy": "GPT",
+  "documentHash": "abad4aebac6f6cd133856a391f6bfe7ad9a53cbd9bc439fba647cdeb86be2db4",
+  "mediaStatus": "none_in_official_documents"
+}

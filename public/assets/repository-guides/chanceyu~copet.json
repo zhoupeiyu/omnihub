@@ -1,0 +1,85 @@
+{
+  "schemaVersion": 1,
+  "key": "chanceyu/copet",
+  "status": "ready",
+  "reason": "",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/ChanceYu/CoPet/blob/e75658a22705c2f698289a0ff67e9fb652770e94/README.md",
+  "sourceRevision": "e75658a22705c2f698289a0ff67e9fb652770e94",
+  "canonicalKey": "ChanceYu/CoPet",
+  "summary": "CoPet 是一款桌面宠物应用，会根据 Claude Code、Codex、Cursor 等 AI Agent 的提示、工具调用、等待、完成和错误状态实时做出反应。",
+  "intro": "适合在本机使用 Claude Code、Codex、Antigravity、OpenCode、Cursor、Copilot CLI、Pi 或 Gemini 的开发者。它把 Agent 的工作状态显示为桌面宠物的动作和消息，方便在其他窗口工作时留意 Agent 进度。应用自带多款宠物，支持导入兼容 Codex 的宠物包，还可以设置音效、宠物尺寸和消息显示方式。基于 Tauri、Rust 和 React 构建，数据保存在本机 `~/.copet`。",
+  "requirements": "官方文档包含需人工核查的系统操作，请先查看原文和适用条件。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "下载 macOS 通用版安装包",
+      "text": "本指南以 macOS 为例。从项目 Releases 页面下载 `CoPet-macos-universal.dmg`。Windows 用户可改用 `CoPet-windows-x64.exe`，首次启动时如果 SmartScreen 弹出警告，点击“更多信息”→“仍要运行”。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/ChanceYu/CoPet/blob/e75658a22705c2f698289a0ff67e9fb652770e94/README.zh.md?plain=1#L58"
+      }
+    },
+    {
+      "title": "拖入应用目录并清除隔离标记",
+      "text": "打开 dmg，把 `CoPet.app` 拖到 `/Applications`。当前构建没有经过 Apple 公证，首次运行前需要在终端执行一次下面的命令，清除隔离标记，然后再启动应用。 原文包含需人工核查的高权限或删除命令，本站不提供一键复制；请查看该步骤的官方出处。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/ChanceYu/CoPet/blob/e75658a22705c2f698289a0ff67e9fb652770e94/README.zh.md?plain=1#L67"
+      }
+    },
+    {
+      "title": "在设置中启用 Agent hooks",
+      "text": "在设置页或托盘菜单里管理 hooks、音效、语言、宠物尺寸和消息显示方式。CoPet 通过各 Agent 的配置文件接入，例如 Claude Code 对应 `~/.claude/settings.json`，Cursor 对应 `~/.cursor/hooks.json`。写入配置前会先备份原文件。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/ChanceYu/CoPet/blob/e75658a22705c2f698289a0ff67e9fb652770e94/README.zh.md?plain=1#L47"
+      }
+    },
+    {
+      "title": "可选：在 Codex 安装自定义宠物 Skill",
+      "text": "如果想生成自己的宠物包（含 `pet.json` 和 `spritesheet.webp`）或 11 段 MP3 音效包，可以把 CoPet Skills 安装到 Codex。可在终端运行下面的命令，也可以在 Codex 会话中用 `$skill-installer` 安装。安装后看不到 Skill 时，重启 Codex。",
+      "code": "npx skills add ChanceYu/CoPet --skill '*' -a codex",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/ChanceYu/CoPet/blob/e75658a22705c2f698289a0ff67e9fb652770e94/README.zh.md?plain=1#L79"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "macOS 版本未经公证，Windows 版本未进行代码签名。安装前请确认安装包来自官方 Releases 页面。",
+    "官方文档中的高权限或远程脚本操作应单独核查，不要整段复制执行。",
+    "启用 hooks 会改写 Claude Code、Codex、Cursor 等 Agent 的用户级配置文件。项目说明写入前会备份，修改前仍建议了解各配置文件的路径。",
+    "`copet-gen` 仅支持 Codex，因为它依赖 Codex 自带的 `image_gen` 工具。Claude Code、Cursor 等 Agent 无法使用该 Skill。",
+    "README 说明 macOS 是主要平台。源码构建也支持 Linux，但官方没有提供 Linux 安装包下载。"
+  ],
+  "references": [
+    {
+      "label": "README.zh.md",
+      "url": "https://github.com/ChanceYu/CoPet/blob/e75658a22705c2f698289a0ff67e9fb652770e94/README.zh.md"
+    }
+  ],
+  "media": [
+    {
+      "url": "/assets/repository-guides/media-28b1ee288dd7e546aa4eb23e.webp",
+      "alt": "ChanceYu/CoPet 官方演示 1",
+      "sourceUrl": "https://github.com/ChanceYu/CoPet/blob/e75658a22705c2f698289a0ff67e9fb652770e94/README.zh.md?plain=1#L8",
+      "originalUrl": "https://raw.githubusercontent.com/ChanceYu/CoPet/e75658a22705c2f698289a0ff67e9fb652770e94/public/banner.zh.png"
+    }
+  ],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "0dd790c5c0cbeef63db780f2a97727c4930e96987517ed5e49fb52fde6386d1e",
+  "mediaStatus": "archived",
+  "mediaFailures": [
+    {
+      "sourceUrl": "https://github.com/ChanceYu/CoPet/blob/e75658a22705c2f698289a0ff67e9fb652770e94/README.zh.md#L18",
+      "reason": "non_demo_dimensions"
+    },
+    {
+      "sourceUrl": "https://github.com/ChanceYu/CoPet/blob/e75658a22705c2f698289a0ff67e9fb652770e94/README.zh.md#L20",
+      "reason": "non_demo_dimensions"
+    }
+  ]
+}

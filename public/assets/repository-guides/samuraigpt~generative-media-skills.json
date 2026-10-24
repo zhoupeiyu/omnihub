@@ -1,0 +1,74 @@
+{
+  "schemaVersion": 1,
+  "key": "samuraigpt/generative-media-skills",
+  "status": "ready",
+  "reason": "",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/Anil-matcha/open-dots/blob/e8cf82b18dfc81bbdae4c47342229ae780b9e627/README.md",
+  "sourceRevision": "e8cf82b18dfc81bbdae4c47342229ae780b9e627",
+  "canonicalKey": "Anil-matcha/open-dots",
+  "summary": "Open Dots 是一个自托管的个人 AI 智能体工作区，可以在本地应用中进行模型对话、工具调用、操作审批、连接外部应用，也可以选择启用电脑操作。",
+  "intro": "适合想在本地试验自托管 AI 智能体工作区的开发者和个人用户。它可以创建带独立指令和模型的助手角色，在本地保存会话，并通过默认拒绝的网关执行受限的工作区读写和电脑操作，高风险操作需要审批并留下审计记录。用户还可以用 /search 联网检索，或通过 Composio 连接 GitHub 等应用。",
+  "requirements": "需要 Node.js 和 npm、Python 3.10+ 和 pip，以及一个推理服务的 API key 和 base URL，用于获取实时模型回复。该服务需要兼容 Responses API，或者兼容文档描述的 Prediction 接口。启用 Docker 电脑运行时还需要 Docker daemon 处于运行状态。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "克隆仓库并启动后端 API",
+      "text": "以下以 macOS/Linux 终端为例。克隆 open-dots 仓库，进入 server 目录，创建并激活 Python 虚拟环境，安装 requirements.txt 中的依赖。设置 MODEL_API_KEY 和 MODEL_API_BASE_URL 后运行 python run.py。API 地址为 http://127.0.0.1:8000，交互式文档在 /docs。",
+      "code": "git clone https://github.com/Anil-matcha/open-dots.git\ncd open-dots/server\npython -m venv .venv\nsource .venv/bin/activate\npython -m pip install -r requirements.txt\nexport MODEL_API_KEY=\"your_api_key\"\nexport MODEL_API_BASE_URL=\"https://your-inference-host.example/api/v1\"\npython run.py",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/Anil-matcha/open-dots/blob/e8cf82b18dfc81bbdae4c47342229ae780b9e627/README.md?plain=1#L34"
+      }
+    },
+    {
+      "title": "在第二个终端启动 Web 客户端",
+      "text": "另开一个终端，进入 open-dots/client 目录，执行 npm install 安装依赖，再执行 npm run dev 启动 Next.js 前端，然后在浏览器打开 http://127.0.0.1:3000。",
+      "code": "cd open-dots/client\nnpm install\nnpm run dev",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/Anil-matcha/open-dots/blob/e8cf82b18dfc81bbdae4c47342229ae780b9e627/README.md?plain=1#L34"
+      }
+    },
+    {
+      "title": "使用 owner token 登录工作区",
+      "text": "首次启动时，服务端会在 DATA_DIR（默认 ~/.open-dots）下生成 .auth-token 文件。在本地读取该文件，把内容粘贴到登录表单；如果配置过 APP_AUTH_TOKEN，就使用它的值。这个凭据和模型服务商的 API key 是两回事，不要提交到仓库或放进公开的前端环境变量。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/Anil-matcha/open-dots/blob/e8cf82b18dfc81bbdae4c47342229ae780b9e627/README.md?plain=1#L34"
+      }
+    },
+    {
+      "title": "在设置中配置模型服务商",
+      "text": "登录后打开 Settings → Model provider，展开面板，填写以 /v1 结尾的 API 根地址（不要追加 /responses），选择 Responses 或 Prediction，然后保存 API key、模型 ID 列表和默认模型。注意：本项目没有实现 Chat Completions 协议。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/Anil-matcha/open-dots/blob/e8cf82b18dfc81bbdae4c47342229ae780b9e627/README.md?plain=1#L67"
+      }
+    },
+    {
+      "title": "按需启用 Docker 电脑运行时",
+      "text": "默认的 fake 适配器只用于本地开发。如需真实的电脑操作，先确认 Docker daemon 正在运行，再用 runtime 目录构建 open-dots-computer 镜像，并设置 COMPUTER_PROVIDER=docker 和 COMPUTER_DOCKER_IMAGE。导航等高风险操作会经过审批流程。",
+      "code": "docker build -t open-dots-computer:1.62.1 ./runtime\nexport COMPUTER_PROVIDER=docker\nexport COMPUTER_DOCKER_IMAGE=open-dots-computer:1.62.1",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/Anil-matcha/open-dots/blob/e8cf82b18dfc81bbdae4c47342229ae780b9e627/README.md?plain=1#L105"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "该仓库键名为 samuraigpt/generative-media-skills，但提供的文档内容来自 Anil-matcha/open-dots（Open Dots）。使用前请核对实际仓库内容。",
+    "项目处于原型阶段，只适合本地试验；多用户托管和恶意网页隔离都还不能用于生产。",
+    "Docker 电脑运行时不是加固过的沙箱。处理不可信网页前，需要检查网络出口、镜像来源和凭据暴露风险。",
+    "只支持单一本地 owner，没有多用户和角色权限；SQLite 状态不包含多实例共享和备份流程。",
+    "在非本机地址上访问时，需要使用 HTTPS 并设置 AUTH_COOKIE_SECURE=1，同时收窄 CORS_ORIGINS，并且不要把凭据写进 NEXT_PUBLIC_* 变量。",
+    "模型调用通过你自行配置的推理服务进行，可能产生相应服务商的费用。/search 未设置 YDC_API_KEY 时使用 You.com 免费档，工具集更少。"
+  ],
+  "references": [],
+  "media": [],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "ce44973c2a08e170de00da9130fb71a36c79e5cb480d06c7aba93ecaed687ec6",
+  "mediaStatus": "none_in_official_documents"
+}

@@ -1,0 +1,74 @@
+{
+  "schemaVersion": 1,
+  "key": "ogallotti/rtk-hermes",
+  "status": "ready",
+  "reason": "",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/ogallotti/rtk-hermes/blob/da69176dc0543b8934998ba74f3403cd28f57764/README.md",
+  "sourceRevision": "da69176dc0543b8934998ba74f3403cd28f57764",
+  "canonicalKey": "ogallotti/rtk-hermes",
+  "summary": "rtk-hermes 是一个 Hermes Agent 插件，在终端命令执行前交给 RTK 改写为输出更精简的等价命令，以减少进入模型上下文的内容。",
+  "intro": "适合使用 Hermes Agent、希望降低终端输出占用上下文的用户。插件通过 pre_tool_call 钩子拦截 terminal 工具，调用 rtk rewrite 获取等价命令。插件本身不包含改写规则，规则全部由 RTK 提供。它不是 MCP 服务器，也不会改动 read_file 等非终端工具的结果。",
+  "requirements": "需要已安装 Hermes Agent（v0.11+ 中 pip 分发的插件需要手动启用）、RTK 命令行工具，并且必须安装到运行 hermes 的同一个 Python 环境中。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "用 Homebrew 安装并验证 RTK",
+      "text": "这里以 Homebrew 为例，执行 brew install rtk。安装后运行 rtk --version 和 rtk rewrite \"git status\"，确认 RTK 能返回改写后的命令。如果找不到 RTK 可执行文件，插件不会注册改写钩子。",
+      "code": "brew install rtk\n\nrtk --version\nrtk rewrite \"git status\"",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/ogallotti/rtk-hermes/blob/da69176dc0543b8934998ba74f3403cd28f57764/README.md?plain=1#L31"
+      }
+    },
+    {
+      "title": "把插件装进 Hermes 自带虚拟环境",
+      "text": "对于标准的 Hermes 源码安装，使用 ~/.hermes/hermes-agent/venv/bin/python 执行 pip install --upgrade rtk-hermes。装到系统 Python、conda 或其他虚拟环境里，Hermes 都看不到这个插件。如果遇到 externally managed 提示，不要使用 --break-system-packages。",
+      "code": "HERMES_PY=\"$HOME/.hermes/hermes-agent/venv/bin/python\"\n\"$HERMES_PY\" -m pip install --upgrade rtk-hermes",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/ogallotti/rtk-hermes/blob/da69176dc0543b8934998ba74f3403cd28f57764/README.md?plain=1#L50"
+      }
+    },
+    {
+      "title": "在 config.yaml 中启用 rtk-rewrite",
+      "text": "在 ~/.hermes/config.yaml 的 plugins.enabled 列表中加入 rtk-rewrite，然后重启 Hermes 或开一个新会话。README 指出，hermes plugins enable 命令可能识别不了仅通过 pip 安装的插件，直接编辑配置文件更可靠。",
+      "code": "plugins:\n  enabled:\n    - rtk-rewrite",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/ogallotti/rtk-hermes/blob/da69176dc0543b8934998ba74f3403cd28f57764/README.md?plain=1#L87"
+      }
+    },
+    {
+      "title": "用环境变量调整运行模式",
+      "text": "RTK_HERMES_MODE 可设为 rewrite、suggest 或 off，RTK_HERMES_TIMEOUT_MS 控制单条命令改写的超时时间，RTK_HERMES_BACKENDS 默认只包含 local。只有当远程执行环境中也装了 rtk 时，才把 ssh 等后端加进去。",
+      "code": "export RTK_HERMES_MODE=suggest\nexport RTK_HERMES_TIMEOUT_MS=500\nexport RTK_HERMES_PREVIEW_MARKER=false\nexport RTK_HERMES_BACKENDS=local\nhermes\n\nexport RTK_HERMES_BACKENDS=local,ssh\n# or, if every configured backend has rtk available:\nexport RTK_HERMES_BACKENDS=all",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/ogallotti/rtk-hermes/blob/da69176dc0543b8934998ba74f3403cd28f57764/README.md?plain=1#L127"
+      }
+    },
+    {
+      "title": "核对入口点并查看插件状态",
+      "text": "用 Hermes 的 Python 检查 rtk-rewrite 入口点，预期输出形如 rtk-rewrite rtk_hermes 1.2.3 True。如果你的 Hermes 版本支持插件斜杠命令，还可以用 /rtk status、/rtk stats 查看以 JSON 返回的状态和进程内计数。",
+      "code": "HERMES_PY=\"$HOME/.hermes/hermes-agent/venv/bin/python\"\n\"$HERMES_PY\" - <<'PY'\nimport importlib.metadata as md\nfor ep in md.entry_points().select(group=\"hermes_agent.plugins\"):\n    if ep.name == \"rtk-rewrite\":\n        module = ep.load()\n        print(ep.name, ep.value, ep.dist.metadata[\"Version\"], hasattr(module, \"register\"))\nPY\n\nrtk-rewrite rtk_hermes 1.2.3 True\n\n/rtk status\n/rtk stats\n/rtk reset-stats\n/rtk config",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/ogallotti/rtk-hermes/blob/da69176dc0543b8934998ba74f3403cd28f57764/README.md?plain=1#L217"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "描述中的 60-90% token 节省是项目自述，实际效果取决于 RTK 对具体命令的支持情况。",
+    "默认只在 local 后端改写。对 SSH、Docker 等远程后端启用前，必须先在对应环境中安装 rtk。",
+    "插件采用失败放行策略：RTK 超时、崩溃或没有等价命令时，原命令照常执行，这时不会减少输出。",
+    "1.1.0 之前的版本入口点有误，会提示 no register() function，需要升级。"
+  ],
+  "references": [],
+  "media": [],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "5ef789c8b340d3f537a40b492eacbd912a314df7a612be10fd09c29bba0ecbd2",
+  "mediaStatus": "none_in_official_documents"
+}

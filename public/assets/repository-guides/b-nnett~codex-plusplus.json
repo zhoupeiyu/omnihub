@@ -1,0 +1,74 @@
+{
+  "schemaVersion": 1,
+  "key": "b-nnett/codex-plusplus",
+  "status": "ready",
+  "reason": "",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/b-nnett/codex-plusplus/blob/f98e7e9d1fa068dde9e0dddfb43b128acb4e2fd7/README.md",
+  "sourceRevision": "f98e7e9d1fa068dde9e0dddfb43b128acb4e2fd7",
+  "canonicalKey": "b-nnett/codex-plusplus",
+  "summary": "一个非官方的 tweak 加载器：给本地 OpenAI Codex 桌面应用打补丁，使其能加载自定义的界面、设置页和主进程代码。",
+  "intro": "适合想定制 OpenAI Codex 桌面应用的用户和 tweak 开发者。它提供本地 tweaks/ 文件夹、Codex++ 设置区、安装/修复/更新/调试 CLI、Codex 更新后自动重新打补丁的 watcher，以及面向 tweak 作者的 SDK 和 macOS 原生桥接 API。",
+  "requirements": "需要已在本机安装 OpenAI Codex 桌面应用。下文选用 macOS 上的 Homebrew 安装路径，因此需要 Homebrew。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "用 Homebrew 安装并打补丁",
+      "text": "在 macOS 上通过 Homebrew 安装 codexplusplus，再执行 codexplusplus install。安装器会定位 Codex、备份原始文件、修补 app.asar、部署运行时、必要时重新签名，并安装更新监视器。",
+      "code": "brew install b-nnett/codex-plusplus/codexplusplus\ncodexplusplus install",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/b-nnett/codex-plusplus/blob/f98e7e9d1fa068dde9e0dddfb43b128acb4e2fd7/README.md?plain=1#L44"
+      }
+    },
+    {
+      "title": "启动 Codex 并确认安装状态",
+      "text": "像平时一样启动 Codex，在 Settings 中找到 Codex++ 区域。如需排查，可用 codexplusplus status 查看版本和补丁状态，用 codexplusplus debug 查看应用路径、运行时类型和桥接状态。",
+      "code": "codexplusplus debug",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/b-nnett/codex-plusplus/blob/f98e7e9d1fa068dde9e0dddfb43b128acb4e2fd7/README.md?plain=1#L44"
+      }
+    },
+    {
+      "title": "创建并本地调试一个 tweak",
+      "text": "tweak 是一个包含 manifest.json 和入口文件的文件夹。用 create-tweak 生成模板，用 validate-tweak 校验，再用 dev 链接到 Codex++ 中开发。示例入口文件演示了如何注册一个设置页面。",
+      "code": "codexplusplus create-tweak ./my-tweak --id com.you.my-tweak --name \"My Tweak\"\ncodexplusplus validate-tweak ./my-tweak\ncodexplusplus dev ./my-tweak\n\n{\n  \"id\": \"com.you.my-tweak\",\n  \"name\": \"My Tweak\",\n  \"version\": \"0.1.0\",\n  \"githubRepo\": \"you/my-tweak\",\n  \"description\": \"Adds a Codex++ settings page.\",\n  \"scope\": \"renderer\",\n  \"main\": \"index.js\"\n}\n\nmodule.exports = {\n  start(api) {\n    api.settings.registerPage({\n      id: \"main\",\n      title: api.manifest.name,\n      render(root) {\n        root.textContent = \"Hello from Codex++.\";\n      },\n    });\n  },\n  stop() {},\n};",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/b-nnett/codex-plusplus/blob/f98e7e9d1fa068dde9e0dddfb43b128acb4e2fd7/README.md?plain=1#L181"
+      }
+    },
+    {
+      "title": "更新、修复或进入安全模式",
+      "text": "用 codexplusplus update 更新 Codex++。Codex 更新导致补丁失效时，用 repair --force 修复。safe-mode 可在不删除 tweak 的情况下禁用全部 tweak。卸载使用 uninstall，加 --purge 会同时删除数据。",
+      "code": "codexplusplus update\n\ncodexplusplus repair --force",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/b-nnett/codex-plusplus/blob/f98e7e9d1fa068dde9e0dddfb43b128acb4e2fd7/README.md?plain=1#L280"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "仓库已归档（archived），后续可能不再维护。",
+    "这是非官方项目，与 OpenAI 无关联，风险需自行承担。它会修改已安装 Codex 的 app.asar，并可能重新签名应用。",
+    "tweak 会在 Codex 内运行本地代码，原生 tweak 还能运行原生代码。只安装来自可信来源的 tweak。",
+    "Codex 更新通常会移除补丁，需要依赖 watcher 或手动 repair 重新应用。",
+    "Browser host mode 是实验功能，部分网站可能阻止被嵌入。"
+  ],
+  "references": [],
+  "media": [
+    {
+      "url": "/assets/repository-guides/media-8e7f960e7534ba006abce9cc.webp",
+      "alt": "b-nnett/codex-plusplus 官方演示 1",
+      "sourceUrl": "https://github.com/b-nnett/codex-plusplus/blob/f98e7e9d1fa068dde9e0dddfb43b128acb4e2fd7/README.md?plain=1#L8",
+      "originalUrl": "https://github.com/user-attachments/assets/ea0b2ffc-c30d-4f68-ae12-dd8d6a997b2f"
+    }
+  ],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "ddd59f0fc5389da12d5bdb7c3619ed26c465b3af7a1be7570aed1ccb1f842cc6",
+  "mediaStatus": "archived",
+  "mediaFailures": []
+}

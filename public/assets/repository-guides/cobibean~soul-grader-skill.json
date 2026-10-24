@@ -1,0 +1,65 @@
+{
+  "schemaVersion": 1,
+  "key": "cobibean/soul-grader-skill",
+  "status": "ready",
+  "reason": "",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/cobibean/soul-grader-skill/blob/56fdda5c57e26fcef84835f55ae1e8b6efa80e0a/README.md",
+  "sourceRevision": "56fdda5c57e26fcef84835f55ae1e8b6efa80e0a",
+  "canonicalKey": "cobibean/soul-grader-skill",
+  "summary": "soul-grader 是一个智能体技能，按 100 分评分标准对 Hermes Agent 的 SOUL.md 身份文件进行评分、比较和改写。",
+  "intro": "适合使用 Hermes Agent 并维护 SOUL.md 身份文件的用户。它按使命清晰度、身份边界、优化层级、语气与真实性、运行时规范等维度打分，并把修改建议归入 [SOUL]、[AGENTS/CLAUDE] 或 [SYSTEM]。它也可以放进 Codex、Claude 等能识别 Markdown 技能的智能体使用。这是非官方社区技能。",
+  "requirements": "需要 Hermes Agent（或其他能加载 Markdown 技能的智能体）和 git。如需运行发布前校验脚本，需要 python3。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "克隆到 Hermes 技能目录",
+      "text": "以 Hermes Agent 默认 profile 为例，创建 ~/.hermes/skills/community 目录，把仓库克隆为 soul-grader。使用命名 profile 时，请改用 profiles/<profile> 下对应路径的命令。",
+      "code": "mkdir -p ~/.hermes/skills/community\ngit clone https://github.com/cobibean/soul-grader-skill.git \\\n  ~/.hermes/skills/community/soul-grader",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/cobibean/soul-grader-skill/blob/56fdda5c57e26fcef84835f55ae1e8b6efa80e0a/README.md?plain=1#L38"
+      }
+    },
+    {
+      "title": "重新加载 Hermes 技能",
+      "text": "开启一个新的 Hermes 会话。如果会话或 gateway 已在运行，执行 /reload-skills 重新加载技能，使 soul-grader 生效。",
+      "code": "/reload-skills",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/cobibean/soul-grader-skill/blob/56fdda5c57e26fcef84835f55ae1e8b6efa80e0a/README.md?plain=1#L38"
+      }
+    },
+    {
+      "title": "让 Hermes 调用技能评分",
+      "text": "直接要求 Hermes 使用 soul-grader 对指定 SOUL.md 评分并判断是否可部署。也可以让它比较两份草稿，或改写较弱的版本，同时要求不要虚构权限、凭证或在线服务。",
+      "code": "Use the soul-grader skill to grade this SOUL.md.\n\nUse soul-grader to grade agents/my-agent/SOUL.md and tell me whether it is deployable.\n\nUse soul-grader to compare these two SOUL.md drafts and recommend the stronger one.\n\nUse soul-grader to rewrite this weak SOUL.md into a production-ready identity file, but do not invent access, credentials, live services, or authority.",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/cobibean/soul-grader-skill/blob/56fdda5c57e26fcef84835f55ae1e8b6efa80e0a/README.md?plain=1#L38"
+      }
+    },
+    {
+      "title": "对照参考资料理解评分",
+      "text": "技能会先加载 references/soul-md-grading-standard.md 作为评分标准，需要更多细节时再参考字段指南和措辞层文件。结合 README 列出的 11 个评分维度和系统级阻断项，理解得分和修改建议。",
+      "code": "references/soul-md-grading-standard.md",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/cobibean/soul-grader-skill/blob/56fdda5c57e26fcef84835f55ae1e8b6efa80e0a/README.md?plain=1#L86"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "这是非官方社区技能，不是 Nous Research 或 Hermes Agent 的官方发布。",
+    "它只评估 SOUL.md。缺少 AGENTS.md 或 CLAUDE.md 等配套证据时，可部署性会被标记为未评估。",
+    "放到其他智能体中使用时，必须保持 references/ 目录与 SKILL.md 相邻。",
+    "scripts/validate_skill.py 只是轻量检查，不能替代人工审核。"
+  ],
+  "references": [],
+  "media": [],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "c40f4e62f4045c662c3309c8ada0ba6e39c1bb089564d13cb10c8d2ee043f671",
+  "mediaStatus": "none_in_official_documents"
+}

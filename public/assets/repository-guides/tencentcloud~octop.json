@@ -1,0 +1,83 @@
+{
+  "schemaVersion": 1,
+  "key": "tencentcloud/octop",
+  "status": "ready",
+  "reason": "",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/TencentCloud/Octop/blob/e473dd3c4a4741618ffde1a42a3492341a189e8e/README.md",
+  "sourceRevision": "e473dd3c4a4741618ffde1a42a3492341a189e8e",
+  "canonicalKey": "TencentCloud/Octop",
+  "summary": "Octop 是一个可自托管的多用户、多智能体 AI 助手平台。它在单进程中同时提供 Web 控制台、CLI、IM 渠道接入和定时任务。",
+  "intro": "适合想在自己机器上为家庭或小团队部署 AI 助手的用户。每个用户可以按场景切换不同的“专家”（agent），并通过飞书、钉钉、QQ、微信、Telegram、Discord、企业微信或 HTTP/SSE/WebSocket 对话。还能用知识库（RAG）、Connectors（OAuth + MCP）、插件扩展能力，并可通过 ACP 与 IDE 或 Claude Code、OpenCode 等编码 agent 双向协作。",
+  "requirements": "系统为 macOS、Linux 或 Windows。无需预装 Python，安装脚本会用 uv 在 ~/.octop/ 下准备隔离的 Python 3.12 环境。需要多核 CPU、数 GB 内存，以及足够存放数据库、agent 工作区和文档语料的磁盘空间。使用对话功能还需配置 OpenAI 兼容接口、DashScope（Qwen）、Ollama 等模型提供方。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "在 macOS/Linux 运行安装脚本",
+      "text": "以 macOS / Linux 为例，使用官方推荐的一行安装脚本。脚本会在 ~/.octop/venv 建立隔离环境，并通过 ~/.octop/bin 把 octop 加入 PATH，不会改动系统 Python。安装完成后，打开新终端，或按所用 shell 执行 source 重新加载配置。 原文包含需人工核查的高权限或删除命令，本站不提供一键复制；请查看该步骤的官方出处。",
+      "code": "source ~/.zshrc   # Zsh\n# or\nsource ~/.bashrc  # Bash",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/TencentCloud/Octop/blob/e473dd3c4a4741618ffde1a42a3492341a189e8e/README.md?plain=1#L181"
+      }
+    },
+    {
+      "title": "运行 octop init 完成初始化",
+      "text": "执行 octop init 启动交互式向导。向导会在 ~/.octop/ 下创建 SQLite 数据库和 JWT 密钥，并创建第一个管理员账号。设置密码时需至少 8 个字符，且同时包含字母和数字。",
+      "code": "octop init",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/TencentCloud/Octop/blob/e473dd3c4a4741618ffde1a42a3492341a189e8e/README.md?plain=1#L252"
+      }
+    },
+    {
+      "title": "启动服务并打开 Web 控制台",
+      "text": "执行 octop run，在前台启动 API 和 Web 控制台，然后在浏览器中打开 http://127.0.0.1:8088 登录。如需自定义监听地址或端口，可加 --host、--port 参数。如需注册为系统服务（systemd / launchd / Windows 服务），可使用 octop service start。",
+      "code": "# Foreground (API + Web dashboard)\noctop run\n\n# Custom host / port\noctop run --host 0.0.0.0 --port 8088\n\n# Register as a system service (systemd / launchd / Windows service)\noctop service start",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/TencentCloud/Octop/blob/e473dd3c4a4741618ffde1a42a3492341a189e8e/README.md?plain=1#L260"
+      }
+    },
+    {
+      "title": "配置模型提供方与 IM 渠道",
+      "text": "在控制台中按 agent 配置大模型，也可以用 octop models、octop provider list 等命令管理。接入 IM 时使用 octop channel install，并按渠道准备对应凭据，例如飞书需要 App ID 和 App Secret，Telegram 需要 Bot Token。技能、定时任务和用户也有对应的 CLI 管理命令。",
+      "code": "# LLM providers and models\noctop models\noctop provider list\n\n# IM channels\noctop channel list\noctop channel install\n\n# Skills (per agent)\noctop skills list --agent main\n\n# Cron jobs\noctop cron list\noctop cron create --help\n\n# Users (admin)\noctop user list",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/TencentCloud/Octop/blob/e473dd3c4a4741618ffde1a42a3492341a189e8e/README.md?plain=1#L353"
+      }
+    },
+    {
+      "title": "升级前先备份再执行更新",
+      "text": "跨版本升级前，先运行 octop backup 备份数据，再执行 octop update。更新只替换程序本身，~/.octop/ 中的数据库、工作区、密钥和 config.json 会保留。数据库结构会在下次启动时自动迁移，只有向导提示需要迁移时才运行 octop init。",
+      "code": "octop update          # fetch and install the latest octop, then restart the service if one is registered",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/TencentCloud/Octop/blob/e473dd3c4a4741618ffde1a42a3492341a189e8e/README.md?plain=1#L343"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "推荐的安装方式是把远程脚本通过 curl 直接管道给 bash 执行，执行前建议先查看脚本内容。",
+    "所有运行状态和凭据都保存在 ~/.octop/ 下。该目录需要妥善备份并控制访问权限。",
+    "使用 Docker 部署时，若未设置 OCTOP_DEFAULT_PASSWORD，首次启动会生成随机管理员密码，写入容器内的 /data/.octop/credential.txt。",
+    "AgentTeams 仍处于 Beta 阶段。/api/docs 接口文档默认关闭，需要在 config.json 中设置 enable_api_docs 才会开启。",
+    "接入各 IM 渠道需要自行申请对应平台的应用或机器人凭据。使用的大模型接口也可能产生费用。"
+  ],
+  "references": [],
+  "media": [
+    {
+      "url": "/assets/repository-guides/media-81f91e5f101c30ecf8846336.webp",
+      "alt": "TencentCloud/Octop 官方演示 1",
+      "sourceUrl": "https://github.com/TencentCloud/Octop/blob/e473dd3c4a4741618ffde1a42a3492341a189e8e/README.md?plain=1#L431",
+      "originalUrl": "https://raw.githubusercontent.com/TencentCloud/Octop/e473dd3c4a4741618ffde1a42a3492341a189e8e/docs/assets/readme-chat.png"
+    }
+  ],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "a7394d9830f08a86e2bcb1f4802a692c4c9dfabfcc8007b797db5587862df514",
+  "mediaStatus": "archived",
+  "mediaFailures": []
+}

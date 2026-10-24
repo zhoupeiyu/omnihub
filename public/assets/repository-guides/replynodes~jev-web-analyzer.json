@@ -1,0 +1,79 @@
+{
+  "schemaVersion": 1,
+  "key": "replynodes/jev-web-analyzer",
+  "status": "ready",
+  "reason": "",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/replynodes/jev-web-analyzer/blob/37f4b29d3e700e53cdd04dea8ad8977a2ee3f142/README.md",
+  "sourceRevision": "37f4b29d3e700e53cdd04dea8ad8977a2ee3f142",
+  "canonicalKey": "replynodes/jev-web-analyzer",
+  "summary": "一个 Next.js 演示应用。它用 ReplyNodes 把公开网页转成 Markdown，再通过 Vercel AI Gateway 调用 Jev，对 SaaS 首页做带概率的结构化判断，并能离线批量生成排行榜。",
+  "intro": "适合想了解 Jev 类型化判断能力的开发者，或想评估 SaaS 首页清晰度的创始人。默认会就十个问题评估首页，包括受众、价值主张、差异化、CTA 和信任信号等。界面中可以额外添加最多三个 Boolean、Choice 或 Score 类型的自定义判断。也可以修改 lib/founder-questions.ts 或 data/rubric-v1.json，把这套模式用于分类、过滤、路由等其他任务。",
+  "requirements": "需要 git 和 pnpm，以及一个 Vercel AI Gateway API Key，填入 .env.local 的 AI_GATEWAY_API_KEY。ReplyNodes Markdown API 是公开接口，不需要密钥、账号或额度。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "克隆仓库并安装依赖",
+      "text": "克隆 jev-web-analyzer 仓库，进入项目目录后运行 pnpm install 安装依赖。如果只想先看效果，README 也提供了在线演示和排行榜页面，可以直接访问，不需要本地运行。",
+      "code": "git clone https://github.com/replynodes/jev-web-analyzer.git\ncd jev-web-analyzer\npnpm install",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/replynodes/jev-web-analyzer/blob/37f4b29d3e700e53cdd04dea8ad8977a2ee3f142/README.md?plain=1#L162"
+      }
+    },
+    {
+      "title": "在 .env.local 配置网关密钥",
+      "text": "在项目根目录创建 .env.local，写入 AI_GATEWAY_API_KEY。应用没有模拟数据路径，真实分析必须使用 Vercel AI Gateway 的密钥。网页内容通过公开的 ReplyNodes Markdown API 获取，不需要额外凭据。",
+      "code": "AI_GATEWAY_API_KEY=...",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/replynodes/jev-web-analyzer/blob/37f4b29d3e700e53cdd04dea8ad8977a2ee3f142/README.md?plain=1#L170"
+      }
+    },
+    {
+      "title": "启动开发服务器并打开页面",
+      "text": "运行 pnpm dev，然后在浏览器中打开本地地址 /jev-web-analyzer/。粘贴一个公开的首页 URL 后，界面会显示真实的执行阶段：抓取网页、提取 Markdown、准备上下文、运行 Jev 判断，以及每项判断的概率分布。",
+      "code": "pnpm dev\n\nhttp://localhost:3000/jev-web-analyzer/",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/replynodes/jev-web-analyzer/blob/37f4b29d3e700e53cdd04dea8ad8977a2ee3f142/README.md?plain=1#L183"
+      }
+    },
+    {
+      "title": "添加或修改自定义判断",
+      "text": "在界面中最多可以添加三个自定义判断，类型可以是 Boolean、Choice 或 Score。如果要替换默认问题，编辑 lib/founder-questions.ts；请求和响应的结构定义在 lib/contracts.ts 中。",
+      "code": "Is this page written for technical users?\n→ yes / no + probabilities\n\nWhat kind of page is this?\n→ docs / landing page / blog / pricing + probabilities\n\nHow technically detailed is this page?\n→ ordered rubric + score distribution",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/replynodes/jev-web-analyzer/blob/37f4b29d3e700e53cdd04dea8ad8977a2ee3f142/README.md?plain=1#L121"
+      }
+    },
+    {
+      "title": "离线批量生成排行榜数据",
+      "text": "在域名列表文件中写好要评估的域名，然后运行 batch 脚本，按固定的评分标准批量打分。结果写入 data/leaderboard-<YYYY-MM>.json 和对应的 csv 文件。脚本支持断点续跑，已评估的域名会被跳过，加 --force 可以重新评估。",
+      "code": "pnpm run batch --domains=data/domains.txt",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/replynodes/jev-web-analyzer/blob/37f4b29d3e700e53cdd04dea8ad8977a2ee3f142/README.md?plain=1#L148"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "真实分析需要通过 Vercel AI Gateway 调用 Jev，README 未说明调用费用，请自行确认网关的计费规则。",
+    "这是非官方社区项目，与 TypeSafe AI 没有关联。",
+    "分析只适用于公开网页。评分来自模型判断，具体衡量内容和局限请参阅 METHODOLOGY.md。"
+  ],
+  "references": [],
+  "media": [],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "295526eb05a6d2f7bdbf60c859ecd7e734171921e472365084de69f731df12d9",
+  "mediaStatus": "unavailable",
+  "mediaFailures": [
+    {
+      "sourceUrl": "https://github.com/replynodes/jev-web-analyzer/blob/37f4b29d3e700e53cdd04dea8ad8977a2ee3f142/README.md#L8",
+      "reason": "unsupported_media_format"
+    }
+  ]
+}

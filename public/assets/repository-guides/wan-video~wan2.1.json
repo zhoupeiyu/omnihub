@@ -1,0 +1,75 @@
+{
+  "schemaVersion": 1,
+  "key": "wan-video/wan2.1",
+  "status": "ready",
+  "reason": "",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/Wan-Video/Wan2.1/blob/9737cba9c1c3c4d04b33fcad41c111989865d315/README.md",
+  "sourceRevision": "9737cba9c1c3c4d04b33fcad41c111989865d315",
+  "canonicalKey": "Wan-Video/Wan2.1",
+  "summary": "Wan2.1 是一套开源视频生成模型及推理代码，支持文生视频、图生视频、首尾帧生视频和 VACE 视频创作编辑。",
+  "intro": "适合有 GPU 资源、想在本地运行开源视频生成模型的研究者和开发者。仓库提供 generate.py 命令行推理、多 GPU 推理（FSDP + xDiT USP）、本地 Gradio 界面，以及 Diffusers 调用示例。模型权重托管在 Hugging Face 和 ModelScope，有 T2V-14B、T2V-1.3B、I2V-14B（480P/720P）、FLF2V-14B、VACE 等多个版本。",
+  "requirements": "需要 Python 环境和 torch >= 2.4.0，并能执行 pip install -r requirements.txt。需要 NVIDIA GPU：文档称 T2V-1.3B 约需 8.19 GB 显存，14B 模型需求更高。多 GPU 推理需额外安装 xfuser>=0.4.1。使用 Dashscope 做提示词扩展时，需要自行申请 dashscope API key。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "克隆仓库并安装依赖",
+      "text": "克隆 Wan2.1 仓库并进入目录。确认 torch 版本 >= 2.4.0 后，通过 pip 安装 requirements.txt 中的依赖。",
+      "code": "git clone https://github.com/Wan-Video/Wan2.1.git\ncd Wan2.1\n\n# Ensure torch >= 2.4.0\npip install -r requirements.txt",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/Wan-Video/Wan2.1/blob/9737cba9c1c3c4d04b33fcad41c111989865d315/README.md?plain=1#L89"
+      }
+    },
+    {
+      "title": "下载 T2V-14B 模型权重",
+      "text": "根据模型下载表选择所需模型，这里以文生视频 T2V-14B 为例。安装 huggingface_hub[cli] 后，把权重下载到 ./Wan2.1-T2V-14B。国内网络也可以改用 modelscope 命令下载同一模型。",
+      "code": "pip install \"huggingface_hub[cli]\"\nhuggingface-cli download Wan-AI/Wan2.1-T2V-14B --local-dir ./Wan2.1-T2V-14B\n\npip install modelscope\nmodelscope download Wan-AI/Wan2.1-T2V-14B --local_dir ./Wan2.1-T2V-14B",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/Wan-Video/Wan2.1/blob/9737cba9c1c3c4d04b33fcad41c111989865d315/README.md?plain=1#L103"
+      }
+    },
+    {
+      "title": "单 GPU 运行文生视频推理",
+      "text": "运行 generate.py，指定 --task t2v-14B、--size 1280*720、--ckpt_dir 和 --prompt，即可完成基础推理（不含提示词扩展）。如果遇到显存不足，可加 --offload_model True 和 --t5_cpu 降低显存占用。",
+      "code": "python generate.py  --task t2v-14B --size 1280*720 --ckpt_dir ./Wan2.1-T2V-14B --prompt \"Two anthropomorphic cats in comfy boxing gear and bright gloves fight intensely on a spotlighted stage.\"",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/Wan-Video/Wan2.1/blob/9737cba9c1c3c4d04b33fcad41c111989865d315/README.md?plain=1#L164"
+      }
+    },
+    {
+      "title": "可选：启用提示词扩展",
+      "text": "官方建议开启提示词扩展来丰富画面细节，有两种方式。一是设置 DASH_API_KEY 后使用 dashscope 方法；二是使用 local_qwen 在本地加载 Qwen 模型。可以通过 --prompt_extend_model 指定扩展模型，本地模型越大，需要的显存越多。",
+      "code": "DASH_API_KEY=your_key python generate.py  --task t2v-14B --size 1280*720 --ckpt_dir ./Wan2.1-T2V-14B --prompt \"Two anthropomorphic cats in comfy boxing gear and bright gloves fight intensely on a spotlighted stage\" --use_prompt_extend --prompt_extend_method 'dashscope' --prompt_extend_target_lang 'zh'\n\npython generate.py  --task t2v-14B --size 1280*720 --ckpt_dir ./Wan2.1-T2V-14B --prompt \"Two anthropomorphic cats in comfy boxing gear and bright gloves fight intensely on a spotlighted stage\" --use_prompt_extend --prompt_extend_method 'local_qwen' --prompt_extend_target_lang 'zh'",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/Wan-Video/Wan2.1/blob/9737cba9c1c3c4d04b33fcad41c111989865d315/README.md?plain=1#L204"
+      }
+    },
+    {
+      "title": "可选：启动本地 Gradio 界面",
+      "text": "进入 gradio 目录，运行 t2v_14B_singleGPU.py 并指定 --ckpt_dir 和提示词扩展方式（dashscope 或 local_qwen），即可在本地打开可视化生成界面。",
+      "code": "cd gradio\n# if one uses dashscope’s API for prompt extension\nDASH_API_KEY=your_key python t2v_14B_singleGPU.py --prompt_extend_method 'dashscope' --ckpt_dir ./Wan2.1-T2V-14B\n\n# if one uses a local model for prompt extension\npython t2v_14B_singleGPU.py --prompt_extend_method 'local_qwen' --ckpt_dir ./Wan2.1-T2V-14B",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/Wan-Video/Wan2.1/blob/9737cba9c1c3c4d04b33fcad41c111989865d315/README.md?plain=1#L264"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "14B 模型对显存要求较高。1.3B 模型虽能输出 720P，但效果不如 480P 稳定，官方推荐用 480P。",
+    "I2V 和 FLF2V 中的 size 参数表示生成面积，宽高比跟随输入图片；FLF2V 目前仅支持 720P，官方建议使用中文提示词。",
+    "使用 Dashscope 提示词扩展需要阿里云账号的 API key，国际站用户还需设置 DASH_API_URL。",
+    "多 GPU 使用 Ulysses 策略时，num_heads 必须能被 ulysses_size 整除；1.3B 模型建议改用 Ring 策略。",
+    "Diffusers 示例目前不包含提示词扩展和分布式推理。"
+  ],
+  "references": [],
+  "media": [],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "3bdaca69aa116222a49859dc21d4a735b60a580af7e1b81531085c87227e4486",
+  "mediaStatus": "none_in_official_documents"
+}

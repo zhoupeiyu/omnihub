@@ -1,0 +1,74 @@
+{
+  "schemaVersion": 1,
+  "key": "jackwener/tg-cli",
+  "status": "ready",
+  "reason": "",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/jackwener/tg-cli/blob/b54a14da62a5e03cbd6d65d4b8dc95932194d2d0/README.md",
+  "sourceRevision": "b54a14da62a5e03cbd6d65d4b8dc95932194d2d0",
+  "canonicalKey": "jackwener/tg-cli",
+  "summary": "tg-cli 用你自己的 Telegram 账号通过 MTProto 把对话同步到本地 SQLite，可以在终端搜索、筛选、导出，并供 AI Agent 检索使用。",
+  "intro": "适合想对自己的 Telegram 群组和对话做本地检索、关键词过滤、活跃度分析和导出的用户，也适合把它当作 AI Agent 的本地检索工具。它不是 Bot API 工具，用的是个人账号。",
+  "requirements": "需要 uv（或 pipx/pip）来安装 PyPI 包 `kabi-tg-cli`，并且有一个 Telegram 个人账号。建议提前在 my.telegram.org 申请自己的 API 凭证。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "用 uv tool 安装 tg-cli",
+      "text": "官方推荐运行 `uv tool install kabi-tg-cli` 安装（包名是 kabi-tg-cli）。以后用 `uv tool upgrade kabi-tg-cli` 定期升级，避免旧版本 API 处理出错。",
+      "code": "uv tool upgrade kabi-tg-cli\n# Or: pipx upgrade kabi-tg-cli",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/jackwener/tg-cli/blob/b54a14da62a5e03cbd6d65d4b8dc95932194d2d0/README.md?plain=1#L1"
+      }
+    },
+    {
+      "title": "配置自己的 API 凭证",
+      "text": "前往 my.telegram.org 创建应用，然后设置环境变量 `TG_API_ID` 和 `TG_API_HASH`。默认的 api_id=2040 被大量第三方工具共用，风控更严格，使用自己的凭证可以降低账号受限的风险。",
+      "code": "   export TG_API_ID=12345678\n   export TG_API_HASH=\"your_api_hash_here\"",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/jackwener/tg-cli/blob/b54a14da62a5e03cbd6d65d4b8dc95932194d2d0/README.md?plain=1#L199"
+      }
+    },
+    {
+      "title": "首次登录并刷新本地缓存",
+      "text": "运行 `tg chats` 完成首次登录，再用 `tg status`、`tg whoami` 确认账号。之后用 `tg refresh` 作为日常入口刷新所有对话到本地 SQLite；也可以加 `--delay` 和 `--max-chats` 降低同步强度。",
+      "code": "# First login (uses Telegram Desktop built-in credentials by default)\ntg chats\n\n# Check the current account\ntg status\ntg whoami\n\n# Refresh the local cache\ntg refresh\n\n# Read and search\ntg today\ntg recent --hours 24 --limit 20 --yaml\ntg search \"Rust\" --hours 48\ntg filter \"Rust,Golang,remote\" --hours 48 --sync-first --yaml\n\n# Keep a near-real-time cache\ntg listen --persist",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/jackwener/tg-cli/blob/b54a14da62a5e03cbd6d65d4b8dc95932194d2d0/README.md?plain=1#L70"
+      }
+    },
+    {
+      "title": "搜索、浏览和导出消息",
+      "text": "用 `tg today`、`tg recent`、`tg search`（支持 `--regex`）、`tg filter` 查询本地缓存，加 `--sync-first` 可以在查询前先刷新。用 `tg export \"GroupName\" -f yaml -o messages.yaml` 导出为文件。如果提示找不到 chat，就先执行 refresh。",
+      "code": "# Sync\ntg status --yaml\ntg refresh\ntg sync-all --yaml\ntg sync \"GroupName\"\n\n# Search / browse\ntg search \"Rust\"\ntg search \"Rust|Golang\" --regex --hours 72\ntg recent --hours 24 --limit 20 --yaml\ntg today --sync-first\ntg top --hours 24 --sync-first\ntg timeline --by hour --sync-first\n\n# Export\ntg export \"GroupName\" -f yaml -o messages.yaml\n\n# Send\ntg send \"GroupName\" \"Hello!\"",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/jackwener/tg-cli/blob/b54a14da62a5e03cbd6d65d4b8dc95932194d2d0/README.md?plain=1#L104"
+      }
+    },
+    {
+      "title": "作为 Agent Skill 安装",
+      "text": "仓库自带 `SKILL.md`，推荐用 Skills CLI 执行 `npx skills add jackwener/tg-cli` 安装。Agent 获取结构化输出时优先用 `--yaml`，并按 refresh → chats → recent/search 的顺序调用。",
+      "code": "npx skills add jackwener/tg-cli\n\ntg refresh --yaml\ntg chats --yaml\ntg recent --hours 24 --sync-first --yaml\ntg search \"keyword\" --chat \"GroupName\" --sync-first --yaml",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/jackwener/tg-cli/blob/b54a14da62a5e03cbd6d65d4b8dc95932194d2d0/README.md?plain=1#L153"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "工具通过 MTProto 使用个人 Telegram 账号，存在被风控限制的风险；新注册或长期不活跃的账号更容易被标记。",
+    "官方建议每天执行 `tg refresh` 不超过 1–2 次，并配合 `--delay`、`--max-chats` 控制同步频率。",
+    "`tg send` 会以你的账号发送消息，风险高于只读命令。",
+    "README 中的定时刷新示例使用 cron 或 systemd user timer，systemd 方式只适用于支持它的 Linux 环境。"
+  ],
+  "references": [],
+  "media": [],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "e899dd92f42276e3ae4db2c1ffe57406df70432380b06b76759812146ce09032",
+  "mediaStatus": "none_in_official_documents"
+}

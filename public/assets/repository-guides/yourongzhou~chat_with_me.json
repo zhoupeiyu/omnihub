@@ -1,0 +1,75 @@
+{
+  "schemaVersion": 1,
+  "key": "yourongzhou/chat_with_me",
+  "status": "ready",
+  "reason": "",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/YourongZhou/chat_with_me/blob/6972cf872d41e06597216ce6466b646cfcdc5a43/README.md",
+  "sourceRevision": "6972cf872d41e06597216ce6466b646cfcdc5a43",
+  "canonicalKey": "YourongZhou/chat_with_me",
+  "summary": "从公开社交账号抓取文字语料，生成可用于 Claude Code、Codex、OpenCode 的博主风格 Persona Skill。",
+  "intro": "适合想基于某位博主的公开文字内容，构建一个可以模仿其语气对话、分析其观点或改写文本风格的 skill 的开发者。项目支持 X/Twitter、GitHub、小红书、知乎等后端，生成的 skill 通过 roleplay、ask、rewrite 三种模式使用。下面以 X 后端加 Claude Code 为例说明流程。",
+  "requirements": "需要 Python 3.11+，README 的命令使用 conda 环境 chat。需要另外安装宿主（Claude Code、Codex 或 OpenCode），本仓库只生成 skill 文件。使用 X 后端需要自己账号的 auth_token。小红书和知乎需要桌面会话和浏览器登录。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "克隆仓库并建立 Python 环境",
+      "text": "克隆仓库并进入 chat_with_me 目录。如果还没有环境，用 conda 创建 Python 3.11 的 chat 环境，然后在该环境中以可编辑模式安装项目及开发依赖（pip install -e .[dev]）。",
+      "code": "git clone <https://github.com/YourongZhou/chat_with_me>\ncd chat_with_me\n\nconda create -y -n chat python=3.11\n\nconda run -n chat python -m pip install -e .[dev]",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/YourongZhou/chat_with_me/blob/6972cf872d41e06597216ce6466b646cfcdc5a43/README.md?plain=1#L147"
+      }
+    },
+    {
+      "title": "初始化 X 后端并配置 token",
+      "text": "先执行 backend bootstrap x 和 backend login x。登录 x.com 后，在浏览器开发者工具 Application 下的 Cookie 中复制 auth_token，按格式写入 .runtime/auth_tokens。Scweet 会安装到隔离的 .runtime/backends/x/venv/。",
+      "code": "conda run -n chat python -m social_persona_skill.cli --runtime-root .runtime backend bootstrap x\nconda run -n chat python -m social_persona_skill.cli --runtime-root .runtime backend login x\n\n# X (twitter):\nyour_auth_token_here # token",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/YourongZhou/chat_with_me/blob/6972cf872d41e06597216ce6466b646cfcdc5a43/README.md?plain=1#L188"
+      }
+    },
+    {
+      "title": "从账号链接创建 persona",
+      "text": "执行 persona create 并传入博主的 X 主页链接，也可以一次传入多个平台的 URL。生成的 person.json、profile.md、sources.json 和语料会保存在 personas/<person_id>/。之后可以用 persona attach 给同一 persona 追加账号，旧语料不会被覆盖。",
+      "code": "conda run -n chat python -m social_persona_skill.cli \\\n  --runtime-root .runtime \\\n  persona create https://x.com/karpathy\n\nconda run -n chat python -m social_persona_skill.cli \\\n  --runtime-root .runtime \\\n  persona attach \\\n  --person-id <id> \\\n  https://www.xiaohongshu.com/user/profile/xxx",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/YourongZhou/chat_with_me/blob/6972cf872d41e06597216ce6466b646cfcdc5a43/README.md?plain=1#L262"
+      }
+    },
+    {
+      "title": "编译并安装 Skill",
+      "text": "执行 skill build --person-id <id>。源产物会生成在 personas/<person_id>/skill/。不指定 --host 时默认只安装到 Claude Code 的 .claude/skills/persona-<slug>/。若 persona 名为中文，README 建议用 --slug 指定 ASCII 名称。",
+      "code": "conda run -n chat python -m social_persona_skill.cli \\\n  --runtime-root .runtime \\\n  --storage-dir personas \\\n  skill build \\\n  --person-id <id>",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/YourongZhou/chat_with_me/blob/6972cf872d41e06597216ce6466b646cfcdc5a43/README.md?plain=1#L292"
+      }
+    },
+    {
+      "title": "在 Claude Code 中使用三种模式",
+      "text": "在 Claude Code 中输入 /persona-<slug> 激活 skill，然后用 roleplay: 开头与之对话，用 ask: 开头询问该 persona 的观点，或用 rewrite: 开头把文本改写成其风格。Codex 和 OpenCode 中激活同名 skill 后用法相同。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/YourongZhou/chat_with_me/blob/6972cf872d41e06597216ce6466b646cfcdc5a43/README.md?plain=1#L132"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "小红书和知乎采集依赖的 MediaCrawler 使用 Non-Commercial Learning License 1.1，仅建议用于学习研究，不应用于商业用途或大规模抓取。",
+    "采集时需要遵守目标平台的服务条款和当地法律，并以最小化、克制的方式访问公开信息。",
+    "X 的 auth_token 和 GitHub token 都是账号凭证，存放在 .runtime/auth_tokens，切勿泄露或提交。.runtime/ 目录已在 .gitignore 中排除。",
+    "生成的 skill 会模仿真实人物的语气，不要用于冒充他人或误导他人。",
+    "当前版本只处理文字内容。支持平台表中列出了 Instagram，但正文写的是已打通四个后端，具体以实际代码为准。",
+    "仓库没有声明许可证，复用或再分发前需要先联系作者确认。"
+  ],
+  "references": [],
+  "media": [],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "57686fb1f4a541c9702b1ab2310916612fe4a058286850904a62b0cd4d3345a3",
+  "mediaStatus": "none_in_official_documents"
+}

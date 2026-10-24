@@ -1,0 +1,71 @@
+{
+  "schemaVersion": 1,
+  "key": "yqxie1991/wxcleaner",
+  "status": "ready",
+  "reason": "",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/yqxie1991/WxCleaner/blob/414dd2ed24492b90b017aff5611c6843f42d8059/README.md",
+  "sourceRevision": "414dd2ed24492b90b017aff5611c6843f42d8059",
+  "canonicalKey": "yqxie1991/WxCleaner",
+  "summary": "WxCleaner 是一款桌面工具，用来扫描微信接收文件目录，找出内容重复的文件，并把选中的文件移至系统回收站。",
+  "intro": "适合微信接收文件较多、想释放磁盘空间的 Windows、macOS、Linux 用户。它按“文件大小初筛、头部哈希、全量哈希”的顺序识别重复文件，在可视化列表里显示路径、大小和修改时间，自动标记建议删除的副本，默认保留路径较短的那份，再把选中文件移到回收站或废纸篓。",
+  "requirements": "从源码运行需要 Python 3.8 或更高版本，并且 Python 要带 Tkinter。macOS 用 Homebrew 安装的 Python、部分 Linux 发行版的 Python 可能没有 Tkinter，需要另外安装。依赖库由 requirements.txt 安装，核心依赖包括 ttkbootstrap 和 send2trash。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "确认 Python 与 Tkinter 环境",
+      "text": "先确认系统已安装 Python 3.8 或更高版本。如果在 macOS（Homebrew）或 Linux 上使用，还要确认 Python 带有 Tkinter；没有的话，按 README 中对应系统的包名安装，例如 python-tk、python3-tk、python3-tkinter 或 tk。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/yqxie1991/WxCleaner/blob/414dd2ed24492b90b017aff5611c6843f42d8059/README.md?plain=1#L35"
+      }
+    },
+    {
+      "title": "克隆仓库并安装依赖",
+      "text": "本指南以跨平台源码运行为例。克隆仓库后进入 WxCleaner 目录，建议先创建虚拟环境并激活（Windows 与 macOS / Linux 的激活命令不同），再用 pip 安装 requirements.txt 中的依赖。",
+      "code": "git clone https://github.com/yqxie1991/WxCleaner.git\ncd WxCleaner\n\n# 推荐创建虚拟环境\npython -m venv venv\n# Windows 激活:\nvenv\\Scripts\\activate\n# macOS / Linux 激活:\nsource venv/bin/activate\n\n# 安装依赖\npip install -r requirements.txt",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/yqxie1991/WxCleaner/blob/414dd2ed24492b90b017aff5611c6843f42d8059/README.md?plain=1#L45"
+      }
+    },
+    {
+      "title": "启动程序并选择扫描目录",
+      "text": "在项目目录运行 main.py 打开界面。程序会尝试自动填入各平台微信的默认文件目录，也可以点“浏览”手动选择。Windows 通常在“文档/WeChat Files”，macOS 通常在 com.tencent.xinWeChat 容器目录下。",
+      "code": "python main.py",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/yqxie1991/WxCleaner/blob/414dd2ed24492b90b017aff5611c6843f42d8059/README.md?plain=1#L61"
+      }
+    },
+    {
+      "title": "扫描后核对重复文件组",
+      "text": "点“开始扫描”，程序会在后台分析目录并显示进度。扫描完成后，列表按组列出重复文件：红色高亮是建议删除的副本，绿色是保留项。可以点表头排序，也可以右键在系统文件管理器中打开文件位置，确认内容。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/yqxie1991/WxCleaner/blob/414dd2ed24492b90b017aff5611c6843f42d8059/README.md?plain=1#L68"
+      }
+    },
+    {
+      "title": "勾选副本并移至回收站",
+      "text": "点“全选重复项”，或手动调整勾选，确认无误后点“移至回收站”。在二次确认弹窗中确认后，选中的文件会通过 send2trash 移到系统回收站或废纸篓，不会直接永久删除。清理过程中可以随时中止。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/yqxie1991/WxCleaner/blob/414dd2ed24492b90b017aff5611c6843f42d8059/README.md?plain=1#L68"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "文件只是移到回收站或废纸篓，不是永久删除。磁盘空间要在清空回收站后才会真正释放。",
+    "免责声明提醒：大规模清理前务必确认文件内容和重要程度，作者不对误操作导致的数据丢失负责。",
+    "自动标记默认保留路径较短的文件，这不一定是你想保留的那份，删除前请逐组核对。",
+    "Windows 用户也可以从 Releases 下载 WxCleaner.exe 直接运行。本指南采用源码运行路径，两种方式选一种即可。"
+  ],
+  "references": [],
+  "media": [],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "c909cb42b7df19b3e0c853acfd6e305acfa82417b521a1ab56d6d17553d45717",
+  "mediaStatus": "none_in_official_documents"
+}

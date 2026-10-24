@@ -1,0 +1,89 @@
+{
+  "schemaVersion": 1,
+  "key": "missuo/kumone",
+  "status": "ready",
+  "reason": "",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/missuo/kumone/blob/b509c14025e6940bef4a69d189109c017e5b8c55/README.md",
+  "sourceRevision": "b509c14025e6940bef4a69d189109c017e5b8c55",
+  "canonicalKey": "missuo/kumone",
+  "summary": "Kumone 是用 SwiftUI 编写的原生 macOS 网易云音乐第三方客户端，直连网易云 API，支持扫码登录、播放、歌词和桌面歌词等功能。",
+  "intro": "适合在 macOS 上听网易云音乐、想要原生客户端体验的用户。它提供每日推荐、私人漫游、歌单管理、搜索、沉浸播放页、同步歌词与翻译、悬浮桌面歌词，以及媒体键和控制中心集成，界面支持简体中文和英文。仓库另有需要自行侧载的 iOS/iPadOS 版本，以及面向开发者的源码构建说明；本指南以 macOS 的 Homebrew 安装为主线。",
+  "requirements": "macOS 15 或更高版本（Apple Silicon 与 Intel 均支持），并已安装 Homebrew。需要网易云音乐账号，以及手机上可用于扫码的网易云音乐 App。播放无损音质需要黑胶 VIP。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "在 macOS 上用 Homebrew 安装",
+      "text": "本步骤适用于 macOS 15+。在终端执行 brew install owo-network/brew/kumone --cask 安装 Kumone。官方还提供从 Releases 下载 Kumone-x.y.z.zip 后拖入「应用程序」的方式，二选一即可。",
+      "code": "brew install owo-network/brew/kumone --cask",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/missuo/kumone/blob/b509c14025e6940bef4a69d189109c017e5b8c55/README.md?plain=1#L56"
+      }
+    },
+    {
+      "title": "用网易云 App 扫码登录",
+      "text": "打开 Kumone，用手机上的网易云音乐 App 扫描登录二维码。登录后 Cookie 会保存在本地并自动续期，推荐页的每日推荐、私人漫游、心动模式和雷达歌单都会按你的账号个性化展示。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/missuo/kumone/blob/b509c14025e6940bef4a69d189109c017e5b8c55/README.md?plain=1#L38"
+      }
+    },
+    {
+      "title": "播放歌曲并打开歌词面板",
+      "text": "在推荐、精选、搜索或音乐库中选歌播放，可选择从标准到 Hi-Res 的音质。点击播放条上的封面进入沉浸播放页，按 Esc 退出。歌词侧边面板逐行同步并显示翻译，点击某一行可跳转到对应位置；也可以开启悬浮置顶的桌面歌词。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/missuo/kumone/blob/b509c14025e6940bef4a69d189109c017e5b8c55/README_CN.md?plain=1#L38"
+      }
+    },
+    {
+      "title": "通过菜单栏检查应用更新",
+      "text": "应用使用 Developer ID 签名并经过 Apple 公证，内置 Sparkle 自动更新。需要手动更新时，在菜单栏选择 Kumone → 检查更新…（英文界面为 Check for Updates…）。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/missuo/kumone/blob/b509c14025e6940bef4a69d189109c017e5b8c55/README.md?plain=1#L66"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "Kumone 是非官方客户端，采用 LGPL-3.0-only 协议，README 声明仅供学习交流；音乐数据与版权归网易云音乐及各音源平台所有，不支持下载。",
+    "「灰色歌曲解锁」会从 pyncmd、酷我、酷狗等第三方音源匹配歌曲，可能涉及版权问题，请自行评估。",
+    "无损音质需要黑胶 VIP，不满足条件时会自动回落到较低音质。",
+    "iOS/iPadOS 版本是无签名 IPA，需要用自己的 Apple ID 通过 AltStore、SideStore、Sideloadly 或 Xcode 侧载；应用内自动更新仅在 TrollStore 下可用。",
+    "CarPlay 功能需要 Apple 批准的 carplay-audio entitlement，大多数开发者账号不会获批，默认构建不包含该功能。",
+    "从源码构建需要 macOS 15+ 和 Xcode 26+。"
+  ],
+  "references": [
+    {
+      "label": "README_CN.md",
+      "url": "https://github.com/missuo/kumone/blob/b509c14025e6940bef4a69d189109c017e5b8c55/README_CN.md"
+    }
+  ],
+  "media": [
+    {
+      "url": "/assets/repository-guides/media-c26250a92657a35792dc0d03.webp",
+      "alt": "推荐",
+      "sourceUrl": "https://github.com/missuo/kumone/blob/b509c14025e6940bef4a69d189109c017e5b8c55/README_CN.md?plain=1#L23",
+      "originalUrl": "https://raw.githubusercontent.com/missuo/kumone/b509c14025e6940bef4a69d189109c017e5b8c55/docs/screenshot-home.png"
+    },
+    {
+      "url": "/assets/repository-guides/media-3f7ddc090a485a5e30197309.webp",
+      "alt": "沉浸播放页",
+      "sourceUrl": "https://github.com/missuo/kumone/blob/b509c14025e6940bef4a69d189109c017e5b8c55/README_CN.md?plain=1#L24",
+      "originalUrl": "https://raw.githubusercontent.com/missuo/kumone/b509c14025e6940bef4a69d189109c017e5b8c55/docs/screenshot-nowplaying.png"
+    },
+    {
+      "url": "/assets/repository-guides/media-73972b14e33845bb3def2802.webp",
+      "alt": "歌词面板",
+      "sourceUrl": "https://github.com/missuo/kumone/blob/b509c14025e6940bef4a69d189109c017e5b8c55/README_CN.md?plain=1#L28",
+      "originalUrl": "https://raw.githubusercontent.com/missuo/kumone/b509c14025e6940bef4a69d189109c017e5b8c55/docs/screenshot-lyrics.png"
+    }
+  ],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "f7f383a41fb3a79840273d1e7e2151e70655738004afcfe7c2b8eeb32a9ab2c2",
+  "mediaStatus": "archived",
+  "mediaFailures": []
+}

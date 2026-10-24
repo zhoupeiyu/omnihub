@@ -1,0 +1,65 @@
+{
+  "schemaVersion": 1,
+  "key": "jexp/neo4jev",
+  "status": "ready",
+  "reason": "",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/jexp/neo4jev/blob/d157bbe496eb91813475156942bef1c6badfb342/README.md",
+  "sourceRevision": "d157bbe496eb91813475156942bef1c6badfb342",
+  "canonicalKey": "jexp/neo4jev",
+  "summary": "用 TypeSafe 的 system_one 结构化决策 API 在 Neo4j 图上逐跳选择关系并做 beam search，再用 neo4j-viz 交互展示找到的路径。",
+  "intro": "适合想了解“用分类器而非自由文本生成来导航知识图谱”的 Neo4j 与 LLM 应用开发者。仓库包含可复用的 Python 库 src/neo4jev/、三个按顺序运行的 Jupyter notebook 和一个 Streamlit 界面。支持三种目标模式：自由文本目标、明确目标节点、路径意图。默认连接公开的 Companies KG（companies2 数据库），也可以通过 .env 指向其他 Neo4j 实例。",
+  "requirements": "Python >=3.12；已安装 uv；一个可连接的 Neo4j 实例（默认使用公开的 neo4j+s://demo.neo4jlabs.com:7687，库名 companies2）；TypeSafe system_one 的 TYPESAFE_API_KEY（缺少时只能用明确标注的替代答案演示流程）。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "用 uv 安装项目依赖",
+      "text": "在仓库根目录运行 uv sync，安装项目依赖并生成由 uv 管理的 .venv。项目要求 Python 3.12 及以上版本。",
+      "code": "   uv sync",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/jexp/neo4jev/blob/d157bbe496eb91813475156942bef1c6badfb342/README.md?plain=1#L78"
+      }
+    },
+    {
+      "title": "复制并填写 .env 连接配置",
+      "text": "将 .env.example 复制为 .env，填写 NEO4J_URL（或 NEO4J_URI，两者同时设置时以 NEO4J_URI 为准）、NEO4J_USERNAME、NEO4J_PASSWORD、NEO4J_DATABASE 和 TYPESAFE_API_KEY。公开 Companies KG 的用户名、密码和库名都是 companies2。",
+      "code": "   cp .env.example .env",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/jexp/neo4jev/blob/d157bbe496eb91813475156942bef1c6badfb342/README.md?plain=1#L78"
+      }
+    },
+    {
+      "title": "在 JupyterLab 中依次运行笔记本",
+      "text": "Jupyter 尚未列为项目依赖，可以临时用 uv 启动 JupyterLab。按 01_explore_graph（查看标签与索引）、02_navigator_dry_run（单跳概率）、03_full_traversal（三种目标模式的完整 beam search 和可视化）的顺序执行。",
+      "code": "uv run --with jupyterlab jupyter lab",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/jexp/neo4jev/blob/d157bbe496eb91813475156942bef1c6badfb342/README.md?plain=1#L133"
+      }
+    },
+    {
+      "title": "启动 Streamlit 图导航界面",
+      "text": "运行 app/streamlit_app.py。在界面里依次选择标签、搜索起始节点、选择目标模式，再设置 top-k、概率阈值、最大深度、API 调用上限等参数并运行。结果会显示为 neo4j-viz 交互图，并附带每一跳的概率轨迹。",
+      "code": "uv run streamlit run app/streamlit_app.py",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/jexp/neo4jev/blob/d157bbe496eb91813475156942bef1c6badfb342/README.md?plain=1#L164"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "没有 TYPESAFE_API_KEY 时，notebook 02/03 和应用仍会执行到底，但使用的是明确标注的替代答案。此时不会因 goal_reached 提前终止，target_node 模式也无法演示。",
+    "每一跳最多列出每种关系类型 10 条、总计 60 条出边。超级节点只会被抽样，未列出的边不可能被选中，可通过 total_cap 参数调大。",
+    "默认 embedder 是基于哈希的占位实现，向量搜索维度正确但没有语义意义。需要语义检索时，应向 open_access() 传入真实的 embedder。",
+    "集成测试会访问在线的 Companies KG 和 TypeSafe API；单元测试不需要网络。"
+  ],
+  "references": [],
+  "media": [],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "2d5e808a6e22b6623442ccb9068cfbde2f293dadd69772725f5dc3e05ba2361c",
+  "mediaStatus": "none_in_official_documents"
+}

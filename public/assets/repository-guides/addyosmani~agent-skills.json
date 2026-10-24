@@ -1,0 +1,68 @@
+{
+  "schemaVersion": 1,
+  "key": "addyosmani/agent-skills",
+  "status": "ready",
+  "reason": "",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/addyosmani/agent-skills/blob/2686b620fc1fed2e8f60c704839c766b8594c6b6/README.md",
+  "sourceRevision": "2686b620fc1fed2e8f60c704839c766b8594c6b6",
+  "canonicalKey": "addyosmani/agent-skills",
+  "summary": "agent-skills 是一组面向 AI 编码代理的工程技能包，用技能和斜杠命令把规格、计划、实现、测试、评审、发布等工程流程交给代理遵循。",
+  "intro": "适合使用 Claude Code、Cursor、Gemini CLI 等 AI 编码代理、希望代理按资深工程师的工作流和质量门禁开发的人。共 25 个技能，并提供 `/spec`、`/plan`、`/build`、`/test`、`/review`、`/ship` 等 9 个命令，以及代码评审、测试、安全审计等专家角色。",
+  "requirements": "一个受支持的 AI 编码代理。下文以 README 标注为推荐的 Claude Code 为例；通过 marketplace 安装时默认走 SSH 克隆，需要已在 GitHub 配置 SSH key，或改用 HTTPS 地址。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "在 Claude Code 中添加插件市场",
+      "text": "在 Claude Code 中依次执行 `/plugin marketplace add addyosmani/agent-skills` 和 `/plugin install agent-skills@addy-agent-skills`。如果出现 SSH 报错，可按 README 改用完整 HTTPS 仓库地址执行添加步骤。",
+      "code": "/plugin marketplace add addyosmani/agent-skills\n/plugin install agent-skills@addy-agent-skills",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/addyosmani/agent-skills/blob/2686b620fc1fed2e8f60c704839c766b8594c6b6/README.md?plain=1#L44"
+      }
+    },
+    {
+      "title": "先用 using-agent-skills 选技能",
+      "text": "不确定该用哪个技能时，在会话开始阶段使用 `using-agent-skills` 元技能，它会把当前工作映射到对应的技能流程。入门文档建议最小起步组合为 spec-driven-development、test-driven-development 和 code-review-and-quality。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/addyosmani/agent-skills/blob/2686b620fc1fed2e8f60c704839c766b8594c6b6/README.md?plain=1#L226"
+      }
+    },
+    {
+      "title": "按开发阶段调用斜杠命令",
+      "text": "按阶段使用命令：`/spec` 定义需求，`/plan` 拆分任务，`/build` 增量实现，`/test` 验证，`/review` 合并前评审，`/ship` 发布。设计 API、编写 UI 等场景也会自动触发对应技能。",
+      "code": "  DEFINE          PLAN           BUILD          VERIFY         REVIEW          SHIP\n ┌──────┐      ┌──────┐      ┌──────┐      ┌──────┐      ┌──────┐      ┌──────┐\n │ Idea │ ───▶ │ Spec │ ───▶ │ Code │ ───▶ │ Test │ ───▶ │  QA  │ ───▶ │  Go  │\n │Refine│      │  PRD │      │ Impl │      │Debug │      │ Gate │      │ Live │\n └──────┘      └──────┘      └──────┘      └──────┘      └──────┘      └──────┘\n  /spec          /plan          /build        /test         /review       /ship",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/addyosmani/agent-skills/blob/2686b620fc1fed2e8f60c704839c766b8594c6b6/README.md?plain=1#L22"
+      }
+    },
+    {
+      "title": "按需使用专家角色进行评审",
+      "text": "需要针对性评审时，可使用 code-reviewer、test-engineer、security-auditor、web-performance-auditor 等预设角色；其中性能审计通过 `/webperf` 运行。角色与技能、命令如何组合，见 docs/agents.md。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/addyosmani/agent-skills/blob/2686b620fc1fed2e8f60c704839c766b8594c6b6/README.md?plain=1#L288"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "`/build auto` 会在你批准计划后自动实现全部任务，并逐个提交；遇到失败或高风险步骤会暂停，但仍需审查其改动。",
+    "如果用 `npx skills add --skill` 单独安装某个技能，只会复制 `skills/<name>/`，仓库级的 `references/` 清单不可用。",
+    "Claude Code marketplace 默认通过 SSH 克隆，未配置 GitHub SSH key 时会失败。",
+    "其他宿主（Cursor、Windsurf、Copilot 等）的接入方式各不相同，需参照仓库 docs 目录中对应的配置文档。"
+  ],
+  "references": [
+    {
+      "label": "docs/getting-started.md",
+      "url": "https://github.com/addyosmani/agent-skills/blob/2686b620fc1fed2e8f60c704839c766b8594c6b6/docs/getting-started.md"
+    }
+  ],
+  "media": [],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "5bdbabcd0415f7e365cc31e6cb6da77286301c7bfd002b14e0accb2c7f17cd3f",
+  "mediaStatus": "none_in_official_documents"
+}

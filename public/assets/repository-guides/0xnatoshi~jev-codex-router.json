@@ -1,0 +1,79 @@
+{
+  "schemaVersion": 1,
+  "key": "0xnatoshi/jev-codex-router",
+  "status": "ready",
+  "reason": "",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/0xNatoshi/jev-codex-router/blob/8701ef788aa8cb0948f299538747fb01029d32b8/README.md",
+  "sourceRevision": "8701ef788aa8cb0948f299538747fb01029d32b8",
+  "canonicalKey": "0xNatoshi/jev-codex-router",
+  "summary": "一个为 Codex 桌面版提供按调用路由的本地服务，由 Jev 为每次模型调用选择模型和推理深度。",
+  "intro": "适合在 macOS 上使用 Codex 桌面版、希望按任务难度自动切换模型以减少额度消耗的开发者。仓库是自包含的 monorepo，内嵌 Codex Router 分支，通过本地服务把 jev/auto 路由交给 Jev 决策，并在本地记录每次决策供统计。",
+  "requirements": "macOS 并已安装 Codex 桌面版；Node.js 22.19+；Python 3.11+；TypeSafe API key（供 Jev 使用）。不需要另外检出 Codex Router。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "配置 TypeSafe API key",
+      "text": "在服务环境中 export TYPESAFE_API_KEY，或写入默认 env 文件 ~/.hermes/.env。也可用 JEV_ENV_FILE 指定其他 env 文件。未配置 key 时服务会告警并以 fail-open 模式继续路由。",
+      "code": "echo 'TYPESAFE_API_KEY=your-key' >> ~/.hermes/.env   # default env file",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/0xNatoshi/jev-codex-router/blob/8701ef788aa8cb0948f299538747fb01029d32b8/README.md?plain=1#L297"
+      }
+    },
+    {
+      "title": "在仓库目录运行安装脚本",
+      "text": "在终端中于本仓库检出目录执行 install.sh。它会以 router/ 为服务源、保留已配置的 provider、添加 jev/auto、配置本地凭据、安装两个 launchd 服务并运行 server/smoke.py。只想准备依赖而不改动服务时，可改用 --prepare-only。",
+      "code": "./install.sh\n\n./install.sh --prepare-only",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/0xNatoshi/jev-codex-router/blob/8701ef788aa8cb0948f299538747fb01029d32b8/README.md?plain=1#L297"
+      }
+    },
+    {
+      "title": "重启 Codex 并选择路由模型",
+      "text": "退出并重新打开 Codex，在模型选择器中选择「Jev Codex Router」。还需确认 jev/auto 实际到达本地路由器而不是 OpenAI 原生端点；若 Codex 提示 ChatGPT 账号不支持 jev/auto，参见 server/INSTALL.md 中的传输排障说明。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/0xNatoshi/jev-codex-router/blob/8701ef788aa8cb0948f299538747fb01029d32b8/README.md?plain=1#L297"
+      }
+    },
+    {
+      "title": "用统一 CLI 检查运行状态",
+      "text": "通过 bin/jev-codex-router 可在不切换目录的情况下查看路由器状态、更新 monorepo、运行 smoke 检查和生成报告。也可 tail 本地决策日志 ~/.codex/codex-router/jev-router-live.jsonl 观察每次路由结果。",
+      "code": "bin/jev-codex-router router status\nbin/jev-codex-router update\nbin/jev-codex-router smoke\nbin/jev-codex-router report --days 7",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/0xNatoshi/jev-codex-router/blob/8701ef788aa8cb0948f299538747fb01029d32b8/README.md?plain=1#L297"
+      }
+    },
+    {
+      "title": "生成路由与成本估算报告",
+      "text": "运行 server/report_routing.py 汇总决策日志，输出各模型服务占比、延迟、缓存读取以及相对全部使用 Sol 或 Astra 的成本估算，可选按天数、策略版本过滤或输出 JSON。",
+      "code": "python3 server/report_routing.py --days 7 --policy current  # current policy only\npython3 server/report_routing.py --days 30 --json            # all versions, JSON",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/0xNatoshi/jev-codex-router/blob/8701ef788aa8cb0948f299538747fb01029d32b8/README.md?plain=1#L180"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "该仓库已归档（archived），不再接受更新。",
+    "需要 TypeSafe 账户与 API key；账户额度耗尽时 /ask 会返回 402，poc/eval_routing.py --live 为付费校准调用。",
+    "README 中约 −60% 的数字是旧策略在 237 轮上的历史模拟，作者明确说明它不是实测节省的 Codex 额度，也不能证明当前策略效果；报告中的成本为按公开费率的估算，不是账户实际扣费。",
+    "安装脚本会修改 Codex 配置、写入本地凭据并安装 launchd 服务；本地 Jev 凭据位于 ~/.codex/codex-router/generic-provider-credentials/jev.key，不要粘贴到命令行参数、日志或 URL 中。",
+    "需要临时停用 Jev 时，可创建 ~/.codex/codex-router/jev-router.off 文件作为开关，删除即恢复。"
+  ],
+  "references": [
+    {
+      "label": "server/INSTALL.md",
+      "url": "https://github.com/0xNatoshi/jev-codex-router/blob/8701ef788aa8cb0948f299538747fb01029d32b8/server/INSTALL.md"
+    }
+  ],
+  "media": [],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "d3dcd579294d4ec20e91bc149545d7636b408f090d2912fcfe9fcdb9fd43aaef",
+  "mediaStatus": "none_in_official_documents"
+}

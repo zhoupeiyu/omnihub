@@ -1,0 +1,73 @@
+{
+  "schemaVersion": 1,
+  "key": "aashaexo/soundshuman",
+  "status": "ready",
+  "reason": "",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/aashaexo/soundshuman/blob/a45cfbba9fde843d670e553a0aa98f6a23d7fb28/README.md",
+  "sourceRevision": "a45cfbba9fde843d670e553a0aa98f6a23d7fb28",
+  "canonicalKey": "aashaexo/soundshuman",
+  "summary": "soundshuman 用于检测和改写文本中的“AI 腔”，由一个改写技能、一套 JSON 规则包和零依赖的 sloplint 命令行工具组成。",
+  "intro": "适合希望文档、博客或仓库内容读起来更像人写的开发者和写作者。用法分两类：在 Claude Code 等支持技能的宿主里调用技能改写文本，可先提供自己的写作样本来匹配文风；用 sloplint 给文本打 0–100 分、逐行解释命中的规则、自动修复机械性问题、批量扫描目录，并在 CI 或 pre-commit 中设置分数门槛。",
+  "requirements": "CLI 需要 Node 18+，无其他依赖；技能部分需要能读取 markdown 技能的代理宿主，例如 Claude Code。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "在 Claude Code 中安装插件",
+      "text": "在 Claude Code 中依次执行插件市场添加和安装命令，安装 soundshuman 技能。之后可以对代理说“humanize this”或“audit our docs for slop”来触发改写或审查。",
+      "code": "/plugin marketplace add aashaexo/soundshuman\n/plugin install soundshuman@soundshuman",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/aashaexo/soundshuman/blob/a45cfbba9fde843d670e553a0aa98f6a23d7fb28/README.md?plain=1#L28"
+      }
+    },
+    {
+      "title": "在仓库目录准备 sloplint",
+      "text": "在仓库目录下用 Node 直接运行 `bin/sloplint.js` 查看帮助；如果想在任意位置使用 `sloplint` 命令，可执行全局链接安装。",
+      "code": "node bin/sloplint.js --help\n\nnpm install -g .",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/aashaexo/soundshuman/blob/a45cfbba9fde843d670e553a0aa98f6a23d7fb28/README.md?plain=1#L28"
+      }
+    },
+    {
+      "title": "为文本打分并查看原因",
+      "text": "用 `sloplint score` 给文本打分，分数越高 AI 腔越重，目标是低于 25 分。再用 `analyze` 查看命中的行号和对应规则，每一分都能追溯到具体发现。",
+      "code": "echo \"This serves as a testament to our seamless approach.\" | sloplint score\n\nsloplint analyze draft.md",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/aashaexo/soundshuman/blob/a45cfbba9fde843d670e553a0aa98f6a23d7fb28/README.md?plain=1#L55"
+      }
+    },
+    {
+      "title": "自动修复并扫描整个目录",
+      "text": "用 `fix -w` 写回安全的机械性修复（填充短语、破折号、弯引号）。用 `scan` 审查整个文档目录，结果按分数从高到低排列。",
+      "code": "sloplint fix draft.md -w\n\nsloplint scan docs/",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/aashaexo/soundshuman/blob/a45cfbba9fde843d670e553a0aa98f6a23d7fb28/README.md?plain=1#L55"
+      }
+    },
+    {
+      "title": "接入 CI 门槛或提交钩子",
+      "text": "在 CI 中使用 `--fail-above` 设置分数上限；也可以运行脚本安装 Git 的 pre-commit 钩子，在提交前拦截超过阈值的文本。",
+      "code": "sloplint scan docs/ --fail-above 50\n\nscripts/install-git-hook.sh 50",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/aashaexo/soundshuman/blob/a45cfbba9fde843d670e553a0aa98f6a23d7fb28/README.md?plain=1#L55"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "项目声明目标不是绕过 AI 检测器，而是提供可检查的规则与评分。",
+    "`fix -w` 会直接改写文件，README 建议在干净的 git 工作区操作，以便通过 diff 审阅或撤销。",
+    "短文本的评分会下调置信度，结果仅供参考。"
+  ],
+  "references": [],
+  "media": [],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "7c79d14ad0f0df351004fbde2e8ad98cc8abbd5134df4c8360bfcee308369fd3",
+  "mediaStatus": "none_in_official_documents"
+}

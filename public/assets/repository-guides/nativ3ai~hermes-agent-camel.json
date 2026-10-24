@@ -1,0 +1,65 @@
+{
+  "schemaVersion": 1,
+  "key": "nativ3ai/hermes-agent-camel",
+  "status": "partial",
+  "reason": "README 中的一键安装脚本和贡献者克隆命令都指向上游 NousResearch/hermes-agent，没有说明如何安装这个 fork 本身。因此无法从文档确认按步骤安装后能获得 --camel-guard 选项。CaMeL 的设计、trace 和基准说明位于 docs/ 下的独立文件，未包含在本次资料中。",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/nativ3ai/hermes-agent-camel/blob/8652f98290836877d168fc1a8ce8280163ab8233/README.md",
+  "sourceRevision": "8652f98290836877d168fc1a8ce8280163ab8233",
+  "canonicalKey": "nativ3ai/hermes-agent-camel",
+  "summary": "这是 Nous Research 的 Hermes Agent 的分支，在原有 AI Agent 的基础上加入了可选的 CaMeL 风格运行时防护，用于根据可信的用户意图管控敏感工具调用，开展间接提示注入实验。",
+  "intro": "适合研究 Agent 安全和间接提示注入防护的开发者，以及想在 Hermes Agent 中试验工具调用权限控制的用户。Hermes 本身提供终端 TUI、多消息平台网关、技能与记忆系统和定时任务。这个分支增加了 off / monitor / enforce 三种 CaMeL guard 模式。",
+  "requirements": "支持 Linux、macOS、WSL2 和 Android（Termux），不支持原生 Windows。需要可用的 LLM 提供方（如 Nous Portal、OpenRouter、OpenAI 或自有端点），具体凭据通过 hermes model / hermes setup 配置。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "在 Linux/macOS 运行安装脚本",
+      "text": "在 Linux、macOS 或 WSL2 中运行 README 给出的安装脚本，然后重新加载 shell 配置。注意：该脚本拉取的是上游 NousResearch/hermes-agent 的 main 分支，并非这个 fork。 原文包含需人工核查的高权限或删除命令，本站不提供一键复制；请查看该步骤的官方出处。",
+      "code": "source ~/.bashrc    # reload shell (or: source ~/.zshrc)\nhermes              # start chatting!",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/nativ3ai/hermes-agent-camel/blob/8652f98290836877d168fc1a8ce8280163ab8233/README.md?plain=1#L30"
+      }
+    },
+    {
+      "title": "选择模型并完成初始配置",
+      "text": "运行 hermes setup 进入完整配置向导，或者用 hermes model 单独选择 LLM 提供方和模型，用 hermes tools 设置启用哪些工具。遇到问题时运行 hermes doctor 诊断。",
+      "code": "hermes              # Interactive CLI — start a conversation\nhermes model        # Choose your LLM provider and model\nhermes tools        # Configure which tools are enabled\nhermes config set   # Set individual config values\nhermes gateway      # Start the messaging gateway (Telegram, Discord, etc.)\nhermes setup        # Run the full setup wizard (configures everything at once)\nhermes claw migrate # Migrate from OpenClaw (if coming from OpenClaw)\nhermes update       # Update to the latest version\nhermes doctor       # Diagnose any issues",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/nativ3ai/hermes-agent-camel/blob/8652f98290836877d168fc1a8ce8280163ab8233/README.md?plain=1#L51"
+      }
+    },
+    {
+      "title": "以 CaMeL guard 模式启动",
+      "text": "启动时加上 --camel-guard 参数。monitor 模式只记录策略判断，不拦截工具；enforce 模式会阻止未经可信用户意图授权的敏感副作用；off / legacy 保持默认行为。chat 子命令也支持该参数。",
+      "code": "hermes --camel-guard monitor\nhermes --camel-guard enforce\nhermes chat --camel-guard monitor -q \"Summarize this file\"",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/nativ3ai/hermes-agent-camel/blob/8652f98290836877d168fc1a8ce8280163ab8233/README.md?plain=1#L67"
+      }
+    },
+    {
+      "title": "在会话中使用斜杠命令",
+      "text": "运行 hermes 进入终端界面后，可以用 /new 开始新对话、/model 切换模型、/retry 或 /undo 回退，用 Ctrl+C 中断当前任务。如果要接入 Telegram 等平台，先运行 hermes gateway setup，再运行 hermes gateway start。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/nativ3ai/hermes-agent-camel/blob/8652f98290836877d168fc1a8ce8280163ab8233/README.md?plain=1#L85"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "README 的安装和贡献命令都指向上游仓库。要使用本 fork 的 CaMeL guard，需要自行确认安装来源是这个 fork。",
+    "不支持原生 Windows，需要通过 WSL2 运行。在 Termux 上安装的是精简的 .[termux] 依赖。",
+    "调用的 LLM 提供方可能产生费用，需要自备对应的 API 凭据。",
+    "hermes claw migrate 会导入 OpenClaw 中的 API keys 等密钥。如果不想迁移密钥，可以使用 --preset user-data，或先用 --dry-run 预览。",
+    "CaMeL guard 默认关闭。enforce 模式可能拦截正常的工具调用，可以先用 monitor 观察策略判断。"
+  ],
+  "references": [],
+  "media": [],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "e44eba4dae59de6cc756468ddac68e68b46b4c367c9f6798237daa8e437a54d5",
+  "mediaStatus": "none_in_official_documents"
+}

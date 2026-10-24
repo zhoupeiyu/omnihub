@@ -1,0 +1,53 @@
+{
+  "schemaVersion": 1,
+  "key": "slavingia/skills",
+  "status": "ready",
+  "reason": "",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/slavingia/skills/blob/eb9f57fba03ddb0382ed3bfe6654d3d7df128c70/README.md",
+  "sourceRevision": "eb9f57fba03ddb0382ed3bfe6654d3d7df128c70",
+  "canonicalKey": "slavingia/skills",
+  "summary": "一组基于《The Minimalist Entrepreneur》的 Claude Code 技能，用斜杠命令辅助完成从找社区、验证想法到定价、营销和成长的创业决策。",
+  "intro": "适合在 Claude Code 中工作、想按《The Minimalist Entrepreneur》的方法推进小型创业的个人或小团队。仓库提供 10 个技能，每个对应书中一个阶段，例如用 /validate-idea 检验想法是否值得做，用 /pricing 讨论定价，用 /minimalist-review 复核任意商业决策。",
+  "requirements": "需要已安装并可使用的 Claude Code（安装通过其 /plugin 命令完成）。可选的本地安装方式需要 git。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "在 Claude Code 中添加插件市场并安装",
+      "text": "在 Claude Code 会话里依次输入 /plugin marketplace add slavingia/skills 和 /plugin install minimalist-entrepreneur。文档说明 Claude Code 会拉取仓库并自动注册全部 10 个技能。若需从本地克隆安装，README 另提供了备选方式。",
+      "code": "/plugin marketplace add slavingia/skills\n/plugin install minimalist-entrepreneur",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/slavingia/skills/blob/eb9f57fba03ddb0382ed3bfe6654d3d7df128c70/README.md?plain=1#L5"
+      }
+    },
+    {
+      "title": "按创业阶段挑选要用的技能",
+      "text": "对照 Skills 表格中的“When to use”列选择技能：还在找方向用 /find-community，验证想法用 /validate-idea，控制首个产品范围用 /mvp，想先手工交付用 /processize，找前 100 个客户用 /first-customers，其余分别对应定价、营销、增长、公司价值观和决策复核。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/slavingia/skills/blob/eb9f57fba03ddb0382ed3bfe6654d3d7df128c70/README.md?plain=1#L32"
+      }
+    },
+    {
+      "title": "输入斜杠命令调用对应技能",
+      "text": "在 Claude Code 中直接输入所选技能的命令（如 /pricing 或 /minimalist-review）开始使用。技能顺序与书中的路线一致：社区、验证、构建、流程化、销售、定价、营销、增长、文化、复核，可按当前所处阶段逐个使用。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/slavingia/skills/blob/eb9f57fba03ddb0382ed3bfe6654d3d7df128c70/README.md?plain=1#L32"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "仅适用于 Claude Code 的插件机制，README 未说明其他宿主的用法。",
+    "仓库未声明开源许可证（license 为空），复用或二次分发前需自行确认授权。",
+    "技能内容基于一本书的方法论，输出是方法建议，不替代针对具体业务的专业判断。"
+  ],
+  "references": [],
+  "media": [],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "f4ea38753653c18ec86d4e821be7a455c12edac4300bce69aa64e8aed121b990",
+  "mediaStatus": "none_in_official_documents"
+}

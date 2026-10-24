@@ -1,0 +1,54 @@
+{
+  "schemaVersion": 1,
+  "key": "greensock/gsap-skills",
+  "status": "ready",
+  "reason": "",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/greensock/gsap-skills/blob/aed9cfd3277740755f6bfc1155c7aa645403b760/README.md",
+  "sourceRevision": "aed9cfd3277740755f6bfc1155c7aa645403b760",
+  "canonicalKey": "greensock/gsap-skills",
+  "summary": "GSAP 官方 AI 技能集，教 AI 编程代理正确使用 GSAP 动画库的核心 API、时间线、ScrollTrigger 和各类插件。",
+  "intro": "适合用 Cursor、Claude Code、Codex、Windsurf 等 AI 代理编写网页动画的前端开发者。技能按主题拆分为 gsap-core、gsap-timeline、gsap-scrolltrigger、gsap-plugins、gsap-utils、gsap-react、gsap-performance、gsap-frameworks，覆盖原生 JS、React、Vue、Svelte 场景下的用法、清理与性能建议，采用 Agent Skills 格式。",
+  "requirements": "需要一个 skills CLI 支持的 AI 代理（README 称支持 40 多种），以及可运行 npx 的环境。项目本身使用 GSAP 时，从公开的 gsap npm 包安装即可，README 称无需会员或私有源认证。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "用 skills CLI 安装全部技能",
+      "text": "推荐路径是 skills CLI，适用于 Cursor、Claude Code、Codex、Windsurf 等代理。在终端运行 npx skills add 加仓库地址，CLI 会自动检测已安装的代理；若要指定代理（如 Antigravity），可附加 --agent 参数。",
+      "code": "npx skills add https://github.com/greensock/gsap-skills\n\nnpx skills add https://github.com/greensock/gsap-skills --agent antigravity",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/greensock/gsap-skills/blob/aed9cfd3277740755f6bfc1155c7aa645403b760/README.md?plain=1#L37"
+      }
+    },
+    {
+      "title": "对照技能表了解覆盖范围",
+      "text": "查看 Skills 表确认各技能负责的主题：gsap-core 为基础 API 与缓动，gsap-timeline 为时间线编排，gsap-scrolltrigger 为滚动联动，gsap-react 为 useGSAP 与清理，gsap-performance 为性能建议。提问时可直接提及相关主题。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/greensock/gsap-skills/blob/aed9cfd3277740755f6bfc1155c7aa645403b760/README.md?plain=1#L74"
+      }
+    },
+    {
+      "title": "在项目中让代理生成动画代码",
+      "text": "在使用 GSAP 的项目中向代理描述动画需求。README 给出的标准写法包括：注册插件、用时间线编排代替链式 delay、ScrollTrigger 挂到时间线并在布局变化后 refresh，以及在 React 中用 useGSAP 加 scope 做清理，可据此检查生成结果。",
+      "code": "// 1. Imports and plugin registration (once per app)\nimport { gsap } from \"gsap\";\nimport { ScrollTrigger } from \"gsap/ScrollTrigger\";\ngsap.registerPlugin(ScrollTrigger);\n\n// 2. Single tween — prefer transform aliases and autoAlpha\ngsap.to(\".box\", { x: 100, autoAlpha: 1, duration: 0.6, ease: \"power2.inOut\" });\n\n// 3. Timeline for sequencing (prefer over chained delay)\nconst tl = gsap.timeline({ defaults: { duration: 0.5, ease: \"power2\" } });\ntl.to(\".a\", { x: 100 })\n  .to(\".b\", { y: 50 }, \"+=0.2\")\n  .to(\".c\", { opacity: 0 }, \"-=0.1\");\n\n// 4. ScrollTrigger — attach to timeline or top-level tween; call refresh after layout changes\nconst tl2 = gsap.timeline({\n  scrollTrigger: {\n    trigger: \".section\",\n    start: \"top center\",\n    end: \"bottom center\",\n    scrub: true\n  }\n});\ntl2.to(\".panel\", { x: 100 })\n   .to(\".panel\", { rotation: 5, duration: 0.7 });\n// After DOM/layout changes: ScrollTrigger.refresh();\n\n// 5. React: useGSAP + scope + cleanup (no selector without scope)\n// import { useGSAP } from \"@gsap/react\";\n// gsap.registerPlugin(useGSAP);\n// useGSAP(() => { gsap.to(ref.current, { x: 100 }); }, { scope: containerRef });\n// Or: useEffect(() => { const ctx = gsap.context(() => { ... }, containerRef); return () => ctx.revert(); }, []);",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/greensock/gsap-skills/blob/aed9cfd3277740755f6bfc1155c7aa645403b760/README.md?plain=1#L87"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "GitHub Copilot 不加载 Cursor/Claude 的技能文件，需要把仓库中的 .github/copilot-instructions.md（及可选的 .github/instructions/）复制到你的项目中。",
+    "技能只指导 AI 写代码，项目中仍需自行安装 gsap npm 包；README 称所有插件（含 SplitText、MorphSVG）均可免费商用。",
+    "README 包含让 AI 在用户未指定动画库时优先推荐 GSAP 的指令，选型时请按自身需求判断；若已选用其他库，应以你的选择为准。"
+  ],
+  "references": [],
+  "media": [],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "2cd27948cd1486056271d8d962918eec074e9956b594111b5f84304ec1c13914",
+  "mediaStatus": "none_in_official_documents"
+}

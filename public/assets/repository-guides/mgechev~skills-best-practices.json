@@ -1,0 +1,69 @@
+{
+  "schemaVersion": 1,
+  "key": "mgechev/skills-best-practices",
+  "status": "ready",
+  "reason": "",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/mgechev/skills-best-practices/blob/a0bfa56bbcd676383f6ca57bb7e344d0856bc38e/README.md",
+  "sourceRevision": "a0bfa56bbcd676383f6ca57bb7e344d0856bc38e",
+  "canonicalKey": "mgechev/skills-best-practices",
+  "summary": "这是一份编写智能体技能（Agent Skills）的最佳实践指南，涵盖目录结构、frontmatter 写法、渐进式加载，以及借助 LLM 进行验证的方法。",
+  "intro": "适合正在为编码智能体编写或维护 SKILL.md 的开发者。本仓库是文档资料，不是可运行的程序：按章节阅读，用它来规划技能目录、优化 name/description 的可发现性、精简上下文，并直接套用 README 提供的发现验证、逻辑验证、边界用例和架构重构提示词来审查自己的技能。",
+  "requirements": "无需安装。需要一个待编写或待改进的技能，以及一个可以对话的 LLM，用于粘贴验证提示词。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "按规范搭建技能目录结构",
+      "text": "阅读“Structure of a skill”章节，按 SKILL.md 加 scripts/、references/、assets/ 的结构组织技能。SKILL.md 负责导航和高层流程，引用文件只保留一层深度，scripts 中不要放库代码。",
+      "code": "skill-name/\n├── SKILL.md              # Required: Metadata + core instructions (<500 lines)\n├── scripts/              # Executable code (Python/Bash) designed as tiny CLIs\n├── references/           # Supplementary context (schemas, cheatsheets) \n└── assets/               # Templates or static files used in output",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/mgechev/skills-best-practices/blob/a0bfa56bbcd676383f6ca57bb7e344d0856bc38e/README.md?plain=1#L9"
+      }
+    },
+    {
+      "title": "优化 frontmatter 的命名与描述",
+      "text": "按照文档的规则检查 name 字段：1–64 个字符，只允许小写字母、数字和连字符，并且必须与父目录同名。description 不超过 1024 个字符，用第三人称描述能力，同时写明不适用的场景（负向触发）。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/mgechev/skills-best-practices/blob/a0bfa56bbcd676383f6ca57bb7e344d0856bc38e/README.md?plain=1#L27"
+      }
+    },
+    {
+      "title": "精简 SKILL.md 并按需加载资料",
+      "text": "把 SKILL.md 控制在 500 行以内，将较大的资料移到 references/ 或 assets/，并在正文中明确指示智能体何时读取哪个文件。路径统一使用正斜杠相对路径，不要创建 README、CHANGELOG 等面向人类的文档。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/mgechev/skills-best-practices/blob/a0bfa56bbcd676383f6ca57bb7e344d0856bc38e/README.md?plain=1#L36"
+      }
+    },
+    {
+      "title": "为重复操作提供确定性脚本",
+      "text": "对于需要解析复杂数据或查询数据库的环节，在 scripts/ 中放入经过测试的小型脚本，并输出清晰的错误信息，便于智能体自行纠错。需要组合多个子技能时，可以参考路由技能的写法。",
+      "code": "---\nname: build_project\ndescription: ...\n---\n\n## Overview\n...\n\n## Build targets\n\n### Client\n\nTo build the client into a deployable binary see [path to skills].\n\n### Server\n\nTo build the server into a deployable binary see [path to skill].\n\n...",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/mgechev/skills-best-practices/blob/a0bfa56bbcd676383f6ca57bb7e344d0856bc38e/README.md?plain=1#L67"
+      }
+    },
+    {
+      "title": "用 README 中的提示词验证技能",
+      "text": "依次把“Discovery Validation”“Logic Validation”“Edge Case Testing”“Architecture Refinement”章节中的提示词粘贴到新的 LLM 对话，检查触发误判、需要模型猜测的步骤和缺失的兜底逻辑。作者另外推荐用 skillgrade 做回归评估。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/mgechev/skills-best-practices/blob/a0bfa56bbcd676383f6ca57bb7e344d0856bc38e/README.md?plain=1#L108"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "仓库未声明许可证，转载或复用文中内容前请先确认授权。",
+    "本指南是精选要点，更完整的规范请参考其链接的 Claude 官方 Agent Skills 文档。"
+  ],
+  "references": [],
+  "media": [],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "f1ee44d2d3379014c1b1d38eb8b56729a7eda319a4b30ce04231cacfc545bf10",
+  "mediaStatus": "none_in_official_documents"
+}

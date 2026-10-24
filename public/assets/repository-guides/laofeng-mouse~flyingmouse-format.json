@@ -1,0 +1,71 @@
+{
+  "schemaVersion": 1,
+  "key": "laofeng-mouse/flyingmouse-format",
+  "status": "ready",
+  "reason": "",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/LaoFeng-mouse/flyingmouse-format/blob/a7b9b15d32db80cecedae00e89289088656fb1ae/README.md",
+  "sourceRevision": "a7b9b15d32db80cecedae00e89289088656fb1ae",
+  "canonicalKey": "LaoFeng-mouse/flyingmouse-format",
+  "summary": "可离线使用的 Windows 文件格式转换工具，支持图片、文档、表格、PPT、PDF、音视频、电子书等格式互转，并提供 OCR 和批量转换。",
+  "intro": "适合需要在本地批量转换文件格式、又不希望把文件上传到云端的个人用户。可以用来把 Office/WPS 文档转成 PDF、从 PDF 提取表格到 Excel、转换普通音视频格式、把多张图片合并成 PDF，以及拆分或加密 PDF。软件还提供命令行接口，并能把配套 skill 接入已有的 Codex 或 Claude 目录。",
+  "requirements": "Windows 10/11 x64。安装包约 1.41 GiB，完整展开后约 3.76 GiB。使用高级 PDF 结构识别时，需要至少 5 GiB 当前可用物理内存。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "下载 Windows 完整版安装包",
+      "text": "在 Windows 10/11 x64 上，从 GitHub Release 下载 FlyingMouse-Format-Setup-0.7.10-x64.exe。0.7.10 版本只发布了这个完整版，Lite、macOS 和 Windows 7 安装包本次没有发布。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/LaoFeng-mouse/flyingmouse-format/blob/a7b9b15d32db80cecedae00e89289088656fb1ae/README.md?plain=1#L1"
+      }
+    },
+    {
+      "title": "安装并启动飞鼠格式",
+      "text": "运行安装包完成安装，然后启动 FlyingMouse Format。由于安装包未签名，SmartScreen 可能弹出提示，需要你自行确认来源后再继续。首次启动时界面语言跟随系统，之后可以手动切换中文或英文。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/LaoFeng-mouse/flyingmouse-format/blob/a7b9b15d32db80cecedae00e89289088656fb1ae/README.md?plain=1#L53"
+      }
+    },
+    {
+      "title": "拖入文件并选择目标格式",
+      "text": "把要转换的文件拖进窗口，选择目标格式后开始转换。可以一次放入多个文件批量转换，界面会显示每个文件的进度和失败原因。多张图片合并为 PDF 前，可以在队列里调整顺序。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/LaoFeng-mouse/flyingmouse-format/blob/a7b9b15d32db80cecedae00e89289088656fb1ae/README.md?plain=1#L53"
+      }
+    },
+    {
+      "title": "预览结果并选择保存位置",
+      "text": "转换完成后，可以在侧边抽屉中预览图片、PDF、文本、音频和视频，然后选择保存位置，也可以逐个保存或全部保存。软件会按源文件格式记住上次选择的目标格式，并记住保存目录。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/LaoFeng-mouse/flyingmouse-format/blob/a7b9b15d32db80cecedae00e89289088656fb1ae/README.md?plain=1#L53"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "Windows 安装包未签名，可能触发 SmartScreen 提示。实机验收只在 Windows 11 上完成，作者不保证所有电脑都兼容。",
+    "不支持音乐平台的加密音频格式（如 NCM、KGG、mflac 等），也不支持 AV3A。",
+    "高级 PDF 结构识别有限制：最多 500 页、单页最多 5000 万像素，启动前需要至少 5 GiB 可用内存。复杂多栏排版、图片位置和扫描件标点可能与原 PDF 不一致。",
+    "HEIC 之外的 ICO、TGA、相机 RAW 等转换标注为实验性功能。",
+    "采用非商用许可：禁止售卖、转卖、套壳换皮后重新发布。内置的 PyMuPDF 采用 AGPL-3.0 许可。",
+    "源码仓库不包含 FFmpeg、LibreOffice、Poppler、Tesseract 等引擎资源。从源码运行完整功能时，需要自行把这些资源准备到 bin/ 目录下。"
+  ],
+  "references": [],
+  "media": [
+    {
+      "url": "/assets/repository-guides/media-5cd47da08956c2964aa0ac35.webp",
+      "alt": "LaoFeng-mouse/flyingmouse-format 官方演示 1",
+      "sourceUrl": "https://github.com/LaoFeng-mouse/flyingmouse-format/blob/a7b9b15d32db80cecedae00e89289088656fb1ae/README.md?plain=1#L18",
+      "originalUrl": "https://raw.githubusercontent.com/LaoFeng-mouse/flyingmouse-format/a7b9b15d32db80cecedae00e89289088656fb1ae/public/assets/screenshots/home.png"
+    }
+  ],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "125c44f5839c7e2051ef5556788c8c772d1d14d9fd02a01ce5f1e0b3d5717e0e",
+  "mediaStatus": "archived",
+  "mediaFailures": []
+}

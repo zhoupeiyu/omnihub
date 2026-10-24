@@ -1,0 +1,71 @@
+{
+  "schemaVersion": 1,
+  "key": "zaijin88/3xx-wangge",
+  "status": "ready",
+  "reason": "",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/ZAIJIN88/3xx-wangge/blob/f3daa37946da1388b14b3bb6e9f8fd9388059448/README.md",
+  "sourceRevision": "f3daa37946da1388b14b3bb6e9f8fd9388059448",
+  "canonicalKey": "ZAIJIN88/3xx-wangge",
+  "summary": "在本机运行的永续合约网格交易机器人，支持 Decibel、Extended、RISEx 三家交易所，在浏览器仪表盘中统一监控和操作，提供模拟和实盘两种模式。",
+  "intro": "适合想在 Decibel（Aptos）、Extended（Starknet）、RISEx 上学习或运行网格策略的用户。三个交易所可以各自独立运行中性、做多或做空网格。内置智能填充参数、区间外止损、在线调整区间和崩溃后续跑功能；AI 助手和 Telegram/Webhook 推送是可选功能。模拟模式使用虚拟 10000 USDC 和真实行情，不需要任何 API 密钥。",
+  "requirements": "一键启动脚本适用于 Windows。脚本会检查 Node.js，未安装时尝试用 winget 自动安装；手动安装需要 Node.js v20 或更高版本。部分地区直连不了交易所 API，需要配置代理。实盘需要对应交易所的 API 凭据、私钥，以及账户里的 USDC 保证金。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "Windows 双击一键启动脚本",
+      "text": "本指南以 Windows 模拟模式为例。下载项目（zip 包需先解压），双击“一键启动.bat”。脚本会检查或安装 Node.js、从 .env.example 复制出 .env、首次运行时执行 npm install，然后启动 node src/server.js。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/ZAIJIN88/3xx-wangge/blob/f3daa37946da1388b14b3bb6e9f8fd9388059448/README.md?plain=1#L72"
+      }
+    },
+    {
+      "title": "打开浏览器仪表盘",
+      "text": "等命令行窗口显示“已启动”，浏览器会自动打开 http://localhost:8080。顶部有五个页签：总览、三个交易所控制台、IP配置、AI助手。总览页每秒刷新各所的余额、盈亏、成交量和挂单数。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/ZAIJIN88/3xx-wangge/blob/f3daa37946da1388b14b3bb6e9f8fd9388059448/README.md?plain=1#L72"
+      }
+    },
+    {
+      "title": "网络不通时配置代理",
+      "text": "如果交易所显示初始化失败、ENOTFOUND 或连接超时，到“IP配置”页设置全局代理或各所独立代理，点“检测当前出口 IP”确认生效，再点“写入 .env”，重启程序后生效。支持 HTTP(S) 和 SOCKS5 格式。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/ZAIJIN88/3xx-wangge/blob/f3daa37946da1388b14b3bb6e9f8fd9388059448/README.md?plain=1#L168"
+      }
+    },
+    {
+      "title": "在控制台启动模拟网格",
+      "text": "进入某个交易所的控制台，选择交易对，可以先看 K 线趋势分析。点“智能填充参数”自动填入网格类型、上下边界、格数和每格数量，检查无误后点“启动 XX 网格”。程序会先检查保证金和格距是否覆盖手续费，通过后才铺单。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/ZAIJIN88/3xx-wangge/blob/f3daa37946da1388b14b3bb6e9f8fd9388059448/README.md?plain=1#L72"
+      }
+    },
+    {
+      "title": "停止网格并关闭程序",
+      "text": "要退出策略，点“停止 + 撤单 + 平仓”；只想清掉挂单而保留持仓，点“撤销所有挂单”。关闭黑色命令行窗口就是停止程序，但已挂在交易所的单不会自动撤销，下次启动时程序会自动接管续跑。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/ZAIJIN88/3xx-wangge/blob/f3daa37946da1388b14b3bb6e9f8fd9388059448/README.md?plain=1#L72"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "永续合约交易有高杠杆风险，可能损失全部本金。README 声明本程序仅供学习研究，盈亏由使用者自行承担，建议实盘前先在模拟模式下充分熟悉。",
+    "实盘需要编辑 .env，把对应交易所改为 live，填入 API Key 和私钥，再运行“实盘启动.bat”并输入 YES 确认。.env 中的私钥等于资金控制权，不要外传或提交到仓库，并优先使用无提币权限的 API 钱包或 API Key。",
+    "实盘模式下代理不通会直接中止启动；模拟模式拿不到真实行情时会改用合成数据。",
+    "AI 助手需要你自己的大模型 API Key，README 提到多数国产服务需要先充值。AI 只能提议写操作，必须在网页上确认后才会执行。",
+    "如果日志提示仪表盘监听 0.0.0.0，局域网内其他设备也能访问，请确保网络环境可信。",
+    "仓库未声明开源许可证。"
+  ],
+  "references": [],
+  "media": [],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "5a71a19d566eab12486bfb971ee320f617f914579d17822a122bdecd4f19f2ee",
+  "mediaStatus": "none_in_official_documents"
+}

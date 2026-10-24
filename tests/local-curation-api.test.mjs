@@ -1,0 +1,50 @@
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import {mkdtempSync,rmSync} from 'node:fs';
+import os from 'node:os';
+import path from 'node:path';
+import http from 'node:http';
+
+test('local device API enforces owner setup, scoped tokens, no paid fetches and private result lifecycle',async t=>{
+  const dir=mkdtempSync(path.join(os.tmpdir(),'omnihub-local-api-'));
+  process.env.OMNIHUB_DATA_DIR=dir;process.env.OMNIHUB_X_BOOKMARK_SYNC='false';
+  const {db}=await import('../lib/db.js');const {handleApi}=await import('../lib/api.js');
+  const {contentStore}=await import('../lib/content-runtime.js');
+  db.exec("INSERT INTO users(id,username,password_hash,salt) VALUES(1,'zane','fixture','fixture'),(2,'reader','fixture','fixture');INSERT INTO sessions(token,user_id) VALUES('owner-fixture',1),('reader-fixture',2)");
+  const server=http.createServer(async(req,res)=>{if(!await handleApi(req,res,new URL(req.url,'http://localhost').pathname)){res.writeHead(404);res.end();}});
+  await new Promise(resolve=>server.listen(0,'127.0.0.1',resolve));
+  const base=`http://127.0.0.1:${server.address().port}`,fetchHttp=globalThis.fetch;
+  globalThis.fetch=()=>{throw new Error('No external calls are authorized by this test');};
+  t.after(async()=>{globalThis.fetch=fetchHttp;await new Promise(resolve=>server.close(resolve));db.close();rmSync(dir,{recursive:true,force:true});});
+  const request=(url,{session,bearer,body,origin}={})=>fetchHttp(base+url,{method:body?'POST':'GET',headers:{
+    ...(session?{cookie:`omnihub_session=${session}`} : {}),...(bearer?{authorization:`Bearer ${bearer}`} : {}),
+    ...(body?{'content-type':'application/json'}:{}),...(origin?{origin}:{})},body:body?JSON.stringify(body):undefined});
+  const owner={session:'owner-fixture'};
+  assert.equal((await request('/api/local-curation/settings')).status,401);
+  assert.equal((await request('/api/local-curation/settings',{session:'reader-fixture'})).status,200);
+  assert.equal((await request('/api/local-curation/settings',{...owner,body:{enabled:true,model:'fixture'},origin:'https://evil.example'})).status,403);
+  const response=await request('/api/local-curation/devices',{...owner,body:{label:'测试电脑'}});
+  assert.equal(response.headers.get('cache-control'),'no-store');
+  const pair=await response.json(),worker={bearer:pair.deviceToken};
+  const disabledClaim=await (await request('/api/local-curation/claim',{...worker,body:{}})).json();
+  assert.equal(disabledClaim.waitingFor,'local_curation_disabled');
+  assert.equal(db.prepare('SELECT count(*) n FROM content_calls').get().n,0);
+  assert.equal((await request('/api/local-curation/settings',{...owner,body:{enabled:true,model:'fixture'}})).status,200);
+  assert.equal((await request('/api/local-curation/settings',worker)).status,401);
+  assert.equal((await request('/api/local-curation/devices',{...worker,body:{}})).status,401);
+  assert.equal((await request('/api/inbox',worker)).status,401);
+  assert.equal((await request('/api/local-curation/claim',{...owner,body:{}})).status,401);
+  const privateStatus=await (await request('/api/local-curation/status',worker)).json();
+  assert.equal(privateStatus.sync.enabled,false);assert(!JSON.stringify(privateStatus).includes(pair.deviceToken));
+  db.exec("INSERT INTO inbox(user_id,source,external_id,title,content,visibility) VALUES(1,'x','100','收藏方法','先保存原文，再按照用途归类。','private')");
+  const id=Number(db.prepare('SELECT id FROM inbox').get().id);contentStore.allowLocalSources(1,[id]);
+  const claim=await (await request('/api/local-curation/claim',{...worker,body:{}})).json();assert.equal(claim.task.stage,'classify');
+  const payload={requestKey:claim.task.requestKey,leaseToken:claim.task.leaseToken,model:'fixture',value:{kind:'method',assets:['method'],sufficiency:'complete',confidence:.99,reason:'有可重复使用的步骤'}};
+  assert.equal((await request(`/api/local-curation/tasks/${claim.task.id}/complete`,{...worker,body:payload})).status,200);
+  assert.equal((await request(`/api/local-curation/tasks/${claim.task.id}/complete`,{...worker,body:payload})).status,200);
+  const next=await (await request('/api/local-curation/claim',{...worker,body:{}})).json();assert.equal(next.task.stage,'editorial');
+  assert.equal(db.prepare('SELECT count(*) n FROM content_calls').get().n,2);
+  await request(`/api/local-curation/devices/${pair.id}/revoke`,{...owner,body:{}});
+  assert.equal((await request('/api/local-curation/status',worker)).status,401);
+  assert.equal((await request('/api/knowledge-library')).status,200);
+});

@@ -1,0 +1,75 @@
+{
+  "schemaVersion": 1,
+  "key": "cyberj0605/cinematic-video-prompt-engineer-skill",
+  "status": "ready",
+  "reason": "",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/CyberJ0605/cinematic-video-prompt-engineer-skill/blob/72e2fd0c865af13f495c4cab9031ec1e48393117/README.md",
+  "sourceRevision": "72e2fd0c865af13f495c4cab9031ec1e48393117",
+  "canonicalKey": "CyberJ0605/cinematic-video-prompt-engineer-skill",
+  "summary": "这是一个 Agent Skill，能把剧情、小说片段或场景想法转写成 6 到 30 秒、可直接交给视频模型使用的电影感 AI 视频提示词。",
+  "intro": "适合用 Seedance、Kling、海螺等视频模型制作短视频的创作者。Skill 会先诊断剧情、情绪和结构，再设计镜头、表演、台词、声音和连续性。它支持两条生产路径：直接输出视频提示词，或先规划参考图、再编译视频提示词。还支持竖屏重构、生成结果的局部修复，以及连续短片续写。",
+  "requirements": "需要一个支持 Skill 安装的 Agent 工具，如 Codex、Claude Code、Workbuddy；完整能力以 Codex Skill 版本为准。另需自备视频生成模型和文生图工具，用来实际生成视频和参考图。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "克隆仓库获取 Skill 文件",
+      "text": "本指南以 Windows 下的 Codex 手动安装为例。用 Git 克隆仓库；不使用 Git 的话，可以在 GitHub 页面点击 Code -> Download ZIP 下载并解压。",
+      "code": "git clone https://github.com/CyberJ0605/cinematic-video-prompt-engineer-skill.git",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/CyberJ0605/cinematic-video-prompt-engineer-skill/blob/72e2fd0c865af13f495c4cab9031ec1e48393117/README.md?plain=1#L163"
+      }
+    },
+    {
+      "title": "复制内层文件夹到 skills 目录",
+      "text": "只把仓库内部的 cinematic-video-prompt-engineer 文件夹复制到 Codex 的 skills 目录，不要复制外层的仓库目录。Windows 默认路径见代码块；如果 skills 目录已迁移，就放到迁移后的位置。复制后的结构应与文档一致，且不能出现同名嵌套目录。",
+      "code": "C:\\Users\\你的用户名\\.codex\\skills\\cinematic-video-prompt-engineer\n\nD:\\Codex\\skills\\cinematic-video-prompt-engineer\n\ncinematic-video-prompt-engineer/\n  SKILL.md\n  agents/\n    openai.yaml\n  references/\n    camera_movement_prompt_library.md\n    emotion_performance_prompt_library.md\n    reference_first_video_workflow.md\n    style_patterns.md\n    evaluation_cases.md\n    vertical_9x16_adaptation.md\n\ncinematic-video-prompt-engineer/cinematic-video-prompt-engineer/",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/CyberJ0605/cinematic-video-prompt-engineer-skill/blob/72e2fd0c865af13f495c4cab9031ec1e48393117/README.md?plain=1#L163"
+      }
+    },
+    {
+      "title": "在新对话中调用 Skill",
+      "text": "安装完成后，打开新对话，输入 $cinematic-video-prompt-engineer 并附上剧情。Skill 会自行判断时长、结构和生产路径。默认采用打磨模式，输出剧情诊断、电影化策略和最终视频提示词；如果只想要提示词，明确说明即可切换为精简模式。",
+      "code": "$cinematic-video-prompt-engineer\n\n【剧情诊断】\n【电影化改写策略】\n【最终视频提示词】",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/CyberJ0605/cinematic-video-prompt-engineer-skill/blob/72e2fd0c865af13f495c4cab9031ec1e48393117/README.md?plain=1#L15"
+      }
+    },
+    {
+      "title": "需要一致性时走参考图优先路径",
+      "text": "如果涉及多个主要人物、古装造型、复杂空间或关键道具，可以要求 Skill 走参考图优先路径。它会先输出素材规划和文生图提示词。你实际生成或上传图片后，它才会编译出参考图驱动的视频提示词。",
+      "code": "阶段1：剧情诊断与电影化策略\n阶段2：参考图素材规划与文生图提示词\n阶段3：生成、选择或上传实际参考图\n阶段4：检查图片并编译参考图驱动的视频提示词\n阶段5：根据生成结果做局部修复或继续下一段\n\n请用 $cinematic-video-prompt-engineer 处理这个古装双人对话场景。\n人物和服装一致性很重要，先走参考图优先路径，不要急着输出视频提示词。\n\n【剧情诊断】\n【电影化改写策略】\n【参考图素材规划】\n【参考图提示词】",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/CyberJ0605/cinematic-video-prompt-engineer-skill/blob/72e2fd0c865af13f495c4cab9031ec1e48393117/README.md?plain=1#L75"
+      }
+    },
+    {
+      "title": "反馈生成结果进行局部修复",
+      "text": "把生成的视频或参考图交回 Skill，并说明哪些部分满意、哪些出了问题。Skill 会锁定成功的部分，只修改失败的变量。如果要继续下一段，可以要求沿用已有的人物、场景、道具、声线和情绪余波。",
+      "code": "这条视频的人物、场景和表演都满意，但最后一次转身时镜头没有跟上。\n请锁定其他成功部分，只修复转身后的运镜和结束构图。\n\n继续上一段剧情，沿用人物、场景、服装、关键道具、声线和情绪余波。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/CyberJ0605/cinematic-video-prompt-engineer-skill/blob/72e2fd0c865af13f495c4cab9031ec1e48393117/README.md?plain=1#L15"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "Skill 只输出提示词，不负责生成视频；提示词通过自检不等于生成效果已经验证，最终效果要看实际视频反馈。",
+    "单条提示词最长对应 30 秒，并有字符上限（1-15 秒 2000 字符、16-24 秒 3200 字符、25-30 秒 4000 字符）。剧情过长时会改为截取高光片段或拆成连续短片。",
+    "不适用于露骨性内容、未成年人性化、非自愿性内容和过度血腥内容，也不适合依赖大量字幕的叙事。",
+    "在不支持 Skill 的工具中可以改用 PROMPT_VERSION.md，但它缺少完整参考库、分阶段路由和评测能力。",
+    "Skill 无法对尚未上传或无法查看的图片做精确视觉判断。"
+  ],
+  "references": [],
+  "media": [],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "dcf53966fd7167019b1fb03160228a48b911431f25c2bff731411f301b6d8884",
+  "mediaStatus": "none_in_official_documents"
+}

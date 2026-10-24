@@ -1,0 +1,71 @@
+{
+  "schemaVersion": 1,
+  "key": "0xnyk/council-of-high-intelligence",
+  "status": "ready",
+  "reason": "",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/0xNyk/council-of-high-intelligence/blob/fd9f4e5389ab590fa97d1112215f7f1462143240/README.md",
+  "sourceRevision": "fd9f4e5389ab590fa97d1112215f7f1462143240",
+  "canonicalKey": "0xNyk/council-of-high-intelligence",
+  "summary": "一个多视角决策评议技能：把难题交给 18 个不同分析视角的成员，先各自独立分析，再互相交叉质询，最后给出保留分歧、终止条件和下一步行动的裁决。支持 Claude Code、Codex、Gemini CLI 和 OpenCode。",
+  "intro": "适合需要做高代价、不可逆、价值冲突或证据不全决策的个人和团队，例如架构选型、产品策略、发布时机和风险评估。它提供三种模式：完整评议（full）、快速评议（quick）和双人辩证（duo），也可以按领域选用三人小组（triad）。裁决会区分 FACT、INFERENCE、ASSUMPTION、UNKNOWN 四类证据标签，并附带可追踪的结果记录方法。",
+  "requirements": "需要已安装受支持的宿主之一：Claude Code、Codex、Gemini CLI 或 OpenCode。以下为可选项：若要跨模型分配席位，需要本机有 codex、gemini、ollama、cursor-agent 等可执行程序，或配置 NVIDIA_API_KEY。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "在 Claude Code 安装插件",
+      "text": "以 Claude Code 为例，在客户端中先添加插件市场，再安装 council 插件，安装完成后重启客户端。Codex、Gemini CLI 或 OpenCode 用户则需要克隆仓库，运行 install.sh 并加上对应的参数。无论哪个宿主，命令都是 /council。",
+      "code": "/plugin marketplace add 0xNyk/council-of-high-intelligence\n/plugin install council@council-of-high-intelligence",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/0xNyk/council-of-high-intelligence/blob/fd9f4e5389ab590fa97d1112215f7f1462143240/README.md?plain=1#L25"
+      }
+    },
+    {
+      "title": "先写清决策边界",
+      "text": "开始评议前，先写下决策内容、约束、已有证据、可逆性和截止时间。单纯查询事实时，直接查文档即可；选择便宜且可逆时，直接做实验；不要用评议为已有偏好背书。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/0xNyk/council-of-high-intelligence/blob/fd9f4e5389ab590fa97d1112215f7f1462143240/README.md?plain=1#L56"
+      }
+    },
+    {
+      "title": "选择模式并发起评议",
+      "text": "用 /council 加问题发起评议。--full 适合高风险、需要多种框架正面碰撞的问题；--quick 在交叉质询不会改变结论时使用；--duo 适合由单一对立面决定的问题。也可以用 --triad 指定领域，或用 --members 指定成员。",
+      "code": "/council Should we open-source our agent framework?\n/council --quick Should we add caching here?\n/council --duo Should we use microservices or a monolith?\n\n/council --full What is the right pricing model?\n/council --quick --triad shipping Should we release today?\n/council --duo --members torvalds,ada Is this abstraction worth it?\n\n/council --triad strategy Where is our defensible advantage?\n/council --triad risk What could make this launch irreversible?\n/council --triad ai-product Which capability belongs in the product?",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/0xNyk/council-of-high-intelligence/blob/fd9f4e5389ab590fa97d1112215f7f1462143240/README.md?plain=1#L75"
+      }
+    },
+    {
+      "title": "可选：预览多模型路由",
+      "text": "如果本机有其他模型提供方，可以加 --dry-route 预览席位分配，此时不会真正运行评议。--no-auto-route 保留宿主默认设置；--models 搭配示例配置文件，可以指定明确的席位映射。",
+      "code": "/council --dry-route --triad decision Should we accept this acquisition offer?",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/0xNyk/council-of-high-intelligence/blob/fd9f4e5389ab590fa97d1112215f7f1462143240/README.md?plain=1#L165"
+      }
+    },
+    {
+      "title": "解读裁决并登记结果",
+      "text": "裁决会先列出未解决的问题，再给出建议、可接受的折中方案、终止条件和下一步行动；票数仍然分裂时，会如实返回分歧。行动前记录预测、负责人、复查日期和可能改变建议的证据，到期后标注结果。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/0xNyk/council-of-high-intelligence/blob/fd9f4e5389ab590fa97d1112215f7f1462143240/README.md?plain=1#L104"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "成员是分析视角工具，不代表真实人物本人的观点，官方明确说明它们不是在模仿人物。",
+    "多模型路由依赖本机已安装的 codex、gemini、ollama、cursor-agent 或 NVIDIA_API_KEY，调用外部模型可能产生相应的服务费用；某个提供方失败时，该席位会回退到宿主默认设置。",
+    "完整评议的轮次固定，耗时较长；简单或可逆的问题，官方建议改用 --quick、--duo 或直接查证。"
+  ],
+  "references": [],
+  "media": [],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "3f6a0e75bea29edb42b4553b96d8de8e3934f97681ebe42f42acd3ab0020fab0",
+  "mediaStatus": "none_in_official_documents"
+}

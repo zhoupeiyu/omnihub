@@ -1,0 +1,85 @@
+{
+  "schemaVersion": 1,
+  "key": "paywallpro/paywall-gallery",
+  "status": "ready",
+  "reason": "",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/paywallpro/paywall-gallery/blob/d5c81b7edcc6fb2786d58b13ba3f162325fd4db8/README.md",
+  "sourceRevision": "d5c81b7edcc6fb2786d58b13ba3f162325fd4db8",
+  "canonicalKey": "paywallpro/paywall-gallery",
+  "summary": "一个公开的 iOS 订阅 App 付费墙与 Onboarding 资料集，可按 App、品类和付费墙模式查阅截图、定价模型与部分变现信号。",
+  "intro": "适合独立开发者、产品经理、增长团队和设计师，在设计或改版订阅付费墙前查找真实案例：例如对比免费试用与非试用付费墙结构、研究月付与年付的价格锚点、参考套餐卡片与 CTA 布局，或建立订阅 UX 参考库。仓库以 Markdown 文件发布，既可直接浏览，也可通过结构化 frontmatter 程序化读取。它是 PaywallPro 数据库的精选公开子集。",
+  "requirements": "无需注册即可在 GitHub 上浏览；如需程序化读取，需能解析 Markdown 文件中的 YAML frontmatter。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "从中文索引进入完整 App 列表",
+      "text": "打开仓库的 README.zh-CN.md，点击 apps/index.zh-CN.md 进入完整 App 索引（英文版为 apps/index.md）。README 中的 Top 20 表格列出了品类、预估 MRR、付费墙模式和对应案例页链接，可作为快速入口。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/paywallpro/paywall-gallery/blob/d5c81b7edcc6fb2786d58b13ba3f162325fd4db8/README.zh-CN.md?plain=1#L53"
+      }
+    },
+    {
+      "title": "按品类或付费墙模式筛选案例",
+      "text": "在“按品类浏览”中进入 categories/ 下的页面（如 health-and-fitness.md、productivity.md）；若关注付费墙结构，则打开 docs/free-trial-paywalls.md、docs/monthly-vs-annual-pricing.md 或 docs/paywall-pattern-taxonomy.md。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/paywallpro/paywall-gallery/blob/d5c81b7edcc6fb2786d58b13ba3f162325fd4db8/README.zh-CN.md?plain=1#L146"
+      }
+    },
+    {
+      "title": "阅读单个 App 案例页面",
+      "text": "每个 App 条目位于 apps/{app-name}-{app_id}.md，包含代表性付费墙截图、可用时的 Onboarding 预览、定价模型摘要和付费墙模式分类。页面顶部 frontmatter 含 app_name、category、paywall_type、pricing_model、mrr、offers 等字段。",
+      "code": "apps/{app-name}-{app_id}.md\n\n---\napp_name: \"YouTube\"\napp_id: 544007664\ndeveloper: \"Google\"\ncategory: \"Photo & Video\"\npaywall_type: \"Free Trial - Soft Paywall\"\npricing_model: \"2 offer sets across month\"\nmrr: \"$55.84M\"\nrating: 4.68\nversions_count: 1\noffers:\n  - period: \"month\"\n    prices: [\"$18.99\", \"$18.99/$29.99\"]\nonboarding_count: 1\nwalkthrough_count: 0\napp_detail_url: \"https://www.paywallpro.app/apps/YouTube-us?id=PAYWALLPRO_INFO_ID\"\n---",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/paywallpro/paywall-gallery/blob/d5c81b7edcc6fb2786d58b13ba3f162325fd4db8/README.md?plain=1#L116"
+      }
+    },
+    {
+      "title": "对照数据字典理解字段含义",
+      "text": "程序化读取或比较多个 App 前，先查看 docs/data-dictionary.md 中的字段定义，确认 pricing_model、offers、onboarding_count 等字段的含义，再按 frontmatter 结构批量解析。",
+      "code": "---\napp_name: \"YouTube\"\napp_id: 544007664\ndeveloper: \"Google\"\ncategory: \"Photo & Video\"\npaywall_type: \"Free Trial - Soft Paywall\"\npricing_model: \"2 offer sets across month\"\nmrr: \"$55.84M\"\nrating: 4.68\nversions_count: 1\noffers:\n  - period: \"month\"\n    prices: [\"$18.99\", \"$18.99/$29.99\"]\nonboarding_count: 1\nwalkthrough_count: 0\napp_detail_url: \"https://www.paywallpro.app/apps/YouTube-us?id=PAYWALLPRO_INFO_ID\"\n---",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/paywallpro/paywall-gallery/blob/d5c81b7edcc6fb2786d58b13ba3f162325fd4db8/README.md?plain=1#L62"
+      }
+    },
+    {
+      "title": "提交缺失 App 请求或数据纠错",
+      "text": "若想收录某个 App，可通过仓库的 app-request Issue 模板提交请求；发现数据错误时参考 CONTRIBUTING.zh-CN.md，并在 REQUESTS.zh-CN.md 查看当前请求列表。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/paywallpro/paywall-gallery/blob/d5c81b7edcc6fb2786d58b13ba3f162325fd4db8/README.zh-CN.md?plain=1#L1"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "结构化元数据仅允许用于学习、研究、评论和内部产品参考，且需注明出处；禁止批量复制、重新包装、转售或用于构建商业化竞品付费墙情报产品。",
+    "截图和 UI 版权归各自 App 开发者所有。",
+    "仓库只是每个 App 的精选公开预览；完整截图集、历史版本、定价实验和高级筛选保留在 PaywallPro 平台。",
+    "MRR 等数值为预估的变现信号，引用时应注明来源与估算性质。",
+    "LICENSE 字段显示为 NOASSERTION，具体条款需查看仓库内 LICENSE 文件。"
+  ],
+  "references": [
+    {
+      "label": "README.zh-CN.md",
+      "url": "https://github.com/paywallpro/paywall-gallery/blob/d5c81b7edcc6fb2786d58b13ba3f162325fd4db8/README.zh-CN.md"
+    }
+  ],
+  "media": [
+    {
+      "url": "/assets/repository-guides/media-397117577572f19377e05b8f.webp",
+      "alt": "paywallpro/paywall-gallery 官方演示 1",
+      "sourceUrl": "https://github.com/paywallpro/paywall-gallery/blob/d5c81b7edcc6fb2786d58b13ba3f162325fd4db8/README.md?plain=1#L15",
+      "originalUrl": "https://raw.githubusercontent.com/paywallpro/paywall-gallery/d5c81b7edcc6fb2786d58b13ba3f162325fd4db8/assets/readme-hero.jpg"
+    }
+  ],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "c819fb51e2d3845c2dcad49c820743da42b00d4f39b58b5273e9979bde1a07fa",
+  "mediaStatus": "archived",
+  "mediaFailures": []
+}

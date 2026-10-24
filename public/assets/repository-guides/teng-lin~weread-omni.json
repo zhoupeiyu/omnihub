@@ -1,0 +1,75 @@
+{
+  "schemaVersion": 1,
+  "key": "teng-lin/weread-omni",
+  "status": "ready",
+  "reason": "",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/teng-lin/weread-omni/blob/88bd2e095d7d7ee423eaadf8f40653e72c5be6d4/README.md",
+  "sourceRevision": "88bd2e095d7d7ee423eaadf8f40653e72c5be6d4",
+  "canonicalKey": "teng-lin/weread-omni",
+  "summary": "weread-omni 是微信读书的非官方 CLI、TypeScript SDK 和 agent skill，提供书架、笔记、点评、公众号文章、书籍导入和微信读书 AI 等 40 项读写操作。",
+  "intro": "适合想用命令行、脚本或 AI agent 管理自己微信读书账号的用户和开发者。它可以搜索书籍、查看目录与阅读统计、增删改自己的划线和点评、读取公众号文章并导出为 RSS/JSON Feed、导入 EPUB/PDF 等个人书籍，以及向微信读书 AI 提问。所有命令都支持 --json 输出，方便 agent 调用。",
+  "requirements": "需要 Node.js >=22.13.0，以及一个已开通微信读书的微信账号（用于扫码登录）。如需安装 agent skill，还需要能运行 npx skills 的环境，并使用 Codex 或 Claude Code 等宿主。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "全局安装并扫码登录",
+      "text": "用 npm 全局安装 weread-omni，然后执行 weread-omni login --json，终端会显示二维码，用微信读书账号扫码即可登录。登录成功后返回的 JSON 只包含账号别名、客户端 ID、vid 和设备 ID，不包含令牌。",
+      "code": "npm install --global weread-omni\nweread-omni login --json\nweread-omni doctor --json\nweread-omni search books \"三体\" --json",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/teng-lin/weread-omni/blob/88bd2e095d7d7ee423eaadf8f40653e72c5be6d4/README.md?plain=1#L25"
+      }
+    },
+    {
+      "title": "用 doctor 检查登录与连接",
+      "text": "执行 weread-omni doctor --json，它会核对当前安装和登录状态，并发起一次只读请求确认连接正常。如果有多个账号，可以用 --account 指定别名登录，再用 accounts use 设置默认账号。凭据默认保存在 ~/.config/weread/accounts/ 下。",
+      "code": "weread-omni --account work login --json\nweread-omni accounts --json\nweread-omni accounts use work --json\nweread-omni --account default shelf sync --json",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/teng-lin/weread-omni/blob/88bd2e095d7d7ee423eaadf8f40653e72c5be6d4/README.md?plain=1#L25"
+      }
+    },
+    {
+      "title": "用 CLI 查书、读目录与笔记",
+      "text": "用 search books 搜索书籍，再用 book info、book chapters 查看详情和目录。book chapters 返回的 chapterUid 是后续笔记类命令所需的参数。完整参数以各命令的 --help 输出为准。翻页方式因命令而异，请参照 CLI 参考中的翻页说明。",
+      "code": "weread-omni search books \"三体\" --json\nweread-omni book info BOOK_ID --json\nweread-omni book chapters BOOK_ID --json\nweread-omni notes bookmarks BOOK_ID --json\nweread-omni read-data detail --mode annually --json\nweread-omni discover similar BOOK_ID --json\nweread-omni ai ask-book BOOK_ID \"这本书的核心论点是什么？\" --json",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/teng-lin/weread-omni/blob/88bd2e095d7d7ee423eaadf8f40653e72c5be6d4/README.md?plain=1#L83"
+      }
+    },
+    {
+      "title": "安装 agent skill 供宿主调用",
+      "text": "先完成 CLI 的安装和登录，再用 skills CLI 安装仓库自带的 weread skill。也可以加 --global 参数，直接全局安装到 Codex 和 Claude Code。该 skill 会指导 agent 检查登录状态、调用 JSON CLI、正确翻页，并在执行写操作前向你确认。",
+      "code": "npx skills add teng-lin/weread-omni --skill weread\n\nnpx skills add teng-lin/weread-omni --skill weread --global --agent codex --agent claude-code --yes",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/teng-lin/weread-omni/blob/88bd2e095d7d7ee423eaadf8f40653e72c5be6d4/README.md?plain=1#L58"
+      }
+    },
+    {
+      "title": "在代码中通过 SDK 打开账号",
+      "text": "如果要在 TypeScript 项目中使用，先用 CLI 登录，再通过 AccountManager 打开对应账号，之后调用 search、notes、shelf 等资源方法。SDK 默认不输出日志。令牌过期时，只有只读请求和幂等请求会自动重试一次，写请求不会自动重放。",
+      "code": "import { AccountManager } from \"weread-omni\";\n\nconst account = await new AccountManager().open(\"default\");\nconst weread = account.canonical;\n\nconst search = await weread.search.books(\"三体\");\nconst notes = await weread.notes.mine(\"BOOK_ID\", { count: 20 });",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/teng-lin/weread-omni/blob/88bd2e095d7d7ee423eaadf8f40653e72c5be6d4/README.md?plain=1#L278"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "这是非官方项目，与腾讯和微信读书无隶属关系。它依赖的非公开接口可能随时变化，风控和账号权限也会影响结果。",
+    "返回 -2041 表示需要人工验证，无界面客户端无法完成这一步，这不代表令牌过期。",
+    "登录信息和本地内容库（明文存储）都属于敏感数据，需要妥善保护。",
+    "写操作（删除书架书籍、删除点评、删除划线等）会直接作用于你的真实账号，执行前请确认。",
+    "仅供个人研究和自动化使用。请只操作自己的账号和有权访问的内容，并遵守微信读书的服务条款。"
+  ],
+  "references": [],
+  "media": [],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "0f0c750b0eb2711320d12781c08157311f27254cb6b814498bf7fc9498738e27",
+  "mediaStatus": "none_in_official_documents"
+}

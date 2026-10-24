@@ -1,0 +1,74 @@
+{
+  "schemaVersion": 1,
+  "key": "dembrandt/dembrandt",
+  "status": "ready",
+  "reason": "",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/dembrandt/dembrandt/blob/22cb9f9320f11b383094726646d3200698f232e4/README.md",
+  "sourceRevision": "22cb9f9320f11b383094726646d3200698f232e4",
+  "canonicalKey": "dembrandt/dembrandt",
+  "summary": "Dembrandt 是命令行工具，可从网站提取颜色、字体、间距、边框、阴影、动效和组件样式，生成 W3C 设计令牌，并能在 CI 中检测设计漂移。",
+  "intro": "适合需要记录或审计自有网站设计系统的前端开发者和设计团队。它通过 Playwright 渲染页面并读取计算样式，可导出 DTCG 令牌、Tailwind v4 主题、shadcn/ui 主题、DESIGN.md 或 HTML 报告，也能做 WCAG 对比度检查、在 CI 中对比基线，还能作为 MCP 工具供 Claude Code 等智能体调用。",
+  "requirements": "需要 Node.js 18 及以上，并执行一次 install-browser 下载 Chromium。分析对象应是自有网站，或服务条款允许自动化访问的网站。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "全局安装并下载浏览器引擎",
+      "text": "执行 npm install -g dembrandt，然后运行一次 dembrandt install-browser。dembrandt 依赖的 playwright-core 不自带浏览器，跳过这一步会报 browser engine not available 错误。",
+      "code": "npm install -g dembrandt\ndembrandt install-browser        # one-time: fetches the matching Chromium\ndembrandt dembrandt.com",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/dembrandt/dembrandt/blob/22cb9f9320f11b383094726646d3200698f232e4/README.md?plain=1#L14"
+      }
+    },
+    {
+      "title": "对目标网站执行一次提取",
+      "text": "运行 dembrandt 加域名，默认只在终端输出格式化结果，包括颜色、字体、间距、边框、阴影、动效、组件和断点等内容。",
+      "code": "npm install -g dembrandt\ndembrandt install-browser        # one-time: fetches the matching Chromium\ndembrandt dembrandt.com",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/dembrandt/dembrandt/blob/22cb9f9320f11b383094726646d3200698f232e4/README.md?plain=1#L14"
+      }
+    },
+    {
+      "title": "用导出参数生成所需格式",
+      "text": "按需添加参数：--dtcg 输出 W3C 设计令牌，--shadcn 输出 shadcn/ui 主题，--tailwind 输出 Tailwind v4 主题，--wcag 检查真实 DOM 元素对的对比度，--dark-mode 提取暗色主题。完整参数说明见 docs/usage.md。",
+      "code": "dembrandt dembrandt.com --shadcn        # shadcn/ui theme, observed slots only\ndembrandt dembrandt.com --dtcg          # W3C design tokens, for Style Dictionary or Tokens Studio\ndembrandt dembrandt.com --wcag          # WCAG 2.1 contrast on real DOM pairs",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/dembrandt/dembrandt/blob/22cb9f9320f11b383094726646d3200698f232e4/README.md?plain=1#L46"
+      }
+    },
+    {
+      "title": "在 CI 中对比基线检测漂移",
+      "text": "在 GitHub Actions 中使用 dembrandt/dembrandt Action，传入预览地址和已提交的 baseline.json；令牌发生变化时任务失败，并在 PR 上标注。其他 CI 环境可用 --compare 加 --json-only，出现漂移时以退出码 1 结束。",
+      "code": "- uses: dembrandt/dembrandt@v0.37.0\n  with:\n    url: https://preview.example.com\n    baseline: .dembrandt/baseline.json",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/dembrandt/dembrandt/blob/22cb9f9320f11b383094726646d3200698f232e4/README.md?plain=1#L108"
+      }
+    },
+    {
+      "title": "在 Claude Code 中注册 MCP",
+      "text": "用 claude mcp add 将 dembrandt-mcp 注册为 stdio 服务，或写入项目的 .mcp.json。提取工具会返回 job_id，用 get_job_status 轮询结果，再把同一个 job_id 交给 export_dtcg 等分析工具使用。",
+      "code": "claude mcp add --transport stdio dembrandt -- npx -y --package dembrandt dembrandt-mcp\n\n{\n  \"mcpServers\": {\n    \"dembrandt\": {\n      \"command\": \"npx\",\n      \"args\": [\"-y\", \"--package\", \"dembrandt\", \"dembrandt-mcp\"]\n    }\n  }\n}\n\nget_design_tokens(url: \"example.com\", pages: 5)  ->  job_id\nget_job_status(job_id)                           ->  tokens\nget_findings(job_id)                             ->  contrast and consistency issues\nexport_dtcg(job_id)                              ->  W3C design tokens",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/dembrandt/dembrandt/blob/22cb9f9320f11b383094726646d3200698f232e4/README.md?plain=1#L125"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "只对自有网站或服务条款允许自动化访问的网站运行，不要用提取结果复制第三方品牌标识或商标，并遵守 robots.txt 和访问频率限制。--stealth 仅限获得授权的场景。",
+    "Canvas/WebGL 渲染的网站无法分析；暗色模式需要显式加 --dark-mode；部分动态加载的内容可能遗漏。",
+    "使用 --key 时，每次运行都会把快照上传到你的 dembrandt.com 账户。",
+    "--ai 品牌主色预测为实验性功能。"
+  ],
+  "references": [],
+  "media": [],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "8ed38ec3a0291db73be682767f3cbe9fc2475aec0a35549c7e96369ca8dffb2b",
+  "mediaStatus": "none_in_official_documents"
+}

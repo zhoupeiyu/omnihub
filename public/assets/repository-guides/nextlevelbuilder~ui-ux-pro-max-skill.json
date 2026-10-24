@@ -1,0 +1,75 @@
+{
+  "schemaVersion": 1,
+  "key": "nextlevelbuilder/ui-ux-pro-max-skill",
+  "status": "ready",
+  "reason": "",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/nextlevelbuilder/ui-ux-pro-max-skill/blob/09170eec67eefd46a7ae85de61b40c194020f997/README.md",
+  "sourceRevision": "09170eec67eefd46a7ae85de61b40c194020f997",
+  "canonicalKey": "nextlevelbuilder/ui-ux-pro-max-skill",
+  "summary": "UI UX Pro Max 是一个 AI 编程助手技能，按产品类型检索 UI 风格、配色、字体和 UX 规则，并生成设计系统。",
+  "intro": "适合在 Claude Code、Cursor、Windsurf、Codex CLI 等 AI 编程助手里做界面开发的开发者。它内置可搜索的 UI 风格、配色、字体搭配、图表类型、UX 准则和行业推理规则，提出 UI/UX 需求时会自动启用，按目标技术栈（默认 HTML + Tailwind）给出设计建议。也可以直接用 search.py 生成设计系统并保存到项目目录。",
+  "requirements": "需要 Python 3.x 来运行搜索脚本（只用标准库）。用 CLI 安装需要 npm（包名 ui-ux-pro-max-cli）。还需要一个受支持的 AI 编程助手，本指南以 Claude Code 为例。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "确认本机已安装 Python 3",
+      "text": "技能的搜索脚本依赖 Python 3.x，只用标准库，不会额外安装依赖，也不联网。先检查本机 Python 版本；没有的话，从 python.org 或系统包管理器自行安装。按文档约定，AI 助手不应替你安装软件。",
+      "code": "python3 --version",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/nextlevelbuilder/ui-ux-pro-max-skill/blob/09170eec67eefd46a7ae85de61b40c194020f997/README.md?plain=1#L320"
+      }
+    },
+    {
+      "title": "全局安装 ui-ux-pro-max-cli",
+      "text": "用 npm 全局安装 ui-ux-pro-max-cli，安装后提供 uipro 命令。旧的 uipro-cli 包已过时，不要再用。全局安装遇到权限错误时，文档建议改用 Node 版本管理器。",
+      "code": "npm install -g ui-ux-pro-max-cli\nuipro init --ai <platform>",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/nextlevelbuilder/ui-ux-pro-max-skill/blob/09170eec67eefd46a7ae85de61b40c194020f997/README.md?plain=1#L262"
+      }
+    },
+    {
+      "title": "在项目中为 Claude Code 初始化",
+      "text": "进入你的项目目录，运行 uipro init --ai claude，把技能文件安装到当前项目。想让所有项目都能用，可以加 --global 安装到 ~/.claude/skills/。其他助手把 --ai 换成对应的平台名即可。",
+      "code": "# Install CLI globally\nnpm install -g ui-ux-pro-max-cli\n\n# Go to your project\ncd /path/to/your/project\n\n# Install for your AI assistant\nuipro init --ai claude      # Claude Code\nuipro init --ai cursor      # Cursor\nuipro init --ai windsurf    # Windsurf\nuipro init --ai antigravity # Antigravity\nuipro init --ai copilot     # GitHub Copilot\nuipro init --ai kiro        # Kiro\nuipro init --ai codex       # Codex CLI\nuipro init --ai qoder       # Qoder\nuipro init --ai roocode     # Roo Code\nuipro init --ai gemini      # Gemini CLI\nuipro init --ai trae        # Trae\nuipro init --ai opencode    # OpenCode\nuipro init --ai continue    # Continue\nuipro init --ai codebuddy   # CodeBuddy\nuipro init --ai droid       # Droid (Factory)\nuipro init --ai kilocode    # KiloCode\nuipro init --ai warp        # Warp\nuipro init --ai augment     # Augment\nuipro init --ai codewhale   # CodeWhale\nuipro init --ai zcode       # ZCode\nuipro init --ai universal   # Universal / Agent Standard (.agents/skills/)\nuipro init --ai all         # All assistants\n\nuipro init --ai claude --global   # Install to ~/.claude/skills/\nuipro init --ai cursor --global   # Install to ~/.cursor/skills/\nuipro init --ai zcode --global    # Install to ~/.zcode/skills/\nuipro init --ai universal --global # Install to ~/.agents/skills/",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/nextlevelbuilder/ui-ux-pro-max-skill/blob/09170eec67eefd46a7ae85de61b40c194020f997/README.md?plain=1#L262"
+      }
+    },
+    {
+      "title": "在 Claude Code 中直接描述 UI 需求",
+      "text": "Claude Code 属于自动启用模式，直接用自然语言提出构建、设计、审查或修复界面的需求即可触发技能。在提示里写明技术栈就会使用对应的栈规则，不写则默认 HTML + Tailwind。Kiro、GitHub Copilot 等则要用 /ui-ux-pro-max 斜杠命令调用。",
+      "code": "Build a landing page for my SaaS product",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/nextlevelbuilder/ui-ux-pro-max-skill/blob/09170eec67eefd46a7ae85de61b40c194020f997/README.md?plain=1#L334"
+      }
+    },
+    {
+      "title": "可选：用 search.py 持久化设计系统",
+      "text": "运行 search.py 并加上 --design-system --persist -p 项目名，会生成 design-system/项目名/MASTER.md；加 --page 还会生成页面级覆盖文件。之后开发某个页面时，让 AI 先读页面文件，没有页面文件再用 MASTER.md。",
+      "code": "# Generate and persist to design-system/myapp/MASTER.md\npython3 .claude/skills/ui-ux-pro-max/scripts/search.py \"SaaS dashboard\" --design-system --persist -p \"MyApp\"\n\n# Also create a page-specific override file\npython3 .claude/skills/ui-ux-pro-max/scripts/search.py \"SaaS dashboard\" --design-system --persist -p \"MyApp\" --page \"dashboard\"",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/nextlevelbuilder/ui-ux-pro-max-skill/blob/09170eec67eefd46a7ae85de61b40c194020f997/README.md?plain=1#L397"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "本仓库是开源基础版。品牌识别、Logo、AI 生图素材等扩展能力属于付费 Premium 版，详情见 uupm.cc。",
+    "不要把整个 GitHub 仓库打包成 ZIP 上传到 Claude.ai，文件数会超过 200 的上限，项目目前也没有单独发布供手动上传的 ZIP。",
+    "v2.5.1 之前的版本通过 Claude Marketplace 安装时，可能报符号链接错误，可改用 CLI 安装。",
+    "通过 Continue、Droid 或 ZCode 安装时，search.py 路径里的 .claude/skills/ 要换成对应目录。",
+    "uipro 提示 unknown command 'update' 或 'uninstall' 时，说明 CLI 版本过旧，需要先更新 npm 包。"
+  ],
+  "references": [],
+  "media": [],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "13957904b9999d6e367ecbb13d4df1aeb0a945d84f2da8c69c3b22e0750d2d7f",
+  "mediaStatus": "none_in_official_documents"
+}

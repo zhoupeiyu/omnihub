@@ -1,0 +1,74 @@
+{
+  "schemaVersion": 1,
+  "key": "sukkaw/surge",
+  "status": "ready",
+  "reason": "",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/SukkaW/Surge/blob/4ce04be3cc548c672e3350afd47ded7089ccb7ab/README.md",
+  "sourceRevision": "4ce04be3cc548c672e3350afd47ded7089ccb7ab",
+  "canonicalKey": "SukkaW/Surge",
+  "summary": "为 Surge、Mihomo、Clash Premium、sing-box、Surfboard for Android 和 Stash 提供分类整理好的远程规则组与 Surge 模块，可直接写入代理配置用于拦截和分流。",
+  "intro": "适合已经在使用 Surge 或 Mihomo 等代理工具、需要现成规则做广告与隐私拦截、流媒体/AI/CDN/Apple/Microsoft 等服务分流的用户。仓库本质是规则资料集合：README 按用途列出各规则组的说明和可复制的配置片段，使用时按自己的客户端挑选对应目录的规则即可。本指南以 Surge 为例。",
+  "requirements": "已安装并能编辑配置文件的 Surge（Mac/iOS/tvOS）；如需其他客户端，需按 README 选择对应目录（如 Mihomo 使用 /Clash/）。从 ruleset.skk.moe 获取规则需同意其隐私政策，否则需从 GitHub 源码自行构建规则组文件。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "确认规则获取来源与条款",
+      "text": "从 ruleset.skk.moe 拉取规则即视为同意 Sukka 的隐私政策；不同意则应从 GitHub 获取源码自行构建。该服务器由 Cloudflare 驱动，中国大陆访问可能不稳定，可改用官方镜像 ruleset-mirror.skk.moe。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/SukkaW/Surge/blob/4ce04be3cc548c672e3350afd47ded7089ccb7ab/README.md?plain=1#L5"
+      }
+    },
+    {
+      "title": "了解 Surge 三类规则目录",
+      "text": "Surge 使用 /List/ 下的规则：domainset 为 DOMAIN-SET，non_ip 为不触发 DNS 解析的 RULE-SET，ip 为会触发 DNS 解析的 RULE-SET。必须按 domainset、non_ip、ip 的顺序添加，所有 ip 类规则及自定义 IP-CIDR、GEOIP 等必须放在域名类规则之后。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/SukkaW/Surge/blob/4ce04be3cc548c672e3350afd47ded7089ccb7ab/README.md?plain=1#L24"
+      }
+    },
+    {
+      "title": "添加广告与隐私拦截规则",
+      "text": "将拦截类 Non IP 片段加入 Surge 配置的规则区，包含 reject-drop、基础拦截域名和可选的额外拦截域名。钓鱼域名和 URL-REGEX 规则默认被注释，后者需搭配 MITM 模块且性能开销大，README 不推荐启用。",
+      "code": "# Non IP\nRULE-SET,https://ruleset.skk.moe/List/non_ip/reject-drop.conf,REJECT-DROP,pre-matching\n\n# 基础的 12 万拦截域名\nDOMAIN-SET,https://ruleset.skk.moe/List/domainset/reject.conf,REJECT,extended-matching\n# 额外 9 万拦截域名，作为基础的补充，启用时需要搭配基础一起使用\nDOMAIN-SET,https://ruleset.skk.moe/List/domainset/reject_extra.conf,REJECT\n# 钓鱼网站拦截域名列表，共 13 万拦截域名\n# 在 Surge 5 for Mac（或更新版本），即使同时启用基础和额外的拦截域名也不会导致匹配性能下降或内存占用过高\n# DOMAIN-SET,https://ruleset.skk.moe/List/domainset/reject_phishing.conf,REJECT\nRULE-SET,https://ruleset.skk.moe/List/non_ip/reject.conf,REJECT,extended-matching\nRULE-SET,https://ruleset.skk.moe/List/non_ip/reject-no-drop.conf,REJECT-NO-DROP,extended-matching\n# URL-REGEX\n# 需搭配 Surge 模块 https://ruleset.skk.moe/Modules/sukka_mitm_hostnames.sgmodule 使用\n# MITM 和 URL-REGEX 性能开销极大，不推荐使用\n# RULE-SET,https://ruleset.skk.moe/List/non_ip/reject-url-regex.conf,REJECT",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/SukkaW/Surge/blob/4ce04be3cc548c672e3350afd47ded7089ccb7ab/README.md?plain=1#L53"
+      }
+    },
+    {
+      "title": "按需添加分流规则并填写策略",
+      "text": "在拦截规则之后按需加入 CDN、流媒体等 non_ip 与 domainset 规则组，把示例中的 [Replace with your policy] 替换为你配置中的策略组名。流媒体可按地区单独引用，也可用包含全部地区的 stream.conf。",
+      "code": "DOMAIN-SET,https://ruleset.skk.moe/List/domainset/cdn.conf,[Replace with your policy]\nRULE-SET,https://ruleset.skk.moe/List/non_ip/cdn.conf,[Replace with your policy]\n\n# Non IP\n# 北美相关流媒体\nRULE-SET,https://ruleset.skk.moe/List/non_ip/stream_us.conf,[Replace with your policy]\n# 欧洲相关流媒体\nRULE-SET,https://ruleset.skk.moe/List/non_ip/stream_eu.conf,[Replace with your policy]\n# 日本相关流媒体\nRULE-SET,https://ruleset.skk.moe/List/non_ip/stream_jp.conf,[Replace with your policy]\n# 韩国相关流媒体\nRULE-SET,https://ruleset.skk.moe/List/non_ip/stream_kr.conf,[Replace with your policy]\n# 香港相关流媒体\nRULE-SET,https://ruleset.skk.moe/List/non_ip/stream_hk.conf,[Replace with your policy]\n# 台湾相关流媒体\nRULE-SET,https://ruleset.skk.moe/List/non_ip/stream_tw.conf,[Replace with your policy]\n# 所有流媒体（包括上述所有流媒体）\nRULE-SET,https://ruleset.skk.moe/List/non_ip/stream.conf,[Replace with your policy]",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/SukkaW/Surge/blob/4ce04be3cc548c672e3350afd47ded7089ccb7ab/README.md?plain=1#L208"
+      }
+    },
+    {
+      "title": "最后追加 IP 类规则组",
+      "text": "在所有域名类规则之后，再加入对应的 ip 规则组，例如拦截用的 ip/reject.conf 和流媒体的 ip 规则。若把 IP 类规则放到前面，会失去规则顺序带来的 DNS 污染保护。",
+      "code": "# IP\nRULE-SET,https://ruleset.skk.moe/List/ip/reject.conf,REJECT-DROP\n\n# IP\n# 北美相关流媒体\nRULE-SET,https://ruleset.skk.moe/List/ip/stream_us.conf,[Replace with your policy]\n# 欧洲相关流媒体\nRULE-SET,https://ruleset.skk.moe/List/ip/stream_eu.conf,[Replace with your policy]\n# 日本相关流媒体\nRULE-SET,https://ruleset.skk.moe/List/ip/stream_jp.conf,[Replace with your policy]\n# 韩国相关流媒体\nRULE-SET,https://ruleset.skk.moe/List/ip/stream_kr.conf,[Replace with your policy]\n# 香港相关流媒体\nRULE-SET,https://ruleset.skk.moe/List/ip/stream_hk.conf,[Replace with your policy]\n# 台湾相关流媒体\nRULE-SET,https://ruleset.skk.moe/List/ip/stream_tw.conf,[Replace with your policy]\n# 所有流媒体（包括上述所有流媒体）\nRULE-SET,https://ruleset.skk.moe/List/ip/stream.conf,[Replace with your policy]",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/SukkaW/Surge/blob/4ce04be3cc548c672e3350afd47ded7089ccb7ab/README.md?plain=1#L24"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "项目不提供任何担保和技术支持，README 明确表示不接受使用问题反馈。",
+    "若使用商业代理服务，部分服务商条款规定使用第三方规则会被视为放弃 SLA 与技术支持，需先阅读其 ToS。",
+    "规则顺序错误（IP 类规则先于域名类规则）会导致 DNS 污染保护失效。",
+    "广告拦截规则仅建议在 Surge for Mac 使用，移动端建议用专门工具，且不能替代浏览器广告屏蔽扩展；在 Clash 上同时启用基础和额外拦截域名会导致内存与性能问题。",
+    "搜狗输入法规则会影响其账号同步、词库更新和问题反馈。",
+    "Surge 模块不适用于任何版本的 Clash；不提供 Shadowrocket、Quantumult X、Loon、V2RayNG 的规则组。"
+  ],
+  "references": [],
+  "media": [],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "d755c36fc695f347df8228a6d077f1cdd78f2c0551f29286567bf1b70fc7e580",
+  "mediaStatus": "none_in_official_documents"
+}

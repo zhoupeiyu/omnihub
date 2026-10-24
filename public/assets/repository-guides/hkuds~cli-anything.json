@@ -1,0 +1,97 @@
+{
+  "schemaVersion": 1,
+  "key": "hkuds/cli-anything",
+  "status": "ready",
+  "reason": "",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/HKUDS/CLI-Anything/blob/34f519533bc175d2fe287ab8316b0dd99bb9cc43/README.md",
+  "sourceRevision": "34f519533bc175d2fe287ab8316b0dd99bb9cc43",
+  "canonicalKey": "HKUDS/CLI-Anything",
+  "summary": "CLI-Anything 为 GIMP、Blender、LibreOffice 等软件生成或分发面向 AI Agent 的命令行接口，并通过 CLI-Hub 统一浏览、安装和启动这些 CLI。",
+  "intro": "适合两类用户。一类希望让 Claude Code、Codex、OpenClaw 等 Agent 通过结构化命令操作桌面软件或服务，可以直接从 CLI-Hub 安装社区已有的 CLI。另一类需要为尚未收录的软件、代码库或内部工具做 CLI 封装，可以用插件运行 7 阶段生成流程：分析、设计、实现、测试规划、编写测试、文档、发布。",
+  "requirements": "Python 3.10+；使用 CLI-Hub 需要 pip；为 Agent 安装 meta-skill 需要 npx；生成新 CLI 需要可在本地或线上访问的目标软件或源码仓库，以及一个受支持的 AI 编程工具（如 Claude Code、Cursor、Codex 等）。所选 CLI 若封装了 GIMP、Blender、LibreOffice 等上游软件，还要另外安装该软件。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "用 pip 安装 CLI-Hub 包管理器",
+      "text": "先安装 cli-anything-hub。之后可以用一个 cli-hub 命令完成 CLI-Anything harness 和公开第三方 CLI 的浏览、搜索、查看、安装、更新、卸载和启动。",
+      "code": "pip install cli-anything-hub",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/HKUDS/CLI-Anything/blob/34f519533bc175d2fe287ab8316b0dd99bb9cc43/README.md?plain=1#L181"
+      }
+    },
+    {
+      "title": "浏览注册表并安装所需 CLI",
+      "text": "用 cli-hub list 浏览注册表，用 cli-hub search 按关键词查找。选定后执行 cli-hub install 安装，用 cli-hub info 查看详情，再用 cli-hub launch 运行。如果该 CLI 封装的是 GIMP、Blender 等真实软件，需要同时安装对应的上游应用。",
+      "code": "# Browse what is available\ncli-hub list\ncli-hub search image\n\n# Install and try a CLI immediately\ncli-hub install gimp\ncli-hub info gimp\ncli-hub launch gimp",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/HKUDS/CLI-Anything/blob/34f519533bc175d2fe287ab8316b0dd99bb9cc43/README.md?plain=1#L181"
+      }
+    },
+    {
+      "title": "为 Agent 安装 CLI-Hub 元技能",
+      "text": "如果希望 Agent 自行挑选和安装 CLI，可以用 npx skills 安装 cli-hub-meta-skill。该技能适用于 Claude Code、Codex、OpenClaw 等支持 SKILL 的 Agent。安装后按 README 给出的提示词，让 Agent 在 CLI-Hub 中查找合适的 CLI 来完成任务，Agent 会再读取所选 CLI 自带的 SKILL.md。",
+      "code": "npx skills add HKUDS/CLI-Anything --skill cli-hub-meta-skill -g -y\n\nFind appropriate CLI software in CLI-Hub and complete the task: ...",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/HKUDS/CLI-Anything/blob/34f519533bc175d2fe287ab8316b0dd99bb9cc43/README.md?plain=1#L181"
+      }
+    },
+    {
+      "title": "在 Claude Code 安装生成器插件",
+      "text": "注册表里没有需要的 CLI 时，在 Claude Code 中先添加 HKUDS/CLI-Anything marketplace，再安装 cli-anything 插件。Windows 用户需要先安装 Git for Windows（含 bash 和 cygpath）或改用 WSL，否则命令可能报 cygpath 找不到。",
+      "code": "# Add the CLI-Anything marketplace\n/plugin marketplace add HKUDS/CLI-Anything\n\n# Install the cli-anything plugin from the marketplace\n/plugin install cli-anything",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/HKUDS/CLI-Anything/blob/34f519533bc175d2fe287ab8316b0dd99bb9cc43/README.md?plain=1#L260"
+      }
+    },
+    {
+      "title": "运行 /cli-anything 生成并安装 CLI",
+      "text": "对目标软件的源码路径或仓库执行 /cli-anything，插件会依次完成分析、设计、实现、测试和发布。生成后进入 agent-harness 目录执行 pip install -e .，cli-anything-<software> 就会加入 PATH。之后可用 /cli-anything:refine 补齐尚未覆盖的功能，每次运行都是增量的。",
+      "code": "# /cli-anything <software-path-or-repo>\n# Generate a complete CLI for GIMP (all 7 phases)\n/cli-anything ./gimp\n\n# Install to PATH\ncd gimp/agent-harness && pip install -e .\n\n# Use from anywhere\ncli-anything-gimp --help\ncli-anything-gimp project new --width 1920 --height 1080 -o poster.json\ncli-anything-gimp --json layer add -n \"Background\" --type solid --color \"#1a1a2e\"\n\n# Enter interactive REPL\ncli-anything-gimp\n\n# Broad refinement — agent analyzes gaps across all capabilities\n/cli-anything:refine ./gimp\n\n# Focused refinement — target a specific functionality area\n/cli-anything:refine ./gimp \"I want more CLIs on image batch processing and filters\"",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/HKUDS/CLI-Anything/blob/34f519533bc175d2fe287ab8316b0dd99bb9cc43/README.md?plain=1#L260"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "部分 CLI 只是对真实桌面或后端软件的封装，需要另外安装 GIMP、Blender、LibreOffice 等上游应用，并遵守这些软件各自的许可。",
+    "在 Windows 上使用 Claude Code 插件时，需要 Git for Windows 或 WSL 提供 bash 环境。",
+    "如果出现 Unknown skill: cli-anything，应先用 /reload-plugins 和 /help cli-anything 确认插件已加载，切换命令写法解决不了这个问题。",
+    "生成新 CLI 的分析、实现和测试由所用的 AI 编程工具完成，这类工具可能有自己的用量计费；生成的 CLI 覆盖面和质量也需要自行检查。",
+    "CLI-Hub 中部分条目是社区贡献或公开的第三方 CLI，安装前建议用 cli-hub info 查看来源。"
+  ],
+  "references": [
+    {
+      "label": "README_CN.md",
+      "url": "https://github.com/HKUDS/CLI-Anything/blob/34f519533bc175d2fe287ab8316b0dd99bb9cc43/README_CN.md"
+    }
+  ],
+  "media": [
+    {
+      "url": "/assets/repository-guides/media-1aae1b40f383a2eb824f3663.webp",
+      "alt": "HKUDS/CLI-Anything 官方演示 1",
+      "sourceUrl": "https://github.com/HKUDS/CLI-Anything/blob/34f519533bc175d2fe287ab8316b0dd99bb9cc43/README.md?plain=1#L987",
+      "originalUrl": "https://raw.githubusercontent.com/HKUDS/CLI-Anything/34f519533bc175d2fe287ab8316b0dd99bb9cc43/assets/demos/drawio-demo.gif"
+    }
+  ],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "10f784d0e7e1e5dd0ac149f629640b5cf3f6118d71adc1576ed444eaf0f4fbe0",
+  "mediaStatus": "archived",
+  "mediaFailures": [
+    {
+      "sourceUrl": "https://github.com/HKUDS/CLI-Anything/blob/34f519533bc175d2fe287ab8316b0dd99bb9cc43/README.md#L959",
+      "reason": "media_too_large"
+    },
+    {
+      "sourceUrl": "https://github.com/HKUDS/CLI-Anything/blob/34f519533bc175d2fe287ab8316b0dd99bb9cc43/README.md#L1037",
+      "reason": "media_too_large"
+    }
+  ]
+}

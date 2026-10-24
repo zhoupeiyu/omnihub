@@ -1,0 +1,78 @@
+{
+  "schemaVersion": 1,
+  "key": "vogtsw/boss-skills",
+  "status": "ready",
+  "reason": "",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/vogtsw/boss-skills/blob/93f5c7c0a5d7091ce45ce1343ab4bfad662a0c19/README.md",
+  "sourceRevision": "93f5c7c0a5d7091ce45ce1343ab4bfad662a0c19",
+  "canonicalKey": "vogtsw/boss-skills",
+  "summary": "老板.skill 把老板的聊天记录、会议纪要、批注和项目材料整理成 Skill，用来模拟老板的判断标准、评审风格，并给出向上管理建议。",
+  "intro": "适合需要向上汇报、提方案、争资源或报坏消息的职场人。你可以在项目评审或周报前让 Skill 模拟老板会追问什么，练习报告延期等坏消息。也可以用内置的马斯克、乔布斯、贝索斯、黄仁勋模板做风格模拟，或基于免费公开资料为导师、PI 建立画像。",
+  "requirements": "需要 Claude Code 或 OpenClaw、git，以及 Python 3 和 pip3（用于安装 requirements.txt 中的依赖）。还需准备老板相关材料，例如微信或飞书导出记录、邮件 .eml/.mbox、Markdown、PDF 或截图。没有私人材料时，可以只用企业家模板或公开资料画像。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "克隆到 Claude Code 技能目录",
+      "text": "以 Claude Code 为例：在 git 仓库根目录下创建 .claude/skills，再把仓库克隆为 .claude/skills/create-boss，这样只在当前项目生效。也可以克隆到 ~/.claude/skills/create-boss 全局安装。OpenClaw 用户请改用对应的路径。",
+      "code": "# 安装到当前项目（在 git 仓库根目录执行）\nmkdir -p .claude/skills\ngit clone https://github.com/vogtsw/boss-skills.git .claude/skills/create-boss\n\n# 或安装到全局\ngit clone https://github.com/vogtsw/boss-skills.git ~/.claude/skills/create-boss",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/vogtsw/boss-skills/blob/93f5c7c0a5d7091ce45ce1343ab4bfad662a0c19/README.md?plain=1#L66"
+      }
+    },
+    {
+      "title": "安装 Python 依赖并验证",
+      "text": "在仓库目录用 pip3 安装 requirements.txt 中的依赖。之后可以运行 INSTALL.md 中的快速验证命令，检查各个解析器和 skill_writer.py 能否正常调用。",
+      "code": "pip3 install -r requirements.txt\n\npython3 tools/generic_chat_parser.py --help\npython3 tools/wechat_parser.py --help\npython3 tools/feishu_parser.py --help\npython3 tools/email_parser.py --help\npython3 tools/skill_writer.py --action list --base-dir ./bosses",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/vogtsw/boss-skills/blob/93f5c7c0a5d7091ce45ce1343ab4bfad662a0c19/README.md?plain=1#L83"
+      }
+    },
+    {
+      "title": "运行 /create-boss 生成老板 Skill",
+      "text": "在 Claude Code 中输入 /create-boss，按提示填写老板称呼、基本信息和管理风格，再导入聊天记录、邮件、会议纪要或文档。最有价值的材料是老板批评项目、追问问题和做取舍时的原话。",
+      "code": "/create-boss",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/vogtsw/boss-skills/blob/93f5c7c0a5d7091ce45ce1343ab4bfad662a0c19/README.md?plain=1#L91"
+      }
+    },
+    {
+      "title": "按需调用各部分子命令",
+      "text": "生成后，用 /{slug} 调用完整 Skill。也可以单独调用：/{slug}-judgment 只看项目评判逻辑，/{slug}-management 只给向上管理建议，/{slug}-persona 只模拟说话风格，/{slug}-drill {场景} 进入多轮对练，结束后按打分卡复盘。/list-bosses 可列出所有已生成的老板 Skill。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/vogtsw/boss-skills/blob/93f5c7c0a5d7091ce45ce1343ab4bfad662a0c19/README.md?plain=1#L91"
+      }
+    },
+    {
+      "title": "用决策回放评估保真度",
+      "text": "运行 /boss-eval {slug}，会留出 20% 的历史决策做盲测，以命中率衡量 Skill 与老板的相似程度。每次纠正或合并新材料后，建议重新运行。如需恢复旧版本，可用 /boss-rollback {slug} {version} 回滚。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/vogtsw/boss-skills/blob/93f5c7c0a5d7091ce45ce1343ab4bfad662a0c19/README.md?plain=1#L91"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "只提供语气、缺少项目材料时，Skill 更像“会说话”而不是“会判断”。决策层只有在材料中包含真实取舍过程时才会生成。",
+    "决策案例少于 10 个时，回放评测结果波动较大，只能作参考。",
+    "企业家模板只模拟风格，公开资料画像只使用免费公开数据，两者都不声称还原真人。",
+    "材料包含老板和同事的私人聊天记录，使用前应确认自己有权处理这些内容。",
+    "README 中的在线试用由第三方 socialistic.ai 提供，不属于本仓库；仓库元数据没有标注 license。"
+  ],
+  "references": [
+    {
+      "label": "INSTALL.md",
+      "url": "https://github.com/vogtsw/boss-skills/blob/93f5c7c0a5d7091ce45ce1343ab4bfad662a0c19/INSTALL.md"
+    }
+  ],
+  "media": [],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "a291e5d896ffe3877ab744d9abc0ce6cc10a3f0fe65c5647e91fcede0c118a15",
+  "mediaStatus": "none_in_official_documents"
+}

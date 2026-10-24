@@ -1,0 +1,73 @@
+{
+  "schemaVersion": 1,
+  "key": "nodes-app/swift-markdown-engine",
+  "status": "ready",
+  "reason": "",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/nodes-app/swift-markdown-engine/blob/16c2b0c30d8330d35f3a53b6b2e0d4cd03101b00/README.md",
+  "sourceRevision": "16c2b0c30d8330d35f3a53b6b2e0d4cd03101b00",
+  "canonicalKey": "nodes-app/swift-markdown-engine",
+  "summary": "一个基于 TextKit 2 的 macOS 原生 AppKit Markdown 编辑器组件，可桥接到 SwiftUI，支持实时样式、wiki 链接、代码高亮和 LaTeX 渲染。",
+  "intro": "适合需要在 macOS 应用中嵌入 Markdown 编辑器的 Swift/SwiftUI 开发者。它是笔记应用 Nodes 内部使用的编辑器，提供实时 Markdown 样式、[[wiki-link]]、图片嵌入、GFM 表格、任务复选框、阅读栏宽和可滚动头部等能力，并可通过扩展和指令机制添加自定义语法。",
+  "requirements": "macOS 14 或更高版本（Apple Writing Tools 集成需 15.1+）；Swift 5.9 / Xcode 15 或更高版本；使用 Swift Package Manager。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "通过 SwiftPM 添加依赖",
+      "text": "在 Package.swift 中加入本仓库依赖，并为目标添加 MarkdownEngine 产品；也可以在 Xcode 中通过 File → Add Package Dependencies… 粘贴仓库 URL。只需要编辑器时选 MarkdownEngine，它没有外部依赖。",
+      "code": "dependencies: [\n    .package(url: \"https://github.com/nodes-app/swift-markdown-engine\", from: \"0.1.0\")\n],\ntargets: [\n    .target(\n        name: \"YourApp\",\n        dependencies: [\n            .product(name: \"MarkdownEngine\", package: \"swift-markdown-engine\"),\n        ]\n    )\n]",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/nodes-app/swift-markdown-engine/blob/16c2b0c30d8330d35f3a53b6b2e0d4cd03101b00/README.md?plain=1#L49"
+      }
+    },
+    {
+      "title": "在 SwiftUI 视图中放入编辑器",
+      "text": "import MarkdownEngine 后，用 NativeTextViewWrapper 绑定一个 String 状态即可显示编辑器。如果同时显示多个编辑器，请传入稳定且唯一的 documentId，使撤销历史互不干扰。",
+      "code": "import SwiftUI\nimport MarkdownEngine\n\nstruct EditorScreen: View {\n    @State private var text: String = \"# Hello, *world*\"\n\n    var body: some View {\n        NativeTextViewWrapper(text: $text)\n    }\n}",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/nodes-app/swift-markdown-engine/blob/16c2b0c30d8330d35f3a53b6b2e0d4cd03101b00/README.md?plain=1#L75"
+      }
+    },
+    {
+      "title": "按需接入代码高亮与 LaTeX",
+      "text": "需要代码块高亮时添加 MarkdownEngineCodeBlocks 产品，并使用 HighlighterSwiftBridge；需要公式渲染时添加 MarkdownEngineLatex 产品，并使用 SwiftMathBridge。两者都通过 MarkdownEditorServices 传入配置。",
+      "code": "import MarkdownEngineCodeBlocks\n\nvar configuration = MarkdownEditorConfiguration.default\nconfiguration.services = MarkdownEditorServices(\n    syntaxHighlighter: HighlighterSwiftBridge()\n)\n\nimport MarkdownEngineLatex\n\nvar configuration = MarkdownEditorConfiguration.default\nconfiguration.services = MarkdownEditorServices(\n    latex: SwiftMathBridge()\n)",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/nodes-app/swift-markdown-engine/blob/16c2b0c30d8330d35f3a53b6b2e0d4cd03101b00/README.md?plain=1#L128"
+      }
+    },
+    {
+      "title": "调整主题与排版参数",
+      "text": "通过 MarkdownEditorTheme 修改颜色，默认值映射到系统动态色，可自动适配深浅色模式。通过 MarkdownEditorConfiguration 调整代码块字号、标题倍率、底部滚动余量、阅读栏宽 readingWidth 等参数。",
+      "code": "var theme = MarkdownEditorTheme.default\ntheme.bodyText = .labelColor\ntheme.findMatchHighlight = NSColor(named: \"MyAccent\")!\n\nvar configuration = MarkdownEditorConfiguration.default\nconfiguration.theme = theme\n\nvar configuration = MarkdownEditorConfiguration.default\nconfiguration.codeBlock.fontSizeScale = 0.9\nconfiguration.headings.fontMultipliers = [2.4, 1.8, 1.4, 1.1, 0.9, 0.75]\nconfiguration.overscroll.percent = 0.4\nconfiguration.lists.helpersEnabled = false\nconfiguration.safeAreaInsets = SafeAreaInsets(top: 56)   // headroom under a translucent toolbar\n\nconfiguration.readingWidth = 650",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/nodes-app/swift-markdown-engine/blob/16c2b0c30d8330d35f3a53b6b2e0d4cd03101b00/README.md?plain=1#L178"
+      }
+    },
+    {
+      "title": "运行 Demo 查看各项功能",
+      "text": "在 Xcode 中打开 Demo/MarkdownEngineDemo.xcodeproj 并点击 Run。工具栏的 Opt-in seams 开关可以切换扩展和指令的启用状态。如果遇到 missing package product 报错，执行 File → Packages → Reset Package Caches 后重新构建。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/nodes-app/swift-markdown-engine/blob/16c2b0c30d8330d35f3a53b6b2e0d4cd03101b00/README.md?plain=1#L359"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "项目处于 pre-1.0 阶段，公共 API 可能在小版本之间变化，建议在 Package.swift 中固定 0.x.y 版本。",
+    "MarkdownEngineCodeBlocks 和 MarkdownEngineLatex 会分别间接引入 HighlighterSwift 和 SwiftMath 依赖。",
+    "heightBehavior 设为 .fitsContent 时会对整篇文档排版、不做视口虚拟化，更适合中小篇幅内容。",
+    "指令默认使用 @ 作为标记，若应用中已用 @ 触发提及功能，建议另设标记；引擎不提供指令名称的补全 UI。"
+  ],
+  "references": [],
+  "media": [],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "4c77a17c6d29a6f438418aff130075ce051e9be8ecb25e7f5ba0e7e298ef6a93",
+  "mediaStatus": "none_in_official_documents"
+}

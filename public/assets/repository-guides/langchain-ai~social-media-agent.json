@@ -1,0 +1,88 @@
+{
+  "schemaVersion": 1,
+  "key": "langchain-ai/social-media-agent",
+  "status": "ready",
+  "reason": "",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/langchain-ai/social-media-agent/blob/9be33da925e3608c7de227adc9c780eaadcace0c/README.md",
+  "sourceRevision": "9be33da925e3608c7de227adc9c780eaadcace0c",
+  "canonicalKey": "langchain-ai/social-media-agent",
+  "summary": "基于 LangGraph 的智能体，输入一个 URL 后生成 Twitter 和 LinkedIn 帖子草稿，并通过人工审核流程完成授权、修改、接受或拒绝。",
+  "intro": "适合需要把博客、文章等链接整理成社交媒体帖子的内容运营或开发者。README 提供两种配置：基础模式（Quickstart）可以最快跑通从 URL 生成帖子；完整模式额外支持解析 GitHub、Twitter 和 YouTube 链接，从 Slack 收集链接并定时处理，以及选择和上传图片。默认提示词以 LangChain 业务为背景，用于自己的场景时需要改写提示词。",
+  "requirements": "基础模式需要以下凭据：Anthropic API key、LangSmith API key（本地运行 LangGraph server 需要）、FireCrawl API key 和 Arcade API key。本地需要能执行 git 和 yarn 命令。完整模式还需要 Google Vertex AI、Twitter/LinkedIn 开发者账号、GitHub token、Supabase，Slack 为可选。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "克隆仓库并安装依赖",
+      "text": "用 git 克隆 social-media-agent 仓库，进入项目目录，然后运行 yarn install 安装依赖。基础模式和完整模式都从这一步开始。",
+      "code": "git clone https://github.com/langchain-ai/social-media-agent.git\n\ncd social-media-agent\n\nyarn install",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/langchain-ai/social-media-agent/blob/9be33da925e3608c7de227adc9c780eaadcace0c/README.md?plain=1#L54"
+      }
+    },
+    {
+      "title": "复制快速模式环境变量文件",
+      "text": "把 .env.quickstart.example 复制为 .env，填入 LANGSMITH_API_KEY、ANTHROPIC_API_KEY、FIRECRAWL_API_KEY 和 ARCADE_API_KEY。如果要以公司主页身份发布 LinkedIn 帖子，还需要额外设置组织 ID 和相关开关。",
+      "code": "cp .env.quickstart.example .env\n\n# For LangSmith tracing (optional)\nLANGSMITH_API_KEY=\nLANGSMITH_TRACING_V2=true\n\n# For LLM generations\nANTHROPIC_API_KEY=\n\n# For web scraping\nFIRECRAWL_API_KEY=\n\n# Arcade API key - used for fetching Tweets, and scheduling LinkedIn/Twitter posts\nARCADE_API_KEY=\n\n# Get the organization ID from the URL of the company page when you're logged in as an admin.\n# For example, if the URL is `https://www.linkedin.com/company/12345678/admin/dashboard/`, the organization ID would be `12345678`.\nPOST_TO_LINKEDIN_ORGANIZATION=true\nLINKEDIN_ORGANIZATION_ID=",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/langchain-ai/social-media-agent/blob/9be33da925e3608c7de227adc9c780eaadcace0c/README.md?plain=1#L70"
+      }
+    },
+    {
+      "title": "启动本地 LangGraph 服务",
+      "text": "运行 yarn langgraph:in_mem:up 启动服务。该脚本内部会调用 @langchain/langgraph-cli dev，端口为 54367。首次运行或 CLI 有新版本时，会询问是否安装 CLI，输入 y 确认。",
+      "code": "yarn langgraph:in_mem:up\n\nnpx @langchain/langgraph-cli dev --port 54367",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/langchain-ai/social-media-agent/blob/9be33da925e3608c7de227adc9c780eaadcace0c/README.md?plain=1#L118"
+      }
+    },
+    {
+      "title": "运行脚本生成帖子草稿",
+      "text": "服务就绪后运行 yarn generate_post。脚本默认针对一篇 LangChain 博客发起生成任务；要为其他内容生成帖子，可以修改脚本中的 URL。运行结果可以在 LangSmith 中查看，也可以在 Agent Inbox 中查看。",
+      "code": "yarn generate_post",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/langchain-ai/social-media-agent/blob/9be33da925e3608c7de227adc9c780eaadcace0c/README.md?plain=1#L118"
+      }
+    },
+    {
+      "title": "在 Agent Inbox 审核帖子",
+      "text": "打开已部署的 dev.agentinbox.ai，按提示添加 Graph：Graph ID 填 generate_post，Graph API URL 填 http://localhost:54367。保存后，Inbox 会读取被中断等待审核的事件，你可以在其中接受、修改或拒绝生成的帖子。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/langchain-ai/social-media-agent/blob/9be33da925e3608c7de227adc9c780eaadcace0c/README.md?plain=1#L369"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "基础模式不支持解析 GitHub、Twitter、YouTube 链接，不支持 Slack 收集和通知，也不支持图片选择与上传。",
+    "需要使用 Anthropic、FireCrawl、Arcade 等第三方服务的 API key。FireCrawl 只为新用户提供 500 免费额度，其余服务的费用以各平台说明为准。",
+    "社交平台授权只能二选一：使用 Arcade，或使用自己的 Twitter/LinkedIn 开发者账号，不能同时使用。通过 Arcade 向 Twitter 上传媒体时，仍需另外配置 Twitter 开发者账号。",
+    "智能体会代表你的账号读写社交媒体，.env 中保存了多个密钥和访问令牌，需要妥善保管。",
+    "提示词默认围绕 LangChain 产品编写。用于自己的业务前，应修改 BUSINESS_CONTEXT、TWEET_EXAMPLES 等提示词内容。",
+    "在完整模式下生成帖子前，需要先在脚本中把 TEXT_ONLY_MODE 设为 false。"
+  ],
+  "references": [],
+  "media": [
+    {
+      "url": "/assets/repository-guides/media-dc7e8553ea8ad32517e59237.webp",
+      "alt": "langchain-ai/social-media-agent 官方演示 1",
+      "sourceUrl": "https://github.com/langchain-ai/social-media-agent/blob/9be33da925e3608c7de227adc9c780eaadcace0c/README.md?plain=1#L152",
+      "originalUrl": "https://raw.githubusercontent.com/langchain-ai/social-media-agent/9be33da925e3608c7de227adc9c780eaadcace0c/static/graph_screenshot.png"
+    }
+  ],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "dc976028b8f3e76df0fb1179381785dd497570dd2e97e15cf225105ed48105da",
+  "mediaStatus": "archived",
+  "mediaFailures": [
+    {
+      "sourceUrl": "https://github.com/langchain-ai/social-media-agent/blob/9be33da925e3608c7de227adc9c780eaadcace0c/README.md#L5",
+      "reason": "non_demo_dimensions"
+    }
+  ]
+}

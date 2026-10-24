@@ -1,0 +1,68 @@
+{
+  "schemaVersion": 1,
+  "key": "jbiaojerry/ebook-treasure-chest",
+  "status": "ready",
+  "reason": "",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/jbiaojerry/ebook-treasure-chest/blob/93cf3ffcf5a2e6814644d1747a101272557d7eac/README.md",
+  "sourceRevision": "93cf3ffcf5a2e6814644d1747a101272557d7eac",
+  "canonicalKey": "jbiaojerry/ebook-treasure-chest",
+  "summary": "按标签分类整理的电子书下载链接索引，提供 GitHub Pages 在线实时搜索和仓库内的分类 Markdown 页面。",
+  "intro": "这是资料集合而非应用，适合想按书名、作者或分类查找电子书下载链接的读者。资料称收录内容覆盖帆书、微信读书、京东读书、喜马拉雅等平台的大部分电子书，每本书提供 epub、mobi、azw3 三种格式链接，按文学、历史、科普、管理、编程等标签归类。",
+  "requirements": "只需能访问 GitHub 或 GitHub Pages 的浏览器。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "打开在线实时搜索页面",
+      "text": "访问项目的 GitHub Pages 页面 https://jbiaojerry.github.io/ebook-treasure-chest/ ，输入书名、作者或分类关键词，页面会即时显示匹配结果。这是 README 推荐的查找方式。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/jbiaojerry/ebook-treasure-chest/blob/93cf3ffcf5a2e6814644d1747a101272557d7eac/README.md?plain=1#L24"
+      }
+    },
+    {
+      "title": "用空格组合多个关键词",
+      "text": "在线搜索支持多关键词，用空格分隔即可同时匹配多个关键词，便于缩小范围，例如组合分类名和作者名查找。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/jbiaojerry/ebook-treasure-chest/blob/93cf3ffcf5a2e6814644d1747a101272557d7eac/README.md?plain=1#L24"
+      }
+    },
+    {
+      "title": "按分类页面浏览书目",
+      "text": "在仓库 README 的「索引目录」中点击分类标签（如文学、历史、Python 等），进入 md/ 目录下对应的分类页面，再用浏览器 Ctrl+F 搜索关键词定位书目。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/jbiaojerry/ebook-treasure-chest/blob/93cf3ffcf5a2e6814644d1747a101272557d7eac/README.md?plain=1#L54"
+      }
+    },
+    {
+      "title": "按设备选择下载格式",
+      "text": "找到目标书目后，根据阅读设备和习惯，从 epub、mobi、azw3 三种格式的链接中选择一种下载。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/jbiaojerry/ebook-treasure-chest/blob/93cf3ffcf5a2e6814644d1747a101272557d7eac/README.md?plain=1#L16"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "收录内容涉及商业阅读平台的电子书，资料未说明版权授权情况，下载和使用前请自行确认是否符合版权法规。",
+    "仓库未声明开源许可证。",
+    "下载链接指向外部网站，资料未说明链接的有效性和安全性。"
+  ],
+  "references": [],
+  "media": [
+    {
+      "url": "/assets/repository-guides/media-72f6a88d7363c4332f0b80b6.webp",
+      "alt": "搜索功能演示",
+      "sourceUrl": "https://github.com/jbiaojerry/ebook-treasure-chest/blob/93cf3ffcf5a2e6814644d1747a101272557d7eac/README.md?plain=1#L31",
+      "originalUrl": "https://raw.githubusercontent.com/jbiaojerry/ebook-treasure-chest/93cf3ffcf5a2e6814644d1747a101272557d7eac/.github/search-demo.gif?v=2"
+    }
+  ],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "d28c840c2ea67a9ea042e73d18afb18767d427f114842083eab26f07d635cbbc",
+  "mediaStatus": "archived",
+  "mediaFailures": []
+}

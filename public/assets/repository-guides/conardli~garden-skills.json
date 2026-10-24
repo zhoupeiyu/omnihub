@@ -1,0 +1,81 @@
+{
+  "schemaVersion": 1,
+  "key": "conardli/garden-skills",
+  "status": "partial",
+  "reason": "提供的文档只有 5 种安装方式的对比表，没有给出 npx skills add 的具体命令、Claude Code 插件市场的添加步骤，也没有说明各宿主（Claude Code、Cursor、Codex）中技能目录应放在哪里。因此无法写出完整的安装与启用步骤。",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/ConardLi/garden-skills/blob/aaf9a82f5efd73e87cc0998edc398e75bfc35901/README.md",
+  "sourceRevision": "aaf9a82f5efd73e87cc0998edc398e75bfc35901",
+  "canonicalKey": "ConardLi/garden-skills",
+  "summary": "这是 ConardLi 维护的 Agent Skills 合集，涵盖网页视频演示、网页设计、GPT Image 2 生图、本地知识库检索和文章美化等技能。",
+  "intro": "适合在 Claude Code、Cursor、Codex 等 AI 编程代理中工作、想直接复用成熟技能的用户。主要技能包括：web-video-presentation 把脚本或文章做成可录屏的 16:9 网页演示；web-design-engineer 提升 AI 生成网页的设计质量；gpt-image-2 提供生图与改图的提示词模板；kb-retriever 从本地 knowledge/ 目录检索并带出处回答。",
+  "requirements": "需要一个支持 SKILL.md 规范的 AI 代理（如 Claude Code、Cursor、Codex）。使用 skills CLI 方式需要 npx。gpt-image-2 的本地生成模式需要可用的 GPT Image 2 或兼容 OpenAI 的图像 API；web-video-presentation 生成的是 Vite + React + TypeScript 项目。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "阅读各技能介绍并选定技能",
+      "text": "在 README 中查看每个技能的类别、适用场景和亮点。再通过每节“Links”里的 README 与 SKILL.md 了解具体工作流程，例如 gpt-image-2 的三种运行模式，以及 kb-retriever 对 PDF 和 Excel 的处理规则。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/ConardLi/garden-skills/blob/aaf9a82f5efd73e87cc0998edc398e75bfc35901/README.md?plain=1#L56"
+      }
+    },
+    {
+      "title": "按工作流选择一种安装方式",
+      "text": "官方支持 5 种安装方式：skills CLI（适用任意代理）、Claude Code 插件市场、Releases 中钉版本的 .zip、git clone 后手动拷贝、Git submodule。需要可复现安装时优先选钉版本 .zip；手动拷贝会跟随 main 分支变动。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/ConardLi/garden-skills/blob/aaf9a82f5efd73e87cc0998edc398e75bfc35901/README.md?plain=1#L293"
+      }
+    },
+    {
+      "title": "下载对应技能的钉版本压缩包",
+      "text": "每个技能“Links”一行末尾都有一个 Download v<版本> .zip 链接，例如 web-video-presentation 当前指向 v1.2.2。这些链接会在每次发版后自动更新为最新的不可变版本。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/ConardLi/garden-skills/blob/aaf9a82f5efd73e87cc0998edc398e75bfc35901/README.md?plain=1#L56"
+      }
+    },
+    {
+      "title": "了解技能结构与触发方式",
+      "text": "每个技能是一个自包含文件夹，核心是 SKILL.md（YAML frontmatter 加指令），可附带 references、scripts、assets。代理根据 frontmatter 中的 description 决定是否启用该技能，完整规范见 agentskills.io。",
+      "code": "<skill-name>/\n├── SKILL.md      ← required: when to use it + how to do it\n├── README.md     ← human-facing docs\n├── references/   ← optional: extended docs the agent loads on demand\n├── scripts/      ← optional: deterministic executable helpers\n└── assets/       ← optional: templates, fonts, icons",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/ConardLi/garden-skills/blob/aaf9a82f5efd73e87cc0998edc398e75bfc35901/README.md?plain=1#L458"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "gpt-image-2 的 Garden 本地模式会调用 GPT Image 2 或兼容 OpenAI 的图像 API，需要自备接口与凭证；没有图像工具时只能使用纯提示词模式。",
+    "web-video-presentation 的可选配音依赖 MiniMax mmx-cli、OpenAI TTS 等外部 TTS 服务。",
+    "通过 git clone 手动拷贝不会固定版本，会随 main 分支变动。",
+    "项目采用 MIT 许可证。"
+  ],
+  "references": [
+    {
+      "label": "README.zh-CN.md",
+      "url": "https://github.com/ConardLi/garden-skills/blob/aaf9a82f5efd73e87cc0998edc398e75bfc35901/README.zh-CN.md"
+    }
+  ],
+  "media": [],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "7146f5c592f8471f0afab79efb39236616db1184c91cc65017e301df16d80f90",
+  "mediaStatus": "unavailable",
+  "mediaFailures": [
+    {
+      "sourceUrl": "https://github.com/ConardLi/garden-skills/blob/aaf9a82f5efd73e87cc0998edc398e75bfc35901/README.md#L84",
+      "reason": "unsupported_media_host"
+    },
+    {
+      "sourceUrl": "https://github.com/ConardLi/garden-skills/blob/aaf9a82f5efd73e87cc0998edc398e75bfc35901/README.md#L114",
+      "reason": "unsupported_media_host"
+    },
+    {
+      "sourceUrl": "https://github.com/ConardLi/garden-skills/blob/aaf9a82f5efd73e87cc0998edc398e75bfc35901/README.md#L188",
+      "reason": "unsupported_media_host"
+    }
+  ]
+}

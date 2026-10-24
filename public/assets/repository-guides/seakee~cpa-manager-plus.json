@@ -1,0 +1,97 @@
+{
+  "schemaVersion": 1,
+  "key": "seakee/cpa-manager-plus",
+  "status": "ready",
+  "reason": "",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/seakee/CPA-Manager-Plus/blob/05ebb7f275dbe575211cb886436d4b99936c1cd9/README.md",
+  "sourceRevision": "05ebb7f275dbe575211cb886436d4b99936c1cd9",
+  "canonicalKey": "seakee/CPA-Manager-Plus",
+  "summary": "CPA Manager Plus（CPAMP）是面向 CPA / CLIProxyAPI 的自托管管理面板和 AI 网关可观测性仪表盘，用于查看请求、用量、成本、配额、失败诊断和账号健康。",
+  "intro": "适合已经在运行或准备部署 CPA / CLIProxyAPI 的运维者。它可以管理 Provider、认证文件、OAuth、插件和配置，在本地 SQLite 中持久化请求历史，按模型、账号、API Key 等维度拆解 Token 和预估成本，并对 Codex 和 xAI 账号进行健康巡检、读取配额窗口和执行受控自动化。",
+  "requirements": "需要可运行 Docker 和 Docker Compose 的主机（以下采用 Docker Compose 部署 CPA + CPAMP 的路径）。如果连接已有的 CPA，推荐版本为 v7.3.4+，HTTP usage queue 至少需要 v6.10.8+。在 setup 阶段需要提供 CPA 地址和 CPA Management Key。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "先确定使用轻量面板还是完整模式",
+      "text": "如果只想替换 CPA 在 :8317 的界面，可以使用 CPAMP 轻量面板，不增加额外服务。如果需要请求历史、成本分析、巡检和自动化，就部署 CPAMP 完整模式，入口为 Manager Server 的 :18317/management.html。下面的步骤按完整模式说明。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/seakee/CPA-Manager-Plus/blob/05ebb7f275dbe575211cb886436d4b99936c1cd9/README_CN.md?plain=1#L72"
+      }
+    },
+    {
+      "title": "编写 CPA 与 CPAMP 的 Compose 文件",
+      "text": "创建一个 docker-compose 文件，同时定义 cli-proxy-api（映射 8317 端口）和 cpa-manager-plus（映射 18317 端口）两个服务，并为两者分别挂载命名数据卷，用于持久保存数据。",
+      "code": "services:\n  cli-proxy-api:\n    image: eceasy/cli-proxy-api:latest\n    restart: unless-stopped\n    ports:\n      - '8317:8317'\n    volumes:\n      - cpa-data:/app/data\n\n  cpa-manager-plus:\n    image: seakee/cpa-manager-plus:latest\n    restart: unless-stopped\n    ports:\n      - '18317:18317'\n    volumes:\n      - cpa-manager-plus-data:/data\n\nvolumes:\n  cpa-data:\n  cpa-manager-plus-data:",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/seakee/CPA-Manager-Plus/blob/05ebb7f275dbe575211cb886436d4b99936c1cd9/README_CN.md?plain=1#L143"
+      }
+    },
+    {
+      "title": "用 docker compose 启动服务",
+      "text": "在 Compose 文件所在目录执行 docker compose up -d，在后台启动 CPA 和 CPAMP。如果 CPA 已经在运行，可以改为只用 docker run 部署 CPAMP 容器。",
+      "code": "docker compose up -d",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/seakee/CPA-Manager-Plus/blob/05ebb7f275dbe575211cb886436d4b99936c1cd9/README_CN.md?plain=1#L143"
+      }
+    },
+    {
+      "title": "取管理员密钥并完成首次设置",
+      "text": "打开 http://<host>:18317/management.html，从 Manager Server 日志中取得 CPAMP 管理员密钥并登录，然后在 setup 中填写 CPA 地址和 CPA Management Key。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/seakee/CPA-Manager-Plus/blob/05ebb7f275dbe575211cb886436d4b99936c1cd9/README_CN.md?plain=1#L143"
+      }
+    },
+    {
+      "title": "备份 SQLite 数据和 data.key",
+      "text": "请求历史、配置和自动化状态都保存在本地文件中。CPA Management Key 加密后存入 SQLite，因此备份时必须同时保存 SQLite 文件和 data.key，否则无法恢复已加密的密钥。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/seakee/CPA-Manager-Plus/blob/05ebb7f275dbe575211cb886436d4b99936c1cd9/README.md?plain=1#L115"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "CPAMP 只负责管理和观测经过 CPA / CLIProxyAPI 的流量，它本身不是代理，不会转发模型请求。",
+    "只应用于你有权操作的流量和凭据。",
+    "Compose 示例和 docker run 示例使用 latest 镜像标签，升级时可能引入变更，可以参考官方安装文档中的升级说明。",
+    "在线 Demo 只使用虚构数据，不能连接或管理真实的 CPA 实例。",
+    "如果使用只读根文件系统或非 root 用户运行，需要为 SQLite 提供可写的临时目录和数据库文件。"
+  ],
+  "references": [
+    {
+      "label": "README_CN.md",
+      "url": "https://github.com/seakee/CPA-Manager-Plus/blob/05ebb7f275dbe575211cb886436d4b99936c1cd9/README_CN.md"
+    }
+  ],
+  "media": [
+    {
+      "url": "/assets/repository-guides/media-5e66a55b0e39e781cd540160.webp",
+      "alt": "CPA CLIProxyAPI 管理与可观测性仪表盘",
+      "sourceUrl": "https://github.com/seakee/CPA-Manager-Plus/blob/05ebb7f275dbe575211cb886436d4b99936c1cd9/README_CN.md?plain=1#L33",
+      "originalUrl": "https://raw.githubusercontent.com/seakee/CPA-Manager-Plus/05ebb7f275dbe575211cb886436d4b99936c1cd9/img/dashboard-zh.png"
+    },
+    {
+      "url": "/assets/repository-guides/media-56223ee2043556f9a4fe5557.webp",
+      "alt": "CPA 请求监控与失败诊断仪表盘",
+      "sourceUrl": "https://github.com/seakee/CPA-Manager-Plus/blob/05ebb7f275dbe575211cb886436d4b99936c1cd9/README_CN.md?plain=1#L37",
+      "originalUrl": "https://raw.githubusercontent.com/seakee/CPA-Manager-Plus/05ebb7f275dbe575211cb886436d4b99936c1cd9/img/monitoring-zh.png"
+    },
+    {
+      "url": "/assets/repository-guides/media-37f94174b3787fc9c3c9cc0b.webp",
+      "alt": "CPA 按模型和账号拆解用量与成本",
+      "sourceUrl": "https://github.com/seakee/CPA-Manager-Plus/blob/05ebb7f275dbe575211cb886436d4b99936c1cd9/README_CN.md?plain=1#L43",
+      "originalUrl": "https://raw.githubusercontent.com/seakee/CPA-Manager-Plus/05ebb7f275dbe575211cb886436d4b99936c1cd9/img/usage-analytics-zh.png"
+    }
+  ],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "26166d4683bc2f275deabbc25e82793fb43dcfa15861d50495e0dc7a74dff755",
+  "mediaStatus": "archived",
+  "mediaFailures": []
+}

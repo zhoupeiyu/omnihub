@@ -1,0 +1,77 @@
+{
+  "schemaVersion": 1,
+  "key": "mcncarl/yichen-skills",
+  "status": "ready",
+  "reason": "",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/mcncarl/yichen-skills/blob/8a380d99270bef9f6e4d82cda0a33370d0dc5345/README.md",
+  "sourceRevision": "8a380d99270bef9f6e4d82cda0a33370d0dc5345",
+  "canonicalKey": "mcncarl/yichen-skills",
+  "summary": "一组面向内容创作者的 Claude Code / Codex 本地技能，覆盖 X 文章草稿上传、微信与企业微信本地数据导出、内容归档、语音转写和网络调研等工作流。",
+  "intro": "适合用 Claude Code 或 Codex CLI 处理写作、发布和素材整理的个人创作者。仓库包含 20 多个独立技能目录，例如：yichen-x-article-draft-uploader 把 Obsidian/Markdown 文章上传为 X Articles 草稿；yichen-content-archive 归档已知的抖音、小红书链接；yichen-volc-asr 用火山引擎 ASR 转写口播视频并粗剪；yichen-wechat-local-vault 在 macOS 上导出微信聊天、朋友圈和收藏。按需挑选目录使用即可。",
+  "requirements": "通用要求是支持加载本地 skills 的 Claude Code 或 Codex CLI，以及 Python 3.9+。各技能另有依赖，例如：X 文章草稿需要 Playwright、pycryptodome 和 Chromium；火山 ASR 需要 requests 以及本机 ffmpeg / ffprobe；Grok Consult 需要 Node.js 18+、官方 Grok Build CLI 并已执行 grok login；X 切片需要 Node.js 18+、Playwright、本机 Chrome 和 ffmpeg。微信本地库需要 macOS 和 WeChat Mac 4.x。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "从功能清单中选定所需技能",
+      "text": "阅读 README 的“What This Repo Does”清单，找到与任务对应的目录名。例如上传 X 文章草稿用 yichen-x-article-draft-uploader，转写口播视频用 yichen-volc-asr。各技能的平台要求不同，部分只支持 macOS，部分需要已登录的 Chrome。选定后再看该目录内 README 的详细说明。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/mcncarl/yichen-skills/blob/8a380d99270bef9f6e4d82cda0a33370d0dc5345/README.md?plain=1#L26"
+      }
+    },
+    {
+      "title": "按所选技能安装对应依赖",
+      "text": "对照 Requirements 一节，只安装所选技能需要的依赖。例如 X 文章草稿要装 Playwright、pycryptodome，并安装 Chromium；小红书归档只需要 requests；火山 ASR 还需要本机 ffmpeg / ffprobe。如果选用 Web Research 家族，必须把五个家族目录一起安装。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/mcncarl/yichen-skills/blob/8a380d99270bef9f6e4d82cda0a33370d0dc5345/README.md?plain=1#L405"
+      }
+    },
+    {
+      "title": "复制技能目录到本地 skills 路径",
+      "text": "把仓库中所需的技能目录复制到本地 skills 目录。Claude Code 常用路径是 ~/.claude/skills/，Agents 常用路径是 ~/.agents/skills/，也可以用自定义目录。复制时保持目录名不变，例如 yichen-content-archive、yichen-volc-asr。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/mcncarl/yichen-skills/blob/8a380d99270bef9f6e4d82cda0a33370d0dc5345/README.md?plain=1#L427"
+      }
+    },
+    {
+      "title": "用 Codex marketplace 安装 Grok 插件",
+      "text": "yichen-grok-consult 是 Codex 插件，不是复制目录就能工作的普通技能。需要先把本仓库添加为 Codex 插件 marketplace，再安装 yichen-grok-consult。使用前确认已装好官方 Grok Build CLI，并完成 grok login。",
+      "code": "codex plugin marketplace add mcncarl/yichen-skills --ref main\ncodex plugin add yichen-grok-consult@yichen-skills",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/mcncarl/yichen-skills/blob/8a380d99270bef9f6e4d82cda0a33370d0dc5345/README.md?plain=1#L427"
+      }
+    },
+    {
+      "title": "按创作者视频流程组合使用",
+      "text": "README 给出了一个组合示例：先安装 Playwright、requests 和 ffmpeg；再用 yichen-content-archive 把已知的抖音或小红书对标内容保存到本地；最后用 yichen-volc-asr 转写录好的口播视频，或生成粗剪。火山引擎 ASR 和 TOS 的配置通过环境变量提供。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/mcncarl/yichen-skills/blob/8a380d99270bef9f6e4d82cda0a33370d0dc5345/README.md?plain=1#L487"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "许可仅限个人学习和非商业个人使用。客户交付、付费产品、公司内部部署、课程打包等商业用途，须事先取得作者书面授权。",
+    "yichen-wechat-local-vault 会解密 WeChat Mac 4.x 本地 SQLCipher 数据库，首次配置要用 frida 提取密钥。企业微信本地库仅在明确授权时才用 frida 抓取 raw key。这些操作涉及大量个人隐私和账号数据，需自行评估风险。",
+    "yichen-mac-wechat-dual-open 会复制微信、修改 bundle identifier 并本地重签名。微信更新后会失效，需要执行 repair，推送通知也可能不稳定。",
+    "yichen-jianying-edit 依赖需另行授权的私有仓库 jianying-headless，以及指定版本的剪映，公开仓库本身无法单独运行。",
+    "yichen-wechat-windows-reader 是实验性功能，与真实 Weixin 4.x 数据库的广泛兼容性尚未确认。",
+    "Grok Consult、火山引擎 ASR、YouTube Data API、ChatGPT Pro 等路线依赖第三方账号或凭据，可能产生相应费用。"
+  ],
+  "references": [
+    {
+      "label": "README.zh.md",
+      "url": "https://github.com/mcncarl/yichen-skills/blob/8a380d99270bef9f6e4d82cda0a33370d0dc5345/README.zh.md"
+    }
+  ],
+  "media": [],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "96d72c33b4c7db21d0e8473f9718ff1063cce17090bf7f3fe6cfbd94f19ee71a",
+  "mediaStatus": "none_in_official_documents"
+}

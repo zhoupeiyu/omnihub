@@ -1,0 +1,76 @@
+{
+  "schemaVersion": 1,
+  "key": "bojieli/ai-agent-book",
+  "status": "ready",
+  "reason": "",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/bojieli/ai-agent-book/blob/dbc046eb896ac4e39aa19c7774c8bf49583b89a6/README.md",
+  "sourceRevision": "dbc046eb896ac4e39aa19c7774c8bf49583b89a6",
+  "canonicalKey": "bojieli/ai-agent-book",
+  "summary": "《深入理解 AI Agent：设计原理与工程实践》开源主仓库，提供全书正文、多语言 PDF/EPUB 和按章节组织的配套实验代码。",
+  "intro": "适合想系统学习 AI Agent 原理与工程实践的开发者。全书围绕“Agent = LLM + 上下文 + 工具”展开，共 10 章，涵盖上下文工程、记忆与知识库、工具与 MCP、Coding Agent、交互、评估、后训练、持续进化和多 Agent 协作。读者可以离线阅读电子书或在线阅读，再按章节安装依赖、运行配套实验。思考题参考答案位于 book/reference-answers.md。",
+  "requirements": "只读书不需要任何环境。运行实验需要 Python 3.11–3.13，推荐安装 uv，pip 也受支持但不会使用锁文件。调用模型的实验需要至少一个模型提供商的 API Key。README 建议读者能读懂并修改中等复杂度的 Python 代码，并了解命令行、Git、JSON 和 REST API。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "下载电子书或在线阅读",
+      "text": "在 README 的“电子书”一节下载中文原版 PDF 或 EPUB，链接始终指向 main 分支的最新构建，固定版本可在 Releases 获取。也可以使用 bojieli.github.io 上的在线阅读版。如果手头是旧版 PDF，作者建议重新下载 2.0 版，因为 2.0 调整了章节结构。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/bojieli/ai-agent-book/blob/dbc046eb896ac4e39aa19c7774c8bf49583b89a6/README.md?plain=1#L1"
+      }
+    },
+    {
+      "title": "按章节表选择正文与实验",
+      "text": "在“内容速览”表中选择要读的章节。点“读”在 GitHub 网页上阅读该章 markdown 正文，点实验数量进入对应的 chapterN/README.md，查看实现与复现说明。各章 README 标注了项目类型：可运行、复现或设计。学习路径可参考 docs/zh-CN/LEARNING.md。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/bojieli/ai-agent-book/blob/dbc046eb896ac4e39aa19c7774c8bf49583b89a6/README.md?plain=1#L61"
+      }
+    },
+    {
+      "title": "在仓库根目录安装章节依赖",
+      "text": "在仓库根目录使用 uv 按章节同步依赖，把 ch1 换成 ch2~ch10 即可安装对应章节。没有 uv 时可改用 pip 从 pyproject.toml 安装。需要 vllm、unsloth 等特殊 extra 时，要把它们合并到同一条 uv sync 命令中。浏览器、CUDA、FFmpeg 等系统依赖请看各实验的 README。",
+      "code": "# 推荐：使用提交到仓库的 uv.lock，获得可复现的章节环境\nuv sync --locked --extra ch1\n\n# 未安装 uv 时：使用 pip 从 pyproject.toml 重新解析\npython -m pip install -e \".[ch1]\"",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/bojieli/ai-agent-book/blob/dbc046eb896ac4e39aa19c7774c8bf49583b89a6/README.md?plain=1#L82"
+      }
+    },
+    {
+      "title": "配置模型提供商凭据",
+      "text": "运行会调用模型的实验之前，先阅读该实验的 README。支持根目录配置的实验，可以把 .env.example 复制为 .env，再填入至少一个提供商的 Key；有些实验要求把 .env 放在自身目录，或直接导出环境变量。只有实验 README 或 CLI 明确列出 ollama 时，才能使用 --provider ollama。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/bojieli/ai-agent-book/blob/dbc046eb896ac4e39aa19c7774c8bf49583b89a6/README.md?plain=1#L82"
+      }
+    },
+    {
+      "title": "从仓库根目录运行实验",
+      "text": "安装完成后，在仓库根目录用 uv run 运行对应实验的入口脚本。README 给出的示例是第 1 章的 context 实验；用 pip 安装的环境可以直接用 python 运行。第 6、7、8、10 章的部分实验依赖外部仓库，需要按附录说明自行克隆到对应目录。",
+      "code": "uv run python chapter1/context/main.py\n# 使用 pip 安装时也可直接运行：python chapter1/context/main.py",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/bojieli/ai-agent-book/blob/dbc046eb896ac4e39aa19c7774c8bf49583b89a6/README.md?plain=1#L82"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "调用模型的实验需要自备第三方 API Key，可能产生对应平台的费用。",
+    "第 6、7、8、10 章涉及的 22 个外部仓库不随本书内置，需要自行克隆；作者明确说明，源码存在或安装成功不代表实验已完成。",
+    "all extra 是不含本地训练栈的 CPU 友好组合，不覆盖所有实验；第 8 章部分组件需要 Python 3.12+。",
+    "仓库采用 Apache-2.0 许可证，部分子项目可能有各自的许可证。"
+  ],
+  "references": [
+    {
+      "label": "docs/zh-TW/README.md",
+      "url": "https://github.com/bojieli/ai-agent-book/blob/dbc046eb896ac4e39aa19c7774c8bf49583b89a6/docs/zh-TW/README.md"
+    }
+  ],
+  "media": [],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "1174d8992783b0567ab03e1e111a0741b214396d63c6a4ebc0e00fb389eae84d",
+  "mediaStatus": "none_in_official_documents"
+}

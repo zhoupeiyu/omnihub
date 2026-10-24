@@ -1,0 +1,72 @@
+{
+  "schemaVersion": 1,
+  "key": "tw93/waza",
+  "status": "ready",
+  "reason": "",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/tw93/Waza/blob/c3b74dd5845b39a80a79c36bb82b028947674a05/README.md",
+  "sourceRevision": "c3b74dd5845b39a80a79c36bb82b028947674a05",
+  "canonicalKey": "tw93/Waza",
+  "summary": "Waza 把八个常见工程习惯（方案推敲、UI、审查、调试、写作、研究、阅读、健康检查）做成 AI 代理可运行的技能。",
+  "intro": "适合使用 Claude Code、Codex、Cursor 等 AI 编码代理的开发者，用来让代理按固定流程完成工作：动手前用 /think 推敲方案，前端界面用 /ui，排查 bug 用 /hunt，合并前用 /check 审查改动，处理文字用 /write，研究陌生领域用 /learn，读取 URL 或 PDF 用 /read，检查代理配置状况用 /health。",
+  "requirements": "需要一个支持技能的代理宿主，例如 Claude Code、Codex、Cursor，或 Claude Desktop。通过 npx skills 安装时需要能运行 npx。可选的状态栏和规则脚本通过 curl 下载并用 bash 执行。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "用 npx 全局安装八个技能",
+      "text": "以 Claude Code、Codex、Cursor 为例，运行 npx skills add 命令全局安装。技能会放入共享目录 ~/.agents/skills，读取该目录的代理会识别出 /check、/think 等技能。使用私有技能目录的代理，在 -a 后填写对应 id。之后可用 npx skills update -g -y 更新。",
+      "code": "npx skills add tw93/Waza -a claude-code codex cursor -g -y",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/tw93/Waza/blob/c3b74dd5845b39a80a79c36bb82b028947674a05/README.md?plain=1#L36"
+      }
+    },
+    {
+      "title": "按场景调用对应技能",
+      "text": "在 Claude Code 中直接输入斜杠命令，例如开发新功能前用 /think，遇到 bug 或回归问题用 /hunt，合并或发布前用 /check。在 Codex 中，按名称调用已安装的技能，执行流程相同。各技能的用途和适用时机见 README 中的技能表。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/tw93/Waza/blob/c3b74dd5845b39a80a79c36bb82b028947674a05/README.md?plain=1#L19"
+      }
+    },
+    {
+      "title": "串联技能组成工作流",
+      "text": "技能如何串联由你决定，每个技能完成你要求的结果后就会停下。常见组合有：/think → 批准 → 实现 → /check；/hunt → 修复 → /check；/read → /learn → /write。如果你明确授权了一条工作流，它会连续执行，不需要你逐步确认每次衔接。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/tw93/Waza/blob/c3b74dd5845b39a80a79c36bb82b028947674a05/README.md?plain=1#L62"
+      }
+    },
+    {
+      "title": "可选安装 Claude Code 状态栏",
+      "text": "这一步可选。在 Claude Code 中，可运行 setup-statusline.sh 安装一个精简状态栏，显示上下文窗口用量、5 小时额度和 7 天额度。脚本先下载到临时文件，建议执行前用 less 查看内容。Codex 用户无需此脚本，改为在 ~/.codex/config.toml 中配置原生状态栏条目。",
+      "code": "(\n  set -e\n  WAZA_STATUSLINE_SCRIPT=\"$(mktemp -t waza-statusline.XXXXXX)\"\n  trap 'rm -f \"$WAZA_STATUSLINE_SCRIPT\"' EXIT\n  curl -fL https://github.com/tw93/Waza/releases/latest/download/setup-statusline.sh -o \"$WAZA_STATUSLINE_SCRIPT\"\n  # review it first: less \"$WAZA_STATUSLINE_SCRIPT\"\n  bash \"$WAZA_STATUSLINE_SCRIPT\"\n)\n\n[tui]\nstatus_line = [\"model-with-reasoning\", \"current-dir\", \"context-used\", \"five-hour-limit\", \"weekly-limit\"]\nstatus_line_use_colors = true",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/tw93/Waza/blob/c3b74dd5845b39a80a79c36bb82b028947674a05/README.md?plain=1#L79"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "状态栏和可选规则脚本通过 curl 从 GitHub Release 下载后用 bash 执行。文档建议先查看脚本内容再运行。",
+    "/check 会在运行时读取目标仓库的公开上下文（README、包清单、Makefile、CI 配置），并可处理经你批准的发布和维护操作，使用前要明确授权范围。",
+    "可选规则会写入 ~/.claude/rules 或 ~/.codex/AGENTS.md。卸载时需要按 Uninstall 一节手动删除这些文件或标记块。"
+  ],
+  "references": [],
+  "media": [],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "0041b0ec65a1e581ac17c4283e2d3a63cbad4b1b4af5d8a41041bccadc25abb4",
+  "mediaStatus": "unavailable",
+  "mediaFailures": [
+    {
+      "sourceUrl": "https://github.com/tw93/Waza/blob/c3b74dd5845b39a80a79c36bb82b028947674a05/README.md#L84",
+      "reason": "unsupported_media_host"
+    },
+    {
+      "sourceUrl": "https://github.com/tw93/Waza/blob/c3b74dd5845b39a80a79c36bb82b028947674a05/README.md#L132",
+      "reason": "unsupported_media_host"
+    }
+  ]
+}

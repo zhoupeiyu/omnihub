@@ -1,62 +1,36 @@
 /// 万象台 OmniHub 服务器 —— 静态页面 + REST API，零第三方依赖
 /// 启动：node server.js（默认 http://localhost:4320）
 import http from "node:http";
-import { readFile, stat } from "node:fs/promises";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { handleApi } from "./lib/api.js";
+import { startMediaWorker } from "./lib/media.js";
+import { startLocalImageMonitor } from './lib/local-image.js';
+import { createStaticHandler } from "./lib/http-static.js";
+import { startContentWorker } from './lib/content-runtime.js';
+import { startXWatchWorker } from './lib/x-watch-runtime.js';
+import { startXBookmarkSyncWorker } from './lib/x-bookmark-sync-runtime.js';
+import { db } from "./lib/db.js";
+import { createLifeGuideStore } from "./lib/life-guide-store.js";
+import { createLifeGuideHandler } from "./lib/life-guide-api.js";
 
 const PORT = Number(process.env.PORT || 4320);
-const PUBLIC_DIR = path.join(path.dirname(fileURLToPath(import.meta.url)), "public");
+const HOST = process.env.HOST || "127.0.0.1";
+const PUBLIC_DIR = process.env.OMNIHUB_STATIC_DIR || path.join(path.dirname(fileURLToPath(import.meta.url)), "public");
 
-const MIME_TYPES = {
-  ".html": "text/html; charset=utf-8",
-  ".js": "text/javascript; charset=utf-8",
-  ".jsx": "text/javascript; charset=utf-8",
-  ".css": "text/css; charset=utf-8",
-  ".json": "application/json; charset=utf-8",
-  ".png": "image/png", ".jpg": "image/jpeg", ".jpeg": "image/jpeg",
-  ".svg": "image/svg+xml", ".ico": "image/x-icon", ".webp": "image/webp",
-  ".mp3": "audio/mpeg",
-};
+const serveStatic = createStaticHandler(PUBLIC_DIR);
 
-async function serveStatic(req, res, pathname) {
-  const relative = pathname === "/" ? "index.html" : pathname.slice(1);
-  const filePath = path.join(PUBLIC_DIR, relative);
-  if (!filePath.startsWith(PUBLIC_DIR)) { res.writeHead(403); res.end(); return; }
-  try {
-    const stats = await stat(filePath);
-    // 基于文件大小 + 修改时间生成校验标记：文件变了标记就变，浏览器会重新拉取
-    const etag = `"${stats.size}-${Math.round(stats.mtimeMs)}"`;
-    const lastModified = stats.mtime.toUTCString();
-    const cacheHeaders = {
-      "ETag": etag,
-      "Last-Modified": lastModified,
-      "Cache-Control": "no-cache", // 可缓存，但每次用 304 校验，保证更新即时生效
-    };
-    // 协商缓存命中：文件未变，返回 304，浏览器直接用本地缓存（不重新下载内容）
-    if (req.headers["if-none-match"] === etag ||
-        req.headers["if-modified-since"] === lastModified) {
-      res.writeHead(304, cacheHeaders);
-      res.end();
-      return;
-    }
-    const content = await readFile(filePath);
-    res.writeHead(200, {
-      "Content-Type": MIME_TYPES[path.extname(filePath)] || "application/octet-stream",
-      ...cacheHeaders,
-    });
-    res.end(content);
-  } catch (err) {
-    res.writeHead(404, { "Content-Type": "text/plain; charset=utf-8" });
-    res.end("404 Not Found");
-  }
-}
+// Public read-only life-guide routes. Built once against the shared db handle;
+// mounted ahead of handleApi so the prefix is owned by the guide router.
+const lifeGuideHandler = createLifeGuideHandler(createLifeGuideStore(db));
+const isLifeGuidePath = (pathname) => pathname === "/api/life-guide" || pathname.startsWith("/api/life-guide/");
 
 const server = http.createServer(async (req, res) => {
   try {
     const pathname = decodeURIComponent(new URL(req.url, "http://localhost").pathname);
-    const handled = await handleApi(req, res, pathname);
+    let handled = false;
+    if (isLifeGuidePath(pathname)) handled = await lifeGuideHandler(req, res, pathname);
+    if (!handled) handled = await handleApi(req, res, pathname);
     if (!handled) await serveStatic(req, res, pathname);
   } catch (err) {
     console.error("[server]", err);
@@ -69,6 +43,11 @@ const server = http.createServer(async (req, res) => {
   }
 });
 
-server.listen(PORT, () => {
-  console.log(`万象台 OmniHub 已启动：http://localhost:${PORT}`);
+server.listen(PORT, HOST, () => {
+  console.log(`万象台 OmniHub 已启动：http://${HOST}:${PORT}`);
+  startMediaWorker();
+  startLocalImageMonitor();
+  startContentWorker();
+  startXWatchWorker();
+  startXBookmarkSyncWorker();
 });

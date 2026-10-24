@@ -1,0 +1,71 @@
+{
+  "schemaVersion": 1,
+  "key": "palmier-io/palmier-pro",
+  "status": "ready",
+  "reason": "",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/palmier-io/palmier-pro/blob/eeafde20086b1dffb01ccb59da80e470abadeda8/README.md",
+  "sourceRevision": "eeafde20086b1dffb01ccb59da80e470abadeda8",
+  "canonicalKey": "palmier-io/palmier-pro",
+  "summary": "Palmier Pro 是一款 macOS 原生视频编辑器，内置 AI 视频和图像生成，并通过 MCP 让 Claude、Codex、Cursor 等智能体直接在时间线上创作和剪辑。",
+  "intro": "适合使用 Apple Silicon Mac、希望把 AI 生成和智能体协作融入剪辑流程的视频创作者。可以在时间线编辑器里调用 Seedance、Kling、Nano Banana Pro 等模型生成视频和图像，也可以让外部智能体或应用内智能体通过 MCP 操作同一个项目。本仓库保存历史 GPL 源码，并托管当前的二进制发布和更新元数据。",
+  "requirements": "运行 macOS 26（Tahoe）或更高版本的 Apple Silicon（M 系列）Mac。如需接入智能体，还要准备 Claude Code、Codex、Cursor 或 Claude Desktop 中的任意一个。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "下载并安装 macOS 版应用",
+      "text": "从仓库 Releases 下载最新的 PalmierPro.dmg 并安装。仅支持运行 macOS 26（Tahoe）或更高版本的 Apple Silicon Mac。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/palmier-io/palmier-pro/blob/eeafde20086b1dffb01ccb59da80e470abadeda8/README.md?plain=1#L6"
+      }
+    },
+    {
+      "title": "打开应用以启用 MCP 服务",
+      "text": "应用运行期间，会通过 HTTP 在 http://127.0.0.1:19789/mcp 提供 MCP 服务；应用关闭后智能体无法连接。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/palmier-io/palmier-pro/blob/eeafde20086b1dffb01ccb59da80e470abadeda8/README.md?plain=1#L58"
+      }
+    },
+    {
+      "title": "把 Claude Code 或 Codex 接入",
+      "text": "在命令行中用 claude mcp add 或 codex mcp add，把名为 palmier-pro 的服务指向 http://127.0.0.1:19789/mcp。之后智能体就能与你一起操作同一个剪辑项目。",
+      "code": "claude mcp add --transport http palmier-pro http://127.0.0.1:19789/mcp\n\ncodex mcp add palmier-pro --url http://127.0.0.1:19789/mcp",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/palmier-io/palmier-pro/blob/eeafde20086b1dffb01ccb59da80e470abadeda8/README.md?plain=1#L54"
+      }
+    },
+    {
+      "title": "在应用内接入 Cursor 或 Claude Desktop",
+      "text": "在应用中依次进入 Help → MCP Instructions，选择 Install in Cursor 或 Install in Claude Desktop（后者使用随应用附带的 mcpb 扩展一键安装）。Cursor 也可以手动把配置写入 ~/.cursor/mcp.json。",
+      "code": "{\n  \"mcpServers\": {\n    \"palmier-pro\": {\n      \"type\": \"http\",\n      \"url\": \"http://127.0.0.1:19789/mcp\"\n    }\n  }\n}",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/palmier-io/palmier-pro/blob/eeafde20086b1dffb01ccb59da80e470abadeda8/README.md?plain=1#L58"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "只有 v0.7.6 及以前的版本和 last-gpl-source 分支的源码采用 GPLv3；之后的二进制版本是专有软件，受 BINARY_LICENSE.md 约束，对应源码不公开。",
+    "本仓库不再接受代码贡献。",
+    "README 未说明内置 AI 生成模型（Seedance、Kling、Nano Banana Pro）的账户要求或费用，使用前请自行确认。",
+    "MCP 服务只监听本机 127.0.0.1:19789，且需要应用保持运行。"
+  ],
+  "references": [],
+  "media": [
+    {
+      "url": "/assets/repository-guides/media-186387c2ce16c3b9d9f94756.webp",
+      "alt": "palmier-io/palmier-pro 官方演示 1",
+      "sourceUrl": "https://github.com/palmier-io/palmier-pro/blob/eeafde20086b1dffb01ccb59da80e470abadeda8/README.md?plain=1#L40",
+      "originalUrl": "https://raw.githubusercontent.com/palmier-io/palmier-pro/eeafde20086b1dffb01ccb59da80e470abadeda8/assets/palmier-ui.png"
+    }
+  ],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "f083c75abe525856191da3b66ad3a616d2d1434805ebb409d768c33c7e3d1697",
+  "mediaStatus": "archived",
+  "mediaFailures": []
+}

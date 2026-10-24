@@ -1,0 +1,80 @@
+{
+  "schemaVersion": 1,
+  "key": "lumiwealth/lumibot",
+  "status": "ready",
+  "reason": "",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/Lumiwealth/lumibot/blob/b068e8055dc52db93b6d22e0b230b1cf797a3e3f/README.md",
+  "sourceRevision": "b068e8055dc52db93b6d22e0b230b1cf797a3e3f",
+  "canonicalKey": "Lumiwealth/lumibot",
+  "summary": "一个 Python 交易框架，可用规则策略或 AI 智能体做历史回测，并通过已支持的券商进行模拟盘或实盘下单。",
+  "intro": "适合会写 Python、想开发和回测交易策略的人。支持的品种包括股票、期权、期货、外汇、加密货币和 Polymarket 预测市场。可以写传统的规则策略，也可以组织多个 AI 智能体分工研究和决策，同一套 Strategy 代码可用于回测、模拟盘和实盘。仓库提供 25 个以上示例策略。",
+  "requirements": "需要 Python 3.10 或更高版本，回测使用 Yahoo 历史数据时需要联网。基础的规则回测不需要 API Key 或券商账户。AI 策略需要模型凭证，例如 OPENAI_API_KEY。接入券商模拟盘需要对应券商凭证，例如 Alpaca。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "pip 安装并运行 lumibot demo",
+      "text": "用 pip install lumibot 安装，再运行 lumibot demo。README 说明它会用免费日线数据跑一次回测并生成 tearsheet，不需要 API Key、券商账户或任何配置。",
+      "code": "pip install lumibot\nlumibot demo",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/Lumiwealth/lumibot/blob/b068e8055dc52db93b6d22e0b230b1cf797a3e3f/README.md?plain=1#L14"
+      }
+    },
+    {
+      "title": "编写并回测规则策略",
+      "text": "把文档中的示例保存为 my_strategy.py，再用 python 运行。该示例继承 Strategy 类，第一次迭代时买入 10 股 AAPL 并持有，使用 YahooDataBacktesting 回测 2023 年数据，不调用 AI。",
+      "code": "pip install lumibot\n\nfrom datetime import datetime\nfrom lumibot.strategies import Strategy\nfrom lumibot.backtesting import YahooDataBacktesting\n\nclass MyStrategy(Strategy):\n    def on_trading_iteration(self):\n        if self.first_iteration:\n            aapl = self.create_order(\"AAPL\", 10, \"buy\")\n            self.submit_order(aapl)\n\nMyStrategy.backtest(\n    YahooDataBacktesting,\n    datetime(2023, 1, 1),\n    datetime(2024, 1, 1),\n)\n\npython my_strategy.py",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/Lumiwealth/lumibot/blob/b068e8055dc52db93b6d22e0b230b1cf797a3e3f/README.md?plain=1#L179"
+      }
+    },
+    {
+      "title": "用 lumibot init 生成项目",
+      "text": "lumibot init 会生成一个普通、可编辑的 Strategy 子类文件，再用 lumibot backtest 回测、用 lumibot run --paper 运行模拟盘。示例命令使用 --template ai，不需要 AI 模型时改用 --template python。",
+      "code": "lumibot init my-bot --template ai     # writes an ordinary, editable Strategy subclass\nlumibot backtest my-bot --days 90\nlumibot run my-bot --paper",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/Lumiwealth/lumibot/blob/b068e8055dc52db93b6d22e0b230b1cf797a3e3f/README.md?plain=1#L14"
+      }
+    },
+    {
+      "title": "设置模型密钥运行 AI 回测",
+      "text": "在 macOS/Linux shell 中先设置 OPENAI_API_KEY。然后保存 my_ai_strategy.py，调用示例中的 ResearcherTraderStrategy 回测 SPY，参数设置单笔新建仓位不超过模拟组合的 10%，再用 python 运行。运行后在日志中查看研究与交易决策，以及订单和回测报告。",
+      "code": "from datetime import datetime\nfrom lumibot.backtesting import YahooDataBacktesting\nfrom lumibot.example_strategies.ai_researcher_trader import ResearcherTraderStrategy\n\nif __name__ == \"__main__\":\n    ResearcherTraderStrategy.backtest(\n        YahooDataBacktesting,\n        datetime(2026, 4, 6),\n        datetime(2026, 4, 11),\n        budget=100_000,\n        benchmark_asset=\"SPY\",\n        parameters={\"symbol\": \"SPY\", \"max_position_pct\": 10},\n    )\n\npython my_ai_strategy.py",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/Lumiwealth/lumibot/blob/b068e8055dc52db93b6d22e0b230b1cf797a3e3f/README.md?plain=1#L89"
+      }
+    },
+    {
+      "title": "接入 Alpaca 运行模拟盘",
+      "text": "在 macOS/Linux shell 中设置 OpenAI 和 Alpaca 凭证，并将 ALPACA_IS_PAPER 设为 true，然后运行多智能体示例文件 ai_trading_team_bull_bear_leveraged_etf.py。若要改为回测，在 runner 中把 IS_BACKTESTING 改为 True。",
+      "code": "export OPENAI_API_KEY='your-key-here'\nexport ALPACA_API_KEY='your-alpaca-key'\nexport ALPACA_API_SECRET='your-alpaca-secret'\nexport ALPACA_IS_PAPER=true\npython ai_trading_team_bull_bear_leveraged_etf.py",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/Lumiwealth/lumibot/blob/b068e8055dc52db93b6d22e0b230b1cf797a3e3f/README.md?plain=1#L269"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "许可证为 GPL-3.0，在其基础上分发衍生作品需遵守 GPL 条款。",
+    "调用 AI 模型可能产生费用；同一策略重新运行时，AI 决策和收益可能与此前记录不同。",
+    "回测结果不代表未来表现；连接真实资金实盘前应先在回测和模拟盘中检查决策、订单和风控逻辑。",
+    "示例中包含杠杆与反向 ETF 等高波动品种，官方说明这是一个快速、激进的演示。",
+    "README 中多处推广 BotSpot 托管服务、挑战营和课程，它们是外部平台，并非使用开源库的必要条件。"
+  ],
+  "references": [
+    {
+      "label": "README.zh-CN.md",
+      "url": "https://github.com/Lumiwealth/lumibot/blob/b068e8055dc52db93b6d22e0b230b1cf797a3e3f/README.zh-CN.md"
+    }
+  ],
+  "media": [],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "d5b049b70ba304d26159fbcc2c59b58d9fcfc69ff6f4582b49897a75be4e7121",
+  "mediaStatus": "none_in_official_documents"
+}

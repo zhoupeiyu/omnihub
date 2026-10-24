@@ -1,0 +1,95 @@
+{
+  "schemaVersion": 1,
+  "key": "open-llm-vtuber/open-llm-vtuber",
+  "status": "partial",
+  "reason": "README 的 Quick Start 只给出外部文档链接（open-llm-vtuber.github.io/docs/quick-start），提供的材料里没有安装命令、依赖安装步骤、conf.yaml 配置示例和启动方式，无法从仓库文档中提炼出完整的部署操作。",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/Open-LLM-VTuber/Open-LLM-VTuber/blob/992309c0aa19845960228f880013d4685fde93b5/README.md",
+  "sourceRevision": "992309c0aa19845960228f880013d4685fde93b5",
+  "canonicalKey": "Open-LLM-VTuber/Open-LLM-VTuber",
+  "summary": "一个可在本地运行的语音交互 AI 伴侣，结合 LLM、语音识别、语音合成和 Live2D 形象，支持语音打断、视觉感知和桌宠模式。",
+  "intro": "适合想在自己电脑上搭建可语音对话的 Live2D 角色的用户和开发者。项目支持 Windows、macOS、Linux，提供网页版和桌面客户端，桌面客户端可切换到透明背景的桌宠模式。LLM、ASR、TTS 后端可以通过配置文件切换，例如 Ollama、OpenAI 兼容 API、sherpa-onnx、Edge TTS 等。也可以用本地模型完全离线运行，或把资源密集的任务交给云 API。",
+  "requirements": "Windows、macOS 或 Linux 电脑；具体依赖以官方 Quick Start 文档为准，README 提到的相关工具有 uv、ffmpeg、deeplx。远程访问时需要配置 https 反向代理。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "阅读官方快速上手文档",
+      "text": "README 没有直接给出安装步骤，安装需要按官方文档站的 Quick Start 进行。从 v1.0.0 之前的版本迁移的用户，官方也建议按最新部署指南重新部署，因为旧的 conf.yaml 不兼容。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/Open-LLM-VTuber/Open-LLM-VTuber/blob/992309c0aa19845960228f880013d4685fde93b5/README.md?plain=1#L100"
+      }
+    },
+    {
+      "title": "选择后端模型与使用方式",
+      "text": "根据硬件和隐私需求，决定用本地模型离线运行，还是把部分任务交给云 API。从文档列出的 LLM、ASR、TTS 方案中挑选，再通过配置文件切换。同时决定使用网页版还是桌面客户端（含桌宠模式）。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/Open-LLM-VTuber/Open-LLM-VTuber/blob/992309c0aa19845960228f880013d4685fde93b5/README.md?plain=1#L44"
+      }
+    },
+    {
+      "title": "定制角色外观与人设",
+      "text": "如果想更换形象或性格，可以参考官方的角色定制指南：导入自定义 Live2D 模型、修改 Prompt 来设定人设，也可以做音色克隆。表情可以通过情绪映射由后端控制。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/Open-LLM-VTuber/Open-LLM-VTuber/blob/992309c0aa19845960228f880013d4685fde93b5/README.md?plain=1#L44"
+      }
+    },
+    {
+      "title": "跨设备访问时配置 https",
+      "text": "如果在电脑上运行服务端、在手机等其他设备上访问，前端麦克风只能在 https 或 localhost 环境下启用，因此需要用反向代理配置 https。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/Open-LLM-VTuber/Open-LLM-VTuber/blob/992309c0aa19845960228f880013d4685fde93b5/README.md?plain=1#L1"
+      }
+    },
+    {
+      "title": "更新与卸载项目",
+      "text": "v1.0.0 之后的版本通过 uv 运行更新脚本。英文 README 写的是 update.py，中文 README 写的是 upgrade.py，请以仓库中实际存在的文件为准。卸载时删除项目文件夹，再检查 MODELSCOPE_CACHE、HF_HOME 中是否还有残留的模型。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/Open-LLM-VTuber/Open-LLM-VTuber/blob/992309c0aa19845960228f880013d4685fde93b5/README.md?plain=1#L106"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "仓库自带的 Live2D 样本模型单独授权，不受本项目 MIT 许可约束；商业使用，尤其是中大型企业，可能需要获得 Live2D Inc. 的额外许可。",
+    "项目处于早期积极开发阶段，团队正在重写 v2.0，v1 只修复 bug，不接受新功能请求。",
+    "v1.0.0 有破坏性变更，旧版 conf.yaml 不兼容，大部分依赖需要用 uv 重新安装。",
+    "长期记忆功能暂时下线，目前只保留聊天记录持久化。",
+    "使用云端 LLM/TTS/ASR 服务时，需要各服务商的账号或 API Key，可能产生费用。"
+  ],
+  "references": [
+    {
+      "label": "README.CN.md",
+      "url": "https://github.com/Open-LLM-VTuber/Open-LLM-VTuber/blob/992309c0aa19845960228f880013d4685fde93b5/README.CN.md"
+    }
+  ],
+  "media": [
+    {
+      "url": "/assets/repository-guides/media-65c1579dcc892e40d04e556c.webp",
+      "alt": "Open-LLM-VTuber/Open-LLM-VTuber 官方演示 1",
+      "sourceUrl": "https://github.com/Open-LLM-VTuber/Open-LLM-VTuber/blob/992309c0aa19845960228f880013d4685fde93b5/README.md?plain=1#L58",
+      "originalUrl": "https://raw.githubusercontent.com/Open-LLM-VTuber/Open-LLM-VTuber/992309c0aa19845960228f880013d4685fde93b5/assets/i1.jpg"
+    },
+    {
+      "url": "/assets/repository-guides/media-2901b2f2734eccead300cb82.webp",
+      "alt": "Open-LLM-VTuber/Open-LLM-VTuber 官方演示 2",
+      "sourceUrl": "https://github.com/Open-LLM-VTuber/Open-LLM-VTuber/blob/992309c0aa19845960228f880013d4685fde93b5/README.md?plain=1#L58",
+      "originalUrl": "https://raw.githubusercontent.com/Open-LLM-VTuber/Open-LLM-VTuber/992309c0aa19845960228f880013d4685fde93b5/assets/i2.jpg"
+    },
+    {
+      "url": "/assets/repository-guides/media-944306e28ee18ca7c9cc5fbf.webp",
+      "alt": "Open-LLM-VTuber/Open-LLM-VTuber 官方演示 3",
+      "sourceUrl": "https://github.com/Open-LLM-VTuber/Open-LLM-VTuber/blob/992309c0aa19845960228f880013d4685fde93b5/README.md?plain=1#L60",
+      "originalUrl": "https://raw.githubusercontent.com/Open-LLM-VTuber/Open-LLM-VTuber/992309c0aa19845960228f880013d4685fde93b5/assets/i3.jpg"
+    }
+  ],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "4c2002678b704673b6cd413d523f09bacca80962cf205f26b7b6f6e1ce8d78b0",
+  "mediaStatus": "archived",
+  "mediaFailures": []
+}

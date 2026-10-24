@@ -1,0 +1,71 @@
+{
+  "schemaVersion": 1,
+  "key": "hanxi/xiaomusic",
+  "status": "ready",
+  "reason": "",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/hanxi/xiaomusic/blob/e159329b3fabff97a9a6cafa9e149eda4d31b3b6/README.md",
+  "sourceRevision": "e159329b3fabff97a9a6cafa9e149eda4d31b3b6",
+  "canonicalKey": "hanxi/xiaomusic",
+  "summary": "XiaoMusic 是一个通过小爱音箱播放本地音乐或用 yt-dlp 下载的歌曲的自托管服务，可用语音指令控制播放。",
+  "intro": "适合在 NAS 或家用服务器上部署服务、并拥有小爱音箱的用户。部署后可以在 Web 设置页登录小米账号、选择设备，然后对小爱同学说“播放歌曲+歌名”“上一首”“播放歌单+目录名”等指令，来播放本地或下载的音乐、切换播放模式、管理收藏歌单。注意：该项目已停止维护，作者推荐迁移到社区接力项目 songloft-org/songloft。",
+  "requirements": "需要一台能运行 Docker 的主机（文档以 NAS 为例）；需要已在小米账号下绑定的小爱音箱，文档列出了已测试的型号；初次配置时要在 Web 页面输入小米账号和密码。也可以改用 pip 安装（需要 Python 环境），本指南采用 Docker 路径。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "在主机上建立音乐和配置目录",
+      "text": "在运行 Docker 的主机上准备两个目录：/xiaomusic_music 存放音乐，/xiaomusic_conf 存放配置，文档建议两者分开。如果启动时报找不到目录，可以按文档执行 mkdir -p /xiaomusic_{music,conf} 新建。主机目录可以换成其他路径，但容器内的 /app/music 和 /app/conf 不要修改。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/hanxi/xiaomusic/blob/e159329b3fabff97a9a6cafa9e149eda4d31b3b6/README.md?plain=1#L40"
+      }
+    },
+    {
+      "title": "用 docker run 启动 XiaoMusic 容器",
+      "text": "执行文档给出的 docker run 命令，把主机的 58090 端口映射到容器的 8090 端口，并挂载上一步创建的两个目录。国内网络可以改用 docker.hanxi.cc 镜像版本的命令。docker 与 docker compose 二选一即可；hanxi/xiaomusic:main 是测试版镜像。",
+      "code": "docker run -p 58090:8090 -v /xiaomusic_music:/app/music -v /xiaomusic_conf:/app/conf hanxi/xiaomusic\n\ndocker run -p 58090:8090 -v /xiaomusic_music:/app/music -v /xiaomusic_conf:/app/conf docker.hanxi.cc/hanxi/xiaomusic",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/hanxi/xiaomusic/blob/e159329b3fabff97a9a6cafa9e149eda4d31b3b6/README.md?plain=1#L40"
+      }
+    },
+    {
+      "title": "打开后台页面登录小米账号",
+      "text": "在浏览器访问 http://NAS_IP:58090 进入 Web 设置页。带 * 号的配置项必须填写，其他项用不上可以不改。先输入小米账号和密码并保存，之后才能获取设备列表并选择要使用的小爱音箱。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/hanxi/xiaomusic/blob/e159329b3fabff97a9a6cafa9e149eda4d31b3b6/README.md?plain=1#L40"
+      }
+    },
+    {
+      "title": "放入音乐后用语音指令播放",
+      "text": "把 mp3、flac、wav、ape、ogg、m4a 格式的文件放进音乐目录。对小爱同学说“播放歌曲”播放本地音乐，说“播放歌曲+歌名”会先下载再播放；也可以说“播放歌单+目录名”“单曲循环”“随机播放”“加入收藏”“播放歌单收藏”等。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/hanxi/xiaomusic/blob/e159329b3fabff97a9a6cafa9e149eda4d31b3b6/README.md?plain=1#L147"
+      }
+    },
+    {
+      "title": "出问题时查 FAQ 并导出日志",
+      "text": "安装遇到问题先查阅 issue #99 的 FAQ 问题集合。需要反馈时，在设置页底部点击【下载日志文件】，确认并删除日志里的账号密码等敏感信息后，再附在 issue 中。由于项目已停止维护，新 issue 不会再被处理。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/hanxi/xiaomusic/blob/e159329b3fabff97a9a6cafa9e149eda4d31b3b6/README.md?plain=1#L1"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "项目已归档并停止维护，不再修复 bug，也不再处理 issue 和 PR；作者推荐迁移到 songloft-org/songloft。",
+    "服务需要保存小米账号密码。如果开放公网访问，务必开启密码登录并设置复杂密码，也不要在公共 WiFi 下使用。",
+    "作者强烈不建议让小爱音箱所用的小米账号同时绑定摄像头，以免账号泄露后监控录像也随之泄露。",
+    "免责声明指出项目仅供学习研究、不得商用，可能存在设备损坏、账号封禁等风险，后果由使用者自行承担。",
+    "已知 L05B、L05C、LX06、L16A 不支持 flac 格式，可以在设置中打开【转换为MP3】和【型号兼容模式】。"
+  ],
+  "references": [],
+  "media": [],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "6f425ed610d5f1f24b257d4419a4dc8a571a4d577f91c48ec74a512c01ec4083",
+  "mediaStatus": "none_in_official_documents"
+}

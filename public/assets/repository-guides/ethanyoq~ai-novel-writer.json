@@ -1,0 +1,79 @@
+{
+  "schemaVersion": 1,
+  "key": "ethanyoq/ai-novel-writer",
+  "status": "ready",
+  "reason": "",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/EthanYoQ/AI-Novel-Writer/blob/a2948c16f0dba26f7abdc763792c2b97fc6c57d9/README.md",
+  "sourceRevision": "a2948c16f0dba26f7abdc763792c2b97fc6c57d9",
+  "canonicalKey": "EthanYoQ/AI-Novel-Writer",
+  "summary": "AI 小说作家是一款面向长篇小说创作的桌面工作台，把前提、角色、世界观、章节蓝图、草稿、审稿、修稿和定稿串成可追溯的流程，可接入用户自行配置的本地或云端模型。",
+  "intro": "适合用 AI 辅助写长篇中文或英文小说的作者。软件本身不提供模型，而是负责创作编排：保存项目状态，组织提示词与上下文，管理章节蓝图和草稿版本，并把生成、审稿、修稿连成一条流程。它还支持角色卡、剧情树、文风控制、参考文本知识库，以及 1–10 章的批量创作任务。项目数据保存在本机的项目目录和 SQLite 数据库中。",
+  "requirements": "Windows x64 或 macOS（Apple Silicon / Intel）电脑；一个可用的模型服务，可以是本地 Ollama，也可以是 OpenAI-compatible 或 Gemini 原生协议的云端端点及对应 API Key。本指南以 Windows x64 为例。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "从官方 Releases 下载安装程序",
+      "text": "只从项目的 GitHub Releases 最新正式版下载 Windows NSIS 安装程序，文件名格式为 ai-novel-writer-setup-<版本号>.exe。旧版便携 ZIP 已不再维护，也无法自行获得更新器版本。",
+      "code": "ai-novel-writer-setup-<版本号>.exe",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/EthanYoQ/AI-Novel-Writer/blob/a2948c16f0dba26f7abdc763792c2b97fc6c57d9/README.md?plain=1#L166"
+      }
+    },
+    {
+      "title": "运行安装程序并确认来源提示",
+      "text": "运行安装程序。安装包目前尚未代码签名，Windows 可能显示发布者或信誉提示；请先确认下载页面属于本项目的官方 GitHub Release，再继续安装。安装后可在欢迎页使用「检查更新」，下载更新需要用户手动点击确认。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/EthanYoQ/AI-Novel-Writer/blob/a2948c16f0dba26f7abdc763792c2b97fc6c57d9/README.md?plain=1#L166"
+      }
+    },
+    {
+      "title": "在设置中配置模型服务",
+      "text": "在设置里选择调用协议：OpenAI-compatible 或 Gemini 原生协议，然后填写地址、模型标识和凭据。使用本地 Ollama 时，Base URL 填 http://127.0.0.1:11434/v1，不要写成 /api 路径；向量模型同样使用 /v1。Anthropic、Azure 等原生协议无法仅靠替换 URL 接入。",
+      "code": "Provider:  Ollama（本地）或自定义\nProtocol:  OpenAI-compatible\nBase URL:  http://127.0.0.1:11434/v1\nAPI Key:   可留空；若界面要求，可填任意本地占位值\nModel:     你的 Ollama 模型名，例如 qwen3:14b",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/EthanYoQ/AI-Novel-Writer/blob/a2948c16f0dba26f7abdc763792c2b97fc6c57d9/README.md?plain=1#L121"
+      }
+    },
+    {
+      "title": "按阶段推进小说项目",
+      "text": "新建项目后，依次填写故事前提、角色与世界观，再生成情节大纲和章节蓝图，然后起草章节、生成审稿报告并修稿定稿。生成大纲时可在「AI 生成架构」中指定章节范围。审稿中目标类事项为未完成或待核实时，需要作者明确选择后才会进入修稿。",
+      "code": "flowchart LR\n  A[创作前提] --> B[角色与世界观]\n  B --> C[情节大纲与章节蓝图]\n  C --> D[章节草稿]\n  D --> E[审稿报告]\n  E --> F[修稿与定稿]\n  F --> G[下一章的项目上下文]",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/EthanYoQ/AI-Novel-Writer/blob/a2948c16f0dba26f7abdc763792c2b97fc6c57d9/README.md?plain=1#L83"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "Windows 安装程序未代码签名；macOS 安装包仅做 ad-hoc 签名、未经公证，可能被 Gatekeeper 拦截。",
+    "选用云端模型时，提示词和上下文会发送给对应服务商；软件不提供模型额度，相关费用由用户与服务商之间结算。",
+    "模型配置和 API Key 保存在 ~/.vela/models.json，不要分享该文件。",
+    "DeepSeek Harness 插件 0.1.0 是冻结维护的预览版，能力不足桌面版的 10%，不读取桌面版 .vela 项目；README 说明不要用 github:EthanYoQ/AI-Novel-Writer 作为 spec 安装。",
+    "NovelAI 预设只做了最小兼容，维护者尚未用真实账户验证完整流程。",
+    "AI 输出需要作者自行审阅，软件不替代事实核查或版权判断；桌面版采用 GPL-3.0 许可。"
+  ],
+  "references": [
+    {
+      "label": "plugins/dsh-ai-novel-writer/docs/official-dsh-plugin-installation.md",
+      "url": "https://github.com/EthanYoQ/AI-Novel-Writer/blob/a2948c16f0dba26f7abdc763792c2b97fc6c57d9/plugins/dsh-ai-novel-writer/docs/official-dsh-plugin-installation.md"
+    }
+  ],
+  "media": [
+    {
+      "url": "/assets/repository-guides/media-1fcfe0e478cbc414606c889c.webp",
+      "alt": "AI 小说作家 v0.8.5：在本地桌面工作台中配置长篇小说的故事前提、世界观、角色、蓝图与章节",
+      "sourceUrl": "https://github.com/EthanYoQ/AI-Novel-Writer/blob/a2948c16f0dba26f7abdc763792c2b97fc6c57d9/README.md?plain=1#L37",
+      "originalUrl": "https://raw.githubusercontent.com/EthanYoQ/AI-Novel-Writer/a2948c16f0dba26f7abdc763792c2b97fc6c57d9/docs/assets/readme/ui-zh-v085-project-config.png"
+    }
+  ],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "52685f2d10dbfbb57b0297ad0e3cc808040bade3c0eeac122fcde1c85c52d06c",
+  "mediaStatus": "archived",
+  "mediaFailures": []
+}

@@ -1,0 +1,70 @@
+{
+  "schemaVersion": 1,
+  "key": "alchaincyf/steve-jobs-skill",
+  "status": "ready",
+  "reason": "",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/alchaincyf/steve-jobs-skill/blob/8ae40e10013d5218f85bc0e0241fd804f3b5c5e9/README.md",
+  "sourceRevision": "8ae40e10013d5218f85bc0e0241fd804f3b5c5e9",
+  "canonicalKey": "alchaincyf/steve-jobs-skill",
+  "summary": "一个按 Agent Skills 协议编写的技能，让 AI agent 用 Steve Jobs 的心智模型和决策启发式分析产品与选择问题。",
+  "intro": "适合在 Claude Code、Codex、Cursor 等兼容 runtime 中工作，并想借乔布斯的“聚焦即说不”“端到端控制”等框架审视产品方向或个人决策的用户。仓库包含 6 个心智模型、8 条决策启发式和表达 DNA，以及 6 份共 2497 行的调研文件。",
+  "requirements": "需要一个支持 Agent Skills 的 AI agent runtime，例如 Claude Code、Codex、Cursor、OpenClaw、Gemini CLI 等。推荐安装方式使用 npx 命令；不支持自动加载时可以直接使用 SKILL.md。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "确认 runtime 兼容 Agent Skills",
+      "text": "先确认你正在使用的 AI agent 支持开放的 Agent Skills 协议。README 列出了 Claude Code、Codex、Cursor、OpenClaw、Hermes Agent、CodeBuddy、Gemini CLI、OpenCode 等 runtime。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/alchaincyf/steve-jobs-skill/blob/8ae40e10013d5218f85bc0e0241fd804f3b5c5e9/README.md?plain=1#L127"
+      }
+    },
+    {
+      "title": "用 npx skills add 安装技能",
+      "text": "执行官方推荐的一行命令，安装器会自动识别当前 runtime 并把 skill 放到正确目录。需要指定目标时，可追加 -a claude-code、-a cursor 等参数。",
+      "code": "npx skills add alchaincyf/steve-jobs-skill",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/alchaincyf/steve-jobs-skill/blob/8ae40e10013d5218f85bc0e0241fd804f3b5c5e9/README.md?plain=1#L131"
+      }
+    },
+    {
+      "title": "用自然语言切换到乔布斯视角",
+      "text": "安装后在 agent 对话里直接提出请求，例如让它用乔布斯的视角分析某个产品方向，或说“切换到乔布斯”来讨论你正在纠结的事。README 给出了参考提问。",
+      "code": "> 用乔布斯的视角帮我分析这个产品方向\n> Jobs会怎么看AI Agent的竞争格局？\n> 切换到乔布斯，我在纠结三件事",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/alchaincyf/steve-jobs-skill/blob/8ae40e10013d5218f85bc0e0241fd804f3b5c5e9/README.md?plain=1#L162"
+      }
+    },
+    {
+      "title": "不支持时粘贴 SKILL.md 内容",
+      "text": "如果 runtime 不能自动加载 skill，可以把仓库中 SKILL.md 的内容粘贴进对话作为参考资料。它是 markdown 加 YAML frontmatter 格式的文本。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/alchaincyf/steve-jobs-skill/blob/8ae40e10013d5218f85bc0e0241fd804f3b5c5e9/README.md?plain=1#L158"
+      }
+    },
+    {
+      "title": "查阅调研文件核对依据",
+      "text": "references/research/ 目录下有 6 份调研文件，分别覆盖著作、长对话、表达风格、他者评价、重大决策和人生时间线。examples/ 中有实战对话记录，可用来了解输出风格。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/alchaincyf/steve-jobs-skill/blob/8ae40e10013d5218f85bc0e0241fd804f3b5c5e9/README.md?plain=1#L216"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "这是由女娲.skill 自动生成的人物思维模拟，并非乔布斯本人观点。示例对话中对公司和产品的评价属于模拟表达。",
+    "README 说明该 skill 刻意保留极度确定、不加限定的语气，以及“直觉 vs 数据”等内在张力，参考其结论时需自行判断。",
+    "许可证为 MIT。"
+  ],
+  "references": [],
+  "media": [],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "582cd2a6ad05ce6facdce389840fd17f8bc8e13edb4c8d5b733a3496a9e62c69",
+  "mediaStatus": "none_in_official_documents"
+}

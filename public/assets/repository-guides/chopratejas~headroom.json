@@ -1,0 +1,84 @@
+{
+  "schemaVersion": 1,
+  "key": "chopratejas/headroom",
+  "status": "ready",
+  "reason": "",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/headroomlabs-ai/headroom/blob/94bb055810dc1258bd248cd0a9d0e7c51df64844/README.md",
+  "sourceRevision": "94bb055810dc1258bd248cd0a9d0e7c51df64844",
+  "canonicalKey": "headroomlabs-ai/headroom",
+  "summary": "Headroom 在本机压缩工具输出、日志、文件、RAG 片段和对话历史，再把压缩后的内容发给 LLM，以减少 token 用量。",
+  "intro": "适合每天使用 Claude Code、Codex、Copilot CLI、Aider 等编码 Agent 的开发者，也适合在 Python、TypeScript 应用里调用 LLM 的工程师。它有四种用法：库（compress）、本地代理（headroom proxy）、一条命令包装 Agent（headroom wrap），以及 MCP server（headroom_compress、headroom_retrieve、headroom_stats）。原文会缓存在本地，需要时可以取回（CCR）。文档说明，工具输出多、会话长的场景收益较大；短对话、普通文字和本身已很紧凑的内容几乎压缩不了。",
+  "requirements": "Python 3.10+；`headroom` CLI 只在 PyPI 包 headroom-ai 中提供，npm 包只是 TypeScript SDK。下面以 macOS Apple Silicon 为例，用 uv 安装，文档建议用 Python 3.13。Intel macOS 目前要改用 Docker 安装。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "在 macOS 上用 uv 安装 CLI",
+      "text": "在 macOS 上用 `uv tool install --python 3.13 \"headroom-ai[all]\"` 把 CLI 装进独立环境；没有 Python 3.13 时先用 brew 安装。如果 ~/.local/bin 不在 PATH 中，运行 `uv tool update-shell`，最后用 `headroom --version` 确认安装成功。",
+      "code": "brew install python@3.13  # if 3.13 is not already available\nuv tool install --python 3.13 \"headroom-ai[all]\"\nuv tool update-shell      # if ~/.local/bin is not on PATH\nheadroom --version",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/headroomlabs-ai/headroom/blob/94bb055810dc1258bd248cd0a9d0e7c51df64844/README.md?plain=1#L423"
+      }
+    },
+    {
+      "title": "用 wrap 包装编码 Agent 启动",
+      "text": "每次用 `headroom wrap claude` 这类命令启动 Agent 会话。它会启动本地代理，安装 Serena，并让 Agent 的请求经过 Headroom。支持哪些 Agent 见兼容表；不需要 Serena 可加 `--code-memory none`，撤销包装用 `headroom unwrap <tool>`。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/headroomlabs-ai/headroom/blob/94bb055810dc1258bd248cd0a9d0e7c51df64844/README.md?plain=1#L87"
+      }
+    },
+    {
+      "title": "用 doctor 检查路由并看节省量",
+      "text": "运行 `headroom doctor` 做健康检查，确认请求确实经过 Headroom。代理运行时，可用 `headroom dashboard` 查看实时节省情况；想知道自己实际流量的节省比例，运行 `headroom savings`。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/headroomlabs-ai/headroom/blob/94bb055810dc1258bd248cd0a9d0e7c51df64844/README.md?plain=1#L87"
+      }
+    },
+    {
+      "title": "按需开启输出 token 精简",
+      "text": "输出精简默认关闭。设置 HEADROOM_OUTPUT_SHAPER=1 后再启动代理，会加入简洁回复提示，并调整思考强度。只对 Anthropic /v1/messages 和 OpenAI 兼容接口生效。用 `headroom output-savings` 查看节省量，结果是估算值。",
+      "code": "export HEADROOM_OUTPUT_SHAPER=1     # off by default\nheadroom proxy --port 8787\n\nheadroom output-savings\n# Reduction: 31.7%  (95% CI 27.7% … 35.7%)   [estimated]",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/headroomlabs-ai/headroom/blob/94bb055810dc1258bd248cd0a9d0e7c51df64844/README.md?plain=1#L170"
+      }
+    },
+    {
+      "title": "给 MCP 客户端配置绝对路径",
+      "text": "Codex 等 MCP 客户端往往读不到交互式 shell 的 PATH。这时用 `command -v headroom` 查到绝对路径，填进 MCP 配置的 command 字段，args 设为 mcp serve。其他原生支持 MCP 的客户端可以运行 `headroom mcp install`。",
+      "code": "[mcp_servers.headroom]\ncommand = \"/Users/you/.local/bin/headroom\"\nargs = [\"mcp\", \"serve\"]",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/headroomlabs-ai/headroom/blob/94bb055810dc1258bd248cd0a9d0e7c51df64844/README.md?plain=1#L423"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "headroom wrap 会把 Serena 注册在用户级配置中（Claude Code 写入 ~/.claude.json），其他项目也会受影响，运行 headroom unwrap 才会移除。",
+    "在没有 AVX2 的 x86 主机上，ONNX 相关功能会退回 BM25、启发式检测等非 ONNX 实现；Intel macOS 目前需要用 Docker 安装。",
+    "[vector] 扩展需要 C++ 工具链，不在 [all] 中；LangChain、Agno 等框架适配器也要单独安装。",
+    "Copilot 订阅模式需要先用 headroom copilot-auth login 保存专用 OAuth token；Linux 上的密钥复用尚未在真实桌面环境验证。",
+    "共享代理上的输出精简设置是全局生效的；代理每天最多访问一次 PyPI 检查更新，可用 HEADROOM_UPDATE_CHECK=off 关闭。",
+    "节省比例取决于内容的重复程度，短对话和普通文字收益很小；输出 token 的节省默认是估算值。"
+  ],
+  "references": [],
+  "media": [],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "f6045b64a39da60e9071bd52acf041ccb5ca3081c2b9849d6ecdb12dd5f6b559",
+  "mediaStatus": "unavailable",
+  "mediaFailures": [
+    {
+      "sourceUrl": "https://github.com/headroomlabs-ai/headroom/blob/94bb055810dc1258bd248cd0a9d0e7c51df64844/README.md#L41",
+      "reason": "media_too_large"
+    },
+    {
+      "sourceUrl": "https://github.com/headroomlabs-ai/headroom/blob/94bb055810dc1258bd248cd0a9d0e7c51df64844/README.md#L598",
+      "reason": "response_too_large"
+    }
+  ]
+}

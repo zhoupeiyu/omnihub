@@ -1,0 +1,74 @@
+{
+  "schemaVersion": 1,
+  "key": "alibaba/open-code-review",
+  "status": "ready",
+  "reason": "",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/alibaba/open-code-review/blob/a758d9cbfb689937c7857ad64b2dd66adb58c0c2/README.md",
+  "sourceRevision": "a758d9cbfb689937c7857ad64b2dd66adb58c0c2",
+  "canonicalKey": "alibaba/open-code-review",
+  "summary": "Open Code Review（ocr）是一个 AI 代码评审命令行工具，读取 Git diff 或整份文件，交给可配置的大模型生成精确到行的结构化评审意见。",
+  "intro": "适合想在本地或 CI 中对代码变更做自动评审的开发者和团队。可以评审工作区改动、分支区间或单个提交；可以用 ocr scan 审计没有有效 diff 的陌生代码库或目录；还可以把结果保存为 JSON 交给 AI 编码助手。项目另提供 Claude Code、Codex、Cursor、Kimi Code 等插件，以及 CI/CD 集成文档。",
+  "requirements": "Git >= 2.41；用于全局安装的 npm 环境；一个可用的 LLM 提供方及 API Key（OpenAI 或 Anthropic 兼容）。如果使用 Delegation Mode，由编码助手自带的模型执行评审，可以不配置 OCR 的模型。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "用 npm 全局安装 ocr",
+      "text": "这是 README 中的官方 npm 安装路径，Windows、macOS、Linux 都可以使用。先确认本机 Git 版本不低于 2.41，然后全局安装 @alibaba-group/open-code-review。安装完成后，ocr 命令即可全局使用。安装脚本、Release 二进制和源码安装等其他方式见官网 Installation 页面。",
+      "code": "npm install -g @alibaba-group/open-code-review",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/alibaba/open-code-review/blob/a758d9cbfb689937c7857ad64b2dd66adb58c0c2/README.md?plain=1#L105"
+      }
+    },
+    {
+      "title": "配置模型提供方与模型",
+      "text": "评审前必须先配置 LLM（Delegation Mode 除外）。运行 ocr config provider，选择内置提供方或添加自定义提供方；再运行 ocr config model，为当前提供方选择模型。交互界面会引导你填写 API Key，并自动测试连通性。环境变量和自定义提供方等高级配置见官网 Configuration 文档。",
+      "code": "ocr config provider          # Select a built-in provider or add a custom one\nocr config model             # Pick a model for the active provider",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/alibaba/open-code-review/blob/a758d9cbfb689937c7857ad64b2dd66adb58c0c2/README.md?plain=1#L121"
+      }
+    },
+    {
+      "title": "在项目目录中执行评审",
+      "text": "进入项目目录后运行 ocr review，评审已暂存、未暂存和未跟踪的改动。也可以用 --from/--to 评审分支自分叉以来的改动，或用 --commit 评审单个提交。中断的评审可以先用 ocr session list 找到会话，再加 --resume 继续。",
+      "code": "cd your-project\n\n# Workspace mode — review all staged, unstaged, and untracked changes\nocr review\n\n# Branch range — reviews feature-branch's changes since it diverged from main (merge-base mode)\nocr review --from main --to feature-branch\n\n# Single commit\nocr review --commit abc123\n\n# Resume an interrupted range or commit review\nocr session list\nocr review --from main --to feature-branch --resume <session-id>\n\n# Full-file scan — review whole files instead of a diff (no git history needed)\nocr scan                          # scan the entire repository\nocr scan --path internal/agent    # scan a directory or specific files\nocr scan --resume <session-id>   # resume an interrupted full-file scan\n\n# Save results to a file (recommended for AI host agents)\nocr review --format json --output result.json\n\n# Delegation mode — let your AI coding agent perform the review itself\n# OCR handles file selection and rule resolution; no LLM configuration needed\nocr delegate preview\nocr delegate rule src/main.go src/handler.go",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/alibaba/open-code-review/blob/a758d9cbfb689937c7857ad64b2dd66adb58c0c2/README.md?plain=1#L43"
+      }
+    },
+    {
+      "title": "整文件扫描或导出 JSON",
+      "text": "如果没有有效 diff，可用 ocr scan 扫描整个仓库，也可加 --path 只扫描指定目录或文件。需要交给 AI 宿主处理时，加 --format json --output 把结果写入文件。若想让编码助手用自己的模型完成评审，可使用 ocr delegate 系列命令（Delegation Mode）。",
+      "code": "cd your-project\n\n# Workspace mode — review all staged, unstaged, and untracked changes\nocr review\n\n# Branch range — reviews feature-branch's changes since it diverged from main (merge-base mode)\nocr review --from main --to feature-branch\n\n# Single commit\nocr review --commit abc123\n\n# Resume an interrupted range or commit review\nocr session list\nocr review --from main --to feature-branch --resume <session-id>\n\n# Full-file scan — review whole files instead of a diff (no git history needed)\nocr scan                          # scan the entire repository\nocr scan --path internal/agent    # scan a directory or specific files\nocr scan --resume <session-id>   # resume an interrupted full-file scan\n\n# Save results to a file (recommended for AI host agents)\nocr review --format json --output result.json\n\n# Delegation mode — let your AI coding agent perform the review itself\n# OCR handles file selection and rule resolution; no LLM configuration needed\nocr delegate preview\nocr delegate rule src/main.go src/handler.go",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/alibaba/open-code-review/blob/a758d9cbfb689937c7857ad64b2dd66adb58c0c2/README.md?plain=1#L43"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "评审时会把改动文件内容发送给你配置的 LLM 提供方，涉及私有代码时请先确认提供方的数据政策。",
+    "使用自有模型时按提供方计费，token 消耗直接影响 API 成本。",
+    "README 说明该工具有意偏重精确率，召回率低于通用 Agent，可能漏报部分问题。",
+    "Benchmark 数据由项目方自行发布，本指南未做验证。",
+    "项目采用 Apache-2.0 许可证。"
+  ],
+  "references": [],
+  "media": [
+    {
+      "url": "/assets/repository-guides/media-9b4dc2680fdacef46a0075bb.webp",
+      "alt": "alibaba/open-code-review 官方演示 1",
+      "sourceUrl": "https://github.com/alibaba/open-code-review/blob/a758d9cbfb689937c7857ad64b2dd66adb58c0c2/README.md?plain=1#L132",
+      "originalUrl": "https://raw.githubusercontent.com/alibaba/open-code-review/a758d9cbfb689937c7857ad64b2dd66adb58c0c2/imgs/providers.jpg"
+    }
+  ],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "76228cb397c4e64a13fa03ee893ae8a46df310f7073bd690e7ad0dc6cfc1aa43",
+  "mediaStatus": "archived",
+  "mediaFailures": []
+}

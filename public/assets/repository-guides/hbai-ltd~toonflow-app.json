@@ -1,0 +1,92 @@
+{
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/HBAI-Ltd/Toonflow-app/blob/ec8f54597bf6e6114ed56b832f9052cd6f735311/README.md",
+  "summary": "在一张画布里组织剧本、角色和镜头，调用自己的模型生成图片与视频。",
+  "intro": "适合把短剧或短视频的剧本、角色素材和镜头放在一起制作。项目可以保存在本地；生成内容仍需要连接模型服务。",
+  "media": [
+    {
+      "url": "/assets/repository-guides/toonflow-canvas.webp",
+      "alt": "Toonflow 创作画布与 AI 助手",
+      "sourceUrl": "https://github.com/HBAI-Ltd/Toonflow-app/blob/ec8f54597bf6e6114ed56b832f9052cd6f735311/docs/screenshots/canvasLight.png"
+    },
+    {
+      "url": "/assets/repository-guides/toonflow-assets.webp",
+      "alt": "角色、场景与道具资产",
+      "sourceUrl": "https://github.com/HBAI-Ltd/Toonflow-app/blob/ec8f54597bf6e6114ed56b832f9052cd6f735311/docs/screenshots/assetCanvas.png"
+    },
+    {
+      "url": "/assets/repository-guides/toonflow-setup.webp",
+      "alt": "首次启动与模型配置",
+      "sourceUrl": "https://github.com/HBAI-Ltd/Toonflow-app/blob/ec8f54597bf6e6114ed56b832f9052cd6f735311/docs/screenshots/quickStart.png"
+    }
+  ],
+  "requirements": "准备 Windows 或 Apple Silicon Mac，以及可用的图像／视频模型服务。已有 API 可以自行配置，不必为了浏览界面先购买模型额度。",
+  "platforms": [
+    {
+      "label": "桌面客户端",
+      "steps": [
+        {
+          "title": "安装桌面端",
+          "text": "在官方发布页下载对应系统的安装包。Mac 将应用拖入“应用程序”；Windows 按安装器操作。如系统拦截，先核实下载来源，不关闭系统安全保护。",
+          "link": {
+            "label": "下载官方客户端",
+            "url": "https://github.com/HBAI-Ltd/Toonflow-app/releases"
+          }
+        },
+        {
+          "title": "接入自己的模型",
+          "text": "首次打开时选择“添加私有提供商”，按提供商要求填写 API 地址、Key 和模型。也可以先选“稍后配置”浏览界面。Key 只填在本地应用中，不放进提示词或分享截图。"
+        }
+      ]
+    }
+  ],
+  "steps": [
+    {
+      "title": "从一个镜头开始",
+      "text": "建立项目，在画布中准备角色或场景参考图，再使用图片／视频生成节点。先检查一张图或一个短镜头的输出，确认模型连接与素材路径，再扩展完整分镜。"
+    }
+  ],
+  "example": {
+    "prompt": "先做一个咖啡店的日景镜头。准备同一位角色的参考图，生成中景构图；确认人物一致后，再尝试生成一段短视频。",
+    "result": "先得到画布中的图片素材，再把选定的参考素材用于视频节点。官方截图展示了这些操作界面；具体生成质量与耗时取决于所选模型。"
+  },
+  "alternative": {
+    "label": "我想用 Docker 部署",
+    "steps": [
+      {
+        "title": "准备环境并启动",
+        "text": "先安装 Git、Docker Engine 和 Docker Compose，在终端运行以下命令。官方 Compose 仅绑定本机 127.0.0.1 的 3000 端口。",
+        "code": "git clone https://github.com/HBAI-Ltd/Toonflow-app.git\ncd Toonflow-app\ndocker compose up -d --build"
+      },
+      {
+        "title": "打开工作台",
+        "text": "浏览器打开 http://127.0.0.1:3000，选择 myProject 工作目录，再在页面配置模型。初次构建需要下载依赖，耗时取决于网络和机器。"
+      }
+    ]
+  },
+  "cautions": [
+    "图片、视频和语言模型可能分别计费，先确认服务商价格与调用额度。安装应用不等于模型调用免费。",
+    "服务器版没有独立登录鉴权，不要把 3000 端口直接暴露到公网。远程使用应通过 SSH 隧道，或有认证的反向代理。",
+    "Docker 项目保存在 toonflowData 数据卷中。备份时保留整个卷；不要执行带 -v 的 down 命令，以免删除项目。"
+  ],
+  "references": [
+    {
+      "label": "官方中文教程",
+      "url": "https://qcn7xdsqgc4z.feishu.cn/docx/RXFqdgR2Xo0dXZxGfd0cZCGgnwf"
+    },
+    {
+      "label": "官方 Compose 配置",
+      "url": "https://github.com/HBAI-Ltd/Toonflow-app/blob/ec8f54597bf6e6114ed56b832f9052cd6f735311/compose.yaml"
+    },
+    {
+      "label": "作者成片示例",
+      "url": "https://github.com/user-attachments/assets/2d9fddac-dfdf-4640-b030-b09d7f7287e9"
+    }
+  ],
+  "schemaVersion": 1,
+  "key": "hbai-ltd/toonflow-app",
+  "status": "ready",
+  "reason": "",
+  "curated": true
+}

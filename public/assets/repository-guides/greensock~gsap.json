@@ -1,0 +1,62 @@
+{
+  "schemaVersion": 1,
+  "key": "greensock/gsap",
+  "status": "ready",
+  "reason": "",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/greensock/GSAP/blob/13e2b790546426a1a2e0e9b409f3f8dc6d6611f2/README.md",
+  "sourceRevision": "13e2b790546426a1a2e0e9b409f3f8dc6d6611f2",
+  "canonicalKey": "greensock/GSAP",
+  "summary": "GSAP 是一个不依赖特定框架的 JavaScript 动画库，可以为 CSS、SVG、canvas、WebGL 以及普通对象属性制作高性能动画。",
+  "intro": "适合需要在网页中实现时间轴编排、滚动驱动动画（ScrollTrigger）、路径动画、FLIP 等效果的前端开发者。核心库零依赖，可以配合 React、Vue 等框架使用；React 项目另有 @gsap/react 提供的 useGSAP() Hook。",
+  "requirements": "一个使用 npm 管理依赖的 JavaScript 项目（也可通过 CDN 引入）。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "通过 npm 安装 gsap",
+      "text": "本指南采用 NPM 路径：在项目中执行 npm install gsap。NPM 包是 ES 模块，/dist/ 目录另提供 UMD 文件，兼容性要求更高时可用。不使用打包工具的话，可以改按 README 的 CDN 方式引入。",
+      "code": "npm install gsap",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/greensock/GSAP/blob/13e2b790546426a1a2e0e9b409f3f8dc6d6611f2/README.md?plain=1#L33"
+      }
+    },
+    {
+      "title": "导入核心并注册插件",
+      "text": "从 gsap 导入核心对象。需要 ScrollTrigger、Flip、Draggable 等插件时，从对应子路径或 gsap/all 导入，并在使用前调用 gsap.registerPlugin() 注册。",
+      "code": "// typical import\nimport gsap from \"gsap\";\n\n// get other plugins:\nimport ScrollTrigger from \"gsap/ScrollTrigger\";\nimport Flip from \"gsap/Flip\";\nimport Draggable from \"gsap/Draggable\";\n\n// or all tools are exported from the \"all\" file (excluding members-only plugins):\nimport { gsap, ScrollTrigger, Draggable, MotionPathPlugin } from \"gsap/all\";\n\n// don't forget to register plugins\ngsap.registerPlugin(ScrollTrigger, Draggable, Flip, MotionPathPlugin); ",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/greensock/GSAP/blob/13e2b790546426a1a2e0e9b409f3f8dc6d6611f2/README.md?plain=1#L33"
+      }
+    },
+    {
+      "title": "React 项目改用 useGSAP",
+      "text": "在 React 中使用时，安装 @gsap/react，用它提供的 useGSAP() Hook 替代 useEffect()/useLayoutEffect()，由 Hook 自动处理动画清理。具体用法见官方 React 指南。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/greensock/GSAP/blob/13e2b790546426a1a2e0e9b409f3f8dc6d6611f2/README.md?plain=1#L70"
+      }
+    },
+    {
+      "title": "查阅文档与示例",
+      "text": "README 只给出安装和导入示例，具体 API 需要查 gsap.com 的完整文档、安装指南、Getting started 指南和 Cheat sheet，也可以参考官方 Demos 与入门模板。问题和 Bug 可以在社区论坛或 GitHub Issues 中反馈。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/greensock/GSAP/blob/13e2b790546426a1a2e0e9b409f3f8dc6d6611f2/README.md?plain=1#L19"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "GSAP 使用 GreenSock 自有的 standard \"no charge\" license，不是常见的开源许可证，使用前应阅读 gsap.com/standard-license。",
+    "README 称包括 SplitText、MorphSVG 在内的全部插件现已免费，可用于商业用途。",
+    "gsap/all 的导出不包含旧的会员专属插件，这类插件需要按文档单独导入。"
+  ],
+  "references": [],
+  "media": [],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "66a79667b0538b19634b5a000a9a3debe588c98d390424e73e5d4de847270828",
+  "mediaStatus": "none_in_official_documents"
+}

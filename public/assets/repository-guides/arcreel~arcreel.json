@@ -1,0 +1,90 @@
+{
+  "schemaVersion": 1,
+  "key": "arcreel/arcreel",
+  "status": "ready",
+  "reason": "",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/ArcReel/ArcReel/blob/d108650fd0e5c178e88686a593ba6446a2ea1d71/README.md",
+  "sourceRevision": "d108650fd0e5c178e88686a593ba6446a2ea1d71",
+  "canonicalKey": "ArcReel/ArcReel",
+  "summary": "ArcReel 是可自托管的 AI 视频生产工作台，可将小说、剧本或商品素材逐步转化为角色/场景/道具资产、分镜、视频片段和剪映草稿。",
+  "intro": "适合制作 AI 漫剧与小说改编、旁白/解说短视频、广告与带货短片的创作者或团队。它把内容分析、资产管理、分镜、媒体生成、费用追踪和导出组织成可审核、可中断恢复的流水线，支持跨分镜复用参考图、单个素材重做与版本回滚，可直接合成成片或导出剪映草稿继续编辑。",
+  "requirements": "已安装 Docker 和 Docker Compose；需要自行准备 ArcReel Agent 以及文本、图像、视频（可选 TTS）等生成能力的供应商配置。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "克隆仓库并启动 Compose",
+      "text": "在已安装 Docker 与 Docker Compose 的机器上克隆仓库，进入 deploy 目录，将 .env.example 复制为 .env，然后执行 docker compose up -d 启动服务。",
+      "code": "git clone https://github.com/ArcReel/ArcReel.git\ncd ArcReel/deploy\n\ncp .env.example .env\ndocker compose up -d",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/ArcReel/ArcReel/blob/d108650fd0e5c178e88686a593ba6446a2ea1d71/README.md?plain=1#L141"
+      }
+    },
+    {
+      "title": "访问工作台并登录",
+      "text": "浏览器打开 http://localhost:1241，默认用户名为 admin。若 .env 中 AUTH_PASSWORD 留空，首次启动会自动生成密码并回写到 deploy/.env，可在该文件中查看。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/ArcReel/ArcReel/blob/d108650fd0e5c178e88686a593ba6446a2ea1d71/README.md?plain=1#L141"
+      }
+    },
+    {
+      "title": "在设置页配置供应商",
+      "text": "登录后进入「设置」页面，配置 ArcReel Agent 以及文本、图像、视频等生成能力。各类供应商的选择和配置方法见官方文档中的“供应商与模型配置”页面。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/ArcReel/ArcReel/blob/d108650fd0e5c178e88686a593ba6446a2ea1d71/README.md?plain=1#L141"
+      }
+    },
+    {
+      "title": "创建项目并逐阶段制作",
+      "text": "创建项目并导入小说、成品剧本或商品素材，依次经过内容分析、角色/场景/道具资产、分集剧本、分镜、视频片段与旁白，每个阶段可由 Agent 编排，也可人工审核、调整或重新生成。模式选择见“创作流程与模式”文档。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/ArcReel/ArcReel/blob/d108650fd0e5c178e88686a593ba6446a2ea1d71/README.md?plain=1#L126"
+      }
+    },
+    {
+      "title": "合成成片或导出剪映草稿",
+      "text": "生成视频片段后，可直接合成成片，或导出剪映草稿，在剪映中继续调整字幕、配音、节奏和转场。导出操作说明见官方“剪映草稿导出”文档。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/ArcReel/ArcReel/blob/d108650fd0e5c178e88686a593ba6446a2ea1d71/README.md?plain=1#L117"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "默认 Compose 会把 1241 端口发布到宿主机所有网络接口，不要直接暴露到公网；远程访问前应配置认证并使用 HTTPS、VPN 或安全隧道。",
+    "文本、图像、视频、TTS 生成依赖第三方供应商，会产生相应费用；工作台可查看费用与实际用量，但费用由供应商收取。",
+    "剪映草稿导出面向中国大陆版剪映，与 CapCut 的兼容性尚未验证。",
+    "项目采用 AGPL-3.0 并附 NOTICE 附加条款；如需在不承担 AGPL 义务的情况下商业部署、白标或再分发，需联系作者获取授权。"
+  ],
+  "references": [],
+  "media": [
+    {
+      "url": "/assets/repository-guides/media-448e0f1d173a8a6df8c4754a.webp",
+      "alt": "ArcReel 工作台",
+      "sourceUrl": "https://github.com/ArcReel/ArcReel/blob/d108650fd0e5c178e88686a593ba6446a2ea1d71/README.md?plain=1#L44",
+      "originalUrl": "https://raw.githubusercontent.com/ArcReel/ArcReel/d108650fd0e5c178e88686a593ba6446a2ea1d71/docs/assets/screenshots/hero.webp"
+    },
+    {
+      "url": "/assets/repository-guides/media-4725e72b6ac83c333027f3a7.webp",
+      "alt": "视频单元",
+      "sourceUrl": "https://github.com/ArcReel/ArcReel/blob/d108650fd0e5c178e88686a593ba6446a2ea1d71/README.md?plain=1#L88",
+      "originalUrl": "https://raw.githubusercontent.com/ArcReel/ArcReel/d108650fd0e5c178e88686a593ba6446a2ea1d71/docs/assets/screenshots/video-units.webp"
+    },
+    {
+      "url": "/assets/repository-guides/media-1c67255ee3f7060c3bf07106.webp",
+      "alt": "场景库",
+      "sourceUrl": "https://github.com/ArcReel/ArcReel/blob/d108650fd0e5c178e88686a593ba6446a2ea1d71/README.md?plain=1#L92",
+      "originalUrl": "https://raw.githubusercontent.com/ArcReel/ArcReel/d108650fd0e5c178e88686a593ba6446a2ea1d71/docs/assets/screenshots/scenes.webp"
+    }
+  ],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "e1e682e1c1bb6b9f86dd4cc2c194d32b2e43034f829413d3171f8a258fa2bee3",
+  "mediaStatus": "archived",
+  "mediaFailures": []
+}

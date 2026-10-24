@@ -1,0 +1,79 @@
+{
+  "schemaVersion": 1,
+  "key": "tahseen-kakar/harbor",
+  "status": "ready",
+  "reason": "",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/thsnkhn/harbor/blob/ad10ef4e480266e002672a0cfa3ae9573670a864/README.md",
+  "sourceRevision": "ad10ef4e480266e002672a0cfa3ae9573670a864",
+  "canonicalKey": "thsnkhn/harbor",
+  "summary": "一个原生 SwiftUI 构建的 macOS 下载管理器，支持直链、公开媒体链接、磁力链接和 .torrent 文件下载。",
+  "intro": "适合需要在 Mac 上统一管理 HTTP/HTTPS 直链、公开媒体和 BT 下载的用户。它本地运行、无需账号或登录，提供批量添加、种子文件预览选择、限速与流量模式、做种比例限制、队列持久化和 Quick Look 预览，并可通过 harbor:// URL 被浏览器扩展或自动化脚本唤起。",
+  "requirements": "macOS 15.6 或更高版本（依据 README 徽章）；本指南采用 Homebrew 安装，需已安装 Homebrew。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "通过 Homebrew 安装 Harbor",
+      "text": "在 macOS 终端添加作者的 tap 并以 cask 方式安装 Harbor。也可改为下载最新 DMG 并将 Harbor.app 拖入 Applications，两种方式选其一即可。",
+      "code": "brew tap thsnkhn/harbor\nbrew install --cask harbor",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/thsnkhn/harbor/blob/ad10ef4e480266e002672a0cfa3ae9573670a864/README.md?plain=1#L66"
+      }
+    },
+    {
+      "title": "添加直链、磁力或种子任务",
+      "text": "在 Harbor 中添加 HTTP/HTTPS 直链、公开媒体链接、磁力链接或本地 .torrent 文件；批量添加时可一次粘贴多个链接并指定同一文件夹排队下载。种子任务可先查看文件列表并选择要下载的内容。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/thsnkhn/harbor/blob/ad10ef4e480266e002672a0cfa3ae9573670a864/README.md?plain=1#L46"
+      }
+    },
+    {
+      "title": "按需调整速度与流量模式",
+      "text": "可在 Unlimited、Balanced、Quiet、Custom 流量模式间切换，并设置全局或单个任务的速度限制；BT 任务还可配置监视文件夹、做种控制和分享率上限。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/thsnkhn/harbor/blob/ad10ef4e480266e002672a0cfa3ae9573670a864/README.md?plain=1#L46"
+      }
+    },
+    {
+      "title": "用 URL 从其他工具唤起下载",
+      "text": "浏览器扩展、命令行或自动化可打开 harbor://download?url= 链接，url 参数需百分号编码。macOS 上可用 open 测试，Harbor 会弹出已填好链接的添加下载面板，由用户确认保存位置后开始。",
+      "code": "open 'harbor://download?url=https%3A%2F%2Fexample.com%2Ffile.zip'",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/thsnkhn/harbor/blob/ad10ef4e480266e002672a0cfa3ae9573670a864/README.md?plain=1#L82"
+      }
+    },
+    {
+      "title": "在应用菜单中检查更新",
+      "text": "安装后可从应用菜单检查新版本，并通过内置的 Sparkle 更新器完成升级。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/thsnkhn/harbor/blob/ad10ef4e480266e002672a0cfa3ae9573670a864/README.md?plain=1#L66"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "Homebrew 安装使用的是作者的第三方 tap（thsnkhn/harbor），README 中的链接均指向 thsnkhn/harbor 仓库。",
+    "URL 唤起仅支持 HTTP 或 HTTPS 下载地址，且需手动确认后才开始下载。",
+    "下载公开媒体和 BT 内容时需自行确认内容的版权与使用合法性。",
+    "项目采用 GPL-3.0 许可证。"
+  ],
+  "references": [],
+  "media": [
+    {
+      "url": "/assets/repository-guides/media-a57f40d1d62c04915f90fd7e.webp",
+      "alt": "thsnkhn/harbor 官方演示 1",
+      "sourceUrl": "https://github.com/thsnkhn/harbor/blob/ad10ef4e480266e002672a0cfa3ae9573670a864/README.md?plain=1#L37",
+      "originalUrl": "https://raw.githubusercontent.com/thsnkhn/harbor/ad10ef4e480266e002672a0cfa3ae9573670a864/.github/assets/harbor-screenshot-rounded.png"
+    }
+  ],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "31b79ddacb36825893b8961f0327db5dee072cff131a3b8134cb3d17e207cd93",
+  "mediaStatus": "archived",
+  "mediaFailures": []
+}

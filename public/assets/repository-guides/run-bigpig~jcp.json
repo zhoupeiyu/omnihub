@@ -1,0 +1,89 @@
+{
+  "schemaVersion": 1,
+  "key": "run-bigpig/jcp",
+  "status": "ready",
+  "reason": "",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/run-bigpig/jcp/blob/44af274e0bfa2cef1364527eda1c8e64dfd00a64/README.md",
+  "sourceRevision": "44af274e0bfa2cef1364527eda1c8e64dfd00a64",
+  "canonicalKey": "run-bigpig/jcp",
+  "summary": "韭菜盘是基于 Wails + Go + React 的桌面应用，接入多种大模型，以多 Agent 协作讨论的方式分析 A 股行情。",
+  "intro": "适合会用 Go 和 Node.js 在本地编译桌面应用、想用大模型辅助看盘的开发者或个人投资者。它提供实时行情与 K 线、自选股管理、多 Agent 智库讨论、策略管理、热点舆情、研报查询和按股票隔离的记忆系统。支持 OpenAI、Gemini、DeepSeek、Kimi、GLM 等 OpenAI 兼容接口，也可以通过 MCP 扩展工具能力。",
+  "requirements": "Go 1.24+、Node.js 18+、Wails CLI v2；至少一个 AI 模型服务的 API Key（文档的配置说明以 OpenAI / Gemini 为例）。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "安装 Wails CLI 工具",
+      "text": "先确认本机已装好 Go 1.24+ 和 Node.js 18+，再用 go install 安装 Wails CLI v2。后续的开发运行和打包都要用到它。",
+      "code": "go install github.com/wailsapp/wails/v2/cmd/wails@latest",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/run-bigpig/jcp/blob/44af274e0bfa2cef1364527eda1c8e64dfd00a64/README.md?plain=1#L73"
+      }
+    },
+    {
+      "title": "克隆仓库并安装依赖",
+      "text": "克隆 run-bigpig/jcp 仓库并进入项目目录。先在 frontend 目录执行 npm install 安装前端依赖，回到根目录后执行 go mod download 下载 Go 依赖。",
+      "code": "git clone https://github.com/run-bigpig/jcp.git\ncd jcp\n\n# 安装前端依赖\ncd frontend && npm install && cd ..\n\n# 下载 Go 依赖\ngo mod download",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/run-bigpig/jcp/blob/44af274e0bfa2cef1364527eda1c8e64dfd00a64/README.md?plain=1#L85"
+      }
+    },
+    {
+      "title": "以开发模式启动应用",
+      "text": "在项目根目录执行 wails dev，以开发模式启动桌面应用。主界面左侧是自选股列表与市场指数，中间是 K 线图表（分时/日K/周K/月K），右侧是 AI 智库讨论室。",
+      "code": "wails dev",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/run-bigpig/jcp/blob/44af274e0bfa2cef1364527eda1c8e64dfd00a64/README.md?plain=1#L102"
+      }
+    },
+    {
+      "title": "在设置中填写模型 API Key",
+      "text": "首次运行时点击右上角的设置图标，选择 AI 模型提供商，填入对应的 API Key 后保存。配置会写入 data/config.json。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/run-bigpig/jcp/blob/44af274e0bfa2cef1364527eda1c8e64dfd00a64/README.md?plain=1#L124"
+      }
+    },
+    {
+      "title": "按需构建发布版本",
+      "text": "需要独立安装包时执行 wails build 构建当前平台的版本。也可以用 -platform 参数指定 windows/amd64、darwin/amd64 或 linux/amd64。",
+      "code": "# 构建当前平台\nwails build\n\n# 构建 Windows 版本\nwails build -platform windows/amd64\n\n# 构建 macOS 版本\nwails build -platform darwin/amd64\n\n# 构建 Linux 版本\nwails build -platform linux/amd64",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/run-bigpig/jcp/blob/44af274e0bfa2cef1364527eda1c8e64dfd00a64/README.md?plain=1#L108"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "仓库已归档（archived），后续可能不再维护或修复问题。",
+    "仓库许可证元数据为 NOASSERTION，README 则声明 MIT；如需再分发，请先核对 LICENSE 文件。",
+    "API Key 保存在 data/config.json 中，注意不要提交或分享这个文件。",
+    "调用第三方大模型服务受各提供商条款约束，具体费用以提供商为准。",
+    "系统输出的是 AI 生成的分析与建议，不能替代独立的投资判断。",
+    "新增 Agent 需编辑 data/agents.json，并重启应用后才生效。"
+  ],
+  "references": [],
+  "media": [
+    {
+      "url": "/assets/repository-guides/media-9e0145fa5f52303f075802a5.webp",
+      "alt": "主界面展示",
+      "sourceUrl": "https://github.com/run-bigpig/jcp/blob/44af274e0bfa2cef1364527eda1c8e64dfd00a64/README.md?plain=1#L50",
+      "originalUrl": "https://raw.githubusercontent.com/run-bigpig/jcp/44af274e0bfa2cef1364527eda1c8e64dfd00a64/image/1.png"
+    },
+    {
+      "url": "/assets/repository-guides/media-e64aecb49f06d0a28d7c8306.webp",
+      "alt": "功能展示",
+      "sourceUrl": "https://github.com/run-bigpig/jcp/blob/44af274e0bfa2cef1364527eda1c8e64dfd00a64/README.md?plain=1#L52",
+      "originalUrl": "https://raw.githubusercontent.com/run-bigpig/jcp/44af274e0bfa2cef1364527eda1c8e64dfd00a64/image/2.png"
+    }
+  ],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "6d3829c4c78e72bf9840e49ebcbd19e3510182c3954147003f5d0c55f8d0766c",
+  "mediaStatus": "archived",
+  "mediaFailures": []
+}

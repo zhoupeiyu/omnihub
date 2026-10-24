@@ -1,0 +1,60 @@
+{
+  "schemaVersion": 1,
+  "key": "voltagent/awesome-design-md",
+  "status": "ready",
+  "reason": "",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/VoltAgent/awesome-design-md/blob/f6961238d5cddcf8042a74a70fc400ec67181abb/README.md",
+  "sourceRevision": "f6961238d5cddcf8042a74a70fc400ec67181abb",
+  "canonicalKey": "VoltAgent/awesome-design-md",
+  "summary": "一组从知名网站提取的 DESIGN.md 设计系统文档，放进项目后可以让 AI 编码 Agent 生成风格一致的界面。",
+  "intro": "适合用 AI 编码 Agent 或 Google Stitch 生成前端界面、希望界面遵循某种成熟设计语言的开发者和设计者。每份 DESIGN.md 涵盖配色、字体层级、组件样式、布局、阴影、响应式规则和提示词指南，按 AI 平台、开发工具、金融、汽车等类别查阅。",
+  "requirements": "需要一个能读取项目文件的 AI 编码 Agent 或 Google Stitch。文件本身是纯 Markdown，不需要额外工具。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "按类别挑选目标设计风格",
+      "text": "在 README 的分类列表中浏览，类别包括 AI & LLM Platforms、Developer Tools、Fintech、Automotive、Retro Web 等。每条附有一句风格描述，例如配色、字体和整体气质，帮助选出与产品定位相符的条目。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/VoltAgent/awesome-design-md/blob/f6961238d5cddcf8042a74a70fc400ec67181abb/README.md?plain=1#L105"
+      }
+    },
+    {
+      "title": "用预览页核对视觉效果",
+      "text": "每个站点除 DESIGN.md 外，还附带 preview.html 和 preview-dark.html，分别以浅色和深色表面展示色板、字号层级、按钮和卡片。在浏览器打开预览页，确认风格符合预期。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/VoltAgent/awesome-design-md/blob/f6961238d5cddcf8042a74a70fc400ec67181abb/README.md?plain=1#L211"
+      }
+    },
+    {
+      "title": "复制 DESIGN.md 到项目根目录",
+      "text": "把选定站点的 DESIGN.md 复制到项目根目录。它与 AGENTS.md 分工不同：AGENTS.md 说明如何构建项目，DESIGN.md 规定界面外观与交互感受。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/VoltAgent/awesome-design-md/blob/f6961238d5cddcf8042a74a70fc400ec67181abb/README.md?plain=1#L235"
+      }
+    },
+    {
+      "title": "让 AI Agent 按该文件生成界面",
+      "text": "在 Agent 中明确要求使用这份 DESIGN.md 构建页面。文件第 9 节「Agent Prompt Guide」提供了快速配色参考和现成提示词，可以直接作为指令的起点。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/VoltAgent/awesome-design-md/blob/f6961238d5cddcf8042a74a70fc400ec67181abb/README.md?plain=1#L235"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "设计 token 提取自公开网站的 CSS，仓库不声明拥有这些品牌的视觉识别。直接照搬品牌风格用于商业产品时，需自行评估商标和品牌混淆风险。",
+    "文件按「现状」提供，不保证准确，发现错误可以按 CONTRIBUTING.md 先提 issue。",
+    "README 中的 EveryFeed、launchkit 等横幅属于推广内容，与 DESIGN.md 文件无关。"
+  ],
+  "references": [],
+  "media": [],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "211e14edb394ae4eeead27a5bd4dd967426d22da6e8441de8dca1c43fece2f42",
+  "mediaStatus": "none_in_official_documents"
+}

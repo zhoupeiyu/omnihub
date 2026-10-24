@@ -1,0 +1,64 @@
+{
+  "schemaVersion": 1,
+  "key": "paperclipai/paperclip",
+  "status": "ready",
+  "reason": "",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/paperclipai/paperclip/blob/0d3e7bf6ac69c6a41995e62e7a38ca99dcbc8dfd/README.md",
+  "sourceRevision": "0d3e7bf6ac69c6a41995e62e7a38ca99dcbc8dfd",
+  "canonicalKey": "paperclipai/paperclip",
+  "summary": "Paperclip 是一个自托管的开源编排平台，由 Node.js 服务端和 React 界面组成，用来把多个 AI 代理组织成团队，统一管理任务、预算和审批。",
+  "intro": "适合同时运行多个编码或业务 AI 代理（如 Claude Code、Codex、Cursor、OpenClaw）、难以追踪各代理进度的个人或团队。在 Paperclip 中可以设定目标、搭建组织架构、给代理分配任务，并在一个面板里跟踪任务线程、成本预算、审批流程和定时例行任务。",
+  "requirements": "按 README 的 npx 安装路径，需要 Node.js 24.11 或更新版本。若改为从源码运行，还需要 pnpm 9.15+，以及 Rust 工具链或兼容的预编译 runner。实际运行代理需要对应模型服务的 API Key。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "准备 Node.js 24.11 以上环境",
+      "text": "本指南采用官方的 npx 安装路径。先确认本机已安装 Node.js 24.11 或更新版本。这种方式下，CLI 从 npm 缓存运行，实例配置和数据保存在本地，不需要 Paperclip 账号。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/paperclipai/paperclip/blob/0d3e7bf6ac69c6a41995e62e7a38ca99dcbc8dfd/README.md?plain=1#L350"
+      }
+    },
+    {
+      "title": "运行 onboard 初始化实例",
+      "text": "执行 onboard 命令完成初始化，默认使用受信任的本地回环模式。如果需要认证或私有访问模式，可改用 `--bind lan` 或 `--bind tailnet`。已有配置时再次运行 onboard 会保留原配置，修改设置请用 `npx paperclipai configure`。",
+      "code": "npx paperclipai@latest onboard --yes\n\nnpx paperclipai@latest onboard --yes --bind lan\n# or:\nnpx paperclipai@latest onboard --yes --bind tailnet",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/paperclipai/paperclip/blob/0d3e7bf6ac69c6a41995e62e7a38ca99dcbc8dfd/README.md?plain=1#L350"
+      }
+    },
+    {
+      "title": "按引导快速入门配置首个代理",
+      "text": "按照官方文档中的 guided quickstart（five-minute-path）配置第一个代理。代理需要的完整安装说明、版本固定、更新与卸载方法，见 installation guide。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/paperclipai/paperclip/blob/0d3e7bf6ac69c6a41995e62e7a38ca99dcbc8dfd/README.md?plain=1#L342"
+      }
+    },
+    {
+      "title": "用 test-drive 开隔离测试实例",
+      "text": "如果只想先试用，可以用 `test-drive` 启动一个已初始化 CEO 代理的隔离实例。它在前台运行，不会安装服务，也不会创建首个任务。运行时需提供对应模型的 API Key；每次运行都会使用新的临时目录，传入 `--data-dir` 可以复用已有目录。",
+      "code": "ANTHROPIC_API_KEY=... npx paperclipai test-drive\nOPENAI_API_KEY=... npx paperclipai test-drive --harness codex\nOPENROUTER_API_KEY=... npx paperclipai test-drive \\\n  --harness opencode \\\n  --model openrouter/anthropic/claude-sonnet-4.5",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/paperclipai/paperclip/blob/0d3e7bf6ac69c6a41995e62e7a38ca99dcbc8dfd/README.md?plain=1#L350"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "代理运行会产生模型调用费用。README 提供公司、代理、项目三级预算，以及阈值告警和自动暂停功能，建议先配置好预算。",
+    "如果全局 ~/.npmrc 指向私有 npm registry，npx 可能报 E404，需要临时指定公共 registry。",
+    "默认的本地回环模式适用于本机。需要从局域网或 tailnet 访问时，应显式选择 bind 预设。",
+    "Agent Chat 和聊天/邮件连接器属于实验功能，需要在实例设置中手动开启。",
+    "连接 GitHub、Notion 等外部服务时，需要设置连接权限，以及代理可执行的操作范围（Allowed、Ask first、Off）。"
+  ],
+  "references": [],
+  "media": [],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "19bbd5aaa6dd343bbabb736f089cc977bf2d5520a0b0a9d09d5a7a54cb900d8f",
+  "mediaStatus": "none_in_official_documents"
+}

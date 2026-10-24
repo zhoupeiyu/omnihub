@@ -1,0 +1,87 @@
+{
+  "schemaVersion": 1,
+  "key": "tutti-os/tutti",
+  "status": "partial",
+  "reason": "README 只提供桌面客户端的下载链接和功能介绍，没有说明安装后如何连接 Claude Code、Codex、Hermes 等已有 Agent 订阅的具体配置步骤。从源码构建的开发指南在 CONTRIBUTING.md 中，未包含在本次提供的资料里。",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/tutti-os/tutti/blob/8821cf4788f6a8fe5886942b2ab2890900c14997/README.md",
+  "sourceRevision": "8821cf4788f6a8fe5886942b2ab2890900c14997",
+  "canonicalKey": "tutti-os/tutti",
+  "summary": "Tutti 是一个桌面工作空间，把多个 AI Agent 连接到同一个实时共享空间，让上下文、文件、应用和任务在 Agent 之间直接流转。",
+  "intro": "适合同时使用 Claude Code、Codex 等多个 Agent，经常在它们之间手动复制上下文、搬运产出的独立开发者、设计师、产品经理和内容创作者。开源版 Tutti 面向一个人使用多个 Agent，提供 @ 引用历史对话和文件、用「+」引用应用产出、把目标拆分成子任务、控制中心等功能。需要多人、多设备协作时，可以使用 Tutti · VM。",
+  "requirements": "需要 macOS，或 Windows x64 系统的桌面客户端。可以复用已有的 Claude Code、Codex 或 Hermes 订阅；没有订阅时，可以先使用内置的 Tutti Agent。在 Tutti · VM 中创建 Room 需要邀请码。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "下载 macOS 版 Tutti · Local",
+      "text": "以 macOS 为例，通过 README 快速开始部分的「Download Tutti · Local for macOS」链接下载客户端。Windows 用户可以改用 x64 版下载链接。Tutti 是图形界面应用，安装后不需要使用命令行。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/tutti-os/tutti/blob/8821cf4788f6a8fe5886942b2ab2890900c14997/README.md?plain=1#L52"
+      }
+    },
+    {
+      "title": "连接已有的 Agent 订阅",
+      "text": "在 Tutti 中接入已有的 Agent 订阅，目前支持 Claude Code、Codex 和 Hermes，OpenClaw 仍在开发中。应用和 Agent 都运行在这些订阅之上。没有订阅时，可以先使用 Tutti Agent。具体的接入操作 README 没有说明。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/tutti-os/tutti/blob/8821cf4788f6a8fe5886942b2ab2890900c14997/README.md?plain=1#L181"
+      }
+    },
+    {
+      "title": "用 @ 和「+」跨 Agent 引用上下文",
+      "text": "在 Agent 对话框中用 @ 引用其他 Agent 的历史对话、文件、应用调用和任务，例如在 Codex 中直接沿用 Claude Code 的产出。点击「+」可以引用本地文件，或应用生成的内容。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/tutti-os/tutti/blob/8821cf4788f6a8fe5886942b2ab2890900c14997/README.md?plain=1#L106"
+      }
+    },
+    {
+      "title": "描述目标并分派子任务",
+      "text": "直接描述一个目标，Tutti 会把它拆分成子任务，用户审阅后再把每个子任务分配给合适的 Agent。之后可以在控制中心集中查看所有对话、待审批的操作和正在运行的任务。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/tutti-os/tutti/blob/8821cf4788f6a8fe5886942b2ab2890900c14997/README.md?plain=1#L161"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "Tutti Agent 在 Early Access 期间免费，官方说明之后可能按用量计费。",
+    "Tutti · VM 处于 Early Access 阶段，创建 Room 需要申请邀请码；下载客户端或加入他人的 Room 不需要邀请码。",
+    "在 Tutti · VM 中，同一 Room 内创建的内容对受邀成员可见，Room 之外的内容保持私有。",
+    "Agent 订阅目前只支持 Claude Code、Codex 和 Hermes，OpenClaw 仍在开发中。",
+    "群聊、多人协作、跨设备等功能只在 Tutti · VM 中提供，开源版不包含。"
+  ],
+  "references": [
+    {
+      "label": "README.zh-CN.md",
+      "url": "https://github.com/tutti-os/tutti/blob/8821cf4788f6a8fe5886942b2ab2890900c14997/README.zh-CN.md"
+    }
+  ],
+  "media": [
+    {
+      "url": "/assets/repository-guides/media-bf9f5d7098bb77225c6f30f3.webp",
+      "alt": "tutti-os/tutti 官方演示 1",
+      "sourceUrl": "https://github.com/tutti-os/tutti/blob/8821cf4788f6a8fe5886942b2ab2890900c14997/README.md?plain=1#L76",
+      "originalUrl": "https://raw.githubusercontent.com/tutti-os/tutti/8821cf4788f6a8fe5886942b2ab2890900c14997/docs/assets/en/workspace-hero.jpg"
+    },
+    {
+      "url": "/assets/repository-guides/media-6b6fc7ad5191b57a12c3fa0a.webp",
+      "alt": "tutti-os/tutti 官方演示 2",
+      "sourceUrl": "https://github.com/tutti-os/tutti/blob/8821cf4788f6a8fe5886942b2ab2890900c14997/README.md?plain=1#L123",
+      "originalUrl": "https://raw.githubusercontent.com/tutti-os/tutti/8821cf4788f6a8fe5886942b2ab2890900c14997/docs/assets/en/plus-reference.png"
+    },
+    {
+      "url": "/assets/repository-guides/media-a4ddc205a785db9cfc09cf13.webp",
+      "alt": "tutti-os/tutti 官方演示 3",
+      "sourceUrl": "https://github.com/tutti-os/tutti/blob/8821cf4788f6a8fe5886942b2ab2890900c14997/README.md?plain=1#L166",
+      "originalUrl": "https://raw.githubusercontent.com/tutti-os/tutti/8821cf4788f6a8fe5886942b2ab2890900c14997/docs/assets/en/goal-to-tasks.png"
+    }
+  ],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "856109213c3ba251399a172cbdd954ac88f4e07ee389173cbb4998dbf2a3f272",
+  "mediaStatus": "archived",
+  "mediaFailures": []
+}

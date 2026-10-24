@@ -1,0 +1,72 @@
+{
+  "schemaVersion": 1,
+  "key": "gnipbao/dao-skill",
+  "status": "ready",
+  "reason": "",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/gnipbao/dao-skill/blob/1cae835995c0ff4d9a33a6fec82cca0a54b7cd05/README.md",
+  "sourceRevision": "1cae835995c0ff4d9a33a6fec82cca0a54b7cd05",
+  "canonicalKey": "gnipbao/dao-skill",
+  "summary": "一个 Skill 元设计器，可以从模糊需求出发，归结根问题、设计 Skill 形态、生成文件，并对已有 Skill 做评估、优化和失败复盘。",
+  "intro": "适合想设计或维护 Agent Skill 的人。想法还模糊时，用它归纳根问题和最小下一步；方向已明确时，用它直接生成 `SKILL.md`、references、examples、scripts。对已有 Skill，它可以做 Trust Gate 评估、证据化评分、最小补丁优化，以及基于实测失败的返观修复。",
+  "requirements": "需要 Python 3.9+（安装器只使用标准库）和 git，默认安装到 Codex 的 `${CODEX_HOME:-$HOME/.codex}/skills/dao-skill`。在 Windows PowerShell 中用 `py -3` 代替 `python3`。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "克隆源码到维护目录",
+      "text": "本指南以 macOS/Linux 下的 Codex 为例。先把仓库克隆到任意一个用来维护的目录，然后进入 `dao-skill` 目录。",
+      "code": "git clone https://github.com/gnipbao/dao-skill.git\ncd dao-skill",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/gnipbao/dao-skill/blob/1cae835995c0ff4d9a33a6fec82cca0a54b7cd05/README.md?plain=1#L62"
+      }
+    },
+    {
+      "title": "先预览再执行安装器",
+      "text": "先运行 `python3 scripts/install.py --dry-run` 查看安装清单，确认无误后再正式安装到 Codex 的 skills 目录。如果目标已存在，安装器会要求加 `--force`，旧版本会备份到 backups 目录。",
+      "code": "python3 scripts/install.py --dry-run\npython3 scripts/install.py",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/gnipbao/dao-skill/blob/1cae835995c0ff4d9a33a6fec82cca0a54b7cd05/README.md?plain=1#L62"
+      }
+    },
+    {
+      "title": "新建 Codex 会话加载 Skill",
+      "text": "安装或更新完成后，新建一个 Codex 会话，让 Skill 列表重新加载。如果需要完全可复现的安装，应在安装前检出已验证的 tag 或 commit SHA，因为 `main` 分支会持续演进。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/gnipbao/dao-skill/blob/1cae835995c0ff4d9a33a6fec82cca0a54b7cd05/README.md?plain=1#L62"
+      }
+    },
+    {
+      "title": "用 $dao-skill 选择模式调用",
+      "text": "根据需要选择模式：想法模糊时要求先归根，方向明确时要求直接生成第一版，已有 Skill 时要求过 Trust Gate 评估或审计优化。生成的子 Skill 默认放在项目的 `.dao/skills/<skill-name>/` 下。",
+      "code": "使用 $dao-skill：我想做一个帮创业者判断产品方向的 skill，先帮我归根。\n\n使用 $dao-skill：我想做一个把播客长音频拆成小红书选题的 skill，直接生成第一版。\n\n使用 $dao-skill：评估这个 skill 能不能发布。先过 Trust Gate，再给证据化评分。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/gnipbao/dao-skill/blob/1cae835995c0ff4d9a33a6fec82cca0a54b7cd05/README.md?plain=1#L107"
+      }
+    },
+    {
+      "title": "运行 run_checks.py 做本地验证",
+      "text": "运行 `python3 scripts/run_checks.py`，一次完成结构、评分、行为契约、安装器等检查。注意：静态行为契约检查不等于真实模型回放。更新时按 README 的顺序执行 pull、检查、dry-run 和 `--force` 安装。",
+      "code": "python3 scripts/run_checks.py\n\ngit pull --ff-only\npython3 scripts/run_checks.py\npython3 scripts/install.py --dry-run\npython3 scripts/install.py --force",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/gnipbao/dao-skill/blob/1cae835995c0ff4d9a33a6fec82cca0a54b7cd05/README.md?plain=1#L172"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "使用自定义安装位置时，安装、更新和回滚都必须传入同一个 `--target`，回滚时要使用安装器输出的真实备份路径。",
+    "生成的子 Skill、SkillBank 和执行记录归使用者所有，不要把 Token、Cookie、私有语料或本机绝对路径提交到仓库。",
+    "创建远程仓库、发布、推送或写入受保护目录前，应先获得明确授权。"
+  ],
+  "references": [],
+  "media": [],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "2028227ab09b0ef3b6f1918377441d9f2caf2e94204dae84c036de431c9cb82d",
+  "mediaStatus": "none_in_official_documents"
+}

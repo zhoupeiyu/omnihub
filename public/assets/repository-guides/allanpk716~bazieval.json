@@ -1,0 +1,45 @@
+{
+  "schemaVersion": 1,
+  "key": "allanpk716/bazieval",
+  "status": "partial",
+  "reason": "README 只转载了计算生辰八字五行属性的算法原文，而且内容被截断（地支强度部分未完）。文档没有说明 Flask 网站或代码如何安装和启动，也没有任何代码块或调用方式，因此只能作为算法资料查阅。",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/allanpk716/BaziEval/blob/079d448b98a2e49a298c5c4a09c44a7050e0d5bb/README.md",
+  "sourceRevision": "079d448b98a2e49a298c5c4a09c44a7050e0d5bb",
+  "canonicalKey": "allanpk716/BaziEval",
+  "summary": "整理并转载了一套计算生辰八字及其五行强度的查表算法，仓库作者另提到据此做了一个 Flask 网站。",
+  "intro": "适合想了解或自行实现“由出生时间推八字、再计算金木水火土强度”这一民俗算法的读者。README 给出了时辰干支对照表、天干和地支的五行属性表，以及按出生月份查天干强度的经验值表，可以作为查阅资料。",
+  "requirements": "无软件准备要求。手工查阅时需要一份万年历，用于确定年、月、日的六个干支字。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "确定生辰八字的八个字",
+      "text": "先用万年历查出年、月、日的天干地支，共六个字。再按出生钟点找到所在行，按日干（第 5 个字）找到所在列，在 README 的时辰表中读出第 7、8 两个字，组成完整八字。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/allanpk716/BaziEval/blob/079d448b98a2e49a298c5c4a09c44a7050e0d5bb/README.md?plain=1#L1"
+      }
+    },
+    {
+      "title": "查表计算五行强度值",
+      "text": "对照天干属性表和地支属性表，确定每个字所属的五行。再根据出生月份，在“生月\\天干”表中查出各天干的强度贡献值。地支强度一节在 README 中被截断，需要到原文链接查看完整内容。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/allanpk716/BaziEval/blob/079d448b98a2e49a298c5c4a09c44a7050e0d5bb/README.md?plain=1#L1"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "仓库已归档，不再维护。",
+    "仓库未声明许可证；算法内容转载自他人博客。",
+    "原作者声明算法整理自网络，经验值出处不明，结果仅供参考，因使用引起的后果概不负责。",
+    "时辰表中个别单元格疑似笔误（例如 19－21 行的地支列写作“戊”），使用前请与原文核对。"
+  ],
+  "references": [],
+  "media": [],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "a8e12da637e33fb83622dc74a36157b05d7d1b33c609215ad5f81401bb830957",
+  "mediaStatus": "none_in_official_documents"
+}

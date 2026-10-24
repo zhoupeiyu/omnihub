@@ -1,0 +1,84 @@
+{
+  "schemaVersion": 1,
+  "key": "harry0703/moneyprinterturbo",
+  "status": "ready",
+  "reason": "",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/harry0703/MoneyPrinterTurbo/blob/2e1b30396e059e55939cc802c60faac2061e4d41/README.md",
+  "sourceRevision": "2e1b30396e059e55939cc802c60faac2061e4d41",
+  "canonicalKey": "harry0703/MoneyPrinterTurbo",
+  "summary": "输入视频主题或关键词，自动生成脚本、匹配素材、配音、字幕和背景音乐，并合成高清短视频的工具。",
+  "intro": "适合需要批量制作短视频的个人创作者和运营人员。提供 AI Agent、WebUI、API、CLI 四种使用方式。可以接入多家大模型生成脚本，从 Pexels、Pixabay 等素材库或多种文生视频服务获取画面，支持 9:16、16:9、1:1 三种画幅，也支持批量生成。",
+  "requirements": "支持 Windows 10、macOS 11.0 及以上版本和主流 Linux 发行版。本地部署需要 Python 3.11 及以上（推荐 3.11），推荐使用 uv 管理环境。最低配置为 4 核 CPU、4 GB 内存，GPU 不是必需项。使用云端大模型、在线素材或 AI 视频服务时，需要准备对应的 API Key。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "克隆代码并用 uv 安装依赖",
+      "text": "官方推荐 macOS 和 Linux 用户用 uv 本地部署。克隆仓库并进入目录后，用 uv 安装 Python 3.11，再执行 uv sync --frozen，按锁文件安装依赖。",
+      "code": "git clone https://github.com/harry0703/MoneyPrinterTurbo.git\ncd MoneyPrinterTurbo\nuv python install 3.11\nuv sync --frozen",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/harry0703/MoneyPrinterTurbo/blob/2e1b30396e059e55939cc802c60faac2061e4d41/README.md?plain=1#L261"
+      }
+    },
+    {
+      "title": "在项目根目录启动 WebUI",
+      "text": "在 MoneyPrinterTurbo 项目根目录执行 sh webui.sh。脚本会自动使用项目虚拟环境或 uv，并选择可用的本地端口，启动后会自动打开浏览器。如果页面空白，建议改用 Chrome 或 Edge 打开。",
+      "code": "sh webui.sh",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/harry0703/MoneyPrinterTurbo/blob/2e1b30396e059e55939cc802c60faac2061e4d41/README.md?plain=1#L376"
+      }
+    },
+    {
+      "title": "在基础设置中填写 API Key",
+      "text": "首次启动时，程序会根据 config.example.toml 自动生成 config.toml，无需手动创建。如果要使用云端大模型、在线素材或 AI 视频服务，请在 WebUI 的基础设置中填写对应的 API Key。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/harry0703/MoneyPrinterTurbo/blob/2e1b30396e059e55939cc802c60faac2061e4d41/README.md?plain=1#L310"
+      }
+    },
+    {
+      "title": "输入主题生成短视频",
+      "text": "在 WebUI 中填写视频主题或关键词，程序会自动完成脚本、配音、素材、字幕、配乐和剪辑。每个环节也可以换成自定义内容，例如自己的脚本、本地图片或视频、上传的配音。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/harry0703/MoneyPrinterTurbo/blob/2e1b30396e059e55939cc802c60faac2061e4d41/README.md?plain=1#L5"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "大模型、TTS 和文生视频等云端服务大多需要 API Key，并按各平台规则计费。Edge TTS 免费且无需 Key。",
+    "README 中的赞助商链接带有推广或返利参数，价格和优惠信息以各平台官方为准。",
+    "设置 MPT_WEBUI_HOST=0.0.0.0 会让局域网内其他设备访问 WebUI，请只在可信网络中开启。",
+    "Windows 用户的项目路径应避免包含中文、特殊字符或空格。",
+    "自动发布到 TikTok、Instagram、YouTube Shorts 会把内容上传到第三方平台，请确认账号授权和平台规则。"
+  ],
+  "references": [],
+  "media": [
+    {
+      "url": "/assets/repository-guides/media-b964b54b15f825e8c9ace36f.webp",
+      "alt": "harry0703/MoneyPrinterTurbo 官方演示 1",
+      "sourceUrl": "https://github.com/harry0703/MoneyPrinterTurbo/blob/2e1b30396e059e55939cc802c60faac2061e4d41/README.md?plain=1#L25",
+      "originalUrl": "https://raw.githubusercontent.com/harry0703/MoneyPrinterTurbo/2e1b30396e059e55939cc802c60faac2061e4d41/docs/webui.jpg"
+    },
+    {
+      "url": "/assets/repository-guides/media-e34b710ff773648084f75bcf.webp",
+      "alt": "harry0703/MoneyPrinterTurbo 官方演示 2",
+      "sourceUrl": "https://github.com/harry0703/MoneyPrinterTurbo/blob/2e1b30396e059e55939cc802c60faac2061e4d41/README.md?plain=1#L29",
+      "originalUrl": "https://raw.githubusercontent.com/harry0703/MoneyPrinterTurbo/2e1b30396e059e55939cc802c60faac2061e4d41/docs/api.jpg"
+    },
+    {
+      "url": "/assets/repository-guides/media-fdc9556663270caef08fe24d.webp",
+      "alt": "城市醒来的时刻",
+      "sourceUrl": "https://github.com/harry0703/MoneyPrinterTurbo/blob/2e1b30396e059e55939cc802c60faac2061e4d41/README.md?plain=1#L214",
+      "originalUrl": "https://github.com/harry0703/mpt-assets/releases/download/assets/03-zh-portrait-city-morning.jpg"
+    }
+  ],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "eaae6cc4f72d911b73d8724fe73f2d5b8597a330b4258af5ec90eec1e767b5d0",
+  "mediaStatus": "archived",
+  "mediaFailures": []
+}

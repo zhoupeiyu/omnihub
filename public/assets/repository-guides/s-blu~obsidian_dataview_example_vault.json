@@ -1,0 +1,60 @@
+{
+  "schemaVersion": 1,
+  "key": "s-blu/obsidian_dataview_example_vault",
+  "status": "ready",
+  "reason": "",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/s-blu/obsidian_dataview_example_vault/blob/dfc8022fcc9923a0e8755362a0b0943b34203970/README.md",
+  "sourceRevision": "dfc8022fcc9923a0e8755362a0b0943b34203970",
+  "canonicalKey": "s-blu/obsidian_dataview_example_vault",
+  "summary": "一个 Obsidian 示例库，收集并演示 Dataview 插件的各种查询写法，从基础语法到借助 JavaScript 的复杂方案都有。",
+  "intro": "适合正在学习或使用 Obsidian Dataview 插件的用户。可以把整个库作为 vault 打开，直接查看查询代码和查询结果，再参考示例改写成适合自己数据的查询。只想浏览或分享某个查询链接时，可以使用在线版本。",
+  "requirements": "需要安装 Obsidian，并在示例库中启用 Dataview 社区插件。在线版本只能浏览，看不到查询结果。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "下载示例库压缩包",
+      "text": "从 README 的 Usage 部分提供的链接下载仓库 master 分支的 zip 压缩包，然后在本地解压。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/s-blu/obsidian_dataview_example_vault/blob/dfc8022fcc9923a0e8755362a0b0943b34203970/README.md?plain=1#L9"
+      }
+    },
+    {
+      "title": "在 Obsidian 中以文件夹打开",
+      "text": "在 Obsidian 中选择「Open another vault -> Open folder as vault」。要选的是直接包含 00 Meta、10 Example Data 等文件夹的那一层目录。如果层级不对，查询会找不到数据。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/s-blu/obsidian_dataview_example_vault/blob/dfc8022fcc9923a0e8755362a0b0943b34203970/README.md?plain=1#L9"
+      }
+    },
+    {
+      "title": "启用 Dataview 社区插件",
+      "text": "打开库时 Obsidian 会询问是否信任该库，确认后进入设置页面，打开「Dataview」旁边的开关，启用这个社区插件。完成后，库中的查询就能显示结果。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/s-blu/obsidian_dataview_example_vault/blob/dfc8022fcc9923a0e8755362a0b0943b34203970/README.md?plain=1#L9"
+      }
+    },
+    {
+      "title": "从总览笔记开始查阅",
+      "text": "建议从库内的 Use Case Overview、Dataview Queries Overview 或 Topic Overview 开始浏览。Dataview 新手可以先看 Learn the Basics。有疑问时查看 FAQ，或参考 Dataview 官方文档。你也可以自己新增或修改文件来做试验。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/s-blu/obsidian_dataview_example_vault/blob/dfc8022fcc9923a0e8755362a0b0943b34203970/README.md?plain=1#L9"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "打开库时需要信任该库并启用社区插件，请先确认来源可靠。",
+    "在线 mkdocs 版本只能浏览查询代码，看不到查询结果，需要下载到本地才能看到结果。",
+    "仓库未声明许可证。"
+  ],
+  "references": [],
+  "media": [],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "ffdd2729cb217f471679e6875ca39e300e247cf13b2f3144ac9d0d67e4a8c2e4",
+  "mediaStatus": "none_in_official_documents"
+}

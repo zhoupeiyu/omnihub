@@ -1,0 +1,80 @@
+{
+  "schemaVersion": 1,
+  "key": "minimax-ai/cli",
+  "status": "ready",
+  "reason": "",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/MiniMax-AI/cli/blob/06e47c70b76f419196678367dae62acca4c94076/README.md",
+  "sourceRevision": "06e47c70b76f419196678367dae62acca4c94076",
+  "canonicalKey": "MiniMax-AI/cli",
+  "summary": "MiniMax 官方命令行工具 mmx，可在终端或 AI agent 中调用 MiniMax 平台生成文本、图片、视频、语音和音乐，也支持识图和联网搜索。",
+  "intro": "适合已有或准备订阅 MiniMax Token Plan 的开发者和 AI agent 用户。可以在终端里多轮对话、文生图、异步生成视频、语音合成与转写、图片理解、网页搜索，支持 Global 和 CN 两个区域。还可以通过 mmx agent setup 为 Claude Code、Codex 等工具配置 MiniMax。",
+  "requirements": "需要 Node.js 18 及以上版本，以及 MiniMax Token Plan 订阅（分 Global 和 CN 两个平台）。认证可以用 MiniMax OAuth，也可以用 API key。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "用 npm 全局安装 mmx-cli",
+      "text": "本指南采用终端使用路径：确认已装好 Node.js 18+，然后用安装代码块中的 npm install -g mmx-cli 全局安装。同一代码块中的 npx skills add 是给 AI agent 添加技能的另一条路径，二选一即可。",
+      "code": "# For AI agents (OpenClaw, Cursor, Claude Code, etc.): add skill to your agent\nnpx skills add MiniMax-AI/cli -y -g\n\n# Or install CLI globally for terminal use\nnpm install -g mmx-cli",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/MiniMax-AI/cli/blob/06e47c70b76f419196678367dae62acca4c94076/README.md?plain=1#L30"
+      }
+    },
+    {
+      "title": "运行 mmx auth login 完成认证",
+      "text": "执行 mmx auth login，按交互菜单选择 OAuth（Global 或 China），或粘贴 API key。也可以用 --api-key 参数非交互登录，适合 CI。登录后用 mmx auth status 检查认证状态。OAuth 和 API key 互斥，用一种登录会清除另一种。",
+      "code": "mmx auth login                              # interactive: pick OAuth (Global / China) or paste an API key\nmmx auth login --api-key sk-xxxxx           # save an API key directly\nmmx auth login --recommend                  # skip the menu, pick OAuth region interactively\nmmx auth login --recommend --region=global  # OAuth → api.minimax.io\nmmx auth login --recommend --region=cn      # OAuth → api.minimaxi.com\nmmx auth status\nmmx auth refresh\nmmx auth logout",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/MiniMax-AI/cli/blob/06e47c70b76f419196678367dae62acca4c94076/README.md?plain=1#L156"
+      }
+    },
+    {
+      "title": "用子命令生成文本和图片",
+      "text": "用 mmx text chat --message 进行对话，可以加 --system、--stream、--model 等参数。用 mmx image 或 mmx image generate 生成图片，可以设置数量、宽高比和输出目录。具体写法以代码块中的示例为准。",
+      "code": "mmx text chat --message \"Write a poem\"\nmmx text chat --model MiniMax-M3 --message \"Hello\" --stream\nmmx text chat --system \"You are a coding assistant\" --message \"Fizzbuzz in Go\"\nmmx text chat --message \"user:Hi\" --message \"assistant:Hey!\" --message \"How are you?\"\ncat messages.json | mmx text chat --messages-file - --output json\n\nmmx image \"A cat in a spacesuit\"\nmmx image generate --prompt \"A cat\" --n 3 --aspect-ratio 16:9\nmmx image generate --prompt \"Logo\" --out-dir ./out/",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/MiniMax-AI/cli/blob/06e47c70b76f419196678367dae62acca4c94076/README.md?plain=1#L71"
+      }
+    },
+    {
+      "title": "按需使用语音、视频与搜索",
+      "text": "mmx speech synthesize 做语音合成，mmx speech transcribe 做语音转写；mmx video generate 提交视频任务，再通过 task get 和 download 获取结果；mmx vision 用于图片理解，mmx search 用于网页搜索。",
+      "code": "# Hailuo-2.3 (Video Generation V1)\nmmx video generate --prompt \"Ocean waves at sunset\" --download sunset.mp4\nmmx video generate --prompt \"A robot painting\" --async\n\n# MiniMax-H3 (Video Generation V2)\nmmx video generate --api-key \"$MINIMAX_API_KEY\" --model MiniMax-H3 --prompt \"Ocean waves at sunset\"\nmmx video generate --api-key \"$MINIMAX_API_KEY\" --model MiniMax-H3 --prompt \"The subject walks forward\" --image start.jpg\nmmx video generate --api-key \"$MINIMAX_API_KEY\" --model MiniMax-H3 --prompt \"Keep the same character\" --reference-image character.png --reference-video motion.mp4\n\nmmx video task get --task-id 123456\nmmx video task get --task-id 424010985738629 --model MiniMax-H3\nmmx video download --file-id 176844028768320 --out video.mp4\n\nmmx speech synthesize --text \"Hello!\" --out hello.mp3\nmmx speech synthesize --text \"Stream me\" --stream | mpv -\nmmx speech synthesize --text \"Hi\" --voice English_magnetic_voiced_man --speed 1.2\necho \"Breaking news\" | mmx speech synthesize --text-file - --out news.mp3\nmmx speech voices\n\n# Speech-to-text (asr-1.0)\nmmx speech transcribe --file meeting.mp3\nmmx speech transcribe --file call.mp3 --language zh\nmmx speech transcribe --file talk.mp3 --response-format verbose_json --output json\nmmx speech transcribe --file talk.mp3 --response-format srt --out talk.srt\nmmx speech transcribe --file long.mp3 --stream\n\nmmx vision photo.jpg\nmmx vision describe --image https://example.com/img.jpg --prompt \"What breed?\"\nmmx vision describe --file-id file-123\n\nmmx search \"MiniMax AI\"\nmmx search query --q \"latest news\" --output json",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/MiniMax-AI/cli/blob/06e47c70b76f419196678367dae62acca4c94076/README.md?plain=1#L89"
+      }
+    },
+    {
+      "title": "查看额度并调整配置",
+      "text": "用 mmx quota 查看额度，用 mmx config show 和 mmx config set 修改区域、默认文本模型等配置。如需让 Claude Code、Codex 等使用 MiniMax，可以运行 mmx agent setup。加 --dry-run 可以先预览改动。",
+      "code": "mmx quota\nmmx config show\nmmx config set --key region --value cn\nmmx config set --key default-text-model --value MiniMax-M3\nmmx config export-schema | jq .\n\nmmx agent setup\nmmx agent setup --agent codex --agent claude-code --api-key \"$MINIMAX_API_KEY\" --region global\nmmx agent setup --all --api-key \"$MINIMAX_API_KEY\" --region cn --output json",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/MiniMax-AI/cli/blob/06e47c70b76f419196678367dae62acca4c94076/README.md?plain=1#L193"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "使用前需要订阅 MiniMax Token Plan，调用会消耗账户额度。",
+    "凭据保存在 ~/.mmx/config.json；在服务或 CI 中运行时，可能需要通过 MMX_CONFIG_DIR 指定配置目录。",
+    "mmx agent setup 会改写目标 agent 的配置文件（改动时会备份），交互向导中还可能安装缺失的 agent。",
+    "语音转写的文件上限为 50 MB、500 秒；搜索接口每次最多返回 10 条结果，且不支持分页。"
+  ],
+  "references": [],
+  "media": [],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "21652ee58eaab01bacf013327f2522d7a145fb1b2dde2bbc3b5c7e4e8b7ea7c9",
+  "mediaStatus": "unavailable",
+  "mediaFailures": [
+    {
+      "sourceUrl": "https://github.com/MiniMax-AI/cli/blob/06e47c70b76f419196678367dae62acca4c94076/README.md#L28",
+      "reason": "unsupported_media_host"
+    }
+  ]
+}

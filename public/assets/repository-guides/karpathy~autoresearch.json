@@ -1,0 +1,78 @@
+{
+  "schemaVersion": 1,
+  "key": "karpathy/autoresearch",
+  "status": "ready",
+  "reason": "",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/karpathy/autoresearch/blob/228791fb499afffb54b46200aca536f79142f117/README.md",
+  "sourceRevision": "228791fb499afffb54b46200aca536f79142f117",
+  "canonicalKey": "karpathy/autoresearch",
+  "summary": "让 AI 编码 Agent 在单 GPU 上自主反复修改并训练一个精简版 nanochat 模型，以 val_bpb 指标自动筛选更好的实验。",
+  "intro": "适合想探索“由 Agent 自主做 LLM 训练研究”的研究者和开发者。人类只编写 program.md 作为 Agent 的研究指令，Agent 修改 train.py，每次训练固定 5 分钟，比较 val_bpb（越低越好）后保留或丢弃改动，整夜循环后留下实验日志。",
+  "requirements": "官方代码需要单块 NVIDIA GPU（在 H100 上测试）、Python 3.10+ 和 uv；还需要一个可在仓库中运行的编码 Agent（README 提到 Claude/Codex 等）。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "安装 uv 并同步依赖",
+      "text": "在装有 NVIDIA GPU 的机器上，若尚无 uv 先按官方脚本安装，然后在仓库目录运行 uv sync 安装依赖。 原文包含需人工核查的高权限或删除命令，本站不提供一键复制；请查看该步骤的官方出处。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/karpathy/autoresearch/blob/228791fb499afffb54b46200aca536f79142f117/README.md?plain=1#L21"
+      }
+    },
+    {
+      "title": "准备数据并训练分词器",
+      "text": "运行 uv run prepare.py，一次性下载训练数据并训练 BPE 分词器，README 标注约需 2 分钟。prepare.py 保存固定常量和评估工具，按设计不应修改。 原文包含需人工核查的高权限或删除命令，本站不提供一键复制；请查看该步骤的官方出处。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/karpathy/autoresearch/blob/228791fb499afffb54b46200aca536f79142f117/README.md?plain=1#L21"
+      }
+    },
+    {
+      "title": "手动跑一次基线训练",
+      "text": "运行 uv run train.py 做一次约 5 分钟的训练实验。若前面命令都正常完成，说明环境就绪，可以进入自主研究模式。 原文包含需人工核查的高权限或删除命令，本站不提供一键复制；请查看该步骤的官方出处。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/karpathy/autoresearch/blob/228791fb499afffb54b46200aca536f79142f117/README.md?plain=1#L21"
+      }
+    },
+    {
+      "title": "让 Agent 读取 program.md 开跑",
+      "text": "在仓库中启动你的编码 Agent，提示它查看 program.md 并开始新实验、先完成设置。Agent 只修改 train.py，每轮固定 5 分钟训练，用 val_bpb 判断是否保留改动。",
+      "code": "Hi have a look at program.md and let's kick off a new experiment! let's do the setup first.",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/karpathy/autoresearch/blob/228791fb499afffb54b46200aca536f79142f117/README.md?plain=1#L42"
+      }
+    },
+    {
+      "title": "迭代 program.md 研究指令",
+      "text": "默认 program.md 是刻意保持简单的基线。之后由人类修改这份 Markdown 来调整 Agent 的研究策略，而不是直接改 Python 文件。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/karpathy/autoresearch/blob/228791fb499afffb54b46200aca536f79142f117/README.md?plain=1#L1"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "官方代码目前只支持单块 NVIDIA GPU；macOS、Windows、AMD 仅有 README 列出的社区 fork，不属于本仓库。",
+    "README 建议运行 Agent 时关闭所有权限确认，这意味着 Agent 可无确认地执行修改和命令，应在隔离环境中使用。",
+    "固定 5 分钟预算使结果只在同一硬件上可比，不同计算平台之间的结果不可直接比较。",
+    "prepare.py 会下载训练数据，需联网并占用磁盘与 GPU 时间。"
+  ],
+  "references": [],
+  "media": [
+    {
+      "url": "/assets/repository-guides/media-8bf562345b008084bcb7e49e.webp",
+      "alt": "karpathy/autoresearch 官方演示 1",
+      "sourceUrl": "https://github.com/karpathy/autoresearch/blob/228791fb499afffb54b46200aca536f79142f117/README.md?plain=1#L3",
+      "originalUrl": "https://raw.githubusercontent.com/karpathy/autoresearch/228791fb499afffb54b46200aca536f79142f117/progress.png"
+    }
+  ],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "3958fd4195ac2f98ed35c4eaa4f3028a335165ee24945e96426c408d25793a41",
+  "mediaStatus": "archived",
+  "mediaFailures": []
+}

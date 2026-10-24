@@ -1,0 +1,71 @@
+{
+  "schemaVersion": 1,
+  "key": "theowenyoung/home",
+  "status": "ready",
+  "reason": "",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/theowenyoung/home/blob/9bf3ea9b31cf1f05a149b702dca26ebd51c34924/README.md",
+  "sourceRevision": "9bf3ea9b31cf1f05a149b702dca26ebd51c34924",
+  "canonicalKey": "theowenyoung/home",
+  "summary": "作者个人的 $HOME dotfiles 仓库，用 .gitignore 白名单管理配置，并记录了 macOS 新机初始化、密钥管理和 Linux 服务器配置流程。",
+  "intro": "适合想参考他人 dotfiles 组织方式的 macOS 或 Linux 开发者。可以借鉴的内容包括：用 Homebrew 和 Brewfile 统一管理软件，用 mise 管理语言运行时，用 macOS Keychain 加 sec 函数管理 token，用 npx skills 维护 AI Agent skills 清单。仓库还记录了一份软路由网关与 Docker FORWARD 策略冲突的排障笔记。",
+  "requirements": "仅查阅不需要任何准备。仓库内容面向 macOS（Homebrew、Keychain、Passwords app）和 Linux 服务器；如果想借鉴具体配置，需要先了解 Homebrew、mise、bash 和 git 的基本用法。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "先读管理原则了解整体思路",
+      "text": "从 README 的「原则」部分开始阅读。仓库整体约定是：软件统一写在 ~/Brewfile 并用 brew bundle 安装，运行时由 mise 管理，敏感信息存入 macOS Keychain 并通过 sec 函数读写，.gitignore 默认忽略全部文件，只显式放行需要跟踪的配置。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/theowenyoung/home/blob/9bf3ea9b31cf1f05a149b702dca26ebd51c34924/README.md?plain=1#L1"
+      }
+    },
+    {
+      "title": "对照目录结构定位配置文件",
+      "text": "查看目录结构代码块，了解各配置的存放位置：Brewfile、.default-npm-packages、.default-gems 位于根目录；bash、git、ghostty、tmux、nvim、mise、caddy、clash 等配置位于 .config/ 下；deploy/ 存放服务器部署相关文件。按需进入对应目录阅读。",
+      "code": "~/\n├── Brewfile                    # Homebrew 软件清单\n├── .default-npm-packages       # mise 安装 node 时自动安装的 npm 全局包\n├── .default-gems               # mise 安装 ruby 时自动安装的 gems\n├── .config/\n│   ├── bash/                   # bash 配置、补全脚本\n│   ├── git/                    # git 配置和全局 ignore\n│   ├── ghostty/                # Ghostty 终端配置\n│   ├── tmux/                   # tmux 配置\n│   ├── nvim/                   # Neovim 配置（NvChad）\n│   ├── mise/                   # mise 运行时版本配置\n│   ├── alfred-workflows/       # Alfred 自定义工作流\n│   ├── caddy/                  # Caddy 反向代理配置\n│   ├── clash/                  # Clash 代理配置\n│   ├── systemd/                # systemd 用户服务\n│   └── ...\n├── deploy/                     # 服务器部署（Ansible、K3s、Helm）\n└── .gnupg/gpg-agent.conf       # GPG agent 配置",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/theowenyoung/home/blob/9bf3ea9b31cf1f05a149b702dca26ebd51c34924/README.md?plain=1#L14"
+      }
+    },
+    {
+      "title": "参考 macOS 新机初始化顺序",
+      "text": "README 按编号记录了作者在 macOS 新机上的初始化顺序：系统偏好设置、Xcode Command Line Tools、Homebrew、SSH 密钥恢复、把仓库初始化到 $HOME、安装 bash 和 Ghostty、切换默认 Shell、加载 bashrc、brew bundle，以及 Alfred、Bartender、Cleanshot 的配置。可以作为整理自己装机清单的参考。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/theowenyoung/home/blob/9bf3ea9b31cf1f05a149b702dca26ebd51c34924/README.md?plain=1#L39"
+      }
+    },
+    {
+      "title": "阅读密钥与 Agent skills 管理",
+      "text": "「密钥管理」部分说明如何通过 sec add、sec export、sec import 把 token 存进本地 Keychain，并借助剪贴板在机器之间迁移。「AI Agent skills 管理」部分说明如何用 ~/.agents/.skill-lock.json 记录 npx skills 安装的全局 skills，以便在新机器上还原。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/theowenyoung/home/blob/9bf3ea9b31cf1f05a149b702dca26ebd51c34924/README.md?plain=1#L333"
+      }
+    },
+    {
+      "title": "查阅 Linux 服务器与排障笔记",
+      "text": "如果需要在 Linux 服务器上复用 bash 和 mise 配置，可以阅读「Linux 服务器初始化」各小节。「软路由网关」部分记录了 Docker 启动后把 FORWARD 策略设为 DROP、导致局域网客户端无法上网的故障现象、判断方法，以及没有采用的备选方案。服务器部署内容在另一个仓库 studio-example 中维护。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/theowenyoung/home/blob/9bf3ea9b31cf1f05a149b702dca26ebd51c34924/README.md?plain=1#L1100"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "官方文档中的高权限或远程脚本操作应单独核查，不要整段复制执行。",
+    "README 中包含作者个人的 GPG 密钥 ID、局域网地址、用户名等机器专属信息，仅适用于作者本人环境。",
+    "sec export 会把 base64 编码的明文 token 放进剪贴板，并依赖 iCloud Universal Clipboard 传输，存在泄露风险。",
+    "仓库未声明许可证，复用其中的配置或脚本前需要自行确认授权。",
+    "Bartender 需要授予辅助功能和屏幕录制权限；Alfred、Bartender、Cleanshot 等是第三方应用，授权方式需自行了解。"
+  ],
+  "references": [],
+  "media": [],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "94a503f7cd4d8b3770655aa06de113177043c1297851b9040f20bb470613cc2e",
+  "mediaStatus": "none_in_official_documents"
+}

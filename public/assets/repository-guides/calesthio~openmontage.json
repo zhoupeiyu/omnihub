@@ -1,0 +1,94 @@
+{
+  "schemaVersion": 1,
+  "key": "calesthio/openmontage",
+  "status": "ready",
+  "reason": "",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/calesthio/OpenMontage/blob/08e2151fa02de28a5d6a312b3d575692bf147ad7/README.md",
+  "sourceRevision": "08e2151fa02de28a5d6a312b3d575692bf147ad7",
+  "canonicalKey": "calesthio/OpenMontage",
+  "summary": "OpenMontage 让 AI 编程助手读取仓库内的流水线和技能文件，用自然语言完成调研、脚本、素材、剪辑到合成的视频制作。",
+  "intro": "适合已经在用 Claude Code、Cursor、Copilot、Windsurf 或 Codex 等 AI 编程助手，想用它来制作视频的创作者和开发者。仓库提供解说动画、纪录片蒙太奇、短视频切片、配音本地化、屏幕演示等流水线，也可以从一段参考视频出发生成制作方案。文档还介绍了不配置付费 API Key 的路径：Piper 配音加 Remotion 合成图片视频，或从 Archive.org、NASA、Wikimedia 等开放素材剪辑真实镜头。",
+  "requirements": "Python 3.10+、FFmpeg、Node.js 18+，以及一个能读文件、运行代码的 AI 编程助手（Claude Code、Cursor、Copilot、Windsurf 或 Codex）。API Key 都是可选的，按需填写到 .env。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "安装 Python、FFmpeg 与 Node.js",
+      "text": "该步骤涉及需要人工核查的高权限、远程脚本或破坏性操作。本站不提供直接执行指令，请先查看官方说明并确认影响。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/calesthio/OpenMontage/blob/08e2151fa02de28a5d6a312b3d575692bf147ad7/README.md?plain=1#L188"
+      }
+    },
+    {
+      "title": "克隆仓库并执行 make setup",
+      "text": "以下以 macOS/Linux 下使用 make 为例：克隆仓库，进入 OpenMontage 目录，运行 make setup。按文档说明，这一步会准备 Piper TTS、Remotion、FFmpeg 后期等零 Key 能力。没有 make 时，可以改用 README 中为 macOS/Linux 列出的 venv、pip、npm 逐条命令。",
+      "code": "git clone https://github.com/calesthio/OpenMontage.git\ncd OpenMontage\nmake setup",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/calesthio/OpenMontage/blob/08e2151fa02de28a5d6a312b3d575692bf147ad7/README.md?plain=1#L195"
+      }
+    },
+    {
+      "title": "在 AI 助手里用自然语言下达需求",
+      "text": "用 AI 编程助手打开项目目录，直接描述想要的视频，例如做一段动画解说。想走真实素材路径时，在提示词里写明 documentary montage，并要求 use real footage only。脚本、画面等创作决策会停下来等你确认后再继续。",
+      "code": "\"Make a 60-second animated explainer about how neural networks learn\"\n\n\"Make a 75-second documentary montage about city life in the rain. Use real footage only, no narration, elegiac tone, with music.\"",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/calesthio/OpenMontage/blob/08e2151fa02de28a5d6a312b3d575692bf147ad7/README.md?plain=1#L195"
+      }
+    },
+    {
+      "title": "按需在 .env 中添加 API Key",
+      "text": "想用 AI 生成图像或视频、高级配音和音乐时，在 .env 中填入相应的 Key，例如 FAL_KEY、OPENAI_API_KEY、ELEVENLABS_API_KEY，以及免费申请的 Pexels/Pixabay/Unsplash Key。所有 Key 都是可选的。有 GPU 的话，可以按折叠区说明启用本地视频生成。",
+      "code": "# .env — every key is optional, add what you have\n\n# Image + video gateway:\nFAL_KEY=your-key               # FLUX images + Google Veo, Kling, MiniMax video + Recraft images\nATLASCLOUD_API_KEY=your-key    # Atlas Cloud — Seedream/Nano Banana/GPT Image + Kling/Seedance/Hailuo video\n\n# Kling official direct API:\nKLING_API_KEY=your-key         # Official Kling video, image, TTS, avatar, lip sync\nKLING_API_BASE_URL=            # Optional; default Singapore API endpoint\n\n# Free stock media:\nPEXELS_API_KEY=your-key        # Free stock footage and images\nPIXABAY_API_KEY=your-key       # Free stock footage and images\nUNSPLASH_ACCESS_KEY=your-key   # Free stock images\n\n# Music:\nSUNO_API_KEY=your-key          # Full songs, instrumentals, any genre\n\n# Voice & images:\nELEVENLABS_API_KEY=your-key    # Premium TTS, AI music, sound effects\nOPENAI_API_KEY=your-key        # OpenAI TTS, GPT Image 2 images\nXAI_API_KEY=your-key           # xAI Grok image edits/generation + Grok video generation\nGOOGLE_API_KEY=your-key        # Google Imagen images, Google TTS (700+ voices)\n\n# More video providers:\nARK_API_KEY=your-key           # Volcengine Ark direct — Seedance 2.0 Standard/Fast/Mini\nHEYGEN_API_KEY=your-key        # HeyGen — VEO, Sora, Runway, Kling via single gateway\nRUNWAY_API_KEY=your-key        # Runway Gen-4 direct",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/calesthio/OpenMontage/blob/08e2151fa02de28a5d6a312b3d575692bf147ad7/README.md?plain=1#L240"
+      }
+    },
+    {
+      "title": "用 Backlot 查看进度并审批分镜",
+      "text": "制作开始后，agent 会自动打开 Backlot 本地看板，显示阶段进度、脚本、分镜和每项素材的花费。素材生成会停在分镜审批环节，在聊天中回复后才会继续。也可以手动运行 python -m backlot open 打开项目库，或用模拟脚本先看看效果。",
+      "code": "python -m backlot open                  # the library — every project on disk\npython -m backlot open <project-id>     # one production's live board\npython scripts/backlot_simulate_run.py  # no production yet? watch a simulated one live",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/calesthio/OpenMontage/blob/08e2151fa02de28a5d6a312b3d575692bf147ad7/README.md?plain=1#L156"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "许可证为 AGPL-3.0，修改后再分发或作为网络服务提供时需遵守相应条款。",
+    "配置图像/视频生成、配音、音乐等第三方 Provider 会产生对方服务的费用。README 给出的金额只是示例场景下的估算，实际以各 Provider 计费为准。",
+    "使用参考视频（YouTube、Reel、TikTok 等）或第三方素材时，需要自行确认版权和平台条款。",
+    "Windows 下 npm install 如果报 ERR_INVALID_ARG_TYPE，文档建议改用 npx --yes npm install。",
+    "本地视频生成需要 GPU，并需额外执行 make install-gpu。"
+  ],
+  "references": [],
+  "media": [
+    {
+      "url": "/assets/repository-guides/media-5e8ba300fc66a48ad8f0b94a.webp",
+      "alt": "calesthio/OpenMontage 官方演示 1",
+      "sourceUrl": "https://github.com/calesthio/OpenMontage/blob/08e2151fa02de28a5d6a312b3d575692bf147ad7/README.md?plain=1#L162",
+      "originalUrl": "https://raw.githubusercontent.com/calesthio/OpenMontage/08e2151fa02de28a5d6a312b3d575692bf147ad7/docs/images/backlot/board-live.png"
+    },
+    {
+      "url": "/assets/repository-guides/media-d55fdb006cf73c6d4118cbe4.webp",
+      "alt": "calesthio/OpenMontage 官方演示 2",
+      "sourceUrl": "https://github.com/calesthio/OpenMontage/blob/08e2151fa02de28a5d6a312b3d575692bf147ad7/README.md?plain=1#L166",
+      "originalUrl": "https://raw.githubusercontent.com/calesthio/OpenMontage/08e2151fa02de28a5d6a312b3d575692bf147ad7/docs/images/backlot/storyboard.png"
+    },
+    {
+      "url": "/assets/repository-guides/media-053d08653dea06447d92caac.webp",
+      "alt": "calesthio/OpenMontage 官方演示 3",
+      "sourceUrl": "https://github.com/calesthio/OpenMontage/blob/08e2151fa02de28a5d6a312b3d575692bf147ad7/README.md?plain=1#L170",
+      "originalUrl": "https://raw.githubusercontent.com/calesthio/OpenMontage/08e2151fa02de28a5d6a312b3d575692bf147ad7/docs/images/backlot/script-gate.png"
+    }
+  ],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "0431403a913bb4a132e090f4dbd0343852473aa62d67a3a3912294129482906b",
+  "mediaStatus": "archived",
+  "mediaFailures": []
+}

@@ -1,0 +1,80 @@
+{
+  "schemaVersion": 1,
+  "key": "deusdata/codebase-memory-mcp",
+  "status": "ready",
+  "reason": "",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/DeusData/codebase-memory-mcp/blob/0f52d30c2964a5a538149f8b39846ba52517a020/README.md",
+  "sourceRevision": "0f52d30c2964a5a538149f8b39846ba52517a020",
+  "canonicalKey": "DeusData/codebase-memory-mcp",
+  "summary": "codebase-memory-mcp 是一个本地 MCP 服务器，把代码库索引成持久知识图谱，供 AI 编程代理做结构查询、调用链追踪和影响分析。",
+  "intro": "适合使用 Claude Code、Codex、OpenCode 等支持 MCP 的编程代理的开发者。它提供 17 个 MCP 工具，包括架构概览、调用图、死代码检测、git diff 影响映射、语义搜索和跨服务 HTTP 链接，并内置一个本地 3D 图谱可视化界面。",
+  "requirements": "支持 macOS（arm64/amd64）、Linux（arm64/amd64）、Windows（amd64）。原生安装不需要 Docker、语言运行时或 API Key；需要至少一个支持 MCP 的编程代理客户端。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "在 macOS/Linux 运行安装脚本",
+      "text": "本指南以 macOS/Linux 为例。执行官方一行安装命令，它会下载二进制并运行 install，自动检测已安装的编程代理并写入 MCP 配置。可选参数：--skip-config 只安装二进制，--dir=<path> 指定安装位置。Windows 请改用 README 中的 PowerShell 步骤。 原文包含需人工核查的高权限或删除命令，本站不提供一键复制；请查看该步骤的官方出处。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/DeusData/codebase-memory-mcp/blob/0f52d30c2964a5a538149f8b39846ba52517a020/README.md?plain=1#L42"
+      }
+    },
+    {
+      "title": "重启代理并索引当前项目",
+      "text": "安装完成后重启编程代理，在对话中说「Index this project」即可建立索引。如果是在 Claude Code 中手动配置，可以用 /mcp 检查，应能看到 codebase-memory-mcp 及其 17 个工具。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/DeusData/codebase-memory-mcp/blob/0f52d30c2964a5a538149f8b39846ba52517a020/README.md?plain=1#L42"
+      }
+    },
+    {
+      "title": "按需开启自动索引",
+      "text": "想在每次 MCP 会话开始时自动索引新项目，可运行 config set auto_index true。已索引的项目会注册到后台 watcher，基于 git 检测变更。用 config list 查看全部设置，用 auto_index_limit 限制文件数。",
+      "code": "codebase-memory-mcp config set auto_index true\n\ncodebase-memory-mcp config list                          # show all settings\ncodebase-memory-mcp config set auto_index true           # auto-index on session start\ncodebase-memory-mcp config set auto_index_limit 50000    # max files for auto-index\ncodebase-memory-mcp config set auto_watch false          # don't register background git watcher (default: true)\ncodebase-memory-mcp config set watcher_enabled false     # stop the watcher thread entirely (default: true)\ncodebase-memory-mcp config set index_max_files 250000    # optional per-index source-file limit\ncodebase-memory-mcp config set index_max_source_mb 16384 # optional per-index source-size limit\ncodebase-memory-mcp config reset auto_index              # reset to default",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/DeusData/codebase-memory-mcp/blob/0f52d30c2964a5a538149f8b39846ba52517a020/README.md?plain=1#L144"
+      }
+    },
+    {
+      "title": "打开图谱可视化界面",
+      "text": "用 --ui=true --port=9749 启动后，在浏览器访问 http://localhost:9749 查看 3D 知识图谱。该界面由共享的协调守护进程提供，多个代理会话同时使用时不会重复启动 HTTP 服务。",
+      "code": "codebase-memory-mcp --ui=true --port=9749",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/DeusData/codebase-memory-mcp/blob/0f52d30c2964a5a538149f8b39846ba52517a020/README.md?plain=1#L134"
+      }
+    },
+    {
+      "title": "更新或卸载",
+      "text": "更新需要重新运行安装目录中的 install.sh，而不是在运行中的二进制里更新。卸载可运行 uninstall，它会移除代理配置、skills、hooks 和二进制；已有索引会在你确认后才删除，安装脚本本身只报告路径、不会删除。",
+      "code": "# macOS / Linux\nbash \"<install-dir>/install.sh\"\n\ncodebase-memory-mcp uninstall",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/DeusData/codebase-memory-mcp/blob/0f52d30c2964a5a538149f8b39846ba52517a020/README.md?plain=1#L158"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "该工具会读取代码库并写入编程代理的配置文件（MCP 条目、指令、skills、hooks）。如需审计，请在运行前查看源码。",
+    "官方文档中的高权限或远程脚本操作应单独核查，不要整段复制执行。",
+    "Microsoft Defender 可能把发布的二进制报为 Trojan:Script/Wacatac.B!ml，项目称这是误报，并在 SECURITY.md 中提供了自行校验方法。",
+    "所有同时运行的 CBM 进程必须是完全相同的版本和缓存根目录，否则新进程会被拒绝启动；更新后需要重启已打开的代理会话。"
+  ],
+  "references": [],
+  "media": [
+    {
+      "url": "/assets/repository-guides/media-787e0f3433c7d269d31af370.webp",
+      "alt": "DeusData/codebase-memory-mcp 官方演示 1",
+      "sourceUrl": "https://github.com/DeusData/codebase-memory-mcp/blob/0f52d30c2964a5a538149f8b39846ba52517a020/README.md?plain=1#L26",
+      "originalUrl": "https://raw.githubusercontent.com/DeusData/codebase-memory-mcp/0f52d30c2964a5a538149f8b39846ba52517a020/docs/graph-ui-screenshot.png"
+    }
+  ],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "fbcb09c380a4456e96d2501b76841658d79bd24aa354a9290ee9325ca01f2cb0",
+  "mediaStatus": "archived",
+  "mediaFailures": []
+}

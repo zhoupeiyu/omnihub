@@ -1,0 +1,90 @@
+{
+  "schemaVersion": 1,
+  "key": "tranvuongquocdat/sidescreen",
+  "status": "ready",
+  "reason": "",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/tranvuongquocdat/SideScreen/blob/9b0ac6d671b67e6d36ccde48d41c84cf636b616d/README.md",
+  "sourceRevision": "9b0ac6d671b67e6d36ccde48d41c84cf636b616d",
+  "canonicalKey": "tranvuongquocdat/SideScreen",
+  "summary": "Side Screen 能把 Android 平板变成 macOS 的扩展第二显示器，支持 USB-C 有线和 WiFi 无线两种连接，并支持触控输入。",
+  "intro": "适合手上有闲置 Android 平板、想给 Mac 加一块扩展屏的用户。Apple Sidecar 只支持 iPad，这个项目通过虚拟显示器、H.265 硬件编解码串流和触控输入来填补这一空缺。也可以在设置自动启动后，把平板当作无显示器 Mac（如 Mac mini 或合盖笔记本）的唯一屏幕。",
+  "requirements": "Mac 端：macOS 13 (Ventura) 及以上，Apple Silicon 或 Intel；USB 模式需要 USB-C 接口和 adb。Android 端：Android 8.0 及以上，具备 H.265 硬件解码器；USB 模式需要 USB-C 数据线并开启 USB 调试；无线模式需要摄像头、Google Play Services，且与 Mac 在同一 WiFi。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "从 Releases 下载两端安装包",
+      "text": "在 GitHub Releases 下载最新版本。macOS 端下载 .dmg，打开后把 Side Screen 拖进 Applications；Android 端下载 .apk 安装到平板，必要时允许“未知来源”。端口转发由 Mac 应用自动处理。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/tranvuongquocdat/SideScreen/blob/9b0ac6d671b67e6d36ccde48d41c84cf636b616d/README.md?plain=1#L119"
+      }
+    },
+    {
+      "title": "在 Mac 上准备 adb 与权限",
+      "text": "Mac 应用依赖 adb 与 Android 设备通信，README 建议用 Homebrew 安装 android-platform-tools。如果打开时提示 app 已损坏，按故障排查说明清除隔离属性后再打开。如果虚拟显示器没有出现，在隐私与安全中为 Side Screen 授予屏幕录制权限。 原文包含需人工核查的高权限或删除命令，本站不提供一键复制；请查看该步骤的官方出处。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/tranvuongquocdat/SideScreen/blob/9b0ac6d671b67e6d36ccde48d41c84cf636b616d/README.md?plain=1#L108"
+      }
+    },
+    {
+      "title": "用 USB-C 模式连接平板",
+      "text": "用 USB-C 线连接平板和 Mac，在 Mac 上启动 Side Screen（运行在菜单栏，会自动设置端口转发）。在平板上打开 Side Screen，保持在 USB 标签页，点击 Connect。之后就能把窗口拖到新显示器上使用。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/tranvuongquocdat/SideScreen/blob/9b0ac6d671b67e6d36ccde48d41c84cf636b616d/README.md?plain=1#L164"
+      }
+    },
+    {
+      "title": "按需切换为无线模式",
+      "text": "在 Mac 端切到 Wireless 标签页，屏幕上会显示二维码。在平板端切到 Wireless，点击 Scan QR Code 并授予相机权限后扫码。平板会记住这台 Mac，以后启动会自动重连。README 建议使用 5 GHz WiFi，无线模式会额外增加 10–50 ms 延迟。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/tranvuongquocdat/SideScreen/blob/9b0ac6d671b67e6d36ccde48d41c84cf636b616d/README.md?plain=1#L171"
+      }
+    },
+    {
+      "title": "在 Mac 应用中调整串流设置",
+      "text": "在 Mac 应用中可调整分辨率（720p 到 8K）、帧率（30–120 FPS）、码率（20–5000 Mbps）、画质预设、HiDPI、Gaming Boost 和触控开关。如果出现高延迟或卡顿，可先降低分辨率或帧率，并确认使用的是数据线而不是仅充电线。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/tranvuongquocdat/SideScreen/blob/9b0ac6d671b67e6d36ccde48d41c84cf636b616d/README.md?plain=1#L189"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "官方文档中的高权限或远程脚本操作应单独核查，不要整段复制执行。",
+    "无线模式要求两台设备在同一 WiFi 和同一子网，部分 mesh 路由器会隔离访客设备。首次开启无线时，需要授予 macOS 本地网络权限，否则入站连接会被静默丢弃。",
+    "点击 Reset Token (forget all) 或重装应用会重置认证令牌，所有平板需要重新扫码配对。",
+    "如果系统设置中“显示器具有单独的空间”处于关闭状态，Mac 上任何应用进入全屏时平板都会黑屏。需要在 Mission Control 设置中开启该选项，然后注销再重新登录。",
+    "无头模式首次设置时仍需要一块屏幕来授予屏幕录制权限。无线无头使用时，建议给 Mac 设置静态 IP 或 DHCP 保留地址。"
+  ],
+  "references": [],
+  "media": [
+    {
+      "url": "/assets/repository-guides/media-9f6b9e3288bdafecdf459cf0.webp",
+      "alt": "tranvuongquocdat/SideScreen 官方演示 1",
+      "sourceUrl": "https://github.com/tranvuongquocdat/SideScreen/blob/9b0ac6d671b67e6d36ccde48d41c84cf636b616d/README.md?plain=1#L35",
+      "originalUrl": "https://raw.githubusercontent.com/tranvuongquocdat/SideScreen/9b0ac6d671b67e6d36ccde48d41c84cf636b616d/resources/screenshots/hero_screenshot.jpeg"
+    },
+    {
+      "url": "/assets/repository-guides/media-ea6588ef2619d70c24e49449.webp",
+      "alt": "tranvuongquocdat/SideScreen 官方演示 2",
+      "sourceUrl": "https://github.com/tranvuongquocdat/SideScreen/blob/9b0ac6d671b67e6d36ccde48d41c84cf636b616d/README.md?plain=1#L65",
+      "originalUrl": "https://raw.githubusercontent.com/tranvuongquocdat/SideScreen/9b0ac6d671b67e6d36ccde48d41c84cf636b616d/resources/screenshots/feature_virtual_display.png"
+    },
+    {
+      "url": "/assets/repository-guides/media-b4cca99eea8c0a35ec14a3c3.webp",
+      "alt": "tranvuongquocdat/SideScreen 官方演示 3",
+      "sourceUrl": "https://github.com/tranvuongquocdat/SideScreen/blob/9b0ac6d671b67e6d36ccde48d41c84cf636b616d/README.md?plain=1#L93",
+      "originalUrl": "https://raw.githubusercontent.com/tranvuongquocdat/SideScreen/9b0ac6d671b67e6d36ccde48d41c84cf636b616d/resources/screenshots/mac_settings_1.png"
+    }
+  ],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "c4d2a10e2952dc1c444c92b903cb3750cad318bc607b6dd45301fffbcd02b95b",
+  "mediaStatus": "archived",
+  "mediaFailures": []
+}

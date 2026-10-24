@@ -1,0 +1,54 @@
+{
+  "schemaVersion": 1,
+  "key": "twostraws/swiftui-agent-skill",
+  "status": "ready",
+  "reason": "",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/twostraws/SwiftUI-Agent-Skill/blob/be297ff80dddec529af1f9b1f1f114aab6c9d11c/README.md",
+  "sourceRevision": "be297ff80dddec529af1f9b1f1f114aab6c9d11c",
+  "canonicalKey": "twostraws/SwiftUI-Agent-Skill",
+  "summary": "SwiftUI Pro 是一个代理技能，帮助 AI 编码助手写出更现代、更简洁的 SwiftUI 代码，并审查 API 用法、性能和无障碍问题。",
+  "intro": "适合用 Claude Code、Codex、Gemini、Cursor 等工具开发 SwiftUI 应用的开发者。它针对 LLM 常犯的 SwiftUI 错误，覆盖导航、布局、动画、状态管理、VoiceOver、已弃用 API 等方面，可用于全面审查项目，也可以只检查某一方面。",
+  "requirements": "需要已安装 Node 以便运行 npx；macOS 上可通过 Homebrew 安装 Node。还需要一个支持 Agent Skills 格式的编码代理。README 标注该技能面向 iOS 26+ 和 Swift 6.2+。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "确认已安装 Node 和 npx",
+      "text": "在 macOS 上，如果运行时提示 npx: command not found，说明尚未安装 Node，可通过 Homebrew 执行 brew install node 安装。如果这一步也失败，通常需要先到 brew.sh 安装 Homebrew。",
+      "code": "brew install node",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/twostraws/SwiftUI-Agent-Skill/blob/be297ff80dddec529af1f9b1f1f114aab6c9d11c/README.md?plain=1#L28"
+      }
+    },
+    {
+      "title": "用 npx 安装 swiftui-pro",
+      "text": "运行 npx skills add 命令安装 swiftui-pro 技能。安装过程中可以选择要启用的代理（如 Claude Code、Codex、Gemini、Cursor），也可以选择只装到当前项目，还是对所有项目生效。",
+      "code": "npx skills add https://github.com/twostraws/swiftui-agent-skill --skill swiftui-pro",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/twostraws/SwiftUI-Agent-Skill/blob/be297ff80dddec529af1f9b1f1f114aab6c9d11c/README.md?plain=1#L28"
+      }
+    },
+    {
+      "title": "在代理中触发技能审查",
+      "text": "在 Claude Code 中输入 /swiftui-pro，在 Codex 中输入 $swiftui-pro。命令后可以附加说明，只做局部审查，例如 /swiftui-pro Check for deprecated API。也可以用自然语言要求代理使用 SwiftUI Pro 技能检查项目中的性能问题。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/twostraws/SwiftUI-Agent-Skill/blob/be297ff80dddec529af1f9b1f1f114aab6c9d11c/README.md?plain=1#L58"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "该技能面向 iOS 26+ 和 Swift 6.2+，用于较旧的部署目标时，部分建议可能不适用。",
+    "使用技能会消耗 token，SKILL.md 的内容会占用上下文预算。",
+    "Xcode 用户需参考 README 链接的 YouTube 视频了解安装方法，README 正文中没有 Xcode 的具体步骤。"
+  ],
+  "references": [],
+  "media": [],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "4bde88f5208a9e2cfd6090c8e658cd681d9f5712d0052997cbe927665378bf0d",
+  "mediaStatus": "none_in_official_documents"
+}

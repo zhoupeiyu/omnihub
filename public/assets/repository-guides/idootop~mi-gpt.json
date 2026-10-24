@@ -1,0 +1,63 @@
+{
+  "schemaVersion": 1,
+  "key": "idootop/mi-gpt",
+  "status": "ready",
+  "reason": "",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/idootop/mi-gpt/blob/1aea52ef27e79ca705f597559f73b8ef6b7287b1/README.md",
+  "sourceRevision": "1aea52ef27e79ca705f597559f73b8ef6b7287b1",
+  "canonicalKey": "idootop/mi-gpt",
+  "summary": "MiGPT 可以把小爱音箱接入 ChatGPT、豆包等大模型，让它成为支持 AI 问答、角色扮演、流式回复和自定义 TTS 的语音助手。",
+  "intro": "适合手上有小爱音箱、想用大模型替代原有对话能力的用户。项目支持两种启动方式：不想配置 Node 环境的人用 Docker，前端（Node）开发者用 NPM 包调用 MiGPT.create。启动后，用「小爱同学，请…」「小爱同学，你…」「小爱同学，召唤…」这几种句式唤起 AI 回答。本指南按 Docker 方式整理。",
+  "requirements": "需要一台兼容型号的小爱音箱（推荐小爱音箱 Pro），以及小米账号的小米 ID 和密码。还需要能运行 Docker 的电脑，并按官方「参数设置」文档准备好 .env 和 .migpt.js 两个配置文件。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "确认音箱型号是否兼容",
+      "text": "MiGPT 支持大部分小爱音箱型号，推荐小爱音箱 Pro。动手前请先查阅仓库的兼容型号文档。小度音箱、天猫精灵、HomePod 等设备不受支持。如果你用的是小爱音箱 Pro，作者推荐改用 Open-XiaoAI。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/idootop/mi-gpt/blob/1aea52ef27e79ca705f597559f73b8ef6b7287b1/README.md?plain=1#L65"
+      }
+    },
+    {
+      "title": "准备 .env 与 .migpt.js",
+      "text": "按照官方「⚙️ 参数设置」文档（docs/settings.md）编写 .env 和 .migpt.js，填写小米账号、音箱 ID 以及大模型等参数。具体字段以该文档为准，本 README 没有列出完整内容。遇到问题可以先查常见问题文档。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/idootop/mi-gpt/blob/1aea52ef27e79ca705f597559f73b8ef6b7287b1/README.md?plain=1#L83"
+      }
+    },
+    {
+      "title": "用 Docker 启动 MiGPT",
+      "text": "在配置文件所在目录执行官方给出的 docker run 命令。该命令会读取 .env，并把 .migpt.js 挂载进容器。在 Windows 终端下，需要把命令里的 $(pwd) 换成配置文件所在目录的绝对路径。",
+      "code": "docker run -d --env-file $(pwd)/.env -v $(pwd)/.migpt.js:/app/.migpt.js idootop/mi-gpt:latest",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/idootop/mi-gpt/blob/1aea52ef27e79ca705f597559f73b8ef6b7287b1/README.md?plain=1#L83"
+      }
+    },
+    {
+      "title": "用唤醒句式向 AI 提问",
+      "text": "启动成功后，用三种句式召唤 AI：「小爱同学，请 xxx」「小爱同学，你 xxx」「小爱同学，召唤 xxx」。其余语音指令仍由小爱音箱原有能力处理。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/idootop/mi-gpt/blob/1aea52ef27e79ca705f597559f73b8ef6b7287b1/README.md?plain=1#L73"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "本项目已停止维护并归档，不再提供更新和支持，后续可能因小米服务变动而无法使用。",
+    "免责声明提示可能存在设备损坏、账号封禁等风险。项目仅供学习研究，不得用于商业活动。",
+    "配置中需要填写小米账号密码，请妥善保管 .env 和 .migpt.js 文件。",
+    "接入 ChatGPT、豆包等模型服务时，会按各服务商规则产生费用。",
+    "如果改用 Node.js 方式，程序不会自动读取 .env 和 .migpt.js，需要手动设置环境变量，并把参数传给 MiGPT.create。"
+  ],
+  "references": [],
+  "media": [],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "1a5d92a0d9d9021b7a6090ef8832c24ba89dbd194b5bf2d5d309afec0b3d36ec",
+  "mediaStatus": "none_in_official_documents"
+}

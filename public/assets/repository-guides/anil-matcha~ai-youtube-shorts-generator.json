@@ -1,0 +1,75 @@
+{
+  "schemaVersion": 1,
+  "key": "anil-matcha/ai-youtube-shorts-generator",
+  "status": "ready",
+  "reason": "",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/Anil-matcha/AI-Youtube-Shorts-Generator/blob/a57bb938ba50bf9654c2d5ca2af1295163454349/README.md",
+  "sourceRevision": "a57bb938ba50bf9654c2d5ca2af1295163454349",
+  "canonicalKey": "Anil-matcha/AI-Youtube-Shorts-Generator",
+  "summary": "把 YouTube 长视频转成按评分排序的竖屏短视频片段，用 LLM 选取高光、用 Whisper 转写。",
+  "intro": "适合需要从播客、访谈、教程等长视频中批量剪出 TikTok、Reels、Shorts 竖屏片段的创作者、团队和开发者。它提供 CLI 和 Python 库两种用法。默认 API 模式通过 MuAPI 完成下载、转写、高光排序和裁剪；local 模式在本机用 yt-dlp、faster-whisper、ffmpeg/OpenCV 处理，只有高光排序调用 OpenAI 或 Gemini。每个片段都附带评分、开头 hook 和入选理由，可导出为 JSON。",
+  "requirements": "Python 3.10+。默认 API 模式需要 MuAPI key。local 模式需要 PATH 中有 ffmpeg，并准备 OPENAI_API_KEY 或 GEMINI_API_KEY。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "克隆仓库并进入目录",
+      "text": "按 README 克隆仓库并进入项目目录。README 中的克隆地址指向 SamurAIGPT 组织，与本页仓库地址不同，克隆前请自行确认来源。",
+      "code": "   git clone https://github.com/SamurAIGPT/AI-Youtube-Shorts-Generator.git\n   cd AI-Youtube-Shorts-Generator",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/Anil-matcha/AI-Youtube-Shorts-Generator/blob/a57bb938ba50bf9654c2d5ca2af1295163454349/README.md?plain=1#L69"
+      }
+    },
+    {
+      "title": "创建并激活虚拟环境",
+      "text": "用 Python 3.10 创建 venv 并激活。README 给出的激活命令 source venv/bin/activate 适用于 macOS/Linux 的 shell。",
+      "code": "   python3.10 -m venv venv\n   source venv/bin/activate",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/Anil-matcha/AI-Youtube-Shorts-Generator/blob/a57bb938ba50bf9654c2d5ca2af1295163454349/README.md?plain=1#L63"
+      }
+    },
+    {
+      "title": "安装 API 模式所需依赖",
+      "text": "执行 pip install -r requirements.txt 安装默认 API 模式的核心依赖。requirements-local.txt 只有在计划使用 --mode local 时才需要安装。",
+      "code": "   pip install -r requirements.txt\n   # Only if you plan to use --mode local:\n   pip install -r requirements-local.txt",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/Anil-matcha/AI-Youtube-Shorts-Generator/blob/a57bb938ba50bf9654c2d5ca2af1295163454349/README.md?plain=1#L69"
+      }
+    },
+    {
+      "title": "在 .env 中填写 MuAPI 密钥",
+      "text": "在项目根目录新建 .env 文件，API 模式只需填写 MUAPI_API_KEY。示例中其余 LLM_PROVIDER、Whisper 模型、输出目录等变量都只用于 local 模式。",
+      "code": "   # API mode (default)\n   MUAPI_API_KEY=your_muapi_key_here\n\n   # Local mode (--mode local)\n   LLM_PROVIDER=openai         # openai or gemini\n   OPENAI_API_KEY=your_openai_key_here\n   OPENAI_MODEL=gpt-4o-mini          # optional, default gpt-4o-mini\n   GEMINI_API_KEY=your_gemini_key_here\n   GEMINI_MODEL=gemini-2.5-flash      # optional, default gemini-2.5-flash\n   LOCAL_WHISPER_MODEL=base          # tiny / base / small / medium / large-v3\n   LOCAL_WHISPER_DEVICE=auto         # auto / cpu / cuda\n   LOCAL_OUTPUT_DIR=output           # where local mp4s land",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/Anil-matcha/AI-Youtube-Shorts-Generator/blob/a57bb938ba50bf9654c2d5ca2af1295163454349/README.md?plain=1#L69"
+      }
+    },
+    {
+      "title": "传入视频链接生成短视频",
+      "text": "运行 python main.py 并传入 YouTube 链接，默认生成 3 个 9:16 片段。可用 --num-clips 调整数量、--aspect-ratio 改比例、--language 指定转写语言、--output-json 导出完整结果。API 模式输出的是托管的 mp4 链接。",
+      "code": "python main.py \"https://www.youtube.com/watch?v=VIDEO_ID\"\n\npython main.py \"https://www.youtube.com/watch?v=VIDEO_ID\" \\\n    --mode api \\\n    --num-clips 5 \\\n    --aspect-ratio 9:16 \\\n    --output-json result.json",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/Anil-matcha/AI-Youtube-Shorts-Generator/blob/a57bb938ba50bf9654c2d5ca2af1295163454349/README.md?plain=1#L110"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "项目本身免费开源，但 API 模式调用 MuAPI，local 模式调用 OpenAI/Gemini，都需要按各服务的计费规则付费。",
+    "API 模式会把视频交给 MuAPI 处理。若希望视频留在本机，需要使用 local 模式，但高光排序仍会把转写内容发给 LLM 服务商。",
+    "请确认你有权下载、剪辑并再发布所处理的视频内容。",
+    "视频没有可识别语音或语言识别失败时，Whisper 可能不返回任何片段，可用 --language 指定语言。",
+    "MuAPI 任务默认最长轮询 1800 秒，可在 shorts_generator/config.py 或环境变量中调整。"
+  ],
+  "references": [],
+  "media": [],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "6b52c0084c2e88b9442f8da64e9ed67abf2a910bf321b3df7b712da29e2f9023",
+  "mediaStatus": "none_in_official_documents"
+}

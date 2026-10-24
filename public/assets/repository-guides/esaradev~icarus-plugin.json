@@ -1,0 +1,73 @@
+{
+  "schemaVersion": 1,
+  "key": "esaradev/icarus-plugin",
+  "status": "ready",
+  "reason": "",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/esaradev/icarus-plugin/blob/e46cba30fb95a0b54b7c4d6c26169a424283d72b/README.md",
+  "sourceRevision": "e46cba30fb95a0b54b7c4d6c26169a424283d72b",
+  "canonicalKey": "esaradev/icarus-plugin",
+  "summary": "Icarus 是一个 Hermes 插件，为 Hermes 代理提供跨实例共享记忆，并能从记忆中提取训练数据，用于微调、评估和切换替代模型。",
+  "intro": "适合使用 Hermes Agent、希望多个 profile 之间共享工作记录的用户，例如让 reviewer 读取 coder 的产出。Icarus 把记忆写成 markdown 文件，存放在 FABRIC_DIR 中，并按 training_value 标注质量等级。它提供召回、写入、搜索、待办等记忆工具，以及 4 个自动钩子。有需要时，还可以把这些记录导出为训练数据，通过 Together AI 微调一个更便宜的模型，评估达标后再切换使用。Obsidian 只是可选的查看工具，不需要安装任何 Obsidian 插件。",
+  "requirements": "需要 Hermes v0.6.0 及以上版本和 Python 3.10 及以上版本，并在 .env 中设置 FABRIC_DIR（默认 ~/fabric/）。使用训练和评估工具时，还需要在 .env 中提供 TOGETHER_API_KEY。Obsidian 为可选项。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "将插件复制到 Hermes 插件目录",
+      "text": "克隆仓库后，把其中的文件复制到 ~/.hermes/plugins/icarus/。__init__.py、plugin.yaml 和所有 .py 文件必须直接位于这个目录下，不能出现 icarus/icarus-plugin/ 这样的嵌套路径。",
+      "code": "git clone https://github.com/esaradev/icarus-plugin.git\nmkdir -p ~/.hermes/plugins/icarus\ncp -r icarus-plugin/* ~/.hermes/plugins/icarus/",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/esaradev/icarus-plugin/blob/e46cba30fb95a0b54b7c4d6c26169a424283d72b/README.md?plain=1#L71"
+      }
+    },
+    {
+      "title": "在 .env 中配置笔记目录",
+      "text": "在 Hermes profile 的 .env（例如 ~/.hermes/.env）中设置必填项 FABRIC_DIR，作为笔记写入位置。需要时可再添加以下可选项：ICARUS_OBSIDIAN=1 用于启用 wikilink 和每日笔记，OBSIDIAN_VAULT_PATH 用于指定 vault 根目录，TOGETHER_API_KEY 用于训练和评估。",
+      "code": "# required: where Icarus writes notes\nFABRIC_DIR=~/Documents/my-vault/icarus\n\n# optional: enable Obsidian wikilinks and daily notes\nICARUS_OBSIDIAN=1\n\n# optional: vault root (if icarus notes are a subfolder)\nOBSIDIAN_VAULT_PATH=~/Documents/my-vault\n\n# optional: for training/eval tools\nTOGETHER_API_KEY=tok-...",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/esaradev/icarus-plugin/blob/e46cba30fb95a0b54b7c4d6c26169a424283d72b/README.md?plain=1#L79"
+      }
+    },
+    {
+      "title": "启动 Hermes 并确认插件已加载",
+      "text": "运行 hermes chat 启动 Hermes，然后在对话中输入 /plugins，确认列表里有 icarus。如果之后调用 fabric_write 时提示 tool not found，请检查插件目录位置是否正确。",
+      "code": "hermes chat",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/esaradev/icarus-plugin/blob/e46cba30fb95a0b54b7c4d6c26169a424283d72b/README.md?plain=1#L97"
+      }
+    },
+    {
+      "title": "可选：在 Hermes 内初始化 Obsidian",
+      "text": "如果想用 Obsidian 查看笔记，在 Hermes 对话中让代理设置 Obsidian。代理会调用 fabric_init_obsidian，在 vault 根目录创建 .obsidian/app.json，并在笔记目录下创建 daily/。这个工具只能在 Hermes 内调用，不能在终端里运行。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/esaradev/icarus-plugin/blob/e46cba30fb95a0b54b7c4d6c26169a424283d72b/README.md?plain=1#L110"
+      }
+    },
+    {
+      "title": "按流程导出训练数据并切换模型",
+      "text": "正常使用一段时间、积累足够记录后，依次执行：用 fabric_export 检查可导出的训练数据量，用 fabric_train 发起微调，用 fabric_train_status 查看进度，用 fabric_eval 对比候选模型和基础模型。评估达标后再用 fabric_switch_model 切换，遇到问题时可以用 fabric_rollback_model 回滚。",
+      "code": "1. Work normally. The plugin captures decisions and completions automatically.\n\n2. Check readiness:\n   fabric_export(mode=\"high-precision\")\n\n3. Fine-tune:\n   fabric_train(suffix=\"my-agent-v2\")\n\n4. Check progress:\n   fabric_train_status()\n\n5. Evaluate:\n   fabric_eval(candidate_model=\"user/my-agent-v2-abc123\")\n\n6. Switch:\n   fabric_switch_model(model_id=\"user/my-agent-v2-abc123\")",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/esaradev/icarus-plugin/blob/e46cba30fb95a0b54b7c4d6c26169a424283d72b/README.md?plain=1#L225"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "训练流程会把导出的 together.jsonl 发送到 Together AI 进行微调，需要提供 TOGETHER_API_KEY。导出前请确认记忆中没有不应外传的内容。",
+    "Icarus 不是 Obsidian 插件，也不是独立应用，必须在 Hermes 中运行。",
+    "修改 FABRIC_DIR 后，已有笔记不会自动迁移，需要手动移动。",
+    "切换到替代模型后，README 建议在 config.yaml 中把原模型设为 fallback_model。"
+  ],
+  "references": [],
+  "media": [],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "8b13e6b60d76b2d252da08e1118227fd7dda81aaca0025a3d2f64f6008ab82b4",
+  "mediaStatus": "none_in_official_documents"
+}

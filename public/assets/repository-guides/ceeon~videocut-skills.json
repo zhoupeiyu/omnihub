@@ -1,0 +1,64 @@
+{
+  "schemaVersion": 1,
+  "key": "ceeon/videocut-skills",
+  "status": "ready",
+  "reason": "",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/Agentchengfeng/chengfeng-videocut-skills/blob/a33b43e08c34fa8beeb5e78498e852f4e80975a5/README.md",
+  "sourceRevision": "a33b43e08c34fa8beeb5e78498e852f4e80975a5",
+  "canonicalKey": "Agentchengfeng/chengfeng-videocut-skills",
+  "summary": "chengfeng-videocut 的 Codex Plugin 安装入口，为 Codex 提供剪口播、字幕、画面、导出等视频剪辑方法和确认工具。",
+  "intro": "适合在 Codex CLI 中使用 chengfeng-videocut 做视频剪辑的用户。本仓库只负责安装 Plugin（0.10.11），提供七个入口：剪口播、字幕、画面、导出、上报 Bug、检查更新、工作台操作。实际执行剪辑的 Runtime/Studio 在另一个主仓库 chengfeng-videocut 中，需要单独准备并分别验收。",
+  "requirements": "Node.js 18+、Git，以及已登录、支持 codex plugin 命令的 Codex CLI。使用工作台时还需要配套的 Runtime。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "按 Release 回执取得固定源码",
+      "text": "根据 v0.10.11 预发行回执中给出的完整提交获取源码，并核对 HEAD，不要使用会变动的 main 或 stable。如果 npm 10.9.2 走 GitHub npx 路径时报 GitFetcher 错误，说明引导获取失败、Plugin 尚未安装，此时改用固定源码加 Node 的方式安装。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/Agentchengfeng/chengfeng-videocut-skills/blob/a33b43e08c34fa8beeb5e78498e852f4e80975a5/README.md?plain=1#L29"
+      }
+    },
+    {
+      "title": "先 dry-run 再执行安装",
+      "text": "审阅源码后，在该目录先运行 install --dry-run 预览，再正式运行 install。安装器只调用宿主支持的 Plugin 命令，遇到同名或来源不明的已有安装会拒绝覆盖，不要通过删除目录来绕过这项检查。",
+      "code": "node bin/install.cjs install --dry-run\nnode bin/install.cjs install\nnode bin/install.cjs doctor",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/Agentchengfeng/chengfeng-videocut-skills/blob/a33b43e08c34fa8beeb5e78498e852f4e80975a5/README.md?plain=1#L29"
+      }
+    },
+    {
+      "title": "运行 doctor 并在新会话中验收",
+      "text": "运行 doctor，核对安装来源、提交和状态。然后打开新的 Codex 任务，分别确认 Skill 和 MCP 能被发现，已有会话可能需要重新打开。工作台操作可以通过 $chengfeng-videocut:chengfeng-videocut-workbench 选择。",
+      "code": "node bin/install.cjs install --dry-run\nnode bin/install.cjs install\nnode bin/install.cjs doctor",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/Agentchengfeng/chengfeng-videocut-skills/blob/a33b43e08c34fa8beeb5e78498e852f4e80975a5/README.md?plain=1#L29"
+      }
+    },
+    {
+      "title": "按包内说明准备配套 Runtime",
+      "text": "需要用到工作台时，按包内的 references/runtime-and-product-contract.md 和 scripts/ensure-runtime.cjs 准备 Runtime，并以实际输出确认版本、能力和缺少的依赖。安装器本身不会准备或启动 Runtime。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/Agentchengfeng/chengfeng-videocut-skills/blob/a33b43e08c34fa8beeb5e78498e852f4e80975a5/README.md?plain=1#L29"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "本次为预发行版。新的「工作台操作」Skill 要求 Runtime >=0.5.9，而当前公开下载的 Runtime 是 v0.4.11，还不满足要求，缺少能力时只会报告并停止。",
+    "Runtime 自动准备的 Bun 资产文档只写明了 macOS arm64，其他平台请以实际输出为准。",
+    "仅安装本 Plugin 不能接通独立的小黑动画 Skill，它同样要求 Runtime >=0.5.9 的特定接口。",
+    "安装 Plugin、准备 Runtime、实际剪辑是三件独立的事；媒体依赖、宿主加载和常驻服务需要分别验收。",
+    "仓库元数据显示 key 为 ceeon/videocut-skills，但文档的来源地址为 Agentchengfeng/chengfeng-videocut-skills，请核对实际仓库地址。"
+  ],
+  "references": [],
+  "media": [],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "118897a6e7efcf2f0c528be42021b3a762213f59a5ee2dea0db22ab5b67bb03d",
+  "mediaStatus": "none_in_official_documents"
+}

@@ -1,0 +1,61 @@
+{
+  "schemaVersion": 1,
+  "key": "carmahhawwari/ui-design-brain",
+  "status": "ready",
+  "reason": "",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/carmahhawwari/ui-design-brain/blob/38f04c5a1dee55d99c686a16643cef4e2ce0f7a2/README.md",
+  "sourceRevision": "38f04c5a1dee55d99c686a16643cef4e2ce0f7a2",
+  "canonicalKey": "carmahhawwari/ui-design-brain",
+  "summary": "一个 Cursor skill，为 AI agent 提供 60 种界面组件的最佳实践、布局模式和设计系统规范，帮助生成更规范的 UI 代码。",
+  "intro": "适合用 Cursor 写前端界面的开发者和团队。它用一份整理好的组件知识库（来源于 component.gallery）取代模型对组件写法的猜测，内容包括每个组件的可访问性规则、常见布局、别名和应避免的反模式，另有 5 种风格预设可选。仓库本身就是提示词与参考资料，核心文件是 SKILL.md 和 components.md。",
+  "requirements": "需要已安装 Cursor 编辑器，以及用于克隆仓库的 git。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "克隆到个人 skills 目录",
+      "text": "按 Option A 把仓库克隆到 ~/.cursor/skills/ui-design-brain，安装后对所有项目生效。如果想随项目共享给团队，README 也提供了克隆到项目内 .cursor/skills 的 Option B，两种方式选一种即可。",
+      "code": "# Clone into your Cursor skills directory\ngit clone https://github.com/carmahhawwari/ui-design-brain.git \\\n  ~/.cursor/skills/ui-design-brain",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/carmahhawwari/ui-design-brain/blob/38f04c5a1dee55d99c686a16643cef4e2ce0f7a2/README.md?plain=1#L19"
+      }
+    },
+    {
+      "title": "确认 SKILL.md 等文件就位",
+      "text": "检查目录里是否有 SKILL.md（主要指令：设计理念、工作流程、速查表）和 components.md（60 个组件的完整参考）。不用 git 的话，也可以手动把这两个文件复制到 ~/.cursor/skills/ui-design-brain/。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/carmahhawwari/ui-design-brain/blob/38f04c5a1dee55d99c686a16643cef4e2ce0f7a2/README.md?plain=1#L83"
+      }
+    },
+    {
+      "title": "在 Cursor 中直接描述界面需求",
+      "text": "安装后，只要让 Cursor 构建 UI，这个 skill 就会自动生效，不需要在对话里点名引用。agent 会识别需求涉及哪些组件，查找对应的最佳实践，选定设计方向，再按这些模式生成代码。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/carmahhawwari/ui-design-brain/blob/38f04c5a1dee55d99c686a16643cef4e2ce0f7a2/README.md?plain=1#L41"
+      }
+    },
+    {
+      "title": "按场景指定风格预设",
+      "text": "默认风格是 Modern SaaS。也可以在需求里明确指定其他预设：Apple-level Minimal、Enterprise / Corporate、Creative / Portfolio 或 Data Dashboard。README 的表格列出了每种预设适合的场景。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/carmahhawwari/ui-design-brain/blob/38f04c5a1dee55d99c686a16643cef4e2ce0f7a2/README.md?plain=1#L67"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "README 只说明了 Cursor 中的安装和使用方式，没有提到其他宿主的支持情况。",
+    "仓库元数据中的许可证显示为 NOASSERTION，README 写的是 MIT（见 LICENSE.txt）；组件数据来源于 component.gallery。",
+    "如果要贡献内容，README 要求 SKILL.md 保持在 500 行以内。"
+  ],
+  "references": [],
+  "media": [],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "a313a4467545f93e39b38cfc62a51033453006f4fe4a0d73753c551f17649bfc",
+  "mediaStatus": "none_in_official_documents"
+}

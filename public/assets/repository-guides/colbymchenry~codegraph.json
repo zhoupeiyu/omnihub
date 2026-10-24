@@ -1,0 +1,64 @@
+{
+  "schemaVersion": 1,
+  "key": "colbymchenry/codegraph",
+  "status": "ready",
+  "reason": "",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/colbymchenry/codegraph/blob/33436464464d0295a69dec6348e7e3446684a31f/README.md",
+  "sourceRevision": "33436464464d0295a69dec6348e7e3446684a31f",
+  "canonicalKey": "colbymchenry/codegraph",
+  "summary": "CodeGraph 在本地为代码库预建知识图谱，并通过 MCP 服务提供给 Claude Code、Cursor、Codex 等 AI 编程助手，代码变动后自动同步。",
+  "intro": "适合在较大代码库中使用 AI 编程代理的开发者。安装后，代理可以通过 MCP 工具一次获取入口点、相关符号和代码片段，进行全文搜索，并追踪调用者、被调用者和改动影响范围，不必逐个文件探索。它支持 20 多种语言，数据保存在本地 SQLite 中，不需要 API Key。也可以作为 npm 库嵌入到自己的程序中。",
+  "requirements": "支持 Windows、macOS、Linux。CLI 自带运行时，不需要预装 Node.js。需要已安装至少一个受支持的代理：Claude Code、Cursor、Codex CLI、opencode、Hermes Agent、Gemini CLI、Antigravity IDE、Kiro 或 GitHub Copilot（VS Code、Copilot CLI、JetBrains IDE）。作为库嵌入时需要 Node 22.5+。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "用安装脚本安装 CLI",
+      "text": "以 macOS / Linux 为例，在终端运行代码块中对应的 curl 安装脚本（Windows 使用同一代码块中的 PowerShell 命令）。脚本会把 codegraph 放到 PATH 中，但不会更新当前 shell，安装完成后需要打开一个新终端。 原文包含需人工核查的高权限或删除命令，本站不提供一键复制；请查看该步骤的官方出处。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/colbymchenry/codegraph/blob/33436464464d0295a69dec6348e7e3446684a31f/README.md?plain=1#L75"
+      }
+    },
+    {
+      "title": "运行 codegraph install 接入代理",
+      "text": "在新终端中运行 codegraph install。安装器会自动检测已安装的代理并让你选择要配置哪些，询问配置是全局生效还是只用于当前项目，然后写入 MCP 配置以及 CLAUDE.md / AGENTS.md / GEMINI.md 中的说明段落。这一步不会索引代码。",
+      "code": "codegraph install",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/colbymchenry/codegraph/blob/33436464464d0295a69dec6348e7e3446684a31f/README.md?plain=1#L100"
+      }
+    },
+    {
+      "title": "重启代理以加载 MCP 服务",
+      "text": "安装器完成后，重启所使用的代理（如 Claude Code、Cursor、Codex CLI、VS Code 等），CodeGraph 的 MCP 服务才会被加载。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/colbymchenry/codegraph/blob/33436464464d0295a69dec6348e7e3446684a31f/README.md?plain=1#L422"
+      }
+    },
+    {
+      "title": "在每个项目中执行 codegraph init",
+      "text": "进入项目目录运行 codegraph init，它会创建本地 .codegraph/ 目录并构建完整图谱。全局安装只需执行一次，但每个项目都要单独 init。之后文件监听会自动同步索引，可以随时用 codegraph status 查看是否有待同步的文件。",
+      "code": "cd your-project\ncodegraph init",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/colbymchenry/codegraph/blob/33436464464d0295a69dec6348e7e3446684a31f/README.md?plain=1#L110"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "官方文档中的高权限或远程脚本操作应单独核查，不要整段复制执行。",
+    "安装器会修改代理的 MCP 配置和 CLAUDE.md / AGENTS.md / GEMINI.md 指令文件；当目标包含 Claude Code 时，还会默认设置自动允许权限，可用 --no-permissions 跳过。",
+    "codegraph uninstall 会移除代理配置和 CLI，但不会删除各项目的 .codegraph/ 索引，需要在项目中另行运行 codegraph uninit。",
+    "默认跳过 node_modules、dist 等目录、.gitignore 中的内容以及大于 1 MB 的文件；如需调整，可在 codegraph.json 中使用 exclude / include / deprioritize。",
+    "README 提到的托管平台（getcodegraph.com）目前处于候补名单阶段，与本地 CLI 是不同的产品。"
+  ],
+  "references": [],
+  "media": [],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "eb84996efef40925f8a1acea1978537d18a3d1560e960e76ef7b081e5c03a071",
+  "mediaStatus": "none_in_official_documents"
+}

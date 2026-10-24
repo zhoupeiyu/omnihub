@@ -1,0 +1,91 @@
+{
+  "schemaVersion": 1,
+  "key": "3441293738/creatorhub",
+  "status": "ready",
+  "reason": "",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/3441293738/creatorhub/blob/c588dd58e67dc7feed01d175edfd295e59e8f647/README.md",
+  "sourceRevision": "c588dd58e67dc7feed01d175edfd295e59e8f647",
+  "canonicalKey": "3441293738/creatorhub",
+  "summary": "本地运行的多平台内容管理面板，可在一个 Web 界面中管理抖音、小红书、快手、视频号账号，并完成作品与评论监控、内容下载、发布和通知。",
+  "intro": "适合需要同时管理多个平台账号的内容创作者或运营者。可以用它按关键词批量采集抖音、小红书内容，监控创作者新作品、评论和弹幕，通过分享链接下载内容，跨平台发布或转发作品，并通过 Bark、钉钉、Telegram 接收通知。账号登录态、数据库和媒体文件都保存在本地。",
+  "requirements": "推荐路径为 Windows 10/11 x64 安装版，安装和首次启动时需保持联网，缺少 WebView2 时安装器会自动安装。扫码登录需要桌面环境。小红书登录建议安装稳定版 Google Chrome。需要自备各平台账号。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "下载 Windows 安装包",
+      "text": "打开项目 Releases 的最新版本页，在 Assets 中下载 CreatorHub-Setup-版本-windows-x64.exe。注意 Source code (zip) 是源码，不是安装包。macOS/Linux 用户需改走 README 中的源码运行方式。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/3441293738/creatorhub/blob/c588dd58e67dc7feed01d175edfd295e59e8f647/README.md?plain=1#L34"
+      }
+    },
+    {
+      "title": "安装后启动本地服务",
+      "text": "双击安装包完成安装，从桌面快捷方式打开，点击“启动本地服务”。首次启动会自动下载浏览器组件，就绪后会打开工作台。首次启动会生成 config.yaml，常用选项可以在面板的“设置”中修改。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/3441293738/creatorhub/blob/c588dd58e67dc7feed01d175edfd295e59e8f647/README.md?plain=1#L34"
+      }
+    },
+    {
+      "title": "在账号页登录平台账号",
+      "text": "在顶部选择平台，打开左侧“账号”，选择扫码、创作者登录或 Cookie 登录。登录后可以在列表中刷新资料、检测状态。小红书扫码只获取主站读取态，需要发布时还要再用“创作者登录”。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/3441293738/creatorhub/blob/c588dd58e67dc7feed01d175edfd295e59e8f647/README.md?plain=1#L161"
+      }
+    },
+    {
+      "title": "新建监控或采集任务",
+      "text": "在面板中添加创作者主页、作品链接或平台 ID，建立作品或评论监控，也可以设置关键词批量采集（抖音和小红书）。“链接下载”可直接粘贴分享文案。小红书链接要包含 xsec_token。新目标默认只监控订阅之后的作品。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/3441293738/creatorhub/blob/c588dd58e67dc7feed01d175edfd295e59e8f647/README.md?plain=1#L170"
+      }
+    },
+    {
+      "title": "在任务队列查看执行状态",
+      "text": "在“任务队列”中按平台、类型和状态查看采集、发布、评论和下载任务。被额度、冷却或代理拦下的任务会保持 pending。可以在“风控中心”查看冷却原因和恢复进度，并在设置中配置 Bark、钉钉或 Telegram 通知。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/3441293738/creatorhub/blob/c588dd58e67dc7feed01d175edfd295e59e8f647/README.md?plain=1#L270"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "项目不提供账号、Cookie、代理或平台数据；采集、下载和转发他人内容须遵守平台规则与当地法律，并尊重版权和隐私。",
+    "自动评论、回复、私信和关注受平台风控影响，README 建议低频使用；发布或私信结果待确认时不会自动重试，需先到平台核对。",
+    "视频号只支持本账号数据，不能监控或下载他人作品；关键词采集数量只是上限，不代表平台全量数据。",
+    "Fingerprint Chromium 内核不适用于小红书，需要自行下载并校验，升级前应备份 data/profiles/。指纹环境的检测页 BrowserScan 是第三方站点，会看到出口 IP 和浏览器特征。",
+    "安装版默认每天检查更新，只提醒、不自动下载；备份时应一并保存 config.yaml 和 data/。",
+    "仓库未声明许可证。"
+  ],
+  "references": [],
+  "media": [
+    {
+      "url": "/assets/repository-guides/media-39123b273e4934745d1bed16.webp",
+      "alt": "工作概览 · 抖音深色主题",
+      "sourceUrl": "https://github.com/3441293738/creatorhub/blob/c588dd58e67dc7feed01d175edfd295e59e8f647/README.md?plain=1#L130",
+      "originalUrl": "https://raw.githubusercontent.com/3441293738/creatorhub/c588dd58e67dc7feed01d175edfd295e59e8f647/assets/screenshots/overview-douyin.png"
+    },
+    {
+      "url": "/assets/repository-guides/media-c369503f0a294fce4d6cc3ce.webp",
+      "alt": "侧边抽屉配置作品监控与采集策略",
+      "sourceUrl": "https://github.com/3441293738/creatorhub/blob/c588dd58e67dc7feed01d175edfd295e59e8f647/README.md?plain=1#L143",
+      "originalUrl": "https://raw.githubusercontent.com/3441293738/creatorhub/c588dd58e67dc7feed01d175edfd295e59e8f647/assets/screenshots/monitor-create.png"
+    },
+    {
+      "url": "/assets/repository-guides/media-d2886aff2b1e956264f33896.webp",
+      "alt": "发布编辑器与素材、文案实时预览",
+      "sourceUrl": "https://github.com/3441293738/creatorhub/blob/c588dd58e67dc7feed01d175edfd295e59e8f647/README.md?plain=1#L150",
+      "originalUrl": "https://raw.githubusercontent.com/3441293738/creatorhub/c588dd58e67dc7feed01d175edfd295e59e8f647/assets/screenshots/publish-workflow.png"
+    }
+  ],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "0c90491f70155cd4e9851a93a4435688adc7f67be96c8ec198baa0bee6379d67",
+  "mediaStatus": "archived",
+  "mediaFailures": []
+}

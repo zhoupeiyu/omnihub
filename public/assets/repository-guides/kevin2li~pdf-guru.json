@@ -1,0 +1,45 @@
+{
+  "schemaVersion": 1,
+  "key": "kevin2li/pdf-guru",
+  "status": "partial",
+  "reason": "README 主要是功能宣传和适用人群介绍，只给出了官网链接。没有提供下载渠道的具体说明、各平台安装步骤、源码构建方法（徽章提到 Python 3.10+、Go 1.20.5+、Node 16.18+，但没有构建命令），也没有 PDF 框选制卡、Word/Excel 导入、AI 制卡等功能的具体操作流程和 API 配置方法。",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/kevin2li/PDF-Guru/blob/f67a40f0ad2ec4e63b82dc0bb452d89241347b04/README.md",
+  "sourceRevision": "f67a40f0ad2ec4e63b82dc0bb452d89241347b04",
+  "canonicalKey": "kevin2li/PDF-Guru",
+  "summary": "PDF Guru Anki 是一款配合 Anki 使用的制卡工具，可以把 PDF、Word、Excel、图片、微信读书笔记、幕布和思维导图等资料转成 Anki 闪卡。",
+  "intro": "适合用 Anki 做间隔重复复习的学生、备考人员、职场学习者和研究人员。根据 README 的描述，它可以在 PDF 中框选内容生成问答或挖空卡片，批量导入 Word/Excel 题库，导入微信读书划线笔记，把思维导图拆分成卡片，并可接入自定义大模型 API 做 AI 制卡。另外还提供 Anki 局域网同步、卡片导出为 PDF、批量编辑等功能。",
+  "requirements": "需要已安装 Anki（桌面端或移动端），因为生成的卡片要导入 Anki 使用。使用 AI 制卡时需要自备 Gemini、GPT、Claude、通义千问等大模型的 API。README 称支持 Windows、macOS、Linux、iOS 和 Android，但没有给出各平台的具体安装要求。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "访问官网获取软件",
+      "text": "README 没有给出安装步骤，只提供了软件官网 https://guru.kevin2li.top/。请到官网查看适合自己平台的下载方式和使用文档。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/kevin2li/PDF-Guru/blob/f67a40f0ad2ec4e63b82dc0bb452d89241347b04/README.md?plain=1#L105"
+      }
+    },
+    {
+      "title": "按资料类型选择对应功能",
+      "text": "根据手头资料的格式选择功能：PDF 用框选制卡，Word/Excel 用题库导入，图片用挖空制卡，也可以导入微信读书笔记、幕布或思维导图。README 只列出了这些功能，没有说明具体操作入口。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/kevin2li/PDF-Guru/blob/f67a40f0ad2ec4e63b82dc0bb452d89241347b04/README.md?plain=1#L31"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "项目采用 AGPL-3.0 许可，修改后再分发或以网络服务形式提供时需遵守相应的开源义务。",
+    "AI 制卡需要接入第三方大模型 API，资料内容会发送给所选模型服务，并可能产生调用费用。",
+    "“制卡时间缩短 70% 以上”等说法来自 README 的宣传，没有附带测量方法。",
+    "微信读书、幕布等导入功能依赖第三方平台的数据，README 未说明需要何种授权，也未说明这些接口的稳定性。"
+  ],
+  "references": [],
+  "media": [],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "fabe5f524685146713929c227efa57f5266b7fd672226f10ff5fa65b9857ab6b",
+  "mediaStatus": "none_in_official_documents"
+}

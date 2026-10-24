@@ -1,0 +1,74 @@
+{
+  "schemaVersion": 1,
+  "key": "irfndi/prism-liquidity-agent",
+  "status": "ready",
+  "reason": "",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/irfndi/prism-liquidity-agent/blob/d15c63ef7a5d426ad71f4bbf4dae05c94ba0bc02/README.md",
+  "sourceRevision": "d15c63ef7a5d426ad71f4bbf4dae05c94ba0bc02",
+  "canonicalKey": "irfndi/prism-liquidity-agent",
+  "summary": "Prism 是运行在 Solana 上的自主流动性代理，目前支持 Meteora DLMM。它定期检查观察列表中的池子，按规则决定持有、调整区间、退出或进入，并通过风险闸门控制执行。",
+  "intro": "适合在 Meteora DLMM 上提供集中流动性、想自动处理价格偏离区间问题的 LP，以及想用 OpenClaw、Hermes 等 Agent 驱动交易工具的开发者。Prism 默认每 10 分钟扫描一次，结合链上数据、交易量真实性评分和向量记忆做决策。默认使用模拟盘（paper trading），也支持用合成数据或实盘快照回测。本指南按「最新稳定版一键安装」路径整理。",
+  "requirements": "需要可以运行 curl 和 bash 的终端；安装脚本会在需要时自动安装 Bun。还需要一个 Solana RPC 地址（示例使用付费 RPC）。prism register 会创建必需的 Prism 云端账号。实盘交易另需本地钱包密钥对。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "一键安装最新稳定版 Prism",
+      "text": "运行官方 install.sh 安装最新稳定版。脚本会按需安装 Bun，下载适合当前平台的编译包，放到 ~/.prism，并在 ~/.local/bin 创建 prism 命令。如果 PATH 中还没有该目录，需要手动加入。需要可复现安装时，可改用指定 PRISM_VERSION 的固定版本方式。 原文包含需人工核查的高权限或删除命令，本站不提供一键复制；请查看该步骤的官方出处。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/irfndi/prism-liquidity-agent/blob/d15c63ef7a5d426ad71f4bbf4dae05c94ba0bc02/README.md?plain=1#L48"
+      }
+    },
+    {
+      "title": "注册账号并写入配置",
+      "text": "先运行 prism register 创建必需的云端账号并保存 API key，再用 prism setup --non-interactive --rpc-url=... 写入 .env（RPC、观察池列表等）。使用安装包方式时，不要手动编辑 .env，也不要绕过 prism 命令。",
+      "code": "prism register\nprism setup --non-interactive --rpc-url=\"$SOLANA_RPC_URL\"\nprism doctor\nprism dev",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/irfndi/prism-liquidity-agent/blob/d15c63ef7a5d426ad71f4bbf4dae05c94ba0bc02/README.md?plain=1#L122"
+      }
+    },
+    {
+      "title": "用 prism doctor 检查环境",
+      "text": "运行 prism doctor，校验注册状态、环境变量、数据提供方和本地状态，可加 --fix 尝试修复。以后升级时，先用 prism update --check-only 查看是否有新版本，再执行 prism update。",
+      "code": "prism register\nprism setup --non-interactive --rpc-url=\"$SOLANA_RPC_URL\"\nprism doctor\nprism dev",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/irfndi/prism-liquidity-agent/blob/d15c63ef7a5d426ad71f4bbf4dae05c94ba0bc02/README.md?plain=1#L122"
+      }
+    },
+    {
+      "title": "以模拟盘模式启动代理",
+      "text": "运行 prism dev 启动代理。PAPER_TRADING 默认为 true，此时只模拟、不上链执行。每轮决策都要经过置信度、回撤、持仓上限等风险闸门。可以运行 prism status --message 获取适合聊天应用的状态摘要。",
+      "code": "prism register\nprism setup --non-interactive --rpc-url=\"$SOLANA_RPC_URL\"\nprism doctor\nprism dev\n\nprism status --message",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/irfndi/prism-liquidity-agent/blob/d15c63ef7a5d426ad71f4bbf4dae05c94ba0bc02/README.md?plain=1#L122"
+      }
+    },
+    {
+      "title": "回测后再考虑实盘",
+      "text": "运行 prism backtest --days 7，用合成数据做历史模拟。如果在模拟盘运行时开启了 ENABLE_SNAPSHOT_CAPTURE，可以用 --source replay 回放实盘快照。确实要实盘时，先用 prism wallet 生成或导入本地密钥对，再关闭 PAPER_TRADING。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/irfndi/prism-liquidity-agent/blob/d15c63ef7a5d426ad71f4bbf4dae05c94ba0bc02/README.md?plain=1#L122"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "关闭 PAPER_TRADING 后会在链上动用真实资金。集中流动性存在无常损失等风险，回测结果不代表实盘收益。",
+    "一键安装使用的 main 分支 URL 内容可能变化；需要可复现安装时，请使用固定版本，或先下载安装脚本并对照发布说明核验 SHA-256。",
+    "setup 和 dev 之前必须注册 Prism 云端账号，使用情况、错误和反馈会与该账号关联。",
+    "快速开始示例使用付费 Solana RPC，RPC 费用由用户自行承担。",
+    "canary 构建没有标签和 GPG 签名，不应用于生产。",
+    "bun add --global prism 不是受支持的安装方式；bun install 和 bun run dev 仅用于 Prism 自身的开发。"
+  ],
+  "references": [],
+  "media": [],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "049a9acb4b9015f75eec3ad451921152bcfe94539c350922bd16f41e20de80b4",
+  "mediaStatus": "none_in_official_documents"
+}

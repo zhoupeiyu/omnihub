@@ -1,0 +1,56 @@
+{
+  "schemaVersion": 1,
+  "key": "myinvestpilot/ai-architecture",
+  "status": "ready",
+  "reason": "",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/myinvestpilot/ai-architecture/blob/1abf025dc8d885499bbb1bcaa2140b77d43d7a67/README.md",
+  "sourceRevision": "1abf025dc8d885499bbb1bcaa2140b77d43d7a67",
+  "canonicalKey": "myinvestpilot/ai-architecture",
+  "summary": "这是 MyInvestPilot 的公开架构笔记合集，共四篇文章，讲述受约束 DSL 引擎、AI 驱动开发方法、混合 Agent 架构和一人团队的云基础设施。",
+  "intro": "适合正在设计 AI Native 应用、需要为 Agent 系统划定可靠性边界，或在一人团队场景下做 cloud native / serverless 工程的开发者。仓库是一组技术叙事与复盘文章，没有可运行的代码，按主题挑选文章阅读即可。",
+  "requirements": "无需安装。用浏览器打开 GitHub 仓库阅读即可，提供中英文两个版本。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "先读 README 明确仓库定位",
+      "text": "打开 README.zh.md（中文）或 README.md（英文），确认仓库的边界：它是 MyInvestPilot 的架构与方法论复盘，不是产品使用文档，不是内部执行仓库，也不是通用 Prompt 模板库。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/myinvestpilot/ai-architecture/blob/1abf025dc8d885499bbb1bcaa2140b77d43d7a67/README.zh.md?plain=1#L1"
+      }
+    },
+    {
+      "title": "按关注点挑选对应专题文章",
+      "text": "关心决策引擎，读 01 引擎篇（受约束 JSON DSL 与 Schema 契约）。关心 AI 写代码的工作方式，读 02 方法篇（60/40 法则）。关心 Agent 设计，读 03 架构篇（Local / Remote Agent 分层）。关心低成本运维，读 04 基建篇。中文版位于 docs/zh/ 目录。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/myinvestpilot/ai-architecture/blob/1abf025dc8d885499bbb1bcaa2140b77d43d7a67/README.zh.md?plain=1#L26"
+      }
+    },
+    {
+      "title": "阅读博客综合版快速把握全貌",
+      "text": "如果想先看整体结论，可以阅读作者发表在 bmpi.dev 的综合文章《我是如何构建一个 AI 原生量化系统的》。文章提炼了受约束 DSL、Schema 供应链、Prompt 演化和混合 Agent 架构的核心决策，读完再回到各篇细看。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/myinvestpilot/ai-architecture/blob/1abf025dc8d885499bbb1bcaa2140b77d43d7a67/README.zh.md?plain=1#L46"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "本仓库只记录架构设计与取舍，不包含 MyInvestPilot 的产品使用说明或可运行代码。产品文档在独立的文档站。",
+    "内容围绕投资系统的工程实践展开，不构成任何投资建议。"
+  ],
+  "references": [
+    {
+      "label": "README.zh.md",
+      "url": "https://github.com/myinvestpilot/ai-architecture/blob/1abf025dc8d885499bbb1bcaa2140b77d43d7a67/README.zh.md"
+    }
+  ],
+  "media": [],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "f3e38976b9f40751a00c9d41ab68ca925f4fe23b657bf847893401395866952b",
+  "mediaStatus": "none_in_official_documents"
+}

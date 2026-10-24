@@ -1,0 +1,64 @@
+{
+  "schemaVersion": 1,
+  "key": "yikuaibanzi/forge-skill",
+  "status": "ready",
+  "reason": "",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/YIKUAIBANZI/forge-skill/blob/6bb2448003aca7b0993f6b452528174804b7d610/README.md",
+  "sourceRevision": "6bb2448003aca7b0993f6b452528174804b7d610",
+  "canonicalKey": "YIKUAIBANZI/forge-skill",
+  "summary": "Forge 是一组 Claude Code Skill，可以把自己或他人的说话方式和决策模式提炼成本地人格档案，用于自我反思、决策辅助和角色对话。",
+  "intro": "适合使用 Claude Code、想借助 AI 看清自己决策习惯，或想用聊天记录和回忆保留亲友说话腔调的用户。仓库包含 4 个 skill：forge-self 和 forge-persona 负责生成人格档案，use-self 负责召开多变体替身决策会议，use-persona 负责按人格档案进行角色对话。所有解析在本地完成。",
+  "requirements": "已安装 Claude Code 和 git。如需解析微信聊天记录、社交媒体或日记素材，还需要 Python 和 pip 来安装 requirements.txt 中的依赖。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "把仓库克隆到全局 skills 目录",
+      "text": "执行全局安装命令，把仓库克隆到 ~/.claude/skills/forge-skill，之后所有项目都能使用。如果只想在当前项目中使用，也可以在 git 仓库根目录克隆到 .claude/skills/forge-skill。",
+      "code": "git clone https://github.com/YIKUAIBANZI/forge-skill.git ~/.claude/skills/forge-skill",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/YIKUAIBANZI/forge-skill/blob/6bb2448003aca7b0993f6b452528174804b7d610/README.md?plain=1#L238"
+      }
+    },
+    {
+      "title": "重启 Claude Code 加载技能",
+      "text": "安装完成后重启 Claude Code，4 个 skill 会自动加载，无需其他配置。如需导入微信、社交媒体或日记素材，再用 pip 安装 requirements.txt 中的可选解析依赖。",
+      "code": "pip install -r ~/.claude/skills/forge-skill/requirements.txt",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/YIKUAIBANZI/forge-skill/blob/6bb2448003aca7b0993f6b452528174804b7d610/README.md?plain=1#L244"
+      }
+    },
+    {
+      "title": "用 forge 命令生成人格档案",
+      "text": "在 Claude Code 中输入 /forge-self，通过四轮引导对话采集自己的人格信息；或输入 /forge-persona 加名字，用描述和聊天记录蒸馏他人。聊天记录支持 .txt 和 .html 格式。档案保存在 personas/ 目录。",
+      "code": "/forge-self              # 蒸馏自己\n/forge-persona 小明      # 蒸馏\"小明\"\n/use-self                # 召唤替身决策会议\n/use-persona 小明        # 以小明的方式和你对话",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/YIKUAIBANZI/forge-skill/blob/6bb2448003aca7b0993f6b452528174804b7d610/README.md?plain=1#L261"
+      }
+    },
+    {
+      "title": "用 use 命令调用已有档案",
+      "text": "输入 /use-self 并描述你正在纠结的具体决策，会生成多个参数不同的替身，从各自角度分析代价和盲区。输入 /use-persona 加名字，Claude 会按该人格档案的语气和互动习惯与你对话。",
+      "code": "/forge-self              # 蒸馏自己\n/forge-persona 小明      # 蒸馏\"小明\"\n/use-self                # 召唤替身决策会议\n/use-persona 小明        # 以小明的方式和你对话",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/YIKUAIBANZI/forge-skill/blob/6bb2448003aca7b0993f6b452528174804b7d610/README.md?plain=1#L108"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "项目声明仅用于个人记忆与情感疗愈，严禁用于骚扰、跟踪或侵犯他人隐私；蒸馏他人前应慎重考虑对方的意愿。",
+    "人格档案存储在本地 personas/ 目录（已加入 gitignore），请自行做好备份和保密。",
+    "README 说明 forge-persona 只是近似还原，不是复活或替代真实的人。"
+  ],
+  "references": [],
+  "media": [],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "3a5f939beed5af830d7ee78429803d21f089363ee47fe3187d4847af43a9b6d7",
+  "mediaStatus": "none_in_official_documents"
+}

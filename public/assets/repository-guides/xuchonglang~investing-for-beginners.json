@@ -1,0 +1,53 @@
+{
+  "schemaVersion": 1,
+  "key": "xuchonglang/investing-for-beginners",
+  "status": "ready",
+  "reason": "",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/xuchonglang/investing-for-beginners/blob/d55fa7d712fd74e489763506f673e181754ae6af/README.md",
+  "sourceRevision": "d55fa7d712fd74e489763506f673e181754ae6af",
+  "canonicalKey": "xuchonglang/investing-for-beginners",
+  "summary": "一份中文投资入门资料集，按美股、期权和加密货币三个主题整理基础概念与风险知识。",
+  "intro": "适合没有金融专业背景、想从零了解美股、期权和加密货币的中文读者。内容从交易时间、订单类型、财报和基础估值讲起，延伸到期权定价、仓位管理、钱包安全、链上交易与常见骗局。目标是帮助读者理解自己在买什么、风险来自哪里，而不是告诉读者买什么。",
+  "requirements": "无需安装，在 GitHub 上直接浏览 Markdown 文件即可阅读。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "先读入门指南建立框架",
+      "text": "从 guides/投资入门指南.md 开始阅读，了解投资基础概念、风险意识与基础操作框架。README 中作者建议的顺序是：先做资产配置，再理解复利、分散、交易成本和风险边界，最后用长期纪律替代情绪化交易。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/xuchonglang/investing-for-beginners/blob/d55fa7d712fd74e489763506f673e181754ae6af/README.md?plain=1#L25"
+      }
+    },
+    {
+      "title": "按主题进入 content 词条",
+      "text": "打开 content/README.md，按需选择「美股入门」（交易时段、订单类型、估值、市场结构）、「期权进阶」（Call/Put、希腊字母、波动率）或「加密货币」（现货、合约、杠杆、钱包、链上机制）。每篇词条较短，并附有相关主题的内部链接。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/xuchonglang/investing-for-beginners/blob/d55fa7d712fd74e489763506f673e181754ae6af/README.md?plain=1#L1"
+      }
+    },
+    {
+      "title": "用 glossary 快速查概念",
+      "text": "遇到不熟悉的术语时，到 glossary/ 目录的金融术语索引中查找并跳转到对应词条。需要英文版本时，可通过 README 顶部的 English 链接或 en/ 目录阅读镜像内容。",
+      "code": ".\n├── assets/              图片、图表等静态资源\n├── content/             投资知识词条，按美股、期权、加密货币分类整理\n├── en/                  英文版镜像内容\n├── guides/              入门指南与长文教程\n├── glossary/            金融术语索引，用于快速查概念与跳转学习\n├── i18n/                中英文内容维护说明\n└── LICENSE.md           专有内容许可",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/xuchonglang/investing-for-beginners/blob/d55fa7d712fd74e489763506f673e181754ae6af/README.md?plain=1#L1"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "内容为专有许可：只允许分享原始链接，未经书面授权不得复制、镜像、批量抓取、改编、商业使用或用于 AI 训练及知识库构建，具体见 LICENSE.md。",
+    "仓库声明不提供个性化投资建议、不承诺收益；金融产品存在本金损失风险，杠杆和衍生品可能放大亏损。",
+    "README 中列出的券商与交易平台注册入口均为作者提供的外部链接，开户前请自行核实平台资质、所在地区合规性和费用。"
+  ],
+  "references": [],
+  "media": [],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "050b6f569fd4230f4a3fbe3f78f6c12ca4cb5e9fd8dbc76259b8faa93024b390",
+  "mediaStatus": "none_in_official_documents"
+}

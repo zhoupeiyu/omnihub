@@ -1,0 +1,78 @@
+{
+  "schemaVersion": 1,
+  "key": "songguoxs/seedance-prompt-skill",
+  "status": "ready",
+  "reason": "",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/songguoxs/seedance-prompt-skill/blob/57d1e2f273747c238dd892698a05137ab2f10d4a/README.md",
+  "sourceRevision": "57d1e2f273747c238dd892698a05137ab2f10d4a",
+  "canonicalKey": "songguoxs/seedance-prompt-skill",
+  "summary": "这是一个 Claude Code 自定义 Skill，用自然语言描述创意后，即可生成可直接粘贴到 Seedance 2.0（即梦）平台的结构化中文视频提示词。",
+  "intro": "适合使用即梦 Seedance 2.0 制作 AI 视频的创作者，例如电商广告、短剧对白、仙侠动画、科普和音乐卡点等场景。Skill 会先确认时长、画面比例、参考素材等参数，再输出 2~3 个版本的提示词；超过 15 秒的视频会给出带衔接点的分段方案，并支持 @图片、@视频、@音频 等引用语法。整个 Skill 逻辑只包含一个 SKILL.md 文件。",
+  "requirements": "已安装并登录 Claude Code CLI；如需使用生成的提示词，还要有即梦平台（jimeng.jianying.com）的 Seedance 2.0 账号。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "克隆 Skill 仓库到本地",
+      "text": "使用 git 把 seedance-prompt-skill 仓库克隆到本地任意位置，后续需要从中复制 .claude/skills/seedance/SKILL.md 文件。",
+      "code": "git clone https://github.com/songguoxs/seedance-prompt-skill.git",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/songguoxs/seedance-prompt-skill/blob/57d1e2f273747c238dd892698a05137ab2f10d4a/README.md?plain=1#L63"
+      }
+    },
+    {
+      "title": "复制 SKILL.md 到项目目录",
+      "text": "进入要使用该 Skill 的项目，创建 .claude/skills/seedance 目录，再把克隆仓库中的 SKILL.md 复制进去。如果希望所有项目都能使用，可改为放在主目录下的 ~/.claude/skills/seedance/。",
+      "code": "# Navigate to the project where you want to use the skill\ncd /path/to/your/project\n\n# Create the skills directory if it doesn't exist\nmkdir -p .claude/skills/seedance\n\n# Copy the skill file\ncp /path/to/seedance-prompt-skill/.claude/skills/seedance/SKILL.md .claude/skills/seedance/SKILL.md\n\nmkdir -p ~/.claude/skills/seedance\ncp /path/to/seedance-prompt-skill/.claude/skills/seedance/SKILL.md ~/.claude/skills/seedance/SKILL.md",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/songguoxs/seedance-prompt-skill/blob/57d1e2f273747c238dd892698a05137ab2f10d4a/README.md?plain=1#L63"
+      }
+    },
+    {
+      "title": "启动 Claude Code 触发 Skill",
+      "text": "在项目目录运行 claude 启动 Claude Code，然后输入 /seedance，或直接描述视频创意。提到 Seedance、即梦、视频提示词等关键词时也会自动激活。若没有激活，请检查 SKILL.md 路径是否正确，或直接使用 /seedance。",
+      "code": "claude",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/songguoxs/seedance-prompt-skill/blob/57d1e2f273747c238dd892698a05137ab2f10d4a/README.md?plain=1#L63"
+      }
+    },
+    {
+      "title": "确认参数并获取提示词",
+      "text": "描述想要的视频后，Claude 会先询问时长、画面比例、参考素材和风格偏好，再生成 2~3 个版本的提示词；超过 15 秒的视频会生成分段方案。之后可以继续要求调整节奏、运镜、台词或特效。",
+      "code": "You: 帮我生成一段赛博朋克风格的城市夜景视频提示词\n\nStep 1: You describe your idea → \"一段古风武侠打斗\"\nStep 2: Claude confirms parameters → duration, aspect ratio, references, style preferences\nStep 3: Claude generates prompts → 2-3 versions for videos ≤15s, or multi-segment plan for longer videos\nStep 4: You refine → adjust timing, camera, dialogue, effects, or style",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/songguoxs/seedance-prompt-skill/blob/57d1e2f273747c238dd892698a05137ab2f10d4a/README_zh.md?plain=1#L105"
+      }
+    },
+    {
+      "title": "粘贴到即梦平台生成视频",
+      "text": "把选定的提示词复制到即梦 Seedance 2.0 平台，并按提示中的 @图片、@视频 等编号上传参考素材。分段视频需要把上一段的成片作为 @视频1 上传，使用视频延长功能生成下一段。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/songguoxs/seedance-prompt-skill/blob/57d1e2f273747c238dd892698a05137ab2f10d4a/README_zh.md?plain=1#L3"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "即梦平台不允许上传含写实真人脸部的图片或视频，系统会自动拦截。",
+    "Seedance 2.0 单次生成时长为 4~15 秒，素材合计最多 12 个文件，图片、视频、音频各有格式和大小限制。",
+    "目前 Skill 只针对中文提示词优化，生成的提示词均为中文。",
+    "仓库元数据未识别到许可证，README 中写明为 MIT，使用前请自行核实。"
+  ],
+  "references": [
+    {
+      "label": "README_zh.md",
+      "url": "https://github.com/songguoxs/seedance-prompt-skill/blob/57d1e2f273747c238dd892698a05137ab2f10d4a/README_zh.md"
+    }
+  ],
+  "media": [],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "34e320a14176845e6f7339f09169c2de69245cd41b895c60d34c3d3e85f16fd6",
+  "mediaStatus": "none_in_official_documents"
+}

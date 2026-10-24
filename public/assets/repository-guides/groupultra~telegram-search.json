@@ -1,0 +1,80 @@
+{
+  "schemaVersion": 1,
+  "key": "groupultra/telegram-search",
+  "status": "ready",
+  "reason": "",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/groupultra/telegram-search/blob/33f767108cf9420d37359d42e9031eb416170c3d/README.md",
+  "sourceRevision": "33f767108cf9420d37359d42e9031eb416170c3d",
+  "canonicalKey": "groupultra/telegram-search",
+  "summary": "用于导出、备份 Telegram 聊天记录，并通过分词、模糊匹配和向量语义进行搜索的自部署工具。",
+  "intro": "适合想备份个人 Telegram 消息、并按任意语言（包括中文）精准检索历史聊天的用户。项目支持 PGlite 或 PostgreSQL 存储，媒体可备份到 MinIO，提供实时同步、日期筛选、以文搜图、RAG 问答、未读消息摘要和 Telegram Bot 搜索等功能。另外提供面向 Agent 的 TypeScript CLI，可按会话同步并导出 JSONL。官方还有在线体验版，可以不部署直接试用。",
+  "requirements": "本指南采用 Docker Compose 部署，需要本机已安装 Docker 和 Docker Compose。如需自定义 Telegram 应用，可在 my.telegram.org 获取 TELEGRAM_API_ID / TELEGRAM_API_HASH，这一项为可选。AI Embedding 和 LLM 需在应用内按账户配置 API。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "新建目录存放配置与数据",
+      "text": "新建一个空目录（例如 telegram-search）并进入，用来存放 Docker Compose 文件、.env 配置和数据。",
+      "code": "mkdir telegram-search\ncd telegram-search",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/groupultra/telegram-search/blob/33f767108cf9420d37359d42e9031eb416170c3d/README.md?plain=1#L119"
+      }
+    },
+    {
+      "title": "下载 Compose 文件并启动服务",
+      "text": "用 curl 下载官方的 docker-compose.yml、.env.example（保存为 .env）和 init.sql，然后执行 docker compose -f docker-compose.yml up -d，启动包括数据库、MinIO 在内的全部服务。",
+      "code": "curl -L https://raw.githubusercontent.com/groupultra/telegram-search/refs/heads/main/docker/docker-compose.yml -o docker-compose.yml\ncurl -L https://raw.githubusercontent.com/groupultra/telegram-search/refs/heads/main/docker/.env.example -o .env\ncurl -L https://raw.githubusercontent.com/groupultra/telegram-search/refs/heads/main/docker/init.sql -o init.sql\ndocker compose -f docker-compose.yml up -d",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/groupultra/telegram-search/blob/33f767108cf9420d37359d42e9031eb416170c3d/README.md?plain=1#L119"
+      }
+    },
+    {
+      "title": "按需修改 .env 后重新启动",
+      "text": "所有环境变量都是可选的，不填则使用默认值。可按需设置 TELEGRAM_API_ID/HASH、DATABASE_TYPE、TELEGRAM_BOT_TOKEN、PROXY_URL、MinIO 参数等。修改 .env 后，需要再次执行 docker compose -f docker-compose.yml up -d 才会生效。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/groupultra/telegram-search/blob/33f767108cf9420d37359d42e9031eb416170c3d/README.md?plain=1#L145"
+      }
+    },
+    {
+      "title": "打开 localhost:3333 使用",
+      "text": "在浏览器访问 http://localhost:3333 进入 Telegram Search，登录后即可同步和搜索聊天记录。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/groupultra/telegram-search/blob/33f767108cf9420d37359d42e9031eb416170c3d/README.md?plain=1#L119"
+      }
+    },
+    {
+      "title": "在设置里配置 AI 接口",
+      "text": "向量搜索、智能摘要和 AI 问答所需的 Embedding 与 LLM 不在 .env 中设置，而是在应用内的“设置 → API”里按账户分别配置。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/groupultra/telegram-search/blob/33f767108cf9420d37359d42e9031eb416170c3d/README.md?plain=1#L145"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "项目采用 AGPL-3.0 许可。官方声明软件仅供导出和检索个人聊天记录，不得用于违法用途。",
+    "官方声明项目未发行任何虚拟货币，请警惕以此为名的诈骗。",
+    "AI 功能需自行配置外部 Embedding/LLM API，可能产生第三方费用，文档未说明具体费用。",
+    "CLI 批量同步需要用户明确同意并加上 --takeout。导出内容不含媒体二进制、session 和密钥。",
+    "文档中 MinIO 的示例访问密钥为 minioadmin，对外暴露服务前请自行修改为安全的凭证。"
+  ],
+  "references": [],
+  "media": [
+    {
+      "url": "/assets/repository-guides/media-a900333857779c5a3d77f968.webp",
+      "alt": "groupultra/telegram-search 官方演示 1",
+      "sourceUrl": "https://github.com/groupultra/telegram-search/blob/33f767108cf9420d37359d42e9031eb416170c3d/README.md?plain=1#L1",
+      "originalUrl": "https://raw.githubusercontent.com/groupultra/telegram-search/33f767108cf9420d37359d42e9031eb416170c3d/docs/assets/preview.png"
+    }
+  ],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "a604120fb5fab092c5b14ab31fb73eefeec6c188eb395b2880125f7e6326f3da",
+  "mediaStatus": "archived",
+  "mediaFailures": []
+}

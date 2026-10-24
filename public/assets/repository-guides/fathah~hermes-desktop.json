@@ -1,0 +1,91 @@
+{
+  "schemaVersion": 1,
+  "key": "fathah/hermes-desktop",
+  "status": "ready",
+  "reason": "",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/fathah/hermes-desktop/blob/2ed89070bc6c9e8231a37bb55df8a7722a3776b8/README.md",
+  "sourceRevision": "2ed89070bc6c9e8231a37bb55df8a7722a3776b8",
+  "canonicalKey": "fathah/hermes-desktop",
+  "summary": "Hermes One 是社区维护的桌面应用，用图形界面安装、配置 Hermes Agent 并与之对话。",
+  "intro": "适合想使用 Hermes Agent、但不想手动操作 CLI 的用户。应用会引导完成安装和模型提供商配置，并提供聊天、会话、配置档、记忆、技能、工具、定时任务和消息网关等管理界面。Hermes 可以在本机运行，也可以连接远程 Hermes API 服务器。",
+  "requirements": "本地模式需要 Git、uv、Python 3.11+，首次安装时由官方安装脚本自动解析这些依赖。需要准备一个模型提供商的 API Key（如 OpenRouter、Anthropic、OpenAI），或已经在运行的本地 OpenAI 兼容服务（如 Ollama、LM Studio）。远程模式需要远程 API 地址和 API Key。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "下载并安装桌面应用（Fedora）",
+      "text": "从 hermesone.org 下载安装包。以说明最完整的 Fedora 为例：下载 .rpm 后用 dnf 安装。如果系统强制校验签名，需要按 README 追加 --nogpgcheck。Windows 用户请改用 Windows 安装包。 原文包含需人工核查的高权限或删除命令，本站不提供一键复制；请查看该步骤的官方出处。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/fathah/hermes-desktop/blob/2ed89070bc6c9e8231a37bb55df8a7722a3776b8/README.md?plain=1#L70"
+      }
+    },
+    {
+      "title": "首次启动时选择本地或远程模式",
+      "text": "首次打开应用时选择运行方式。本地模式会检查 ~/.hermes 中是否已安装 Hermes，未安装则运行官方安装脚本；远程模式需要填写远程 API 地址和 API Key，验证连接后跳过本地安装。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/fathah/hermes-desktop/blob/2ed89070bc6c9e8231a37bb55df8a7722a3776b8/README.md?plain=1#L156"
+      }
+    },
+    {
+      "title": "配置模型提供商或本地模型",
+      "text": "在向导中选择 OpenRouter、Anthropic、OpenAI，或通过 OpenAI 兼容地址接入本地模型（有 LM Studio、Ollama、vLLM、llama.cpp 等预设）。本地模型无需 API Key，但对应服务必须已在运行。配置会保存在 ~/.hermes 下。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/fathah/hermes-desktop/blob/2ed89070bc6c9e8231a37bb55df8a7722a3776b8/README.md?plain=1#L220"
+      }
+    },
+    {
+      "title": "在主界面聊天并管理功能",
+      "text": "配置完成后进入主工作区。Chat 页面支持流式对话、斜杠命令和 token 用量显示；Sessions、Agents、Skills、Tools、Schedules、Gateway 等页面分别用于管理会话、配置档、技能、工具、定时任务和消息平台。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/fathah/hermes-desktop/blob/2ed89070bc6c9e8231a37bb55df8a7722a3776b8/README.md?plain=1#L169"
+      }
+    },
+    {
+      "title": "按需改用命令式密钥提供方式",
+      "text": "API Key 默认以明文保存在 ~/.hermes/.env。如果不想使用明文文件，可在 ~/.hermes/config.yaml 中把 secrets.provider 设为 command，由外部密钥工具输出密钥。此方式仅适用于 Linux/macOS。",
+      "code": "# ~/.hermes/config.yaml\nsecrets:\n  provider: command\n  command: secret-tool lookup hermes \"$HERMES_SECRET_KEY\"",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/fathah/hermes-desktop/blob/2ed89070bc6c9e8231a37bb55df8a7722a3776b8/README.md?plain=1#L249"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "项目仍在积极开发中，功能可能变化或出现问题。",
+    "Windows 安装包未做代码签名，首次运行会触发 SmartScreen 警告；Fedora 的 .rpm 未做 GPG 签名，且不支持自动更新，需要重新安装新版 .rpm 来升级。",
+    "官方文档中的高权限或远程脚本操作应单独核查，不要整段复制执行。",
+    "智能体行为和工具执行依赖上游 Hermes Agent 项目；使用第三方模型提供商可能产生费用，应用会在聊天界面显示 token 用量和费用。",
+    "command 密钥提供方式通过 /bin/sh 执行你配置的命令，与 .env 处于同一信任级别；该命令有 3 秒超时，Windows 不支持此方式。"
+  ],
+  "references": [],
+  "media": [
+    {
+      "url": "/assets/repository-guides/media-87b04aa23180c53a4c5ce605.webp",
+      "alt": "fathah/hermes-desktop 官方演示 1",
+      "sourceUrl": "https://github.com/fathah/hermes-desktop/blob/2ed89070bc6c9e8231a37bb55df8a7722a3776b8/README.md?plain=1#L108",
+      "originalUrl": "https://raw.githubusercontent.com/fathah/hermes-desktop/2ed89070bc6c9e8231a37bb55df8a7722a3776b8/previews/chat.png"
+    },
+    {
+      "url": "/assets/repository-guides/media-8ca575ff55b986a21a99c6f6.webp",
+      "alt": "fathah/hermes-desktop 官方演示 2",
+      "sourceUrl": "https://github.com/fathah/hermes-desktop/blob/2ed89070bc6c9e8231a37bb55df8a7722a3776b8/README.md?plain=1#L113",
+      "originalUrl": "https://raw.githubusercontent.com/fathah/hermes-desktop/2ed89070bc6c9e8231a37bb55df8a7722a3776b8/previews/providers.png"
+    },
+    {
+      "url": "/assets/repository-guides/media-56426ed52d3c428fefb4cec5.webp",
+      "alt": "fathah/hermes-desktop 官方演示 3",
+      "sourceUrl": "https://github.com/fathah/hermes-desktop/blob/2ed89070bc6c9e8231a37bb55df8a7722a3776b8/README.md?plain=1#L109",
+      "originalUrl": "https://raw.githubusercontent.com/fathah/hermes-desktop/2ed89070bc6c9e8231a37bb55df8a7722a3776b8/previews/profiles.png"
+    }
+  ],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "f34e15acb9098e93dcf6f358a5f2abbe212285efe1b0aa6756f3d89826b54b5c",
+  "mediaStatus": "archived",
+  "mediaFailures": []
+}

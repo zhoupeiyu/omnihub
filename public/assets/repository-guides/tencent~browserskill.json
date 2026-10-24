@@ -1,0 +1,79 @@
+{
+  "schemaVersion": 1,
+  "key": "tencent/browserskill",
+  "status": "ready",
+  "reason": "",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/Tencent/BrowserSkill/blob/3f10983c09fcd443c7420830ab984c9d409954bf/README.md",
+  "sourceRevision": "3f10983c09fcd443c7420830ab984c9d409954bf",
+  "canonicalKey": "Tencent/BrowserSkill",
+  "summary": "BrowserSkill 通过 bsk CLI 和浏览器扩展，让能执行 shell 命令的 AI 智能体在你已登录的 Chrome 或 Edge 中读取页面、填写表单、截图和调试网站。",
+  "intro": "适合使用 Cursor、Claude Code、Codex、OpenClaw、CodeBuddy、WorkBuddy、Pi、Hermes Agent 等可执行 shell 的智能体的开发者，以及 DeepSeek Harness 用户。智能体可以借助浏览器现有的登录状态完成网页流程，任务在独立可见的 Agent Window 中运行。它还支持长截图、按操作关联请求、控制台和性能证据来调试网站，以及让服务器上的智能体通过配对连接你电脑上的浏览器。",
+  "requirements": "官方文档包含需人工核查的系统操作，请先查看原文和适用条件。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "在 macOS/Linux 安装 bsk CLI",
+      "text": "以本机运行智能体和浏览器的本地模式为例，在 macOS 或 Linux 终端执行官方安装脚本并检查版本。默认安装位置是 ~/.local/bin。安装脚本无法更新父 shell 的 PATH；如果已在运行的智能体找不到 bsk，需要重启该智能体，或改用绝对路径 ~/.local/bin/bsk。 原文包含需人工核查的高权限或删除命令，本站不提供一键复制；请查看该步骤的官方出处。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/Tencent/BrowserSkill/blob/3f10983c09fcd443c7420830ab984c9d409954bf/README.md?plain=1#L67"
+      }
+    },
+    {
+      "title": "为智能体安装 browser-skill",
+      "text": "运行 bsk install-skill，用空格键选中目标宿主后按回车确认。非交互安装时用 --harness 显式指定，例如 cursor；可用 --list 查看支持的宿主 ID 和安装路径。已存在的文件会被跳过，只有加 --force 才会覆盖。未列出的宿主需把 crates/bsk-cli/skill/ 整个目录复制到该宿主的 skills 目录，并命名为 browser-skill/。",
+      "code": "bsk install-skill\n\nbsk install-skill --harness cursor --json\n\n  bsk install-skill --list --json",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/Tencent/BrowserSkill/blob/3f10983c09fcd443c7420830ab984c9d409954bf/README.md?plain=1#L94"
+      }
+    },
+    {
+      "title": "安装扩展并启用本地连接",
+      "text": "从 Chrome Web Store 或 Edge Add-ons 安装 BrowserSkill 扩展。打开扩展弹窗，启用本地连接，确认端口与本地 daemon 一致，然后等待状态显示为已连接。扩展需要用户本人在浏览器中安装，智能体无法代为完成。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/Tencent/BrowserSkill/blob/3f10983c09fcd443c7420830ab984c9d409954bf/README.md?plain=1#L90"
+      }
+    },
+    {
+      "title": "运行 bsk doctor 检查连接",
+      "text": "运行 bsk doctor。对每个 fail 项，按其输出的 hint 处理后重新运行一次。全新安装时，如果只有 extension connected 一项失败，通常是因为扩展还没连上。确认扩展显示 Connected 后，新开一个智能体会话，检查它能否发现 browser-skill；doctor 通过本身并不能证明 skill 已被发现。",
+      "code": "bsk doctor",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/Tencent/BrowserSkill/blob/3f10983c09fcd443c7420830ab984c9d409954bf/README.md?plain=1#L110"
+      }
+    },
+    {
+      "title": "执行首个浏览器任务验证",
+      "text": "让智能体使用 browser-skill 打开 https://example.com、总结页面内容并结束会话。支持斜杠命令的宿主也可以使用 /browser-skill。如果直接使用 CLI，先启动会话并保存返回的 session_id，再依次导航、观察、截图，最后停止会话。无论任务成功还是失败，都要停止会话。",
+      "code": "Use browser-skill to open https://example.com, summarize the page, and end the browser session when finished.\n\nbsk session start --no-focus --json\n\nbsk navigate https://example.com --session <id>\nbsk observe --session <id>\nbsk screenshot --session <id> --out example.png\nbsk session stop <id>",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/Tencent/BrowserSkill/blob/3f10983c09fcd443c7420830ab984c9d409954bf/README.md?plain=1#L120"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "Agent Window 共享所选浏览器配置文件的登录状态，它不是独立账号，也不是安全沙箱。智能体能以已登录网站的权限执行操作，只应交给信任的智能体执行可信任务。",
+    "页面内容属于不可信数据。skill 要求智能体不得让页面内容改变指令或扩大授权，但这只是行为约定，不是技术保证。",
+    "网站调试中的请求重放会用页面当前会话发送新请求，可能修改服务器数据；采集与脱敏能力有限，保留的证据仍可能含有敏感信息。网站调试只应在有权调试的网站上进行。",
+    "远程模式目前不支持文件上传和下载；远程连接需要服务器访问权限和 TLS 等前提条件。",
+    "WorkBuddy、CodeBuddy 等会回收子进程的宿主，需要先按 docs/sandboxed-agents.md 配置 BSK_HOME 和 BSK_AUTO_START=0，并在托管的后台任务中运行 daemon。",
+    "DeepSeek Harness 用户应改用 @wxg-prc-cpg/browser-skill-dsh-plugin 插件，无需另外执行 bsk install-skill，但要确保启动 DSH 时使用的 PATH 中能找到 bsk。"
+  ],
+  "references": [
+    {
+      "label": "AGENT_INSTALL.md",
+      "url": "https://github.com/Tencent/BrowserSkill/blob/3f10983c09fcd443c7420830ab984c9d409954bf/AGENT_INSTALL.md"
+    }
+  ],
+  "media": [],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "8e03ab2ca2378099471451d5b5e20c5bc9d9205bbb934cb1c54b19eb91e6b741",
+  "mediaStatus": "none_in_official_documents"
+}

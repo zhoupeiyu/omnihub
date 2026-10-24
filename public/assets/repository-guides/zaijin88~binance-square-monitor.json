@@ -1,0 +1,71 @@
+{
+  "schemaVersion": 1,
+  "key": "zaijin88/binance-square-monitor",
+  "status": "ready",
+  "reason": "",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/ZAIJIN88/binance-square-monitor/blob/2c091c6d8e2bc41c1bf0990a3b4a811dafac90b1/README.md",
+  "sourceRevision": "2c091c6d8e2bc41c1bf0990a3b4a811dafac90b1",
+  "canonicalKey": "ZAIJIN88/binance-square-monitor",
+  "summary": "在本地运行的工具：抓取币安广场帖子计算代币热度，结合币安合约市场数据做规则评分，并基于这些信号进行模拟（纸面）交易。",
+  "intro": "适合想观察币安广场社交热度与合约数据之间关系的用户。工具用 Playwright 采集广场帖子并过滤疑似机器人账号，按点赞、评论、转发和时间衰减计算 15 分钟热度榜；再拉取价格、OI、资金费率、多空比、盘口深度等指标，生成 0–100 分的评分和 verdict，在 Web 仪表盘中查看，并可开启自动模拟交易。",
+  "requirements": "系统为 Windows 10/11、macOS 11+ 或 Ubuntu 20.04+；需要 Python 3.10+（Windows 的 install.bat 会尝试自动下载安装）；磁盘空间不少于 500MB；网络要能访问 binance.com。安装脚本会创建 .venv、安装依赖，并安装 Playwright Chromium 浏览器内核。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "Windows 运行安装脚本",
+      "text": "本指南以 Windows 为例。双击 install.bat，脚本会查找系统中的 Python 3.10+，找不到就从镜像下载安装；然后创建 .venv 虚拟环境，用 pip 安装 playwright、rich、fastapi、uvicorn、websockets 等依赖，并安装 Playwright Chromium 浏览器内核。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/ZAIJIN88/binance-square-monitor/blob/2c091c6d8e2bc41c1bf0990a3b4a811dafac90b1/README.md?plain=1#L1"
+      }
+    },
+    {
+      "title": "启动服务并打开仪表盘",
+      "text": "双击 start.bat，会启动 worker、market_realtime、web、auto_trader 四个进程，并自动在浏览器打开 http://127.0.0.1:8000。页面会显示采集 Worker 的进度、当前轮次和累计帖子数。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/ZAIJIN88/binance-square-monitor/blob/2c091c6d8e2bc41c1bf0990a3b4a811dafac90b1/README.md?plain=1#L1"
+      }
+    },
+    {
+      "title": "查看热度榜与合约信号",
+      "text": "在仪表盘查看“15 分钟热度榜”，以及“合约扫描与操作建议”区域，后者会合并显示各代币的规则评分和 verdict（如看起来健康、过热预警、信号偏弱等）。感兴趣的代币可以加入收藏或观察列表，跟踪价格变化。",
+      "code": "{\n  \"score\": 67,                     # 0-100 综合分\n  \"verdict\": \"✅ 看起来健康\",        # 5 选 1 + 1 个数据不足\n  \"tags\": [...],\n  \"notes\": [...],\n  \"oi_divergence\": {...}           # OI 与价格背离检测（可选）\n}",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/ZAIJIN88/binance-square-monitor/blob/2c091c6d8e2bc41c1bf0990a3b4a811dafac90b1/README.md?plain=1#L1"
+      }
+    },
+    {
+      "title": "设置自动模拟交易参数",
+      "text": "在自动交易面板中设置开关、模式、初始余额、杠杆和开仓金额，点保存。默认是 paper 模拟模式，live 模式在代码中被显式拦截。持仓、已平仓记录和止损失败归档都可以在页面中查看；红色按钮可以重置交易账户。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/ZAIJIN88/binance-square-monitor/blob/2c091c6d8e2bc41c1bf0990a3b4a811dafac90b1/README.md?plain=1#L1"
+      }
+    },
+    {
+      "title": "使用 stop 脚本停止进程",
+      "text": "不用时双击 stop.bat，停止全部后台进程。macOS / Linux 对应使用 ./start.sh 和 ./stop.sh，安装则用 ./install.sh。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/ZAIJIN88/binance-square-monitor/blob/2c091c6d8e2bc41c1bf0990a3b4a811dafac90b1/README.md?plain=1#L1"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "README 声明这不是投资建议：评分和操作建议只是基于规则的呈现，不预测未来，加密货币合约风险很高。",
+    "中国大陆网络访问 binance.com 需要代理，README 建议使用全局或 TUN 模式。",
+    "工具通过 Playwright 打开币安广场并拦截网页内部 API 响应来采集数据，网站结构变化可能导致采集失效。请自行评估这是否符合币安的使用条款。",
+    "在 Web 中添加收藏会触发一次手动模拟开仓尝试。",
+    "仓库未声明开源许可证。"
+  ],
+  "references": [],
+  "media": [],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "1d30753b4cde374cfdda5c358ae29370393d220e94999f004bb056456248ed0d",
+  "mediaStatus": "none_in_official_documents"
+}

@@ -1,0 +1,63 @@
+{
+  "schemaVersion": 1,
+  "key": "tradecatlabs/shulihuazixuecongshu",
+  "status": "ready",
+  "reason": "",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/tradecatlabs/shulihuazixuecongshu/blob/76e79a802bc420be9009d681b84ca64d633e9fc3/README.md",
+  "sourceRevision": "76e79a802bc420be9009d681b84ca64d633e9fc3",
+  "canonicalKey": "tradecatlabs/shulihuazixuecongshu",
+  "summary": "这是《数理化自学丛书》17 册的电子书重建资料库，包含原始扫描 PDF、语义化 Markdown、插图资源和可复现的 EPUB3 构建工具。",
+  "intro": "适合需要查阅、校勘或研究这套丛书的读者和文献整理者。收录代数、平面三角、平面几何、平面解析几何、立体几何、化学和物理共 17 册。可以直接阅读 Markdown 源文和原始扫描件，也可以本地构建并审计 EPUB。",
+  "requirements": "仅查阅时无需额外准备。本地构建需要 Python 3.10+、Pandoc 3.1+，GNU Make 可选。原始 PDF 深度审计还需要 PyPDF2 3.x、qpdf、Poppler（pdfinfo、pdfdetach、pdfsig、pdftotext）和 ExifTool。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "按目录结构查阅书稿",
+      "text": "books/ 下存放 17 册规范 Markdown 正文，books/assets/ 存放正文插图，raw/ 存放原始扫描 PDF 和导入哈希，catalog.json 记录书目和顺序，docs/ 存放来源与已知问题说明。",
+      "code": ".\n├── books/               # 电子书源文件区\n│   ├── *.md             # 17 册规范正文源\n│   └── assets/          # 4,875 个正文图片资源\n├── raw/                 # 17 册原始扫描 PDF、导入哈希和资料说明\n├── catalog.json         # 书目、顺序、语言和稳定 EPUB UUID\n├── epub/                # EPUB 样式、Lua 过滤器及 Pandoc 本地化数据\n├── scripts/             # 源文件审计与 EPUB3 构建工具\n├── docs/                # 来源、维护与已知问题说明\n├── reports/             # 动态审计报告（JSON 不纳入版本控制）\n└── dist/                # 构建出的 EPUB（不纳入版本控制）",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/tradecatlabs/shulihuazixuecongshu/blob/76e79a802bc420be9009d681b84ca64d633e9fc3/README.md?plain=1#L19"
+      }
+    },
+    {
+      "title": "从 Release 获取合订本 EPUB",
+      "text": "从 v2.0.0 起，GitHub Release 只发布数学、物理学、化学三本学科合订版 EPUB，不再提供 17 本独立 EPUB。早期的 v1.0.0、v1.1.0 Release 仍然保留。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/tradecatlabs/shulihuazixuecongshu/blob/76e79a802bc420be9009d681b84ca64d633e9fc3/README.md?plain=1#L97"
+      }
+    },
+    {
+      "title": "本地审计并构建全部 EPUB",
+      "text": "安装 Python 和 Pandoc 后，在仓库根目录运行 make all，完成审计和构建。输出位于 dist/，报告位于 reports/。也可以分别运行 make audit、make epub、make verify。",
+      "code": "make all\n\nmake audit\n\nmake epub\n\nmake verify",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/tradecatlabs/shulihuazixuecongshu/blob/76e79a802bc420be9009d681b84ca64d633e9fc3/README.md?plain=1#L49"
+      }
+    },
+    {
+      "title": "只构建指定的单册",
+      "text": "如果只需要某一册，可运行 scripts/build_epubs.py，并用 --book 参数指定书名，例如“代数（第一册）”。",
+      "code": "python3 scripts/build_epubs.py --book '代数（第一册）'",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/tradecatlabs/shulihuazixuecongshu/blob/76e79a802bc420be9009d681b84ca64d633e9fc3/README.md?plain=1#L49"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "仓库未声明开源许可证，也不对原著文字、版式或扫描图像授予新的版权许可；使用或再分发前，需自行确认所在地区的版权状态。",
+    "《立体几何》原始扫描第 49、50、55、56 页为空白；Markdown 和 EPUB 已依据另一份扫描恢复，详见 docs/KNOWN_ISSUES.md。",
+    "make pdf-audit 需要额外安装 qpdf、Poppler、ExifTool 等工具。"
+  ],
+  "references": [],
+  "media": [],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "bc8f4173cdb899d25f24259e13904449549e7c7dfc6bf33538c26a21dff92a3e",
+  "mediaStatus": "none_in_official_documents"
+}

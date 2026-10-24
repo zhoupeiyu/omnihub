@@ -1,0 +1,77 @@
+{
+  "schemaVersion": 1,
+  "key": "yaojingang/yao-open-skills",
+  "status": "partial",
+  "reason": "文档介绍了各 Skill 的用途、目录结构和工作流，yao-crux-skill 也给出了 python3 报告生成与验证命令。但文档没有说明应该把 Skill 安装或加载到哪个 AI 宿主，也没有加载步骤。各脚本依赖的 Python 包和环境配置同样缺失。",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/yaojingang/yao-open-skills/blob/093996ec61366c1c4e6e82b34f0f3fa52871832f/README.md",
+  "sourceRevision": "093996ec61366c1c4e6e82b34f0f3fa52871832f",
+  "canonicalKey": "yaojingang/yao-open-skills",
+  "summary": "一个公开的 AI Skill 合集，包含决策诊断、商业分析、教程生产、阅读报告、网站安全审查等可复用 Skill 及其说明文档和脚本。",
+  "intro": "适合需要把复杂决策、商业问题或资料包整理成正式报告或教程的人，也适合想参考结构化 Skill 写法的开发者。仓库按 Skill 分目录存放。每个 Skill 有说明文档、SKILL.md 入口、references 规则和 scripts 脚本。例如 yao-crux-skill 做主次矛盾诊断报告，yao-tutorial-skill 把主题或资料生产成带配图的 Markdown/Word/PDF/HTML 教程。",
+  "requirements": "浏览文档只需访问 GitHub 仓库或 HTML 导航页。运行 yao-crux-skill 示例脚本需要 python3，其他依赖文档未列出。yao-weread-skill 生成真实账号报告需要通过环境变量提供 API Key。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "从导航页挑选所需 Skill",
+      "text": "先打开 HTML 导航页（yaojingang.github.io/yao-open-skills），或查看 README 中的 Skill 导航目录和“已发布 Skill 说明”列表。根据任务类型选择 Skill，例如决策诊断选 yao-crux-skill，教程生产选 yao-tutorial-skill。注意“规划中的能力线”不等于已收录的 Skill。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/yaojingang/yao-open-skills/blob/093996ec61366c1c4e6e82b34f0f3fa52871832f/README.md?plain=1#L1"
+      }
+    },
+    {
+      "title": "按推荐顺序阅读单个 Skill",
+      "text": "每个 Skill 在 README 中都列出了建议阅读顺序：先看 docs/skills 下的公开说明，再看 skills/<名称>/SKILL.md 入口。SKILL.md 包含触发规则和默认工作流。然后再按需阅读 references/ 中的追问、写作、导出等规则文件。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/yaojingang/yao-open-skills/blob/093996ec61366c1c4e6e82b34f0f3fa52871832f/README.md?plain=1#L126"
+      }
+    },
+    {
+      "title": "核对 Skill 的适用边界",
+      "text": "使用前先确认任务是否在 Skill 的适用范围内。yao-crux-skill 不适合纯理论问答，也不能替代医疗、法律、投资、安全等专业意见。yao-tutorial-skill 不用于一句话解释、单纯格式转换、只画图或实时授课场景。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/yaojingang/yao-open-skills/blob/093996ec61366c1c4e6e82b34f0f3fa52871832f/skills/yao-crux-skill/README.md?plain=1#L11"
+      }
+    },
+    {
+      "title": "用虚构示例生成诊断报告",
+      "text": "在 skills/yao-crux-skill 目录下，以 input/ 中的虚构 B2B SaaS 案例 JSON 为输入，运行 generate_report_bundle.py 生成报告。然后用 verify_report_bundle.py 验证输出。输入需符合 templates/crux-report.schema.json，输出包括 .report.json、.md、.html、.docx、.pdf。",
+      "code": "python3 scripts/generate_report_bundle.py input/github_examples/b2b_saas_sales_conversion_case.json reports/github-examples\npython3 scripts/verify_report_bundle.py reports/github-examples",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/yaojingang/yao-open-skills/blob/093996ec61366c1c4e6e82b34f0f3fa52871832f/skills/yao-crux-skill/README.md?plain=1#L75"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "文档未说明 Skill 应在哪个 AI 宿主中加载，也未给出安装方式，需要自行确认宿主对 SKILL.md 格式的支持。",
+    "脚本依赖未列出，文档只给出 python3 调用方式，运行时可能需要自行补齐依赖。",
+    "yao-websecurity-skill 只用于授权目标。主动测试受授权开关控制，暴力破解、数据库写入等操作默认只允许在隔离的临时部署内执行。",
+    "yao-weread-skill 读取微信读书个人数据，API Key 只从环境变量读取，生成的真实报告不应提交到公开仓库。",
+    "yao-crux-skill 报告中的结果概率只是辅助决策，不代表承诺，也不能替代专业意见。",
+    "仓库中的示例报告均为虚构场景，不代表真实效果。"
+  ],
+  "references": [
+    {
+      "label": "skills/yao-crux-skill/README.md",
+      "url": "https://github.com/yaojingang/yao-open-skills/blob/093996ec61366c1c4e6e82b34f0f3fa52871832f/skills/yao-crux-skill/README.md"
+    },
+    {
+      "label": "docs/skills/yao-tutorial-skill.md",
+      "url": "https://github.com/yaojingang/yao-open-skills/blob/093996ec61366c1c4e6e82b34f0f3fa52871832f/docs/skills/yao-tutorial-skill.md"
+    },
+    {
+      "label": "skills/yao-tutorial-skill/SKILL.md",
+      "url": "https://github.com/yaojingang/yao-open-skills/blob/093996ec61366c1c4e6e82b34f0f3fa52871832f/skills/yao-tutorial-skill/SKILL.md"
+    }
+  ],
+  "media": [],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "893782f0e69104bc8e132ee2f7366b687247f75a5f57515728b5b7e036d8539f",
+  "mediaStatus": "none_in_official_documents"
+}

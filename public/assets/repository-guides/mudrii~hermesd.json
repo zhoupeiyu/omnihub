@@ -1,0 +1,82 @@
+{
+  "schemaVersion": 1,
+  "key": "mudrii/hermesd",
+  "status": "partial",
+  "reason": "README 中的“Installation and upgrades”章节在提供的材料中缺失，没有任何安装命令或代码块，因此无法说明如何获取和安装 hermesd。现有材料只能说明启动后的面板功能、快捷键和命令行参数。",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/mudrii/hermesd/blob/118327757a2adfc2380d03ef17568cbe3b56ed3c/README.md",
+  "sourceRevision": "118327757a2adfc2380d03ef17568cbe3b56ed3c",
+  "canonicalKey": "mudrii/hermesd",
+  "summary": "hermesd 是 Hermes Agent 的只读实时终端监控面板，可以在终端中集中查看会话、Token 用量、工具、配置、日志等运行状态。",
+  "intro": "适合已经在本机运行 Hermes Agent、想在终端里集中查看其运行状态的用户。它读取 ~/.hermes/ 下的数据，提供最多 13 个面板，包括 Gateway、Sessions、Tokens/Cost、Tools、Config、Cron、Skills、Logs、Profiles、Memory、Kanban、Operations、Curator。支持详情视图、日志过滤、快照导出，可以在 SSH 和 tmux 环境中使用。",
+  "requirements": "本机已运行 Hermes Agent 并存在 ~/.hermes/ 数据目录；需要一个终端，SSH 和 tmux 也可以。hermesd 的安装方法见仓库 README 的 Installation 章节，该部分不在提供的材料中。文档称无需配置文件和 API Key。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "在终端启动 hermesd 面板",
+      "text": "按仓库 Installation 章节完成安装后，在终端直接运行 hermesd 即可打开总览，无需配置文件或 API Key。默认每 5 秒刷新一次，可用 --refresh-rate 调整。如需读取某个 profile 的数据，使用 --profile NAME 或设置环境变量 HERMES_PROFILE。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/mudrii/hermesd/blob/118327757a2adfc2380d03ef17568cbe3b56ed3c/README.md?plain=1#L65"
+      }
+    },
+    {
+      "title": "用数字键展开各详情面板",
+      "text": "按 1 到 9 直接展开对应面板，按 0 打开第 10 个面板，用 [ 和 ] 在包括 Kanban、Operations、Curator 在内的所有面板间切换。按 f 在总览和上次打开的全屏面板之间来回切换，用 j/k 滚动，g/G 跳到顶部或底部。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/mudrii/hermesd/blob/118327757a2adfc2380d03ef17568cbe3b56ed3c/README.md?plain=1#L65"
+      }
+    },
+    {
+      "title": "在 Sessions 与 Logs 中过滤",
+      "text": "在 Sessions 或 Logs 详情视图中按 / 输入过滤条件。Logs 支持 level:、minlevel:、component:、session: 和自由文本过滤，按 Tab 切换 agent、gateway、errors 等日志流。在 Sessions 视图中按 s 可以按最近、费用或 Token 数排序。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/mudrii/hermesd/blob/118327757a2adfc2380d03ef17568cbe3b56ed3c/README.md?plain=1#L65"
+      }
+    },
+    {
+      "title": "导出快照或复制当前视图",
+      "text": "使用 --snapshot 参数时，hermesd 输出一帧总览后即退出。--snapshot-panel N 指定要导出的面板，--snapshot-format json 输出完整状态的 JSON，--snapshot-file PATH 写入文件（路径须位于 Hermes 主目录之外）。在交互模式下按 c，可以通过 OSC 52 把当前视图以纯文本复制到剪贴板。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/mudrii/hermesd/blob/118327757a2adfc2380d03ef17568cbe3b56ed3c/README.md?plain=1#L65"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "hermesd 只读取 ~/.hermes/，不会写入或修改 Hermes Agent 的状态。部分视图依赖 Hermes Agent 版本生成的记录，旧版本的 schema 只保留有限的兼容支持。",
+    "面板中显示的费用在服务商未返回费用时，是根据 Token 数估算的近似美元值，不等于实际账单。",
+    "依赖 JSON 快照的脚本在升级前，应先阅读 2026.9.26 版本说明中关于字段重命名和删除的兼容性说明。",
+    "按 c 复制依赖 OSC 52，只在兼容该功能的终端中有效。",
+    "README 中的截图使用的是合成演示数据，实际显示内容取决于你本机的 Hermes 状态。"
+  ],
+  "references": [],
+  "media": [
+    {
+      "url": "/assets/repository-guides/media-38210f9dbe456ef3bdabe32a.webp",
+      "alt": "mudrii/hermesd 官方演示 1",
+      "sourceUrl": "https://github.com/mudrii/hermesd/blob/118327757a2adfc2380d03ef17568cbe3b56ed3c/README.md?plain=1#L5",
+      "originalUrl": "https://raw.githubusercontent.com/mudrii/hermesd/v2026.9.26/images/overview.png"
+    },
+    {
+      "url": "/assets/repository-guides/media-67f31e123f981e23f0581206.webp",
+      "alt": "mudrii/hermesd 官方演示 2",
+      "sourceUrl": "https://github.com/mudrii/hermesd/blob/118327757a2adfc2380d03ef17568cbe3b56ed3c/README.md?plain=1#L135",
+      "originalUrl": "https://raw.githubusercontent.com/mudrii/hermesd/v2026.9.26/images/panel-02-sessions.png"
+    },
+    {
+      "url": "/assets/repository-guides/media-8a76085530905ec88c9ee622.webp",
+      "alt": "mudrii/hermesd 官方演示 3",
+      "sourceUrl": "https://github.com/mudrii/hermesd/blob/118327757a2adfc2380d03ef17568cbe3b56ed3c/README.md?plain=1#L217",
+      "originalUrl": "https://raw.githubusercontent.com/mudrii/hermesd/v2026.9.26/images/panel-08-logs.png"
+    }
+  ],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "07670c9ee4ffe5c08101f54559f45b0458889ca7c13645e5041caedd2b4e18e6",
+  "mediaStatus": "archived",
+  "mediaFailures": []
+}

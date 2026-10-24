@@ -1,0 +1,72 @@
+{
+  "schemaVersion": 1,
+  "key": "nousresearch/hermes-agent",
+  "status": "ready",
+  "reason": "",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/NousResearch/hermes-agent/blob/ebb1f1e27985d6d89d2551b096af5d4eb4a7b37e/README.md",
+  "sourceRevision": "ebb1f1e27985d6d89d2551b096af5d4eb4a7b37e",
+  "canonicalKey": "NousResearch/hermes-agent",
+  "summary": "Nous Research 出品的自我改进型 AI agent，可以在终端 TUI 或 Telegram、Discord 等消息平台中对话，支持技能、记忆和定时任务。",
+  "intro": "适合想在本机、VPS 或云端长期运行个人 AI agent 的开发者。它提供完整的终端界面和多平台消息网关，可以切换 Nous Portal、OpenRouter、OpenAI 或自定义 endpoint 等模型提供方。功能包括记忆、技能创建与搜索、cron 定时任务、子 agent 并行，以及 local、Docker、SSH 等多种终端后端。",
+  "requirements": "官方安装路径支持 Linux、macOS、WSL2 和原生 Windows（PowerShell），Android 可通过 Termux 安装。使用前需要准备一个可用的模型提供方，例如自己的 API key，或订阅 Nous Portal。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "用一行脚本安装 Hermes",
+      "text": "在 Linux、macOS 或 WSL2 的终端中执行官方 install.sh 安装脚本。原生 Windows 用户需改用 PowerShell 安装脚本，Android 用户需改用 Termux 指南，不要混用这几种方式。 原文包含需人工核查的高权限或删除命令，本站不提供一键复制；请查看该步骤的官方出处。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/NousResearch/hermes-agent/blob/ebb1f1e27985d6d89d2551b096af5d4eb4a7b37e/README.md?plain=1#L37"
+      }
+    },
+    {
+      "title": "重新加载 shell 并启动对话",
+      "text": "安装完成后，执行 source ~/.bashrc 或 source ~/.zshrc 重新加载 shell，再输入 hermes 进入交互式终端界面开始对话。",
+      "code": "source ~/.bashrc    # reload shell (or: source ~/.zshrc)\nhermes              # start chatting!",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/NousResearch/hermes-agent/blob/ebb1f1e27985d6d89d2551b096af5d4eb4a7b37e/README.md?plain=1#L43"
+      }
+    },
+    {
+      "title": "选择模型提供方并配置工具",
+      "text": "用 hermes model 选择 LLM 提供方和模型，用 hermes tools 设置启用哪些工具。如果想一次配置全部内容，可以运行 hermes setup 设置向导。对话中也可以用 /model 随时切换模型。",
+      "code": "hermes              # Interactive CLI — start a conversation\nhermes model        # Choose your LLM provider and model\nhermes tools        # Configure which tools are enabled\nhermes config set   # Set individual config values\nhermes config get   # Print individual config values\nhermes gateway      # Start the messaging gateway (Telegram, Discord, etc.)\nhermes setup        # Run the full setup wizard (configures everything at once)\nhermes claw migrate # Migrate from OpenClaw (if coming from OpenClaw)\nhermes update       # Update to the latest version\nhermes doctor       # Diagnose any issues",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/NousResearch/hermes-agent/blob/ebb1f1e27985d6d89d2551b096af5d4eb4a7b37e/README.md?plain=1#L5"
+      }
+    },
+    {
+      "title": "按需开启消息平台网关",
+      "text": "如果想在 Telegram、Discord、Slack、WhatsApp、Signal 等平台使用，先执行 hermes gateway setup，再执行 hermes gateway start，然后给 bot 发消息即可。/new、/retry 等斜杠命令在终端和消息平台中通用。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/NousResearch/hermes-agent/blob/ebb1f1e27985d6d89d2551b096af5d4eb4a7b37e/README.md?plain=1#L145"
+      }
+    },
+    {
+      "title": "遇到问题时诊断或更新",
+      "text": "使用中遇到异常时，可以运行 hermes doctor 进行诊断，用 hermes update 更新到最新版本。完整的命令和配置说明见官方文档站。",
+      "code": "hermes              # Interactive CLI — start a conversation\nhermes model        # Choose your LLM provider and model\nhermes tools        # Configure which tools are enabled\nhermes config set   # Set individual config values\nhermes config get   # Print individual config values\nhermes gateway      # Start the messaging gateway (Telegram, Discord, etc.)\nhermes setup        # Run the full setup wizard (configures everything at once)\nhermes claw migrate # Migrate from OpenClaw (if coming from OpenClaw)\nhermes update       # Update to the latest version\nhermes doctor       # Diagnose any issues",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/NousResearch/hermes-agent/blob/ebb1f1e27985d6d89d2551b096af5d4eb4a7b37e/README.md?plain=1#L107"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "使用模型需要第三方提供方的 API key，或付费订阅 Nous Portal；Tool Gateway 中的搜索、生图、TTS 等工具也经由订阅或各自的 key 计费。",
+    "agent 可以通过多种终端后端执行命令。命令审批和容器隔离等设置请参考官方 Security 文档。",
+    "原生 Windows 上，杀毒软件可能误报内置的 uv.exe。README 给出了校验真伪和加入白名单的方法。",
+    "hermes claw migrate 会从 OpenClaw 导入 API key 等机密信息。如果不想迁移机密，可以使用 --preset user-data，迁移前也可以先用 --dry-run 预览。"
+  ],
+  "references": [],
+  "media": [],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "c8c3009b1cf6e8d6e48e96a9b4c549d9ab0c86fdaffd91b19f3e9d9b37d93d9d",
+  "mediaStatus": "none_in_official_documents"
+}

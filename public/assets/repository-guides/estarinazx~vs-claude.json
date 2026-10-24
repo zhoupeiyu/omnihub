@@ -1,0 +1,72 @@
+{
+  "schemaVersion": 1,
+  "key": "estarinazx/vs-claude",
+  "status": "ready",
+  "reason": "",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/EstarinAzx/VS-Claude/blob/2a600dfb975062110e31e7c15c76f1ae9c63fc9c/README.md",
+  "sourceRevision": "2a600dfb975062110e31e7c15c76f1ae9c63fc9c",
+  "canonicalKey": "EstarinAzx/VS-Claude",
+  "summary": "VS Claude 是一款配色取自 Claude.ai 网页版的暖色调深色主题，适用于 VSCode 和 Antigravity IDE。",
+  "intro": "适合在 VSCode 或 Antigravity IDE 中写代码、想要 Claude.ai 风格界面的开发者。主题以暖中性深色作底，前景为柔和的米白色，强调色为陶土色。README 列出了编辑器、侧边栏、边框、文字和强调色的具体色值，可直接对照查阅。",
+  "requirements": "已安装 VSCode 或 Antigravity IDE；能访问仓库的 Releases 页面下载 vs-claude.vsix。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "从 Releases 下载 VSIX 文件",
+      "text": "README 推荐用 VSIX 方式安装。打开仓库的 Releases 页面，在最新版本中下载 vs-claude.vsix 文件，保存到本地。以下步骤以 VSCode 为例。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/EstarinAzx/VS-Claude/blob/2a600dfb975062110e31e7c15c76f1ae9c63fc9c/README.md?plain=1#L13"
+      }
+    },
+    {
+      "title": "在 VSCode 中安装 VSIX",
+      "text": "在终端执行代码块中 VSCode 对应的那一行 code --install-extension vs-claude.vsix。也可以在 VSCode 中按 Ctrl+Shift+P 打开命令面板，运行 Extensions: Install from VSIX...，再选择下载好的文件。代码块里的 antigravity 命令仅供 Antigravity 用户使用。",
+      "code": "   # Antigravity\n   antigravity --install-extension vs-claude.vsix\n\n   # VSCode\n   code --install-extension vs-claude.vsix",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/EstarinAzx/VS-Claude/blob/2a600dfb975062110e31e7c15c76f1ae9c63fc9c/README.md?plain=1#L13"
+      }
+    },
+    {
+      "title": "在主题选择器中启用 VS Claude",
+      "text": "依次按 Ctrl+K、Ctrl+T 打开 Color Theme 选择器，在列表中选择 VS Claude 即可启用。如需核对配色，可查阅 README 的 Palette 表格，其中列出了背景、侧边栏、边框、文字和强调色的 Hex 值。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/EstarinAzx/VS-Claude/blob/2a600dfb975062110e31e7c15c76f1ae9c63fc9c/README.md?plain=1#L13"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "README 给出的手动安装目录写法为 %USERPROFILE%\\.vscode\\extensions\\ 等 Windows 格式；手动复制时需复制仓库内的 vs-claude/ 子文件夹，而不是仓库根目录，复制后需重启 IDE。",
+    "这是单一的深色主题，README 未提供浅色版本。"
+  ],
+  "references": [],
+  "media": [
+    {
+      "url": "/assets/repository-guides/media-f24325681a4478b47835fd14.webp",
+      "alt": "EstarinAzx/VS-Claude 官方演示 1",
+      "sourceUrl": "https://github.com/EstarinAzx/VS-Claude/blob/2a600dfb975062110e31e7c15c76f1ae9c63fc9c/README.md?plain=1#L7",
+      "originalUrl": "https://raw.githubusercontent.com/EstarinAzx/VS-Claude/2a600dfb975062110e31e7c15c76f1ae9c63fc9c/vs-claude/screenshots/welcome.png"
+    },
+    {
+      "url": "/assets/repository-guides/media-0ebeaafe370c1a80a2cd80dd.webp",
+      "alt": "EstarinAzx/VS-Claude 官方演示 2",
+      "sourceUrl": "https://github.com/EstarinAzx/VS-Claude/blob/2a600dfb975062110e31e7c15c76f1ae9c63fc9c/README.md?plain=1#L9",
+      "originalUrl": "https://raw.githubusercontent.com/EstarinAzx/VS-Claude/2a600dfb975062110e31e7c15c76f1ae9c63fc9c/vs-claude/screenshots/editor.png"
+    },
+    {
+      "url": "/assets/repository-guides/media-dfa3fc339c426a9c621b904e.webp",
+      "alt": "EstarinAzx/VS-Claude 官方演示 3",
+      "sourceUrl": "https://github.com/EstarinAzx/VS-Claude/blob/2a600dfb975062110e31e7c15c76f1ae9c63fc9c/README.md?plain=1#L11",
+      "originalUrl": "https://raw.githubusercontent.com/EstarinAzx/VS-Claude/2a600dfb975062110e31e7c15c76f1ae9c63fc9c/vs-claude/screenshots/code.png"
+    }
+  ],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "1b0ba1098d46b822ee7a6e67c8d655866ec2a554d339a75374b1411fc987c20a",
+  "mediaStatus": "archived",
+  "mediaFailures": []
+}

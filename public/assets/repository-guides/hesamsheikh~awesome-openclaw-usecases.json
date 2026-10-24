@@ -1,0 +1,61 @@
+{
+  "schemaVersion": 1,
+  "key": "hesamsheikh/awesome-openclaw-usecases",
+  "status": "ready",
+  "reason": "",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/hesamsheikh/awesome-openclaw-usecases/blob/659895e58e2105c6db8fbef39f446c8a786a480c/README.md",
+  "sourceRevision": "659895e58e2105c6db8fbef39f446c8a786a480c",
+  "canonicalKey": "hesamsheikh/awesome-openclaw-usecases",
+  "summary": "这是一个社区整理的 OpenClaw 真实使用场景合集，按领域列出各场景的说明文档。",
+  "intro": "适合已经在用或准备使用 OpenClaw 的人，用来寻找可以落地的日常用法。场景覆盖社交媒体摘要、内容创作流水线、DevOps、个人效率、研究学习和模拟交易等，每个场景在 usecases/ 目录下有独立的 Markdown 文档。",
+  "requirements": "查阅无需任何准备。要实际复现某个场景，需要能运行 OpenClaw，以及该场景文档中引用的技能、插件或外部服务。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "按分类表格挑选感兴趣的场景",
+      "text": "README 将场景分为 Social Media、Creative & Building、Infrastructure & DevOps、Productivity、Research & Learning、Finance & Trading 等类别。每张表格有 Name 和 Description 两列，可先看描述筛选符合需求的场景。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/hesamsheikh/awesome-openclaw-usecases/blob/659895e58e2105c6db8fbef39f446c8a786a480c/README.md?plain=1#L28"
+      }
+    },
+    {
+      "title": "打开 usecases 目录下的说明文档",
+      "text": "点击表格中的名称，会跳转到 usecases/ 下对应的 .md 文件，例如 usecases/daily-reddit-digest.md 或 usecases/personal-crm.md。在文档中查看该场景的具体做法和所需依赖。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/hesamsheikh/awesome-openclaw-usecases/blob/659895e58e2105c6db8fbef39f446c8a786a480c/README.md?plain=1#L28"
+      }
+    },
+    {
+      "title": "使用前审查技能与插件的安全性",
+      "text": "许多场景链接的社区技能、插件和外部仓库未经列表维护者审计，可能存在严重安全漏洞。使用前应阅读技能源码、检查其请求的权限，并避免在配置中硬编码 API key 或凭据。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/hesamsheikh/awesome-openclaw-usecases/blob/659895e58e2105c6db8fbef39f446c8a786a480c/README.md?plain=1#L22"
+      }
+    },
+    {
+      "title": "按贡献指南提交自己的场景",
+      "text": "如需新增或改进场景，请参阅 CONTRIBUTING.md。维护者要求只提交自己实际用过、且至少稳定运行一天的场景，并且不接受加密货币相关的场景。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/hesamsheikh/awesome-openclaw-usecases/blob/659895e58e2105c6db8fbef39f446c8a786a480c/README.md?plain=1#L101"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "收录的技能、插件和第三方仓库未经审计，安全风险由使用者自行承担。",
+    "Self-Healing Home Server 等场景涉及 SSH 访问和自动执行，权限范围大，需要谨慎配置。",
+    "Polymarket Autopilot 只描述了模拟盘（paper trading），并非实盘交易方案。",
+    "OpenClaw 曾用名 ClawdBot、MoltBot，查找资料时需要注意名称变更。"
+  ],
+  "references": [],
+  "media": [],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "172fef155d838eeaece96192b01a076ba9090a8d37a74bdd0eaca66c514743a1",
+  "mediaStatus": "none_in_official_documents"
+}

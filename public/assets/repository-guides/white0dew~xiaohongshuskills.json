@@ -1,0 +1,74 @@
+{
+  "schemaVersion": 1,
+  "key": "white0dew/xiaohongshuskills",
+  "status": "ready",
+  "reason": "",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/white0dew/XiaohongshuSkills/blob/677e7ad52dd88e6ef310830f39d3a13f7f267175/README.md",
+  "sourceRevision": "677e7ad52dd88e6ef310830f39d3a13f7f267175",
+  "canonicalKey": "white0dew/XiaohongshuSkills",
+  "summary": "基于 Chrome DevTools Protocol 的小红书自动化命令行工具与 Skill，可发布图文/视频、搜索笔记、读取详情与评论、发表评论及抓取内容数据。",
+  "intro": "适合需要用脚本或 Claude Code、OpenCode 等 Skill 宿主操作小红书账号的创作者和开发者。核心入口是 `publish_pipeline.py`（一条命令完成发布）和 `cdp_publish.py`（登录、分步填写、搜索、评论、点赞收藏、多账号管理、导出内容数据 CSV 等），`chrome_launcher.py` 负责管理测试浏览器。",
+  "requirements": "Python 3.10+、Google Chrome 浏览器；官方说明目前仅在 Windows 上测试过。需要一个可扫码登录的小红书账号，建议使用测试号。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "在项目目录安装 Python 依赖",
+      "text": "在 Windows 上获取本仓库代码后，进入项目根目录，用 pip 按 `requirements.txt` 安装所需依赖。运行前确认已安装 Python 3.10+ 和 Google Chrome。",
+      "code": "pip install -r requirements.txt",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/white0dew/XiaohongshuSkills/blob/677e7ad52dd88e6ef310830f39d3a13f7f267175/README.md?plain=1#L43"
+      }
+    },
+    {
+      "title": "首次运行 login 扫码登录",
+      "text": "执行 `cdp_publish.py login`，在弹出的 Chrome 窗口中扫码登录小红书。登录信息保存在本地 Chrome Profile 中；需要管理多个账号时，可先用 `add-account` 添加账号，再通过 `--account` 指定登录。",
+      "code": "python scripts/cdp_publish.py login",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/white0dew/XiaohongshuSkills/blob/677e7ad52dd88e6ef310830f39d3a13f7f267175/README.md?plain=1#L57"
+      }
+    },
+    {
+      "title": "启动测试浏览器并检查登录",
+      "text": "用 `chrome_launcher.py` 启动测试浏览器（不发布任何内容），再执行 `check-login` 确认登录状态；远程前端扫码可用 `get-login-qrcode` 获取 Base64 二维码。登录检查结果默认在本地缓存 12 小时。",
+      "code": "# 启动测试浏览器（有窗口，推荐）\npython scripts/chrome_launcher.py\n\n# 无头启动测试浏览器\npython scripts/chrome_launcher.py --headless\n\n# 检查当前登录状态\npython scripts/cdp_publish.py check-login\n\n# 获取登录二维码（返回 Base64，可供远程前端直接展示）\npython scripts/cdp_publish.py get-login-qrcode\n\n# 可选：优先复用已有标签页（减少有窗口模式下切到前台）\npython scripts/cdp_publish.py check-login --reuse-existing-tab\n\n# 连接远程 CDP（Chrome 在另一台机器）\npython scripts/cdp_publish.py --host 10.0.0.12 --port 9222 check-login\n\n# 重启测试浏览器\npython scripts/chrome_launcher.py --restart\n\n# 关闭测试浏览器\npython scripts/chrome_launcher.py --kill",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/white0dew/XiaohongshuSkills/blob/677e7ad52dd88e6ef310830f39d3a13f7f267175/README.md?plain=1#L67"
+      }
+    },
+    {
+      "title": "用 --preview 先预览再发布",
+      "text": "`publish_pipeline.py` 默认会自动点击发布。建议首次加 `--preview`，在有窗口模式下仅填充标题、正文和图片，人工核对后再决定是否发布。正文最后一行可写 `#标签`，会被识别为话题标签，建议 1–10 个。",
+      "code": "# 无头模式（推荐，默认自动发布）\npython scripts/publish_pipeline.py --headless \\\n    --title \"文章标题\" \\\n    --content \"文章正文\" \\\n    --image-urls \"https://example.com/image.jpg\"\n\n# 有窗口预览模式（仅填充，不自动点发布）\npython scripts/publish_pipeline.py \\\n    --preview \\\n    --title \"文章标题\" \\\n    --content \"文章正文\" \\\n    --image-urls \"https://example.com/image.jpg\"\n\n# 可选：优先复用已有标签页（减少有窗口模式下切到前台）\npython scripts/publish_pipeline.py --reuse-existing-tab \\\n    --title \"文章标题\" \\\n    --content \"文章正文\" \\\n    --image-urls \"https://example.com/image.jpg\"\n\n# 连接远程 CDP 并发布（远程 Chrome 需已开启调试端口）\npython scripts/publish_pipeline.py --host 10.0.0.12 --port 9222 \\\n    --title \"文章标题\" \\\n    --content \"文章正文\" \\\n    --image-urls \"https://example.com/image.jpg\"\n\n# 从文件读取内容\npython scripts/publish_pipeline.py --headless \\\n    --title-file title.txt \\\n    --content-file content.txt \\\n    --image-urls \"https://example.com/image.jpg\"\n\n# 正文最后一行可放话题标签（最多 10 个）\n# 例如 content.txt 最后一行：\n# #春招 #26届 #校招 #求职 #找工作\n\n# 使用本地图片\npython scripts/publish_pipeline.py --headless \\\n    --title \"文章标题\" \\\n    --content \"文章正文\" \\\n    --images \"C:\\path\\to\\image.jpg\"\n\n# 使用本地视频\npython scripts/publish_pipeline.py --headless \\\n    --title \"视频标题\" \\\n    --content \"视频正文\" \\\n    --video \"C:\\path\\to\\video.mp4\"\n\n# 使用视频 URL\npython scripts/publish_pipeline.py --headless \\\n    --title \"视频标题\" \\\n    --content \"视频正文\" \\\n    --video-url \"https://example.com/video.mp4\"\n\n# WSL/远程 CDP + Windows/UNC 路径可跳过本地文件预校验\npython scripts/publish_pipeline.py --headless \\\n    --title \"文章标题\" \\\n    --content \"文章正文\" \\\n    --images \"\\\\wsl.localhost\\Ubuntu\\home\\user\\image.jpg\" \\\n    --skip-file-check\n",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/white0dew/XiaohongshuSkills/blob/677e7ad52dd88e6ef310830f39d3a13f7f267175/README.md?plain=1#L95"
+      }
+    },
+    {
+      "title": "按需接入 Claude Code 等 Skill 宿主",
+      "text": "如需在 Claude Code、OpenCode 等支持 Skill 的工具中调用，将项目复制到 `.claude/skills/post-to-xhs/` 目录并添加 `SKILL.md` 文件，具体做法见仓库内 `docs/claude-code-integration.md`。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/white0dew/XiaohongshuSkills/blob/677e7ad52dd88e6ef310830f39d3a13f7f267175/README.md?plain=1#L387"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "官方明确提示：使用本项目自动化操作小红书存在被平台风控、限流、封号或封禁的风险，建议先用测试号验证、控制频率，并人工复核发布内容。",
+    "`publish_pipeline.py` 默认会直接点击发布，需要人工确认时必须显式加 `--preview`。",
+    "登录 Cookie 存储在本地 Chrome Profile 中，请勿泄露该目录。",
+    "小红书页面改版可能导致发布失败，需要更新 `scripts/cdp_publish.py` 中的 `SELECTORS` 等选择器与等待逻辑。",
+    "官方说明目前仅在 Windows 上测试；项目声明仅供学习研究，使用时需遵守小红书平台规则。"
+  ],
+  "references": [],
+  "media": [],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "394181f0bd443ea037ce6024f5c615c2a3804fbdfb0fb4031d281ca6134fe81d",
+  "mediaStatus": "none_in_official_documents"
+}

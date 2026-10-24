@@ -1,0 +1,63 @@
+{
+  "schemaVersion": 1,
+  "key": "jingyi-wu-richael/ai-topic-scout",
+  "status": "ready",
+  "reason": "",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/Jingyi-Wu-Richael/ai-topic-scout/blob/44def0302aff5784fd8e7121411f5940ba9d271f/README.md",
+  "sourceRevision": "44def0302aff5784fd8e7121411f5940ba9d271f",
+  "canonicalKey": "Jingyi-Wu-Richael/ai-topic-scout",
+  "summary": "一个 Codex 技能：扫描 10 类固定的 AI 信息源，去重并核对当天条目，整理成可直接用于创作的中文选题。",
+  "intro": "适合 AI 博主、AI 创作者和 newsletter 作者。它覆盖 OpenAI、Anthropic、Google DeepMind 等公司博客，以及 arXiv、Hugging Face Papers、GitHub Trending、LM Arena 和 The Batch。技能会把新闻转成中文选题，每个选题附带切入角度、适合的内容形式、素材链接和优先级，减少没有观点的简单转发。",
+  "requirements": "已安装并能正常使用 Codex，Codex 需要支持技能安装。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "用 Codex 技能安装器安装",
+      "text": "在 Codex 中提交下面这条安装请求，安装仓库内 skills/ai-topic-scout 目录下的技能。README 也提供了手动复制到 ~/.codex/skills 的方式，两种方式选一种即可。",
+      "code": "Install the Codex skill from https://github.com/Jingyi-Wu-Richael/ai-topic-scout/tree/main/skills/ai-topic-scout",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/Jingyi-Wu-Richael/ai-topic-scout/blob/44def0302aff5784fd8e7121411f5940ba9d271f/README.md?plain=1#L27"
+      }
+    },
+    {
+      "title": "重启 Codex 以加载技能",
+      "text": "安装完成后重启 Codex，Codex 才能发现新技能。技能目录里有 SKILL.md、agents/openai.yaml 和 references/sources.md，信息源清单记录在 references/sources.md 中。",
+      "code": "skills/ai-topic-scout/\n├── SKILL.md\n├── agents/openai.yaml\n└── references/sources.md",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/Jingyi-Wu-Richael/ai-topic-scout/blob/44def0302aff5784fd8e7121411f5940ba9d271f/README.md?plain=1#L27"
+      }
+    },
+    {
+      "title": "用 $ai-topic-scout 显式调用",
+      "text": "在对话中写明 $ai-topic-scout 来调用技能。可以按需写清数量、时间范围、内容形式或来源范围，例如只要短视频选题，或只从论文和 GitHub 趋势中挑选。",
+      "code": "用 $ai-topic-scout 给我出今天的 AI 博主选题\n\n用 $ai-topic-scout 给我出今天 10 个选题\n\n用 $ai-topic-scout 扫一遍本周 AI 信息源，挑 5 个适合短视频的选题\n\n用 $ai-topic-scout 从今天的论文和 GitHub 趋势里找 8 个教程选题",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/Jingyi-Wu-Richael/ai-topic-scout/blob/44def0302aff5784fd8e7121411f5940ba9d271f/README.md?plain=1#L44"
+      }
+    },
+    {
+      "title": "按输出字段筛选选题",
+      "text": "默认会返回 8 到 12 个选题，每个包含 选题、为什么现在、内容角度、适合形式、素材来源、优先级 六项，结尾的 今日首选 会列出最推荐的 1 到 3 个。可以先从今日首选开始，再打开素材来源核对原文。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/Jingyi-Wu-Richael/ai-topic-scout/blob/44def0302aff5784fd8e7121411f5940ba9d271f/README.md?plain=1#L66"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "信息源固定为 README 列出的 10 类，不在其中的渠道不会被扫描。",
+    "选题依赖当时能访问到的外部信息源，发布前请打开素材来源链接核对原文。",
+    "输出是中文选题，面向中文创作场景。"
+  ],
+  "references": [],
+  "media": [],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "cc01b6adfa1400ab1fcc1c64f139412cf69919fe0fb872a5203bc1dd683ec08e",
+  "mediaStatus": "none_in_official_documents"
+}

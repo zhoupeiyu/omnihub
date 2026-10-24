@@ -1,0 +1,52 @@
+{
+  "schemaVersion": 1,
+  "key": "chenshuo/coolshell",
+  "status": "ready",
+  "reason": "",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/chenshuo/coolshell/blob/5b87ce80c5a6d9629d081244a2b53c93afc596f0/README.md",
+  "sourceRevision": "5b87ce80c5a6d9629d081244a2b53c93afc596f0",
+  "canonicalKey": "chenshuo/coolshell",
+  "summary": "这是陈皓（haoel）的 CoolShell.cn 博客的静态镜像，可以在线或通过仓库查阅约 740 篇技术文章。",
+  "intro": "适合想阅读或存档 CoolShell 技术文章的读者。仓库由 chenshuo 维护，作为纪念，目的是让陈皓的文字长久保存。镜像站点提供全部文章的列表，仓库里是静态 HTML 文件，大部分链接已转换为本地链接，也可以下载后离线查阅。",
+  "requirements": "在线阅读只需要浏览器。离线查阅需要把仓库克隆或下载到本地。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "打开镜像站点文章列表",
+      "text": "在浏览器中访问 https://coolshell.org/articles/，查看 740 篇文章的列表，从中选择感兴趣的文章阅读。站点首页是 https://coolshell.org。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/chenshuo/coolshell/blob/5b87ce80c5a6d9629d081244a2b53c93afc596f0/README.md?plain=1#L1"
+      }
+    },
+    {
+      "title": "下载仓库离线查阅 HTML",
+      "text": "仓库保存的是静态 HTML 文件。维护者已用 `links_to_local.sh` 把大部分链接改为本地链接，因此克隆仓库后可以直接在本地浏览器中打开页面阅读。",
+      "code": "$ ./links_to_local.sh `find . -type f -name '*.html'`",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/chenshuo/coolshell/blob/5b87ce80c5a6d9629d081244a2b53c93afc596f0/README.md?plain=1#L7"
+      }
+    },
+    {
+      "title": "查阅相关的其他存档",
+      "text": "如果还想看陈皓的 tweets 和微博，可以查看 `ghostincoolshell/haoel-articles`。如果需要单机下载版，可以查看 `soulteary/forever-coolshell`。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/chenshuo/coolshell/blob/5b87ce80c5a6d9629d081244a2b53c93afc596f0/README.md?plain=1#L23"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "仓库许可证为 NOASSERTION，内容版权标注为 (c) haoel 2023。转载或再分发前请确认版权许可。",
+    "README 写明只转换了大部分（most）链接，离线浏览时部分链接可能仍指向外部网站或无法打开。"
+  ],
+  "references": [],
+  "media": [],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "c86c426e719d519a6a37549172226b77c2dfad3c81dbece2e69dd36b7d0812da",
+  "mediaStatus": "none_in_official_documents"
+}

@@ -1,0 +1,77 @@
+{
+  "schemaVersion": 1,
+  "key": "liyue-aigc/female-outfit-director",
+  "status": "ready",
+  "reason": "",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/liyue-aigc/female-outfit-director/blob/1f96d63ec5ae9d6fdbc7e3b4e95b06138f1449c0/README.md",
+  "sourceRevision": "1f96d63ec5ae9d6fdbc7e3b4e95b06138f1449c0",
+  "canonicalKey": "liyue-aigc/female-outfit-director",
+  "summary": "一个 Codex Skill，用来为同一位成年女性生成多套穿搭拼贴首帧和卡点换装视频的结构化提示词方案。",
+  "intro": "适合用图像或视频生成模型制作换装类短视频的创作者。它把人物设定、服装方案、拼贴布局、换装机制、动作连续性和声音节点整理成提示词。输出包括参数锁定结果、首帧图片提示词、逐段视频时间轴、精简视频提示词和负面提示词。内置 12 种换装机制，默认使用 M1 消耗式贴图换装。",
+  "requirements": "需要已安装、支持本地 Skills 的 Codex 或兼容智能体。本机需要能使用 Git，也可以从 GitHub 下载 ZIP 后手动安装。如果要提供参考图，建议使用具备图像理解能力的模型。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "在 macOS/Linux 克隆并复制 Skill",
+      "text": "以 macOS / Linux 为例，先克隆仓库，再创建 ~/.codex/skills/female-outfit-director 目录，然后把仓库中 skill 文件夹里的内容复制进去。Windows 用户可改用文档中的 PowerShell 安装方式。",
+      "code": "git clone https://github.com/liyue-aigc/female-outfit-director.git\nmkdir -p ~/.codex/skills/female-outfit-director\ncp -R female-outfit-director/skill/. ~/.codex/skills/female-outfit-director/",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/liyue-aigc/female-outfit-director/blob/1f96d63ec5ae9d6fdbc7e3b4e95b06138f1449c0/docs/INSTALLATION.md?plain=1#L3"
+      }
+    },
+    {
+      "title": "确认 SKILL.md 放在正确目录",
+      "text": "检查 SKILL.md 是否直接位于 female-outfit-director 目录下，不能多套一层 skill 子目录。同一目录下还应有 agents 和 references 等内容。",
+      "code": "female-outfit-director/\n├─ skill/                         # 可直接安装的 Skill\n│  ├─ SKILL.md\n│  ├─ agents/openai.yaml\n│  └─ references/\n├─ docs/\n│  ├─ INSTALLATION.md\n│  └─ FIRST_USE.md\n├─ CHANGELOG.md\n├─ CONTRIBUTING.md\n├─ LICENSE\n└─ README.md",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/liyue-aigc/female-outfit-director/blob/1f96d63ec5ae9d6fdbc7e3b4e95b06138f1449c0/docs/INSTALLATION.md?plain=1#L33"
+      }
+    },
+    {
+      "title": "重开 Codex 任务验证识别",
+      "text": "新建或重新打开一个 Codex 任务，用 $female-outfit-director 调用该 Skill，请它介绍可生成的换装方案。如果识别正确，它会按工作流说明换装模式、参数和输出结构。",
+      "code": "$female-outfit-director 请先介绍你能生成哪些类型的女性换装方案。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/liyue-aigc/female-outfit-director/blob/1f96d63ec5ae9d6fdbc7e3b4e95b06138f1449c0/docs/INSTALLATION.md?plain=1#L43"
+      }
+    },
+    {
+      "title": "提出需求并锁定关键参数",
+      "text": "调用 Skill 时写明你的需求，可以附上参考图。未指定时使用默认值：9:16 画幅、8 秒、5 套造型、固定机位，不加背景音乐。你明确给出的时长、比例、镜头、服装、卡点、音乐和动作会优先于默认值。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/liyue-aigc/female-outfit-director/blob/1f96d63ec5ae9d6fdbc7e3b4e95b06138f1449c0/README.md?plain=1#L7"
+      }
+    },
+    {
+      "title": "用 git pull 更新已装内容",
+      "text": "在已克隆的仓库目录中执行 git pull，再把 skill 内容重新复制到本地 Skill 目录。更新后新建一个 Codex 任务，以确保加载最新内容。",
+      "code": "git pull\ncp -R skill/. ~/.codex/skills/female-outfit-director/",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/liyue-aigc/female-outfit-director/blob/1f96d63ec5ae9d6fdbc7e3b4e95b06138f1449c0/docs/INSTALLATION.md?plain=1#L53"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "本仓库只提供提示词导演工作流，不包含第三方图像或视频生成服务；实际生成图片或视频需要另外使用相应模型或服务。",
+    "没有参考图且未指定国籍时，默认生成原创中国成年女性角色；使用参考图锁定人物时需要模型具备图像理解能力。",
+    "卸载方式是直接删除本地 Skill 目录，删除前应确认目录里没有自定义修改。"
+  ],
+  "references": [
+    {
+      "label": "docs/INSTALLATION.md",
+      "url": "https://github.com/liyue-aigc/female-outfit-director/blob/1f96d63ec5ae9d6fdbc7e3b4e95b06138f1449c0/docs/INSTALLATION.md"
+    }
+  ],
+  "media": [],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "4a749dc835f1cfdfdbe843868f6236a5ce12c8c655fb17143f0645702f9180a5",
+  "mediaStatus": "none_in_official_documents"
+}

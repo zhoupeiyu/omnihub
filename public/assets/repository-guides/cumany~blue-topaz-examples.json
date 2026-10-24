@@ -1,0 +1,89 @@
+{
+  "schemaVersion": 1,
+  "key": "cumany/blue-topaz-examples",
+  "status": "ready",
+  "reason": "",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/PKM-er/Blue-topaz-example/blob/96ecdaa485f0b4e4b8c22c7fea4394be1b882c83/README.md",
+  "sourceRevision": "96ecdaa485f0b4e4b8c22c7fea4394be1b882c83",
+  "canonicalKey": "PKM-er/Blue-topaz-example",
+  "summary": "这是一个配合 Blue Topaz 主题的 Obsidian 示例库，内置七十多个常用插件、模板和样式示例，可直接用 Obsidian 打开查阅和借鉴。",
+  "intro": "适合 Obsidian 初学者，以及想参考 Blue Topaz 主题用法的用户。可以从中了解主页、看板、卡片视图、读书笔记、日记模板等配置方式，查阅主题内置 cssclass 和 Admonition 样式的用法，再把需要的部分移植到自己的库中。",
+  "requirements": "需要先安装 Obsidian 软件，示例库必须用 Obsidian 打开。也可以先通过官方在线预览地址浏览效果。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "下载精简版或完整版示例库",
+      "text": "作者推荐初学者从 GitHub Releases 下载 Lite 精简版示例库，该版本删掉了大量非必要插件。完整版内置七十多个插件，其中许多是辅助类插件，可以按需关闭。下载前也可以先访问在线预览地址看看效果。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/PKM-er/Blue-topaz-example/blob/96ecdaa485f0b4e4b8c22c7fea4394be1b882c83/README.md?plain=1#L32"
+      }
+    },
+    {
+      "title": "用 Obsidian 打开示例库",
+      "text": "安装 Obsidian 后，用它打开解压得到的示例库文件夹。README 说明示例库默认会自动加载主页。如果主页数据显示不全或时钟不动，手动点一下刷新主页即可。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/PKM-er/Blue-topaz-example/blob/96ecdaa485f0b4e4b8c22c7fea4394be1b882c83/README.md?plain=1#L32"
+      }
+    },
+    {
+      "title": "查阅 cssclass 与 ad 样式表",
+      "text": "README 中的 cssclass 表格列出了每篇示例笔记使用的样式，例如 cards、zettelkasten、fullwidth、img-grid，以及各自的用途。ad 样式表列出了 ad-col2、ad-kanban、ad-flex 等 Admonition 类型。可以打开对应的示例笔记，对照学习写法。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/PKM-er/Blue-topaz-example/blob/96ecdaa485f0b4e4b8c22c7fea4394be1b882c83/README.md?plain=1#L132"
+      }
+    },
+    {
+      "title": "通过 style settings 调整外观",
+      "text": "在 style settings 设置中可以修改字体和背景：在“2.2.1 字体设置”里填写系统中已安装字体的名称，在“1.2.1 工作页面背景”里设置壁纸路径。如果切换配色没有效果，先检查 2.1 里是否设置了自定义颜色，可将其恢复为默认。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/PKM-er/Blue-topaz-example/blob/96ecdaa485f0b4e4b8c22c7fea4394be1b882c83/README.md?plain=1#L199"
+      }
+    },
+    {
+      "title": "按需精简插件和脚本功能",
+      "text": "内置插件表中，斜体项为可选的辅助插件，可以关闭。按 FAQ 修改 FastStart-StartupScript，可以只启用最少的插件配置。88-Template/script 目录下的 JS 脚本通过 QuickAdd 宏或 Templater 调用，用于抓取豆瓣、IMDB 和天气等数据。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/PKM-er/Blue-topaz-example/blob/96ecdaa485f0b4e4b8c22c7fea4394be1b882c83/README.md?plain=1#L78"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "仓库未声明许可证，复用其中的模板、脚本或图片前，请先确认授权。",
+    "部分插件已标注为与新版 Obsidian 不兼容或已弃用（如 obsidian-codemirror-options、cm-editor-syntax-highlight-obsidian），应按说明关闭。",
+    "主页及部分脚本会联网获取数据（豆瓣、IMDB、天气、歌曲与每日一言），离线时这些内容无法正常显示。",
+    "内置的可选插件 obsidian-shellcommands 可以执行系统命令，不需要时建议关闭。",
+    "Memos 功能依赖核心插件“日记”，需要开启该插件并指定日记文件夹。"
+  ],
+  "references": [],
+  "media": [
+    {
+      "url": "/assets/repository-guides/media-972439b00bacf48fe3857617.webp",
+      "alt": "PKM-er/Blue-topaz-example 官方演示 1",
+      "sourceUrl": "https://github.com/PKM-er/Blue-topaz-example/blob/96ecdaa485f0b4e4b8c22c7fea4394be1b882c83/README.md?plain=1#L66",
+      "originalUrl": "https://user-images.githubusercontent.com/42957010/165482190-91dc0585-9e75-406c-a7a3-1121c1fc88f7.png"
+    },
+    {
+      "url": "/assets/repository-guides/media-d746bb7ab61ff6d8c0120d1f.webp",
+      "alt": "PKM-er/Blue-topaz-example 官方演示 2",
+      "sourceUrl": "https://github.com/PKM-er/Blue-topaz-example/blob/96ecdaa485f0b4e4b8c22c7fea4394be1b882c83/README.md?plain=1#L73",
+      "originalUrl": "https://user-images.githubusercontent.com/42957010/165482534-f0ef2dd2-cf3a-4347-b141-e8bbae63566d.png"
+    }
+  ],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "7da0eab363fe67005720dc10fac4f89a0e912e93de73f7d7e60d0383b6d50ca2",
+  "mediaStatus": "archived",
+  "mediaFailures": [
+    {
+      "sourceUrl": "https://github.com/PKM-er/Blue-topaz-example/blob/96ecdaa485f0b4e4b8c22c7fea4394be1b882c83/README.md#L71",
+      "reason": "unsupported_media_host"
+    }
+  ]
+}

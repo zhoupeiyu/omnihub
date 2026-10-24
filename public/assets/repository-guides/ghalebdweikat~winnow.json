@@ -1,0 +1,75 @@
+{
+  "schemaVersion": 1,
+  "key": "ghalebdweikat/winnow",
+  "status": "ready",
+  "reason": "",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/GhalebDweikat/winnow/blob/7fe08546e8b9d42f7660a45777f360cfecd3b0e7/README.md",
+  "sourceRevision": "7fe08546e8b9d42f7660a45777f360cfecd3b0e7",
+  "canonicalKey": "GhalebDweikat/winnow",
+  "summary": "winnow 是 Claude Code 的上下文筛选插件：在 Read、Bash、Grep 的大块输出进入上下文前先做相关性判断，用可召回的摘要占位替换判定为不需要的块，以节省 token。",
+  "intro": "适合使用 Claude Code、希望减少大文件和长命令输出占用上下文的开发者。winnow 把工具输出切成若干块，由 judge 模型判断每块是否与当前任务相关。被隐藏的部分会缓存在本地，可通过 key 召回。它还会在提交 prompt 时，按相关性注入项目记忆文件。",
+  "requirements": "需要 Python 3.10+、uv，以及 Claude Code 2.1.260 或更新版本，并开启 function hooks（早期访问功能）。还需要 Jev（TypeSafe，早期访问）的 key；没有时可改用基于 Anthropic 凭据的 adapter。生成摘要需要 Anthropic 凭据。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "在设置中开启 function hooks",
+      "text": "在 ~/.claude/settings.json 的 env 中加入 CLAUDE_CODE_ENABLE_FUNCTION_HOOKS=1。不开启这一项，winnow 的模块不会加载，插件也不起作用；winnow doctor 会检查该设置。",
+      "code": "{ \"env\": { \"CLAUDE_CODE_ENABLE_FUNCTION_HOOKS\": \"1\" } }",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/GhalebDweikat/winnow/blob/7fe08546e8b9d42f7660a45777f360cfecd3b0e7/README.md?plain=1#L42"
+      }
+    },
+    {
+      "title": "克隆仓库并安装为 Claude Code 插件",
+      "text": "克隆仓库后，用 claude plugin marketplace add 添加本地目录，再安装 winnow@winnow。安装对共用 ~/.claude 配置的 CLI、桌面应用和 IDE 扩展都生效，新会话才会加载插件。",
+      "code": "git clone https://github.com/GhalebDweikat/winnow.git\nclaude plugin marketplace add ./winnow\nclaude plugin install winnow@winnow",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/GhalebDweikat/winnow/blob/7fe08546e8b9d42f7660a45777f360cfecd3b0e7/README.md?plain=1#L42"
+      }
+    },
+    {
+      "title": "把 judge 与摘要密钥写入配置",
+      "text": "在 ~/.winnow/env 中逐行写入 TYPESAFE_API_KEY 和 ANTHROPIC_API_KEY，也可以写在 settings.json 的 env 块里，这样桌面应用和 IDE 也能读取。没有 Jev key 时，加一行 WINNOW_JUDGE=adapter 改用 Haiku 4.5。",
+      "code": "  TYPESAFE_API_KEY=ts-...\n  ANTHROPIC_API_KEY=sk-ant-...\n\n  { \"env\": { \"TYPESAFE_API_KEY\": \"ts-...\", \"ANTHROPIC_API_KEY\": \"sk-ant-...\" } }",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/GhalebDweikat/winnow/blob/7fe08546e8b9d42f7660a45777f360cfecd3b0e7/README.md?plain=1#L89"
+      }
+    },
+    {
+      "title": "用 doctor 与 demo 验证配置",
+      "text": "运行 winnow doctor，确认找到了哪些密钥、来源在哪里，以及各后端能否初始化。没有密钥时可以先用 demo --fake 演示流程；配好密钥后去掉 --fake，会发起一次真实的 judge 调用。",
+      "code": "uv run --project winnow/sidecar winnow doctor\n\nuv run --project winnow/sidecar winnow demo --fake",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/GhalebDweikat/winnow/blob/7fe08546e8b9d42f7660a45777f360cfecd3b0e7/README.md?plain=1#L89"
+      }
+    },
+    {
+      "title": "先用 shadow 模式观察一周",
+      "text": "在配置中设 WINNOW_MODE=shadow。这时只做判断和记录，不改动 Claude 看到的内容。用 winnow stats 查看会被隐藏多少内容，用 winnow recall 核对具体块；确认判断合理后，再切换到 active 模式。",
+      "code": "WINNOW_MODE=shadow",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/GhalebDweikat/winnow/blob/7fe08546e8b9d42f7660a45777f360cfecd3b0e7/README.md?plain=1#L191"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "被判断的工具输出、任务描述和工具参数会发送给 TypeSafe 或 Anthropic；隐藏块会发给 Anthropic 生成摘要。",
+    "调用按量计费：文档估算，每个 1 万 token 的输出，用 Jev 不到一美分，用 adapter 约几美分；adapter 费用记在你的 Anthropic 账户上。",
+    "Jev 与 Claude Code function hooks 都处于早期访问阶段，插件接口可能随版本变化。",
+    "~/.winnow/cache/ 保存所有被隐藏输出的全文，目前没有自动清理，需要自行清除。",
+    "sidecar 未运行时，结果会原样通过、不做判断；需要用 winnow serve --status 检查。"
+  ],
+  "references": [],
+  "media": [],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "0ebe29d9bc0c2bb41c7477bd1d57929d6331c9031e68b92e2c00c84c2bf08afb",
+  "mediaStatus": "none_in_official_documents"
+}

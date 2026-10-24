@@ -1,0 +1,82 @@
+{
+  "schemaVersion": 1,
+  "key": "lahfir/agent-desktop",
+  "status": "ready",
+  "reason": "",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/lahfir/agent-desktop/blob/dd6c47397e32373ceba22c9c045dc8b0217edbf8/README.md",
+  "sourceRevision": "dd6c47397e32373ceba22c9c045dc8b0217edbf8",
+  "canonicalKey": "lahfir/agent-desktop",
+  "summary": "一个 Rust 编写的命令行工具，让 AI Agent 通过系统无障碍树读取并操作桌面应用界面，而非依靠像素识别。",
+  "intro": "适合需要给 Agent 赋予桌面“电脑使用”能力的开发者：Agent 先用 snapshot 获取带 ref 的界面元素，再执行点击、输入、按键等操作并重新观察。也提供 C-ABI 动态库供 Python、Swift、Go 等进程内调用，以及会话追踪、多 Agent 共享会话和 Chromium 应用 CDP 接入。",
+  "requirements": "目前功能仅在 macOS 上可用（Windows、Linux 标注为 Planned）；npm 安装需 Node.js/npm；需授予 Accessibility 权限，截图还需 Screen Recording 权限，通知中心相关操作需 Automation 权限。源码构建需 Rust 1.89+ 与 macOS 13.0+。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "在 macOS 上用 npm 安装",
+      "text": "以 macOS 为平台，按官方推荐用 npm 全局安装 agent-desktop，会自动下载预编译二进制。也可不安装，直接用 npx 运行一次 snapshot 试用。",
+      "code": "npm install -g agent-desktop        # downloads prebuilt binary automatically\n\nnpx agent-desktop snapshot --app Finder -i",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/lahfir/agent-desktop/blob/dd6c47397e32373ceba22c9c045dc8b0217edbf8/README.md?plain=1#L54"
+      }
+    },
+    {
+      "title": "申请所需的系统权限",
+      "text": "运行 permissions --request 在隔离的辅助进程中申请缺失权限。返回结果会分别列出 accessibility、screen_recording、automation 的状态，unknown 表示仍需 macOS 弹窗确认。",
+      "code": "agent-desktop permissions --request   # request missing permissions in an isolated helper\n\n{\n  \"accessibility\": { \"state\": \"granted\" },\n  \"screen_recording\": { \"state\": \"denied\", \"suggestion\": \"Grant Screen Recording permission\" },\n  \"automation\": { \"state\": \"unknown\" }\n}",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/lahfir/agent-desktop/blob/dd6c47397e32373ceba22c9c045dc8b0217edbf8/README.md?plain=1#L77"
+      }
+    },
+    {
+      "title": "用 snapshot 获取元素与 ref",
+      "text": "对简单应用（如 Finder）运行 snapshot --app Finder -i 获取可交互元素、ref 和 snapshot_id，再用 click、type、press 操作，界面变化后重新 snapshot，形成观察—决策—行动循环。",
+      "code": "agent-desktop snapshot --app Finder -i   # get interactive elements with refs and snapshot_id\nagent-desktop click @e3 --snapshot s8f3k2p9  # click a button by ref\nagent-desktop type @e5 --snapshot s8f3k2p9 \"quarterly report\"  # insert text into a field\nagent-desktop press cmd+s               # keyboard shortcut\nagent-desktop snapshot -i               # re-observe after UI changes\n\nAgent loop:  snapshot → decide → act → snapshot → decide → act → ...",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/lahfir/agent-desktop/blob/dd6c47397e32373ceba22c9c045dc8b0217edbf8/README.md?plain=1#L112"
+      }
+    },
+    {
+      "title": "对复杂应用用骨架逐层深入",
+      "text": "Slack、VS Code 等元素密集的应用先用 --skeleton 获取 3 层概览，再用 --root 针对感兴趣区域下钻并操作，最后重新下钻验证状态变化，以减少 token 消耗。",
+      "code": "# 1. Shallow overview — depth-3 map, truncated containers show children_count\nagent-desktop snapshot --skeleton --app Slack -i --compact\n# Keep snapshot_id, for example s8f3k2p9\n\n# 2. Drill into a region of interest (each truncated branch exposes a safe drill ref)\nagent-desktop snapshot --root @e3 --snapshot s8f3k2p9 -i --compact\n\n# 3. Act on an element found in the drill-down\nagent-desktop click @e12 --snapshot s8f3k2p9\n\n# 4. Re-drill the same region to verify the state change\nagent-desktop snapshot --root @e3 --snapshot s8f3k2p9 -i --compact",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/lahfir/agent-desktop/blob/dd6c47397e32373ceba22c9c045dc8b0217edbf8/README.md?plain=1#L112"
+      }
+    },
+    {
+      "title": "开启会话记录并回看轨迹",
+      "text": "用 session start 创建带追踪的会话并设置 AGENT_DESKTOP_SESSION，后续命令自动写入 JSONL 轨迹；结束后用 trace show 查看时间线，或 trace export 导出单文件 HTML。",
+      "code": "session_id=$(agent-desktop session start --screenshots | jq -r '.data.session_id')\nexport AGENT_DESKTOP_SESSION=\"$session_id\"\nagent-desktop snapshot --app Finder -i       # work inside the explicit session scope\nagent-desktop click @s8f3k2p9:e5\nagent-desktop trace show --limit 500         # bounded JSON timeline for agents\nagent-desktop trace export --out run.html    # single-file HTML viewer (works from file://)\n\nagent-desktop session start --name release-fix          # note data.session_id\nexport AGENT_DESKTOP_SESSION=<session_id>\nagent-desktop snapshot --app Xcode -i --compact          # uses selected session + tracing\nagent-desktop wait --element @s8f3k2p9:e9 --predicate actionable --timeout 5000\nagent-desktop click @s8f3k2p9:e9\nagent-desktop click @e9 --snapshot s2                    # legacy bare ref, explicitly pinned\nagent-desktop session end \"$AGENT_DESKTOP_SESSION\"\nagent-desktop session gc",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/lahfir/agent-desktop/blob/dd6c47397e32373ceba22c9c045dc8b0217edbf8/README.md?plain=1#L145"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "无障碍树、点击输入、截图、通知等功能目前仅支持 macOS，Windows 和 Linux 仍为计划中。",
+    "launch --cdp 打开的调试端口绑定 127.0.0.1，但开放期间同一用户下的任何本地进程都能连接，用完应 close-app。",
+    "启用截图的会话导出的 trace HTML 会以 base64 内嵌截图，应按截图敏感程度保管。",
+    "key-down、key-up、mouse-down、mouse-up 为保留命令，在无状态 CLI 中会返回 ACTION_NOT_SUPPORTED。"
+  ],
+  "references": [],
+  "media": [
+    {
+      "url": "/assets/repository-guides/media-99c5c1032c97e34d5910a58e.webp",
+      "alt": "lahfir/agent-desktop 官方演示 1",
+      "sourceUrl": "https://github.com/lahfir/agent-desktop/blob/dd6c47397e32373ceba22c9c045dc8b0217edbf8/README.md?plain=1#L29",
+      "originalUrl": "https://raw.githubusercontent.com/lahfir/agent-desktop/dd6c47397e32373ceba22c9c045dc8b0217edbf8/docs/slack-example.png"
+    }
+  ],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "e3ae5ffd493f6951067df808686b6d92828ac79ece4901129c6976c31fb20673",
+  "mediaStatus": "archived",
+  "mediaFailures": []
+}

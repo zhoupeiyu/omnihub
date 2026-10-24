@@ -1,0 +1,74 @@
+{
+  "schemaVersion": 1,
+  "key": "edkdev/defi-trading-mcp",
+  "status": "ready",
+  "reason": "",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/edkdev/defi-trading-mcp/blob/c467b35eb637db4bab7bc224e643a339da6d26b3/README.md",
+  "sourceRevision": "c467b35eb637db4bab7bc224e643a339da6d26b3",
+  "canonicalKey": "edkdev/defi-trading-mcp",
+  "summary": "一个 MCP Server，让 AI 助手能够查询多链行情和钱包资产，并使用本地私钥签名执行加密货币兑换交易。",
+  "intro": "适合已经在使用 MCP 客户端、并了解链上交易风险的加密货币用户。接入后，AI 可以调用组合查询（get_portfolio_tokens 等）、市场分析（get_trending_pools、get_pool_ohlcv 等）、兑换报价与执行（get_swap_quote、execute_swap）以及 gasless 交易等工具。README 覆盖 Claude Code、Claude Desktop、Cursor、Kiro 等宿主，下文以 macOS/Linux/WSL 上的 Claude Code 为例。",
+  "requirements": "需要 Node.js/npm 和 Claude Code。必需配置：钱包私钥 USER_PRIVATE_KEY、钱包地址 USER_ADDRESS、CoinGecko API Key COINGECKO_API_KEY。ALCHEMY_API_KEY 为可选项，不填时使用公共 RPC。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "创建专用交易钱包",
+      "text": "README 推荐用 npx defi-trading-mcp@latest --create-wallet 生成新钱包，得到私钥和地址。如何向钱包充值，请参考仓库中的 loadCrypto.md。",
+      "code": "npx defi-trading-mcp@latest --create-wallet",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/edkdev/defi-trading-mcp/blob/c467b35eb637db4bab7bc224e643a339da6d26b3/README.md?plain=1#L67"
+      }
+    },
+    {
+      "title": "准备 CoinGecko 等 API Key",
+      "text": "按仓库 gecko.md 的说明获取 CoinGecko API Key，用于获取市场数据。如果希望使用自己的 RPC，可以另外准备 Alchemy API Key，不提供时使用公共 RPC。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/edkdev/defi-trading-mcp/blob/c467b35eb637db4bab7bc224e643a339da6d26b3/README.md?plain=1#L79"
+      }
+    },
+    {
+      "title": "用 npm 全局安装 MCP",
+      "text": "在 macOS/Linux/WSL 终端中执行 npm install -g defi-trading-mcp，完成全局安装。",
+      "code": "npm install -g defi-trading-mcp",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/edkdev/defi-trading-mcp/blob/c467b35eb637db4bab7bc224e643a339da6d26b3/README.md?plain=1#L139"
+      }
+    },
+    {
+      "title": "在 Claude Code 中添加 MCP",
+      "text": "使用 claude mcp add defi-trading 命令，通过 -e 传入私钥、钱包地址、CoinGecko 和 Alchemy 的 Key，并以 npx defi-trading-mcp@latest 启动。执行前请把命令中的占位符替换成你自己的值。",
+      "code": "claude mcp add defi-trading \\\n  -e USER_PRIVATE_KEY=your_private_key_here \\\n  -e USER_ADDRESS=0xYourWalletAddress \\\n  -e COINGECKO_API_KEY=CG-your_coingecko_api_key \\\n  -e ALCHEMY_API_KEY=your_alchemy_api_key \\\n  -- npx defi-trading-mcp@latest",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/edkdev/defi-trading-mcp/blob/c467b35eb637db4bab7bc224e643a339da6d26b3/README.md?plain=1#L139"
+      }
+    },
+    {
+      "title": "确认 MCP 已成功注册",
+      "text": "执行 claude mcp list，确认列表中有 defi-trading。如果之后需要更换私钥或钱包地址，先用 claude mcp remove defi-trading 删除，再按新信息重新添加。",
+      "code": "claude mcp list\n\n# Remove existing configuration\nclaude mcp remove defi-trading\n\n# Add back with updated wallet details\nclaude mcp add defi-trading \\\n  -e USER_PRIVATE_KEY=your_new_private_key \\\n  -e USER_ADDRESS=0xYourNewWalletAddress \\\n  -e COINGECKO_API_KEY=CG-your_coingecko_api_key \\\n  -e ALCHEMY_API_KEY=your_alchemy_api_key \\\n  -- npx defi-trading-mcp@latest",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/edkdev/defi-trading-mcp/blob/c467b35eb637db4bab7bc224e643a339da6d26b3/README.md?plain=1#L139"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "配置中需要填写钱包私钥，私钥会写入 MCP 客户端配置。建议使用 README 推荐的新建专用钱包，只存入可以承受损失的资金。",
+    "execute_swap、submit_gasless_swap 等工具会执行真实的链上交易。README 示例中，AI 可以自主下单或执行止损，请在每次交易前自行确认金额、链和代币。",
+    "README 中关于收益、MEV 防护、数据不外传的说法均为项目方自述，未经验证。新发行代币和 memecoin 价格波动大，风险高。",
+    "仓库未声明开源许可证（license 为空），使用和再分发前请注意授权情况。",
+    "在原生 Windows（非 WSL）上，README 要求在 npx 前加 cmd /c，否则可能出现 Connection closed 错误。"
+  ],
+  "references": [],
+  "media": [],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "fa9a8b0bd2d613307a4ff0afa64a7d93b4d8b288ac7a59dffe2b01a0e7eaf181",
+  "mediaStatus": "none_in_official_documents"
+}

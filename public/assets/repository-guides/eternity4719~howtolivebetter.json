@@ -1,0 +1,72 @@
+{
+  "schemaVersion": 1,
+  "key": "eternity4719/howtolivebetter",
+  "status": "ready",
+  "reason": "",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/eternity4719/HowToLiveBetter/blob/6f6d969abe19fd4aa8b30979d634f2a187be0a55/README.md",
+  "sourceRevision": "6f6d969abe19fd4aa8b30979d634f2a187be0a55",
+  "canonicalKey": "eternity4719/HowToLiveBetter",
+  "summary": "一本按性价比排序的中文生活决策指南，共 649 条建议，可在线检索、下载电子版或通过 AI skill 查询。",
+  "intro": "适合想在健康、急救、理财、法律、社保医保、就业工伤、婚育、创业合规、出国等方面查找具体做法的中国大陆读者。每条建议写明成本、收益、证据等级（A/B/C）和原始出处，只引期刊论文与官方文件。它是备选单而非任务清单，可按问题、章节或筛选条件查阅需要的条目。",
+  "requirements": "在线阅读只需浏览器；离线可下载 PDF、EPUB 或单文件 HTML。使用 AI 查询需 Claude Code 或 Codex。自行部署检索页需 git 和 Python；自行构建电子版还需 Node.js，PDF 另需 pandoc ≥ 3.1 和 typst ≥ 0.13。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "按问题表找到对应章节",
+      "text": "在 README 的“这本书想回答的问题”表中找到与你处境最接近的问题，点击进入 book/ 目录下对应章节，如被裁看第 19 节、急救看第 13 节。每节内条目按性价比从高到低排列，从前几条读起即可。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/eternity4719/HowToLiveBetter/blob/6f6d969abe19fd4aa8b30979d634f2a187be0a55/README.md?plain=1#L56"
+      }
+    },
+    {
+      "title": "用在线检索页叠加条件筛选",
+      "text": "打开在线检索页，可按关键词、章节、证据等级筛选，也可按是否花钱、花多少时间、要不要毅力筛选，条件可叠加。勾选证据等级 A 只看结论最硬的条目，勾选性价比“极高”可看最省力的条目。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/eternity4719/HowToLiveBetter/blob/6f6d969abe19fd4aa8b30979d634f2a187be0a55/README.md?plain=1#L95"
+      }
+    },
+    {
+      "title": "读懂每条的说人话与证据",
+      "text": "每条建议包含成本、说人话、收益、证据等级、来源和备注。只看“说人话”即可拿主意，要核对数字就看“收益”栏；遇到 HR、RR、95% CI 等术语查术语表。注意百分比多为相对风险变化。",
+      "code": "### 5. 把家里的食盐换成低钠盐（钾盐）\n- 成本：一袋比普通盐贵几元。买的时候顺手换，不额外占时间。口味几乎不变。\n- 说人话：得过中风或 60 岁以上有高血压的人，把家里的盐换成低钠盐，五年内死亡的概率低约 12%，中风低约 14%。\n- 收益：一项把人随机分成两组的试验，在中国农村做的，20995 人，都是得过卒中的人或者 60 岁以上的高血压病人，跟踪了 4.74 年。结果：用低钠盐的那组比用普通盐的那组，死亡风险低约 12%（RR 0.88）。卒中低约 14%（RR 0.86）。主要心血管事件低约 13%（RR 0.87）。\n- 证据等级：A\n- 来源：Neal B 等 (2021). Effect of Salt Substitution on Cardiovascular Events and Death. NEJM. https://doi.org/10.1056/NEJMoa2105675\n- 备注：争议。试验对象是高危老人，健康年轻人换盐得到的好处要小得多。肾功能不全的人，或者正在吃保钾类药物的人，换盐前先问医生。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/eternity4719/HowToLiveBetter/blob/6f6d969abe19fd4aa8b30979d634f2a187be0a55/README.md?plain=1#L95"
+      }
+    },
+    {
+      "title": "下载离线版或安装 AI skill",
+      "text": "需要离线阅读时，从 Release 下载 PDF、EPUB 或离线单文件 HTML，HTML 双击即可打开并保留检索功能。想让 Claude Code 或 Codex 照书回答，按 skills/life-decision-guide/README.md 的说明安装该 skill。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/eternity4719/HowToLiveBetter/blob/6f6d969abe19fd4aa8b30979d634f2a187be0a55/README.md?plain=1#L18"
+      }
+    },
+    {
+      "title": "需要时在本地部署检索页",
+      "text": "多数人无需部署。如确需在自己电脑运行，克隆仓库后在目录下启动 Python 静态服务器，再用浏览器打开 http://localhost:8000/。index.html 必须经 http 打开，直接双击会显示空白。",
+      "code": "git clone https://github.com/eternity4719/HowToLiveBetter.git\ncd HowToLiveBetter\npython -m http.server 8000",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/eternity4719/HowToLiveBetter/blob/6f6d969abe19fd4aa8b30979d634f2a187be0a55/README.md?plain=1#L123"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "法律、医保、社保等制度内容按中国大陆现行规定撰写，且法条、补贴标准和截止日期经常变化，请以最新官方规定为准。",
+    "涉及用药、疾病和急救的条目不能替代医生诊断，条目备注中也提示特定人群需先咨询医生。",
+    "“性价比”分档是作者个人判断，按本书标准仅算 C 级，与证据等级无关；A 级也不代表一定是因果关系。",
+    "转发出去的电子版不会自动更新；其他语言版本和衍生工具由他人维护，可能落后，以本仓库中文原文为准。",
+    "正文（book/、docs/、README）采用 CC BY 4.0，转载需注明出处、附许可链接并标明修改；代码部分为 MIT。"
+  ],
+  "references": [],
+  "media": [],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "076f0e3f352b3ad15b301b3f2ce099cb96e218424f8af7b6bd0e97f5eadb588c",
+  "mediaStatus": "none_in_official_documents"
+}

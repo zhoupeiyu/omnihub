@@ -1,0 +1,90 @@
+{
+  "schemaVersion": 1,
+  "key": "usagi-org/ai-goofish-monitor",
+  "status": "ready",
+  "reason": "",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/Usagi-org/ai-goofish-monitor/blob/f85d140b6b45029d9a0925feb96dad733b41396d/README.md",
+  "sourceRevision": "f85d140b6b45029d9a0925feb96dad733b41396d",
+  "canonicalKey": "Usagi-org/ai-goofish-monitor",
+  "summary": "基于 Playwright 和 AI 的闲鱼多任务商品监控系统，带 Web 管理界面，可筛选、分析商品并推送通知。",
+  "intro": "适合需要在闲鱼上持续蹲守特定商品的用户。可按关键词、价格、发布时间、省/市/区区域等条件建立多个监控任务，由多模态模型分析商品；符合要求时通过 ntfy、企业微信、Bark、Telegram、Webhook 等渠道推送，并支持 Cron 定时调度和账号/代理轮换。",
+  "requirements": "推荐使用 Docker 与 docker compose 部署（镜像已内置 Chromium）。需要一个 OpenAI 兼容接口的 API Key、接口地址，以及支持图片输入的模型名称；导出闲鱼登录态需要 Chrome 浏览器与对应扩展。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "克隆仓库并填写 .env",
+      "text": "按 Docker 部署流程克隆仓库，复制 .env.example 为 .env，填写必填项 OPENAI_API_KEY、OPENAI_BASE_URL、OPENAI_MODEL_NAME（须为支持图片输入的模型），并建议同时设置 WEB_USERNAME 和 WEB_PASSWORD。",
+      "code": "git clone https://github.com/Usagi-org/ai-goofish-monitor && cd ai-goofish-monitor\ncp .env.example .env\nvim .env # 填写相关配置项\ndocker compose up -d\ndocker compose logs -f app\ndocker compose down",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/Usagi-org/ai-goofish-monitor/blob/f85d140b6b45029d9a0925feb96dad733b41396d/README.md?plain=1#L26"
+      }
+    },
+    {
+      "title": "用 docker compose 启动服务",
+      "text": "在仓库目录执行 docker compose up -d 启动，可用 docker compose logs -f app 查看日志。数据保存在 data/、state/、prompts/、logs/ 等挂载目录中。若镜像拉取较慢，可使用 README 提供的加速镜像。",
+      "code": "git clone https://github.com/Usagi-org/ai-goofish-monitor && cd ai-goofish-monitor\ncp .env.example .env\nvim .env # 填写相关配置项\ndocker compose up -d\ndocker compose logs -f app\ndocker compose down\n\n\ndocker pull ghcr.nju.edu.cn/usagi-org/ai-goofish:latest\ndocker tag ghcr.nju.edu.cn/usagi-org/ai-goofish:latest ghcr.io/usagi-org/ai-goofish:latest\ndocker compose up -d\n",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/Usagi-org/ai-goofish-monitor/blob/f85d140b6b45029d9a0925feb96dad733b41396d/README.md?plain=1#L26"
+      }
+    },
+    {
+      "title": "登录 Web UI 管理后台",
+      "text": "浏览器访问 http://127.0.0.1:8000 并登录。未自定义时，默认账号密码为 admin/admin123，生产环境务必修改。若修改了 SERVER_PORT，需要同步更新 docker-compose.yaml 中的端口映射。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/Usagi-org/ai-goofish-monitor/blob/f85d140b6b45029d9a0925feb96dad733b41396d/README.md?plain=1#L81"
+      }
+    },
+    {
+      "title": "导入闲鱼账号登录态",
+      "text": "进入“闲鱼账号管理”，用官方说明中的 Chrome 扩展导出闲鱼登录态 JSON 并粘贴保存，文件会写入 state/ 目录，例如 state/acc_1.json。之后可以更新或删除登录态。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/Usagi-org/ai-goofish-monitor/blob/f85d140b6b45029d9a0925feb96dad733b41396d/README.md?plain=1#L81"
+      }
+    },
+    {
+      "title": "创建任务并绑定账号运行",
+      "text": "在“任务管理”中新建任务：选择 AI 判断时填写详细需求，系统会在后台生成分析标准；选择关键词判断则直接创建。设置价格、区域、定时规则并绑定账号后即可运行，在结果页和日志页查看进度。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/Usagi-org/ai-goofish-monitor/blob/f85d140b6b45029d9a0925feb96dad733b41396d/README.md?plain=1#L81"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "需遵守闲鱼用户协议和 robots.txt，避免过于频繁的请求，否则可能导致账号被限制；项目声明仅供学习和技术研究使用。",
+    "Web UI 默认账号密码为 admin/admin123，对外暴露服务前必须修改。",
+    "AI 分析会调用你配置的 OpenAI 兼容接口，相关费用由该接口提供方决定；区域筛选会显著缩小结果集，默认建议留空。"
+  ],
+  "references": [],
+  "media": [
+    {
+      "url": "/assets/repository-guides/media-c4956beb94341c4d46bea1a9.webp",
+      "alt": "任务管理",
+      "sourceUrl": "https://github.com/Usagi-org/ai-goofish-monitor/blob/f85d140b6b45029d9a0925feb96dad733b41396d/README.md?plain=1#L22",
+      "originalUrl": "https://raw.githubusercontent.com/Usagi-org/ai-goofish-monitor/f85d140b6b45029d9a0925feb96dad733b41396d/static/img_1.png"
+    },
+    {
+      "url": "/assets/repository-guides/media-9b3782f2d8571bb150a53253.webp",
+      "alt": "结果查看",
+      "sourceUrl": "https://github.com/Usagi-org/ai-goofish-monitor/blob/f85d140b6b45029d9a0925feb96dad733b41396d/README.md?plain=1#L23",
+      "originalUrl": "https://raw.githubusercontent.com/Usagi-org/ai-goofish-monitor/f85d140b6b45029d9a0925feb96dad733b41396d/static/img_2.png"
+    },
+    {
+      "url": "/assets/repository-guides/media-888c59e9ce06dcceb4e3ec64.webp",
+      "alt": "监控概览",
+      "sourceUrl": "https://github.com/Usagi-org/ai-goofish-monitor/blob/f85d140b6b45029d9a0925feb96dad733b41396d/README.md?plain=1#L21",
+      "originalUrl": "https://raw.githubusercontent.com/Usagi-org/ai-goofish-monitor/f85d140b6b45029d9a0925feb96dad733b41396d/static/img.png"
+    }
+  ],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "48962b661867744eb011aef43c4cb17c896a8357f5928ad4b143b4584a572ba1",
+  "mediaStatus": "archived",
+  "mediaFailures": []
+}

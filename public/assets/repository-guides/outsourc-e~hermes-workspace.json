@@ -1,0 +1,84 @@
+{
+  "schemaVersion": 1,
+  "key": "outsourc-e/hermes-workspace",
+  "status": "ready",
+  "reason": "",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/outsourc-e/hermes-workspace/blob/c631425d8baa933f8c61d8447040f4ec8b5f571c/README.md",
+  "sourceRevision": "c631425d8baa933f8c61d8447040f4ec8b5f571c",
+  "canonicalKey": "outsourc-e/hermes-workspace",
+  "summary": "Hermes Workspace 是 Hermes Agent 的 Web 工作区，把聊天、文件、终端、记忆、技能、任务和多智能体调度集中在一个界面中。",
+  "intro": "适合已使用或打算使用 NousResearch hermes-agent 的用户，也适合想为 OpenAI 兼容后端配一个完整前端的用户。它可以连接任意 OpenAI 兼容后端进行聊天。如果后端提供 Hermes Agent 网关和 dashboard API，还会自动启用会话、记忆、技能、任务、Conductor 等增强功能。也可安装为 PWA，并通过 Tailscale 远程访问。",
+  "requirements": "Node.js 22+ 和 pnpm（文档命令使用 pnpm）。需要一个 OpenAI 兼容后端，或通过 hermes-agent 网关接入。hermes-agent 必须能访问到某个模型：配置提供商 API key，或使用 Ollama 等本地服务。在本地运行 Hermes Agent 网关可选用 Python 3.11+。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "安装 hermes-agent 并启动网关",
+      "text": "以手动安装为例：用 Nous 官方安装脚本安装 hermes-agent，运行 hermes setup 配置模型提供商，再运行 hermes gateway run 启动网关。若已在使用其他 OpenAI 兼容服务，记下它的 base URL 即可。 原文包含需人工核查的高权限或删除命令，本站不提供一键复制；请查看该步骤的官方出处。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/outsourc-e/hermes-workspace/blob/c631425d8baa933f8c61d8447040f4ec8b5f571c/README.md?plain=1#L183"
+      }
+    },
+    {
+      "title": "克隆并启动 Hermes Workspace",
+      "text": "在新终端中克隆仓库，执行 pnpm install，复制 .env.example 为 .env，并写入 HERMES_API_URL 指向网关（默认 127.0.0.1:8642）。然后运行 pnpm dev。",
+      "code": "# In a new terminal\ngit clone https://github.com/outsourc-e/hermes-workspace.git\ncd hermes-workspace\npnpm install\ncp .env.example .env\nprintf '\\nHERMES_API_URL=http://127.0.0.1:8642\\n' >> .env\npnpm dev                   # Starts on http://localhost:3000",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/outsourc-e/hermes-workspace/blob/c631425d8baa933f8c61d8447040f4ec8b5f571c/README.md?plain=1#L203"
+      }
+    },
+    {
+      "title": "启用 dashboard 解锁完整功能",
+      "text": "在 ~/.hermes/.env 中设置 API_SERVER_ENABLED=true，分别运行 hermes gateway run 和 hermes dashboard，并为工作区同时设置 HERMES_API_URL 与 HERMES_DASHBOARD_URL。两项服务都可访问时，会话、记忆、技能等功能会自动解锁。",
+      "code": "API_SERVER_ENABLED=true\n\nhermes gateway run          # Starts core APIs on :8642\nhermes dashboard            # Starts dashboard APIs on :9119\nHERMES_API_URL=http://127.0.0.1:8642 \\\nHERMES_DASHBOARD_URL=http://127.0.0.1:9119 \\\npnpm dev",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/outsourc-e/hermes-workspace/blob/c631425d8baa933f8c61d8447040f4ec8b5f571c/README.md?plain=1#L276"
+      }
+    },
+    {
+      "title": "打开工作区完成引导并验证",
+      "text": "访问 http://localhost:3000，在引导流程中先连接后端，再确认聊天可用。若网关或 dashboard 任一不可达，工作区会退回便携模式：聊天可用，会话、技能、记忆显示 Not Available。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/outsourc-e/hermes-workspace/blob/c631425d8baa933f8c61d8447040f4ec8b5f571c/README.md?plain=1#L203"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "未配置任何模型提供商或本地模型服务时，第一条聊天消息就会失败。使用提供商 API key 可能产生对应服务的费用。",
+    "HOST 不是 127.0.0.1 时必须设置 HERMES_PASSWORD。纯 HTTP 局域网部署需要 COOKIE_SECURE=0，否则登录会失败。不建议用 HERMES_ALLOW_INSECURE_REMOTE 绕过安全限制。",
+    "网关设置了 API_SERVER_KEY 时，工作区的 HERMES_API_TOKEN 必须与之一致，否则所有请求都会返回 Unauthorized。",
+    "默认模型为 gpt-5.4 / openai-codex 时，需要保证 Codex CLI 已登录（codex login）。",
+    "托管云版本标注为 Coming Soon，目前只能自托管。"
+  ],
+  "references": [],
+  "media": [
+    {
+      "url": "/assets/repository-guides/media-9380cd8ab45f1350478b852e.webp",
+      "alt": "outsourc-e/hermes-workspace 官方演示 1",
+      "sourceUrl": "https://github.com/outsourc-e/hermes-workspace/blob/c631425d8baa933f8c61d8447040f4ec8b5f571c/README.md?plain=1#L66",
+      "originalUrl": "https://raw.githubusercontent.com/outsourc-e/hermes-workspace/c631425d8baa933f8c61d8447040f4ec8b5f571c/docs/screenshots/chat.png"
+    },
+    {
+      "url": "/assets/repository-guides/media-243dec2e92cb9af4e46de2ee.webp",
+      "alt": "outsourc-e/hermes-workspace 官方演示 2",
+      "sourceUrl": "https://github.com/outsourc-e/hermes-workspace/blob/c631425d8baa933f8c61d8447040f4ec8b5f571c/README.md?plain=1#L70",
+      "originalUrl": "https://raw.githubusercontent.com/outsourc-e/hermes-workspace/c631425d8baa933f8c61d8447040f4ec8b5f571c/docs/screenshots/dashboard.png"
+    },
+    {
+      "url": "/assets/repository-guides/media-22842a897b2a8f88323352c4.webp",
+      "alt": "outsourc-e/hermes-workspace 官方演示 3",
+      "sourceUrl": "https://github.com/outsourc-e/hermes-workspace/blob/c631425d8baa933f8c61d8447040f4ec8b5f571c/README.md?plain=1#L66",
+      "originalUrl": "https://raw.githubusercontent.com/outsourc-e/hermes-workspace/c631425d8baa933f8c61d8447040f4ec8b5f571c/docs/screenshots/conductor.png"
+    }
+  ],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "72114091d80b86f5ddef8f78428c055cbcf913ee5b823c8f52db596755b85e82",
+  "mediaStatus": "archived",
+  "mediaFailures": []
+}

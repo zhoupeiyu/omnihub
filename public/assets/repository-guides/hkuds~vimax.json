@@ -1,0 +1,83 @@
+{
+  "schemaVersion": 1,
+  "key": "hkuds/vimax",
+  "status": "ready",
+  "reason": "",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/HKUDS/ViMax/blob/fd4b72e7731be6e5f88486206d25ea59849b0285/readme.md",
+  "sourceRevision": "fd4b72e7731be6e5f88486206d25ea59849b0285",
+  "canonicalKey": "HKUDS/ViMax",
+  "summary": "ViMax 是一个代理式视频生成框架，可以把创意、剧本或小说经过编剧、分镜、出图、生视频和组装，生成多镜头视频。",
+  "intro": "适合想用 AI 从概念或剧本制作较长、多场景视频的创作者和开发者。它提供 Idea2Video、Script2Video、Novel2Video、AutoCameo 等工作流，可以在 TUI 或 Web UI 中与 ViMax Agent 讨论创意、修改计划、恢复会话，并查看产物和渲染进度。",
+  "requirements": "操作系统为 Linux 或 Windows；需要先安装 uv；需要自行准备 LLM、图像生成和视频生成服务的模型与 API key。使用 Web UI 还需要 Node.js 18 及以上版本。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "克隆仓库并用 uv 安装依赖",
+      "text": "按 uv 官方说明安装 uv，然后克隆 ViMax 仓库，进入目录执行 uv sync 安装环境。文档列出的支持系统是 Linux 和 Windows。",
+      "code": "OS: Linux, Windows\n\ngit clone https://github.com/HKUDS/ViMax.git\ncd ViMax\nuv sync",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/HKUDS/ViMax/blob/fd4b72e7731be6e5f88486206d25ea59849b0285/readme.md?plain=1#L214"
+      }
+    },
+    {
+      "title": "复制一份本地私有配置文件",
+      "text": "把仓库中的 configs/agent.example.yaml 复制为 configs/agent.local.yaml，作为 Agent TUI 和 Web UI 共用的私有配置，避免直接修改受版本控制的示例文件。",
+      "code": "cp configs/agent.example.yaml configs/agent.local.yaml",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/HKUDS/ViMax/blob/fd4b72e7731be6e5f88486206d25ea59849b0285/readme.md?plain=1#L220"
+      }
+    },
+    {
+      "title": "填写 LLM、图像与视频模型信息",
+      "text": "在 agent.local.yaml 中分别填写 llm、image、video 三部分的 model、base_url、api_key。也可以让该文件留空，改用 VIMAX_LLM_API_KEY、VIMAX_IMAGE_API_KEY、VIMAX_VIDEO_API_KEY 等环境变量提供相同的值。",
+      "code": "llm:\n  model_provider: openai\n  model: <YOUR_LLM_MODEL>\n  base_url: <YOUR_LLM_BASE_URL>\n  api_key: <YOUR_API_KEY>\n\nimage:\n  model: <YOUR_IMAGE_MODEL>\n  base_url: <YOUR_IMAGE_BASE_URL>\n  api_key: <YOUR_API_KEY>\n\nvideo:\n  model: <YOUR_VIDEO_MODEL>\n  base_url: <YOUR_VIDEO_BASE_URL>\n  api_key: <YOUR_API_KEY>",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/HKUDS/ViMax/blob/fd4b72e7731be6e5f88486206d25ea59849b0285/readme.md?plain=1#L220"
+      }
+    },
+    {
+      "title": "在根目录启动 Agent TUI",
+      "text": "在 ViMax 根目录运行 vimax tui 进入交互界面；也可以用 vimax tui new 新建会话，或用 vimax tui resume 加会话 ID 恢复已有会话，在其中讨论创意、修改计划并控制渲染。",
+      "code": "vimax tui\n\nvimax tui new\nvimax tui resume\nvimax tui resume <session_id>",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/HKUDS/ViMax/blob/fd4b72e7731be6e5f88486206d25ea59849b0285/readme.md?plain=1#L220"
+      }
+    },
+    {
+      "title": "可选：启动本地 Web UI 工作区",
+      "text": "在 web 目录执行 npm install 和 npm run dev，然后用浏览器打开 http://127.0.0.1:4173。Web UI 与 TUI 共用同一套 Agent 运行时和配置，支持命名项目、上传文件、预览分镜和渲染结果。端口可以通过 VIMAX_WEB_PORT 修改。",
+      "code": "cd web\nnpm install\nnpm run dev\n\nVIMAX_WEB_PORT=4174 npm run dev",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/HKUDS/ViMax/blob/fd4b72e7731be6e5f88486206d25ea59849b0285/readme.md?plain=1#L220"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "生成过程依赖第三方 LLM、图像和视频生成 API，需要自备 API key，相关费用按各服务商计费。",
+    "默认每个关键帧会并行生成 2 个候选，再用视觉模型挑选一个，文档说明这会增加 API 成本；把 num_candidates 设为 1 可以关闭选择。",
+    "configs/agent.local.yaml 中保存了 API key，请作为私有文件妥善保管。",
+    "Web UI 默认只绑定 127.0.0.1；在远程机器上运行时，文档建议用 SSH 端口转发访问。",
+    "文档的环境说明只列出 Linux 和 Windows。"
+  ],
+  "references": [],
+  "media": [
+    {
+      "url": "/assets/repository-guides/media-5db773dcb0823af9ede3a43f.webp",
+      "alt": "HKUDS/ViMax 官方演示 1",
+      "sourceUrl": "https://github.com/HKUDS/ViMax/blob/fd4b72e7731be6e5f88486206d25ea59849b0285/readme.md?plain=1#L154",
+      "originalUrl": "https://raw.githubusercontent.com/HKUDS/ViMax/fd4b72e7731be6e5f88486206d25ea59849b0285/assets/vimax-web-ui.png"
+    }
+  ],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "72c7e43a10bdb3e08799dfdf79ee3afb530bfdb5957e4d72b7a1f580c7f317d0",
+  "mediaStatus": "archived",
+  "mediaFailures": []
+}

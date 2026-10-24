@@ -1,0 +1,81 @@
+{
+  "schemaVersion": 1,
+  "key": "manavarya09/design-extract",
+  "status": "ready",
+  "reason": "",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/Manavarya09/design-extract/blob/fed355b34a3613b7950659a1898cd763d6c8f9d1/README.md",
+  "sourceRevision": "fed355b34a3613b7950659a1898cd763d6c8f9d1",
+  "canonicalKey": "Manavarya09/design-extract",
+  "summary": "designlang 是一个命令行工具，用无头浏览器读取任意网站的实时 DOM，一次导出设计令牌、Tailwind 配置、Figma 变量等设计系统文件。",
+  "intro": "适合需要分析或复用现有网站视觉规范的前端开发者和设计工程师。它可以抽取颜色、字体、间距、阴影、组件和动效，导出 DTCG tokens、Tailwind、shadcn/ui、Figma Variables 等格式，还提供 WCAG 对比度评分、整站一致性分析、克隆保真度评分和设计评级报告等子命令。",
+  "requirements": "Node 20+；需要通过 designlang install-browser 下载与内置 Playwright 匹配的 Chromium，或本机已安装 Google Chrome（工具会回退使用）。使用 --smart 时需要配置 Atlas Cloud、OpenAI 或 Anthropic 的 API Key。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "全局安装 designlang CLI",
+      "text": "用 npm 全局安装 designlang。README 说明 npm install 不再自动下载浏览器，因此可以在 CI、Docker 或代理环境中使用；同一代码块中的 npx skills add 是作为智能体技能安装的另一种方式，按需选用。",
+      "code": "npm i -g designlang                         # global\ndesignlang install-browser                  # one-time: the Chromium designlang drives\nnpx skills add Manavarya09/design-extract   # as an agent skill (40+ agents)",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/Manavarya09/design-extract/blob/fed355b34a3613b7950659a1898cd763d6c8f9d1/README.md?plain=1#L219"
+      }
+    },
+    {
+      "title": "一次性下载配套的 Chromium",
+      "text": "运行 designlang install-browser 获取与内置 Playwright 版本匹配的 Chromium；在裸 Linux 环境中需要加 --with-deps。如果跳过这一步，designlang 会尝试使用本机已安装的 Google Chrome。可以用 designlang doctor 检查 Node、Playwright、Chromium 和网络状态。",
+      "code": "npm i -g designlang                         # global\ndesignlang install-browser                  # one-time: the Chromium designlang drives\nnpx skills add Manavarya09/design-extract   # as an agent skill (40+ agents)",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/Manavarya09/design-extract/blob/fed355b34a3613b7950659a1898cd763d6c8f9d1/README.md?plain=1#L219"
+      }
+    },
+    {
+      "title": "对目标网址执行基础抽取",
+      "text": "执行 designlang <url> 抽取颜色、字体、间距、阴影、圆角、CSS 变量、断点、动画和组件。加 --full 会同时开启截图、响应式、交互状态、自动交互和运行时动效捕获；需要深色模式时加 --dark。",
+      "code": "npx designlang https://stripe.com                      # extract everything\nnpx designlang dna stripe.com                          # place it in the measured design space: neighbours + percentiles ← v13.1\nnpx designlang site stripe.com                         # whole-site: one canonical system + consistency grade ← v12.23\nnpx designlang fidelity stripe.com --clone localhost:3000  # score a clone vs the original (visual + motion) ← v12.24\nnpx designlang gallery                                 # static shareable gallery of measured clones      ← v12.24\nnpx designlang studio                                  # live token editor: edit, preview, export, share ← v12.19\nnpx designlang verify stripe.com                       # fidelity score: rebuild from tokens vs live ← v12.18\nnpx designlang pair stripe.com linear.app              # fuse two designs (visuals A × voice B)    ← v12.8\nnpx designlang brand stripe.com                        # full brand-guidelines book (13 chapters)  ← v12.7\nnpx designlang theme-swap stripe.com --primary \"#ff4800\"  # recolour around your brand        ← v12.6\nnpx designlang pack stripe.com                         # one polished design-system directory ← v12.4\nnpx designlang remix stripe.com --as cyberpunk         # restyle in another vocabulary       ← v12.3\nnpx designlang remix stripe.com --all                  # emit all 6 vocabs at once           ← v12.3\nnpx designlang grade https://stripe.com --badge        # report card + SVG badge             ← v12.2\nnpx designlang battle stripe.com vercel.com            # head-to-head graded fight           ← v12.2\nnpx designlang clone https://stripe.com                # working Next.js starter\nnpx designlang --full https://stripe.com               # screenshots + responsive + interactions",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/Manavarya09/design-extract/blob/fed355b34a3613b7950659a1898cd763d6c8f9d1/README.md?plain=1#L54"
+      }
+    },
+    {
+      "title": "在输出目录中查看生成文件",
+      "text": "每次运行会把 17 个以上的文件写入 ./design-extract-output/，包括 design-language.md、DTCG 令牌 JSON、tailwind.config.js、shadcn 主题 CSS、Figma 变量 JSON、组件 anatomy.tsx 和面向 v0、Cursor 等工具的提示词目录。使用 --platforms 还可以额外生成 iOS、Android、Flutter 和 WordPress 输出。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/Manavarya09/design-extract/blob/fed355b34a3613b7950659a1898cd763d6c8f9d1/README.md?plain=1#L290"
+      }
+    },
+    {
+      "title": "按需使用整站分析等子命令",
+      "text": "designlang site 会爬取首页、定价、文档等规范页面，合成一份去重的设计系统并给出一致性评分；grade 生成可分享的报告卡和徽章；fidelity 对比原站与克隆站的视觉和动效差异；dna 将设计放进语料库中做对比。",
+      "code": "npx designlang site stripe.com --max-pages 8\n\nnpx designlang fidelity https://stripe.com --clone http://localhost:3000\nnpx designlang fidelity https://stripe.com --clone http://localhost:3000 --min 90   # CI gate\n\nnpx designlang dna raycast.com",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/Manavarya09/design-extract/blob/fed355b34a3613b7950659a1898cd763d6c8f9d1/README.md?plain=1#L97"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "--smart 分类依赖第三方模型服务，需要自行配置 ATLASCLOUD_API_KEY、OPENAI_API_KEY 或 ANTHROPIC_API_KEY 等凭据。",
+    "抽取登录后页面时需要通过 --cookie、--cookie-file 或 --header 传入认证信息，请妥善保管这些凭据；--insecure 会忽略 HTTPS 证书错误，只应在开发环境中使用。",
+    "README 也提供 Claude Code 插件（/plugin marketplace add）和 MCP 服务器（npx designlang mcp）两种接入方式，与 CLI 是不同的使用入口。",
+    "抽取、克隆或重新设计他人网站时，应自行确认目标站点的使用条款和版权限制。"
+  ],
+  "references": [],
+  "media": [
+    {
+      "url": "/assets/repository-guides/media-ca4a95d819693af8d2449dff.webp",
+      "alt": "Manavarya09/design-extract 官方演示 1",
+      "sourceUrl": "https://github.com/Manavarya09/design-extract/blob/fed355b34a3613b7950659a1898cd763d6c8f9d1/README.md?plain=1#L23",
+      "originalUrl": "https://raw.githubusercontent.com/Manavarya09/design-extract/main/designlang.png"
+    }
+  ],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "35bdc940995fe491f0025890fc376f26d09ca25d48df5f748a7f06220ec06790",
+  "mediaStatus": "archived",
+  "mediaFailures": []
+}

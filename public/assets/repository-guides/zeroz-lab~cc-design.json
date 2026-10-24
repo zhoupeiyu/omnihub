@@ -1,0 +1,91 @@
+{
+  "schemaVersion": 1,
+  "key": "zeroz-lab/cc-design",
+  "status": "ready",
+  "reason": "",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/ZeroZ-lab/cc-design/blob/d5e10b4ffe694a1e99bcf88fc953cde6cde23930/README.md",
+  "sourceRevision": "d5e10b4ffe694a1e99bcf88fc953cde6cde23930",
+  "canonicalKey": "ZeroZ-lab/cc-design",
+  "summary": "一个面向 Claude Code 和 Codex 的设计 skill / 插件，按“理解—规划—审批—构建—验证”的流程产出高保真 HTML 设计和原型。",
+  "intro": "适合需要借助 AI agent 制作落地页、幻灯片、交互原型、交互式讲解、动画或设计系统的人。你可以通过提及设计流派或品牌名称来设定风格；它会先提出问题并给出执行计划，经你批准后再逐段构建，交付前会截图验证，并支持导出 PDF、PPTX、MP4 等格式。",
+  "requirements": "已安装 Claude Code（本指南以 Claude Code 为例）。核心安装没有额外依赖；导出和验证功能需要 Playwright 的 chromium，视频和音频导出需要 ffmpeg。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "在 Claude Code 中安装插件",
+      "text": "在 Claude Code 中依次执行三条命令：添加 ZeroZ-lab/cc-design marketplace，安装 cc-design@cc-design 插件，然后执行 /reload-plugins 让插件生效。Codex 用户请参考 README 中的 Codex 小节。",
+      "code": "# 1. Add the cc-design marketplace\n/plugin marketplace add ZeroZ-lab/cc-design\n\n# 2. Install the plugin\n/plugin install cc-design@cc-design\n\n# 3. Reload plugins to activate\n/reload-plugins",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/ZeroZ-lab/cc-design/blob/d5e10b4ffe694a1e99bcf88fc953cde6cde23930/README.md?plain=1#L13"
+      }
+    },
+    {
+      "title": "通过 design 命令激活 skill",
+      "text": "安装后用 /cc-design:design 命令激活 cc-design。注意 README 的平台集成表格写的是 /design，如果其中一个无效，可以尝试另一个。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/ZeroZ-lab/cc-design/blob/d5e10b4ffe694a1e99bcf88fc953cde6cde23930/README.md?plain=1#L13"
+      }
+    },
+    {
+      "title": "描述设计需求与风格方向",
+      "text": "直接说明要做的产物，例如落地页、幻灯片或交互原型。可以提及设计流派（如 Pentagram）或品牌名称（如 Stripe）来设定风格方向，具体流派列表见 references/design-styles.md。",
+      "code": "\"Design a landing page for our SaaS product\"\n\"Create a 10-slide pitch deck for the Q3 board meeting\"\n\"Build an interactive prototype of the checkout flow\"\n\"Create an interactive explainer showing how our RAG pipeline works\"\n\"Make a comparison explainer for React vs Vue\"\n\"Build a decision tree for tech stack selection\"\n\"Animate this logo reveal with the Pentagram style\"\n\"Export the deck as editable PPTX\"",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/ZeroZ-lab/cc-design/blob/d5e10b4ffe694a1e99bcf88fc953cde6cde23930/README.md?plain=1#L43"
+      }
+    },
+    {
+      "title": "回答问题并审批执行计划",
+      "text": "cc-design 会先提问以确定产物类型、受众和约束，然后给出包含目标、事实和假设的执行计划。你批准后它才开始写代码，并按段落预览，逐段由你确认，最后经过自检和截图验证再交付。",
+      "code": "Understand → Route → Plan → Approve → Build → Verify → Deliver",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/ZeroZ-lab/cc-design/blob/d5e10b4ffe694a1e99bcf88fc953cde6cde23930/README.md?plain=1#L110"
+      }
+    },
+    {
+      "title": "按需安装导出用的可选依赖",
+      "text": "如需导出 PDF、PPTX 或 MP4，或使用截图验证，请安装 Playwright 的 chromium；视频和音频导出还需要 ffmpeg。请只执行代码块中与你的系统对应的那一行（macOS、Ubuntu/Debian 或 Windows）。 原文包含需人工核查的高权限或删除命令，本站不提供一键复制；请查看该步骤的官方出处。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/ZeroZ-lab/cc-design/blob/d5e10b4ffe694a1e99bcf88fc953cde6cde23930/README.md?plain=1#L129"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "README 中激活命令有两种写法（/cc-design:design 与 /design），以实际安装后的提示为准。",
+    "品牌风格克隆会从外部站点 getdesign.md 加载设计系统；把品牌风格用于正式产品时，需要自行确认商标和授权。",
+    "仓库元数据未声明许可证，README 底部写的是 MIT，复用前请以仓库中的实际 LICENSE 文件为准。"
+  ],
+  "references": [],
+  "media": [
+    {
+      "url": "/assets/repository-guides/media-dce5052302a10be9d0deceac.webp",
+      "alt": "ZeroZ-lab/cc-design 官方演示 1",
+      "sourceUrl": "https://github.com/ZeroZ-lab/cc-design/blob/d5e10b4ffe694a1e99bcf88fc953cde6cde23930/README.md?plain=1#L60",
+      "originalUrl": "https://raw.githubusercontent.com/ZeroZ-lab/cc-design/d5e10b4ffe694a1e99bcf88fc953cde6cde23930/screenshots/previews/cc-design-home-preview.png"
+    },
+    {
+      "url": "/assets/repository-guides/media-33b039be526ca1a325262ab4.webp",
+      "alt": "ZeroZ-lab/cc-design 官方演示 2",
+      "sourceUrl": "https://github.com/ZeroZ-lab/cc-design/blob/d5e10b4ffe694a1e99bcf88fc953cde6cde23930/README.md?plain=1#L63",
+      "originalUrl": "https://raw.githubusercontent.com/ZeroZ-lab/cc-design/d5e10b4ffe694a1e99bcf88fc953cde6cde23930/screenshots/previews/cc-design-enterprise-preview.png"
+    },
+    {
+      "url": "/assets/repository-guides/media-eec93b28b11542e6b7aef80c.webp",
+      "alt": "ZeroZ-lab/cc-design 官方演示 3",
+      "sourceUrl": "https://github.com/ZeroZ-lab/cc-design/blob/d5e10b4ffe694a1e99bcf88fc953cde6cde23930/README.md?plain=1#L69",
+      "originalUrl": "https://raw.githubusercontent.com/ZeroZ-lab/cc-design/d5e10b4ffe694a1e99bcf88fc953cde6cde23930/screenshots/previews/cc-design-glass-preview.png"
+    }
+  ],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "4d9777af281386df44be891093a496dbef209569a6a08dbd50eed63b13a8eb9c",
+  "mediaStatus": "archived",
+  "mediaFailures": []
+}

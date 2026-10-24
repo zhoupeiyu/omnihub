@@ -1,0 +1,73 @@
+{
+  "schemaVersion": 1,
+  "key": "rookie-ricardo/erduo-skills",
+  "status": "ready",
+  "reason": "",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/rookie-ricardo/erduo-skills/blob/1fb6ec5df76c01dc43fb71631b8ae6121b9251df/README.md",
+  "sourceRevision": "1fb6ec5df76c01dc43fb71631b8ae6121b9251df",
+  "canonicalKey": "rookie-ricardo/erduo-skills",
+  "summary": "Erduo Skills 是一个 AI Agent 技能库，包含技术日报、RSS 精选、转录精修、翻译精修、网页转 Markdown、Anthropic 风格图表、Gemini 水印移除等技能。",
+  "intro": "适合使用支持 skills 的 AI Agent（如 Claude Code）的用户，按需为 Agent 增加信息获取、内容处理和图像处理能力。每个技能都是 skills/ 下的独立目录，可以整库安装，也可以只装单个技能，然后用自然语言让 Agent 调用。部分技能同时提供可直接运行的 CLI 脚本。",
+  "requirements": "按 README 的快捷安装方式需要能运行 npx（skills CLI）。部分 CLI 脚本另有要求：web-to-markdown 和 anthropic-style-diagram 需要 Node 和 npm install，后者依赖 playwright；ak-rss-digest 和 gemini-watermark-remover 需要 Python，水印移除依赖 Pillow。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "按技能一览表选择所需技能",
+      "text": "先查看 README 的技能一览表，确认每个技能的用途和调用方式（Agent 调用或 CLI）。例如：生成技术日报选 daily-news-report，处理字幕稿选 transcript-polisher，画架构图选 anthropic-style-diagram。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/rookie-ricardo/erduo-skills/blob/1fb6ec5df76c01dc43fb71631b8ae6121b9251df/README.md?plain=1#L17"
+      }
+    },
+    {
+      "title": "用 skills CLI 安装整库或单个技能",
+      "text": "执行 npx skills add rookie-ricardo/erduo-skills 安装全部技能；只需要其中一个时，追加 --skill <名称>，例如 --skill daily-news-report。各技能章节开头都给出了对应的安装命令。",
+      "code": "npx skills add rookie-ricardo/erduo-skills\n\nnpx skills add rookie-ricardo/erduo-skills --skill daily-news-report",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/rookie-ricardo/erduo-skills/blob/1fb6ec5df76c01dc43fb71631b8ae6121b9251df/README.md?plain=1#L11"
+      }
+    },
+    {
+      "title": "在 Agent 中用自然语言调用技能",
+      "text": "安装后直接向 Agent 下达任务即可。README 给出的示例有：「生成今天的日报。」「用 $ak-rss-digest 拉取最近一周的 RSS」。翻译精修师还支持 /translate 命令，可带 --from、--to、--style 等参数。",
+      "code": "/translate [--from <lang>] [--to <lang>] [--audience <audience>] [--style <style>] [--glossary <file>] <source>",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/rookie-ricardo/erduo-skills/blob/1fb6ec5df76c01dc43fb71631b8ae6121b9251df/README.md?plain=1#L31"
+      }
+    },
+    {
+      "title": "按需直接运行技能自带脚本",
+      "text": "部分技能可以脱离 Agent 单独使用。进入 skills/web-to-markdown 后执行 npm install，再运行 url_to_markdown.mjs 抓取网页；anthropic-style-diagram 用 render.mjs 渲染 SVG，--check 参数只审计版式、不产出文件。",
+      "code": "cd skills/web-to-markdown\nnpm install\nnode scripts/url_to_markdown.mjs <url>\nnode scripts/url_to_markdown.mjs <url> --json\n\ncd skills/anthropic-style-diagram\nnpm install   # 若全局已装 playwright 可跳过\nnode scripts/render.mjs diagram.svg -o ~/Downloads/architecture.png\nnode scripts/render.mjs diagram.svg -o out.png --theme both --scale 3 --svg\nnode scripts/render.mjs diagram.svg --check   # 只审计版式，不产出文件",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/rookie-ricardo/erduo-skills/blob/1fb6ec5df76c01dc43fb71631b8ae6121b9251df/README.md?plain=1#L164"
+      }
+    },
+    {
+      "title": "运行 Python 脚本处理 RSS 或图片",
+      "text": "ak-rss-digest 的抓取脚本支持 --format json，也可以用 --date、--days 指定日期范围。gemini-watermark-remover 只需传入输入图片和输出图片路径，算法细节见该技能目录下的 references/algorithm.md。",
+      "code": "# 也可直接运行抓取脚本\npython skills/ak-rss-digest/scripts/fetch_today_feed_items.py --format json\n\n# 指定某一天\npython skills/ak-rss-digest/scripts/fetch_today_feed_items.py --date 2026-03-18 --days 1\n\npython skills/gemini-watermark-remover/scripts/remove_watermark.py <输入图片> <输出图片>",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/rookie-ricardo/erduo-skills/blob/1fb6ec5df76c01dc43fb71631b8ae6121b9251df/README.md?plain=1#L73"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "翻译精修师只支持 ZH↔EN 和 ZH↔JA，不支持 EN↔JA 直译。",
+    "翻译精修师和 Web To Markdown 默认通过 r.jina.ai、defuddle.md 等第三方服务抓取正文，内容会经过外部服务。",
+    "README 说明本仓库可作为 Claude Code plugin marketplace 注册，但提供的材料中缺少具体命令，因此本指南未包含这条路径。",
+    "使用水印移除功能前，请确认你有权处理相应图片。"
+  ],
+  "references": [],
+  "media": [],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "d63df9d6f19f1c52c92a3e3a7fa0ff9d599622cc7cfefb429f95e9554eb9836f",
+  "mediaStatus": "none_in_official_documents"
+}

@@ -1,0 +1,63 @@
+{
+  "schemaVersion": 1,
+  "key": "leilei926524-tech/anti-distill",
+  "status": "ready",
+  "reason": "",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/leilei926524-tech/anti-distill/blob/21e6aa9c72a03a5456eeb4cd63234a2fa2935387/README.md",
+  "sourceRevision": "21e6aa9c72a03a5456eeb4cd63234a2fa2935387",
+  "canonicalKey": "leilei926524-tech/anti-distill",
+  "summary": "一个 Agent Skill：读取你写好的 Skill 或知识文档，生成核心经验被替换为泛化表述的“清洗版”和保留原内容的“私人备份”两份文件。",
+  "intro": "适合被要求把个人工作经验整理成 AI Skill、又想先看清哪些内容属于核心知识的使用者。它支持 colleague-skill 格式和任意知识文档，会判断每段内容的“可替代程度”，按所选强度把具体经验改写成笼统说法，同时把被抽掉的踩坑经验、判断直觉和人际知识另存一份私人备份。",
+  "requirements": "已安装 Claude Code（README 同时给出 OpenClaw 安装方式）；本机可用 git；准备好待处理的 Skill 文件或知识文档。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "把仓库克隆到 Claude Code 技能目录",
+      "text": "以 Claude Code 为例：可在项目内创建 .claude/skills 后克隆到 .claude/skills/anti-distill，也可克隆到全局的 ~/.claude/skills/anti-distill。README 中的 <repo-url> 是占位符，需要替换为本仓库的实际地址。",
+      "code": "# 安装到当前项目\nmkdir -p .claude/skills\ngit clone <repo-url> .claude/skills/anti-distill\n\n# 或安装到全局\ngit clone <repo-url> ~/.claude/skills/anti-distill",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/leilei926524-tech/anti-distill/blob/21e6aa9c72a03a5456eeb4cd63234a2fa2935387/README.md?plain=1#L182"
+      }
+    },
+    {
+      "title": "在 Claude Code 中调用 /anti-distill",
+      "text": "安装完成后，在 Claude Code 对话中输入 /anti-distill 启动该 Skill，然后按提示选择要处理的 Skill 文件或知识文档。",
+      "code": "/anti-distill",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/leilei926524-tech/anti-distill/blob/21e6aa9c72a03a5456eeb4cd63234a2fa2935387/README.md?plain=1#L201"
+      }
+    },
+    {
+      "title": "按审核严格程度选择清洗强度",
+      "text": "共三档：轻度保留约 80%，适合审核仔细的场景；中度保留约 60%，README 推荐用于大多数场景；重度保留约 40%，用于只检查是否提交的情况。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/leilei926524-tech/anti-distill/blob/21e6aa9c72a03a5456eeb4cd63234a2fa2935387/README.md?plain=1#L211"
+      }
+    },
+    {
+      "title": "分别核对清洗版与私人备份",
+      "text": "Skill 会输出两份文件：清洗版结构完整、术语专业，但核心内容已被替换；私人备份保存被抽掉的原始经验。README 的清洗示例展示了原文与清洗后表述的对应关系，可以对照检查替换结果。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/leilei926524-tech/anti-distill/blob/21e6aa9c72a03a5456eeb4cd63234a2fa2935387/README.md?plain=1#L158"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "该工具的用途是向雇主提交刻意削减核心内容的材料。使用前请自行评估劳动合同、保密协议和职业义务方面的风险。",
+    "仓库元数据中的 license 为空，README 文末写明 MIT，以仓库实际 LICENSE 文件为准。",
+    "README 提供的在线体验链接指向第三方站点 socialistic.ai。在那里使用意味着把文档内容上传到外部服务，涉及公司内部资料时需谨慎。",
+    "安装命令中的 <repo-url> 为占位符，不能直接复制运行。"
+  ],
+  "references": [],
+  "media": [],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "db6dc2334d2aee0085091278bdf5c8b99e5a76ac8a5f61c1a4b3c6ca8e67af71",
+  "mediaStatus": "none_in_official_documents"
+}

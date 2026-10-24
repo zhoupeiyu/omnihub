@@ -60,6 +60,45 @@ function getEmbedUrl(prompt) {
   return null;
 }
 
+function getPromptVariables(text) {
+  const vars = [];
+  const re = /\{([^{}\n]{1,24})\}/g;
+  let match;
+  while ((match = re.exec(text || ""))) {
+    const name = match[1].trim();
+    if (name && !vars.includes(name)) vars.push(name);
+  }
+  return vars.slice(0, 5);
+}
+
+function getPromptMedia(prompt) {
+  let entries = prompt.media;
+  if (typeof entries === "string") {
+    try { entries = JSON.parse(entries); } catch { entries = []; }
+  }
+  if (!Array.isArray(entries)) return [];
+  return entries.map((entry) => {
+    const raw = entry?.type === "photo" ? entry.url : entry?.preview_image_url || entry?.url;
+    try {
+      const archived = /^\/api\/x-media\/[1-9]\d*\/[a-f0-9]{64}$/.test(raw || "");
+      const url = archived ? new URL(raw, window.location.origin) : new URL(raw);
+      return archived || url.protocol === "https:" ? { url: url.toString(), alt: entry.alt_text || "提示词效果图" } : null;
+    } catch { return null; }
+  }).filter(Boolean);
+}
+
+function getPromptAssetScore(prompt) {
+  let score = 45;
+  if ((prompt.text || "").length > 80) score += 12;
+  if (prompt.model) score += 10;
+  if (prompt.tags) score += 10;
+  if (prompt.successNotes || prompt.reproTips) score += 15;
+  if (prompt.favorite) score += 8;
+  if (prompt.snsUrl || prompt.image) score += 6;
+  if (prompt.archived) score -= 20;
+  return Math.max(0, Math.min(100, score));
+}
+
 /** SNS 参考区：能内嵌就内嵌播放器，否则显示规范化链接卡片 */
 function SnsPreview({ prompt }) {
   const url = prompt.snsUrlNormalized || prompt.snsUrl;
@@ -82,12 +121,15 @@ function SnsPreview({ prompt }) {
 }
 
 /** 灵感卡片 */
-function PromptCard({ prompt, onToggleFavorite, onCopy, onDelete, onOpen, onTryRun }) {
+function PromptCard({ prompt, onToggleFavorite, onCopy, onDelete, onOpen, onTryRun, onCreateMedia }) {
   const [imgFailed, setImgFailed] = usePromptState(false);
   const hasImage = prompt.image && !imgFailed;
+  const score = getPromptAssetScore(prompt);
+  const variables = getPromptVariables(prompt.text);
+  const needsReview = !(prompt.note || prompt.successNotes || prompt.reproTips || prompt.tags || prompt.model);
 
   return (
-    <div className={"prompt-card" + (prompt.archived ? " archived-mask" : "")} onClick={() => onOpen(prompt)}>
+    <div id={`asset-prompt-${prompt.id}`} className={"prompt-card prompt-asset-card" + (prompt.archived ? " archived-mask" : "")} onClick={() => onOpen(prompt)}>
       {hasImage ? (
         <img className="prompt-cover" src={prompt.image} alt={prompt.title}
           loading="lazy" onError={() => setImgFailed(true)} />
@@ -95,18 +137,32 @@ function PromptCard({ prompt, onToggleFavorite, onCopy, onDelete, onOpen, onTryR
         <div className="prompt-cover-placeholder"><IconSparkle /></div>
       )}
       <div className="prompt-body">
-        <h3 className="prompt-title">{prompt.title}</h3>
-        <p className="prompt-text">{prompt.text}</p>
-        <div className="prompt-meta">
+        <div className="prompt-card-top">
+          <span className={"asset-score" + (score >= 80 ? " high" : score < 55 ? " low" : "")}>{score}</span>
+          {needsReview && !prompt.archived && <span className="review-chip">待提炼</span>}
+          {prompt.archived && <span className="review-chip muted">已归档</span>}
           <button className={"star-btn" + (prompt.favorite ? " on" : "")} title={prompt.favorite ? "取消收藏" : "收藏"}
             onClick={(e) => { e.stopPropagation(); onToggleFavorite(prompt); }}>
             <IconStar filled={Boolean(prompt.favorite)} />
           </button>
+        </div>
+        <h3 className="prompt-title">{prompt.title}</h3>
+        <p className="prompt-text">{prompt.text}</p>
+        {variables.length > 0 && (
+          <div className="variable-row">
+            {variables.map((v) => <span key={v} className="variable-chip">{v}</span>)}
+          </div>
+        )}
+        <div className="prompt-meta">
           <span className="tag-chip">{prompt.category}</span>
           {prompt.model && <span className="model-chip">{prompt.model}</span>}
           {prompt.snsType && <span className="sns-chip">{SNS_TYPE_NAMES[prompt.snsType] || "链接"}</span>}
         </div>
         <div className="prompt-actions">
+          <button className="prompt-copy"
+            onClick={(e) => { e.stopPropagation(); onCreateMedia(prompt); }}>
+            <IconPalette />生成图片
+          </button>
           <button className="prompt-copy"
             onClick={(e) => { e.stopPropagation(); onTryRun(prompt); }}>
             <IconSend />试跑
@@ -136,8 +192,34 @@ function DetailField({ label, value }) {
   );
 }
 
+function PromptAssetSummary({ prompt }) {
+  const score = getPromptAssetScore(prompt);
+  const variables = getPromptVariables(prompt.text);
+  return (
+    <div className="asset-summary-card">
+      <div>
+        <span>复用评分</span>
+        <strong>{score}</strong>
+      </div>
+      <div>
+        <span>变量</span>
+        <strong>{variables.length || 0}</strong>
+      </div>
+      <div>
+        <span>状态</span>
+        <strong>{prompt.archived ? "归档" : prompt.favorite ? "高价值" : "可复用"}</strong>
+      </div>
+      {variables.length > 0 && (
+        <div className="asset-summary-vars">
+          {variables.map((v) => <span key={v} className="variable-chip">{v}</span>)}
+        </div>
+      )}
+    </div>
+  );
+}
+
 /** 抽屉：mode="view" 详情 / mode="edit" 编辑 / mode="create" 新建 */
-function PromptDrawer({ prompt, initialMode, onClose, onSave, onCopy, onTryRun, onToggleFavorite, onToggleArchive, showToast }) {
+function PromptDrawer({ prompt, initialMode, onClose, onSave, onCopy, onTryRun, onCreateMedia, onToggleFavorite, onToggleArchive, showToast }) {
   const [mode, setMode] = usePromptState(initialMode);
   const [form, setForm] = usePromptState(() => ({
     title: "", text: "", negativeText: "", category: PROMPT_CATEGORIES[0],
@@ -179,38 +261,44 @@ function PromptDrawer({ prompt, initialMode, onClose, onSave, onCopy, onTryRun, 
   const tags = (form.tags || "").split(",").map((t) => t.trim()).filter(Boolean);
 
   return (
-    <div>
-      <div className="drawer-overlay" onClick={onClose}></div>
-      <div className="drawer">
-        <div className="drawer-head">
+    <DetailDrawer title={isView ? "提示词详情" : (mode === "create" ? "新建提示词资产" : "编辑提示词资产")} onClose={onClose} actions={<React.Fragment>
           {isView && prompt && (
             <button className={"star-btn" + (prompt.favorite ? " on" : "")} title="收藏"
               onClick={() => onToggleFavorite(prompt)}>
               <IconStar filled={Boolean(prompt.favorite)} style={{ width: 17, height: 17 }} />
             </button>
           )}
-          <h2>{isView ? form.title : (mode === "create" ? "新建灵感" : "编辑灵感")}</h2>
           {isView && <button className="btn btn-icon" title="编辑" onClick={() => setMode("edit")}><IconEdit /></button>}
-          <button className="btn btn-icon btn-ghost" title="关闭" onClick={onClose}><IconX /></button>
-        </div>
+        </React.Fragment>}>
 
-        <div className="drawer-body">
+        <div className="detail-drawer-body">
+          {isView && <h2>{form.title}</h2>}
           {isView ? (
             <div>
               {form.image && <img className="detail-cover" src={form.image} alt={form.title} style={{ marginBottom: 14 }} />}
+              {getPromptMedia(form).filter((media) => media.url !== form.image).length > 0 && (
+                <div className="prompt-media-gallery">
+                  {getPromptMedia(form).filter((media) => media.url !== form.image).map((media, index) => (
+                    <a key={`${media.url}-${index}`} href={media.url} target="_blank" rel="noopener noreferrer" referrerPolicy="no-referrer">
+                      <img src={media.url} alt={media.alt} loading="lazy" referrerPolicy="no-referrer" />
+                    </a>
+                  ))}
+                </div>
+              )}
+              <PromptAssetSummary prompt={form} />
               <div className="tag-input-row" style={{ marginBottom: 14, marginTop: 0 }}>
                 <span className="tag-chip">{form.category}</span>
                 {form.model && <span className="model-chip">{form.model}</span>}
                 {tags.map((t) => <span key={t} className="filter-chip active" style={{ cursor: "default" }}>{t}</span>)}
                 {prompt && prompt.archived ? <span className="model-chip">已归档</span> : null}
               </div>
-              <DetailField label="提示词" value={form.text} />
+              <DetailField label="原始提示词" value={form.text} />
               <DetailField label="负面提示词" value={form.negativeText} />
               <SnsPreview prompt={form} />
-              <DetailField label="成功原因" value={form.successNotes} />
-              <DetailField label="失败点" value={form.failureNotes} />
-              <DetailField label="复现技巧" value={form.reproTips} />
-              <DetailField label="备注" value={form.note} />
+              <DetailField label="为什么值得保留" value={form.successNotes} />
+              <DetailField label="踩坑记录" value={form.failureNotes} />
+              <DetailField label="复用方法" value={form.reproTips} />
+              <DetailField label="整理备注" value={form.note} />
               {prompt && (prompt.createdAt || prompt.updatedAt) && (
                 <p style={{ fontSize: 11, color: "var(--text-3)" }}>
                   创建 {prompt.createdAt || "—"}{prompt.updatedAt ? ` · 更新 ${prompt.updatedAt}` : ""}
@@ -222,7 +310,7 @@ function PromptDrawer({ prompt, initialMode, onClose, onSave, onCopy, onTryRun, 
               <div className="field-block">
                 <label>标题 *</label>
                 <input className="input" value={form.title} autoFocus
-                  placeholder="例如：赛博朋克雨夜街景"
+                  placeholder="例如：产品需求拆解提示词"
                   onChange={(e) => setField("title", e.target.value)} />
               </div>
               <div className="field-grid">
@@ -245,7 +333,7 @@ function PromptDrawer({ prompt, initialMode, onClose, onSave, onCopy, onTryRun, 
               <div className="field-block">
                 <label>提示词 *</label>
                 <textarea className="input" rows="4" style={{ resize: "vertical", lineHeight: 1.65 }}
-                  placeholder="粘贴完整提示词……" value={form.text}
+                  placeholder="粘贴完整提示词，变量可以用 {主题} 这种形式标出来……" value={form.text}
                   onChange={(e) => setField("text", e.target.value)} />
               </div>
               <div className="field-block">
@@ -294,22 +382,22 @@ function PromptDrawer({ prompt, initialMode, onClose, onSave, onCopy, onTryRun, 
               <div className="field-block">
                 <label>备注</label>
                 <textarea className="input" rows="2" style={{ resize: "vertical" }} value={form.note}
-                  placeholder="其他想记的（可选）" onChange={(e) => setField("note", e.target.value)} />
+                  placeholder="适用场景、来源、下次怎么用（可选）" onChange={(e) => setField("note", e.target.value)} />
               </div>
               <Collapsible title="复盘笔记（可选）" defaultOpen={Boolean(form.successNotes || form.failureNotes || form.reproTips)}>
                 <div style={{ width: "100%" }}>
                   <div className="field-block">
-                    <label>成功原因</label>
+                    <label>为什么值得保留</label>
                     <textarea className="input" rows="2" style={{ resize: "vertical" }} value={form.successNotes}
                       placeholder="为什么效果好" onChange={(e) => setField("successNotes", e.target.value)} />
                   </div>
                   <div className="field-block">
-                    <label>失败点</label>
+                    <label>踩坑记录</label>
                     <textarea className="input" rows="2" style={{ resize: "vertical" }} value={form.failureNotes}
                       placeholder="踩过的坑" onChange={(e) => setField("failureNotes", e.target.value)} />
                   </div>
                   <div className="field-block" style={{ marginBottom: 4 }}>
-                    <label>复现技巧</label>
+                    <label>复用方法</label>
                     <textarea className="input" rows="2" style={{ resize: "vertical" }} value={form.reproTips}
                       placeholder="参数、步骤等" onChange={(e) => setField("reproTips", e.target.value)} />
                   </div>
@@ -324,6 +412,7 @@ function PromptDrawer({ prompt, initialMode, onClose, onSave, onCopy, onTryRun, 
           {isView ? (
             <React.Fragment>
               <button className="btn" onClick={() => onCopy(form.text)}><IconCopy />复制</button>
+              <button className="btn" onClick={() => onCreateMedia(form)}><IconPalette />用于创作</button>
               <button className="btn btn-primary" onClick={() => onTryRun(form)}><IconSend />试跑</button>
               <span className="spacer"></span>
               {prompt && (
@@ -342,8 +431,7 @@ function PromptDrawer({ prompt, initialMode, onClose, onSave, onCopy, onTryRun, 
             </React.Fragment>
           )}
         </div>
-      </div>
-    </div>
+    </DetailDrawer>
   );
 }
 

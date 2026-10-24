@@ -1,0 +1,68 @@
+{
+  "schemaVersion": 1,
+  "key": "openhands/openhands",
+  "status": "ready",
+  "reason": "",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/OpenHands/OpenHands/blob/953c944eee62b8077a65436c2c8fd6b355342562/README.md",
+  "sourceRevision": "953c944eee62b8077a65436c2c8fd6b355342562",
+  "canonicalKey": "OpenHands/OpenHands",
+  "summary": "Agent Canvas 是一个自托管的开发者控制中心，可在本地、Docker、虚拟机或云端后端上运行 OpenHands、Claude Code、Codex 等编码智能体并配置自动化任务。",
+  "intro": "适合想集中管理编码智能体的开发者或团队。可以在一个 Agent Canvas 前端里发起对话，并切换多个 Agent Server 后端。也可以配置自动化任务，例如生成报告发布到 Slack，或把 GitHub issue 拆解为任务。默认运行开源 OpenHands 智能体，也支持 ACP 兼容的第三方智能体。",
+  "requirements": "本指南采用 macOS / Linux 上的 Docker 沙箱方式。需要安装 Docker：macOS 使用 Docker Desktop，Linux 使用 Docker Engine 或 Docker Desktop。还需要预先创建一个主机目录作为 PROJECTS_PATH，用来存放允许智能体访问的项目文件夹。Windows 用户请参阅 README.windows.md。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "准备 Docker 与项目目录",
+      "text": "在 macOS 或 Linux 上确认 Docker 已安装并在运行。然后确定一个主机目录作为 PROJECTS_PATH，把希望智能体访问的项目文件夹放进去。该目录需要在启动容器前创建，智能体能访问其下的所有项目。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/OpenHands/OpenHands/blob/953c944eee62b8077a65436c2c8fd6b355342562/README.md?plain=1#L82"
+      }
+    },
+    {
+      "title": "运行 Agent Canvas 容器",
+      "text": "按官方示例设置 PROJECTS_PATH 并创建所需目录，再用 docker run 启动 agent-canvas 镜像。示例只把端口发布在 127.0.0.1:8000，同时挂载配置目录和项目目录。",
+      "code": "export PROJECTS_PATH=\"$HOME/projects\"  # directory containing your project folders\nmkdir -p \"$PROJECTS_PATH\" \"$HOME/.openhands\"\n\ndocker run -it --rm \\\n  -p 127.0.0.1:8000:8000 \\\n  -e AGENT_CANVAS_ALLOW_LAN_SESSION_KEY=true \\\n  -v \"$HOME/.openhands:/home/openhands/.openhands\" \\\n  -v \"${PROJECTS_PATH}:/projects\" \\\n  ghcr.io/openhands/agent-canvas:1.24.0 # x-release-please-version",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/OpenHands/OpenHands/blob/953c944eee62b8077a65436c2c8fd6b355342562/README.md?plain=1#L82"
+      }
+    },
+    {
+      "title": "在浏览器打开控制中心",
+      "text": "使用 Docker 镜像时访问 http://localhost:8000/canvas 打开界面（npm 或源码方式的地址是 http://localhost:8000）。进入后即可开始新的对话。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/OpenHands/OpenHands/blob/953c944eee62b8077a65436c2c8fd6b355342562/README.md?plain=1#L124"
+      }
+    },
+    {
+      "title": "按需添加其他智能体后端",
+      "text": "在 UI 中可以直接添加更多后端。每个 Agent Server 运行在一个主机/端口上，可以部署在笔记本、专用机器、云端虚拟机或 OpenHands Cloud。Canvas 能连接多个后端并在它们之间切换。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/OpenHands/OpenHands/blob/953c944eee62b8077a65436c2c8fd6b355342562/README.md?plain=1#L124"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "不使用沙箱的 npm 方式和源码方式，会让智能体直接运行在本机并拥有完整文件系统访问权限。",
+    "若把 Docker 端口发布到局域网或公网，应去掉 AGENT_CANVAS_ALLOW_LAN_SESSION_KEY，并为 LOCAL_BACKEND_API_KEY 设置强值，在 UI 中输入 API key。",
+    "面向互联网部署时，应按 docs/SELF_HOSTING.md 做安全加固。",
+    "项目状态标注为 beta；OpenHands Cloud 是商业服务。"
+  ],
+  "references": [],
+  "media": [],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "b7c1e6e52f95654bbf812ed442d28955392fa238c3fb50a49e3e2bb24b862159",
+  "mediaStatus": "unavailable",
+  "mediaFailures": [
+    {
+      "sourceUrl": "https://github.com/OpenHands/OpenHands/blob/953c944eee62b8077a65436c2c8fd6b355342562/README.md#L29",
+      "reason": "unsupported_media_host"
+    }
+  ]
+}

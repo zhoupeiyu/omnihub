@@ -1,0 +1,84 @@
+{
+  "schemaVersion": 1,
+  "key": "alchaincyf/huashu-design",
+  "status": "ready",
+  "reason": "",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/alchaincyf/huashu-design/blob/0830494ecb1c117e25b313a8114fe55a6bf2b125/README.md",
+  "sourceRevision": "0830494ecb1c117e25b313a8114fe55a6bf2b125",
+  "canonicalKey": "alchaincyf/huashu-design",
+  "summary": "一个可在支持 skills 的 agent 中安装的设计技能，通过对话生成 HTML 原型、幻灯片（可导出可编辑 PPTX）、动画（可导出 MP4/GIF）和信息图，并提供设计评审。",
+  "intro": "适合不想打开图形设计软件、习惯在 Claude Code、Codex、Cursor 等 agent 中通过对话完成设计的人。可用于制作可点击的 App 原型、演讲幻灯片、时间轴动画、设计变体对比和信息图，也可以对已有设计做 5 维度评审。涉及具体品牌时，它会按品牌资产协议收集官方色值并写入 brand-spec.md。",
+  "requirements": "一个支持 skills 的 agent（README 列出 Claude Code、Cursor、Codex、OpenClaw、Hermes）；能运行 npx 来使用 skills CLI，其中 1.5.15 及以下版本存在只同步单个文件的 bug，需 1.5.19 及以上。导出 MP4 等功能依赖仓库 scripts/ 下的工具链。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "用 skills CLI 安装技能",
+      "text": "以 Claude Code 为例，在终端运行 README 给出的 npx skills add 命令安装 huashu-design。该方式同样适用于其他支持 skills 的 agent。",
+      "code": "npx skills add alchaincyf/huashu-design",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/alchaincyf/huashu-design/blob/0830494ecb1c117e25b313a8114fe55a6bf2b125/README.md?plain=1#L64"
+      }
+    },
+    {
+      "title": "检查安装目录是否完整",
+      "text": "打开安装目录（如 ~/.claude/skills/huashu-design/），确认除 SKILL.md 外还有 references、assets、scripts、demos 四个子目录。如果只有 SKILL.md，说明 skills CLI 版本过旧，升级后重新安装；仍有问题时，可按 README 说明用 git clone 把仓库克隆到 skills 目录。",
+      "code": "huashu-design/\n├── SKILL.md                 # 主文档（给 agent 读）\n├── README.md                # 中文 README（默认，本文件）\n├── README.en.md             # 英文 README\n├── assets/                  # Starter Components\n│   ├── animations.jsx       # Stage + Sprite + Easing + interpolate\n│   ├── ios_frame.jsx        # iPhone 15 Pro bezel\n│   ├── android_frame.jsx\n│   ├── macos_window.jsx\n│   ├── browser_window.jsx\n│   ├── deck_stage.js        # HTML 幻灯片引擎\n│   ├── deck_index.html      # 多文件 deck 拼接器\n│   ├── design_canvas.jsx    # 并排变体展示\n│   ├── showcases/           # 24 个预制样例（8 场景 × 3 风格）\n│   └── bgm-*.mp3            # 6 首场景化背景音乐\n├── references/              # 按任务深入读的子文档\n│   ├── animation-pitfalls.md\n│   ├── design-styles.md     # 60 种 HTML 原生风格库（网页 20 + PPT 20 + 信息图 20）\n│   ├── slide-decks.md\n│   ├── editable-pptx.md\n│   ├── critique-guide.md\n│   ├── video-export.md\n│   └── ...\n├── scripts/                 # 导出工具链\n│   ├── render-video.js      # HTML → MP4\n│   ├── convert-formats.sh   # MP4 → 60fps + GIF\n│   ├── add-music.sh         # MP4 + BGM\n│   ├── export_deck_pdf.mjs\n│   ├── export_deck_pptx.mjs\n│   ├── html2pptx.js\n│   └── verify.py\n└── demos/                   # 9 个能力演示 (c*/w*)，中英双版 GIF/MP4/HTML + hero v10",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/alchaincyf/huashu-design/blob/0830494ecb1c117e25b313a8114fe55a6bf2b125/README.md?plain=1#L64"
+      }
+    },
+    {
+      "title": "在 agent 里用自然语言提需求",
+      "text": "在 Claude Code 中直接描述想要的交付物，例如原型、幻灯片、动画或评审，不需要额外的按钮或插件。需求不明确时，技能会先列出问题，并给出 3 版真实视觉方向供你挑选，之后再按 Junior Designer 流程分阶段展示进度。",
+      "code": "「做一份 AI 心理学的演讲 PPT，推荐 3 个风格方向让我选」\n「做个 AI 番茄钟 iOS 原型，4 个核心屏幕要真能点击」\n「把这段逻辑做成 60 秒动画，导出 MP4 和 GIF」\n「帮我对这个设计做一个 5 维度评审」",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/alchaincyf/huashu-design/blob/0830494ecb1c117e25b313a8114fe55a6bf2b125/README.md?plain=1#L64"
+      }
+    },
+    {
+      "title": "提供品牌资产以提高贴合度",
+      "text": "如果设计涉及具体品牌，最好主动提供 logo、色板、UI 截图或品牌规范。技能会执行“问、搜、下载、提取色值、写 brand-spec.md”五步流程。README 指出，品牌完全空白、从零开始时，设计质量会明显下降。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/alchaincyf/huashu-design/blob/0830494ecb1c117e25b313a8114fe55a6bf2b125/README.md?plain=1#L211"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "核心的设计、渲染和导出流程在本地运行。豆包 TTS 配音、AI 看片评审等云能力位于 scripts/cloud/，属于可选功能，需要使用自己的厂商 key，首次调用要用 --yes 确认，可能产生对应厂商的 API 费用。",
+    "README 说明该技能以对话方式运行，消耗所用 agent 的模型 API 用量，而不是 Claude Design 那样的订阅配额。",
+    "已知限制：导出的 PPTX 不支持导入 Figma 做图层级编辑；3D、物理模拟、粒子等复杂动画超出能力范围。",
+    "自 2026-05-14 起改为 MIT 协议，允许商用；社区翻译版本的协议条款由各自维护者负责，使用前需另行确认。"
+  ],
+  "references": [],
+  "media": [
+    {
+      "url": "/assets/repository-guides/media-958f0d1ec185817ad4b42586.webp",
+      "alt": "alchaincyf/huashu-design 官方演示 1",
+      "sourceUrl": "https://github.com/alchaincyf/huashu-design/blob/0830494ecb1c117e25b313a8114fe55a6bf2b125/README.md?plain=1#L131",
+      "originalUrl": "https://github.com/alchaincyf/huashu-design/releases/download/v2.0/c1-ios-prototype.gif"
+    },
+    {
+      "url": "/assets/repository-guides/media-a8ed583aa843764a87f269a1.webp",
+      "alt": "alchaincyf/huashu-design 官方演示 2",
+      "sourceUrl": "https://github.com/alchaincyf/huashu-design/blob/0830494ecb1c117e25b313a8114fe55a6bf2b125/README.md?plain=1#L143",
+      "originalUrl": "https://github.com/alchaincyf/huashu-design/releases/download/v2.0/c2-slides-pptx.gif"
+    },
+    {
+      "url": "/assets/repository-guides/media-c33484b5cc92a199437f171c.webp",
+      "alt": "alchaincyf/huashu-design 官方演示 3",
+      "sourceUrl": "https://github.com/alchaincyf/huashu-design/blob/0830494ecb1c117e25b313a8114fe55a6bf2b125/README.md?plain=1#L137",
+      "originalUrl": "https://github.com/alchaincyf/huashu-design/releases/download/v2.0/c3-motion-design.gif"
+    }
+  ],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "4b4ad3824e5b1854421d573de1ae0be13eda18d27dfdda230b0745cbf5cdae07",
+  "mediaStatus": "archived",
+  "mediaFailures": []
+}

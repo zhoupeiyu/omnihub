@@ -1,0 +1,73 @@
+{
+  "schemaVersion": 1,
+  "key": "ellipsis-dev/blink",
+  "status": "ready",
+  "reason": "",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/ellipsis-dev/blink/blob/a621ede75649303a933828c18c27ad800bb43ef0/README.md",
+  "sourceRevision": "a621ede75649303a933828c18c27ad800bb43ef0",
+  "canonicalKey": "ellipsis-dev/blink",
+  "summary": "blink 是一个命令行代码库搜索工具：输入自然语言问题和目录，它借助 TypeSafe 的 Jev 模型定位最可能相关的文件。",
+  "intro": "适合需要在陌生代码库中快速找到“某功能在哪个文件实现”的开发者。blink 根据文件和目录名打分，并把多个 walker 分配到可能的路径上。结果以表格列出各文件对应的 walker 占比，递归搜索的轨迹和元数据也会保存下来。",
+  "requirements": "Bun 1.3.14 或更高版本；一个 TypeSafe API key，需设置为环境变量 TYPESAFE_API_KEY。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "安装依赖并配置 API key",
+      "text": "在仓库目录下执行 `bun install` 安装依赖，然后通过 `export TYPESAFE_API_KEY=\"your-key\"` 设置 TypeSafe API key。项目要求 Bun 1.3.14 及以上版本。",
+      "code": "bun install\nexport TYPESAFE_API_KEY=\"your-key\"",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/ellipsis-dev/blink/blob/a621ede75649303a933828c18c27ad800bb43ef0/README.md?plain=1#L11"
+      }
+    },
+    {
+      "title": "用自然语言查询搜索目录",
+      "text": "运行 `./blink \"query\" \"directory\"`，传入自然语言问题和要搜索的目录。README 中以 test/example_codebase 为例，用 `--n_walkers 100 --recursive` 查询认证逻辑所在位置。",
+      "code": "./blink \"query\" \"directory\" [--recursive] [--n_walkers 100]\n\n./blink \"where is authentication handled?\" test/example_codebase --n_walkers 100 --recursive",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/ellipsis-dev/blink/blob/a621ede75649303a933828c18c27ad800bb43ef0/README.md?plain=1#L1"
+      }
+    },
+    {
+      "title": "按需选择搜索选项",
+      "text": "`-r` 沿最可能的路径用一个 walker 递归到文件；`-n 100` 把 100 个 walker 分配到多条路径上，同时启用递归；`-v` 会打印请求、响应和 walker 分配情况。两者都不加时，只对直接子目录排序。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/ellipsis-dev/blink/blob/a621ede75649303a933828c18c27ad800bb43ef0/README.md?plain=1#L99"
+      }
+    },
+    {
+      "title": "解读结果表与保存的记录",
+      "text": "结果表显示前 10 个结果，其余合并为 OTHER，空目录标为 unresolved。递归搜索会把每个 walker 的 trace 和 metadata.json 保存到 output/searches 下，其中记录查询、设置、token 用量和费用。",
+      "code": "output/searches/search_abc123/\n├── metadata.json\n└── traces/\n    ├── trace_abc123.json\n    └── trace_def456.json",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/ellipsis-dev/blink/blob/a621ede75649303a933828c18c27ad800bb43ef0/README.md?plain=1#L89"
+      }
+    },
+    {
+      "title": "在 settings.json 中配置忽略项",
+      "text": "编辑 settings.json 中的 ignoredNodes 数组，可以在所有层级忽略指定名称的文件或目录，默认忽略 .git。如需在不调用 API 的情况下测试，可以运行 `bun test`，它使用模拟的 API 响应。",
+      "code": "{\n  \"ignoredNodes\": [\".git\"]\n}",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/ellipsis-dev/blink/blob/a621ede75649303a933828c18c27ad800bb43ef0/README.md?plain=1#L125"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "调用 Jev 会产生费用：README 写明输入 token 按每百万 $0.042 计费，输出 token 免费。walker 越多、递归越深，API 调用次数可能越多。",
+    "搜索只依据文件和目录名打分，README 没有说明会读取文件内容。",
+    "使用 `-n 100` 会生成 100 个 trace 文件，输出目录已被 Git 忽略。",
+    "仓库未声明许可证。"
+  ],
+  "references": [],
+  "media": [],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "168cf8958a9c569df45a586438099e2774b5b96e4ede7665d1008eaefbd20a44",
+  "mediaStatus": "none_in_official_documents"
+}

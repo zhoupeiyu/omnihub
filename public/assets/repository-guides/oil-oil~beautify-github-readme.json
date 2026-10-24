@@ -1,0 +1,70 @@
+{
+  "schemaVersion": 1,
+  "key": "oil-oil/beautify-github-readme",
+  "status": "partial",
+  "reason": "提供的资料只有效果示例、使用边界和一句示例提示词，没有说明如何把这个 Skill 安装或加载到具体的 Agent 宿主（目录位置、支持哪些宿主、安装命令都缺失）。“Send the repository to your Agent”只出现在图片的 alt 文本中。",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/oil-oil/beautify-github-readme/blob/d48dd84c98fb078cc97a06fbfa113870f433a451/README.md",
+  "sourceRevision": "d48dd84c98fb078cc97a06fbfa113870f433a451",
+  "canonicalKey": "oil-oil/beautify-github-readme",
+  "summary": "这是一个整理和设计 GitHub 仓库 README 的 Skill，用 Markdown 承载内容、SVG 承载视觉，让项目价值、真实案例、安装方式与使用边界更容易理解。",
+  "intro": "适合想改进仓库首页的开源维护者。它会根据项目本身推导排版、配色和构图，而不是套用统一模板；必要时会结合 AI 生图，制作项目专属的 hero 图和分区图。README 中列出了 oil-ppt、draw-ui、Wolfcha 等使用案例。",
+  "requirements": "需要一个能加载 Skill 的 AI Agent，资料中未说明具体是哪些宿主。仅输出 Markdown/SVG 时无需账号或 API Key。生成 PNG/WebP 或使用 AI 生图时，需要对应的渲染工具和已获授权的生成工具。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "把本仓库交给你的 Agent",
+      "text": "README 的使用分区标题是“Send the repository to your Agent”，即把本仓库提供给支持 Skill 的 Agent。具体的安装或加载方式资料中没有给出，请以所用宿主的 Skill 文档为准。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/oil-oil/beautify-github-readme/blob/d48dd84c98fb078cc97a06fbfa113870f433a451/README.md?plain=1#L1"
+      }
+    },
+    {
+      "title": "用示例提示词发起 README 优化",
+      "text": "在目标仓库中，按 README 给出的使用示例向 Agent 提出需求，要求它优化 README 首页并保留真实的项目事实。它会围绕项目价值、证据、方法和首次使用路径重新组织内容。",
+      "code": "优化这个仓库的 README 首页，保留真实项目事实。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/oil-oil/beautify-github-readme/blob/d48dd84c98fb078cc97a06fbfa113870f433a451/README.md?plain=1#L166"
+      }
+    },
+    {
+      "title": "检查链接素材与实际渲染效果",
+      "text": "生成后，逐项检查链接、图片素材，以及在 GitHub 上的实际渲染效果。确认没有伪造 star 数、性能数据、用户或品牌背书。是否发布或合并，按当前任务的授权决定。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/oil-oil/beautify-github-readme/blob/d48dd84c98fb078cc97a06fbfa113870f433a451/README.md?plain=1#L166"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "使用 AI 生图或输出 PNG/WebP 时，需要已授权的生成或渲染工具，可能产生对应服务的费用。",
+    "README 明确要求不伪造 star、性能、用户或品牌背书，生成内容需要人工核对事实。",
+    "页脚署名和提交案例展示都是可选的，提交的案例需经维护者审核。"
+  ],
+  "references": [],
+  "media": [
+    {
+      "url": "/assets/repository-guides/media-b4314046e234363e3993bd93.webp",
+      "alt": "oil-oil/beautify-github-readme 官方演示 1",
+      "sourceUrl": "https://github.com/oil-oil/beautify-github-readme/blob/d48dd84c98fb078cc97a06fbfa113870f433a451/README.md?plain=1#L48",
+      "originalUrl": "https://raw.githubusercontent.com/oil-oil/beautify-github-readme/d48dd84c98fb078cc97a06fbfa113870f433a451/assets/readme/en/case-wolfcha.png"
+    }
+  ],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "94ccb98797b4458606323730d4a2b3ca3e15347a11193c9cc37eb438738b5a9f",
+  "mediaStatus": "archived",
+  "mediaFailures": [
+    {
+      "sourceUrl": "https://github.com/oil-oil/beautify-github-readme/blob/d48dd84c98fb078cc97a06fbfa113870f433a451/README.md#L63",
+      "reason": "unsupported_media_format"
+    },
+    {
+      "sourceUrl": "https://github.com/oil-oil/beautify-github-readme/blob/d48dd84c98fb078cc97a06fbfa113870f433a451/README.md#L33",
+      "reason": "unsupported_media_format"
+    }
+  ]
+}

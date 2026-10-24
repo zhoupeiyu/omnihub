@@ -1,0 +1,74 @@
+{
+  "schemaVersion": 1,
+  "key": "asdhabdua/bilibili-video-notes-skill",
+  "status": "ready",
+  "reason": "",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/asdhabdua/bilibili-video-notes-skill/blob/2f992dad8f515956e00ebc4741382618be441a38/README.md",
+  "sourceRevision": "2f992dad8f515956e00ebc4741382618be441a38",
+  "canonicalKey": "asdhabdua/bilibili-video-notes-skill",
+  "summary": "一套供 AI Agent 调用的脚本与流程说明，可从 B 站讲课视频下载视频和 AI 字幕、抽帧去重并用多模态模型选图，最终生成带截图的 DOCX 学习笔记。",
+  "intro": "适合考研等需要整理网课笔记的学习者，以及使用 Claude Code、Codex CLI、Hermes Agent 的用户。仓库提供抽帧、OCR 与感知哈希去重、视觉模型打分与内容提取、DOCX 生成与校验等脚本，并通过 SKILL.md、CLAUDE.md、AGENTS.md 让 Agent 按固定流程执行；也说明可用于本地视频。视觉部分可接入任何 OpenAI 兼容格式的多模态 API。",
+  "requirements": "Python 3.9+（README 徽章）及 scripts/requirements.txt 中的依赖；终端可直接调用 ffmpeg；一个 OpenAI 兼容的多模态视觉 API（API Key、Base URL、模型名）；已登录 B 站账号的 SESSDATA Cookie；一个支持的 Agent（如 Claude Code）。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "克隆仓库并安装依赖",
+      "text": "克隆 bilibili-video-notes-skill 仓库，进入目录后用 pip 安装 scripts/requirements.txt 中的依赖。如使用 Anaconda，README 也提供了先创建 bili-notes 环境再安装的方式。",
+      "code": "git clone https://github.com/asdhabdua/bilibili-video-notes-skill.git\ncd bilibili-video-notes-skill\npip install -r scripts/requirements.txt",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/asdhabdua/bilibili-video-notes-skill/blob/2f992dad8f515956e00ebc4741382618be441a38/README.md?plain=1#L65"
+      }
+    },
+    {
+      "title": "在 macOS 上安装 FFmpeg",
+      "text": "以 macOS 为例，用 Homebrew 安装 ffmpeg，确保终端能直接调用 ffmpeg 命令。Windows 与 Ubuntu/Debian 的安装方式见 README 的“安装 FFmpeg”一节。",
+      "code": "brew install ffmpeg",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/asdhabdua/bilibili-video-notes-skill/blob/2f992dad8f515956e00ebc4741382618be441a38/README.md?plain=1#L130"
+      }
+    },
+    {
+      "title": "复制并填写 .env 视觉 API",
+      "text": "将 templates/env.example 复制为 .env，填入 VISION_API_KEY、VISION_BASE_URL 和 VISION_MODEL。README 给出了 OpenAI、Sophnet 和本地 vLLM 的配置示例，可按自己使用的服务填写。",
+      "code": "cp templates/env.example .env\n\nVISION_API_KEY=your_api_key_here\nVISION_BASE_URL=https://api.openai.com/v1\nVISION_MODEL=gpt-4o",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/asdhabdua/bilibili-video-notes-skill/blob/2f992dad8f515956e00ebc4741382618be441a38/README.md?plain=1#L153"
+      }
+    },
+    {
+      "title": "配置 B 站 SESSDATA Cookie",
+      "text": "复制 bilibili_cookies.txt.example 为 bilibili_cookies.txt。在已登录 bilibili.com 的浏览器按 F12，到 Application → Cookies 找到 SESSDATA 的值，替换文件中的 YOUR_SESSDATA_HERE。字幕下载依赖该登录态。",
+      "code": "cp bilibili_cookies.txt.example bilibili_cookies.txt",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/asdhabdua/bilibili-video-notes-skill/blob/2f992dad8f515956e00ebc4741382618be441a38/README.md?plain=1#L194"
+      }
+    },
+    {
+      "title": "在 Claude Code 中让其执行",
+      "text": "在仓库目录启动 Claude Code，CLAUDE.md 会被自动加载为项目指令；向其提出为指定 B 站视频生成笔记的请求，它会按抽帧、去重、打分、提取、生成与校验 DOCX、清理的流程执行。完成后在 workspace/ 目录查看 DOCX，可按需替换截图或补充正文。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/asdhabdua/bilibili-video-notes-skill/blob/2f992dad8f515956e00ebc4741382618be441a38/README.md?plain=1#L505"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "SESSDATA 是 B 站账号登录凭证，应妥善保管；Cookie 通常几天后过期，过期后字幕下载会失败，需要重新获取。",
+    "视觉打分与内容提取会调用多模态 API，按所用服务计费；README 建议先用 smart_select.py --skip-clustering 去重以减少调用量。",
+    "B 站可能限流（HTTP 412）；帧目录需使用纯英文路径，否则视觉工具可能无法识别。",
+    "下载 B 站视频与字幕需遵守平台条款和视频版权。",
+    "README 声明 MIT License，但仓库元数据未识别到许可证文件，使用前可自行核对。"
+  ],
+  "references": [],
+  "media": [],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "69db5c0671da0311c704ed190bba237ddaf17c1f33ed43d6dc7392ba7d6b961f",
+  "mediaStatus": "none_in_official_documents"
+}

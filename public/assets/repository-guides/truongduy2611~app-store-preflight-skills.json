@@ -1,0 +1,71 @@
+{
+  "schemaVersion": 1,
+  "key": "truongduy2611/app-store-preflight-skills",
+  "status": "ready",
+  "reason": "",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/truongduy2611/app-store-preflight-skills/blob/e52e007036fb6edea104b6b49eb01f69c155ad51/README.md",
+  "sourceRevision": "e52e007036fb6edea104b6b49eb01f69c155ad51",
+  "canonicalKey": "truongduy2611/app-store-preflight-skills",
+  "summary": "App Store Preflight 是一个 AI agent 技能，在提交前扫描 iOS/macOS 项目和元数据，标出常见的 App Store 拒审问题。",
+  "intro": "适合准备向 App Store 提交 iOS 或 macOS 应用的开发者。技能会按应用类型加载对应的检查清单，比对 references/rules/ 中关于元数据、订阅、隐私、设计、entitlements 的拒审规则，输出包含严重级别、受影响文件和修复步骤的报告。仓库同时收录了 Apple 审核指南索引，可以直接查阅。",
+  "requirements": "需要一个支持 Agent Skills 的 AI 编码助手（README 未列出具体宿主），能运行 npx 的环境，以及待检查的 Xcode 项目。检查元数据还需要 asc CLI，README 给出的安装方式是 brew install asc。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "用 skills CLI 安装技能",
+      "text": "在项目环境中用 npx skills add 安装 app-store-preflight-skills。README 没有列出具体支持哪些 AI 助手，请在你的助手官方支持 Agent Skills 的前提下使用。完整的 agent 指令见仓库中的 SKILL.md。",
+      "code": "npx skills add truongduy2611/app-store-preflight-skills",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/truongduy2611/app-store-preflight-skills/blob/e52e007036fb6edea104b6b49eb01f69c155ad51/README.md?plain=1#L15"
+      }
+    },
+    {
+      "title": "按应用类型选择检查清单",
+      "text": "在 references/guidelines/by-app-type/ 中找到与应用匹配的清单。所有提交都适用 all_apps.md，另有订阅/内购、社交/UGC、儿童、健康、游戏、macOS、AI、加密金融、VPN 等专项清单。完整指南索引见 references/guidelines/README.md。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/truongduy2611/app-store-preflight-skills/blob/e52e007036fb6edea104b6b49eb01f69c155ad51/README.md?plain=1#L21"
+      }
+    },
+    {
+      "title": "用 asc 拉取 App Store 元数据",
+      "text": "安装 asc CLI 后，按 README 用 asc metadata pull 指定 APP_ID、版本号和 ./metadata 目录拉取元数据，也可以改用 asc-metadata-sync 技能。示例路径默认是 asc 的标准 JSON 布局；如果使用 fastlane 元数据，需要调整路径或先拉取 asc 布局。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/truongduy2611/app-store-preflight-skills/blob/e52e007036fb6edea104b6b49eb01f69c155ad51/README.md?plain=1#L5"
+      }
+    },
+    {
+      "title": "让 AI 扫描并审阅报告",
+      "text": "让助手按技能流程，用 references/rules/ 中的规则扫描项目和元数据，例如竞品品牌词、缺少 ToS/隐私政策链接、缺少 PrivacyInfo.xcprivacy、未使用的 entitlements 等。报告会列出严重级别、受影响文件和修复步骤，自动修复后会重新运行相关检查。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/truongduy2611/app-store-preflight-skills/blob/e52e007036fb6edea104b6b49eb01f69c155ad51/README.md?plain=1#L40"
+      }
+    },
+    {
+      "title": "按模板补充自定义规则",
+      "text": "如需新增检查项，可在 references/rules/ 对应的子目录中新建 .md 文件。按模板填写 Guideline、Severity、Category，以及检查内容、检测方法、修复方式和拒审示例。",
+      "code": "# Rule: [Short Title]\n- **Guideline**: [Apple Guideline Number]\n- **Severity**: REJECTION | WARNING\n- **Category**: metadata | subscription | privacy | design | entitlements\n\n## What to Check\n## How to Detect\n## Resolution\n## Example Rejection",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/truongduy2611/app-store-preflight-skills/blob/e52e007036fb6edea104b6b49eb01f69c155ad51/README.md?plain=1#L92"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "技能包含 Autofix 步骤，会直接修改项目文件或元数据。应用修复前后请自行审阅改动并做好版本控制。",
+    "元数据检查依赖第三方 asc CLI 和 ASC CLI Skills，需要提供 App ID 和版本号才能拉取元数据。",
+    "规则只覆盖仓库已列出的常见拒审模式。扫描通过不代表一定能通过 Apple 审核。",
+    "README 没有说明支持哪些 AI 助手宿主，使用前请确认你的助手支持 Agent Skills。"
+  ],
+  "references": [],
+  "media": [],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "ce8c22662497f14f12707ef633354a2facb11b3e5d589151582ca3f827dcd626",
+  "mediaStatus": "none_in_official_documents"
+}

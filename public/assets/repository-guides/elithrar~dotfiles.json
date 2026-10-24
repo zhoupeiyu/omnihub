@@ -1,0 +1,54 @@
+{
+  "schemaVersion": 1,
+  "key": "elithrar/dotfiles",
+  "status": "ready",
+  "reason": "",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/elithrar/dotfiles/blob/67ac9d659a2ad293de35e2cfe8c0e8227e0ffd41/README.md",
+  "sourceRevision": "67ac9d659a2ad293de35e2cfe8c0e8227e0ffd41",
+  "canonicalKey": "elithrar/dotfiles",
+  "summary": "作者本人在 macOS 和 Linux 上使用的 dotfiles 配置，以及一个用于搭建开发环境的安装脚本。",
+  "intro": "适合想参考或复用作者开发环境配置的人：zsh + oh-my-zsh、tmux 配置、Ghostty 终端（macOS）、Zed 编辑器。install.sh 负责安装依赖、Homebrew 及相关软件包，GNU Stow 负责把 .zshrc、.tmux.conf 等配置文件以符号链接方式放到家目录。",
+  "requirements": "macOS 或 Linux（脚本说明也可以在 Windows 的 WSL 中运行）。链接配置文件需要 GNU Stow。仓库需要克隆到 $HOME/repos/dotfiles，这是文档中 stow 命令假设的路径。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "运行 install.sh 安装依赖",
+      "text": "在仓库目录下执行 install.sh，并把输出保存到 ~/install.log。脚本会安装 Homebrew 和相关软件包（macOS 上包括 Ghostty）。脚本自述会检查已有安装，可以重复运行。",
+      "code": "sh install.sh 2>&1 | tee ~/install.log\n\nRunning...\n _           _        _ _       _\n(_)_ __  ___| |_ __ _| | |  ___| |__\n| | '_ \\/ __| __/ _  | | | / __| '_ \\\n| | | | \\__ \\ || (_| | | |_\\__ \\ | | |\n|_|_| |_|___/\\__\\__,_|_|_(_)___/_| |_|\n\n-----\n- Sets up a Linux or macOS based development machine.\n- Can be run in WSL on Windows!\n- Safe to run repeatedly (checks for existing installs)\n- Repository at https://github.com/elithrar/dotfiles\n- Fork as needed\n- Deeply inspired by https://github.com/minamarkham/formation\n-----",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/elithrar/dotfiles/blob/67ac9d659a2ad293de35e2cfe8c0e8227e0ffd41/README.md?plain=1#L5"
+      }
+    },
+    {
+      "title": "用 GNU Stow 链接配置文件",
+      "text": "假设仓库克隆在 $HOME/repos/dotfiles，用 stow 把仓库内容以符号链接方式放到 $HOME，从而启用 .zshrc、.tmux.conf 等配置。",
+      "code": "# Assuming you've cloned to $HOME/repos/dotfiles\nstow --dir=\"${HOME}/repos/dotfiles\" --target=\"${HOME}\" .",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/elithrar/dotfiles/blob/67ac9d659a2ad293de35e2cfe8c0e8227e0ffd41/README.md?plain=1#L5"
+      }
+    },
+    {
+      "title": "按需调整为自己的环境",
+      "text": "这些是作者的个人配置：shell 为 zsh + oh-my-zsh，编辑器为 Zed，字体为 Berkeley Mono（TX-02）。脚本说明里建议按需 fork，可以在自己的 fork 中修改后再使用。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/elithrar/dotfiles/blob/67ac9d659a2ad293de35e2cfe8c0e8227e0ffd41/README.md?plain=1#L41"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "这是作者的个人环境配置，并非通用工具。stow 会在家目录创建符号链接，运行前请先备份已有的 .zshrc、.tmux.conf 等文件。",
+    "install.sh 会安装 Homebrew 和一系列软件包，执行前建议先阅读脚本内容。",
+    "Berkeley Mono 字体来自外部厂商，仓库没有说明如何获取。"
+  ],
+  "references": [],
+  "media": [],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "463eca2c44bd3a27315c197af40f19b5a63af19efb790ffa3eab2c72a6af8ee4",
+  "mediaStatus": "none_in_official_documents"
+}

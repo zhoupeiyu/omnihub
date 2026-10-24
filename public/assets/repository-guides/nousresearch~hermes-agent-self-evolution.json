@@ -1,0 +1,65 @@
+{
+  "schemaVersion": 1,
+  "key": "nousresearch/hermes-agent-self-evolution",
+  "status": "ready",
+  "reason": "",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/NousResearch/hermes-agent-self-evolution/blob/0a929e3aa20e15cf04dc7c28492a7d41a5139125/README.md",
+  "sourceRevision": "0a929e3aa20e15cf04dc7c28492a7d41a5139125",
+  "canonicalKey": "NousResearch/hermes-agent-self-evolution",
+  "summary": "一个用 DSPy + GEPA 对 Hermes Agent 的技能文件进行进化式自动优化的工具，最终以 PR 形式交付改进结果。",
+  "intro": "适合维护 Hermes Agent、希望自动改进其 SKILL.md 技能文件的开发者。它读取现有技能并生成评测数据，由 GEPA 根据执行轨迹提出改进变体，经过测试和大小限制等约束筛选后，把最佳版本以 PR 形式提交给 hermes-agent。目前只实现了第一阶段（技能文件优化）。",
+  "requirements": "Python 环境与 pip；本地的 hermes-agent 仓库；可调用模型的 API 访问（全程通过 API 调用完成，无需 GPU 训练）。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "克隆仓库并安装开发依赖",
+      "text": "克隆 hermes-agent-self-evolution 仓库，进入目录后执行 pip install -e \".[dev]\" 以可编辑模式安装，具体命令见 Quick Start 代码块。",
+      "code": "# Install\ngit clone https://github.com/NousResearch/hermes-agent-self-evolution.git\ncd hermes-agent-self-evolution\npip install -e \".[dev]\"\n\n# Point at your hermes-agent repo\nexport HERMES_AGENT_REPO=~/.hermes/hermes-agent\n\n# Evolve a skill (synthetic eval data)\npython -m evolution.skills.evolve_skill \\\n    --skill github-code-review \\\n    --iterations 10 \\\n    --eval-source synthetic\n\n# Or use real session history from Claude Code, Copilot, and Hermes\npython -m evolution.skills.evolve_skill \\\n    --skill github-code-review \\\n    --iterations 10 \\\n    --eval-source sessiondb",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/NousResearch/hermes-agent-self-evolution/blob/0a929e3aa20e15cf04dc7c28492a7d41a5139125/README.md?plain=1#L28"
+      }
+    },
+    {
+      "title": "指定本地 hermes-agent 仓库路径",
+      "text": "设置环境变量 HERMES_AGENT_REPO，指向你本地的 hermes-agent 仓库，文档示例为 ~/.hermes/hermes-agent。优化工具会从这里读取待优化的技能。",
+      "code": "# Install\ngit clone https://github.com/NousResearch/hermes-agent-self-evolution.git\ncd hermes-agent-self-evolution\npip install -e \".[dev]\"\n\n# Point at your hermes-agent repo\nexport HERMES_AGENT_REPO=~/.hermes/hermes-agent\n\n# Evolve a skill (synthetic eval data)\npython -m evolution.skills.evolve_skill \\\n    --skill github-code-review \\\n    --iterations 10 \\\n    --eval-source synthetic\n\n# Or use real session history from Claude Code, Copilot, and Hermes\npython -m evolution.skills.evolve_skill \\\n    --skill github-code-review \\\n    --iterations 10 \\\n    --eval-source sessiondb",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/NousResearch/hermes-agent-self-evolution/blob/0a929e3aa20e15cf04dc7c28492a7d41a5139125/README.md?plain=1#L28"
+      }
+    },
+    {
+      "title": "运行技能进化并选择评测数据源",
+      "text": "运行 evolution.skills.evolve_skill，用 --skill 指定技能名，用 --iterations 指定迭代次数。--eval-source 可选 synthetic（合成评测数据），也可选 sessiondb（使用 Claude Code、Copilot、Hermes 的真实会话历史）。",
+      "code": "# Install\ngit clone https://github.com/NousResearch/hermes-agent-self-evolution.git\ncd hermes-agent-self-evolution\npip install -e \".[dev]\"\n\n# Point at your hermes-agent repo\nexport HERMES_AGENT_REPO=~/.hermes/hermes-agent\n\n# Evolve a skill (synthetic eval data)\npython -m evolution.skills.evolve_skill \\\n    --skill github-code-review \\\n    --iterations 10 \\\n    --eval-source synthetic\n\n# Or use real session history from Claude Code, Copilot, and Hermes\npython -m evolution.skills.evolve_skill \\\n    --skill github-code-review \\\n    --iterations 10 \\\n    --eval-source sessiondb",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/NousResearch/hermes-agent-self-evolution/blob/0a929e3aa20e15cf04dc7c28492a7d41a5139125/README.md?plain=1#L28"
+      }
+    },
+    {
+      "title": "人工审查生成的改进 PR",
+      "text": "每个进化出的变体都必须通过 pytest 全量测试、满足大小限制（技能不超过 15KB），并保持原有用途。最终改动以 PR 形式提交，需要人工审查，不会直接提交到仓库。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/NousResearch/hermes-agent-self-evolution/blob/0a929e3aa20e15cf04dc7c28492a7d41a5139125/README.md?plain=1#L69"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "文档称每次优化运行约需 2–10 美元的 API 费用，但 README 没有说明如何配置模型提供商或 API 密钥。",
+    "目前只实现了技能文件（SKILL.md）的优化；工具描述、系统提示、代码进化和持续改进循环仍处于计划阶段。",
+    "使用 sessiondb 数据源会读取 Claude Code、Copilot、Hermes 的本地会话历史，请注意其中可能包含的敏感内容。",
+    "计划中的 Darwinian Evolver 引擎采用 AGPL v3 许可，文档注明仅以外部 CLI 方式使用。",
+    "仓库元数据未标注许可证，README 写明为 MIT。"
+  ],
+  "references": [],
+  "media": [],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "ebecc0a1f483e655041b9aa531ef7535ee0165f7058b65420896d6e89c7acc92",
+  "mediaStatus": "none_in_official_documents"
+}

@@ -1,0 +1,80 @@
+{
+  "schemaVersion": 1,
+  "key": "davila7/claude-code-templates",
+  "status": "ready",
+  "reason": "",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/davila7/claude-code-templates/blob/fea62b264c6702b5bcdbb78cbdd9bb0a9a14c00b/README.md",
+  "sourceRevision": "fea62b264c6702b5bcdbb78cbdd9bb0a9a14c00b",
+  "canonicalKey": "davila7/claude-code-templates",
+  "summary": "通过 npx 命令行为 Claude Code 浏览和安装智能体、斜杠命令、设置、Hooks、MCP 与 Skills 等配置组件，并提供会话分析与健康检查工具。",
+  "intro": "适合已在使用 Anthropic Claude Code 的开发者。你可以在 aitmpl.com 网页目录或交互式命令行中挑选组件，也可以用参数直接安装指定组件，例如代码审查智能体、测试生成命令、MCP 超时设置、提交前校验 Hook 或 PostgreSQL 集成。仓库还附带会话分析面板、对话监视器、安装健康检查和插件面板等辅助工具。",
+  "requirements": "本机已安装 Claude Code；文档中的所有操作都通过 npx 执行，需要能运行 npx 的环境。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "在网页目录中浏览可用组件",
+      "text": "打开 aitmpl.com 网页界面，按 agents、commands、settings、hooks、MCPs 等类别浏览组件，先确定要安装的组件路径。各类组件的用途见 What You Get 表格，完整说明见 docs.aitmpl.com。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/davila7/claude-code-templates/blob/fea62b264c6702b5bcdbb78cbdd9bb0a9a14c00b/README.md?plain=1#L63"
+      }
+    },
+    {
+      "title": "用交互模式挑选并安装组件",
+      "text": "在项目目录运行不带参数的 npx claude-code-templates@latest，进入交互式浏览界面，逐项选择要安装的组件。适合首次使用、还不清楚组件路径时采用。",
+      "code": "# Install a complete development stack\nnpx claude-code-templates@latest --agent development-team/frontend-developer --command testing/generate-tests --mcp development/github-integration --yes\n\n# Browse and install interactively\nnpx claude-code-templates@latest\n\n# Install specific components\nnpx claude-code-templates@latest --agent development-tools/code-reviewer --yes\nnpx claude-code-templates@latest --command performance/optimize-bundle --yes\nnpx claude-code-templates@latest --setting performance/mcp-timeouts --yes\nnpx claude-code-templates@latest --hook git/pre-commit-validation --yes\nnpx claude-code-templates@latest --mcp database/postgresql-integration --yes",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/davila7/claude-code-templates/blob/fea62b264c6702b5bcdbb78cbdd9bb0a9a14c00b/README.md?plain=1#L70"
+      }
+    },
+    {
+      "title": "按参数直接安装指定组件",
+      "text": "已知组件路径时，使用 --agent、--command、--setting、--hook、--mcp 参数加分类/名称，并附加 --yes 跳过确认。多个参数可以合并在同一条命令中，一次安装一整套开发组合。",
+      "code": "# Install a complete development stack\nnpx claude-code-templates@latest --agent development-team/frontend-developer --command testing/generate-tests --mcp development/github-integration --yes\n\n# Browse and install interactively\nnpx claude-code-templates@latest\n\n# Install specific components\nnpx claude-code-templates@latest --agent development-tools/code-reviewer --yes\nnpx claude-code-templates@latest --command performance/optimize-bundle --yes\nnpx claude-code-templates@latest --setting performance/mcp-timeouts --yes\nnpx claude-code-templates@latest --hook git/pre-commit-validation --yes\nnpx claude-code-templates@latest --mcp database/postgresql-integration --yes",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/davila7/claude-code-templates/blob/fea62b264c6702b5bcdbb78cbdd9bb0a9a14c00b/README.md?plain=1#L70"
+      }
+    },
+    {
+      "title": "运行健康检查诊断安装状态",
+      "text": "执行带 --health-check 参数的命令，对当前 Claude Code 安装做综合诊断，确认配置是否处于优化状态。",
+      "code": "npx claude-code-templates@latest --health-check",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/davila7/claude-code-templates/blob/fea62b264c6702b5bcdbb78cbdd9bb0a9a14c00b/README.md?plain=1#L120"
+      }
+    },
+    {
+      "title": "按需启动分析或插件面板",
+      "text": "--analytics 用于实时查看会话状态和性能指标；--chats 打开适配移动端的对话监视器；--plugins 打开插件面板，可查看 marketplace、已安装插件并管理权限。",
+      "code": "npx claude-code-templates@latest --analytics\n\n# Local access\nnpx claude-code-templates@latest --chats\n\n# Secure remote access via Cloudflare Tunnel\nnpx claude-code-templates@latest --chats --tunnel\n\nnpx claude-code-templates@latest --plugins",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/davila7/claude-code-templates/blob/fea62b264c6702b5bcdbb78cbdd9bb0a9a14c00b/README.md?plain=1#L102"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "--chats --tunnel 会通过 Cloudflare Tunnel 开放远程访问，Claude 对话内容可被远程查看，使用前评估暴露范围。",
+    "目录中的组件来自多个第三方仓库，各自保留原始许可证（如 MIT、Apache 2.0、CC0），再分发或商用前应分别核对。",
+    "MCP 组件用于连接 GitHub、PostgreSQL、Stripe、AWS 等外部服务，实际使用时可能需要相应服务的账号或凭据。"
+  ],
+  "references": [],
+  "media": [
+    {
+      "url": "/assets/repository-guides/media-381681ea670aade97648a928.webp",
+      "alt": "davila7/claude-code-templates 官方演示 1",
+      "sourceUrl": "https://github.com/davila7/claude-code-templates/blob/fea62b264c6702b5bcdbb78cbdd9bb0a9a14c00b/README.md?plain=1#L67",
+      "originalUrl": "https://github.com/user-attachments/assets/d84feaa4-f871-4843-bbee-42d8f51b2f21"
+    }
+  ],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "e4b0e967737caca99869aac02bbec1c0d18cbf50bcdeb5eead50f69dade457c4",
+  "mediaStatus": "archived",
+  "mediaFailures": []
+}

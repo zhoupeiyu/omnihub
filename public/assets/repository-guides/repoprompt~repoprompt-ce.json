@@ -1,0 +1,61 @@
+{
+  "schemaVersion": 1,
+  "key": "repoprompt/repoprompt-ce",
+  "status": "partial",
+  "reason": "README 详细说明了 Homebrew 安装、本地源码构建和 Xcode 开发流程，但对日常使用的说明不足：没有讲如何在应用中打开工作区、如何使用 Context Builder 和 Context Composer，也没有给出 MCP 客户端或 CLI 代理连接内置 MCP 服务器的具体配置步骤，只有功能列表。",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/repoprompt/repoprompt-ce/blob/773a0f2ed166a9ffb2796aa7062b9c582c32bd0f/README.md",
+  "sourceRevision": "773a0f2ed166a9ffb2796aa7062b9c582c32bd0f",
+  "canonicalKey": "repoprompt/repoprompt-ce",
+  "summary": "RepoPrompt 的免费开源社区版，是一款原生 macOS 应用。它把文件、CodeMap、目录结构和 Git diff 整理成可审阅的上下文，交给 AI 工具和 CLI 代理，并内置 MCP 服务器用于连接和编排代理。",
+  "intro": "适合在 macOS 上使用 AI 编程代理、需要精确控制提供给模型的代码上下文的开发者。主要功能包括：Context Builder 在 token 预算内筛选相关文件；Context Composer 审阅选中内容并复制可直接交给模型的提示词；多根工作区；通过 CLI 代理进行编排和使用应用管理的 worktree；以及通过 MCP 让外部客户端搜索仓库和整理上下文。",
+  "requirements": "需要 macOS 26 或更高版本，以及 Homebrew（使用官方签名公证版安装路径时）。源码构建另需 Xcode 26 或对应的 macOS 26 SDK 命令行工具，Finder 启动器还需要 Python 3。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "确认系统为 macOS 26 以上",
+      "text": "RepoPrompt CE 只支持 macOS，徽章标明需要 macOS 26 或更高版本。下面采用 README 推荐的 Homebrew 安装路径，安装的是已签名、已公证的公开版，不需要打开 Xcode，也不需要从源码构建。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/repoprompt/repoprompt-ce/blob/773a0f2ed166a9ffb2796aa7062b9c582c32bd0f/README.md?plain=1#L1"
+      }
+    },
+    {
+      "title": "通过 Homebrew tap 安装应用",
+      "text": "先添加 repoprompt/repoprompt-ce tap，再用 cask 安装 repoprompt-ce。安装完成后应用位于 /Applications/RepoPrompt CE.app。该 cask 使用官方更新仓库发布的 ZIP 包，不会在本机构建源码。",
+      "code": "brew tap repoprompt/repoprompt-ce\nbrew install --cask repoprompt-ce",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/repoprompt/repoprompt-ce/blob/773a0f2ed166a9ffb2796aa7062b9c582c32bd0f/README.md?plain=1#L22"
+      }
+    },
+    {
+      "title": "打开应用并整理代码上下文",
+      "text": "从 /Applications 启动 RepoPrompt CE。按功能说明，可以组合文件树、选中的文件内容、行片段、CodeMap 和 Git diff，在 Context Composer 中审阅后复制提示词。README 未给出具体的界面操作步骤。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/repoprompt/repoprompt-ce/blob/773a0f2ed166a9ffb2796aa7062b9c582c32bd0f/README.md?plain=1#L123"
+      }
+    },
+    {
+      "title": "查阅 worktree 与 MCP 文档",
+      "text": "需要使用代理编排和应用管理的 worktree 时，阅读 docs/worktrees.md。需要了解长时间运行的 MCP 调用如何报告进度时，阅读 docs/mcp-progress.md。MCP 客户端的连接配置在 README 中没有说明。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/repoprompt/repoprompt-ce/blob/773a0f2ed166a9ffb2796aa7062b9c582c32bd0f/README.md?plain=1#L123"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "只支持 macOS 26 或更高版本。",
+    "本地生产构建使用仅在本机受信任的自签名证书，未经公证，不应复制到其他 Mac 或再分发。",
+    "使用 ad-hoc 签名的调试构建时，保存的 API Key 和安全权限设置在重启后不会保留。"
+  ],
+  "references": [],
+  "media": [],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "fecdd797f2b78337cf7615d9843eca8c2e8b7ee054c4ff4ad38385a768ebf47a",
+  "mediaStatus": "none_in_official_documents"
+}

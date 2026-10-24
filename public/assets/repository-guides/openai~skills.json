@@ -1,0 +1,62 @@
+{
+  "schemaVersion": 1,
+  "key": "openai/skills",
+  "status": "partial",
+  "reason": "仓库 README 已声明本仓库弃用，当前的 Codex 技能和插件示例已迁移到 openai/plugins，自定义技能改为参考外部的 Build plugins 指南。本仓库只保留旧版用 $skill-installer 安装技能的说明，没有新插件方式的具体操作步骤。",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/openai/skills/blob/49f948faa9258a0c61caceaf225e179651397431/README.md",
+  "sourceRevision": "49f948faa9258a0c61caceaf225e179651397431",
+  "canonicalKey": "openai/skills",
+  "summary": "这是 Codex 的 Agent Skills 目录仓库（已弃用），收录可在 Codex 中安装使用的技能文件夹。",
+  "intro": "适合使用 Codex、想查阅或安装官方整理技能的用户。技能是由说明、脚本和资源组成的文件夹，用来让 Codex 以可重复的方式完成特定任务。仓库按 .system（随 Codex 自动安装）、.curated（精选）、.experimental（实验性）三类组织。新项目建议改看 openai/plugins。",
+  "requirements": "已安装最新版 Codex；在 Codex 内可以使用 $skill-installer。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "确认弃用状态并选择来源",
+      "text": "本仓库已弃用。要找当前的技能或插件示例，请前往 OpenAI Plugins 仓库；要创建自己的技能，请参考 Build plugins 指南中「仅含技能的插件」部分。只有在需要查阅或安装本仓库的旧技能时，才继续后面的步骤。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/openai/skills/blob/49f948faa9258a0c61caceaf225e179651397431/README.md?plain=1#L1"
+      }
+    },
+    {
+      "title": "按目录分类挑选所需技能",
+      "text": "在 skills/ 目录下查阅技能：.system 中的技能已随最新版 Codex 自动安装，无需操作；.curated 是精选技能；.experimental 是实验性技能。每个技能目录里的 LICENSE.txt 写明该技能的许可证，使用前请先查看。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/openai/skills/blob/49f948faa9258a0c61caceaf225e179651397431/README.md?plain=1#L15"
+      }
+    },
+    {
+      "title": "在 Codex 中安装精选技能",
+      "text": "在 Codex 内使用 $skill-installer，后面跟技能名称，即可安装精选技能，默认从 skills/.curated 查找。",
+      "code": "$skill-installer gh-address-comments",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/openai/skills/blob/49f948faa9258a0c61caceaf225e179651397431/README.md?plain=1#L15"
+      }
+    },
+    {
+      "title": "指定目录或 URL 安装实验技能",
+      "text": "实验性技能需要写明所在文件夹，或者直接提供该技能在 GitHub 上的目录 URL。安装完成后重启 Codex，新技能才会被加载。",
+      "code": "$skill-installer install the create-plan skill from the .experimental folder\n\n$skill-installer install https://github.com/openai/skills/tree/main/skills/.experimental/create-plan",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/openai/skills/blob/49f948faa9258a0c61caceaf225e179651397431/README.md?plain=1#L15"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "仓库已弃用，后续更新应以 openai/plugins 和官方 Build plugins 指南为准。",
+    "仓库没有统一的许可证，每个技能的授权以其目录内的 LICENSE.txt 为准。",
+    "技能可能包含脚本，安装前请查看其内容。"
+  ],
+  "references": [],
+  "media": [],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "0f6a07580f3c627253e15a58dd0439e135049ec38eb16cf3587f7e50abc6f590",
+  "mediaStatus": "none_in_official_documents"
+}

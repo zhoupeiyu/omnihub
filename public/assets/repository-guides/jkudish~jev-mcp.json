@@ -1,0 +1,65 @@
+{
+  "schemaVersion": 1,
+  "key": "jkudish/jev-mcp",
+  "status": "ready",
+  "reason": "",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/jkudish/jev-mcp/blob/fcd18d8609ba05a2f1988af91407d86377801ca0/README.md",
+  "sourceRevision": "fcd18d8609ba05a2f1988af91407d86377801ca0",
+  "canonicalKey": "jkudish/jev-mcp",
+  "summary": "把 TypeSafe Jev 模型的判断能力封装成 12 个 MCP 工具，为 Agent 提供带类型和概率的核查、筛查、检索排序、分类与决策结果。",
+  "intro": "适合使用 Claude Code、Codex、OpenCode、Amp 等 MCP 客户端的开发者。可让 Agent 核对报告中的主张与证据（jev_verify）、在内容进入上下文前筛查提示注入（jev_screen）、从候选中按语义查找或重排（jev_find / jev_rerank）、批量分类（jev_classify）、在有限选项中做决策（jev_decide），以及审阅 diff 和完成声明（jev_review / jev_gate）。以下以 Claude Code 为例。",
+  "requirements": "Node.js 22 或更新版本；一个 Jev 提供方的 API key（默认使用 TypeSafe，可在 console.typesafe.ai/settings/keys 创建），通过 TYPESAFE_API_KEY 提供给服务端。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "准备 TypeSafe API key",
+      "text": "在 TypeSafe 控制台创建 API key，并确保启动 MCP 服务的环境中设置了 TYPESAFE_API_KEY。部分客户端启动服务时会过滤环境变量；如果服务提示缺少 key，需要在客户端配置中显式传入。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/jkudish/jev-mcp/blob/fcd18d8609ba05a2f1988af91407d86377801ca0/README.md?plain=1#L44"
+      }
+    },
+    {
+      "title": "在 Claude Code 中注册 MCP",
+      "text": "使用 claude mcp add 将 jev 注册为通过 npx 运行 @jkudish/jev-mcp 的本地 stdio 服务。其他客户端（Codex、OpenCode、Amp 及通用 MCP 客户端）在 README 中有各自的配置写法。",
+      "code": "claude mcp add jev -- npx -y @jkudish/jev-mcp",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/jkudish/jev-mcp/blob/fcd18d8609ba05a2f1988af91407d86377801ca0/README.md?plain=1#L48"
+      }
+    },
+    {
+      "title": "复制 jev 技能到 .claude/skills",
+      "text": "用 npm pack 下载包并解压，把 package/skills/jev 复制到项目的 .claude/skills。该技能告诉 Agent 何时调用哪个工具，避免工具注册了却不被使用。OpenCode 使用 .opencode/skills，Codex 使用 .agents/skills。",
+      "code": "npm pack @jkudish/jev-mcp@latest\ntar -xzf jkudish-jev-mcp-*.tgz\nmkdir -p .claude/skills && cp -R package/skills/jev .claude/skills/",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/jkudish/jev-mcp/blob/fcd18d8609ba05a2f1988af91407d86377801ca0/README.md?plain=1#L158"
+      }
+    },
+    {
+      "title": "按任务选择合适的 jev 工具",
+      "text": "核对主张与证据用 jev_verify，筛查抓取文本用 jev_screen，单个命题概率用 jev_noul，找最佳候选用 jev_find，整体排序用 jev_rerank，批量打标签用 jev_classify，2 到 6 个选项的决策用 jev_decide，比对两段文本用 jev_compare。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/jkudish/jev-mcp/blob/fcd18d8609ba05a2f1988af91407d86377801ca0/README.md?plain=1#L1"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "每次调用都会消耗你的 Jev / TypeSafe API key 额度。",
+    "作者说明这是早期软件，可能存在不完善之处。",
+    "以 HTTP 模式对外提供服务时，除非 HOST 为回环地址，否则必须设置 JEV_MCP_AUTH_TOKEN。服务本身只提供明文 HTTP，需要在反向代理处终止 TLS，并在入口处做连接数和速率限制。",
+    "JEV_MCP_PATH_TOKEN 方式会把令牌放在 URL 中，整个 URL 都要当作机密保管，并从日志中脱敏。",
+    "jev_screen 的 block / review 结果只是建议，服务端不会自行拦截，执行与否由调用方 Agent 决定。",
+    "各工具有数量和长度上限，例如 jev_find / jev_rerank 每次最多 250 个候选，单个候选文本截断到 2,000 字符；超出时需要拆分请求。"
+  ],
+  "references": [],
+  "media": [],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "9bddf1b0c902136f767d1849ff1aced7eec76eeb2ec0d1020504a57b4bedf5c8",
+  "mediaStatus": "none_in_official_documents"
+}

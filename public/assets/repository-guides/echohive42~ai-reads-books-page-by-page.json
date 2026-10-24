@@ -1,0 +1,69 @@
+{
+  "schemaVersion": 1,
+  "key": "echohive42/ai-reads-books-page-by-page",
+  "status": "ready",
+  "reason": "",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/echohive42/AI-reads-books-page-by-page/blob/7def322bdc48ff1b5073a757228af92a0f888f60/README.md",
+  "sourceRevision": "7def322bdc48ff1b5073a757228af92a0f888f60",
+  "canonicalKey": "echohive42/AI-reads-books-page-by-page",
+  "summary": "一个 Python 脚本，逐页读取 PDF 书籍，调用 OpenAI API 提取知识点，并按设定间隔生成 Markdown 摘要。",
+  "intro": "适合希望用大模型逐页整理长篇 PDF 书籍的读者或研究者。read_books.py 会跳过目录、索引等无内容页，把每页提取出的知识点累积存为 JSON 知识库，并按页数间隔和全书结束时生成 Markdown 摘要。可以用 TEST_PAGES 先处理少量页面进行测试。",
+  "requirements": "需要 git、Python 和 pip，用于安装 requirements.txt 中的依赖。脚本通过 OpenAI 客户端调用 API，但 README 未说明 API Key 的配置方式。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "克隆仓库并安装依赖",
+      "text": "克隆仓库并进入项目目录，然后用 pip 按 requirements.txt 安装依赖。README 中的仓库地址是占位符，需要替换为本仓库的实际地址。",
+      "code": "   # Clone the repository\n   git clone [repository-url]\n   cd [repository-name]\n\n   # Install requirements\n   pip install -r requirements.txt",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/echohive42/AI-reads-books-page-by-page/blob/7def322bdc48ff1b5073a757228af92a0f888f60/README.md?plain=1#L28"
+      }
+    },
+    {
+      "title": "放入 PDF 并设置 PDF_NAME",
+      "text": "把要分析的 PDF 放在项目根目录（与脚本同一目录），打开 read_books.py，将常量 PDF_NAME 改为该 PDF 的文件名。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/echohive42/AI-reads-books-page-by-page/blob/7def322bdc48ff1b5073a757228af92a0f888f60/README.md?plain=1#L28"
+      }
+    },
+    {
+      "title": "调整分析间隔与测试页数",
+      "text": "可以按需修改常量：ANALYSIS_INTERVAL 控制每隔多少页生成一次摘要，设为 None 则跳过间隔摘要；TEST_PAGES 控制测试时处理的页数，设为 None 则处理全书；MODEL 和 ANALYSIS_MODEL 分别指定处理单页和生成摘要所用的模型。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/echohive42/AI-reads-books-page-by-page/blob/7def322bdc48ff1b5073a757228af92a0f888f60/README.md?plain=1#L28"
+      }
+    },
+    {
+      "title": "运行 read_books.py 处理书籍",
+      "text": "执行 python read_books.py。脚本会先建立目录，再逐页调用 API 提取知识点并更新知识库，按间隔生成摘要，处理完全部页面后生成最终摘要。",
+      "code": "   python read_books.py",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/echohive42/AI-reads-books-page-by-page/blob/7def322bdc48ff1b5073a757228af92a0f888f60/README.md?plain=1#L28"
+      }
+    },
+    {
+      "title": "到 book_analysis 查看结果",
+      "text": "运行结束后，book_analysis/knowledge_bases/ 中是提取出的 JSON 知识库，book_analysis/summaries/ 中是间隔摘要和最终摘要的 Markdown 文件，book_analysis/pdfs/ 中是 PDF 的副本。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/echohive42/AI-reads-books-page-by-page/blob/7def322bdc48ff1b5073a757228af92a0f888f60/README.md?plain=1#L28"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "setup_directories() 会清除之前生成的文件。重新运行前，请先备份需要保留的知识库和摘要。",
+    "脚本逐页调用 OpenAI API，页数越多，调用次数越多。README 未说明 API Key 的配置方法，需要自行确认。"
+  ],
+  "references": [],
+  "media": [],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "a4029015e28c061e557c9a9227895c284458ac1f0e528674af6e82192462cfbe",
+  "mediaStatus": "none_in_official_documents"
+}

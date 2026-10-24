@@ -1,0 +1,63 @@
+{
+  "schemaVersion": 1,
+  "key": "alchaincyf/nuwa-skill",
+  "status": "ready",
+  "reason": "",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/alchaincyf/nuwa-skill/blob/fe0374687037c4cc51a65c1e0c145afe2981dc69/README.md",
+  "sourceRevision": "fe0374687037c4cc51a65c1e0c145afe2981dc69",
+  "canonicalKey": "alchaincyf/nuwa-skill",
+  "summary": "一个基于 Agent Skills 协议的技能：输入人物名后自动调研公开资料，生成该人物的“视角 Skill”，提炼其心智模型、决策启发式和表达方式。",
+  "intro": "适合想借用特定人物的思考框架来分析问题的 Claude Code、Codex、Cursor 等代理用户。女娲本体负责“造”技能：它从著作、访谈、社交媒体等六类公开信息并行采集，经三重验证提炼成 SKILL.md。仓库 examples/ 下附带已蒸馏的人物与主题示例和完整调研文件，也可以单独安装作者发布的人物 Skill 直接使用。",
+  "requirements": "需要一个支持 Agent Skills 的代理 runtime，例如 Claude Code、Codex CLI、Cursor、OpenClaw 或 Hermes Agent。使用 CLI 安装时需要能运行 npx skills add（vercel-labs/skills）。如果 runtime 不支持自动加载，也可以把 SKILL.md 内容直接粘贴进对话。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "用 npx 安装女娲技能",
+      "text": "推荐使用通用 CLI 安装器，执行 npx skills add 安装 alchaincyf/nuwa-skill。它会识别当前 runtime，并把技能放到正确目录。如果需要指定 runtime，可以加 -a claude-code、-a codex、-a cursor 等参数。",
+      "code": "npx skills add alchaincyf/nuwa-skill",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/alchaincyf/nuwa-skill/blob/fe0374687037c4cc51a65c1e0c145afe2981dc69/README.md?plain=1#L104"
+      }
+    },
+    {
+      "title": "让代理蒸馏一位指定人物",
+      "text": "安装后在代理中直接说明要蒸馏的人，例如“蒸馏一个某某”或“造一个某某的视角 Skill”。女娲会依次完成：多路采集公开资料、三重验证提炼心智模型、写入 SKILL.md，最后用此人公开回答过的问题做方向一致性检验。完整方法论见 references/extraction-framework.md。",
+      "code": "> 蒸馏一个保罗·格雷厄姆\n> 造一个张小龙的视角Skill\n> 帮我做一个段永平的Skill",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/alchaincyf/nuwa-skill/blob/fe0374687037c4cc51a65c1e0c145afe2981dc69/README.md?plain=1#L146"
+      }
+    },
+    {
+      "title": "调用生成的视角技能提问",
+      "text": "人物技能造好后，直接以该人物的视角发起分析，例如“用某人的视角分析这个决策”，或在对话中切换到某个人物。README 说明这是借用对方的认知框架，不是复读语录或角色扮演。",
+      "code": "> 用芒格的视角帮我分析这个投资决策\n> 费曼会怎么解释量子计算？\n> 切换到Naval，我在纠结三件事",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/alchaincyf/nuwa-skill/blob/fe0374687037c4cc51a65c1e0c145afe2981dc69/README.md?plain=1#L146"
+      }
+    },
+    {
+      "title": "按需安装现成人物技能",
+      "text": "README 的人物 Skill 和主题 Skill 表格列出了已发布的独立仓库，每个都可以用 npx skills add 单独安装。孙宇晨示例只在本仓库的 examples/sun-yuchen-perspective/，需要复制到 skills 目录。各示例目录附有调研文件，可以查阅提炼过程。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/alchaincyf/nuwa-skill/blob/fe0374687037c4cc51a65c1e0c145afe2981dc69/README.md?plain=1#L196"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "生成内容只基于截至调研时间的公开信息，无法提炼直觉，也捕捉不到人物后来的变化。公开表达不等于本人真实想法，输出不代表当事人观点。",
+    "README 中的保真度评分来自项目自定的评分卡和盲测流程，属于作者自评，不等同于第三方验证。",
+    "蒸馏过程需要代理并行调研大量资料，会消耗所用模型的调用额度。"
+  ],
+  "references": [],
+  "media": [],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "51533665c9e43ed3f1a3b831bb29acccc4b259cf540669c06f0c2a2ba350e5df",
+  "mediaStatus": "none_in_official_documents"
+}

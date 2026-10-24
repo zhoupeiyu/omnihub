@@ -1,0 +1,66 @@
+{
+  "schemaVersion": 1,
+  "key": "juneyaooo/nihaixia",
+  "status": "ready",
+  "reason": "",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/JuneYaooo/nihaisha-nishi-tcm/blob/3dc81efbd71a6defc6ebd6148b275bf17ccfcaf6/README.md",
+  "sourceRevision": "3dc81efbd71a6defc6ebd6148b275bf17ccfcaf6",
+  "canonicalKey": "JuneYaooo/nihaisha-nishi-tcm",
+  "summary": "把倪海厦中医课程资料整理成 Agent Skill，可以按症状、方剂、穴位、课次检索，并追溯到板书截图和 PDF 页级出处。",
+  "intro": "适合学习倪海厦课程、中医经典和经方体系的学习者。在 Claude Code、Codex 或 OpenClaw 中，可以用自然语言检索伤寒论、金匮要略、针灸、神农本草、黄帝内经、天纪等模块，整理方证、穴位和药性对比，制定逐课复习计划，并按 assets/screenshots 路径或 pdf-evidence 引用核对原始出处。本项目仅用于学习整理，不用于诊疗。",
+  "requirements": "需要支持 Skill 的 agent（Claude Code、Codex 或 OpenClaw）。默认轻量模式只读取仓库内的 references/、assets/ 和轻量搜索脚本，不需要额外依赖，也不会下载模型。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "让 agent 安装 nihaisha skill",
+      "text": "把 README 提供的安装 prompt 发给你的 AI 助手，由 agent clone 仓库，并把目录安装到该 agent 对应的 skills 目录。",
+      "code": "帮我安装 nihaisha skill：\nhttps://github.com/JuneYaooo/nihaisha-nishi-tcm",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/JuneYaooo/nihaisha-nishi-tcm/blob/3dc81efbd71a6defc6ebd6148b275bf17ccfcaf6/README.md?plain=1#L222"
+      }
+    },
+    {
+      "title": "重启 agent 以加载技能",
+      "text": "安装完成后，重启对应的 agent，让 skill 元数据重新加载，然后再开始提问。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/JuneYaooo/nihaisha-nishi-tcm/blob/3dc81efbd71a6defc6ebd6148b275bf17ccfcaf6/README.md?plain=1#L222"
+      }
+    },
+    {
+      "title": "以 nihaisha 开头提出学习问题",
+      "text": "在提问中写明使用 nihaisha，例如整理太阳中风与太阳伤寒的区别，或比较桂枝汤、麻黄汤、葛根汤的方证分水岭。也可以用白话描述症状，技能会先转换成课程中的辨证问题。",
+      "code": "用 nihaisha 帮我整理太阳中风和太阳伤寒的区别。\n\n用 nihaisha 查桂枝汤、麻黄汤、葛根汤的方证分水岭。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/JuneYaooo/nihaisha-nishi-tcm/blob/3dc81efbd71a6defc6ebd6148b275bf17ccfcaf6/README.md?plain=1#L235"
+      }
+    },
+    {
+      "title": "检索并核对截图与 PDF 证据",
+      "text": "需要出处时，可以让它查找板书截图。截图结果优先返回仓库内 assets/screenshots/ 的相对路径；PDF 证据的引用格式为 pdf-evidence:<doc_id>#p<page>，其他文本证据使用 text-evidence 格式。拿到结果后应回到原文自行核对。",
+      "code": "用 nihaisha 找小柴胡汤相关的板书截图证据。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/JuneYaooo/nihaisha-nishi-tcm/blob/3dc81efbd71a6defc6ebd6148b275bf17ccfcaf6/README.md?plain=1#L235"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "仅用于课程学习和资料检索，不能用于个人诊断、开方、剂量判断或自我用药。涉及附子类药物、急危重症、妊娠、儿童等情况时，应立即咨询合格医生。",
+    "证据层保留了原始资料中的剂量、针刺、放血、灸法等操作内容，但均标明不可照做。",
+    "RAG + 知识图谱模式已暂时下架，下架期间不可用，也不提供数据包下载。",
+    "README 的历史评测中，能力边界通过率为 8.3%，同类问题回答一致率为 62.5%，回答仍需对照原文核实。",
+    "课程截图和转写资料的版权归原权利人所有，项目仅限非商业学习使用；仓库未声明开源许可证。",
+    "项目仍在持续迭代，作者建议定期更新到最新版本。"
+  ],
+  "references": [],
+  "media": [],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "67797aa080bcb30cab9a610d555b5ae6333263cefd5ccc2beae302687545d727",
+  "mediaStatus": "none_in_official_documents"
+}

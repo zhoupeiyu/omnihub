@@ -1,0 +1,80 @@
+{
+  "schemaVersion": 1,
+  "key": "apple/container",
+  "status": "ready",
+  "reason": "",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/apple/container/blob/0a48a1bdbfaa7451c810372d98b045fa8b486b6a/README.md",
+  "sourceRevision": "0a48a1bdbfaa7451c810372d98b045fa8b486b6a",
+  "canonicalKey": "apple/container",
+  "summary": "container 是 Apple 用 Swift 编写的工具，可在 Mac 上以轻量虚拟机方式创建和运行 Linux 容器。",
+  "intro": "适合使用 Apple silicon Mac、需要本地运行 Linux 容器的开发者。它兼容 OCI 镜像，可从标准镜像仓库拉取并运行镜像，也可将自己构建的镜像推送到这些仓库，供其他 OCI 兼容应用使用。",
+  "requirements": "需要搭载 Apple silicon 的 Mac，系统为 macOS 26（不支持更早版本）；安装时需要管理员密码。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "下载签名安装包",
+      "text": "在 GitHub release 页面下载 container 最新的签名安装包（installer package）。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/apple/container/blob/0a48a1bdbfaa7451c810372d98b045fa8b486b6a/README.md?plain=1#L22"
+      }
+    },
+    {
+      "title": "双击安装包完成安装",
+      "text": "双击安装包并按提示操作，出现提示时输入管理员密码，允许安装程序把文件放到 /usr/local 下。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/apple/container/blob/0a48a1bdbfaa7451c810372d98b045fa8b486b6a/README.md?plain=1#L22"
+      }
+    },
+    {
+      "title": "启动 container 系统服务",
+      "text": "安装完成后，在终端运行 container system start 启动系统服务，之后才能运行容器。",
+      "code": "container system start",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/apple/container/blob/0a48a1bdbfaa7451c810372d98b045fa8b486b6a/README.md?plain=1#L22"
+      }
+    },
+    {
+      "title": "运行第一个容器",
+      "text": "运行官方示例命令，它会拉取 alpine 镜像，在轻量 Linux 虚拟机中运行并打印 hello，容器退出后自动删除。",
+      "code": "container run --rm alpine echo hello",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/apple/container/blob/0a48a1bdbfaa7451c810372d98b045fa8b486b6a/README.md?plain=1#L34"
+      }
+    },
+    {
+      "title": "按教程与命令参考继续学习",
+      "text": "阅读 docs/tutorials/start-here.md 教程，学习构建、运行和发布自己的 web server 镜像；也可查阅 docs/how-to.md 与 docs/command-reference.md。升级时先运行 container system stop，再用 update-container.sh。",
+      "code": "container system stop\n\n/usr/local/bin/update-container.sh",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/apple/container/blob/0a48a1bdbfaa7451c810372d98b045fa8b486b6a/README.md?plain=1#L34"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "仅支持 macOS 26，维护者通常不处理无法在 macOS 26 上复现的问题。",
+    "标记为 experimental 的功能（如 k8s 子命令）可能变化，不保证向后兼容。",
+    "应用数据仅在同一主版本内保证向前兼容，跨主版本升级可能需要特定升级路径。",
+    "卸载时 uninstall-container.sh -d 会删除用户数据，需保留数据请使用 -k。"
+  ],
+  "references": [],
+  "media": [
+    {
+      "url": "/assets/repository-guides/media-a18761a6e34c2ba8fcbf89d7.webp",
+      "alt": "apple/container 官方演示 1",
+      "sourceUrl": "https://github.com/apple/container/blob/0a48a1bdbfaa7451c810372d98b045fa8b486b6a/README.md?plain=1#L12",
+      "originalUrl": "https://raw.githubusercontent.com/apple/container/0a48a1bdbfaa7451c810372d98b045fa8b486b6a/docs/assets/landing-movie.gif"
+    }
+  ],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "e139019fdc5c1e828bea3cb9ff477685ced6163691ac1107afdb01bf5d7e8bb7",
+  "mediaStatus": "archived",
+  "mediaFailures": []
+}

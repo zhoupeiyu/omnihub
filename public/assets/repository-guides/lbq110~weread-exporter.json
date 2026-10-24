@@ -1,0 +1,66 @@
+{
+  "schemaVersion": 1,
+  "key": "lbq110/weread-exporter",
+  "status": "ready",
+  "reason": "",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/lbq110/weread-exporter/blob/ed28a8fe9fdb4631974c4e5c602b15a3b7ac8fcd/README.md",
+  "sourceRevision": "ed28a8fe9fdb4631974c4e5c602b15a3b7ac8fcd",
+  "canonicalKey": "lbq110/weread-exporter",
+  "summary": "通过 Playwright 加 Canvas Hook 抓取微信读书网页版的书籍正文和插图，按阅读顺序导出为图文交错的 Markdown。",
+  "intro": "适合拥有微信读书账号、想把自己有阅读权限的书导出为本地 Markdown 做个人学习研究的用户。工具会逐页抓取文字和插图 URL，按章节输出 Markdown，再统一下载图片，最后合并成全本 .md，可以用 Typora、Obsidian 等编辑器打开。",
+  "requirements": "需要 Python 和 pip，以及通过 Playwright 安装的 Chromium。需要有效的微信读书账号，并对目标书籍有阅读权限（无限卡会员或已购买）。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "安装 Playwright 与 Chromium",
+      "text": "用 pip 安装 playwright，再执行 playwright install chromium 下载浏览器内核。后续导出脚本会用它启动 Chromium 并保存登录会话。",
+      "code": "pip install playwright\nplaywright install chromium",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/lbq110/weread-exporter/blob/ed28a8fe9fdb4631974c4e5c602b15a3b7ac8fcd/README.md?plain=1#L16"
+      }
+    },
+    {
+      "title": "运行导出脚本并扫码登录",
+      "text": "运行 export_precise.py，参数传入书籍的 reader URL（推荐）或 book_id。首次运行会弹出浏览器要求扫码登录，会话保存在 cache/browser_profile/ 中供后续复用。脚本会从全书开头逐页翻到末尾自动停止；中途卡住时会从上次的章节继续。",
+      "code": "# 传入 reader URL（推荐）\npython export_precise.py https://weread.qq.com/web/reader/d31323b0813abaf26g0137c2\n\n# 或直接传 book_id\npython export_precise.py d31323b0813abaf26g0137c2",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/lbq110/weread-exporter/blob/ed28a8fe9fdb4631974c4e5c602b15a3b7ac8fcd/README.md?plain=1#L25"
+      }
+    },
+    {
+      "title": "单独下载书中插图",
+      "text": "导出完成后，运行 download_images.py 并传入同一个 book_id。脚本会读取 raw/*.json 中记录的图片 URL，用 8 个线程并发下载到 images/ 目录。已存在的图片会自动跳过，可以重复运行来补齐下载失败的图片。",
+      "code": "python download_images.py d31323b0813abaf26g0137c2",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/lbq110/weread-exporter/blob/ed28a8fe9fdb4631974c4e5c602b15a3b7ac8fcd/README.md?plain=1#L40"
+      }
+    },
+    {
+      "title": "查看 output 目录中的全本",
+      "text": "在 output/<book_id>/ 下，chapters/ 存放每章的 Markdown，images/ 存放插图，与 book_id 目录同级的「书名.md」是合并后的全本。用 Typora 或 Obsidian 打开全本 .md 即可查看图文内容。",
+      "code": "output/\n├── <book_id>/\n│   ├── _catalog.json        # 目录章节标题列表（用于判定全书末尾）\n│   ├── chapters/            # 每章独立 Markdown（图文交错）\n│   │   ├── 0001.md\n│   │   ├── 0002.md\n│   │   └── ...\n│   ├── images/              # 下载的插图 chXXXX_imgNN.jpg\n│   └── raw/                 # 每章的图片 URL 记录 + 字数\n│       ├── 0001.json\n│       └── ...\n└── 书名.md                  # 合并后的全本文件（图片用 images/ 相对路径）",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/lbq110/weread-exporter/blob/ed28a8fe9fdb4631974c4e5c602b15a3b7ac8fcd/README.md?plain=1#L52"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "作者声明仅供个人学习研究使用，不得用于商业用途或大规模传播，请尊重著作权。",
+    "部分出版社限制网页端阅读（页面显示「去 App 阅读」），这类书籍无法导出。",
+    "图片密集的图廊章节中，图注和图片的配对偶尔会错一位。导出速度约为每页 1–2 秒。",
+    "登录会话保存在本地 cache/browser_profile/ 目录，其中包含账号登录状态，需要注意保管。",
+    "仓库未声明开源许可证。"
+  ],
+  "references": [],
+  "media": [],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "d493096f353f7a41508d82b823602961a956467066eb9f966e3bdffc02dd38eb",
+  "mediaStatus": "none_in_official_documents"
+}

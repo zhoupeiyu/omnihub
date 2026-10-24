@@ -1,0 +1,62 @@
+{
+  "schemaVersion": 1,
+  "key": "binance/binance-skills-hub",
+  "status": "ready",
+  "reason": "",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/binance/binance-skills-hub/blob/9960c675387bd27f8866645b83693c1fa87242f6/README.md",
+  "sourceRevision": "9960c675387bd27f8866645b83693c1fa87242f6",
+  "canonicalKey": "binance/binance-skills-hub",
+  "summary": "为 AI 代理提供加密货币查询、交易、钱包追踪和 DeFi 交互能力的技能集合。",
+  "intro": "适合在 OpenClaw、Claude Code 等代理中通过自然语言处理加密资产相关任务的用户，以及想贡献技能的开发者。仓库中每个技能是一个独立文件夹，内含带 YAML frontmatter 的 SKILL.md，覆盖代币搜索、交易执行、钱包追踪、信号监控及 DeFi 协议交互。",
+  "requirements": "Node.js 22 或更高版本；使用部分 Binance 技能端点时需要 Binance API 凭据。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "确认 Node.js 版本不低于 22",
+      "text": "安装前确认本机 Node.js 版本为 22 或更高，这是官方列出的唯一前置条件。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/binance/binance-skills-hub/blob/9960c675387bd27f8866645b83693c1fa87242f6/README.md?plain=1#L23"
+      }
+    },
+    {
+      "title": "用 npx 将技能添加到项目",
+      "text": "在项目目录执行 npx skills add 命令添加 Binance Skills Hub。官方说明该方式适用于 OpenClaw、Claude Code 等多种代理。",
+      "code": "npx skills add https://github.com/binance/binance-skills-hub",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/binance/binance-skills-hub/blob/9960c675387bd27f8866645b83693c1fa87242f6/README.md?plain=1#L19"
+      }
+    },
+    {
+      "title": "阅读各技能的 SKILL.md",
+      "text": "浏览仓库中的技能文件夹，查看每个 SKILL.md 的描述与说明，了解适用场景，并阅读其中的 Security 部分，确认哪些端点需要凭据。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/binance/binance-skills-hub/blob/9960c675387bd27f8866645b83693c1fa87242f6/README.md?plain=1#L11"
+      }
+    },
+    {
+      "title": "配置 Binance API 凭据",
+      "text": "对需要认证的端点，可通过环境变量或 .env、.openclaw/secrets.env 等密钥文件提供 Binance API 凭据。官方也允许在对话中直接提供，但不如环境变量或密钥文件稳妥。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/binance/binance-skills-hub/blob/9960c675387bd27f8866645b83693c1fa87242f6/README.md?plain=1#L37"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "技能可执行真实交易，数字资产价格波动大，可能造成资金损失。",
+    "官方声明输出不构成投资建议，AI 生成内容可能有错误或过时信息，功能可能因地区或用户情况而异。",
+    "在聊天中直接发送 API 凭据会让密钥进入对话记录，宜优先使用环境变量或密钥文件。",
+    "仓库未声明许可证（license 为 null）。"
+  ],
+  "references": [],
+  "media": [],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "0f0e6fb316ab2e09cbc6da58188854092c6a0c32f2bdf672d6349859c14fcf98",
+  "mediaStatus": "none_in_official_documents"
+}

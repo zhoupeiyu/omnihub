@@ -1,0 +1,90 @@
+{
+  "schemaVersion": 1,
+  "key": "zhashut/goread",
+  "status": "ready",
+  "reason": "",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/zhashut/goread/blob/618a6acfc12a2a50db881caab4353656b4c5c564/README.md",
+  "sourceRevision": "618a6acfc12a2a50db881caab4353656b4c5c564",
+  "canonicalKey": "zhashut/goread",
+  "summary": "GoRead 是一款本地电子书阅读器，支持书架管理、自定义分组、书签、阅读进度和听书，可用于桌面端与 Android/iOS。",
+  "intro": "适合本地电子书较多、需要统一管理的读者；常读 PDF 或技术手册、需要查阅和标记的用户；以及不希望书库依赖云端账号的人。GoRead 支持 PDF、Markdown、EPUB、MOBI、TXT、HTML 格式。书籍和阅读数据都保存在本地，不上传。界面内置简体中文和英文。本指南以桌面端从源码运行为例。",
+  "requirements": "需要安装 Node.js（建议 LTS 版本）和 Rust（稳定版），并按 Tauri 官方文档完成操作系统的基础依赖配置。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "准备 Node.js、Rust 与 Tauri 依赖",
+      "text": "按 README 的环境要求，先安装 Node.js（建议 LTS 版本）和 Rust（稳定版即可），再按 Tauri 官方文档完成所在操作系统的基础依赖配置。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/zhashut/goread/blob/618a6acfc12a2a50db881caab4353656b4c5c564/README.zh.md?plain=1#L107"
+      }
+    },
+    {
+      "title": "在项目目录安装依赖",
+      "text": "获取 GoRead 源码后，在项目根目录执行 npm install 安装前端依赖。",
+      "code": "npm install",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/zhashut/goread/blob/618a6acfc12a2a50db881caab4353656b4c5c564/README.zh.md?plain=1#L112"
+      }
+    },
+    {
+      "title": "启动桌面端开发环境",
+      "text": "执行 npm run tauri dev，在本地以开发模式启动桌面端 GoRead。需要生成桌面端发布版本时，改用 npm run tauri build。",
+      "code": "npm run tauri dev\n\nnpm run tauri build",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/zhashut/goread/blob/618a6acfc12a2a50db881caab4353656b4c5c564/README.zh.md?plain=1#L118"
+      }
+    },
+    {
+      "title": "导入电子书并整理分组",
+      "text": "在应用中导入本地电子书文件，再按自己的习惯创建分组，例如“在读”“技术”“待阅读”，把书籍归类。分组顺序可以调整，常用分组可以置顶。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/zhashut/goread/blob/618a6acfc12a2a50db881caab4353656b4c5c564/README.zh.md?plain=1#L91"
+      }
+    },
+    {
+      "title": "阅读、听书与添加书签",
+      "text": "在书架中选择一本书进入阅读界面。阅读 EPUB、MOBI、TXT 时，可以点击“听书”开启朗读，语速在“设置”中调整。阅读中可为关键内容添加书签，退出时会自动记录进度。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/zhashut/goread/blob/618a6acfc12a2a50db881caab4353656b4c5c564/README.zh.md?plain=1#L91"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "项目采用 AGPL-3.0 协议，并明确禁止任何形式的商业使用，包括销售或用于收费服务。",
+    "听书仅支持 EPUB、MOBI、TXT，CBZ 格式尚未支持。",
+    "README 中提到的线上书源是第三方站点，下载内容的版权需要自行确认。",
+    "移动端需要先执行 tauri android/ios init 初始化工程，并连接真机或启动模拟器后才能运行调试。"
+  ],
+  "references": [
+    {
+      "label": "README.zh.md",
+      "url": "https://github.com/zhashut/goread/blob/618a6acfc12a2a50db881caab4353656b4c5c564/README.zh.md"
+    }
+  ],
+  "media": [],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "57a07a0ddc7db3d95cd8f797a4f223a8a507ae75fb08e4705cb42cc3015cdd8c",
+  "mediaStatus": "unavailable",
+  "mediaFailures": [
+    {
+      "sourceUrl": "https://github.com/zhashut/goread/blob/618a6acfc12a2a50db881caab4353656b4c5c564/README.zh.md#L20",
+      "reason": "unsupported_media_host"
+    },
+    {
+      "sourceUrl": "https://github.com/zhashut/goread/blob/618a6acfc12a2a50db881caab4353656b4c5c564/README.zh.md#L21",
+      "reason": "unsupported_media_host"
+    },
+    {
+      "sourceUrl": "https://github.com/zhashut/goread/blob/618a6acfc12a2a50db881caab4353656b4c5c564/README.zh.md#L22",
+      "reason": "unsupported_media_host"
+    }
+  ]
+}

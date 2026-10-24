@@ -1,0 +1,69 @@
+{
+  "schemaVersion": 1,
+  "key": "vigorx777/content-collector-skill",
+  "status": "ready",
+  "reason": "",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/vigorX777/content-collector-skill/blob/88edfb4673169f554ae71f73d1b88a4a3186fa47/README.md",
+  "sourceRevision": "88edfb4673169f554ae71f73d1b88a4a3186fa47",
+  "canonicalKey": "vigorX777/content-collector-skill",
+  "summary": "一个 OpenClaw 技能：在对话中发送社交媒体链接，就能抓取内容、由 AI 整理成摘要和分类，并存入飞书多维表格。",
+  "intro": "适合用 OpenClaw 收藏和整理网络内容的人。支持 X/Twitter、微信公众号、即刻、Reddit、知乎、Bilibili、Hacker News 的链接，也支持先对截图做 OCR 再提取链接。技能会自动生成摘要、分类和关键词，把原文作为 .md 上传到飞书云空间，在多维表格中记录标题、来源、分类、链接、摘要等字段，并对重复链接去重。",
+  "requirements": "已安装 OpenClaw。需要 pip，以安装公众号抓取所需的 scrapling 和 html2text。需要一个飞书多维表格，并准备好它的 app token 和 table ID。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "复制技能并安装抓取依赖",
+      "text": "把 content-collector 文件夹复制到 ~/.openclaw/workspace/skills/。然后安装 scrapling 和 html2text，并执行 scrapling install。这些依赖主要用于抓取微信公众号文章。",
+      "code": "# 复制到 OpenClaw skills 目录\ncp -r content-collector ~/.openclaw/workspace/skills/\n\n# 安装依赖（公众号抓取需要）\npip install scrapling html2text\nscrapling install",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/vigorX777/content-collector-skill/blob/88edfb4673169f554ae71f73d1b88a4a3186fa47/README.md?plain=1#L34"
+      }
+    },
+    {
+      "title": "配置飞书多维表格环境变量",
+      "text": "设置 FEISHU_BITABLE_APP_TOKEN 和 FEISHU_BITABLE_TABLE_ID 两个环境变量，也可以把 .env.example 复制为 .env 后填写。表格字段可参照 README 中的多维表格字段说明，飞书配置细节见 references/feishu_config.md。",
+      "code": "# 设置环境变量\nexport FEISHU_BITABLE_APP_TOKEN=\"your_app_token\"\nexport FEISHU_BITABLE_TABLE_ID=\"your_table_id\"",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/vigorX777/content-collector-skill/blob/88edfb4673169f554ae71f73d1b88a4a3186fa47/README.md?plain=1#L45"
+      }
+    },
+    {
+      "title": "在对话中发送链接触发收藏",
+      "text": "在 OpenClaw 对话中直接发送受支持平台的链接或截图，技能会自动触发：读取内容、提取重点、分类打标签、存入飞书并发送通知。注意 Bilibili 只抓取标题和描述。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/vigorX777/content-collector-skill/blob/88edfb4673169f554ae71f73d1b88a4a3186fa47/README.md?plain=1#L55"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "README 中只写了复制 content-collector 目录，没有说明如何先获取该目录，需要自行从仓库取得对应文件。",
+    "飞书凭据的完整获取方法不在 README 中，需要查看 references/feishu_config.md。",
+    "README 称可以绕过微信反爬，使用前请自行确认是否符合各平台的服务条款。",
+    "仓库元数据中没有检测到许可证，只有 README 写了 MIT。如需复用代码，请先确认授权。"
+  ],
+  "references": [],
+  "media": [
+    {
+      "url": "/assets/repository-guides/media-1d3ffccfeea468b43c423151.webp",
+      "alt": "聊天记录-机器人收藏",
+      "sourceUrl": "https://github.com/vigorX777/content-collector-skill/blob/88edfb4673169f554ae71f73d1b88a4a3186fa47/README.md?plain=1#L20",
+      "originalUrl": "https://raw.githubusercontent.com/vigorX777/content-collector-skill/88edfb4673169f554ae71f73d1b88a4a3186fa47/assets/chat-demo.png"
+    },
+    {
+      "url": "/assets/repository-guides/media-6e8857f2be12da521808602f.webp",
+      "alt": "内容收藏库-多维表格",
+      "sourceUrl": "https://github.com/vigorX777/content-collector-skill/blob/88edfb4673169f554ae71f73d1b88a4a3186fa47/README.md?plain=1#L21",
+      "originalUrl": "https://raw.githubusercontent.com/vigorX777/content-collector-skill/88edfb4673169f554ae71f73d1b88a4a3186fa47/assets/bitable-demo.png"
+    }
+  ],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "a239a13d91fdebf34edbd11963042adeab27e7ed56f8a4ebf72ac59357212a14",
+  "mediaStatus": "archived",
+  "mediaFailures": []
+}

@@ -1,0 +1,85 @@
+{
+  "schemaVersion": 1,
+  "key": "leonxlnx/taste-skill",
+  "status": "ready",
+  "reason": "",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/Leonxlnx/taste-skill/blob/ce26fc25c0e5e8cab638f883de62d9a86ee5e45b/README.md",
+  "sourceRevision": "ce26fc25c0e5e8cab638f883de62d9a86ee5e45b",
+  "canonicalKey": "Leonxlnx/taste-skill",
+  "summary": "一组面向 AI 编码代理的前端设计 Agent Skills，用来约束生成界面的版式、动效与视觉风格，减少千篇一律的输出。",
+  "intro": "适合用 Codex、Cursor、Claude Code 等代理生成网站或应用前端的开发者与设计工程师。仓库在 skills/ 下提供多个分工明确的技能：实现类技能输出代码，例如默认的 taste-skill、改造旧项目的 redesign-skill、极简或粗野风格的变体；图像生成类技能只输出设计参考图，例如 imagegen-frontend-web、imagegen-frontend-mobile、brandkit。README 说明这些规则面向设计意图，不绑定 React、Vue、Svelte 等具体框架。",
+  "requirements": "需要能执行 npx skills add 的命令行环境（该 CLI 来自 vercel-labs/agent-skills），以及能加载 SKILL.md 的编码代理。也可以不用 CLI，直接把 SKILL.md 复制进项目，或粘贴到 ChatGPT / Codex 对话中。图像生成类技能需要配合能生成图片的代理，例如 ChatGPT Images 或 Codex image mode。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "按任务挑选要用的技能",
+      "text": "先查看 Skills 表和“Which one should I use?”一节。一般场景从 taste-skill（安装名 design-taste-frontend）开始。改造现有代码库用 redesign-skill；已定好视觉方向时，再叠加 soft、minimalist 或 brutalist 技能；代理经常截断输出时加 output-skill；交付物是设计图时，选三个 imagegen 类技能之一。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/Leonxlnx/taste-skill/blob/ce26fc25c0e5e8cab638f883de62d9a86ee5e45b/README.md?plain=1#L123"
+      }
+    },
+    {
+      "title": "用 npx 安装全部或单个技能",
+      "text": "直接运行 npx skills add 并传入仓库地址，会安装 skills/ 目录下的全部技能，代码类和图像生成类都包括在内。只装一个时，加 --skill 参数并填写安装名。注意安装名取自 SKILL frontmatter 里的 name 字段，不是文件夹名，例如 design-taste-frontend。",
+      "code": "npx skills add https://github.com/Leonxlnx/taste-skill\n\nnpx skills add https://github.com/Leonxlnx/taste-skill --skill \"design-taste-frontend\"",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/Leonxlnx/taste-skill/blob/ce26fc25c0e5e8cab638f883de62d9a86ee5e45b/README.md?plain=1#L89"
+      }
+    },
+    {
+      "title": "调整 taste-skill 的三个参数",
+      "text": "taste-skill 文件顶部有三个 1–10 的数值。DESIGN_VARIANCE 控制版式实验程度，数值越高越不对称。MOTION_INTENSITY 控制动画深度，从悬停效果到滚动或磁吸效果。VISUAL_DENSITY 控制单屏信息量，从宽松布局到密集的仪表盘。按项目需要修改即可，这组参数只适用于 taste-skill。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/Leonxlnx/taste-skill/blob/ce26fc25c0e5e8cab638f883de62d9a86ee5e45b/README.md?plain=1#L171"
+      }
+    },
+    {
+      "title": "图像优先流程中写明执行顺序",
+      "text": "使用 image-to-code-skill 时，README 建议在提示中写明流程：先生成图片，再分析，最后写代码。如果只需要设计图，就把 imagegen-frontend-web、imagegen-frontend-mobile 或 brandkit 附加或粘贴到对话中，要求生成所需画面，再把渲染结果交给 Codex、Cursor 或 Claude Code 实现。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/Leonxlnx/taste-skill/blob/ce26fc25c0e5e8cab638f883de62d9a86ee5e45b/README.md?plain=1#L163"
+      }
+    },
+    {
+      "title": "需要时升级或固定到 v1",
+      "text": "默认的 design-taste-frontend 现在是 v2 实验版。已装 v1 的用户重新执行安装命令，就会原地升级，安装名不变。如果依赖 v1 的原有行为，改为安装 design-taste-frontend-v1 来固定版本。两个版本的差异见 CHANGELOG.md。",
+      "code": "npx skills add https://github.com/Leonxlnx/taste-skill --skill \"design-taste-frontend\"\n\nnpx skills add https://github.com/Leonxlnx/taste-skill --skill \"design-taste-frontend-v1\"",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/Leonxlnx/taste-skill/blob/ce26fc25c0e5e8cab638f883de62d9a86ee5e45b/README.md?plain=1#L105"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "默认 taste-skill 目前是 v2 实验版，仍在迭代，行为可能与 v1 不同。依赖旧行为的项目应固定安装 design-taste-frontend-v1。",
+    "图像生成类技能只输出参考图，不生成代码，需要另交给编码代理实现。",
+    "README 中 Kimi、Fluxion AI 等赞助商的 API 优惠链接与本技能的使用无关，相关付费服务需自行评估。",
+    "作者声明本项目没有任何官方代币或加密项目，使用其名义的代币均与项目无关。"
+  ],
+  "references": [],
+  "media": [
+    {
+      "url": "/assets/repository-guides/media-2d5937caeb896a799bee40c1.webp",
+      "alt": "Leonxlnx/taste-skill 官方演示 1",
+      "sourceUrl": "https://github.com/Leonxlnx/taste-skill/blob/ce26fc25c0e5e8cab638f883de62d9a86ee5e45b/README.md?plain=1#L184",
+      "originalUrl": "https://raw.githubusercontent.com/Leonxlnx/taste-skill/ce26fc25c0e5e8cab638f883de62d9a86ee5e45b/examples/floria-top.webp"
+    },
+    {
+      "url": "/assets/repository-guides/media-377329784db427e9fa0dc8e3.webp",
+      "alt": "Leonxlnx/taste-skill 官方演示 2",
+      "sourceUrl": "https://github.com/Leonxlnx/taste-skill/blob/ce26fc25c0e5e8cab638f883de62d9a86ee5e45b/README.md?plain=1#L185",
+      "originalUrl": "https://raw.githubusercontent.com/Leonxlnx/taste-skill/ce26fc25c0e5e8cab638f883de62d9a86ee5e45b/examples/floria-bottom.webp"
+    }
+  ],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "f73e51ff95ab550ff95d58f04695b1703b7e1ba73d1532322dc4a6f6e97d0907",
+  "mediaStatus": "archived",
+  "mediaFailures": []
+}

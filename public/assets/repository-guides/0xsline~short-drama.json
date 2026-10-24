@@ -1,0 +1,71 @@
+{
+  "schemaVersion": 1,
+  "key": "0xsline/short-drama",
+  "status": "ready",
+  "reason": "",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/0xsline/short-drama/blob/8979a428c31a865421d661bdb606e24314b683a0/README.md",
+  "sourceRevision": "8979a428c31a865421d661bdb606e24314b683a0",
+  "canonicalKey": "0xsline/short-drama",
+  "summary": "一个纯 Markdown 编写的短剧剧本创作技能包，通过斜杠命令完成选题立项、创作方案、角色设计、分集目录、分集撰写、质量审查、合规审核和导出。",
+  "intro": "适合用 AI 编程助手创作微短剧剧本的编剧和内容团队。它内置 13 种题材模板、四层反派体系、五种钩子、节奏曲线、付费卡点和爽感矩阵等规则，并支持国内格式与海外好莱坞格式（/overseas）。各步骤的产物写入工作目录，进度保存在 .drama-state.json 中，后续命令会自动读取。",
+  "requirements": "需要支持 Skills 目录结构的 AI 编程助手，README 列出了 Claude Code、Codex CLI、Gemini CLI 等。需要 git 来克隆仓库。技能本身零依赖，无需安装额外的包。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "克隆到 Claude Code 技能目录",
+      "text": "以 macOS/Linux 下的 Claude Code 全局安装为例，把仓库克隆到 ~/.claude/skills/short-drama。只想在某个项目中使用时，可以克隆到该项目的 .claude/skills/short-drama。Windows 用户请参照 README 中的 Git Bash 写法。",
+      "code": "# macOS / Linux\ngit clone https://github.com/0xsline/short-drama.git ~/.claude/skills/short-drama\n\n# Windows (Git Bash)\ngit clone https://github.com/0xsline/short-drama.git \"$USERPROFILE/.claude/skills/short-drama\"",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/0xsline/short-drama/blob/8979a428c31a865421d661bdb606e24314b683a0/README.md?plain=1#L42"
+      }
+    },
+    {
+      "title": "用 /start 验证并完成立项",
+      "text": "启动 AI 编程助手后输入 /start，出现选题引导即表示安装成功。按引导选择题材（最多组合 2 种）、受众、调性、结局、集数、语言和模式，完成后会生成 .drama-state.json。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/0xsline/short-drama/blob/8979a428c31a865421d661bdb606e24314b683a0/README.md?plain=1#L65"
+      }
+    },
+    {
+      "title": "生成方案、角色与分集目录",
+      "text": "依次执行 /plan、/characters、/outline，分别生成 creative-plan.md（故事骨架、节奏曲线、付费卡点等）、characters.md（角色档案与四层反派）和 episode-directory.md（每集梗概、钩子类型和标记）。每条命令都要求前一步已完成。",
+      "code": "/start          → 选择题材、受众、调性、集数\n/plan      → 生成完整故事骨架\n/characters      → 设计角色档案和关系图\n/outline          → 生成分集目录（含钩子和标记）\n/episode 1        → 撰写第1集剧本\n/review 1        → 对第1集进行质量审查\n/episode 2-5      → 批量撰写第2-5集\n/review all      → 全集质量审查\n/compliance          → 合规审核\n/export          → 导出完整剧本",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/0xsline/short-drama/blob/8979a428c31a865421d661bdb606e24314b683a0/README.md?plain=1#L121"
+      }
+    },
+    {
+      "title": "撰写分集并进行质量审查",
+      "text": "用 /episode 撰写单集或批量撰写，也可以用 next 自动续写下一集，产物写入 episodes/。再用 /review 对已写集数做五维度评分（节奏、爽点、台词、格式、连贯性），报告写入 reviews/。",
+      "code": "/episode 1          → 撰写第1集\n/episode 3-5        → 批量撰写第3、4、5集\n/episode next       → 撰写下一集（自动检测进度）\n\n/review 1          → 审查第1集\n/review 3-5        → 批量审查第3-5集\n/review all        → 审查所有已写集数",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/0xsline/short-drama/blob/8979a428c31a865421d661bdb606e24314b683a0/README.md?plain=1#L197"
+      }
+    },
+    {
+      "title": "合规审核后导出完整剧本",
+      "text": "执行 /compliance 生成 compliance-report.md，检查红线和高风险内容。确认后执行 /export，把剧本、角色表、场景清单和配乐提示表整合到 export/ 目录。面向海外市场时，可先用 /overseas 切换为英文格式。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/0xsline/short-drama/blob/8979a428c31a865421d661bdb606e24314b683a0/README.md?plain=1#L302"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "/compliance 和 /review 的结果由 AI 依据内置清单生成，不能替代平台或主管部门的正式内容审核。",
+    "命令会在当前工作目录写入 .drama-state.json、episodes/、reviews/、export/ 等文件，建议为每部剧单独建立目录。",
+    "README 只给出了 .claude/skills 路径的安装命令；在 Codex CLI、Gemini CLI 中使用时，需要按各宿主自身的技能目录放置文件。"
+  ],
+  "references": [],
+  "media": [],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "ba83398ad1a825fa9d6e3c702aaf04838d005a1124f1253a3c009df5bf72f0ee",
+  "mediaStatus": "none_in_official_documents"
+}

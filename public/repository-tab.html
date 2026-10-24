@@ -1,0 +1,16 @@
+<link rel="stylesheet" href="/repository-explorer-prototype.css">
+<link rel="stylesheet" href="/repository-tab.css">
+<div class="catalogue-layout" id="catalogue-layout">
+<div id="main" class="catalogue-content">
+  <nav id="repository-breadcrumb" class="repository-breadcrumb" aria-label="仓库位置"></nav>
+  <div class="page-heading"><div><h1 id="page-title">仓库库</h1><p id="page-description">按用途、细分类别和工具形态，找到这次用得上的收藏。</p></div><div class="library-total"><strong id="total-count">—</strong><span>个已收藏仓库</span></div></div>
+  <div class="mobile-navigation"><label for="mobile-section">分类</label><select id="mobile-section" aria-label="仓库分类"></select></div>
+  <div class="search-bar"><label class="search-field"><span id="search-icon" aria-hidden="true"></span><input id="search" type="search" autocomplete="off" placeholder="搜索仓库名称、用途、想解决的问题…" aria-label="搜索全部仓库"></label><button id="search-all" class="text-button" hidden>搜索全部仓库</button></div>
+  <div id="use-chips" class="use-chips" role="group" aria-label="细分用途"></div>
+  <div id="overview"></div>
+  <div class="results-toolbar"><div><h2 id="results-title">从一个用途开始</h2><span id="result-count" role="status" aria-live="polite"></span></div><div class="filters"><select id="use-filter" aria-label="细分用途"><option value="all">全部细分用途</option></select><select id="form-filter" aria-label="仓库形态"><option value="all">全部形态</option></select><select id="sort" aria-label="排列方式"><option value="default">专题顺序</option><option value="name">名称 A–Z</option></select><button id="clear" class="text-button" hidden>清除筛选</button></div></div>
+  <div id="results" aria-busy="true"><div class="empty-state"><h2>正在取回你的仓库…</h2></div></div>
+  <footer class="page-footer" id="coverage"></footer>
+</div>
+<div id="repo-detail-layer" class="detail-drawer-layer" hidden><div id="repo-detail-backdrop" class="detail-drawer-backdrop" aria-hidden="true"></div><section id="repo-dialog" class="repository-detail detail-drawer" role="dialog" aria-label="仓库详情" aria-modal="true" hidden tabindex="-1"><header class="detail-drawer-header"><span class="detail-drawer-label">仓库详情</span><div class="detail-drawer-actions"><button id="close-detail" class="detail-drawer-close" aria-label="关闭详情" title="关闭详情（Esc）"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="m6 6 12 12M18 6 6 18"/></svg></button></div></header><div id="detail-content" class="detail-drawer-body"></div></section></div>
+</div>

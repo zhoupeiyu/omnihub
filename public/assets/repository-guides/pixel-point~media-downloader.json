@@ -1,0 +1,71 @@
+{
+  "schemaVersion": 1,
+  "key": "pixel-point/media-downloader",
+  "status": "ready",
+  "reason": "",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/pixel-point/media-downloader/blob/6e21554ef5e4921c4d816d99ec59942496c7cc96/README.md",
+  "sourceRevision": "6e21554ef5e4921c4d816d99ec59942496c7cc96",
+  "canonicalKey": "pixel-point/media-downloader",
+  "summary": "Media Downloader 是一款原生 macOS 视频下载应用，借助 yt-dlp 从大量网站下载视频为 MP4，并可在应用内裁剪、复制和管理下载历史。",
+  "intro": "适合需要从 YouTube、Instagram、X、TikTok、Vimeo、Reddit 等 yt-dlp 支持站点保存视频的 macOS 用户。粘贴链接后应用会下载 MP4、完成后自动复制文件到剪贴板并保存到所选文件夹，保留带缩略图的本地历史，可在 Finder 中定位文件、重新复制或打开原链接，还能裁剪视频后保存或复制片段。",
+  "requirements": "macOS 设备；官方下载包为 MediaDownloader-macos-arm64.dmg（arm64 架构）。如需从源码构建，则需要 macOS 14 或更新版本、带 Swift 5.9+ 的 Xcode 或 Command Line Tools，以及 yt-dlp 和 ffmpeg。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "下载官方 macOS DMG 安装包",
+      "text": "在 README 顶部点击 “Download for macOS”，从 GitHub Releases 下载最新的 MediaDownloader-macos-arm64.dmg。该文件为 arm64 架构构建。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/pixel-point/media-downloader/blob/6e21554ef5e4921c4d816d99ec59942496c7cc96/README.md?plain=1#L1"
+      }
+    },
+    {
+      "title": "拖入 Applications 完成安装",
+      "text": "打开 DMG，里面包含 MediaDownloader.app 和一个 Applications 快捷方式，按标准方式把应用拖到 Applications 即可安装。发布包经过签名和 Apple 公证流程。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/pixel-point/media-downloader/blob/6e21554ef5e4921c4d816d99ec59942496c7cc96/README.md?plain=1#L79"
+      }
+    },
+    {
+      "title": "粘贴链接下载 MP4 视频",
+      "text": "在 Spotlight 风格的窗口中粘贴视频链接开始下载。应用会尽可能转换合并为 H.264/AAC 的 MP4，完成后自动复制文件到剪贴板，并保存到你选择的文件夹；可在设置中指定并保留自定义下载目录。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/pixel-point/media-downloader/blob/6e21554ef5e4921c4d816d99ec59942496c7cc96/README.md?plain=1#L1"
+      }
+    },
+    {
+      "title": "在历史记录中管理和裁剪",
+      "text": "本地历史会带缩略图记录下载项，可再次复制文件、在 Finder 中显示或打开原始链接。对已下载视频可进行裁剪，然后保存为新的 MP4 或直接复制裁剪片段。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/pixel-point/media-downloader/blob/6e21554ef5e4921c4d816d99ec59942496c7cc96/README.md?plain=1#L12"
+      }
+    },
+    {
+      "title": "站点失效时更新 yt-dlp",
+      "text": "站点支持取决于所安装的 yt-dlp 版本。如果某个网站无法下载，README 建议先通过 Homebrew 升级 yt-dlp。应用也可在设置菜单中检查 GitHub Releases 上的新版本。",
+      "code": "brew upgrade yt-dlp",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/pixel-point/media-downloader/blob/6e21554ef5e4921c4d816d99ec59942496c7cc96/README.md?plain=1#L112"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "仓库未声明许可证（license 为空），使用、修改或再分发前请自行确认授权。",
+    "官方 DMG 为 arm64 架构，README 未提供其他架构的下载包。",
+    "下载能力依赖 yt-dlp 和 ffmpeg，站点支持随 yt-dlp 版本变化；README 未明确说明使用 DMG 版时是否需另行安装这两个工具。",
+    "下载第三方平台视频需自行遵守相应平台条款和内容版权。",
+    "应用会访问 GitHub API 检查更新；偏好设置存于 UserDefaults，历史和缩略图存于应用的 Application Support 目录。"
+  ],
+  "references": [],
+  "media": [],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "f770594613df6b1f86cd94e2bc55ce9ea4ad15a28b84ebc4ae78178da4e69e7f",
+  "mediaStatus": "none_in_official_documents"
+}

@@ -1,0 +1,74 @@
+{
+  "schemaVersion": 1,
+  "key": "frozen-cherry/twitter-buddy",
+  "status": "ready",
+  "reason": "",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/frozen-cherry/twitter-buddy/blob/010abeb7be789f3907a629b00a4bd1428c63f255/README.md",
+  "sourceRevision": "010abeb7be789f3907a629b00a4bd1428c63f255",
+  "canonicalKey": "frozen-cherry/twitter-buddy",
+  "summary": "一个本地运行的 Twitter/X 助手，用 Chrome 自动滚动采集关注时间线推文，并通过 Claude Code CLI 做趋势分析、账号发现和用户画像分析。",
+  "intro": "适合想定期整理自己 Twitter/X 关注时间线信息的个人用户。它会自动滚动 Following 时间线并按天去重保存推文，定时把推文交给 Claude 生成热点、重点推文和情绪总结。它还能从“为你推荐”页筛选值得关注的账号并累积评分，也能抓取指定用户时间线做内容质量与风险分析。结果在本地 Dashboard（http://localhost:3456）中查看。",
+  "requirements": "Node.js 18+；已安装 Google Chrome；已安装并登录 Claude Code CLI（`claude /login`），分析通过 `claude -p` 执行，文档说明无需 API Key；一个可手动登录的 Twitter/X 账号。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "克隆仓库并安装依赖",
+      "text": "把仓库克隆到本地并进入目录。示例命令中的 YOUR_USERNAME 是占位符，需要换成实际仓库地址。然后执行 `npm install` 安装依赖，再执行 `npx playwright install-deps` 安装 Playwright 浏览器自动化所需的系统依赖。",
+      "code": "git clone https://github.com/YOUR_USERNAME/twitter-buddy.git\ncd twitter-buddy\nnpm install\nnpx playwright install-deps",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/frozen-cherry/twitter-buddy/blob/010abeb7be789f3907a629b00a4bd1428c63f255/README.md?plain=1#L23"
+      }
+    },
+    {
+      "title": "登录 Claude Code CLI",
+      "text": "本项目的 AI 分析通过 Claude Code CLI 的 `claude -p` 完成，不需要单独配置 API Key。启动采集前，先确认 Claude Code CLI 已经安装，并执行 `claude /login` 完成登录。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/frozen-cherry/twitter-buddy/blob/010abeb7be789f3907a629b00a4bd1428c63f255/README.md?plain=1#L17"
+      }
+    },
+    {
+      "title": "手动登录 Twitter 账号",
+      "text": "运行 `npm run login`，程序会打开一个 Chrome 窗口。在窗口里手动登录 Twitter/X，完成后关闭窗口。登录状态保存在本地 `.chrome-profile` 目录，该目录已被 `.gitignore` 排除。",
+      "code": "npm run login",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/frozen-cherry/twitter-buddy/blob/010abeb7be789f3907a629b00a4bd1428c63f255/README.md?plain=1#L23"
+      }
+    },
+    {
+      "title": "启动守护进程与 Dashboard",
+      "text": "运行 `npm run daemon` 进入官方推荐的全自动模式：持续采集推文，默认每 2 小时分析一次、每 6 小时发现一次账号。同时可在浏览器打开 http://localhost:3456 查看分析报告、发现报告、评分排行和推文数量图表，也可以在页面上手动触发各项操作。",
+      "code": "npm run daemon",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/frozen-cherry/twitter-buddy/blob/010abeb7be789f3907a629b00a4bd1428c63f255/README.md?plain=1#L40"
+      }
+    },
+    {
+      "title": "按需分析单个用户或调整配置",
+      "text": "想评估某个账号时，用 `node profile.js --handle <用户名>` 抓取该用户的推文，再加上 `--analyze` 参数做分析；也可以在 Dashboard 的 Profiles 标签页里完成同样的操作。采集频率、滚动参数、使用的 Claude 模型和提示词都在 `config.js` 中修改。",
+      "code": "# Scrape tweets (default 50 scrolls)\nnode profile.js --handle cissan_9984 --max-scrolls 50\n\n# Analyze with defaults (last 30 days, Sonnet 4.6)\nnode profile.js --handle cissan_9984 --analyze\n\n# Analyze with options\nnode profile.js --handle cissan_9984 --analyze --days 60 --max-tweets 500 --model claude-opus-4-6",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/frozen-cherry/twitter-buddy/blob/010abeb7be789f3907a629b00a4bd1428c63f255/README.md?plain=1#L87"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "工具会用你本人的 Twitter/X 登录态自动滚动、悬停头像、访问主页。`config.js` 中的滚动参数专门用于降低被检测的概率，说明这类自动化存在账号受限的风险，请自行评估平台规则。",
+    "`.chrome-profile` 保存了 Twitter 登录态，不要分享或提交到公开位置。",
+    "所有分析都通过本机已登录的 Claude Code CLI 调用 Claude，会占用该账号的使用额度。",
+    "文档列出的服务器部署方式：Windows Server 需要带桌面环境；无屏幕的 Linux VPS 需要用 `xvfb-run node daemon.js` 运行。",
+    "仓库未声明开源许可证，复用或分发代码前需要自行确认授权。"
+  ],
+  "references": [],
+  "media": [],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "71fa16041d7112b738c9dab532b51d5f1d328e94957771d9f46328ce76d1bc08",
+  "mediaStatus": "none_in_official_documents"
+}

@@ -1,0 +1,65 @@
+{
+  "schemaVersion": 1,
+  "key": "op7418/humanizer-zh",
+  "status": "ready",
+  "reason": "",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/op7418/Humanizer-zh/blob/f4518a8eab97b8bfebc66a89d34320a89bef6930/README.md",
+  "sourceRevision": "f4518a8eab97b8bfebc66a89d34320a89bef6930",
+  "canonicalKey": "op7418/Humanizer-zh",
+  "summary": "一个 Claude Code Skill，用来润色中文文章、评论和文档，删去空话、重复和模板化表达，同时保留事实、确定程度和作者语气。",
+  "intro": "适合需要修改中文稿件的写作者、编辑和技术文档作者。它是一份由 Agent 读取执行的编辑指导，不是独立的检测程序。输入可以是一段文字，也可以是一个文件，默认输出最终改写稿；如果只想看意见，可以要求只给建议、不改文件。规则按 A–F 六类共 31 个检查点组织，详见仓库中的 SKILL.md。",
+  "requirements": "已安装并可使用 Claude Code；采用推荐方式安装时需要能运行 npx 命令。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "用 npx 安装 Skill",
+      "text": "按 README 推荐的方式，在终端运行 npx skills add 命令安装本仓库。文档说明这种方式会自动把技能装到正确的目录。如果不想用 npx，README 还给出了 git clone 到 ~/.claude/skills/humanizer-zh 和手动复制两种方式，三选一即可。",
+      "code": "npx skills add https://github.com/op7418/Humanizer-zh.git",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/op7418/Humanizer-zh/blob/f4518a8eab97b8bfebc66a89d34320a89bef6930/README.md?plain=1#L11"
+      }
+    },
+    {
+      "title": "重启后验证技能已激活",
+      "text": "重启 Claude Code 或重新加载 skills，然后在对话中输入 /humanizer-zh。按文档说明，安装成功时该技能会被激活。采用手动安装的话，先确认 ~/.claude/skills/humanizer-zh/ 目录下有 SKILL.md。",
+      "code": "/humanizer-zh\n\n   ~/.claude/skills/humanizer-zh/\n   ├── SKILL.md       # 技能定义文件（中文版）\n   └── README.md      # 说明文档",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/op7418/Humanizer-zh/blob/f4518a8eab97b8bfebc66a89d34320a89bef6930/README.md?plain=1#L40"
+      }
+    },
+    {
+      "title": "粘贴文本请求润色",
+      "text": "在 Claude Code 对话中注明使用 humanizer-zh，写清要保留的文体或语气，比如技术评论的语气，再粘贴原文。默认只返回最终稿；没有问题的句子可以原样保留，不会为了改而改。",
+      "code": "请用 humanizer-zh 润色下面的文章，保留技术评论的语气：\n[原文]",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/op7418/Humanizer-zh/blob/f4518a8eab97b8bfebc66a89d34320a89bef6930/README.md?plain=1#L50"
+      }
+    },
+    {
+      "title": "指定文件进行编辑或审阅",
+      "text": "要处理文件时，直接让它润色某个文件（如 article.md）的正文。默认会保留代码、命令、路径、链接目标、YAML、标题和锚点。如果只想审阅，请写明“给出建议，不修改文件”。有作者的写作样本可以一并提供，它会借鉴表达习惯，但不会把样本里的内容搬进原文。",
+      "code": "请用 humanizer-zh 润色 article.md 中的正文。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/op7418/Humanizer-zh/blob/f4518a8eab97b8bfebc66a89d34320a89bef6930/README.md?plain=1#L50"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "README 明确说明：它不能证明文章由谁撰写，也不保证能通过任何 AI 检测器。",
+    "编辑文件时默认会直接改写原文件；只想审阅的话，需要明确要求不修改文件。",
+    "作者说明测试只覆盖 18 个短文本案例和一个 Markdown 样例，有限的样例不能代表所有模型和文体。",
+    "原文缺少的数据或证据不会在润色时补出，需要作者自己提供。"
+  ],
+  "references": [],
+  "media": [],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "c4f42c5f590b2845608c3913754e0339db0783481efb6d5ec90144fb721bd1d4",
+  "mediaStatus": "none_in_official_documents"
+}

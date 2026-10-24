@@ -1,0 +1,60 @@
+{
+  "schemaVersion": 1,
+  "key": "1c7/chinese-independent-developer",
+  "status": "ready",
+  "reason": "",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/1c7/chinese-independent-developer/blob/82e8d49d399849371a1c1879e6ca404bc266d093/README.md",
+  "sourceRevision": "82e8d49d399849371a1c1879e6ca404bc266d093",
+  "canonicalKey": "1c7/chinese-independent-developer",
+  "summary": "一份中国独立开发者项目列表，按开发者汇总他们做的网站和 App，并标注每个项目的开发或上线状态。",
+  "intro": "适合想了解其他独立开发者在做什么的开发者，也适合寻找可直接打开使用的网站或 App 的普通用户。主版面收录打开即用的产品。需要命令行或写代码的项目在程序员版面，游戏在游戏版面，2018～2024 年的项目单独存档。开发者也可以提交自己的项目。",
+  "requirements": "只需能访问 GitHub 页面和各项目链接的浏览器。提交项目需要 GitHub 账号，用于发起 Pull Request 或 Issue。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "按产品类型选择版面",
+      "text": "主版面 README 收录网站或 App 形态、打开即用的产品。需要命令行或写代码的项目看“程序员版面”，游戏看“游戏版面”。2018～2024 年的条目因 GitHub 渲染限制存放在单独的存档页。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/1c7/chinese-independent-developer/blob/82e8d49d399849371a1c1879e6ca404bc266d093/README.md?plain=1#L4"
+      }
+    },
+    {
+      "title": "根据状态图标筛选条目",
+      "text": "每个条目前都有状态图标。🕗 表示开发中，✅ 表示已上线，❌ 表示已关闭或缺乏维护。条目按开发者分组，标题中通常附有开发者的 GitHub 或博客链接，正文是一句话产品介绍和访问地址。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/1c7/chinese-independent-developer/blob/82e8d49d399849371a1c1879e6ca404bc266d093/README.md?plain=1#L4"
+      }
+    },
+    {
+      "title": "打开链接自行确认产品详情",
+      "text": "列表里的介绍由开发者自行提交，例如是否免费、是否需要注册、支持哪些平台等。使用前应打开产品链接，或查看附带的仓库与下载页，自行确认当前的功能、费用和数据处理方式。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/1c7/chinese-independent-developer/blob/82e8d49d399849371a1c1879e6ca404bc266d093/README.md?plain=1#L4"
+      }
+    },
+    {
+      "title": "按收录标准提交自己的项目",
+      "text": "提交方式是发 Pull Request 或 Issue。入选标准是必须为网站或 App，开发者工具和论坛型网站不收录。介绍语应写清具体用途，可参考仓库中的 CONTRIBUTING.md“如何写好一句话产品介绍”。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/1c7/chinese-independent-developer/blob/82e8d49d399849371a1c1879e6ca404bc266d093/README.md?plain=1#L4"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "条目描述均由开发者自述，列表本身不验证功能、价格、隐私声明或“免费”“本地处理”等说法。",
+    "部分产品需要注册、付费、自备 API 凭证或仅支持特定平台，具体以各产品页面为准。",
+    "仓库未声明许可证。"
+  ],
+  "references": [],
+  "media": [],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "0d4e2b0d906e3206adf956674f10abc1be6974669894951aaa4c54b6de8233d5",
+  "mediaStatus": "none_in_official_documents"
+}

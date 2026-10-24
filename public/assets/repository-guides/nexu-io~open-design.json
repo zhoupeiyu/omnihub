@@ -1,0 +1,95 @@
+{
+  "schemaVersion": 1,
+  "key": "nexu-io/open-design",
+  "status": "ready",
+  "reason": "",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/nexu-io/open-design/blob/53231d40b778d88eba23f35547bf99485d3ae9fc/README.md",
+  "sourceRevision": "53231d40b778d88eba23f35547bf99485d3ae9fc",
+  "canonicalKey": "nexu-io/open-design",
+  "summary": "OpenDesign 是一个开源的设计 Agent 工作区桌面应用，借助本地编码智能体或 BYOK 模型生成原型、落地页、仪表盘、幻灯片、图片和视频，并支持导出 HTML/PDF/PPTX/MP4。",
+  "intro": "适合产品经理、设计师和开发者，用来从一段需求描述（brief）出发，按照设计系统（DESIGN.md）生成可预览的原型或演示文稿。团队可以在同一项目中反馈和迭代，再把生成的 HTML/CSS 交给 Cursor、Codex、Claude Code 继续开发。它也可以作为 skill、插件或 MCP server 接入编码智能体。",
+  "requirements": "本指南采用 macOS 桌面应用路径（Windows x64 同样提供安装包，Linux 暂无预编译版本）。需要在 PATH 中安装受支持的编码智能体 CLI（如 Claude Code、Codex、Cursor），或者准备 BYOK 所需的 baseUrl、apiKey 和 model。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "下载并安装 macOS 桌面应用",
+      "text": "在 macOS（Apple Silicon 或 Intel）上，从 open-design.ai 或 GitHub Releases 下载桌面应用并安装。官方推荐这种方式，不需要 Node、pnpm，也不需要克隆仓库。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/nexu-io/open-design/blob/53231d40b778d88eba23f35547bf99485d3ae9fc/README.md?plain=1#L267"
+      }
+    },
+    {
+      "title": "准备编码智能体或 BYOK 模型",
+      "text": "应用启动后会自动检测 PATH 中的编码智能体 CLI。如果没有安装 CLI，可以使用 BYOK 代理，填写 baseUrl、apiKey 和 model，支持 OpenAI、Anthropic、Google Gemini、Ollama 等预设或任意 OpenAI 兼容端点。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/nexu-io/open-design/blob/53231d40b778d88eba23f35547bf99485d3ae9fc/README.md?plain=1#L267"
+      }
+    },
+    {
+      "title": "在首页输入 brief 并选择方向",
+      "text": "在首页输入需求描述或选择示例，从插件中挑选落地页、演示文稿、仪表盘等类型。没有品牌时可以从预置方向中选择；有品牌时可以提供截图或 URL，生成可复用的 DESIGN.md。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/nexu-io/open-design/blob/53231d40b778d88eba23f35547bf99485d3ae9fc/README.md?plain=1#L350"
+      }
+    },
+    {
+      "title": "在 Studio 中预览迭代并导出",
+      "text": "在 Studio 中与 Agent 对话，同时实时预览原型、幻灯片、图片或 HyperFrames 动效。确认后可以导出 PPTX、PDF、MP4，或把生成的 HTML/CSS 交给编码工具继续开发。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/nexu-io/open-design/blob/53231d40b778d88eba23f35547bf99485d3ae9fc/README.md?plain=1#L66"
+      }
+    },
+    {
+      "title": "通过设置页接入编码智能体",
+      "text": "如果想在 Claude Code 等智能体中无界面调用 OpenDesign，打开桌面应用的 Settings → MCP server，复制对应客户端的配置片段。该片段使用绝对路径，可以避开 macOS 自带 /usr/bin/od 的命名冲突。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/nexu-io/open-design/blob/53231d40b778d88eba23f35547bf99485d3ae9fc/README.md?plain=1#L277"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "macOS 和 WSL2 自带的 /usr/bin/od 可能遮蔽 OpenDesign 的 od 命令，桌面版用户应优先使用 Settings → MCP server 提供的配置片段。",
+    "Linux 暂无官方预编译包，需要从源码运行。",
+    "BYOK 模式使用你自己的模型 API Key，调用费用由对应模型服务商计费；官方另有付费的 OpenDesign Go 订阅。",
+    "Claude Desktop 的自动 MCP 配置仅支持 macOS 和 Windows。",
+    "公开或共享的 Docker 部署需要按 deploy/README.md 配置反向代理和 OPEN_DESIGN_ALLOWED_ORIGINS。"
+  ],
+  "references": [
+    {
+      "label": "plugins/README.zh-CN.md",
+      "url": "https://github.com/nexu-io/open-design/blob/53231d40b778d88eba23f35547bf99485d3ae9fc/plugins/README.zh-CN.md"
+    }
+  ],
+  "media": [
+    {
+      "url": "/assets/repository-guides/media-6c8c8538bc438c5200a6fa44.webp",
+      "alt": "nexu-io/open-design 官方演示 1",
+      "sourceUrl": "https://github.com/nexu-io/open-design/blob/53231d40b778d88eba23f35547bf99485d3ae9fc/README.md?plain=1#L46",
+      "originalUrl": "https://raw.githubusercontent.com/nexu-io/open-design/53231d40b778d88eba23f35547bf99485d3ae9fc/docs/screenshots/product-tour/home-workspace-2026-09-30-220844.png"
+    },
+    {
+      "url": "/assets/repository-guides/media-569f046032939fc623806cc9.webp",
+      "alt": "nexu-io/open-design 官方演示 2",
+      "sourceUrl": "https://github.com/nexu-io/open-design/blob/53231d40b778d88eba23f35547bf99485d3ae9fc/README.md?plain=1#L71",
+      "originalUrl": "https://raw.githubusercontent.com/nexu-io/open-design/53231d40b778d88eba23f35547bf99485d3ae9fc/docs/screenshots/product-tour/studio-prototype-2026.webp"
+    },
+    {
+      "url": "/assets/repository-guides/media-19a4523bd11d3bd7cafe9bd3.webp",
+      "alt": "nexu-io/open-design 官方演示 3",
+      "sourceUrl": "https://github.com/nexu-io/open-design/blob/53231d40b778d88eba23f35547bf99485d3ae9fc/README.md?plain=1#L75",
+      "originalUrl": "https://raw.githubusercontent.com/nexu-io/open-design/53231d40b778d88eba23f35547bf99485d3ae9fc/docs/screenshots/product-tour/studio-slides-2026.png"
+    }
+  ],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "4152e643139bc102dc4c997658c8c410a15f27491a0cbbc6bd012a64e23167b4",
+  "mediaStatus": "archived",
+  "mediaFailures": []
+}

@@ -1,0 +1,81 @@
+{
+  "schemaVersion": 1,
+  "key": "kadevin/ilab-gpt-conjure",
+  "status": "ready",
+  "reason": "",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/kadevin/ilab-conjure/blob/7be7a4b0a952ffad2c93c319036f147d6bc83da6/README.md",
+  "sourceRevision": "7be7a4b0a952ffad2c93c319036f147d6bc83da6",
+  "canonicalKey": "kadevin/ilab-conjure",
+  "summary": "iLab CONJURE（原名 iLab GPT CONJURE）是一个本地运行的 AI 图片生成 WebUI 工作台，支持 GPT Image 和 Gemini，可接入 OpenAI-compatible API，内置图库、提示词模板、多任务并发和历史库。",
+  "intro": "适合需要批量或反复生成图片、编辑图片的个人和小团队，比如做商品图、海报，或维护固定角色和品牌素材。在同一个 WebUI 里可以：上传或从公用图库引用参考图；用 @ 图库、# 颜色、~ 提示词片段三种 chip 写提示词；套用提示词模板；同时运行多个生成任务；在 /history 页面搜索、标记和导出结果。项目还提供 CLI，便于写脚本自动化。",
+  "requirements": "从源码运行需要 git 和 Python 3.11 以上，WebUI 依赖由 requirements-webui.txt 锁定（带包哈希校验）。推荐使用 API 模式，需要准备一个 OpenAI-compatible 供应商的 Base URL、API Key 和模型名。只有修改前端 TypeScript 或 CSS 时才需要 Node.js 和 npm。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "克隆仓库并安装 WebUI 依赖",
+      "text": "以 macOS 源码安装为例：克隆仓库，创建 .venv 虚拟环境，然后用 --require-hashes 参数按 requirements-webui.txt 安装依赖。如果不想从源码安装，也可以到 Releases 页面下载标准 DMG 或 Windows ZIP，两种方式选一种即可。",
+      "code": "git clone https://github.com/kadevin/ilab-conjure.git\ncd ilab-conjure\npython3 -m venv .venv\n.venv/bin/python -m pip install --require-hashes -r requirements-webui.txt",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/kadevin/ilab-conjure/blob/7be7a4b0a952ffad2c93c319036f147d6bc83da6/README.md?plain=1#L112"
+      }
+    },
+    {
+      "title": "启动 WebUI 并打开页面",
+      "text": "macOS 下可以运行仓库里的 Start WebUI.command，也可以用 .venv 中的 Python 手动启动服务，端口为 8787。启动后在浏览器打开 http://127.0.0.1:8787/。手动启动时不要加 --host 参数，让系统设置决定监听地址。",
+      "code": "open \"Start WebUI.command\"\n\n.venv/bin/python -m codex_image.webui.server codex_image.webui.app:app --port 8787 --no-access-log\n\nhttp://127.0.0.1:8787/",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/kadevin/ilab-conjure/blob/7be7a4b0a952ffad2c93c319036f147d6bc83da6/README.md?plain=1#L126"
+      }
+    },
+    {
+      "title": "配置 OpenAI-compatible 供应商",
+      "text": "在顶部选择 API 作为认证来源。打开“系统设置 → API 设置”添加供应商卡片，填写 Base URL、API Key、图像模型、调用方式和并发上限。稳定使用、团队使用或共享工作站都建议用这种模式。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/kadevin/ilab-conjure/blob/7be7a4b0a952ffad2c93c319036f147d6bc83da6/README.md?plain=1#L88"
+      }
+    },
+    {
+      "title": "准备参考图并编写提示词",
+      "text": "通过上传、拖拽、粘贴、最近上传或公用图库添加参考图。在提示词中可以用 @ 插入图库图片，用 # 插入颜色，用 ~ 插入提示词片段，也可以从模板库插入或替换整段提示词。提示词处理模式可选原文、保真或自动，默认为自动。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/kadevin/ilab-conjure/blob/7be7a4b0a952ffad2c93c319036f147d6bc83da6/README.md?plain=1#L231"
+      }
+    },
+    {
+      "title": "设置参数后生成并管理结果",
+      "text": "设置数量、尺寸、方向、质量、输出格式和压缩率，点击开始生成。左侧任务列表显示运行中和排队的任务，右侧预览区可以精选、重试、下载、打包或归档结果。完整历史在 /history 页面，支持搜索、筛选和打标签。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/kadevin/ilab-conjure/blob/7be7a4b0a952ffad2c93c319036f147d6bc83da6/README.md?plain=1#L231"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "Codex / ChatGPT OAuth 模式会调用 ChatGPT 的内部后端接口，不是官方推荐的集成方式，接口可能随时变更或失效，也可能受账号和用量规则影响，只适合个人本机使用。",
+    "开启“允许局域网访问”后，同一局域网内的任何人无需登录即可使用，可以修改设置和删除共享数据，而且连接走 HTTP。只应在可信网络中开启。",
+    "配置备份默认不包含 API Key；如果勾选包含，导出的 ZIP 不会加密，需要妥善保管。",
+    "项目采用 AGPLv3 许可证：如果修改后通过网络向他人提供服务，需要公开对应源码。许可证不覆盖项目名称、Logo，也不覆盖所调用的模型或 API 服务。",
+    "标准 macOS DMG 和 portable 包都没有签名和公证，首次打开可能被系统拦截。",
+    "图片生成费用由你配置的 API 供应商收取，以供应商的计费规则为准。"
+  ],
+  "references": [],
+  "media": [
+    {
+      "url": "/assets/repository-guides/media-94bfe87869bc76701bc54218.webp",
+      "alt": "iLab CONJURE WebUI 截图",
+      "sourceUrl": "https://github.com/kadevin/ilab-conjure/blob/7be7a4b0a952ffad2c93c319036f147d6bc83da6/README.md?plain=1#L30",
+      "originalUrl": "https://raw.githubusercontent.com/kadevin/ilab-conjure/7be7a4b0a952ffad2c93c319036f147d6bc83da6/assets/UI_cn.webp"
+    }
+  ],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "24db1ece5270d197817b9392be53f908a70d80e12f8d53ed36a5fa11abd3c3b4",
+  "mediaStatus": "archived",
+  "mediaFailures": []
+}

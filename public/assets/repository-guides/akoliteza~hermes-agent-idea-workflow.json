@@ -1,0 +1,72 @@
+{
+  "schemaVersion": 1,
+  "key": "akoliteza/hermes-agent-idea-workflow",
+  "status": "ready",
+  "reason": "",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/AkoliteZA/hermes-agent-idea-workflow/blob/acf82c9a169050c06ed33b9514ac1e17b6ccb68c/README.md",
+  "sourceRevision": "acf82c9a169050c06ed33b9514ac1e17b6ccb68c",
+  "canonicalKey": "AkoliteZA/hermes-agent-idea-workflow",
+  "summary": "一组 Hermes Agent 技能，把粗略想法逐步整理成设计文档、实现规格和可交给编码 agent 的单文件构建交接文档。",
+  "intro": "适合已在使用 Hermes Agent、想在动手写代码前先把产品或工具想法理清的人。它覆盖“构建之前”的阶段，本身不负责编码。Lite 模式用于快速记录想法；Full 模式会通过引导式访谈，依次生成设计文档、可选的 UI 设计简报、实现规格、规格评审和构建交接文件。交接文件推荐交给 Superpowers for GPT 继续规划和实现。",
+  "requirements": "已安装并能运行 Hermes Agent，且可以访问其 skills 目录（示例路径为 ~/.hermes/skills/）；需要本仓库中的四个技能目录：idea-superpowers-suite、idea-to-design-doc、idea-to-ui-design-brief、idea-to-implementation-doc。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "把四个技能复制到 Hermes 目录",
+      "text": "拿到本仓库文件后，按 README 的手动安装示例操作：先创建 ~/.hermes/skills/idea-workflow/ 目录，再把 idea-superpowers-suite、idea-to-design-doc、idea-to-ui-design-brief、idea-to-implementation-doc 四个目录复制进去。",
+      "code": "~/.hermes/skills/idea-workflow/\n\nmkdir -p ~/.hermes/skills/idea-workflow\ncp -R idea-superpowers-suite idea-to-design-doc idea-to-ui-design-brief idea-to-implementation-doc ~/.hermes/skills/idea-workflow/",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/AkoliteZA/hermes-agent-idea-workflow/blob/acf82c9a169050c06ed33b9514ac1e17b6ccb68c/README.md?plain=1#L128"
+      }
+    },
+    {
+      "title": "重开 Hermes 会话加载技能",
+      "text": "README 说明，视 Hermes 的运行方式而定，技能可能要在新的 Hermes 会话中才会被加载。复制完成后建议开启一个新会话，再开始使用。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/AkoliteZA/hermes-agent-idea-workflow/blob/acf82c9a169050c06ed33b9514ac1e17b6ccb68c/README.md?plain=1#L128"
+      }
+    },
+    {
+      "title": "按想法成熟度选 Lite 或 Full",
+      "text": "小工具、草图或早期想法用 Lite 模式，输出 ideas/<idea-slug>.md 和 ideas/index.md。认真打算交给 AI 编码 agent 构建的产品用 Full 模式，会在 ideas/<idea-slug>/ 下生成编号的阶段文档。在提示中写明要使用 idea-workflow 及所选模式即可。",
+      "code": "I have an idea for an app. Use idea-workflow in Full mode and help me turn it into a build-ready handoff.\n\nUse idea-workflow in Lite mode and just capture this idea.\n\nideas/<idea-slug>.md\nideas/index.md\n\nideas/<idea-slug>/\n  README.md\n  00-idea-capture.md\n  01-design-doc.md\n  02-ui-design-brief.md\n  03-implementation-spec.md\n  04-agent-build-handoff.md\n  05-spec-review.md",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/AkoliteZA/hermes-agent-idea-workflow/blob/acf82c9a169050c06ed33b9514ac1e17b6ccb68c/README.md?plain=1#L57"
+      }
+    },
+    {
+      "title": "用覆盖短语推进到下一阶段",
+      "text": "访谈过程中，如果不想再回答产品或规格问题，可以说出 GREENLIGHT NEXT STAGE。agent 会停止追问，直接生成下一份文档，未解决的问题会记入 Open Questions 或 Assumptions。每个阶段还有规格评审，结论分为 PASS、PASS WITH CHANGES、FAIL 三种。",
+      "code": "GREENLIGHT NEXT STAGE",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/AkoliteZA/hermes-agent-idea-workflow/blob/acf82c9a169050c06ed33b9514ac1e17b6ccb68c/README.md?plain=1#L120"
+      }
+    },
+    {
+      "title": "把交接文件交给构建工作流",
+      "text": "Full 模式最后产出一个单文件构建交接。跳过 UI 阶段时文件名是 03-agent-build-handoff.md，使用 UI 阶段时是 04-agent-build-handoff.md。README 推荐把这个文件交给 Superpowers for GPT（hermes-agent-supwerpowers-chatgpt 仓库），由它负责规划、实现、测试和验证。",
+      "code": "03-agent-build-handoff.md\n\n04-agent-build-handoff.md",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/AkoliteZA/hermes-agent-idea-workflow/blob/acf82c9a169050c06ed33b9514ac1e17b6ccb68c/README.md?plain=1#L157"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "作者标注的状态是 v1 功能完整的 beta 版，仍需要用真实想法和真实 Hermes 会话做实地测试。",
+    "本工具集只生成规格类文档，不执行编码或构建，实际构建需要另配工作流（README 推荐 Superpowers for GPT）。",
+    "是否使用可选的 UI 阶段会影响文件编号，交接文件名也会随之不同。"
+  ],
+  "references": [],
+  "media": [],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "81dd895318c6a3514436b49f7e5bb0d31a2f4cef5a440bffdec5a1b55b4a5f01",
+  "mediaStatus": "none_in_official_documents"
+}

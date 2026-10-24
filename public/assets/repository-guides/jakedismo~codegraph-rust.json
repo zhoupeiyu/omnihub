@@ -1,0 +1,79 @@
+{
+  "schemaVersion": 1,
+  "key": "jakedismo/codegraph-rust",
+  "status": "ready",
+  "reason": "",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/Jakedismo/codegraph-rust/blob/ce5bf27a2978983a9089d177447f296e4c6521bb/README.md",
+  "sourceRevision": "ce5bf27a2978983a9089d177447f296e4c6521bb",
+  "canonicalKey": "Jakedismo/codegraph-rust",
+  "summary": "CodeGraph 把代码库索引成存放在 SurrealDB 中的知识图谱和向量索引，并通过 MCP 为 Claude Code 等 Agent 提供上下文、影响分析、架构分析和质量分析等工具。",
+  "intro": "适合希望让 AI 编程助手更好理解大型代码库的开发者。它用 tree-sitter 解析代码，可选结合 LSP 构建节点、边和嵌入向量。提供 4 个工具：agentic_context、agentic_impact、agentic_architecture、agentic_quality，用于搜索代码上下文、分析依赖和调用链、梳理系统结构、评估复杂度与耦合度。支持 Rust、Python、TypeScript、Go、Java 等多种语言。",
+  "requirements": "官方安装脚本面向 macOS，需要 Rust 工具链和 Homebrew，推荐安装 Ollama 以使用本地模型。需要运行 SurrealDB。需要配置嵌入模型（Ollama、LM Studio、ONNX、OpenAI、Jina）和 LLM 提供方。如果使用 balanced 或 full 索引档位，还需要安装对应语言的 LSP，例如 rust-analyzer、gopls、clangd。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "在 macOS 上构建全功能版本",
+      "text": "克隆仓库后，运行 install-codegraph-full-features.sh 构建包含全部功能的版本。示例代码里的仓库地址是 yourorg 占位符，需要换成实际的仓库地址。",
+      "code": "# Clone and build with all features\ngit clone https://github.com/yourorg/codegraph-rust\ncd codegraph-rust\n./install-codegraph-full-features.sh",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/Jakedismo/codegraph-rust/blob/ce5bf27a2978983a9089d177447f296e4c6521bb/README.md?plain=1#L279"
+      }
+    },
+    {
+      "title": "启动 SurrealDB 并导入 schema",
+      "text": "以本地持久化方式启动 SurrealDB，监听 3004 端口，然后进入 schema 目录执行 apply-schema.sh。schema 不会在运行时自动加载，必须在建立索引之前手动导入。",
+      "code": "# Local persistent storage\nsurreal start --bind 0.0.0.0:3004 --user root --pass root file://$HOME/.codegraph/surreal.db\n\ncd schema && ./apply-schema.sh",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/Jakedismo/codegraph-rust/blob/ce5bf27a2978983a9089d177447f296e4c6521bb/README.md?plain=1#L301"
+      }
+    },
+    {
+      "title": "编写 config.toml 配置模型",
+      "text": "在 ~/.codegraph/config.toml 中配置 embedding、llm 和 SurrealDB 的连接信息；如需按项目覆盖，可在项目根目录下创建 .codegraph/config.toml。也可以用 CODEGRAPH_ 开头的环境变量配置。建议把 CODEGRAPH_CONTEXT_WINDOW 设为与所用模型一致的上下文长度。",
+      "code": "[embedding]\nprovider = \"ollama\"\nmodel = \"qwen3-embedding:0.6b\"\ndimension = 1024\n\n[llm]\nprovider = \"anthropic\"\nmodel = \"claude-sonnet-4\"\n\n[database.surrealdb]\nconnection = \"ws://localhost:3004\"\nnamespace = \"ouroboros\"\ndatabase = \"codegraph\"",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/Jakedismo/codegraph-rust/blob/ce5bf27a2978983a9089d177447f296e4c6521bb/README.md?plain=1#L430"
+      }
+    },
+    {
+      "title": "运行 codegraph index 建立索引",
+      "text": "对项目执行 codegraph index，用 -l 指定语言。默认是 fast 档位，可通过 --index-tier 切换到 balanced 或 full。启用 LSP 的档位在缺少语言工具时会直接报错退出。",
+      "code": "codegraph index /path/to/project -r -l rust,typescript,python",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/Jakedismo/codegraph-rust/blob/ce5bf27a2978983a9089d177447f296e4c6521bb/README.md?plain=1#L314"
+      }
+    },
+    {
+      "title": "在 Claude Code 中添加 MCP 配置",
+      "text": "在 MCP 配置中添加 codegraph 服务器，command 填写二进制文件的完整路径，参数为 start stdio --watch，这样文件变更后会自动重新索引。之后在 Claude Code 中提问时，会自动调用 agentic 工具。",
+      "code": "{\n  \"mcpServers\": {\n    \"codegraph\": {\n      \"command\": \"/full/path/to/codegraph\",\n      \"args\": [\"start\", \"stdio\", \"--watch\"]\n    }\n  }\n}",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/Jakedismo/codegraph-rust/blob/ce5bf27a2978983a9089d177447f296e4c6521bb/README.md?plain=1#L322"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "agentic 工具在推理时会调用你配置的 LLM。如果使用 Anthropic、OpenAI、xAI 等云端服务，会按对方的计费方式产生费用。",
+    "示例中 SurrealDB 使用 root/root 账号并绑定 0.0.0.0，请自行修改凭据和监听地址。",
+    "仓库元数据里没有许可证信息，README 写的是 MIT，以仓库中实际的许可证文件为准。",
+    "索引时会遵循 .gitignore，并过滤常见的密钥文件；但启用云端嵌入或 LLM 时，代码片段会被发送给对应的服务商。"
+  ],
+  "references": [
+    {
+      "label": "docs/INSTALLATION_GUIDE.md",
+      "url": "https://github.com/Jakedismo/codegraph-rust/blob/ce5bf27a2978983a9089d177447f296e4c6521bb/docs/INSTALLATION_GUIDE.md"
+    }
+  ],
+  "media": [],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "f8fc27a65804d9f01fd37d11c30590f6f404cc76142f7740de9dcd66117e55e1",
+  "mediaStatus": "none_in_official_documents"
+}

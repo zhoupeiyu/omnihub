@@ -1,0 +1,62 @@
+{
+  "schemaVersion": 1,
+  "key": "kori-x/hermes-dashboard",
+  "status": "ready",
+  "reason": "",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/Kori-x/hermes-dashboard/blob/9fb89e1a7ba9c7584a379dda42c17f11a7f10aca/README.md",
+  "sourceRevision": "9fb89e1a7ba9c7584a379dda42c17f11a7f10aca",
+  "canonicalKey": "Kori-x/hermes-dashboard",
+  "summary": "Hermes Dashboard 为 Hermes Agent 提供实时监控面板，并根据本机 Hermes 配置自动生成可搜索的 wiki。",
+  "intro": "适合已经在使用 Hermes Agent、想直观查看智能体运行情况的用户。实时面板显示会话所处阶段（处理中、空闲、等待输入、需要审批）、工具调用与消息动态、上下文窗口、子智能体和工具使用统计。wiki 部分读取 ~/.hermes 下的 skills、plugins、config.yaml、MEMORY.md、USER.md、SOUL.md 等，整理成可检索的页面。",
+  "requirements": "需要一个已安装的 Hermes Agent，默认目录为 ~/.hermes，可用 HERMES_HOME 修改；需要 npm（Node.js）运行面板和桥接服务。插件基于 Python 编写，安装脚本 install.sh 是 shell 脚本，并且通信使用 Unix domain socket，因此需要类 Unix 环境。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "克隆仓库并运行安装脚本",
+      "text": "克隆 hermes-dashboard 仓库，进入目录后执行 ./install.sh。该脚本会安装 Hermes 插件和 npm 依赖，并构建面板。",
+      "code": "git clone https://github.com/Kori-x/hermes-dashboard.git\ncd hermes-dashboard\n./install.sh",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/Kori-x/hermes-dashboard/blob/9fb89e1a7ba9c7584a379dda42c17f11a7f10aca/README.md?plain=1#L7"
+      }
+    },
+    {
+      "title": "按需设置环境变量",
+      "text": "Hermes 不在默认的 ~/.hermes 时，设置 HERMES_HOME；需要让插件自动启动面板时，可用 HERMES_DASHBOARD_DIR 指向本仓库（默认自动检测）；用 HERMES_AGENT_NAME 设置面板上显示的智能体名称，默认为 agent。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/Kori-x/hermes-dashboard/blob/9fb89e1a7ba9c7584a379dda42c17f11a7f10aca/README.md?plain=1#L80"
+      }
+    },
+    {
+      "title": "启动面板并在浏览器打开",
+      "text": "执行 npm run dev，同时启动面板和桥接服务，然后访问 http://localhost:5173。只需单独启动其中一部分时，可用 npm run dev:ui 或 npm run dev:server。",
+      "code": "npm run dev",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/Kori-x/hermes-dashboard/blob/9fb89e1a7ba9c7584a379dda42c17f11a7f10aca/README.md?plain=1#L17"
+      }
+    },
+    {
+      "title": "开启 Hermes 会话查看实时数据",
+      "text": "下次启动 Hermes 会话时，插件会自动注册，智能体事件经 Unix socket 和 WebSocket 实时推送到面板。服务运行期间，wiki 直接读取 ~/.hermes 的内容；服务离线时，wiki 退回内置的参考数据。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/Kori-x/hermes-dashboard/blob/9fb89e1a7ba9c7584a379dda42c17f11a7f10aca/README.md?plain=1#L17"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "wiki 会读取并显示 ~/.hermes 下的 config.yaml、MEMORY.md、USER.md、SOUL.md 等，其中可能包含个人或敏感信息，注意不要把面板暴露给他人。",
+    "运行时会使用 /tmp/hermes-dashboard.sock，以及 3001（WebSocket）、3002（HTTP）、5173 端口，需确保这些端口未被占用。",
+    "本项目依赖 Hermes Agent 的插件钩子机制，必须先安装 Hermes Agent 才能使用。"
+  ],
+  "references": [],
+  "media": [],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "cd7efa7d59435663e4be127c4d9e0991f88dce525d95b37bef8f37371c946eec",
+  "mediaStatus": "none_in_official_documents"
+}

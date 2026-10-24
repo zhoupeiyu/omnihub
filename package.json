@@ -5,9 +5,37 @@
   "type": "module",
   "private": true,
   "scripts": {
-    "start": "node server.js"
+    "start": "node server.js",
+    "build": "node scripts/build-web.mjs",
+    "start:production": "OMNIHUB_STATIC_DIR=dist node server.js",
+    "test:performance": "node --test tests/http-performance.test.mjs tests/workspace-data.test.mjs tests/repository-tab.test.mjs",
+    "test:typesafe": "node --test tests/typesafe.test.mjs",
+    "test:content": "node --test tests/content-*.test.mjs tests/x-watch.test.mjs tests/x-following*.test.mjs tests/knowledge-public-api.test.mjs tests/knowledge-store.test.mjs tests/library-curation.test.mjs tests/x-import-*.test.mjs tests/http-performance.test.mjs tests/web-build.test.mjs",
+    "test:bookmark-sync": "node --test tests/x-bookmark-sync.test.mjs tests/local-model-queue.test.mjs tests/local-curation-api.test.mjs tests/local-codex-runner.test.mjs tests/local-curation-worker.test.mjs tests/content-pipeline.test.mjs tests/content-api.test.mjs",
+    "test:media": "node --test tests/media-api.test.mjs tests/media-provider.test.mjs",
+    "test:x-import": "node --test tests/x-bookmarks.test.mjs",
+    "test:x-refinement": "node --test tests/x-asset-refinement.test.mjs tests/x-prompt-refinement.test.mjs tests/x-github-assets.test.mjs tests/x-group-refinement.test.mjs tests/x-citation-verification.test.mjs tests/knowledge-store.test.mjs tests/knowledge-public-api.test.mjs tests/repository-descriptions.test.mjs tests/typesafe.test.mjs",
+    "test:repository-descriptions": "node --test tests/repository-descriptions.test.mjs",
+    "test:x-pipeline": "node --test tests/typesafe.test.mjs tests/x-bookmarks.test.mjs tests/x-export.test.mjs tests/x-organization.test.mjs tests/x-subjects.test.mjs tests/x-media-archive.test.mjs tests/xarchive-import.test.mjs tests/x-ui-scan.test.mjs tests/x-import-db.test.mjs tests/x-import-api.test.mjs tests/x-public-api.test.mjs tests/x-visibility.test.mjs tests/x-digest.test.mjs",
+    "organize:x-subjects": "node scripts/organize-x-subjects-local.mjs",
+    "refine:x-assets": "node scripts/refine-x-assets-local.mjs",
+    "refine:x-assets:all": "node scripts/refine-x-assets-local.mjs --username zane --out /Users/zhoupeiyu/Path/playground/web/omnihub/data/x-refinement/assets-v3 --all --concurrency 8",
+    "refine:x-prompts": "node scripts/refine-x-prompts-local.mjs",
+    "index:x-github": "node scripts/index-x-github-assets-local.mjs",
+    "import:x-refinery": "node scripts/import-x-refinery-local.mjs",
+    "enrich:repository-descriptions": "node scripts/enrich-repository-descriptions-local.mjs",
+    "refine:x-subject": "node scripts/refine-x-subject-local.mjs",
+    "verify:x-knowledge": "node scripts/verify-x-knowledge-local.mjs"
   },
   "engines": {
     "node": ">=22.5.0"
+  },
+  "devDependencies": {
+    "esbuild": "0.28.2",
+    "react": "18.3.1",
+    "react-dom": "18.3.1"
+  },
+  "dependencies": {
+    "cos-nodejs-sdk-v5": "3.0.0"
   }
 }

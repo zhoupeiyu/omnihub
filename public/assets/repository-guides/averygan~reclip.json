@@ -1,0 +1,60 @@
+{
+  "schemaVersion": 1,
+  "key": "averygan/reclip",
+  "status": "ready",
+  "reason": "",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/averygan/reclip/blob/1d161d15a4fe93d9b3371377f0a421dc3e965b10/README.md",
+  "sourceRevision": "1d161d15a4fe93d9b3371377f0a421dc3e965b10",
+  "canonicalKey": "averygan/reclip",
+  "summary": "ReClip 是一个自托管的网页版音视频下载器，基于 yt-dlp 从 YouTube、TikTok 等上千个网站下载 MP4 视频或提取 MP3 音频。",
+  "intro": "适合希望在本机通过简洁网页界面下载在线视频或音频的个人用户。支持一次粘贴多个链接批量下载、自动去重 URL、选择清晰度，以及在 MP4 视频与 MP3 音频之间切换。后端为单个 Python（Flask）文件，前端无需构建，便于自行部署和修改。",
+  "requirements": "Python 3.8+；yt-dlp 与 ffmpeg；Git。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "安装依赖并启动 ReClip",
+      "text": "以 macOS 为例：用 Homebrew 安装 yt-dlp 和 ffmpeg，克隆 reclip 仓库，进入目录后运行 ./reclip.sh 启动服务。README 另提供 Docker 构建运行方式，二者择一即可。",
+      "code": "brew install yt-dlp ffmpeg    # or apt install ffmpeg && pip install yt-dlp\ngit clone https://github.com/averygan/reclip.git\ncd reclip\n./reclip.sh",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/averygan/reclip/blob/1d161d15a4fe93d9b3371377f0a421dc3e965b10/README.md?plain=1#L22"
+      }
+    },
+    {
+      "title": "打开网页并粘贴链接",
+      "text": "浏览器访问 http://localhost:8899，在输入框中粘贴一个或多个视频链接，并选择 MP4（视频）或 MP3（音频）格式。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/averygan/reclip/blob/1d161d15a4fe93d9b3371377f0a421dc3e965b10/README.md?plain=1#L22"
+      }
+    },
+    {
+      "title": "获取信息并下载",
+      "text": "点击 Fetch 加载视频信息和缩略图，如有可选项则选择清晰度/分辨率，然后对单个视频点击 Download，或点击 Download All 批量下载。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/averygan/reclip/blob/1d161d15a4fe93d9b3371377f0a421dc3e965b10/README.md?plain=1#L39"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "官方声明仅供个人使用，请遵守版权法及所下载平台的服务条款。",
+    "可下载的网站范围取决于 yt-dlp 的支持列表。"
+  ],
+  "references": [],
+  "media": [
+    {
+      "url": "/assets/repository-guides/media-58ec4588f6642210fbe32848.webp",
+      "alt": "averygan/reclip 官方演示 1",
+      "sourceUrl": "https://github.com/averygan/reclip/blob/1d161d15a4fe93d9b3371377f0a421dc3e965b10/README.md?plain=1#L10",
+      "originalUrl": "https://raw.githubusercontent.com/averygan/reclip/1d161d15a4fe93d9b3371377f0a421dc3e965b10/assets/preview-mp3.png"
+    }
+  ],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "9d6fbe406f7bdb470b8071d9b9f93b21319ab2b35106ea437adc446541fff43d",
+  "mediaStatus": "archived",
+  "mediaFailures": []
+}

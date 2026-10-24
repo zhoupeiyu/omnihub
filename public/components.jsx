@@ -6,20 +6,28 @@ const { useState, useEffect, useRef: useCmpRef, useLayoutEffect: useCmpLayoutEff
   if (typeof window === "undefined" || window._omnihubScrollLockReady) return;
   window._omnihubScrollLockReady = true;
   const update = () => {
-    const hasOverlay = document.querySelector(".modal-overlay, .drawer-overlay, .lightbox");
+    const hasOverlay = document.body.dataset.detailDrawerOpen || document.querySelector(".modal-overlay, .drawer-overlay, .lightbox, .inbox-media-overlay");
     if (hasOverlay) {
       if (!document.body.dataset.scrollLocked) {
         document.body.dataset.scrollLocked = "1";
         document.body.dataset.prevOverflow = document.body.style.overflow || "";
+        document.body.dataset.prevPaddingRight = document.body.style.paddingRight || "";
+        const bodyWidth = document.body.getBoundingClientRect().width;
+        const padding = parseFloat(getComputedStyle(document.body).paddingRight) || 0;
         document.body.style.overflow = "hidden";
+        // Some browsers remove the root gutter when body overflow is locked.
+        const lostGutter = document.body.getBoundingClientRect().width - bodyWidth;
+        if (lostGutter > 0) document.body.style.paddingRight = `${padding + lostGutter}px`;
       }
     } else if (document.body.dataset.scrollLocked) {
       document.body.style.overflow = document.body.dataset.prevOverflow || "";
+      document.body.style.paddingRight = document.body.dataset.prevPaddingRight || "";
       delete document.body.dataset.scrollLocked;
       delete document.body.dataset.prevOverflow;
+      delete document.body.dataset.prevPaddingRight;
     }
   };
-  new MutationObserver(update).observe(document.body, { childList: true, subtree: true });
+  new MutationObserver(update).observe(document.body, { childList: true, subtree: true, attributes: true, attributeFilter: ['data-detail-drawer-open'] });
   update();
 })();
 
@@ -199,6 +207,7 @@ const IconMallet = (props) => (
 );
 const IconUpload = (props) => (<svg {...dIcon2Base} {...props}><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M17 8l-5-5-5 5M12 3v12" /></svg>);
 const IconUser = (props) => (<svg {...dIcon2Base} {...props}><circle cx="12" cy="8" r="4" /><path d="M4 21c0-4 3.6-6 8-6s8 2 8 6" /></svg>);
+const IconSidebar = (props) => (<svg {...dIcon2Base} {...props}><rect x="3" y="4" width="18" height="16" rx="2" /><path d="M9 4v16" /></svg>);
 const IconLogout = (props) => (<svg {...dIcon2Base} {...props}><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4M16 17l5-5-5-5M21 12H9" /></svg>);
 const IconSend = (props) => (<svg {...dIcon2Base} {...props}><path d="M22 2L11 13M22 2l-7 20-4-9-9-4z" /></svg>);
 const IconSettings = (props) => (<svg {...dIcon2Base} {...props}><circle cx="12" cy="12" r="3" /><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 1 1-4 0v-.09a1.65 1.65 0 0 0-1-1.51 1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 1 1 0-4h.09a1.65 1.65 0 0 0 1.51-1 1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33h.01a1.65 1.65 0 0 0 1-1.51V3a2 2 0 1 1 4 0v.09a1.65 1.65 0 0 0 1 1.51h.01a1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82v.01a1.65 1.65 0 0 0 1.51 1H21a2 2 0 1 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z" /></svg>);
@@ -216,18 +225,26 @@ function Favicon({ url, name, onStatusChange }) {
 }
 
 /** 顶栏：品牌 + 问候/时间 + 全局搜索（操作按钮都在侧边栏左下角） */
-function Header({ query, onQueryChange, searchPlaceholder, greeting, dateText, sidebarCollapsed, onToggleSidebar }) {
+function Header({ query, onQueryChange, searchPlaceholder, greeting, dateText, sidebarCollapsed, onToggleSidebar, moduleLabels, onToggleModuleLabels, showSearch = true }) {
+  const [mobile, setMobile] = useState(() => window.matchMedia("(max-width: 860px)").matches);
+  useEffect(() => {
+    const media = window.matchMedia("(max-width: 860px)");
+    const update = event => setMobile(event.matches);
+    media.addEventListener("change", update);
+    return () => media.removeEventListener("change", update);
+  }, []);
+  const navigationExpanded = mobile ? !sidebarCollapsed : moduleLabels;
+  const navigationTitle = mobile
+    ? (sidebarCollapsed ? "展开侧栏" : "收起侧栏")
+    : (moduleLabels ? "收起模块名称" : "展开模块名称");
   return (
     <header className="header-bar">
       <div className="header-inner">
-        <button className={"header-toggle" + (sidebarCollapsed ? " collapsed" : "")}
-          onClick={onToggleSidebar}
-          title={sidebarCollapsed ? "展开侧栏" : "收起侧栏"}>
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8"
-            strokeLinecap="round" strokeLinejoin="round">
-            <rect x="3" y="4" width="18" height="16" rx="2" />
-            <path d="M9 4v16" />
-          </svg>
+        <button className={"header-toggle" + (!navigationExpanded ? " collapsed" : "")}
+          onClick={mobile ? onToggleSidebar : onToggleModuleLabels}
+          aria-expanded={navigationExpanded} aria-controls="workspace-sidebar"
+          aria-label={navigationTitle} title={navigationTitle}>
+          <IconSidebar />
         </button>
         <div className="logo-mark" aria-hidden="true">
           <img src="/assets/omnihub-logo.svg" alt="" />
@@ -240,30 +257,72 @@ function Header({ query, onQueryChange, searchPlaceholder, greeting, dateText, s
           <span className="greet-main">{greeting}</span>
           <span className="greet-sub">{dateText}</span>
         </div>
-        <div className="search-wrap">
+        {showSearch && <div className="search-wrap">
           <IconSearch />
           <input className="search-input" placeholder={searchPlaceholder}
             value={query} onChange={(e) => onQueryChange(e.target.value)} />
-        </div>
+        </div>}
       </div>
     </header>
   );
 }
 
-/** 侧边栏：模块导航 + 分类（带计数）+ 左下角「用户信息 + 设置」 */
-function SideNav({ section, onSectionChange, categories, activeCategory, onCategoryChange, counts,
+function ModuleRailButton({ tooltip, tooltipEnabled = true, buttonRef, children, ...props }) {
+  const [position, setPosition] = useState(null);
+  const tooltipId = React.useId();
+  const dismiss = () => setPosition(null);
+  function show(target) {
+    if (!tooltipEnabled) return;
+    const rect = target.getBoundingClientRect();
+    setPosition({ left: rect.right + 8, top: Math.max(24, Math.min(window.innerHeight - 24, rect.top + rect.height / 2)) });
+  }
+  useEffect(() => { setPosition(null); }, [tooltipEnabled, tooltip]);
+  useEffect(() => {
+    if (!position) return;
+    const hide = () => setPosition(null);
+    const onKeyDown = event => { if (event.key === "Escape") hide(); };
+    window.addEventListener("resize", hide);
+    window.addEventListener("scroll", hide, true);
+    document.addEventListener("keydown", onKeyDown);
+    return () => {
+      window.removeEventListener("resize", hide);
+      window.removeEventListener("scroll", hide, true);
+      document.removeEventListener("keydown", onKeyDown);
+    };
+  }, [position]);
+  return <>
+    <button {...props} ref={buttonRef} aria-describedby={position ? tooltipId : undefined}
+      onPointerEnter={event => { if (event.pointerType !== "touch") show(event.currentTarget); }}
+      onPointerLeave={dismiss} onPointerDown={dismiss}
+      onFocus={event => { if (event.currentTarget.matches(":focus-visible")) show(event.currentTarget); }}
+      onBlur={dismiss} onClick={event => { dismiss(); props.onClick?.(event); }}>
+      {children}
+    </button>
+    {position && ReactDOM.createPortal(<span id={tooltipId} role="tooltip" className="module-tooltip" style={position}>{tooltip}</span>, document.body)}
+  </>;
+}
+
+/** 侧边栏：模块导航 + 分类（带计数）+ 左下角「用户信息 + 账号/设置」 */
+function SideNav({ section, onSectionChange, categories, activeCategory, onCategoryChange, counts, moduleCounts = {}, repositoryNavigation, onRepositoryNavigate, feedNavigation, onFeedNavigate,
                    user, quote, merit, skin, onSkinChange, theme, onThemeToggle,
-                   woodFishEnabled, onWoodFishToggle, onOpenAiSettings, onLogin, onLogout,
-                   collapsed }) {
+                   woodFishEnabled, onWoodFishToggle, onOpenAiSettings, onOpenAccountSettings, onLogin, onLogout,
+                   collapsed, moduleLabels }) {
   const [settingsOpen, setSettingsOpen] = useState(false);
+  const [mobile, setMobile] = useState(() => window.matchMedia("(max-width: 860px)").matches);
   const [panelStyle, setPanelStyle] = useState(null);
-  const gearRef = React.useRef(null);
+  const menuTriggerRef = React.useRef(null);
+  const hidden = mobile && collapsed;
+  const hasContext = Boolean(repositoryNavigation || feedNavigation || categories?.length);
+  useEffect(() => {
+    const media = window.matchMedia("(max-width: 860px)");
+    const update = event => setMobile(event.matches);
+    media.addEventListener("change", update);
+    return () => media.removeEventListener("change", update);
+  }, []);
   function toggleSettings() {
-    if (!settingsOpen && gearRef.current) {
-      const r = gearRef.current.getBoundingClientRect();
-      const sidebar = gearRef.current.closest(".sidebar");
-      const rightEdge = sidebar ? sidebar.getBoundingClientRect().right : r.right;
-      setPanelStyle({ left: (rightEdge + 8) + "px", bottom: (window.innerHeight - r.bottom) + "px" });
+    if (!settingsOpen && menuTriggerRef.current) {
+      const r = menuTriggerRef.current.getBoundingClientRect();
+      setPanelStyle({ left: (r.right + 8) + "px", bottom: (window.innerHeight - r.bottom) + "px" });
     }
     setSettingsOpen((v) => !v);
   }
@@ -272,7 +331,7 @@ function SideNav({ section, onSectionChange, categories, activeCategory, onCateg
   useEffect(() => {
     if (!settingsOpen) return;
     function onDocMouseDown(e) {
-      if (gearRef.current && gearRef.current.contains(e.target)) return;
+      if (menuTriggerRef.current && menuTriggerRef.current.contains(e.target)) return;
       const panel = document.querySelector(".skin-panel");
       if (panel && panel.contains(e.target)) return;
       setSettingsOpen(false);
@@ -286,44 +345,42 @@ function SideNav({ section, onSectionChange, categories, activeCategory, onCateg
     if (collapsed) setSettingsOpen(false);
   }, [collapsed]);
   const allModules = [
-    { id: "feed", label: "信息流", icon: <IconRss /> },
-    { id: "prompts", label: "提示词", icon: <IconSparkle /> },
-    { id: "favorites", label: "网站收藏", icon: <IconBookmark /> },
-    { id: "chat", label: "AI 对话", icon: <IconSend /> },
+    { id: "repositories", label: "仓库库", icon: <IconBookmark /> },
+    { id: "knowledgeLibrary", label: "知识库", icon: <IconBookOpen /> },
+    { id: "promptLibrary", label: "提示词库", icon: <IconSparkle /> },
+    { id: "inbox", label: "X 来源", icon: <IconInbox /> },
+    { id: "feed", label: "资讯与监听", icon: <IconRss /> },
+    { id: "assets", label: "全部资产", icon: <IconBookmark /> },
+    { id: "studio", label: "创作台", icon: <IconPalette /> },
+    { id: "chat", label: "AI 提炼台", icon: <IconSend /> },
     { id: "tools", label: "工具箱", icon: <IconWrench /> },
   ];
-  // 非白名单账号按游客权限处理，仅可见公开信息流
+  // Published work is public. A signed-in person also gets their own private
+  // inbox and connections, while the shared paid/admin tools stay zane-only.
   const canUseFullApp = Boolean(user && user.fullAccess);
-  const modules = canUseFullApp ? allModules : allModules.filter((m) => m.id === "feed");
+  const hasPersonalSpace = Boolean(user && (user.personalAccess !== false));
+  const modules = canUseFullApp ? allModules : allModules
+    .filter((m) => ["repositories", "knowledgeLibrary", "promptLibrary", "feed", ...(hasPersonalSpace ? ["inbox", "studio", "assets"] : [])].includes(m.id))
+    .map(m => m.id === 'assets' ? {...m,label:'我的作品'} : m);
   return (
-    <aside className={"sidebar" + (collapsed ? " collapsed" : "")} aria-hidden={collapsed}>
-      <p className="side-label">模块</p>
-      <nav>
+    <aside id="workspace-sidebar" className={"sidebar workspace-navigation" + (collapsed ? " collapsed" : "") + (hasContext ? " has-context" : "") + (moduleLabels ? " module-labels-visible" : "")} aria-hidden={hidden} inert={hidden ? "" : undefined}>
+      <div className="module-rail">
+      <nav className="module-nav" aria-label="模块">
         {modules.map((m) => (
-          <button key={m.id} className={"nav-item" + (section === m.id ? " active" : "")}
-            onClick={() => onSectionChange(m.id)} tabIndex={collapsed ? -1 : 0}>
-            {m.icon}{m.label}
-          </button>
+          <ModuleRailButton key={m.id} className={"nav-item module-button" + (section === m.id ? " active" : "") + (m.id === "tools" ? " nav-secondary" : "")}
+            aria-label={m.label} tooltip={m.label + (moduleCounts[m.id] != null ? ` · ${moduleCounts[m.id]}` : "")} tooltipEnabled={!moduleLabels && !hidden}
+            aria-current={section === m.id ? "page" : undefined} onClick={() => onSectionChange(m.id)} tabIndex={hidden ? -1 : 0}>
+            <span className="module-icon" aria-hidden="true">{m.icon}</span><span className="module-label">{m.label}</span>
+            {moduleCounts[m.id] != null && <span className="nav-count module-label">{moduleCounts[m.id]}</span>}
+          </ModuleRailButton>
         ))}
       </nav>
-      {categories && categories.length > 0 && (
-        <React.Fragment>
-          <p className="side-label">分类</p>
-          <nav>
-            {categories.map((c) => (
-              <button key={c} className={"nav-item" + (activeCategory === c ? " active" : "")}
-                onClick={() => onCategoryChange(c)} tabIndex={collapsed ? -1 : 0}>
-                <span className="nav-dot"></span>
-                {c}
-                <span className="nav-count">{counts[c] != null ? counts[c] : ""}</span>
-              </button>
-            ))}
-          </nav>
-        </React.Fragment>
-      )}
       <div className="sidebar-foot">
         {ReactDOM.createPortal((
           <div className={"skin-panel" + (settingsOpen ? " open" : "")} style={panelStyle || undefined}>
+            {hasPersonalSpace && <button className="skin-option" onClick={() => { setSettingsOpen(false); onOpenAccountSettings(); }}>
+              <IconUser style={{ width: 15, height: 15 }} />账号与连接
+            </button>}
             {canUseFullApp && (
               <button className="skin-option" onClick={() => { setSettingsOpen(false); onOpenAiSettings(); }}>
                 <IconSettings style={{ width: 15, height: 15 }} />AI 设置
@@ -365,27 +422,47 @@ function SideNav({ section, onSectionChange, categories, activeCategory, onCateg
             )}
           </div>
         ), document.body)}
-        <QuoteCard quote={quote} merit={merit} />
-        {user ? (
-          <div className="user-strip">
-            <span className="user-avatar">{user.username.charAt(0).toUpperCase()}</span>
-            <span className="user-name" title={user.username}>{user.username}</span>
-            <button ref={gearRef} className={"strip-btn" + (settingsOpen ? " open" : "")} title="设置"
-              onClick={toggleSettings}>
-              <IconSettings />
-            </button>
-          </div>
-        ) : (
-          <div className="user-strip">
-            <span className="user-avatar user-avatar-guest" onClick={onLogin} title="登录 / 注册"><IconUser /></span>
-            <span className="user-name guest-name" onClick={onLogin}>请登录</span>
-            <button ref={gearRef} className={"strip-btn" + (settingsOpen ? " open" : "")} title="设置"
-              onClick={toggleSettings}>
-              <IconSettings />
-            </button>
-          </div>
-        )}
+        <ModuleRailButton buttonRef={menuTriggerRef} className={"nav-item module-button" + (settingsOpen ? " active" : "")}
+          aria-label={user ? `账号与设置：${user.username}` : "登录 / 注册"}
+          tooltip={user ? `账号与设置：${user.username}` : "登录 / 注册"} tooltipEnabled={!moduleLabels && !hidden && !settingsOpen}
+          aria-expanded={user ? settingsOpen : undefined} aria-haspopup={user ? "menu" : undefined} onClick={user ? toggleSettings : onLogin}>
+          <span className="module-icon" aria-hidden="true">{user ? <span className="user-avatar">{user.username.charAt(0).toUpperCase()}</span> : <IconUser />}</span>
+          <span className="module-label user-name">{user ? user.username : "请登录"}</span>
+        </ModuleRailButton>
       </div>
+      </div>
+      {hasContext && <div className="workspace-context" hidden={collapsed}>
+        {repositoryNavigation && <div className="repository-side-group">
+          <div className="context-heading"><strong>仓库库</strong><span>{moduleCounts.repositories}</span></div>
+          <p className="side-label">按用途找工具</p>
+          <nav aria-label="仓库分类">
+            {repositoryNavigation.items.map(item => <button key={item.id}
+              className={"nav-item repository-category" + (repositoryNavigation.current === item.id ? " active" : "")}
+              aria-current={repositoryNavigation.current === item.id ? "page" : undefined}
+              onClick={() => onRepositoryNavigate(item.id)}>
+              <span className="nav-dot" style={item.color ? {background:item.color} : undefined}></span>
+              {item.title}{item.count != null && <span className="nav-count">{item.count}</span>}
+            </button>)}
+          </nav>
+        </div>}
+        {feedNavigation && <div className="repository-side-group feed-side-group">
+          <div className="context-heading"><strong>资讯与监听</strong></div>
+          <p className="side-label">内容视图</p>
+          <nav aria-label="资讯与监听">
+            {feedNavigation.items.map(item => <button key={item.id}
+              className={"nav-item repository-category watch-navigation-item" + (feedNavigation.current === item.id ? " active" : "")}
+              aria-current={feedNavigation.current === item.id ? "page" : undefined}
+              onClick={() => onFeedNavigate(item.id)}>
+              <span className="nav-dot"></span>{item.title}
+            </button>)}
+          </nav>
+        </div>}
+        {categories && categories.length > 0 && <div className="repository-side-group">
+          <p className="side-label">分类</p>
+          <nav aria-label="分类">{categories.map(c => <button key={c} className={"nav-item" + (activeCategory === c ? " active" : "")}
+            onClick={() => onCategoryChange(c)}><span className="nav-dot"></span>{c}<span className="nav-count">{counts[c] ?? ""}</span></button>)}</nav>
+        </div>}
+      </div>}
     </aside>
   );
 }
@@ -408,7 +485,7 @@ function FavCardV2({ fav, onEdit, onDelete }) {
   const [iconFailed, setIconFailed] = useState(false);
   const domain = getDomain(fav.url);
   return (
-    <a className="fav-card" href={fav.url} target="_blank" rel="noopener noreferrer">
+    <a id={`asset-resource-${fav.id}`} className="fav-card" href={fav.url} target="_blank" rel="noopener noreferrer">
       <div className="fav-avatar"
         style={{ background: iconFailed ? getAvatarColor(fav.name) : "var(--bg-sunken)" }}>
         <Favicon url={fav.url} name={fav.name} onStatusChange={setIconFailed} />
@@ -419,6 +496,11 @@ function FavCardV2({ fav, onEdit, onDelete }) {
           <IconArrowUpRight className="fav-arrow" />
         </div>
         <p className="fav-desc">{fav.desc || domain}</p>
+        <div className="fav-asset-meta">
+          <span>{({ site: "网站", tool: "工具", repo: "开源项目", article: "课程·文章" })[fav.type] || "网站"}</span>
+          {(fav.tags || "").split(",").map((tag) => tag.trim()).filter(Boolean).slice(0, 2).map((tag) => <span key={tag}>{tag}</span>)}
+          {fav.starred ? <span>已收藏</span> : null}
+        </div>
       </div>
       <button className="card-edit" title="编辑收藏"
         onClick={(e) => { e.preventDefault(); e.stopPropagation(); onEdit(fav); }}>
@@ -432,12 +514,17 @@ function FavCardV2({ fav, onEdit, onDelete }) {
   );
 }
 
-/** 添加 / 编辑收藏弹窗（editing 传入收藏对象时为编辑模式） */
+/** 添加 / 编辑收藏资产弹窗（editing 传入收藏对象时为编辑模式） */
 function AddFavModalV2({ editing, onClose, onSubmit }) {
   const [name, setName] = useState(editing ? editing.name : "");
   const [url, setUrl] = useState(editing ? editing.url : "");
   const [desc, setDesc] = useState(editing ? (editing.desc || "") : "");
   const [category, setCategory] = useState(editing ? editing.category : FAV_CATEGORIES[0]);
+  const [type, setType] = useState(editing ? (editing.type || "site") : "site");
+  const [tags, setTags] = useState(editing ? (editing.tags || "") : "");
+  const [sourceUrl, setSourceUrl] = useState(editing ? (editing.sourceUrl || "") : "");
+  const [note, setNote] = useState(editing ? (editing.note || "") : "");
+  const [starred, setStarred] = useState(Boolean(editing && editing.starred));
   const [error, setError] = useState("");
 
   function handleSubmit() {
@@ -448,26 +535,29 @@ function AddFavModalV2({ editing, onClose, onSubmit }) {
     if (!/^https?:\/\//i.test(trimmedUrl)) trimmedUrl = "https://" + trimmedUrl;
     try { new URL(trimmedUrl); }
     catch (err) { setError("网址格式不正确"); return; }
-    onSubmit({ name: trimmedName, url: trimmedUrl, desc: desc.trim(), category }, editing ? editing.id : null);
+    onSubmit({
+      name: trimmedName, url: trimmedUrl, desc: desc.trim(), category, type,
+      tags: tags.trim(), sourceUrl: sourceUrl.trim(), note: note.trim(), starred,
+    }, editing ? editing.id : null);
   }
 
   return (
     <div className="modal-overlay" onClick={onClose}>
       <div className="modal" onClick={(e) => e.stopPropagation()}>
-        <h2>{editing ? "编辑收藏" : "添加网站收藏"}</h2>
+        <h2>{editing ? "编辑资产入口" : "收录资产入口"}</h2>
         <div className="form-field">
-          <label>网站名称</label>
-          <input className="input" placeholder="例如：哔哩哔哩" value={name}
+          <label>名称</label>
+          <input className="input" placeholder="例如：Cursor Prompt Library" value={name}
             onChange={(e) => { setName(e.target.value); setError(""); }} autoFocus />
         </div>
         <div className="form-field">
-          <label>网址</label>
-          <input className="input" placeholder="例如：bilibili.com" value={url}
+          <label>链接</label>
+          <input className="input" placeholder="例如：example.com" value={url}
             onChange={(e) => { setUrl(e.target.value); setError(""); }} />
         </div>
         <div className="form-field">
-          <label>一句话描述（可选）</label>
-          <input className="input" placeholder="这个网站是做什么的" value={desc}
+          <label>整理备注（可选）</label>
+          <input className="input" placeholder="它解决什么问题，适合什么时候复用" value={desc}
             onChange={(e) => setDesc(e.target.value)} />
         </div>
         <div className="form-field">
@@ -476,11 +566,36 @@ function AddFavModalV2({ editing, onClose, onSubmit }) {
             {FAV_CATEGORIES.map((c) => <option key={c} value={c}>{c}</option>)}
           </select>
         </div>
+        <div className="field-grid">
+          <div className="form-field">
+            <label>类型</label>
+            <select className="select" value={type} onChange={(e) => setType(e.target.value)}>
+              <option value="site">网站</option><option value="tool">工具</option>
+              <option value="repo">开源项目</option><option value="article">课程·文章</option>
+            </select>
+          </div>
+          <div className="form-field">
+            <label>标签</label>
+            <input className="input" placeholder="逗号分隔" value={tags} onChange={(e) => setTags(e.target.value)} />
+          </div>
+        </div>
+        <div className="form-field">
+          <label>原始来源（可选）</label>
+          <input className="input" placeholder="来自哪条帖子或文章" value={sourceUrl} onChange={(e) => setSourceUrl(e.target.value)} />
+        </div>
+        <div className="form-field">
+          <label>补充笔记（可选）</label>
+          <textarea className="input" rows="3" value={note} onChange={(e) => setNote(e.target.value)} />
+        </div>
+        <label className="check-row">
+          <input type="checkbox" checked={starred} onChange={(e) => setStarred(e.target.checked)} />
+          置顶收藏
+        </label>
         {error && <p className="auth-error">{error}</p>}
         <div className="modal-actions">
           <button className="btn btn-ghost" onClick={onClose}>取消</button>
           <button className="btn btn-primary" onClick={handleSubmit}>
-            {editing ? <IconCheck /> : <IconPlus />}{editing ? "保存" : "添加"}
+            {editing ? <IconCheck /> : <IconPlus />}{editing ? "保存" : "收录"}
           </button>
         </div>
       </div>
@@ -529,7 +644,7 @@ function ImageLightbox({ src, onClose }) {
   );
 }
 
-function FeedItem({ item, rank, showRank, onPreview }) {
+function FeedItem({ item, rank, showRank, onPreview, onSave }) {
   const tags = Array.isArray(item.tags) ? item.tags : [];
   const images = Array.isArray(item.images) ? item.images : [];
   return (
@@ -541,14 +656,21 @@ function FeedItem({ item, rank, showRank, onPreview }) {
       )}
       {typeof item.score === "number" && (
         <div className="feed-corner">
-          <span className="feed-score" title="评分"><AnimatedNumber value={item.score} /></span>
+          <span className="feed-score" title={item.processing?.scoreReasons ? Object.entries(item.processing.scoreReasons).map(([key,value])=>`${({substance:'实质价值',novelty:'信息增量',evidence:'证据强度',relevance:'用途相关',actionability:'可操作性'})[key]||key}：${value}`).join('\n') : '来源评分'}><AnimatedNumber value={item.score} /></span>
         </div>
       )}
       <div className="feed-body">
         <div className="feed-title-row">
           <h3 className="feed-title">{item.title}</h3>
+          {onSave && (
+            <button className="feed-save" title="存入收件箱"
+              onClick={(e) => { e.preventDefault(); e.stopPropagation(); onSave(item); }}>
+              <IconInbox />
+            </button>
+          )}
         </div>
         {item.summary && <p className="feed-summary">{item.summary}</p>}
+        {item.processing && <span className="tag-chip" title={item.processing.state==='ready'?'已按网站统一流程整理':'原始来源已保留，尚未完成网站整理'}>{item.processing.label}</span>}
         {images.length > 0 && (
           <div className="feed-imgs">
             {images.slice(0, 4).map((src, i) => (

@@ -1,0 +1,73 @@
+{
+  "schemaVersion": 1,
+  "key": "typecellos/blocknote",
+  "status": "partial",
+  "reason": "README 只给出了一段 React 示例代码，没有列出 npm 包的安装命令、React 等依赖的版本要求或项目配置方法。完整入门步骤需要查阅外部的 Quickstart 文档（blocknotejs.org/docs/getting-started）。",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/TypeCellOS/BlockNote/blob/f64d5446e39d756ba576ab80f85a2f0ef4c2e1e4/README.md",
+  "sourceRevision": "f64d5446e39d756ba576ab80f85a2f0ef4c2e1e4",
+  "canonicalKey": "TypeCellOS/BlockNote",
+  "summary": "BlockNote 是一个基于 Prosemirror 和 Tiptap 的开源 React 富文本编辑器，采用类似 Notion 的块式编辑，可以扩展。",
+  "intro": "适合需要在自己的 React 应用中嵌入块式编辑器的前端开发者。@blocknote/react 自带完整样式的 UI，功能包括拖拽块、Tab 和 Shift+Tab 缩进嵌套、斜杠菜单、格式菜单、占位提示和实时协作。",
+  "requirements": "需要一个 React 项目。示例代码引用了 @blocknote/react、@blocknote/mantine 和 @blocknote/core 三个包，具体安装方式和版本要求见官方 Quickstart。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "查阅官方 Quickstart 准备依赖",
+      "text": "README 没有给出安装命令。请先打开 blocknotejs.org 上的 Quickstart 和 Documentation，确认在 React 项目中引入 @blocknote/react、@blocknote/mantine 和 @blocknote/core 的方式。也可以先浏览 Examples 页面，了解各项功能的效果。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/TypeCellOS/BlockNote/blob/f64d5446e39d756ba576ab80f85a2f0ef4c2e1e4/README.md?plain=1#L1"
+      }
+    },
+    {
+      "title": "在组件中创建并渲染编辑器",
+      "text": "参照 README 中的示例：用 useCreateBlockNote 创建编辑器实例，再交给 BlockNoteView 渲染，并引入 Inter 字体 CSS 和 Mantine 样式 CSS。这样就能得到一个带完整样式 UI 的块式编辑器。",
+      "code": "import { useCreateBlockNote } from \"@blocknote/react\";\nimport { BlockNoteView } from \"@blocknote/mantine\";\nimport \"@blocknote/core/fonts/inter.css\";\nimport \"@blocknote/mantine/style.css\";\n\nfunction App() {\n  const editor = useCreateBlockNote();\n\n  return <BlockNoteView editor={editor} />;\n}",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/TypeCellOS/BlockNote/blob/f64d5446e39d756ba576ab80f85a2f0ef4c2e1e4/README.md?plain=1#L28"
+      }
+    },
+    {
+      "title": "确认所用包的许可证",
+      "text": "主体代码采用 MPL-2.0 许可，可用于商业和闭源应用，但如果修改了 BlockNote 的源文件，应公开这些修改。如果要使用 @blocknote/xl-* 包，需要遵守 GPL-3.0，否则需购买商业许可。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/TypeCellOS/BlockNote/blob/f64d5446e39d756ba576ab80f85a2f0ef4c2e1e4/README.md?plain=1#L89"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "@blocknote/xl-* 包采用 GPL-3.0 许可。无法遵守 GPL-3.0 时，需要购买商业许可，价格见官网 pricing 页面。",
+    "修改 BlockNote 源文件后，按 MPL-2.0 应公开修改内容。",
+    "如需在本地运行仓库进行开发，参见 CONTRIBUTING.md（文档提到使用 pnpm start）。"
+  ],
+  "references": [],
+  "media": [
+    {
+      "url": "/assets/repository-guides/media-aa455a48c4f97003c93e065d.webp",
+      "alt": "TypeCellOS/BlockNote 官方演示 1",
+      "sourceUrl": "https://github.com/TypeCellOS/BlockNote/blob/f64d5446e39d756ba576ab80f85a2f0ef4c2e1e4/README.md?plain=1#L69",
+      "originalUrl": "https://raw.githubusercontent.com/TypeCellOS/BlockNote/f64d5446e39d756ba576ab80f85a2f0ef4c2e1e4/.resources/slashmenu.gif"
+    },
+    {
+      "url": "/assets/repository-guides/media-3cb3bae059e2099458475cb4.webp",
+      "alt": "TypeCellOS/BlockNote 官方演示 2",
+      "sourceUrl": "https://github.com/TypeCellOS/BlockNote/blob/f64d5446e39d756ba576ab80f85a2f0ef4c2e1e4/README.md?plain=1#L61",
+      "originalUrl": "https://raw.githubusercontent.com/TypeCellOS/BlockNote/f64d5446e39d756ba576ab80f85a2f0ef4c2e1e4/.resources/dragdrop.gif"
+    },
+    {
+      "url": "/assets/repository-guides/media-44d4313b13ab06c7f7d220b3.webp",
+      "alt": "TypeCellOS/BlockNote 官方演示 3",
+      "sourceUrl": "https://github.com/TypeCellOS/BlockNote/blob/f64d5446e39d756ba576ab80f85a2f0ef4c2e1e4/README.md?plain=1#L77",
+      "originalUrl": "https://raw.githubusercontent.com/TypeCellOS/BlockNote/f64d5446e39d756ba576ab80f85a2f0ef4c2e1e4/.resources/collaboration.gif"
+    }
+  ],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "bd1237b3f568a463fc23afab18583d63362b2e745ac049d17a37971111c08ce8",
+  "mediaStatus": "archived",
+  "mediaFailures": []
+}

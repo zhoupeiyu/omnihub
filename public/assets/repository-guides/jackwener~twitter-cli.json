@@ -1,0 +1,75 @@
+{
+  "schemaVersion": 1,
+  "key": "jackwener/twitter-cli",
+  "status": "ready",
+  "reason": "",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/public-clis/twitter-cli/blob/7c634e0d396b1e7af9f63315b414925fe4f29ae7/README.md",
+  "sourceRevision": "7c634e0d396b1e7af9f63315b414925fe4f29ae7",
+  "canonicalKey": "public-clis/twitter-cli",
+  "summary": "twitter-cli 是一个 Twitter/X 命令行工具，使用浏览器 Cookie 认证，可在终端读取时间线、书签、搜索结果和用户资料，也可以执行发推、点赞、转推等写操作。",
+  "intro": "适合习惯在终端工作的 Twitter/X 用户，以及需要把推文数据接入脚本或 AI Agent 的开发者。它可以读取 for-you 和 following 时间线、书签、搜索结果、推文详情、Twitter Article 和 List，并能查询用户资料。输出支持 rich table、YAML 和 JSON。写操作包括发推（最多附 4 张图）、引用、删除、点赞、转推和书签。仓库还提供 SKILL.md，可供 AI Agent 调用。",
+  "requirements": "Python >= 3.10。需要安装 uv（推荐）或 pipx。需要在 Arc、Chrome、Edge、Firefox 或 Brave 中已登录 x.com，也可以手动设置 TWITTER_AUTH_TOKEN 和 TWITTER_CT0 两个环境变量。代理为可选项，通过 TWITTER_PROXY 设置。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "用 uv tool 安装 twitter-cli",
+      "text": "官方推荐用 uv tool 安装，安装环境相互隔离；也可以改用 pipx。README 建议定期运行升级命令，避免旧版本在 API 处理上出现异常。",
+      "code": "# 推荐：uv tool\nuv tool install twitter-cli\n\nuv tool upgrade twitter-cli\n# Or: pipx upgrade twitter-cli",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/public-clis/twitter-cli/blob/7c634e0d396b1e7af9f63315b414925fe4f29ae7/README.md?plain=1#L55"
+      }
+    },
+    {
+      "title": "在浏览器登录 x.com 完成认证",
+      "text": "官方推荐让工具从浏览器自动提取 Cookie，支持 Arc、Chrome、Edge、Firefox 和 Brave。装有多个浏览器时，可用 TWITTER_BROWSER 指定优先读取哪一个；有多个 Chrome Profile 时，可用 TWITTER_CHROME_PROFILE 指定。工具也接受环境变量 TWITTER_AUTH_TOKEN 和 TWITTER_CT0。",
+      "code": "TWITTER_BROWSER=chrome twitter feed    # Supported: arc, chrome, edge, firefox, brave\n\nTWITTER_CHROME_PROFILE=\"Profile 2\" twitter feed",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/public-clis/twitter-cli/blob/7c634e0d396b1e7af9f63315b414925fe4f29ae7/README.md?plain=1#L172"
+      }
+    },
+    {
+      "title": "按需设置 TWITTER_PROXY 代理",
+      "text": "README 的防封号建议包括：设置 TWITTER_PROXY 代理，支持 HTTP 和 SOCKS5；避免使用数据中心 IP；用 --max 控制每次的请求量。",
+      "code": "# HTTP proxy\nexport TWITTER_PROXY=http://127.0.0.1:7890\n\n# SOCKS5 proxy\nexport TWITTER_PROXY=socks5://127.0.0.1:1080",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/public-clis/twitter-cli/blob/7c634e0d396b1e7af9f63315b414925fe4f29ae7/README.md?plain=1#L195"
+      }
+    },
+    {
+      "title": "运行 feed 读取时间线",
+      "text": "用 twitter feed 读取 For You 时间线；加 -t following 读取关注时间线；加 --filter 时，会按 config.yaml 中的权重对推文打分排序。",
+      "code": "# Fetch home timeline (For You)\ntwitter feed\n\n# Fetch Following timeline\ntwitter feed -t following\n\n# Enable ranking filter explicitly\ntwitter feed --filter",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/public-clis/twitter-cli/blob/7c634e0d396b1e7af9f63315b414925fe4f29ae7/README.md?plain=1#L82"
+      }
+    },
+    {
+      "title": "选择命令与输出格式",
+      "text": "其他读取命令包括 bookmarks、search、tweet、show、article、list、user 等，写操作命令包括 post、reply、quote、like、retweet 等。交互浏览时使用默认表格；脚本或 Agent 调用时用 --yaml 或 --json；--full-text 可显示完整正文。",
+      "code": "# Feed\ntwitter feed --max 50\ntwitter feed --cursor \"<next-cursor-from-previous-response>\"\ntwitter feed --full-text\ntwitter feed --output tweets.json\ntwitter feed --input tweets.json\ntwitter feed --json                    # Structured stdout for scripts/agents\n\n# Bookmarks\ntwitter bookmarks\ntwitter bookmarks --full-text\ntwitter bookmarks --max 30 --yaml\n\n# Search\ntwitter search \"Claude Code\"\ntwitter search \"AI agent\" -t Latest --max 50\ntwitter search \"AI agent\" --full-text\ntwitter search \"机器学习\" --yaml\ntwitter search \"python\" --from elonmusk --lang en --since 2026-01-01\ntwitter search --from bbc --exclude retweets --has links\ntwitter search \"topic\" -o results.json         # Save to file\ntwitter search \"trending\" --filter              # Apply ranking filter\n\n# Tweet detail (view tweet + replies)\ntwitter tweet 1234567890\ntwitter tweet 1234567890 --full-text\ntwitter tweet https://x.com/user/status/1234567890\n\n# Open tweet by index from last list output\ntwitter show 2                         # Open tweet #2 from last feed/search\ntwitter show 2 --full-text             # Full text in reply table\ntwitter show 2 --json                  # Structured output\n\n# Twitter Article\ntwitter article 1234567890\ntwitter article https://x.com/user/article/1234567890 --json\ntwitter article 1234567890 --markdown\ntwitter article 1234567890 --output article.md\n\n# List timeline\ntwitter list 1539453138322673664\ntwitter list 1539453138322673664 --cursor \"<next-cursor-from-previous-response>\"\ntwitter list 1539453138322673664 --full-text\n\n# User\ntwitter user elonmusk\ntwitter user-posts elonmusk --max 20\ntwitter user-posts elonmusk --full-text\ntwitter user-posts elonmusk -o tweets.json\ntwitter likes elonmusk --max 30          # ⚠️ own likes only (private since Jun 2024)\ntwitter likes elonmusk --full-text\ntwitter likes elonmusk -o likes.json\ntwitter followers elonmusk --max 50\ntwitter following elonmusk --max 50\n\n# Write operations\ntwitter post \"Hello from twitter-cli!\"\ntwitter post \"Hello!\" --image photo.jpg            # Post with image\ntwitter post \"Gallery\" -i a.png -i b.jpg -i c.webp  # Up to 4 images\ntwitter post \"reply text\" --reply-to 1234567890\ntwitter reply 1234567890 \"Nice!\" -i screenshot.png  # Reply with image\ntwitter quote 1234567890 \"Look\" -i chart.png        # Quote with image\ntwitter post \"Hello from twitter-cli!\" --json\ntwitter delete 1234567890\ntwitter like 1234567890\ntwitter like 1234567890 --yaml\ntwitter unlike 1234567890\ntwitter retweet 1234567890\ntwitter unretweet 1234567890\ntwitter bookmark 1234567890\ntwitter unbookmark 1234567890\ntwitter follow elonmusk --json",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/public-clis/twitter-cli/blob/7c634e0d396b1e7af9f63315b414925fe4f29ae7/README.md?plain=1#L95"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "这个工具使用账号 Cookie，并带有 TLS 指纹伪装等反检测手段，不是官方 API。README 本身提醒存在封号风险，请自行评估是否符合 X 平台的规则。",
+    "写操作（发推、删除、点赞等）会直接作用于你的账号。",
+    "根据 README，likes 命令只能查看自己的点赞，因为自 2024 年 6 月起点赞已设为私密。",
+    "在 macOS 上提取 Cookie 时可能遇到 Keychain 授权问题；在 Windows 下通过管道调用时可能受 ConPTY 影响，README 建议改用 Git Bash。",
+    "README 中 ClawHub 的 Skill 安装方式已标注为废弃。"
+  ],
+  "references": [],
+  "media": [],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "3f82b9d249913b961097078872b26b90a6f85bfbae542f65d7269774ed3a7773",
+  "mediaStatus": "none_in_official_documents"
+}

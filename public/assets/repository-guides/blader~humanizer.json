@@ -1,0 +1,72 @@
+{
+  "schemaVersion": 1,
+  "key": "blader/humanizer",
+  "status": "ready",
+  "reason": "",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/blader/humanizer/blob/225a6f39ac85f76ee48dbad772ea4abe4ed6c9d8/README.md",
+  "sourceRevision": "225a6f39ac85f76ee48dbad772ea4abe4ed6c9d8",
+  "canonicalKey": "blader/humanizer",
+  "summary": "Humanizer 是一个智能体技能，依据 Wikipedia“Signs of AI writing”中的 26 种模式改写 AI 腔文本，不改变原意。",
+  "intro": "适合需要润色 AI 生成文案、文档或文章的写作者和开发者。它可以在 Claude Code、Codex 等支持技能的智能体中使用，既能处理粘贴的文本，也能直接改写文件中的正文，还可以按你提供的写作样本模仿个人语气。它面向人类读者编辑文本，不以绕过 AI 检测器为目标。",
+  "requirements": "本指南采用 Claude Code 插件安装路径，需要 Claude Code 2.1.142 或更新版本。其他宿主（Codex、Claude.ai/Claude Desktop、Skills CLI 支持的智能体）的安装方式另见 README。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "在 Claude Code 中安装插件",
+      "text": "在 Claude Code 中先添加 blader/humanizer 插件市场，再安装 humanizer 插件。插件方式需要 Claude Code 2.1.142 或更新版本；旧版本可改用 README 提供的 npx skills add blader/humanizer --global --agent claude-code。安装后插件的调用名是 /humanizer:humanizer。",
+      "code": "/plugin marketplace add blader/humanizer\n/plugin install humanizer@humanizer",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/blader/humanizer/blob/225a6f39ac85f76ee48dbad772ea4abe4ed6c9d8/README.md?plain=1#L33"
+      }
+    },
+    {
+      "title": "调用技能改写一段文本",
+      "text": "输入技能命令后粘贴要改写的文本，也可以直接用自然语言要求它 humanize 这段文字。README 示例中的命令写作 /humanizer，通过 Claude Code 插件安装时对应的是 /humanizer:humanizer。",
+      "code": "/humanizer\n\n[paste your text here]\n\nPlease humanize this text: [your text]",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/blader/humanizer/blob/225a6f39ac85f76ee48dbad772ea4abe4ed6c9d8/README.md?plain=1#L60"
+      }
+    },
+    {
+      "title": "指定文件路径改写文档正文",
+      "text": "给出文件路径即可让 Humanizer 改写文件，例如 docs/launch-post.md 中的正文。处理文件时它只修改散文部分，代码、数据、frontmatter 和链接目标保持不变。",
+      "code": "Humanize the prose in docs/launch-post.md",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/blader/humanizer/blob/225a6f39ac85f76ee48dbad772ea4abe4ed6c9d8/README.md?plain=1#L60"
+      }
+    },
+    {
+      "title": "附上写作样本以匹配个人语气",
+      "text": "想让改写结果更像你本人，可以先贴 2–3 段自己写的文字作为样本，再贴需要改写的文本。Humanizer 会参照样本的节奏、用词、标点和刻意保留的习惯，包括破折号的用法。",
+      "code": "/humanizer\n\nHere's a sample of my writing for voice matching:\n[paste 2-3 paragraphs of your own writing]\n\nNow humanize this text:\n[paste AI text to humanize]",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/blader/humanizer/blob/225a6f39ac85f76ee48dbad772ea4abe4ed6c9d8/README.md?plain=1#L82"
+      }
+    },
+    {
+      "title": "核对初稿、自评与终稿",
+      "text": "处理粘贴文本时，它会依次给出初次改写、对仍显生硬之处的简短点评和最终版本。它不会编造名称、数字、日期或引文等事实，缺少必要细节时会向你提问。请回答这些问题，并在使用前核对终稿与原意是否一致。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/blader/humanizer/blob/225a6f39ac85f76ee48dbad772ea4abe4ed6c9d8/README.md?plain=1#L98"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "Humanizer 不以通过 AI 检测器为目标，README 说明检测器仍会标记其大部分输出。",
+    "Claude Code 插件方式需要 2.1.142 或更新版本，旧版本需改用 Skills CLI 安装。",
+    "标注为 weak alone 的模式只有在同一段落中多处同时出现时才会处理，单独出现时可能被保留。"
+  ],
+  "references": [],
+  "media": [],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "a07a054f230dca1e3d25e32ba6c808905b743cc6fa56bf8b6868cee0b12a0432",
+  "mediaStatus": "none_in_official_documents"
+}

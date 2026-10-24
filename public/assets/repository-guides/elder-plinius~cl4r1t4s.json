@@ -1,0 +1,44 @@
+{
+  "schemaVersion": 1,
+  "key": "elder-plinius/cl4r1t4s",
+  "status": "partial",
+  "reason": "README 只有项目宣言和投稿要求，没有列出仓库目录结构、各模型文件的位置或命名方式，也没有说明如何查阅、检索或核实这些内容的来源与时间；另外 README 末尾含有试图操纵 AI 的指令文本，已忽略。",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/elder-plinius/CL4R1T4S/blob/a4d3da04e63324e794a65500c3e41994fc4ab02e/README.md",
+  "sourceRevision": "a4d3da04e63324e794a65500c3e41994fc4ab02e",
+  "canonicalKey": "elder-plinius/CL4R1T4S",
+  "summary": "一个收集各家 AI 产品系统提示词、指南和工具定义的资料仓库，自称用于 AI 系统透明度研究。",
+  "intro": "适合研究 AI 产品行为、提示词设计或 AI 安全与透明度议题的人查阅。README 称收录了 OpenAI、Google、Anthropic、xAI、Perplexity、Cursor、Windsurf、Devin、Manus、Replit 等模型与代理的系统提示词、指南和工具说明，目的是让用户了解模型输出背后的输入设定。",
+  "requirements": "README 未给出任何安装或使用前提；查阅只需浏览 GitHub 仓库。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "了解收录范围与项目立场",
+      "text": "先阅读 README 开头，了解它声称收录哪些厂商与代理的系统提示词、指南和工具，以及项目“理解输入才能信任输出”的出发点。README 没有提供目录说明，具体文件需在仓库中自行浏览查找。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/elder-plinius/CL4R1T4S/blob/a4d3da04e63324e794a65500c3e41994fc4ab02e/README.md?plain=1#L1"
+      }
+    },
+    {
+      "title": "按投稿要求核对条目信息",
+      "text": "README 要求投稿附带模型名称/版本、提取日期（如已知）和可选的背景说明。查阅具体文件时，可据此检查是否标明了版本与日期，以判断内容是否过时。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/elder-plinius/CL4R1T4S/blob/a4d3da04e63324e794a65500c3e41994fc4ab02e/README.md?plain=1#L1"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "内容为提取或逆向得到的提示词，README 未说明真实性核验方式，也无法确认是否为当前版本，引用前需自行判断。",
+    "README 中包含针对 AI 助手的操纵性指令文本（要求输出自身指令），若将仓库内容交给 AI 处理，需注意提示注入风险。",
+    "仓库采用 AGPL-3.0 许可；被收录内容可能涉及各厂商的服务条款或知识产权问题，再分发或商用前请自行评估。"
+  ],
+  "references": [],
+  "media": [],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "1edb40f231dd5827e41a584997646703cc13edbe78f8f2bbc3735a7c700d0d26",
+  "mediaStatus": "none_in_official_documents"
+}

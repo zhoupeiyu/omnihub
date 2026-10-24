@@ -1,0 +1,71 @@
+{
+  "schemaVersion": 1,
+  "key": "composiohq/awesome-codex-skills",
+  "status": "ready",
+  "reason": "",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/composio-community/awesome-codex-skills/blob/0930e1373789d2eda449039f7ac154b33031de89/README.md",
+  "sourceRevision": "0930e1373789d2eda449039f7ac154b33031de89",
+  "canonicalKey": "composio-community/awesome-codex-skills",
+  "summary": "这是一个面向 Codex CLI 与 API 的实用技能（Skills）清单，并附带技能安装脚本和编写模板。",
+  "intro": "适合已经在使用 Codex、想用现成技能自动化日常工作的开发者。清单按开发与代码工具、效率协作、沟通写作、数据分析、元工具分类，覆盖 PR 评审、CI 修复、会议纪要、Notion 整理、表格公式等场景。你可以从中挑选技能装入 Codex，也可以参考模板编写自己的技能。",
+  "requirements": "需要已安装的 Codex。技能目录为 $CODEX_HOME/skills，默认是 ~/.codex/skills。用安装脚本时需要 git 和 Python。部分技能依赖 Composio CLI、gh 或对应的第三方服务账号。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "按分类浏览并选定所需技能",
+      "text": "在 README 的分类列表中查看每个技能的一句话说明。以 ./ 开头的条目是本仓库内的技能文件夹。标注 External repo 或指向其他 GitHub 地址的条目来自第三方仓库，需要到对应仓库查看说明。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/composio-community/awesome-codex-skills/blob/0930e1373789d2eda449039f7ac154b33031de89/README.md?plain=1#L63"
+      }
+    },
+    {
+      "title": "克隆仓库并用安装脚本装技能",
+      "text": "克隆本仓库，运行 skill-installer 下的 install-skill-from-github.py，用 --path 指定技能文件夹。脚本会把技能放到 $CODEX_HOME/skills/<skill-name>。也可以手动把技能文件夹复制到该目录。",
+      "code": "git clone https://github.com/ComposioHQ/awesome-codex-skills.git\ncd awesome-codex-skills\n# Install one or more skills into $CODEX_HOME/skills (defaults to ~/.codex/skills)\npython skill-installer/scripts/install-skill-from-github.py --repo ComposioHQ/awesome-codex-skills --path meeting-notes-and-actions",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/composio-community/awesome-codex-skills/blob/0930e1373789d2eda449039f7ac154b33031de89/README.md?plain=1#L44"
+      }
+    },
+    {
+      "title": "重启 Codex 以加载技能元数据",
+      "text": "安装或更新技能后，需要重启 Codex，它才会重新读取各技能 SKILL.md 中 name 和 description 的元数据。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/composio-community/awesome-codex-skills/blob/0930e1373789d2eda449039f7ac154b33031de89/README.md?plain=1#L44"
+      }
+    },
+    {
+      "title": "在会话中描述任务触发技能",
+      "text": "在新会话里自然地描述任务，Codex 会根据技能 description 自动匹配并触发。也可以直接提到技能名，让它纳入考虑。要确认安装是否成功，可以列出 ~/.codex/skills 目录，并查看对应技能的 SKILL.md 开头部分。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/composio-community/awesome-codex-skills/blob/0930e1373789d2eda449039f7ac154b33031de89/README.md?plain=1#L55"
+      }
+    },
+    {
+      "title": "参照模板编写自己的技能",
+      "text": "新技能是一个文件夹，必须包含带 YAML frontmatter 的 SKILL.md，可选 scripts/、references/、assets/ 目录。description 要写清何时触发；详细资料放在 references/，按需引用。",
+      "code": "skill-name/\n├── SKILL.md          # Required: instructions + YAML frontmatter\n├── scripts/          # Optional: helper scripts for deterministic steps\n├── references/       # Optional: long-form docs loaded only when needed\n└── assets/           # Optional: templates or files used in outputs\n\n---\nname: my-skill-name\ndescription: What the skill does and when Codex should use it.\n---\n\n# My Skill Name\n\nClear instructions and steps for Codex to execute the task.",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/composio-community/awesome-codex-skills/blob/0930e1373789d2eda449039f7ac154b33031de89/README.md?plain=1#L78"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "仓库未声明许可证，复用或再分发前需自行确认授权。",
+    "清单中不少条目是第三方外部仓库，并附带各自的安装命令（如 npx 包），安装前应先审阅其来源和代码。",
+    "connect、pr-review-ci-fix、datadog-logs 等技能依赖 Composio CLI 和 Slack、GitHub、Datadog 等外部服务，需要相应账号授权，并会对真实系统执行操作。",
+    "README 中的 Composio MCP Gateway 是商业产品推广，与技能本身的使用无关。"
+  ],
+  "references": [],
+  "media": [],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "a618d80a2f2c17a735a96fcea1f8d0f8c4a4235d5ca21e896a069a05f8455efd",
+  "mediaStatus": "none_in_official_documents"
+}

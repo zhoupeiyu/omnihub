@@ -1,0 +1,64 @@
+{
+  "schemaVersion": 1,
+  "key": "ayush-that/jiang-clips",
+  "status": "ready",
+  "reason": "",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/ayush-that/jiang-clips/blob/b703a2e46e9b205872b1bbbc0e24dcb4a4d007c8/README.md",
+  "sourceRevision": "b703a2e46e9b205872b1bbbc0e24dcb4a4d007c8",
+  "canonicalKey": "ayush-that/jiang-clips",
+  "summary": "一个基于 Bun 的命令行流水线，用 AI 把 YouTube 长视频自动剪成带字幕的竖屏短片。",
+  "intro": "适合需要从 YouTube 长视频中批量提取短视频片段的创作者或开发者。它可以处理单个视频，也可以批量处理一个频道；支持中断后恢复、查看运行状态和清理运行记录。输出尺寸、并行数量、Whisper 模型大小和静音检测阈值都可以通过环境变量调整。",
+  "requirements": "需要安装 Bun 运行时和 FFmpeg（用于视频处理），并准备一个 Google Gemini API Key（用于 AI 内容生成）。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "安装依赖并设置 Gemini 密钥",
+      "text": "在仓库目录下执行 bun install 安装依赖，再把 GEMINI_API_KEY 环境变量设为你自己的 Google Gemini API Key。该变量是必填项，其余配置都有默认值。",
+      "code": "# Install dependencies\nbun install\n\n# Set environment variables\nexport GEMINI_API_KEY=\"your-api-key\"",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/ayush-that/jiang-clips/blob/b703a2e46e9b205872b1bbbc0e24dcb4a4d007c8/README.md?plain=1#L5"
+      }
+    },
+    {
+      "title": "按需调整输出与处理参数",
+      "text": "可选的环境变量包括：WHISPER_MODEL（tiny 到 large，默认 base）、MAX_PARALLEL_CLIPS（1-10，默认 3）、SILENCE_THRESHOLD_DB（默认 -35）、OUTPUT_WIDTH/OUTPUT_HEIGHT（默认 1080×1920 竖屏）。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/ayush-that/jiang-clips/blob/b703a2e46e9b205872b1bbbc0e24dcb4a4d007c8/README.md?plain=1#L40"
+      }
+    },
+    {
+      "title": "对单个视频或频道运行流水线",
+      "text": "使用 bun run src/index.ts pipeline 加 YouTube 视频地址处理单个视频；如需批量处理整个频道，则改用 batch 子命令并传入频道地址。",
+      "code": "# Run the pipeline on a single video\nbun run src/index.ts pipeline <youtube-url>\n\n# Batch process a channel\nbun run src/index.ts batch <channel-url>\n\n# Resume a previous run\nbun run src/index.ts resume <run-id>\n\n# Check status\nbun run src/index.ts status [run-id]\n\n# Clean up a run\nbun run src/index.ts clean <run-id>",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/ayush-that/jiang-clips/blob/b703a2e46e9b205872b1bbbc0e24dcb4a4d007c8/README.md?plain=1#L21"
+      }
+    },
+    {
+      "title": "恢复、查看和清理运行记录",
+      "text": "运行中断后，用 resume 加 run-id 继续；用 status 查看全部或指定运行的状态；不再需要某次运行时，用 clean 加 run-id 清理。这几个子命令同样位于 D0C1 的用法列表中。",
+      "code": "# Run the pipeline on a single video\nbun run src/index.ts pipeline <youtube-url>\n\n# Batch process a channel\nbun run src/index.ts batch <channel-url>\n\n# Resume a previous run\nbun run src/index.ts resume <run-id>\n\n# Check status\nbun run src/index.ts status [run-id]\n\n# Clean up a run\nbun run src/index.ts clean <run-id>",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/ayush-that/jiang-clips/blob/b703a2e46e9b205872b1bbbc0e24dcb4a4d007c8/README.md?plain=1#L21"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "依赖 Google Gemini API，调用量受你的 Gemini 账户额度和计费规则约束。",
+    "处理他人发布的 YouTube 视频并二次分发时，需自行确认版权和平台条款。",
+    "仓库未声明开源许可证，复用代码前需注意授权不明确。",
+    "README 称环境变量“全部可选”，但 GEMINI_API_KEY 实际标注为必填。"
+  ],
+  "references": [],
+  "media": [],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "37993ce88164d2bf04de23975c850e4e7e377031cfed76651be50d26dc8e12b5",
+  "mediaStatus": "none_in_official_documents"
+}

@@ -1,0 +1,69 @@
+{
+  "schemaVersion": 1,
+  "key": "xingwudao/xquant-beginner",
+  "status": "ready",
+  "reason": "",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/xingwudao/xquant-beginner/blob/fc9a7c445d51ddbe76c7d59bec59f2eb89fe0ddc/README.md",
+  "sourceRevision": "fc9a7c445d51ddbe76c7d59bec59f2eb89fe0ddc",
+  "canonicalKey": "xingwudao/xquant-beginner",
+  "summary": "一本面向零基础读者的量化交易开源书，教你借助 AI 编程工具和 Python 跑通策略回测、风险评估和因子研究。",
+  "intro": "适合想入门量化交易、但被代码和环境卡住的普通投资者。全书围绕 9 个问题展开，从环境准备、第一个策略、标的池、仓位、交易规则，到回测评估、过拟合识别、交易执行和因子研究。本仓库存放书稿源码；配套的 spec 和 notebook 在单独的 xquant-learning 仓库中。",
+  "requirements": "在线阅读只需浏览器。按书中内容动手实践需要 AI 编程工具和 Python 环境（书中「准备工作」章节会讲解如何搭建）。在本地预览书稿站点需要先安装 Node.js。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "打开在线书稿开始阅读",
+      "text": "访问 https://xingwudao.github.io/xquant-beginner/ 在线阅读开源书稿。README 说明最新版官方书稿已更新到 https://xquant.shop/courses 的课堂页，如需最新内容可以前往该页面。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/xingwudao/xquant-beginner/blob/fc9a7c445d51ddbe76c7d59bec59f2eb89fe0ddc/README.md?plain=1#L24"
+      }
+    },
+    {
+      "title": "按 SUMMARY 目录顺序学习",
+      "text": "对照 SUMMARY.md 的完整目录，先完成「准备工作」中的 AI 编程工具和 Python 环境搭建，再从第 1 章跑通第一个策略开始，按顺序学习回测评估、过拟合识别、交易执行等章节。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/xingwudao/xquant-beginner/blob/fc9a7c445d51ddbe76c7d59bec59f2eb89fe0ddc/README.md?plain=1#L54"
+      }
+    },
+    {
+      "title": "到配套仓库查找 spec 文件",
+      "text": "正文中出现类似 q1-how-to-profit/specs/ 的路径时，到 https://github.com/xingwudao/xquant-learning 仓库查看对应的 spec 和 notebook 文件。这些文件不在本仓库里。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/xingwudao/xquant-beginner/blob/fc9a7c445d51ddbe76c7d59bec59f2eb89fe0ddc/README.md?plain=1#L71"
+      }
+    },
+    {
+      "title": "可选：在本地预览书稿站点",
+      "text": "安装 Node.js 后，在仓库根目录安装依赖，并用 VitePress 启动本地预览。如需构建静态站点，可再运行构建和预览命令，构建产物位于 .vitepress/dist/。",
+      "code": "npm install\nnpm run docs:dev\n\nnpm run docs:build\n\nnpm run docs:preview",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/xingwudao/xquant-beginner/blob/fc9a7c445d51ddbe76c7d59bec59f2eb89fe0ddc/README.md?plain=1#L131"
+      }
+    },
+    {
+      "title": "发现问题时提交 Issue 反馈",
+      "text": "如果发现错别字、概念不清或实验结果不一致，先阅读 CONTRIBUTING.md，再通过仓库的 Issue 模板提交反馈。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/xingwudao/xquant-beginner/blob/fc9a7c445d51ddbe76c7d59bec59f2eb89fe0ddc/README.md?plain=1#L160"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "本书仅用于教育和研究，不构成投资建议。历史表现不代表未来收益，任何策略都可能亏损。",
+    "书稿正文与图片采用 CC BY-NC-SA 4.0（署名、非商业、相同方式共享），构建脚本和配置采用 MIT。",
+    "README 说明在线开源版可能不是最新内容，最新书稿在 xquant.shop 的课堂页。该站点同时提供课程和组合商店等商业内容。"
+  ],
+  "references": [],
+  "media": [],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "b93cee7b70baa96a882a38bd50ade9fe55ecb0981f404eaaf3438336ee13f8d5",
+  "mediaStatus": "none_in_official_documents"
+}

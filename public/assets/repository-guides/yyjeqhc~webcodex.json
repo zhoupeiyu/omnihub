@@ -1,0 +1,66 @@
+{
+  "schemaVersion": 1,
+  "key": "yyjeqhc/webcodex",
+  "status": "partial",
+  "reason": "README 说明统一安装包（Windows NSIS、macOS、Debian/Ubuntu .deb）仍在开发中，尚未通过各平台的真机安装验收，也没有说明哪个已发布版本可以直接使用。另外，ChatGPT/Claude 的 MCP 接入步骤、Quick Trial 的 share 用法都在 docs/MCP.md 和 docs/QUICK_START.md 中，本次材料没有提供，无法提炼完整的连接流程。",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/yyjeqhc/webcodex/blob/d11cdd226abd1efdb0351d4b58d502acb8f41f6e/README.md",
+  "sourceRevision": "d11cdd226abd1efdb0351d4b58d502acb8f41f6e",
+  "canonicalKey": "yyjeqhc/webcodex",
+  "summary": "WebCodex 通过 MCP 把 ChatGPT、Claude 等云端 AI 客户端连接到你自己机器上的代码仓库、Git 和开发工具，让 AI 在本机读改代码、运行测试。",
+  "intro": "适合希望让云端 AI 编码助手直接使用本机开发环境的开发者，代码仓库不必迁移到托管工作区。AI 可以在已配置的项目边界内搜索和修改代码、运行命令与测试、查看 Git 状态和 diff，并通过 Runtime Console 和 Jobs 观察长时间运行的任务。它支持单机使用，也支持一台中心 Server 连接多台 Runner 机器。",
+  "requirements": "需要一个 MCP 客户端（如 ChatGPT 或 Claude），以及适用于你所在平台、且已通过验证的 WebCodex 安装包。目标平台为 Windows、macOS、Debian 12 / Ubuntu 22.04+，架构为 x64 或 arm64。安装包状态以 Deployment validation 文档和 GitHub Releases 为准。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "确认安装包验证状态",
+      "text": "统一安装流程仍在开发中。安装前先查看仓库的 Deployment validation 文档和 GitHub Releases，确认你的平台（Windows、macOS 或 Debian/Ubuntu，x64 或 arm64）是否已有通过验证的安装包；没有的话，参考 Deployment 文档里的其他部署方式。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/yyjeqhc/webcodex/blob/d11cdd226abd1efdb0351d4b58d502acb8f41f6e/README.md?plain=1#L25"
+      }
+    },
+    {
+      "title": "单机安装并打开 Desktop",
+      "text": "本指南以“一台电脑”方案为例。安装平台包后打开 WebCodex Desktop，选择 Use WebCodex on this computer，保持 Allow AI to work on this computer 开启，然后确认设置。这一步不需要选择项目。该安装包同时包含 Desktop、CLI、Server 和 Runner。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/yyjeqhc/webcodex/blob/d11cdd226abd1efdb0351d4b58d502acb8f41f6e/docs/unified-installation.md?plain=1#L9"
+      }
+    },
+    {
+      "title": "核对 Server 与 Runner 状态",
+      "text": "在 Desktop 中确认 Server、Runner 和项目的状态。也可以在浏览器打开 SERVER_URL/runtime，用已有的用户凭据登录，查看已授权的 Runner、项目和状态。关闭 Desktop 窗口不会停止持久服务。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/yyjeqhc/webcodex/blob/d11cdd226abd1efdb0351d4b58d502acb8f41f6e/docs/unified-installation.md?plain=1#L9"
+      }
+    },
+    {
+      "title": "通过 Server 配置 AI 客户端连接",
+      "text": "通过 Server 配置 ChatGPT 的 MCP/Tunnel 连接，ChatGPT 始终连接中心 Server。具体的客户端接入和认证选项见仓库的 docs/MCP.md；遇到连接问题可查 docs/TROUBLESHOOTING.md。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/yyjeqhc/webcodex/blob/d11cdd226abd1efdb0351d4b58d502acb8f41f6e/docs/unified-installation.md?plain=1#L9"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "WebCodex 可以在已配置的项目范围内读写文件、执行命令，工具结果（包括文件片段）可能会返回给 AI 客户端。只注册允许 AI 访问的项目根目录，并使用版本控制。",
+    "不要把凭据写进提示词、日志或 Git。多机部署时，Runner 配对码和用户 token 都是机密：配对码要通过 stdin 输入，不能放在命令行参数里。",
+    "README 明确说明：真机安装、重启后服务保持、GUI 行为和升级尚未在三个平台上全部通过验收，各平台的行为不保证一致。",
+    "Linux 旧版 CLI 服务的迁移命令尚未通过原生包和服务验收，不应视为已正式支持。"
+  ],
+  "references": [
+    {
+      "label": "docs/unified-installation.md",
+      "url": "https://github.com/yyjeqhc/webcodex/blob/d11cdd226abd1efdb0351d4b58d502acb8f41f6e/docs/unified-installation.md"
+    }
+  ],
+  "media": [],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "c610c2aac763732bab62734c7f16c2a7b1aaf58501266adb2d08f1a8d2c0f07b",
+  "mediaStatus": "none_in_official_documents"
+}

@@ -1,0 +1,83 @@
+{
+  "schemaVersion": 1,
+  "key": "bwjoke/btc-trading-since-2020",
+  "status": "ready",
+  "reason": "",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/bwjoke/BTC-Trading-Since-2020/blob/9ff0d562cffd943d79916c9ce05adae627c8d9a2/README.md",
+  "sourceRevision": "9ff0d562cffd943d79916c9ce05adae627c8d9a2",
+  "canonicalKey": "bwjoke/BTC-Trading-Since-2020",
+  "summary": "公开一个真实 BitMEX 交易账户自 2020 年 5 月以来的订单、成交、钱包账本和终态快照，供人按时间顺序检查和分析。",
+  "intro": "适合研究主观、手工 BTC 交易中仓位管理、风控、回撤处理和长期复利的读者与数据分析者。数据以 CSV 形式提供，包含成交账本、订单、钱包流水、仓位/钱包/保证金快照，以及推导出的权益曲线。README 说明它不适用于高频交易、订单簿微观结构研究或毫秒级价格预测。",
+  "requirements": "需要能读取 CSV 和 JSON 文件的工具。理解字段含义时可参考 BitMEX API Explorer 文档；XBT 即 BTC 的另一种 ticker。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "从 Releases 下载数据包",
+      "text": "如果不需要完整 Git 历史，可以在 GitHub Releases 页面下载带标签版本的 .zip 或 .tar.gz 包，内容与仓库根目录的平铺文件相同。版本按导出日期以 data-YYYY-MM-DD 打标签。本次是 2026-09-11 的最终归档快照，之后不再常规更新。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/bwjoke/BTC-Trading-Since-2020/blob/9ff0d562cffd943d79916c9ce05adae627c8d9a2/README.md?plain=1#L39"
+      }
+    },
+    {
+      "title": "先查看 manifest 与文件角色",
+      "text": "打开 manifest.json，核对各文件的校验和、行数和时间范围。再对照 README 的文件表了解各 CSV 的来源端点与用途：tradeHistory 是主要成交账本，order 记录订单意图和最新状态，walletHistory 是钱包流水，position、wallet、margin 快照是导出时刻的终态锚点。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/bwjoke/BTC-Trading-Since-2020/blob/9ff0d562cffd943d79916c9ce05adae627c8d9a2/README.zh-CN.md?plain=1#L44"
+      }
+    },
+    {
+      "title": "用 tradeHistory 计算盈亏与成交量",
+      "text": "计算盈亏或成交量时，以 api-v1-execution-tradeHistory.csv 作为影响余额的执行账本。不要把它和 api-v1-execution.csv 直接拼接，因为两者有重叠；如果必须合并，请按 execID 明确去重。instrument 和 wallet-assets 文件可用来解释合约规格与资产精度。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/bwjoke/BTC-Trading-Since-2020/blob/9ff0d562cffd943d79916c9ce05adae627c8d9a2/README.zh-CN.md?plain=1#L94"
+      }
+    },
+    {
+      "title": "按 orderID 关联执行与订单",
+      "text": "关联 execution 与 order 时使用原生 orderID，单条执行事件用 execID 识别。建议使用左连接，并保留无法匹配的 execution 行：即使 orderID 非空，API 也可能没有返回对应的订单记录。order.csv 只保存每个订单返回的状态，不包含中间的状态迁移过程。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/bwjoke/BTC-Trading-Since-2020/blob/9ff0d562cffd943d79916c9ce05adae627c8d9a2/README.zh-CN.md?plain=1#L94"
+      }
+    },
+    {
+      "title": "理解权益曲线的计算口径",
+      "text": "derived-equity-curve.csv 和累计收益图使用 XBT+USDt 范围的钱包等值财富。计算方式是：扣除基准之后的外部入金、加回外部出金，并把内部转账和 XBT/USDt 互换视为中性。它不是覆盖全部资产的盯市净值，解读收益倍数前请先读方法说明。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/bwjoke/BTC-Trading-Since-2020/blob/9ff0d562cffd943d79916c9ce05adae627c8d9a2/README.md?plain=1#L125"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "execution 文件不是完整的历史订单生命周期日志，未返回 Canceled/Rejected 事件不代表相应操作没有发生。",
+    "仓位、钱包、保证金快照是先后依次读取的，并非同一瞬间的原子快照；快照读取之后的账户活动不包含在内。",
+    "公开版已删除账户、交易哈希、客户端订单 ID 和部分自由文本字段，部分提现地址已脱敏。",
+    "仓库未声明许可证，再利用数据前需自行确认授权。",
+    "这是历史交易档案，不构成对未来收益的说明。"
+  ],
+  "references": [
+    {
+      "label": "README.zh-CN.md",
+      "url": "https://github.com/bwjoke/BTC-Trading-Since-2020/blob/9ff0d562cffd943d79916c9ce05adae627c8d9a2/README.zh-CN.md"
+    }
+  ],
+  "media": [
+    {
+      "url": "/assets/repository-guides/media-a069f2df1fcb67f745367019.webp",
+      "alt": "bwjoke/BTC-Trading-Since-2020 官方演示 1",
+      "sourceUrl": "https://github.com/bwjoke/BTC-Trading-Since-2020/blob/9ff0d562cffd943d79916c9ce05adae627c8d9a2/README.md?plain=1#L13",
+      "originalUrl": "https://raw.githubusercontent.com/bwjoke/BTC-Trading-Since-2020/9ff0d562cffd943d79916c9ce05adae627c8d9a2/cumulative-performance.png?v=30f9af45aa64"
+    }
+  ],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "cebcb0c8eebc3008180c78541ef3c1f1a8ad461d5c79de5f4eb893e630d461b9",
+  "mediaStatus": "archived",
+  "mediaFailures": []
+}

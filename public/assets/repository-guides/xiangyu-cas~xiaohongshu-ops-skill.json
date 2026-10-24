@@ -1,0 +1,93 @@
+{
+  "schemaVersion": 1,
+  "key": "xiangyu-cas/xiaohongshu-ops-skill",
+  "status": "ready",
+  "reason": "",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/Xiangyu-CAS/xiaohongshu-ops-skill/blob/5b0b80b7261396955de0494df18182f2401cabc4/README.md",
+  "sourceRevision": "5b0b80b7261396955de0494df18182f2401cabc4",
+  "canonicalKey": "Xiangyu-CAS/xiaohongshu-ops-skill",
+  "summary": "xiaohongshu-ops 是一个小红书运营 skill，配合 OpenClaw 通过浏览器自动化完成推荐流与账号分析、选题、发布笔记、回复评论和爆款复刻。",
+  "intro": "适合用 OpenClaw（或 Codex）辅助运营小红书账号的创作者。它可以分析首页推荐流和账号定位，结合知识库给出选题灵感，并把分析结果以 Markdown 形式沉淀到本地 knowledge-base。它还能自动发布图文笔记、逐条回复评论、下载目标笔记，以及参照爆款笔记生成相似内容。persona.md 用于设定账号人设和回复语气。",
+  "requirements": "需要 OpenClaw 或 Codex 作为宿主，以及一个小红书账号。功能基于浏览器自动化（CDP），首次使用需要扫码登录。使用 nano banana 生成封面图时需要 gemini_api_key。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "在 OpenClaw 中安装 skill",
+      "text": "在 OpenClaw 或 Codex 中发送下方这句话，让 Agent 从 GitHub 安装这个 skill。也可以改用 clawhub install xiaohongshu-ops 安装，两种方式任选其一。",
+      "code": "帮我安装这个skill，`https://github.com/Xiangyu-CAS/xiaohongshu-ops-skill`",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/Xiangyu-CAS/xiaohongshu-ops-skill/blob/5b0b80b7261396955de0494df18182f2401cabc4/README.md?plain=1#L102"
+      }
+    },
+    {
+      "title": "首次扫码登录小红书",
+      "text": "skill 通过浏览器自动化（CDP）操作小红书，第一次使用时需要扫码登录，之后不需要重复验证。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/Xiangyu-CAS/xiaohongshu-ops-skill/blob/5b0b80b7261396955de0494df18182f2401cabc4/README.md?plain=1#L5"
+      }
+    },
+    {
+      "title": "编辑 persona.md 设定人设",
+      "text": "在 persona.md 中写明账号定位、人设、话术和禁忌，它决定对外文本和评论回复的语气。具体流程规则见 SKILL.md 和 references/ 目录下的各份 SOP 文档。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/Xiangyu-CAS/xiaohongshu-ops-skill/blob/5b0b80b7261396955de0494df18182f2401cabc4/README.md?plain=1#L113"
+      }
+    },
+    {
+      "title": "发起分析与选题请求",
+      "text": "用自然语言让 Agent 分析首页推荐流、诊断账号表现，或结合账号定位给出选题。分析结束后，可以要求把结果和动作沉淀到知识库，相应文件会保存到本地 knowledge-base/ 目录。",
+      "code": "帮我分析一下我小红书首页推荐流，为什么这些高赞笔记会被推荐给我？\n\n帮我分析这个账号定位和最近笔记表现，为什么有些笔记点赞明显更高？\n\n结合我的账号定位和最近平台热点，给我 5 条能直接发布的小红书选题\n\n把这次分析结果和动作沉淀到知识库，方便后续复盘复用",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/Xiangyu-CAS/xiaohongshu-ops-skill/blob/5b0b80b7261396955de0494df18182f2401cabc4/README.md?plain=1#L30"
+      }
+    },
+    {
+      "title": "按需执行发布与评论回复",
+      "text": "需要发布笔记、回复最新评论或复刻某篇爆款笔记时，直接用一句话发起请求即可，复刻时要附上原笔记链接。这些操作会以你的账号直接对外发布内容。",
+      "code": "帮我发布一篇关于太平年剧情讨论的小红书笔记\n\n帮我检查小红书最新评论并回复\n\n帮我复刻爆款笔记 https://www.xiaohongshu.com/explore/XXXXXXX",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/Xiangyu-CAS/xiaohongshu-ops-skill/blob/5b0b80b7261396955de0494df18182f2401cabc4/README.md?plain=1#L75"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "自动发布、自动回复评论和爆款复刻会直接以你的账号对外发布内容，建议先确认生成的文案和图片。",
+    "爆款复刻基于他人笔记生成相似内容，发布前请注意原创性和他人作品的权益。",
+    "封面图生成依赖 gemini_api_key。",
+    "仓库没有声明许可证。",
+    "knowledge-base 中的分析结果默认只保存在本地，并已被 .gitignore 忽略。"
+  ],
+  "references": [],
+  "media": [
+    {
+      "url": "/assets/repository-guides/media-2c5bcd76b30265c0eca490a9.webp",
+      "alt": "自动回复演示",
+      "sourceUrl": "https://github.com/Xiangyu-CAS/xiaohongshu-ops-skill/blob/5b0b80b7261396955de0494df18182f2401cabc4/README.md?plain=1#L91",
+      "originalUrl": "https://raw.githubusercontent.com/Xiangyu-CAS/xiaohongshu-ops-skill/5b0b80b7261396955de0494df18182f2401cabc4/assets/%E8%87%AA%E5%8A%A8%E5%9B%9E%E5%A4%8D.gif"
+    },
+    {
+      "url": "/assets/repository-guides/media-e773d17ca9ac56603017fdb3.webp",
+      "alt": "复刻生成结果",
+      "sourceUrl": "https://github.com/Xiangyu-CAS/xiaohongshu-ops-skill/blob/5b0b80b7261396955de0494df18182f2401cabc4/README.md?plain=1#L99",
+      "originalUrl": "https://raw.githubusercontent.com/Xiangyu-CAS/xiaohongshu-ops-skill/5b0b80b7261396955de0494df18182f2401cabc4/assets/%E7%88%86%E6%AC%BE%E7%AC%94%E8%AE%B0%E5%A4%8D%E5%88%BB%E7%BB%93%E6%9E%9C.jpg"
+    },
+    {
+      "url": "/assets/repository-guides/media-0a0811f1486c4c1097cd6225.webp",
+      "alt": "飞书自动发布笔记",
+      "sourceUrl": "https://github.com/Xiangyu-CAS/xiaohongshu-ops-skill/blob/5b0b80b7261396955de0494df18182f2401cabc4/README.md?plain=1#L82",
+      "originalUrl": "https://raw.githubusercontent.com/Xiangyu-CAS/xiaohongshu-ops-skill/5b0b80b7261396955de0494df18182f2401cabc4/assets/%E9%A3%9E%E4%B9%A6%E8%87%AA%E5%8A%A8%E5%8F%91%E5%B8%83%E7%AC%94%E8%AE%B0.jpg"
+    }
+  ],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "95d2e743f5f818407a67f78c3564c46b843a2bcd6b853f3d0ecf4d46eb4d0097",
+  "mediaStatus": "archived",
+  "mediaFailures": []
+}

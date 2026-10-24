@@ -1,0 +1,70 @@
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import {mkdtempSync,rmSync} from 'node:fs';
+import os from 'node:os';
+import path from 'node:path';
+import http from 'node:http';
+
+test('feed keeps upstream scores, saves are queued without model calls, and private management is owner-only',async t=>{
+  const dir=mkdtempSync(path.join(os.tmpdir(),'omnihub-content-api-'));process.env.OMNIHUB_DATA_DIR=dir;
+  process.env.OMNIHUB_X_WATCH_ENABLED='false';
+  const {db}=await import('../lib/db.js');const {handleApi}=await import('../lib/api.js');
+  db.prepare("INSERT INTO users(id,username,password_hash,salt) VALUES(1,'zane','fixture','fixture'),(2,'reader','fixture','fixture')").run();
+  db.prepare("INSERT INTO sessions(token,user_id) VALUES('owner-fixture',1),('reader-fixture',2)").run();
+  const server=http.createServer(async(req,res)=>{if(!await handleApi(req,res,new URL(req.url,'http://localhost').pathname)){res.writeHead(404);res.end();}});
+  await new Promise(resolve=>server.listen(0,'127.0.0.1',resolve));
+  const base=`http://127.0.0.1:${server.address().port}`,originalFetch=globalThis.fetch;
+  t.after(async()=>{globalThis.fetch=originalFetch;await new Promise(resolve=>server.close(resolve));db.close();rmSync(dir,{recursive:true,force:true});});
+  let upstream=0;
+  globalThis.fetch=async(url,options)=>{
+    if(String(url).startsWith('https://aihot.virxact.com/')){upstream++;return new Response(JSON.stringify({items:[{titleZh:'上游标题',url:'https://example.com/news',summaryZh:'上游摘要',finalScore:87,aiSelected:true,aiSelectedReason:'上游推荐理由'}]}));}
+    throw new Error('Unexpected external request');
+  };
+  const request=(route,{token,body,origin}={})=>originalFetch(base+route,{method:body?'POST':'GET',headers:{...(token?{cookie:`omnihub_session=${token}`}:{ }),...(body?{'content-type':'application/json'}:{}),...(origin?{origin}:{})},body:body?JSON.stringify(body):undefined});
+  const feed=await (await request('/api/feed/aihot')).json();assert.equal(feed[0].score,87);assert.equal(feed[0].selected,true);assert.equal(feed[0].reason,'上游推荐理由');
+  await request('/api/feed/aihot');assert.equal(upstream,1);
+  assert.equal(db.prepare('SELECT count(*) n FROM inbox').get().n,0);
+  const owner={token:'owner-fixture'};
+  const saved=await request('/api/inbox',{...owner,body:{source:'feed',externalId:'news',url:'https://example.com/news',content:'保存的原文'}});
+  assert.equal(saved.status,201);assert.equal((await saved.json()).processingQueued,true);
+  assert.equal(db.prepare('SELECT count(*) n FROM content_jobs').get().n,1);
+  await request('/api/inbox',{...owner,body:{source:'x',externalId:'123456',url:'https://x.com/example/status/123456',content:'原始收藏正文'}});
+  const repeated=await (await request('/api/inbox',{...owner,body:{source:'feed',externalId:'upstream-news',url:'https://x.com/example/status/123456',content:'信息流摘要'}})).json();
+  assert.equal(repeated.created,false);
+  assert.equal(db.prepare("SELECT count(*) n FROM inbox WHERE external_id='123456'").get().n,1);
+  assert.equal(db.prepare("SELECT content FROM inbox WHERE external_id='123456'").get().content,'原始收藏正文');
+  for(const route of ['/api/content-pipeline','/api/x-watch','/api/x-watch/posts','/api/x-watch/hot']){
+    assert.equal((await request(route)).status,401);assert.equal((await request(route,{token:'reader-fixture'})).status,route==='/api/content-pipeline'?200:403);
+    assert.equal((await request(route,owner)).status,200);
+  }
+  const config={handle:'example',group:'研究',intervalMinutes:30,includeReplies:false,includeReposts:false,enabled:false,dailyRequests:0};
+  assert.equal((await request('/api/x-watch/accounts',{...owner,body:config,origin:'https://evil.example'})).status,403);
+  assert.equal((await request('/api/x-watch/accounts',{...owner,body:config})).status,200);
+  assert.equal((await request('/api/x-watch/accounts',{...owner,body:{...config,handle:'another',enabled:true}})).status,409);
+  assert.equal((await request('/api/content-pipeline',{...owner,body:{action:'enable',includePrivate:'yes'}})).status,400);
+  assert.equal((await request('/api/content-pipeline',{...owner,body:{action:'enable',sampleSize:50}})).status,202);
+  assert.equal((await (await request('/api/content-pipeline',owner)).json()).scope.includePrivate,false);
+  assert.equal((await request('/api/content-pipeline',{...owner,body:{action:'pause'}})).status,202);
+  const {contentStore}=await import('../lib/content-runtime.js');
+  const created=await (await request('/api/inbox',{...owner,body:{source:'x',externalId:'123457',url:'https://x.com/example/status/123457',content:'仓库说明',links:['https://github.com/example/project']}})).json();
+  const sourceId=created.id;
+  db.prepare("UPDATE inbox SET visibility='public' WHERE id=?").run(sourceId);
+  contentStore.configure(1,{sampleSize:0});contentStore.setEnabled(1,true);
+  let job;
+  while((job=contentStore.claim(1))&&job.source.id!==sourceId)contentStore.finish(job,'protected');
+  contentStore.saveResult(job,{kind:'repository',assets:['repository'],confidence:.99},{assets:['repository'],score:70,title:'仓库说明',summary:'公开原文支持的中文说明',topics:['开发']},'ready');
+  contentStore.finish(job,'done');
+  assert.equal((await request(`/api/content-pipeline/results/${sourceId}`)).status,401);
+  assert.equal((await request(`/api/content-pipeline/results/${sourceId}`,{token:'reader-fixture'})).status,404);
+  const draft=await (await request(`/api/content-pipeline/results/${sourceId}`,owner)).json();assert.equal(draft.article.score,70);
+  assert.equal((await (await request('/api/content-pipeline',owner)).json()).selected[0].sourceId,sourceId);
+  assert.equal((await (await request('/api/repositories')).json()).some(repo=>repo.key==='example/project'),false);
+  assert.equal((await request('/api/content-pipeline',{...owner,body:{action:'publish',jobId:job.id}})).status,202);
+  let publishedRepo=await (await request('/api/repositories/example/project')).json();assert.equal(publishedRepo.description,'公开原文支持的中文说明');
+  db.prepare("UPDATE repository_assets SET description='已核实的仓库介绍' WHERE repo_key='example/project'").run();
+  await request('/api/content-pipeline',{...owner,body:{action:'publish',jobId:job.id}});
+  publishedRepo=await (await request('/api/repositories/example/project')).json();assert.equal(publishedRepo.description,'已核实的仓库介绍');
+  assert.equal(publishedRepo.sources.length,1);assert.equal(publishedRepo.targetLinks.length,1);
+  db.prepare("UPDATE inbox SET visibility='private' WHERE id=?").run(sourceId);
+  assert.equal((await request('/api/repositories/example/project')).status,404);
+});

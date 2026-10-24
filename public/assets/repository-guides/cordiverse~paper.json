@@ -1,0 +1,61 @@
+{
+  "schemaVersion": 1,
+  "key": "cordiverse/paper",
+  "status": "ready",
+  "reason": "",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/cordiverse/paper/blob/0d43a6f18004a7b5bf9662c31aa08c3712d232ec/README.md",
+  "sourceRevision": "0d43a6f18004a7b5bf9662c31aa08c3712d232ec",
+  "canonicalKey": "cordiverse/paper",
+  "summary": "该仓库是论文《A Programming Paradigm for Spatiotemporal Composability》的发布入口，提供 arXiv 链接、摘要和 BibTeX 引用。",
+  "intro": "适合研究编程语言、插件系统或动态组合机制的读者。README 给出了论文的 arXiv 地址和摘要。摘要介绍了 revertible effects、reactive coeffects 和 context paradigm，以及作者实现这些思想的元框架 Cordis。仓库还提供可直接复制的引用条目，方便在写作中引用该论文。",
+  "requirements": "能访问 arXiv（https://arxiv.org/abs/2608.25512）即可阅读论文全文；如需引用，需使用支持 BibTeX 的写作工具。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "在 arXiv 打开论文最新版本",
+      "text": "通过 README 顶部的链接打开 arXiv:2608.25512（分类 cs.PL）。README 说明这是正在修订的预印本，arXiv 页面始终提供最新版本，阅读和引用都应以该页面为准。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/cordiverse/paper/blob/0d43a6f18004a7b5bf9662c31aa08c3712d232ec/README.md?plain=1#L1"
+      }
+    },
+    {
+      "title": "先读摘要了解核心概念",
+      "text": "README 的 Abstract 一节概括了论文要点：temporal composability 与 spatial composability 两个维度、revertible effects、reactive coeffects、统一上下文的 context paradigm，以及实现这些思想的元框架 Cordis。可以先读摘要，判断论文是否与自己的研究相关。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/cordiverse/paper/blob/0d43a6f18004a7b5bf9662c31aa08c3712d232ec/README.md?plain=1#L7"
+      }
+    },
+    {
+      "title": "复制 BibTeX 条目引用论文",
+      "text": "在论文或笔记中引用时，直接复制 README Citation 一节提供的 @misc 条目，其中包含标题、作者、年份、eprint 编号和 arXiv 链接。由于论文仍在修订，引用时请注意所用的版本。",
+      "code": "@misc{shi2026cordis,\n  title         = {A Programming Paradigm for Spatiotemporal Composability},\n  author        = {Shi, Yifan and Zhang, Wei and Cui, Tianyi},\n  year          = {2026},\n  eprint        = {2608.25512},\n  archivePrefix = {arXiv},\n  primaryClass  = {cs.PL},\n  url           = {https://arxiv.org/abs/2608.25512},\n}",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/cordiverse/paper/blob/0d43a6f18004a7b5bf9662c31aa08c3712d232ec/README.md?plain=1#L17"
+      }
+    },
+    {
+      "title": "通过邮件反馈问题或勘误",
+      "text": "对论文内容有疑问、意见或发现错误时，可以按 README Contact 一节的说明，发邮件到其中列出的邮箱。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/cordiverse/paper/blob/0d43a6f18004a7b5bf9662c31aa08c3712d232ec/README.md?plain=1#L35"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "这是仍在修订的预印本，内容可能变化；README 要求引用时以 arXiv 最新版本为准。",
+    "仓库只提供论文入口和引用信息，摘要中提到的 Cordis 框架代码不在该 README 的说明范围内。",
+    "仓库未声明许可证。"
+  ],
+  "references": [],
+  "media": [],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "ab36d308a194d58de460751cebfa90b8b02915fc077ee7432f4a523fd2c17c52",
+  "mediaStatus": "none_in_official_documents"
+}

@@ -1,0 +1,86 @@
+{
+  "schemaVersion": 1,
+  "key": "jarrodwatts/claude-hud",
+  "status": "ready",
+  "reason": "",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/jarrodwatts/claude-hud/blob/939eb66485832dead1b0a28a954f76f7aa2bdb06/README.md",
+  "sourceRevision": "939eb66485832dead1b0a28a954f76f7aa2bdb06",
+  "canonicalKey": "jarrodwatts/claude-hud",
+  "summary": "Claude Code 状态栏插件，在输入框下方实时显示上下文用量、工具调用、运行中的子代理、待办进度和使用率限额。",
+  "intro": "适合日常使用 Claude Code、想随时了解会话状态的开发者。插件基于 Claude Code 原生 statusline API，显示模型、项目路径、git 状态、上下文进度条和订阅使用率；可选显示工具活动、子代理和 Todo 进度。支持 Full/Essential/Minimal 预设，也支持简体或繁体中文标签。",
+  "requirements": "Claude Code v1.0.80+；macOS/Linux 需要 Node.js 18+ 或 Bun，Windows 需要 Node.js 18+。使用率显示需以 Claude 订阅账户登录。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "在会话中添加插件市场",
+      "text": "在 Claude Code 会话中运行 /plugin marketplace add jarrodwatts/claude-hud，添加该插件市场。若在 Linux 旧版本上安装时遇到 EXDEV 错误，先升级 Claude Code。",
+      "code": "/plugin marketplace add jarrodwatts/claude-hud",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/jarrodwatts/claude-hud/blob/939eb66485832dead1b0a28a954f76f7aa2bdb06/README.md?plain=1#L12"
+      }
+    },
+    {
+      "title": "安装插件并重新加载",
+      "text": "运行 /plugin install claude-hud 安装插件，然后运行 /reload-plugins 重新加载插件，无需重启 Claude Code。",
+      "code": "/plugin install claude-hud\n\n/reload-plugins",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/jarrodwatts/claude-hud/blob/939eb66485832dead1b0a28a954f76f7aa2bdb06/README.md?plain=1#L12"
+      }
+    },
+    {
+      "title": "运行 setup 配置状态栏",
+      "text": "运行 /claude-hud:setup 配置 statusline。发送下一条消息后 HUD 即会出现；如果没有显示，重启 Claude Code（旧版本需要重启才能加载 statusLine 变更）。Windows 提示找不到 JavaScript 运行时时，先安装 Node.js LTS。",
+      "code": "/claude-hud:setup",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/jarrodwatts/claude-hud/blob/939eb66485832dead1b0a28a954f76f7aa2bdb06/README.md?plain=1#L12"
+      }
+    },
+    {
+      "title": "用 configure 调整显示内容",
+      "text": "运行 /claude-hud:configure 进入引导式配置：选择 Full/Essential/Minimal 预设和标签语言，再开关工具、子代理、Todo、git 等单项，保存前可以预览效果。",
+      "code": "/claude-hud:configure",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/jarrodwatts/claude-hud/blob/939eb66485832dead1b0a28a954f76f7aa2bdb06/README.md?plain=1#L130"
+      }
+    },
+    {
+      "title": "手动编辑高级配置文件",
+      "text": "自定义颜色、pathLevels、timeFormat 等高级选项时，直接编辑 ~/.claude/plugins/claude-hud/config.json。之后再运行 configure 时，这些手动设置会被保留。",
+      "code": "{\n  \"language\": \"zh\",\n  \"lineLayout\": \"expanded\",\n  \"pathLevels\": 2,\n  \"elementOrder\": [\"project\", \"tools\", \"skills\", \"mcp\", \"context\", \"usage\", \"memory\", \"environment\", \"agents\", \"todos\", \"sessionTime\"],\n  \"projectLineOrder\": [\"project\", \"model\"],\n  \"gitStatus\": {\n    \"enabled\": true,\n    \"showDirty\": true,\n    \"showAheadBehind\": true,\n    \"showFileStats\": true\n  },\n  \"jjStatus\": {\n    \"enabled\": true,\n    \"showDirty\": true,\n    \"showConflicts\": true\n  },\n  \"display\": {\n    \"showTools\": true,\n    \"showSkills\": true,\n    \"showMcp\": true,\n    \"showAgents\": true,\n    \"showTodos\": true,\n    \"showConfigCounts\": true,\n    \"showDuration\": true,\n    \"showMemoryUsage\": true\n  },\n  \"colors\": {\n    \"context\": \"cyan\",\n    \"usage\": \"cyan\",\n    \"warning\": \"yellow\",\n    \"usageWarning\": \"magenta\",\n    \"critical\": \"red\",\n    \"model\": \"cyan\",\n    \"project\": \"yellow\",\n    \"git\": \"magenta\",\n    \"gitBranch\": \"cyan\",\n    \"label\": \"dim\",\n    \"custom\": \"#FF6600\"\n  }\n}",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/jarrodwatts/claude-hud/blob/939eb66485832dead1b0a28a954f76f7aa2bdb06/README.md?plain=1#L155"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "使用率显示依赖 Claude Code 在 stdin 中提供订阅用户的 rate_limits 数据；仅用 API 密钥的用户看不到使用率，部分构建版本或订阅层级也可能不提供该数据。",
+    "AWS Bedrock 模型会隐藏使用率限制，Bedrock/Vertex AI 默认隐藏费用估算。",
+    "display.timeFormat 等部分设置只能手动编辑配置文件，引导式配置不会修改它们。"
+  ],
+  "references": [
+    {
+      "label": "README.zh.md",
+      "url": "https://github.com/jarrodwatts/claude-hud/blob/939eb66485832dead1b0a28a954f76f7aa2bdb06/README.zh.md"
+    }
+  ],
+  "media": [
+    {
+      "url": "/assets/repository-guides/media-23c9915205a3fd20e625fb9a.webp",
+      "alt": "jarrodwatts/claude-hud 官方演示 1",
+      "sourceUrl": "https://github.com/jarrodwatts/claude-hud/blob/939eb66485832dead1b0a28a954f76f7aa2bdb06/README.md?plain=1#L8",
+      "originalUrl": "https://raw.githubusercontent.com/jarrodwatts/claude-hud/939eb66485832dead1b0a28a954f76f7aa2bdb06/claude-hud-preview-5-2.png"
+    }
+  ],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "d87c533419874088e9e357e7ed7f397155ee191ff5b8636a8e0060acd56de949",
+  "mediaStatus": "archived",
+  "mediaFailures": []
+}

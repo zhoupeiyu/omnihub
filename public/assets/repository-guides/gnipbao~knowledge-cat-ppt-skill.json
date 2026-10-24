@@ -1,0 +1,89 @@
+{
+  "schemaVersion": 1,
+  "key": "gnipbao/knowledge-cat-ppt-skill",
+  "status": "ready",
+  "reason": "",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/gnipbao/knowledge-cat-ppt-skill/blob/889c3dc00b356607fa9af935eb807056c3394886/README.md",
+  "sourceRevision": "889c3dc00b356607fa9af935eb807056c3394886",
+  "canonicalKey": "gnipbao/knowledge-cat-ppt-skill",
+  "summary": "故事优先的演示文稿 Agent Skill，可以规划叙事和页面，按需选择可编辑 PPTX、HTML 或图像优先模式生成 deck，并在交付前做质量校验。",
+  "intro": "适合需要用 AI Agent 制作或审阅演示文稿的人。它可以把笔记、文档、访谈稿、PDF 等资料整理成 deck brief 和 slide plan，并按场景选择输出模式：团队协作或客户交付用原生可编辑 PPTX，浏览器演示用 HTML deck，社交轮播或视觉 keynote 用图像优先 PPTX。只想诊断已有 deck 的叙事和证据问题时，可以用 review-only 模式。",
+  "requirements": "需要 Codex 或 Claude Code 等能读取 `SKILL.md` 的 Agent 环境，另需 git 和 Python 3（校验脚本只用标准库）。可选的原生 PPTX 构建器还需要 Node.js 和一个准备好的 `@oai/artifact-tool` workspace。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "克隆到 Claude Code 的 skills 目录",
+      "text": "本指南以 Claude Code 为例。把仓库克隆到 `~/.claude/skills/knowledge-cat-ppt-skill`，然后重启 Claude Code，或刷新本地 skills，让新 Skill 生效。",
+      "code": "git clone https://github.com/gnipbao/knowledge-cat-ppt-skill.git ~/.claude/skills/knowledge-cat-ppt-skill",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/gnipbao/knowledge-cat-ppt-skill/blob/889c3dc00b356607fa9af935eb807056c3394886/README.md?plain=1#L88"
+      }
+    },
+    {
+      "title": "调用 Skill 并说明输出模式",
+      "text": "用 `$knowledge-cat-ppt-skill` 调用，提供你的笔记或大纲，并说明需要可编辑 PPTX、HTML deck 还是仅审阅。没说清时，Skill 会先判断请求类型，再选择合适的输出模式。",
+      "code": "Use $knowledge-cat-ppt-skill to turn my notes into an 8-slide client-ready deck. I need editable PPTX unless you think another output lane is better.\n\nUse $knowledge-cat-ppt-skill to build a browser-based HTML deck from this outline. Make it keyboard navigable and run the bundled HTML validator.",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/gnipbao/knowledge-cat-ppt-skill/blob/889c3dc00b356607fa9af935eb807056c3394886/README.md?plain=1#L116"
+      }
+    },
+    {
+      "title": "用 review-only 审阅已有 deck",
+      "text": "如果已经有一份 deck，可以要求按叙事、证据、视觉清晰度以及是否可交付来审阅。review-only 模式只出诊断和修复计划，除非你继续要求修复，否则不会生成最终 deck。",
+      "code": "Use $knowledge-cat-ppt-skill to review this deck. Focus on story, evidence, visual clarity, and whether it is actually ready to send.",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/gnipbao/knowledge-cat-ppt-skill/blob/889c3dc00b356607fa9af935eb807056c3394886/README.md?plain=1#L116"
+      }
+    },
+    {
+      "title": "准备 workspace 构建原生 PPTX",
+      "text": "需要原生可编辑 PPTX 时，先准备好 `@oai/artifact-tool` workspace，再用 `build_native_pptx.mjs` 从 deck plan 构建 PPTX。构建完成后，运行文本提取、编辑性检查和可逆编辑探针脚本进行核验。",
+      "code": "node scripts/build_native_pptx.mjs \\\n  --plan path/to/deck-plan.json \\\n  --output path/to/output.pptx \\\n  --workspace path/to/prepared-artifact-workspace \\\n  --preview-dir path/to/screenshots \\\n  --inspection path/to/inspection.ndjson\n\npython3 scripts/extract_pptx_text.py path/to/output.pptx --fail-on-placeholders\npython3 scripts/check_pptx_editability.py path/to/output.pptx --fail-on-image-only-slides\npython3 scripts/probe_pptx_editability.py path/to/output.pptx",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/gnipbao/knowledge-cat-ppt-skill/blob/889c3dc00b356607fa9af935eb807056c3394886/README.md?plain=1#L157"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "原生 PPTX 构建器依赖 Node.js 和预先准备的 `@oai/artifact-tool` workspace；修复导入的旧 deck 时，仍需要经过验证的原生编辑器。",
+    "HTML deck 不是原生可编辑的 PowerPoint 文件，图像优先 PPTX 的可编辑性也较低，选择模式前需要权衡。",
+    "用户上传的 PPT、HTML、PDF、模板和压缩包都应视为不可信输入，不要执行压缩包中的脚本。"
+  ],
+  "references": [
+    {
+      "label": "README_CN.md",
+      "url": "https://github.com/gnipbao/knowledge-cat-ppt-skill/blob/889c3dc00b356607fa9af935eb807056c3394886/README_CN.md"
+    }
+  ],
+  "media": [
+    {
+      "url": "/assets/repository-guides/media-cb3964415b2ed49b3566b34f.webp",
+      "alt": "gnipbao/knowledge-cat-ppt-skill 官方演示 1",
+      "sourceUrl": "https://github.com/gnipbao/knowledge-cat-ppt-skill/blob/889c3dc00b356607fa9af935eb807056c3394886/README.md?plain=1#L31",
+      "originalUrl": "https://raw.githubusercontent.com/gnipbao/knowledge-cat-ppt-skill/889c3dc00b356607fa9af935eb807056c3394886/docs/images/mode-native-pptx.png"
+    },
+    {
+      "url": "/assets/repository-guides/media-4c6ec8aab9f51113ec62ace4.webp",
+      "alt": "gnipbao/knowledge-cat-ppt-skill 官方演示 2",
+      "sourceUrl": "https://github.com/gnipbao/knowledge-cat-ppt-skill/blob/889c3dc00b356607fa9af935eb807056c3394886/README.md?plain=1#L31",
+      "originalUrl": "https://raw.githubusercontent.com/gnipbao/knowledge-cat-ppt-skill/889c3dc00b356607fa9af935eb807056c3394886/docs/images/mode-html-deck.png"
+    },
+    {
+      "url": "/assets/repository-guides/media-c18164e51cf4681b68e02062.webp",
+      "alt": "gnipbao/knowledge-cat-ppt-skill 官方演示 3",
+      "sourceUrl": "https://github.com/gnipbao/knowledge-cat-ppt-skill/blob/889c3dc00b356607fa9af935eb807056c3394886/README.md?plain=1#L31",
+      "originalUrl": "https://raw.githubusercontent.com/gnipbao/knowledge-cat-ppt-skill/889c3dc00b356607fa9af935eb807056c3394886/docs/images/mode-image-first.png"
+    }
+  ],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "77c35f1334164a5c0840f6ba175c1a3f361643a15c080ab7491dcebac555c295",
+  "mediaStatus": "archived",
+  "mediaFailures": []
+}

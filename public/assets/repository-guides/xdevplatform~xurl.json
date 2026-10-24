@@ -1,0 +1,86 @@
+{
+  "schemaVersion": 1,
+  "key": "xdevplatform/xurl",
+  "status": "ready",
+  "reason": "",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/xdevplatform/xurl/blob/18dcb447f090667171ff23666a05d6d387e2aa73/README.md",
+  "sourceRevision": "18dcb447f090667171ff23666a05d6d387e2aa73",
+  "canonicalKey": "xdevplatform/xurl",
+  "summary": "xurl 是 X API 的官方命令行工具，用法类似 curl，支持 OAuth 1.0a、OAuth 2.0 和 app-only 认证来发送 API 请求。",
+  "intro": "适合需要在终端调试或脚本化调用 X（原 Twitter）API 的开发者。它可以管理多个 X API 应用及其凭据和 token，自定义请求的方法、header 和 body，自动处理流式端点，分块上传媒体，打印 access token 供脚本使用。它还提供 MCP 桥接、临时 webhook 和端到端加密的 XChat 客户端。",
+  "requirements": "需要 X 开发者账号，并在开发者门户创建应用、获取 Client ID 和 Client Secret。使用 OAuth 2.0 时，要在门户里配置与 xurl 一致的 redirect URI，默认是 http://localhost:8080/callback。下文以 macOS 上的 Homebrew 为安装途径。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "在 macOS 用 Homebrew 安装",
+      "text": "在 macOS 上运行下方 Homebrew 命令安装 xurl。README 另外列出了 npm、Shell 脚本和 Go 安装方式，任选其一即可，不需要重复安装。",
+      "code": "brew install --cask xdevplatform/tap/xurl",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/xdevplatform/xurl/blob/18dcb447f090667171ff23666a05d6d387e2aa73/README.md?plain=1#L19"
+      }
+    },
+    {
+      "title": "在开发者门户配置回调地址",
+      "text": "在 X API 开发者门户创建应用，进入认证设置，把 redirect URI 设为 xurl 将要使用的值，默认是 http://localhost:8080/callback。xurl 会从这个实际生效的地址推导回调的主机、端口和路径。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/xdevplatform/xurl/blob/18dcb447f090667171ff23666a05d6d387e2aa73/README.md?plain=1#L43"
+      }
+    },
+    {
+      "title": "注册应用凭据到本地",
+      "text": "用 auth apps add 注册应用的 Client ID 和 Client Secret，它们会保存到 ~/.xurl/auth.yml，之后不再需要设置环境变量。可以注册多个应用，用 xurl auth apps list 查看已注册的应用。",
+      "code": "xurl auth apps add my-app --client-id YOUR_CLIENT_ID --client-secret YOUR_CLIENT_SECRET\n\nxurl auth apps list",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/xdevplatform/xurl/blob/18dcb447f090667171ff23666a05d6d387e2aa73/README.md?plain=1#L47"
+      }
+    },
+    {
+      "title": "完成 OAuth 2.0 用户授权",
+      "text": "运行 xurl auth oauth2 --app my-app，在浏览器中完成授权，token 会保存到对应应用下。在远程或无界面的机器上加 --headless 参数：在任意有浏览器的设备上打开授权链接，再把回跳 URL 或 code 粘贴回命令行。",
+      "code": "xurl auth oauth2 --app my-app\n\nxurl auth oauth2 --app my-app --headless",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/xdevplatform/xurl/blob/18dcb447f090667171ff23666a05d6d387e2aa73/README.md?plain=1#L71"
+      }
+    },
+    {
+      "title": "发送请求并检查认证状态",
+      "text": "认证完成后，可以用 xurl 加 API 路径发起 GET 请求，也可以指定 HTTP 方法、header、认证类型或某个 OAuth 2.0 账号。流式端点会被自动识别。遇到问题时，可以查看所有应用的认证状态和实际生效的 redirect URI。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/xdevplatform/xurl/blob/18dcb447f090667171ff23666a05d6d387e2aa73/README.md?plain=1#L213"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "如果 OAuth 授权成功，但 whoami 等请求返回 client-forbidden 或 client-not-enrolled，需要在开发者控制台把应用移到 Pay-per-use 套餐和 Production 环境，这一步可能涉及计费。",
+    "应用凭据和 token 保存在 ~/.xurl/auth.yml，XChat 私钥保存在 ~/.xurl/keys.yml，请妥善保管这两个文件。",
+    "xurl chat 不会生成或注册加密密钥，账号需要已有 XChat 密钥。该功能只支持 macOS 和 Linux amd64，其他平台不可用。",
+    "临时 webhook 依赖 ngrok，需要提供 ngrok authtoken，只适合开发和测试使用。"
+  ],
+  "references": [],
+  "media": [
+    {
+      "url": "/assets/repository-guides/media-56297552b0afb4633a9144ff.webp",
+      "alt": "xdevplatform/xurl 官方演示 1",
+      "sourceUrl": "https://github.com/xdevplatform/xurl/blob/18dcb447f090667171ff23666a05d6d387e2aa73/README.md?plain=1#L77",
+      "originalUrl": "https://raw.githubusercontent.com/xdevplatform/xurl/18dcb447f090667171ff23666a05d6d387e2aa73/assets/setup.png"
+    },
+    {
+      "url": "/assets/repository-guides/media-79bfca646bfca8c8d4ad42bd.webp",
+      "alt": "xdevplatform/xurl 官方演示 2",
+      "sourceUrl": "https://github.com/xdevplatform/xurl/blob/18dcb447f090667171ff23666a05d6d387e2aa73/README.md?plain=1#L78",
+      "originalUrl": "https://raw.githubusercontent.com/xdevplatform/xurl/18dcb447f090667171ff23666a05d6d387e2aa73/assets/callback.png"
+    }
+  ],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "8eff04def2cb6eaf95577995c2f4f005337b5a1173a2a4f08739595c29c1ee9c",
+  "mediaStatus": "archived",
+  "mediaFailures": []
+}

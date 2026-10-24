@@ -1,0 +1,60 @@
+{
+  "schemaVersion": 1,
+  "key": "shaogefenhao/a-programmer-s-cognitive-experience",
+  "status": "ready",
+  "reason": "",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/shaogefenhao/a-programmer-s-cognitive-experience/blob/5a1ed92e60c30f58e31ab9c0727d8a1b99966a90/README.adoc",
+  "sourceRevision": "5a1ed92e60c30f58e31ab9c0727d8a1b99966a90",
+  "canonicalKey": "shaogefenhao/a-programmer-s-cognitive-experience",
+  "summary": "《程序员的认知心得》中文电子书，提供在线 HTML 阅读、PDF 下载，以及基于 Asciidoctor 的构建源文件。",
+  "intro": "适合想阅读软件开发过程、方法论和团队协作心得的程序员。也适合想参考 Asciidoctor 项目结构、构建自己的多章节中文电子书（HTML、EPUB、PDF）的作者。",
+  "requirements": "阅读只需浏览器。自行构建时，README 给出的路径是 Mac 上通过 brew 安装 Asciidoctor；PDF 和 EPUB 还分别用到 asciidoctor-pdf 和 asciidoctor-epub3，多页 HTML 需要 gem 安装 asciidoctor-multipage。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "打开 HTML 在线版阅读",
+      "text": "访问 README 中给出的 HTML 版本地址 https://renzhi.shaogefenhao.com/ 直接在线阅读全书，无需安装任何工具。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/shaogefenhao/a-programmer-s-cognitive-experience/blob/5a1ed92e60c30f58e31ab9c0727d8a1b99966a90/README.adoc?plain=1#L1"
+      }
+    },
+    {
+      "title": "从 Release 下载 PDF 版本",
+      "text": "需要离线阅读或打印时，到 README 给出的 GitHub Release（v1.0.0）页面下载 PDF。README 说明 cjk-theme.yml 的排版最适合 B5、双面、黑白印刷。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/shaogefenhao/a-programmer-s-cognitive-experience/blob/5a1ed92e60c30f58e31ab9c0727d8a1b99966a90/README.adoc?plain=1#L1"
+      }
+    },
+    {
+      "title": "在校对 PR 中提交批注",
+      "text": "电子书正在校对中。对照 HTML 或 PDF 阅读，发现问题后到 README 给出的 PR 地址提交意见。该链接带有只显示 .adoc 文件的过滤条件，便于聚焦正文。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/shaogefenhao/a-programmer-s-cognitive-experience/blob/5a1ed92e60c30f58e31ab9c0727d8a1b99966a90/README.adoc?plain=1#L1"
+      }
+    },
+    {
+      "title": "在 Mac 上用 Asciidoctor 构建",
+      "text": "如需自行生成或参考构建自己的电子书，按 README 的“Mac 原生命令”段落用 brew 安装 Asciidoctor，再对 index.adoc 生成 HTML、EPUB 或 PDF。生成 PDF 时需引用仓库 themes 目录下的 CJK 主题和字体配置。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/shaogefenhao/a-programmer-s-cognitive-experience/blob/5a1ed92e60c30f58e31ab9c0727d8a1b99966a90/README.adoc?plain=1#L1"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "内容采用 CC-BY-SA-4.0 协议，分享或修改时需署名“少个分号”并注明来源，衍生作品须以相同协议发布。",
+    "README 中的 PDF 下载和 PR 链接指向 linksgo2011/a-programmer-s-cognitive-experience 仓库，而不是当前仓库。",
+    "README 说明内容仍在校对中，可能有未修正的问题。"
+  ],
+  "references": [],
+  "media": [],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "758e6aa7f65babe25d58f3b9c9572030b0ce02c4857fba7e18a7eb6413d531bf",
+  "mediaStatus": "none_in_official_documents"
+}

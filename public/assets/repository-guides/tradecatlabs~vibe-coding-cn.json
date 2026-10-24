@@ -1,0 +1,68 @@
+{
+  "schemaVersion": 1,
+  "key": "tradecatlabs/vibe-coding-cn",
+  "status": "ready",
+  "reason": "",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/tradecatlabs/vibe-coding-cn/blob/81fc7ae599da7b7b0ce02ea0b069a2c88d288a4e/README.md",
+  "sourceRevision": "81fc7ae599da7b7b0ce02ea0b069a2c88d288a4e",
+  "canonicalKey": "tradecatlabs/vibe-coding-cn",
+  "summary": "vibe-coding-cn 是一套中文 Vibe Coding 教程与知识库，覆盖 AI 结对编程中的 Prompt、Skill、上下文管理、质量门禁和工程闭环。",
+  "intro": "适合想系统学习 AI 辅助编程工作流的新手、开发者和团队。仓库按 docs、prompts、skills、tools、research 等入口组织，可用于学习从需求到交付的流程、查阅提示词和技能，以及参考 Codex CLI 配置。",
+  "requirements": "仅阅读无需额外依赖。快速开始需要能访问网页版 ChatGPT、Claude 或 Gemini，之后再按 AI 给出的步骤安装 Codex CLI。参与维护或运行检查需要 Git、Node.js 22+ 和 Python 3.8+。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "先读字多不看和入口关系",
+      "text": "在 README 的“字多不看”和“入口关系”表中了解各目录的用途：docs 是知识库总入口，getting-started 面向新手，workflow 面向项目执行，prompts 和 skills 存放可复用资产。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/tradecatlabs/vibe-coding-cn/blob/81fc7ae599da7b7b0ce02ea0b069a2c88d288a4e/README.md?plain=1#L155"
+      }
+    },
+    {
+      "title": "用网页 AI 规划 Codex 安装",
+      "text": "复制快速开始中的提示词，粘贴到网页版 ChatGPT、Claude 或 Gemini，由 AI 根据你的操作系统生成 Codex CLI 安装步骤。Codex CLI 可用后，再让本地 Agent 读取仓库文档，配置剩余环境。",
+      "code": "你是一个专业的 AI 编程环境配置助手。我要从新电脑开始学习 Vibe Coding。\n\n请先问我：\n1. 我的操作系统是什么？Windows 11 / WSL / Linux / macOS？\n2. 我是否已经能访问 OpenAI、GitHub、Node.js/npm 和系统包管理器？\n3. 我是否已有可用的 Codex / ChatGPT 订阅？\n\n然后帮我：\n1. 先判断网络环境和订阅是否满足 Codex CLI 前置条件。\n2. 按我的系统生成从 0 到 1 安装 Codex CLI 的步骤。\n3. 每条需要在终端执行的命令都单独放在代码块里。\n4. Codex CLI 登录成功后，告诉我如何让本地 Agent 继续配置 Git、Node.js、Python、编辑器、项目依赖、测试命令和 Git 工作流。\n5. 如果我贴报错，请逐条解释原因并给出下一条最小修复命令。\n\n要求：不要跳步；每一步只做一件事；每一步都说明如何判断成功。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/tradecatlabs/vibe-coding-cn/blob/81fc7ae599da7b7b0ce02ea0b069a2c88d288a4e/README.md?plain=1#L260"
+      }
+    },
+    {
+      "title": "按从零开始路线依次阅读",
+      "text": "新手可按顺序阅读 learning-map、Vibe Coding 经验、第一个项目、问题求解、状态转移闭环、拼好码和工程实践。其中“第一个项目”用本地待办清单走通需求、实现、验收和 Git 保存的完整流程。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/tradecatlabs/vibe-coding-cn/blob/81fc7ae599da7b7b0ce02ea0b069a2c88d288a4e/README.md?plain=1#L290"
+      }
+    },
+    {
+      "title": "按需查阅提示词与技能目录",
+      "text": "需要直接复用资源时，进入 prompts/README.md 的在线提示词库、skills/README.md 的“当前保留”列表，以及 tools/config/.codex/README.md 中的 Codex 配置说明（提供安装、备份和恢复）。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/tradecatlabs/vibe-coding-cn/blob/81fc7ae599da7b7b0ce02ea0b069a2c88d288a4e/README.md?plain=1#L155"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "本仓库是文档与知识库，没有可部署的服务或固定端口。",
+    "Codex 配置说明中包含高权限配置，启用前请先阅读其中的备份与恢复说明。",
+    "tmux 蜂群协作属于实验性方法，不是无人值守的生产系统；涉及敏感凭证、生产数据库、危险命令和不可逆操作时必须人工确认。",
+    "实验性方法章节明确说明内容可能随时推翻重写。",
+    "外部资源列表中包含第三方支付卡等带推荐参数的链接，使用前请自行判断。"
+  ],
+  "references": [
+    {
+      "label": "docs/getting-started/learning-map.md",
+      "url": "https://github.com/tradecatlabs/vibe-coding-cn/blob/81fc7ae599da7b7b0ce02ea0b069a2c88d288a4e/docs/getting-started/learning-map.md"
+    }
+  ],
+  "media": [],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "daf0077c246497321c867895591b40defaadc112d64785b88958b93dbd8193ba",
+  "mediaStatus": "none_in_official_documents"
+}

@@ -1,0 +1,74 @@
+{
+  "schemaVersion": 1,
+  "key": "felo-inc/felo-skills",
+  "status": "ready",
+  "reason": "",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/Felo-Inc/felo-skills/blob/b42c3c0183cef64275ddda7ed7c5518ef54f2b05/README.md",
+  "sourceRevision": "b42c3c0183cef64275ddda7ed7c5518ef54f2b05",
+  "canonicalKey": "Felo-Inc/felo-skills",
+  "summary": "Felo AI 的命令行工具与技能集合，可在终端进行实时搜索、生成 PPT 与思维导图、抓取网页、获取 YouTube 字幕和搜索 X。",
+  "intro": "适合需要在终端或 Claude Code 中调用 Felo AI 能力的开发者和内容工作者。用途包括：用 felo search 查询天气、新闻、价格等实时信息；用 felo slides 和 felo mindmap 从提示词生成演示文稿和思维导图；用 web-fetch、youtube-subtitling、x 等命令获取网页、字幕和推文；用 livedoc 管理知识库。仓库同时提供 12 个技能，可作为 Claude Code skills 使用，文档还列出 Gemini CLI、OpenAI Codex、OpenClaw、Hermes 等宿主的安装小节。",
+  "requirements": "需要 npm 环境，用于全局安装 felo-ai；需要在 Felo AI 网站（Settings → API Keys）获取 API Key。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "用 npm 全局安装 Felo CLI",
+      "text": "本指南以命令行路径为例。执行 npm install -g felo-ai 全局安装 felo-ai 包，安装后终端中即可使用 felo 命令。各子命令用途可查阅 README 的 Commands 表格。",
+      "code": "npm install -g felo-ai",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/Felo-Inc/felo-skills/blob/b42c3c0183cef64275ddda7ed7c5518ef54f2b05/README.md?plain=1#L26"
+      }
+    },
+    {
+      "title": "配置 FELO_API_KEY 密钥",
+      "text": "在 Felo AI 网站的 Settings → API Keys 获取密钥，然后用 felo config set FELO_API_KEY 写入配置，密钥保存在 ~/.felo/config.json。也可以改用环境变量 FELO_API_KEY，Linux/macOS 用 export，Windows PowerShell 用 $env:。",
+      "code": "felo config set FELO_API_KEY your-api-key-here\n\nexport FELO_API_KEY=\"...\"           # Linux/macOS\n$env:FELO_API_KEY=\"...\"             # Windows (PowerShell)",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/Felo-Inc/felo-skills/blob/b42c3c0183cef64275ddda7ed7c5518ef54f2b05/README.md?plain=1#L26"
+      }
+    },
+    {
+      "title": "用 felo search 查询实时信息",
+      "text": "执行 felo search 加上查询内容即可获取当前信息。需要更详细的输出可加 --verbose，需要结构化结果可加 --json。如遇请求超时，可按 FAQ 使用 --timeout 调整超时时间（默认 60 秒）。",
+      "code": "felo search \"Tokyo weather\"\nfelo search \"React 19 new features\" --verbose\nfelo search \"MacBook Air M3 price\" --json",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/Felo-Inc/felo-skills/blob/b42c3c0183cef64275ddda7ed7c5518ef54f2b05/README.md?plain=1#L47"
+      }
+    },
+    {
+      "title": "生成 PPT 与思维导图",
+      "text": "用 felo slides 加提示词生成 PPT，可通过 --file 附带本地文件，通过 --poll-timeout 限制等待时间。用 felo mindmap 生成思维导图，命令会立即返回链接；可用 --layout 指定布局，先运行 felo mindmap-layouts 查看可用布局。",
+      "code": "felo slides \"Felo product intro, 3 slides\"\nfelo slides \"Q4 2024 business review, 10 pages\" --poll-timeout 300\nfelo slides \"Create 2 slides and include the original image\" --file \"/absolute/path/to/source.jpg\"\n\nfelo mindmap \"AI trends in 2024\"\nfelo mindmap \"Project timeline\" --layout TIMELINE\nfelo mindmap \"Problem analysis\" --layout FISHBONE --json\nfelo mindmap-layouts                    # List available layouts",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/Felo-Inc/felo-skills/blob/b42c3c0183cef64275ddda7ed7c5518ef54f2b05/README.md?plain=1#L47"
+      }
+    },
+    {
+      "title": "按需使用抓取与知识库命令",
+      "text": "felo web-fetch --url 可抓取网页并输出 markdown/text/html；felo youtube-subtitling -v 可获取视频字幕；felo x 可搜索推文和用户；felo livedoc 可创建知识库、添加文档或 URL 并进行检索。各命令的完整选项见对应子目录 README。",
+      "code": "felo web-fetch --url \"https://example.com\"\nfelo web-fetch --url \"https://example.com\" --format markdown --readability\n\nfelo youtube-subtitling -v \"https://www.youtube.com/watch?v=dQw4w9WgXcQ\"\nfelo youtube-subtitling -v \"dQw4w9WgXcQ\" --language zh-CN --with-time\n\nfelo x \"AI news\"                                    # Search tweets\nfelo x \"OpenAI\" --user                              # Search users\nfelo x --id \"elonmusk\" --user                       # Get user info\nfelo x --id \"elonmusk\" --user --tweets              # Get user tweets\nfelo x --id \"1234567890\"                            # Get tweet replies\n\nfelo livedoc create --name \"My KB\" --description \"Project docs\"\nfelo livedoc list\nfelo livedoc add-doc SHORT_ID --content \"Hello\" --title \"Test\"\nfelo livedoc add-urls SHORT_ID --urls \"https://example.com\"\nfelo livedoc upload SHORT_ID --file ./doc.pdf\nfelo livedoc retrieve SHORT_ID --query \"search query\"",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/Felo-Inc/felo-skills/blob/b42c3c0183cef64275ddda7ed7c5518ef54f2b05/README.md?plain=1#L47"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "所有功能依赖 Felo AI 的 API Key，调用会经过 Felo 服务；文档未说明费用，使用前请到官网确认。",
+    "Claude Code 等宿主的技能安装命令未包含在本次提供的代码块中，需要另行查阅 README 中对应宿主的小节。",
+    "felo x、youtube-subtitling 等命令会抓取第三方平台内容，使用时请遵守相应平台的条款。",
+    "技能未自动触发时，可按 FAQ 用 /felo-search 等斜杠命令手动触发。"
+  ],
+  "references": [],
+  "media": [],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "33815901cc16e0f58779b717f44e6e266b92e21e08880217b1da7d1cc0087498",
+  "mediaStatus": "none_in_official_documents"
+}

@@ -1,0 +1,77 @@
+{
+  "schemaVersion": 1,
+  "key": "mvanhorn/last30days-skill",
+  "status": "ready",
+  "reason": "",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/mvanhorn/last30days-skill/blob/5103ba478b380552207a3754b74c7655d64208cd/README.md",
+  "sourceRevision": "5103ba478b380552207a3754b74c7655d64208cd",
+  "canonicalKey": "mvanhorn/last30days-skill",
+  "summary": "last30days 是一个 AI 智能体技能：它并行检索 Reddit、X、YouTube、HN、Polymarket 和网页上最近 30 天的讨论，按互动数据评分后汇总成一份带出处的简报。",
+  "intro": "适合需要快速掌握某个人物、公司、产品或话题近期社区动态的用户，例如会前准备、对比工具、跟踪 AI 领域变化、观察招聘信号，或在不指定主题时发现正在升温的话题。它以技能形式运行在 Claude Code、Codex、Cursor、Gemini CLI 等支持 Agent Skills 的宿主中，通过 /last30days 命令调用。",
+  "requirements": "需要一个受支持的宿主，本指南以官方推荐的 Claude Code 为例。Reddit、HN、Polymarket 和 GitHub 无需配置即可使用。X、YouTube、TikTok 等来源需要自备对应的密钥、浏览器登录会话或工具，例如 YouTube 需要 yt-dlp。直接调用引擎脚本时需要 python3。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "在 Claude Code 中安装插件",
+      "text": "本指南以 Claude Code 为例，这是官方推荐的路径。先添加插件市场 mvanhorn/last30days-skill，再安装 last30days。之后可以通过 marketplace 自动更新，也可以运行 claude plugin update last30days@last30days-skill 手动更新。",
+      "code": "/plugin marketplace add mvanhorn/last30days-skill\n/plugin install last30days",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/mvanhorn/last30days-skill/blob/5103ba478b380552207a3754b74c7655d64208cd/README.md?plain=1#L1"
+      }
+    },
+    {
+      "title": "首次运行并完成配置向导",
+      "text": "安装后第一次运行 /last30days，配置向导会启动，用来解锁更多来源，包括 X、YouTube、TikTok，以及免费的 arXiv 与 Techmeme CLI。在此之前，Reddit（含评论）、Hacker News、Polymarket 和 GitHub 已可直接使用。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/mvanhorn/last30days-skill/blob/5103ba478b380552207a3754b74c7655d64208cd/README.md?plain=1#L1"
+      }
+    },
+    {
+      "title": "按需接入自己的平台密钥",
+      "text": "根据要覆盖的来源准备凭据。X 可以设置 X_BEARER_TOKEN、在浏览器中登录 x.com，或设置 XQUIK_API_KEY / XAI_API_KEY。YouTube 需要安装 yt-dlp；Bluesky 需要应用密码；TikTok、Instagram 等需要 ScrapeCreators 密钥；网页搜索需要 Brave Search 密钥。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/mvanhorn/last30days-skill/blob/5103ba478b380552207a3754b74c7655d64208cd/README.zh-CN.md?plain=1#L291"
+      }
+    },
+    {
+      "title": "用 /last30days 研究指定主题",
+      "text": "在宿主中输入 /last30days 加上人物、公司或话题名称发起研究。如需观察招聘信号，可加 --hiring-signals。如果不指定主题，直接提问正在升温的方向，例如 what's trending in AI agents?，就会进入发现模式，返回按热度排序的候选话题。",
+      "code": "/last30days Peter Steinberger",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/mvanhorn/last30days-skill/blob/5103ba478b380552207a3754b74c7655d64208cd/README.md?plain=1#L98"
+      }
+    },
+    {
+      "title": "设置结果保存位置与资料库",
+      "text": "研究结果默认保存在 ~/Documents/Last30Days/，可以通过 LAST30DAYS_MEMORY_DIR 环境变量修改，也可以在单次运行时用 --save-dir 指定。之后可以让 /last30days 搜索你以往的研究记录，或生成本地资料库信息流。如需长期跟踪，可加 --store 写入 SQLite 数据库。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/mvanhorn/last30days-skill/blob/5103ba478b380552207a3754b74c7655d64208cd/README.zh-CN.md?plain=1#L330"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "每台机器只选一种安装方式。Claude Code 不会对不同安装方式去重，同时启用插件和 npx skills 版本时，/last30days 会出现两个条目。",
+    "官方 X API 通常只能检索约最近一周的帖子，除非开发者项目拥有完整归档权限；调用额度来自你自己的 X 开发者项目。",
+    "ScrapeCreators 前 10,000 次调用免费，之后按量付费；Perplexity 按量付费；Brave Search 每月 2,000 次免费查询。",
+    "资料库的 --publish 需要显式开启，开启后发布的内容默认公开，涉及客户或个人研究时请谨慎使用。",
+    "小红书来源依赖本地已登录的浏览器会话服务（x-mcp 插件或 xiaohongshu-mcp）。"
+  ],
+  "references": [
+    {
+      "label": "README.zh-CN.md",
+      "url": "https://github.com/mvanhorn/last30days-skill/blob/5103ba478b380552207a3754b74c7655d64208cd/README.zh-CN.md"
+    }
+  ],
+  "media": [],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "f2abd0d652f1864823ace1b88feed688f99667003c5e2be6c8f1c88910cc2515",
+  "mediaStatus": "none_in_official_documents"
+}

@@ -1,0 +1,73 @@
+{
+  "schemaVersion": 1,
+  "key": "sharziki/semdecide",
+  "status": "ready",
+  "reason": "",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/sharziki/semdecide/blob/33cf5c03c50e02e59df3f3ea81f0650f6b791545/README.md",
+  "sourceRevision": "33cf5c03c50e02e59df3f3ea81f0650f6b791545",
+  "canonicalKey": "sharziki/semdecide",
+  "summary": "SemDecide 是一个命令行工具，借助 TypeSafe AI 的 Jev 模型，在 Unix 管道和 CI 中对文本或 JSONL 做语义判断、路由、打分和过滤，并返回稳定的退出码。",
+  "intro": "适合需要在 shell 脚本或 CI 中加入“按含义判断”的工程师，例如判断事件是否涉及安全、把工单分流到对应队列、给回答质量打分、从 JSONL 中筛出高流失风险记录。工具输出带概率的结构化结果，并把不确定结果与真、假区分开，省去自己编写提示词、解析、重试和置信度处理代码。",
+  "requirements": "Python 3.10 或更新版本；pipx 或 uv（用于安装 GitHub 发布的 wheel）；TypeSafe AI API key。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "从 GitHub 发布包安装",
+      "text": "SemDecide 尚未发布到 PyPI。用 pipx install 或 uv tool install 直接安装 v0.2.1 的 wheel；也可以从源码目录创建 venv 后执行 pip install -e .。",
+      "code": "pipx install https://github.com/sharziki/semdecide/releases/download/v0.2.1/semdecide-0.2.1-py3-none-any.whl\n# or, with uv\nuv tool install https://github.com/sharziki/semdecide/releases/download/v0.2.1/semdecide-0.2.1-py3-none-any.whl\n\npython3 -m venv .venv\n.venv/bin/pip install -e .",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/sharziki/semdecide/blob/33cf5c03c50e02e59df3f3ea81f0650f6b791545/README.md?plain=1#L29"
+      }
+    },
+    {
+      "title": "配置 TypeSafe AI API 密钥",
+      "text": "通过环境变量 TYPESAFE_API_KEY 设置密钥，或写入 ~/.config/typesafe/credentials.env，并把该文件权限设为 600。不要把凭据作为命令行参数传入。",
+      "code": "export TYPESAFE_API_KEY='...'\n\nTYPESAFE_API_KEY='...'",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/sharziki/semdecide/blob/33cf5c03c50e02e59df3f3ea81f0650f6b791545/README.md?plain=1#L29"
+      }
+    },
+    {
+      "title": "用 is 做语义真假判断",
+      "text": "通过管道（stdin）、--text 或 --file 传入文本，执行 semdecide is '命题'。加 --json 可获得稳定的机器可读输出；用 --threshold 和 --uncertainty-margin 调整判定策略，处于边界的结果不会被强行归为真或假。",
+      "code": "cat incident.txt | semdecide is \\\n  'This describes a security-sensitive incident requiring human attention'\n\ncat incident.txt | semdecide is 'This is an account-takeover signal' --json",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/sharziki/semdecide/blob/33cf5c03c50e02e59df3f3ea81f0650f6b791545/README.md?plain=1#L64"
+      }
+    },
+    {
+      "title": "按需使用 choose、score、filter",
+      "text": "choose 用多个 --option 定义选项并选出其一，可用 --min-confidence 设置置信度下限；score 用 --criterion 和多个有序 --level 进行评分；filter 读取 JSONL，用 --field 指定判断字段，匹配记录会附加 _semdecide 元数据，加 --raw 可输出原始记录。",
+      "code": "cat ticket.txt | semdecide choose \\\n  'Which queue should receive this ticket?' \\\n  --option support='ordinary product support' \\\n  --option security='possible security incident' \\\n  --option billing='billing or payment issue' \\\n  --json\n\ncat answer.txt | semdecide score \\\n  --criterion 'How trustworthy is this answer?' \\\n  --level 'unsafe or misleading' \\\n  --level 'mostly correct but incomplete' \\\n  --level 'correct, grounded, and complete' \\\n  --json\n\ncat tickets.jsonl | semdecide filter \\\n  'The record indicates urgent churn risk or active customer impact' \\\n  --field text",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/sharziki/semdecide/blob/33cf5c03c50e02e59df3f3ea81f0650f6b791545/README.md?plain=1#L95"
+      }
+    },
+    {
+      "title": "在 CI 中依据退出码分支",
+      "text": "0 表示真、已选出、已评分或至少有一条匹配；1 表示假或无匹配；2 表示输入或用法错误；3 表示结果不确定；4 表示服务商、认证、超时或响应错误。加 --quiet 可只保留退出码。guard 子命令另有 0、10、20 三种退出码，分别对应允许、升级和阻止。",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/sharziki/semdecide/blob/33cf5c03c50e02e59df3f3ea81f0650f6b791545/README.md?plain=1#L150"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "所有被评估的输入都会发送给 TypeSafe AI，不要提交数据政策禁止外发的内容。README 未说明 API 的费用。",
+    "语义判断可能出错。SemDecide 不是授权系统、沙箱或安全证明，涉及资金、凭据、生产环境、隐私数据和不可逆操作时，应保留确定性的权限检查。",
+    "在 guard 中，服务商故障会按失败关闭处理为 escalate；semdecide check 和 reflex 别名已弃用。",
+    "本项目是独立开源项目，不是 TypeSafe AI 官方产品。"
+  ],
+  "references": [],
+  "media": [],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "26559f1a7445c1da2bbffb65d7f1adfcaf0bd2092b3b45caa2c8b6f72d8f792e",
+  "mediaStatus": "none_in_official_documents"
+}

@@ -1,0 +1,90 @@
+{
+  "schemaVersion": 1,
+  "key": "jimliu/baoyu-skills",
+  "status": "ready",
+  "reason": "",
+  "checkedAt": "2026-10-01",
+  "tested": false,
+  "sourceUrl": "https://github.com/JimLiu/baoyu-skills/blob/1567581c26ec29f4216c6e6835415bf30343b0e3/README.md",
+  "sourceRevision": "1567581c26ec29f4216c6e6835415bf30343b0e3",
+  "canonicalKey": "JimLiu/baoyu-skills",
+  "summary": "baoyu-skills 是面向 Claude Code、Codex 等 AI Agent 的技能集合，覆盖小红书图卡、信息图、SVG 图表、文章封面、幻灯片、漫画及公众号发布等内容生产任务。",
+  "intro": "适合用 AI Agent 做内容创作与发布的写作者、运营和开发者。仓库含 20+ 个技能，分为内容、AI 生成和工具三类，例如 /baoyu-cover-image 为文章生成封面、/baoyu-infographic 生成信息图、/baoyu-diagram 由 Claude 手写 SVG 图表、/baoyu-slide-deck 生成幻灯片图片。建议只安装实际需要的技能。",
+  "requirements": "已安装 Node.js 环境，能运行 npx bun 命令；需要支持技能的 AI Agent（如 Claude Code、Codex）。部分生成类技能需要对应图像服务的 API 密钥；公众号发布需要微信公众号 API 凭证。",
+  "platforms": [],
+  "steps": [
+    {
+      "title": "用 skills CLI 快速安装",
+      "text": "按 README 推荐方式运行 npx skills add jimliu/baoyu-skills 安装。仓库技能较多，每个已加载的技能都会占用 Agent 每次运行的上下文，安装时只选真正会用的几个。",
+      "code": "npx skills add jimliu/baoyu-skills",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/JimLiu/baoyu-skills/blob/1567581c26ec29f4216c6e6835415bf30343b0e3/README.md?plain=1#L16"
+      }
+    },
+    {
+      "title": "配置图像服务的 API 密钥",
+      "text": "部分技能需要 API 密钥。在 ~/.baoyu-skills/.env（用户级）或 <项目>/.baoyu-skills/.env（项目级）中填写所用服务的密钥与模型，只需保留你实际使用的那一家。加载优先级为命令行变量、系统环境变量、项目级、用户级。",
+      "code": "# Create user-level config directory\nmkdir -p ~/.baoyu-skills\n\n# Create .env file\ncat > ~/.baoyu-skills/.env << 'EOF'\n# OpenAI\nOPENAI_API_KEY=sk-xxx\nOPENAI_IMAGE_MODEL=gpt-image-2\n# OPENAI_BASE_URL=https://api.openai.com/v1\n# OPENAI_IMAGE_USE_CHAT=false\n\n# Azure OpenAI\nAZURE_OPENAI_API_KEY=xxx\nAZURE_OPENAI_BASE_URL=https://your-resource.openai.azure.com\nAZURE_OPENAI_DEPLOYMENT=gpt-image-2\n# AZURE_API_VERSION=2025-04-01-preview\n\n# OpenRouter\nOPENROUTER_API_KEY=sk-or-xxx\nOPENROUTER_IMAGE_MODEL=google/gemini-3.1-flash-image\n# OPENROUTER_BASE_URL=https://openrouter.ai/api/v1\n# OPENROUTER_HTTP_REFERER=https://your-app.example.com\n# OPENROUTER_TITLE=Your App Name\n\n# Google\nGOOGLE_API_KEY=xxx\nGOOGLE_IMAGE_MODEL=gemini-3-pro-image\n# GOOGLE_BASE_URL=https://generativelanguage.googleapis.com/v1beta\n\n# DashScope (Aliyun Tongyi Wanxiang)\nDASHSCOPE_API_KEY=sk-xxx\nDASHSCOPE_IMAGE_MODEL=qwen-image-2.0-pro\n# DASHSCOPE_BASE_URL=https://dashscope.aliyuncs.com/api/v1\n\n# Z.AI\nZAI_API_KEY=xxx\nZAI_IMAGE_MODEL=glm-image\n# ZAI_BASE_URL=https://api.z.ai/api/paas/v4\n\n# MiniMax\nMINIMAX_API_KEY=xxx\nMINIMAX_IMAGE_MODEL=image-01\n# MINIMAX_BASE_URL=https://api.minimaxi.com\n\n# Replicate\nREPLICATE_API_TOKEN=r8_xxx\nREPLICATE_IMAGE_MODEL=google/nano-banana-2\n# REPLICATE_BASE_URL=https://api.replicate.com\n\n# Jimeng (即梦)\nJIMENG_ACCESS_KEY_ID=xxx\nJIMENG_SECRET_ACCESS_KEY=xxx\nJIMENG_IMAGE_MODEL=jimeng_t2i_v40\n# JIMENG_BASE_URL=https://visual.volcengineapi.com\n# JIMENG_REGION=cn-north-1\n\n# Seedream (豆包)\nARK_API_KEY=xxx\nSEEDREAM_IMAGE_MODEL=doubao-seedream-5-0-260128\n# SEEDREAM_BASE_URL=https://ark.cn-beijing.volces.com/api/v3\nEOF",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/JimLiu/baoyu-skills/blob/1567581c26ec29f4216c6e6835415bf30343b0e3/README.md?plain=1#L1234"
+      }
+    },
+    {
+      "title": "项目级配置加入 .gitignore",
+      "text": "如在项目内共享配置，创建 .baoyu-skills 目录，并把 .baoyu-skills/.env 写入 .gitignore，避免把密钥提交到 Git。公众号 API 凭证同样按作用范围放在这两个位置之一。",
+      "code": "mkdir -p .baoyu-skills\n# Add .baoyu-skills/.env to .gitignore to avoid committing secrets\necho \".baoyu-skills/.env\" >> .gitignore",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/JimLiu/baoyu-skills/blob/1567581c26ec29f4216c6e6835415bf30343b0e3/README.md?plain=1#L1234"
+      }
+    },
+    {
+      "title": "对文章调用对应内容技能",
+      "text": "在 Agent 中对 Markdown 文件调用技能，如 /baoyu-cover-image 生成封面，可用 --type、--palette、--rendering 等指定维度，--quick 跳过确认；/baoyu-slide-deck 可用 --outline-only 只出大纲。各技能参数以 README 对应小节为准。",
+      "code": "# Auto-select all dimensions based on content\n/baoyu-cover-image path/to/article.md\n\n# Quick mode: skip confirmation, use auto-selection\n/baoyu-cover-image path/to/article.md --quick\n\n# Specify dimensions (5D system)\n/baoyu-cover-image path/to/article.md --type conceptual --palette cool --rendering digital\n/baoyu-cover-image path/to/article.md --text title-subtitle --mood bold\n\n# Style presets (backward-compatible shorthand)\n/baoyu-cover-image path/to/article.md --style blueprint\n\n# Specify aspect ratio (default: 16:9)\n/baoyu-cover-image path/to/article.md --aspect 2.35:1\n\n# Visual only (no title text)\n/baoyu-cover-image path/to/article.md --no-title\n\n# From markdown file\n/baoyu-slide-deck path/to/article.md\n\n# With style and audience\n/baoyu-slide-deck path/to/article.md --style corporate\n/baoyu-slide-deck path/to/article.md --audience executives\n\n# Target slide count\n/baoyu-slide-deck path/to/article.md --slides 15\n\n# Outline only (no image generation)\n/baoyu-slide-deck path/to/article.md --outline-only\n\n# With language\n/baoyu-slide-deck path/to/article.md --lang zh",
+      "link": {
+        "label": "查看这一步的官方说明",
+        "url": "https://github.com/JimLiu/baoyu-skills/blob/1567581c26ec29f4216c6e6835415bf30343b0e3/README.md?plain=1#L351"
+      }
+    }
+  ],
+  "example": null,
+  "cautions": [
+    "生成图像类技能依赖 OpenAI、Google、OpenRouter、DashScope 等第三方服务的密钥，使用量与计费由各服务决定，README 未说明费用。",
+    "项目级 .env 含密钥，不要提交到 Git。",
+    "一次安装全部技能会给 Agent 每次运行增加上下文开销。",
+    "通过 ClawHub 发布的技能按其注册规则以 MIT-0 发布；baoyu-design 是独立项目，不属于本仓库。"
+  ],
+  "references": [
+    {
+      "label": "README.zh.md",
+      "url": "https://github.com/JimLiu/baoyu-skills/blob/1567581c26ec29f4216c6e6835415bf30343b0e3/README.zh.md"
+    }
+  ],
+  "media": [
+    {
+      "url": "/assets/repository-guides/media-d55ceb993d971a3bc6b75a92.webp",
+      "alt": "JimLiu/baoyu-skills 官方演示 1",
+      "sourceUrl": "https://github.com/JimLiu/baoyu-skills/blob/1567581c26ec29f4216c6e6835415bf30343b0e3/README.md?plain=1#L175",
+      "originalUrl": "https://raw.githubusercontent.com/JimLiu/baoyu-skills/1567581c26ec29f4216c6e6835415bf30343b0e3/screenshots/xhs-images-styles/cute.webp"
+    },
+    {
+      "url": "/assets/repository-guides/media-a233db216513e6badff7710e.webp",
+      "alt": "JimLiu/baoyu-skills 官方演示 2",
+      "sourceUrl": "https://github.com/JimLiu/baoyu-skills/blob/1567581c26ec29f4216c6e6835415bf30343b0e3/README.md?plain=1#L179",
+      "originalUrl": "https://raw.githubusercontent.com/JimLiu/baoyu-skills/1567581c26ec29f4216c6e6835415bf30343b0e3/screenshots/xhs-images-styles/notion.webp"
+    },
+    {
+      "url": "/assets/repository-guides/media-3a167a47e941985aeab317b1.webp",
+      "alt": "JimLiu/baoyu-skills 官方演示 3",
+      "sourceUrl": "https://github.com/JimLiu/baoyu-skills/blob/1567581c26ec29f4216c6e6835415bf30343b0e3/README.md?plain=1#L260",
+      "originalUrl": "https://raw.githubusercontent.com/JimLiu/baoyu-skills/1567581c26ec29f4216c6e6835415bf30343b0e3/screenshots/infographic-layouts/bridge.webp"
+    }
+  ],
+  "generatedBy": "claude-opus-5-5",
+  "documentHash": "3b8cfcf9d902776a7f1e86c5af2af1e57ff6a893627bf9502fa14db6056531c9",
+  "mediaStatus": "archived",
+  "mediaFailures": []
+}
