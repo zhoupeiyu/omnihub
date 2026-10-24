@@ -288,7 +288,7 @@ function RepositoryLibraryView({ repositories, query, canEdit, onRepositoryUpdat
   const [technologyFilter, setTechnologyFilter] = useRefineryState("all");
   const [activityFilter, setActivityFilter] = useRefineryState("all");
   const [localQuery, setLocalQuery] = useRefineryState("");
-  const [sortMode, setSortMode] = useRefineryState("curated");
+  const [sortMode, setSortMode] = useRefineryState("recent");
   const [density, setDensity] = useRefineryState("comfortable");
   const [displayLimit, setDisplayLimit] = useRefineryState(PAGE_SIZE);
   const [selectedKey, setSelectedKey] = useRefineryState("");
@@ -319,7 +319,7 @@ function RepositoryLibraryView({ repositories, query, canEdit, onRepositoryUpdat
       if (b.key === "kepano/obsidian-skills") return 1;
     }
     if (sortMode === "name") return a.key.localeCompare(b.key);
-    if (sortMode === "recent") return String(b.updatedAt || "").localeCompare(String(a.updatedAt || ""));
+    if (sortMode === "recent") return globalThis.OmniHubLibraryOrder.compare(a, b);
     return Number(b.sourcePostCount || 0) - Number(a.sourcePostCount || 0) || a.key.localeCompare(b.key);
   }), [repositories, query, localQuery, statusFilter, topicFilter, technologyFilter, activityFilter, sortMode]);
   const displayed = visible.slice(0, displayLimit);
@@ -441,7 +441,7 @@ function knowledgeCitationHtml(id, sources) {
   const title = String(source.title || '').trim() || (source.author ? `${source.author} 的原帖` : '查看原文');
   const preview = [title, source.author, source.excerpt && `原文摘录：${source.excerpt}`].filter(Boolean).join('\n');
   const action = source.private ? '在 X 查看公开原帖' : '查看站内原文';
-  return `<a class="knowledge-citation" href="${escape(url)}" title="${escape(preview)}" aria-label="${escape(`${action}：${title}`)}">引用原文：${escape(title)}<span aria-hidden="true"> ${source.private ? '↗' : '→'}</span></a>`;
+  return `<a class="knowledge-citation" href="${escape(url)}" title="${escape(preview)}" aria-label="${escape(`${action}：${title}`)}">[${sources.indexOf(source) + 1}]</a>`;
 }
 
 function markdownWithCitationLinks(body, sources = []) {
@@ -468,67 +468,202 @@ function knowledgeMethodTools(item) {
   return String(item.tags?.[0] || '').split(/\s*\+\s*/).filter(Boolean);
 }
 
-function KnowledgeLibraryView({ items, query, requestedId, onRequestedIdHandled, onCorrectClassification, onOpenPrompt, scopeSwitch }) {
+function knowledgePlainText(value) {
+  return String(value || '').replace(/\[S:[A-Za-z0-9_-]+\]/g, '').replace(/<[^>]+>/g, '')
+    .replace(/!?\[([^\]]+)\]\([^)]*\)/g, '$1').replace(/(^|\s)[#>]+\s/g, '$1').replace(/(\*\*|__|`{1,3})/g, '').replace(/\s+/g, ' ').trim();
+}
+
+function knowledgeSearchMatch(item, detail, query) {
+  const needle = String(query || '').trim().toLowerCase();
+  if (!needle) return {snippet:item.summary || ''};
+  const fields = [item.title, item.summary, ...(item.tags || []), knowledgePlainText(detail?.body), detail?.promptText];
+  for (const field of fields) {
+    const text = String(field || '').replace(/\s+/g, ' ').trim();
+    const index = text.toLowerCase().indexOf(needle);
+    if (index < 0) continue;
+    const start = Math.max(0, index - 32), end = Math.min(text.length, index + needle.length + 72);
+    return {snippet:`${start ? '…' : ''}${text.slice(start, end)}${end < text.length ? '…' : ''}`};
+  }
+  return null;
+}
+
+function knowledgeSummaryIsRepeated(detail) {
+  const summary = knowledgePlainText(detail?.summary);
+  return Boolean(summary && knowledgePlainText(detail?.body).startsWith(summary));
+}
+
+function createKnowledgeDetailStore(load) {
+  const data = new Map(), pending = new Map(), controller = new AbortController();
+  return {
+    peek: id => data.get(String(id)),
+    load(id) {
+      const key = String(id);
+      if (controller.signal.aborted) return Promise.reject(new Error('Knowledge view disposed'));
+      if (data.has(key)) return Promise.resolve(data.get(key));
+      if (!pending.has(key)) {
+        const request = Promise.resolve().then(() => load(id, controller.signal)).then(value => {
+          if (!controller.signal.aborted) data.set(key, value);
+          return value;
+        }).finally(() => pending.delete(key));
+        pending.set(key, request);
+      }
+      return pending.get(key);
+    },
+    dispose() { controller.abort(); data.clear(); pending.clear(); },
+  };
+}
+
+function KnowledgeHighlight({text, query}) {
+  const value = String(text || ''), needle = String(query || '').trim();
+  const index = needle ? value.toLowerCase().indexOf(needle.toLowerCase()) : -1;
+  return index < 0 ? value : <React.Fragment>{value.slice(0,index)}<mark>{value.slice(index,index + needle.length)}</mark>{value.slice(index + needle.length)}</React.Fragment>;
+}
+
+function KnowledgeLibraryView({ items, query, onQueryChange, active = true, requestedId, onRequestedIdHandled, onCorrectClassification, onOpenPrompt, scopeSwitch }) {
   const [kind, setKind] = useRefineryState('all');
   const [tool, setTool] = useRefineryState('all');
   const [copyResult, setCopyResult] = useRefineryState('');
-  const methodTools = [...new Set(items.flatMap(knowledgeMethodTools))];
-  const visible = items.filter((item) => {
-    if (kind !== 'all' && (item.type === 'method' ? 'method' : 'article') !== kind) return false;
-    if (tool !== 'all' && !knowledgeMethodTools(item).includes(tool)) return false;
-    const needle = String(query || "").trim().toLowerCase();
-    return !needle || `${item.title} ${item.summary} ${(item.tags || []).join(" ")}`.toLowerCase().includes(needle);
-  });
   const [selectedId, setSelectedId] = useRefineryState(null);
-  const [detail, setDetail] = useRefineryState(null);
+  const [mobileReading, setMobileReading] = useRefineryState(false);
+  const [revision, setRevision] = useRefineryState(0);
+  const [retry, setRetry] = useRefineryState(0);
+  const [detailError, setDetailError] = useRefineryState(null);
+  const [searchState, setSearchState] = useRefineryState(null);
+  const [headings, setHeadings] = useRefineryState([]);
+  const readerRef = useRefineryRef(null), indexRef = useRefineryRef(null), searchRef = useRefineryRef(null);
+  const focusReader = useRefineryRef(null);
+  // Cache only records from this exact catalogue snapshot, never across accounts/scopes.
+  const store = useRefineryMemo(() => createKnowledgeDetailStore((id, signal) => api(`/api/knowledge-library/${id}`, {signal})), [items]);
+  const positions = useRefineryRef(new Map()).current;
+  const needle = String(query || '').trim();
+  const methodTools = [...new Set(items.flatMap(knowledgeMethodTools))];
+  const visible = useRefineryMemo(() => [...items].sort(globalThis.OmniHubLibraryOrder.compare).flatMap(item => {
+    if (kind !== 'all' && (item.type === 'method' ? 'method' : 'article') !== kind) return [];
+    if (tool !== 'all' && !knowledgeMethodTools(item).includes(tool)) return [];
+    const match = knowledgeSearchMatch(item, store.peek(item.id), needle);
+    return match ? [{item, snippet:match.snippet}] : [];
+  }), [items, kind, tool, needle, store, revision]);
+  const detail = store.peek(selectedId);
+  const searching = Boolean(needle && (searchState?.store !== store || searchState?.query !== needle || searchState.loading));
+  const failedSearch = needle && searchState?.store === store && searchState?.query === needle && searchState.failed;
+
+  useRefineryEffect(() => () => store.dispose(), [store]);
+  useRefineryEffect(() => {
+    if (!needle || !active) return;
+    let cancelled = false;
+    // Debounce input, then build a bounded index from the existing scoped detail API.
+    const timer = setTimeout(async () => {
+      setSearchState({store, query:needle, loading:true, failed:0});
+      let next = 0, failed = 0;
+      await Promise.all(Array.from({length:Math.min(3,items.length)}, async () => {
+        while (!cancelled && next < items.length) {
+          const item = items[next++];
+          try { await store.load(item.id); }
+          catch { failed++; }
+          if (!cancelled) setRevision(value => value + 1);
+        }
+      }));
+      if (!cancelled) setSearchState({store, query:needle, loading:false, failed});
+    }, 180);
+    return () => { cancelled = true; clearTimeout(timer); };
+  }, [needle, active, items, store, retry]);
 
   useRefineryEffect(() => {
-    if (requestedId) { setKind('all'); setTool('all'); setSelectedId(requestedId); onRequestedIdHandled(); return; }
-    if (!selectedId || !visible.some((item) => item.id === selectedId)) setSelectedId(visible[0]?.id || null);
+    if (requestedId != null) {
+      setKind('all'); setTool('all'); onQueryChange(''); setSelectedId(requestedId); setMobileReading(true);
+      focusReader.current = String(requestedId); onRequestedIdHandled?.(); return;
+    }
+    if (!visible.some(({item}) => String(item.id) === String(selectedId))) {
+      focusReader.current = null;
+      setSelectedId(visible[0]?.item.id ?? null);
+    }
   }, [requestedId, visible, selectedId]);
   useRefineryEffect(() => {
-    if (!selectedId) { setDetail(null); return; }
-    setCopyResult('');
+    if (selectedId == null) return;
     let cancelled = false;
-    api(`/api/knowledge-library/${selectedId}`).then((value) => { if (!cancelled) setDetail(value); })
-      .catch(() => { if (!cancelled) setDetail(null); });
+    setCopyResult(''); setDetailError(null);
+    store.load(selectedId).then(() => { if (!cancelled) setRevision(value => value + 1); })
+      .catch(() => { if (!cancelled) { focusReader.current = null; setDetailError({store,id:selectedId}); } });
     return () => { cancelled = true; };
-  }, [selectedId, items]);
+  }, [selectedId, store, retry]);
 
-  return (
-    <div className="knowledge-workspace">
-      <header className="knowledge-workspace-bar">
-        <div className="knowledge-workspace-title"><strong>知识库</strong><span>{items.filter(x => x.type !== 'method').length} 篇综合知识 · {items.filter(x => x.type === 'method').length} 篇方法技巧</span></div>
-        <div className="knowledge-workspace-actions">{scopeSwitch}</div>
-      </header>
-      <aside className="knowledge-index" aria-label="知识文章目录"><div className="knowledge-index-head">
+  React.useLayoutEffect(() => {
+    const reader = readerRef.current;
+    if (!detail || !reader) { setHeadings([]); return; }
+    const sections = [...reader.querySelectorAll('.knowledge-article h2, .knowledge-article h3, .knowledge-method-prompt h2')];
+    setHeadings(sections.map((element,index) => {
+      element.id = `knowledge-section-${index}`; element.tabIndex = -1;
+      return {id:element.id, title:element.textContent};
+    }));
+    reader.scrollTop = positions.get(String(selectedId)) || 0;
+    if (focusReader.current === String(selectedId)) { reader.querySelector('h1')?.focus({preventScroll:true}); focusReader.current = null; }
+  }, [detail, selectedId, mobileReading, positions]);
+
+  const openArticle = id => {
+    const reader = readerRef.current;
+    const readerVisible = reader.getClientRects().length > 0;
+    if (detail && readerVisible) positions.set(String(selectedId), reader.scrollTop);
+    focusReader.current = String(id);
+    if (String(id) === String(selectedId) && detail && readerVisible) {
+      reader.querySelector('h1')?.focus({preventScroll:true}); focusReader.current = null;
+    }
+    setSelectedId(id); setMobileReading(true);
+  };
+  const backToList = () => {
+    if (detail) positions.set(String(selectedId), readerRef.current.scrollTop);
+    setMobileReading(false);
+    requestAnimationFrame(() => [...indexRef.current.querySelectorAll('[data-knowledge-id]')]
+      .find(element => element.dataset.knowledgeId === String(selectedId))?.focus({preventScroll:true}));
+  };
+  const resetFilters = () => { setKind('all'); setTool('all'); onQueryChange(''); searchRef.current?.focus(); };
+  const jumpToHeading = (id, event) => {
+    const reader = readerRef.current, heading = document.getElementById(id);
+    if (!heading || !reader.contains(heading)) return;
+    const disclosure = event.currentTarget.closest('details');
+    if (disclosure) disclosure.open = false;
+    reader.scrollTo({top:reader.scrollTop + heading.getBoundingClientRect().top - reader.getBoundingClientRect().top - 58, behavior:'instant'});
+    heading.focus({preventScroll:true});
+  };
+  const failedDetail = detailError?.store === store && String(detailError.id) === String(selectedId);
+
+  return <div className="knowledge-workspace" data-reading={mobileReading}>
+    <header className="knowledge-workspace-bar">
+      <div className="knowledge-workspace-title"><button className="knowledge-back" onClick={backToList}>返回文章列表</button><strong>知识库</strong><span>{items.length} 篇文章</span></div>
+      <div className="knowledge-workspace-actions">{scopeSwitch}</div>
+    </header>
+    <aside ref={indexRef} className="knowledge-index" aria-label="知识文章目录">
+      <div className="knowledge-index-head">
+        <div className="knowledge-search"><IconSearch aria-hidden="true" /><input ref={searchRef} type="search" value={query || ''} onChange={event => onQueryChange(event.target.value)} placeholder="搜索标题与正文" aria-label="搜索知识标题与正文" />{needle && <button aria-label="清除搜索" onClick={() => {onQueryChange(''); searchRef.current.focus();}}><IconX /></button>}</div>
         <div className="knowledge-type-filter">{[['all','全部'],['article','综合知识'],['method','方法技巧']].map(([id,label]) => <button key={id} aria-pressed={kind === id} onClick={() => {setKind(id); setTool('all');}}>{label}</button>)}</div>
-        {kind !== 'article' && methodTools.length > 0 && <select className="knowledge-tool-filter" aria-label="按适用工具筛选方法" value={tool} onChange={e => setTool(e.target.value)}>
-          <option value="all">全部适用工具</option>{methodTools.map(value => <option key={value}>{value}</option>)}</select>}</div>
-        <div className="knowledge-index-list">{visible.map((item) => <button key={item.id}
-          className={selectedId === item.id ? "active" : ""} aria-current={selectedId === item.id ? 'true' : undefined} onClick={() => setSelectedId(item.id)}>
-          <span className="knowledge-verified">{item.type === 'method' ? <IconBookOpen /> : <IconCheck />}</span><span>
-          {item.type === 'method' && <span className="knowledge-method-tags">{item.tags.slice(0,2).map(tag => <span key={tag}>{tag}</span>)}</span>}
-          <strong>{item.title}</strong><small>{item.summary}</small>
-          <em>{item.type === 'method' ? '方法技巧' : '综合知识'} · {item.sourceCount} 个来源</em></span></button>)}</div></aside>
-      <article className="knowledge-reader">
-        {!detail ? <div className="knowledge-loading">{visible.length ? '正在读取知识文章…' : '没有匹配的知识条目'}</div> : <React.Fragment>
-          <div className="knowledge-reader-head"><div className="knowledge-breadcrumb">知识库 / {detail.tags[0] || "专题"}</div>
-            <h1>{detail.title}</h1><p>{detail.summary}</p><div className="knowledge-reader-meta">
-              <span className="knowledge-state">{detail.type === 'method' ? '来源整理 · 未实测' : '来源核验'}</span><span>{detail.sources.length} 个来源</span><span>版本 {detail.version}</span>
-              {detail.sourceInboxId && onCorrectClassification && <button className="btn btn-ghost" onClick={() => onCorrectClassification({sourceInboxId:detail.sourceInboxId})}>调整归类</button>}
-              {detail.hasPrompt && <button className="btn btn-ghost" onClick={() => onOpenPrompt(detail.sourceInboxId)}>查看提取的提示词 →</button>}
-            </div></div>
-          {detail.type === 'method' && <div className="knowledge-method-context"><span>适用对象 <strong>{detail.tags[0] || '待补充'}</strong></span><span>具体用途 <strong>{detail.tags[1] || '见下方步骤'}</strong></span></div>}
-          <div className="knowledge-article markdown-body" dangerouslySetInnerHTML={{ __html: markdownWithCitationLinks(detail.body, detail.sources) }} />
-          {detail.promptText && <section className="knowledge-method-prompt"><div><h2>原帖中的指令片段</h2><button className="btn btn-ghost" onClick={async () => {
-            try {await navigator.clipboard.writeText(detail.promptText); setCopyResult('已复制');} catch {setCopyResult('复制失败，请手动选择文字');}
-          }}>复制指令</button></div><p>作为原文示例保留；涉及配置、模型和权限的内容，请结合上面的适用限制审阅。</p>
-            <span role="status">{copyResult}</span><pre>{detail.promptText}</pre></section>}
-        </React.Fragment>}
-      </article>
-    </div>
-  );
+        <div className="knowledge-index-options">{kind !== 'article' && methodTools.length > 0 && <select className="knowledge-tool-filter" aria-label="按适用工具筛选方法" value={tool} onChange={event => setTool(event.target.value)}><option value="all">全部适用工具</option>{methodTools.map(value => <option key={value}>{value}</option>)}</select>}<span role="status">{searching ? '正在搜索正文…' : `${visible.length} 篇`}</span></div>
+        {failedSearch > 0 && <p className="knowledge-search-error" role="status">{failedSearch} 篇正文暂未读取，结果可能不完整。<button onClick={() => setRetry(value => value + 1)}>重试</button></p>}
+      </div>
+      <div className="knowledge-index-list">{visible.map(({item,snippet}) => <button key={item.id} data-knowledge-id={item.id} className={String(selectedId) === String(item.id) ? 'active' : ''} aria-current={String(selectedId) === String(item.id) ? 'true' : undefined} onClick={() => openArticle(item.id)}>
+        <span className="knowledge-item-meta">{item.type === 'source_archive' ? '原文归档' : item.type === 'method' ? item.tags?.[0] || '方法技巧' : '综合知识'}</span>
+        <strong><KnowledgeHighlight text={item.title} query={needle} /></strong><small><KnowledgeHighlight text={needle ? snippet : item.summary} query={needle} /></small>
+      </button>)}
+        {!visible.length && <div className="knowledge-empty" role="status"><strong>{searching ? '正在搜索全文' : failedSearch ? '暂未找到匹配内容' : '没有匹配的文章'}</strong><p>{searching ? '标题结果会先显示，正文结果随后补齐。' : '试试其他关键词，或清除当前筛选。'}</p>{!searching && <button className="btn" onClick={resetFilters}>清除搜索与筛选</button>}</div>}
+      </div>
+    </aside>
+    <article ref={readerRef} className="knowledge-reader" aria-label="知识文章" onScroll={event => {if (detail && event.currentTarget.getClientRects().length) positions.set(String(selectedId),event.currentTarget.scrollTop);}}>
+      {!detail ? <div className="knowledge-loading" role="status"><p>{failedDetail ? '文章暂时无法读取' : visible.length ? '正在读取文章…' : searching ? '正在搜索正文…' : '选择文章开始阅读'}</p>{failedDetail && <button className="btn" onClick={() => setRetry(value => value + 1)}>重新加载</button>}</div> : <React.Fragment>
+        {headings.length > 2 && <details className="knowledge-toc" key={String(selectedId)}><summary>本文目录 <span>{headings.length} 节</span></summary><nav aria-label="本文章节">{headings.map(heading => <button key={heading.id} onClick={event => jumpToHeading(heading.id,event)}>{heading.title}</button>)}</nav></details>}
+        <header className="knowledge-reader-head"><div className="knowledge-breadcrumb">{detail.type === 'source_archive' ? '原文归档' : `${detail.type === 'method' ? '方法技巧' : '综合知识'} · ${detail.tags?.[0] || '专题'}`}</div>
+          <h1 tabIndex={-1}>{detail.title}</h1>{detail.type !== 'source_archive' && !knowledgeSummaryIsRepeated(detail) && <p>{detail.summary}</p>}
+          <div className="knowledge-reader-meta"><span className="knowledge-state">{detail.type === 'source_archive' ? '保留原文' : detail.type === 'method' ? '来源整理 · 未实测' : '来源核验'}</span><span>{detail.sources.length} 个来源</span>
+            {detail.sourceInboxId && onCorrectClassification && <button className="btn btn-ghost" onClick={() => onCorrectClassification({sourceInboxId:detail.sourceInboxId})}>调整归类</button>}
+            {detail.hasPrompt && <button className="btn btn-ghost" onClick={() => onOpenPrompt(detail.sourceInboxId)}>查看提取的提示词 →</button>}
+          </div>
+        </header>
+        {detail.type === 'method' && <div className="knowledge-method-context"><span>适用对象 <strong>{detail.tags?.[0] || '待补充'}</strong></span><span>具体用途 <strong>{detail.tags?.[1] || '见下方步骤'}</strong></span></div>}
+        <div className="knowledge-article markdown-body" dangerouslySetInnerHTML={{__html:markdownWithCitationLinks(detail.body, detail.sources)}} />
+        {detail.promptText && <section className="knowledge-method-prompt"><div><h2>原帖中的指令片段</h2><button className="btn btn-ghost" onClick={async () => {
+          setCopyResult('');
+          try { await navigator.clipboard.writeText(detail.promptText); setCopyResult('已复制'); } catch { setCopyResult('复制失败，请手动选择文字'); }
+        }}>复制指令</button></div><p>原文示例；请结合上面的适用条件和限制使用。</p><span role="status">{copyResult}</span><pre>{detail.promptText}</pre></section>}
+      </React.Fragment>}
+    </article>
+  </div>;
 }
 
 function PromptExampleImage({ media, thumbnail = false, unavailableText = "图片暂时无法加载，可查看原帖" }) {
@@ -552,6 +687,24 @@ function promptSwipeDirection(start, end) {
 
 function promptDisplayTags(tags) {
   return [...new Set((tags || []).map(tag => PROMPT_TAG_LABELS[tag] || tag))];
+}
+
+function promptReadingContent(value, curated = false) {
+  const text = String(value || '');
+  if (curated) return { text, links: [] };
+  // Move trailing X shortlinks to the source row. Keep the exact original text for copying.
+  const trailing = text.match(/(?:\s+https:\/\/t\.co\/[A-Za-z0-9]+)+\s*$/);
+  if (!trailing) return { text, links: [] };
+  const body = text.slice(0, trailing.index).trimEnd();
+  let fence = null;
+  for (const line of body.split(/\r?\n/)) {
+    const marker = line.match(/^\s*(`{3,}|~{3,})/);
+    if (!marker) continue;
+    if (!fence) fence = marker[1];
+    else if (marker[1][0] === fence[0] && marker[1].length >= fence.length) fence = null;
+  }
+  if (!body || fence) return { text, links: [] };
+  return { text: body, links: trailing[0].match(/https:\/\/t\.co\/[A-Za-z0-9]+/g) || [] };
 }
 
 function PromptMediaViewer({ media, index, onSelect, onClose, label = "原帖配图", returnFocus }) {
@@ -624,7 +777,7 @@ function PromptExampleGallery({ item, initialIndex = 0 }) {
         event.preventDefault(); select(index + (event.key === "ArrowRight" ? 1 : -1));
       }
     }}>
-    <div className="prompt-example-heading"><strong>原帖配图</strong><span aria-live="polite">{index + 1} / {media.length}</span></div>
+    <div className="prompt-example-heading"><strong>{media.some(entry => entry.video) ? '原帖媒体' : '原帖配图'}</strong><span aria-live="polite">{index + 1} / {media.length}</span></div>
     {current.video && current.videoUrl && !videoFailed
       ? <video key={current.videoUrl} className="prompt-example-video" src={current.videoUrl} poster={current.url}
           controls playsInline preload="none" aria-label="原帖效果视频" onError={() => setVideoFailed(true)} />
@@ -644,8 +797,10 @@ function PromptExampleGallery({ item, initialIndex = 0 }) {
         </button>}
     {current.video && (!current.videoUrl || videoFailed) && <p className="prompt-example-note">
       {videoFailed ? '视频暂时无法播放。' : '当前仅保存了视频封面。'}
-      {item.sourceUrl && <a href={item.sourceUrl} target="_blank" rel="noopener noreferrer">到原帖观看 ↗</a>}
+      {(current.sourceUrl || item.sourceUrl) && <a href={current.sourceUrl || item.sourceUrl} target="_blank" rel="noopener noreferrer">到原帖观看 ↗</a>}
     </p>}
+    {current.sourceUrl && current.sourceRelation !== 'original' && <a className="prompt-media-source" href={current.sourceUrl} target="_blank" rel="noopener noreferrer">
+      {current.sourceRelation === 'quoted' ? '来自引用帖' : '来自同一讨论串'} <span aria-hidden="true">↗</span></a>}
     {media.length > 1 && <div className="prompt-example-thumbnails" aria-label="选择原帖配图">
       {media.map((entry, i) => <button key={`${entry.url}-${i}`} aria-label={`查看第 ${i + 1} ${entry.video ? '个视频' : '张配图'}`}
         aria-pressed={i === index} onClick={() => select(i)}>
@@ -658,7 +813,7 @@ function PromptExampleGallery({ item, initialIndex = 0 }) {
 
 function PromptLibraryCard({ item, selected, onOpen, onPreview }) {
   const media = inboxMedia(item);
-  const [index, setIndex] = useRefineryState(0);
+  const [index, setIndex] = useRefineryState(() => item.category === '视频生成' ? Math.max(0, media.findIndex(entry => entry.video)) : 0);
   const [coverHeight, setCoverHeight] = useRefineryState(null);
   const cover = useRefineryRef(null);
   const current = media[index] || media[0];
@@ -677,7 +832,7 @@ function PromptLibraryCard({ item, selected, onOpen, onPreview }) {
     {media.length > 1 && <div className="prompt-card-thumbnails" aria-label="切换封面">
       {media.slice(0, 4).map((entry, i) => <button key={`${entry.url}-${i}`} aria-label={`封面第 ${i + 1} 张`}
         aria-pressed={i === index} onClick={() => selectCover(i)}>
-        <PromptExampleImage media={entry} thumbnail />
+        <PromptExampleImage media={entry} thumbnail />{entry.video && <span className="prompt-thumbnail-video" aria-hidden="true">▶</span>}
       </button>)}
       {media.length > 4 && <button className="prompt-more-images" onClick={() => onPreview(item, 4)} aria-label={`查看全部 ${media.length} 张配图`}>+{media.length - 4}</button>}
     </div>}
@@ -690,39 +845,42 @@ function PromptLibraryCard({ item, selected, onOpen, onPreview }) {
   </article>;
 }
 
-function PromptDetail({ item, initialIndex, onClose, onCorrectClassification, onOpenMethod, onCreateMedia }) {
+function PromptDetail({ item, initialIndex, onClose, onCorrectClassification, onOpenMethod, onCreateMedia, widthPreference }) {
   const [copyState, setCopyState] = useRefineryState("");
+  const content = promptReadingContent(item.text, item.curated);
   const copyTimer = useRefineryRef(null);
   useRefineryEffect(() => {
     return () => clearTimeout(copyTimer.current);
   }, []);
   const copy = async () => {
+    setCopyState('');
     try { await navigator.clipboard.writeText(item.text); setCopyState("已复制"); }
     catch { setCopyState("复制失败，请选择下方文字复制"); }
     clearTimeout(copyTimer.current);
     copyTimer.current = setTimeout(() => setCopyState(""), 2200);
   };
-  return <DetailDrawer id="prompt-detail" className="prompt-refinery-detail" title="提示词详情" onClose={onClose}>
+  return <DetailDrawer id="prompt-detail" className="prompt-refinery-detail" title="提示词详情" onClose={onClose} resizable widthPreference={widthPreference}>
     <div className="detail-drawer-body prompt-detail-body"><span className="prompt-detail-kind">{item.category}</span><h2>{item.title}</h2>
-      <div className="prompt-detail-actions">
-        {onCreateMedia && ['图像生成', '视频生成'].includes(item.category) && <button className="btn btn-primary" onClick={() => onCreateMedia(item)}>
+      {onCreateMedia && ['图像生成', '视频生成'].includes(item.category) && <div className="prompt-detail-actions"><button className="btn btn-primary" onClick={() => onCreateMedia(item)}>
           {item.category === '视频生成' ? '用此提示词创作视频' : '用此提示词生图'}
-        </button>}
-        <button className="btn" onClick={copy}>{copyState === '已复制' ? copyState : '复制提示词'}</button>
-      </div>
+        </button></div>}
       {item.methodId && <button className="btn btn-ghost" onClick={() => onOpenMethod(item.methodId)}>阅读相关方法技巧 →</button>}
       <div className="prompt-detail-tags">{promptDisplayTags(item.tags).map(tag => <span key={tag}>{tag}</span>)}</div>
       <PromptExampleGallery item={item} initialIndex={initialIndex} />
-      <section className="prompt-detail-copy"><div><h3>{item.curated ? '提取的提示词' : '原始提示词'}</h3></div>
-        <span className="prompt-copy-status" role="status">{copyState}</span><pre>{item.text}</pre></section>
-      <details className="prompt-detail-source"><summary>来源与说明</summary><p>{item.curated ? '这里展示从收藏中提取的指令，完整帖子保留在 X 来源。' : '按原帖顺序保留配图和完整文字。'}未明确标注的参考图、结果图及图文对应关系，不作推断。</p>
-        {item.sourceUrl && <a href={item.sourceUrl} target="_blank" rel="noopener noreferrer">打开 X 原文 ↗</a>}
-        {onCorrectClassification && <button className="btn btn-ghost" onClick={() => onCorrectClassification({sourceInboxId:item.sourceInboxId})}>调整归类</button>}</details>
+      <section className="prompt-detail-copy" aria-label="提示词正文"><div className="prompt-copy-heading"><h3>{item.curated ? '提取的提示词' : '原始提示词'}</h3>
+        <button className="btn" onClick={copy} title={item.curated ? '复制完整提示词' : '复制完整原文，包含原文链接'}>{copyState === '已复制' ? copyState : item.curated ? '复制提示词' : '复制原文'}</button></div>
+        <span className="prompt-copy-status" role="status">{copyState}</span><pre>{content.text}</pre>
+        {content.links.length > 0 && <div className="prompt-attached-links"><span>原文链接</span>{content.links.map((url, index) =>
+          <a key={`${url}-${index}`} href={url} target="_blank" rel="noopener noreferrer" title={url}>t.co{content.links.length > 1 ? ` · ${index + 1}` : ''} <span aria-hidden="true">↗</span></a>)}</div>}
+      </section>
+      {(item.sourceUrl || onCorrectClassification) && <footer className="prompt-detail-source">
+        {item.sourceUrl && <a href={item.sourceUrl} target="_blank" rel="noopener noreferrer">查看 X 原帖 <span aria-hidden="true">↗</span></a>}
+        {onCorrectClassification && <button className="btn btn-ghost" onClick={() => onCorrectClassification({sourceInboxId:item.sourceInboxId})}>调整归类</button>}</footer>}
     </div>
   </DetailDrawer>;
 }
 
-function PromptLibraryView({ active = true, items, query, onCorrectClassification, onOpenMethod, onCreateMedia, requestedSourceId, onRequestedSourceHandled }) {
+function PromptLibraryView({ active = true, items, query, onQueryChange, onCorrectClassification, onOpenMethod, onCreateMedia, requestedSourceId, onRequestedSourceHandled }) {
   const [category, setCategory] = useRefineryState("all");
   const [subject, setSubject] = useRefineryState("all");
   const [style, setStyle] = useRefineryState("all");
@@ -730,6 +888,7 @@ function PromptLibraryView({ active = true, items, query, onCorrectClassificatio
   const [preview, setPreview] = useRefineryState(null);
   const [navigationNotice, setNavigationNotice] = useRefineryState('');
   const trigger = useRefineryRef(null);
+  const detailWidth = useRefineryRef(null);
   useRefineryEffect(() => { if (!active) { setSelected(null); setPreview(null); } }, [active]);
   useRefineryEffect(() => {
     setSelected(current => { if (!current) return null; const item = items.find(x => x.id === current.item.id); return item ? {...current,item} : null; });
@@ -753,31 +912,59 @@ function PromptLibraryView({ active = true, items, query, onCorrectClassificatio
     onRequestedSourceHandled?.();
   }, [requestedSourceId,items]);
   const closeDetail = () => { setSelected(null); if (trigger.current?.isConnected) trigger.current.focus({ preventScroll: true }); };
-  const categories = [...new Set(items.map((item) => item.category))];
-  const subjects = [...new Set(items.map((item) => item.facets?.subject?.value).filter(Boolean))];
-  const styles = [...new Set(items.map((item) => item.facets?.style?.value).filter((value) => value && value !== "not_applicable"))];
-  const visible = items.filter((item) => {
-    if (category !== "all" && item.category !== category) return false;
+  const categoryOrder = ['图像生成', '视频生成', '编程', '自动化', '研究', '社媒内容', '其他'];
+  const categories = [...new Set(items.map(item => item.category).filter(Boolean))].sort((a, b) => {
+    const order = value => categoryOrder.includes(value) ? categoryOrder.indexOf(value) : categoryOrder.length;
+    return order(a) - order(b) || a.localeCompare(b, 'zh-CN');
+  });
+  const selectedCategory = categories.includes(category) ? category : 'all';
+  const categoryItems = items.filter(item => selectedCategory === 'all' || item.category === selectedCategory);
+  const subjects = [...new Set(categoryItems.map(item => item.facets?.subject?.value).filter(Boolean))];
+  const styles = [...new Set(categoryItems.map(item => item.facets?.style?.value).filter(value => value && value !== 'not_applicable'))];
+  const needle = String(query || '').trim().toLowerCase();
+  const matched = items.filter(item => !needle || `${item.title} ${item.text} ${promptDisplayTags(item.tags).join(' ')}`.toLowerCase().includes(needle));
+  const visible = [...matched].sort(globalThis.OmniHubLibraryOrder.compare).filter((item) => {
+    if (selectedCategory !== "all" && item.category !== selectedCategory) return false;
     if (subject !== "all" && item.facets?.subject?.value !== subject) return false;
     if (style !== "all" && item.facets?.style?.value !== style) return false;
-    const needle = String(query || "").trim().toLowerCase();
-    return !needle || `${item.title} ${item.text} ${(item.tags || []).join(" ")}`.toLowerCase().includes(needle);
+    return true;
   });
+  const tabs = [{value:'all', label:'全部'}, ...categories.map(value => ({value, label:value}))];
+  const chooseCategory = value => {setCategory(value); setSubject('all'); setStyle('all');};
+  const resetFilters = () => {chooseCategory('all'); onQueryChange?.('');};
+  const onTabKey = (event, index) => {
+    if (!['ArrowLeft', 'ArrowRight', 'Home', 'End'].includes(event.key)) return;
+    event.preventDefault();
+    const next = event.key === 'Home' ? 0 : event.key === 'End' ? tabs.length - 1 : (index + (event.key === 'ArrowRight' ? 1 : -1) + tabs.length) % tabs.length;
+    chooseCategory(tabs[next].value);
+    const tab = event.currentTarget.parentElement.querySelectorAll('[role="tab"]')[next];
+    tab.focus({preventScroll:true}); tab.scrollIntoView({block:'nearest', inline:'nearest', behavior:'instant'});
+  };
   return (
     <div className="prompt-refinery-page"><div className="prompt-refinery-main">
       <div className="repository-head"><div><h1>提示词库</h1><p>{items.length} 条提示词 · 找效果、看原文、直接复用</p></div></div>
       {navigationNotice && <p className="prompt-navigation-notice" role="status">{navigationNotice}<button className="btn btn-ghost" onClick={() => setNavigationNotice('')}>知道了</button></p>}
+      <div className="prompt-category-tabs" role="tablist" aria-label="提示词用途">
+        {tabs.map((tab, index) => <button key={tab.value} id={`prompt-tab-${index}`} role="tab" aria-controls="prompt-results"
+          aria-selected={selectedCategory === tab.value} tabIndex={selectedCategory === tab.value ? 0 : -1}
+          onClick={() => chooseCategory(tab.value)} onKeyDown={event => onTabKey(event, index)}>{tab.label}
+          <span>{tab.value === 'all' ? matched.length : matched.filter(item => item.category === tab.value).length}</span></button>)}
+      </div>
+      <div id="prompt-results" role="tabpanel" aria-labelledby={`prompt-tab-${tabs.findIndex(tab => tab.value === selectedCategory)}`}>
       <div className="prompt-facet-toolbar">
-        <select className="select" aria-label="按用途筛选提示词" value={category} onChange={(e) => setCategory(e.target.value)}><option value="all">全部用途</option>{categories.map((value) => <option key={value}>{value}</option>)}</select>
-        <select className="select" aria-label="按主体筛选提示词" value={subject} onChange={(e) => setSubject(e.target.value)}><option value="all">全部主体</option>{subjects.map((value) => <option key={value} value={value}>{PROMPT_TAG_LABELS[value] || value}</option>)}</select>
-        <select className="select" aria-label="按风格筛选提示词" value={style} onChange={(e) => setStyle(e.target.value)}><option value="all">全部风格</option>{styles.map((value) => <option key={value} value={value}>{PROMPT_TAG_LABELS[value] || value}</option>)}</select>
-        <span>显示 {visible.length} 条</span>
+        <label className="prompt-facet"><span aria-hidden="true">{subject === 'all' ? '全部主体' : PROMPT_TAG_LABELS[subject] || subject}</span>
+          <select aria-label="按主体筛选提示词" value={subject} onChange={e => setSubject(e.target.value)}><option value="all">全部主体</option>{subjects.map(value => <option key={value} value={value}>{PROMPT_TAG_LABELS[value] || value}</option>)}</select></label>
+        <label className="prompt-facet"><span aria-hidden="true">{style === 'all' ? '全部风格' : PROMPT_TAG_LABELS[style] || style}</span>
+          <select aria-label="按风格筛选提示词" value={style} onChange={e => setStyle(e.target.value)}><option value="all">全部风格</option>{styles.map(value => <option key={value} value={value}>{PROMPT_TAG_LABELS[value] || value}</option>)}</select></label>
+        {(subject !== 'all' || style !== 'all') && <button className="prompt-clear-facets" onClick={() => {setSubject('all'); setStyle('all');}}>清除筛选</button>}
+        <span role="status">{visible.length} 条提示词</span>
       </div>
       <div className="prompt-refinery-grid">{visible.map(item => <PromptLibraryCard key={item.id} item={item}
         selected={selected?.item.id === item.id} onOpen={openDetail} onPreview={openPreview} />)}</div>
-      {!visible.length && <p className="prompt-empty">没有匹配的提示词，试试其他筛选条件。</p>}
+      {!visible.length && <div className="prompt-empty"><p>没有匹配的提示词</p><button className="btn" onClick={resetFilters}>查看全部提示词</button></div>}
+      </div>
     </div>
-    {active && selected && <PromptDetail key={`${selected.item.id}-${selected.index}`} item={selected.item} initialIndex={selected.index} onClose={closeDetail} onCorrectClassification={onCorrectClassification} onOpenMethod={onOpenMethod} onCreateMedia={onCreateMedia} />}
+    {active && selected && <PromptDetail key={`${selected.item.id}-${selected.index}`} item={selected.item} initialIndex={selected.index} onClose={closeDetail} onCorrectClassification={onCorrectClassification} onOpenMethod={onOpenMethod} onCreateMedia={onCreateMedia} widthPreference={detailWidth} />}
     {active && preview && previewMedia.length > 0 && <PromptMediaViewer media={previewMedia}
       index={promptMediaIndex(preview.index, previewMedia.length)}
       onSelect={index => setPreview(current => current ? {...current, index} : null)} onClose={() => setPreview(null)} />}

@@ -35,7 +35,8 @@ function xOrganization(item) {
 }
 
 function inboxQuotedPost(item) {
-  return inboxJson(item?.metrics, {})?.quotedTweet || null;
+  const metrics=inboxJson(item?.metrics, {});
+  return metrics.recoveredQuote || metrics.quotedTweet || null;
 }
 
 function inboxMedia(item) {
@@ -49,7 +50,7 @@ function inboxMedia(item) {
       const url = archived ? new URL(raw, window.location.origin) : new URL(raw);
       if (!archived && url.protocol !== "https:") return null;
       let videoUrl = "";
-      const candidates = video ? [entry.video_url, ...(Array.isArray(entry.variants) ? entry.variants
+      const candidates = video ? [entry.verifiedVideoUrl, entry.video_url, ...(Array.isArray(entry.variants) ? entry.variants
         .filter((candidate) => candidate?.content_type === "video/mp4")
         .sort((a, b) => (Number(b.bitrate) || 0) - (Number(a.bitrate) || 0)).map((candidate) => candidate.url) : [])] : [];
       for (const candidate of candidates) {
@@ -64,7 +65,13 @@ function inboxMedia(item) {
           }
         } catch {}
       }
-      return { url: url.toString(), alt: entry.alt_text || (video ? "视频封面" : "帖子配图"), video, videoUrl };
+      let sourceUrl = '';
+      try {
+        const source = new URL(entry.sourceUrl);
+        if (source.protocol === 'https:' && ['x.com','twitter.com'].includes(source.hostname) &&
+            !source.port && !source.username && !source.password && /^\/[A-Za-z0-9_]{1,15}\/status\/\d+\/?$/.test(source.pathname)) sourceUrl = source.href;
+      } catch {}
+      return { url: url.toString(), alt: entry.alt_text || (video ? "视频封面" : "帖子配图"), video, videoUrl, sourceUrl, sourceRelation:entry.sourceRelation };
     } catch { return null; }
   }).filter(Boolean);
 }
@@ -112,6 +119,16 @@ function inboxArticleLink(item) {
   return inboxLinks(item).find((url) => /^https?:\/\/(?:www\.)?x\.com\/i\/article\//i.test(url)) || "";
 }
 
+function inboxRecoveredArticle(item) {
+  const article = inboxJson(item?.metrics, {}).article;
+  return article && typeof article.body === 'string' && article.body.trim() ? article : null;
+}
+
+function inboxSourceText(item) {
+  const recovered = inboxJson(item?.metrics, {}).recoveredPost?.text;
+  return typeof recovered === 'string' && recovered.trim() ? recovered : String(item?.content || '');
+}
+
 function inboxDetailLinks(item) {
   const links = inboxLinks(item);
   return links.some((url) => !/^https?:\/\/t\.co\//i.test(url))
@@ -133,7 +150,7 @@ function inboxLinkedText(value) {
 function inboxReviewReason(item) {
   const organization = xOrganization(item);
   const content = String(item?.content || "").trim();
-  if (item?.source === "x" && /^https?:\/\/t\.co\/\S+$/i.test(content) && inboxArticleLink(item)) return "article";
+  if (item?.source === "x" && !inboxRecoveredArticle(item) && /^https?:\/\/t\.co\/\S+$/i.test(content) && inboxArticleLink(item)) return "article";
   if (item?.source !== "x" || (item.aiType && organization?.assetType !== "unknown") ||
       organization?.assetType === "idea") return "";
   if (organization?.contentIncomplete) return "unavailable";
@@ -220,7 +237,7 @@ function inboxDraftContent(item, title) {
 }
 
 function inboxEvidenceContent(item) {
-  const content = String(item?.content || item?.aiSummary || item?.url || "").trim();
+  const content = String(inboxSourceText(item) || item?.aiSummary || item?.url || "").trim();
   const title = inboxDisplayTitle(item);
   return inboxAfterRepeatedTitle(content, title) ?? content;
 }
@@ -574,7 +591,7 @@ function InboxView({ active = true, items, query, readOnly = false, loadState, l
     subjectGroups.get(subject.id)?.items.length >= 2);
   const q = String(query || "").trim().toLowerCase();
   const filteredItems = byType.filter((item) => !q
-    || `${item.title} ${item.content} ${item.aiSummary} ${item.author} ${item.url}`.toLowerCase().includes(q))
+    || `${item.title} ${inboxSourceText(item)} ${inboxRecoveredArticle(item)?.plainText || ''} ${item.aiSummary} ${item.author} ${item.url}`.toLowerCase().includes(q))
     .filter((item) => sourceScope !== "x" || !subjectFilter ||
       (item.subjectCollections || []).some((subject) => subject.id === subjectFilter))
     .filter((item) => sourceScope !== "x" || !topicFilter || xOrganization(item)?.topic === topicFilter)
@@ -881,6 +898,17 @@ function InboxView({ active = true, items, query, readOnly = false, loadState, l
                     <p>{inboxLinkedText(inboxQuotedPost(selected).full_text)}</p>
                   </blockquote>}
                 </div>
+                {inboxRecoveredArticle(selected) && <section className="inbox-recovered-article">
+                  <h3>{inboxRecoveredArticle(selected).title || '文章正文'}</h3>
+                  <div className="markdown-body" dangerouslySetInnerHTML={{__html:DOMPurify.sanitize(marked.parse(inboxRecoveredArticle(selected).body))}} />
+                </section>}
+                {inboxJson(selected.metrics, {}).relatedReplies?.length > 0 && <section className="inbox-recovered-article">
+                  <h3>作者后续补充</h3>
+                  {inboxJson(selected.metrics, {}).relatedReplies.map(reply => <div key={reply.id} className="inbox-evidence">
+                    <p>{inboxLinkedText(reply.text)}</p>
+                    <a href={inboxSafeUrl(reply.sourceUrl)} target="_blank" rel="noopener noreferrer">查看这条回复 ↗</a>
+                  </div>)}
+                </section>}
                 {inboxDetailLinks(selected).length > 0 && <div className="inbox-extracted-links">
                   <strong>文中链接</strong>
                   {inboxDetailLinks(selected).map((url) => <a key={url} href={url} target="_blank"

@@ -1,5 +1,6 @@
 import { REPOSITORY_TOPICS as topics, REPOSITORY_FORMS, SUBTOPICS, isValidClassification } from './repository-taxonomy.js';
 import { readRepositoryLocation, repositoryLocation } from './repository-navigation.js';
+import './library-order.js';
 import { getRepositoryDescription, getRepositorySummary } from './repository-localization.js';
 import { getRepositoryGuide, loadRepositoryGuide, renderRepositoryGuide, renderGuideInstallation, renderRepositoryGuideMeta, renderRepositoryGuideSources } from './repository-guides.js';
 
@@ -40,20 +41,17 @@ export function canFocusRepositorySearch(event, { active, detailOpen, editable, 
     && !event.defaultPrevented && !event.isComposing && !event.repeat
     && !event.ctrlKey && !event.metaKey && !event.altKey;
 }
-export function groupRepositoriesByOwner(repositories) {
+export function groupRepositoriesByOwner(repositories, sort = 'recent') {
   const groups = new Map();
   for (const repository of repositories) {
     const key = repository.owner.toLowerCase();
     if (!groups.has(key)) groups.set(key, {key, owner:repository.owner, repositories:[]});
     groups.get(key).repositories.push(repository);
   }
-  return [...groups.values()].sort((a,b) => a.key.localeCompare(b.key, 'en'));
-}
-export function repositoryDetailWidthLimits(viewportWidth) {
-  const defaultWidth = Math.min(680, viewportWidth);
-  // Preserve the existing readable drawer on smaller screens; on wide
-  // desktops it can grow to half the viewport without covering the catalogue.
-  return {enabled:viewportWidth > 860, defaultWidth, min:Math.min(420,defaultWidth), max:Math.max(defaultWidth,Math.floor(viewportWidth / 2))};
+  if (sort === 'topic') return [...groups.values()];
+  if (sort !== 'name') for (const group of groups.values()) group.repositories.sort(globalThis.OmniHubLibraryOrder.compare);
+  return [...groups.values()].sort((a,b) => sort === 'name' ? a.key.localeCompare(b.key, 'en')
+    : globalThis.OmniHubLibraryOrder.compare(a.repositories[0], b.repositories[0]) || a.key.localeCompare(b.key, 'en'));
 }
 export function mountRepositoryExplorer(root, { query = '', onQueryChange = () => {}, repositories = null, active = true, onCorrectClassification = null, onPreviewMedia = null } = {}) {
 const lifetime = new AbortController();
@@ -282,7 +280,8 @@ function filterRepositories(input) {
     return matchesForm && matchesUse && (!query || searchText.includes(query));
   });
   if (state.sort === 'name') output = [...output].sort((a,b) => a.name.localeCompare(b.name));
-  else output = [...output].sort((a,b) => (getNote(a)?.rank ?? Infinity) - (getNote(b)?.rank ?? Infinity));
+  else if (state.sort === 'topic') output = [...output].sort((a,b) => (getNote(a)?.rank ?? Infinity) - (getNote(b)?.rank ?? Infinity));
+  else output = [...output].sort(globalThis.OmniHubLibraryOrder.compare);
   return output;
 }
 function render() {
@@ -305,8 +304,8 @@ function render() {
   $('group-filter').hidden = isOverview;
   $('group-filter').value = state.group;
   const grouped = !isOverview && state.group === 'owner';
-  $('sort').querySelector('option[value="default"]').textContent = grouped ? '组内默认顺序' : '专题顺序';
-  $('sort').querySelector('option[value="name"]').textContent = grouped ? '组内名称 A–Z' : '名称 A–Z';
+  $('sort').querySelector('option[value="default"]').textContent = '最近整理';
+  $('sort').querySelector('option[value="name"]').textContent = grouped ? '作者 A–Z' : '名称 A–Z';
   for (const {select,control,value} of filterControls) {
     control.hidden = select.hidden || (isOverview && ['use-filter','form-filter'].includes(select.id));
     value.textContent = select.selectedOptions[0]?.textContent || '';
@@ -327,7 +326,7 @@ function render() {
       $('results').innerHTML = '<div class="empty-state"><h2>这次没有找到匹配的仓库</h2><p>试试更短的关键词，或清除形态筛选。</p><button class="text-button" data-reset>清除搜索与筛选</button></div>';
     } else {
       // Paginate complete owner groups so one author's repositories never split across batches.
-      resultItems = grouped ? groupRepositoriesByOwner(repos) : repos;
+      resultItems = grouped ? groupRepositoriesByOwner(repos, state.sort) : repos;
       renderedCount = Math.min(state.limit, resultItems.length);
       $('results').innerHTML = `<div class="${grouped ? 'owner-groups' : 'repo-grid'}">${resultItems.slice(0,renderedCount).map(grouped ? ownerGroup : card).join('')}</div>`;
     }
@@ -417,76 +416,12 @@ let detailRequest;
 const detailCache = new Map();
 const dialog = $('repo-dialog');
 const detailLayer = $('repo-detail-layer');
-const detailResizeHandle = $('resize-detail');
-let preferredDetailWidth = null;
-let detailResize = null;
-let detailResizeFrame = 0;
-let pendingDetailWidth = null;
-function syncDetailWidth() {
-  const limits = repositoryDetailWidthLimits(window.innerWidth);
-  const width = preferredDetailWidth === null ? limits.defaultWidth : Math.max(limits.min,Math.min(limits.max,preferredDetailWidth));
-  if (limits.enabled && preferredDetailWidth !== null) dialog.style.setProperty('--repository-detail-width',`${width}px`);
-  else dialog.style.removeProperty('--repository-detail-width');
-  detailResizeHandle.hidden = !limits.enabled;
-  detailResizeHandle.setAttribute('aria-valuemin',String(limits.min));
-  detailResizeHandle.setAttribute('aria-valuemax',String(limits.max));
-  detailResizeHandle.setAttribute('aria-valuenow',String(Math.round(width)));
-  detailResizeHandle.setAttribute('aria-valuetext',`${Math.round(width)} 像素`);
-}
-function setDetailWidth(width) {
-  const limits = repositoryDetailWidthLimits(window.innerWidth);
-  preferredDetailWidth = width === null ? null : Math.max(limits.min,Math.min(limits.max,width));
-  syncDetailWidth();
-}
-function flushDetailResize() {
-  cancelAnimationFrame(detailResizeFrame);
-  detailResizeFrame = 0;
-  if (pendingDetailWidth !== null) setDetailWidth(pendingDetailWidth);
-  pendingDetailWidth = null;
-}
-function stopDetailResize(cancel = false) {
-  const drag = detailResize;
-  detailResize = null;
-  if (cancel && drag) { pendingDetailWidth = null; setDetailWidth(drag.previousWidth); }
-  flushDetailResize();
-  dialog.classList.remove('is-resizing');
-  if (drag && detailResizeHandle.hasPointerCapture(drag.pointerId)) detailResizeHandle.releasePointerCapture(drag.pointerId);
-}
-listen(detailResizeHandle, 'pointerdown', event => {
-  if (event.button !== 0 || !event.isPrimary || !repositoryDetailWidthLimits(window.innerWidth).enabled) return;
-  event.preventDefault();
-  detailResizeHandle.focus({preventScroll:true});
-  detailResize = {pointerId:event.pointerId, x:event.clientX, width:dialog.getBoundingClientRect().width, previousWidth:preferredDetailWidth};
-  detailResizeHandle.setPointerCapture(event.pointerId);
-  dialog.classList.add('is-resizing');
-});
-listen(detailResizeHandle, 'pointermove', event => {
-  if (!detailResize || event.pointerId !== detailResize.pointerId) return;
-  pendingDetailWidth = detailResize.width + detailResize.x - event.clientX;
-  if (!detailResizeFrame) detailResizeFrame = requestAnimationFrame(flushDetailResize);
-});
-listen(detailResizeHandle, 'pointerup', () => stopDetailResize());
-listen(detailResizeHandle, 'pointercancel', () => stopDetailResize(true));
-listen(detailResizeHandle, 'lostpointercapture', () => stopDetailResize());
-listen(detailResizeHandle, 'dblclick', () => { stopDetailResize(); setDetailWidth(null); });
-listen(detailResizeHandle, 'keydown', event => {
-  if (event.key === 'Escape' && detailResize) {
-    event.preventDefault(); event.stopPropagation(); stopDetailResize(true); return;
-  }
-  const limits = repositoryDetailWidthLimits(window.innerWidth);
-  if (!limits.enabled || !['ArrowLeft','ArrowRight','Home','End','Enter'].includes(event.key)) return;
-  event.preventDefault(); event.stopPropagation();
-  const width = dialog.getBoundingClientRect().width;
-  const step = event.shiftKey ? 64 : 24;
-  setDetailWidth(event.key === 'Enter' ? null : event.key === 'Home' ? limits.min : event.key === 'End' ? limits.max : width + (event.key === 'ArrowLeft' ? step : -step));
-});
-listen(window, 'resize', () => { stopDetailResize(); syncDetailWidth(); });
-syncDetailWidth();
+const detailResize = window.OmniDetailDrawer.resize(dialog, $('resize-detail'));
 let releaseDrawer;
 let returnFocusKey = '';
-function releaseDetailShell() { stopDetailResize(); releaseDrawer?.(); releaseDrawer = null; }
+function releaseDetailShell() { detailResize.stop(); releaseDrawer?.(); releaseDrawer = null; }
 function showDetailShell() {
-  syncDetailWidth();
+  detailResize.sync();
   detailLayer.hidden = !active;
   if (active && !releaseDrawer) releaseDrawer = window.OmniDetailDrawer.mount(dialog, closeDetail);
   else if (active && !dialog.contains(window.OmniDetailDrawer.activeElement())) dialog.focus({preventScroll:true});
@@ -688,6 +623,7 @@ return {
     topicResize.disconnect();
     detailRequest?.abort();
     hideDetail();
+    detailResize.dispose();
     detailCache.clear();
   },
 };

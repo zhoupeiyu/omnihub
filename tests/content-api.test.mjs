@@ -17,11 +17,12 @@ test('feed keeps upstream scores, saves are queued without model calls, and priv
   t.after(async()=>{globalThis.fetch=originalFetch;await new Promise(resolve=>server.close(resolve));db.close();rmSync(dir,{recursive:true,force:true});});
   let upstream=0;
   globalThis.fetch=async(url,options)=>{
-    if(String(url).startsWith('https://aihot.virxact.com/')){upstream++;return new Response(JSON.stringify({items:[{titleZh:'上游标题',url:'https://example.com/news',summaryZh:'上游摘要',finalScore:87,aiSelected:true,aiSelectedReason:'上游推荐理由'}]}));}
+    if(String(url).startsWith('https://aihot.news/api/v1/items?')){upstream++;return new Response(JSON.stringify({schemaVersion:1,items:[{title:'上游标题',links:{original:'https://example.com/news',aihot:'https://aihot.news/items/example'},summary:'上游摘要',source:{name:'上游来源'},category:'ai-models',score:87,selected:true,reason:'上游推荐理由',publishedAt:'2026-10-24T02:00:00.000Z'}]}));}
     throw new Error('Unexpected external request');
   };
   const request=(route,{token,body,origin}={})=>originalFetch(base+route,{method:body?'POST':'GET',headers:{...(token?{cookie:`omnihub_session=${token}`}:{ }),...(body?{'content-type':'application/json'}:{}),...(origin?{origin}:{})},body:body?JSON.stringify(body):undefined});
   const feed=await (await request('/api/feed/aihot')).json();assert.equal(feed[0].score,87);assert.equal(feed[0].selected,true);assert.equal(feed[0].reason,'上游推荐理由');
+  assert.equal(feed[0].url,'https://example.com/news');assert.equal(feed[0].origin,'上游来源');assert.deepEqual(feed[0].tags,['AI 模型']);
   await request('/api/feed/aihot');assert.equal(upstream,1);
   assert.equal(db.prepare('SELECT count(*) n FROM inbox').get().n,0);
   const owner={token:'owner-fixture'};

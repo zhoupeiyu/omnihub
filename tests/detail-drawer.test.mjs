@@ -121,3 +121,16 @@ test('all detail drawers share the same shell instead of defining competing geom
   assert.doesNotMatch(read('repository-tab.css'), /\.repository-detail \{[^}]*position/);
   assert.match(read('repository-explorer-prototype.js'), /detailLayer.hidden = true; releaseDetailShell\(\)/);
 });
+
+
+test('resizable drawers keep the readable default and expand to half wide viewports', () => {
+  const window = {};
+  vm.runInNewContext(read('detail-drawer.js'), {window});
+  const limits = width => JSON.parse(JSON.stringify(window.OmniDetailDrawer.widthLimits(width)));
+  assert.deepEqual(limits(1920), {enabled:true,defaultWidth:680,min:420,max:960});
+  assert.equal(limits(1440).max, 720);
+  assert.equal(limits(2561).max, 1280);
+  assert.deepEqual(limits(1200), {enabled:true,defaultWidth:680,min:420,max:680});
+  assert.equal(limits(860).enabled, false);
+  assert.deepEqual(limits(390), {enabled:false,defaultWidth:390,min:390,max:390});
+});

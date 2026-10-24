@@ -53,7 +53,7 @@ test('repository navigation is a workspace tab and old URLs return to that tab',
 
 test('repository tabs stay mounted and no longer duplicate the header search', () => {
   assert.match(read('app.jsx'), /active=\{section === "repositories"\}/);
-  assert.match(read('app.jsx'), /showSearch=\{section !== "repositories" && !\(section === "feed"/);
+  assert.match(read('app.jsx'), /showSearch=\{!\["repositories", "knowledgeLibrary"\]\.includes\(section\) && !\(section === "feed"/);
   assert.match(read('app.jsx'), /sectionQueries\[queryKey\]/);
   assert.doesNotMatch(read('repository-explorer-prototype.js'), /showModal\(/);
   assert.match(read('repository-tab.html'), /class="repository-detail detail-drawer"/);

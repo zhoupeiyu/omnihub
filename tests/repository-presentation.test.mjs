@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { canFocusRepositorySearch, groupRepositoriesByOwner, repositoryDetailWidthLimits } from '../public/repository-explorer-prototype.js';
+import { canFocusRepositorySearch, groupRepositoriesByOwner } from '../public/repository-explorer-prototype.js';
 
 const ready = { active:true, detailOpen:false, editable:false, overlayOpen:false };
 
@@ -66,17 +66,4 @@ test('pagination by owner retains every matching repository in a displayed group
 
 test('an empty filtered result has no owner groups', () => {
   assert.deepEqual(groupRepositoriesByOwner([]), []);
-});
-
-
-test('repository drawer starts at its current width and can expand to half a wide viewport', () => {
-  assert.deepEqual(repositoryDetailWidthLimits(1920), {enabled:true,defaultWidth:680,min:420,max:960});
-  assert.equal(repositoryDetailWidthLimits(1440).max, 720);
-  assert.equal(repositoryDetailWidthLimits(2561).max, 1280);
-});
-
-test('narrow screens retain the readable default and mobile never enables resizing', () => {
-  assert.deepEqual(repositoryDetailWidthLimits(1200), {enabled:true,defaultWidth:680,min:420,max:680});
-  assert.equal(repositoryDetailWidthLimits(860).enabled, false);
-  assert.deepEqual(repositoryDetailWidthLimits(390), {enabled:false,defaultWidth:390,min:390,max:390});
 });

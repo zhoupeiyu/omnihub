@@ -3,6 +3,7 @@ import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
 import vm from 'node:vm';
 import {transformSync} from 'esbuild';
+import '../public/library-order.js';
 
 const source = readFileSync(new URL('../public/refinery.jsx', import.meta.url), 'utf8');
 const css = readFileSync(new URL('../public/prompt-library.css', import.meta.url), 'utf8');
@@ -50,7 +51,8 @@ test('detail is an independent overlay and preserves full source text and media 
   assert.match(drawerCss, /overscroll-behavior:contain/);
   assert.match(drawerCss, /prefers-reduced-motion:reduce/);
   assert.match(source, /<DetailDrawer id="prompt-detail"/);
-  assert.match(source, /<pre>\{item.text\}<\/pre>/);
+  assert.match(source, /<pre>\{content.text\}<\/pre>/);
+  assert.match(source, /clipboard.writeText\(item.text\)/);
   assert.match(source, /media\.map\(\(entry, i\)/);
   assert.match(source, /focus\(\{ preventScroll: true \}\)/);
   assert.match(source, /label = "原帖配图"/);
@@ -63,6 +65,7 @@ function renderLibrary() {
   const states = [];
   let cursor = 0;
   const runtime = vm.createContext({
+    OmniHubLibraryOrder:globalThis.OmniHubLibraryOrder,
     React:{createElement:(type,props,...children)=>({type,props:{...props,children}})},
     useRefineryState(initial) {
       const slot = cursor++;
@@ -71,7 +74,7 @@ function renderLibrary() {
     },
     useRefineryRef:()=>({current:null}),useRefineryEffect:()=>{},
     document:{activeElement:null},inboxMedia:item=>item.media||[],
-    PROMPT_TAG_LABELS:{},PromptLibraryCard:'card',PromptDetail:'detail',PromptMediaViewer:'viewer',
+    PROMPT_TAG_LABELS:{cinematic:'电影感'},PromptLibraryCard:'card',PromptDetail:'detail',PromptMediaViewer:'viewer',
   });
   vm.runInContext(helpers+'\n'+transformSync(source.slice(source.indexOf('function PromptLibraryView')), {loader:'jsx'}).code, runtime);
   return props => {cursor=0;return runtime.PromptLibraryView({query:'',...props});};
@@ -116,4 +119,48 @@ test('video covers keep the original playable detail entry and empty media does 
   findElement(render(props),'detail').props.onClose();
   findElement(render(props),'card').props.onPreview({...item,media:[]},0);
   assert.equal(findElement(render(props),'viewer'),null);
+});
+
+
+test('reading separates trailing X attachment links without changing URLs used in the prompt', () => {
+  const original = 'Create an image.\nKeep this spacing.\n\nhttps://t.co/Ab123\nhttps://t.co/Cd456';
+  const result = context.promptReadingContent(original);
+  assert.equal(result.text, 'Create an image.\nKeep this spacing.');
+  assert.deepEqual(Array.from(result.links), ['https://t.co/Ab123','https://t.co/Cd456']);
+  for (const text of ['Open https://t.co/Ab123 in the browser.', 'Use this URL:\nhttps://example.com/model', 'https://t.co/Ab123', 'Copy this code:\n```text\nhttps://t.co/Ab123', 'Copy this code:\n~~~\nhttps://t.co/Ab123']) {
+    assert.equal(context.promptReadingContent(text).text, text);
+    assert.equal(context.promptReadingContent(text).links.length, 0);
+  }
+  assert.equal(context.promptReadingContent(original,true).text,original);
+  assert.equal(context.promptReadingContent('Frame in 9:16 https://t.co/Ab123').text,'Frame in 9:16');
+  assert.equal(context.promptReadingContent('Keep <instructions> and **markdown** intact.').text, 'Keep <instructions> and **markdown** intact.');
+});
+
+function findAll(node, predicate) {
+  if (!node || typeof node !== 'object') return [];
+  return [...(predicate(node) ? [node] : []), ...(Array.isArray(node) ? node : node.props?.children || []).flatMap(child => findAll(child,predicate))];
+}
+
+test('category tabs combine with search and facets; switching tabs clears stale facets', () => {
+  const render = renderLibrary();
+  const items = [
+    {id:1,title:'Cat image',text:'Draw',category:'图像生成',tags:['cinematic'],facets:{subject:{value:'animal'},style:{value:'cinematic'}}},
+    {id:2,title:'Cat film',text:'Record',category:'视频生成',tags:[],facets:{subject:{value:'animal'},style:{value:'photorealistic'}}},
+    {id:3,title:'Code',text:'Build',category:'编程',tags:[],facets:{subject:{value:'software'}}}
+  ];
+  const props = {items};
+  const tab = (tree,value) => findAll(tree,node => node.props?.role === 'tab').find(node => node.props.children[0] === value);
+  const cards = tree => findAll(tree,node => node.type === 'card').map(node => node.props.item.id);
+  let tree = render(props);
+  assert.deepEqual(cards(tree),[1,2,3]);
+  tab(tree,'图像生成').props.onClick();
+  tree = render(props);
+  assert.deepEqual(cards(tree),[1]);
+  findAll(tree,node => node.type === 'select' && node.props['aria-label'] === '按风格筛选提示词')[0].props.onChange({target:{value:'cinematic'}});
+  tab(render(props),'视频生成').props.onClick();
+  assert.deepEqual(cards(render(props)),[2]);
+  tab(render(props),'全部').props.onClick();
+  assert.deepEqual(cards(render({...props,query:'Cat'})),[1,2]);
+  assert.deepEqual(cards(render({...props,query:'电影感'})),[1]);
+  assert.deepEqual(cards(render({...props,query:'no match'})),[]);
 });

@@ -85,7 +85,7 @@ test("X originals and media are owner-only even for legacy public rows", async (
     assert.equal(saved.status, 200);
     const { ids } = await saved.json();
     assert.equal(ids.length, 3);
-    assert.equal((await request(`/api/inbox/${ids[2]}/ignore`, { method: "POST", cookie: owner.cookie })).status, 200);
+    assert.equal((await request(`/api/inbox/${ids[2]}/ignore`, { method: "POST", cookie: owner.cookie, body:{} })).status, 200);
 
     const db = new DatabaseSync(path.join(dataDir, "app.db"));
     try {
@@ -118,14 +118,14 @@ test("X originals and media are owner-only even for legacy public rows", async (
       body: { visibility: "public" } })).status, 200);
 
     for (const cookie of ["", guest.cookie, nameVariant.cookie]) {
-      const expected = cookie ? 403 : 401;
+      const expected = cookie ? 200 : 401;
       for (const route of ["/api/x-bookmarks", "/api/account/x", "/api/x-media/1/" + "a".repeat(64)]) {
         const response = await request(route, { cookie, headers: { "If-None-Match": '"previously-public"' } });
-        assert.equal(response.status, expected);
+        assert.equal(response.status, route.startsWith("/api/x-media/") && cookie ? 404 : expected);
         assert.equal(response.headers.get("cache-control"), "no-store");
         assert.doesNotMatch(await response.text(), /介绍一个有用的方法|private.jpg|私密锻炼/);
       }
-      assert.equal((await request("/api/account/x/connect", { method:"POST", cookie, body:{} })).status,expected);
+      assert.equal((await request("/api/account/x/connect", { method:"POST", cookie, body:{} })).status,cookie ? 409 : 401);
     }
     const ownerRows = await (await request("/api/x-bookmarks", {cookie:owner.cookie})).json();
     assert.equal(ownerRows.length,4);
@@ -134,18 +134,19 @@ test("X originals and media are owner-only even for legacy public rows", async (
     assert.ok(ownerRows.every(row=>row.source==="x" && row.userId!==guest.user.id));
     const connection=await (await request("/api/account/x", {cookie:owner.cookie})).json();
     assert.equal(connection.connected,false);
-    assert.equal(connection.owner,"zane");
     assert.equal((await request("/api/account/x/connect", {method:"POST",cookie:owner.cookie,body:{},headers:{Origin:"https://evil.example"}})).status,403);
     assert.equal((await request("/api/account/x/connect", {method:"POST",cookie:owner.cookie,body:{}})).status,409);
     assert.equal((await request("/api/account/x/sync-settings", {method:"POST",cookie:owner.cookie,body:{enabled:true}})).status,409);
 
     assert.equal((await request("/api/inbox")).status, 401);
-    assert.equal((await request("/api/inbox", { cookie: guest.cookie })).status, 403);
-    assert.equal((await request("/api/inbox", { cookie: nameVariant.cookie })).status, 403);
-    assert.equal((await request(`/api/inbox/${ids[1]}`, { cookie: guest.cookie })).status, 403);
+    const guestInbox = await (await request("/api/inbox", {cookie:guest.cookie})).json();
+    assert.equal(guestInbox.length,1);
+    assert.equal(guestInbox[0].content,"Other user content");
+    assert.deepEqual(await (await request("/api/inbox", {cookie:nameVariant.cookie})).json(),[]);
+    assert.equal((await request(`/api/inbox/${ids[1]}`, { cookie: guest.cookie })).status, 404);
     assert.equal((await request("/api/inbox/import", { method: "POST", cookie: guest.cookie,
-      body: { content: "attempt" } })).status, 403);
-    assert.equal((await request(`/api/inbox/${ids[1]}/ignore`, { method: "POST", cookie: guest.cookie })).status, 403);
+      body: { content: "own note" } })).status, 200);
+    assert.equal((await request(`/api/inbox/${ids[1]}/ignore`, { method: "POST", cookie: guest.cookie, body:{} })).status, 409);
     assert.equal((await request("/api/x-bookmarks", { method: "POST", body: {} })).status, 404);
     const privateInbox = await request("/api/inbox", { cookie: owner.cookie });
     assert.equal(privateInbox.status, 200);

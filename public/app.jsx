@@ -1431,7 +1431,7 @@ function Workspace({ user, onUserChange, showToast, toast }) {
   return (
     <div>
       <Header query={query} onQueryChange={setQuery}
-        showSearch={section !== "repositories" && !(section === "feed" && canUseFullApp && feedMode === "accounts")}
+        showSearch={!["repositories", "knowledgeLibrary"].includes(section) && !(section === "feed" && canUseFullApp && feedMode === "accounts")}
         searchPlaceholder={SEARCH_PLACEHOLDERS[section]}
         greeting={user ? `${getGreeting(now.getHours())}，${user.username}` : getGreeting(now.getHours())}
         dateText={formatToday(now)}
@@ -1485,7 +1485,8 @@ function Workspace({ user, onUserChange, showToast, toast }) {
           {sectionDataReady && dataLoad.error && <p role="status" className="muted">更新失败，仍显示上次内容。<button className="btn btn-ghost" onClick={retryPublicInbox}>重试</button></p>}
           <WorkspacePanel active={section === 'knowledgeLibrary'} name="knowledgeLibrary">
           {dataLoads.knowledgeLibrary?.hasData && (
-            <KnowledgeLibraryView items={knowledgeLibrary} query={queryFor('knowledgeLibrary')} requestedId={requestedKnowledgeId} onCorrectClassification={onCorrectClassification}
+            <KnowledgeLibraryView key={`${user?.id || 'guest'}:${catalogueScope}`} items={knowledgeLibrary} query={queryFor('knowledgeLibrary')} active={section === 'knowledgeLibrary'}
+              onQueryChange={value => setQuery(value, 'knowledgeLibrary')} requestedId={requestedKnowledgeId} onCorrectClassification={onCorrectClassification}
               scopeSwitch={user ? <CatalogueSpaceSwitch user={user} /> : null}
               onOpenPrompt={id => {setSectionQueries(previous => ({...previous,[`${user?.id || 'guest'}:promptLibrary`]:''})); setRequestedPromptSourceId(id); setSection('promptLibrary');}}
               onRequestedIdHandled={() => setRequestedKnowledgeId(null)} />
@@ -1493,6 +1494,7 @@ function Workspace({ user, onUserChange, showToast, toast }) {
           </WorkspacePanel>
           <WorkspacePanel active={section === 'promptLibrary'} name="promptLibrary">
           {dataLoads.promptLibrary?.hasData && <PromptLibraryView active={section === 'promptLibrary'} items={promptLibrary} query={queryFor('promptLibrary')} onCorrectClassification={onCorrectClassification} onOpenMethod={openMethod}
+            onQueryChange={value => setQuery(value, 'promptLibrary')}
             onCreateMedia={personalAccess ? createFromLibraryPrompt : undefined}
             requestedSourceId={requestedPromptSourceId} onRequestedSourceHandled={() => setRequestedPromptSourceId(null)} />}
           </WorkspacePanel>

@@ -19,7 +19,7 @@ test('repeated references open the archived original in the same workspace', () 
   const html = render(`第一段${marker}\n\n第二段${marker}`);
   assert.equal((html.match(/class="knowledge-citation"/g) || []).length, 2);
   assert.equal((html.match(/href="#inbox\?source=42"/g) || []).length, 2);
-  assert.match(html, /引用原文：Seedance 分镜与运镜示例/);
+  assert.match(html, /\[1\]<\/a>/);
   assert.doesNotMatch(html, /target=|href="https:/);
   assert.match(html, /原文摘录：原帖中的完整提示词/);
   assert.doesNotMatch(html, /S:2020788951678607813|#source-/);
@@ -40,7 +40,7 @@ test('anonymous citation links show the source title and point to public X witho
   const html = render(marker, [{...sources[0],private:true,title:'公开收藏标题',excerpt:''}]);
   assert.match(html,/href="https:\/\/x.com\/author\/status\/2020788951678607813"/);
   assert.match(html,/在 X 查看公开原帖/);
-  assert.match(html,/引用原文：公开收藏标题/);
+  assert.match(html,/aria-label="在 X 查看公开原帖：公开收藏标题"/);
   assert.doesNotMatch(html,/#inbox|原文摘录/);
 });
 
@@ -49,19 +49,19 @@ test('titles and excerpts are escaped and external source URLs are not used as t
     excerpt:'"><img src=x onerror="bad">', url:'https://example.com/?a=1&b=2'}]);
   assert.match(html, /href="#inbox\?source=42"/);
   assert.doesNotMatch(html, /example.com/);
-  assert.match(html, /引用原文：&lt;b&gt;&quot; &amp; test/);
+  assert.match(html, /aria-label="查看站内原文：&lt;b&gt;&quot; &amp; test"/);
   assert.match(html, /&lt;img src=x onerror=&quot;bad&quot;&gt;/);
   assert.doesNotMatch(html, /<img|<b>/);
 });
 
-test('long Unicode titles render in full as the visible citation label', () => {
+test('compact citation numbers retain full Unicode titles in accessible labels', () => {
   const title = '😱'.repeat(28);
   const html = render(marker, [{...sources[0], title}]);
-  assert.ok(html.includes(`引用原文：${title}<span`));
+  assert.match(html, /\[1\]<\/a>/);
   assert.doesNotMatch(html, /…/);
   assert.ok(html.includes(`aria-label="查看站内原文：${title}"`));
   assert.doesNotMatch(source, /characters\.length > 26|slice\(0, 26\)/);
-  assert.match(render(marker, [{...sources[0], title:''}]), /引用原文：@author 的原帖/);
+  assert.match(render(marker, [{...sources[0], title:''}]), /查看站内原文：@author 的原帖/);
 });
 
 test('inline and fenced code plus existing links preserve their literal reference examples', () => {
