@@ -733,7 +733,7 @@ function AihotFeedView({ active = true, query, onSaveToInbox, onCorrectClassific
   }
 
   return (
-    <div>
+    <div className="aihot-feed">
       <div className="feed-toolbar">
         <div className="filter-bar">
           {rich && topTags.length > 0 && (
@@ -761,7 +761,8 @@ function AihotFeedView({ active = true, query, onSaveToInbox, onCorrectClassific
         </PillTabs>
       )}
       <div className={"feed-layout" + (isLoading && !hasCachedItems ? " feed-layout-loading" : "")}>
-        <div className={"feed-list" + (isLoading && !hasCachedItems ? " feed-list-loading" : "")}>
+        <div className={"feed-list" + (isLoading && !hasCachedItems ? " feed-list-loading" : "")}
+          role="region" aria-label="资讯列表" tabIndex={0}>
           {isLoading && !hasCachedItems && (
             <FeedSkeleton count={6} />
           )}
