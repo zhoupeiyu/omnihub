@@ -761,26 +761,63 @@ function PromptMediaViewer({ media, index, onSelect, onClose, label = "原帖配
   </div>, document.body);
 }
 
+function PromptVideoPlayer({ media, sourceUrl, active = true }) {
+  const video = useRefineryRef(null);
+  const [status, setStatus] = useRefineryState('idle');
+  useRefineryEffect(() => { if (!active) video.current?.pause(); }, [active]);
+  const play = () => {
+    const player = video.current;
+    if (!player) return;
+    if (player.error) player.load();
+    setStatus('loading');
+    // Call play in the click handler so playback retains the user gesture.
+    player.play().catch(error => {
+      if (player.isConnected && error.name !== 'AbortError') setStatus(error.name === 'NotAllowedError' ? 'paused' : 'error');
+    });
+  };
+  const source = media.sourceUrl || sourceUrl;
+  return <div className={`prompt-video-player is-${status}`}>
+    <div className="prompt-video-stage">
+      <div className="prompt-video-poster"><PromptExampleImage media={media} /></div>
+      {media.videoUrl && <video ref={video} className="prompt-example-video" src={media.videoUrl} poster={media.url}
+        controls playsInline preload="none" aria-label="原帖效果视频"
+        onPlay={event => {
+          document.querySelectorAll('.prompt-video-player video').forEach(other => { if (other !== event.currentTarget) other.pause(); });
+        }}
+        onPlaying={() => setStatus('playing')} onWaiting={() => setStatus('loading')}
+        onPause={() => setStatus(current => current === 'error' ? current : 'paused')}
+        onEnded={() => setStatus('paused')} onError={() => setStatus('error')} />}
+      {media.videoUrl && status !== 'playing' && <button className="prompt-video-play" onClick={play}
+        disabled={status === 'loading'} aria-label={status === 'error' ? '重试播放视频' : status === 'loading' ? '视频加载中' : '播放视频'}>
+        <span aria-hidden="true">{status === 'loading' ? '…' : '▶'}</span>
+      </button>}
+      {status === 'loading' && <span className="prompt-video-loading" role="status">正在加载视频…</span>}
+    </div>
+    {(!media.videoUrl || status === 'error') && <p className="prompt-example-note" role="status">
+      {media.videoUrl ? '视频加载失败，可重试或到原帖观看。' : '当前仅保存了视频封面。'}
+      {source && <a href={source} target="_blank" rel="noopener noreferrer">到原帖观看 ↗</a>}
+    </p>}
+  </div>;
+}
+
 function PromptExampleGallery({ item, initialIndex = 0 }) {
   const media = inboxMedia(item);
   const [index, setIndex] = useRefineryState(() => promptMediaIndex(initialIndex, media.length));
   const [preview, setPreview] = useRefineryState(false);
-  const [videoFailed, setVideoFailed] = useRefineryState(false);
   const touch = useRefineryRef(null);
   const current = media[index] || media[0];
   if (!current) return null;
-  const select = (next) => { setIndex(promptMediaIndex(next, media.length)); setVideoFailed(false); };
+  const select = (next) => setIndex(promptMediaIndex(next, media.length));
   return <section className="prompt-example-gallery" aria-label="原帖配图"
     onKeyDown={event => {
-      if (preview || event.target.tagName === "VIDEO") return;
+      if (preview || event.target.closest('.prompt-video-player')) return;
       if (["ArrowLeft", "ArrowRight"].includes(event.key)) {
         event.preventDefault(); select(index + (event.key === "ArrowRight" ? 1 : -1));
       }
     }}>
     <div className="prompt-example-heading"><strong>{media.some(entry => entry.video) ? '原帖媒体' : '原帖配图'}</strong><span aria-live="polite">{index + 1} / {media.length}</span></div>
-    {current.video && current.videoUrl && !videoFailed
-      ? <video key={current.videoUrl} className="prompt-example-video" src={current.videoUrl} poster={current.url}
-          controls playsInline preload="none" aria-label="原帖效果视频" onError={() => setVideoFailed(true)} />
+    {current.video
+      ? <PromptVideoPlayer key={current.videoUrl || current.url} media={current} sourceUrl={item.sourceUrl} active={!preview} />
       : <button className="prompt-example-hero" onClick={() => {
           if (touch.current?.swiped) { touch.current = null; return; }
           setPreview(true);
@@ -795,10 +832,6 @@ function PromptExampleGallery({ item, initialIndex = 0 }) {
           <PromptExampleImage key={current.url} media={current} />
           <span className="prompt-example-badge">{current.video ? '视频封面' : '点击放大'}</span>
         </button>}
-    {current.video && (!current.videoUrl || videoFailed) && <p className="prompt-example-note">
-      {videoFailed ? '视频暂时无法播放。' : '当前仅保存了视频封面。'}
-      {(current.sourceUrl || item.sourceUrl) && <a href={current.sourceUrl || item.sourceUrl} target="_blank" rel="noopener noreferrer">到原帖观看 ↗</a>}
-    </p>}
     {current.sourceUrl && current.sourceRelation !== 'original' && <a className="prompt-media-source" href={current.sourceUrl} target="_blank" rel="noopener noreferrer">
       {current.sourceRelation === 'quoted' ? '来自引用帖' : '来自同一讨论串'} <span aria-hidden="true">↗</span></a>}
     {media.length > 1 && <div className="prompt-example-thumbnails" aria-label="选择原帖配图">
@@ -811,7 +844,7 @@ function PromptExampleGallery({ item, initialIndex = 0 }) {
   </section>;
 }
 
-function PromptLibraryCard({ item, selected, onOpen, onPreview }) {
+function PromptLibraryCard({ item, selected, onOpen, onPreview, active = true }) {
   const media = inboxMedia(item);
   const [index, setIndex] = useRefineryState(() => item.category === '视频生成' ? Math.max(0, media.findIndex(entry => entry.video)) : 0);
   const [coverHeight, setCoverHeight] = useRefineryState(null);
@@ -822,7 +855,12 @@ function PromptLibraryCard({ item, selected, onOpen, onPreview }) {
     setIndex(next);
   };
   return <article className={`prompt-refinery-card${selected ? " is-selected" : ""}`} aria-label={item.title}>
-    {current && <button className={`prompt-example-cover${coverHeight ? " has-fixed-height" : ""}`} ref={cover}
+    {current?.video ? <div className={`prompt-example-cover${coverHeight ? " has-fixed-height" : ""}`} ref={cover}
+      style={coverHeight ? { '--prompt-video-height': `${coverHeight}px` } : undefined}>
+      <PromptVideoPlayer key={current.videoUrl || current.url} media={current} sourceUrl={item.sourceUrl} active={active} />
+      <span className="prompt-example-badge">共 {media.length} 项</span>
+      <span className="prompt-cover-video">视频</span>
+    </div> : current && <button className={`prompt-example-cover${coverHeight ? " has-fixed-height" : ""}`} ref={cover}
       style={coverHeight ? { height: coverHeight } : undefined} onClick={() => onPreview(item, index)}
       aria-label={`${current.video ? '查看提示词视频' : '放大提示词配图'}：${item.title}`} aria-haspopup="dialog">
       <PromptExampleImage key={current.url} media={current} />
@@ -1009,7 +1047,7 @@ function PromptLibraryView({ active = true, items, query, onQueryChange, onCorre
         <span role="status">{visible.length} 条提示词</span>
       </div>
       <div className="prompt-refinery-grid" ref={grid}>{visible.map(item => <PromptLibraryCard key={item.id} item={item}
-        selected={selected?.item.id === item.id} onOpen={openDetail} onPreview={openPreview} />)}</div>
+        selected={selected?.item.id === item.id} active={active && !selected && !preview} onOpen={openDetail} onPreview={openPreview} />)}</div>
       {!visible.length && <div className="prompt-empty"><p>没有匹配的提示词</p><button className="btn" onClick={resetFilters}>查看全部提示词</button></div>}
       </div>
     </div>

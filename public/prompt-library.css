@@ -52,6 +52,21 @@
 .prompt-example-hero img { display:block; width:100%; height:auto; max-height:calc(100dvh - 160px); object-fit:contain; }
 .prompt-example-hero .prompt-example-badge { inset:auto 10px 10px auto; }
 .prompt-example-video { display:block; width:100%; max-height:65dvh; border-radius:7px; background:#111; }
+.prompt-video-stage { position:relative; overflow:hidden; min-height:140px; border-radius:7px; background:#111; }
+.prompt-video-poster img { display:block; width:100%; max-height:65dvh; object-fit:contain; }
+.prompt-video-stage .prompt-example-video { position:absolute; inset:0; height:100%; max-height:none; object-fit:contain; }
+.prompt-video-player.is-idle video, .prompt-video-player.is-error video { visibility:hidden; }
+.prompt-video-player .prompt-video-play { position:absolute; top:50%; left:50%; display:grid; place-items:center; width:52px; height:52px; padding:0; transform:translate(-50%,-50%); border:1px solid rgb(255 255 255 / .65); border-radius:50%; background:rgb(0 0 0 / .68); color:#fff; font:20px/1 var(--font-body); cursor:pointer; }
+.prompt-video-play span { margin-left:3px; }
+.prompt-video-play:hover:not(:disabled) { background:rgb(0 0 0 / .85); }
+.prompt-video-play:disabled { cursor:wait; }
+.prompt-video-play:focus-visible { outline:2px solid #fff; outline-offset:4px; }
+.prompt-video-loading { position:absolute; top:calc(50% + 36px); left:50%; transform:translateX(-50%); padding:4px 8px; border-radius:4px; background:rgb(0 0 0 / .7); color:#fff; font-size:12px; white-space:nowrap; pointer-events:none; }
+.prompt-example-cover .prompt-video-stage { border-radius:0; }
+.prompt-example-cover .prompt-video-poster img { max-height:420px; }
+.prompt-example-cover.has-fixed-height .prompt-video-stage { height:var(--prompt-video-height); }
+.prompt-example-cover.has-fixed-height .prompt-video-poster { height:100%; }
+.prompt-example-cover .prompt-example-note { padding:0 12px 10px; }
 .prompt-example-note { margin:8px 0; color:var(--text-3); font-size:12px; line-height:1.6; }
 .prompt-example-note a { margin-left:6px; color:var(--accent); }
 .prompt-media-source { display:inline-flex; align-items:center; gap:5px; min-height:32px; margin-top:6px; color:var(--text-3); font-size:12px; text-decoration:none; }
