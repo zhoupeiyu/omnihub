@@ -1,5 +1,6 @@
 import { REPOSITORY_TOPICS as topics, REPOSITORY_FORMS, SUBTOPICS, isValidClassification } from './repository-taxonomy.js';
 import { readRepositoryLocation, repositoryLocation } from './repository-navigation.js';
+import { createRepositoryFilter } from './repository-filter.js';
 import './library-order.js';
 import { getRepositoryDescription, getRepositorySummary } from './repository-localization.js';
 import { getRepositoryGuide, loadRepositoryGuide, renderRepositoryGuide, renderGuideInstallation, renderRepositoryGuideMeta, renderRepositoryGuideSources } from './repository-guides.js';
@@ -180,20 +181,7 @@ const avatar = repo => `<span class="avatar" aria-hidden="true">${escapeHtml(rep
 listen(root, 'error', event => { if (event.target instanceof HTMLImageElement && event.target.closest('.avatar')) event.target.remove(); }, { capture: true });
 $('search-icon').innerHTML = icon('search');
 $('results').dataset.view = 'cards';
-// As in the life-guide filters, a visible value sizes the control while the native select handles input.
-const filterControls = [...root.querySelectorAll('.filters select')].map(select => {
-  const control = document.createElement('span');
-  control.className = 'filter-select';
-  const value = document.createElement('span');
-  value.className = 'filter-value';
-  value.setAttribute('aria-hidden', 'true');
-  const arrow = document.createElement('span');
-  arrow.className = 'filter-arrow';
-  arrow.setAttribute('aria-hidden', 'true');
-  select.replaceWith(control);
-  control.append(value, arrow, select);
-  return {select,control,value};
-});
+const filterControls = [...root.querySelectorAll('.filters select')].map(createRepositoryFilter);
 const topicTabs = $('topic-tabs');
 function updateTopicOverflow() {
   $('topic-scroll-controls').hidden = topicTabs.scrollWidth <= topicTabs.parentElement.clientWidth + 1;
@@ -235,7 +223,7 @@ listen(topicTabs, 'keydown', event => {
 listen(window, 'keydown', event => {
   if (event.key !== '/' || !active) return;
   const target = event.composedPath()[0];
-  const editable = target?.isContentEditable || Boolean(target?.closest?.('input, textarea, select, [role="textbox"], [contenteditable]:not([contenteditable="false"])'));
+  const editable = target?.isContentEditable || Boolean(target?.closest?.('input, textarea, select, [role="combobox"], [role="textbox"], [contenteditable]:not([contenteditable="false"])'));
   const overlayOpen = document.body.dataset.detailDrawerOpen === 'true'
     || Boolean(root.host?.closest('[inert]'))
     || [...document.querySelectorAll('[aria-modal="true"], dialog[open], .modal-overlay, .lightbox, .inbox-media-overlay')].some(element => element.getClientRects().length);
@@ -343,9 +331,8 @@ function render() {
   const grouped = !isOverview && state.group === 'owner';
   $('sort').querySelector('option[value="default"]').textContent = '最近整理';
   $('sort').querySelector('option[value="name"]').textContent = grouped ? '作者 A–Z' : '名称 A–Z';
-  for (const {select,control,value} of filterControls) {
-    control.hidden = select.hidden || (isOverview && ['use-filter','form-filter'].includes(select.id));
-    value.textContent = select.selectedOptions[0]?.textContent || '';
+  for (const filter of filterControls) {
+    filter.update(filter.select.hidden || (isOverview && ['use-filter','form-filter'].includes(filter.select.id)));
   }
   $('clear').hidden = !state.query && state.form === 'all' && state.use === 'all';
   $('results').classList.toggle('overview-results', isOverview);
@@ -642,6 +629,7 @@ listen(window, 'hashchange', () => {
 return {
   setActive(value) {
     active = value;
+    if (!active) filterControls.forEach(filter => filter.close());
     if (!active) { moreObserver.disconnect(); onPreviewMedia?.(null); detailLayer.hidden = true; releaseDetailShell(); }
     else if (state.detail) showDetailShell();
     if (active) restorePosition(savedScroll);
@@ -656,6 +644,7 @@ return {
   },
   destroy() {
     lifetime.abort();
+    filterControls.forEach(filter => filter.destroy());
     moreObserver.disconnect();
     topicResize.disconnect();
     detailRequest?.abort();
