@@ -6,10 +6,13 @@ import {validateRepositoryGuide} from '../public/repository-guides.js';
 
 const root=path.resolve(path.dirname(fileURLToPath(import.meta.url)),'..');
 const run=path.resolve(process.argv.slice(2).find(x=>!x.startsWith('--'))||path.join(root,'data/repository-guides',new Date().toISOString().slice(0,10)));
-const assets=path.join(root,'public/assets/repository-guides');
+const privateRun=process.argv.includes('--private');
+const assets=privateRun ? path.join(run,'assets') : path.join(root,'public/assets/repository-guides');
 const readJson=async file=>JSON.parse(await readFile(file,'utf8'));
 const inventory=await readJson(path.join(run,'inventory.json'));
-const allowed=new Set(inventory.keys),failures=[],totals={publicInventory:allowed.size,ready:0,partial:0,unavailable:0,withMedia:0,media:0,bytes:0};
+if(privateRun !== (inventory.scope==='private'))throw new Error('Guide audit scope does not match inventory');
+if(privateRun && process.argv.includes('--verify-public'))throw new Error('Private guides cannot use public inventory verification');
+const allowed=new Set(inventory.keys),failures=[],totals={[privateRun?'privateInventory':'publicInventory']:allowed.size,ready:0,partial:0,unavailable:0,withMedia:0,media:0,bytes:0};
 let publicVerifiedAt=null;
 if(process.argv.includes('--verify-public')) {
   const response=await fetch('https://omnihub.noxhub.org/api/repositories',{redirect:'error',signal:AbortSignal.timeout(30000)});
@@ -31,7 +34,7 @@ for(const file of files) {
   for(const media of guide.media||[]) {
     totals.media++;
     if(!/^\/assets\/repository-guides\/(?:media-[a-f0-9]{24}|toonflow-[a-z]+)\.webp$/.test(media.url)){failures.push({file,reason:'non_local_media'});continue;}
-    try {const bytes=await readFile(path.join(root,'public',media.url));if(bytes.subarray(0,4).toString()!=='RIFF'||bytes.subarray(8,12).toString()!=='WEBP')failures.push({file,reason:'invalid_image_signature'});}
+    try {const bytes=await readFile(path.join(assets,path.basename(media.url)));if(bytes.subarray(0,4).toString()!=='RIFF'||bytes.subarray(8,12).toString()!=='WEBP')failures.push({file,reason:'invalid_image_signature'});}
     catch {failures.push({file,reason:'missing_media_file'});}
   }
   if(guide.curated||guide.status==='unavailable')continue;

@@ -519,7 +519,95 @@ function KnowledgeHighlight({text, query}) {
   return index < 0 ? value : <React.Fragment>{value.slice(0,index)}<mark>{value.slice(index,index + needle.length)}</mark>{value.slice(index + needle.length)}</React.Fragment>;
 }
 
-function KnowledgeLibraryView({ items, query, onQueryChange, active = true, requestedId, onRequestedIdHandled, onCorrectClassification, onOpenPrompt, scopeSwitch }) {
+function KnowledgeToolFilter({ value, options, onChange, active }) {
+  const [open, setOpen] = useRefineryState(false);
+  const [highlighted, setHighlighted] = useRefineryState(0);
+  const [position, setPosition] = useRefineryState(null);
+  const trigger = useRefineryRef(null), menu = useRefineryRef(null);
+  const search = useRefineryRef({text:'', time:0});
+  const id = React.useId();
+  const choices = useRefineryMemo(() => [{value:'all', label:'全部适用对象'}, ...options.map(item => ({value:item, label:item}))], [options]);
+  const selected = Math.max(0, choices.findIndex(item => item.value === value));
+  const close = () => { setOpen(false); search.current.text = ''; };
+  const show = () => { setHighlighted(selected); setPosition(null); setOpen(true); };
+  const choose = index => { onChange(choices[index].value); close(); trigger.current?.focus({preventScroll:true}); };
+
+  useRefineryEffect(() => { close(); }, [value, options, active]);
+  React.useLayoutEffect(() => {
+    if (!open) return;
+    const update = () => {
+      const rect = trigger.current.getBoundingClientRect(), viewport = window.visualViewport;
+      if (!rect.width) { setOpen(false); return; }
+      const left = (viewport?.offsetLeft || 0) + 8;
+      const right = left + (viewport?.width || document.documentElement.clientWidth) - 16;
+      const top = Math.max(viewport?.offsetTop || 0, document.querySelector('.header-bar')?.getBoundingClientRect().bottom || 0) + 8;
+      const bottom = (viewport?.offsetTop || 0) + (viewport?.height || innerHeight) - 8;
+      const width = Math.min(rect.width, right - left);
+      const below = Math.max(0, bottom - rect.bottom - 6), above = Math.max(0, rect.top - top - 6);
+      const upward = below < 200 && above > below;
+      const maxHeight = Math.min(300, upward ? above : below);
+      setPosition({left:Math.max(left, Math.min(rect.left, right - width)), top:upward ? rect.top - 6 - Math.min(maxHeight, menu.current.scrollHeight) : rect.bottom + 6, width, maxHeight});
+    };
+    const outside = event => { if (!trigger.current.contains(event.target) && !menu.current.contains(event.target)) close(); };
+    const scroll = event => { if (!menu.current.contains(event.target)) update(); };
+    update();
+    const resize = new ResizeObserver(update);
+    resize.observe(trigger.current);
+    window.addEventListener('resize', update);
+    document.addEventListener('scroll', scroll, true);
+    document.addEventListener('pointerdown', outside);
+    window.visualViewport?.addEventListener('resize', update);
+    window.visualViewport?.addEventListener('scroll', update);
+    return () => {
+      resize.disconnect();
+      window.removeEventListener('resize', update);
+      document.removeEventListener('scroll', scroll, true);
+      document.removeEventListener('pointerdown', outside);
+      window.visualViewport?.removeEventListener('resize', update);
+      window.visualViewport?.removeEventListener('scroll', update);
+    };
+  }, [open]);
+  React.useLayoutEffect(() => {
+    const list = menu.current, item = list?.children[highlighted];
+    if (!open || !position || !item) return;
+    if (item.offsetTop < list.scrollTop) list.scrollTop = item.offsetTop;
+    else if (item.offsetTop + item.offsetHeight > list.scrollTop + list.clientHeight) list.scrollTop = item.offsetTop + item.offsetHeight - list.clientHeight;
+  }, [open, highlighted, position]);
+
+  const onKeyDown = event => {
+    if (event.isComposing || event.ctrlKey || event.metaKey || event.altKey) return;
+    const key = event.key;
+    if (key === 'Escape' || key === 'Tab') { if (open && key === 'Escape') {event.preventDefault(); event.stopPropagation();} close(); return; }
+    if (key === 'Enter' || key === ' ') { event.preventDefault(); open ? choose(highlighted) : show(); return; }
+    if (['ArrowDown','ArrowUp','Home','End'].includes(key)) {
+      event.preventDefault();
+      if (!open) show();
+      if (key === 'Home') setHighlighted(0);
+      else if (key === 'End') setHighlighted(choices.length - 1);
+      else if (open) setHighlighted(index => Math.max(0, Math.min(choices.length - 1, index + (key === 'ArrowDown' ? 1 : -1))));
+    } else if (key.length === 1) {
+      event.preventDefault();
+      if (!open) show();
+      const now = Date.now();
+      search.current = {text:(now - search.current.time < 700 ? search.current.text : '') + key.toLocaleLowerCase(), time:now};
+      const index = choices.findIndex(item => item.label.toLocaleLowerCase().startsWith(search.current.text));
+      if (index >= 0) setHighlighted(index);
+    }
+  };
+  return <>
+    <button ref={trigger} type="button" className="knowledge-tool-filter" role="combobox" aria-label="按适用对象筛选方法"
+      aria-haspopup="listbox" aria-controls={id} aria-expanded={open} aria-activedescendant={open ? `${id}-${highlighted}` : undefined}
+      onClick={() => open ? close() : show()} onKeyDown={onKeyDown} onBlur={close}>
+      <span>{choices[selected].label}</span><svg viewBox="0 0 16 16" aria-hidden="true"><path d="m4 6 4 4 4-4" /></svg>
+    </button>
+    {open && ReactDOM.createPortal(<div ref={menu} id={id} className="knowledge-tool-menu" role="listbox" aria-label="适用对象"
+      style={position || {visibility:'hidden'}}>{choices.map((item,index) => <div key={item.value} id={`${id}-${index}`} role="option"
+        aria-selected={item.value === value} className={index === highlighted ? 'is-active' : ''}
+        onMouseDown={event => event.preventDefault()} onClick={() => choose(index)}>{item.label}</div>)}</div>, document.body)}
+  </>;
+}
+
+function KnowledgeLibraryView({ items, query, onQueryChange, active = true, requestedId, onRequestedIdHandled, onCorrectClassification, onOpenPrompt }) {
   const [kind, setKind] = useRefineryState('all');
   const [tool, setTool] = useRefineryState('all');
   const [copyResult, setCopyResult] = useRefineryState('');
@@ -536,7 +624,7 @@ function KnowledgeLibraryView({ items, query, onQueryChange, active = true, requ
   const store = useRefineryMemo(() => createKnowledgeDetailStore((id, signal) => api(`/api/knowledge-library/${id}`, {signal})), [items]);
   const positions = useRefineryRef(new Map()).current;
   const needle = String(query || '').trim();
-  const methodTools = [...new Set(items.flatMap(knowledgeMethodTools))];
+  const methodTools = useRefineryMemo(() => [...new Set(items.flatMap(knowledgeMethodTools))], [items]);
   const visible = useRefineryMemo(() => [...items].sort(globalThis.OmniHubLibraryOrder.compare).flatMap(item => {
     if (kind !== 'all' && (item.type === 'method' ? 'method' : 'article') !== kind) return [];
     if (tool !== 'all' && !knowledgeMethodTools(item).includes(tool)) return [];
@@ -627,13 +715,12 @@ function KnowledgeLibraryView({ items, query, onQueryChange, active = true, requ
   return <div className="knowledge-workspace" data-reading={mobileReading}>
     <header className="knowledge-workspace-bar">
       <div className="knowledge-workspace-title"><button className="knowledge-back" onClick={backToList}>返回文章列表</button><strong>知识库</strong><span>{items.length} 篇文章</span></div>
-      <div className="knowledge-workspace-actions">{scopeSwitch}</div>
     </header>
     <aside ref={indexRef} className="knowledge-index" aria-label="知识文章目录">
       <div className="knowledge-index-head">
         <div className="knowledge-search"><IconSearch aria-hidden="true" /><input ref={searchRef} type="search" value={query || ''} onChange={event => onQueryChange(event.target.value)} placeholder="搜索标题与正文" aria-label="搜索知识标题与正文" />{needle && <button aria-label="清除搜索" onClick={() => {onQueryChange(''); searchRef.current.focus();}}><IconX /></button>}</div>
         <div className="knowledge-type-filter">{[['all','全部'],['article','综合知识'],['method','方法技巧']].map(([id,label]) => <button key={id} aria-pressed={kind === id} onClick={() => {setKind(id); setTool('all');}}>{label}</button>)}</div>
-        <div className="knowledge-index-options">{kind !== 'article' && methodTools.length > 0 && <select className="knowledge-tool-filter" aria-label="按适用工具筛选方法" value={tool} onChange={event => setTool(event.target.value)}><option value="all">全部适用工具</option>{methodTools.map(value => <option key={value}>{value}</option>)}</select>}<span role="status">{searching ? '正在搜索正文…' : `${visible.length} 篇`}</span></div>
+        <div className="knowledge-index-options">{kind !== 'article' && methodTools.length > 0 && <KnowledgeToolFilter value={tool} options={methodTools} onChange={setTool} active={active} />}<span role="status">{searching ? '正在搜索正文…' : `${visible.length} 篇`}</span></div>
         {failedSearch > 0 && <p className="knowledge-search-error" role="status">{failedSearch} 篇正文暂未读取，结果可能不完整。<button onClick={() => setRetry(value => value + 1)}>重试</button></p>}
       </div>
       <div className="knowledge-index-list">{visible.map(({item,snippet}) => <button key={item.id} data-knowledge-id={item.id} className={String(selectedId) === String(item.id) ? 'active' : ''} aria-current={String(selectedId) === String(item.id) ? 'true' : undefined} onClick={() => openArticle(item.id)}>

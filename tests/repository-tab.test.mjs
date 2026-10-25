@@ -85,7 +85,8 @@ test('a guide loads independently of citations and a stale drawer cannot receive
   assert.match(renderer, /state\.detail !== key \|\| dialog\.hidden/);
   assert.match(renderer, /void \(async \(\) =>/);
   assert.match(renderer, /\$\('detail-evidence'\)\.innerHTML = evidenceMarkup\(detail\)/);
-  assert.match(renderer, /const media = getRepositoryGuide\(state\.detail\)\?\.media \|\| \[\]/);
+  assert.match(renderer, /const media = activeGuide\?\.media \|\| \[\]/);
+  assert.match(renderer, /activeGuide = guide/);
 });
 
 test('compact module navigation retains names and remains accessible on desktop', () => {
@@ -126,7 +127,7 @@ test('icon navigation has explicit hover and keyboard tooltips without a duplica
   assert.match(components, /event.key === "Escape"/);
   assert.match(components, /ref=\{buttonRef\}/);
   assert.match(css, /\.module-tooltip \{[\s\S]*?position:fixed/);
-  assert.match(css, /\.module-rail \.module-button.active \{[^}]*color:var\(--text\)/);
+  assert.match(css, /\.module-rail \.module-button.active \{[^}]*color:var\(--accent\)/);
   assert.doesNotMatch(css, /\.module-nav \.module-button.active::after/);
 });
 

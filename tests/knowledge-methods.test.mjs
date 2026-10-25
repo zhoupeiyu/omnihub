@@ -41,11 +41,10 @@ test('method detail includes original instruction text without routing away for 
 test('knowledge detail uses one aligned two-column workspace without a duplicate evidence rail',()=>{
   const view=source.slice(source.indexOf('function KnowledgeLibraryView'),source.indexOf('function PromptExampleImage'));
   assert.match(view,/knowledge-workspace-bar/);
-  assert.match(view,/scopeSwitch/);
+  assert.doesNotMatch(view,/scopeSwitch/);
   assert.doesNotMatch(view,/knowledge-evidence|evidenceOpen|setEvidenceOpen|setTab/);
   assert.match(view,/aria-current=/);
-  assert.match(appSource,/scopeSwitch=\{user \? <CatalogueSpaceSwitch user=\{user\} \/> : null\}/);
-  assert.match(appSource,/\["repositories", "promptLibrary"\]\.includes\(section\)/);
+  assert.match(appSource,/catalogueSpaceSwitch=\{user \? <CatalogueSpaceSwitch user=\{user\} \/> : null\}/);
   assert.match(cssSource,/grid-template-columns:320px minmax\(0,1fr\)/);
   assert.match(cssSource,/data-reading=false/);
   assert.match(cssSource,/data-reading=true/);

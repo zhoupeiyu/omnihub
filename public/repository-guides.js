@@ -113,8 +113,14 @@ const safePlatforms = value => Array.isArray(value) ? value.map(platform => {
   const steps = safeSteps(platform?.steps);
   return label && steps.length ? {label,steps} : null;
 }).filter(Boolean) : [];
-const safeMedia = value => Array.isArray(value) ? value.map(item => {
-  const url = typeof item?.url === 'string' && LOCAL_MEDIA.test(item.url) ? item.url : '';
+const privateMediaUrl = (value, expectedKey) => {
+  if (typeof value !== 'string') return '';
+  const match = value.match(/^\/api\/repositories\/([^/]+)\/([^/]+)\/guide-media\/(media-[a-f0-9]{12,64}\.webp)$/);
+  if (!match || normalizeGuideKey(`${match[1]}/${match[2]}`) !== normalizeGuideKey(expectedKey)) return '';
+  return value;
+};
+const safeMedia = (value, expectedKey) => Array.isArray(value) ? value.map(item => {
+  const url = typeof item?.url === 'string' && LOCAL_MEDIA.test(item.url) ? item.url : privateMediaUrl(item?.url, expectedKey);
   const alt = text(item?.alt);
   const sourceUrl = safeHttps(item?.sourceUrl);
   return url && alt && sourceUrl ? {url,alt,sourceUrl,animated:item.animated === true} : null;
@@ -132,7 +138,7 @@ export function validateRepositoryGuide(value, expectedKey) {
   const platforms = safePlatforms(value.platforms);
   const steps = safeSteps(value.steps);
   const references = Array.isArray(value.references) ? value.references.map(safeLink).filter(Boolean) : [];
-  const media = safeMedia(value.media);
+  const media = safeMedia(value.media, key);
   const reason = text(value.reason);
   // A "ready" guide has actual cited instructions.  Partial/unavailable
   // records are still useful, but must make their limitation visible.
@@ -149,7 +155,6 @@ export function validateRepositoryGuide(value, expectedKey) {
 }
 
 const guideLoads = new Map();
-const missingGuideKeys = new Set();
 const guideAssetUrl = key => {
   const [owner,name] = key.split('/');
   const file = `${owner}~${name}.json`;
@@ -159,13 +164,47 @@ const guideAssetUrl = key => {
   } catch { /* Node tests and older browsers use the public path below. */ }
   return `/assets/repository-guides/${file}`;
 };
+const privateGuideUrl = key => {
+  const pathname = `/api/repositories/${key.split('/').map(encodeURIComponent).join('/')}/guide`;
+  // Repository details normally travel through public/api.js, which binds a
+  // request to the URL's public or personal workspace. This loader uses fetch
+  // directly because static guides do not need the API helper.
+  return typeof window !== 'undefined' && typeof window.omnihubScopedCataloguePath === 'function'
+    ? window.omnihubScopedCataloguePath(pathname)
+    : pathname;
+};
+
+function withCallerAbort(pending, signal) {
+  if (!signal) return pending;
+  if (signal.aborted) return Promise.resolve(null);
+  return new Promise(resolve => {
+    let settled = false;
+    const finish = value => {
+      if (settled) return;
+      settled = true;
+      signal.removeEventListener('abort', onAbort);
+      resolve(value);
+    };
+    const onAbort = () => finish(null);
+    signal.addEventListener('abort', onAbort, {once:true});
+    pending.then(finish);
+  });
+}
+
+function loadPrivateRepositoryGuide(key, fetchImpl) {
+  // Do not retain private results in the shared static-guide cache. A user can
+  // sign out or switch account without a full page reload.
+  return Promise.resolve().then(() => fetchImpl(privateGuideUrl(key), {credentials:'same-origin'}))
+    .then(response => response?.ok ? response.json() : null)
+    .then(payload => validateRepositoryGuide(payload, key))
+    .catch(() => null);
+}
 
 export function loadRepositoryGuide(key, {signal, fetchImpl = globalThis.fetch} = {}) {
   const normalized = normalizeGuideKey(key);
   if (!normalized) return Promise.resolve(null);
   const existing = guides.get(normalized);
   if (existing) return Promise.resolve(existing);
-  if (missingGuideKeys.has(normalized)) return Promise.resolve(null);
   if (typeof fetchImpl !== 'function') return Promise.resolve(null);
   // Do not attach a caller's abort signal to the shared network request: a
   // quick drawer switch should not discard a guide another drawer may need.
@@ -180,7 +219,6 @@ export function loadRepositoryGuide(key, {signal, fetchImpl = globalThis.fetch} 
       deadline,
     ])
       .then(response => {
-        if (response?.status === 404) missingGuideKeys.add(normalized);
         return response?.ok ? response.json() : null;
       })
       .then(payload => validateRepositoryGuide(payload, normalized))
@@ -189,15 +227,8 @@ export function loadRepositoryGuide(key, {signal, fetchImpl = globalThis.fetch} 
       .finally(() => { clearTimeout(timeout); guideLoads.delete(normalized); });
     guideLoads.set(normalized,pending);
   }
-  const pending = guideLoads.get(normalized);
-  if (!signal) return pending;
-  if (signal.aborted) return Promise.resolve(null);
-  return new Promise(resolve => {
-    const finish = value => { signal.removeEventListener('abort', onAbort); resolve(value); };
-    const onAbort = () => finish(null);
-    signal.addEventListener('abort', onAbort, {once:true});
-    pending.then(finish);
-  });
+  const pending = guideLoads.get(normalized).then(guide => guide || loadPrivateRepositoryGuide(normalized, fetchImpl));
+  return withCallerAbort(pending, signal);
 }
 
 const escape = value => String(value ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));

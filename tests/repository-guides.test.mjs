@@ -95,17 +95,44 @@ test('unavailable guides keep the original entry honest instead of inventing ste
   assert.doesNotMatch(html, /guide-example|示例任务/);
 });
 
-test('a public 404 is negatively cached but a network failure remains retryable', async () => {
-  let missingRequests = 0;
-  const missingFetch = async () => ({ok:false,status:(missingRequests += 1, 404)});
-  await loadRepositoryGuide('missing/repository',{fetchImpl:missingFetch});
-  await loadRepositoryGuide('missing/repository',{fetchImpl:missingFetch});
-  assert.equal(missingRequests, 1);
-  let retryRequests = 0;
-  const offline = async () => { retryRequests += 1; throw new TypeError('offline'); };
+test('a static 404 retries the authenticated guide endpoint without cross-account caching', async () => {
+  const key = 'private/repository';
+  const payload = {
+    schemaVersion:1, key, status:'partial', reason:'官方文档仍在补充。', checkedAt:'2026-10-25', tested:false,
+    sourceUrl:'https://github.com/private/repository', summary:'私有工作区中的已核对仓库。', intro:'登录工作区后可查看这份说明。',
+    requirements:'需要登录对应工作区。', platforms:[], steps:[{title:'查看官方说明',text:'从仓库 README 开始核对。'}], example:null,cautions:[],references:[],media:[],
+  };
+  let staticCalls = 0;
+  let privateCalls = 0;
+  const fetchImpl = async url => {
+    if (url.includes('/assets/')) { staticCalls += 1; return {ok:false,status:404}; }
+    privateCalls += 1;
+    return {ok:true,status:200,json:async()=>payload};
+  };
+  const first = await loadRepositoryGuide(key,{fetchImpl});
+  const second = await loadRepositoryGuide(key,{fetchImpl});
+  assert.equal(first?.summary, payload.summary);
+  assert.equal(second?.summary, payload.summary);
+  assert.equal(staticCalls, 2);
+  assert.equal(privateCalls, 2);
+  assert.equal(getRepositoryGuide(key), null);
+  let retryCalls = 0;
+  const offline = async () => { retryCalls += 1; throw new TypeError('offline'); };
   await loadRepositoryGuide('retry/repository',{fetchImpl:offline});
   await loadRepositoryGuide('retry/repository',{fetchImpl:offline});
-  assert.equal(retryRequests, 2);
+  assert.equal(retryCalls, 4);
+});
+
+test('private guide media must use the same repository API path', () => {
+  const base = {
+    schemaVersion:1,key:'owner/repo',status:'partial',reason:'官方文档仍在补充。',checkedAt:'2026-10-25',tested:false,
+    sourceUrl:'https://github.com/owner/repo',summary:'仓库说明',intro:'仓库说明正文',requirements:'',platforms:[],steps:[],example:null,cautions:[],references:[],
+  };
+  const filename = 'media-1234567890abcdef12345678.webp';
+  const same = validateRepositoryGuide({...base,media:[{url:`/api/repositories/owner/repo/guide-media/${filename}`,alt:'操作图',sourceUrl:base.sourceUrl}]},base.key);
+  assert.equal(same.media.length, 1);
+  const other = validateRepositoryGuide({...base,media:[{url:`/api/repositories/other/repo/guide-media/${filename}`,alt:'操作图',sourceUrl:base.sourceUrl}]},base.key);
+  assert.equal(other.media.length, 0);
 });
 
 test('detail removes generic trial filler and keeps citations folded', () => {

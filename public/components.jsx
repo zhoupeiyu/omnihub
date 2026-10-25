@@ -304,7 +304,7 @@ function ModuleRailButton({ tooltip, tooltipEnabled = true, buttonRef, children,
 
 /** 侧边栏：模块导航 + 分类（带计数）+ 左下角「用户信息 + 账号/设置」 */
 function SideNav({ section, onSectionChange, categories, activeCategory, onCategoryChange, counts, moduleCounts = {}, feedNavigation, onFeedNavigate,
-                   user, quote, merit, skin, onSkinChange, theme, onThemeToggle,
+                   user, quote, merit, skin, onSkinChange, theme, onThemeToggle, catalogueSpaceSwitch,
                    woodFishEnabled, onWoodFishToggle, onOpenAiSettings, onOpenAccountSettings, onLogin, onLogout,
                    collapsed, moduleLabels }) {
   const [settingsOpen, setSettingsOpen] = useState(false);
@@ -378,6 +378,7 @@ function SideNav({ section, onSectionChange, categories, activeCategory, onCateg
       <div className="sidebar-foot">
         {ReactDOM.createPortal((
           <div className={"skin-panel" + (settingsOpen ? " open" : "")} style={panelStyle || undefined}>
+            {catalogueSpaceSwitch && <>{catalogueSpaceSwitch}<div className="menu-divider"></div></>}
             {hasPersonalSpace && <button className="skin-option" onClick={() => { setSettingsOpen(false); onOpenAccountSettings(); }}>
               <IconUser style={{ width: 15, height: 15 }} />账号与连接
             </button>}

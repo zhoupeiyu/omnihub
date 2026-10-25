@@ -1461,6 +1461,7 @@ function Workspace({ user, onUserChange, showToast, toast }) {
           }}
           onCategoryChange={null} counts={{}}
           user={user} quote={quote} merit={merit}
+          catalogueSpaceSwitch={user ? <CatalogueSpaceSwitch user={user} /> : null}
           skin={skin} onSkinChange={setSkin}
           theme={theme} onThemeToggle={() => setTheme(theme === "light" ? "dark" : "light")}
           woodFishEnabled={woodFishEnabled}
@@ -1472,7 +1473,6 @@ function Workspace({ user, onUserChange, showToast, toast }) {
           collapsed={sidebarCollapsed}
           moduleLabels={moduleLabels} />
         <main className="main">
-          {user && ["repositories", "promptLibrary"].includes(section) && <CatalogueSpaceSwitch user={user} />}
           <RepositoryExplorerTab key={`${user?.id || 'guest'}-${classificationRevision}`} query={sectionQueries[`${user?.id || 'guest'}:repositories`] || ''}
             onQueryChange={(value) => setSectionQueries(previous => ({...previous, [`${user?.id || 'guest'}:repositories`]:value}))}
             userKey={user?.id || "guest"} active={section === "repositories"}
@@ -1488,7 +1488,6 @@ function Workspace({ user, onUserChange, showToast, toast }) {
           {dataLoads.knowledgeLibrary?.hasData && (
             <KnowledgeLibraryView key={`${user?.id || 'guest'}:${catalogueScope}`} items={knowledgeLibrary} query={queryFor('knowledgeLibrary')} active={section === 'knowledgeLibrary'}
               onQueryChange={value => setQuery(value, 'knowledgeLibrary')} requestedId={requestedKnowledgeId} onCorrectClassification={onCorrectClassification}
-              scopeSwitch={user ? <CatalogueSpaceSwitch user={user} /> : null}
               onOpenPrompt={id => {setSectionQueries(previous => ({...previous,[`${user?.id || 'guest'}:promptLibrary`]:''})); setRequestedPromptSourceId(id); setSection('promptLibrary');}}
               onRequestedIdHandled={() => setRequestedKnowledgeId(null)} />
           )}

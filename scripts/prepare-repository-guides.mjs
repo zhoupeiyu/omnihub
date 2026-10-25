@@ -16,7 +16,8 @@ const option=(name,fallback)=>{const i=process.argv.indexOf(name);return i<0?fal
 const mode=option('--mode','collect');
 if(!['collect','supplement','generate','media','finalize','report'].includes(mode))throw new Error('Unknown mode');
 const runDirectory=path.resolve(option('--run-dir',path.join(root,'data/repository-guides',new Date().toISOString().slice(0,10))));
-const outputDirectory=path.resolve(root,'public/assets/repository-guides');
+const privateRun=process.argv.includes('--private');
+const outputDirectory=privateRun ? path.join(runDirectory,'assets') : path.resolve(root,'public/assets/repository-guides');
 const limit=Number(option('--limit','0'));
 const concurrency=Math.min(8,Math.max(1,Number(option('--concurrency',mode==='collect'?'6':'4'))));
 const batchSize=Math.min(4,Math.max(1,Number(option('--batch-size','4'))));
@@ -38,6 +39,7 @@ async function pool(items,fn,count=concurrency) {
 }
 let inventory=await json(path.join(runDirectory,'inventory.json'));
 if(!inventory) {
+  if(privateRun)throw new Error('Private runs require an explicit local inventory');
   if(mode!=='collect')throw new Error('Run collect first');
   const response=await fetch('https://omnihub.noxhub.org/api/repositories',{redirect:'error',signal:AbortSignal.timeout(30000)});
   if(!response.ok)throw new Error(`public_inventory_http_${response.status}`);
@@ -51,7 +53,9 @@ if(!inventory) {
   await save(path.join(runDirectory,'inventory.json'),inventory);
 }
 const sourcePath=key=>path.join(runDirectory,'sources',guideFilename(key));
-await save(path.join(root,'content/repository-guide-inventory.json'),inventory);
+if(privateRun && inventory.scope!=='private')throw new Error('Private inventory scope required');
+if(!privateRun && inventory.scope==='private')throw new Error('Private inventory cannot be published');
+if(!privateRun)await save(path.join(root,'content/repository-guide-inventory.json'),inventory);
 const generatedPath=key=>path.join(runDirectory,'generated',guideFilename(key));
 const outputPath=key=>path.join(outputDirectory,guideFilename(key));
 let completed=0,halt=false;

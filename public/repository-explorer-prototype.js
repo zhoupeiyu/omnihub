@@ -252,7 +252,7 @@ function renderNavigation() {
   const items = [
     { id:'overview', title:'专题总览' }, { id:'all', title:'全部仓库', count:state.repositories.length },
     ...topics.map(topic => ({ id:topic.id, title:topic.title, count:groupsFor(topic.id).length, color:topic.color })),
-    ...(unfiled().length ? [{ id:'unfiled', title:'待整理', count:unfiled().length }] : []),
+    ...(unfiled().length || state.section === 'unfiled' ? [{ id:'unfiled', title:'待整理', count:unfiled().length }] : []),
   ];
   const sections = items.map(item => item.id).join('|');
   if (topicTabs.dataset.sections !== sections) {
@@ -274,7 +274,7 @@ function renderNavigation() {
 function card(repo) {
   const note = getNote(repo);
   const primaryUse = note?.uses[0] ? SUBTOPICS.get(note.uses[0]).label : '';
-  return `<button class="repo-card${state.detail === repo.key ? ' selected' : ''}" style="${styleFor(note?.groups[0])}" data-repo="${escapeHtml(repo.key)}" aria-controls="repo-dialog" aria-expanded="${state.detail === repo.key}" aria-label="查看 ${escapeHtml(repo.name)} 详情"><span class="card-top">${avatar(repo)}<span class="card-heading"><h3>${escapeHtml(repo.name)}</h3><span class="owner">${escapeHtml(repo.owner)}</span></span></span><span class="card-tags">${note ? `<span class="tag form">${escapeHtml(note.form)}</span><span class="tag" title="${escapeHtml(note.subject)}">${escapeHtml(primaryUse)}${note.uses.length > 1 ? ` +${note.uses.length - 1}` : ''}</span>` : '<span class="tag">待细分用途</span>'}</span><p class="repo-description">${escapeHtml(getRepositorySummary(repo, note?.summary))}</p><span class="card-action" aria-hidden="true"><span class="card-arrow">↗</span></span></button>`;
+  return `<button class="repo-card${state.detail === repo.key ? ' selected' : ''}" style="${styleFor(note?.groups[0])}" data-repo="${escapeHtml(repo.key)}" aria-controls="repo-dialog" aria-expanded="${state.detail === repo.key}" aria-label="查看 ${escapeHtml(repo.name)} 详情"><span class="card-top">${avatar(repo)}<span class="card-heading"><h3><span>${escapeHtml(repo.name)}</span><svg class="card-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 6 6 6-6 6"/></svg></h3><span class="owner">${escapeHtml(repo.owner)}</span></span></span><span class="card-tags">${note ? `<span class="tag form">${escapeHtml(note.form)}</span><span class="tag" title="${escapeHtml(note.subject)}">${escapeHtml(primaryUse)}${note.uses.length > 1 ? ` +${note.uses.length - 1}` : ''}</span>` : '<span class="tag pending">待细分用途</span>'}</span><p class="repo-description">${escapeHtml(getRepositorySummary(repo, note?.summary))}</p></button>`;
 }
 function ownerGroup(group, index) {
   const titleId = `owner-group-${index}`;
@@ -347,7 +347,9 @@ function render() {
     const repos = filterRepositories(pool);
     $('result-count').textContent = `${repos.length} 个仓库`;
     if (!repos.length) {
-      $('results').innerHTML = '<div class="empty-state"><h2>这次没有找到匹配的仓库</h2><p>试试更短的关键词，或清除形态筛选。</p><button class="text-button" data-reset>清除搜索与筛选</button></div>';
+      $('results').innerHTML = state.section === 'unfiled' && !pool.length
+        ? '<div class="empty-state"><h2>全部仓库已整理</h2><p>已按用途和工具形态归类，可以从专题中继续浏览。</p><button class="text-button" data-section="all">查看全部仓库</button></div>'
+        : '<div class="empty-state"><h2>这次没有找到匹配的仓库</h2><p>试试更短的关键词，或清除形态筛选。</p><button class="text-button" data-reset>清除搜索与筛选</button></div>';
     } else {
       resultItems = buildRepositoryTimeline(repos, {group:state.group, sort:state.sort});
       renderedCount = Math.min(state.limit, resultItems.length);
@@ -381,7 +383,7 @@ listen(root, 'click', event => {
     return;
   }
   if (target.hasAttribute('data-repo-media')) {
-    const media = getRepositoryGuide(state.detail)?.media || [];
+    const media = activeGuide?.media || [];
     const index = Number(target.dataset.repoMedia);
     if (onPreviewMedia && Number.isInteger(index) && media[index]) {
       event.preventDefault();
@@ -410,7 +412,7 @@ listen(root, 'click', event => {
 });
 listen(root, 'change', event => {
   if (!event.target.matches('[data-guide-platform]')) return;
-  const guide = getRepositoryGuide(state.detail);
+  const guide = activeGuide;
   if (guide) root.querySelector('[data-guide-installation]').innerHTML = renderGuideInstallation(guide, Number(event.target.value));
 });
 listen(root, 'error', event => {
@@ -437,6 +439,7 @@ listen($('group-filter'), 'change', event => {
 listen($('clear'), 'click', clearFilters);
 
 let detailRequest;
+let activeGuide = null;
 const detailCache = new Map();
 const dialog = $('repo-dialog');
 const detailLayer = $('repo-detail-layer');
@@ -455,6 +458,7 @@ function markSelectedCard() {
 }
 function hideDetail() {
   onPreviewMedia?.(null);
+  activeGuide = null;
   state.detail = '';
   dialog.hidden = true;
   detailLayer.hidden = true;
@@ -530,6 +534,7 @@ async function openDetail(key, fromHistory = false) {
   detailRequest?.abort();
   const controller = new AbortController();
   detailRequest = controller;
+  activeGuide = getRepositoryGuide(key);
   $('detail-content').innerHTML = detailMarkup(repo);
   dialog.hidden = false;
   showDetailShell();
@@ -547,6 +552,7 @@ async function openDetail(key, fromHistory = false) {
       if (message) message.textContent = '暂时无法加载这份指南。可以先查看官方说明，或稍后重新打开详情。';
       return;
     }
+    activeGuide = guide;
     const guideContainer = $('detail-guide');
     if (guideContainer) guideContainer.innerHTML = renderRepositoryGuide(guide,{introFallback:getRepositoryDescription(repo).text});
     $('detail-guide-meta').innerHTML = renderRepositoryGuideMeta(guide);
