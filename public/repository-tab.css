@@ -104,78 +104,63 @@ h1 { font-size:24px; font-weight:650; line-height:1.35; letter-spacing:-.025em; 
 .section-title button { min-height:32px; padding:4px 6px; border-radius:6px; color:var(--muted); font-size:12px; transition:color var(--motion) ease-out; }
 .section-title button:hover { color:var(--blue); }
 
-.repo-grid { grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr)); gap:14px; }
-.repo-card { min-height:208px; padding:22px 20px 16px; border:1px solid var(--line); border-top:2px solid color-mix(in srgb, var(--topic-color, var(--line)) 55%, var(--line)); border-radius:10px; background:var(--surface); transition:border-color var(--motion) ease-out, background-color var(--motion) ease-out; }
-.repo-card:hover { border-color:var(--line-strong); box-shadow:none; }
+/* A date is the shared timeline node; authors stay outside individual cards. */
+.repository-timeline { display:grid; gap:32px; }
+.repository-day { position:relative; min-width:0; padding-left:22px; }
+.repository-day::before { content:""; position:absolute; left:4px; top:24px; bottom:0; width:1px; background:var(--line); }
+.repository-day-heading { position:relative; display:flex; align-items:baseline; flex-wrap:wrap; gap:10px; margin:0 0 18px; }
+.repository-day-heading::before { content:""; position:absolute; left:-22px; top:8px; width:9px; height:9px; border:2px solid var(--bg, var(--surface)); border-radius:50%; background:var(--blue); box-shadow:0 0 0 1px color-mix(in srgb,var(--blue) 30%,var(--line)); }
+.repository-day-heading h3 { margin:0; color:var(--ink); font-size:16px; font-weight:600; line-height:1.5; font-variant-numeric:tabular-nums; }
+.repository-day-meta { color:var(--faint); font-size:12px; line-height:1.5; }
+.repo-grid { grid-template-columns:repeat(3,minmax(0,1fr)); gap:14px; }
+.repo-card { position:relative; display:grid; grid-template-columns:minmax(0,1fr) auto; align-content:start; align-items:start; gap:10px 12px; min-height:112px; padding:16px; border:1px solid var(--line); border-radius:8px; background:var(--surface); transition:border-color var(--motion) ease-out, background-color var(--motion) ease-out; }
+.repo-card:hover { border-color:var(--line-strong); background:color-mix(in srgb,var(--ink) 3%,var(--surface)); box-shadow:none; }
 .repo-card:active { background:var(--blue-soft); }
-.repo-card.selected { border-color:var(--blue); background:var(--blue-soft); box-shadow:inset 3px 0 var(--blue); }
-.overview-results .repo-card:nth-child(n+3) { display:flex; }
-.card-top { gap:12px; margin-bottom:16px; }
-.avatar { width:40px; height:40px; border-radius:10px; font-size:14px; }
-.card-heading h3 { font-size:17px; font-weight:600; line-height:1.35; letter-spacing:-.015em; color:var(--ink); }
-.owner { margin-top:2px; font-size:12px; line-height:1.4; color:var(--faint); }
-.repo-organized-date { display:block; margin-top:5px; color:var(--faint); font-size:11px; line-height:1.5; font-variant-numeric:tabular-nums; }
-.card-arrow { color:var(--faint); font-size:18px; transition:color var(--motion) ease-out, transform var(--motion) ease-out; }
+.repo-card.selected { border-color:var(--blue); background:var(--blue-soft); box-shadow:inset 2px 0 var(--blue); }
+.overview-results .repo-card:nth-child(n+3) { display:grid; }
+.card-top { min-width:0; gap:8px; margin:0; }
+.avatar { width:28px; height:28px; flex:none; border-radius:7px; font-size:12px; }
+.card-heading { min-width:0; }
+.card-heading h3 { font-size:15px; font-weight:600; line-height:1.5; letter-spacing:-.015em; color:var(--ink); overflow-wrap:anywhere; }
+.owner { margin-top:2px; font-size:11px; line-height:1.4; color:var(--faint); }
+.card-arrow { color:var(--faint); font-size:17px; line-height:1; transition:color var(--motion) ease-out, transform var(--motion) ease-out; }
 .repo-card.selected .card-arrow { color:var(--blue); }
-.repo-description { -webkit-line-clamp:3; margin-bottom:18px; font-size:14px; line-height:1.75; }
-.card-bottom { align-items:center; flex-wrap:nowrap; gap:8px; margin-top:auto; padding-top:12px; border-top:1px solid var(--line); }
-.card-tags { display:flex; flex:1; min-width:0; gap:5px; align-items:center; }
-.card-tags .tag { overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
-.card-tags .form { flex:none; max-width:45%; }
-.card-action { display:flex; flex:none; gap:5px; align-items:center; color:var(--faint); font-size:11px; }
-.card-action-label { display:none; }
-.repo-card:hover .card-action { color:var(--ink); }
-.tag { padding:2px 7px; border-radius:4px; font-size:11px; line-height:1.6; }
+.repo-description { grid-column:1 / -1; -webkit-line-clamp:3; margin:0; padding-right:18px; font-size:13px; line-height:1.75; }
+.card-tags { display:flex; justify-content:flex-end; align-items:center; gap:5px; min-width:0; max-width:156px; padding-top:2px; }
+.card-tags .tag { min-width:0; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+.card-tags .form { flex:none; max-width:65px; }
+.card-action { position:absolute; right:14px; bottom:16px; display:flex; align-items:center; }
+.repo-card:hover .card-arrow { color:var(--ink); }
+.tag { padding:2px 6px; border-radius:4px; font-size:10px; line-height:1.6; }
 .tag, .tag.form, .avatar { background:var(--sunken); color:var(--muted); }
 .repo-description, .detail-summary, .try-idea { color:var(--muted); }
-
-/* Authors are section headings; each repository has its own fixed-width card below. */
-.owner-groups { display:grid; grid-template-columns:minmax(0,1fr); gap:24px; }
+.owner-groups { display:grid; grid-template-columns:minmax(0,1fr); gap:22px; }
 .owner-group { min-width:0; margin:0; }
-.owner-group-heading { display:flex; align-items:center; gap:9px; min-width:0; margin:0 0 10px; padding:0; }
-.owner-group-heading .avatar { width:24px; height:24px; border-radius:6px; font-size:11px; }
+.owner-group-heading { display:flex; align-items:center; gap:8px; min-width:0; margin:0 0 8px; padding:0; }
+.owner-group-heading .avatar { width:22px; height:22px; border-radius:6px; font-size:11px; }
 .owner-group-heading h3 { min-width:0; font-size:13px; font-weight:500; line-height:1.5; overflow-wrap:anywhere; }
 .owner-profile { color:var(--ink); text-decoration:none; }
 .owner-profile:hover { color:var(--blue); text-decoration:underline; text-underline-offset:3px; }
 .owner-count { flex:none; margin-left:3px; color:var(--faint); font-size:11px; font-variant-numeric:tabular-nums; }
-.owner-group > .repo-grid { grid-template-columns:repeat(3,minmax(0,1fr)); gap:14px; padding:0; }
-.owner-group .repo-card { min-height:156px; padding:16px; border:1px solid var(--line); border-radius:8px; background:var(--surface); }
-.owner-group .repo-card:hover { background:color-mix(in srgb,var(--ink) 4%,var(--surface)); }
-.owner-group .repo-card.selected { border-color:var(--blue); background:var(--blue-soft); box-shadow:inset 2px 0 var(--blue); }
-.owner-group .card-top { margin:0 0 8px; }
+.owner-group > .repo-grid { padding:0; }
 .owner-group .card-top :is(.avatar,.owner) { display:none; }
-.owner-group .card-heading h3 { font-size:16px; line-height:1.5; }
-.owner-group .repo-description { margin:0 0 16px; font-size:13px; line-height:1.7; -webkit-line-clamp:2; }
-.owner-group .card-bottom { width:100%; margin-top:auto; padding:0; border:0; }
-.owner-group .tag { background:transparent; padding:0; color:var(--faint); }
-.owner-group .tag + .tag { padding-left:8px; margin-left:3px; border-left:1px solid var(--line-strong); border-radius:0; }
-.owner-group .card-action-label { display:none; }
+.owner-group .repo-description { -webkit-line-clamp:2; }
 
-/* The same buttons and result order serve both views; changing view never remounts them. */
-#results[data-view=list] .repo-grid { grid-template-columns:1fr; gap:0; border:1px solid var(--line); border-radius:10px; overflow:hidden; }
-#results[data-view=list] .repo-card { display:grid; grid-template-columns:minmax(180px,.9fr) minmax(0,1.5fr) minmax(100px,.7fr); align-items:center; gap:20px; min-height:92px; padding:18px 20px; border:0; border-bottom:1px solid var(--line); border-radius:0; }
+/* View changes reuse the same buttons, date nodes and pagination order. */
+#results[data-view=list] .repo-grid { grid-template-columns:1fr; gap:0; border:1px solid var(--line); border-radius:8px; overflow:hidden; }
+#results[data-view=list] .repo-card { grid-template-columns:minmax(140px,.85fr) minmax(0,1.4fr) minmax(0,.7fr) 16px; align-items:center; gap:16px; min-height:76px; padding:14px 16px; border:0; border-bottom:1px solid var(--line); border-radius:0; }
 #results[data-view=list] .repo-card:last-child { border-bottom:0; }
 #results[data-view=list] .repo-card:focus-visible { outline-offset:-3px; }
-#results[data-view=list] .card-top { margin:0; }
-#results[data-view=list] .card-heading h3 { font-size:15px; }
-#results[data-view=list] .avatar { width:32px; height:32px; border-radius:8px; }
-#results[data-view=list] .repo-description { -webkit-line-clamp:2; margin:0; font-size:13px; line-height:1.65; }
-#results[data-view=list] .card-bottom { margin:0; padding:0; border:0; }
-#results[data-view=list] .card-tags { flex-wrap:wrap; }
-#results[data-view=list] .card-tags .form { max-width:100%; }
-
-/* In list view the owner becomes a quiet index beside the repository rows. */
+#results[data-view=list] .card-top { grid-column:1; grid-row:1; }
+#results[data-view=list] .repo-description { grid-column:2; grid-row:1; -webkit-line-clamp:2; padding:0; }
+#results[data-view=list] .card-tags { grid-column:3; grid-row:1; justify-self:end; max-width:100%; }
+#results[data-view=list] .card-action { position:static; grid-column:4; grid-row:1; }
 #results[data-view=list] .owner-groups { display:block; }
-#results[data-view=list] .owner-group { display:grid; grid-template-columns:168px minmax(0,1fr); gap:20px; padding:4px 0; border:0; border-bottom:1px solid var(--line); border-radius:0; background:transparent; }
-#results[data-view=list] .owner-group-heading { align-self:start; flex-wrap:wrap; gap:7px; padding:18px 0; }
-#results[data-view=list] .owner-group-heading .avatar { width:24px; height:24px; border-radius:6px; }
-#results[data-view=list] .owner-group-heading h3 { flex:1; }
-#results[data-view=list] .owner-count { margin-left:0; }
-#results[data-view=list] .owner-group .repo-grid { padding:0; border:0; border-radius:0; }
-#results[data-view=list] .owner-group .repo-card { grid-template-columns:minmax(0,.9fr) minmax(0,1.5fr) minmax(0,.7fr); min-height:72px; padding:14px 12px; border-bottom:0; border-radius:6px; }
-#results[data-view=list] .owner-group .repo-card + .repo-card { border-top:1px solid var(--line); }
-#results[data-view=list] .owner-group .card-top { grid-row:auto; }
-#results[data-view=list] .owner-group .card-bottom { grid-column:auto; width:auto; }
+#results[data-view=list] .owner-group { display:grid; grid-template-columns:150px minmax(0,1fr); gap:16px; padding:6px 0; border-bottom:1px solid var(--line); }
+#results[data-view=list] .owner-group-heading { display:grid; grid-template-columns:22px minmax(0,1fr); align-self:start; gap:3px 8px; padding:14px 0; }
+#results[data-view=list] .owner-count { grid-column:2; margin-left:0; }
+#results[data-view=list] .owner-group .repo-grid { border:0; border-radius:0; }
+#results[data-view=list] .owner-group .repo-card { min-height:70px; border-radius:6px; }
 
 .results-end { display:flex; align-items:center; justify-content:center; min-height:48px; margin-top:16px; color:var(--faint); font-size:12px; line-height:1.5; }
 .empty-state { padding:56px 24px; border:1px dashed var(--line-strong); border-radius:12px; }
@@ -295,28 +280,32 @@ h1 { font-size:24px; font-weight:650; line-height:1.35; letter-spacing:-.025em; 
 }
 
 @container catalogue (max-width:1040px) {
-  .owner-group > .repo-grid { grid-template-columns:repeat(2,minmax(0,1fr)); }
+  .repo-grid { grid-template-columns:repeat(2,minmax(0,1fr)); }
 }
 @container catalogue (max-width:760px) {
   .results-controls { width:100%; justify-content:space-between; }
   .is-overview .results-toolbar { flex-direction:row; }
   .is-overview .results-controls { width:auto; }
-  #results[data-view=list] .repo-card { grid-template-columns:minmax(0,1fr) minmax(0,1.3fr); gap:10px 20px; }
-  #results[data-view=list] .card-bottom { grid-column:2; }
-  #results[data-view=list] .card-top { grid-row:1 / 3; }
-  #results[data-view=list] .owner-group { grid-template-columns:136px minmax(0,1fr); gap:12px; }
-  #results[data-view=list] .owner-group .repo-card { grid-template-columns:minmax(0,1fr); gap:6px; }
-  #results[data-view=list] .owner-group .card-top { grid-row:auto; }
-  #results[data-view=list] .owner-group .card-bottom { grid-column:auto; margin-top:4px; }
+  #results[data-view=list] .owner-group { display:block; }
+  #results[data-view=list] .owner-group-heading { display:flex; padding:6px 0; }
+  #results[data-view=list] .owner-group-heading h3 { flex:none; }
+  #results[data-view=list] .repo-card { grid-template-columns:minmax(0,1fr) auto; gap:10px 12px; }
+  #results[data-view=list] .card-tags { grid-column:2; grid-row:1; max-width:156px; }
+  #results[data-view=list] .repo-description { grid-column:1 / -1; grid-row:2; padding-right:18px; }
+  #results[data-view=list] .card-action { position:absolute; right:14px; bottom:16px; }
+
 }
 @container catalogue (max-width:680px) {
-  .owner-groups { gap:20px; }
-  .owner-group > .repo-grid { grid-template-columns:minmax(0,1fr); gap:12px; }
-  .owner-group .repo-card { min-height:0; padding:14px; }
-  #results[data-view=list] .owner-group { display:block; padding:4px 0 12px; }
-  #results[data-view=list] .owner-group-heading { padding:10px 12px 4px; }
-  #results[data-view=list] .owner-group-heading h3 { flex:none; }
-  #results[data-view=list] .owner-count { margin-left:auto; }
+  .repository-day { padding-left:16px; }
+  .repository-day::before { left:3px; }
+  .repository-day-heading::before { left:-16px; width:7px; height:7px; }
+  .repository-day-heading { gap:8px; margin-bottom:14px; }
+  .repository-day-heading h3 { font-size:15px; }
+  .repository-day-meta { font-size:11px; }
+  .owner-groups { gap:18px; }
+  .repo-grid { grid-template-columns:minmax(0,1fr); gap:12px; }
+  .repo-card { min-height:0; padding:14px; }
+  .card-tags { max-width:140px; }
 }
 @container catalogue (max-width:650px) {
   .page-heading { flex-direction:column; align-items:stretch; gap:14px; }
@@ -350,11 +339,6 @@ h1 { font-size:24px; font-weight:650; line-height:1.35; letter-spacing:-.025em; 
   .view-switch { align-self:flex-start; }
   .view-switch button { width:44px; height:44px; }
   .repo-card { min-height:0; padding:16px; }
-  .card-action-label { display:inline; }
-  #results[data-view=list] .repo-card { grid-template-columns:1fr; gap:12px; padding:16px; }
-  #results[data-view=list] .card-top { grid-row:auto; }
-  #results[data-view=list] .card-bottom { grid-column:auto; }
-  #results[data-view=list] .repo-description { -webkit-line-clamp:2; }
   .repository-detail .detail-head { padding:22px 16px 14px; }
   .repository-detail .detail-body { padding:0 16px 28px; }
   .repository-detail .detail-identity h2 { font-size:20px; }

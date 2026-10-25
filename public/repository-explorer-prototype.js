@@ -41,6 +41,31 @@ export function canFocusRepositorySearch(event, { active, detailOpen, editable, 
     && !event.defaultPrevented && !event.isComposing && !event.repeat
     && !event.ctrlKey && !event.metaKey && !event.altKey;
 }
+export function repositoryOrganizationDay(repository) {
+  for (const value of [repository.organizedAt, repository.updatedAt, repository.updated_at, repository.createdAt, repository.created_at]) {
+    const time = globalThis.OmniHubLibraryOrder.timestamp({organizedAt:value});
+    if (!time) continue;
+    const text = String(value).trim();
+    // A review recorded as a date has no timezone and must retain its calendar day.
+    return /^\d{4}-\d{2}-\d{2}$/.test(text) ? text : new Date(time).toLocaleDateString('sv-SE');
+  }
+  return 'undated';
+}
+export function buildRepositoryTimeline(repositories, {group = 'owner', sort = 'default'} = {}) {
+  const days = new Map();
+  for (const repository of repositories) {
+    const date = repositoryOrganizationDay(repository);
+    if (!days.has(date)) days.set(date, []);
+    days.get(date).push(repository);
+  }
+  return [...days.keys()].sort((a,b) => a === b ? 0 : a === 'undated' ? 1 : b === 'undated' ? -1 : b.localeCompare(a))
+    .flatMap(date => {
+      const rows = days.get(date);
+      const items = group === 'owner' ? groupRepositoriesByOwner(rows, sort) : rows;
+      // Each pagination unit is a complete author within one day (or one ungrouped card).
+      return items.map(item => ({date, count:rows.length, item}));
+    });
+}
 export function groupRepositoriesByOwner(repositories, sort = 'recent') {
   const groups = new Map();
   for (const repository of repositories) {
@@ -104,10 +129,7 @@ function appendMoreResults() {
   if (resultsEnd.hidden || !resultsEnd.getClientRects().length || bounds.top > window.innerHeight + 160 || bounds.bottom < 0) return;
   moreObserver.disconnect();
   const next = resultItems.slice(renderedCount, renderedCount + 36);
-  const grouped = state.group === 'owner';
-  const container = $('results').querySelector(grouped ? '.owner-groups' : '.repo-grid');
-  // Append only, preserving existing card nodes, focus and the reader's scroll position.
-  container.insertAdjacentHTML('beforeend', next.map((item,index) => grouped ? ownerGroup(item,renderedCount + index) : card(item)).join(''));
+  appendTimelineItems(next, renderedCount);
   renderedCount += next.length;
   state.limit = renderedCount;
   updateContinuation();
@@ -155,13 +177,6 @@ const icon = name => {
   return `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${paths[name] || paths.book}</svg>`;
 };
 const avatar = repo => `<span class="avatar" aria-hidden="true">${escapeHtml(repo.owner.slice(0,1).toUpperCase())}<img loading="lazy" referrerpolicy="no-referrer" src="https://github.com/${encodeURIComponent(repo.owner)}.png?size=80" alt=""></span>`;
-const organizedDate = repo => {
-  const time = globalThis.OmniHubLibraryOrder.timestamp(repo);
-  if (!time) return '';
-  const recorded = repo.organizedAt || repo.updatedAt || repo.createdAt || '';
-  const date = /^\d{4}-\d{2}-\d{2}$/.test(recorded) ? recorded : new Date(time).toLocaleDateString('sv-SE');
-  return `<time class="repo-organized-date" datetime="${new Date(time).toISOString()}">整理于 ${date}</time>`;
-};
 listen(root, 'error', event => { if (event.target instanceof HTMLImageElement && event.target.closest('.avatar')) event.target.remove(); }, { capture: true });
 $('search-icon').innerHTML = icon('search');
 $('results').dataset.view = 'cards';
@@ -271,11 +286,26 @@ function renderNavigation() {
 function card(repo) {
   const note = getNote(repo);
   const primaryUse = note?.uses[0] ? SUBTOPICS.get(note.uses[0]).label : '';
-  return `<button class="repo-card${state.detail === repo.key ? ' selected' : ''}" style="${styleFor(note?.groups[0])}" data-repo="${escapeHtml(repo.key)}" aria-controls="repo-dialog" aria-expanded="${state.detail === repo.key}" aria-label="查看 ${escapeHtml(repo.name)} 详情"><span class="card-top">${avatar(repo)}<span class="card-heading"><h3>${escapeHtml(repo.name)}</h3><span class="owner">${escapeHtml(repo.owner)}</span>${organizedDate(repo)}</span></span><p class="repo-description">${escapeHtml(getRepositorySummary(repo, note?.summary))}</p><span class="card-bottom"><span class="card-tags">${note ? `<span class="tag form">${escapeHtml(note.form)}</span><span class="tag" title="${escapeHtml(note.subject)}">${escapeHtml(primaryUse)}${note.uses.length > 1 ? ` +${note.uses.length - 1}` : ''}</span>` : '<span class="tag">待细分用途</span>'}</span><span class="card-action" aria-hidden="true"><span class="card-action-label">查看详情</span><span class="card-arrow">↗</span></span></span></button>`;
+  return `<button class="repo-card${state.detail === repo.key ? ' selected' : ''}" style="${styleFor(note?.groups[0])}" data-repo="${escapeHtml(repo.key)}" aria-controls="repo-dialog" aria-expanded="${state.detail === repo.key}" aria-label="查看 ${escapeHtml(repo.name)} 详情"><span class="card-top">${avatar(repo)}<span class="card-heading"><h3>${escapeHtml(repo.name)}</h3><span class="owner">${escapeHtml(repo.owner)}</span></span></span><span class="card-tags">${note ? `<span class="tag form">${escapeHtml(note.form)}</span><span class="tag" title="${escapeHtml(note.subject)}">${escapeHtml(primaryUse)}${note.uses.length > 1 ? ` +${note.uses.length - 1}` : ''}</span>` : '<span class="tag">待细分用途</span>'}</span><p class="repo-description">${escapeHtml(getRepositorySummary(repo, note?.summary))}</p><span class="card-action" aria-hidden="true"><span class="card-arrow">↗</span></span></button>`;
 }
 function ownerGroup(group, index) {
   const titleId = `owner-group-${index}`;
   return `<section class="owner-group" data-owner="${escapeHtml(group.key)}" aria-labelledby="${titleId}"><header class="owner-group-heading">${avatar(group.repositories[0])}<h3 id="${titleId}">${link(`https://github.com/${encodeURIComponent(group.owner)}`,escapeHtml(group.owner),'owner-profile')}</h3><span class="owner-count">${group.repositories.length} 个仓库</span></header><div class="repo-grid">${group.repositories.map(card).join('')}</div></section>`;
+}
+function appendTimelineItems(items, offset = 0) {
+  const timeline = $('results').querySelector('.repository-timeline');
+  const grouped = state.group === 'owner';
+  for (const [index, {date, count, item}] of items.entries()) {
+    let day = timeline.lastElementChild;
+    if (day?.dataset.date !== date) {
+      const titleId = `repository-day-${date}`;
+      const label = date === 'undated' ? '整理日期待补全' : `${Number(date.slice(5,7))} 月 ${Number(date.slice(8,10))} 日`;
+      timeline.insertAdjacentHTML('beforeend', `<section class="repository-day" data-date="${date}" aria-labelledby="${titleId}"><header class="repository-day-heading"><h3 id="${titleId}">${date === 'undated' ? label : `<time datetime="${date}">${label}</time>`}</h3><span class="repository-day-meta">${date === 'undated' ? '' : `${date.slice(0,4)} · `}整理 ${count} 个仓库</span></header><div class="repository-day-content ${grouped ? 'owner-groups' : 'repo-grid'}"></div></section>`);
+      day = timeline.lastElementChild;
+    }
+    // Continue the existing day without replacing cards, focus or scroll position.
+    day.lastElementChild.insertAdjacentHTML('beforeend', grouped ? ownerGroup(item, offset + index) : card(item));
+  }
 }
 function filterRepositories(input) {
   const query = state.query.trim().toLocaleLowerCase();
@@ -332,10 +362,10 @@ function render() {
     if (!repos.length) {
       $('results').innerHTML = '<div class="empty-state"><h2>这次没有找到匹配的仓库</h2><p>试试更短的关键词，或清除形态筛选。</p><button class="text-button" data-reset>清除搜索与筛选</button></div>';
     } else {
-      // Paginate complete owner groups so one author's repositories never split across batches.
-      resultItems = grouped ? groupRepositoriesByOwner(repos, state.sort) : repos;
+      resultItems = buildRepositoryTimeline(repos, {group:state.group, sort:state.sort});
       renderedCount = Math.min(state.limit, resultItems.length);
-      $('results').innerHTML = `<div class="${grouped ? 'owner-groups' : 'repo-grid'}">${resultItems.slice(0,renderedCount).map(grouped ? ownerGroup : card).join('')}</div>`;
+      $('results').innerHTML = '<div class="repository-timeline"></div>';
+      appendTimelineItems(resultItems.slice(0,renderedCount));
     }
   }
   $('results').setAttribute('aria-busy', 'false');

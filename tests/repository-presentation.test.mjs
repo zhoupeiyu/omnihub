@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { canFocusRepositorySearch, groupRepositoriesByOwner } from '../public/repository-explorer-prototype.js';
+import { canFocusRepositorySearch, groupRepositoriesByOwner, repositoryOrganizationDay, buildRepositoryTimeline } from '../public/repository-explorer-prototype.js';
 
 const ready = { active:true, detailOpen:false, editable:false, overlayOpen:false };
 
@@ -66,4 +66,55 @@ test('pagination by owner retains every matching repository in a displayed group
 
 test('an empty filtered result has no owner groups', () => {
   assert.deepEqual(groupRepositoriesByOwner([]), []);
+});
+
+test('organization days preserve date-only reviews and fall back past invalid dates', () => {
+  const previous = process.env.TZ;
+  try {
+    process.env.TZ = 'America/Los_Angeles';
+    assert.equal(repositoryOrganizationDay({organizedAt:'2026-10-25'}), '2026-10-25');
+    assert.equal(repositoryOrganizationDay({organizedAt:'invalid',updatedAt:'2026-10-25 04:00:00'}), '2026-10-24');
+    assert.equal(repositoryOrganizationDay({created_at:'2026-10-25'}), '2026-10-25');
+    assert.equal(repositoryOrganizationDay({}), 'undated');
+  } finally {
+    if (previous === undefined) delete process.env.TZ;
+    else process.env.TZ = previous;
+  }
+});
+
+test('dates precede author groups and an author can appear on multiple days', () => {
+  const repos = Object.freeze([
+    {owner:'alpha',key:'alpha/old',organizedAt:'2026-10-01'},
+    {owner:'zeta',key:'zeta/new',organizedAt:'2026-10-25'},
+    {owner:'alpha',key:'alpha/new',organizedAt:'2026-10-25'},
+    {owner:'ALPHA',key:'alpha/second',organizedAt:'2026-10-25'},
+    {owner:'unknown',key:'unknown/repo'},
+  ].map(Object.freeze));
+  const units = buildRepositoryTimeline(repos, {sort:'name'});
+  assert.deepEqual(units.map(({date,item}) => [date,item.key]), [
+    ['2026-10-25','alpha'], ['2026-10-25','zeta'], ['2026-10-01','alpha'], ['undated','unknown'],
+  ]);
+  assert.deepEqual(units[0].item.repositories, [repos[2],repos[3]]);
+  assert.equal(units[0].count, 3);
+  assert.deepEqual(units.flatMap(unit => unit.item.repositories).map(repo => repo.key).sort(), repos.map(repo => repo.key).sort());
+});
+
+test('pagination retains complete authors within a day and stable date identity across batches', () => {
+  const rows = Array.from({length:40}, (_,i) => ({owner:`owner-${String(i).padStart(2,'0')}`,key:`owner-${i}/skill`,organizedAt:'2026-10-25'}));
+  rows.push({owner:'owner-00',key:'owner-0/second',organizedAt:'2026-10-25'});
+  rows.push({owner:'owner-00',key:'owner-0/older',organizedAt:'2026-10-24'});
+  const units = buildRepositoryTimeline(rows, {sort:'name'});
+  assert.equal(units[0].item.repositories.length, 2);
+  assert.equal(units[35].date, units[36].date);
+  assert.equal(units[40].date, '2026-10-24');
+  assert.equal(units.slice(0,36).flatMap(unit => unit.item.repositories).length, 37);
+  assert.equal(units.flatMap(unit => unit.item.repositories).length, rows.length);
+});
+
+test('ungrouped and empty timelines keep date nodes without inventing authors', () => {
+  const old = {owner:'alpha',key:'alpha/old',organizedAt:'2026-10-01'};
+  const recent = {owner:'zeta',key:'zeta/new',organizedAt:'2026-10-25'};
+  const units = buildRepositoryTimeline([old,recent], {group:'none',sort:'name'});
+  assert.deepEqual(units.map(unit => unit.item), [recent,old]);
+  assert.deepEqual(buildRepositoryTimeline([]), []);
 });
