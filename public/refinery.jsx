@@ -880,6 +880,50 @@ function PromptDetail({ item, initialIndex, onClose, onCorrectClassification, on
   </DetailDrawer>;
 }
 
+function observePromptMasonry(grid) {
+  const cards = Array.from(grid.children);
+  let frame = 0;
+  const layout = () => {
+    frame = 0;
+    if (!grid.isConnected || !grid.getBoundingClientRect().width) return;
+    const style = getComputedStyle(grid);
+    const columns = style.gridTemplateColumns.split(' ').filter(Boolean);
+    const gap = parseFloat(style.columnGap) || 0;
+    grid.style.setProperty('--prompt-card-width', columns[0]);
+    grid.classList.add('is-masonry');
+    // Preserve chronological DOM order while filling the shortest column.
+    const heights = cards.map(card => card.getBoundingClientRect().height);
+    const bottoms = columns.map(() => 0);
+    const width = parseFloat(columns[0]);
+    cards.forEach((card, index) => {
+      const column = bottoms.indexOf(Math.min(...bottoms));
+      card.style.left = `${column * (width + gap)}px`;
+      card.style.top = `${bottoms[column]}px`;
+      bottoms[column] += heights[index] + gap;
+    });
+    grid.style.height = `${Math.max(0, ...bottoms) - (cards.length ? gap : 0)}px`;
+  };
+  const schedule = () => {
+    if (!frame) frame = requestAnimationFrame(layout);
+  };
+  const observer = window.ResizeObserver ? new ResizeObserver(schedule) : null;
+  observer?.observe(grid);
+  cards.forEach(card => observer?.observe(card));
+  grid.addEventListener('load', schedule, true);
+  window.addEventListener('resize', schedule);
+  layout();
+  return () => {
+    cancelAnimationFrame(frame);
+    observer?.disconnect();
+    grid.removeEventListener('load', schedule, true);
+    window.removeEventListener('resize', schedule);
+    grid.classList.remove('is-masonry');
+    grid.style.removeProperty('--prompt-card-width');
+    grid.style.removeProperty('height');
+    cards.forEach(card => { card.style.removeProperty('left'); card.style.removeProperty('top'); });
+  };
+}
+
 function PromptLibraryView({ active = true, items, query, onQueryChange, onCorrectClassification, onOpenMethod, onCreateMedia, requestedSourceId, onRequestedSourceHandled }) {
   const [category, setCategory] = useRefineryState("all");
   const [subject, setSubject] = useRefineryState("all");
@@ -889,6 +933,7 @@ function PromptLibraryView({ active = true, items, query, onQueryChange, onCorre
   const [navigationNotice, setNavigationNotice] = useRefineryState('');
   const trigger = useRefineryRef(null);
   const detailWidth = useRefineryRef(null);
+  const grid = useRefineryRef(null);
   useRefineryEffect(() => { if (!active) { setSelected(null); setPreview(null); } }, [active]);
   useRefineryEffect(() => {
     setSelected(current => { if (!current) return null; const item = items.find(x => x.id === current.item.id); return item ? {...current,item} : null; });
@@ -929,6 +974,10 @@ function PromptLibraryView({ active = true, items, query, onQueryChange, onCorre
     if (style !== "all" && item.facets?.style?.value !== style) return false;
     return true;
   });
+  const visibleKey = visible.map(item => item.id).join(',');
+  useRefineryEffect(() => {
+    if (active && grid.current) return observePromptMasonry(grid.current);
+  }, [active, visibleKey]);
   const tabs = [{value:'all', label:'全部'}, ...categories.map(value => ({value, label:value}))];
   const chooseCategory = value => {setCategory(value); setSubject('all'); setStyle('all');};
   const resetFilters = () => {chooseCategory('all'); onQueryChange?.('');};
@@ -959,7 +1008,7 @@ function PromptLibraryView({ active = true, items, query, onQueryChange, onCorre
         {(subject !== 'all' || style !== 'all') && <button className="prompt-clear-facets" onClick={() => {setSubject('all'); setStyle('all');}}>清除筛选</button>}
         <span role="status">{visible.length} 条提示词</span>
       </div>
-      <div className="prompt-refinery-grid">{visible.map(item => <PromptLibraryCard key={item.id} item={item}
+      <div className="prompt-refinery-grid" ref={grid}>{visible.map(item => <PromptLibraryCard key={item.id} item={item}
         selected={selected?.item.id === item.id} onOpen={openDetail} onPreview={openPreview} />)}</div>
       {!visible.length && <div className="prompt-empty"><p>没有匹配的提示词</p><button className="btn" onClick={resetFilters}>查看全部提示词</button></div>}
       </div>

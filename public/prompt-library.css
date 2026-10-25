@@ -16,6 +16,8 @@
 .prompt-clear-facets { min-height:36px; padding:5px 8px; border:0; background:none; color:var(--text-2); font:12px var(--font-body); cursor:pointer; }
 .prompt-facet-toolbar > span { margin-left:auto; color:var(--text-3); font-size:12px; white-space:nowrap; }
 .prompt-refinery-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(min(100%,300px),1fr)); align-items:start; gap:16px; }
+.prompt-refinery-grid.is-masonry { position:relative; }
+.prompt-refinery-grid.is-masonry > .prompt-refinery-card { position:absolute; width:var(--prompt-card-width); }
 .prompt-refinery-card { display:inline-block; width:100%; min-width:0; margin:0; overflow:hidden; border:1px solid var(--border); border-radius:10px; background:var(--surface); color:var(--text); vertical-align:top; }
 .prompt-refinery-card:hover { border-color:var(--text-3); }
 .prompt-refinery-card.is-selected { border-color:var(--accent); }
