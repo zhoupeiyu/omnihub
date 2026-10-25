@@ -593,7 +593,7 @@ function KnowledgeLibraryView({ items, query, onQueryChange, active = true, requ
     const sections = [...reader.querySelectorAll('.knowledge-article h2, .knowledge-article h3, .knowledge-method-prompt h2')];
     setHeadings(sections.map((element,index) => {
       element.id = `knowledge-section-${index}`; element.tabIndex = -1;
-      return {id:element.id, title:element.textContent};
+      return {id:element.id, title:element.textContent, level:element.tagName === 'H3' ? 3 : 2};
     }));
     reader.scrollTop = positions.get(String(selectedId)) || 0;
     if (focusReader.current === String(selectedId)) { reader.querySelector('h1')?.focus({preventScroll:true}); focusReader.current = null; }
@@ -616,12 +616,10 @@ function KnowledgeLibraryView({ items, query, onQueryChange, active = true, requ
       .find(element => element.dataset.knowledgeId === String(selectedId))?.focus({preventScroll:true}));
   };
   const resetFilters = () => { setKind('all'); setTool('all'); onQueryChange(''); searchRef.current?.focus(); };
-  const jumpToHeading = (id, event) => {
+  const jumpToHeading = id => {
     const reader = readerRef.current, heading = document.getElementById(id);
     if (!heading || !reader.contains(heading)) return;
-    const disclosure = event.currentTarget.closest('details');
-    if (disclosure) disclosure.open = false;
-    reader.scrollTo({top:reader.scrollTop + heading.getBoundingClientRect().top - reader.getBoundingClientRect().top - 58, behavior:'instant'});
+    reader.scrollTo({top:reader.scrollTop + heading.getBoundingClientRect().top - reader.getBoundingClientRect().top - 24, behavior:'instant'});
     heading.focus({preventScroll:true});
   };
   const failedDetail = detailError?.store === store && String(detailError.id) === String(selectedId);
@@ -646,8 +644,7 @@ function KnowledgeLibraryView({ items, query, onQueryChange, active = true, requ
       </div>
     </aside>
     <article ref={readerRef} className="knowledge-reader" aria-label="知识文章" onScroll={event => {if (detail && event.currentTarget.getClientRects().length) positions.set(String(selectedId),event.currentTarget.scrollTop);}}>
-      {!detail ? <div className="knowledge-loading" role="status"><p>{failedDetail ? '文章暂时无法读取' : visible.length ? '正在读取文章…' : searching ? '正在搜索正文…' : '选择文章开始阅读'}</p>{failedDetail && <button className="btn" onClick={() => setRetry(value => value + 1)}>重新加载</button>}</div> : <React.Fragment>
-        {headings.length > 2 && <details className="knowledge-toc" key={String(selectedId)}><summary>本文目录 <span>{headings.length} 节</span></summary><nav aria-label="本文章节">{headings.map(heading => <button key={heading.id} onClick={event => jumpToHeading(heading.id,event)}>{heading.title}</button>)}</nav></details>}
+      {!detail ? <div className="knowledge-loading" role="status"><p>{failedDetail ? '文章暂时无法读取' : visible.length ? '正在读取文章…' : searching ? '正在搜索正文…' : '选择文章开始阅读'}</p>{failedDetail && <button className="btn" onClick={() => setRetry(value => value + 1)}>重新加载</button>}</div> : <div className={`knowledge-reading-layout${headings.length ? ' has-toc' : ''}`}>
         <header className="knowledge-reader-head"><div className="knowledge-breadcrumb">{detail.type === 'source_archive' ? '原文归档' : `${detail.type === 'method' ? '方法技巧' : '综合知识'} · ${detail.tags?.[0] || '专题'}`}</div>
           <h1 tabIndex={-1}>{detail.title}</h1>{detail.type !== 'source_archive' && !knowledgeSummaryIsRepeated(detail) && <p>{detail.summary}</p>}
           <div className="knowledge-reader-meta"><span className="knowledge-state">{detail.type === 'source_archive' ? '保留原文' : detail.type === 'method' ? '来源整理 · 未实测' : '来源核验'}</span><span>{detail.sources.length} 个来源</span>
@@ -655,13 +652,16 @@ function KnowledgeLibraryView({ items, query, onQueryChange, active = true, requ
             {detail.hasPrompt && <button className="btn btn-ghost" onClick={() => onOpenPrompt(detail.sourceInboxId)}>查看提取的提示词 →</button>}
           </div>
         </header>
+        {headings.length > 0 && <aside className="knowledge-toc" key={String(selectedId)}><div className="knowledge-toc-title">本文目录 <span>{headings.length} 节</span></div><nav aria-label="本文章节">{headings.map(heading => <button key={heading.id} data-level={heading.level} onClick={() => jumpToHeading(heading.id)}>{heading.title}</button>)}</nav></aside>}
+        <div className="knowledge-reading-content">
         {detail.type === 'method' && <div className="knowledge-method-context"><span>适用对象 <strong>{detail.tags?.[0] || '待补充'}</strong></span><span>具体用途 <strong>{detail.tags?.[1] || '见下方步骤'}</strong></span></div>}
         <div className="knowledge-article markdown-body" dangerouslySetInnerHTML={{__html:markdownWithCitationLinks(detail.body, detail.sources)}} />
         {detail.promptText && <section className="knowledge-method-prompt"><div><h2>原帖中的指令片段</h2><button className="btn btn-ghost" onClick={async () => {
           setCopyResult('');
           try { await navigator.clipboard.writeText(detail.promptText); setCopyResult('已复制'); } catch { setCopyResult('复制失败，请手动选择文字'); }
         }}>复制指令</button></div><p>原文示例；请结合上面的适用条件和限制使用。</p><span role="status">{copyResult}</span><pre>{detail.promptText}</pre></section>}
-      </React.Fragment>}
+        </div>
+      </div>}
     </article>
   </div>;
 }
