@@ -542,7 +542,7 @@ function KnowledgeToolFilter({ value, options, onChange, active }) {
       const right = left + (viewport?.width || document.documentElement.clientWidth) - 16;
       const top = Math.max(viewport?.offsetTop || 0, document.querySelector('.header-bar')?.getBoundingClientRect().bottom || 0) + 8;
       const bottom = (viewport?.offsetTop || 0) + (viewport?.height || innerHeight) - 8;
-      const width = Math.min(rect.width, right - left);
+      const width = Math.min(Math.max(rect.width, 240), right - left);
       const below = Math.max(0, bottom - rect.bottom - 6), above = Math.max(0, rect.top - top - 6);
       const upward = below < 200 && above > below;
       const maxHeight = Math.min(300, upward ? above : below);
