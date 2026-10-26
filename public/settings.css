@@ -1,5 +1,5 @@
 /* Full-page settings (#settings?category=…) rendered inside <main>. */
-.settings-page { min-width:0; max-width:1120px; padding-bottom:32px; }
+.settings-page { min-width:0; width:100%; padding-bottom:32px; }
 .settings-page-head { display:flex; align-items:center; gap:12px; margin-bottom:18px; }
 .settings-page-head h1 { margin:0; font-size:24px; }
 .settings-back { display:inline-flex; align-items:center; gap:4px; }
