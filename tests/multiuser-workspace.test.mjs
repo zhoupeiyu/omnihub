@@ -25,9 +25,9 @@ test('signed-in workspace exposes own inbox and connections without widening adm
   assert.match(app, /<CatalogueSpaceSwitch user=\{user\}/);
   assert.match(app, /登录后查看你的收藏/);
   assert.match(nav, /hasPersonalSpace/);
-  assert.match(nav, /账号与连接/);
+  assert.match(nav, /账号与设置/);
   assert.match(nav, /const canUseFullApp = Boolean\(user && user\.fullAccess\)/);
-  assert.match(account, /账号与连接/);
+  assert.match(account, /账号与同步/);
   assert.doesNotMatch(account, /归属 zane/);
   assert.match(account, /localCuration\.devices\.filter/);
   assert.match(account, /个人连接状态暂时无法读取/);
@@ -69,5 +69,7 @@ test('logout and anonymous personal URLs return to public catalogue scope', () =
   const app = read('public/app.jsx');
   assert.match(app, /!personalAccess && catalogueScope === 'mine'/);
   assert.match(app, /params\.set\('space', 'public'\)/);
-  assert.match(app, /personalAccess && new URLSearchParams\(window\.location\.hash/);
+  assert.match(app, /if \(!personalAccess \|\| catalogueScope === 'mine'\) return/);
+  assert.match(app, /if \(params\.has\('space'\)\) return/);
+  assert.match(app, /params\.set\('space', 'mine'\)/);
 });

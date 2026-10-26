@@ -88,3 +88,12 @@ test('monitor onboarding requires settings and an explicit enable save', () => {
   assert.match(source, /最近成功/);
   assert.match(source, /上次失败：/);
 });
+
+test('Chat source uses archived article text and supports an explicit multi-term search mode', () => {
+  const source = read('../public/chat.jsx');
+  const code = between(source, 'function chatSourceMaterial', '/** Bounded source search');
+  const c = vm.createContext({ JSON }); vm.runInContext(code, c);
+  const item = { id: 1, title: 'Article', url: 'https://x.com/a/status/1', content: 'short link', metrics: JSON.stringify({ article: { plainText: 'full archived article body' } }) };
+  assert.match(c.chatSourceText(item), /full archived article body/);
+  assert.equal(c.chatSourceRef(item).content, 'full archived article body');
+});

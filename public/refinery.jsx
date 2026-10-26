@@ -492,8 +492,11 @@ function knowledgeSummaryIsRepeated(detail) {
   return Boolean(summary && knowledgePlainText(detail?.body).startsWith(summary));
 }
 
-function createKnowledgeDetailStore(load) {
+function createKnowledgeDetailStore(load, items = []) {
   const data = new Map(), pending = new Map(), controller = new AbortController();
+  for (const item of items) {
+    if (item.initialDetail && String(item.initialDetail.id) === String(item.id)) data.set(String(item.id), item.initialDetail);
+  }
   return {
     peek: id => data.get(String(id)),
     load(id) {
@@ -638,7 +641,7 @@ function KnowledgeLibraryView({ items, query, onQueryChange, active = true, requ
   const readerRef = useRefineryRef(null), indexRef = useRefineryRef(null), searchRef = useRefineryRef(null);
   const focusReader = useRefineryRef(null);
   // Cache only records from this exact catalogue snapshot, never across accounts/scopes.
-  const store = useRefineryMemo(() => createKnowledgeDetailStore((id, signal) => api(`/api/knowledge-library/${id}`, {signal})), [items]);
+  const store = useRefineryMemo(() => createKnowledgeDetailStore((id, signal) => api(`/api/knowledge-library/${id}`, {signal}), items), [items]);
   const positions = useRefineryRef(new Map()).current;
   const needle = String(query || '').trim();
   const queryTooLong = Array.from(needle).length > 120;

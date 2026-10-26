@@ -90,13 +90,16 @@ function createChatStreamParser(handlers = {}) {
   };
 }
 
+function chatSourceMaterial(source) {
+  const metrics = typeof source?.metrics === 'string' ? (() => { try { return JSON.parse(source.metrics); } catch { return {}; } })() : (source?.metrics || {});
+  return metrics?.article?.plainText || metrics?.article?.body || metrics?.recoveredPost?.text || source?.content || '';
+}
 function chatSourceText(source) {
   if (!source) return "";
-  return `${source.title || ""}\n\n${source.content || ""}${source.url ? `\n\n原始来源：${source.url}` : ""}`.trim();
+  return `${source.title || ""}\n\n${chatSourceMaterial(source)}${source.url ? `\n\n原始来源：${source.url}` : ""}`.trim();
 }
-
-function chatSourceRef(item) {
-  return { id: item.id, title: item.title || "", url: item.url || "", author: item.author || "", content: item.content || "" };
+function chatSourceRef(source) {
+  return { id: source.id, title: source.title || "", url: source.url || "", author: source.author || "", content: chatSourceMaterial(source) };
 }
 
 /** Bounded source search over title / author / content; title hits rank first. */
@@ -404,7 +407,7 @@ const CHAT_CAPTURE_TEMPLATES = [
 const CHAT_RECENT_STORAGE_KEY = "refinery.recentSources";
 
 /** AI 提炼台：原文（检索并显式关联）→ 生成结果（可编辑）→ 保存位置/分类/引用；辅助对话保留 */
-function ChatView({ messages, onMessagesChange, prefill, onPrefillUsed, hasAiConfig, onOpenAiSettings, showToast, sources = [], onSaveResult, active = false }) {
+function ChatView({ messages, onMessagesChange, prefill, onPrefillUsed, hasAiConfig, onOpenAiSettings, showToast, sources = [], onLoadSource, onSearchSources, onSaveResult, active = false }) {
   const setMessages = onMessagesChange;
   const [input, setInput] = useChatState("");
   const [originalText, setOriginalText] = useChatState("");
@@ -426,10 +429,18 @@ function ChatView({ messages, onMessagesChange, prefill, onPrefillUsed, hasAiCon
   const requestRef = useChatRef(null);
   const runRef = useChatRef(0);
   const busyRef = useChatRef(false);
+  const sourceSearchRunRef = useChatRef(0);
+  const sourceBindRunRef = useChatRef(0);
+  const sourceBindControllerRef = useChatRef(null);
+  const sourceSearchRef = useChatRef(onSearchSources);
+  sourceSearchRef.current = onSearchSources;
+  const activeRef = useChatRef(active);
+  activeRef.current = active;
   const messagesRef = useChatRef(messages);
   messagesRef.current = messages;
 
-  useChatEffect(() => () => { runRef.current += 1; requestRef.current?.abort(); }, []);
+  useChatEffect(() => () => { runRef.current += 1; sourceSearchRunRef.current += 1; sourceBindRunRef.current += 1; sourceBindControllerRef.current?.abort(); requestRef.current?.abort(); }, []);
+  useChatEffect(() => { if (!active) { sourceBindRunRef.current += 1; sourceBindControllerRef.current?.abort(); } }, [active]);
 
   useChatEffect(() => {
     if (prefill) {
@@ -444,8 +455,28 @@ function ChatView({ messages, onMessagesChange, prefill, onPrefillUsed, hasAiCon
 
   useChatEffect(() => { if (typeof saveStored === "function") saveStored(CHAT_RECENT_STORAGE_KEY, recentIds); }, [recentIds]);
 
+  const [remoteSearch, setRemoteSearch] = useChatState(null);
+  const [sourceSearchError, setSourceSearchError] = useChatState("");
+  const [sourceSearchRetry, setSourceSearchRetry] = useChatState(0);
+  useChatEffect(() => {
+    const query = String(sourceQuery || "").trim();
+    const searchSources = sourceSearchRef.current;
+    if (!query || typeof searchSources !== "function") { setRemoteSearch(null); setSourceSearchError(""); return undefined; }
+    const controller = new AbortController(); const run = ++sourceSearchRunRef.current;
+    setRemoteSearch(null); setSourceSearchError("");
+    const timer = setTimeout(() => searchSources(query, { signal: controller.signal }).then((result) => {
+      if (!controller.signal.aborted && run === sourceSearchRunRef.current) setRemoteSearch({ query, ids: result.ids || [], total: Number(result.total) || 0 });
+    }).catch((error) => { if (!controller.signal.aborted && run === sourceSearchRunRef.current) setSourceSearchError(error.message || "搜索失败，请重试"); }), 160);
+    return () => { clearTimeout(timer); controller.abort(); };
+  }, [sourceQuery, sourceSearchRetry]);
   const bindingState = chatSourceBindingState(binding, originalText);
-  const search = useChatMemo(() => chatSourceSearch(sources, sourceQuery), [sources, sourceQuery]);
+  const search = useChatMemo(() => {
+    if (remoteSearch?.query === String(sourceQuery || "").trim()) {
+      const byId = new Map(sources.map(item => [String(item.id), item]));
+      return { matches: remoteSearch.ids.map(id => byId.get(String(id))).filter(Boolean).slice(0, CHAT_SOURCE_MATCH_LIMIT), total: remoteSearch.total };
+    }
+    return chatSourceSearch(sources, sourceQuery);
+  }, [sources, sourceQuery, remoteSearch]);
   const recent = useChatMemo(() => chatRecentSources(recentIds, sources), [recentIds, sources]);
 
   const lastAssistantIndex = (() => {
@@ -491,11 +522,24 @@ function ChatView({ messages, onMessagesChange, prefill, onPrefillUsed, hasAiCon
     setMessages(next);
   }
 
-  function bindSource(item) {
-    if (busyRef.current || !item) return;
-    const text = chatSourceText(item);
+  async function bindSource(item) {
+    if (busyRef.current || !item || !activeRef.current) return;
+    sourceBindControllerRef.current?.abort();
+    const controller = new AbortController(); sourceBindControllerRef.current = controller;
+    const run = ++sourceBindRunRef.current;
+    let source = item;
+    try {
+      if (item.isListItem) {
+        if (typeof onLoadSource !== "function") throw new Error("原文暂时无法加载");
+        source = await onLoadSource(item.id, { signal: controller.signal });
+        if (controller.signal.aborted || run !== sourceBindRunRef.current || !activeRef.current || busyRef.current) return;
+        if (!source || String(source.id) !== String(item.id)) throw new Error("原文加载失败");
+      }
+    } catch (error) { if (run === sourceBindRunRef.current && activeRef.current) showToast(error.message || "原文加载失败"); return; }
+    if (controller.signal.aborted || run !== sourceBindRunRef.current || !activeRef.current || busyRef.current) return;
+    const text = chatSourceText(source);
     if (originalText.trim() && originalText.trim() !== text && !confirm("用这条收藏替换当前原文吗？已发送的对话会保留。")) return;
-    setBinding({ source: chatSourceRef(item), insertedText: text, sent: false, confirmedInput: "" });
+    setBinding({ source: chatSourceRef(source), insertedText: text, sent: false, confirmedInput: "" });
     setBindingPrompt(false);
     setOriginalText(text);
     setRecentIds(current => chatPushRecent(current, item.id));
@@ -505,6 +549,7 @@ function ChatView({ messages, onMessagesChange, prefill, onPrefillUsed, hasAiCon
   }
 
   function detachSource() {
+    sourceBindRunRef.current += 1; sourceBindControllerRef.current?.abort();
     setBinding(null);
     setBindingPrompt(false);
     showToast("已解除原文关联，之后的结果不会带这条来源");
@@ -521,6 +566,7 @@ function ChatView({ messages, onMessagesChange, prefill, onPrefillUsed, hasAiCon
       : !hasUnsavedWork || window.confirm("提炼台还有未保存的原文或结果，确定新建对话吗？");
     if (!allowNew) return;
     runRef.current += 1;
+    sourceBindRunRef.current += 1; sourceBindControllerRef.current?.abort();
     requestRef.current?.abort();
     requestRef.current = null;
     busyRef.current = false;
@@ -540,6 +586,7 @@ function ChatView({ messages, onMessagesChange, prefill, onPrefillUsed, hasAiCon
     const text = String(override ?? input).trim();
     if (!text || busyRef.current) return;
     if (!hasAiConfig) { onOpenAiSettings(); return; }
+    sourceBindRunRef.current += 1; sourceBindControllerRef.current?.abort();
     const plan = chatSendPlan(messagesRef.current, text);
     if (!plan.retry && chatSourceBindingState(binding, originalText) === "stale") {
       setBindingPrompt(true);
@@ -688,7 +735,7 @@ function ChatView({ messages, onMessagesChange, prefill, onPrefillUsed, hasAiCon
           </label>
           {sourceQuery.trim() ? (
             <div className="refinery-source-results" aria-live="polite">
-              <p className="refinery-muted">{search.total ? `找到 ${search.total} 条${search.total > search.matches.length ? `，显示前 ${search.matches.length} 条，请继续缩小关键词` : ""}` : "没有匹配的收藏"}</p>
+              {sourceSearchError ? <p className="auth-error">{sourceSearchError} <button className="btn btn-ghost" onClick={() => setSourceSearchRetry(value => value + 1)}>重试</button></p> : <p className="refinery-muted">{remoteSearch === null && typeof sourceSearchRef.current === "function" ? "正在搜索完整原文…" : (search.total ? `找到 ${search.total} 条${search.total > search.matches.length ? `，显示前 ${search.matches.length} 条，请继续缩小关键词` : ""}` : "没有匹配的收藏")}</p>}
               <ul className="refinery-source-list">
                 {search.matches.map(item => (
                   <li key={item.id}><button type="button" disabled={waiting} onClick={() => bindSource(item)}
@@ -714,7 +761,7 @@ function ChatView({ messages, onMessagesChange, prefill, onPrefillUsed, hasAiCon
           )}
           <label className="refinery-field">原文（可直接粘贴或由收藏填入）
             <textarea className="input refinery-original-editor" rows="10" aria-label="待整理原文" value={originalText} disabled={waiting}
-              placeholder="粘贴需要整理的原文；选择收藏会自动填入这里。" onChange={event => setOriginalText(event.target.value)} />
+              placeholder="粘贴需要整理的原文；选择收藏会自动填入这里。" onChange={event => { sourceBindRunRef.current += 1; sourceBindControllerRef.current?.abort(); setOriginalText(event.target.value); }} />
           </label>
           {binding ? (
             <div className={"refinery-binding" + (bindingState === "stale" ? " is-stale" : "")}>

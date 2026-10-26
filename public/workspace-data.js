@@ -2,11 +2,11 @@
 // Repository data belongs to RepositoryExplorerTab.
 function workspaceDataRequests(section, fullAccess, personalAccess = fullAccess) {
   const libraries = {
-    knowledgeLibrary: [['knowledgeLibrary', '/api/knowledge-library']],
+    knowledgeLibrary: [['knowledgeLibrary', '/api/knowledge-library?view=compact']],
     promptLibrary: [['promptLibrary', '/api/prompt-library']],
     // Inbox rows are always the signed-in person's own rows. It is deliberately
     // not a public catalogue route and must never be prefetched for visitors.
-    inbox: personalAccess ? [['inbox', '/api/inbox']] : [],
+    inbox: personalAccess ? [['inbox', '/api/inbox/list']] : [],
   };
   if (libraries[section]) return libraries[section];
   // Generated results belong to the signed-in person's own 作品 module only.

@@ -44,13 +44,26 @@ test('immutable static caching, revalidation and compression preserve private AP
     assert.equal((await request(version+'/app.js',{'If-None-Match':'"stale"','If-Modified-Since':plain.headers['last-modified']})).status,200);
     assert.equal((await request(version+'/app.js',{},'HEAD')).body.length,0);
     assert.equal((await request(version+'/app.js',{},'POST')).status,405);
-    const guest=await request('/api/repositories',{'Accept-Encoding':'gzip'});
-    assert.equal(guest.headers['content-encoding'],'gzip');assert.equal(guest.headers['cache-control'],'no-store');
-    for(const headers of [{Cookie:'session=owner'}, {Authorization:'Bearer example'}]) {
-      const privateResponse=await request('/api/repositories',{'Accept-Encoding':'gzip',...headers});
-      assert.equal(privateResponse.headers['content-encoding'],undefined);assert.equal(privateResponse.headers['cache-control'],'no-store');
+    for (const path of [
+      '/api/inbox', '/api/inbox/42', '/api/inbox/list',
+      '/api/repositories', '/api/repositories/openai/skills',
+      '/api/knowledge-library', '/api/knowledge-library/manual-knowledge-42',
+      '/api/prompt-library',
+    ]) {
+      const response=await request(path,{'Accept-Encoding':'gzip',Cookie:'session=owner'});
+      assert.equal(response.headers['content-encoding'],'gzip',path);
+      assert.equal(response.headers['cache-control'],'no-store',path);
+      assert.equal(response.headers.vary,'Accept-Encoding',path);
+      assert.equal(JSON.parse(gunzipSync(response.body).toString()).text,content,path);
     }
-    const auth=await request('/api/me',{'Accept-Encoding':'gzip'});
-    assert.equal(auth.headers['content-encoding'],undefined);assert.equal(auth.headers['cache-control'],'no-store');
+    const qZero=await request('/api/inbox',{'Accept-Encoding':'br, gzip;q=0',Cookie:'session=owner'});
+    assert.equal(qZero.headers['content-encoding'],undefined);
+    assert.equal(qZero.headers.vary,'Accept-Encoding');
+    for (const [path, method] of [['/api/inbox','POST'],['/api/account/connections','GET'],['/api/me','GET']]) {
+      const response=await request(path,{'Accept-Encoding':'gzip',Cookie:'session=owner'},method);
+      assert.equal(response.headers['content-encoding'],undefined,`${method} ${path}`);
+      assert.equal(response.headers['cache-control'],'no-store',`${method} ${path}`);
+      assert.equal(response.headers.vary,undefined,`${method} ${path}`);
+    }
   } finally { await new Promise(resolve=>server.close(resolve));await rm(root,{recursive:true,force:true}); }
 });

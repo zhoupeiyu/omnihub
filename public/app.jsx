@@ -1329,7 +1329,7 @@ function Workspace({ user, onUserChange, showToast, toast }) {
       } }); }
       catch (error) {
         if (result.total > 0) {
-          setInboxItems(await api("/api/inbox"));
+          setInboxItems(await api("/api/inbox/list"));
           throw new Error(`导入中断，已处理 ${result.total} 条；重传会跳过重复内容并补全已有记录。${error.message}`);
         }
         throw error;
@@ -1339,7 +1339,7 @@ function Workspace({ user, onUserChange, showToast, toast }) {
       result.skipped += part.skipped;
       result.total += part.total;
     }
-    setInboxItems(await api("/api/inbox"));
+    setInboxItems(await api("/api/inbox/list"));
     return result;
   }
 
@@ -1744,6 +1744,8 @@ function Workspace({ user, onUserChange, showToast, toast }) {
           {(section === 'chat' || chatVisited) && canUseFullApp && (
             <ChatView active={section === 'chat'} messages={chatMessages} onMessagesChange={setChatMessages}
               prefill={chatPrefill} onPrefillUsed={() => setChatPrefill("")} sources={inboxItems}
+              onLoadSource={(id, options) => api(`/api/inbox/${id}`, options)}
+              onSearchSources={(query, options) => api(`/api/inbox/search?q=${encodeURIComponent(query)}&mode=terms`, options)}
               onSaveResult={saveChatResult}
               hasAiConfig={hasAiConfig}
               onOpenAiSettings={() => setModal("ai-settings")}

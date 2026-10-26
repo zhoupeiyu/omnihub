@@ -109,24 +109,26 @@ function inboxLinks(item) {
   const add = (value) => { const url = inboxSafeUrl(value); if (url) found.add(url); };
   const imported = inboxJson(item?.links, []);
   if (Array.isArray(imported)) imported.forEach((link) => add(typeof link === "string" ? link : link?.expanded_url || link?.url));
-  for (const match of String(item?.content || "").matchAll(/https?:\/\/[^\s<>"']+/gi)) {
+  for (const match of String(item?.content || item?.contentPreview || "").matchAll(/https?:\/\/[^\s<>"']+/gi)) {
     add(match[0].replace(/[.,!?;:。，！？；：）)\]]+$/u, ""));
   }
   return [...found];
 }
 
 function inboxArticleLink(item) {
+  if (item?.articleLink) return item.articleLink;
   return inboxLinks(item).find((url) => /^https?:\/\/(?:www\.)?x\.com\/i\/article\//i.test(url)) || "";
 }
 
 function inboxRecoveredArticle(item) {
+  if (item?.isListItem) return item.hasArticle ? { body: true } : null;
   const article = inboxJson(item?.metrics, {}).article;
   return article && typeof article.body === 'string' && article.body.trim() ? article : null;
 }
 
 function inboxSourceText(item) {
   const recovered = inboxJson(item?.metrics, {}).recoveredPost?.text;
-  return typeof recovered === 'string' && recovered.trim() ? recovered : String(item?.content || '');
+  return typeof recovered === 'string' && recovered.trim() ? recovered : (item?.isListItem ? '' : String(item?.content || ''));
 }
 
 function inboxDetailLinks(item) {
@@ -149,7 +151,7 @@ function inboxLinkedText(value) {
 
 function inboxReviewReason(item) {
   const organization = xOrganization(item);
-  const content = String(item?.content || "").trim();
+  const content = String(item?.content || item?.contentPreview || "").trim();
   if (item?.source === "x" && !inboxRecoveredArticle(item) && /^https?:\/\/t\.co\/\S+$/i.test(content) && inboxArticleLink(item)) return "article";
   if (item?.source !== "x" || (item.aiType && organization?.assetType !== "unknown") ||
       organization?.assetType === "idea") return "";
@@ -167,7 +169,7 @@ function inboxDisplayTitle(item) {
   const title = String(item?.title || "").trim();
   if (title && !/^https?:\/\/t\.co\/\S+$/i.test(title) && !/^(?:未命名内容|无标题收藏)$/u.test(title)) return title;
   if (inboxReviewReason(item) === "article") return "X 文章 · 仅有链接";
-  const content = String(item?.aiSummary || item?.content || "").trim().replace(/^https?:\/\/\S+\s*/i, "");
+  const content = String(item?.aiSummary || item?.content || item?.contentPreview || "").trim().replace(/^https?:\/\/\S+\s*/i, "");
   const sentence = content.split(/[\r\n。！？!?]/u).map((part) => part.trim()).find(Boolean);
   if (sentence) return sentence.slice(0, 160);
   const link = inboxLinks(item)[0];
@@ -176,7 +178,7 @@ function inboxDisplayTitle(item) {
 }
 
 function inboxExcerpt(item) {
-  const text = String(item?.aiSummary || item?.content || "").trim();
+  const text = String(item?.aiSummary || item?.content || item?.contentPreview || "").trim();
   const title = inboxDisplayTitle(item);
   return text.startsWith(title) ? text.slice(title.length).replace(/^[\s，,。.!！?？:：-]+/u, "").trim() : text;
 }
@@ -234,12 +236,12 @@ function inboxAfterRepeatedTitle(content, title) {
 }
 
 function inboxDraftContent(item, title) {
-  const content = String(item?.content || "").trim();
+  const content = item?.isListItem ? "" : String(item?.content || "").trim();
   return inboxAfterRepeatedTitle(content, title) || content;
 }
 
 function inboxEvidenceContent(item) {
-  const content = String(inboxSourceText(item) || item?.aiSummary || item?.url || "").trim();
+  const content = String(inboxSourceText(item) || (!item?.isListItem && item?.aiSummary) || item?.url || "").trim();
   const title = inboxDisplayTitle(item);
   return inboxAfterRepeatedTitle(content, title) ?? content;
 }
@@ -463,7 +465,14 @@ function InboxView({ active = true, items, query, readOnly = false, loadState, l
   const isPublicLoading = isPublicXScope && loadState === "loading" && scopedItems.length === 0;
   const isPublicError = isPublicXScope && loadState === "error" && scopedItems.length === 0;
   const hidePublicXControls = isPublicLoading || isPublicError;
-  const selected = scopedItems.find((item) => item.id === selectedId) || null;
+  const selectedIndex = scopedItems.find((item) => item.id === selectedId) || null;
+  const [selectedDetail, setSelectedDetail] = useInboxState(null);
+  const [detailStatus, setDetailStatus] = useInboxState("idle");
+  const [detailError, setDetailError] = useInboxState("");
+  const [detailRetry, setDetailRetry] = useInboxState(0);
+  const [searchState, setSearchState] = useInboxState({ query: "", ids: null, loading: false, error: "", retry: 0 });
+  const selected = selectedIndex && !selectedIndex.isListItem ? selectedIndex : (selectedDetail?.id === selectedId ? selectedDetail : selectedIndex);
+  const selectedReady = Boolean(selected && !selected.isListItem);
   const selectedSourceUrl = selected ? inboxSafeUrl(selected.url) : "";
   const visible = filter ? scopedItems.filter((item) => (item.aiType || "") === filter) : scopedItems;
 
@@ -530,6 +539,32 @@ function InboxView({ active = true, items, query, readOnly = false, loadState, l
   }, [items, selectedId, sourceScope]);
 
   useInboxEffect(() => {
+    const currentQuery = String(query || "").trim();
+    if (!active || !currentQuery) { setSearchState(state => state.ids === null && !state.loading && !state.error ? state : { ...state, query: currentQuery, ids: null, loading: false, error: "" }); return undefined; }
+    const controller = new AbortController();
+    setSearchState(state => ({ ...state, query: currentQuery, ids: null, loading: true, error: "" }));
+    const timer = setTimeout(() => api(`/api/inbox/search?q=${encodeURIComponent(currentQuery)}`, { signal: controller.signal }).then(result => {
+      if (!controller.signal.aborted) setSearchState(state => state.query === currentQuery ? { ...state, ids: new Set((result.ids || []).map(String)), loading: false } : state);
+    }).catch(error => {
+      if (!controller.signal.aborted) setSearchState(state => state.query === currentQuery ? { ...state, loading: false, error: error.message || "搜索失败，请重试" } : state);
+    }), 220);
+    return () => { clearTimeout(timer); controller.abort(); };
+  }, [active, query, items, searchState.retry]);
+
+  useInboxEffect(() => {
+    const needsDetail = active && selectedIndex && (sourceScope !== "x" || detailOpen || editorOpen);
+    if (!needsDetail || !selectedIndex?.isListItem) { setSelectedDetail(null); return; }
+    const controller = new AbortController();
+    setSelectedDetail(null); setDetailStatus("loading"); setDetailError("");
+    api(`/api/inbox/${selectedIndex.id}`, { signal: controller.signal }).then((item) => {
+      if (!controller.signal.aborted) { setSelectedDetail({ ...item, detailLoaded: true }); setDetailStatus("success"); }
+    }).catch((err) => {
+      if (!controller.signal.aborted) { setDetailStatus("error"); setDetailError(err.message || "原文加载失败"); }
+    });
+    return () => controller.abort();
+  }, [active, selectedIndex, detailOpen, sourceScope, detailRetry]);
+
+  useInboxEffect(() => {
     // Read the authorized classification record so the detail shows the real stage.
     if (!canBulk || !active || !selected || !(sourceScope !== "x" || detailOpen) || curations[selected.id]) return;
     let cancelled = false;
@@ -550,11 +585,12 @@ function InboxView({ active = true, items, query, readOnly = false, loadState, l
 
   useInboxEffect(() => {
     if (!selected) { setForm({}); return; }
+    if (!selectedReady || editorOpen) return;
     const type = inboxDefaultType(selected);
     setTargetType(type);
     setForm(inboxDraft(selected, type));
     setError("");
-  }, [selected && selected.id]);
+  }, [selected, selectedReady, editorOpen]);
 
   function changeTarget(type) {
     setTargetType(type);
@@ -720,9 +756,8 @@ function InboxView({ active = true, items, query, readOnly = false, loadState, l
     .sort((a, b) => b[1].items.length - a[1].items.length || a[1].title.localeCompare(b[1].title));
   const primarySubject = (item) => (item.subjectCollections || []).find((subject) =>
     subjectGroups.get(subject.id)?.items.length >= 2);
-  const q = String(query || "").trim().toLowerCase();
-  const filteredItems = byType.filter((item) => !q
-    || `${item.title} ${inboxSourceText(item)} ${inboxRecoveredArticle(item)?.plainText || ''} ${item.aiSummary} ${item.author} ${item.url}`.toLowerCase().includes(q))
+  const q = String(query || "").trim();
+  const filteredItems = byType.filter((item) => !q || (searchState.ids && searchState.ids.has(String(item.id))))
     .filter((item) => sourceScope !== "x" || !subjectFilter ||
       (item.subjectCollections || []).some((subject) => subject.id === subjectFilter))
     .filter((item) => sourceScope !== "x" || !topicFilter || xOrganization(item)?.topic === topicFilter)
@@ -937,7 +972,7 @@ function InboxView({ active = true, items, query, readOnly = false, loadState, l
         </label>}
       </div>}
       {sourceScope === "x" && !hidePublicXControls && <div className="inbox-x-toolbar">
-        <span>显示 {filteredItems.length} 条{subjectOptions.length > 0 && ` · ${subjectOptions.length} 个主题合集`}{partialCount > 0 && <small title={`当前 ${partialCount} 条来自未证实完整的采集批次；${incompleteCount} 条正文待补全`}> · 采集批次未证实完整</small>}</span>
+        <span>{q && searchState.loading ? "正在搜索完整原文…" : `显示 ${filteredItems.length} 条`}{q && searchState.error && <small className="auth-error">{searchState.error} <button className="btn btn-ghost" onClick={() => setSearchState(state => ({ ...state, retry: state.retry + 1 }))}>重试</button></small>}{subjectOptions.length > 0 && ` · ${subjectOptions.length} 个主题合集`}{partialCount > 0 && <small title={`当前 ${partialCount} 条来自未证实完整的采集批次；${incompleteCount} 条正文待补全`}> · 采集批次未证实完整</small>}</span>
         <div>
           {!readOnly && onOpenConnections && <button className="btn" onClick={onOpenConnections}><IconSettings />同步与设置</button>}
           {!readOnly && onImportX && <button className="btn btn-ghost" title="导入已整理的 JSON 或 JSONL 文件；浏览器原始导出需先转换" onClick={() => importInput.current?.click()} disabled={importBusy}>
@@ -1102,7 +1137,7 @@ function InboxView({ active = true, items, query, readOnly = false, loadState, l
                   <span>{shortDate(inboxDate(item))}</span>
                 </div>
                 <strong>{item.title || "未命名内容"}</strong>
-                <p>{item.aiSummary || item.content || item.url}</p>
+                <p>{item.aiSummary || item.contentPreview || item.url}</p>
                 {organization?.contentIncomplete && <small className="inbox-row-incomplete">正文待补全</small>}
                 {organization && <small className="inbox-row-topic">{X_TOPIC_LABELS[organization.topic] || "其他"}</small>}
                 <span className={"inbox-type type-" + (item.aiType || organization?.assetType || "unknown")}>
@@ -1118,9 +1153,11 @@ function InboxView({ active = true, items, query, readOnly = false, loadState, l
             overlay={sourceScope === "x"} title={editorOpen ? "整理入库" : "X 来源详情"} onClose={() => setDetailOpen(false)}
             actions={!readOnly && onDispatch && (editorOpen
                   ? <button type="button" className="btn btn-ghost" onClick={() => setEditorOpen(false)}>查看原文</button>
-                  : <button type="button" className="btn btn-primary" onClick={() => setEditorOpen(true)}>整理入库</button>)}>
+                  : <button type="button" className="btn btn-primary" onClick={() => selectedReady && setEditorOpen(true)} disabled={!selectedReady}>整理入库</button>)}>
             {!selected ? (
               <EmptyState message="选择一条内容开始处理" />
+            ) : !selectedReady ? (
+              detailStatus === "error" ? <div className="empty-state"><p>{detailError}</p><button className="btn" onClick={() => setDetailRetry(value => value + 1)}>重试</button></div> : <div className="empty-state"><p>正在加载完整原文…</p></div>
             ) : (
               <React.Fragment>
                 {(sourceScope !== "x" || !editorOpen) && <React.Fragment>

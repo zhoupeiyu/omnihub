@@ -109,6 +109,11 @@ test("public refinery APIs expose only public evidence and keep owner mutations 
     assert.equal(article.sources[0].excerpt, '');
     assert.equal(article.sources[0].private, true);
     assert.equal(article.claims[0].verdict, "supported");
+    const compact = await (await request('/api/knowledge-library?view=compact')).json();
+    assert.deepEqual(compact.map(row=>row.id),knowledge.map(row=>row.id));
+    assert.deepEqual(compact[0].initialDetail,article);
+    assert.equal(JSON.stringify(compact).includes('不能公开'),false);
+    assert.equal(compact[0].initialDetail.sources[0].excerpt,'');
     for (const id of hiddenArticleIds) assert.equal((await request(`/api/knowledge-library/${id}`)).status,404);
     const prompts = await (await request("/api/prompt-library")).json();
     assert.equal(prompts.length, 1);
@@ -138,6 +143,7 @@ test("public refinery APIs expose only public evidence and keep owner mutations 
     execFileSync(process.execPath,["--input-type=module","-e",`import {db} from './lib/db.js'; db.prepare("UPDATE inbox SET visibility='private' WHERE id=1").run(); db.close();`],
       {cwd:root,env:{...process.env,OMNIHUB_DATA_DIR:dataDir},encoding:'utf8'});
     assert.deepEqual(await (await request('/api/knowledge-library')).json(),[]);
+    assert.deepEqual(await (await request('/api/knowledge-library?view=compact')).json(),[]);
     assert.equal((await request(`/api/knowledge-library/${article.id}`)).status,404);
     assert.deepEqual(await (await request('/api/prompt-library')).json(),[]);
     for(const method of ['GET','HEAD'])assert.equal((await request(imageUrl,{method,headers:{'If-None-Match':etag}})).status,401);

@@ -37,6 +37,21 @@ test('detail reads deduplicate concurrent search and reader requests',async()=>{
   store.dispose();assert.equal(store.peek(1),undefined);
 });
 
+test('scoped first-article seed skips the request and cannot seed an unrelated ID',async()=>{
+  let calls=0;
+  const first={id:'method-1',body:'完整原文',summary:'完整摘要',sources:[]};
+  const store=createStore(async id=>{calls++;return {id,body:'按需原文'};},[
+    {id:'method-1',initialDetail:first},
+    {id:'method-2',initialDetail:{id:'another-id',body:'不应缓存'}},
+  ]);
+  assert.equal((await store.load('method-1')).body,first.body);
+  assert.equal(calls,0);
+  assert.equal(store.peek('another-id'),undefined);
+  assert.equal(store.peek('method-2'),undefined);
+  await store.load('method-2');assert.equal(calls,1);
+  store.dispose();assert.equal(store.peek('method-1'),undefined);
+});
+
 test('failed reads can be retried and disposed catalogues cannot retain late data',async()=>{
   let calls=0;
   const store=createStore(async()=>{if(!calls++)throw new Error('offline');return {body:'ok'};});
