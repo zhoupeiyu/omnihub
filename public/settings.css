@@ -32,8 +32,10 @@
 .settings-switch span { width:18px; height:18px; border-radius:50%; background:#fff; }
 .settings-switch[aria-checked="true"] { justify-content:flex-end; background:var(--accent); }
 .settings-skins { min-width:0; margin:0; padding:0; border:0; }
-.settings-theme-heading { display:flex; align-items:center; justify-content:space-between; gap:16px; margin-bottom:8px; }
+.settings-theme-heading { display:flex; align-items:center; justify-content:space-between; gap:16px; margin-bottom:22px; }
+.settings-theme-copy { min-width:0; }
 .settings-theme-heading h3 { margin:0; font-size:16px; font-weight:600; }
+.settings-theme-heading .settings-description { margin:8px 0 0; }
 .settings-theme-mode { display:flex; flex:none; align-items:center; gap:10px; color:var(--text-2); font-size:13px; cursor:pointer; }
 .settings-theme-grid { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:16px; }
 .settings-theme-card { display:flex; flex-direction:column; min-width:0; padding:0; overflow:hidden; border:1px solid var(--border); border-radius:10px; background:var(--surface); color:var(--text); font:inherit; text-align:left; cursor:pointer; transition:border-color .15s ease; }

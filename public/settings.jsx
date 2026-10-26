@@ -100,10 +100,9 @@ function SettingsCenter({ user, canUseFullApp, onClose, onSaved, onDirtyChange, 
           {item.id === 'devices' && <div className="account-settings-body"><h2>执行设备</h2><p className="settings-description">管理用于创作的电脑。本地整理设备与同步规则在“数据同步”中。</p><LocalImageDevices /></div>}
           {item.id === 'appearance' && <div className="settings-appearance"><h2>外观</h2><p className="settings-description">选择配色与显示方式，修改会立即应用于当前浏览器。</p>
             <section className="settings-skins" aria-labelledby="settings-theme-title">
-              <div className="settings-theme-heading"><h3 id="settings-theme-title">主题配色</h3>
+              <div className="settings-theme-heading"><div className="settings-theme-copy"><h3 id="settings-theme-title">主题配色</h3><p className="settings-description">预览当前明暗模式下的强调色、背景色与面板色。</p></div>
                 <label className="settings-theme-mode"><span>深色模式</span><button type="button" className="settings-switch" role="switch" aria-label="深色模式" aria-checked={theme === 'dark'} onClick={onThemeToggle}><span /></button></label>
               </div>
-              <p className="settings-description">预览当前明暗模式下的强调色、背景色与面板色。</p>
               <div className="settings-theme-grid">{SKIN_LIST.map(item => <button type="button" className="settings-theme-card" key={item.id}
                 aria-label={item.name} aria-pressed={skin === item.id} onClick={() => onSkinChange(item.id)}>
                 <span className="settings-palette" data-skin={item.id} data-theme={theme} aria-hidden="true">
