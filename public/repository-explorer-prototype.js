@@ -52,7 +52,7 @@ export function repositoryOrganizationDay(repository) {
   }
   return 'undated';
 }
-export function buildRepositoryTimeline(repositories, {group = 'owner', sort = 'default'} = {}) {
+export function buildRepositoryTimeline(repositories, {group = 'none', sort = 'default'} = {}) {
   const days = new Map();
   for (const repository of repositories) {
     const date = repositoryOrganizationDay(repository);
@@ -82,7 +82,7 @@ export function groupRepositoriesByOwner(repositories, sort = 'recent') {
 export function mountRepositoryExplorer(root, { query = '', onQueryChange = () => {}, repositories = null, active = true, onCorrectClassification = null, onPreviewMedia = null } = {}) {
 const lifetime = new AbortController();
 const listen = (target, type, callback, options = {}) => target.addEventListener(type, callback, { ...options, signal: lifetime.signal });
-const state = { repositories: [], section: 'all', query, form: 'all', use: 'all', sort: 'default', group:'owner', detail:'', limit: 36, ...readRepositoryLocation(window.location.hash) };
+const state = { repositories: [], section: 'all', query, form: 'all', use: 'all', sort: 'default', group:'none', detail:'', limit: 36, ...readRepositoryLocation(window.location.hash) };
 let currentLocation = window.location.hash;
 let savedScroll = 0;
 let restoringPosition = false;

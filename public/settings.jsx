@@ -1,47 +1,110 @@
-function SettingsCenter({ user, canUseFullApp, initialTab = 'account', initialAiTab = 'chat', onClose, onSaved, showToast,
+// Full-page settings rendered inside the workspace <main>. The category lives
+// in the URL (#settings?category=sync|ai|devices|appearance), so it survives
+// refresh, deep links and Back/Forward. Leaving the page (sidebar, Back, the
+// 返回 button) is owned by the Workspace router, which asks for confirmation
+// while onDirtyChange(true) is in effect.
+function SettingsCenter({ user, canUseFullApp, onClose, onSaved, onDirtyChange, showToast,
   theme, onThemeToggle, skin, onSkinChange, woodFishEnabled, onWoodFishToggle }) {
-  const tabs = [{ id:'account', label:'账号与同步', icon:IconUser },
-    ...(canUseFullApp ? [{ id:'ai', label:'AI 服务', icon:IconSparkle }, { id:'automation', label:'收藏整理', icon:IconInbox }] : []),
-    { id:'devices', label:'本机设备', icon:IconSettings }, { id:'appearance', label:'外观', icon:IconPalette }];
-  const firstTab = tabs.some(item => item.id === initialTab) ? initialTab : 'account';
-  const [tab, setTab] = React.useState(firstTab);
-  const [visited, setVisited] = React.useState(() => new Set([firstTab]));
+  const tabs = [{ id:'sync', label:'数据同步', icon:IconUser },
+    ...(canUseFullApp ? [{ id:'ai', label:'AI 服务', icon:IconSparkle }] : []),
+    { id:'devices', label:'执行设备', icon:IconSettings }, { id:'appearance', label:'外观', icon:IconPalette }];
+  const readRoute = () => settingsRouteFor(window.location.hash, canUseFullApp);
+  const [route, setRoute] = React.useState(readRoute);
+  const tab = route.category;
+  const [visited, setVisited] = React.useState(() => new Set([tab]));
+  const [dirty, setDirty] = React.useState(false);
+  const dirtyParts = React.useRef({});
+  const dirtyCallback = React.useRef(onDirtyChange);
+  dirtyCallback.current = onDirtyChange;
   const navRef = React.useRef(null);
+
+  // Category changes arrive as same-module hash changes (click, Back, Forward).
+  React.useEffect(() => {
+    const sync = () => {
+      if (workspaceHashName(window.location.hash) !== 'settings') return;
+      const next = settingsRouteFor(window.location.hash, canUseFullApp);
+      setRoute(current => current.category === next.category && current.aiTab === next.aiTab ? current : next);
+    };
+    sync();
+    window.addEventListener('hashchange', sync);
+    window.addEventListener('omnihub:route-restored', sync);
+    return () => {
+      window.removeEventListener('hashchange', sync);
+      window.removeEventListener('omnihub:route-restored', sync);
+    };
+  }, [canUseFullApp]);
+  React.useEffect(() => { setVisited(current => current.has(tab) ? current : new Set([...current, tab])); }, [tab]);
+  // Canonical URL: legacy/unknown/forbidden categories are rewritten in place and
+  // the one-shot OAuth `result` (already read by AccountSettings) is dropped.
+  React.useEffect(() => {
+    const hash = window.location.hash;
+    if (workspaceHashName(hash) !== 'settings') return;
+    const canonical = settingsHashFor(hash, tab);
+    if (canonical !== hash && window.history?.replaceState) window.history.replaceState(null, '', canonical);
+  }, [tab]);
+
+  const markDirty = React.useCallback((key, value) => {
+    dirtyParts.current = { ...dirtyParts.current, [key]: Boolean(value) };
+    const next = Object.values(dirtyParts.current).some(Boolean);
+    setDirty(next);
+    dirtyCallback.current?.(next);
+  }, []);
+  const onAiDirtyChange = React.useCallback(value => markDirty('ai', value), [markDirty]);
+  React.useEffect(() => () => dirtyCallback.current?.(false), []);
+  React.useEffect(() => {
+    if (!dirty) return;
+    const warn = event => { event.preventDefault(); event.returnValue = ''; };
+    window.addEventListener('beforeunload', warn);
+    return () => window.removeEventListener('beforeunload', warn);
+  }, [dirty]);
+
   function selectTab(id) {
-    setTab(id);
-    setVisited(current => new Set([...current, id]));
+    if (id === tab) return;
+    // Pushes a history entry so Back returns to the previous category.
+    window.location.hash = settingsHashFor(window.location.hash, id);
   }
-  function moveTab(event, index) {
+  // Manual activation: arrows move focus, Enter/Space (click) selects.
+  function moveFocus(event, index) {
     let next;
     if (['ArrowDown','ArrowRight'].includes(event.key)) next = (index + 1) % tabs.length;
     else if (['ArrowUp','ArrowLeft'].includes(event.key)) next = (index + tabs.length - 1) % tabs.length;
     else if (event.key === 'Home') next = 0;
     else if (event.key === 'End') next = tabs.length - 1;
     else return;
-    event.preventDefault(); selectTab(tabs[next].id);
+    event.preventDefault();
     navRef.current?.querySelectorAll('[role="tab"]')[next]?.focus();
   }
-  return <DetailDrawer title="设置" onClose={onClose} className="settings-center">
+
+  return <section className="settings-page" aria-labelledby="settings-page-title">
+    <header className="settings-page-head">
+      <button type="button" className="btn btn-ghost settings-back" onClick={onClose}><span aria-hidden="true">‹</span>返回</button>
+      <h1 id="settings-page-title">设置</h1>
+      {dirty && <span className="settings-dirty" role="status">有未保存的修改</span>}
+    </header>
     <div className="settings-layout">
-      <nav className="settings-nav" ref={navRef} role="tablist" aria-label="设置分类">
-        {tabs.map((item,index) => <button key={item.id} id={`settings-tab-${item.id}`} role="tab" aria-selected={tab === item.id}
+      <nav className="settings-nav" ref={navRef} role="tablist" aria-label="设置分类" aria-orientation="vertical">
+        {tabs.map((item,index) => <button key={item.id} type="button" id={`settings-tab-${item.id}`} role="tab" aria-selected={tab === item.id}
           aria-controls={`settings-panel-${item.id}`} tabIndex={tab === item.id ? 0 : -1}
-          onClick={() => selectTab(item.id)} onKeyDown={event => moveTab(event,index)}><item.icon /><span>{item.label}</span></button>)}
+          onClick={() => selectTab(item.id)} onKeyDown={event => moveFocus(event,index)}><item.icon aria-hidden="true" /><span>{item.label}</span></button>)}
       </nav>
       <div className="settings-content">
         {tabs.filter(item => visited.has(item.id)).map(item => <section key={item.id} id={`settings-panel-${item.id}`} role="tabpanel"
           aria-labelledby={`settings-tab-${item.id}`} hidden={tab !== item.id} tabIndex={0}>
-          {item.id === 'account' && <AccountSettings user={user} embedded onClose={onClose} />}
-          {item.id === 'ai' && <AiSettingsModal embedded initialTab={initialAiTab} onClose={onClose} onSaved={onSaved} showToast={showToast} />}
-          {item.id === 'automation' && <ContentPipelineStatus settingsOnly active={tab === 'automation'} />}
-          {item.id === 'devices' && <div className="account-settings-body"><h2>本机设备</h2><p className="settings-description">管理用于创作的电脑。收藏整理设备与同步规则在“账号与同步”中。</p><LocalImageDevices /></div>}
+          {item.id === 'sync' && <div className="settings-sync">
+            <h2>数据同步</h2><p className="settings-description">X 收藏同步、本地整理与收藏整理自动化。</p>
+            <AccountSettings user={user} embedded onClose={onClose} />
+            {canUseFullApp && <div className="settings-subsection"><h3>收藏整理自动化</h3><ContentPipelineStatus settingsOnly active={tab === 'sync'} /></div>}
+          </div>}
+          {item.id === 'ai' && <AiSettingsModal embedded initialTab={route.aiTab}
+            onClose={onClose} onDirtyChange={onAiDirtyChange} onSaved={onSaved} showToast={showToast} />}
+          {item.id === 'devices' && <div className="account-settings-body"><h2>执行设备</h2><p className="settings-description">管理用于创作的电脑。本地整理设备与同步规则在“数据同步”中。</p><LocalImageDevices /></div>}
           {item.id === 'appearance' && <div className="settings-appearance"><h2>外观</h2><p className="settings-description">立即应用于当前浏览器。</p>
-            <div className="settings-preference"><div><strong>深色模式</strong><p>切换阅读和工作界面的明暗。</p></div><button className="settings-switch" role="switch" aria-label="深色模式" aria-checked={theme === 'dark'} onClick={onThemeToggle}><span /></button></div>
-            <div className="settings-preference"><div><strong>悬浮木鱼</strong><p>在工作区显示木鱼小工具。</p></div><button className="settings-switch" role="switch" aria-label="悬浮木鱼" aria-checked={woodFishEnabled} onClick={onWoodFishToggle}><span /></button></div>
-            <fieldset className="settings-skins"><legend>主题配色</legend><div>{SKIN_LIST.map(item => <button key={item.id} aria-pressed={skin === item.id} onClick={() => onSkinChange(item.id)}><span style={{background:item.dot}} />{item.name}{skin === item.id && <IconCheck />}</button>)}</div></fieldset>
+            <div className="settings-preference"><div><strong>深色模式</strong><p>切换阅读和工作界面的明暗。</p></div><button type="button" className="settings-switch" role="switch" aria-label="深色模式" aria-checked={theme === 'dark'} onClick={onThemeToggle}><span /></button></div>
+            <div className="settings-preference"><div><strong>悬浮木鱼</strong><p>在工作区显示木鱼小工具。</p></div><button type="button" className="settings-switch" role="switch" aria-label="悬浮木鱼" aria-checked={woodFishEnabled} onClick={onWoodFishToggle}><span /></button></div>
+            <fieldset className="settings-skins"><legend>主题配色</legend><div>{SKIN_LIST.map(item => <button type="button" key={item.id} aria-pressed={skin === item.id} onClick={() => onSkinChange(item.id)}><span style={{background:item.dot}} />{item.name}{skin === item.id && <IconCheck />}</button>)}</div></fieldset>
           </div>}
         </section>)}
       </div>
     </div>
-  </DetailDrawer>;
+  </section>;
 }

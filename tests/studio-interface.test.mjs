@@ -40,7 +40,7 @@ test('job visibility, progress, and recoverable request errors are explicit', ()
   assert.match(source, /numeric < 10_000_000_000 \? numeric \* 1000/);
   assert.match(source, /请稍后重新查询/);
   assert.match(source, /可再次提交；系统会使用同一个请求标识/);
-  assert.match(css, /\.media-studio-layout\.has-jobs/);
+  assert.match(css, /\.media-studio-layout\.has-result/);
   assert.match(css, /\.media-studio \.media-compose \{ display:block/);
-  assert.match(css, /\.media-studio-layout:not\(\.has-jobs\) \.media-compose \{ max-width:960px/);
+  assert.match(css, /\.media-studio-layout:not\(\.has-result\) \.media-compose \{ max-width:960px/);
 });

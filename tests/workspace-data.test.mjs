@@ -14,8 +14,10 @@ test('each module loads only its collections; repository owns its single request
   }
   assert.deepEqual(requests('inbox'),[]);
   assert.deepEqual(requests('inbox',true),[['inbox','/api/inbox']]);
-  assert.deepEqual(requests('assets'),[]); assert.deepEqual(requests('studio'),[]);
-  assert.equal(requests('assets',true).length,4); assert.equal(requests('studio',true).length,2);
+  assert.deepEqual(requests('resources'),[]); assert.deepEqual(requests('works'),[]); assert.deepEqual(requests('studio'),[]);
+  assert.deepEqual(requests('resources',true),[['favorites','/api/favorites']]);
+  assert.deepEqual(requests('works',true),[['mediaAssets','/api/media/assets']]);
+  assert.equal(requests('studio',true).length,2);
 });
 test('workspace loading is abortable, account-scoped and does not persist API data',()=>{
   const source=read('app.jsx');
@@ -109,13 +111,13 @@ test('classification invalidation retains data and rejects late pre-edit respons
 test('initial failures and malformed responses remain retryable, without publishing partial collections', async () => {
   let valid = false;
   const {cache, events} = harness(async route => valid || route !== '/api/media/assets' ? [] : {error: 'not an array'});
-  await cache.load('assets');
+  await cache.load('works');
   assert.equal(events.at(-1).status, 'error');
   assert.equal(events.at(-1).hasData, false);
   assert.equal(events.some(e => e.rows), false);
   valid = true;
-  await cache.load('assets');
-  assert.equal(events.at(-1).rows.length, 4);
+  await cache.load('works');
+  assert.equal(events.at(-1).rows.length, 1);
 });
 
 test('disposing the account aborts all requests and prevents late results or reuse', async () => {
@@ -158,14 +160,14 @@ test('slower hidden sections cannot overwrite a newer shared media collection', 
     if (route === '/api/media/assets') return ++mediaReads === 1 ? oldMedia.promise : Promise.resolve([{id: 'new-media'}]);
     return Promise.resolve([]);
   });
-  const assets = cache.load('assets');
+  const assets = cache.load('works');
   await cache.load('studio');
   oldMedia.resolve([{id: 'old-media'}]);
   await assets;
   const published = Object.fromEntries(events.flatMap(event => event.rows || []));
   assert.equal(published.mediaAssets[0].id, 'new-media');
   assert.equal(events.at(-1).hasData, true);
-  assert.ok(events.at(-1).rows.some(([key]) => key === 'favorites'));
+  assert.ok(events.some(event => event.rows?.some(([key]) => key === 'mediaAssets')));
 });
 
 test('manual media reads supersede older tab responses and cannot survive edits or logout', async () => {
@@ -213,12 +215,12 @@ test('cross-module navigation clears only the destination query', () => {
   const setter = source.slice(source.indexOf('  const setQuery ='),source.indexOf('  const [favCategory,'));
   const queryContext = vm.createContext({
     section:'inbox',user:{id:'owner'},
-    queries:{'owner:inbox':'keep-source','owner:assets':'old-target'},
+    queries:{'owner:inbox':'keep-source','owner:works':'old-target'},
   });
-  vm.runInContext('function setSectionQueries(update) { queries = update(queries); }\n'+setter+'\nsetQuery("", "assets");',queryContext);
+  vm.runInContext('function setSectionQueries(update) { queries = update(queries); }\n'+setter+'\nsetQuery("", "works");',queryContext);
   assert.equal(queryContext.queries['owner:inbox'],'keep-source');
-  assert.equal(queryContext.queries['owner:assets'],'');
-  for (const section of ['assets','studio','knowledgeLibrary','repositories']) {
+  assert.equal(queryContext.queries['owner:works'],'');
+  for (const section of ['works','studio','knowledgeLibrary','repositories']) {
     assert.ok(source.includes(`setQuery("", "${section}")`));
   }
 });

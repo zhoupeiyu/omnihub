@@ -94,9 +94,15 @@ function XWatchAccountsView({active=true}={}) {
       const result=await api('/api/x-watch/accounts/batch',{method:'POST',body:{handles,group,intervalMinutes:30}});
       if(!mounted.current)return;
       setState(result.state);
+      const firstAdded=result.state.accounts.find(account=>!watched.has(account.handle));
       if(tab==='manual'){setManual('');setPicked(current=>current.filter(value=>!result.state.accounts.some(a=>a.handle===value)));}
       else setPicked([]);
-      setNotice(`已添加 ${result.added} 人${result.skipped?`，跳过 ${result.skipped} 个已有账号`:''}。新增账号保持暂停。`);
+      if(firstAdded){
+        setTab('saved');
+        setEditing({id:firstAdded.id,revision:firstAdded.revision,handle:firstAdded.handle,group:firstAdded.group,intervalMinutes:firstAdded.intervalMinutes,
+          includeReplies:firstAdded.includeReplies,includeReposts:firstAdded.includeReposts,enabled:false,dailyRequests:result.state.dailyRequests,dailyBudgetUsd:result.state.dailyBudgetUsd||0,settingsRevision:result.state.settingsRevision||0});
+        setNotice(`已添加 ${result.added} 人。下一步设置频率与预算；保存前不会启用采集。`);
+      }else setNotice(`没有新增账号${result.skipped?`，${result.skipped} 个已存在`:''}。`);
     });
   }
   function saveEdit(event) {
@@ -230,7 +236,7 @@ function XWatchAccountsView({active=true}={}) {
           <p>添加不等于启用。点击账号「设置」，填写预算并勾选启用后才会抓取帖子。正文、图片和视频保存在本站服务器，仅你可见，不混入原来的收藏。</p></div>
         {!state.accounts.length&&<div className="watch-empty"><h3>还没有添加监听账号</h3><p>从关注列表中选择，或手动添加第一个账号。</p><button className="btn" onClick={()=>setTab('following')}>从我的关注选择</button></div>}
         <ul className="watch-managed-list">{state.accounts.map(account=><li key={account.id}><div><strong>@{account.handle}</strong><span>{account.group} · 每 {account.intervalMinutes} 分钟</span>
-          {(account.lastOk||account.errorCode)&&<small>{account.lastOk?`最近采集 ${new Date(account.lastOk).toLocaleString('zh-CN')}`:''}{account.errorCode?' · 上次采集失败':''}</small>}</div>
+          {(account.lastOk||account.errorCode)&&<small>{account.lastOk?`最近成功 ${new Date(account.lastOk).toLocaleString('zh-CN')}`:''}{account.errorCode?`${account.lastOk?' · ':''}上次失败：${account.errorCode}`:''}</small>}</div>
           <span className={`watch-account-state${account.enabled?' is-enabled':''}`}>{!account.enabled?'已暂停':!state.available?'服务未启用':state.costUncertain?'费用待核对':account.errorCode?'采集失败':state.requestsToday>=state.dailyRequests||(state.budgetRemaining??0)<(state.pageReserveUsd??0.04)||(state.monthlyBudgetRemainingUsd??0)<(state.pageReserveUsd??0.04)?'预算暂停':account.lastOk?'正在监听':'等待首次采集'}</span><button className="btn btn-ghost" disabled={!!busy} onClick={()=>edit(account)}>设置</button></li>)}</ul>
         {editing&&<form ref={editPanel} className="watch-form watch-edit-account" onSubmit={saveEdit}><h3>@{editing.handle} 的监听设置</h3>
           <XWatchGroupSelect key={editing.id} label="分组" ariaLabel="编辑账号分组" value={editing.group} onChange={group=>setEditing({...editing,group})} groups={state.accounts.map(a=>a.group)} disabled={!!busy}/>

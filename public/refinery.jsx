@@ -607,7 +607,24 @@ function KnowledgeToolFilter({ value, options, onChange, active }) {
   </>;
 }
 
-function KnowledgeLibraryView({ items, query, onQueryChange, active = true, requestedId, onRequestedIdHandled, onCorrectClassification, onOpenPrompt, onEdit }) {
+// <knowledge-visible-match>
+const KNOWLEDGE_SEARCH_DEBOUNCE_MS = 220;
+function knowledgeSearchPath(needle) {
+  const query = String(needle || '').trim();
+  if (Array.from(query).length > 120) throw new RangeError('搜索词不能超过 120 个字符');
+  return `/api/knowledge-library/search?q=${encodeURIComponent(query)}`;
+}
+/** Local title/summary/cached-detail match first; otherwise the scoped server body hit and its snippet. */
+function knowledgeVisibleMatch(item, detail, needle, hits) {
+  if (!needle) return {snippet:item.summary || ''};
+  const local = typeof knowledgeSearchMatch === 'function' ? knowledgeSearchMatch(item, detail, needle) : null;
+  if (local) return local;
+  if (hits && typeof hits.get === 'function' && hits.has(String(item.id))) return {snippet:hits.get(String(item.id)) || item.summary || ''};
+  return null;
+}
+// </knowledge-visible-match>
+
+function KnowledgeLibraryView({ items, query, onQueryChange, active = true, requestedId, onRequestedIdHandled, onCorrectClassification, onOpenPrompt, onEdit, onAdd }) {
   const [kind, setKind] = useRefineryState('all');
   const [tool, setTool] = useRefineryState('all');
   const [copyResult, setCopyResult] = useRefineryState('');
@@ -624,51 +641,55 @@ function KnowledgeLibraryView({ items, query, onQueryChange, active = true, requ
   const store = useRefineryMemo(() => createKnowledgeDetailStore((id, signal) => api(`/api/knowledge-library/${id}`, {signal})), [items]);
   const positions = useRefineryRef(new Map()).current;
   const needle = String(query || '').trim();
+  const queryTooLong = Array.from(needle).length > 120;
   const methodTools = useRefineryMemo(() => [...new Set(items.flatMap(knowledgeMethodTools))], [items]);
+  const currentSearch = needle && searchState?.store === store && searchState?.query === needle ? searchState : null;
+  const hits = currentSearch && !currentSearch.loading ? currentSearch.hits : null;
   const visible = useRefineryMemo(() => [...items].sort(globalThis.OmniHubLibraryOrder.compare).flatMap(item => {
     if (kind !== 'all' && (item.type === 'method' ? 'method' : 'article') !== kind) return [];
     if (tool !== 'all' && !knowledgeMethodTools(item).includes(tool)) return [];
-    const match = knowledgeSearchMatch(item, store.peek(item.id), needle);
+    const match = knowledgeVisibleMatch(item, store.peek(item.id), needle, hits);
     return match ? [{item, snippet:match.snippet}] : [];
-  }), [items, kind, tool, needle, store, revision]);
+  }), [items, kind, tool, needle, store, revision, hits]);
   const detail = store.peek(selectedId);
-  const searching = Boolean(needle && (searchState?.store !== store || searchState?.query !== needle || searchState.loading));
-  const failedSearch = needle && searchState?.store === store && searchState?.query === needle && searchState.failed;
+  const searching = Boolean(needle && !queryTooLong && (!currentSearch || currentSearch.loading));
+  const failedSearch = Boolean(currentSearch && currentSearch.failed);
 
   useRefineryEffect(() => () => store.dispose(), [store]);
   useRefineryEffect(() => {
-    if (!needle || !active) return;
-    let cancelled = false;
-    // Debounce input, then build a bounded index from the existing scoped detail API.
-    const timer = setTimeout(async () => {
-      setSearchState({store, query:needle, loading:true, failed:0});
-      let next = 0, failed = 0;
-      await Promise.all(Array.from({length:Math.min(3,items.length)}, async () => {
-        while (!cancelled && next < items.length) {
-          const item = items[next++];
-          try { await store.load(item.id); }
-          catch { failed++; }
-          if (!cancelled) setRevision(value => value + 1);
-        }
-      }));
-      if (!cancelled) setSearchState({store, query:needle, loading:false, failed});
-    }, 180);
-    return () => { cancelled = true; clearTimeout(timer); };
-  }, [needle, active, items, store, retry]);
+    if (!needle || !active || queryTooLong) return;
+    // One scoped server request per debounced query; a newer query aborts the older one.
+    const controller = new AbortController();
+    const timer = setTimeout(() => {
+      setSearchState({store, query:needle, loading:true, failed:false, hits:null});
+      api(knowledgeSearchPath(needle), {signal:controller.signal}).then(result => {
+        if (controller.signal.aborted) return;
+        const rows = Array.isArray(result?.results) ? result.results : [];
+        setSearchState({store, query:needle, loading:false, failed:false, truncated:Boolean(result?.truncated),
+          hits:new Map(rows.map(row => [String(row.id), String(row.snippet || '')]))});
+      }).catch(error => {
+        if (controller.signal.aborted || error?.name === 'AbortError') return;
+        setSearchState({store, query:needle, loading:false, failed:true, hits:null});
+      });
+    }, KNOWLEDGE_SEARCH_DEBOUNCE_MS);
+    return () => { clearTimeout(timer); controller.abort(); };
+  }, [needle, active, store, retry, queryTooLong]);
 
   useRefineryEffect(() => {
     if (requestedId != null) {
       setKind('all'); setTool('all'); onQueryChange(''); setSelectedId(requestedId); setMobileReading(true);
       focusReader.current = String(requestedId); onRequestedIdHandled?.(); return;
     }
+    if (searching) return;
     if (!visible.some(({item}) => String(item.id) === String(selectedId))) {
       focusReader.current = null;
       setSelectedId(visible[0]?.item.id ?? null);
     }
-  }, [requestedId, visible, selectedId]);
+  }, [requestedId, visible, selectedId, searching]);
   useRefineryEffect(() => {
     if (selectedId == null) return;
     let cancelled = false;
+    // The detail cache only ever loads the article being read.
     setCopyResult(''); setDetailError(null);
     store.load(selectedId).then(() => { if (!cancelled) setRevision(value => value + 1); })
       .catch(() => { if (!cancelled) { focusReader.current = null; setDetailError({store,id:selectedId}); } });
@@ -714,14 +735,16 @@ function KnowledgeLibraryView({ items, query, onQueryChange, active = true, requ
 
   return <div className="knowledge-workspace" data-reading={mobileReading}>
     <header className="knowledge-workspace-bar">
-      <div className="knowledge-workspace-title"><button className="knowledge-back" onClick={backToList}>返回文章列表</button><strong>知识库</strong><span>{items.length} 篇文章</span></div>
+      <div className="knowledge-workspace-title"><button className="knowledge-back" onClick={backToList}>返回文章列表</button><strong>知识库</strong><span>{items.length} 篇文章</span>{onAdd && <button className="btn btn-primary knowledge-add" onClick={onAdd}><IconPlus />新建知识</button>}</div>
     </header>
     <aside ref={indexRef} className="knowledge-index" aria-label="知识文章目录">
       <div className="knowledge-index-head">
         <div className="knowledge-search"><IconSearch aria-hidden="true" /><input ref={searchRef} type="search" value={query || ''} onChange={event => onQueryChange(event.target.value)} placeholder="搜索标题与正文" aria-label="搜索知识标题与正文" />{needle && <button aria-label="清除搜索" onClick={() => {onQueryChange(''); searchRef.current.focus();}}><IconX /></button>}</div>
         <div className="knowledge-type-filter">{[['all','全部'],['article','综合知识'],['method','方法技巧']].map(([id,label]) => <button key={id} aria-pressed={kind === id} onClick={() => {setKind(id); setTool('all');}}>{label}</button>)}</div>
         <div className="knowledge-index-options">{kind !== 'article' && methodTools.length > 0 && <KnowledgeToolFilter value={tool} options={methodTools} onChange={setTool} active={active} />}<span role="status">{searching ? '正在搜索正文…' : `${visible.length} 篇`}</span></div>
-        {failedSearch > 0 && <p className="knowledge-search-error" role="status">{failedSearch} 篇正文暂未读取，结果可能不完整。<button onClick={() => setRetry(value => value + 1)}>重试</button></p>}
+        {queryTooLong && <p className="knowledge-search-error" role="status">搜索词不能超过 120 个字符，请缩短后再搜索。</p>}
+        {failedSearch && <p className="knowledge-search-error" role="status">正文搜索暂不可用，仅显示标题与摘要匹配。<button onClick={() => setRetry(value => value + 1)}>重试</button></p>}
+        {currentSearch?.truncated && <p className="knowledge-search-error" role="status">匹配较多，仅显示前 200 条，请补充关键词。</p>}
       </div>
       <div className="knowledge-index-list">{visible.map(({item,snippet}) => <button key={item.id} data-knowledge-id={item.id} className={String(selectedId) === String(item.id) ? 'active' : ''} aria-current={String(selectedId) === String(item.id) ? 'true' : undefined} onClick={() => openArticle(item.id)}>
         <span className="knowledge-item-meta">{item.type === 'source_archive' ? '原文归档' : item.type === 'method' ? item.tags?.[0] || '方法技巧' : '综合知识'}</span>
@@ -773,9 +796,40 @@ function promptSwipeDirection(start, end) {
   return Math.abs(dx) > 50 && Math.abs(dx) > Math.abs(dy) * 1.5 ? (dx < 0 ? 1 : -1) : 0;
 }
 
-function promptDisplayTags(tags) {
-  return [...new Set((tags || []).map(tag => PROMPT_TAG_LABELS[tag] || tag))];
+// <prompt-tag-label>
+const PROMPT_TAG_WORDS = {
+  image: '图像', images: '图像', img: '图像', video: '视频', videos: '视频', prompt: '提示词', prompts: '提示词',
+  style: '风格', styles: '风格', character: '人物', characters: '人物', person: '人物', people: '人物', portrait: '人像',
+  camera: '镜头', shot: '镜头', motion: '运动', movement: '运动', product: '产品', landscape: '风景', scene: '场景',
+  anime: '动漫', cartoon: '卡通', realistic: '写实', photo: '摄影', photography: '摄影', lighting: '光影', light: '光影',
+  composition: '构图', color: '色彩', colour: '色彩', text: '文字', typography: '字体排印', design: '设计', poster: '海报',
+  logo: '标志', ui: '界面', ux: '体验', workflow: '工作流', agent: '智能体', agents: '智能体', coding: '编程', code: '代码',
+  writing: '写作', marketing: '营销', ecommerce: '电商', generation: '生成', generate: '生成', edit: '编辑', editing: '编辑',
+  transition: '转场', effect: '特效', effects: '特效', template: '模板', tutorial: '教程', tip: '技巧', tips: '技巧',
+  reference: '参考', consistency: '一致性', model: '模型', other: '其他', misc: '其他', general: '通用',
+};
+/** User-facing Chinese label for an internal prompt tag: dictionary → word translation → readable fallback. */
+function promptTagLabel(tag) {
+  const raw = String(tag ?? '').trim();
+  if (!raw) return '';
+  const dictionary = typeof PROMPT_TAG_LABELS === 'object' && PROMPT_TAG_LABELS ? PROMPT_TAG_LABELS : {};
+  if (Object.prototype.hasOwnProperty.call(dictionary, raw)) return dictionary[raw];
+  const lower = raw.toLowerCase();
+  if (Object.prototype.hasOwnProperty.call(dictionary, lower)) return dictionary[lower];
+  // Only rewrite identifier-like tags (snake_case, kebab-case, camelCase, dotted); human text stays as written.
+  const identifier = /^[A-Za-z][A-Za-z0-9]*(?:[._:\/-][A-Za-z0-9]+)*$/.test(raw);
+  const compound = /[._:\/-]|[a-z][A-Z]/.test(raw);
+  if (!identifier || (!compound && !Object.prototype.hasOwnProperty.call(PROMPT_TAG_WORDS, lower))) return raw;
+  const words = raw.replace(/([a-z0-9])([A-Z])/g, '$1 $2').split(/[\s._:\/-]+/).filter(Boolean).map(word => word.toLowerCase());
+  const translated = words.map(word => Object.prototype.hasOwnProperty.call(PROMPT_TAG_WORDS, word) ? PROMPT_TAG_WORDS[word] : '');
+  if (translated.every(Boolean)) return [...new Set(translated)].join('');
+  if (translated.some(Boolean)) return words.map((word, index) => translated[index] || word).join(' ');
+  return words.join(' ');
 }
+function promptDisplayTags(tags) {
+  return [...new Set((tags || []).map(promptTagLabel).filter(Boolean))];
+}
+// </prompt-tag-label>
 
 function promptReadingContent(value, curated = false) {
   const text = String(value || '');
@@ -1052,7 +1106,7 @@ function observePromptMasonry(grid) {
   };
 }
 
-function PromptLibraryView({ active = true, items, query, onQueryChange, onCorrectClassification, onOpenMethod, onCreateMedia, onUsePrompt, onEdit, requestedId, onRequestedIdHandled, requestedSourceId, onRequestedSourceHandled }) {
+function PromptLibraryView({ active = true, items, query, onQueryChange, onCorrectClassification, onOpenMethod, onCreateMedia, onUsePrompt, onEdit, onAdd, requestedId, onRequestedIdHandled, requestedSourceId, onRequestedSourceHandled }) {
   const [category, setCategory] = useRefineryState("all");
   const [subject, setSubject] = useRefineryState("all");
   const [style, setStyle] = useRefineryState("all");
@@ -1126,7 +1180,7 @@ function PromptLibraryView({ active = true, items, query, onQueryChange, onCorre
   };
   return (
     <div className="prompt-refinery-page"><div className="prompt-refinery-main">
-      <div className="repository-head"><div><h1>提示词库</h1><p>{items.length} 条提示词 · 找效果、看原文、直接复用</p></div></div>
+      <div className="repository-head"><div><h1>提示词库</h1><p>{items.length} 条提示词 · 找效果、看原文、直接复用</p></div>{onAdd && <button className="btn btn-primary" onClick={onAdd}><IconPlus />新建提示词</button>}</div>
       {navigationNotice && <p className="prompt-navigation-notice" role="status">{navigationNotice}<button className="btn btn-ghost" onClick={() => setNavigationNotice('')}>知道了</button></p>}
       <div className="prompt-category-tabs" role="tablist" aria-label="提示词用途">
         {tabs.map((tab, index) => <button key={tab.value} id={`prompt-tab-${index}`} role="tab" aria-controls="prompt-results"

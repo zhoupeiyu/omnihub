@@ -44,8 +44,10 @@ function studioDraftHasContent(draft) {
 }
 function resolveStudioDraft(saved, incoming, allowExternal = true) {
   if (!incoming?.key || incoming.key === saved?.consumedKey) return normalizeStudioDraft(saved || {},allowExternal);
+  const args=incoming.generationArgs&&typeof incoming.generationArgs==='object'&&!Array.isArray(incoming.generationArgs)?incoming.generationArgs:{};
   return normalizeStudioDraft({consumedKey:incoming.key, module:incoming.targetModule || 'image', mode:incoming.targetMode,
     generationRoute:incoming.referenceAssetId || incoming.targetModule && incoming.targetModule !== 'image' ? 'api' : 'local',
-    title:incoming.title || '', prompt:incoming.prompt || '', source:incoming.sourceType || incoming.parentAssetId ? incoming : null,
+    model:incoming.model, title:incoming.title || '', prompt:incoming.prompt || '', source:incoming.sourceType || incoming.parentAssetId ? incoming : null,
+    aspectRatio:args.aspectRatio, size:args.size, duration:args.duration, resolution:args.resolution, faceProcessing:args.faceProcessing,
     referenceIds:incoming.referenceAssetId ? [incoming.referenceAssetId] : []}, allowExternal);
 }

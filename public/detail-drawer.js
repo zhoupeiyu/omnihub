@@ -129,4 +129,39 @@
     return { sync, stop, dispose() { stop(); lifetime.abort(); } };
   }
   window.OmniDetailDrawer = { mount, activeElement, widthLimits, resize };
+
+  // Navigation guard shared by editors and the root router.
+  // register(check) -> unregister. A check returns false to keep the current view;
+  // it may ask the person (for example with confirm) before answering.
+  // allow(reason) -> true only when every registered check agrees.
+  const guards = [];
+  const DISCARD_MESSAGE = '还有未保存的修改，离开后会丢失。确定放弃这些修改吗？';
+  function register(check) {
+    if (typeof check !== 'function') throw new TypeError('OmniNavigationGuard.register 需要一个检查函数');
+    const entry = { check };
+    guards.push(entry);
+    let active = true;
+    return () => {
+      if (!active) return;
+      active = false;
+      const index = guards.indexOf(entry);
+      if (index >= 0) guards.splice(index, 1);
+    };
+  }
+  function allow(reason) {
+    // Newest editors answer first; one refusal stops the navigation.
+    for (const entry of [...guards].reverse()) {
+      let result;
+      try { result = entry.check(reason); }
+      catch (error) { console.error('[navigation-guard]', error); return false; }
+      if (result === false) return false;
+    }
+    return true;
+  }
+  /** Decide whether a dirty editor may be discarded. Clean editors never prompt. */
+  function confirmDiscard(dirty, message = DISCARD_MESSAGE, ask = (text) => window.confirm(text)) {
+    if (!dirty) return true;
+    return Boolean(ask(message || DISCARD_MESSAGE));
+  }
+  window.OmniNavigationGuard = { register, allow, confirmDiscard, size: () => guards.length, DISCARD_MESSAGE };
 })();

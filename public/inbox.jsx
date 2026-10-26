@@ -279,6 +279,102 @@ function inboxDraft(item, targetType) {
   };
 }
 
+// inbox-workflow:start — pure queue helpers (no JSX); tests evaluate this block.
+const INBOX_STAGES = [
+  { id: "classify", label: "待分类" },
+  { id: "content", label: "待补内容" },
+  { id: "review", label: "待复核" },
+  { id: "done", label: "已整理" },
+];
+const INBOX_CURATION_LABELS = { prompt: "提示词", method: "方法技巧", source: "仅保留来源" };
+
+function inboxStageLabel(id) {
+  return INBOX_STAGES.find((stage) => stage.id === id)?.label || "";
+}
+
+// Exactly one primary stage per item, checked in a fixed order. `curation` is the
+// record returned by GET/PUT /api/library-classification/source/:id; undefined
+// means it has not been read in this session, so the item is judged from its own fields.
+function inboxStage(item, curation) {
+  curation = curation || item?.curation;
+  if (curation && Number(curation.revision) > 0) {
+    const type = curation.data?.type;
+    return { stage: "done", reason: `已人工确认：${INBOX_CURATION_LABELS[type] || "仅保留来源"}（第 ${curation.revision} 版）`,
+      next: type === "source" ? "无需处理；需要时可重新调整归类" : "到资料库查看整理结果" };
+  }
+  const review = inboxReviewReason(item);
+  if (review === "article") return { stage: "content", reason: "收藏只有文章链接，正文尚未采集", next: "打开原文补齐正文，再确定归类" };
+  if (review === "unavailable") return { stage: "content", reason: "原帖不可用或正文不完整", next: "补充来源，或确认无用后忽略" };
+  const organization = xOrganization(item);
+  const assetType = item?.aiType || (organization?.assetType && organization.assetType !== "unknown" ? organization.assetType : "");
+  if (!assetType) return { stage: "classify", reason: review === "visual" ? "以配图为主、文字过短，用途未定" : "尚未判断用途",
+    next: "选择归类：提示词、方法技巧或仅保留来源" };
+  return { stage: "review", reason: `自动判断为${INBOX_TYPE_LABELS[assetType] || assetType}，尚未人工确认`,
+    next: assetType === "noise" ? "确认无用后忽略，或改为其他归类" : "核对原文后确认归类" };
+}
+
+// Mirrors the server rules in lib/library-curation.js so obviously invalid rows
+// fail locally with a precise reason instead of a generic 400.
+function inboxCurationPlan(record, type, fallbackTitle) {
+  if (!["prompt", "method", "source"].includes(type)) return { error: "归类无效" };
+  const current = record?.data || {};
+  const data = { type, title: String(current.title || fallbackTitle || "").trim(),
+    summary: String(current.summary || "").trim(), body: String(current.body || "").trim(),
+    promptText: String(current.promptText || "").trim(),
+    promptCategory: String(current.promptCategory || "其他").trim(),
+    tags: Array.isArray(current.tags) ? current.tags.filter((tag) => typeof tag === "string") : [],
+    relatedSourceIds: Array.isArray(current.relatedSourceIds) ? current.relatedSourceIds : [] };
+  if (!data.title) return { error: "缺少标题，请单独打开调整归类" };
+  if (data.title.length > 240) return { error: "标题过长，请单独打开调整归类" };
+  if (!["图像生成", "视频生成", "Agent 系统", "编程", "自动化", "研究", "社媒内容", "其他"].includes(data.promptCategory)) return { error: "提示词用途无效，请单独打开调整归类" };
+  if (data.tags.length > 16 || data.tags.some((tag) => !tag.trim() || tag.length > 40)) return { error: "标签无效，请单独打开调整归类" };
+  if (type === "prompt" && !String(data.promptText || "").trim()) return { error: "没有可复制的提示词，请单独打开调整归类填写" };
+  if (type === "prompt" && data.promptCategory === "Agent 系统") return { error: "长期行为规则请归为方法技巧" };
+  if (type === "method" && (!String(data.summary || "").trim() || !String(data.body || "").trim())) {
+    return { error: "方法技巧需要摘要和整理正文，请单独打开调整归类" };
+  }
+  return { data };
+}
+
+// Runs one authorized request per item in order; a failure never stops the rest.
+async function inboxRunBulk(ids, task, onProgress) {
+  const results = [];
+  for (const id of ids) {
+    try { results.push({ id, ...(await task(id)), ok: true }); }
+    catch (error) { results.push({ id, ok: false, status: Number(error?.status) || 0, error: error?.message || "操作失败" }); }
+    if (onProgress) onProgress(results.length, ids.length);
+  }
+  return results;
+}
+
+function inboxBulkSummary(results) {
+  const succeeded = results.filter((result) => result.ok).length;
+  const failed = results.length - succeeded;
+  const conflicts = results.filter((result) => !result.ok && result.status === 409).length;
+  const base = !results.length ? "没有选中内容" : !failed ? `已完成 ${succeeded} 条`
+    : succeeded ? `部分完成：${succeeded} 条成功，${failed} 条未完成` : `${failed} 条均未完成`;
+  return { total: results.length, succeeded, failed, conflicts,
+    message: conflicts ? `${base}（${conflicts} 条已在别处修改，请重新打开后再处理）` : base };
+}
+
+// Links are built only from a confirmed backend response, never optimistically.
+function inboxDerivedLink(outcome) {
+  if (outcome?.kind === "dispatch") {
+    const { targetType, targetId, libraryId } = outcome.result || {};
+    if (targetType === "prompt" && libraryId) return { href: "#promptLibrary?space=mine", label: "在提示词库查看", id: libraryId };
+    if (targetType === "knowledge" && libraryId) return { href: "#knowledgeLibrary?space=mine", label: "在知识库查看", id: libraryId };
+    if (targetType === "resource" && targetId) return { href: "#resources", label: "在资源收藏查看", id: `asset-resource-${targetId}` };
+    return null;
+  }
+  if (outcome?.kind === "curation") {
+    const type = outcome.data?.type;
+    if (type === "method") return { href: "#knowledgeLibrary?space=mine", label: "在知识库查看方法技巧", id: `method-${outcome.id}` };
+    if (type === "prompt") return { href: "#promptLibrary?space=mine", label: "在提示词库查看", sourceId: Number(outcome.id) };
+  }
+  return null;
+}
+// inbox-workflow:end
+
 function InboxDetailFrame({ overlay, panelRef, title, actions, onClose, children }) {
   if (!overlay) return <div ref={panelRef} className="inbox-detail">{children}</div>;
   return <DetailDrawer title={title} actions={actions} onClose={onClose}>
@@ -322,7 +418,7 @@ function useInboxSourceLink(active, items, loadState, onOpen) {
   return error;
 }
 
-function InboxView({ active = true, items, query, readOnly = false, loadState, loadError, onRetry, onCapture, onImportX, onAnalyze, onSetVisibility, onIgnore, onDispatch, onCreateMedia, onCorrectClassification, onOpenConnections }) {
+function InboxView({ active = true, items, query, readOnly = false, loadState, loadError, onRetry, onCapture, onImportX, onAnalyze, onSetVisibility, onIgnore, onDispatch, onCreateMedia, onCorrectClassification, onOpenConnections, onClassificationChanged, onOpenLibraryItem }) {
   const [captureText, setCaptureText] = useInboxState("");
   const [captureBusy, setCaptureBusy] = useInboxState(false);
   const [importBusy, setImportBusy] = useInboxState(false);
@@ -351,6 +447,14 @@ function InboxView({ active = true, items, query, readOnly = false, loadState, l
   const [form, setForm] = useInboxState(inboxDraft(items[0], inboxDefaultType(items[0])));
   const [actionBusy, setActionBusy] = useInboxState(false);
   const [error, setError] = useInboxState("");
+  const [stageFilter, setStageFilter] = useInboxState("");
+  const [bulkIds, setBulkIds] = useInboxState([]);
+  const [bulkType, setBulkType] = useInboxState("source");
+  const [bulkBusy, setBulkBusy] = useInboxState(null);
+  const [bulkReport, setBulkReport] = useInboxState(null);
+  const [curations, setCurations] = useInboxState({});
+  const [lastOutcome, setLastOutcome] = useInboxState(null);
+  const canBulk = !readOnly && Boolean(onCorrectClassification);
 
   useInboxEffect(() => { if (!active) { setDetailOpen(false); setMediaPreview(null); } }, [active]);
 
@@ -413,12 +517,27 @@ function InboxView({ active = true, items, query, readOnly = false, loadState, l
     if (detailPanelRef.current) detailPanelRef.current.scrollTop = 0;
   }, [editorOpen, selectedId]);
 
-  useInboxEffect(() => { setVisibleLimit(60); }, [filter, reviewFilter, topicFilter, subjectFilter, sortMode, query, sourceScope]);
+  useInboxEffect(() => { setVisibleLimit(60); }, [filter, reviewFilter, topicFilter, subjectFilter, sortMode, query, sourceScope, stageFilter]);
+  useInboxEffect(() => { setBulkIds([]); setBulkReport(null); }, [sourceScope]);
+  useInboxEffect(() => {
+    // Rows that left the pending list (dispatched, ignored) cannot stay selected.
+    setBulkIds((ids) => ids.filter((id) => items.some((item) => item.id === id)));
+  }, [items]);
 
   useInboxEffect(() => {
     if (selectedId && scopedItems.some((item) => item.id === selectedId)) return;
     setSelectedId(scopedItems[0] ? scopedItems[0].id : null);
   }, [items, selectedId, sourceScope]);
+
+  useInboxEffect(() => {
+    // Read the authorized classification record so the detail shows the real stage.
+    if (!canBulk || !active || !selected || !(sourceScope !== "x" || detailOpen) || curations[selected.id]) return;
+    let cancelled = false;
+    api(`/api/library-classification/source/${selected.id}`).then((record) => {
+      if (!cancelled) setCurations((current) => ({ ...current, [selected.id]: { revision: record.revision, data: record.data } }));
+    }).catch(() => {});
+    return () => { cancelled = true; };
+  }, [canBulk, active, selected && selected.id, detailOpen, sourceScope]);
 
   const sourceLinkError = useInboxSourceLink(active, items, loadState, item => {
     setSourceScope('x');
@@ -518,8 +637,11 @@ function InboxView({ active = true, items, query, readOnly = false, loadState, l
     if (!selected || actionBusy) return;
     setActionBusy(true);
     setError("");
+    const title = inboxDisplayTitle(selected);
     try {
-      await onDispatch(selected.id, targetType, form);
+      const result = await onDispatch(selected.id, targetType, form);
+      // Only a confirmed backend response produces a destination link.
+      if (result) setLastOutcome({ kind: "dispatch", id: selected.id, title, result });
       setDetailOpen(false);
     } catch (err) {
       setError(err.message || "分发失败");
@@ -560,6 +682,11 @@ function InboxView({ active = true, items, query, readOnly = false, loadState, l
     finally { setActionBusy(false); }
   }
 
+  const stageOf = (item) => inboxStage(item, curations[item.id]);
+  const stageLabel = (id) => INBOX_STAGES.find((stage) => stage.id === id)?.label || "";
+  const stageCounts = Object.fromEntries(INBOX_STAGES.map((stage) => [stage.id, 0]));
+  for (const item of scopedItems) stageCounts[stageOf(item).stage] += 1;
+
   const filterItems = [
     { id: "", label: "全部", count: scopedItems.length },
     { id: "prompt", label: "提示词", count: scopedItems.filter((i) => i.aiType === "prompt").length },
@@ -569,6 +696,8 @@ function InboxView({ active = true, items, query, readOnly = false, loadState, l
     { id: "", filterId: "untyped", label: sourceScope === "x" ? "待整理" : "待核对",
       count: scopedItems.filter((i) => !i.aiType && xOrganization(i)?.assetType !== "idea").length },
   ];
+  const filterKey = (item) => item.filterId || item.id || "all";
+  const activeFilterKey = filter === "__untyped__" ? "untyped" : filter || "all";
 
   function applyFilter(item) {
     setFilter(item.filterId === "untyped" ? "__untyped__" : item.id);
@@ -597,7 +726,8 @@ function InboxView({ active = true, items, query, readOnly = false, loadState, l
     .filter((item) => sourceScope !== "x" || !subjectFilter ||
       (item.subjectCollections || []).some((subject) => subject.id === subjectFilter))
     .filter((item) => sourceScope !== "x" || !topicFilter || xOrganization(item)?.topic === topicFilter)
-    .filter((item) => filter !== "__untyped__" || !reviewFilter || inboxReviewReason(item) === reviewFilter);
+    .filter((item) => filter !== "__untyped__" || !reviewFilter || inboxReviewReason(item) === reviewFilter)
+    .filter((item) => !stageFilter || stageOf(item).stage === stageFilter);
   const groupedItems = new Map();
   const groupCounts = new Map();
   if (sourceScope === "x") {
@@ -653,6 +783,66 @@ function InboxView({ active = true, items, query, readOnly = false, loadState, l
   const selectedSubjectItems = selectedSubject ? (subjectGroups.get(selectedSubject.id)?.items || [])
     .filter((item) => item.id !== selected.id) : [];
   const showSourceTabs = items.some((item) => item.source === "x") && items.some((item) => item.source !== "x");
+  const queueIds = (sourceScope === "x" ? xPageItems : listEntries).map((item) => item.id);
+  const allQueued = queueIds.length > 0 && queueIds.every((id) => bulkIds.includes(id));
+  const selectedStage = selected ? stageOf(selected) : null;
+  const outcomeLink = lastOutcome ? inboxDerivedLink(lastOutcome) : null;
+
+  function toggleBulk(id) {
+    if (bulkBusy) return;
+    setBulkReport(null);
+    setBulkIds((ids) => ids.includes(id) ? ids.filter((value) => value !== id) : [...ids, id]);
+  }
+
+  function toggleQueue() {
+    if (bulkBusy) return;
+    setBulkReport(null);
+    setBulkIds((ids) => allQueued ? ids.filter((id) => !queueIds.includes(id)) : [...new Set([...ids, ...queueIds])]);
+  }
+
+  function openDerived(event, link) {
+    if (!link || !onOpenLibraryItem) return;
+    event.preventDefault();
+    onOpenLibraryItem(link);
+  }
+
+  // review: confirm the current classification as human-reviewed (new manual revision).
+  // classify: write the chosen type. Both use PUT /api/library-classification/source/:id
+  // with the record's revision, so a concurrent edit returns 409 for that item only.
+  async function runBulk(mode) {
+    if (!canBulk || bulkBusy || !bulkIds.length) return;
+    const ids = [...bulkIds];
+    const titles = Object.fromEntries(ids.map((id) => [id, inboxDisplayTitle(items.find((item) => item.id === id))]));
+    setBulkReport(null);
+    setBulkBusy({ mode, done: 0, total: ids.length });
+    const results = await inboxRunBulk(ids, async (id) => {
+      const record = await api(`/api/library-classification/source/${id}`);
+      if (mode === "review" && Number(record.revision) > 0) return { revision: record.revision, data: record.data, unchanged: true };
+      const plan = inboxCurationPlan(record, mode === "review" ? record.data?.type : bulkType, record.title || titles[id]);
+      if (plan.error) throw Object.assign(new Error(plan.error), { status: 400 });
+      const saved = await api(`/api/library-classification/source/${id}`, { method: "PUT", body: { revision: record.revision, data: plan.data } });
+      return { revision: saved.revision, data: saved.data };
+    }, (done, total) => setBulkBusy({ mode, done, total }));
+    setCurations((current) => {
+      const next = { ...current };
+      for (const result of results) if (result.ok) next[result.id] = { revision: result.revision, data: result.data };
+      return next;
+    });
+    setBulkReport({ mode, ...inboxBulkSummary(results), results: results.map((result) => ({ ...result, title: titles[result.id] })) });
+    // Failed rows stay selected so they can be fixed and retried.
+    setBulkIds(results.filter((result) => !result.ok).map((result) => result.id));
+    setBulkBusy(null);
+    if (results.some((result) => result.ok && !result.unchanged) && onClassificationChanged) onClassificationChanged();
+  }
+
+  const selectBox = (item) => canBulk && <label className="inbox-select-box" onClick={(event) => event.stopPropagation()}>
+    <input type="checkbox" checked={bulkIds.includes(item.id)} disabled={Boolean(bulkBusy)}
+      aria-label={`选择：${inboxDisplayTitle(item)}`} onChange={() => toggleBulk(item.id)} />
+  </label>;
+  const stageChip = (item) => {
+    const stage = stageOf(item);
+    return <span className={`tag-chip inbox-stage-chip stage-${stage.stage}`} title={`${stage.reason}；下一步：${stage.next}`}>{stageLabel(stage.stage)}</span>;
+  };
 
   return (
     <div className="inbox-page">
@@ -687,6 +877,12 @@ function InboxView({ active = true, items, query, readOnly = false, loadState, l
           event.target.value = "";
         }} />}
       {importMessage && <p className="inbox-import-message" role="status">{importMessage}</p>}
+      {lastOutcome && <p className="inbox-outcome" role="status">
+        <span>「{lastOutcome.title}」已由服务器确认保存为{INBOX_TYPE_LABELS[lastOutcome.result?.targetType] || "资产"}</span>
+        {outcomeLink && <a href={outcomeLink.href} onClick={(event) => openDerived(event, outcomeLink)}>{outcomeLink.label}</a>}
+        {outcomeLink && <small>{outcomeLink.id}</small>}
+        <button type="button" className="btn btn-ghost" aria-label="关闭处理结果" onClick={() => setLastOutcome(null)}><IconX /></button>
+      </p>}
 
       {!readOnly && showSourceTabs && <div className="inbox-source-tabs">
         <button className={sourceScope === "daily" ? "active" : ""}
@@ -699,39 +895,50 @@ function InboxView({ active = true, items, query, readOnly = false, loadState, l
         </button>
       </div>}
 
-      {!hidePublicXControls && <div className="inbox-filters">
-        {filterItems.map((item) => {
-          const key = item.filterId || item.id || "all";
-          const active = item.filterId === "untyped" ? filter === "__untyped__" : filter === item.id;
-          return (
-            <button key={key} className={active ? "active" : ""} onClick={() => applyFilter(item)}>
-              {item.label}<span>{item.count}</span>
-            </button>
-          );
-        })}
-        {sourceScope === "x" && xTopics.length > 0 && (
+      {!hidePublicXControls && scopedItems.length > 0 && <div className="inbox-queue-tabs" role="group" aria-label="处理队列">
+        <button type="button" aria-pressed={!stageFilter} className={!stageFilter ? "active" : ""} onClick={() => setStageFilter("")}>
+          全部 <span>{scopedItems.length}</span>
+        </button>
+        {INBOX_STAGES.map((stage) => <button type="button" key={stage.id} aria-pressed={stageFilter === stage.id}
+          className={stageFilter === stage.id ? "active" : ""} onClick={() => { setStageFilter(stage.id); setDetailOpen(false); }}>
+          {stage.label} <span>{stageCounts[stage.id]}</span>
+        </button>)}
+      </div>}
+
+      {!hidePublicXControls && <div className="inbox-filter-grid">
+        <label><span>归类</span>
+          <select className="select" aria-label="按归类筛选" value={activeFilterKey}
+            onChange={(event) => { const item = filterItems.find((entry) => filterKey(entry) === event.target.value); if (item) applyFilter(item); }}>
+            {filterItems.map((item) => <option key={filterKey(item)} value={filterKey(item)}>{item.label} · {item.count}</option>)}
+          </select>
+        </label>
+        {sourceScope === "x" && xTopics.length > 0 && <label><span>主题</span>
           <select className="select inbox-topic-filter" aria-label="按主题筛选 X 收藏" value={topicFilter}
             onChange={(event) => setTopicFilter(event.target.value)}>
             <option value="">全部主题</option>
             {xTopics.map((topic) => <option key={topic} value={topic}>{X_TOPIC_LABELS[topic] || topic}</option>)}
           </select>
-        )}
-      </div>}
-      {sourceScope === "x" && !hidePublicXControls && <div className="inbox-x-toolbar">
-        <span>显示 {filteredItems.length} 条{subjectOptions.length > 0 && ` · ${subjectOptions.length} 个主题合集`}{partialCount > 0 && <small title={`当前 ${partialCount} 条来自未证实完整的采集批次；${incompleteCount} 条正文待补全`}> · 采集批次未证实完整</small>}</span>
-        <div>
-          {subjectOptions.length > 0 && <select className="select" aria-label="按跨作者主题合集筛选 X 收藏"
+        </label>}
+        {sourceScope === "x" && subjectOptions.length > 0 && <label><span>合集</span>
+          <select className="select" aria-label="按跨作者主题合集筛选 X 收藏"
             value={subjectFilter} onChange={(event) => setSubjectFilter(event.target.value)}>
             <option value="">全部合集与原帖</option>
             {subjectOptions.map(([id, group]) => <option key={id} value={id}>
               {group.title} · {group.items.length} 条
             </option>)}
-          </select>}
+          </select>
+        </label>}
+        {sourceScope === "x" && <label><span>排序</span>
           <select className="select" aria-label="X 收藏排序" value={sortMode} onChange={(event) => setSortMode(event.target.value)}>
             <option value="time_desc">整理时间 · 最新优先</option>
             <option value="time_asc">整理时间 · 最早优先</option>
             <option value="score_desc">互动评分 · 最高优先</option>
           </select>
+        </label>}
+      </div>}
+      {sourceScope === "x" && !hidePublicXControls && <div className="inbox-x-toolbar">
+        <span>显示 {filteredItems.length} 条{subjectOptions.length > 0 && ` · ${subjectOptions.length} 个主题合集`}{partialCount > 0 && <small title={`当前 ${partialCount} 条来自未证实完整的采集批次；${incompleteCount} 条正文待补全`}> · 采集批次未证实完整</small>}</span>
+        <div>
           {!readOnly && onOpenConnections && <button className="btn" onClick={onOpenConnections}><IconSettings />同步与设置</button>}
           {!readOnly && onImportX && <button className="btn btn-ghost" title="导入已整理的 JSON 或 JSONL 文件；浏览器原始导出需先转换" onClick={() => importInput.current?.click()} disabled={importBusy}>
             {importBusy ? "导入中" : "导入整理文件"}
@@ -752,6 +959,44 @@ function InboxView({ active = true, items, query, readOnly = false, loadState, l
         </div>
       </div>}
 
+      {canBulk && !hidePublicXControls && queueIds.length > 0 && <div className={"inbox-bulk-bar" + (bulkIds.length ? " has-selection" : "")}>
+        <label className="inbox-bulk-all">
+          <input type="checkbox" checked={allQueued} disabled={Boolean(bulkBusy)} onChange={toggleQueue} />
+          <span>{bulkIds.length ? `已选 ${bulkIds.length} 条` : `选择当前列表（${queueIds.length} 条）`}</span>
+        </label>
+        {bulkIds.length > 0 && <React.Fragment>
+          <button type="button" className="btn" disabled={Boolean(bulkBusy)} onClick={() => runBulk("review")}
+            title="按当前归类记录为人工确认；不改变可见范围">
+            {bulkBusy?.mode === "review" ? `复核中 ${bulkBusy.done}/${bulkBusy.total}` : "确认当前归类"}
+          </button>
+          <span className="inbox-bulk-classify">
+            <select className="select" aria-label="批量归类目标" value={bulkType} disabled={Boolean(bulkBusy)} onChange={(event) => setBulkType(event.target.value)}>
+              {Object.entries(INBOX_CURATION_LABELS).map(([id, label]) => <option key={id} value={id}>{label}</option>)}
+            </select>
+            <button type="button" className="btn btn-primary" disabled={Boolean(bulkBusy)} onClick={() => runBulk("classify")}>
+              {bulkBusy?.mode === "classify" ? `归类中 ${bulkBusy.done}/${bulkBusy.total}` : "批量归类"}
+            </button>
+          </span>
+          <button type="button" className="btn btn-ghost" disabled={Boolean(bulkBusy)} onClick={() => { setBulkIds([]); setBulkReport(null); }}>清除选择</button>
+        </React.Fragment>}
+      </div>}
+      {bulkReport && <div className={"inbox-bulk-report" + (bulkReport.failed ? " has-failures" : "")} role="status" aria-live="polite">
+        <strong>{bulkReport.mode === "review" ? "复核" : "归类"}：{bulkReport.message}</strong>
+        <ul>
+          {bulkReport.results.map((result) => {
+            const link = result.ok ? inboxDerivedLink({ kind: "curation", id: result.id, data: result.data }) : null;
+            return <li key={result.id} className={result.ok ? "ok" : "failed"}>
+              <span className="inbox-bulk-title">{result.title}</span>
+              {result.ok
+                ? <span>{result.unchanged ? `已是人工确认（第 ${result.revision} 版）` : `已保存为${INBOX_CURATION_LABELS[result.data?.type] || "来源"}（第 ${result.revision} 版）`}
+                    {link && <a href={link.href} onClick={(event) => openDerived(event, link)}>{link.label}</a>}</span>
+                : <span>{result.status === 409 ? "已在别处修改：" : ""}{result.error}</span>}
+            </li>;
+          })}
+        </ul>
+        {bulkReport.failed > 0 && <small>未完成的 {bulkReport.failed} 条仍保持选中，可单独打开“调整归类”补齐后重试。</small>}
+      </div>}
+
       {isPublicLoading ? (
         <EmptyState message="正在加载 X 收藏" hint="请稍候，正在获取最新的公开收藏内容" />
       ) : isPublicError ? (
@@ -768,7 +1013,7 @@ function InboxView({ active = true, items, query, readOnly = false, loadState, l
       ) : (
         <div className={"inbox-workspace" + (sourceScope === "x" ? " x-mode" : "")}>
           <div className="inbox-list" role="list">
-            {filteredItems.length === 0 && <p className="inbox-list-empty">这个分类暂时没有内容</p>}
+            {filteredItems.length === 0 && <p className="inbox-list-empty">{stageFilter ? `“${stageLabel(stageFilter)}”队列暂时没有内容` : "这个分类暂时没有内容"}</p>}
             {sourceScope === "x" ? <React.Fragment>
               {xDayGroups.map((day) => <section className="feed-day" key={day.key} aria-label={day.label}>
                 <div className="feed-day-label">{day.label}</div>
@@ -783,7 +1028,7 @@ function InboxView({ active = true, items, query, readOnly = false, loadState, l
                     const excerpt = inboxExcerpt(item);
                     const digest = inboxDigest(item);
                     const media = inboxMedia(item);
-                    return <div className="tl-row inbox-tl-row" key={item.id} role="listitem">
+                    return <div className={"tl-row inbox-tl-row" + (bulkIds.includes(item.id) ? " is-selected" : "")} key={item.id} role="listitem">
                       <span className="tl-time">{sortMode === "score_desc" ? xPageItems.indexOf(item) + 1 : inboxTimeLabel(item)}</span>
                       <span className="tl-rail"><span className="tl-dot" /></span>
                       <article className="feed-card inbox-timeline-card">
@@ -810,6 +1055,8 @@ function InboxView({ active = true, items, query, readOnly = false, loadState, l
                             </button>)}
                           </span>}
                           <span className="feed-tags inbox-card-meta">
+                            {selectBox(item)}
+                            {stageChip(item)}
                             {item.author && <span className="inbox-card-author">{item.author}</span>}
                             {organization?.topic && <span className="tag-chip">{X_TOPIC_LABELS[organization.topic] || organization.topic}</span>}
                             {filter !== assetType && filter !== "__untyped__" &&
@@ -844,11 +1091,14 @@ function InboxView({ active = true, items, query, readOnly = false, loadState, l
                   <strong>{organization.groupTitle || "同一主题"}</strong>
                   <span>{item.author || "同一作者"} · {group.length} 条</span>
                 </div>}
-              <button role="listitem"
+              <div role="listitem" className={"inbox-row-wrap" + (bulkIds.includes(item.id) ? " is-selected" : "")}>
+              {selectBox(item)}
+              <button type="button"
                 className={"inbox-row" + (item.id === selectedId ? " active" : "")}
                 onClick={() => setSelectedId(item.id)}>
                 <div className="inbox-row-top">
                   <span className="inbox-source">{INBOX_SOURCE_LABELS[item.source] || item.source}</span>
+                  {stageChip(item)}
                   <span>{shortDate(inboxDate(item))}</span>
                 </div>
                 <strong>{item.title || "未命名内容"}</strong>
@@ -859,6 +1109,7 @@ function InboxView({ active = true, items, query, readOnly = false, loadState, l
                   {INBOX_TYPE_LABELS[item.aiType || organization?.assetType || ""]}
                 </span>
               </button>
+              </div>
               </React.Fragment>;
             })}
           </div>
@@ -879,7 +1130,11 @@ function InboxView({ active = true, items, query, readOnly = false, loadState, l
                     <h2 id="inbox-detail-title">{inboxDisplayTitle(selected)}</h2>
                   </div>
                   <div className="inbox-detail-actions">
-                    {!readOnly && selected.source === 'x' && onCorrectClassification && <button className="btn btn-ghost" onClick={() => onCorrectClassification({sourceInboxId:selected.id})}>调整归类</button>}
+                    {!readOnly && selected.source === 'x' && onCorrectClassification && <button className="btn btn-ghost" onClick={() => {
+                      // The editor writes elsewhere; drop the cached record so the stage is re-read, not assumed.
+                      setCurations((current) => { const next = { ...current }; delete next[selected.id]; return next; });
+                      onCorrectClassification({sourceInboxId:selected.id});
+                    }}>调整归类</button>}
                     {!readOnly && selected.source === "x" && <span className="tag-chip">原始收藏仅自己可见</span>}
                     {!readOnly && onCreateMedia && <button className="btn" onClick={() => onCreateMedia(selected)}><IconPalette />用于创作</button>}
                     {!readOnly && onAnalyze && <button className="btn btn-ghost" onClick={analyze} disabled={actionBusy}>
@@ -888,6 +1143,11 @@ function InboxView({ active = true, items, query, readOnly = false, loadState, l
                     {selectedSourceUrl && <a className="btn btn-ghost" href={selectedSourceUrl} target="_blank" rel="noopener noreferrer"><IconArrowUpRight />原链接</a>}
                   </div>
                 </div>
+                {selectedStage && <p className={`inbox-stage-note stage-${selectedStage.stage}`}>
+                  <b>{inboxStageLabel(selectedStage.stage)}</b>
+                  <span>{selectedStage.reason}</span>
+                  <span>下一步：{selectedStage.next}</span>
+                </p>}
 
                 {selected.source === "x" && inboxDigest(selected)?.summary && <div className="inbox-digest-block">
                   <strong>{inboxDigest(selected).status === "partial_excerpt" ? "已有片段" : "内容提要"}</strong>
@@ -1102,20 +1362,54 @@ function KnowledgeView({ items, query, onAdd, onOpen, onDelete }) {
   );
 }
 
+const KNOWLEDGE_FORM_FIELDS = ["title", "summary", "body", "tags", "sourceUrl"];
+
+// Compares only the editable fields so server-added metadata never counts as an edit.
+function knowledgeFormDirty(form, saved) {
+  return KNOWLEDGE_FORM_FIELDS.some((key) => String(form?.[key] ?? "") !== String(saved?.[key] ?? ""));
+}
+
+function knowledgeDrawerInitialState(item, initialForm, blank = { title: "", summary: "", body: "", tags: "", sourceUrl: "" }) {
+  // `item` is always the last persisted article. A chat result arrives through
+  // `initialForm`, so it must begin as an edit over that article rather than
+  // masquerading as already saved data.
+  const saved = item ? { ...item } : { ...blank };
+  const form = item ? { ...item, ...(initialForm || {}) } : { ...blank, ...(initialForm || {}) };
+  return { saved, form, editing: !item || knowledgeFormDirty(form, saved) };
+}
+
 function KnowledgeDrawer({ item, initialForm, onClose, onSave, onDelete }) {
-  const [editing, setEditing] = useInboxState(!item);
-  const [form, setForm] = useInboxState(item || initialForm || { title: "", summary: "", body: "", tags: "", sourceUrl: "" });
+  const blank = { title: "", summary: "", body: "", tags: "", sourceUrl: "" };
+  const [initial] = useInboxState(() => knowledgeDrawerInitialState(item, initialForm, blank));
+  const [editing, setEditing] = useInboxState(initial.editing);
+  const [saved, setSaved] = useInboxState(initial.saved);
+  const [form, setForm] = useInboxState(initial.form);
   const [busy, setBusy] = useInboxState(false);
   const [error, setError] = useInboxState("");
+  // A new entry with prefilled content is unsaved work as well.
+  const dirty = editing && (item ? knowledgeFormDirty(form, saved) : knowledgeFormDirty(form, blank));
 
   function setField(key, value) { setForm((current) => ({ ...current, [key]: value })); setError(""); }
 
   async function save() {
-    if (!form.title.trim() || !form.body.trim()) { setError("标题和正文不能为空"); return; }
+    if (!String(form.title || "").trim() || !String(form.body || "").trim()) { setError("标题和正文不能为空"); return; }
     setBusy(true);
-    try { await onSave(form, item && item.id); }
-    catch (err) { setError(err.message || "保存失败"); }
-    finally { setBusy(false); }
+    try {
+      await onSave(form, item && item.id);
+      // Only a resolved save becomes the restore point for Cancel.
+      setSaved(form);
+      if (item) setEditing(false);
+    } catch (err) {
+      // Keep the form open with the user's text so it can be corrected and retried.
+      setEditing(true);
+      setError(err.message || "保存失败");
+    } finally { setBusy(false); }
+  }
+
+  function cancel() {
+    setForm(saved);
+    setError("");
+    setEditing(false);
   }
 
   const html = !editing && form.body
@@ -1123,7 +1417,7 @@ function KnowledgeDrawer({ item, initialForm, onClose, onSave, onDelete }) {
     : "";
 
   return (
-    <DetailDrawer title={item ? "知识详情" : "新建知识资产"} onClose={onClose}
+    <DetailDrawer title={item ? "知识详情" : "新建知识资产"} onClose={onClose} dirty={dirty}
       actions={item && !editing && <button className="btn btn-icon" title="编辑" onClick={() => setEditing(true)}><IconSettings /></button>}>
         <div className="detail-drawer-body">
           {!editing && <h2>{form.title}</h2>}
@@ -1134,7 +1428,7 @@ function KnowledgeDrawer({ item, initialForm, onClose, onSave, onDelete }) {
               <label>正文 *<textarea className="input" rows="14" value={form.body || ""} onChange={(e) => setField("body", e.target.value)} /></label>
               <label>标签<input className="input" placeholder="逗号分隔" value={form.tags || ""} onChange={(e) => setField("tags", e.target.value)} /></label>
               <label>来源链接<input className="input" placeholder="https://" value={form.sourceUrl || ""} onChange={(e) => setField("sourceUrl", e.target.value)} /></label>
-              {error && <p className="auth-error">{error}</p>}
+              {error && <p className="auth-error" role="alert">{error}</p>}
             </div>
           ) : (
             <div className="knowledge-detail">
@@ -1152,7 +1446,7 @@ function KnowledgeDrawer({ item, initialForm, onClose, onSave, onDelete }) {
           <span className="spacer"></span>
           {editing ? (
             <React.Fragment>
-              {item && <button className="btn btn-ghost" onClick={() => { setForm(item); setEditing(false); }}>取消</button>}
+              {item && <button className="btn btn-ghost" onClick={cancel} disabled={busy}>取消</button>}
               <button className="btn btn-primary" onClick={save} disabled={busy}><IconCheck />{busy ? "保存中" : "保存"}</button>
             </React.Fragment>
           ) : <button className="btn" onClick={() => setEditing(true)}>编辑</button>}

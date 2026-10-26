@@ -1,15 +1,14 @@
 (function () {
   var V = "?v=autoload-20261010-14";
   var KEYS = ["q","chapter","grade","money","time","will","view","entry","doc"];
-  var ROOT_ID = "life-guide-workspace", ENTRY_ID = "life-guide-entry";
+  var ROOT_ID = "life-guide-workspace", CRUMB_ID = "life-guide-breadcrumb";
   var CSS = "/life-guide/workspace-v2.css" + V, UI = "/life-guide/workspace-ui-v2.js" + V, CORE = "/life-guide/workspace-v2.js" + V;
-  var lp = null, ok = {}, ctl = null, tkn = 0, on = false, ret = null, raf = false;
+  var lp = null, ok = {}, ctl = null, tkn = 0, on = false, raf = false;
   var locked = false, mraf = 0;
   function $(id) { return document.getElementById(id); }
   function q(s) { return document.querySelector(s); }
   function isG(h) { return (h || location.hash).split("?")[0] === "#life-guide"; }
   function sp(h) { var m = /[?&]space=(mine|public)/.exec(h || location.hash); return m ? m[1] : ""; }
-  function repo() { var s = sp(); return "#repositories" + (s ? "?space=" + s : ""); }
   function parse(h) {
     var p = new URLSearchParams((h || location.hash).split("?")[1] || "");
     return KEYS.reduce(function (o, k) { o[k] = p.get(k) || ""; return o; }, {});
@@ -142,40 +141,34 @@
     main.appendChild(root);
     return root;
   }
+  // 专题 › 生活指南 breadcrumb. The guide lives under the 专题 module (no own
+  // sidebar entry). The crumb is a sibling placed before the root inside <main>
+  // because the guide UI replaces the root's content. Only touches the DOM when
+  // something differs, so the MutationObserver below cannot loop.
+  function crumbHref() { var s = sp(); return "#topics" + (s ? "?space=" + s : ""); }
   function syncA() {
-    var a = $(ENTRY_ID); if (!a) return;
-    var cur = a.getAttribute("aria-current");
-    if (on) { if (cur !== "page") a.setAttribute("aria-current", "page"); }
-    else if (cur) a.removeAttribute("aria-current");
+    var c = $(CRUMB_ID); if (!c) return;
+    var root = $(ROOT_ID);
+    if (root && root.parentNode && c.nextSibling !== root) root.parentNode.insertBefore(c, root);
+    var link = c.querySelector("a"), href = crumbHref();
+    if (link && link.getAttribute("href") !== href) link.setAttribute("href", href);
+    if (c.hidden === on) c.hidden = !on;
   }
   function mkEntry() {
-    var nav = q("aside#workspace-sidebar nav.module-nav");
-    if (!nav) return null;
-    var a = $(ENTRY_ID);
-    if (!a) {
-      a = document.createElement("a");
-      a.id = ENTRY_ID; a.className = "nav-item module-button"; a.href = "#life-guide"; a.title = "生活指南"; a.setAttribute("aria-label", "生活指南");
-      a.innerHTML = '<span class="module-icon" aria-hidden="true"><svg fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="m16.24 7.76-1.804 5.411a2 2 0 0 1-1.265 1.265L7.76 16.24l1.804-5.411a2 2 0 0 1 1.265-1.265z"/></svg></span><span class="module-label">生活指南</span>';
-      nav.appendChild(a);
-      a.addEventListener("click", onEntry);
+    var main = q("main.main");
+    if (!main) return null;
+    var c = $(CRUMB_ID);
+    if (!c) {
+      c = document.createElement("nav");
+      c.id = CRUMB_ID; c.className = "topic-breadcrumb"; c.setAttribute("aria-label", "专题导航"); c.hidden = !on;
+      c.innerHTML = '<a href="#topics"><span aria-hidden="true">‹</span>专题</a><span aria-hidden="true">/</span><span aria-current="page">生活指南</span>';
+      var root = $(ROOT_ID);
+      if (root && root.parentNode) root.parentNode.insertBefore(c, root); else main.appendChild(c);
     }
     syncA();
-    return a;
+    return c;
   }
   function syncR() { var root = mkRoot(); if (root && root.hidden === on) root.hidden = !on; }
-  function onEntry(e) {
-    e.preventDefault();
-    if (!isG()) ret = location.hash || repo();
-    history.pushState(null, "", gh({}));
-    enter();
-    if (window.matchMedia("(max-width: 860px)").matches) {
-      var sidebar = document.querySelector("aside#workspace-sidebar");
-      if (sidebar && !sidebar.classList.contains("collapsed")) {
-        var toggle = document.querySelector("button.header-toggle");
-        if (toggle) toggle.click();
-      }
-    }
-  }
   function retry(root) {
     root.setAttribute("aria-busy", "false");
     root.dataset.state = "error";
@@ -245,20 +238,8 @@
       else { if (ctl) ctl.setRoute(parse()); syncR(); syncA(); }
     } else if (on) exit();
   }
-  document.addEventListener("click", function (e) {
-    if (!on) return;
-    var item = e.target && e.target.closest ? e.target.closest("nav.module-nav .nav-item") : null;
-    if (!item || item.id === ENTRY_ID) return;
-    document.body.removeAttribute("data-life-guide-active");
-    on = false;
-    unlock();
-    history.replaceState(null, "", ret || repo());
-    // Captured sidebar click: same teardown as exit(), so no controller survives
-    // bound to a root that may be replaced while inactive.
-    teardown();
-    syncA();
-    var root = $(ROOT_ID); if (root) root.hidden = true;
-  }, true);
+  // Leaving the guide (sidebar, 专题 crumb, Back) is a normal hash change owned by
+  // the workspace router and its OmniNavigationGuard check; sync() then exits.
   var mo = new MutationObserver(function () {
     if (raf) return;
     raf = true;
@@ -273,10 +254,12 @@
     });
   });
   function init() {
-    ret = isG() ? repo() : (location.hash || repo());
-    if (isG()) enter(); else mkEntry();
+    if (isG()) enter();
+    mkEntry();
     window.addEventListener("popstate", sync);
     window.addEventListener("hashchange", sync);
+    // A cancelled leave restores the URL with pushState (no hashchange).
+    window.addEventListener("omnihub:route-restored", sync);
     mo.observe(document.body, { childList: true, subtree: true });
   }
   if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", init);

@@ -53,7 +53,7 @@ test('repository navigation is a workspace tab and old URLs return to that tab',
 
 test('repository tabs stay mounted and no longer duplicate the header search', () => {
   assert.match(read('app.jsx'), /active=\{section === "repositories"\}/);
-  assert.match(read('app.jsx'), /showSearch=\{!\["repositories", "knowledgeLibrary"\]\.includes\(section\) && !\(section === "feed"/);
+  assert.match(read('app.jsx'), /showSearch=\{!\["repositories", "knowledgeLibrary", "studio", "chat", "tools", "topics", "settings"\]\.includes\(section\)/);
   assert.match(read('app.jsx'), /sectionQueries\[queryKey\]/);
   assert.doesNotMatch(read('repository-explorer-prototype.js'), /showModal\(/);
   assert.match(read('repository-tab.html'), /class="repository-detail detail-drawer"/);
@@ -141,9 +141,8 @@ test('the account avatar is the only settings trigger and anchors its menu to th
   assert.doesNotMatch(footer, /aria-label="设置"/);
   assert.match(footer, /账号与设置：\$\{user\.username\}/);
   assert.match(footer, /aria-haspopup=\{user \? "menu" : undefined\}/);
-  for (const label of ['账号与连接', 'AI 设置', '深色模式', '悬浮木鱼', '皮肤', '退出登录']) {
-    assert.ok(footer.includes(label), `missing settings action: ${label}`);
-  }
+  assert.ok(footer.includes('设置'), 'missing full-page settings entry');
+  assert.ok(footer.includes('退出登录'), 'missing logout entry');
 });
 
 test('repository data and view assets load together before the skeleton is replaced', async () => {

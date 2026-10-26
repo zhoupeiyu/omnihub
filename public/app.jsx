@@ -1,16 +1,15 @@
 /// 主应用 —— 登录态管理 + 五大模块（收藏/提示词/AI对话/信息流/工具箱），业务数据走服务器
 const { useState: useAppState, useEffect: useAppEffect, useMemo: useAppMemo, useRef: useAppRef } = React;
 
+// Only modules whose header search actually filters their own content.
 const SEARCH_PLACEHOLDERS = {
   repositories: "搜索仓库名称、用途或主题……",
   knowledgeLibrary: "搜索知识文章……",
   promptLibrary: "搜索提示词、主体或风格……",
   inbox: "搜索待处理内容……",
-  assets: "搜索资产……",
-  studio: "搜索创作素材……",
-  chat: "搜索对话线索……",
+  resources: "搜索收藏的资源、提示词或知识……",
+  works: "搜索作品……",
   feed: "搜索资讯……",
-  tools: "搜索工具……",
 };
 
 const GREETINGS = [
@@ -85,19 +84,19 @@ function FavoritesView({ favorites, query, category, onAdd, onEdit, onDelete }) 
   return (
     <div>
       <div className="asset-compact-head">
-        <div className="asset-lens-row">
+        <div className="asset-lens-row" role="group" aria-label="按资源类型筛选">
         {lensItems.map((lens) => (
           <button key={lens.id} className={"asset-lens" + (assetLens === lens.id ? " active" : "")}
-            onClick={() => setAssetLens(lens.id)}>
+            aria-pressed={assetLens === lens.id} onClick={() => setAssetLens(lens.id)}>
             <span>{lens.label}</span><em>{lensCount(lens.id)}</em>
           </button>
         ))}
         </div>
-        <button className="btn btn-primary" onClick={onAdd}><IconPlus />收录资源</button>
+        <button className="btn btn-primary" onClick={onAdd} aria-label="手动收录资源（网站、工具、文章或开源项目）"><IconPlus />收录资源</button>
       </div>
       {groups.length === 0 && (
         <div>
-          <EmptyState message="没有找到相关资产" hint="换个筛选，或先收录一个入口" />
+          <EmptyState message="没有找到相关资源" hint="换个筛选，或点击「收录资源」手动添加网站、工具或文章" />
         </div>
       )}
       {groups.map((group, gi) => (
@@ -207,7 +206,7 @@ function PromptsView({ prompts, query, category, onAdd, onDelete, onCopy, onOpen
       </div>
       {visible.length === 0 ? (
         <EmptyState message={stageFilter === "archived" ? "归档箱是空的" : "还没有匹配的提示词资产"}
-          hint={stageFilter === "needs-review" ? "缺少模型、标签或复盘的资产会出现在这里" : "点击右上角「新建资产」开始沉淀"} />
+          hint={stageFilter === "needs-review" ? "缺少模型、标签或复盘的资产会出现在这里" : "点击右上角「新建提示词」开始沉淀"} />
       ) : category === "全部" ? (
         promptGroups.map((group) => (
           <section className="prompt-group" key={group.cat}>
@@ -222,50 +221,60 @@ function PromptsView({ prompts, query, category, onAdd, onDelete, onCopy, onOpen
   );
 }
 
-/** 统一资产库：提示词、资源和知识是同一沉淀层的三个视图。 */
+// 收藏 holds hand-added records; 作品 holds generated results only.
+const ASSET_SCOPE_TABS = { collection: ["resources", "prompts", "knowledge"], works: ["works"] };
+
+/** 资产视图：scope="collection" 为手动收藏（资源/提示词/知识），scope="works" 只含生成作品。 */
 function AssetLibraryView({ assetTab, onAssetTabChange, favorites, prompts, knowledge, mediaAssets, query,
                             favCategory, promptCategory, onAddFavorite, onEditFavorite, onDeleteFavorite,
                             onAddPrompt, onDeletePrompt, onCopyPrompt, onOpenPrompt, onTryPrompt, onCreateFromPrompt, onTogglePromptFavorite,
                             onAddKnowledge, onOpenKnowledge, onDeleteKnowledge,
-                            onCreateMedia, onContinueMedia, onMediaUpdated, onOpenMediaAssetHandled, openMediaAssetId, showToast }) {
+                            onCreateMedia, onContinueMedia, onMediaUpdated, onOpenMediaAssetHandled, openMediaAssetId, showToast,
+                            scope = "collection" }) {
+  const works = mediaAssets.filter((item) => item.origin !== "reference");
+  const allowed = ASSET_SCOPE_TABS[scope] || ASSET_SCOPE_TABS.collection;
   const tabs = [
-    { id: "prompts", label: "提示词", count: prompts.length, icon: <IconSparkle /> },
     { id: "resources", label: "资源", count: favorites.length, icon: <IconBookmark /> },
+    { id: "prompts", label: "提示词", count: prompts.length, icon: <IconSparkle /> },
     { id: "knowledge", label: "知识", count: knowledge.length, icon: <IconBookOpen /> },
-    { id: "works", label: "作品", count: mediaAssets.filter((item) => item.origin !== "reference").length, icon: <IconPalette /> },
-  ];
-  const total = favorites.length + prompts.length + knowledge.length + mediaAssets.filter((item) => item.origin !== "reference").length;
+    { id: "works", label: "作品", count: works.length, icon: <IconPalette /> },
+  ].filter((tab) => allowed.includes(tab.id));
+  const currentTab = allowed.includes(assetTab) ? assetTab : allowed[0];
+  const total = tabs.reduce((sum, tab) => sum + tab.count, 0);
+  const isWorks = scope === "works";
   return (
-    <div className="asset-library">
+    <div className="asset-library" data-scope={scope}>
       <div className="asset-library-head">
         <div>
-          <h1>资产库</h1>
-          <p>{total} 条可复用内容</p>
+          <h1>{isWorks ? "作品" : "收藏"}</h1>
+          <p>{isWorks ? `${total} 件生成作品` : `${total} 条手动收藏的资源、提示词与知识`}</p>
         </div>
-        <div className="asset-tabs" role="tablist">
-          {tabs.map((tab) => (
-            <button key={tab.id} role="tab" aria-selected={assetTab === tab.id}
-              className={assetTab === tab.id ? "active" : ""} onClick={() => onAssetTabChange(tab.id)}>
-              {tab.icon}<span>{tab.label}</span><em>{tab.count}</em>
-            </button>
-          ))}
-        </div>
+        {tabs.length > 1 && (
+          <div className="asset-tabs" role="tablist" aria-label="收藏类型">
+            {tabs.map((tab) => (
+              <button key={tab.id} role="tab" aria-selected={currentTab === tab.id}
+                className={currentTab === tab.id ? "active" : ""} onClick={() => onAssetTabChange(tab.id)}>
+                {tab.icon}<span>{tab.label}</span><em>{tab.count}</em>
+              </button>
+            ))}
+          </div>
+        )}
       </div>
-      {assetTab === "prompts" && (
+      {currentTab === "prompts" && (
         <PromptsView prompts={prompts} query={query} category={promptCategory}
           onAdd={onAddPrompt} onDelete={onDeletePrompt} onCopy={onCopyPrompt}
           onOpen={onOpenPrompt} onTryRun={onTryPrompt} onCreateMedia={onCreateFromPrompt}
           onToggleFavorite={onTogglePromptFavorite} />
       )}
-      {assetTab === "resources" && (
+      {currentTab === "resources" && (
         <FavoritesView favorites={favorites} query={query} category={favCategory}
           onAdd={onAddFavorite} onEdit={onEditFavorite} onDelete={onDeleteFavorite} />
       )}
-      {assetTab === "knowledge" && (
+      {currentTab === "knowledge" && (
         <KnowledgeView items={knowledge} query={query}
           onAdd={onAddKnowledge} onOpen={onOpenKnowledge} onDelete={onDeleteKnowledge} />
       )}
-      {assetTab === "works" && <MediaAssetsView assets={mediaAssets} query={query}
+      {currentTab === "works" && <MediaAssetsView assets={mediaAssets} query={query}
         onCreate={onCreateMedia} onContinue={onContinueMedia} onUpdated={onMediaUpdated}
         openAssetId={openMediaAssetId} onOpenAssetHandled={onOpenMediaAssetHandled}
         showToast={showToast} />}
@@ -627,6 +636,19 @@ function FeedView(props) {
   </div>;
 }
 
+function FeedEvent({ event, onPreview, onSave, rank, showRank }) {
+  return <section className="feed-event">
+    <FeedItem item={event.item} rank={rank} showRank={showRank} onPreview={onPreview} onSave={onSave} />
+    {event.related.length > 0 && <details className="feed-event-related">
+      <summary>同一事件 · 共 {event.related.length + 1} 篇报道，查看补充内容</summary>
+      {event.related.map(({item, supplement}, index) => <div key={`${item.url}:${index}`} className="feed-event-report">
+        {supplement.length > 0 && <div className="feed-event-supplement"><strong>这篇报道的补充</strong><p>{supplement.join(' ')}</p></div>}
+        <FeedItem item={item} showRank={false} onPreview={onPreview} onSave={onSave} />
+      </div>)}
+    </details>}
+  </section>;
+}
+
 /** AIHOT retains its upstream editorial decisions; only explicitly saved items enter the personal queue. */
 function AihotFeedView({ active = true, query, onSaveToInbox, onCorrectClassification }) {
   const [sources, setSources] = useAppState([]);
@@ -639,6 +661,7 @@ function AihotFeedView({ active = true, query, onSaveToInbox, onCorrectClassific
   const [loadingSource, setLoadingSource] = useAppState("");
   const [errMsg, setErrMsg] = useAppState("");
   const [preview, setPreview] = useAppState(null); // 图片放大预览的 src
+  const [groupEvents, setGroupEvents] = useAppState(true);
   useAppEffect(() => { if (!active) setPreview(null); }, [active]);
   const [showRefreshIndicator, setShowRefreshIndicator] = useAppState(false);
   const [refreshIndicatorClosing, setRefreshIndicatorClosing] = useAppState(false);
@@ -742,7 +765,8 @@ function AihotFeedView({ active = true, query, onSaveToInbox, onCorrectClassific
     items.forEach((it) => (it.tags || []).forEach((t) => { counts[t] = (counts[t] || 0) + 1; }));
     return Object.keys(counts).sort((a, b) => counts[b] - counts[a]).slice(0, 10);
   })() : [];
-  const groups = rich ? groupByDate(visible) : null;
+  const events = groupEvents ? groupFeedEvents(visible) : visible.map(item => ({item, related:[]}));
+  const groups = rich ? groupByDate(events.map(event => ({...event.item, event}))) : null;
 
   function switchSource(s) {
     setActiveSource(s.id); setSourceInfo(s); setCatFilter("");
@@ -751,6 +775,9 @@ function AihotFeedView({ active = true, query, onSaveToInbox, onCorrectClassific
   return (
     <div className="aihot-feed">
       <div className="feed-toolbar">
+        <button className="btn" aria-pressed={groupEvents} onClick={() => setGroupEvents(value => !value)}>
+          {groupEvents ? `按事件聚合 · ${events.length} 组 / ${visible.length} 篇` : `原始报道 · ${visible.length} 篇`}
+        </button>
         <div className="filter-bar">
           {rich && topTags.length > 0 && (
             <PillTabs activeKey={catFilter} pillVariant="chip">
@@ -811,7 +838,7 @@ function AihotFeedView({ active = true, query, onSaveToInbox, onCorrectClassific
                       <div className="tl-row" key={i}>
                         <div className="tl-time">{toHHMM(it.publishedAt)}</div>
                         <div className="tl-rail"><span className="tl-dot" /></div>
-                        <FeedItem item={{ ...it, time: "" }} showRank={false} onPreview={setPreview} onSave={onSaveToInbox} />
+                        <FeedEvent event={it.event} showRank={false} onPreview={setPreview} onSave={onSaveToInbox} />
                       </div>
                     ))}
                   </div>
@@ -821,8 +848,8 @@ function AihotFeedView({ active = true, query, onSaveToInbox, onCorrectClassific
           )}
           {!rich && visible.length > 0 && (
             <div className="feed-content-enter" key={"flat:" + activeSource + ":" + visible.length}>
-              {visible.map((item, idx) => (
-                <FeedItem key={idx} item={item} rank={idx + 1} showRank={true} onPreview={setPreview} onSave={onSaveToInbox} />
+              {events.map((event, idx) => (
+                <FeedEvent key={idx} event={event} rank={idx + 1} showRank={true} onPreview={setPreview} onSave={onSaveToInbox} />
               ))}
             </div>
           )}
@@ -850,36 +877,38 @@ function AihotFeedView({ active = true, query, onSaveToInbox, onCorrectClassific
 /** 工具箱模块 */
 function ToolsView({ showToast }) {
   const [query, setQuery] = useAppState('');
-  const needle = query.trim().toLowerCase();
   const catalog = [
-    ['pdf', 'PDF 压缩 文件 体积 文档'], ['password', '密码 随机 安全 password'],
-    ['color', '颜色 转换 色值 hex rgb'], ['dice', '骰子 随机 抽签'],
-    ['timer', '专注 倒计时 番茄钟 timer'], ['timestamp', '时间戳 日期 转换 timestamp'],
-    ['words', '字数 统计 文字 文本 word'],
+    {id:'pdf', name:'PDF 压缩', description:'压缩文档体积'}, {id:'password', name:'随机密码', description:'生成安全密码'},
+    {id:'color', name:'颜色转换', description:'转换 HEX 与 RGB'}, {id:'dice', name:'骰子', description:'随机抽签'},
+    {id:'timer', name:'专注计时', description:'倒计时和番茄钟'}, {id:'timestamp', name:'时间戳转换', description:'日期与时间戳互转'},
+    {id:'words', name:'字数统计', description:'统计文字长度'},
   ];
-  const visible = new Set(catalog.filter(([,label]) => !needle || label.toLowerCase().includes(needle)).map(([id]) => id));
-  const quick = ['password','color','dice','timer'];
+  const ids = catalog.map(item => item.id);
+  const [recent, setRecent] = useAppState(() => readRecentTools(ids));
+  const [active, setActive] = useAppState(() => readRecentTools(ids)[0] || 'pdf');
+  const needle = query.trim().toLowerCase();
+  const visible = catalog.filter(item => !needle || `${item.name} ${item.description} ${item.id}`.toLowerCase().includes(needle));
+  const selectTool = id => { setActive(id); setRecent(rememberRecentTool(id, ids)); };
+  const chosen = visible.some(item => item.id === active) ? active : visible[0]?.id;
   return <div className="tools-page">
-    <div className="tools-heading"><SectionHead icon={<IconWrench />} title="工具箱" count={visible.size} />
+    <div className="tools-heading"><SectionHead icon={<IconWrench />} title="工具箱" count={visible.length} />
       <label className="tools-search"><IconSearch /><input type="search" aria-label="搜索工具" value={query}
         placeholder="搜索工具，如 PDF、字数、计时…" onChange={event => setQuery(event.target.value)} /></label>
     </div>
-    {!visible.size && <EmptyState message="没有匹配的工具" hint="试试工具名称或用途，例如颜色、时间戳" />}
-    <div className="tools-board" hidden={!visible.size}>
-      <div className="tools-main" hidden={!['pdf',...quick].some(id => visible.has(id))}>
-        <div hidden={!visible.has('pdf')}><PdfCompressTool showToast={showToast} /></div>
-        <div className="tools-quick-grid" hidden={!quick.some(id => visible.has(id))}>
-          <div hidden={!visible.has('password')}><PasswordTool showToast={showToast} /></div>
-          <div hidden={!visible.has('color')}><ColorTool showToast={showToast} /></div>
-          <div hidden={!visible.has('dice')}><DiceTool /></div>
-          <div hidden={!visible.has('timer')}><FocusTimerTool showToast={showToast} /></div>
-        </div>
-      </div>
-      <div className="tools-aside" hidden={!['timestamp','words'].some(id => visible.has(id))}>
-        <div hidden={!visible.has('timestamp')}><TimestampTool showToast={showToast} /></div>
-        <div hidden={!visible.has('words')}><WordCountTool /></div>
-      </div>
-    </div>
+    {!visible.length && <EmptyState message="没有匹配的工具" hint="试试工具名称或用途，例如颜色、时间戳" />}
+    {visible.length > 0 && <div className="tool-picker-layout"><nav className="tool-picker" aria-label="工具列表">
+      {!needle && recent.length > 0 && <p className="tool-picker-label">最近使用</p>}
+      {!needle && recent.map(id => { const item = catalog.find(entry => entry.id === id); return <button key={`recent-${id}`} type="button" className={chosen === id ? 'active' : ''} onClick={() => selectTool(id)}>{item.name}</button>; })}
+      <p className="tool-picker-label">{needle ? '搜索结果' : '全部工具'}</p>{visible.map(item => <button key={item.id} type="button" className={chosen === item.id ? 'active' : ''} onClick={() => selectTool(item.id)}><strong>{item.name}</strong><span>{item.description}</span></button>)}
+    </nav><div className="tool-active" aria-live="polite">
+      {chosen === 'pdf' && <PdfCompressTool showToast={showToast} />}
+      {chosen === 'password' && <PasswordTool showToast={showToast} />}
+      {chosen === 'color' && <ColorTool showToast={showToast} />}
+      {chosen === 'dice' && <DiceTool />}
+      {chosen === 'timer' && <FocusTimerTool showToast={showToast} />}
+      {chosen === 'timestamp' && <TimestampTool showToast={showToast} />}
+      {chosen === 'words' && <WordCountTool />}
+    </div></div>}
   </div>;
 }
 
@@ -934,10 +963,32 @@ function CatalogueSpaceSwitch({ user }) {
 }
 
 /** 主界面（登录用户与游客共用；游客 user 为 null） */
+/** 专题目录：#topics 显示目录；#life-guide 等专题页由各自脚本渲染到 <main>。 */
+function TopicsCatalog({ active }) {
+  const [hash, setHash] = useAppState(() => window.location.hash);
+  useAppEffect(() => {
+    const sync = () => setHash(window.location.hash);
+    sync();
+    window.addEventListener('hashchange', sync);
+    window.addEventListener('omnihub:route-restored', sync);
+    return () => {
+      window.removeEventListener('hashchange', sync);
+      window.removeEventListener('omnihub:route-restored', sync);
+    };
+  }, []);
+  if (!active || workspaceHashName(hash) !== 'topics') return null;
+  return <section className="topics-catalog" aria-labelledby="topics-title">
+    <div className="topics-head"><h1 id="topics-title">专题</h1><p>围绕一个主题持续整理的专门内容。</p></div>
+    <ul className="topics-grid">{TOPIC_REGISTRY.map(topic => <li key={topic.id}>
+      <a className="topics-card" href={topicHref(topic, hash)}><strong>{topic.title}</strong><span>{topic.description}</span></a>
+    </li>)}</ul>
+  </section>;
+}
+
 function Workspace({ user, onUserChange, showToast, toast }) {
   const [skin, setSkin] = useAppState(() => loadStored("skin", "minimal"));
   const [theme, setTheme] = useAppState(() => loadStored("theme", "dark"));
-  const [section, setSection] = useWorkspaceSection("repositories");
+  const [section, setSection, sectionHooks] = useWorkspaceSection("repositories");
   const [feedMode, setFeedMode] = useAppState(readFeedMode);
   const [repositories, setRepositories] = useAppState([]);
   const [knowledgeLibrary, setKnowledgeLibrary] = useAppState([]);
@@ -972,7 +1023,25 @@ function Workspace({ user, onUserChange, showToast, toast }) {
   };
   const [favCategory, setFavCategory] = useAppState("全部");
   const [promptCategory, setPromptCategory] = useAppState("全部");
-  const [modal, setModal] = useAppState(null); // 收藏、提示词、知识与 AI 设置弹层
+  const [modal, setModalState] = useAppState(null); // 收藏、提示词、知识等弹层；设置是 <main> 内的整页路由
+  const settingsDirty = React.useRef(false);
+  const settingsReturn = React.useRef('');
+  // Every legacy settings modal request (sidebar menu, chat, inbox, studio)
+  // opens the full-page #settings route on the matching category instead.
+  const setModal = value => {
+    const target = settingsTargetForModal(value);
+    if (!target) return setModalState(value);
+    if (!personalAccess) return;
+    setSection('settings', { params: { category: target.category, aiTab: target.aiTab } });
+  };
+  // Router hooks: dirty settings ask before leaving; an accepted module change
+  // (sidebar, link, Back/Forward) closes whatever modal belonged to the old one.
+  sectionHooks.canLeave = from => !(from === 'settings' && settingsDirty.current) || confirm('设置有未保存的修改，确定离开吗？');
+  sectionHooks.onModuleChange = (to, from) => {
+    setModalState(null);
+    if (to === 'settings') settingsReturn.current = from;
+    if (from === 'settings') { settingsDirty.current = false; setMediaConfigVersion(value => value + 1); }
+  };
   const [authOpen, setAuthOpen] = useAppState(false); // 登录/注册弹窗
   const [chatPrefill, setChatPrefill] = useAppState("");
   const [chatMessages, setChatMessages] = useAppState([]);
@@ -1075,7 +1144,7 @@ function Workspace({ user, onUserChange, showToast, toast }) {
   useAppEffect(() => { dataCache.load(section); }, [dataCache, section, classificationRevision, publicRetryKey]);
 
   useAppEffect(() => {
-    if (!personalAccess || !['studio', 'assets'].includes(section)) return;
+    if (!personalAccess || !['studio', 'works'].includes(section)) return;
     const controller = new AbortController();
     const timer = setInterval(() => {
       if (document.hidden) return;
@@ -1131,27 +1200,34 @@ function Workspace({ user, onUserChange, showToast, toast }) {
       prompt: item.content || "", media: item.media, url: item.url || "",
     });
   }
-  function continueFromMedia(asset, targetModule = "seedance") {
+  function continueFromMedia(asset, targetModule = "seedance", job = null) {
+    const reuseJob = Boolean(job && job.module === targetModule);
+    const args = reuseJob && job?.args && typeof job.args === 'object' ? job.args : {};
+    const module = targetModule || job?.module || "image";
+    const mode = (reuseJob && (job?.mode || args.mode)) || (module === "image" ? "image" : asset.kind === "image" ? "first_last_frame" : "reference_images");
     openStudio({
       title: asset.title, prompt: asset.prompt || "",
       sourceType: asset.sourceType, sourceId: asset.sourceId,
       parentAssetId: asset.id, referenceAssetId: asset.id,
-      targetModule, targetMode: targetModule === "image" ? "image" :
-        asset.kind === "image" ? "first_last_frame" : "reference_images",
+      targetModule: module, targetMode: mode, model: reuseJob ? (job?.model || asset.model || '') : '',
+      generationArgs: args, sourceJobId: job?.id || null,
     });
   }
   function showMediaAsset(id) {
     setOpenMediaAssetId(id);
-    setAssetTab("works");
-    setSection("assets");
-    setQuery("", "assets");
+    setSection("works");
+    setQuery("", "works");
   }
 
   useAppEffect(() => {
-    if (personalAccess && new URLSearchParams(window.location.hash.split('?')[1] || '').get('account') === 'x') {
-      setModal('account-settings');
+    const accountParams = new URLSearchParams(window.location.hash.split('?')[1] || '');
+    if (personalAccess && accountParams.get('account') === 'x') {
+      // X OAuth returns here: land on 数据同步 (keeping `result`) without a new history entry.
+      accountParams.delete('account'); accountParams.set('category', 'sync');
+      window.location.replace(`#settings?${accountParams}`);
+      return;
     }
-    if (!canUseFullApp && !["repositories", "knowledgeLibrary", "promptLibrary", "feed", ...(personalAccess ? ["inbox", "studio", "assets"] : [])].includes(section)) {
+    if (!canUseFullApp && !["repositories", "knowledgeLibrary", "promptLibrary", "feed", "topics", ...(personalAccess ? ["inbox", "studio", "works", "settings"] : [])].includes(section)) {
       setSection("repositories");
       setQuery("", "repositories");
     }
@@ -1323,23 +1399,24 @@ function Workspace({ user, onUserChange, showToast, toast }) {
     if (targetType === 'prompt' || targetType === 'knowledge') {
       const nextSection = targetType === 'prompt' ? 'promptLibrary' : 'knowledgeLibrary';
       const id = `manual-${targetType}-${targetId}`;
-      if (window.omnihubCatalogueScope() !== 'mine') {
-        history.replaceState(null,'',`#${nextSection}?space=mine`);
-        dataCache.invalidate(); setKnowledgeLibrary([]); setPromptLibrary([]); setDataLoads({});
-      }
+      const switchScope = window.omnihubCatalogueScope() !== 'mine';
       setPendingLibraryTarget({type:targetType,id});
-      setSection(nextSection); setQuery('',nextSection); setPublicRetryKey(key => key + 1);
+      // Push a new entry (never replace) so Back returns to the conversation that
+      // saved it. Forced: the save itself already closed the editing drawer.
+      setSection(nextSection, { force: true, ...(switchScope ? { params: { space: 'mine' } } : {}) });
+      if (switchScope) { dataCache.invalidate(); setKnowledgeLibrary([]); setPromptLibrary([]); setDataLoads({}); }
+      setQuery('',nextSection); setPublicRetryKey(key => key + 1);
       return;
     }
-    const tab = targetType === "prompt" ? "prompts" : targetType === "resource" ? "resources" : "knowledge";
-    setAssetTab(tab);
-    setSection("assets");
-    setQuery("", "assets");
-    setPendingAssetTarget(`asset-${targetType}-${targetId}`);
+    if (targetType === 'resource') {
+      setSection('resources');
+      setQuery('', 'resources');
+      setPendingAssetTarget(`asset-resource-${targetId}`);
+    }
   }
 
   useAppEffect(() => {
-    if (section !== 'assets' || !sectionDataReady || !pendingAssetTarget) return;
+    if (section !== 'resources' || !sectionDataReady || !pendingAssetTarget) return;
     document.getElementById(pendingAssetTarget)?.scrollIntoView({behavior:'smooth', block:'center'});
     setPendingAssetTarget(null);
   }, [section, sectionDataReady, pendingAssetTarget, assetTab]);
@@ -1367,17 +1444,25 @@ function Workspace({ user, onUserChange, showToast, toast }) {
   }
   function saveChatResult(message, index, targetType) {
     const title = message.content.split('\n').find(line => line.trim())?.replace(/^#+\s*/, '').slice(0,80) || '提炼结果';
-    const savedId = message.savedAssets?.[targetType];
-    if (savedId) { jumpToAsset(targetType,savedId); return; }
+    const rawSaved = message.save?.existingAsset ?? message.savedAssets?.[targetType];
+    const savedId = rawSaved && typeof rawSaved === 'object' ? rawSaved.id : rawSaved;
     const sourceUrl = message.source?.url || '';
     const provenance = {sourceUrl,sourceAuthor:message.source?.author || '',sourceContent:message.source?.content || ''};
+    const tags = Array.isArray(message.classification?.tags) ? message.classification.tags.join(',') : '';
+    const fallbackSnapshot = {content:message.content,source:message.source ? {id:message.source.id || null,url:sourceUrl} : null,
+      classification:{category:message.classification?.category || '',tags}};
+    const snapshot = message.saveSnapshot || fallbackSnapshot;
+    const previous = message.save?.previous || message.savedSnapshots?.[targetType];
+    if (savedId && previous && JSON.stringify(previous) === JSON.stringify(snapshot)) { jumpToAsset(targetType,savedId); return; }
+    const existing = targetType === 'prompt' ? prompts.find(item => item.id === savedId) : knowledge.find(item => item.id === savedId);
+    if (savedId && !existing) { showToast('原保存记录已不存在，请刷新后重试。'); return; }
     setModal(targetType === 'prompt'
-      ? {type:'drawer',prompt:null,initialForm:{title,text:message.content,category:'学习',snsUrl:sourceUrl,...provenance,...(message.source?.id ? {sourceInboxId:message.source.id} : {}),note:'AI 提炼结果，需结合原文核对。'},mode:'create',chatIndex:index,returnLibrary:true}
-      : {type:'knowledge',item:null,initialForm:{title,body:message.content,summary:'',tags:'',...provenance},chatIndex:index,returnLibrary:true});
+      ? {type:'drawer',prompt:existing || null,initialForm:{title,text:message.content,category:message.classification?.category || existing?.category || '学习',tags,...provenance,snsUrl:sourceUrl,...(message.source?.id ? {sourceInboxId:message.source.id} : {}),note:'AI 提炼结果，需结合原文核对。'},mode:existing ? 'edit' : 'create',chatIndex:index,chatSaveSnapshot:snapshot,returnLibrary:true}
+      : {type:'knowledge',item:existing || null,initialForm:{title,body:message.content,summary:existing?.summary || '',tags,...provenance},chatIndex:index,chatSaveSnapshot:snapshot,returnLibrary:true});
   }
-  function recordChatSave(targetType,id) {
+  function recordChatSave(targetType,id,snapshot) {
     if (modal?.chatIndex == null) return;
-    setChatMessages(rows => rows.map((row,index) => index === modal.chatIndex ? {...row,savedAssets:{...row.savedAssets,[targetType]:id}} : row));
+    setChatMessages(rows => rows.map((row,index) => index === modal.chatIndex ? {...row,savedAssets:{...row.savedAssets,[targetType]:{id}},savedSnapshots:{...row.savedSnapshots,[targetType]:snapshot || row.savedSnapshots?.[targetType]}} : row));
   }
   useAppEffect(() => {
     if (section === 'chat' && canUseFullApp) { setChatVisited(true); dataCache.load('inbox'); }
@@ -1406,7 +1491,7 @@ function Workspace({ user, onUserChange, showToast, toast }) {
         ? prev.map((item) => item.id === id ? saved : item)
         : [saved, ...prev]);
       setModal(null);
-      recordChatSave('knowledge',saved.id);
+      recordChatSave('knowledge',saved.id,modal?.chatSaveSnapshot);
       showToast(id ? "知识库文章已更新" : "已保存到知识库");
       jumpToAsset('knowledge',saved.id);
       return saved;
@@ -1464,6 +1549,7 @@ function Workspace({ user, onUserChange, showToast, toast }) {
           : p));
         setModal(null);
         showToast("提示词已更新");
+        recordChatSave('prompt',id,modal?.chatSaveSnapshot);
         jumpToAsset('prompt',id);
         return result;
       });
@@ -1474,7 +1560,7 @@ function Workspace({ user, onUserChange, showToast, toast }) {
         ...prev,
       ]);
       setModal(null);
-      recordChatSave('prompt',result.id);
+      recordChatSave('prompt',result.id,modal?.chatSaveSnapshot);
       showToast(`已保存到提示词库：${form.title}`);
       jumpToAsset('prompt',result.id);
       return result;
@@ -1535,7 +1621,7 @@ function Workspace({ user, onUserChange, showToast, toast }) {
   return (
     <div>
       <Header query={query} onQueryChange={setQuery}
-        showSearch={!["repositories", "knowledgeLibrary", "studio", "chat", "tools"].includes(section) && !(section === "feed" && canUseFullApp && feedMode === "accounts")}
+        showSearch={!["repositories", "knowledgeLibrary", "studio", "chat", "tools", "topics", "settings"].includes(section) && !(section === "feed" && canUseFullApp && feedMode === "accounts")}
         searchPlaceholder={SEARCH_PLACEHOLDERS[section]}
         greeting={user ? `${getGreeting(now.getHours())}，${user.username}` : getGreeting(now.getHours())}
         dateText={formatToday(now)}
@@ -1546,7 +1632,8 @@ function Workspace({ user, onUserChange, showToast, toast }) {
       <div className="layout">
         <SideNav section={section}
           onSectionChange={(s) => {
-            setSection(s);
+            // 专题 always opens its catalogue, even from inside a topic.
+            setSection(s, s === 'topics' ? { base: true } : undefined);
             if (window.matchMedia("(max-width: 860px)").matches) setSidebarCollapsed(true);
           }}
           moduleCounts={visibleModuleCounts}
@@ -1593,6 +1680,7 @@ function Workspace({ user, onUserChange, showToast, toast }) {
               onQueryChange={value => setQuery(value, 'knowledgeLibrary')} requestedId={requestedKnowledgeId} onCorrectClassification={onCorrectClassification}
               onOpenPrompt={id => {setSectionQueries(previous => ({...previous,[`${user?.id || 'guest'}:promptLibrary`]:''})); setRequestedPromptSourceId(id); setSection('promptLibrary');}}
               onEdit={personalCatalogue && canUseFullApp ? editLibraryKnowledge : undefined}
+              onAdd={personalCatalogue && canUseFullApp ? () => setModal({type:'knowledge',item:null}) : undefined}
               onRequestedIdHandled={() => setRequestedKnowledgeId(null)} />
           )}
           </WorkspacePanel>
@@ -1602,6 +1690,7 @@ function Workspace({ user, onUserChange, showToast, toast }) {
             onCreateMedia={personalAccess ? createFromLibraryPrompt : undefined}
             onUsePrompt={item => setModal({type:'prompt-use',item,origin:'library'})}
             onEdit={personalCatalogue && canUseFullApp ? editLibraryPrompt : undefined}
+            onAdd={personalCatalogue && canUseFullApp ? () => setModal({type:'drawer',prompt:null,mode:'create'}) : undefined}
             requestedId={requestedPromptId} onRequestedIdHandled={() => setRequestedPromptId(null)}
             requestedSourceId={requestedPromptSourceId} onRequestedSourceHandled={() => setRequestedPromptSourceId(null)} />}
           </WorkspacePanel>
@@ -1620,30 +1709,29 @@ function Workspace({ user, onUserChange, showToast, toast }) {
               onSetVisibility={canUseFullApp ? setInboxVisibility : undefined}
               onIgnore={personalAccess ? ignoreInbox : undefined}
               onDispatch={canUseFullApp ? dispatchInbox : undefined}
-              onCreateMedia={canUseFullApp ? createFromInbox : undefined} />
+              onCreateMedia={canUseFullApp ? createFromInbox : undefined}
+              onClassificationChanged={() => setClassificationRevision(value => value + 1)}
+              onOpenLibraryItem={link => {
+                if (link.href.startsWith('#promptLibrary')) {
+                  if (link.sourceId) setRequestedPromptSourceId(link.sourceId); else setRequestedPromptId(link.id);
+                  setSection('promptLibrary', {params:{space:'mine'}});
+                }
+                else if (link.href.startsWith('#knowledgeLibrary')) { setRequestedKnowledgeId(link.id); setSection('knowledgeLibrary', {params:{space:'mine'}}); }
+                else if (link.href.startsWith('#resources')) { setPendingAssetTarget(link.id); setSection('resources'); }
+              }} />
             </>
           )}
           </WorkspacePanel>
-          {section === "assets" && canUseFullApp && sectionDataReady && (
-            <AssetLibraryView assetTab={assetTab} onAssetTabChange={(tab) => { setAssetTab(tab); setQuery(""); }}
-              favorites={favorites} prompts={prompts} knowledge={knowledge} mediaAssets={mediaAssets} query={query}
-              favCategory={favCategory} promptCategory={promptCategory}
-              onAddFavorite={() => setModal({ type: "fav", fav: null })}
-              onEditFavorite={(fav) => setModal({ type: "fav", fav })}
-              onDeleteFavorite={deleteFavorite}
-              onAddPrompt={() => setModal({ type: "drawer", prompt: null, mode: "create" })}
-              onDeletePrompt={deletePrompt} onCopyPrompt={copyPrompt}
-              onOpenPrompt={(p) => setModal({ type: "drawer", prompt: p, mode: "view" })}
-              onTryPrompt={tryRunPrompt} onCreateFromPrompt={createFromPrompt}
-              onTogglePromptFavorite={togglePromptFavorite}
-              onAddKnowledge={() => setModal({ type: "knowledge", item: null })}
-              onOpenKnowledge={(item) => setModal({ type: "knowledge", item })}
-              onDeleteKnowledge={deleteKnowledgeAsset}
-              onCreateMedia={() => openStudio()} onContinueMedia={continueFromMedia}
-              onMediaUpdated={reloadMediaAssets} openMediaAssetId={openMediaAssetId}
-              onOpenMediaAssetHandled={() => setOpenMediaAssetId("")} showToast={showToast} />
-          )}
-          {section === 'assets' && personalAccess && !canUseFullApp && sectionDataReady && <div><h1>我的作品</h1><MediaAssetsView allowExternal={false} assets={mediaAssets} query={query} onCreate={() => openStudio()} onContinue={asset => openStudio({title:asset.title,prompt:asset.prompt})} onUpdated={reloadMediaAssets} openAssetId={openMediaAssetId} onOpenAssetHandled={() => setOpenMediaAssetId('')} showToast={showToast} /></div>}
+          <WorkspacePanel active={section === 'resources'} name="resources">
+            {section === 'resources' && canUseFullApp && sectionDataReady && <div className="workspace-library resources-library">
+              <div className="workspace-library-head"><div><h1>资料</h1><p>手工新增和整理的网站、工具与参考资料。</p></div><button className="btn btn-primary" onClick={() => setModal({ type: 'fav', fav: null })}><IconPlus />新增资料</button></div>
+              <FavoritesView favorites={favorites} query={queryFor('resources')} category={favCategory}
+                onAdd={() => setModal({ type: 'fav', fav: null })} onEdit={fav => setModal({ type: 'fav', fav })} onDelete={deleteFavorite} />
+            </div>}
+          </WorkspacePanel>
+          <WorkspacePanel active={section === 'works'} name="works">
+            {section === 'works' && personalAccess && sectionDataReady && <div className="workspace-library works-library"><div className="workspace-library-head"><div><h1>作品</h1><p>保留生成提示词、参数、版本关系和可继续创作的结果。</p></div><button className="btn btn-primary" onClick={() => openStudio()}><IconPlus />新建作品</button></div><MediaAssetsView allowExternal={canUseFullApp} assets={mediaAssets} query={queryFor('works')} onCreate={() => openStudio()} onContinue={continueFromMedia} onUpdated={reloadMediaAssets} openAssetId={openMediaAssetId} onOpenAssetHandled={() => setOpenMediaAssetId('')} showToast={showToast} /></div>}
+          </WorkspacePanel>
           {section === "studio" && personalAccess && sectionDataReady && (
             <MediaStudioView userId={user?.id} draft={studioDraft} assets={mediaAssets} jobs={mediaJobs}
               allowExternal={canUseFullApp}
@@ -1654,7 +1742,7 @@ function Workspace({ user, onUserChange, showToast, toast }) {
           )}
           <WorkspacePanel active={section === 'chat'} name="chat">
           {(section === 'chat' || chatVisited) && canUseFullApp && (
-            <ChatView messages={chatMessages} onMessagesChange={setChatMessages}
+            <ChatView active={section === 'chat'} messages={chatMessages} onMessagesChange={setChatMessages}
               prefill={chatPrefill} onPrefillUsed={() => setChatPrefill("")} sources={inboxItems}
               onSaveResult={saveChatResult}
               hasAiConfig={hasAiConfig}
@@ -1666,6 +1754,15 @@ function Workspace({ user, onUserChange, showToast, toast }) {
             <FeedView active={section === 'feed'} mode={feedMode} onModeChange={setFeedMode} query={queryFor('feed')} canUseMonitoring={canUseFullApp} onSaveToInbox={personalAccess ? saveFeedToInbox : null} onCorrectClassification={onCorrectClassification} />
           </WorkspacePanel>
           <WorkspacePanel active={section === "tools"} name="tools">{canUseFullApp && <ToolsView showToast={showToast} />}</WorkspacePanel>
+          <WorkspacePanel active={section === 'topics'} name="topics"><TopicsCatalog active={section === 'topics'} /></WorkspacePanel>
+          <WorkspacePanel active={section === 'settings'} name="settings">
+            {section === 'settings' && personalAccess && <SettingsCenter user={user} canUseFullApp={canUseFullApp}
+              onClose={() => setSection(settingsReturn.current && settingsReturn.current !== 'settings' ? settingsReturn.current : 'repositories')}
+              onDirtyChange={value => { settingsDirty.current = Boolean(value); }}
+              theme={theme} onThemeToggle={() => setTheme(theme === "dark" ? "light" : "dark")} skin={skin} onSkinChange={setSkin}
+              woodFishEnabled={woodFishEnabled} onWoodFishToggle={() => setWoodFishEnabled(value => !value)}
+              showToast={showToast} onSaved={(kind) => { if (kind === "chat") setHasAiConfig(true); else setMediaConfigVersion(value => value + 1); }} />}
+          </WorkspacePanel>
         </main>
       </div>
       {classificationTarget && onCorrectClassification && <ClassificationEditor target={classificationTarget} onClose={() => setClassificationTarget(null)}
@@ -1674,19 +1771,6 @@ function Workspace({ user, onUserChange, showToast, toast }) {
         <AddFavModalV2 key={modal.fav ? modal.fav.id : "new"} editing={modal.fav}
           onClose={() => setModal(null)} onSubmit={saveFavorite} />
       )}
-      {(modal === "ai-settings" || modal === "account-settings" || modal?.type === "settings") && personalAccess && <SettingsCenter
-        user={user} canUseFullApp={canUseFullApp} initialTab={modal === "ai-settings" ? "ai" : modal?.tab || "account"} initialAiTab={modal?.aiTab || "chat"}
-        theme={theme} onThemeToggle={() => setTheme(theme === "dark" ? "light" : "dark")} skin={skin} onSkinChange={setSkin}
-        woodFishEnabled={woodFishEnabled} onWoodFishToggle={() => setWoodFishEnabled(value => !value)}
-        showToast={showToast} onSaved={(kind) => { if (kind === "chat") setHasAiConfig(true); else setMediaConfigVersion(value => value + 1); }}
-        onClose={() => {
-          setModal(null); setMediaConfigVersion(value => value + 1);
-          const params = new URLSearchParams(window.location.hash.split('?')[1] || '');
-          if (params.get('account') === 'x') {
-            params.delete('account'); params.delete('result');
-            history.replaceState(null, '', `#repositories${params.size ? `?${params}` : ''}`);
-          }
-        }} />}
       {modal && modal.type === "drawer" && (
         <PromptDrawer key={modal.prompt ? modal.prompt.id : "new"}
           prompt={modal.prompt} initialMode={modal.mode} initialForm={modal.initialForm}

@@ -44,6 +44,10 @@ test('owner-only corrections preserve sources, override imports and respect publ
   assert.equal((await request(endpoint,{...owner,body:{revision:0,data:{...data,relatedSourceIds:[3]}}})).status,404);
   const saved = await request(endpoint,{...owner,origin:base,body:{revision:0,data}});
   assert.equal(saved.status,200,await saved.text());
+  const inboxAfterReview = await (await request('/api/inbox',owner)).json();
+  assert.deepEqual(inboxAfterReview.find(item => item.id === 1).curation, {revision:1,data:{type:'method'}});
+  const otherInbox = await (await request('/api/inbox',{token:'test-reader-session'})).json();
+  assert.equal(otherInbox.some(item => item.id === 1), false, 'review metadata follows the source owner boundary');
   assert.equal((await request(endpoint,{...owner,body:{revision:0,data}})).status,409);
   assert.throws(() => store.write(1,'source','1',1,data,'reviewed'),e => e.status === 409);
   assert.equal(JSON.stringify(db.prepare('SELECT * FROM inbox ORDER BY id').all()),originals);

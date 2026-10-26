@@ -350,9 +350,11 @@ function SideNav({ section, onSectionChange, categories, activeCategory, onCateg
     { id: "promptLibrary", label: "提示词库", icon: <IconSparkle /> },
     { id: "inbox", label: "X 来源", icon: <IconInbox /> },
     { id: "feed", label: "资讯与监听", icon: <IconRss /> },
-    { id: "assets", label: "全部资产", icon: <IconBookmark /> },
+    { id: "resources", label: "资料", icon: <IconBookmark /> },
+    { id: "works", label: "作品", icon: <IconPalette /> },
     { id: "studio", label: "创作台", icon: <IconPalette /> },
     { id: "chat", label: "AI 提炼台", icon: <IconSend /> },
+    { id: "topics", label: "专题", icon: <IconSun /> },
     { id: "tools", label: "工具箱", icon: <IconWrench /> },
   ];
   // Published work is public. A signed-in person also gets their own private
@@ -360,8 +362,7 @@ function SideNav({ section, onSectionChange, categories, activeCategory, onCateg
   const canUseFullApp = Boolean(user && user.fullAccess);
   const hasPersonalSpace = Boolean(user && (user.personalAccess !== false));
   const modules = canUseFullApp ? allModules : allModules
-    .filter((m) => ["repositories", "knowledgeLibrary", "promptLibrary", "feed", ...(hasPersonalSpace ? ["inbox", "studio", "assets"] : [])].includes(m.id))
-    .map(m => m.id === 'assets' ? {...m,label:'我的作品'} : m);
+    .filter((m) => ["repositories", "knowledgeLibrary", "promptLibrary", "feed", "topics", ...(hasPersonalSpace ? ["inbox", "studio", "works"] : [])].includes(m.id));
   return (
     <aside id="workspace-sidebar" className={"sidebar workspace-navigation" + (collapsed ? " collapsed" : "") + (hasContext ? " has-context" : "") + (moduleLabels ? " module-labels-visible" : "")} aria-hidden={hidden} inert={hidden ? "" : undefined}>
       <div className="module-rail">
@@ -485,6 +486,29 @@ function AddFavModalV2({ editing, onClose, onSubmit }) {
   const [note, setNote] = useState(editing ? (editing.note || "") : "");
   const [starred, setStarred] = useState(Boolean(editing && editing.starred));
   const [error, setError] = useState("");
+  const baseline = useCmpMemo(() => JSON.stringify({
+    name: editing?.name || '', url: editing?.url || '', desc: editing?.desc || '',
+    category: editing?.category || FAV_CATEGORIES[0], type: editing?.type || 'site',
+    tags: editing?.tags || '', sourceUrl: editing?.sourceUrl || '', note: editing?.note || '',
+    starred: Boolean(editing?.starred),
+  }), [editing]);
+  const dirty = JSON.stringify({name,url,desc,category,type,tags,sourceUrl,note,starred}) !== baseline;
+  const confirmDiscard = () => window.OmniNavigationGuard?.confirmDiscard
+    ? window.OmniNavigationGuard.confirmDiscard(dirty, '资料编辑还有未保存的修改，确定放弃吗？')
+    : !dirty || window.confirm('资料编辑还有未保存的修改，确定放弃吗？');
+  const requestClose = () => { if (confirmDiscard()) onClose(); };
+  useEffect(() => window.OmniNavigationGuard?.register?.(confirmDiscard), [dirty]);
+  useEffect(() => {
+    if (!dirty) return;
+    const warn = event => { event.preventDefault(); event.returnValue = ''; return ''; };
+    window.addEventListener('beforeunload', warn);
+    return () => window.removeEventListener('beforeunload', warn);
+  }, [dirty]);
+  useEffect(() => {
+    const onKeyDown = event => { if (event.key === 'Escape') requestClose(); };
+    window.addEventListener('keydown', onKeyDown);
+    return () => window.removeEventListener('keydown', onKeyDown);
+  }, [dirty]);
 
   function handleSubmit() {
     const trimmedName = name.trim();
@@ -501,9 +525,9 @@ function AddFavModalV2({ editing, onClose, onSubmit }) {
   }
 
   return (
-    <div className="modal-overlay" onClick={onClose}>
+    <div className="modal-overlay" onClick={requestClose}>
       <div className="modal" onClick={(e) => e.stopPropagation()}>
-        <h2>{editing ? "编辑资产入口" : "收录资产入口"}</h2>
+        <h2>{editing ? "编辑资产入口" : "收录资产入口"}{dirty && <span className="detail-drawer-dirty" role="status"> · 未保存</span>}</h2>
         <div className="form-field">
           <label>名称</label>
           <input className="input" placeholder="例如：Cursor Prompt Library" value={name}
@@ -552,7 +576,7 @@ function AddFavModalV2({ editing, onClose, onSubmit }) {
         </label>
         {error && <p className="auth-error">{error}</p>}
         <div className="modal-actions">
-          <button className="btn btn-ghost" onClick={onClose}>取消</button>
+          <button className="btn btn-ghost" onClick={requestClose}>取消</button>
           <button className="btn btn-primary" onClick={handleSubmit}>
             {editing ? <IconCheck /> : <IconPlus />}{editing ? "保存" : "收录"}
           </button>
@@ -607,7 +631,7 @@ function FeedItem({ item, rank, showRank, onPreview, onSave }) {
   const tags = Array.isArray(item.tags) ? item.tags : [];
   const images = Array.isArray(item.images) ? item.images : [];
   return (
-    <a className="feed-card" href={item.url || "#"} target="_blank" rel="noopener noreferrer">
+    <article className="feed-card">
       {showRank && (
         <div className={"feed-rank" + (rank <= 3 ? " hot" : "")}>
           <AnimatedNumber value={rank} />
@@ -620,7 +644,7 @@ function FeedItem({ item, rank, showRank, onPreview, onSave }) {
       )}
       <div className="feed-body">
         <div className="feed-title-row">
-          <h3 className="feed-title">{item.title}</h3>
+          <h3 className="feed-title"><a href={item.url || "#"} target="_blank" rel="noopener noreferrer">{item.title}</a></h3>
           {onSave && (
             <button className="feed-save" title="存入收件箱"
               onClick={(e) => { e.preventDefault(); e.stopPropagation(); onSave(item); }}>
@@ -652,10 +676,10 @@ function FeedItem({ item, rank, showRank, onPreview, onSave }) {
           </div>
         )}
         {item.reason && (
-          <div className="feed-reason"><span className="feed-reason-label">推荐理由</span>{item.reason}</div>
+          <details className="feed-reason"><summary>推荐理由</summary><p>{item.reason}</p></details>
         )}
       </div>
-    </a>
+    </article>
   );
 }
 

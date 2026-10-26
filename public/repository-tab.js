@@ -144,31 +144,152 @@ function RepositoryExplorerTab({ query = "", onQueryChange, userKey = "guest", a
     }));
 }
 
+// ---- Workspace routing ------------------------------------------------------
+// Everything below is self-contained (no URLSearchParams/history requirement)
+// so it can be exercised in a plain VM context.
 function useWorkspaceSection(fallback) {
-  const sections = ["repositories", "knowledgeLibrary", "promptLibrary", "inbox", "feed", "assets", "studio", "chat", "tools"];
-  const remembered = React.useRef({});
-  const readSection = () => {
-    const value = window.location.hash.slice(1).split('?')[0];
-    return sections.includes(value) ? value : fallback;
+  const sections = ["repositories", "knowledgeLibrary", "promptLibrary", "inbox", "feed", "resources", "works",
+    "studio", "chat", "tools", "topics", "settings"];
+  const parseParams = query => String(query || '').split('&').filter(Boolean).map(part => {
+    const index = part.indexOf('=');
+    const decode = value => { try { return decodeURIComponent(value.replace(/\+/g, ' ')); } catch { return value; } };
+    return index < 0 ? [decode(part), ''] : [decode(part.slice(0, index)), decode(part.slice(index + 1))];
+  });
+  const formatParams = pairs => pairs.map(([key, value]) => `${encodeURIComponent(key)}=${encodeURIComponent(value)}`).join('&');
+  // Resolves a hash to its module plus a compatible replacement URL for legacy links.
+  const resolve = hash => {
+    const [name, query = ''] = String(hash || '').replace(/^#/, '').split('?');
+    // 生活指南 keeps its own deep links but lives under the 专题 module.
+    if (name === 'life-guide') return { section: 'topics', redirect: '' };
+    if (name === 'assets') {
+      // 全部资产 was split: generated results → 作品, hand-added records → 收藏.
+      const params = parseParams(query);
+      const tab = (params.find(([key]) => key === 'tab') || [])[1];
+      const target = tab === 'works' ? 'works' : 'resources';
+      const kept = params.filter(([key]) => target === 'resources' || key !== 'tab');
+      return { section: target, redirect: `#${target}${kept.length ? `?${formatParams(kept)}` : ''}` };
+    }
+    return { section: sections.includes(name) ? name : fallback, redirect: '' };
   };
-  const [section, setValue] = React.useState(readSection);
+  const remembered = React.useRef({});
+  const lastHash = React.useRef(window.location.hash);
+  const bypass = React.useRef('');
+  // Workspace-owned hooks: canLeave(from, to) → false cancels; onModuleChange
+  // runs after history (back/forward/link) moves to another module.
+  const controls = React.useRef({ canLeave: null, onModuleChange: null });
+  const readSection = (hash = window.location.hash) => resolve(hash).section;
+  const replaceHash = hash => { if (window.history?.replaceState) window.history.replaceState(null, '', hash); };
+  const [section, setValue] = React.useState(() => {
+    const { section: initial, redirect } = resolve(window.location.hash);
+    if (redirect) { replaceHash(redirect); lastHash.current = redirect; }
+    return initial;
+  });
+  // Ask the workspace and the shared drawer guard (window.OmniNavigationGuard)
+  // before leaving a module. A guard may answer synchronously or with a promise.
+  const confirmLeave = (from, to, proceed, cancel) => {
+    if (from === to) return proceed();
+    if (controls.current.canLeave && controls.current.canLeave(from, to) === false) return cancel();
+    let result = true;
+    try { result = window.OmniNavigationGuard?.allow ? window.OmniNavigationGuard.allow() : true; } catch { result = true; }
+    if (result && typeof result.then === 'function') {
+      cancel();
+      result.then(ok => { if (ok !== false) proceed(true); }, () => {});
+      return;
+    }
+    return result === false ? cancel() : proceed();
+  };
   React.useEffect(() => {
-    const onHashChange = () => { const value = readSection(); remembered.current[value] = window.location.hash; setValue(value); };
+    const onHashChange = () => {
+      const hash = window.location.hash;
+      const next = resolve(hash);
+      const from = readSection(lastHash.current);
+      const accept = () => {
+        let target = hash;
+        if (next.redirect) { replaceHash(next.redirect); target = next.redirect; }
+        remembered.current[next.section] = target;
+        lastHash.current = target;
+        if (from !== next.section) controls.current.onModuleChange?.(next.section, from);
+        setValue(next.section);
+      };
+      if (bypass.current && bypass.current === hash) { bypass.current = ''; return accept(); }
+      confirmLeave(from, next.section, delayed => {
+        if (!delayed) return accept();
+        // An async guard approved after the route was restored: re-apply it once.
+        bypass.current = hash;
+        window.location.hash = hash;
+      }, () => {
+        // Cancelled: restore the previous URL without emitting another hashchange.
+        if (window.history?.pushState) window.history.pushState(null, '', lastHash.current);
+        if (typeof CustomEvent === 'function') window.dispatchEvent?.(new CustomEvent('omnihub:route-restored'));
+      });
+    };
     window.addEventListener("hashchange", onHashChange);
     return () => window.removeEventListener("hashchange", onHashChange);
   }, [fallback]);
-  const setSection = (value) => {
-    remembered.current[readSection()] = window.location.hash;
-    setValue(value);
-    let hash = remembered.current[value] || `#${value}`;
-    const inherited = new URLSearchParams(window.location.hash.split('?')[1] || '').get('space');
+  // options.params sets query params; options.base ignores the remembered filters;
+  // options.force skips leave guards (only after the user's own save completed).
+  const setSection = (value, options = {}) => {
+    const from = readSection();
+    remembered.current[from] = window.location.hash;
+    let hash = options.base || options.params ? `#${value}` : (remembered.current[value] || `#${value}`);
     const [target, query = ''] = hash.split('?');
-    const targetParams = new URLSearchParams(query);
+    const targetParams = parseParams(query);
+    const has = key => targetParams.some(([name]) => name === key);
+    for (const [key, item] of Object.entries(options.params || {})) if (item) targetParams.push([key, String(item)]);
+    const inherited = (parseParams(window.location.hash.split('?')[1]).find(([key]) => key === 'space') || [])[1];
     // A section change keeps the current personal/public boundary. Repository
     // filters may change, but the account scope must never silently disappear.
-    if (['mine', 'public'].includes(inherited) && !targetParams.has('space')) targetParams.set('space', inherited);
-    hash = `${target}${targetParams.size ? `?${targetParams}` : ''}`;
-    if (window.location.hash !== hash) window.location.hash = hash;
+    if (['mine', 'public'].includes(inherited) && !has('space')) targetParams.push(['space', inherited]);
+    if (targetParams.length !== parseParams(query).length) hash = `${target}?${formatParams(targetParams)}`;
+    (options.force ? (_from, _to, proceed) => proceed() : confirmLeave)(from, value, () => {
+      lastHash.current = hash;
+      remembered.current[value] = hash;
+      setValue(value);
+      // Same accepted-change hook as history navigation (closes the old modal).
+      if (from !== value) controls.current.onModuleChange?.(value, from);
+      if (window.location.hash !== hash) window.location.hash = hash;
+    }, () => {});
   };
-  return [section, setSection];
+  return [section, setSection, controls.current];
+}
+
+// ---- Settings and 专题 routes ----------------------------------------------
+// Pure helpers shared by SettingsCenter, the topics catalogue and Workspace.
+function workspaceHashName(hash) { return String(hash || '').replace(/^#/, '').split('?')[0]; }
+function workspaceHashParams(hash) { return new URLSearchParams(String(hash || '').split('?')[1] || ''); }
+// #settings?category=sync|ai|devices|appearance; legacy drawer tab names still work.
+function settingsRouteFor(hash, canUseFullApp) {
+  const params = workspaceHashParams(hash);
+  let category = settingsCategoryFor(params.get('category') || '') || 'sync';
+  if (category === 'ai' && !canUseFullApp) category = 'sync';
+  return { category, aiTab: params.get('aiTab') || 'chat' };
+}
+// Canonical settings URL; drops the one-shot OAuth `result` and keeps `space`.
+function settingsHashFor(hash, category) {
+  const current = workspaceHashParams(hash);
+  const params = workspaceHashName(hash) === 'settings' ? current : new URLSearchParams();
+  if (workspaceHashName(hash) !== 'settings' && current.get('space')) params.set('space', current.get('space'));
+  const target = settingsCategoryFor(category) || 'sync';
+  params.delete('result');
+  if (target !== 'ai') params.delete('aiTab');
+  params.set('category', target);
+  return `#settings?${params}`;
+}
+// Central mapping for the legacy setModal('ai-settings' | 'account-settings' |
+// {type:'settings',tab,aiTab}) calls; anything else is an ordinary modal.
+function settingsTargetForModal(value) {
+  if (value === 'ai-settings' || value === 'account-settings') return { category: settingsCategoryFor(value), aiTab: '' };
+  if (value && typeof value === 'object' && value.type === 'settings') {
+    const category = settingsCategoryFor(value.tab || '') || 'sync';
+    return { category, aiTab: category === 'ai' ? value.aiTab || '' : '' };
+  }
+  return null;
+}
+// 专题 registry: real topics only. Each keeps its own deep-link hash.
+const TOPIC_REGISTRY = Object.freeze([
+  Object.freeze({ id: 'life-guide', title: '生活指南', hash: '#life-guide', description: '按章节、证据等级与金钱、时间、毅力投入筛选生活建议。' }),
+]);
+function topicHref(topic, currentHash) {
+  const space = workspaceHashParams(currentHash).get('space');
+  return topic.hash + (space === 'mine' || space === 'public' ? `?space=${space}` : '');
 }

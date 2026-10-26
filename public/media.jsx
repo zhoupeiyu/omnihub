@@ -43,6 +43,103 @@ function mediaFileUrl(asset, download = false) {
   return `/api/media/assets/${asset.id}/${download ? "download" : "file"}`;
 }
 
+// media-workflow:start — pure helpers over existing assets and jobs; no invented versions.
+// The newest job that the server reports as success and whose asset is present.
+function mediaLatestSuccess(jobs, assets) {
+  const byId = new Map((assets || []).map((asset) => [asset.id, asset]));
+  const done = (jobs || []).filter((job) => job.status === "success" && job.assetId && byId.has(job.assetId));
+  if (!done.length) return null;
+  const stamp = (job) => String(job.updatedAt || job.createdAt || "");
+  return byId.get(done.reduce((best, job) => stamp(job) > stamp(best) ? job : best).assetId);
+}
+
+// Compare keeps at most two picks; a third pick replaces the oldest one.
+function mediaToggleCompare(ids, id) {
+  if (ids.includes(id)) return ids.filter((value) => value !== id);
+  return [...ids, id].slice(-2);
+}
+
+function mediaComparePair(ids, assets) {
+  const pair = (ids || []).map((id) => (assets || []).find((asset) => asset.id === id)).filter(Boolean);
+  return pair.length === 2 ? pair : [];
+}
+
+// Oldest ancestor first, ending at the asset itself, following parentAssetId only.
+function mediaLineageChain(assetId, assets) {
+  const byId = new Map((assets || []).map((asset) => [asset.id, asset]));
+  const chain = [];
+  const seen = new Set();
+  let current = byId.get(assetId);
+  while (current && !seen.has(current.id) && chain.length < 50) {
+    seen.add(current.id);
+    chain.unshift(current);
+    current = current.parentAssetId ? byId.get(current.parentAssetId) : null;
+  }
+  return chain;
+}
+
+function mediaChildren(assetId, assets) {
+  return (assets || []).filter((asset) => asset.parentAssetId === assetId);
+}
+
+function mediaVersionLabel(asset, assets) {
+  if (!asset?.jobId || !asset?.parentAssetId) return "";
+  const chain = mediaLineageChain(asset.id, assets);
+  return chain.length > 1 && chain[0].id !== asset.id ? `第 ${chain.length} 版` : "";
+}
+
+function mediaSafeSourceUrl(value) {
+  try {
+    const url = new URL(value);
+    return url.protocol === "https:" || url.protocol === "http:" ? url.href : "";
+  } catch { return ""; }
+}
+
+// Build a continuation draft from server-stored work only. The browser never
+// guesses parameters that the job did not record, and a new parent is attached
+// only when the user explicitly continues an image result.
+function mediaContinueDraft(asset, job, current = {}, allowExternal = true) {
+  const knownModules = MEDIA_MODEL_OPTIONS;
+  const stored = job && knownModules[job.module] ? job : null;
+  const module = stored?.module === "image" ? "image" : null;
+  const model = module && knownModules.image.includes(stored.model) ? stored.model : current.model;
+  const args = stored?.args && typeof stored.args === "object" ? stored.args : {};
+  const validRatio = ["auto", "adaptive", "1:1", "16:9", "9:16", "4:3", "3:4", "3:2", "2:3", "21:9"];
+  const aspectRatio = validRatio.includes(args.aspectRatio) ? args.aspectRatio : null;
+  let size = ["1k", "2k", "4k"].includes(args.size) ? args.size : null;
+  let normalizedRatio = aspectRatio;
+  if (model === "seedream-5.0-pro") {
+    if (normalizedRatio === "auto") normalizedRatio = "1:1";
+    if (size === "4k") size = "2k";
+  }
+  const sameSource = current.source && asset?.sourceType === current.source.sourceType && String(asset.sourceId || "") === String(current.source.sourceId || "");
+  const source = sameSource ? { ...current.source } : asset?.sourceType ? {
+    sourceType: asset.sourceType, sourceId: asset.sourceId, url: mediaSafeSourceUrl(asset.sourceUrl), title: asset.title || "",
+  } : current.source ? { ...current.source } : null;
+  if (source) source.parentAssetId = allowExternal && asset?.kind === "image" ? asset.id : "";
+  return {
+    module, model, mode: module === "image" ? "image" : null,
+    generationRoute: allowExternal && asset?.kind === "image" ? "api" : current.generationRoute,
+    aspectRatio: normalizedRatio, size,
+    referenceId: allowExternal && asset?.kind === "image" ? asset.id : null,
+    prompt: asset?.prompt || stored?.prompt || current.prompt || "", source,
+  };
+}
+
+// Shows the request exactly as stored on the job; nothing is inferred for uploads.
+function mediaJobParams(job) {
+  if (!job) return [];
+  const rows = [["生成类型", job.module], ["模型", job.model], ["创作模式", job.mode]];
+  const args = job.args && typeof job.args === "object" && !Array.isArray(job.args) ? job.args : {};
+  for (const [key, value] of Object.entries(args)) {
+    if (key === "prompt" || value == null || value === "") continue;
+    rows.push([key, (typeof value === "object" ? JSON.stringify(value) : String(value)).slice(0, 300)]);
+  }
+  if (Array.isArray(job.referenceAssetIds) && job.referenceAssetIds.length) rows.push(["参考素材", `${job.referenceAssetIds.length} 项`]);
+  return rows.filter(([, value]) => value != null && value !== "");
+}
+// media-workflow:end
+
 function LocalImageDevices() {
   const [rows, setRows] = React.useState([]);
   const [label, setLabel] = React.useState('我的电脑');
@@ -145,6 +242,8 @@ function MediaStudioView({ userId, draft, assets, jobs, configVersion, allowExte
   const [config, setConfig] = useMediaState(null);
   const [submitError, setSubmitError] = useMediaState("");
   const [jobErrors, setJobErrors] = useMediaState({});
+  const [previewId, setPreviewId] = useMediaState("");
+  const [studioView, setStudioView] = useMediaState("input");
   const uploadInput = useMediaRef(null);
   const submitKey = useMediaRef(initial.requestKey || null);
 
@@ -199,6 +298,24 @@ function MediaStudioView({ userId, draft, assets, jobs, configVersion, allowExte
   function toggleReference(id) {
     setReferenceIds((current) => current.includes(id) ? current.filter((item) => item !== id) : [...current, id]);
     submitKey.current = null;
+  }
+
+  // Continue from a saved result inside the studio. The result becomes the parent
+  // (sent as parentAssetId on submit) and, where references are supported, the reference.
+  function continueFromResult(asset) {
+    if (!asset || busy) return;
+    const job = assets && asset.jobId ? jobs.find((row) => row.id === asset.jobId) : null;
+    const next = mediaContinueDraft(asset, job, { module, model, mode, generationRoute, prompt, source }, allowExternal);
+    if (next.module) { setModule(next.module); setMode(next.mode); }
+    if (next.model && MEDIA_MODEL_OPTIONS.image.includes(next.model)) setModel(next.model);
+    if (next.aspectRatio) setAspectRatio(next.aspectRatio);
+    if (next.size) setSize(next.size);
+    if (next.prompt) setPrompt(next.prompt);
+    if (next.generationRoute) setGenerationRoute(next.generationRoute);
+    if (next.referenceId) setReferenceIds((current) => current.includes(next.referenceId) ? current : [...current, next.referenceId]);
+    setSource(next.source);
+    submitKey.current = null;
+    setStudioView("input");
   }
 
   async function importSource(index) {
@@ -272,6 +389,7 @@ function MediaStudioView({ userId, draft, assets, jobs, configVersion, allowExte
         if (mounted.current) { setSubmittedJobId(job.id); setAcceptedCost(false); }
       }
       await onJobsChanged().catch(() => showToast('任务已创建，任务列表暂未刷新，请稍后查看。'));
+      if (mounted.current) setStudioView("jobs");
       showToast(job.status === "failed" || job.status === "needs_review" ? job.error : "生成任务已创建");
     } catch (error) {
       // Keep the request key until the user changes the draft: a network timeout may have created the upstream task.
@@ -302,19 +420,30 @@ function MediaStudioView({ userId, draft, assets, jobs, configVersion, allowExte
   const relevantAssets = assets.filter((asset) => asset.kind === "image" || (isVideo && ["video", "audio"].includes(asset.kind)));
   const recentJobs = jobs.slice(0, 12);
   const mediaConfigured = Boolean(config?.hasAuthentication && config?.baseUrl);
+  const latestAsset = mediaLatestSuccess(jobs, assets);
+  const pickedAsset = previewId ? assets.find((asset) => asset.id === previewId) : null;
+  const previewAsset = pickedAsset || latestAsset;
+  const previewJob = previewAsset ? jobs.find((job) => job.assetId === previewAsset.id) : null;
+  const activeJobCount = recentJobs.filter((job) => MEDIA_ACTIVE_STATUSES.has(job.status) || ["local_queued", "local_claimed", "submitting"].includes(job.status)).length;
+  const studioTabs = [["input", "输入"], ["jobs", `任务${activeJobCount ? ` · ${activeJobCount}` : ""}`], ["result", "结果"]];
   return (
     <div className="media-studio">
       <div className="media-page-head">
         <div><h1>创作台</h1><p>从收藏或提示词开始生成，结果自动回到作品库。</p></div>
         <div className="media-draft-actions"><button className="btn btn-ghost" disabled={busy || uploading} onClick={newDraft}>新建草稿</button><button className="btn" onClick={() => onOpenSettings("devices")}><IconSettings />设置</button></div>
       </div>
-      <div className={`media-studio-layout${recentJobs.length ? " has-jobs" : ""}`}>
+      <div className="media-studio-tabs" role="tablist" aria-label="创作台视图">
+        {studioTabs.filter(([id]) => id !== "jobs" || recentJobs.length > 0).map(([id, label]) => <button key={id} type="button" role="tab" aria-selected={studioView === id}
+          className={studioView === id ? "active" : ""} onClick={() => setStudioView(id)}>{label}</button>)}
+      </div>
+      <div className="media-studio-layout has-result" data-view={studioView}>
         <section className="media-compose">
           <p className="media-draft-status" role="status">{draftSaved ? '草稿自动保存在当前浏览器 · 仅当前账号可见' : '浏览器存储不可用，草稿暂存于本次页面；刷新前请复制提示词。'}</p>
           <fieldset className="media-draft-fields" disabled={busy}>
           {source && <details className="media-source-box">
             <summary><span>{MEDIA_SOURCE_LABELS[source.sourceType] || "作品"} · 来源</span><strong>{source.title || "未命名内容"}</strong></summary>
-            <div>{source.url && <a href={source.url} target="_blank" rel="noopener noreferrer">打开原链接 ↗</a>}</div>
+            <div>{source.url && <a href={source.url} target="_blank" rel="noopener noreferrer">打开原链接 ↗</a>}
+              {source.parentAssetId && <span className="media-lineage-note">基于作品继续：生成结果会记录上一版本</span>}</div>
           </details>}
           {sourceImages.length > 0 && <details className="media-source-gallery">
             <summary>原帖效果图 · {sourceImages.length} 张</summary>
@@ -419,9 +548,25 @@ function MediaStudioView({ userId, draft, assets, jobs, configVersion, allowExte
           </div>
           </fieldset>
         </section>
+        <section className="media-result-preview" aria-label="结果预览">
+          <div className="media-job-head"><h2>{pickedAsset ? "所选结果" : "最新结果"}</h2>
+            {pickedAsset && <button type="button" className="btn btn-ghost" onClick={() => setPreviewId("")}>回到最新</button>}</div>
+          {previewAsset ? <React.Fragment>
+            <div className="media-result-stage"><MediaAssetPreview key={previewAsset.id} asset={previewAsset} /></div>
+            <strong className="media-result-title">{previewAsset.title}</strong>
+            <small className="media-result-meta">{previewJob ? (previewJob.module === 'codex-local' ? '本机 Codex' : `${previewJob.module} · ${previewJob.model}`) : previewAsset.model || "作品"} · {previewAsset.createdAt}</small>
+            {previewAsset.prompt && <p className="media-result-prompt">{previewAsset.prompt}</p>}
+            <div className="media-job-actions">
+              <button type="button" className="btn btn-primary" disabled={busy} onClick={() => continueFromResult(previewAsset)}>{allowExternal && previewAsset.kind === "image" ? "基于此结果继续" : "复用提示词"}</button>
+              <button type="button" className="btn" onClick={() => onShowAsset(previewAsset.id)}>查看作品</button>
+              <a className="btn btn-ghost" href={mediaFileUrl(previewAsset, true)}>下载</a>
+            </div>
+          </React.Fragment> : <p className="media-result-empty">{activeJobCount ? `有 ${activeJobCount} 个任务进行中，完成并保存后会在这里显示。` : "还没有已保存的结果。成功的任务会自动显示在这里。"}</p>}
+        </section>
         {recentJobs.length > 0 && <aside className="media-job-list">
           <div className="media-job-head"><h2>生成任务</h2><button className="btn btn-ghost" onClick={onJobsChanged}><IconRefresh />刷新</button></div>
-          {recentJobs.map((job) => <div className="media-job" key={job.id}>
+          <div className="media-job-grid">
+          {recentJobs.map((job) => <div className={"media-job" + (previewAsset && job.assetId === previewAsset.id ? " is-previewed" : "")} key={job.id}>
             <div><strong>{job.title}</strong><span aria-live="polite">{MEDIA_STATUS[job.status] || job.status}</span></div>
             <small>{job.module === 'codex-local' ? '本机 Codex' : `${job.module} · ${job.model}`} · {job.createdAt}</small>
             {job.assetId && job.module === 'codex-local' && <a href={`/api/media/assets/${job.assetId}/file`} target="_blank" rel="noopener noreferrer"><img className="local-image-result" src={`/api/media/assets/${job.assetId}/file`} alt={job.title} /></a>}
@@ -429,24 +574,35 @@ function MediaStudioView({ userId, draft, assets, jobs, configVersion, allowExte
             {jobErrors[job.id] && <p className="media-error" role="alert">{jobErrors[job.id]}</p>}
             {MEDIA_ACTIVE_STATUSES.has(job.status) && formatMediaNextPollAt(job.nextPollAt) && <small>下次查询：{formatMediaNextPollAt(job.nextPollAt)}{job.pollAttempts != null ? ` · 已查询 ${job.pollAttempts} 次` : ""}</small>}
             <div className="media-job-actions">
+              {job.assetId && assets.some((asset) => asset.id === job.assetId) && <button className="btn btn-ghost" onClick={() => { setPreviewId(job.assetId); setStudioView("result"); }}>预览</button>}
               {job.assetId && <button className="btn" onClick={() => onShowAsset(job.assetId)}>查看作品</button>}
               {MEDIA_ACTIVE_STATUSES.has(job.status) &&
                 <button className="btn btn-ghost" onClick={() => refresh(job)}>查询进度</button>}
               {['local_queued','local_claimed'].includes(job.status) && <button className="btn btn-ghost" onClick={async () => {try {await api(`/api/local-image/jobs/${job.id}/cancel`,{method:'POST',body:{}}); await onJobsChanged();} catch(error) {showToast(error.message);}}}>取消等待</button>}
             </div>
           </div>)}
+          </div>
         </aside>}
       </div>
     </div>
   );
 }
 
-function MediaAssetsView({ assets, query, onCreate, onContinue, onUpdated, showToast, openAssetId, onOpenAssetHandled, allowExternal = true }) {
+function MediaAssetPreview({ asset }) {
+  if (asset.kind === "image") return <img src={mediaFileUrl(asset)} alt={asset.title} />;
+  if (asset.kind === "video") return <video src={mediaFileUrl(asset)} controls playsInline preload="metadata" />;
+  return <audio src={mediaFileUrl(asset)} controls />;
+}
+
+function MediaAssetsView({ assets, jobs, query, onCreate, onContinue, onUpdated, showToast, openAssetId, onOpenAssetHandled, allowExternal = true }) {
   const [selected, setSelected] = useMediaState(null);
   const [filter, setFilter] = useMediaState("all");
   const [sort, setSort] = useMediaState("newest");
   const [editing, setEditing] = useMediaState(false);
   const [form, setForm] = useMediaState({ title: "", note: "", tags: "", rating: 0 });
+  const [compareIds, setCompareIds] = useMediaState([]);
+  const [compareOpen, setCompareOpen] = useMediaState(false);
+  const [jobDetails, setJobDetails] = useMediaState({});
   const uploadInput = useMediaRef(null);
   useMediaEffect(() => {
     if (!openAssetId) return;
@@ -462,6 +618,24 @@ function MediaAssetsView({ assets, query, onCreate, onContinue, onUpdated, showT
     if (selected) setForm({ title: selected.title, note: selected.note, tags: selected.tags, rating: selected.rating });
     setEditing(false);
   }, [selected?.id]);
+  useMediaEffect(() => {
+    // Removed works cannot stay in the comparison.
+    setCompareIds((ids) => ids.filter((id) => assets.some((asset) => asset.id === id)));
+  }, [assets]);
+  const jobFor = (asset) => asset?.jobId ? (jobs || []).find((job) => job.id === asset.jobId) || jobDetails[asset.jobId] || null : null;
+  // A failed read is remembered as null so it is not retried in a loop.
+  const wantedJobIds = [selected, ...(compareOpen ? mediaComparePair(compareIds, assets) : [])]
+    .filter((asset) => asset?.jobId && !jobFor(asset) && !(asset.jobId in jobDetails)).map((asset) => asset.jobId);
+  useMediaEffect(() => {
+    // Read the stored request through the owner-scoped GET /api/media/jobs/:id route.
+    let cancelled = false;
+    for (const jobId of new Set(wantedJobIds)) {
+      api(`/api/media/jobs/${jobId}`).then((job) => {
+        if (!cancelled) setJobDetails((current) => ({ ...current, [jobId]: job }));
+      }).catch(() => { if (!cancelled) setJobDetails((current) => ({ ...current, [jobId]: null })); });
+    }
+    return () => { cancelled = true; };
+  }, [wantedJobIds.join(",")]);
   async function upload(files) {
     if (!files?.length) return;
     try {
@@ -480,6 +654,15 @@ function MediaAssetsView({ assets, query, onCreate, onContinue, onUpdated, showT
       showToast("作品信息已保存");
     } catch (error) { showToast(error.message); }
   }
+  function continueWith(asset, targetModule) {
+    const job = jobFor(asset);
+    // The third argument is the owner-scoped stored request. App routing can
+    // preserve it while moving to the studio; no generation parameter is
+    // reconstructed from the rendered asset.
+    onContinue(asset, targetModule, job || null);
+    setSelected(null);
+    setCompareOpen(false);
+  }
   const works = assets.filter((asset) => asset.origin !== "reference");
   const visible = works.filter((asset) => {
     if (filter === "image" && asset.kind !== "image") return false;
@@ -490,6 +673,16 @@ function MediaAssetsView({ assets, query, onCreate, onContinue, onUpdated, showT
   }).sort((a, b) => sort === "rating"
     ? b.rating - a.rating || b.createdAt.localeCompare(a.createdAt)
     : b.createdAt.localeCompare(a.createdAt) || b.id.localeCompare(a.id));
+  const comparePair = mediaComparePair(compareIds, assets);
+  const lineage = selected ? mediaLineageChain(selected.id, assets) : [];
+  const children = selected ? mediaChildren(selected.id, assets) : [];
+  const selectedJob = jobFor(selected);
+  const continueActions = (asset) => asset.kind === "image" ? <React.Fragment>
+    <button className="btn btn-primary" onClick={() => continueWith(asset, "image")}>{allowExternal ? '以图改图' : '复用文字提示词'}</button>
+    {allowExternal && <button className="btn" onClick={() => continueWith(asset, "seedance")}>用此图生成视频</button>}
+  </React.Fragment> : <button className="btn btn-primary" onClick={() => continueWith(asset, "seedance")}>继续创作</button>;
+  const paramList = (job) => <dl className="media-param-list">{mediaJobParams(job).map(([key, value]) =>
+    <React.Fragment key={key}><dt>{key}</dt><dd>{value}</dd></React.Fragment>)}</dl>;
   return (
     <div className="media-library">
       <div className="media-library-toolbar">
@@ -505,10 +698,15 @@ function MediaAssetsView({ assets, query, onCreate, onContinue, onUpdated, showT
         <input ref={uploadInput} hidden type="file" multiple accept="image/*,video/mp4,audio/mpeg,audio/wav"
           onChange={(e) => upload(e.target.files)} />
       </div>
+      {compareIds.length > 0 && <div className="media-compare-bar" role="status">
+        <span>{compareIds.length === 2 ? "已选 2 个结果" : "再选 1 个结果即可并排对比"}</span>
+        <button type="button" className="btn btn-primary" disabled={comparePair.length !== 2} onClick={() => setCompareOpen(true)}>并排对比</button>
+        <button type="button" className="btn btn-ghost" onClick={() => { setCompareIds([]); setCompareOpen(false); }}>清除</button>
+      </div>}
       {visible.length === 0 ? <EmptyState message="还没有匹配的作品"
         hint={allowExternal ? "上传已有图片或视频，也可以从提示词与 X 收藏进入创作台" : '从创作台提交本机生图任务，完成后会出现在这里'} /> :
-        <div className="media-gallery">{visible.map((asset) => <button key={asset.id} className="media-card"
-          onClick={() => setSelected(asset)}>
+        <div className="media-gallery">{visible.map((asset) => <div key={asset.id} className={"media-card-wrap" + (compareIds.includes(asset.id) ? " is-compared" : "")}>
+          <button className="media-card" onClick={() => setSelected(asset)}>
           <div className="media-card-preview">
             {asset.kind === "image" ? <img src={mediaFileUrl(asset)} alt={asset.title} loading="lazy" /> :
               asset.kind === "video" ? <video src={mediaFileUrl(asset)} preload="metadata" muted playsInline /> :
@@ -517,22 +715,41 @@ function MediaAssetsView({ assets, query, onCreate, onContinue, onUpdated, showT
           </div>
           <strong>{asset.title}</strong>
           <small>{asset.origin === "generated" ? asset.model : "手动上传"} · {asset.createdAt}</small>
-        </button>)}</div>}
+          {asset.prompt && <small className="media-card-prompt">{asset.prompt}</small>}
+          {mediaVersionLabel(asset, assets) && <small className="media-card-lineage">{mediaVersionLabel(asset, assets)}</small>}
+          </button>
+          <label className="media-compare-pick">
+            <input type="checkbox" checked={compareIds.includes(asset.id)} onChange={() => setCompareIds((ids) => mediaToggleCompare(ids, asset.id))}
+              aria-label={`加入对比：${asset.title}`} />对比
+          </label>
+        </div>)}</div>}
+      {compareOpen && comparePair.length === 2 && <DetailDrawer title="并排对比" className="media-compare-drawer" onClose={() => setCompareOpen(false)}>
+        <div className="detail-drawer-body media-compare-grid">
+          {comparePair.map((asset) => {
+            const job = jobFor(asset);
+            return <section key={asset.id} className="media-compare-item">
+              <div className="media-detail-preview"><MediaAssetPreview asset={asset} /></div>
+              <strong>{asset.title}</strong>
+              <small>{asset.origin === "generated" ? asset.model : "手动上传"} · {asset.createdAt}</small>
+              {asset.prompt && <p className="media-result-prompt">{asset.prompt}</p>}
+              {job && paramList(job)}
+              <div className="media-detail-actions">
+                <a className="btn" href={mediaFileUrl(asset, true)}>下载</a>
+                {continueActions(asset)}
+              </div>
+            </section>;
+          })}
+        </div>
+      </DetailDrawer>}
       {selected && <DetailDrawer title="素材详情" onClose={() => setSelected(null)}>
           <div className="detail-drawer-body">
             <h2>{selected.title}</h2>
-            <div className="media-detail-preview">
-              {selected.kind === "image" ? <img src={mediaFileUrl(selected)} alt={selected.title} /> :
-                selected.kind === "video" ? <video src={mediaFileUrl(selected)} controls playsInline preload="metadata" /> :
-                  <audio src={mediaFileUrl(selected)} controls />}
-            </div>
+            <div className="media-detail-preview"><MediaAssetPreview asset={selected} /></div>
             <div className="media-detail-actions">
               <a className="btn" href={mediaFileUrl(selected)} target="_blank" rel="noopener noreferrer">原尺寸查看</a>
               <a className="btn" href={mediaFileUrl(selected, true)}>下载文件</a>
-              {selected.kind === "image" ? <React.Fragment>
-                <button className="btn btn-primary" onClick={() => { onContinue(selected, "image"); setSelected(null); }}>{allowExternal ? '以图改图' : '复用文字提示词'}</button>
-                {allowExternal && <button className="btn" onClick={() => { onContinue(selected, "seedance"); setSelected(null); }}>用此图生成视频</button>}
-              </React.Fragment> : <button className="btn btn-primary" onClick={() => { onContinue(selected, "seedance"); setSelected(null); }}>继续创作</button>}
+              {continueActions(selected)}
+              <button className="btn btn-ghost" onClick={() => setCompareIds((ids) => mediaToggleCompare(ids, selected.id))}>{compareIds.includes(selected.id) ? "移出对比" : "加入对比"}</button>
             </div>
             {editing ? <div className="media-edit-fields">
               <label>标题<input className="input" value={form.title} onChange={(e) => setForm({ ...form, title: e.target.value })} /></label>
@@ -550,12 +767,21 @@ function MediaAssetsView({ assets, query, onCreate, onContinue, onUpdated, showT
             </div>}
             {selected.prompt && <div className="media-detail-section"><strong>本次提示词</strong><p>{selected.prompt}</p></div>}
             {selected.model && <div className="media-detail-section"><strong>使用模型</strong><p>{selected.model}</p></div>}
-            {selected.sourceUrl && <div className="media-detail-section"><strong>原始来源</strong>
-              <a href={selected.sourceUrl} target="_blank" rel="noopener noreferrer">{selected.sourceUrl}</a></div>}
-            {selected.parentAssetId && <div className="media-detail-section"><strong>上一版本</strong>
-              <button className="btn" onClick={() => setSelected(assets.find((a) => a.id === selected.parentAssetId) || selected)}>查看</button></div>}
-            {assets.some((a) => a.parentAssetId === selected.id) && <div className="media-detail-section"><strong>后续版本</strong>
-              <div>{assets.filter((a) => a.parentAssetId === selected.id).map((child) =>
+            {selected.jobId && <div className="media-detail-section"><strong>生成参数</strong>
+              {selectedJob ? paramList(selectedJob)
+                : <p>{jobDetails[selected.jobId] === null ? "生成任务记录暂时无法读取" : "正在读取生成任务记录…"}</p>}
+            </div>}
+            {mediaSafeSourceUrl(selected.sourceUrl) && <div className="media-detail-section"><strong>原始来源</strong>
+              <a href={mediaSafeSourceUrl(selected.sourceUrl)} target="_blank" rel="noopener noreferrer">{mediaSafeSourceUrl(selected.sourceUrl)}</a></div>}
+            {lineage.length > 1 && <div className="media-detail-section"><strong>版本链 · {lineage.length} 版</strong>
+              <ol className="media-lineage">{lineage.map((asset, index) => <li key={asset.id}>
+                {asset.id === selected.id ? <span aria-current="true">第 {index + 1} 版 · 当前</span>
+                  : <button className="btn btn-ghost" onClick={() => setSelected(asset)}>第 {index + 1} 版 · {asset.title}</button>}
+              </li>)}</ol></div>}
+            {selected.parentAssetId && lineage.length < 2 && <div className="media-detail-section"><strong>上一版本</strong>
+              <p>上一版本已不在作品库中。</p></div>}
+            {children.length > 0 && <div className="media-detail-section"><strong>后续版本</strong>
+              <div>{children.map((child) =>
                 <button key={child.id} className="btn" onClick={() => setSelected(child)}>{child.title}</button>)}</div>
             </div>}
           </div>

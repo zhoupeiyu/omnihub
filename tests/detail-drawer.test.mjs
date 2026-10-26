@@ -114,7 +114,10 @@ test('all detail drawers share the same shell instead of defining competing geom
   assert.match(read('repository-tab.html'), /class="repository-detail detail-drawer"/);
   assert.match(read('repository-explorer-prototype.js'), /window.OmniDetailDrawer.mount\(dialog, closeDetail\)/);
   assert.match(read('detail-drawer.jsx'), /aria-modal="true"/);
-  assert.match(read('detail-drawer.jsx'), /detail-drawer-backdrop.*onClick=\{onClose\}/);
+  // Backdrop, close button and Esc all go through the unsaved-changes guard.
+  assert.match(read('detail-drawer.jsx'), /detail-drawer-backdrop.*onClick=\{requestClose\}/);
+  assert.match(read('detail-drawer.jsx'), /detail-drawer-close" onClick=\{requestClose\}/);
+  assert.match(read('detail-drawer.jsx'), /OmniDetailDrawer\.mount\(panel\.current, requestClose/);
   assert.match(read('detail-drawer.css'), /width:min\(680px,100vw\)/);
   assert.match(read('detail-drawer.css'), /prefers-reduced-motion:reduce/);
   assert.doesNotMatch(read('prompt-library.css'), /\.prompt-refinery-detail \{[^}]*position/);
