@@ -24,8 +24,10 @@
 .settings-ai .form-field { margin-bottom:20px; }
 .settings-ai .modal-actions { position:sticky; bottom:0; margin-top:24px; padding-block:16px; background:var(--bg); }
 .settings-preferences { margin-top:28px; }
-.settings-preference { display:flex; align-items:center; justify-content:space-between; gap:20px; min-width:0; min-height:104px; padding:22px 24px; border:1px solid var(--border); border-radius:10px; background:var(--surface); font-size:14px; }
-.settings-preference p { margin:6px 0 0; color:var(--text-3); font-size:13px; }
+.settings-preference { display:flex; align-items:center; justify-content:space-between; gap:16px; min-width:0; min-height:56px; padding:12px 16px; border:1px solid var(--border); border-radius:10px; background:var(--surface); font-size:14px; }
+.settings-preference > strong { flex:none; }
+.settings-preference-control { display:flex; align-items:center; gap:12px; min-width:0; }
+.settings-preference p { margin:0; color:var(--text-3); font-size:12px; text-align:right; }
 .settings-switch { display:flex; flex:none; align-items:center; width:40px; height:24px; padding:3px; border:0; border-radius:20px; background:var(--text-3); cursor:pointer; }
 .settings-switch span { width:18px; height:18px; border-radius:50%; background:#fff; }
 .settings-switch[aria-checked="true"] { justify-content:flex-end; background:var(--accent); }
@@ -59,7 +61,7 @@
   .settings-nav button svg { display:none; }
   .settings-content { padding:24px 20px; }
   .settings-preferences { margin-top:24px; }
-  .settings-preference { min-height:96px; padding:18px; }
+  .settings-preference { padding:10px 14px; }
   .settings-theme-grid { gap:12px; }
   .settings-palette { height:104px; }
   .settings-theme-label { padding:12px; font-size:13px; }

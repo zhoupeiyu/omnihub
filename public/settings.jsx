@@ -113,7 +113,7 @@ function SettingsCenter({ user, canUseFullApp, onClose, onSaved, onDirtyChange, 
               </button>)}</div>
             </section>
             <div className="settings-preferences">
-              <div className="settings-preference"><div><strong>悬浮木鱼</strong><p>在工作区显示木鱼小工具。</p></div><button type="button" className="settings-switch" role="switch" aria-label="悬浮木鱼" aria-checked={woodFishEnabled} onClick={onWoodFishToggle}><span /></button></div>
+              <div className="settings-preference"><strong>悬浮木鱼</strong><div className="settings-preference-control"><p id="settings-woodfish-description">在工作区显示木鱼小工具。</p><button type="button" className="settings-switch" role="switch" aria-label="悬浮木鱼" aria-describedby="settings-woodfish-description" aria-checked={woodFishEnabled} onClick={onWoodFishToggle}><span /></button></div></div>
             </div>
           </div>}
         </section>)}
