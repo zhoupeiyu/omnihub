@@ -16,9 +16,8 @@ test('account connections keep X, local curation, and ChatGPT independently read
   assert.match(source, /local-curation-section/);
   assert.match(source, /chatgpt-section/);
   assert.doesNotMatch(source, /<h2[^>]*>账号与连接/);
-  assert.match(source, /xAccount\.connected \? <div className="connection-subsection"/);
-  assert.match(source, /连接后可设置每 2 小时同步，已有收藏保留。/);
-  assert.match(source, /原始收藏、未发布媒体与草稿/);
+  assert.match(source, /!xAccount\.syncEnabled \|\| !xAccount\.sync\.serverReady/);
+  assert.match(source, /仅只读收藏；断开连接不会删除已有数据/);
 });
 
 test('local curation uses the existing owner-only endpoints without retaining the device secret', () => {
@@ -34,10 +33,9 @@ test('local curation uses the existing owner-only endpoints without retaining th
   assert.doesNotMatch(source, /(?:window\.)?localStorage\s*[.(]/);
   assert.match(source, /never rendered, stored in the URL, localStorage, or component state/);
   assert.match(source, /网页不会自动安装或启动它/);
-  assert.match(source, /本机运行，并调用这台电脑已有的 Claude API/);
-  assert.match(source, /API 密钥不上传网站，也不使用 ChatGPT 网页额度/);
-  assert.match(source, /模型名必须与本机 Claude API 配置一致/);
-  assert.match(source, /placeholder="例如 claude-opus-5-5"/);
+  assert.match(source, /本机运行，调用本机 Claude API/);
+  assert.match(source, /密钥不上传网站，不使用 ChatGPT 网页额度/);
+  assert.match(source, /模型名须与本机配置一致/);
 });
 
 test('account connection styles retain the shared drawer shell and provide compact device rows', () => {

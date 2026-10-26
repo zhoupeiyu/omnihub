@@ -87,9 +87,9 @@ function SettingsCenter({ user, canUseFullApp, onClose, onSaved, onDirtyChange, 
         {tabs.filter(item => visited.has(item.id)).map(item => <section key={item.id} id={`settings-panel-${item.id}`} role="tabpanel"
           aria-labelledby={`settings-tab-${item.id}`} hidden={tab !== item.id} tabIndex={0}>
           {item.id === 'sync' && <div className="settings-sync">
-            <h2>数据同步</h2><p className="settings-description">X 收藏同步、本地整理与收藏整理自动化。</p>
-            <AccountSettings user={user} embedded onClose={onClose} />
-            {canUseFullApp && <div className="settings-subsection"><h3>收藏整理自动化</h3><ContentPipelineStatus settingsOnly active={tab === 'sync'} /></div>}
+            <AccountSettings user={user} embedded onClose={onClose}>
+              {canUseFullApp && <ContentPipelineStatus settingsOnly active={tab === 'sync'} />}
+            </AccountSettings>
           </div>}
           {item.id === 'ai' && <AiSettingsModal embedded initialTab={route.aiTab}
             onClose={onClose} onDirtyChange={onAiDirtyChange} onSaved={onSaved} showToast={showToast} />}

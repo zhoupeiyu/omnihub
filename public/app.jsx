@@ -461,31 +461,27 @@ function ContentPipelineStatus({ onCorrectClassification, onOpenSettings, settin
   }
   const labels={queued:'待整理',running:'整理中',done:'已整理',review:'待复核',retry:'等待重试',protected:'已保护或跳过'};
   const errors={needs_material:'缺少正文或必要素材',uncertain:'归类不确定',unsupported:'原文不足以支持整理结论',synthesis_unsupported:'综合文章需要复核',source_too_long:'长文需要分段整理',budget:'达到调用上限，稍后继续',configuration:'模型未配置',upstream:'模型连接失败',invalid_result:'模型结果未通过校验',stale:'来源或人工归类已改变',internal:'处理异常'};
-  if (settingsOnly) return <div className="pipeline-settings">
-    <h2>收藏整理</h2>
-    <p className="settings-description">控制哪些收藏交给模型处理、每轮处理多少条。启用后才会开始调用模型。</p>
+  if (settingsOnly) return <section className="connection-section sync-module pipeline-settings" aria-label="自动整理">
+    <div className="sync-module-heading"><h3>自动整理</h3>{state && <span className="sync-meta">{state.enabled ? '已启用' : '已暂停'}</span>}</div>
     {error && <p className="auth-error" role="alert">{error}</p>}
-    {!state && !error && <p role="status">正在读取整理设置…</p>}
+    {!state && !error && <p className="sync-meta" role="status">正在读取整理设置…</p>}
     {!state && error && <button className="btn" onClick={() => {setError(''); api('/api/content-pipeline').then(setState).catch(e=>setError(e.message));}}>重新加载</button>}
     {state && <>
-      <div className="pipeline-summary"><strong>{state.enabled ? '自动整理已启用' : '自动整理已暂停'}</strong>
-        <p>{state.model.configured ? `当前模型：${state.model.model}` : state.model.provider === 'local' ? '请在「账号与同步」连接本机整理设备' : '服务器整理模型尚未配置'}</p>
-        <p>最近 24 小时调用 {state.callsToday} / {state.limits.dailyCalls} 次</p>
-      </div>
-      {!state.enabled&&<div className="pipeline-options" style={{display:'flex',gap:16,flexWrap:'wrap',alignItems:'center'}}>
-        <label><input type="checkbox" checked={includePrivate} onChange={e=>setIncludePrivate(e.target.checked)} /> 允许现有模型服务处理私有及未公开收藏</label>
-        <label><span>本轮范围</span><select className="select" aria-label="本轮整理数量" value={sampleSize} onChange={e=>setSampleSize(Number(e.target.value))}>
-          <option value={50}>先整理 50 条，完成后暂停</option><option value={100}>先整理 100 条，完成后暂停</option><option value={0}>全部及以后新增收藏</option>
+      <div className="sync-row"><span className="sync-meta">最近 24 小时调用 · {state.callsToday} / {state.limits.dailyCalls} 次</span>{state.enabled && <button className="btn" disabled={busy} onClick={() => act('pause')}>暂停整理</button>}</div>
+      {!state.model.configured && <p className="sync-meta">{state.model.provider === 'local' ? '请先配置并启用本地整理设备。' : '请先配置服务器整理模型。'}</p>}
+      {!state.enabled && <div className="sync-expanded pipeline-options">
+        <label className="pipeline-range"><span>整理范围</span><select className="select" aria-label="本轮整理数量" value={sampleSize} onChange={e=>setSampleSize(Number(e.target.value))}>
+          <option value={50}>50 条，完成后暂停</option><option value={100}>100 条，完成后暂停</option><option value={0}>全部及以后新增收藏</option>
         </select></label>
+        <label className="pipeline-private"><input type="checkbox" checked={includePrivate} onChange={e=>setIncludePrivate(e.target.checked)} />允许模型处理私有及未公开收藏</label>
+        <div className="sync-row"><span className="sync-meta">启用后将调用模型，结果先存为草稿。</span><button className="btn btn-primary" disabled={busy || !state.model.configured} onClick={() => act('enable')}>启用自动整理</button></div>
       </div>}
-      <div className="pipeline-actions">
-        <button className="btn" disabled={busy||(!state.enabled&&!state.model.configured)} onClick={()=>act(state.enabled?'pause':'enable')}>{state.enabled?'暂停整理':'启用自动整理'}</button>
-        <button className="btn" disabled={busy} onClick={()=>act('enqueue')}>登记已有收藏</button>
-        <button className="btn" disabled={busy||!state.enabled} onClick={()=>act('run')}>处理下一条</button>
-      </div>
-      <p className="settings-description">人工归类优先保留。整理结果供本人预览，发布结果不会公开原始收藏。AIHOT 资讯不参与自动整理。</p>
+      <details className="sync-details"><summary>手动操作与规则</summary>
+        <p className="sync-meta">模型：{state.model.model || '未配置'}。保留人工归类，原始收藏不公开。</p>
+        <div className="connection-actions"><button className="btn" disabled={busy} onClick={()=>act('enqueue')}>登记已有收藏</button><button className="btn" disabled={busy || !state.enabled} onClick={()=>act('run')}>处理下一条</button></div>
+      </details>
     </>}
-  </div>;
+  </section>;
   return <details style={{margin:'0 0 16px',padding:'12px 0',borderBottom:'1px solid var(--border)'}}>
     <summary style={{cursor:'pointer',fontSize:13,color:'var(--text-secondary)'}}>
       收藏整理 · {state?.enabled?'自动运行':'已暂停'}{state?` · 已整理 ${state.counts.done||0} · 待复核 ${state.counts.review||0}`:''}
