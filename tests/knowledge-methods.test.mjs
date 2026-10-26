@@ -5,7 +5,6 @@ import vm from 'node:vm';
 import {decisions} from '../content/library-curation-20260928.mjs';
 
 const source = readFileSync(new URL('../public/refinery.jsx',import.meta.url),'utf8');
-const appSource = readFileSync(new URL('../public/app.jsx',import.meta.url),'utf8');
 const cssSource = readFileSync(new URL('../public/knowledge-library.css',import.meta.url),'utf8');
 const context = vm.createContext({});
 vm.runInContext(source.slice(source.indexOf('function knowledgeMethodTools'),source.indexOf('function KnowledgeHighlight')),context);
@@ -44,7 +43,6 @@ test('knowledge detail uses one aligned two-column workspace without a duplicate
   assert.doesNotMatch(view,/scopeSwitch/);
   assert.doesNotMatch(view,/knowledge-evidence|evidenceOpen|setEvidenceOpen|setTab/);
   assert.match(view,/aria-current=/);
-  assert.match(appSource,/catalogueSpaceSwitch=\{user \? <CatalogueSpaceSwitch user=\{user\} \/> : null\}/);
   assert.match(cssSource,/grid-template-columns:320px minmax\(0,1fr\)/);
   assert.match(cssSource,/data-reading=false/);
   assert.match(cssSource,/data-reading=true/);

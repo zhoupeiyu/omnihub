@@ -22,7 +22,6 @@ test('signed-in workspace exposes own inbox and connections without widening adm
   const nav = read('public/components.jsx');
   const account = read('public/account-settings.jsx');
   assert.match(app, /const personalAccess = Boolean\(user && user\.personalAccess !== false\)/);
-  assert.match(app, /<CatalogueSpaceSwitch user=\{user\}/);
   assert.match(app, /登录后查看你的收藏/);
   assert.match(nav, /hasPersonalSpace/);
   assert.match(nav, /账号与设置/);

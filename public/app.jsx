@@ -941,27 +941,6 @@ function WorkspacePanel({ active, name, children }) {
     }}>{children}</section>;
 }
 
-function CatalogueSpaceSwitch({ user }) {
-  if (!user) return null;
-  const current = window.omnihubCatalogueScope?.() || 'public';
-  const change = (space) => {
-    if (space === current) return;
-    const raw = window.location.hash.slice(1);
-    const [section, query = ''] = raw.split('?');
-    const params = new URLSearchParams(query);
-    params.set('space', space);
-    // Deliberately reload instead of retaining a cache from the other space.
-    // The API is user-scoped, but this makes the privacy boundary obvious in
-    // both URL and runtime state.
-    window.location.hash = `#${section || 'repositories'}?${params.toString()}`;
-    window.location.reload();
-  };
-  return <div className="catalogue-space-switch" role="group" aria-label="浏览范围">
-    <button className={'btn btn-ghost' + (current === 'mine' ? ' active' : '')} aria-pressed={current === 'mine'} onClick={() => change('mine')}>我的空间</button>
-    <button className={'btn btn-ghost' + (current === 'public' ? ' active' : '')} aria-pressed={current === 'public'} onClick={() => change('public')}>公开成果</button>
-  </div>;
-}
-
 /** 主界面（登录用户与游客共用；游客 user 为 null） */
 /** 专题目录：#topics 显示目录；#life-guide 等专题页由各自脚本渲染到 <main>。 */
 function TopicsCatalog({ active }) {
@@ -1651,7 +1630,6 @@ function Workspace({ user, onUserChange, showToast, toast }) {
           }}
           onCategoryChange={null} counts={{}}
           user={user} quote={quote} merit={merit}
-          catalogueSpaceSwitch={user ? <CatalogueSpaceSwitch user={user} /> : null}
           skin={skin} onSkinChange={setSkin}
           theme={theme} onThemeToggle={() => setTheme(theme === "light" ? "dark" : "light")}
           woodFishEnabled={woodFishEnabled}
