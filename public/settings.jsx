@@ -1,7 +1,7 @@
 // Full-page settings rendered inside the workspace <main>. The category lives
 // in the URL (#settings?category=sync|ai|devices|appearance), so it survives
-// refresh, deep links and Back/Forward. Leaving the page (sidebar, Back, the
-// 返回 button) is owned by the Workspace router, which asks for confirmation
+// refresh, deep links and Back/Forward. Leaving the page through the sidebar
+// or browser history is owned by the Workspace router, which asks for confirmation
 // while onDirtyChange(true) is in effect.
 function SettingsCenter({ user, canUseFullApp, onClose, onSaved, onDirtyChange, showToast,
   theme, onThemeToggle, skin, onSkinChange, woodFishEnabled, onWoodFishToggle }) {
@@ -75,12 +75,7 @@ function SettingsCenter({ user, canUseFullApp, onClose, onSaved, onDirtyChange, 
     navRef.current?.querySelectorAll('[role="tab"]')[next]?.focus();
   }
 
-  return <section className="settings-page" aria-labelledby="settings-page-title">
-    <header className="settings-page-head">
-      <button type="button" className="btn btn-ghost settings-back" onClick={onClose}><span aria-hidden="true">‹</span>返回</button>
-      <h1 id="settings-page-title">设置</h1>
-      {dirty && <span className="settings-dirty" role="status">有未保存的修改</span>}
-    </header>
+  return <section className="settings-page" aria-label="设置">
     <div className="settings-layout">
       <nav className="settings-nav" ref={navRef} role="tablist" aria-label="设置分类" aria-orientation="vertical">
         {tabs.map((item,index) => <button key={item.id} type="button" id={`settings-tab-${item.id}`} role="tab" aria-selected={tab === item.id}
@@ -88,6 +83,7 @@ function SettingsCenter({ user, canUseFullApp, onClose, onSaved, onDirtyChange, 
           onClick={() => selectTab(item.id)} onKeyDown={event => moveFocus(event,index)}><item.icon aria-hidden="true" /><span>{item.label}</span></button>)}
       </nav>
       <div className="settings-content">
+        {dirty && <p className="settings-dirty" role="status">有未保存的修改</p>}
         {tabs.filter(item => visited.has(item.id)).map(item => <section key={item.id} id={`settings-panel-${item.id}`} role="tabpanel"
           aria-labelledby={`settings-tab-${item.id}`} hidden={tab !== item.id} tabIndex={0}>
           {item.id === 'sync' && <div className="settings-sync">
