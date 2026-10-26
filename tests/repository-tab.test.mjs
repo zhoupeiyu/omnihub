@@ -131,18 +131,16 @@ test('icon navigation has explicit hover and keyboard tooltips without a duplica
   assert.doesNotMatch(css, /\.module-nav \.module-button.active::after/);
 });
 
-test('the account avatar is the only settings trigger and anchors its menu to the icon rail', () => {
+test('the account avatar opens settings directly and authentication stays in the header', () => {
   const components = read('components.jsx');
+  const header = components.slice(components.indexOf('function Header('), components.indexOf('function ModuleRailButton('));
   const footer = components.split('<div className="sidebar-foot">')[1].split('{hasContext &&')[0];
-  assert.match(components, /const menuTriggerRef = React\.useRef\(null\)/);
-  assert.doesNotMatch(components, /gearRef|closest\("\.sidebar"\)/);
-  assert.match(components, /left: \(r\.right \+ 8\) \+ "px"/);
-  assert.equal((footer.match(/buttonRef=\{menuTriggerRef\}/g) || []).length, 1);
-  assert.doesNotMatch(footer, /aria-label="设置"/);
+  assert.match(header, /className="header-actions"/);
+  assert.match(header, /onClick=\{user \? onLogout : onLogin\}/);
+  assert.match(footer, /onClick=\{onOpenAccountSettings\}/);
   assert.match(footer, /账号与设置：\$\{user\.username\}/);
-  assert.match(footer, /aria-haspopup=\{user \? "menu" : undefined\}/);
-  assert.ok(footer.includes('设置'), 'missing full-page settings entry');
-  assert.ok(footer.includes('退出登录'), 'missing logout entry');
+  assert.doesNotMatch(footer, /aria-haspopup|退出登录|登录 \/ 注册/);
+  assert.doesNotMatch(components, /skin-panel|toggleSettings|menuTriggerRef/);
 });
 
 test('repository data and view assets load together before the skeleton is replaced', async () => {

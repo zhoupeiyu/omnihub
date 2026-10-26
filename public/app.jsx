@@ -1604,6 +1604,7 @@ function Workspace({ user, onUserChange, showToast, toast }) {
         searchPlaceholder={SEARCH_PLACEHOLDERS[section]}
         greeting={user ? `${getGreeting(now.getHours())}，${user.username}` : getGreeting(now.getHours())}
         dateText={formatToday(now)}
+        user={user} onLogin={() => setAuthOpen(true)} onLogout={handleLogout}
         sidebarCollapsed={sidebarCollapsed}
         onToggleSidebar={() => setSidebarCollapsed((v) => !v)}
         moduleLabels={moduleLabels}
@@ -1635,9 +1636,10 @@ function Workspace({ user, onUserChange, showToast, toast }) {
           woodFishEnabled={woodFishEnabled}
           onWoodFishToggle={() => setWoodFishEnabled((enabled) => !enabled)}
           onOpenAiSettings={() => setModal("ai-settings")}
-          onOpenAccountSettings={() => setModal("account-settings")}
-          onLogin={() => setAuthOpen(true)}
-          onLogout={handleLogout}
+          onOpenAccountSettings={() => {
+            setModal("account-settings");
+            if (window.matchMedia("(max-width: 860px)").matches) setSidebarCollapsed(true);
+          }}
           collapsed={sidebarCollapsed}
           moduleLabels={moduleLabels} />
         <main className="main">

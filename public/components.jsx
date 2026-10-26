@@ -224,8 +224,8 @@ function Favicon({ url, name, onStatusChange }) {
   );
 }
 
-/** 顶栏：品牌 + 问候/时间 + 全局搜索（操作按钮都在侧边栏左下角） */
-function Header({ query, onQueryChange, searchPlaceholder, greeting, dateText, sidebarCollapsed, onToggleSidebar, moduleLabels, onToggleModuleLabels, showSearch = true }) {
+/** 顶栏：品牌 + 问候/时间 + 搜索 + 登录状态操作 */
+function Header({ query, onQueryChange, searchPlaceholder, greeting, dateText, sidebarCollapsed, onToggleSidebar, moduleLabels, onToggleModuleLabels, user, onLogin, onLogout, showSearch = true }) {
   const [mobile, setMobile] = useState(() => window.matchMedia("(max-width: 860px)").matches);
   useEffect(() => {
     const media = window.matchMedia("(max-width: 860px)");
@@ -239,7 +239,7 @@ function Header({ query, onQueryChange, searchPlaceholder, greeting, dateText, s
     : (moduleLabels ? "收起模块名称" : "展开模块名称");
   return (
     <header className="header-bar">
-      <div className="header-inner">
+      <div className={'header-inner' + (showSearch ? ' has-search' : '')}>
         <button className={"header-toggle" + (!navigationExpanded ? " collapsed" : "")}
           onClick={mobile ? onToggleSidebar : onToggleModuleLabels}
           aria-expanded={navigationExpanded} aria-controls="workspace-sidebar"
@@ -249,7 +249,7 @@ function Header({ query, onQueryChange, searchPlaceholder, greeting, dateText, s
         <div className="logo-mark" aria-hidden="true">
           <img src="/assets/omnihub-logo.svg" alt="" />
         </div>
-        <div>
+        <div className="header-brand">
           <div className="brand-title">万象台</div>
           <div className="brand-sub">OMNIHUB</div>
         </div>
@@ -262,6 +262,12 @@ function Header({ query, onQueryChange, searchPlaceholder, greeting, dateText, s
           <input className="search-input" placeholder={searchPlaceholder}
             value={query} onChange={(e) => onQueryChange(e.target.value)} />
         </div>}
+        <div className="header-actions">
+          <button className="btn btn-ghost header-auth" onClick={user ? onLogout : onLogin}>
+            {user ? <IconLogout /> : <IconUser />}
+            {user ? '退出登录' : '登录 / 注册'}
+          </button>
+        </div>
       </div>
     </header>
   );
@@ -305,12 +311,9 @@ function ModuleRailButton({ tooltip, tooltipEnabled = true, buttonRef, children,
 /** 侧边栏：模块导航 + 分类（带计数）+ 左下角「用户信息 + 账号/设置」 */
 function SideNav({ section, onSectionChange, categories, activeCategory, onCategoryChange, counts, moduleCounts = {}, feedNavigation, onFeedNavigate,
                    user, quote, merit, skin, onSkinChange, theme, onThemeToggle,
-                   woodFishEnabled, onWoodFishToggle, onOpenAiSettings, onOpenAccountSettings, onLogin, onLogout,
+                   woodFishEnabled, onWoodFishToggle, onOpenAiSettings, onOpenAccountSettings,
                    collapsed, moduleLabels }) {
-  const [settingsOpen, setSettingsOpen] = useState(false);
   const [mobile, setMobile] = useState(() => window.matchMedia("(max-width: 860px)").matches);
-  const [panelStyle, setPanelStyle] = useState(null);
-  const menuTriggerRef = React.useRef(null);
   const hidden = mobile && collapsed;
   const hasContext = Boolean(feedNavigation || categories?.length);
   useEffect(() => {
@@ -319,31 +322,6 @@ function SideNav({ section, onSectionChange, categories, activeCategory, onCateg
     media.addEventListener("change", update);
     return () => media.removeEventListener("change", update);
   }, []);
-  function toggleSettings() {
-    if (!settingsOpen && menuTriggerRef.current) {
-      const r = menuTriggerRef.current.getBoundingClientRect();
-      setPanelStyle({ left: (r.right + 8) + "px", bottom: (window.innerHeight - r.bottom) + "px" });
-    }
-    setSettingsOpen((v) => !v);
-  }
-
-  // 点击弹窗与设置按钮以外的区域时收起设置弹窗
-  useEffect(() => {
-    if (!settingsOpen) return;
-    function onDocMouseDown(e) {
-      if (menuTriggerRef.current && menuTriggerRef.current.contains(e.target)) return;
-      const panel = document.querySelector(".skin-panel");
-      if (panel && panel.contains(e.target)) return;
-      setSettingsOpen(false);
-    }
-    document.addEventListener("mousedown", onDocMouseDown);
-    return () => document.removeEventListener("mousedown", onDocMouseDown);
-  }, [settingsOpen]);
-
-  // 侧栏收起时同步关闭设置面板
-  useEffect(() => {
-    if (collapsed) setSettingsOpen(false);
-  }, [collapsed]);
   const allModules = [
     { id: "repositories", label: "仓库库", icon: <IconBookmark /> },
     { id: "knowledgeLibrary", label: "知识库", icon: <IconBookOpen /> },
@@ -376,32 +354,15 @@ function SideNav({ section, onSectionChange, categories, activeCategory, onCateg
           </ModuleRailButton>
         ))}
       </nav>
-      <div className="sidebar-foot">
-        {ReactDOM.createPortal((
-          <div className={"skin-panel" + (settingsOpen ? " open" : "")} style={panelStyle || undefined}>
-            {hasPersonalSpace && <button className="skin-option" onClick={() => { setSettingsOpen(false); onOpenAccountSettings(); }}>
-              <IconSettings style={{ width: 15, height: 15 }} />设置
-            </button>}
-            <div className="menu-divider"></div>
-            {user ? (
-              <button className="skin-option" onClick={onLogout}>
-                <IconLogout style={{ width: 15, height: 15 }} />退出登录
-              </button>
-            ) : (
-              <button className="skin-option" onClick={() => { setSettingsOpen(false); onLogin(); }}>
-                <IconUser style={{ width: 15, height: 15 }} />登录 / 注册
-              </button>
-            )}
-          </div>
-        ), document.body)}
-        <ModuleRailButton buttonRef={menuTriggerRef} className={"nav-item module-button" + (settingsOpen ? " active" : "")}
-          aria-label={user ? `账号与设置：${user.username}` : "登录 / 注册"}
-          tooltip={user ? `账号与设置：${user.username}` : "登录 / 注册"} tooltipEnabled={!moduleLabels && !hidden && !settingsOpen}
-          aria-expanded={user ? settingsOpen : undefined} aria-haspopup={user ? "menu" : undefined} onClick={user ? toggleSettings : onLogin}>
-          <span className="module-icon" aria-hidden="true">{user ? <span className="user-avatar">{user.username.charAt(0).toUpperCase()}</span> : <IconUser />}</span>
-          <span className="module-label user-name">{user ? user.username : "请登录"}</span>
+      {hasPersonalSpace && <div className="sidebar-foot">
+        <ModuleRailButton className={"nav-item module-button" + (section === 'settings' ? " active" : "")}
+          aria-label={`账号与设置：${user.username}`}
+          tooltip={`账号与设置：${user.username}`} tooltipEnabled={!moduleLabels && !hidden}
+          aria-current={section === 'settings' ? 'page' : undefined} onClick={onOpenAccountSettings}>
+          <span className="module-icon" aria-hidden="true"><span className="user-avatar">{user.username.charAt(0).toUpperCase()}</span></span>
+          <span className="module-label user-name">{user.username}</span>
         </ModuleRailButton>
-      </div>
+      </div>}
       </div>
       {hasContext && <div className="workspace-context" hidden={collapsed}>
         {feedNavigation && <div className="repository-side-group feed-side-group">
