@@ -116,32 +116,37 @@ async function uploadMediaFile(file, details = {}) {
   return result;
 }
 
-function MediaStudioView({ draft, assets, jobs, configVersion, allowExternal = true, onAssetsChanged, onJobsChanged, onOpenSettings, onShowAsset, showToast }) {
-  const [generationRoute, setGenerationRoute] = useMediaState('local');
+function MediaStudioView({ userId, draft, assets, jobs, configVersion, allowExternal = true, onAssetsChanged, onJobsChanged, onOpenSettings, onShowAsset, showToast }) {
+  const [initial] = useMediaState(() => resolveStudioDraft(readStudioDraft(userId), draft, allowExternal));
+  const [consumedKey, setConsumedKey] = useMediaState(initial.consumedKey);
+  const [draftSaved, setDraftSaved] = useMediaState(true);
+  const [submittedJobId, setSubmittedJobId] = useMediaState(initial.submittedJobId);
+  const mounted = useMediaRef(true);
+  useMediaEffect(() => { mounted.current = true; return () => { mounted.current = false; }; }, []);
+  const [generationRoute, setGenerationRoute] = useMediaState(initial.generationRoute);
   const [localDevices, setLocalDevices] = useMediaState([]);
   const [localError, setLocalError] = useMediaState('');
-  const [deviceId, setDeviceId] = useMediaState('');
-  const [showDevices, setShowDevices] = useMediaState(false);
-  const [module, setModule] = useMediaState("image");
-  const [model, setModel] = useMediaState("nano-banana-pro");
-  const [mode, setMode] = useMediaState("image");
-  const [title, setTitle] = useMediaState("");
-  const [prompt, setPrompt] = useMediaState("");
-  const [aspectRatio, setAspectRatio] = useMediaState("auto");
-  const [size, setSize] = useMediaState("1k");
-  const [duration, setDuration] = useMediaState(5);
-  const [resolution, setResolution] = useMediaState("720p");
-  const [faceProcessing, setFaceProcessing] = useMediaState(0);
-  const [referenceIds, setReferenceIds] = useMediaState([]);
+  const [deviceId, setDeviceId] = useMediaState(initial.deviceId);
+  const [module, setModule] = useMediaState(initial.module);
+  const [model, setModel] = useMediaState(initial.model);
+  const [mode, setMode] = useMediaState(initial.mode);
+  const [title, setTitle] = useMediaState(initial.title);
+  const [prompt, setPrompt] = useMediaState(initial.prompt);
+  const [aspectRatio, setAspectRatio] = useMediaState(initial.aspectRatio);
+  const [size, setSize] = useMediaState(initial.size);
+  const [duration, setDuration] = useMediaState(initial.duration);
+  const [resolution, setResolution] = useMediaState(initial.resolution);
+  const [faceProcessing, setFaceProcessing] = useMediaState(initial.faceProcessing);
+  const [referenceIds, setReferenceIds] = useMediaState(initial.referenceIds);
   const [acceptedCost, setAcceptedCost] = useMediaState(false);
   const [busy, setBusy] = useMediaState(false);
   const [uploading, setUploading] = useMediaState(false);
-  const [source, setSource] = useMediaState(null);
+  const [source, setSource] = useMediaState(initial.source);
   const [config, setConfig] = useMediaState(null);
   const [submitError, setSubmitError] = useMediaState("");
   const [jobErrors, setJobErrors] = useMediaState({});
   const uploadInput = useMediaRef(null);
-  const submitKey = useMediaRef(null);
+  const submitKey = useMediaRef(initial.requestKey || null);
 
   useMediaEffect(() => {
     if (allowExternal) api("/api/media/config").then(setConfig).catch(() => {});
@@ -153,28 +158,33 @@ function MediaStudioView({ draft, assets, jobs, configVersion, allowExternal = t
       setLocalError('');
     } catch(error) { setLocalError(error.message); }
   }
-  useMediaEffect(() => { void loadLocalDevices(); }, [configVersion, showDevices]);
+  useMediaEffect(() => { void loadLocalDevices(); }, [configVersion]);
+  function applyDraft(next) {
+    setConsumedKey(next.consumedKey); setGenerationRoute(next.generationRoute); setDeviceId(next.deviceId);
+    setModule(next.module); setModel(next.model); setMode(next.mode); setTitle(next.title); setPrompt(next.prompt);
+    setAspectRatio(next.aspectRatio); setSize(next.size); setDuration(next.duration); setResolution(next.resolution);
+    setFaceProcessing(next.faceProcessing); setReferenceIds(next.referenceIds); setSource(next.source);
+    setAcceptedCost(false); setSubmitError(""); setSubmittedJobId(next.submittedJobId);
+    submitKey.current = next.requestKey || null;
+  }
   useMediaEffect(() => {
-    if (!draft) return;
-    const nextModule = draft.targetModule || "image";
-    setModule(nextModule);
-    setModel(MEDIA_MODEL_OPTIONS[nextModule][0]);
-    const requestedMode = draft.targetMode;
-    setMode(MEDIA_MODES[nextModule].some((item) => item.id === requestedMode) ? requestedMode : MEDIA_MODES[nextModule][0].id);
-    setAspectRatio(nextModule === "image" ? "auto" : "adaptive");
-    setTitle(draft.title || "");
-    setPrompt(draft.prompt || "");
-    setSource(draft.sourceType || draft.parentAssetId ? draft : null);
-    setReferenceIds(draft.referenceAssetId ? [draft.referenceAssetId] : []);
-    setAcceptedCost(false);
-    setSubmitError("");
-    submitKey.current = null;
+    if (draft?.key && draft.key !== consumedKey) applyDraft(resolveStudioDraft(null,draft,allowExternal));
   }, [draft?.key]);
-  useMediaEffect(() => {
-    setAcceptedCost(false);
-    setSubmitError("");
-    submitKey.current = null;
-  }, [module, model, mode, title, prompt, aspectRatio, size, duration, resolution, faceProcessing, referenceIds, generationRoute, deviceId]);
+  const editableDraft = {consumedKey,generationRoute,deviceId,module,model,mode,title,prompt,aspectRatio,size,duration,resolution,faceProcessing,referenceIds,source};
+  const fingerprint = JSON.stringify(editableDraft);
+  const previousFingerprint = useMediaRef(fingerprint);
+  React.useLayoutEffect(() => {
+    const changed = previousFingerprint.current !== fingerprint;
+    if (changed) {
+      submitKey.current = null; setSubmittedJobId(''); setAcceptedCost(false); setSubmitError('');
+      previousFingerprint.current = fingerprint;
+    }
+    setDraftSaved(writeStudioDraft(userId,{...editableDraft,requestKey:submitKey.current || '',submittedJobId:changed ? '' : submittedJobId}));
+  }, [fingerprint,submittedJobId,userId]);
+  function newDraft() {
+    if (studioDraftHasContent(editableDraft) && !confirm('新建会清空当前草稿，已保存的作品不受影响。继续吗？')) return;
+    applyDraft(normalizeStudioDraft({consumedKey},allowExternal));
+  }
 
   function changeModule(next) {
     setModule(next);
@@ -227,12 +237,13 @@ function MediaStudioView({ draft, assets, jobs, configVersion, allowExternal = t
   }
 
   async function submit() {
-    if (busy || !acceptedCost) return;
+    if (busy || !acceptedCost || !prompt.trim() || submittedJobId) return;
     if (useLocal && (referenceIds.length || source?.parentAssetId)) {
       setSubmitError('本机生图暂不支持参考图编辑。请明确改为仅使用文字，或选择支持参考图的媒体 API。'); return;
     }
     const key = submitKey.current || crypto.randomUUID();
     submitKey.current = key;
+    setDraftSaved(writeStudioDraft(userId,{...editableDraft,requestKey:key}));
     setBusy(true);
     setSubmitError("");
     try {
@@ -254,9 +265,13 @@ function MediaStudioView({ draft, assets, jobs, configVersion, allowExternal = t
         acceptUnknownCost: true,
         ...(useLocal ? {acceptCodexUsage:true, deviceId} : {}),
       } });
-      await onJobsChanged();
-      setAcceptedCost(false);
-      if (job.status !== "needs_review") submitKey.current = null;
+      // Keep the accepted request identity so remount/reload cannot create a duplicate task.
+      const current = readStudioDraft(userId);
+      if (current?.requestKey === key) {
+        writeStudioDraft(userId,{...current,submittedJobId:job.id});
+        if (mounted.current) { setSubmittedJobId(job.id); setAcceptedCost(false); }
+      }
+      await onJobsChanged().catch(() => showToast('任务已创建，任务列表暂未刷新，请稍后查看。'));
       showToast(job.status === "failed" || job.status === "needs_review" ? job.error : "生成任务已创建");
     } catch (error) {
       // Keep the request key until the user changes the draft: a network timeout may have created the upstream task.
@@ -291,10 +306,12 @@ function MediaStudioView({ draft, assets, jobs, configVersion, allowExternal = t
     <div className="media-studio">
       <div className="media-page-head">
         <div><h1>创作台</h1><p>从收藏或提示词开始生成，结果自动回到作品库。</p></div>
-        <button className="btn" onClick={() => setShowDevices(true)}><IconSettings />生图设备</button>
+        <div className="media-draft-actions"><button className="btn btn-ghost" disabled={busy || uploading} onClick={newDraft}>新建草稿</button><button className="btn" onClick={() => onOpenSettings("devices")}><IconSettings />设置</button></div>
       </div>
       <div className={`media-studio-layout${recentJobs.length ? " has-jobs" : ""}`}>
         <section className="media-compose">
+          <p className="media-draft-status" role="status">{draftSaved ? '草稿自动保存在当前浏览器 · 仅当前账号可见' : '浏览器存储不可用，草稿暂存于本次页面；刷新前请复制提示词。'}</p>
+          <fieldset className="media-draft-fields" disabled={busy}>
           {source && <details className="media-source-box">
             <summary><span>{MEDIA_SOURCE_LABELS[source.sourceType] || "作品"} · 来源</span><strong>{source.title || "未命名内容"}</strong></summary>
             <div>{source.url && <a href={source.url} target="_blank" rel="noopener noreferrer">打开原链接 ↗</a>}</div>
@@ -353,7 +370,7 @@ function MediaStudioView({ draft, assets, jobs, configVersion, allowExternal = t
             <label className="media-field"><span className="sr-only">作品标题</span><input className="input" value={title} maxLength="160" placeholder="给这次生成取个容易找回的名字"
             onChange={(e) => { setTitle(e.target.value); submitKey.current = null; }} /></label>
           </details>
-          {!useLocal && <details className="media-reference-panel" defaultOpen={referenceIds.length > 0}>
+          {(!useLocal || referenceIds.length > 0) && <details key={consumedKey} className="media-reference-panel" open={referenceIds.length > 0 || undefined}>
             <summary>参考素材 <span>{referenceIds.length ? `已选 ${referenceIds.length} 项` : "按需添加"}</span></summary>
             <div className="media-reference-head">
               <strong>已选素材会随这次任务保存</strong>
@@ -378,14 +395,15 @@ function MediaStudioView({ draft, assets, jobs, configVersion, allowExternal = t
             </select>
           </label>}
           <div className="media-submit">
+            {submittedJobId && <p role="status">这份草稿已提交。修改内容后可再次生成，或新建草稿。</p>}
             {useLocal ? <React.Fragment>
               {localReferenceBlocked && <div className="media-config-callout" role="alert"><div><strong>当前草稿带有参考图，暂不能交给本机生成</strong><p>本机文字生图不会读取参考图。你可以明确只复用文字，或选择支持参考图的媒体 API。</p></div><button className="btn" onClick={() => {setReferenceIds([]);setSource(previous => previous ? {...previous,parentAssetId:''} : previous);setAcceptedCost(false);}}>仅使用文字，不使用参考图</button></div>}
               <p>电脑在线并运行接收程序后生成 1 张图片，结果自动存入私有作品库。当前支持文字生成，不会把来源效果图当作输入，也不支持参考图编辑。</p>
               <p className="muted">使用本机 Codex 用量，不是 ChatGPT 网页生图额度。不切换付费 API；套餐及 credits 的限制由本机检查，不满足条件时任务暂停。</p>
               {localError && <p className="media-error" role="alert">{localError}<button className="btn btn-ghost" onClick={loadLocalDevices}>重试</button></p>}
-              {!localDevices.length ? <button className="btn" onClick={() => setShowDevices(true)}>配对我的电脑</button> : <React.Fragment>
+              {!localDevices.length ? <button className="btn" onClick={() => onOpenSettings("devices")}>配对我的电脑</button> : <React.Fragment>
                 <label className="media-inline-check"><input type="checkbox" checked={acceptedCost} onChange={e => setAcceptedCost(e.target.checked)} />确认使用我自己的本机 Codex 用量生成 1 张</label>
-                <button className="btn btn-primary" disabled={busy || !acceptedCost || !prompt.trim() || localReferenceBlocked} onClick={submit}>{busy ? '提交中…' : '交给本机生成'}</button>
+                <button className="btn btn-primary" disabled={busy || !acceptedCost || !prompt.trim() || localReferenceBlocked || Boolean(submittedJobId)} onClick={submit}>{busy ? '提交中…' : '交给本机生成'}</button>
               </React.Fragment>}
               {submitError && <p className="media-error" role="alert">{submitError}</p>}
             </React.Fragment> : !mediaConfigured ? <div className="media-config-callout"><div><strong>还没有可用的媒体服务</strong><p>可以继续编辑草稿、上传和整理素材。第三方 API 服务与 ChatGPT 授权额度互不相通。</p></div><button className="btn" onClick={onOpenSettings}>去配置</button></div> : <React.Fragment>
@@ -394,11 +412,12 @@ function MediaStudioView({ draft, assets, jobs, configVersion, allowExternal = t
               : "已连接媒体服务。生成可能消耗第三方服务额度，当前接口未提供价格。"}</p>
             <label className="media-inline-check"><input type="checkbox" checked={acceptedCost}
               onChange={(e) => setAcceptedCost(e.target.checked)} />我确认提交本次生成，费用或额度消耗暂未公布</label>
-            <button className="btn btn-primary" disabled={busy || !acceptedCost}
+            <button className="btn btn-primary" disabled={busy || !acceptedCost || !prompt.trim() || Boolean(submittedJobId)}
               onClick={submit}>{busy ? "提交中…" : module === "image" ? "生成图片" : "生成视频"}</button>
             {submitError && <p className="media-error" role="alert">{submitError}</p>}
             </React.Fragment>}
           </div>
+          </fieldset>
         </section>
         {recentJobs.length > 0 && <aside className="media-job-list">
           <div className="media-job-head"><h2>生成任务</h2><button className="btn btn-ghost" onClick={onJobsChanged}><IconRefresh />刷新</button></div>
@@ -418,7 +437,6 @@ function MediaStudioView({ draft, assets, jobs, configVersion, allowExternal = t
           </div>)}
         </aside>}
       </div>
-      {showDevices && <DetailDrawer title="我的生图设备" onClose={() => setShowDevices(false)}><div className="detail-drawer-body"><LocalImageDevices /></div></DetailDrawer>}
     </div>
   );
 }

@@ -380,37 +380,8 @@ function SideNav({ section, onSectionChange, categories, activeCategory, onCateg
           <div className={"skin-panel" + (settingsOpen ? " open" : "")} style={panelStyle || undefined}>
             {catalogueSpaceSwitch && <>{catalogueSpaceSwitch}<div className="menu-divider"></div></>}
             {hasPersonalSpace && <button className="skin-option" onClick={() => { setSettingsOpen(false); onOpenAccountSettings(); }}>
-              <IconUser style={{ width: 15, height: 15 }} />账号与连接
+              <IconSettings style={{ width: 15, height: 15 }} />设置
             </button>}
-            {canUseFullApp && (
-              <button className="skin-option" onClick={() => { setSettingsOpen(false); onOpenAiSettings(); }}>
-                <IconSettings style={{ width: 15, height: 15 }} />AI 设置
-              </button>
-            )}
-            <button className="skin-option" onClick={onThemeToggle}>
-              <IconMoon style={{ width: 15, height: 15 }} />深色模式
-              <span className="menu-right">
-                <span className={"mini-switch" + (theme === "dark" ? " on" : "")}></span>
-              </span>
-            </button>
-            <button className="skin-option" onClick={onWoodFishToggle}>
-              <IconTimer style={{ width: 15, height: 15 }} />悬浮木鱼
-              <span className="menu-right">
-                <span className={"mini-switch" + (woodFishEnabled ? " on" : "")}></span>
-              </span>
-            </button>
-            <div className="skin-row">
-              <IconPalette />皮肤
-              <span className="menu-right">
-                {SKIN_LIST.map((s) => (
-                  <button key={s.id} title={s.name}
-                    className={"skin-dot-btn" + (skin === s.id ? " active" : "")}
-                    style={{ background: s.dot }}
-                    onClick={() => onSkinChange(s.id)}>
-                  </button>
-                ))}
-              </span>
-            </div>
             <div className="menu-divider"></div>
             {user ? (
               <button className="skin-option" onClick={onLogout}>

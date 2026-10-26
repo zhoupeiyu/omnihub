@@ -60,16 +60,7 @@ function getEmbedUrl(prompt) {
   return null;
 }
 
-function getPromptVariables(text) {
-  const vars = [];
-  const re = /\{([^{}\n]{1,24})\}/g;
-  let match;
-  while ((match = re.exec(text || ""))) {
-    const name = match[1].trim();
-    if (name && !vars.includes(name)) vars.push(name);
-  }
-  return vars.slice(0, 5);
-}
+function getPromptVariables(text) { return promptTemplateNames(text); }
 
 function getPromptMedia(prompt) {
   let entries = prompt.media;
@@ -123,24 +114,25 @@ function SnsPreview({ prompt }) {
 /** 灵感卡片 */
 function PromptCard({ prompt, onToggleFavorite, onCopy, onDelete, onOpen, onTryRun, onCreateMedia }) {
   const [imgFailed, setImgFailed] = usePromptState(false);
-  const hasImage = prompt.image && !imgFailed;
-  const score = getPromptAssetScore(prompt);
+  const cover = prompt.image || getPromptMedia(prompt)[0]?.url;
+  const hasImage = Boolean(cover && !imgFailed);
+  const hasExample = Boolean(prompt.image || getPromptMedia(prompt).length);
   const variables = getPromptVariables(prompt.text);
   const needsReview = !(prompt.note || prompt.successNotes || prompt.reproTips || prompt.tags || prompt.model);
 
   return (
     <div id={`asset-prompt-${prompt.id}`} className={"prompt-card prompt-asset-card" + (prompt.archived ? " archived-mask" : "")} onClick={() => onOpen(prompt)}>
       {hasImage ? (
-        <img className="prompt-cover" src={prompt.image} alt={prompt.title}
+        <img className="prompt-cover" src={cover} alt={prompt.title}
           loading="lazy" onError={() => setImgFailed(true)} />
       ) : (
         <div className="prompt-cover-placeholder"><IconSparkle /></div>
       )}
       <div className="prompt-body">
         <div className="prompt-card-top">
-          <span className={"asset-score" + (score >= 80 ? " high" : score < 55 ? " low" : "")}>{score}</span>
+          <span className="review-chip">{hasExample ? "有样例" : "待验证"}</span>
           {needsReview && !prompt.archived && <span className="review-chip">待提炼</span>}
-          {prompt.archived && <span className="review-chip muted">已归档</span>}
+          {Boolean(prompt.archived) && <span className="review-chip muted">已归档</span>}
           <button className={"star-btn" + (prompt.favorite ? " on" : "")} title={prompt.favorite ? "取消收藏" : "收藏"}
             onClick={(e) => { e.stopPropagation(); onToggleFavorite(prompt); }}>
             <IconStar filled={Boolean(prompt.favorite)} />
@@ -159,13 +151,13 @@ function PromptCard({ prompt, onToggleFavorite, onCopy, onDelete, onOpen, onTryR
           {prompt.snsType && <span className="sns-chip">{SNS_TYPE_NAMES[prompt.snsType] || "链接"}</span>}
         </div>
         <div className="prompt-actions">
-          <button className="prompt-copy"
+          {promptCreationModule(prompt) && <button className="prompt-copy"
             onClick={(e) => { e.stopPropagation(); onCreateMedia(prompt); }}>
-            <IconPalette />生成图片
-          </button>
+            <IconPalette />{promptCreationModule(prompt) === 'seedance' ? '创作视频' : '生成图片'}
+          </button>}
           <button className="prompt-copy"
             onClick={(e) => { e.stopPropagation(); onTryRun(prompt); }}>
-            <IconSend />试跑
+            <IconSend />{variables.length ? "填写模板" : "带入对话"}
           </button>
           <button className="prompt-copy"
             onClick={(e) => { e.stopPropagation(); onCopy(prompt.text); }}>
@@ -193,13 +185,13 @@ function DetailField({ label, value }) {
 }
 
 function PromptAssetSummary({ prompt }) {
-  const score = getPromptAssetScore(prompt);
+  const hasExample = Boolean(prompt.image || getPromptMedia(prompt).length);
   const variables = getPromptVariables(prompt.text);
   return (
     <div className="asset-summary-card">
       <div>
-        <span>复用评分</span>
-        <strong>{score}</strong>
+        <span>效果参考</span>
+        <strong>{hasExample ? "有样例" : "待验证"}</strong>
       </div>
       <div>
         <span>变量</span>
@@ -207,7 +199,7 @@ function PromptAssetSummary({ prompt }) {
       </div>
       <div>
         <span>状态</span>
-        <strong>{prompt.archived ? "归档" : prompt.favorite ? "高价值" : "可复用"}</strong>
+        <strong>{prompt.archived ? "已归档" : prompt.favorite ? "已收藏" : "已保存"}</strong>
       </div>
       {variables.length > 0 && (
         <div className="asset-summary-vars">
@@ -219,13 +211,13 @@ function PromptAssetSummary({ prompt }) {
 }
 
 /** 抽屉：mode="view" 详情 / mode="edit" 编辑 / mode="create" 新建 */
-function PromptDrawer({ prompt, initialMode, onClose, onSave, onCopy, onTryRun, onCreateMedia, onToggleFavorite, onToggleArchive, showToast }) {
+function PromptDrawer({ prompt, initialMode, initialForm, onClose, onSave, onCopy, onTryRun, onCreateMedia, onToggleFavorite, onToggleArchive, showToast }) {
   const [mode, setMode] = usePromptState(initialMode);
   const [form, setForm] = usePromptState(() => ({
     title: "", text: "", negativeText: "", category: PROMPT_CATEGORIES[0],
     model: "", tags: "", snsUrl: "", image: "",
     note: "", successNotes: "", failureNotes: "", reproTips: "",
-    ...(prompt || {}),
+    ...(initialForm || {}), ...(prompt || {}),
   }));
   const [error, setError] = usePromptState("");
   const [saving, setSaving] = usePromptState(false);
@@ -412,8 +404,8 @@ function PromptDrawer({ prompt, initialMode, onClose, onSave, onCopy, onTryRun, 
           {isView ? (
             <React.Fragment>
               <button className="btn" onClick={() => onCopy(form.text)}><IconCopy />复制</button>
-              <button className="btn" onClick={() => onCreateMedia(form)}><IconPalette />用于创作</button>
-              <button className="btn btn-primary" onClick={() => onTryRun(form)}><IconSend />试跑</button>
+              {promptCreationModule(form) && <button className="btn" onClick={() => onCreateMedia(form)}><IconPalette />{promptCreationModule(form) === "seedance" ? "创作视频" : "生成图片"}</button>}
+              <button className="btn btn-primary" onClick={() => onTryRun(form)}><IconSend />{getPromptVariables(form.text).length ? "填写模板" : "带入对话"}</button>
               <span className="spacer"></span>
               {prompt && (
                 <button className="btn btn-ghost" onClick={() => onToggleArchive(prompt)}>

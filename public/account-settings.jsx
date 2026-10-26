@@ -1,4 +1,8 @@
-function AccountSettings({ user, onClose }) {
+function AccountSettingsFrame({ embedded, children, ...props }) {
+  return embedded ? <React.Fragment>{children}</React.Fragment> : <DetailDrawer {...props}>{children}</DetailDrawer>;
+}
+
+function AccountSettings({ user, onClose, embedded = false }) {
   const [xAccount, setXAccount] = React.useState(null);
   const [connections, setConnections] = React.useState(null);
   const [xError, setXError] = React.useState('');
@@ -118,8 +122,8 @@ function AccountSettings({ user, onClose }) {
     return { label: device.lastSeenAt ? '已接入' : '尚未接入', detail: device.lastSeenAt ? `最近在线 ${formatTime(device.lastSeenAt)}` : `有效至 ${formatTime(device.expiresAt)}`, inactive: false };
   };
 
-  return <DetailDrawer title="账号与连接" onClose={onClose} className="account-settings">
-    <div className="detail-drawer-body account-settings-body">
+  return <AccountSettingsFrame embedded={embedded} title="账号与同步" onClose={onClose} className="account-settings">
+    <div className={(embedded ? "" : "detail-drawer-body ") + "account-settings-body"}>
       <p className="account-settings-intro">当前空间：<strong>{connectionUser?.username || '当前用户'}</strong>。原始收藏、未发布媒体与草稿仅属于这个账号；只有已发布的成果可公开浏览。</p>
       {notice && <p className="account-notice" role="status">{notice}</p>}
 
@@ -157,7 +161,7 @@ function AccountSettings({ user, onClose }) {
         </>}
       </section>
 
-      <LocalImageDevices />
+      {!embedded && <LocalImageDevices />}
       <section className="connection-section chatgpt-section">
         <div className="connection-section-heading"><div><span className="connection-eyebrow">官方托管能力</span><h3>ChatGPT 连接</h3></div></div>
         {connectionsError ? <p className="muted">个人连接状态暂时无法读取；不会因此影响 X 连接或本地整理的已有配置。</p> : !connections?.chatgpt ? <p className="muted">正在读取 ChatGPT 连接状态…</p> : <>
@@ -166,5 +170,5 @@ function AccountSettings({ user, onClose }) {
         </>}
       </section>
     </div>
-  </DetailDrawer>;
+  </AccountSettingsFrame>;
 }

@@ -238,16 +238,15 @@ function FocusTimerTool({ showToast }) {
 
   function start() {
     clearInterval(timerRef.current);
+    const deadline = Date.now() + minutes * 60 * 1000;
     setSecondsLeft(minutes * 60);
     timerRef.current = setInterval(() => {
-      setSecondsLeft((prev) => {
-        if (prev === null || prev <= 1) {
-          clearInterval(timerRef.current);
-          if (prev === 1) showToast("时间到！休息一下吧");
-          return prev === null ? null : 0;
-        }
-        return prev - 1;
-      });
+      const remaining = Math.max(0, Math.ceil((deadline - Date.now()) / 1000));
+      setSecondsLeft(remaining);
+      if (remaining === 0) {
+        clearInterval(timerRef.current);
+        showToast("时间到！休息一下吧");
+      }
     }, 1000);
   }
 

@@ -607,7 +607,7 @@ function KnowledgeToolFilter({ value, options, onChange, active }) {
   </>;
 }
 
-function KnowledgeLibraryView({ items, query, onQueryChange, active = true, requestedId, onRequestedIdHandled, onCorrectClassification, onOpenPrompt }) {
+function KnowledgeLibraryView({ items, query, onQueryChange, active = true, requestedId, onRequestedIdHandled, onCorrectClassification, onOpenPrompt, onEdit }) {
   const [kind, setKind] = useRefineryState('all');
   const [tool, setTool] = useRefineryState('all');
   const [copyResult, setCopyResult] = useRefineryState('');
@@ -734,7 +734,8 @@ function KnowledgeLibraryView({ items, query, onQueryChange, active = true, requ
       {!detail ? <div className="knowledge-loading" role="status"><p>{failedDetail ? '文章暂时无法读取' : visible.length ? '正在读取文章…' : searching ? '正在搜索正文…' : '选择文章开始阅读'}</p>{failedDetail && <button className="btn" onClick={() => setRetry(value => value + 1)}>重新加载</button>}</div> : <div className={`knowledge-reading-layout${headings.length ? ' has-toc' : ''}`}>
         <header className="knowledge-reader-head"><div className="knowledge-breadcrumb">{detail.type === 'source_archive' ? '原文归档' : `${detail.type === 'method' ? '方法技巧' : '综合知识'} · ${detail.tags?.[0] || '专题'}`}</div>
           <h1 tabIndex={-1}>{detail.title}</h1>{detail.type !== 'source_archive' && !knowledgeSummaryIsRepeated(detail) && <p>{detail.summary}</p>}
-          <div className="knowledge-reader-meta"><span className="knowledge-state">{detail.type === 'source_archive' ? '保留原文' : detail.type === 'method' ? '来源整理 · 未实测' : '来源核验'}</span><span>{detail.sources.length} 个来源</span>
+          <div className="knowledge-reader-meta"><span className="knowledge-state">{detail.type === 'manual' ? '个人整理' : detail.type === 'source_archive' ? '保留原文' : detail.type === 'method' ? '来源整理 · 未实测' : '来源核验'}</span><span>{detail.sources.length} 个来源</span>
+            {detail.manualAssetId && onEdit && <button className="btn btn-ghost" onClick={() => onEdit(detail)}>编辑文章</button>}
             {detail.sourceInboxId && onCorrectClassification && <button className="btn btn-ghost" onClick={() => onCorrectClassification({sourceInboxId:detail.sourceInboxId})}>调整归类</button>}
             {detail.hasPrompt && <button className="btn btn-ghost" onClick={() => onOpenPrompt(detail.sourceInboxId)}>查看提取的提示词 →</button>}
           </div>
@@ -970,7 +971,7 @@ function PromptLibraryCard({ item, selected, onOpen, onPreview, active = true })
   </article>;
 }
 
-function PromptDetail({ item, initialIndex, onClose, onCorrectClassification, onOpenMethod, onCreateMedia, widthPreference }) {
+function PromptDetail({ item, initialIndex, onClose, onCorrectClassification, onOpenMethod, onCreateMedia, onUsePrompt, onEdit, widthPreference }) {
   const [copyState, setCopyState] = useRefineryState("");
   const content = promptReadingContent(item.text, item.curated);
   const copyTimer = useRefineryRef(null);
@@ -986,9 +987,11 @@ function PromptDetail({ item, initialIndex, onClose, onCorrectClassification, on
   };
   return <DetailDrawer id="prompt-detail" className="prompt-refinery-detail" title="提示词详情" onClose={onClose} resizable widthPreference={widthPreference}>
     <div className="detail-drawer-body prompt-detail-body"><span className="prompt-detail-kind">{item.category}</span><h2>{item.title}</h2>
-      {onCreateMedia && ['图像生成', '视频生成'].includes(item.category) && <div className="prompt-detail-actions"><button className="btn btn-primary" onClick={() => onCreateMedia(item)}>
-          {item.category === '视频生成' ? '用此提示词创作视频' : '用此提示词生图'}
+      {onCreateMedia && promptCreationModule(item) && <div className="prompt-detail-actions"><button className="btn btn-primary" onClick={() => onCreateMedia(item)}>
+          {promptCreationModule(item) === 'seedance' ? '用此提示词创作视频' : '用此提示词生图'}
         </button></div>}
+      {onUsePrompt && <button className="btn" onClick={() => onUsePrompt(item)}>{promptTemplateNames(item.text).length ? '填写模板' : '使用提示词'}</button>}
+      {item.manualAssetId && onEdit && <button className="btn btn-ghost" onClick={() => onEdit(item)}>编辑提示词</button>}
       {item.methodId && <button className="btn btn-ghost" onClick={() => onOpenMethod(item.methodId)}>阅读相关方法技巧 →</button>}
       <div className="prompt-detail-tags">{promptDisplayTags(item.tags).map(tag => <span key={tag}>{tag}</span>)}</div>
       <PromptExampleGallery item={item} initialIndex={initialIndex} />
@@ -999,8 +1002,8 @@ function PromptDetail({ item, initialIndex, onClose, onCorrectClassification, on
           <a key={`${url}-${index}`} href={url} target="_blank" rel="noopener noreferrer" title={url}>t.co{content.links.length > 1 ? ` · ${index + 1}` : ''} <span aria-hidden="true">↗</span></a>)}</div>}
       </section>
       {(item.sourceUrl || onCorrectClassification) && <footer className="prompt-detail-source">
-        {item.sourceUrl && <a href={item.sourceUrl} target="_blank" rel="noopener noreferrer">查看 X 原帖 <span aria-hidden="true">↗</span></a>}
-        {onCorrectClassification && <button className="btn btn-ghost" onClick={() => onCorrectClassification({sourceInboxId:item.sourceInboxId})}>调整归类</button>}</footer>}
+        {item.sourceUrl && <a href={item.sourceUrl} target="_blank" rel="noopener noreferrer">查看原始来源 <span aria-hidden="true">↗</span></a>}
+        {item.sourceInboxId && onCorrectClassification && <button className="btn btn-ghost" onClick={() => onCorrectClassification({sourceInboxId:item.sourceInboxId})}>调整归类</button>}</footer>}
     </div>
   </DetailDrawer>;
 }
@@ -1049,7 +1052,7 @@ function observePromptMasonry(grid) {
   };
 }
 
-function PromptLibraryView({ active = true, items, query, onQueryChange, onCorrectClassification, onOpenMethod, onCreateMedia, requestedSourceId, onRequestedSourceHandled }) {
+function PromptLibraryView({ active = true, items, query, onQueryChange, onCorrectClassification, onOpenMethod, onCreateMedia, onUsePrompt, onEdit, requestedId, onRequestedIdHandled, requestedSourceId, onRequestedSourceHandled }) {
   const [category, setCategory] = useRefineryState("all");
   const [subject, setSubject] = useRefineryState("all");
   const [style, setStyle] = useRefineryState("all");
@@ -1074,6 +1077,13 @@ function PromptLibraryView({ active = true, items, query, onQueryChange, onCorre
     setPreview({ item, index: nextIndex });
   };
   const previewMedia = preview ? inboxMedia(preview.item) : [];
+  useRefineryEffect(() => {
+    if (!requestedId) return;
+    const item = items.find(row => row.id === requestedId);
+    if (!item) return;
+    setCategory('all'); setSubject('all'); setStyle('all'); setNavigationNotice(''); openDetail(item,0);
+    onRequestedIdHandled?.();
+  }, [requestedId,items]);
   useRefineryEffect(() => {
     if (!requestedSourceId) return;
     const item = items.find(x => x.sourceInboxId === requestedSourceId);
@@ -1138,7 +1148,7 @@ function PromptLibraryView({ active = true, items, query, onQueryChange, onCorre
       {!visible.length && <div className="prompt-empty"><p>没有匹配的提示词</p><button className="btn" onClick={resetFilters}>查看全部提示词</button></div>}
       </div>
     </div>
-    {active && selected && <PromptDetail key={`${selected.item.id}-${selected.index}`} item={selected.item} initialIndex={selected.index} onClose={closeDetail} onCorrectClassification={onCorrectClassification} onOpenMethod={onOpenMethod} onCreateMedia={onCreateMedia} widthPreference={detailWidth} />}
+    {active && selected && <PromptDetail key={`${selected.item.id}-${selected.index}`} item={selected.item} initialIndex={selected.index} onClose={closeDetail} onCorrectClassification={onCorrectClassification} onOpenMethod={onOpenMethod} onCreateMedia={onCreateMedia} onUsePrompt={onUsePrompt ? item => {closeDetail(); onUsePrompt(item);} : undefined} onEdit={onEdit ? item => {closeDetail(); onEdit(item);} : undefined} widthPreference={detailWidth} />}
     {active && preview && previewMedia.length > 0 && <PromptMediaViewer media={previewMedia}
       index={promptMediaIndex(preview.index, previewMedia.length)}
       onSelect={index => setPreview(current => current ? {...current, index} : null)} onClose={() => setPreview(null)} />}

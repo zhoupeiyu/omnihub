@@ -429,7 +429,7 @@ function ContentDraftDetail({detail,onClose}) {
   </DetailDrawer>;
 }
 
-function ContentPipelineStatus({ onCorrectClassification }) {
+function ContentPipelineStatus({ onCorrectClassification, onOpenSettings, settingsOnly = false, active = true }) {
   const [state,setState]=useAppState(null);
   const [error,setError]=useAppState('');
   const [busy,setBusy]=useAppState(false);
@@ -438,11 +438,12 @@ function ContentPipelineStatus({ onCorrectClassification }) {
   const [detail,setDetail]=useAppState(null);
   async function openDraft(sourceId){setError('');try{setDetail(await api(`/api/content-pipeline/results/${sourceId}`));}catch(e){setError(e.message);}}
   useAppEffect(()=>{
+    if (!active) return;
     let alive=true;
     const load=()=>api('/api/content-pipeline').then(value=>{if(alive)setState(value);}).catch(err=>{if(alive)setError(err.message);});
     load();const timer=window.setInterval(load,15000);
     return ()=>{alive=false;window.clearInterval(timer);};
-  },[]);
+  },[active]);
   async function act(action,jobId) {
     setBusy(true);setError('');
     try {setState(await api('/api/content-pipeline',{method:'POST',body:{action,...(jobId?{jobId}:{}),...(action==='enable'?{includePrivate,sampleSize}:{})}}));
@@ -451,6 +452,31 @@ function ContentPipelineStatus({ onCorrectClassification }) {
   }
   const labels={queued:'待整理',running:'整理中',done:'已整理',review:'待复核',retry:'等待重试',protected:'已保护或跳过'};
   const errors={needs_material:'缺少正文或必要素材',uncertain:'归类不确定',unsupported:'原文不足以支持整理结论',synthesis_unsupported:'综合文章需要复核',source_too_long:'长文需要分段整理',budget:'达到调用上限，稍后继续',configuration:'模型未配置',upstream:'模型连接失败',invalid_result:'模型结果未通过校验',stale:'来源或人工归类已改变',internal:'处理异常'};
+  if (settingsOnly) return <div className="pipeline-settings">
+    <h2>收藏整理</h2>
+    <p className="settings-description">控制哪些收藏交给模型处理、每轮处理多少条。启用后才会开始调用模型。</p>
+    {error && <p className="auth-error" role="alert">{error}</p>}
+    {!state && !error && <p role="status">正在读取整理设置…</p>}
+    {!state && error && <button className="btn" onClick={() => {setError(''); api('/api/content-pipeline').then(setState).catch(e=>setError(e.message));}}>重新加载</button>}
+    {state && <>
+      <div className="pipeline-summary"><strong>{state.enabled ? '自动整理已启用' : '自动整理已暂停'}</strong>
+        <p>{state.model.configured ? `当前模型：${state.model.model}` : state.model.provider === 'local' ? '请在「账号与同步」连接本机整理设备' : '服务器整理模型尚未配置'}</p>
+        <p>最近 24 小时调用 {state.callsToday} / {state.limits.dailyCalls} 次</p>
+      </div>
+      {!state.enabled&&<div className="pipeline-options" style={{display:'flex',gap:16,flexWrap:'wrap',alignItems:'center'}}>
+        <label><input type="checkbox" checked={includePrivate} onChange={e=>setIncludePrivate(e.target.checked)} /> 允许现有模型服务处理私有及未公开收藏</label>
+        <label><span>本轮范围</span><select className="select" aria-label="本轮整理数量" value={sampleSize} onChange={e=>setSampleSize(Number(e.target.value))}>
+          <option value={50}>先整理 50 条，完成后暂停</option><option value={100}>先整理 100 条，完成后暂停</option><option value={0}>全部及以后新增收藏</option>
+        </select></label>
+      </div>}
+      <div className="pipeline-actions">
+        <button className="btn" disabled={busy||(!state.enabled&&!state.model.configured)} onClick={()=>act(state.enabled?'pause':'enable')}>{state.enabled?'暂停整理':'启用自动整理'}</button>
+        <button className="btn" disabled={busy} onClick={()=>act('enqueue')}>登记已有收藏</button>
+        <button className="btn" disabled={busy||!state.enabled} onClick={()=>act('run')}>处理下一条</button>
+      </div>
+      <p className="settings-description">人工归类优先保留。整理结果供本人预览，发布结果不会公开原始收藏。AIHOT 资讯不参与自动整理。</p>
+    </>}
+  </div>;
   return <details style={{margin:'0 0 16px',padding:'12px 0',borderBottom:'1px solid var(--border)'}}>
     <summary style={{cursor:'pointer',fontSize:13,color:'var(--text-secondary)'}}>
       收藏整理 · {state?.enabled?'自动运行':'已暂停'}{state?` · 已整理 ${state.counts.done||0} · 待复核 ${state.counts.review||0}`:''}
@@ -460,17 +486,7 @@ function ContentPipelineStatus({ onCorrectClassification }) {
       <p>保存原文 → 分类 → 分项评分 → 同问题归组 → 中文整理与引用核验。人工归类始终优先。</p>
       <p>{state.model.configured?`生成模型 ${state.model.model}`:'尚未配置生成模型'} · 最近 24 小时 {state.callsToday}/{state.limits.dailyCalls} 次调用</p>
       <p>只整理个人收藏，AIHOT 资讯保持原样。整理结果先供本人预览，发布不改变原文。</p>
-      {!state.enabled&&<div style={{display:'flex',gap:16,flexWrap:'wrap',alignItems:'center'}}>
-        <label><input type="checkbox" checked={includePrivate} onChange={e=>setIncludePrivate(e.target.checked)} /> 允许现有模型服务处理私有及未公开收藏</label>
-        <label>本轮范围 <select aria-label="本轮整理数量" value={sampleSize} onChange={e=>setSampleSize(Number(e.target.value))}>
-          <option value={50}>先整理 50 条，完成后暂停</option><option value={100}>先整理 100 条，完成后暂停</option><option value={0}>全部及以后新增收藏</option>
-        </select></label>
-      </div>}
-      <div style={{display:'flex',gap:8,flexWrap:'wrap',margin:'12px 0'}}>
-        <button className="btn" disabled={busy||(!state.enabled&&!state.model.configured)} onClick={()=>act(state.enabled?'pause':'enable')}>{state.enabled?'暂停整理':'启用自动整理'}</button>
-        <button className="btn" disabled={busy} onClick={()=>act('enqueue')}>登记已有收藏</button>
-        <button className="btn" disabled={busy||!state.enabled} onClick={()=>act('run')}>处理下一条</button>
-      </div>
+      <div className="pipeline-actions"><button className="btn" onClick={onOpenSettings}>整理设置</button></div>
       <p>待整理 {state.counts.queued||0} · 等待重试 {state.counts.retry||0} · 已保护或跳过 {state.counts.protected||0}</p>
       {!!state.selected?.length&&<details><summary>精选待读 · 达到 {state.selectionScore} 分并通过核验 · 最多 50 条</summary>
         <ul>{state.selected.map(item=><li key={item.sourceId}><button className="btn btn-ghost" onClick={()=>openDraft(item.sourceId)}>{item.title} · {item.score} 分</button><p>{item.summary}</p></li>)}</ul>
@@ -594,7 +610,7 @@ function writeFeedMode(value) {
 function FeedView(props) {
   const {mode,onModeChange}=props;
   useAppEffect(()=>{const changed=()=>{if(window.location.hash.split('?')[0]==='#feed')onModeChange(readFeedMode());};
-    window.addEventListener('hashchange',changed);return()=>window.removeEventListener('hashchange',changed);},[onModeChange]);
+    changed();window.addEventListener('hashchange',changed);return()=>window.removeEventListener('hashchange',changed);},[onModeChange,props.active]);
   const setMode=value=>{
     onModeChange(value);
     writeFeedMode(value);
@@ -606,8 +622,8 @@ function FeedView(props) {
     <WorkspacePanel active={props.active && (mode==='aihot'||!props.canUseMonitoring)}>
       <AihotFeedView {...props} active={props.active && (mode==='aihot'||!props.canUseMonitoring)}/>
     </WorkspacePanel>
-    {props.canUseMonitoring && mode==='accounts' && <XWatchAccountsView active={props.active}/>}
-    {props.canUseMonitoring && ['following','hot'].includes(mode) && <XWatchView active={props.active} mode={mode} query={props.query} onManage={()=>setMode('accounts')}/>}
+    {props.canUseMonitoring && <WorkspacePanel active={props.active && mode==='accounts'}><XWatchAccountsView active={props.active && mode==='accounts'}/></WorkspacePanel>}
+    {props.canUseMonitoring && <WorkspacePanel active={props.active && ['following','hot'].includes(mode)}><XWatchView active={props.active && ['following','hot'].includes(mode)} mode={mode} query={props.query} onManage={()=>setMode('accounts')}/></WorkspacePanel>}
   </div>;
 }
 
@@ -833,26 +849,38 @@ function AihotFeedView({ active = true, query, onSaveToInbox, onCorrectClassific
 
 /** 工具箱模块 */
 function ToolsView({ showToast }) {
-  return (
-    <div>
-      <SectionHead icon={<IconWrench />} title="工具箱" count={7} />
-      <div className="tools-board">
-        <div className="tools-main">
-          <PdfCompressTool showToast={showToast} />
-          <div className="tools-quick-grid">
-            <PasswordTool showToast={showToast} />
-            <ColorTool showToast={showToast} />
-            <DiceTool />
-            <FocusTimerTool showToast={showToast} />
-          </div>
-        </div>
-        <div className="tools-aside">
-          <TimestampTool showToast={showToast} />
-          <WordCountTool />
+  const [query, setQuery] = useAppState('');
+  const needle = query.trim().toLowerCase();
+  const catalog = [
+    ['pdf', 'PDF 压缩 文件 体积 文档'], ['password', '密码 随机 安全 password'],
+    ['color', '颜色 转换 色值 hex rgb'], ['dice', '骰子 随机 抽签'],
+    ['timer', '专注 倒计时 番茄钟 timer'], ['timestamp', '时间戳 日期 转换 timestamp'],
+    ['words', '字数 统计 文字 文本 word'],
+  ];
+  const visible = new Set(catalog.filter(([,label]) => !needle || label.toLowerCase().includes(needle)).map(([id]) => id));
+  const quick = ['password','color','dice','timer'];
+  return <div className="tools-page">
+    <div className="tools-heading"><SectionHead icon={<IconWrench />} title="工具箱" count={visible.size} />
+      <label className="tools-search"><IconSearch /><input type="search" aria-label="搜索工具" value={query}
+        placeholder="搜索工具，如 PDF、字数、计时…" onChange={event => setQuery(event.target.value)} /></label>
+    </div>
+    {!visible.size && <EmptyState message="没有匹配的工具" hint="试试工具名称或用途，例如颜色、时间戳" />}
+    <div className="tools-board" hidden={!visible.size}>
+      <div className="tools-main" hidden={!['pdf',...quick].some(id => visible.has(id))}>
+        <div hidden={!visible.has('pdf')}><PdfCompressTool showToast={showToast} /></div>
+        <div className="tools-quick-grid" hidden={!quick.some(id => visible.has(id))}>
+          <div hidden={!visible.has('password')}><PasswordTool showToast={showToast} /></div>
+          <div hidden={!visible.has('color')}><ColorTool showToast={showToast} /></div>
+          <div hidden={!visible.has('dice')}><DiceTool /></div>
+          <div hidden={!visible.has('timer')}><FocusTimerTool showToast={showToast} /></div>
         </div>
       </div>
+      <div className="tools-aside" hidden={!['timestamp','words'].some(id => visible.has(id))}>
+        <div hidden={!visible.has('timestamp')}><TimestampTool showToast={showToast} /></div>
+        <div hidden={!visible.has('words')}><WordCountTool /></div>
+      </div>
     </div>
-  );
+  </div>;
 }
 
 // Mount only visited panels. Hidden panels retain filters and scroll, but not media playback.
@@ -916,6 +944,9 @@ function Workspace({ user, onUserChange, showToast, toast }) {
   const [promptLibrary, setPromptLibrary] = useAppState([]);
   const [requestedKnowledgeId, setRequestedKnowledgeId] = useAppState(null);
   const [requestedPromptSourceId, setRequestedPromptSourceId] = useAppState(null);
+  const [requestedPromptId, setRequestedPromptId] = useAppState(null);
+  const [pendingLibraryTarget, setPendingLibraryTarget] = useAppState(null);
+  const [chatVisited, setChatVisited] = useAppState(false);
   const [classificationTarget, setClassificationTarget] = useAppState(null);
   const [classificationRevision, setClassificationRevision] = useAppState(0);
   const [favorites, setFavorites] = useAppState([]);
@@ -953,6 +984,14 @@ function Workspace({ user, onUserChange, showToast, toast }) {
   const [sidebarCollapsed, setSidebarCollapsed] = useAppState(() => window.matchMedia("(max-width: 860px)").matches);
   const [moduleLabels, setModuleLabels] = useAppState(false);
   const canUseFullApp = Boolean(user && user.fullAccess);
+  useAppEffect(() => {
+    if (!canUseFullApp || user?.hasAiConfig != null) return;
+    const controller = new AbortController();
+    api('/api/ai-config',{signal:controller.signal}).then(config => {
+      if (!controller.signal.aborted) setHasAiConfig(Boolean(config.hasKey));
+    }).catch(() => {});
+    return () => controller.abort();
+  }, [user?.id,user?.hasAiConfig,canUseFullApp]);
   const personalAccess = Boolean(user && user.personalAccess !== false);
   const catalogueScope = window.omnihubCatalogueScope?.() || 'public';
   const personalCatalogue = personalAccess && catalogueScope === 'mine';
@@ -1059,19 +1098,25 @@ function Workspace({ user, onUserChange, showToast, toast }) {
     return api("/api/media/jobs").then((rows) => { dataCache.applyCollections([['mediaJobs', rows]], requestVersion); return rows; });
   }
   function openStudio(next = {}) {
+    if (studioDraftHasContent(readStudioDraft(user?.id)) && !confirm('创作台还有一份草稿。用这次内容替换它吗？')) return;
     setStudioDraft({ ...next, key: crypto.randomUUID() });
     setModal(null);
     setSection("studio");
     setQuery("", "studio");
   }
   function createFromPrompt(prompt) {
+    if (!prompt.templateFilled && promptTemplateNames(prompt.text).length) { setModal({type:'prompt-use',item:prompt,origin:'manual'}); return; }
+    if (!promptCreationModule(prompt)) { tryRunPrompt(prompt); return; }
     openStudio({
-      sourceType: "prompt", sourceId: prompt.id, title: prompt.title,
+      sourceType: "prompt", sourceId: prompt.manualAssetId || prompt.id, title: prompt.title,
+      targetModule:promptCreationModule(prompt),
       prompt: prompt.promptTextClean || prompt.promptTextRaw || prompt.text || "",
       image: prompt.image, media: prompt.media, url: prompt.sourceUrl || prompt.snsUrl || "",
     });
   }
   function createFromLibraryPrompt(item) {
+    if (!item.templateFilled && promptTemplateNames(item.text).length) { setModal({type:'prompt-use',item,origin:'library'}); return; }
+    if (item.manualAssetId) { createFromPrompt(item); return; }
     const sourceId = Number(item.sourceInboxId);
     const linked = canUseFullApp && Number.isSafeInteger(sourceId) && sourceId > 0;
     openStudio({
@@ -1275,6 +1320,17 @@ function Workspace({ user, onUserChange, showToast, toast }) {
   }
 
   function jumpToAsset(targetType, targetId) {
+    if (targetType === 'prompt' || targetType === 'knowledge') {
+      const nextSection = targetType === 'prompt' ? 'promptLibrary' : 'knowledgeLibrary';
+      const id = `manual-${targetType}-${targetId}`;
+      if (window.omnihubCatalogueScope() !== 'mine') {
+        history.replaceState(null,'',`#${nextSection}?space=mine`);
+        dataCache.invalidate(); setKnowledgeLibrary([]); setPromptLibrary([]); setDataLoads({});
+      }
+      setPendingLibraryTarget({type:targetType,id});
+      setSection(nextSection); setQuery('',nextSection); setPublicRetryKey(key => key + 1);
+      return;
+    }
     const tab = targetType === "prompt" ? "prompts" : targetType === "resource" ? "resources" : "knowledge";
     setAssetTab(tab);
     setSection("assets");
@@ -1288,13 +1344,52 @@ function Workspace({ user, onUserChange, showToast, toast }) {
     setPendingAssetTarget(null);
   }, [section, sectionDataReady, pendingAssetTarget, assetTab]);
 
+  useAppEffect(() => {
+    if (!pendingLibraryTarget) return;
+    const {type,id} = pendingLibraryTarget;
+    const rows = type === 'prompt' ? promptLibrary : knowledgeLibrary;
+    if (!rows.some(item => item.id === id)) return;
+    if (type === 'prompt') setRequestedPromptId(id); else setRequestedKnowledgeId(id);
+    setPendingLibraryTarget(null);
+  }, [pendingLibraryTarget,promptLibrary,knowledgeLibrary]);
+
+  async function editLibraryPrompt(item) {
+    try {
+      const rows = await api('/api/prompts');
+      const prompt = rows.find(row => row.id === item.manualAssetId);
+      if (!prompt) throw new Error('这条提示词已不存在，请刷新列表。');
+      setModal({type:'drawer',prompt,mode:'edit',returnLibrary:true});
+    } catch(error) { showToast(error.message); }
+  }
+  async function editLibraryKnowledge(item) {
+    try { setModal({type:'knowledge',item:await api(`/api/knowledge/${item.manualAssetId}`),returnLibrary:true}); }
+    catch(error) { showToast(error.message); }
+  }
+  function saveChatResult(message, index, targetType) {
+    const title = message.content.split('\n').find(line => line.trim())?.replace(/^#+\s*/, '').slice(0,80) || '提炼结果';
+    const savedId = message.savedAssets?.[targetType];
+    if (savedId) { jumpToAsset(targetType,savedId); return; }
+    const sourceUrl = message.source?.url || '';
+    const provenance = {sourceUrl,sourceAuthor:message.source?.author || '',sourceContent:message.source?.content || ''};
+    setModal(targetType === 'prompt'
+      ? {type:'drawer',prompt:null,initialForm:{title,text:message.content,category:'学习',snsUrl:sourceUrl,...provenance,...(message.source?.id ? {sourceInboxId:message.source.id} : {}),note:'AI 提炼结果，需结合原文核对。'},mode:'create',chatIndex:index,returnLibrary:true}
+      : {type:'knowledge',item:null,initialForm:{title,body:message.content,summary:'',tags:'',...provenance},chatIndex:index,returnLibrary:true});
+  }
+  function recordChatSave(targetType,id) {
+    if (modal?.chatIndex == null) return;
+    setChatMessages(rows => rows.map((row,index) => index === modal.chatIndex ? {...row,savedAssets:{...row.savedAssets,[targetType]:id}} : row));
+  }
+  useAppEffect(() => {
+    if (section === 'chat' && canUseFullApp) { setChatVisited(true); dataCache.load('inbox'); }
+  }, [section,canUseFullApp,dataCache]);
+
   function dispatchInbox(id, targetType, data) {
     return api(`/api/inbox/${id}/dispatch`, { method: "POST", body: { targetType, data } })
       .then((result) => {
         setInboxItems((prev) => prev.filter((item) => item.id !== id));
-        if (targetType === "prompt") setPrompts((prev) => [result.target, ...prev]);
-        else if (targetType === "resource") setFavorites((prev) => [result.target, ...prev]);
-        else setKnowledge((prev) => [result.target, ...prev]);
+        if (targetType === "prompt") setPrompts((prev) => [result.target, ...prev.filter(item => item.id !== result.targetId)]);
+        else if (targetType === "resource") setFavorites((prev) => [result.target, ...prev.filter(item => item.id !== result.targetId)]);
+        else setKnowledge((prev) => [result.target, ...prev.filter(item => item.id !== result.targetId)]);
         showToast(`已存为${INBOX_TYPE_LABELS[targetType]}`);
         jumpToAsset(targetType, result.targetId);
         return result;
@@ -1311,7 +1406,9 @@ function Workspace({ user, onUserChange, showToast, toast }) {
         ? prev.map((item) => item.id === id ? saved : item)
         : [saved, ...prev]);
       setModal(null);
-      showToast(id ? "知识资产已更新" : "知识资产已保存");
+      recordChatSave('knowledge',saved.id);
+      showToast(id ? "知识库文章已更新" : "已保存到知识库");
+      jumpToAsset('knowledge',saved.id);
       return saved;
     });
   }
@@ -1366,7 +1463,9 @@ function Workspace({ user, onUserChange, showToast, toast }) {
           ? { ...p, ...form, snsUrlNormalized: result.snsUrlNormalized || "", snsType: result.snsType || "" }
           : p));
         setModal(null);
-        showToast("已保存修改");
+        showToast("提示词已更新");
+        jumpToAsset('prompt',id);
+        return result;
       });
     }
     return api("/api/prompts", { method: "POST", body: form }).then((result) => {
@@ -1375,7 +1474,10 @@ function Workspace({ user, onUserChange, showToast, toast }) {
         ...prev,
       ]);
       setModal(null);
-      showToast(`已收藏「${form.title}」`);
+      recordChatSave('prompt',result.id);
+      showToast(`已保存到提示词库：${form.title}`);
+      jumpToAsset('prompt',result.id);
+      return result;
     });
   }
 
@@ -1411,8 +1513,9 @@ function Workspace({ user, onUserChange, showToast, toast }) {
       .catch((err) => showToast(err.message));
   }
 
-  /** 提示词「试跑」：带着内容跳到 AI 对话 */
+  /** Prefill only; sending always requires an explicit action in the chat. */
   function tryRunPrompt(prompt) {
+    if (!prompt.templateFilled && promptTemplateNames(prompt.text).length) { setModal({type:'prompt-use',item:prompt,origin:'manual'}); return; }
     setChatPrefill(prompt.text);
     setModal(null);
     setSection("chat");
@@ -1432,7 +1535,7 @@ function Workspace({ user, onUserChange, showToast, toast }) {
   return (
     <div>
       <Header query={query} onQueryChange={setQuery}
-        showSearch={!["repositories", "knowledgeLibrary"].includes(section) && !(section === "feed" && canUseFullApp && feedMode === "accounts")}
+        showSearch={!["repositories", "knowledgeLibrary", "studio", "chat", "tools"].includes(section) && !(section === "feed" && canUseFullApp && feedMode === "accounts")}
         searchPlaceholder={SEARCH_PLACEHOLDERS[section]}
         greeting={user ? `${getGreeting(now.getHours())}，${user.username}` : getGreeting(now.getHours())}
         dateText={formatToday(now)}
@@ -1489,6 +1592,7 @@ function Workspace({ user, onUserChange, showToast, toast }) {
             <KnowledgeLibraryView key={`${user?.id || 'guest'}:${catalogueScope}`} items={knowledgeLibrary} query={queryFor('knowledgeLibrary')} active={section === 'knowledgeLibrary'}
               onQueryChange={value => setQuery(value, 'knowledgeLibrary')} requestedId={requestedKnowledgeId} onCorrectClassification={onCorrectClassification}
               onOpenPrompt={id => {setSectionQueries(previous => ({...previous,[`${user?.id || 'guest'}:promptLibrary`]:''})); setRequestedPromptSourceId(id); setSection('promptLibrary');}}
+              onEdit={personalCatalogue && canUseFullApp ? editLibraryKnowledge : undefined}
               onRequestedIdHandled={() => setRequestedKnowledgeId(null)} />
           )}
           </WorkspacePanel>
@@ -1496,13 +1600,16 @@ function Workspace({ user, onUserChange, showToast, toast }) {
           {dataLoads.promptLibrary?.hasData && <PromptLibraryView active={section === 'promptLibrary'} items={promptLibrary} query={queryFor('promptLibrary')} onCorrectClassification={onCorrectClassification} onOpenMethod={openMethod}
             onQueryChange={value => setQuery(value, 'promptLibrary')}
             onCreateMedia={personalAccess ? createFromLibraryPrompt : undefined}
+            onUsePrompt={item => setModal({type:'prompt-use',item,origin:'library'})}
+            onEdit={personalCatalogue && canUseFullApp ? editLibraryPrompt : undefined}
+            requestedId={requestedPromptId} onRequestedIdHandled={() => setRequestedPromptId(null)}
             requestedSourceId={requestedPromptSourceId} onRequestedSourceHandled={() => setRequestedPromptSourceId(null)} />}
           </WorkspacePanel>
           <WorkspacePanel active={section === 'inbox'} name="inbox">
           {!personalAccess && <div className="knowledge-loading"><h2>登录后查看你的收藏</h2><p>每个人的 X 收藏、媒体和收件箱彼此隔离；公开成果仍可浏览。</p><button className="btn" onClick={() => setAuthOpen(true)}>登录 / 注册</button></div>}
           {personalAccess && dataLoads.inbox?.hasData && (
             <>
-            {section === 'inbox' && canUseFullApp && <ContentPipelineStatus onCorrectClassification={onCorrectClassification} />}
+            {section === 'inbox' && canUseFullApp && <ContentPipelineStatus onCorrectClassification={onCorrectClassification} onOpenSettings={() => setModal({type:"settings",tab:"automation"})} />}
             <InboxView active={section === 'inbox'} items={inboxItems} query={queryFor('inbox')} readOnly={!personalAccess} onCorrectClassification={onCorrectClassification}
               onOpenConnections={() => setModal('account-settings')}
               loadState={dataLoads.inbox.status} loadError={dataLoads.inbox.error}
@@ -1538,24 +1645,27 @@ function Workspace({ user, onUserChange, showToast, toast }) {
           )}
           {section === 'assets' && personalAccess && !canUseFullApp && sectionDataReady && <div><h1>我的作品</h1><MediaAssetsView allowExternal={false} assets={mediaAssets} query={query} onCreate={() => openStudio()} onContinue={asset => openStudio({title:asset.title,prompt:asset.prompt})} onUpdated={reloadMediaAssets} openAssetId={openMediaAssetId} onOpenAssetHandled={() => setOpenMediaAssetId('')} showToast={showToast} /></div>}
           {section === "studio" && personalAccess && sectionDataReady && (
-            <MediaStudioView draft={studioDraft} assets={mediaAssets} jobs={mediaJobs}
+            <MediaStudioView userId={user?.id} draft={studioDraft} assets={mediaAssets} jobs={mediaJobs}
               allowExternal={canUseFullApp}
               configVersion={mediaConfigVersion}
               onAssetsChanged={reloadMediaAssets} onJobsChanged={reloadMediaJobs}
-              onOpenSettings={() => setModal("ai-settings")} onShowAsset={showMediaAsset}
+              onOpenSettings={(tab) => setModal({type:"settings", tab:tab === "devices" ? "devices" : "ai", aiTab:"media"})} onShowAsset={showMediaAsset}
               showToast={showToast} />
           )}
-          {section === "chat" && canUseFullApp && (
+          <WorkspacePanel active={section === 'chat'} name="chat">
+          {(section === 'chat' || chatVisited) && canUseFullApp && (
             <ChatView messages={chatMessages} onMessagesChange={setChatMessages}
-              prefill={chatPrefill} onPrefillUsed={() => setChatPrefill("")}
+              prefill={chatPrefill} onPrefillUsed={() => setChatPrefill("")} sources={inboxItems}
+              onSaveResult={saveChatResult}
               hasAiConfig={hasAiConfig}
               onOpenAiSettings={() => setModal("ai-settings")}
               showToast={showToast} />
           )}
+          </WorkspacePanel>
           <WorkspacePanel active={section === 'feed'} name="feed">
             <FeedView active={section === 'feed'} mode={feedMode} onModeChange={setFeedMode} query={queryFor('feed')} canUseMonitoring={canUseFullApp} onSaveToInbox={personalAccess ? saveFeedToInbox : null} onCorrectClassification={onCorrectClassification} />
           </WorkspacePanel>
-          {section === "tools" && canUseFullApp && <ToolsView showToast={showToast} />}
+          <WorkspacePanel active={section === "tools"} name="tools">{canUseFullApp && <ToolsView showToast={showToast} />}</WorkspacePanel>
         </main>
       </div>
       {classificationTarget && onCorrectClassification && <ClassificationEditor target={classificationTarget} onClose={() => setClassificationTarget(null)}
@@ -1564,22 +1674,22 @@ function Workspace({ user, onUserChange, showToast, toast }) {
         <AddFavModalV2 key={modal.fav ? modal.fav.id : "new"} editing={modal.fav}
           onClose={() => setModal(null)} onSubmit={saveFavorite} />
       )}
-      {modal === "ai-settings" && canUseFullApp && (
-        <AiSettingsModal onClose={() => setModal(null)}
-          onSaved={(kind) => { if (kind === "chat") setHasAiConfig(true); else setMediaConfigVersion((v) => v + 1); }}
-          showToast={showToast} />
-      )}
-      {modal === 'account-settings' && personalAccess && <AccountSettings user={user} onClose={() => {
-        setModal(null);
-        if (new URLSearchParams(window.location.hash.split('?')[1] || '').get('account') === 'x') {
+      {(modal === "ai-settings" || modal === "account-settings" || modal?.type === "settings") && personalAccess && <SettingsCenter
+        user={user} canUseFullApp={canUseFullApp} initialTab={modal === "ai-settings" ? "ai" : modal?.tab || "account"} initialAiTab={modal?.aiTab || "chat"}
+        theme={theme} onThemeToggle={() => setTheme(theme === "dark" ? "light" : "dark")} skin={skin} onSkinChange={setSkin}
+        woodFishEnabled={woodFishEnabled} onWoodFishToggle={() => setWoodFishEnabled(value => !value)}
+        showToast={showToast} onSaved={(kind) => { if (kind === "chat") setHasAiConfig(true); else setMediaConfigVersion(value => value + 1); }}
+        onClose={() => {
+          setModal(null); setMediaConfigVersion(value => value + 1);
           const params = new URLSearchParams(window.location.hash.split('?')[1] || '');
-          params.delete('account');
-          history.replaceState(null, '', `#repositories${params.size ? `?${params}` : ''}`);
-        }
-      }} />}
+          if (params.get('account') === 'x') {
+            params.delete('account'); params.delete('result');
+            history.replaceState(null, '', `#repositories${params.size ? `?${params}` : ''}`);
+          }
+        }} />}
       {modal && modal.type === "drawer" && (
         <PromptDrawer key={modal.prompt ? modal.prompt.id : "new"}
-          prompt={modal.prompt} initialMode={modal.mode}
+          prompt={modal.prompt} initialMode={modal.mode} initialForm={modal.initialForm}
           onClose={() => setModal(null)} onSave={savePrompt}
           onCopy={copyPrompt} onTryRun={tryRunPrompt} onCreateMedia={createFromPrompt}
           onToggleFavorite={togglePromptFavorite}
@@ -1587,9 +1697,15 @@ function Workspace({ user, onUserChange, showToast, toast }) {
           showToast={showToast} />
       )}
       {modal && modal.type === "knowledge" && (
-        <KnowledgeDrawer key={modal.item ? modal.item.id : "new"} item={modal.item}
+        <KnowledgeDrawer key={modal.item ? modal.item.id : "new"} item={modal.item} initialForm={modal.initialForm}
           onClose={() => setModal(null)} onSave={saveKnowledge} onDelete={deleteKnowledgeAsset} />
       )}
+      {modal?.type === 'prompt-use' && <PromptUseDialog item={modal.item} onClose={() => setModal(null)} canChat={canUseFullApp} canCreateMedia={personalAccess}
+        onUse={(item,action) => {
+          if (action === 'chat') { setChatPrefill(item.text); setModal(null); setSection('chat'); }
+          else if (modal.origin === 'library') createFromLibraryPrompt({...item,templateFilled:true});
+          else createFromPrompt({...item,templateFilled:true});
+        }} />}
       {authOpen && (
         <AuthView onClose={() => setAuthOpen(false)}
           onLoggedIn={(u) => { onUserChange(u); setAuthOpen(false); }} />

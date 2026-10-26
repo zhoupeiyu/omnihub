@@ -9,7 +9,7 @@ test('studio gives the prompt the first editing position and keeps metadata prog
   assert.ok(source.indexOf('media-prompt-field') < source.indexOf('media-tool-row'));
   assert.ok(source.indexOf('media-tool-row') < source.indexOf('media-advanced'));
   assert.match(source, /<details className="media-title-field">/);
-  assert.match(source, /<details className="media-reference-panel" defaultOpen=\{referenceIds\.length > 0\}>/);
+  assert.match(source, /<details key=\{consumedKey\} className="media-reference-panel" open=\{referenceIds\.length > 0 \|\| undefined\}>/);
   assert.match(css, /\.media-prompt-field textarea \{ min-height:190px/);
   assert.match(css, /@media \(max-width:600px\)/);
 });
@@ -24,7 +24,7 @@ test('unconfigured service permits a draft but does not present a fake paid gene
 });
 
 test('image-only GPT controls cannot fall through to video duration or resolution', () => {
-  assert.match(source, /module === "image" \? \(model !== "gpt-image-2"/);
+  assert.match(source, /module === "image" \? \(!useLocal && model !== "gpt-image-2"/);
   assert.doesNotMatch(source, /module === "image" && model !== "gpt-image-2" \?/);
   const modes = source.slice(source.indexOf('const MEDIA_MODES'));
   const happyHorse = modes.slice(modes.indexOf('hh1:'), modes.indexOf('wan3:'));

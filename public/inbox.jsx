@@ -732,8 +732,9 @@ function InboxView({ active = true, items, query, readOnly = false, loadState, l
             <option value="time_asc">整理时间 · 最早优先</option>
             <option value="score_desc">互动评分 · 最高优先</option>
           </select>
-          {!readOnly && onImportX && <button className="btn btn-ghost" onClick={() => importInput.current?.click()} disabled={importBusy}>
-            {importBusy ? "导入中" : "导入收藏"}
+          {!readOnly && onOpenConnections && <button className="btn" onClick={onOpenConnections}><IconSettings />同步与设置</button>}
+          {!readOnly && onImportX && <button className="btn btn-ghost" title="导入已整理的 JSON 或 JSONL 文件；浏览器原始导出需先转换" onClick={() => importInput.current?.click()} disabled={importBusy}>
+            {importBusy ? "导入中" : "导入整理文件"}
           </button>}
           {!readOnly && onCapture && !showSourceTabs && <button className="btn btn-ghost" onClick={() => { setSourceScope("daily"); setDetailOpen(false); }}>
             其他收录
@@ -1101,9 +1102,9 @@ function KnowledgeView({ items, query, onAdd, onOpen, onDelete }) {
   );
 }
 
-function KnowledgeDrawer({ item, onClose, onSave, onDelete }) {
+function KnowledgeDrawer({ item, initialForm, onClose, onSave, onDelete }) {
   const [editing, setEditing] = useInboxState(!item);
-  const [form, setForm] = useInboxState(item || { title: "", summary: "", body: "", tags: "", sourceUrl: "" });
+  const [form, setForm] = useInboxState(item || initialForm || { title: "", summary: "", body: "", tags: "", sourceUrl: "" });
   const [busy, setBusy] = useInboxState(false);
   const [error, setError] = useInboxState("");
 

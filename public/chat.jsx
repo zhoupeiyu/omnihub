@@ -8,8 +8,8 @@ function MarkdownBubble({ content }) {
 }
 
 /** AI 配置弹窗：服务商预设一键填入，Key 留空表示沿用已保存的 */
-function AiSettingsModal({ onClose, onSaved, showToast }) {
-  const [settingsTab, setSettingsTab] = useChatState("chat");
+function AiSettingsModal({ onClose, onSaved, showToast, embedded = false, initialTab = "chat" }) {
+  const [settingsTab, setSettingsTab] = useChatState(initialTab);
   const [baseUrl, setBaseUrl] = useChatState("");
   const [apiKey, setApiKey] = useChatState("");
   const [model, setModel] = useChatState("");
@@ -22,6 +22,8 @@ function AiSettingsModal({ onClose, onSaved, showToast }) {
   const [clearSysToken, setClearSysToken] = useChatState(false);
   const [error, setError] = useChatState("");
   const [saving, setSaving] = useChatState(false);
+  const [loaded, setLoaded] = useChatState({chat:false, media:false});
+  const [loadErrors, setLoadErrors] = useChatState({});
 
   useChatEffect(() => {
     api("/api/ai-config")
@@ -29,15 +31,17 @@ function AiSettingsModal({ onClose, onSaved, showToast }) {
         setBaseUrl(config.baseUrl);
         setModel(config.model);
         setMaskedKey(config.apiKeyMasked);
+        setLoaded(current => ({...current,chat:true}));
       })
-      .catch(() => {});
+      .catch(() => setLoadErrors(current => ({...current, chat:"无法读取文字服务配置，请关闭设置后重试。"})));
     api("/api/media/config")
       .then((config) => {
         setMediaBaseUrl(config.baseUrl || "");
         setMediaAuthMasked(config.authenticationMasked || "");
         setSysTokenMasked(config.sysTokenMasked || "");
+        setLoaded(current => ({...current,media:true}));
       })
-      .catch(() => {});
+      .catch(() => setLoadErrors(current => ({...current, media:"无法读取媒体服务配置，请关闭设置后重试。"})));
   }, []);
 
   function applyPreset(preset) {
@@ -46,6 +50,7 @@ function AiSettingsModal({ onClose, onSaved, showToast }) {
   }
 
   function handleSave() {
+    if (!loaded[settingsTab] || saving) return;
     if (settingsTab === "media") {
       if (!authentication.trim() && !mediaAuthMasked) { setError("请填写媒体接口认证信息"); return; }
       setSaving(true);
@@ -68,13 +73,14 @@ function AiSettingsModal({ onClose, onSaved, showToast }) {
   }
 
   return (
-    <div className="modal-overlay" onClick={onClose}>
-      <div className="modal wide" onClick={(e) => e.stopPropagation()}>
-        <h2>AI 设置（只对你自己的账号生效）</h2>
-        <div className="media-settings-tabs" role="tablist">
-          <button className={settingsTab === "chat" ? "active" : ""} onClick={() => { setSettingsTab("chat"); setError(""); }}>文字对话</button>
-          <button className={settingsTab === "media" ? "active" : ""} onClick={() => { setSettingsTab("media"); setError(""); }}>图片／视频生成</button>
+    <div className={embedded ? "settings-ai" : "modal-overlay"} onClick={embedded ? undefined : onClose}>
+      <div className={embedded ? "settings-ai-form" : "modal wide"} onClick={(e) => e.stopPropagation()}>
+        <h2>AI 服务</h2><p className="settings-description">连接当前账号使用的服务。模型、比例和时长仍在创作时选择。</p>
+        <div className="media-settings-tabs" role="group" aria-label="服务类型">
+          <button aria-pressed={settingsTab === "chat"} className={settingsTab === "chat" ? "active" : ""} onClick={() => { setSettingsTab("chat"); setError(""); }}>文字对话</button>
+          <button aria-pressed={settingsTab === "media"} className={settingsTab === "media" ? "active" : ""} onClick={() => { setSettingsTab("media"); setError(""); }}>图片／视频生成</button>
         </div>
+        <fieldset className="settings-service-fields" disabled={!loaded[settingsTab] || saving}>
         {settingsTab === "chat" ? <React.Fragment>
         <div className="form-field">
           <label>快速选择服务商</label>
@@ -124,10 +130,11 @@ function AiSettingsModal({ onClose, onSaved, showToast }) {
             <p className="form-hint">认证信息只保存在本机数据库，不会返回到网页。生成可能消耗公司额度。</p>
           </div>
         </React.Fragment>}
-        {error && <p className="auth-error">{error}</p>}
+        </fieldset>
+        {(error || loadErrors[settingsTab]) && <p className="auth-error" role="alert">{error || loadErrors[settingsTab]}</p>}
         <div className="modal-actions">
           <button className="btn btn-ghost" onClick={onClose}>取消</button>
-          <button className="btn btn-primary" onClick={handleSave} disabled={saving}>
+          <button className="btn btn-primary" onClick={handleSave} disabled={saving || !loaded[settingsTab]}>
             <IconCheck />{saving ? "保存中…" : "保存"}
           </button>
         </div>
@@ -136,17 +143,20 @@ function AiSettingsModal({ onClose, onSaved, showToast }) {
   );
 }
 
-/** 聊天视图：消息状态由上层持有（切换模块不丢失）；prefill 为「试跑」带来的提示词 */
-function ChatView({ messages, onMessagesChange, prefill, onPrefillUsed, hasAiConfig, onOpenAiSettings, showToast }) {
+/** 聊天视图：消息状态由上层持有（切换模块不丢失）；prefill 只带入提示词，不自动发送 */
+function ChatView({ messages, onMessagesChange, prefill, onPrefillUsed, hasAiConfig, onOpenAiSettings, showToast, sources = [], onSaveResult }) {
   const setMessages = onMessagesChange;
   const [input, setInput] = useChatState("");
   const [waiting, setWaiting] = useChatState(false);
   const [modelTag, setModelTag] = useChatState("");
   const msgsRef = useChatRef(null);
+  const requestRef = useChatRef(null);
+  const [selectedSource,setSelectedSource] = useChatState(null);
+  useChatEffect(() => () => requestRef.current?.abort(), []);
 
   useChatEffect(() => {
     if (prefill) {
-      setInput(prefill);
+      setInput(current => current.trim() ? `${current}\n\n${prefill}` : prefill);
       onPrefillUsed();
     }
   }, [prefill]);
@@ -156,7 +166,7 @@ function ChatView({ messages, onMessagesChange, prefill, onPrefillUsed, hasAiCon
   }, [messages, waiting]);
 
   /** 解析后端 SSE 流，把增量内容逐字渲染到最后一条 assistant 消息上 */
-  async function readStream(response, baseMessages) {
+  async function readStream(response, baseMessages, source) {
     const reader = response.body.getReader();
     const decoder = new TextDecoder();
     let buffer = "";
@@ -177,11 +187,12 @@ function ChatView({ messages, onMessagesChange, prefill, onPrefillUsed, hasAiCon
         if (payload.model) setModelTag(payload.model);
         if (payload.delta) {
           accumulated += payload.delta;
-          setMessages([...baseMessages, { role: "assistant", content: accumulated }]);
+          setMessages([...baseMessages, { role: "assistant", content: accumulated, source, complete:false }]);
         }
       }
     }
     if (!accumulated) throw new Error("AI 服务返回了空回复");
+    setMessages([...baseMessages,{role:'assistant',content:accumulated,source,complete:true}]);
   }
 
   async function handleSend() {
@@ -192,28 +203,34 @@ function ChatView({ messages, onMessagesChange, prefill, onPrefillUsed, hasAiCon
     setMessages(nextMessages);
     setInput("");
     setWaiting(true);
+    const controller = new AbortController(); requestRef.current = controller;
+    const source = selectedSource;
     try {
       const response = await fetch("/api/ai/chat/stream", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ messages: nextMessages }),
+        body: JSON.stringify({ messages: nextMessages.map(({role,content}) => ({role,content})) }),
+        signal:controller.signal,
         credentials: "same-origin",
       });
       if (!response.ok) {
         const payload = await response.json().catch(() => null);
         throw new Error((payload && payload.error) || `请求失败（${response.status}）`);
       }
-      await readStream(response, nextMessages);
+      await readStream(response, nextMessages, source);
     } catch (err) {
-      setMessages(nextMessages);
-      showToast(err.message);
+      if (err.name !== 'AbortError') {
+        setInput(current => current || text);
+        setMessages(current => current.map((message,index) => index >= nextMessages.length ? {...message,complete:false,error:'回复未完成，请核对后重试'} : message));
+        showToast(err.message);
+      }
     } finally {
       setWaiting(false);
     }
   }
 
   function handleKeyDown(e) {
-    if (e.key === "Enter" && !e.shiftKey) {
+    if (e.key === "Enter" && !e.shiftKey && !e.nativeEvent.isComposing) {
       e.preventDefault();
       handleSend();
     }
@@ -240,12 +257,12 @@ function ChatView({ messages, onMessagesChange, prefill, onPrefillUsed, hasAiCon
 
   return (
     <div>
-      <SectionHead icon={<IconSend />} title="AI 对话" count={null}>
+      <SectionHead icon={<IconSend />} title="AI 提炼台" count={null}>
         {modelTag && <span className="chat-model-tag">{modelTag}</span>}
         {messages.length > 0 && (
-          <button className="btn" onClick={() => setMessages([])}><IconRefresh />新对话</button>
+          <button className="btn" disabled={waiting} onClick={() => {setMessages([]);setSelectedSource(null);}}><IconRefresh />新对话</button>
         )}
-        <button className="btn" onClick={onOpenAiSettings}><IconSettings />AI 设置</button>
+        <button className="btn" onClick={onOpenAiSettings}><IconSettings />设置</button>
       </SectionHead>
       <div className="chat-workbench">
       <div className="chat-shell">
@@ -254,7 +271,7 @@ function ChatView({ messages, onMessagesChange, prefill, onPrefillUsed, hasAiCon
             <div>
               <div className="empty-icon"><IconSparkle /></div>
               <p style={{ fontWeight: 600, color: "var(--text-2)" }}>
-                <BlurText value={hasAiConfig ? "把收藏、提示词、网页内容丢进来，我帮你提炼成可复用资产" : "先到「AI 设置」填入你的 API Key 才能开聊"} />
+                <BlurText value={hasAiConfig ? "把收藏、提示词、网页内容丢进来，我帮你提炼成可复用资产" : "先到「设置 → AI 服务」连接文字对话服务"} />
               </p>
               {!hasAiConfig && (
                 <button className="btn btn-primary" style={{ marginTop: 14 }} onClick={onOpenAiSettings}>
@@ -268,7 +285,14 @@ function ChatView({ messages, onMessagesChange, prefill, onPrefillUsed, hasAiCon
             {messages.map((m, i) => (
               <div key={i} className={"msg-row " + m.role}>
                 {m.role === "assistant"
-                  ? <MarkdownBubble content={m.content} />
+                  ? <div className="chat-result"><MarkdownBubble content={m.content} />
+                      {m.source?.url && <a className="chat-result-source" href={m.source.url} target="_blank" rel="noopener noreferrer">原始来源：{m.source.title || '打开原文'} ↗</a>}
+                      {m.error && <p role="status" className="muted">{m.error}</p>}
+                      {m.complete && onSaveResult && <div className="chat-result-actions">
+                        <button className="btn btn-ghost" onClick={() => onSaveResult(m,i,'knowledge')}>{m.savedAssets?.knowledge ? '查看已保存文章' : '存为知识文章'}</button>
+                        <button className="btn btn-ghost" onClick={() => onSaveResult(m,i,'prompt')}>{m.savedAssets?.prompt ? '查看已保存提示词' : '存为提示词'}</button>
+                      </div>}
+                    </div>
                   : <div className="msg-bubble">{m.content}</div>}
               </div>
             ))}
@@ -282,7 +306,7 @@ function ChatView({ messages, onMessagesChange, prefill, onPrefillUsed, hasAiCon
         <div className="chat-input-row">
           <textarea className="chat-input" rows="2" placeholder="输入内容，Enter 发送，Shift+Enter 换行"
             value={input} onChange={(e) => setInput(e.target.value)} onKeyDown={handleKeyDown} />
-          <button className="btn btn-primary" onClick={handleSend} disabled={waiting}>
+          <button className="btn btn-primary" onClick={handleSend} disabled={waiting || !input.trim()}>
             <IconSend />{waiting ? "等待中" : "发送"}
           </button>
         </div>
@@ -292,12 +316,21 @@ function ChatView({ messages, onMessagesChange, prefill, onPrefillUsed, hasAiCon
           <IconSparkle />
           <div>
             <h3>提炼台</h3>
-            <p>把散乱输入转成可收藏、可搜索、可复用的资产。</p>
+            <p>选择原文、提炼内容，核对后保存到主库。</p>
           </div>
         </div>
+        <label className="capture-source-field">从待整理收藏开始
+          <select className="select" value={selectedSource?.id || ''} disabled={waiting} onChange={event => {
+            const item = sources.find(row => String(row.id) === event.target.value);
+            if (!item) {setSelectedSource(null);return;}
+            if (input.trim() && !confirm('用这条收藏替换当前输入吗？已发送的对话会保留。')) return;
+            setSelectedSource({id:item.id,title:item.title,url:item.url || '',author:item.author || '',content:item.content || ''});
+            setInput(`${item.title || ''}\n\n${item.content || ''}${item.url ? `\n\n原始来源：${item.url}` : ''}`.trim());
+          }}><option value="">选择收藏，或直接粘贴内容</option>{sources.map(item => <option key={item.id} value={item.id}>{item.title || (item.content || '').slice(0,40) || '未命名收藏'}</option>)}</select>
+        </label>
         <div className="capture-template-list">
           {captureTemplates.map((item) => (
-            <button key={item.title} className="capture-template" onClick={() => useTemplate(item)}>
+            <button key={item.title} className="capture-template" disabled={waiting} onClick={() => useTemplate(item)}>
               <span>{item.title}</span>
               <IconPlus />
             </button>
@@ -306,7 +339,7 @@ function ChatView({ messages, onMessagesChange, prefill, onPrefillUsed, hasAiCon
         <div className="capture-rules">
           <div><strong>收集</strong><span>原文、链接、截图、上下文</span></div>
           <div><strong>提炼</strong><span>用途、变量、注意事项</span></div>
-          <div><strong>复用</strong><span>复制、试跑、回写到提示词库</span></div>
+          <div><strong>复用</strong><span>预览确认后保存到知识库或提示词库</span></div>
         </div>
       </aside>
       </div>

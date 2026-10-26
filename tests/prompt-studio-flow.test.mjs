@@ -9,7 +9,8 @@ const app = read('app.jsx');
 test('curated prompt starts a draft with the real inbox identity, not the derived ID', () => {
   const fn = app.slice(app.indexOf('  function createFromLibraryPrompt('), app.indexOf('\n  }', app.indexOf('  function createFromLibraryPrompt(')) + 4);
   let draft;
-  const context = vm.createContext({ openStudio: value => { draft = value; } });
+  const context = vm.createContext({ openStudio: value => { draft = value; }, canUseFullApp:true });
+  vm.runInContext(read("prompt-use.js"), context);
   vm.runInContext(fn, context);
   context.createFromLibraryPrompt({id:'prompt-42', sourceInboxId:42, title:'测试', text:'画猫', media:[], category:'图像生成'});
   assert.equal(draft.sourceType, 'inbox');
@@ -24,11 +25,11 @@ test('curated prompt starts a draft with the real inbox identity, not the derive
 
 test('prompt detail offers media actions only for media prompts and retains copy', () => {
   const source = read('refinery.jsx');
-  assert.match(source, /onCreateMedia && \['图像生成', '视频生成'\]\.includes\(item\.category\)/);
+  assert.match(source, /onCreateMedia && promptCreationModule\(item\)/);
   assert.match(source, /用此提示词生图/);
   assert.match(source, /prompt-detail-actions/);
   assert.match(source, /navigationNotice/);
-  assert.match(app, /onCreateMedia=\{canUseFullApp \? createFromLibraryPrompt : undefined\}/);
+  assert.match(app, /onCreateMedia=\{personalAccess \? createFromLibraryPrompt : undefined\}/);
 });
 
 test('personal saving does not grant paid monitoring and empty inbox links to real connections', () => {

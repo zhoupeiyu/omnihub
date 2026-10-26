@@ -454,7 +454,7 @@ section[id] { scroll-margin-top: 84px; }
   font-family: var(--font-display); font-size: 20px; line-height: 1.25; font-weight: var(--display-weight);
 }
 .asset-library-head p, .inbox-head p { color: var(--text-3); font-size: 12.5px; margin-top: 3px; }
-.asset-tabs { display: flex; align-items: center; gap: 4px; padding: 4px; border-radius: var(--radius-sm); background: var(--bg-sunken); }
+.asset-tabs { max-width:100%; min-width:0; display: flex; align-items: center; gap: 4px; padding: 4px; border-radius: var(--radius-sm); background: var(--bg-sunken); }
 .asset-tabs button {
   display: inline-flex; align-items: center; gap: 6px; min-height: 32px; padding: 5px 10px;
   border: var(--border-w) solid transparent; border-radius: 7px; background: transparent;
@@ -729,7 +729,7 @@ section[id] { scroll-margin-top: 84px; }
 /* ---------- 提示词卡片：等高网格 ---------- */
 .prompt-group { margin-bottom: 18px; }
 .prompt-group .section-head { margin-bottom: 8px; }
-.prompt-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(182px, 1fr)); gap: 10px; align-items: stretch; }
+.prompt-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 280px), 1fr)); gap: 10px; align-items: stretch; }
 .prompt-card {
   position: relative; display: flex; flex-direction: column; cursor: pointer;
   border-radius: var(--radius); overflow: hidden;
@@ -739,7 +739,7 @@ section[id] { scroll-margin-top: 84px; }
   transition: transform .2s ease, box-shadow .2s ease, border-color .2s ease;
 }
 .prompt-card:hover { transform: translateY(-3px); box-shadow: var(--shadow-pop); border-color: var(--accent); }
-.prompt-asset-card { overflow: visible; }
+.prompt-asset-card { min-width:0; }
 .prompt-cover { width: 100%; aspect-ratio: 4 / 3; object-fit: cover; display: block; background: var(--bg-sunken); }
 .prompt-cover-placeholder {
   width: 100%; aspect-ratio: 4 / 3;
@@ -778,14 +778,14 @@ section[id] { scroll-margin-top: 84px; }
   border: var(--border-w) solid var(--border); background: var(--bg-sunken);
   color: var(--text-3); font-size: 10.5px; font-family: var(--font-mono);
 }
-.prompt-actions { display: flex; gap: 6px; }
+.prompt-actions { display: flex; flex-wrap:wrap; gap: 6px; margin-top:8px; }
 .tag-chip, .model-chip, .sns-chip { flex-shrink: 0; }
 .tag-chip {
   border-radius: 99px; padding: 1px 9px; font-size: 11px; font-weight: 600;
   background: var(--accent-soft); color: var(--accent); white-space: nowrap;
 }
 .prompt-copy {
-  flex: 1; display: inline-flex; align-items: center; justify-content: center; gap: 5px;
+  flex: 1 0 auto; display: inline-flex; align-items: center; justify-content: center; gap: 5px;
   border: var(--border-w) solid var(--border); border-radius: 8px;
   padding: 5px 10px; font-size: 12px; font-weight: 600; white-space: nowrap;
   background: transparent; color: var(--text-2);
@@ -1215,12 +1215,20 @@ section[id] { scroll-margin-top: 84px; }
 .workflow-card strong { display: block; font-size: 13.5px; line-height: 1.3; }
 .workflow-card p { color: var(--text-3); font-size: 12px; line-height: 1.45; margin-top: 2px; }
 .tools-board {
-  display: grid; grid-template-columns: minmax(640px, 1fr) minmax(340px, 420px);
+  display: grid; grid-template-columns: minmax(0, 2fr) minmax(280px, 1fr);
   gap: 12px; align-items: start;
 }
+.tools-page [hidden] { display:none !important; }
+.tools-heading { display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between; gap:12px; margin-bottom:20px; }
+.tools-heading .section-head { margin:0; }
+.tools-search { display:flex; align-items:center; gap:10px; flex:0 1 360px; max-width:100%; padding:10px 12px; background:var(--surface); border:1px solid var(--border); border-radius:9px; }
+.tools-search:focus-within { border-color:var(--accent); }
+.tools-search svg { width:17px; height:17px; color:var(--text-3); flex:none; }
+.tools-search input { min-width:0; width:100%; border:0; outline:0; background:none; color:var(--text); font:inherit; font-size:13px; }
+.tools-board:has(> [hidden]) { grid-template-columns:minmax(0,1fr); }
 .tools-main, .tools-aside { display: grid; gap: 12px; align-items: start; min-width: 0; }
 .tools-quick-grid {
-  display: grid; grid-template-columns: repeat(2, minmax(260px, 1fr));
+  display: grid; grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 12px; align-items: start;
 }
 .tool-card {
@@ -2135,6 +2143,8 @@ section[id] { scroll-margin-top: 84px; }
 <script type="text/babel" src="data.jsx"></script>
 <script type="text/babel" src="components.jsx"></script>
 <script type="text/babel" src="tools.jsx"></script>
+<script src="prompt-use.js"></script>
+<script type="text/babel" src="prompt-use.jsx"></script>
 <script type="text/babel" src="prompts.jsx"></script>
 <script type="text/babel" src="inbox.jsx"></script>
 <link rel="stylesheet" href="classification-editor.css">
@@ -2143,9 +2153,12 @@ section[id] { scroll-margin-top: 84px; }
 <script type="text/babel" src="classification-editor.jsx"></script>
 <script type="text/babel" src="refinery.jsx"></script>
 <script type="text/babel" src="x-watch-accounts.jsx"></script>
+<script src="studio-draft.js"></script>
 <script type="text/babel" src="media.jsx"></script>
 <script type="text/babel" src="chat.jsx"></script>
 <script type="text/babel" src="account-settings.jsx"></script>
+<script type="text/babel" src="settings.jsx"></script>
+<link rel="stylesheet" href="settings.css">
 <script type="text/babel" src="auth.jsx"></script>
 <script src="repository-tab.js"></script>
 <script type="text/babel" src="app.jsx"></script>
