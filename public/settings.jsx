@@ -99,11 +99,11 @@ function SettingsCenter({ user, canUseFullApp, onClose, onSaved, onDirtyChange, 
             onClose={onClose} onDirtyChange={onAiDirtyChange} onSaved={onSaved} showToast={showToast} />}
           {item.id === 'devices' && <div className="account-settings-body"><h2>执行设备</h2><p className="settings-description">管理用于创作的电脑。本地整理设备与同步规则在“数据同步”中。</p><LocalImageDevices /></div>}
           {item.id === 'appearance' && <div className="settings-appearance"><h2>外观</h2><p className="settings-description">选择配色与显示方式，修改会立即应用于当前浏览器。</p>
-            <div className="settings-preferences">
-              <div className="settings-preference"><div><strong>深色模式</strong><p>切换阅读和工作界面的明暗。</p></div><button type="button" className="settings-switch" role="switch" aria-label="深色模式" aria-checked={theme === 'dark'} onClick={onThemeToggle}><span /></button></div>
-              <div className="settings-preference"><div><strong>悬浮木鱼</strong><p>在工作区显示木鱼小工具。</p></div><button type="button" className="settings-switch" role="switch" aria-label="悬浮木鱼" aria-checked={woodFishEnabled} onClick={onWoodFishToggle}><span /></button></div>
-            </div>
-            <fieldset className="settings-skins"><legend>主题配色</legend><p className="settings-description">预览当前明暗模式下的强调色、背景色与面板色。</p>
+            <section className="settings-skins" aria-labelledby="settings-theme-title">
+              <div className="settings-theme-heading"><h3 id="settings-theme-title">主题配色</h3>
+                <label className="settings-theme-mode"><span>深色模式</span><button type="button" className="settings-switch" role="switch" aria-label="深色模式" aria-checked={theme === 'dark'} onClick={onThemeToggle}><span /></button></label>
+              </div>
+              <p className="settings-description">预览当前明暗模式下的强调色、背景色与面板色。</p>
               <div className="settings-theme-grid">{SKIN_LIST.map(item => <button type="button" className="settings-theme-card" key={item.id}
                 aria-label={item.name} aria-pressed={skin === item.id} onClick={() => onSkinChange(item.id)}>
                 <span className="settings-palette" data-skin={item.id} data-theme={theme} aria-hidden="true">
@@ -111,7 +111,10 @@ function SettingsCenter({ user, canUseFullApp, onClose, onSaved, onDirtyChange, 
                 </span>
                 <span className="settings-theme-label"><strong>{item.name}</strong><span className="settings-theme-check" aria-hidden="true">{skin === item.id && <IconCheck />}</span></span>
               </button>)}</div>
-            </fieldset>
+            </section>
+            <div className="settings-preferences">
+              <div className="settings-preference"><div><strong>悬浮木鱼</strong><p>在工作区显示木鱼小工具。</p></div><button type="button" className="settings-switch" role="switch" aria-label="悬浮木鱼" aria-checked={woodFishEnabled} onClick={onWoodFishToggle}><span /></button></div>
+            </div>
           </div>}
         </section>)}
       </div>

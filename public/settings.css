@@ -23,14 +23,16 @@
 .settings-ai .media-settings-tabs { margin-bottom:22px; }
 .settings-ai .form-field { margin-bottom:20px; }
 .settings-ai .modal-actions { position:sticky; bottom:0; margin-top:24px; padding-block:16px; background:var(--bg); }
-.settings-preferences { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:16px; margin:28px 0 32px; }
+.settings-preferences { margin-top:28px; }
 .settings-preference { display:flex; align-items:center; justify-content:space-between; gap:20px; min-width:0; min-height:104px; padding:22px 24px; border:1px solid var(--border); border-radius:10px; background:var(--surface); font-size:14px; }
 .settings-preference p { margin:6px 0 0; color:var(--text-3); font-size:13px; }
 .settings-switch { display:flex; flex:none; align-items:center; width:40px; height:24px; padding:3px; border:0; border-radius:20px; background:var(--text-3); cursor:pointer; }
 .settings-switch span { width:18px; height:18px; border-radius:50%; background:#fff; }
 .settings-switch[aria-checked="true"] { justify-content:flex-end; background:var(--accent); }
 .settings-skins { min-width:0; margin:0; padding:0; border:0; }
-.settings-skins legend { margin-bottom:8px; font-size:16px; font-weight:600; }
+.settings-theme-heading { display:flex; align-items:center; justify-content:space-between; gap:16px; margin-bottom:8px; }
+.settings-theme-heading h3 { margin:0; font-size:16px; font-weight:600; }
+.settings-theme-mode { display:flex; flex:none; align-items:center; gap:10px; color:var(--text-2); font-size:13px; cursor:pointer; }
 .settings-theme-grid { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:16px; }
 .settings-theme-card { display:flex; flex-direction:column; min-width:0; padding:0; overflow:hidden; border:1px solid var(--border); border-radius:10px; background:var(--surface); color:var(--text); font:inherit; text-align:left; cursor:pointer; transition:border-color .15s ease; }
 .settings-theme-card:hover { border-color:var(--text-3); }
@@ -56,7 +58,7 @@
   .settings-nav button { justify-content:center; flex:1 0 auto; gap:6px; padding:10px 8px; font-size:12px; }
   .settings-nav button svg { display:none; }
   .settings-content { padding:24px 20px; }
-  .settings-preferences { grid-template-columns:minmax(0,1fr); gap:12px; margin:24px 0 28px; }
+  .settings-preferences { margin-top:24px; }
   .settings-preference { min-height:96px; padding:18px; }
   .settings-theme-grid { gap:12px; }
   .settings-palette { height:104px; }
