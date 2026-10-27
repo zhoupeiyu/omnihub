@@ -47,7 +47,7 @@ function AccountSettings({ active = true }) {
       if (name === 'sync') {
         const result = next.result || {};
         if (result.ok) { setNotice(`新增 ${result.imported || 0} 条收藏。`); window.dispatchEvent(new Event('omnihub:collection-updated')); }
-        else setNotice(result.skipped === 'not_due' ? '尚未到下次可同步时间。' : result.skipped === 'running' ? '同步正在进行中，请稍后刷新状态。' : result.lastError || '同步未执行，请检查连接与费用上限。');
+        else if (!next.sync?.lastError) setNotice(result.skipped === 'not_due' ? '尚未到下次可同步时间。' : result.skipped === 'running' ? '同步正在进行中，请稍后刷新状态。' : result.lastError || '同步未执行，请检查连接与费用上限。');
       }
       if (name === 'disconnect') { setManageX(false); setNotice('X 已断开，已有收藏保留。'); }
     } catch (error) { setXError(error.message || '操作未完成，请重试。'); }
@@ -56,6 +56,10 @@ function AccountSettings({ active = true }) {
   const blocked = { client_id_missing: '服务器尚未配置 X OAuth 应用 Client ID。', callback_missing: '服务器尚未配置有效的 X 回调地址。',
     encryption_key_missing: '服务器尚未配置独立的令牌加密密钥。', connect_budget_missing: '服务器尚未设置账号校验费用上限，或已达到上限。' };
   const formatTime = value => value ? new Date(value).toLocaleString('zh-CN') : '尚未同步';
+  const formatShortTime = value => new Date(value).toLocaleString('zh-CN', {
+    ...(new Date(value).getFullYear() !== new Date(now).getFullYear() ? { year: 'numeric' } : {}),
+    month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit', hour12: false,
+  });
   const connectionState = xError ? ['warning', '待确认']
     : xAccount?.needsReconnect ? ['warning', '需重新授权']
     : xAccount?.connected ? ['success', '已连接'] : ['neutral', '未连接'];
@@ -65,6 +69,13 @@ function AccountSettings({ active = true }) {
     : !xAccount?.sync?.serverReady ? '服务器同步未就绪，请检查抓取开关与费用上限。'
     : syncing ? '正在同步，请稍候。'
     : waiting ? `可再次同步：${formatTime(xAccount.sync.nextAt)}` : '';
+  const lastSyncError = xAccount?.sync?.lastError || '';
+  const budgetLimited = ['X 收藏同步已达到本地费用上限', 'X 收藏同步已达到服务器共享费用上限'].includes(lastSyncError);
+  const syncFeedback = xAccount?.needsReconnect ? { tone: 'warning', title: '需重新授权', detail: '在账号设置中重新授权后可继续同步。' }
+    : !xAccount?.sync?.serverReady ? { tone: 'warning', title: '同步尚未就绪', detail: '请检查服务器抓取开关与费用上限。' }
+    : syncing ? { tone: 'progress', title: '正在同步', detail: '完成后自动更新状态。' }
+    : lastSyncError ? { tone: budgetLimited ? 'warning' : 'danger', title: budgetLimited ? '已达费用上限' : '上次同步未完成', detail: budgetLimited ? '额度恢复或调整上限后可继续同步。' : lastSyncError }
+    : null;
 
   return <section className="connection-section sync-module account-x-section" aria-label="X 收藏">
     <div className="x-connection-heading">
@@ -89,9 +100,14 @@ function AccountSettings({ active = true }) {
         <div><strong>自动同步</strong><p className="sync-meta">{xAccount.syncEnabled ? '每 2 小时同步新增收藏' : '关闭时仍可手动同步'}</p></div>
         <div className="sync-toggle-label"><span className="sync-status" data-tone={xAccount.syncEnabled ? 'success' : 'neutral'}>{xAccount.syncEnabled ? '已开启' : '已关闭'}</span><button className="settings-switch" role="switch" aria-label="自动同步 X 收藏" aria-checked={Boolean(xAccount.syncEnabled)} disabled={Boolean(busy) || (!xAccount.syncEnabled && (!xAccount.sync.serverReady || xAccount.needsReconnect))} onClick={() => xAction('sync-settings', { enabled: !xAccount.syncEnabled })}><span /></button></div>
       </div>
-      <div className="x-sync-footer"><span>上次成功 · {formatTime(xAccount.sync.lastSuccessAt)}</span><button className="btn btn-ghost" aria-label="刷新同步状态" title="刷新同步状态" disabled={Boolean(busy)} onClick={async () => { setBusy('x:reload'); await loadX(); setNow(Date.now()); setBusy(''); }}><IconRefresh /></button></div>
-      {syncUnavailable && <p className="sync-meta" role="status">{syncUnavailable}</p>}
-      {xAccount.sync.lastError && <div className="x-sync-error" role="status"><span className="sync-status" data-tone="danger">上次同步失败</span><span>{xAccount.sync.lastError}</span></div>}
+      <div className="x-sync-footer">
+        <dl className="x-sync-times">
+          <div><dt>上次成功</dt><dd>{xAccount.sync.lastSuccessAt ? <time dateTime={new Date(xAccount.sync.lastSuccessAt).toISOString()} title={formatTime(xAccount.sync.lastSuccessAt)}>{formatShortTime(xAccount.sync.lastSuccessAt)}</time> : '尚未同步'}</dd></div>
+          {waiting && !syncing && <div><dt>下次可尝试</dt><dd><time dateTime={new Date(xAccount.sync.nextAt).toISOString()} title={formatTime(xAccount.sync.nextAt)}>{formatShortTime(xAccount.sync.nextAt)}</time></dd></div>}
+        </dl>
+        <button className="btn btn-ghost" aria-label="刷新同步状态" title="刷新同步状态" disabled={Boolean(busy)} onClick={async () => { setBusy('x:reload'); await loadX(); setNow(Date.now()); setBusy(''); }}><IconRefresh /></button>
+      </div>
+      {syncFeedback && <div className="x-sync-feedback" data-tone={syncFeedback.tone} role="status"><strong>{syncFeedback.title}</strong><span>{syncFeedback.detail}</span></div>}
     </>}
     {xAccount && !xAccount.connected && <p className="sync-meta">{xAccount.needsReconnect ? '授权已失效，重新连接后可继续同步。' : !xAccount.canConnect ? blocked[xAccount.blockedReason] || '授权配置尚未完成。' : '连接后可同步你的 X 收藏。'}</p>}
     {notice && <div className="account-notice sync-notice" role="status"><span>{notice}</span><button className="btn btn-ghost" aria-label="关闭提示" onClick={() => setNotice('')}><IconX /></button></div>}
