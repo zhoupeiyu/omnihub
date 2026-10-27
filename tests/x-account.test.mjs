@@ -154,3 +154,46 @@ test('bound collector imports private originals only to zane and stops writes af
   assert.equal((await revoked.runNow(1)).ok, false);
   assert.equal(f.db.prepare('SELECT COUNT(*) AS n FROM inbox').get().n, 1);
 });
+
+test('manual sync keeps the automatic schedule off and preserves interval, ownership and budget limits', async () => {
+  const f = fixture(); await f.account.finish(user, f.params());
+  assert.equal(f.account.syncConfig(1).enabled, false);
+  const binding = f.account.syncConfig(1, { manual: true });
+  assert.equal(binding.enabled, true);
+  let requests = 0;
+  const config = { clientId: 'fixture-client', intervalMs: 7200000, budget: { perRunUsd: 5, perDayUsd: 5, perMonthUsd: 5 }, ...binding };
+  const sync = createXBookmarkSync({ db: f.db, config, fetchImpl: async () => { requests++; return Response.json({ data: [{ id: '99001', text: 'private bookmark' }], meta: {} }); } });
+  await assert.rejects(sync.runDue(2), { status: 403 });
+  assert.equal((await sync.runDue(1)).imported, 1);
+  assert.equal(f.account.status(1).syncEnabled, false);
+  assert.equal((await sync.runDue(1)).skipped, 'not_due');
+  assert.equal(requests, 1);
+  const blocked = createXBookmarkSync({ db: f.db, config: { ...config, budget: {} }, fetchImpl: async () => { throw Error('Budget must block the request'); } });
+  assert.equal((await blocked.runDue(1)).skipped, 'budget_missing');
+  f.account.disconnect(1);
+  assert.equal(f.account.syncConfig(1, { manual: true }).enabled, false);
+  await assert.rejects(binding.tokenStore.get(), { code: 'reconnect_required' });
+  f.db.close();
+});
+
+test('disconnect during a manual sync prevents a late response from importing bookmarks', async () => {
+  const f = fixture(); await f.account.finish(user, f.params());
+  const config = { clientId: 'fixture-client', budget: { perRunUsd: 5, perDayUsd: 5, perMonthUsd: 5 }, ...f.account.syncConfig(1, { manual: true }) };
+  const sync = createXBookmarkSync({ db: f.db, config, fetchImpl: async () => { f.account.disconnect(1); return Response.json({ data: [{ id: '99002', text: 'must not import' }], meta: {} }); } });
+  assert.equal((await sync.runDue(1)).ok, false);
+  assert.equal(f.db.prepare('SELECT COUNT(*) AS n FROM inbox').get().n, 0);
+  f.db.close();
+});
+
+test('manual sync endpoint uses the manual path without enabling a schedule', async () => {
+  const { createXAccountHandler } = await import('../lib/x-account-api.js');
+  const calls = [];
+  const handler = createXAccountHandler({
+    account: { status: () => ({ connected: true, syncEnabled: false }), setSync: () => { throw Error('Must not enable schedule'); } },
+    sync: { getStatus: () => ({ serverReady: true }), runNow: async id => { calls.push(id); return { ok: true }; }, runDue: () => { throw Error('Must use manual path'); } },
+    requireOwner: (req, write) => { assert.equal(write, true); return user; }, readBody: async () => ({}),
+    send: (res, status, body) => { assert.equal(status, 200); assert.equal(body.syncEnabled, false); assert.equal(body.result.ok, true); return true; }
+  });
+  assert.equal(await handler({ method: 'POST' }, {}, '/api/account/x/sync'), true);
+  assert.deepEqual(calls, [1]);
+});

@@ -4,20 +4,25 @@ import { readFileSync } from 'node:fs';
 
 const read = name => readFileSync(new URL(`../${name}`, import.meta.url), 'utf8');
 
-test('account connections keep X, local curation, and ChatGPT independently readable', () => {
+test('X sync and local device configuration load independently in their own settings sections', () => {
   const source = read('public/account-settings.jsx');
   assert.match(source, /const \[xAccount, setXAccount\]/);
   assert.match(source, /const \[connections, setConnections\]/);
-  assert.match(source, /void loadX\(controller\.signal\); void loadConnections\(controller\.signal\)/);
+  assert.match(source, /void loadX\(controller\.signal\)/);
+  assert.match(source, /void loadConnections\(controller\.signal\)/);
+  assert.match(source, /function LocalCurationSettings\(/);
   assert.doesNotMatch(source, /Promise\.all\(/);
   assert.match(source, /重试 X 连接/);
   assert.match(source, /重试个人连接/);
   assert.match(source, /account-x-section/);
   assert.match(source, /local-curation-section/);
-  assert.match(source, /chatgpt-section/);
+  assert.doesNotMatch(source, /chatgpt-section/);
   assert.doesNotMatch(source, /<h2[^>]*>账号与连接/);
-  assert.match(source, /!xAccount\.syncEnabled \|\| !xAccount\.sync\.serverReady/);
-  assert.match(source, /仅只读收藏；断开连接不会删除已有数据/);
+  assert.match(source, /Boolean\(syncUnavailable\)/);
+  assert.match(source, /关闭时仍可手动同步/);
+  assert.match(source, /断开账号会停止同步，已有收藏保留/);
+  const settings = read('public/settings.jsx');
+  assert.match(settings, /item\.id === 'devices'[^\n]*<LocalCurationSettings \/>/);
 });
 
 test('local curation uses the existing owner-only endpoints without retaining the device secret', () => {

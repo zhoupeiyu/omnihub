@@ -1,12 +1,6 @@
-function AccountSettingsFrame({ embedded, children, ...props }) {
-  return embedded ? <React.Fragment>{children}</React.Fragment> : <DetailDrawer {...props}>{children}</DetailDrawer>;
-}
-
-function AccountSettings({ onClose, embedded = false, children }) {
+function AccountSettings({ active = true }) {
   const [xAccount, setXAccount] = React.useState(null);
-  const [connections, setConnections] = React.useState(null);
   const [xError, setXError] = React.useState('');
-  const [connectionsError, setConnectionsError] = React.useState('');
   const [busy, setBusy] = React.useState('');
   const [notice, setNotice] = React.useState(() => {
     const result = new URLSearchParams(location.hash.split('?')[1] || '').get('result');
@@ -15,19 +9,105 @@ function AccountSettings({ onClose, embedded = false, children }) {
       scope_mismatch: '没有获得完整的只读收藏权限，请重新授权。', connect_budget_missing: '账号校验费用上限不足，请检查服务器配置。',
       connection_changed: '连接状态已变化，请重新授权。', failed: '连接未完成，请检查 X 应用配置后重试。' })[result] || '';
   });
+  const [manageX, setManageX] = React.useState(false);
+  const [now, setNow] = React.useState(Date.now);
+  const xManagementId = React.useId();
+  const loadX = React.useCallback(async (signal) => {
+    setXError('');
+    try {
+      const next = await api('/api/account/x', { signal });
+      if (signal?.aborted) return;
+      setXAccount(next); setNow(Date.now());
+    }
+    catch (error) { if (!signal?.aborted) setXError(error.message || 'X 连接状态暂时无法读取。'); }
+  }, []);
+  React.useEffect(() => {
+    if (!active) return;
+    const controller = new AbortController();
+    void loadX(controller.signal);
+    return () => controller.abort();
+  }, [active, loadX]);
+  React.useEffect(() => {
+    if (!active || !xAccount?.sync?.running) return;
+    const controller = new AbortController();
+    const timer = setTimeout(() => loadX(controller.signal), 3000);
+    return () => { clearTimeout(timer); controller.abort(); };
+  }, [active, xAccount, loadX]);
+  React.useEffect(() => {
+    if (!active || !(xAccount?.sync?.nextAt > Date.now())) return;
+    const timer = setTimeout(() => setNow(Date.now()), Math.min(xAccount.sync.nextAt - Date.now() + 50, 30000));
+    return () => clearTimeout(timer);
+  }, [active, xAccount, now]);
+  async function xAction(name, body = {}) {
+    setBusy(`x:${name}`); setXError(''); setNotice('');
+    try {
+      const next = await api(`/api/account/x/${name}`, { method: 'POST', body });
+      if (name === 'connect') { window.location.assign(next.authorizationUrl); return; }
+      setXAccount(next); setNow(Date.now());
+      if (name === 'sync') {
+        const result = next.result || {};
+        if (result.ok) { setNotice(`新增 ${result.imported || 0} 条收藏。`); window.dispatchEvent(new Event('omnihub:collection-updated')); }
+        else setNotice(result.skipped === 'not_due' ? '尚未到下次可同步时间。' : result.skipped === 'running' ? '同步正在进行中，请稍后刷新状态。' : result.lastError || '同步未执行，请检查连接与费用上限。');
+      }
+      if (name === 'disconnect') { setManageX(false); setNotice('X 已断开，已有收藏保留。'); }
+    } catch (error) { setXError(error.message || '操作未完成，请重试。'); }
+    finally { setBusy(''); }
+  }
+  const blocked = { client_id_missing: '服务器尚未配置 X OAuth 应用 Client ID。', callback_missing: '服务器尚未配置有效的 X 回调地址。',
+    encryption_key_missing: '服务器尚未配置独立的令牌加密密钥。', connect_budget_missing: '服务器尚未设置账号校验费用上限，或已达到上限。' };
+  const formatTime = value => value ? new Date(value).toLocaleString('zh-CN') : '尚未同步';
+  const connectionState = xError ? ['warning', '待确认']
+    : xAccount?.needsReconnect ? ['warning', '需重新授权']
+    : xAccount?.connected ? ['success', '已连接'] : ['neutral', '未连接'];
+  const syncing = busy === 'x:sync' || Boolean(xAccount?.sync?.running);
+  const waiting = Number(xAccount?.sync?.nextAt) > now;
+  const syncUnavailable = xAccount?.needsReconnect ? '请先重新授权 X。'
+    : !xAccount?.sync?.serverReady ? '服务器同步未就绪，请检查抓取开关与费用上限。'
+    : syncing ? '正在同步，请稍候。'
+    : waiting ? `可再次同步：${formatTime(xAccount.sync.nextAt)}` : '';
+
+  return <section className="connection-section sync-module account-x-section" aria-label="X 收藏">
+    <div className="x-connection-heading">
+      <div className="x-connection-identity"><div className="sync-module-title"><h3>X 收藏</h3>{(xAccount || xError) && <span className="sync-status" data-tone={connectionState[0]}>{connectionState[1]}</span>}</div>
+        {xAccount?.connected && <span className="sync-meta">@{xAccount.username}</span>}
+      </div>
+      <div className="x-heading-actions">
+        {xAccount?.connected && <button className="btn btn-primary" disabled={Boolean(busy) || Boolean(syncUnavailable)} onClick={() => xAction('sync')}>{syncing ? '同步中…' : '同步一次'}</button>}
+        {xAccount?.connected && <button className="btn btn-ghost" aria-expanded={manageX} aria-controls={xManagementId} onClick={() => setManageX(value => !value)}>账号设置</button>}
+        {xAccount && !xAccount.connected && <button className="btn btn-primary" disabled={Boolean(busy) || !xAccount.canConnect} onClick={() => xAction('connect')}>{xAccount.needsReconnect ? '重新授权 X' : '连接 X'}</button>}
+      </div>
+    </div>
+    {xError && <div className="connection-error" role="alert"><p>{xError}</p><button className="btn" disabled={Boolean(busy)} onClick={() => loadX()}>重试 X 连接</button></div>}
+    {!xAccount && !xError && <p className="sync-meta" role="status">正在读取连接…</p>}
+    {xAccount?.connected && <>
+      <div id={xManagementId} hidden={!manageX} className="x-account-tools">
+        <span className="sync-meta">断开账号会停止同步，已有收藏保留。</span>
+        <div className="x-heading-actions"><button className="btn" disabled={Boolean(busy) || !xAccount.canConnect} onClick={() => xAction('connect')}>重新授权 X</button><button className="btn x-disconnect" disabled={Boolean(busy)} onClick={() => xAction('disconnect')}>断开账号</button></div>
+        {!xAccount.canConnect && <p className="sync-meta">{blocked[xAccount.blockedReason] || '授权配置尚未完成。'}</p>}
+      </div>
+      <div className="x-schedule-row">
+        <div><strong>自动同步</strong><p className="sync-meta">{xAccount.syncEnabled ? '每 2 小时同步新增收藏' : '关闭时仍可手动同步'}</p></div>
+        <div className="sync-toggle-label"><span className="sync-status" data-tone={xAccount.syncEnabled ? 'success' : 'neutral'}>{xAccount.syncEnabled ? '已开启' : '已关闭'}</span><button className="settings-switch" role="switch" aria-label="自动同步 X 收藏" aria-checked={Boolean(xAccount.syncEnabled)} disabled={Boolean(busy) || (!xAccount.syncEnabled && (!xAccount.sync.serverReady || xAccount.needsReconnect))} onClick={() => xAction('sync-settings', { enabled: !xAccount.syncEnabled })}><span /></button></div>
+      </div>
+      <div className="x-sync-footer"><span>上次成功 · {formatTime(xAccount.sync.lastSuccessAt)}</span><button className="btn btn-ghost" aria-label="刷新同步状态" title="刷新同步状态" disabled={Boolean(busy)} onClick={async () => { setBusy('x:reload'); await loadX(); setNow(Date.now()); setBusy(''); }}><IconRefresh /></button></div>
+      {syncUnavailable && <p className="sync-meta" role="status">{syncUnavailable}</p>}
+      {xAccount.sync.lastError && <div className="x-sync-error" role="status"><span className="sync-status" data-tone="danger">上次同步失败</span><span>{xAccount.sync.lastError}</span></div>}
+    </>}
+    {xAccount && !xAccount.connected && <p className="sync-meta">{xAccount.needsReconnect ? '授权已失效，重新连接后可继续同步。' : !xAccount.canConnect ? blocked[xAccount.blockedReason] || '授权配置尚未完成。' : '连接后可同步你的 X 收藏。'}</p>}
+    {notice && <div className="account-notice sync-notice" role="status"><span>{notice}</span><button className="btn btn-ghost" aria-label="关闭提示" onClick={() => setNotice('')}><IconX /></button></div>}
+  </section>;
+}
+
+function LocalCurationSettings() {
+  const [connections, setConnections] = React.useState(null);
+  const [connectionsError, setConnectionsError] = React.useState('');
+  const [busy, setBusy] = React.useState('');
+  const [notice, setNotice] = React.useState('');
   const [localError, setLocalError] = React.useState('');
   const [localModel, setLocalModel] = React.useState('');
   const [deviceLabel, setDeviceLabel] = React.useState('我的电脑');
-  const [manageX, setManageX] = React.useState(false);
   const [configureLocal, setConfigureLocal] = React.useState(false);
-  const xManagementId = React.useId();
   const localConfigurationId = React.useId();
-
-  const loadX = React.useCallback(async (signal) => {
-    setXError('');
-    try { setXAccount(await api('/api/account/x', { signal })); }
-    catch (error) { if (!signal?.aborted) setXError(error.message || 'X 连接状态暂时无法读取。'); }
-  }, []);
   const loadConnections = React.useCallback(async (signal) => {
     setConnectionsError('');
     try {
@@ -41,25 +121,9 @@ function AccountSettings({ onClose, embedded = false, children }) {
   }, []);
   React.useEffect(() => {
     const controller = new AbortController();
-    void loadX(controller.signal); void loadConnections(controller.signal);
+    void loadConnections(controller.signal);
     return () => controller.abort();
-  }, [loadConnections, loadX]);
-
-  async function xAction(name, body = {}) {
-    setBusy(`x:${name}`); setXError(''); setNotice('');
-    try {
-      const next = await api(`/api/account/x/${name}`, { method: 'POST', body });
-      if (name === 'connect') { window.location.assign(next.authorizationUrl); return; }
-      setXAccount(next);
-      if (name === 'sync') {
-        const result = next.result || {};
-        if (result.ok) { setNotice(`新增 ${result.imported || 0} 条收藏。`); window.dispatchEvent(new Event('omnihub:collection-updated')); }
-        else setNotice(result.skipped === 'not_due' ? '距离上次同步未满 2 小时，无需重复读取。' : result.skipped === 'running' ? '同步正在进行中，请稍后刷新状态。' : result.lastError || '同步未执行，请检查连接、开关和服务器费用上限。');
-      }
-      if (name === 'disconnect') setNotice('X 已断开，已有收藏保留。');
-    } catch (error) { setXError(error.message || '操作未完成，请重试。'); }
-    finally { setBusy(''); }
-  }
+  }, [loadConnections]);
   async function saveLocalSettings(enabled) {
     const model = localModel.trim();
     if (!model) { setLocalError('请填写本机将使用的模型标识。'); return; }
@@ -109,17 +173,7 @@ function AccountSettings({ onClose, embedded = false, children }) {
     finally { setBusy(''); }
   }
 
-  const blocked = { client_id_missing: '服务器尚未配置 X OAuth 应用 Client ID。', callback_missing: '服务器尚未配置有效的 X 回调地址。',
-    encryption_key_missing: '服务器尚未配置独立的令牌加密密钥。', connect_budget_missing: '服务器尚未设置账号校验费用上限，或已达到上限。' };
-  const formatTime = value => value ? new Date(value).toLocaleString('zh-CN') : '尚未同步';
-  const xConnectionState = xError ? ['warning', '待确认']
-    : xAccount?.needsReconnect ? ['warning', '需重新授权']
-    : xAccount?.connected ? ['success', '已连接'] : ['neutral', '未连接'];
-  const xSyncState = busy === 'x:sync' ? ['progress', '同步中']
-    : !xAccount?.syncEnabled ? ['neutral', '已关闭']
-    : xAccount.needsReconnect ? ['warning', '待授权']
-    : !xAccount.sync.serverReady ? ['warning', '未就绪']
-    : xAccount.sync.lastError ? ['danger', '同步失败'] : ['success', '已开启'];
+  const formatTime = value => value ? new Date(value).toLocaleString('zh-CN') : '尚未接入';
   const localCuration = connections?.localCuration;
   const devices = Array.isArray(localCuration?.devices) ? localCuration.devices : [];
   const activeDeviceCount = Array.isArray(localCuration?.devices)
@@ -133,39 +187,8 @@ function AccountSettings({ onClose, embedded = false, children }) {
     return { label: device.lastSeenAt ? '已接入' : '尚未接入', detail: device.lastSeenAt ? `最近在线 ${formatTime(device.lastSeenAt)}` : `有效至 ${formatTime(device.expiresAt)}`, inactive: false };
   };
 
-  return <AccountSettingsFrame embedded={embedded} title="账号与同步" onClose={onClose} className="account-settings">
-    <div className={(embedded ? "" : "detail-drawer-body ") + "account-settings-body sync-modules"}>
-      {notice && <div className="account-notice sync-notice" role="status"><span>{notice}</span><button className="btn btn-ghost" aria-label="关闭提示" onClick={() => setNotice('')}><IconX /></button></div>}
-
-      <section className="connection-section sync-module account-x-section" aria-label="X 收藏">
-        <div className="sync-module-heading">
-          <div className="sync-module-title"><h3>X 收藏</h3>{xAccount?.connected && <span className="sync-meta">@{xAccount.username}</span>}{(xAccount || xError) && <span className="sync-status" data-tone={xConnectionState[0]}>{xConnectionState[1]}</span>}</div>
-          {xAccount?.connected && <button className="btn btn-ghost" aria-expanded={manageX} aria-controls={xManagementId} onClick={() => setManageX(value => !value)}>管理连接</button>}
-        </div>
-        {xError && <div className="connection-error" role="alert"><p>{xError}</p><button className="btn" disabled={Boolean(busy)} onClick={() => loadX()}>重试 X 连接</button></div>}
-        {!xAccount && !xError && <p className="sync-meta" role="status">正在读取连接…</p>}
-        {xAccount && <>
-          {xAccount.needsReconnect && <div className="sync-row"><span className="connection-error-text" role="status">授权已失效，请重新连接。</span><button className="btn" disabled={Boolean(busy) || !xAccount.canConnect} onClick={() => xAction('connect')}>重新授权 X</button></div>}
-          {!xAccount.connected ? <>
-            <div className="sync-row"><span className="sync-meta">连接 X，导入你的收藏。</span><button className="btn btn-primary" disabled={Boolean(busy) || !xAccount.canConnect} onClick={() => xAction('connect')}>连接 X</button></div>
-            {!xAccount.canConnect && <p className="sync-meta">{blocked[xAccount.blockedReason] || '授权配置尚未完成。'}</p>}
-          </> : <>
-            <div className="sync-row sync-divider">
-              <div className="sync-row-label"><strong>自动同步</strong><span className="sync-meta">每 2 小时</span></div>
-              <div className="sync-toggle-label"><span className="sync-status" data-tone={xSyncState[0]} aria-live="polite">{xSyncState[1]}</span><button className="settings-switch" role="switch" aria-label="自动同步 X 收藏" aria-checked={Boolean(xAccount.syncEnabled)} disabled={Boolean(busy) || (!xAccount.syncEnabled && (!xAccount.sync.serverReady || xAccount.needsReconnect))} onClick={() => xAction('sync-settings', { enabled: !xAccount.syncEnabled })}><span /></button></div>
-            </div>
-            <div className="sync-row sync-last-run"><span className="sync-meta">上次同步 · {formatTime(xAccount.sync.lastSuccessAt)}</span><button className="btn" disabled={Boolean(busy) || !xAccount.syncEnabled || !xAccount.sync.serverReady || xAccount.needsReconnect} title={!xAccount.syncEnabled ? '请先开启自动同步' : undefined} onClick={() => xAction('sync')}>{busy === 'x:sync' ? '同步中…' : '立即同步'}</button></div>
-            {!xAccount.sync.serverReady && <p className="sync-meta">服务器同步未就绪，请检查抓取开关与费用上限。</p>}
-            {xAccount.sync.lastError && <p className="connection-error-text" role="status">{xAccount.sync.lastError}</p>}
-            <div id={xManagementId} hidden={!manageX} className="sync-expanded">
-              <p className="sync-meta">仅只读收藏；断开连接不会删除已有数据。</p>
-              {!xAccount.canConnect && <p className="sync-meta">{blocked[xAccount.blockedReason] || '授权配置尚未完成。'}</p>}
-              <div className="connection-actions"><button className="btn" disabled={Boolean(busy) || !xAccount.canConnect} onClick={() => xAction('connect')}>重新授权 X</button><button className="btn" disabled={Boolean(busy)} onClick={() => xAction('disconnect')}>断开连接</button><button className="btn btn-ghost" disabled={Boolean(busy)} onClick={async () => { setBusy('x:reload'); await loadX(); setBusy(''); }}>刷新状态</button></div>
-            </div>
-          </>}
-        </>}
-      </section>
-
+  return <div className="local-curation-settings">
+    {notice && <div className="account-notice sync-notice" role="status"><span>{notice}</span><button className="btn btn-ghost" aria-label="关闭提示" onClick={() => setNotice('')}><IconX /></button></div>}
       <section className="connection-section sync-module local-curation-section" aria-label="本地整理设备">
         <div className="sync-module-heading"><h3>本地整理设备</h3>{localCuration && <div className="sync-toggle-label"><span>接收任务</span><button className="settings-switch" role="switch" aria-label="本地整理设备接收任务" aria-checked={Boolean(localCuration.enabled)} disabled={Boolean(busy) || !canCreateDevice} onClick={() => saveLocalSettings(!localCuration.enabled)}><span /></button></div>}</div>
         {connectionsError && <div className="connection-error" role="alert"><p>{connectionsError}</p><button className="btn" disabled={Boolean(busy)} onClick={() => loadConnections()}>重试个人连接</button></div>}
@@ -183,12 +206,5 @@ function AccountSettings({ onClose, embedded = false, children }) {
         </>}
       </section>
 
-      {children}
-      {!embedded && <LocalImageDevices />}
-      <details className="connection-section sync-module chatgpt-section">
-        <summary><strong>ChatGPT</strong><span className="sync-meta">{connectionsError ? '状态读取失败' : !connections?.chatgpt ? '读取中…' : connections.chatgpt.status === 'unavailable' ? '暂不可用' : '待确认'}</span></summary>
-        <p className="sync-meta">{connections?.chatgpt?.status === 'unavailable' ? '本站尚未开通 ChatGPT 官方接入，暂不支持授权或调用网页额度。' : '暂时无法确认连接状态，请稍后重试。'}</p>
-      </details>
-    </div>
-  </AccountSettingsFrame>;
+  </div>;
 }

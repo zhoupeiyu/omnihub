@@ -87,13 +87,14 @@ function SettingsCenter({ user, canUseFullApp, onClose, onSaved, onDirtyChange, 
         {tabs.filter(item => visited.has(item.id)).map(item => <section key={item.id} id={`settings-panel-${item.id}`} role="tabpanel"
           aria-labelledby={`settings-tab-${item.id}`} hidden={tab !== item.id} tabIndex={0}>
           {item.id === 'sync' && <div className="settings-sync">
-            <AccountSettings user={user} embedded onClose={onClose}>
-              {canUseFullApp && <ContentPipelineStatus settingsOnly active={tab === 'sync'} />}
-            </AccountSettings>
+            <div className="account-settings-body sync-modules">
+              <AccountSettings active={tab === 'sync'} />
+              {canUseFullApp && <ContentPipelineStatus settingsOnly active={tab === 'sync'} onOpenDevices={() => selectTab('devices')} />}
+            </div>
           </div>}
           {item.id === 'ai' && <AiSettingsModal embedded initialTab={route.aiTab}
             onClose={onClose} onDirtyChange={onAiDirtyChange} onSaved={onSaved} showToast={showToast} />}
-          {item.id === 'devices' && <div className="account-settings-body"><h2>执行设备</h2><p className="settings-description">管理用于创作的电脑。本地整理设备与同步规则在“数据同步”中。</p><LocalImageDevices /></div>}
+          {item.id === 'devices' && <div className="account-settings-body sync-modules"><LocalCurationSettings /><LocalImageDevices /></div>}
           {item.id === 'appearance' && <div className="settings-appearance">
             <section className="settings-skins" aria-labelledby="settings-theme-title">
               <div className="settings-theme-heading"><h2 id="settings-theme-title">主题配色</h2>

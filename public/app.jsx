@@ -438,7 +438,7 @@ function ContentDraftDetail({detail,onClose}) {
   </DetailDrawer>;
 }
 
-function ContentPipelineStatus({ onCorrectClassification, onOpenSettings, settingsOnly = false, active = true }) {
+function ContentPipelineStatus({ onCorrectClassification, onOpenSettings, onOpenDevices, settingsOnly = false, active = true }) {
   const [state,setState]=useAppState(null);
   const [error,setError]=useAppState('');
   const [busy,setBusy]=useAppState(false);
@@ -461,12 +461,13 @@ function ContentPipelineStatus({ onCorrectClassification, onOpenSettings, settin
   }
   const labels={queued:'待整理',running:'整理中',done:'已整理',review:'待复核',retry:'等待重试',protected:'已保护或跳过'};
   const errors={needs_material:'缺少正文或必要素材',uncertain:'归类不确定',unsupported:'原文不足以支持整理结论',synthesis_unsupported:'综合文章需要复核',source_too_long:'长文需要分段整理',budget:'达到调用上限，稍后继续',configuration:'模型未配置',upstream:'模型连接失败',invalid_result:'模型结果未通过校验',stale:'来源或人工归类已改变',internal:'处理异常'};
-  if (settingsOnly) return <section className="connection-section sync-module pipeline-settings" aria-label="自动整理">
-    <div className="sync-module-heading"><h3>自动整理</h3>{state && <span className="sync-meta">{state.enabled ? '已启用' : '已暂停'}</span>}</div>
+  if (settingsOnly) return <section className="connection-section sync-module pipeline-settings" aria-label="收藏整理">
+    <div className="sync-module-heading"><div className="sync-module-title"><h3>收藏整理</h3>{state && <span className="sync-status" data-tone={state.enabled ? 'success' : 'neutral'}>{state.enabled ? '已启用' : '已暂停'}</span>}</div>{onOpenDevices && <button className="btn btn-ghost" onClick={onOpenDevices}>管理整理设备</button>}</div>
     {error && <p className="auth-error" role="alert">{error}</p>}
     {!state && !error && <p className="sync-meta" role="status">正在读取整理设置…</p>}
     {!state && error && <button className="btn" onClick={() => {setError(''); api('/api/content-pipeline').then(setState).catch(e=>setError(e.message));}}>重新加载</button>}
     {state && <>
+      <p className="sync-meta">将导入的收藏分类、提炼，结果保存为草稿。</p>
       <div className="sync-row"><span className="sync-meta">最近 24 小时调用 · {state.callsToday} / {state.limits.dailyCalls} 次</span>{state.enabled && <button className="btn" disabled={busy} onClick={() => act('pause')}>暂停整理</button>}</div>
       {!state.model.configured && <p className="sync-meta">{state.model.provider === 'local' ? '请先配置并启用本地整理设备。' : '请先配置服务器整理模型。'}</p>}
       {!state.enabled && <div className="sync-expanded pipeline-options">
