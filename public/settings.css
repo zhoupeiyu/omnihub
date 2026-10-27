@@ -40,6 +40,13 @@
 .ai-connections .input { width:100%; min-width:0; }
 .ai-auth-method { justify-content:space-between; margin-bottom:16px; font-size:13px; }
 .ai-auth-method a,.ai-advanced a { color:var(--accent); }
+.ai-auth-tabs,.ai-oauth-actions { display:flex; align-items:center; flex-wrap:wrap; gap:8px; }
+.ai-auth-tabs .active { border-color:var(--accent); color:var(--accent); }
+.ai-oauth-panel { padding:20px; border:1px solid var(--border); border-radius:8px; margin-bottom:16px; }
+.ai-oauth-panel strong { font-size:14px; }
+.ai-oauth-panel .form-hint { margin:8px 0 16px; }
+.ai-oauth-panel .btn { white-space:normal; }
+.ai-connections .btn:disabled { opacity:.45; cursor:not-allowed; }
 .ai-advanced { margin:0 0 18px; font-size:13px; }
 .ai-advanced summary { cursor:pointer; color:var(--text-2); margin-bottom:12px; }
 .ai-editor-actions { justify-content:flex-end; }

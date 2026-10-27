@@ -224,15 +224,28 @@ function AiConnections({ onSaved, onDirtyChange, showToast, canUseCuration }) {
   const [error,setError]=useChatState('');
   const [busy,setBusy]=useChatState('');
   const [models,setModels]=useChatState([]);
-  const dirty=Boolean(draft && ['name','provider','protocol','baseUrl','model','apiKey'].some(key=>draft[key]!==original?.[key]));
+  const dirty=Boolean(draft && ['name','provider','protocol','baseUrl','model','apiKey','authType'].some(key=>draft[key]!==original?.[key]));
   const report=useChatRef(onDirtyChange);report.current=onDirtyChange;
   useChatEffect(()=>{report.current?.(dirty);},[dirty]);
   useChatEffect(()=>()=>report.current?.(false),[]);
   async function reload(){const next=await api('/api/ai/connections');setData(next);return next;}
-  useChatEffect(()=>{reload().catch(e=>setError(e.message));},[]);
+  useChatEffect(()=>{
+    const params=new URLSearchParams(location.hash.split('?')[1]||''),result=params.get('oauth'),id=params.get('connection');
+    // The workspace may reload once to select the user's personal catalogue.
+    // Leave the callback outcome intact until that reload has finished.
+    if(result&&!params.has('space')&&window.omnihubCatalogueScope?.()!=='mine'){reload().catch(e=>setError(e.message));return;}
+    if(result){params.delete('oauth');params.delete('connection');history.replaceState(null,'',location.pathname+location.search+'#settings?'+params);}
+    reload().then(async next=>{
+      if(result==='connected'){
+        const row=next.connections.find(c=>c.id===id);
+        if(row){edit(row);onSaved('chat');showToast('授权成功，请选择模型并测试连接');
+          try{setModels((await api('/api/ai/connections/'+row.id+'/models',{method:'POST',body:{}})).models);}catch(e){setError(e.message);}}
+      }else if(result){setError(({authorization_cancelled:'已取消授权，你可以重新登录或使用 API Key。',invalid_state:'授权已过期，请重新发起。',scope_missing:'未获得 ChatGPT 套餐调用权限，请重新授权。',session_required:'请重新登录网站后授权。',oauth_unavailable:'网站尚未开通 ChatGPT 授权接入。'})[result]||'授权未完成，请重新发起登录。');}
+    }).catch(e=>setError(e.message));
+  },[]);
   function closeEditor(){if(dirty&&!confirm('连接有未保存的修改，确定放弃吗？'))return;setDraft(null);setOriginal(null);setError('');setModels([]);}
   function edit(row){
-    const next=row ? {...row,apiKey:''} : {name:'',provider:'openai',protocol:'responses',baseUrl:'https://api.openai.com/v1',model:'',apiKey:''};
+    const next=row ? {...row,apiKey:''} : {name:'',provider:'openai',protocol:'responses',baseUrl:'https://api.openai.com/v1',model:'',apiKey:'',authType:'api-key'};
     setDraft(next);setOriginal(next);setModels([]);setError('');
   }
   function update(key,value){setDraft(d=>({...d,[key]:value}));setError('');}
@@ -248,6 +261,14 @@ function AiConnections({ onSaved, onDirtyChange, showToast, canUseCuration }) {
   async function choose(purpose,connectionId){await action(purpose,async()=>{
     const next=await api('/api/ai/routes',{method:'PUT',body:{purpose,connectionId}});setData(next);onSaved('chat');
   });}
+  async function authorize(){await action('authorize',async()=>{
+    const result=await api('/api/ai/oauth/openai/start',{method:'POST',body:{name:draft.name,connectionId:draft.id,revision:draft.revision}});
+    const url=new URL(result.authorizationUrl);
+    if(url.origin!=='https://auth.openai.com'||url.pathname!=='/api/accounts/authorize')throw Error('授权地址不正确');
+    setOriginal(draft);report.current?.(false);
+    await new Promise(resolve=>requestAnimationFrame(()=>requestAnimationFrame(resolve)));
+    window.location.assign(url.href);
+  });}
   const provider=data?.providers.find(p=>p.id===draft?.provider);
   return <div className="ai-connections">
     <div className="ai-connections-heading"><h2>我的连接</h2><button className="btn btn-primary" disabled={!data||Boolean(busy)||Boolean(draft)} onClick={()=>edit(null)}><IconPlus />添加连接</button></div>
@@ -255,8 +276,8 @@ function AiConnections({ onSaved, onDirtyChange, showToast, canUseCuration }) {
     {data&&!data.connections.length&&!draft&&<div className="ai-empty"><p>连接你使用的 AI 服务</p><span>可保存多个服务商，也可添加同一服务商的不同账号。</span></div>}
     {data&&<div className="ai-connection-list">{data.connections.map(row=><article className="ai-connection-card" key={row.id}>
       <div className="ai-connection-main"><div className="ai-connection-title"><strong>{row.name}</strong><span className={'ai-connection-state '+row.testState}>{busy===row.id?'测试中':row.testState==='ready'?'测试通过':row.testState==='failed'?'测试失败':'未测试'}</span></div>
-        <p>{data.providers.find(p=>p.id===row.provider)?.name} · {row.model}</p>
-        <small>{row.testedAt?`${new Date(row.testedAt).toLocaleString('zh-CN')} · ${(row.latencyMs/1000).toFixed(1)} 秒`:'API Key 已保存'}{row.testState==='failed'&&` · ${row.testMessage}`}</small>
+        <p>{data.providers.find(p=>p.id===row.provider)?.name} · {row.authType==='oauth'?'账号授权':'API Key'} · {row.model||'待选择模型'}</p>
+        <small>{row.accountLabel&&`${row.accountLabel} · `}{row.testedAt?`${new Date(row.testedAt).toLocaleString('zh-CN')} · ${(row.latencyMs/1000).toFixed(1)} 秒`:row.authType==='oauth'?'已授权':'API Key 已保存'}{row.testState==='failed'&&` · ${row.testMessage}`}</small>
       </div>
       <div className="ai-connection-actions"><button className="btn btn-secondary" disabled={Boolean(busy)||Boolean(draft)} onClick={()=>test(row)}>测试连接</button><button className="btn btn-ghost" disabled={Boolean(busy)||Boolean(draft)} onClick={()=>edit(row)}>编辑</button></div>
     </article>)}</div>}
@@ -264,27 +285,29 @@ function AiConnections({ onSaved, onDirtyChange, showToast, canUseCuration }) {
       <div className="ai-connections-heading"><h3>{draft.id?'编辑连接':'添加连接'}</h3><button className="btn btn-ghost" disabled={Boolean(busy)} onClick={closeEditor}>取消</button></div>
       <fieldset disabled={Boolean(busy)} className="settings-service-fields">
         <div className="ai-form-grid">
-          <div className="form-field"><label htmlFor="ai-provider">服务商</label><select id="ai-provider" className="input" value={draft.provider} onChange={e=>{const p=data.providers.find(x=>x.id===e.target.value);setDraft(d=>({...d,provider:p.id,protocol:p.protocol,baseUrl:p.baseUrl,apiKey:'',hasKey:false,model:'',name:d.name||p.name}));setModels([]);}}>{data.providers.map(p=><option key={p.id} value={p.id}>{p.name}</option>)}</select></div>
+          <div className="form-field"><label htmlFor="ai-provider">服务商</label><select id="ai-provider" className="input" disabled={draft.id&&draft.authType==='oauth'} value={draft.provider} onChange={e=>{const p=data.providers.find(x=>x.id===e.target.value);setDraft(d=>({...d,provider:p.id,protocol:p.protocol,baseUrl:p.baseUrl,apiKey:'',hasKey:false,model:'',name:d.name||p.name}));setModels([]);}}>{data.providers.map(p=><option key={p.id} value={p.id}>{p.name}</option>)}</select></div>
           <div className="form-field"><label htmlFor="ai-connection-name">连接名称</label><input id="ai-connection-name" className="input" maxLength={80} value={draft.name} placeholder="例如：我的 GPT" onChange={e=>update('name',e.target.value)}/></div>
         </div>
-        <div className="ai-auth-method"><strong>API Key</strong>{provider?.docs&&<a href={provider.docs} target="_blank" rel="noopener noreferrer">接入教程 ↗</a>}</div>
-        <div className="form-field"><label htmlFor="ai-connection-key">API Key{draft.hasKey?' · 已保存':''}</label><input id="ai-connection-key" className="input" type="password" autoComplete="off" value={draft.apiKey} placeholder={draft.hasKey?'留空沿用已保存的 Key':'填写此账号的 API Key'} onChange={e=>update('apiKey',e.target.value)}/></div>
-        <div className="form-field"><label htmlFor="ai-connection-model">模型</label><input id="ai-connection-model" className="input" list="ai-model-catalog" value={draft.model} maxLength={160} placeholder="填写模型 ID，保存后可读取模型列表" onChange={e=>update('model',e.target.value)}/><datalist id="ai-model-catalog">{models.map(m=><option key={m.id} value={m.id}>{m.name}</option>)}</datalist>
+        <div className="ai-auth-method"><div className="ai-auth-tabs" role="group" aria-label="接入方式">{[['api-key','API Key'],['oauth','授权登录']].map(([value,label])=><button type="button" key={value} className={'btn '+(draft.authType===value?'btn-secondary active':'btn-ghost')} aria-pressed={draft.authType===value} disabled={Boolean(draft.id)&&draft.authType!==value} onClick={()=>{setDraft(d=>({...d,authType:value,apiKey:''}));setError('');}}>{label}</button>)}</div>{draft.authType==='api-key'&&provider?.docs&&<a href={provider.docs} target="_blank" rel="noopener noreferrer">接入教程 ↗</a>}</div>
+        {draft.authType==='api-key'?<div className="form-field"><label htmlFor="ai-connection-key">API Key{draft.hasKey?' · 已保存':''}</label><input id="ai-connection-key" className="input" type="password" autoComplete="off" value={draft.apiKey} placeholder={draft.hasKey?'留空沿用已保存的 Key':'填写此账号的 API Key'} onChange={e=>update('apiKey',e.target.value)}/></div>:<div className="ai-oauth-panel">
+          <div><strong>{draft.id?(draft.accountLabel||'已绑定 ChatGPT 账号'):'连接自己的 '+(draft.provider==='openai'?'ChatGPT':provider?.name)+' 账号'}</strong><p className="form-hint">{provider?.oauth?.message}</p></div>
+          <div className="ai-oauth-actions"><button className="btn btn-primary" disabled={!provider?.oauth?.available||Boolean(busy)} onClick={authorize}>{busy==='authorize'?'正在前往…':draft.id?'重新授权':provider?.oauth?.label||'授权登录'}</button>{!provider?.oauth?.available&&<span className="ai-connection-state">{draft.provider==='openai'?'待开通':'暂不支持网站授权'}</span>}</div>
+        </div>}
+        {(draft.authType==='api-key'||draft.id)&&<div className="form-field"><label htmlFor="ai-connection-model">模型</label><input id="ai-connection-model" className="input" list="ai-model-catalog" value={draft.model} maxLength={160} placeholder={draft.authType==='oauth'?'选择授权账号可用的模型':'填写模型 ID，保存后可读取模型列表'} onChange={e=>update('model',e.target.value)}/><datalist id="ai-model-catalog">{models.map(m=><option key={m.id} value={m.id}>{m.name}</option>)}</datalist>
           {draft.id&&<button className="btn btn-ghost" disabled={dirty||Boolean(busy)} onClick={()=>action('models',async()=>{const result=await api('/api/ai/connections/'+draft.id+'/models',{method:'POST',body:{}});setModels(result.models);showToast(`已读取 ${result.models.length} 个模型，可在输入框选择`);})}>读取模型列表</button>}
-        </div>
-        <details className="ai-advanced"><summary>接口设置</summary><div className="ai-form-grid">
+        </div>}
+        {draft.authType==='api-key'&&<details className="ai-advanced"><summary>接口设置</summary><div className="ai-form-grid">
           <div className="form-field"><label htmlFor="ai-connection-url">接口地址</label><input id="ai-connection-url" className="input" value={draft.baseUrl} onChange={e=>update('baseUrl',e.target.value)}/></div>
           <div className="form-field"><label htmlFor="ai-connection-protocol">接口协议</label><select id="ai-connection-protocol" className="input" value={draft.protocol} onChange={e=>update('protocol',e.target.value)}><option value="responses">OpenAI Responses</option><option value="chat-completions">OpenAI 兼容接口</option><option value="anthropic">Claude Messages</option></select></div>
-        </div></details>
-        {provider?.authorization&&<details className="ai-advanced"><summary>账号授权</summary><p className="form-hint">{provider.authorization}。当前网站支持 API Key 接入。{provider.authorizationDocs&&<a href={provider.authorizationDocs} target="_blank" rel="noopener noreferrer">查看官方说明 ↗</a>}</p></details>}
+        </div></details>}
       </fieldset>
-      <div className="ai-editor-actions">{draft.id&&<button className="btn btn-ghost" disabled={Boolean(busy)} onClick={()=>{if(confirm('删除这条 AI 连接？'))action('delete',async()=>{await api('/api/ai/connections/'+draft.id,{method:'DELETE',body:{}});await reload();setDraft(null);setOriginal(null);});}}>删除连接</button>}<button className="btn btn-primary" disabled={Boolean(busy)||!draft.name.trim()||!draft.model.trim()||(!draft.apiKey&&!draft.hasKey)} onClick={save}>{busy==='save'?'保存中…':'保存连接'}</button></div>
+      {(draft.authType==='api-key'||draft.id)&&<div className="ai-editor-actions">{draft.id&&<button className="btn btn-ghost" disabled={Boolean(busy)} onClick={()=>{if(confirm(draft.authType==='oauth'?'删除网站保存的授权连接？如需撤销官方授权，请同时到 ChatGPT 设置中断开此应用。':'删除这条 AI 连接？'))action('delete',async()=>{await api('/api/ai/connections/'+draft.id,{method:'DELETE',body:{}});await reload();setDraft(null);setOriginal(null);});}}>删除连接</button>}<button className="btn btn-primary" disabled={Boolean(busy)||!draft.name.trim()||!draft.model.trim()||(draft.authType==='api-key'&&!draft.apiKey&&!draft.hasKey)} onClick={save}>{busy==='save'?'保存中…':'保存连接'}</button></div>}
     </section>}
     {data&&data.connections.length>0&&<section className="ai-routing" aria-label="功能使用的连接"><h3>用于哪些功能</h3>
       {['chat',...(canUseCuration?['curation']:[])].map(purpose=><label key={purpose} className="ai-routing-row"><span>{purpose==='chat'?'AI 提炼台':'收藏整理'}</span><select className="input" disabled={Boolean(busy)||Boolean(draft)} value={data.routes[purpose]||''} onChange={e=>choose(purpose,e.target.value)}><option value="">{purpose==='chat'?'未选择':'沿用原有整理配置'}</option>{data.connections.map(c=><option key={c.id} value={c.id} disabled={c.testState!=='ready'}>{c.name} · {c.model}{c.testState!=='ready'?'（需测试）':''}</option>)}</select></label>)}
       {canUseCuration&&<p className="form-hint">已启用的收藏整理会使用所选连接，受原有调用次数上限约束。</p>}
     </section>}
-    <p className="ai-privacy-note">密钥保存在网站服务器，仅供当前账号使用。测试会发送一条短请求，按服务商规则计费。</p>
+    <p className="ai-privacy-note">连接仅供当前账号使用。测试与调用消耗所选连接的 API 额度或订阅用量。</p>
     {error&&<p className="auth-error" role="alert">{error}</p>}
   </div>;
 }

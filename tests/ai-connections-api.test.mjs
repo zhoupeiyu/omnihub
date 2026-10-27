@@ -21,6 +21,14 @@ test('each signed-in account configures and calls only its own tested AI service
   const request=(route,user,method='GET',body,origin=base)=>fetch(base+route,{method,headers:{...(user?{cookie:'omnihub_session=fixture-'+user}:{}),...(body?{'content-type':'application/json'}:{}),origin},body:body?JSON.stringify(body):undefined});
   const input={name:'我的服务',provider:'anthropic',protocol:'anthropic',baseUrl:'https://api.anthropic.com/v1',apiKey:'secret-alice',model:'model'};
   assert.equal((await request('/api/ai/connections')).status,401);
+  assert.equal((await request('/api/ai/oauth/openai/start',null,'POST',{})).status,401);
+  assert.equal((await request('/api/ai/oauth/openai/start','alice','POST',{},'https://attacker.example')).status,403);
+  assert.equal((await request('/api/ai/oauth/openai/start','alice','POST',{})).status,409);
+  const pending=await(await request('/api/ai/connections','alice')).json();assert.equal(pending.providers.find(p=>p.id==='openai').oauth.available,false);
+  const callback=await fetch(base+'/api/ai/oauth/openai/callback?code=private-code&state=private-state',{redirect:'manual'});
+  assert.equal(callback.status,303);assert.equal(callback.headers.get('referrer-policy'),'no-referrer');assert.equal(callback.headers.get('cache-control'),'no-store');
+  assert.ok(callback.headers.get('location').startsWith('/#settings?category=ai'));
+  assert.ok(!callback.headers.get('location').includes('private-'));assert.equal((await callback.text()),'');
   assert.equal((await request('/api/ai/connections','alice','POST',input,'https://attacker.example')).status,403);
   const c=await (await request('/api/ai/connections','alice','POST',input)).json();
   assert.equal(c.hasKey,true);assert.ok(!JSON.stringify(c).includes('secret-alice'));
