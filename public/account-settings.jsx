@@ -112,6 +112,14 @@ function AccountSettings({ onClose, embedded = false, children }) {
   const blocked = { client_id_missing: '服务器尚未配置 X OAuth 应用 Client ID。', callback_missing: '服务器尚未配置有效的 X 回调地址。',
     encryption_key_missing: '服务器尚未配置独立的令牌加密密钥。', connect_budget_missing: '服务器尚未设置账号校验费用上限，或已达到上限。' };
   const formatTime = value => value ? new Date(value).toLocaleString('zh-CN') : '尚未同步';
+  const xConnectionState = xError ? ['warning', '待确认']
+    : xAccount?.needsReconnect ? ['warning', '需重新授权']
+    : xAccount?.connected ? ['success', '已连接'] : ['neutral', '未连接'];
+  const xSyncState = busy === 'x:sync' ? ['progress', '同步中']
+    : !xAccount?.syncEnabled ? ['neutral', '已关闭']
+    : xAccount.needsReconnect ? ['warning', '待授权']
+    : !xAccount.sync.serverReady ? ['warning', '未就绪']
+    : xAccount.sync.lastError ? ['danger', '同步失败'] : ['success', '已开启'];
   const localCuration = connections?.localCuration;
   const devices = Array.isArray(localCuration?.devices) ? localCuration.devices : [];
   const activeDeviceCount = Array.isArray(localCuration?.devices)
@@ -131,7 +139,7 @@ function AccountSettings({ onClose, embedded = false, children }) {
 
       <section className="connection-section sync-module account-x-section" aria-label="X 收藏">
         <div className="sync-module-heading">
-          <div className="sync-module-title"><h3>X 收藏</h3>{xAccount && <span className="sync-meta">{xAccount.connected ? `@${xAccount.username}` : '未连接'}</span>}</div>
+          <div className="sync-module-title"><h3>X 收藏</h3>{xAccount?.connected && <span className="sync-meta">@{xAccount.username}</span>}{(xAccount || xError) && <span className="sync-status" data-tone={xConnectionState[0]}>{xConnectionState[1]}</span>}</div>
           {xAccount?.connected && <button className="btn btn-ghost" aria-expanded={manageX} aria-controls={xManagementId} onClick={() => setManageX(value => !value)}>管理连接</button>}
         </div>
         {xError && <div className="connection-error" role="alert"><p>{xError}</p><button className="btn" disabled={Boolean(busy)} onClick={() => loadX()}>重试 X 连接</button></div>}
@@ -144,7 +152,7 @@ function AccountSettings({ onClose, embedded = false, children }) {
           </> : <>
             <div className="sync-row sync-divider">
               <div className="sync-row-label"><strong>自动同步</strong><span className="sync-meta">每 2 小时</span></div>
-              <button className="settings-switch" role="switch" aria-label="自动同步 X 收藏" aria-checked={Boolean(xAccount.syncEnabled)} disabled={Boolean(busy) || (!xAccount.syncEnabled && (!xAccount.sync.serverReady || xAccount.needsReconnect))} onClick={() => xAction('sync-settings', { enabled: !xAccount.syncEnabled })}><span /></button>
+              <div className="sync-toggle-label"><span className="sync-status" data-tone={xSyncState[0]} aria-live="polite">{xSyncState[1]}</span><button className="settings-switch" role="switch" aria-label="自动同步 X 收藏" aria-checked={Boolean(xAccount.syncEnabled)} disabled={Boolean(busy) || (!xAccount.syncEnabled && (!xAccount.sync.serverReady || xAccount.needsReconnect))} onClick={() => xAction('sync-settings', { enabled: !xAccount.syncEnabled })}><span /></button></div>
             </div>
             <div className="sync-row sync-last-run"><span className="sync-meta">上次同步 · {formatTime(xAccount.sync.lastSuccessAt)}</span><button className="btn" disabled={Boolean(busy) || !xAccount.syncEnabled || !xAccount.sync.serverReady || xAccount.needsReconnect} title={!xAccount.syncEnabled ? '请先开启自动同步' : undefined} onClick={() => xAction('sync')}>{busy === 'x:sync' ? '同步中…' : '立即同步'}</button></div>
             {!xAccount.sync.serverReady && <p className="sync-meta">服务器同步未就绪，请检查抓取开关与费用上限。</p>}
