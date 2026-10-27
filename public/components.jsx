@@ -340,7 +340,7 @@ function SideNav({ section, onSectionChange, categories, activeCategory, onCateg
   const canUseFullApp = Boolean(user && user.fullAccess);
   const hasPersonalSpace = Boolean(user && (user.personalAccess !== false));
   const modules = canUseFullApp ? allModules : allModules
-    .filter((m) => ["repositories", "knowledgeLibrary", "promptLibrary", "feed", "topics", ...(hasPersonalSpace ? ["inbox", "studio", "works"] : [])].includes(m.id));
+    .filter((m) => ["repositories", "knowledgeLibrary", "promptLibrary", "feed", "topics", ...(hasPersonalSpace ? ["inbox", "studio", "works", "chat"] : [])].includes(m.id));
   return (
     <aside id="workspace-sidebar" className={"sidebar workspace-navigation" + (collapsed ? " collapsed" : "") + (hasContext ? " has-context" : "") + (moduleLabels ? " module-labels-visible" : "")} aria-hidden={hidden} inert={hidden ? "" : undefined}>
       <div className="module-rail">

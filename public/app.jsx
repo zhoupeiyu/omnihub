@@ -1030,7 +1030,7 @@ function Workspace({ user, onUserChange, showToast, toast }) {
   const [moduleLabels, setModuleLabels] = useAppState(false);
   const canUseFullApp = Boolean(user && user.fullAccess);
   useAppEffect(() => {
-    if (!canUseFullApp || user?.hasAiConfig != null) return;
+    if (!user || user?.hasAiConfig != null) return;
     const controller = new AbortController();
     api('/api/ai-config',{signal:controller.signal}).then(config => {
       if (!controller.signal.aborted) setHasAiConfig(Boolean(config.hasKey));
@@ -1203,7 +1203,7 @@ function Workspace({ user, onUserChange, showToast, toast }) {
       window.location.replace(`#settings?${accountParams}`);
       return;
     }
-    if (!canUseFullApp && !["repositories", "knowledgeLibrary", "promptLibrary", "feed", "topics", ...(personalAccess ? ["inbox", "studio", "works", "settings"] : [])].includes(section)) {
+    if (!canUseFullApp && !["repositories", "knowledgeLibrary", "promptLibrary", "feed", "topics", ...(personalAccess ? ["inbox", "studio", "works", "chat", "settings"] : [])].includes(section)) {
       setSection("repositories");
       setQuery("", "repositories");
     }
@@ -1441,8 +1441,8 @@ function Workspace({ user, onUserChange, showToast, toast }) {
     setChatMessages(rows => rows.map((row,index) => index === modal.chatIndex ? {...row,savedAssets:{...row.savedAssets,[targetType]:{id}},savedSnapshots:{...row.savedSnapshots,[targetType]:snapshot || row.savedSnapshots?.[targetType]}} : row));
   }
   useAppEffect(() => {
-    if (section === 'chat' && canUseFullApp) { setChatVisited(true); dataCache.load('inbox'); }
-  }, [section,canUseFullApp,dataCache]);
+    if (section === 'chat' && personalAccess) { setChatVisited(true); dataCache.load('inbox'); }
+  }, [section,personalAccess,dataCache]);
 
   function dispatchInbox(id, targetType, data) {
     return api(`/api/inbox/${id}/dispatch`, { method: "POST", body: { targetType, data } })
@@ -1718,12 +1718,12 @@ function Workspace({ user, onUserChange, showToast, toast }) {
               showToast={showToast} />
           )}
           <WorkspacePanel active={section === 'chat'} name="chat">
-          {(section === 'chat' || chatVisited) && canUseFullApp && (
+          {(section === 'chat' || chatVisited) && personalAccess && (
             <ChatView active={section === 'chat'} messages={chatMessages} onMessagesChange={setChatMessages}
               prefill={chatPrefill} onPrefillUsed={() => setChatPrefill("")} sources={inboxItems}
               onLoadSource={(id, options) => api(`/api/inbox/${id}`, options)}
               onSearchSources={(query, options) => api(`/api/inbox/search?q=${encodeURIComponent(query)}&mode=terms`, options)}
-              onSaveResult={saveChatResult}
+              onSaveResult={canUseFullApp ? saveChatResult : undefined}
               hasAiConfig={hasAiConfig}
               onOpenAiSettings={() => setModal("ai-settings")}
               showToast={showToast} />
@@ -1740,7 +1740,7 @@ function Workspace({ user, onUserChange, showToast, toast }) {
               onDirtyChange={value => { settingsDirty.current = Boolean(value); }}
               theme={theme} onThemeToggle={() => setTheme(theme === "dark" ? "light" : "dark")} skin={skin} onSkinChange={setSkin}
               woodFishEnabled={woodFishEnabled} onWoodFishToggle={() => setWoodFishEnabled(value => !value)}
-              showToast={showToast} onSaved={(kind) => { if (kind === "chat") setHasAiConfig(true); else setMediaConfigVersion(value => value + 1); }} />}
+              showToast={showToast} onSaved={(kind) => { if (kind === "chat") api("/api/ai-config").then(c=>setHasAiConfig(Boolean(c.hasKey))).catch(()=>setHasAiConfig(false)); else setMediaConfigVersion(value => value + 1); }} />}
           </WorkspacePanel>
         </main>
       </div>

@@ -6,7 +6,7 @@
 function SettingsCenter({ user, canUseFullApp, onClose, onSaved, onDirtyChange, showToast,
   theme, onThemeToggle, skin, onSkinChange, woodFishEnabled, onWoodFishToggle }) {
   const tabs = [{ id:'sync', label:'数据同步', icon:IconUser },
-    ...(canUseFullApp ? [{ id:'ai', label:'AI 服务', icon:IconSparkle }] : []),
+    { id:'ai', label:'AI 服务', icon:IconSparkle },
     { id:'devices', label:'执行设备', icon:IconSettings }, { id:'appearance', label:'外观', icon:IconPalette }];
   const readRoute = () => settingsRouteFor(window.location.hash, canUseFullApp);
   const [route, setRoute] = React.useState(readRoute);
@@ -93,7 +93,7 @@ function SettingsCenter({ user, canUseFullApp, onClose, onSaved, onDirtyChange, 
             </div>
           </div>}
           {item.id === 'ai' && <AiSettingsModal embedded initialTab={route.aiTab}
-            onClose={onClose} onDirtyChange={onAiDirtyChange} onSaved={onSaved} showToast={showToast} />}
+            onClose={onClose} onDirtyChange={onAiDirtyChange} onSaved={onSaved} showToast={showToast} canUseMedia={canUseFullApp} />}
           {item.id === 'devices' && <div className="account-settings-body sync-modules"><LocalCurationSettings /><LocalImageDevices /></div>}
           {item.id === 'appearance' && <div className="settings-appearance">
             <section className="settings-skins" aria-labelledby="settings-theme-title">

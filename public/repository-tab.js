@@ -261,7 +261,6 @@ function workspaceHashParams(hash) { return new URLSearchParams(String(hash || '
 function settingsRouteFor(hash, canUseFullApp) {
   const params = workspaceHashParams(hash);
   let category = settingsCategoryFor(params.get('category') || '') || 'sync';
-  if (category === 'ai' && !canUseFullApp) category = 'sync';
   return { category, aiTab: params.get('aiTab') || 'chat' };
 }
 // Canonical settings URL; drops the one-shot OAuth `result` and keeps `space`.

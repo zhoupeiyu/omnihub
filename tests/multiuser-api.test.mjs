@@ -79,7 +79,7 @@ test('personal accounts isolate originals, media, edits, devices and derived lib
   const bobMedia = JSON.parse((await json('/api/x-bookmarks','bob'))[0].media)[0].url;
   assert.equal((await request(bobMedia.replace('/3/',`/${forged.id}/`),'alice')).status,404);
   assert.equal((await request('/api/content-pipeline','alice',{action:'publish',jobId:1})).status,403);
-  for (const route of ['/api/x-watch','/api/x-watch/following','/api/ai-config','/api/media/config'])
+  for (const route of ['/api/x-watch','/api/x-watch/following','/api/media/config'])
     assert.equal((await request(route,'alice')).status,403);
   assert.equal((await request('/api/inbox/1/analyze','alice',{})).status,403);
   const aDevice = await (await request('/api/local-curation/devices','alice',{label:'Alice device'})).json();

@@ -276,7 +276,7 @@ test('source detaches or needs confirmation when the input is substantially repl
 
 /* ---------- AI settings ---------- */
 test('AI settings describe website-service storage and report dirty state', () => {
-  const settings = chatSource.slice(chatSource.indexOf('function AiSettingsModal'), chatSource.indexOf('const CHAT_CAPTURE_TEMPLATES'));
+  const settings = chatSource.slice(chatSource.indexOf('function AiConnections'), chatSource.indexOf('const CHAT_CAPTURE_TEMPLATES'));
   for (const misleading of ['电脑上', '本机数据库', '保存在本机', '本地 Key', '本地凭据']) {
     assert.equal(settings.includes(misleading), false, misleading);
   }

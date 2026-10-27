@@ -97,19 +97,10 @@ const SNS_TYPE_NAMES = {
   x: "X", youtube: "YouTube", tiktok: "TikTok", instagram: "Instagram", other: "链接",
 };
 
-/** AI 服务商预设 —— 一键填入接口地址与常用模型 */
-const AI_PRESETS = [
-  { id: "deepseek", name: "DeepSeek", baseUrl: "https://api.deepseek.com/v1", model: "deepseek-chat" },
-  { id: "kimi", name: "Kimi", baseUrl: "https://api.moonshot.cn/v1", model: "moonshot-v1-8k" },
-  { id: "zhipu", name: "智谱 GLM", baseUrl: "https://open.bigmodel.cn/api/paas/v4", model: "glm-4-flash" },
-  { id: "qwen", name: "通义千问", baseUrl: "https://dashscope.aliyuncs.com/compatible-mode/v1", model: "qwen-plus" },
-  { id: "openai", name: "OpenAI", baseUrl: "https://api.openai.com/v1", model: "gpt-4o-mini" },
-];
-
 Object.assign(window, {
   loadStored, saveStored, getDomain, getAvatarColor,
   SKIN_LIST, FAV_CATEGORIES, PROMPT_CATEGORIES,
-  FEED_CATEGORIES, SAMPLE_FEED, FALLBACK_QUOTES, AI_PRESETS,
+  FEED_CATEGORIES, SAMPLE_FEED, FALLBACK_QUOTES,
   MODEL_PRESETS, TAG_TEMPLATES, SNS_TYPE_NAMES,
   AI_FEED_CATS, AI_FEED_CAT_NAMES,
 });

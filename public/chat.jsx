@@ -217,142 +217,106 @@ function MarkdownBubble({ content, className = "msg-bubble md-body" }) {
   return <div className={className} dangerouslySetInnerHTML={{ __html: html }}></div>;
 }
 
-/** AI 配置弹窗：服务商预设一键填入，Key 留空表示沿用已保存的 */
-function AiSettingsModal({ onClose, onSaved, showToast, embedded = false, initialTab = "chat", onDirtyChange }) {
-  const [settingsTab, setSettingsTab] = useChatState(initialTab);
-  const [baseUrl, setBaseUrl] = useChatState("");
-  const [apiKey, setApiKey] = useChatState("");
-  const [model, setModel] = useChatState("");
-  const [maskedKey, setMaskedKey] = useChatState("");
-  const [mediaBaseUrl, setMediaBaseUrl] = useChatState("");
-  const [authentication, setAuthentication] = useChatState("");
-  const [sysToken, setSysToken] = useChatState("");
-  const [mediaAuthMasked, setMediaAuthMasked] = useChatState("");
-  const [sysTokenMasked, setSysTokenMasked] = useChatState("");
-  const [clearSysToken, setClearSysToken] = useChatState(false);
-  const [error, setError] = useChatState("");
-  const [saving, setSaving] = useChatState(false);
-  const [loaded, setLoaded] = useChatState({chat:false, media:false});
-  const [loadErrors, setLoadErrors] = useChatState({});
-  const [initial, setInitial] = useChatState({ baseUrl: "", model: "", mediaBaseUrl: "" });
-  const dirtyReport = useChatRef(onDirtyChange);
-  dirtyReport.current = onDirtyChange;
-
-  useChatEffect(() => {
-    api("/api/ai-config")
-      .then((config) => {
-        setBaseUrl(config.baseUrl || "");
-        setModel(config.model || "");
-        setMaskedKey(config.apiKeyMasked);
-        setInitial(current => ({ ...current, baseUrl: config.baseUrl || "", model: config.model || "" }));
-        setLoaded(current => ({...current,chat:true}));
-      })
-      .catch(() => setLoadErrors(current => ({...current, chat:"无法读取文字服务配置，请关闭设置后重试。"})));
-    api("/api/media/config")
-      .then((config) => {
-        setMediaBaseUrl(config.baseUrl || "");
-        setMediaAuthMasked(config.authenticationMasked || "");
-        setSysTokenMasked(config.sysTokenMasked || "");
-        setInitial(current => ({ ...current, mediaBaseUrl: config.baseUrl || "" }));
-        setLoaded(current => ({...current,media:true}));
-      })
-      .catch(() => setLoadErrors(current => ({...current, media:"无法读取媒体服务配置，请关闭设置后重试。"})));
-  }, []);
-
-  // 未保存修改：改了地址/模型，或填写了新的密钥类字段（留空表示沿用已保存值，不算修改）
-  const dirty = Boolean(
-    (loaded.chat && (baseUrl !== initial.baseUrl || model !== initial.model)) || apiKey.trim()
-    || (loaded.media && mediaBaseUrl !== initial.mediaBaseUrl) || authentication.trim() || sysToken.trim() || clearSysToken
-  );
-  useChatEffect(() => { if (dirtyReport.current) dirtyReport.current(dirty); }, [dirty]);
-  useChatEffect(() => () => { if (dirtyReport.current) dirtyReport.current(false); }, []);
-
-  function finishSaved(kind) {
-    if (dirtyReport.current) dirtyReport.current(false);
-    onSaved(kind);
-    onClose();
+function AiConnections({ onSaved, onDirtyChange, showToast, canUseCuration }) {
+  const [data,setData]=useChatState(null);
+  const [draft,setDraft]=useChatState(null);
+  const [original,setOriginal]=useChatState(null);
+  const [error,setError]=useChatState('');
+  const [busy,setBusy]=useChatState('');
+  const [models,setModels]=useChatState([]);
+  const dirty=Boolean(draft && ['name','provider','protocol','baseUrl','model','apiKey'].some(key=>draft[key]!==original?.[key]));
+  const report=useChatRef(onDirtyChange);report.current=onDirtyChange;
+  useChatEffect(()=>{report.current?.(dirty);},[dirty]);
+  useChatEffect(()=>()=>report.current?.(false),[]);
+  async function reload(){const next=await api('/api/ai/connections');setData(next);return next;}
+  useChatEffect(()=>{reload().catch(e=>setError(e.message));},[]);
+  function closeEditor(){if(dirty&&!confirm('连接有未保存的修改，确定放弃吗？'))return;setDraft(null);setOriginal(null);setError('');setModels([]);}
+  function edit(row){
+    const next=row ? {...row,apiKey:''} : {name:'',provider:'openai',protocol:'responses',baseUrl:'https://api.openai.com/v1',model:'',apiKey:''};
+    setDraft(next);setOriginal(next);setModels([]);setError('');
   }
+  function update(key,value){setDraft(d=>({...d,[key]:value}));setError('');}
+  async function action(key,task){setBusy(key);setError('');try{await task();}catch(e){setError(e.message);}finally{setBusy('');}}
+  async function save(){await action('save',async()=>{
+    const saved=await api('/api/ai/connections'+(draft.id?'/'+draft.id:''),{method:draft.id?'PUT':'POST',body:draft});
+    await reload();setDraft(null);setOriginal(null);report.current?.(false);onSaved('chat');showToast(saved.testState==='ready'?'连接已保存':'连接已保存，请测试后选择用途');
+  });}
+  async function test(row){await action(row.id,async()=>{
+    const checked=await api('/api/ai/connections/'+row.id+'/test',{method:'POST',body:{}});
+    await reload();onSaved('chat');showToast(checked.testMessage);
+  });}
+  async function choose(purpose,connectionId){await action(purpose,async()=>{
+    const next=await api('/api/ai/routes',{method:'PUT',body:{purpose,connectionId}});setData(next);onSaved('chat');
+  });}
+  const provider=data?.providers.find(p=>p.id===draft?.provider);
+  return <div className="ai-connections">
+    <div className="ai-connections-heading"><h2>我的连接</h2><button className="btn btn-primary" disabled={!data||Boolean(busy)||Boolean(draft)} onClick={()=>edit(null)}><IconPlus />添加连接</button></div>
+    {!data&&!error&&<p className="form-hint">正在加载…</p>}
+    {data&&!data.connections.length&&!draft&&<div className="ai-empty"><p>连接你使用的 AI 服务</p><span>可保存多个服务商，也可添加同一服务商的不同账号。</span></div>}
+    {data&&<div className="ai-connection-list">{data.connections.map(row=><article className="ai-connection-card" key={row.id}>
+      <div className="ai-connection-main"><div className="ai-connection-title"><strong>{row.name}</strong><span className={'ai-connection-state '+row.testState}>{busy===row.id?'测试中':row.testState==='ready'?'测试通过':row.testState==='failed'?'测试失败':'未测试'}</span></div>
+        <p>{data.providers.find(p=>p.id===row.provider)?.name} · {row.model}</p>
+        <small>{row.testedAt?`${new Date(row.testedAt).toLocaleString('zh-CN')} · ${(row.latencyMs/1000).toFixed(1)} 秒`:'API Key 已保存'}{row.testState==='failed'&&` · ${row.testMessage}`}</small>
+      </div>
+      <div className="ai-connection-actions"><button className="btn btn-secondary" disabled={Boolean(busy)||Boolean(draft)} onClick={()=>test(row)}>测试连接</button><button className="btn btn-ghost" disabled={Boolean(busy)||Boolean(draft)} onClick={()=>edit(row)}>编辑</button></div>
+    </article>)}</div>}
+    {draft&&<section className="ai-connection-editor" aria-label={draft.id?'编辑 AI 连接':'添加 AI 连接'}>
+      <div className="ai-connections-heading"><h3>{draft.id?'编辑连接':'添加连接'}</h3><button className="btn btn-ghost" disabled={Boolean(busy)} onClick={closeEditor}>取消</button></div>
+      <fieldset disabled={Boolean(busy)} className="settings-service-fields">
+        <div className="ai-form-grid">
+          <div className="form-field"><label htmlFor="ai-provider">服务商</label><select id="ai-provider" className="input" value={draft.provider} onChange={e=>{const p=data.providers.find(x=>x.id===e.target.value);setDraft(d=>({...d,provider:p.id,protocol:p.protocol,baseUrl:p.baseUrl,apiKey:'',hasKey:false,model:'',name:d.name||p.name}));setModels([]);}}>{data.providers.map(p=><option key={p.id} value={p.id}>{p.name}</option>)}</select></div>
+          <div className="form-field"><label htmlFor="ai-connection-name">连接名称</label><input id="ai-connection-name" className="input" maxLength={80} value={draft.name} placeholder="例如：我的 GPT" onChange={e=>update('name',e.target.value)}/></div>
+        </div>
+        <div className="ai-auth-method"><strong>API Key</strong>{provider?.docs&&<a href={provider.docs} target="_blank" rel="noopener noreferrer">接入教程 ↗</a>}</div>
+        <div className="form-field"><label htmlFor="ai-connection-key">API Key{draft.hasKey?' · 已保存':''}</label><input id="ai-connection-key" className="input" type="password" autoComplete="off" value={draft.apiKey} placeholder={draft.hasKey?'留空沿用已保存的 Key':'填写此账号的 API Key'} onChange={e=>update('apiKey',e.target.value)}/></div>
+        <div className="form-field"><label htmlFor="ai-connection-model">模型</label><input id="ai-connection-model" className="input" list="ai-model-catalog" value={draft.model} maxLength={160} placeholder="填写模型 ID，保存后可读取模型列表" onChange={e=>update('model',e.target.value)}/><datalist id="ai-model-catalog">{models.map(m=><option key={m.id} value={m.id}>{m.name}</option>)}</datalist>
+          {draft.id&&<button className="btn btn-ghost" disabled={dirty||Boolean(busy)} onClick={()=>action('models',async()=>{const result=await api('/api/ai/connections/'+draft.id+'/models',{method:'POST',body:{}});setModels(result.models);showToast(`已读取 ${result.models.length} 个模型，可在输入框选择`);})}>读取模型列表</button>}
+        </div>
+        <details className="ai-advanced"><summary>接口设置</summary><div className="ai-form-grid">
+          <div className="form-field"><label htmlFor="ai-connection-url">接口地址</label><input id="ai-connection-url" className="input" value={draft.baseUrl} onChange={e=>update('baseUrl',e.target.value)}/></div>
+          <div className="form-field"><label htmlFor="ai-connection-protocol">接口协议</label><select id="ai-connection-protocol" className="input" value={draft.protocol} onChange={e=>update('protocol',e.target.value)}><option value="responses">OpenAI Responses</option><option value="chat-completions">OpenAI 兼容接口</option><option value="anthropic">Claude Messages</option></select></div>
+        </div></details>
+        {provider?.authorization&&<details className="ai-advanced"><summary>账号授权</summary><p className="form-hint">{provider.authorization}。当前网站支持 API Key 接入。{provider.authorizationDocs&&<a href={provider.authorizationDocs} target="_blank" rel="noopener noreferrer">查看官方说明 ↗</a>}</p></details>}
+      </fieldset>
+      <div className="ai-editor-actions">{draft.id&&<button className="btn btn-ghost" disabled={Boolean(busy)} onClick={()=>{if(confirm('删除这条 AI 连接？'))action('delete',async()=>{await api('/api/ai/connections/'+draft.id,{method:'DELETE',body:{}});await reload();setDraft(null);setOriginal(null);});}}>删除连接</button>}<button className="btn btn-primary" disabled={Boolean(busy)||!draft.name.trim()||!draft.model.trim()||(!draft.apiKey&&!draft.hasKey)} onClick={save}>{busy==='save'?'保存中…':'保存连接'}</button></div>
+    </section>}
+    {data&&data.connections.length>0&&<section className="ai-routing" aria-label="功能使用的连接"><h3>用于哪些功能</h3>
+      {['chat',...(canUseCuration?['curation']:[])].map(purpose=><label key={purpose} className="ai-routing-row"><span>{purpose==='chat'?'AI 提炼台':'收藏整理'}</span><select className="input" disabled={Boolean(busy)||Boolean(draft)} value={data.routes[purpose]||''} onChange={e=>choose(purpose,e.target.value)}><option value="">{purpose==='chat'?'未选择':'沿用原有整理配置'}</option>{data.connections.map(c=><option key={c.id} value={c.id} disabled={c.testState!=='ready'}>{c.name} · {c.model}{c.testState!=='ready'?'（需测试）':''}</option>)}</select></label>)}
+      {canUseCuration&&<p className="form-hint">已启用的收藏整理会使用所选连接，受原有调用次数上限约束。</p>}
+    </section>}
+    <p className="ai-privacy-note">密钥保存在网站服务器，仅供当前账号使用。测试会发送一条短请求，按服务商规则计费。</p>
+    {error&&<p className="auth-error" role="alert">{error}</p>}
+  </div>;
+}
 
-  function handleCancel() {
-    if (!embedded && dirty && window.OmniNavigationGuard && !window.OmniNavigationGuard.confirmDiscard(true, "AI 服务设置还有未保存的修改，确定放弃吗？")) return;
-    onClose();
+/** Media retains its separate permission and credential contract. */
+function AiSettingsModal({ onClose, onSaved, showToast, embedded = false, initialTab = "chat", onDirtyChange, canUseMedia = false }) {
+  const [settingsTab,setSettingsTab]=useChatState(canUseMedia&&initialTab==='media'?'media':'chat');
+  const [mediaBaseUrl,setMediaBaseUrl]=useChatState(''),[authentication,setAuthentication]=useChatState(''),[sysToken,setSysToken]=useChatState('');
+  const [mediaAuthMasked,setMediaAuthMasked]=useChatState(''),[sysTokenMasked,setSysTokenMasked]=useChatState(''),[clearSysToken,setClearSysToken]=useChatState(false);
+  const [error,setError]=useChatState(''),[saving,setSaving]=useChatState(false),[loaded,setLoaded]=useChatState(false),[initial,setInitial]=useChatState('');
+  const [chatDirty,setChatDirty]=useChatState(false);
+  const dirty=chatDirty||Boolean(loaded&&mediaBaseUrl!==initial||authentication||sysToken||clearSysToken);
+  const report=useChatRef(onDirtyChange);report.current=onDirtyChange;
+  useChatEffect(()=>{report.current?.(dirty);},[dirty]);
+  useChatEffect(()=>()=>report.current?.(false),[]);
+  useChatEffect(()=>{
+    if(!canUseMedia)return;
+    api('/api/media/config').then(c=>{setMediaBaseUrl(c.baseUrl||'');setInitial(c.baseUrl||'');setMediaAuthMasked(c.authenticationMasked||'');setSysTokenMasked(c.sysTokenMasked||'');setLoaded(true);}).catch(e=>setError(e.message));
+  },[canUseMedia]);
+  function handleCancel(){if(!embedded&&dirty&&!confirm('设置有未保存的修改，确定放弃吗？'))return;onClose();}
+  async function handleSave(){
+    if(!loaded||saving)return;
+    if(!authentication.trim()&&!mediaAuthMasked){setError('请填写媒体接口认证信息');return;}
+    setSaving(true);setError('');
+    try{await api('/api/media/config',{method:'PUT',body:{baseUrl:mediaBaseUrl.trim(),authentication:authentication.trim(),sysToken:sysToken.trim(),clearSysToken}});
+      setInitial(mediaBaseUrl);if(authentication)setMediaAuthMasked('已保存');if(sysToken)setSysTokenMasked('已保存');if(clearSysToken)setSysTokenMasked('');setAuthentication('');setSysToken('');setClearSysToken(false);onSaved('media');showToast('媒体接口配置已保存');
+    }catch(e){setError(e.message);}finally{setSaving(false);}
   }
-
-  function applyPreset(preset) {
-    setBaseUrl(preset.baseUrl);
-    setModel(preset.model);
-  }
-
-  function handleSave() {
-    if (!loaded[settingsTab] || saving) return;
-    if (settingsTab === "media") {
-      if (!authentication.trim() && !mediaAuthMasked) { setError("请填写媒体接口认证信息"); return; }
-      setSaving(true);
-      api("/api/media/config", { method: "PUT", body: {
-        baseUrl: mediaBaseUrl.trim(), authentication: authentication.trim(),
-        sysToken: sysToken.trim(), clearSysToken,
-      } })
-        .then(() => {
-          setInitial(current => ({ ...current, mediaBaseUrl }));
-          if (authentication.trim()) setMediaAuthMasked(current => current || "已保存");
-          setAuthentication(""); setSysToken(""); setClearSysToken(false);
-          showToast(mediaBaseUrl.trim() ? "媒体接口配置已保存" : "认证已保存到网站服务，等待填写安全接口地址");
-          finishSaved("media");
-        })
-        .catch((err) => setError(err.message))
-        .finally(() => setSaving(false));
-      return;
-    }
-    if (!baseUrl.trim() || !model.trim()) { setError("接口地址和模型名不能为空"); return; }
-    if (!apiKey.trim() && !maskedKey) { setError("请填写 API Key"); return; }
-    setSaving(true);
-    api("/api/ai-config", { method: "PUT", body: { baseUrl: baseUrl.trim(), apiKey: apiKey.trim(), model: model.trim() } })
-      .then(() => {
-        setInitial(current => ({ ...current, baseUrl, model }));
-        if (apiKey.trim()) setMaskedKey(current => current || "已保存");
-        setApiKey("");
-        showToast("AI 配置已保存");
-        finishSaved("chat");
-      })
-      .catch((err) => setError(err.message))
-      .finally(() => setSaving(false));
-  }
-
-  return (
-    <div className={embedded ? "settings-ai" : "modal-overlay"} onClick={embedded ? undefined : handleCancel}>
-      <div className={embedded ? "settings-ai-form" : "modal wide"} onClick={(e) => e.stopPropagation()}>
-        <h2>AI 服务</h2><p className="settings-description">连接当前账号使用的服务。模型、比例和时长仍在创作时选择。</p>
-        <div className="media-settings-tabs" role="group" aria-label="服务类型">
-          <button aria-pressed={settingsTab === "chat"} className={settingsTab === "chat" ? "active" : ""} onClick={() => { setSettingsTab("chat"); setError(""); }}>文字对话</button>
-          <button aria-pressed={settingsTab === "media"} className={settingsTab === "media" ? "active" : ""} onClick={() => { setSettingsTab("media"); setError(""); }}>图片／视频生成</button>
-        </div>
-        <fieldset className="settings-service-fields" disabled={!loaded[settingsTab] || saving}>
-        {settingsTab === "chat" ? <React.Fragment>
-        <div className="form-field">
-          <label>快速选择服务商</label>
-          <div className="preset-row">
-            {AI_PRESETS.map((p) => (
-              <button key={p.id} className="preset-chip" onClick={() => applyPreset(p)}>{p.name}</button>
-            ))}
-          </div>
-        </div>
-        <div className="form-field">
-          <label htmlFor="ai-settings-base-url">接口地址 Base URL（填到 /v1 这一级）</label>
-          <input id="ai-settings-base-url" className="input" placeholder="例如：https://api.deepseek.com/v1" value={baseUrl}
-            onChange={(e) => { setBaseUrl(e.target.value); setError(""); }} />
-        </div>
-        <div className="form-field">
-          <label htmlFor="ai-settings-key">API Key{maskedKey ? `（已保存 ${maskedKey}，留空表示不变）` : ""}</label>
-          <input id="ai-settings-key" className="input" type="password" autoComplete="off" placeholder={maskedKey ? "留空沿用已保存的 Key" : "sk-…"}
-            value={apiKey} onChange={(e) => { setApiKey(e.target.value); setError(""); }} />
-          <p className="form-hint">Key 保存在本网站服务的数据库中，只用于转发你自己的对话请求；保存后只显示掩码。</p>
-        </div>
-        <div className="form-field">
-          <label htmlFor="ai-settings-model">模型名</label>
-          <input id="ai-settings-model" className="input" placeholder="例如：deepseek-chat" value={model}
-            onChange={(e) => { setModel(e.target.value); setError(""); }} />
-        </div>
-        </React.Fragment> : <React.Fragment>
+  return <div className={embedded?'settings-ai':'modal-overlay'} onClick={embedded?undefined:handleCancel}><div className={embedded?'settings-ai-form':'modal wide'} onClick={e=>e.stopPropagation()}>
+    {canUseMedia&&<div className="media-settings-tabs" role="group" aria-label="服务类型"><button aria-pressed={settingsTab==='chat'} className={settingsTab==='chat'?'active':''} onClick={()=>setSettingsTab('chat')}>文字服务</button><button aria-pressed={settingsTab==='media'} className={settingsTab==='media'?'active':''} onClick={()=>setSettingsTab('media')}>图片／视频</button></div>}
+    <div hidden={settingsTab!=='chat'}><AiConnections onSaved={onSaved} onDirtyChange={setChatDirty} showToast={showToast} canUseCuration={canUseMedia}/></div>
+    {canUseMedia&&<div hidden={settingsTab!=='media'}><fieldset className="settings-service-fields" disabled={!loaded||saving}>
           <div className="form-field">
             <label htmlFor="ai-settings-media-url">媒体接口 Base URL</label>
             <input id="ai-settings-media-url" className="input" value={mediaBaseUrl}
@@ -375,18 +339,9 @@ function AiSettingsModal({ onClose, onSaved, showToast, embedded = false, initia
               onChange={(e) => setClearSysToken(e.target.checked)} />清除已保存的 sys_token</label>}
             <p className="form-hint">认证信息保存在本网站服务的数据库中，保存后只显示掩码，不会完整返回到网页。生成可能消耗公司额度。</p>
           </div>
-        </React.Fragment>}
-        </fieldset>
-        {(error || loadErrors[settingsTab]) && <p className="auth-error" role="alert">{error || loadErrors[settingsTab]}</p>}
-        <div className="modal-actions">
-          <button className="btn btn-ghost" onClick={handleCancel}>取消</button>
-          <button className="btn btn-primary" onClick={handleSave} disabled={saving || !loaded[settingsTab]}>
-            <IconCheck />{saving ? "保存中…" : "保存"}
-          </button>
-        </div>
-      </div>
-    </div>
-  );
+
+    </fieldset>{error&&<p className="auth-error" role="alert">{error}</p>}<div className="modal-actions"><button className="btn btn-primary" onClick={handleSave} disabled={saving||!loaded}>{saving?'保存中…':'保存'}</button></div></div>}
+  </div></div>;
 }
 
 const CHAT_CAPTURE_TEMPLATES = [
