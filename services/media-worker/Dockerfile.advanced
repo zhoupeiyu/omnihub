@@ -1,0 +1,16 @@
+# Extend the existing media-worker API image. The API launches the advanced
+# runner once per queued job, so model memory is released when that subprocess exits.
+FROM omnihub-media-worker:local
+USER root
+RUN apt-get update && apt-get install -y --no-install-recommends fonts-noto-cjk \
+ && rm -rf /var/lib/apt/lists/*
+COPY requirements-advanced.txt /tmp/requirements-advanced.txt
+RUN pip install --no-cache-dir -r /tmp/requirements-advanced.txt \
+ && rm -rf /root/.cache
+COPY app.py /app/app.py
+COPY advanced.py advanced-runner.py /opt/advanced/
+RUN chown -R 10001:10001 /app /opt/advanced /models
+USER 10001:10001
+WORKDIR /app
+EXPOSE 8110
+CMD ["uvicorn", "app:app", "--host", "0.0.0.0", "--port", "8110", "--no-access-log"]

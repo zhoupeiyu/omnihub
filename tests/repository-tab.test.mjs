@@ -51,6 +51,27 @@ test('repository navigation is a workspace tab and old URLs return to that tab',
   assert.match(read('repository-explorer-prototype.js'), /detailRequest\?\.abort\(\)/);
 });
 
+test('video deep links stay inside tools and the module button returns to its catalogue', () => {
+  const handlers = new Map();
+  const location = {hash:'#video-download?space=public'};
+  let state;
+  const context = vm.createContext({URLSearchParams, window:{location,addEventListener:(name,fn)=>handlers.set(name,fn),removeEventListener:name=>handlers.delete(name)},
+    React:{useRef:current=>({current}),useState:initial=>{state=initial();return [state,value=>{state=value;}];},useEffect:fn=>fn()}});
+  const source=read('repository-tab.js');
+  vm.runInContext(source.slice(source.indexOf('function useWorkspaceSection')),context);
+  const [initial,setSection]=context.useWorkspaceSection('feed');
+  assert.equal(initial,'tools');
+  for (const route of ['media-tools','video-tools','video-transcribe','video-collections','media-library']) {
+    location.hash = `#${route}?space=mine`; handlers.get('hashchange')(); assert.equal(state,'tools');
+  }
+  location.hash = '#media-tools?tab=transcribe&job=job-1&space=mine'; handlers.get('hashchange')();
+  assert.equal(state,'tools');
+  location.hash = '#video-download?space=public'; handlers.get('hashchange')();
+  setSection('topics'); setSection('tools',{base:true});
+  assert.equal(location.hash,'#tools?space=public');
+  assert.equal(state,'tools');
+});
+
 test('repository tabs stay mounted and no longer duplicate the header search', () => {
   assert.match(read('app.jsx'), /active=\{section === "repositories"\}/);
   assert.match(read('app.jsx'), /showSearch=\{!\["repositories", "knowledgeLibrary", "studio", "chat", "tools", "topics", "settings"\]\.includes\(section\)/);

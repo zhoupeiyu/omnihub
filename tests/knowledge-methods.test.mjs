@@ -37,13 +37,13 @@ test('method detail includes original instruction text without routing away for 
   assert.doesNotMatch(view,/scrollIntoView/);
 });
 
-test('knowledge detail uses one aligned two-column workspace without a duplicate evidence rail',()=>{
+test('knowledge uses separate browse and reading states without a duplicate evidence rail',()=>{
   const view=source.slice(source.indexOf('function KnowledgeLibraryView'),source.indexOf('function PromptExampleImage'));
   assert.match(view,/knowledge-workspace-bar/);
   assert.doesNotMatch(view,/scopeSwitch/);
   assert.doesNotMatch(view,/knowledge-evidence|evidenceOpen|setEvidenceOpen|setTab/);
   assert.match(view,/aria-current=/);
-  assert.match(cssSource,/grid-template-columns:320px minmax\(0,1fr\)/);
+  assert.match(cssSource,/grid-template-columns:minmax\(0,1fr\)/);
   assert.match(cssSource,/data-reading=false/);
   assert.match(cssSource,/data-reading=true/);
   assert.match(cssSource,/max-width:var\(--reading-width\)/);

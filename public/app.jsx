@@ -871,44 +871,6 @@ function AihotFeedView({ active = true, query, onSaveToInbox, onCorrectClassific
   );
 }
 
-/** 工具箱模块 */
-function ToolsView({ showToast }) {
-  const [query, setQuery] = useAppState('');
-  const catalog = [
-    {id:'pdf', name:'PDF 压缩', description:'压缩文档体积'}, {id:'password', name:'随机密码', description:'生成安全密码'},
-    {id:'color', name:'颜色转换', description:'转换 HEX 与 RGB'}, {id:'dice', name:'骰子', description:'随机抽签'},
-    {id:'timer', name:'专注计时', description:'倒计时和番茄钟'}, {id:'timestamp', name:'时间戳转换', description:'日期与时间戳互转'},
-    {id:'words', name:'字数统计', description:'统计文字长度'},
-  ];
-  const ids = catalog.map(item => item.id);
-  const [recent, setRecent] = useAppState(() => readRecentTools(ids));
-  const [active, setActive] = useAppState(() => readRecentTools(ids)[0] || 'pdf');
-  const needle = query.trim().toLowerCase();
-  const visible = catalog.filter(item => !needle || `${item.name} ${item.description} ${item.id}`.toLowerCase().includes(needle));
-  const selectTool = id => { setActive(id); setRecent(rememberRecentTool(id, ids)); };
-  const chosen = visible.some(item => item.id === active) ? active : visible[0]?.id;
-  return <div className="tools-page">
-    <div className="tools-heading"><SectionHead icon={<IconWrench />} title="工具箱" count={visible.length} />
-      <label className="tools-search"><IconSearch /><input type="search" aria-label="搜索工具" value={query}
-        placeholder="搜索工具，如 PDF、字数、计时…" onChange={event => setQuery(event.target.value)} /></label>
-    </div>
-    {!visible.length && <EmptyState message="没有匹配的工具" hint="试试工具名称或用途，例如颜色、时间戳" />}
-    {visible.length > 0 && <div className="tool-picker-layout"><nav className="tool-picker" aria-label="工具列表">
-      {!needle && recent.length > 0 && <p className="tool-picker-label">最近使用</p>}
-      {!needle && recent.map(id => { const item = catalog.find(entry => entry.id === id); return <button key={`recent-${id}`} type="button" className={chosen === id ? 'active' : ''} onClick={() => selectTool(id)}>{item.name}</button>; })}
-      <p className="tool-picker-label">{needle ? '搜索结果' : '全部工具'}</p>{visible.map(item => <button key={item.id} type="button" className={chosen === item.id ? 'active' : ''} onClick={() => selectTool(item.id)}><strong>{item.name}</strong><span>{item.description}</span></button>)}
-    </nav><div className="tool-active" aria-live="polite">
-      {chosen === 'pdf' && <PdfCompressTool showToast={showToast} />}
-      {chosen === 'password' && <PasswordTool showToast={showToast} />}
-      {chosen === 'color' && <ColorTool showToast={showToast} />}
-      {chosen === 'dice' && <DiceTool />}
-      {chosen === 'timer' && <FocusTimerTool showToast={showToast} />}
-      {chosen === 'timestamp' && <TimestampTool showToast={showToast} />}
-      {chosen === 'words' && <WordCountTool />}
-    </div></div>}
-  </div>;
-}
-
 // Mount only visited panels. Hidden panels retain filters and scroll, but not media playback.
 function WorkspacePanel({ active, name, children }) {
   const [visited, setVisited] = useAppState(active);
@@ -1007,8 +969,7 @@ function Workspace({ user, onUserChange, showToast, toast }) {
   const setModal = value => {
     const target = settingsTargetForModal(value);
     if (!target) return setModalState(value);
-    if (!personalAccess) return;
-    setSection('settings', { params: { category: target.category, aiTab: target.aiTab } });
+    setSection('settings', { params: { category: personalAccess ? target.category : 'appearance', aiTab: personalAccess ? target.aiTab : '' } });
   };
   // Router hooks: dirty settings ask before leaving; an accepted module change
   // (sidebar, link, Back/Forward) closes whatever modal belonged to the old one.
@@ -1028,6 +989,12 @@ function Workspace({ user, onUserChange, showToast, toast }) {
   const [woodFishEnabled, setWoodFishEnabled] = useAppState(() => loadStored("woodFishEnabled", false));
   const [sidebarCollapsed, setSidebarCollapsed] = useAppState(() => window.matchMedia("(max-width: 860px)").matches);
   const [moduleLabels, setModuleLabels] = useAppState(false);
+  const [knowledgeNavigation,setKnowledgeNavigation] = useAppState(null);
+  const updateKnowledgeNavigation = React.useCallback(navigation => {
+    setKnowledgeNavigation(navigation);
+    if (navigation && !window.matchMedia('(max-width: 860px)').matches) setSidebarCollapsed(false);
+    else if (!navigation && window.matchMedia('(max-width: 860px)').matches) setSidebarCollapsed(true);
+  },[]);
   const canUseFullApp = Boolean(user && user.fullAccess);
   useAppEffect(() => {
     if (!user || user?.hasAiConfig != null) return;
@@ -1088,6 +1055,8 @@ function Workspace({ user, onUserChange, showToast, toast }) {
     // A signed-in person lands in their own workspace first. Visitors keep the
     // public catalogue and do not get a personal URL or private prefetch.
     if (params.has('space')) return;
+    // Signing in while browsing knowledge must keep the public article available.
+    if (currentSection === 'knowledgeLibrary') return;
     params.set('space', 'mine');
     history.replaceState(null, '', `${location.pathname}${location.search}#${currentSection || 'repositories'}?${params.toString()}`);
     window.location.reload();
@@ -1203,7 +1172,7 @@ function Workspace({ user, onUserChange, showToast, toast }) {
       window.location.replace(`#settings?${accountParams}`);
       return;
     }
-    if (!canUseFullApp && !["repositories", "knowledgeLibrary", "promptLibrary", "feed", "topics", ...(personalAccess ? ["inbox", "studio", "works", "chat", "settings"] : [])].includes(section)) {
+    if (!canUseFullApp && !["repositories", "knowledgeLibrary", "promptLibrary", "feed", "topics", "tools", "settings", ...(personalAccess ? ["inbox", "studio", "works", "chat"] : [])].includes(section)) {
       setSection("repositories");
       setQuery("", "repositories");
     }
@@ -1610,10 +1579,16 @@ function Workspace({ user, onUserChange, showToast, toast }) {
         <SideNav section={section}
           onSectionChange={(s) => {
             // 专题 always opens its catalogue, even from inside a topic.
-            setSection(s, s === 'topics' ? { base: true } : undefined);
+            if (s==='knowledgeLibrary' && section==='knowledgeLibrary' && knowledgeNavigation) knowledgeNavigation.onBack();
+            else setSection(s, ['topics', 'tools'].includes(s) ? { base: true } : undefined);
             if (window.matchMedia("(max-width: 860px)").matches) setSidebarCollapsed(true);
           }}
           moduleCounts={visibleModuleCounts}
+          knowledgeNavigation={section==='knowledgeLibrary' ? knowledgeNavigation : null}
+          onKnowledgeNavigate={id=>{
+            if (id == null) knowledgeNavigation?.onBack(); else knowledgeNavigation?.onHeading(id);
+            if (window.matchMedia('(max-width: 860px)').matches) setSidebarCollapsed(true);
+          }}
           categories={null} activeCategory={null}
           feedNavigation={section === "feed" && canUseFullApp ? {current:feedMode,items:[
             {id:"aihot",title:"AIHOT 资讯"},
@@ -1653,7 +1628,10 @@ function Workspace({ user, onUserChange, showToast, toast }) {
           {sectionDataReady && dataLoad.error && <p role="status" className="muted">更新失败，仍显示上次内容。<button className="btn btn-ghost" onClick={retryPublicInbox}>重试</button></p>}
           <WorkspacePanel active={section === 'knowledgeLibrary'} name="knowledgeLibrary">
           {dataLoads.knowledgeLibrary?.hasData && (
-            <KnowledgeLibraryView key={`${user?.id || 'guest'}:${catalogueScope}`} items={knowledgeLibrary} query={queryFor('knowledgeLibrary')} active={section === 'knowledgeLibrary'}
+            <KnowledgeLibraryView key={`${user?.id || 'guest'}:${catalogueScope}`} personalAccess={personalAccess} catalogueScope={catalogueScope}
+              onReadingNavigationChange={updateKnowledgeNavigation} onShowNavigation={()=>setSidebarCollapsed(false)}
+              onCatalogueChange={scope=>{window.location.hash=`knowledgeLibrary?space=${scope}`;window.location.reload();}}
+              items={knowledgeLibrary} query={queryFor('knowledgeLibrary')} active={section === 'knowledgeLibrary'}
               onQueryChange={value => setQuery(value, 'knowledgeLibrary')} requestedId={requestedKnowledgeId} onCorrectClassification={onCorrectClassification}
               onOpenPrompt={id => {setSectionQueries(previous => ({...previous,[`${user?.id || 'guest'}:promptLibrary`]:''})); setRequestedPromptSourceId(id); setSection('promptLibrary');}}
               onEdit={personalCatalogue && canUseFullApp ? editLibraryKnowledge : undefined}
@@ -1732,10 +1710,11 @@ function Workspace({ user, onUserChange, showToast, toast }) {
           <WorkspacePanel active={section === 'feed'} name="feed">
             <FeedView active={section === 'feed'} mode={feedMode} onModeChange={setFeedMode} query={queryFor('feed')} canUseMonitoring={canUseFullApp} onSaveToInbox={personalAccess ? saveFeedToInbox : null} onCorrectClassification={onCorrectClassification} />
           </WorkspacePanel>
-          <WorkspacePanel active={section === "tools"} name="tools">{canUseFullApp && <ToolsView showToast={showToast} />}</WorkspacePanel>
+          <WorkspacePanel active={section === "tools"} name="tools"><VideoToolsWorkspace active={section === 'tools'} userKey={user?.id || 'guest'} showToast={showToast}
+            referenceAccess={user?.username === 'zane'} onCreateReference={async (asset, reference) => { await reloadMediaAssets(); openStudio({ referenceAssetId: asset.id, title: reference.title, targetModule: 'image', prompt: `请以提供的参考图为依据，保留${reference.title}的关键特征。` }); }} /></WorkspacePanel>
           <WorkspacePanel active={section === 'topics'} name="topics"><TopicsCatalog active={section === 'topics'} /></WorkspacePanel>
           <WorkspacePanel active={section === 'settings'} name="settings">
-            {section === 'settings' && personalAccess && <SettingsCenter user={user} canUseFullApp={canUseFullApp}
+            {section === 'settings' && <SettingsCenter user={user} canUseFullApp={canUseFullApp}
               onClose={() => setSection(settingsReturn.current && settingsReturn.current !== 'settings' ? settingsReturn.current : 'repositories')}
               onDirtyChange={value => { settingsDirty.current = Boolean(value); }}
               theme={theme} onThemeToggle={() => setTheme(theme === "dark" ? "light" : "dark")} skin={skin} onSkinChange={setSkin}

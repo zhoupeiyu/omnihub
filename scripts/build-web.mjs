@@ -27,6 +27,10 @@ const app = await build({ stdin: { contents:source, loader:'jsx', resolveDir:roo
   bundle:true, write:false, outfile:'app.js', format:'iife', platform:'browser', target:'es2020',
   minify:true, define:{'process.env.NODE_ENV':'"production"'}, external:[`${baseToken}/*`], legalComments:'eof' });
 const files = new Map([['app.js', app.outputFiles[0].text]]);
+files.set('tool-covers/media-tools-v1.png', readFileSync(path.join(root, 'public/assets/tool-covers/media-tools-v1.png')));
+const mediaRuntime = await build({stdin:{contents:"import { Input, BlobSource, ALL_FORMATS, CanvasSink, Output, BufferTarget, Mp4OutputFormat, WebMOutputFormat, Conversion, Quality } from 'mediabunny'; window.Mediabunny = { Input, BlobSource, ALL_FORMATS, CanvasSink, Output, BufferTarget, Mp4OutputFormat, WebMOutputFormat, Conversion, Quality };",resolveDir:root,sourcefile:'media-runtime.js'},
+  bundle:true,write:false,format:'iife',platform:'browser',target:'es2020',minify:true,legalComments:'eof'});
+files.set('media-runtime.js',mediaRuntime.outputFiles[0].text);
 for (const name of ['repository-explorer-prototype.js', 'repository-taxonomy.js']) {
   const result = await build({entryPoints:[path.join(root,'public',name)],bundle:true,write:false,format:'esm',
     platform:'browser',target:'es2020',minify:true,legalComments:'eof'});
@@ -57,7 +61,7 @@ for (const name of readdirSync(guideAssets).sort()) {
 for (const name of ['repository-tab.html','repository-explorer-prototype.css','repository-tab.css','detail-drawer.css','vendor/marked.min.js','vendor/purify.min.js']) files.set(name,read(name));
 const inlineStyles = [...template.matchAll(/<style>([\s\S]*?)<\/style>/g)].map(match=>match[1]);
 const styleFiles = [...template.matchAll(/<link\b[^>]*rel="stylesheet"[^>]*href="([^"]+)"[^>]*>/g)].map(match=>match[1].replace(/^\//,''));
-files.set('app.css',(await transform([...inlineStyles,...styleFiles.map(read)].join('\n'),{loader:'css',minify:true,target:'es2020'})).code);
+files.set('app.css',(await transform([...inlineStyles,...styleFiles.map(read)].join('\n').replaceAll('/assets/tool-covers/', `${baseToken}/tool-covers/`),{loader:'css',minify:true,target:'es2020'})).code);
 const digest = createHash('sha256');
 for (const [name, content] of files) digest.update(name).update('\0').update(content).update('\0');
 const version = digest.digest('hex').slice(0,16);
@@ -74,7 +78,7 @@ for (const [name, raw] of files) {
 let html = template.replace(/<style>[\s\S]*?<\/style>/g,'').replace(/<link\b[^>]*rel="stylesheet"[^>]*>/g,'')
   .replace(/<script\b[^>]*\bsrc="[^"]+"[^>]*><\/script>/g,'');
 html = html.replace('</head>',`<link rel="stylesheet" href="${base}/app.css">\n</head>`)
-  .replace('</body>',`<script defer src="${base}/vendor/marked.min.js"></script>\n<script defer src="${base}/vendor/purify.min.js"></script>\n<script defer src="${base}/app.js"></script>\n</body>`);
+  .replace('</body>',`<script defer src="${base}/vendor/marked.min.js"></script>\n<script defer src="${base}/vendor/purify.min.js"></script>\n<script defer src="${base}/media-runtime.js"></script>\n<script defer src="${base}/app.js"></script>\n</body>`);
 writeFileSync(path.join(out,'index.html'),html);
 cpSync(path.join(root,'public/assets'),path.join(out,'assets'),{recursive:true});
 if (existsSync(path.join(root,'public/life-guide'))) cpSync(path.join(root,'public/life-guide'),path.join(out,'life-guide'),{recursive:true});

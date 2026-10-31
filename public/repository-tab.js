@@ -161,6 +161,11 @@ function useWorkspaceSection(fallback) {
     const [name, query = ''] = String(hash || '').replace(/^#/, '').split('?');
     // 生活指南 keeps its own deep links but lives under the 专题 module.
     if (name === 'life-guide') return { section: 'topics', redirect: '' };
+    if (['media-tools', 'video-tools'].includes(name) && parseParams(query).some(([key, value]) => key === 'tab' && value === 'references')) {
+      const kept = parseParams(query).filter(([key]) => key !== 'tab' && key !== 'space');
+      return { section: 'tools', redirect: `#ai-art?${formatParams([['space', 'mine'], ...kept])}` };
+    }
+    if (['ai-art', 'media-tools', 'video-tools', 'video-download', 'video-transcribe', 'video-collections', 'media-library'].includes(name)) return { section: 'tools', redirect: '' };
     if (name === 'assets') {
       // 全部资产 was split: generated results → 作品, hand-added records → 收藏.
       const params = parseParams(query);
@@ -205,7 +210,10 @@ function useWorkspaceSection(fallback) {
       const from = readSection(lastHash.current);
       const accept = () => {
         let target = hash;
-        if (next.redirect) { replaceHash(next.redirect); target = next.redirect; }
+        if (next.redirect) {
+          replaceHash(next.redirect); target = next.redirect;
+          if (typeof CustomEvent === 'function') window.dispatchEvent?.(new CustomEvent('omnihub:route-restored'));
+        }
         remembered.current[next.section] = target;
         lastHash.current = target;
         if (from !== next.section) controls.current.onModuleChange?.(next.section, from);
@@ -258,7 +266,8 @@ function useWorkspaceSection(fallback) {
 function workspaceHashName(hash) { return String(hash || '').replace(/^#/, '').split('?')[0]; }
 function workspaceHashParams(hash) { return new URLSearchParams(String(hash || '').split('?')[1] || ''); }
 // #settings?category=sync|ai|devices|appearance; legacy drawer tab names still work.
-function settingsRouteFor(hash, canUseFullApp) {
+function settingsRouteFor(hash, personalAccess) {
+  if (!personalAccess) return { category:'appearance', aiTab:'chat' };
   const params = workspaceHashParams(hash);
   let category = settingsCategoryFor(params.get('category') || '') || 'sync';
   return { category, aiTab: params.get('aiTab') || 'chat' };

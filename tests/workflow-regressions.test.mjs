@@ -298,7 +298,7 @@ test('personal library views keep hand-created prompt and knowledge entry points
   const app = read('public/app.jsx');
   const knowledge = refinerySource.slice(refinerySource.indexOf('function KnowledgeLibraryView'), refinerySource.indexOf('function PromptExampleImage'));
   const prompts = refinerySource.slice(refinerySource.indexOf('function PromptLibraryView'));
-  assert.match(knowledge, /onAdd && <button className="btn btn-primary knowledge-add"/);
+  assert.match(knowledge, /onAdd && <button className="btn btn-ghost knowledge-add"/);
   assert.match(prompts, /onAdd && <button className="btn btn-primary"/);
   assert.match(app, /onAdd=\{personalCatalogue && canUseFullApp \? \(\) => setModal\(\{type:'knowledge',item:null\}\)/);
   assert.match(app, /onAdd=\{personalCatalogue && canUseFullApp \? \(\) => setModal\(\{type:'drawer',prompt:null,mode:'create'\}\)/);

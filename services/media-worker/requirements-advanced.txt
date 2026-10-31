@@ -1,0 +1,4 @@
+# CPU-only.  Models are installed by prepare-advanced-models.py, never by a job.
+faster-whisper==1.2.1
+ctranslate2==4.7.1
+sentencepiece==0.2.1

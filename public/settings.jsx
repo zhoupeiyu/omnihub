@@ -5,10 +5,12 @@
 // while onDirtyChange(true) is in effect.
 function SettingsCenter({ user, canUseFullApp, onClose, onSaved, onDirtyChange, showToast,
   theme, onThemeToggle, skin, onSkinChange, woodFishEnabled, onWoodFishToggle }) {
+  const personalAccess = Boolean(user && user.personalAccess !== false);
   const tabs = [{ id:'sync', label:'数据同步', icon:IconUser },
     { id:'ai', label:'AI 服务', icon:IconSparkle },
-    { id:'devices', label:'执行设备', icon:IconSettings }, { id:'appearance', label:'外观', icon:IconPalette }];
-  const readRoute = () => settingsRouteFor(window.location.hash, canUseFullApp);
+    { id:'devices', label:'执行设备', icon:IconSettings }, { id:'appearance', label:'外观', icon:IconPalette }]
+    .filter(item => personalAccess || item.id === 'appearance');
+  const readRoute = () => settingsRouteFor(window.location.hash, personalAccess);
   const [route, setRoute] = React.useState(readRoute);
   const tab = route.category;
   const [visited, setVisited] = React.useState(() => new Set([tab]));
@@ -22,7 +24,12 @@ function SettingsCenter({ user, canUseFullApp, onClose, onSaved, onDirtyChange, 
   React.useEffect(() => {
     const sync = () => {
       if (workspaceHashName(window.location.hash) !== 'settings') return;
-      const next = settingsRouteFor(window.location.hash, canUseFullApp);
+      const next = settingsRouteFor(window.location.hash, personalAccess);
+      // Guest links can change without changing the active appearance tab.
+      if (!personalAccess && window.history?.replaceState) {
+        const canonical = settingsHashFor(window.location.hash, next.category);
+        if (canonical !== window.location.hash) window.history.replaceState(null, '', canonical);
+      }
       setRoute(current => current.category === next.category && current.aiTab === next.aiTab ? current : next);
     };
     sync();
@@ -32,7 +39,7 @@ function SettingsCenter({ user, canUseFullApp, onClose, onSaved, onDirtyChange, 
       window.removeEventListener('hashchange', sync);
       window.removeEventListener('omnihub:route-restored', sync);
     };
-  }, [canUseFullApp]);
+  }, [personalAccess]);
   React.useEffect(() => { setVisited(current => current.has(tab) ? current : new Set([...current, tab])); }, [tab]);
   // Canonical URL: legacy/unknown/forbidden categories are rewritten in place and
   // the one-shot OAuth `result` (already read by AccountSettings) is dropped.

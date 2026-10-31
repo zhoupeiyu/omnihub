@@ -522,14 +522,21 @@ function KnowledgeHighlight({text, query}) {
   return index < 0 ? value : <React.Fragment>{value.slice(0,index)}<mark>{value.slice(index,index + needle.length)}</mark>{value.slice(index + needle.length)}</React.Fragment>;
 }
 
-function KnowledgeToolFilter({ value, options, onChange, active }) {
+function KnowledgeFilterSelect({value, options, onChange, label}) {
+  return <span className="knowledge-filter-select">
+    <select aria-label={label} value={value} onChange={event=>onChange(event.target.value)}>{options.map(option=><option key={option.value} value={option.value}>{option.label}</option>)}</select>
+    <span className="knowledge-filter-value" aria-hidden="true"><span>{options.find(option=>option.value===value)?.label}</span><svg viewBox="0 0 16 16"><path d="m4 6 4 4 4-4" /></svg></span>
+  </span>;
+}
+
+function KnowledgeToolFilter({ value, options, onChange, active, allLabel = '全部适用对象', label = '按适用对象筛选方法' }) {
   const [open, setOpen] = useRefineryState(false);
   const [highlighted, setHighlighted] = useRefineryState(0);
   const [position, setPosition] = useRefineryState(null);
   const trigger = useRefineryRef(null), menu = useRefineryRef(null);
   const search = useRefineryRef({text:'', time:0});
   const id = React.useId();
-  const choices = useRefineryMemo(() => [{value:'all', label:'全部适用对象'}, ...options.map(item => ({value:item, label:item}))], [options]);
+  const choices = useRefineryMemo(() => [{value:'all', label:allLabel}, ...options.map(item => ({value:item, label:item}))], [options, allLabel]);
   const selected = Math.max(0, choices.findIndex(item => item.value === value));
   const close = () => { setOpen(false); search.current.text = ''; };
   const show = () => { setHighlighted(selected); setPosition(null); setOpen(true); };
@@ -598,12 +605,12 @@ function KnowledgeToolFilter({ value, options, onChange, active }) {
     }
   };
   return <>
-    <button ref={trigger} type="button" className="knowledge-tool-filter" role="combobox" aria-label="按适用对象筛选方法"
+    <button ref={trigger} type="button" className="knowledge-tool-filter" role="combobox" aria-label={label}
       aria-haspopup="listbox" aria-controls={id} aria-expanded={open} aria-activedescendant={open ? `${id}-${highlighted}` : undefined}
       onClick={() => open ? close() : show()} onKeyDown={onKeyDown} onBlur={close}>
       <span>{choices[selected].label}</span><svg viewBox="0 0 16 16" aria-hidden="true"><path d="m4 6 4 4 4-4" /></svg>
     </button>
-    {open && ReactDOM.createPortal(<div ref={menu} id={id} className="knowledge-tool-menu" role="listbox" aria-label="适用对象"
+    {open && ReactDOM.createPortal(<div ref={menu} id={id} className="knowledge-tool-menu" role="listbox" aria-label={label}
       style={position || {visibility:'hidden'}}>{choices.map((item,index) => <div key={item.value} id={`${id}-${index}`} role="option"
         aria-selected={item.value === value} className={index === highlighted ? 'is-active' : ''}
         onMouseDown={event => event.preventDefault()} onClick={() => choose(index)}>{item.label}</div>)}</div>, document.body)}
@@ -622,22 +629,94 @@ function knowledgeVisibleMatch(item, detail, needle, hits) {
   if (!needle) return {snippet:item.summary || ''};
   const local = typeof knowledgeSearchMatch === 'function' ? knowledgeSearchMatch(item, detail, needle) : null;
   if (local) return local;
-  if (hits && typeof hits.get === 'function' && hits.has(String(item.id))) return {snippet:hits.get(String(item.id)) || item.summary || ''};
+  if (hits && typeof hits.get === 'function' && hits.has(String(item.id))) return {snippet:(typeof hits.get(String(item.id)) === 'object' ? hits.get(String(item.id)).snippet : hits.get(String(item.id))) || item.summary || ''};
   return null;
 }
 // </knowledge-visible-match>
 
-function KnowledgeLibraryView({ items, query, onQueryChange, active = true, requestedId, onRequestedIdHandled, onCorrectClassification, onOpenPrompt, onEdit, onAdd }) {
+// <knowledge-navigation>
+function knowledgeKind(item) {
+  return item.type === 'method' ? 'method' : item.type === 'source_archive' ? 'archive' : 'article';
+}
+function knowledgeTopics(item) {
+  const tags = item.type === 'method' ? knowledgeMethodTools(item) : Array.isArray(item.tags) ? item.tags : [];
+  return [...new Set(tags.map(tag=>String(tag).trim()).filter(Boolean))];
+}
+function knowledgeRelevance(item, query) {
+  const needle = String(query || '').trim().toLowerCase();
+  if (!needle) return 0;
+  const title = String(item.title || '').toLowerCase();
+  if (title === needle) return 100;
+  if (title.includes(needle)) return 80;
+  if ((item.tags || []).some(tag=>String(tag).toLowerCase().includes(needle))) return 60;
+  if (String(item.summary || '').toLowerCase().includes(needle)) return 40;
+  return 20;
+}
+function knowledgeCompare(a,b,{query,sort,shelf,personal,hits}) {
+  if (sort === 'title') return String(a.title).localeCompare(String(b.title),'zh-CN') || String(a.id).localeCompare(String(b.id));
+  if (sort === 'auto') {
+    if (query) {
+      const score = item=>Math.max(knowledgeRelevance(item,query),Number(hits?.get(String(item.id))?.score)||0);
+      const result = score(b)-score(a);
+      if (result) return result;
+    } else if (shelf !== 'all') {
+      const field = shelf === 'saved' ? 'savedAt':'readAt';
+      const result = String(personal[String(b.id)]?.[field]||'').localeCompare(String(personal[String(a.id)]?.[field]||''));
+      if (result) return result;
+    }
+  }
+  return globalThis.OmniHubLibraryOrder.compare(a,b);
+}
+function knowledgeItemDate(item, mark, shelf) {
+  const personalDate = shelf==='saved' ? mark?.savedAt : shelf==='recent' ? mark?.readAt : null;
+  const value = personalDate ? Date.parse(personalDate) : globalThis.OmniHubLibraryOrder.timestamp(item);
+  return value ? `${personalDate ? shelf==='saved' ? '收藏于' : '阅读于' : '更新于'} ${new Date(value).toLocaleDateString('zh-CN')}` : '';
+}
+function knowledgeArticleHash(hash, id) {
+  const params = new URLSearchParams(String(hash).split('?')[1] || '');
+  if (id == null) params.delete('article'); else params.set('article',String(id));
+  return '#knowledgeLibrary' + (params.size ? `?${params}` : '');
+}
+function knowledgeRouteArticle(hash) {
+  if (String(hash).replace(/^#/,'').split('?')[0] !== 'knowledgeLibrary') return undefined;
+  const id = new URLSearchParams(String(hash).split('?')[1] || '').get('article');
+  return /^(\d+|archive-\d+|method-\d+|manual-knowledge-\d+|pipeline-(?:source-)?\d+)$/.test(id || '') ? id : null;
+}
+// </knowledge-navigation>
+
+function KnowledgeImageViewer({image,onClose}) {
+  const dialog = useRefineryRef(null);
+  const [original,setOriginal] = useRefineryState(false);
+  useRefineryEffect(()=>{const element=dialog.current;element.showModal();return ()=>element.close();},[]);
+  return <dialog ref={dialog} className="knowledge-image-dialog" onClose={onClose} onClick={event=>{if(event.target===event.currentTarget)onClose();}} aria-label="查看原文图片">
+    <header><span>{image.alt || '原文配图'}</span><button className="btn" onClick={()=>setOriginal(value=>!value)}>{original ? '适应窗口':'原始尺寸'}</button><button className="btn" onClick={onClose}>关闭图片</button></header>
+    <div data-original={original}><img src={image.src} alt={image.alt || '原文配图'} /></div>
+  </dialog>;
+}
+
+function KnowledgeLibraryView({ items, query, onQueryChange, active = true, requestedId, onRequestedIdHandled, onCorrectClassification, onOpenPrompt, onEdit, onAdd, personalAccess = false, catalogueScope = 'public', onCatalogueChange, onReadingNavigationChange, onShowNavigation }) {
   const [kind, setKind] = useRefineryState('all');
-  const [tool, setTool] = useRefineryState('all');
+  const [topic, setTopic] = useRefineryState('all');
+  const [shelf, setShelf] = useRefineryState('all');
+  const [sort, setSort] = useRefineryState('auto');
+  const [filtersOpen, setFiltersOpen] = useRefineryState(false);
+  const [personal, setPersonal] = useRefineryState({});
+  const [personalReady, setPersonalReady] = useRefineryState(false);
+  const [personalError, setPersonalError] = useRefineryState('');
+  const [personalRetry, setPersonalRetry] = useRefineryState(0);
+  const [saving, setSaving] = useRefineryState(new Set());
+  const [image, setImage] = useRefineryState(null);
+  const personalController = useRefineryRef(null);
+  const readRecorded = useRefineryRef(new Set());
   const [copyResult, setCopyResult] = useRefineryState('');
   const [selectedId, setSelectedId] = useRefineryState(null);
-  const [mobileReading, setMobileReading] = useRefineryState(false);
+  const [reading, setReading] = useRefineryState(false);
   const [revision, setRevision] = useRefineryState(0);
   const [retry, setRetry] = useRefineryState(0);
   const [detailError, setDetailError] = useRefineryState(null);
   const [searchState, setSearchState] = useRefineryState(null);
   const [headings, setHeadings] = useRefineryState([]);
+  const openedFromList = useRefineryRef(false);
   const readerRef = useRefineryRef(null), indexRef = useRefineryRef(null), searchRef = useRefineryRef(null);
   const focusReader = useRefineryRef(null);
   // Cache only records from this exact catalogue snapshot, never across accounts/scopes.
@@ -645,20 +724,67 @@ function KnowledgeLibraryView({ items, query, onQueryChange, active = true, requ
   const positions = useRefineryRef(new Map()).current;
   const needle = String(query || '').trim();
   const queryTooLong = Array.from(needle).length > 120;
-  const methodTools = useRefineryMemo(() => [...new Set(items.flatMap(knowledgeMethodTools))], [items]);
+  const topics = useRefineryMemo(() => {
+    const counts = new Map();
+    for (const item of items) for (const value of knowledgeTopics(item)) counts.set(value,(counts.get(value)||0)+1);
+    return [...counts].sort((a,b)=>b[1]-a[1] || a[0].localeCompare(b[0],'zh-CN'));
+  }, [items]);
+  const topicOptions = useRefineryMemo(() => topics.map(([value])=>value),[topics]);
+  const savedCount = items.filter(item=>personal[String(item.id)]?.savedAt).length;
+  const recentCount = items.filter(item=>personal[String(item.id)]?.readAt).length;
   const currentSearch = needle && searchState?.store === store && searchState?.query === needle ? searchState : null;
   const hits = currentSearch && !currentSearch.loading ? currentSearch.hits : null;
-  const visible = useRefineryMemo(() => [...items].sort(globalThis.OmniHubLibraryOrder.compare).flatMap(item => {
-    if (kind !== 'all' && (item.type === 'method' ? 'method' : 'article') !== kind) return [];
-    if (tool !== 'all' && !knowledgeMethodTools(item).includes(tool)) return [];
+  const visible = useRefineryMemo(() => items.flatMap(item => {
+    if (kind !== 'all' && knowledgeKind(item) !== kind) return [];
+    if (topic !== 'all' && !knowledgeTopics(item).includes(topic)) return [];
+    const mark = personal[String(item.id)];
+    if (shelf === 'saved' && !mark?.savedAt || shelf === 'recent' && !mark?.readAt) return [];
     const match = knowledgeVisibleMatch(item, store.peek(item.id), needle, hits);
     return match ? [{item, snippet:match.snippet}] : [];
-  }), [items, kind, tool, needle, store, revision, hits]);
+  }).sort((a,b) => knowledgeCompare(a.item,b.item,{query:needle,sort,shelf,personal,hits})),
+    [items, kind, topic, shelf, sort, personal, needle, store, revision, hits]);
   const detail = store.peek(selectedId);
   const searching = Boolean(needle && !queryTooLong && (!currentSearch || currentSearch.loading));
   const failedSearch = Boolean(currentSearch && currentSearch.failed);
 
   useRefineryEffect(() => () => store.dispose(), [store]);
+  useRefineryEffect(() => {
+    if (!personalAccess) return;
+    const controller = new AbortController();
+    personalController.current = controller;
+    setPersonalReady(false); setPersonalError('');
+    api('/api/knowledge-library/personal',{signal:controller.signal}).then(rows => {
+      if (!controller.signal.aborted) { setPersonal(Object.fromEntries(rows.map(row=>[String(row.id),row]))); setPersonalReady(true); }
+    }).catch(error => { if (!controller.signal.aborted) setPersonalError(error.message || '个人记录暂时无法读取'); });
+    return () => controller.abort();
+  }, [personalAccess, personalRetry]);
+  const updatePersonal = async (id, patch) => {
+    const controller = personalController.current;
+    if (!personalReady || !controller || controller.signal.aborted) return false;
+    try {
+      const row = await api(`/api/knowledge-library/${id}/personal`,{method:'PUT',body:patch,signal:controller.signal});
+      if (controller.signal.aborted) return false;
+      // Read and save responses can arrive out of order. Merge only the field written.
+      setPersonal(previous=>({...previous,[String(id)]:{...previous[String(id)],id:String(id),
+        ...('saved' in patch ? {savedAt:row.savedAt}:{}),...(patch.read ? {readAt:row.readAt}:{})}}));
+      setPersonalError(''); return true;
+    } catch(error) { if (!controller.signal.aborted) setPersonalError(error.message || '个人记录保存失败，请重试'); return false; }
+  };
+  const toggleSaved = async id => {
+    const key = String(id);
+    if (saving.has(key)) return;
+    setSaving(previous=>new Set(previous).add(key));
+    await updatePersonal(id,{saved:!personal[key]?.savedAt});
+    if (!personalController.current?.signal.aborted) setSaving(previous=>{const next=new Set(previous);next.delete(key);return next;});
+  };
+  useRefineryEffect(() => {
+    if (!active || !reading || !detail || !personalReady || readRecorded.current.has(String(selectedId))) return;
+    const key = String(selectedId);
+    readRecorded.current.add(key);
+    updatePersonal(selectedId,{read:true}).then(ok=>{if (!ok) readRecorded.current.delete(key);});
+  }, [active,reading,detail,selectedId,personalReady]);
+  useRefineryEffect(() => { if (!active) setImage(null); },[active]);
+
   useRefineryEffect(() => {
     if (!needle || !active || queryTooLong) return;
     // One scoped server request per debounced query; a newer query aborts the older one.
@@ -669,7 +795,7 @@ function KnowledgeLibraryView({ items, query, onQueryChange, active = true, requ
         if (controller.signal.aborted) return;
         const rows = Array.isArray(result?.results) ? result.results : [];
         setSearchState({store, query:needle, loading:false, failed:false, truncated:Boolean(result?.truncated),
-          hits:new Map(rows.map(row => [String(row.id), String(row.snippet || '')]))});
+          hits:new Map(rows.map(row => [String(row.id), {snippet:String(row.snippet || ''),score:Number(row.score)||0}]))});
       }).catch(error => {
         if (controller.signal.aborted || error?.name === 'AbortError') return;
         setSearchState({store, query:needle, loading:false, failed:true, hits:null});
@@ -679,16 +805,24 @@ function KnowledgeLibraryView({ items, query, onQueryChange, active = true, requ
   }, [needle, active, store, retry, queryTooLong]);
 
   useRefineryEffect(() => {
+    if (!active) return;
+    const sync = () => {
+      const id = knowledgeRouteArticle(window.location.hash);
+      if (id === undefined) return;
+      if (id == null) { openedFromList.current=false; setReading(false); }
+      else { setSelectedId(id); setReading(true); }
+    };
+    sync(); window.addEventListener('hashchange',sync); window.addEventListener('omnihub:route-restored',sync);
+    return () => {window.removeEventListener('hashchange',sync);window.removeEventListener('omnihub:route-restored',sync);};
+  }, [active]);
+  useRefineryEffect(() => {
     if (requestedId != null) {
-      setKind('all'); setTool('all'); onQueryChange(''); setSelectedId(requestedId); setMobileReading(true);
-      focusReader.current = String(requestedId); onRequestedIdHandled?.(); return;
+      setKind('all'); setTopic('all'); setShelf('all'); onQueryChange(''); setSelectedId(requestedId); setReading(true);
+      openedFromList.current = knowledgeRouteArticle(window.location.hash) == null;
+      window.location.hash = knowledgeArticleHash(window.location.hash,requestedId);
+      focusReader.current = String(requestedId); onRequestedIdHandled?.();
     }
-    if (searching) return;
-    if (!visible.some(({item}) => String(item.id) === String(selectedId))) {
-      focusReader.current = null;
-      setSelectedId(visible[0]?.item.id ?? null);
-    }
-  }, [requestedId, visible, selectedId, searching]);
+  }, [requestedId]);
   useRefineryEffect(() => {
     if (selectedId == null) return;
     let cancelled = false;
@@ -701,75 +835,128 @@ function KnowledgeLibraryView({ items, query, onQueryChange, active = true, requ
 
   React.useLayoutEffect(() => {
     const reader = readerRef.current;
-    if (!detail || !reader) { setHeadings([]); return; }
+    if (!detail || !reader || !reading) { setHeadings([]); return; }
     const sections = [...reader.querySelectorAll('.knowledge-article h2, .knowledge-article h3, .knowledge-method-prompt h2')];
     setHeadings(sections.map((element,index) => {
       element.id = `knowledge-section-${index}`; element.tabIndex = -1;
       return {id:element.id, title:element.textContent, level:element.tagName === 'H3' ? 3 : 2};
     }));
+    for (const img of reader.querySelectorAll('.knowledge-article img')) {
+      if (img.closest('a')) continue;
+      img.tabIndex = 0; img.setAttribute('role','button'); img.setAttribute('aria-label',`放大图片：${img.alt || '原文配图'}`);
+    }
     reader.scrollTop = positions.get(String(selectedId)) || 0;
     if (focusReader.current === String(selectedId)) { reader.querySelector('h1')?.focus({preventScroll:true}); focusReader.current = null; }
-  }, [detail, selectedId, mobileReading, positions]);
+  }, [detail, selectedId, reading, positions]);
 
   const openArticle = id => {
     const reader = readerRef.current;
-    const readerVisible = reader.getClientRects().length > 0;
+    const readerVisible = reading && reader && reader.getClientRects().length > 0;
     if (detail && readerVisible) positions.set(String(selectedId), reader.scrollTop);
     focusReader.current = String(id);
     if (String(id) === String(selectedId) && detail && readerVisible) {
       reader.querySelector('h1')?.focus({preventScroll:true}); focusReader.current = null;
     }
-    setSelectedId(id); setMobileReading(true);
+    openedFromList.current = knowledgeRouteArticle(window.location.hash) == null;
+    window.location.hash = knowledgeArticleHash(window.location.hash,id);
+    readRecorded.current.delete(String(id)); setSelectedId(id); setReading(true);
   };
   const backToList = () => {
     if (detail) positions.set(String(selectedId), readerRef.current.scrollTop);
-    setMobileReading(false);
+    setReading(false);
+    if (openedFromList.current && knowledgeRouteArticle(window.location.hash) === String(selectedId)) {
+      openedFromList.current=false; window.history.back();
+    } else window.location.hash = knowledgeArticleHash(window.location.hash,null);
     requestAnimationFrame(() => [...indexRef.current.querySelectorAll('[data-knowledge-id]')]
-      .find(element => element.dataset.knowledgeId === String(selectedId))?.focus({preventScroll:true}));
+      .find(element => element.dataset.knowledgeId === String(selectedId))?.querySelector('.knowledge-item-open')?.focus({preventScroll:true}));
   };
-  const resetFilters = () => { setKind('all'); setTool('all'); onQueryChange(''); searchRef.current?.focus(); };
+  const resetFilters = () => { setKind('all'); setTopic('all'); onQueryChange(''); searchRef.current?.focus(); };
+  const browse = action => { action(); setReading(false); };
+  const showImage = event => {
+    const target = event.target;
+    if (target.tagName === 'IMG' && !target.closest('a')) { event.preventDefault(); setImage({src:target.currentSrc || target.src,alt:target.alt}); }
+  };
   const jumpToHeading = id => {
     const reader = readerRef.current, heading = document.getElementById(id);
     if (!heading || !reader.contains(heading)) return;
     reader.scrollTo({top:reader.scrollTop + heading.getBoundingClientRect().top - reader.getBoundingClientRect().top - 24, behavior:'instant'});
     heading.focus({preventScroll:true});
   };
+  useRefineryEffect(() => {
+    onReadingNavigationChange?.(active && reading ? {title:detail?.title || '正在读取文章',items:headings,onBack:backToList,onHeading:jumpToHeading} : null);
+    return () => onReadingNavigationChange?.(null);
+  }, [active,reading,detail,headings,onReadingNavigationChange]);
   const failedDetail = detailError?.store === store && String(detailError.id) === String(selectedId);
 
-  return <div className="knowledge-workspace" data-reading={mobileReading}>
+  const kindLabels = {all:'全部类型',article:'整理文章',method:'方法技巧',archive:'原文资料'};
+  const filterCount = Number(kind!=='all') + Number(topic!=='all');
+  const saveButton = (item, compact = false) => personalAccess && <button type="button" className={`knowledge-save${compact ? ' knowledge-save-icon' : ''}`} aria-pressed={Boolean(personal[String(item.id)]?.savedAt)}
+    disabled={!personalReady || saving.has(String(item.id))} aria-label={`${personal[String(item.id)]?.savedAt ? '取消收藏' : '收藏'}：${item.title}`}
+    title={saving.has(String(item.id)) ? '保存中…' : personal[String(item.id)]?.savedAt ? '取消收藏' : '收藏'} aria-busy={saving.has(String(item.id))}
+    onClick={()=>toggleSaved(item.id)}><IconBookmark aria-hidden="true" />{!compact && <span>{saving.has(String(item.id)) ? '保存中…' : personal[String(item.id)]?.savedAt ? '已收藏' : '收藏'}</span>}</button>;
+  return <div className="knowledge-workspace" data-reading={reading}>
     <header className="knowledge-workspace-bar">
-      <div className="knowledge-workspace-title"><button className="knowledge-back" onClick={backToList}>返回文章列表</button><strong>知识库</strong><span>{items.length} 篇文章</span>{onAdd && <button className="btn btn-primary knowledge-add" onClick={onAdd}><IconPlus />新建知识</button>}</div>
+      <div className="knowledge-workspace-title"><strong>知识库</strong><span>{catalogueScope==='mine' ? '我的整理':'公开知识'} · {items.length} 篇</span></div>
+      <div className="knowledge-search"><IconSearch aria-hidden="true" /><input ref={searchRef} type="search" value={query || ''}
+        onChange={event => browse(()=>onQueryChange(event.target.value))} placeholder={shelf==='saved' ? '在收藏中搜索标题、正文或标签' : shelf==='recent' ? '在最近阅读中搜索' : '搜索标题、正文或标签'} aria-label="搜索知识标题与正文" />
+        {needle && <button aria-label="清除搜索" onClick={() => {onQueryChange(''); searchRef.current.focus();}}><IconX /></button>}</div>
+      {onAdd && <button className="btn btn-ghost knowledge-add" onClick={onAdd}><IconPlus />新建知识</button>}
+      {reading && headings.length>0 && <button className="knowledge-navigation-toggle" onClick={onShowNavigation} aria-controls="workspace-sidebar">文章目录</button>}
+      {reading && <button className="knowledge-close" onClick={backToList} aria-label="关闭文章，返回知识列表" title="关闭文章"><IconX aria-hidden="true" /></button>}
     </header>
-    <aside ref={indexRef} className="knowledge-index" aria-label="知识文章目录">
-      <div className="knowledge-index-head">
-        <div className="knowledge-search"><IconSearch aria-hidden="true" /><input ref={searchRef} type="search" value={query || ''} onChange={event => onQueryChange(event.target.value)} placeholder="搜索标题与正文" aria-label="搜索知识标题与正文" />{needle && <button aria-label="清除搜索" onClick={() => {onQueryChange(''); searchRef.current.focus();}}><IconX /></button>}</div>
-        <div className="knowledge-type-filter">{[['all','全部'],['article','综合知识'],['method','方法技巧']].map(([id,label]) => <button key={id} aria-pressed={kind === id} onClick={() => {setKind(id); setTool('all');}}>{label}</button>)}</div>
-        <div className="knowledge-index-options">{kind !== 'article' && methodTools.length > 0 && <KnowledgeToolFilter value={tool} options={methodTools} onChange={setTool} active={active} />}<span role="status">{searching ? '正在搜索正文…' : `${visible.length} 篇`}</span></div>
+    <aside ref={indexRef} className="knowledge-index" inert={reading ? '' : undefined} aria-label="知识文章目录">
+      <div className="knowledge-results">
+        <div className="knowledge-browse-toolbar">
+          <nav className="knowledge-shelves" aria-label="知识视图">
+            <button aria-current={shelf==='all' ? 'page':undefined} onClick={()=>setShelf('all')}>全部</button>
+            {personalAccess && <><button aria-current={shelf==='saved' ? 'page':undefined} onClick={()=>setShelf('saved')}>收藏 <span>{personalReady ? savedCount : '—'}</span></button>
+            <button aria-current={shelf==='recent' ? 'page':undefined} onClick={()=>setShelf('recent')}>最近 <span>{personalReady ? recentCount : '—'}</span></button></>}
+          </nav>
+          <button className="knowledge-filter-toggle" aria-expanded={filtersOpen} aria-controls="knowledge-filters" onClick={()=>setFiltersOpen(value=>!value)}>筛选{filterCount>0 && <span className="knowledge-filter-count">{filterCount}</span>}<svg viewBox="0 0 16 16" aria-hidden="true"><path d="m4 6 4 4 4-4" /></svg></button>
+        </div>
+        <div id="knowledge-filters" className="knowledge-filters" hidden={!filtersOpen}>
+          <label>类型<KnowledgeFilterSelect label="内容类型" value={kind} onChange={setKind} options={Object.entries(kindLabels).map(([value,label])=>({value,label}))} /></label>
+          <div className="knowledge-topic-control"><span>主题</span><KnowledgeToolFilter value={topic} options={topicOptions} onChange={setTopic} active={active && filtersOpen} allLabel="全部主题" label="按主题筛选" /></div>
+          <label>排序<KnowledgeFilterSelect label="文章排序" value={sort} onChange={setSort} options={[
+            {value:'auto',label:needle ? '相关度优先' : shelf==='saved' ? '最近收藏' : shelf==='recent' ? '最近阅读' : '最近更新'},
+            {value:'updated',label:'最近更新'},{value:'title',label:'标题名称'}
+          ]} /></label>
+          {personalAccess && <label>内容范围<KnowledgeFilterSelect label="内容范围" value={catalogueScope} onChange={onCatalogueChange} options={[{value:'public',label:'公开知识'},{value:'mine',label:'我的整理'}]} /></label>}
+        </div>
+        {(needle || filterCount>0) && <div className="knowledge-search-scope">
+          <span role="status">{searching ? '正在搜索正文…' : `${visible.length} 篇结果`}{kind!=='all' ? ` · ${kindLabels[kind]}`:''}{topic!=='all' ? ` · ${topic}`:''}</span>
+          {(kind!=='all' || topic!=='all' || shelf!=='all') && <button onClick={()=>{setKind('all');setTopic('all');setShelf('all');}}>搜索全部知识</button>}
+        </div>}
+        {personalAccess && personalError && <p className="knowledge-search-error" role="alert">{personalError}<button onClick={()=>{readRecorded.current.clear();setPersonalRetry(value=>value+1);}}>重新读取个人记录</button></p>}
         {queryTooLong && <p className="knowledge-search-error" role="status">搜索词不能超过 120 个字符，请缩短后再搜索。</p>}
-        {failedSearch && <p className="knowledge-search-error" role="status">正文搜索暂不可用，仅显示标题与摘要匹配。<button onClick={() => setRetry(value => value + 1)}>重试</button></p>}
+        {failedSearch && <p className="knowledge-search-error" role="status">正文搜索暂不可用，仅显示标题与摘要匹配。<button onClick={()=>setRetry(value=>value+1)}>重试</button></p>}
         {currentSearch?.truncated && <p className="knowledge-search-error" role="status">匹配较多，仅显示前 200 条，请补充关键词。</p>}
-      </div>
-      <div className="knowledge-index-list">{visible.map(({item,snippet}) => <button key={item.id} data-knowledge-id={item.id} className={String(selectedId) === String(item.id) ? 'active' : ''} aria-current={String(selectedId) === String(item.id) ? 'true' : undefined} onClick={() => openArticle(item.id)}>
-        <span className="knowledge-item-meta">{item.type === 'source_archive' ? '原文归档' : item.type === 'method' ? item.tags?.[0] || '方法技巧' : '综合知识'}</span>
-        <strong><KnowledgeHighlight text={item.title} query={needle} /></strong><small><KnowledgeHighlight text={needle ? snippet : item.summary} query={needle} /></small>
-      </button>)}
-        {!visible.length && <div className="knowledge-empty" role="status"><strong>{searching ? '正在搜索全文' : failedSearch ? '暂未找到匹配内容' : '没有匹配的文章'}</strong><p>{searching ? '标题结果会先显示，正文结果随后补齐。' : '试试其他关键词，或清除当前筛选。'}</p>{!searching && <button className="btn" onClick={resetFilters}>清除搜索与筛选</button>}</div>}
+        <div className="knowledge-index-list">{visible.map(({item,snippet})=><div key={item.id} data-knowledge-id={item.id}
+          className={`knowledge-list-item${String(selectedId)===String(item.id) ? ' active':''}`}>
+          <button className="knowledge-item-open" aria-current={String(selectedId)===String(item.id) ? 'true':undefined} onClick={()=>openArticle(item.id)}>
+            <strong><KnowledgeHighlight text={item.title} query={needle} /></strong><small><KnowledgeHighlight text={needle ? snippet : knowledgePlainText(item.summary)} query={needle} /></small>
+            <span className="knowledge-item-meta"><span>{kindLabels[knowledgeKind(item)]}{knowledgeTopics(item).length ? ` · ${knowledgeTopics(item).slice(0,2).join(' / ')}`:''}</span><span className="knowledge-item-date">{knowledgeItemDate(item,personal[String(item.id)],shelf)}</span></span>
+          </button>{saveButton(item,true)}
+        </div>)}
+        {!visible.length && <div className="knowledge-empty" role="status"><strong>{searching ? '正在搜索全文' : personalAccess && shelf!=='all' && !personalReady ? '个人记录暂未就绪' : shelf==='saved' && !savedCount ? '还没有收藏' : shelf==='recent' && !recentCount ? '还没有阅读记录' : '没有匹配的文章'}</strong>
+          <p>{searching ? '标题结果会先显示，正文结果随后补齐。' : shelf==='saved' && !savedCount ? '在文章旁点击收藏，以后从这里快速找回。' : shelf==='recent' && !recentCount ? '打开文章后会记录到这里，只有你能看到。' : '试试其他关键词，或清除当前筛选。'}</p>
+          {!searching && (catalogueScope==='mine' && !items.length ? <button className="btn" onClick={()=>onCatalogueChange('public')}>浏览公开知识</button> : <button className="btn" onClick={()=>{resetFilters();setShelf('all');}}>浏览全部内容</button>)}</div>}
+        </div>
       </div>
     </aside>
-    <article ref={readerRef} className="knowledge-reader" aria-label="知识文章" onScroll={event => {if (detail && event.currentTarget.getClientRects().length) positions.set(String(selectedId),event.currentTarget.scrollTop);}}>
-      {!detail ? <div className="knowledge-loading" role="status"><p>{failedDetail ? '文章暂时无法读取' : visible.length ? '正在读取文章…' : searching ? '正在搜索正文…' : '选择文章开始阅读'}</p>{failedDetail && <button className="btn" onClick={() => setRetry(value => value + 1)}>重新加载</button>}</div> : <div className={`knowledge-reading-layout${headings.length ? ' has-toc' : ''}`}>
+    <article ref={readerRef} className="knowledge-reader" inert={reading ? undefined : ''} aria-label="知识文章" onScroll={event => {if (reading && detail && event.currentTarget.getClientRects().length) positions.set(String(selectedId),event.currentTarget.scrollTop);}}>
+      {!detail ? <div className="knowledge-loading" role="status"><p>{failedDetail ? '文章暂时无法读取' : visible.length ? '正在读取文章…' : searching ? '正在搜索正文…' : '选择文章开始阅读'}</p>{failedDetail && <button className="btn" onClick={() => setRetry(value => value + 1)}>重新加载</button>}</div> : <div className="knowledge-reading-layout">
         <header className="knowledge-reader-head"><div className="knowledge-breadcrumb">{detail.type === 'source_archive' ? '原文归档' : `${detail.type === 'method' ? '方法技巧' : '综合知识'} · ${detail.tags?.[0] || '专题'}`}</div>
-          <h1 tabIndex={-1}>{detail.title}</h1>{detail.type !== 'source_archive' && !knowledgeSummaryIsRepeated(detail) && <p>{detail.summary}</p>}
-          <div className="knowledge-reader-meta"><span className="knowledge-state">{detail.type === 'manual' ? '个人整理' : detail.type === 'source_archive' ? '保留原文' : detail.type === 'method' ? '来源整理 · 未实测' : '来源核验'}</span><span>{detail.sources.length} 个来源</span>
+          <h1 tabIndex={-1}>{detail.title}</h1>{personalError && <p className="knowledge-search-error" role="alert">{personalError}<button onClick={()=>{readRecorded.current.clear();setPersonalRetry(value=>value+1);}}>重新读取个人记录</button></p>}{detail.type !== 'source_archive' && !knowledgeSummaryIsRepeated(detail) && <p>{detail.summary}</p>}
+          <div className="knowledge-reader-meta"><span className="knowledge-state">{detail.type === 'manual' ? '个人整理' : detail.type === 'source_archive' ? '保留原文' : detail.type === 'method' ? '来源整理 · 未实测' : '来源核验'}</span><span>{detail.sources.length} 个来源</span>{saveButton(detail)}
             {detail.manualAssetId && onEdit && <button className="btn btn-ghost" onClick={() => onEdit(detail)}>编辑文章</button>}
             {detail.sourceInboxId && onCorrectClassification && <button className="btn btn-ghost" onClick={() => onCorrectClassification({sourceInboxId:detail.sourceInboxId})}>调整归类</button>}
             {detail.hasPrompt && <button className="btn btn-ghost" onClick={() => onOpenPrompt(detail.sourceInboxId)}>查看提取的提示词 →</button>}
           </div>
         </header>
-        {headings.length > 0 && <aside className="knowledge-toc" key={String(selectedId)}><div className="knowledge-toc-title">本文目录 <span>{headings.length} 节</span></div><nav aria-label="本文章节">{headings.map(heading => <button key={heading.id} data-level={heading.level} onClick={() => jumpToHeading(heading.id)}>{heading.title}</button>)}</nav></aside>}
         <div className="knowledge-reading-content">
         {detail.type === 'method' && <div className="knowledge-method-context"><span>适用对象 <strong>{detail.tags?.[0] || '待补充'}</strong></span><span>具体用途 <strong>{detail.tags?.[1] || '见下方步骤'}</strong></span></div>}
-        <div className="knowledge-article markdown-body" dangerouslySetInnerHTML={{__html:markdownWithCitationLinks(detail.body, detail.sources)}} />
+        <div className="knowledge-article markdown-body" onClick={showImage} onKeyDown={event=>{if (['Enter',' '].includes(event.key)) showImage(event);}} dangerouslySetInnerHTML={{__html:markdownWithCitationLinks(detail.body, detail.sources)}} />
         {detail.promptText && <section className="knowledge-method-prompt"><div><h2>原帖中的指令片段</h2><button className="btn btn-ghost" onClick={async () => {
           setCopyResult('');
           try { await navigator.clipboard.writeText(detail.promptText); setCopyResult('已复制'); } catch { setCopyResult('复制失败，请手动选择文字'); }
@@ -777,6 +964,7 @@ function KnowledgeLibraryView({ items, query, onQueryChange, active = true, requ
         </div>
       </div>}
     </article>
+    {image && <KnowledgeImageViewer image={image} onClose={()=>setImage(null)} />}
   </div>;
 }
 

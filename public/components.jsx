@@ -309,13 +309,13 @@ function ModuleRailButton({ tooltip, tooltipEnabled = true, buttonRef, children,
 }
 
 /** 侧边栏：模块导航 + 分类（带计数）+ 左下角「用户信息 + 账号/设置」 */
-function SideNav({ section, onSectionChange, categories, activeCategory, onCategoryChange, counts, moduleCounts = {}, feedNavigation, onFeedNavigate,
+function SideNav({ section, onSectionChange, categories, activeCategory, onCategoryChange, counts, moduleCounts = {}, feedNavigation, onFeedNavigate, knowledgeNavigation, onKnowledgeNavigate,
                    user, quote, merit, skin, onSkinChange, theme, onThemeToggle,
                    woodFishEnabled, onWoodFishToggle, onOpenAiSettings, onOpenAccountSettings,
                    collapsed, moduleLabels }) {
   const [mobile, setMobile] = useState(() => window.matchMedia("(max-width: 860px)").matches);
   const hidden = mobile && collapsed;
-  const hasContext = Boolean(feedNavigation || categories?.length);
+  const hasContext = Boolean(feedNavigation || knowledgeNavigation || categories?.length);
   useEffect(() => {
     const media = window.matchMedia("(max-width: 860px)");
     const update = event => setMobile(event.matches);
@@ -333,14 +333,14 @@ function SideNav({ section, onSectionChange, categories, activeCategory, onCateg
     { id: "studio", label: "创作台", icon: <IconPalette /> },
     { id: "chat", label: "AI 提炼台", icon: <IconSend /> },
     { id: "topics", label: "专题", icon: <IconSun /> },
-    { id: "tools", label: "工具箱", icon: <IconWrench /> },
+    { id: "tools", label: "工具", icon: <IconWrench /> },
   ];
   // Published work is public. A signed-in person also gets their own private
   // inbox and connections, while the shared paid/admin tools stay zane-only.
   const canUseFullApp = Boolean(user && user.fullAccess);
   const hasPersonalSpace = Boolean(user && (user.personalAccess !== false));
   const modules = canUseFullApp ? allModules : allModules
-    .filter((m) => ["repositories", "knowledgeLibrary", "promptLibrary", "feed", "topics", ...(hasPersonalSpace ? ["inbox", "studio", "works", "chat"] : [])].includes(m.id));
+    .filter((m) => ["repositories", "knowledgeLibrary", "promptLibrary", "feed", "topics", "tools", ...(hasPersonalSpace ? ["inbox", "studio", "works", "chat"] : [])].includes(m.id));
   return (
     <aside id="workspace-sidebar" className={"sidebar workspace-navigation" + (collapsed ? " collapsed" : "") + (hasContext ? " has-context" : "") + (moduleLabels ? " module-labels-visible" : "")} aria-hidden={hidden} inert={hidden ? "" : undefined}>
       <div className="module-rail">
@@ -354,17 +354,26 @@ function SideNav({ section, onSectionChange, categories, activeCategory, onCateg
           </ModuleRailButton>
         ))}
       </nav>
-      {hasPersonalSpace && <div className="sidebar-foot">
+      <div className="sidebar-foot">
         <ModuleRailButton className={"nav-item module-button" + (section === 'settings' ? " active" : "")}
-          aria-label={`账号与设置：${user.username}`}
-          tooltip={`账号与设置：${user.username}`} tooltipEnabled={!moduleLabels && !hidden}
-          aria-current={section === 'settings' ? 'page' : undefined} onClick={onOpenAccountSettings}>
-          <span className="module-icon" aria-hidden="true"><span className="user-avatar">{user.username.charAt(0).toUpperCase()}</span></span>
-          <span className="module-label user-name">{user.username}</span>
+          aria-label={hasPersonalSpace ? `账号与设置：${user.username}` : '设置'}
+          tooltip={hasPersonalSpace ? `账号与设置：${user.username}` : '设置'} tooltipEnabled={!moduleLabels && !hidden}
+          aria-current={section === 'settings' ? 'page' : undefined} onClick={onOpenAccountSettings} tabIndex={hidden ? -1 : 0}>
+          <span className="module-icon" aria-hidden="true">{hasPersonalSpace ? <span className="user-avatar">{user.username.charAt(0).toUpperCase()}</span> : <IconSettings />}</span>
+          <span className="module-label user-name">{hasPersonalSpace ? user.username : '设置'}</span>
         </ModuleRailButton>
-      </div>}
+      </div>
       </div>
       {hasContext && <div className="workspace-context" hidden={collapsed}>
+        {knowledgeNavigation && <div className="repository-side-group knowledge-side-group">
+          <div className="context-heading"><strong>知识库</strong></div>
+          <p className="knowledge-side-title">{knowledgeNavigation.title}</p>
+          {knowledgeNavigation.items.length>0 && <><p className="side-label">本文目录</p>
+            <nav aria-label="本文章节">{knowledgeNavigation.items.map(item=><button key={item.id}
+              className="nav-item repository-category" data-level={item.level}
+              onClick={()=>onKnowledgeNavigate(item.id)}>{item.title}</button>)}</nav>
+          </>}
+        </div>}
         {feedNavigation && <div className="repository-side-group feed-side-group">
           <div className="context-heading"><strong>资讯与监听</strong></div>
           <p className="side-label">内容视图</p>
@@ -636,7 +645,7 @@ function FeedItem({ item, rank, showRank, onPreview, onSave }) {
           </div>
         )}
         {item.reason && (
-          <details className="feed-reason"><summary>推荐理由</summary><p>{item.reason}</p></details>
+          <div className="feed-reason"><span className="feed-reason-label">推荐理由</span>{item.reason}</div>
         )}
       </div>
     </article>
