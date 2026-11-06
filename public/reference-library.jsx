@@ -150,6 +150,7 @@ const STYLE_FACETS = [
   { value: '', label: '全部' },
   { value: 'realistic', label: '真人写实' },
   { value: 'anime', label: '动漫' },
+  { value: 'line-art', label: '结构线稿' },
   { value: 'unmarked', label: '未标注' },
 ];
 const GENDER_FACETS = [
@@ -584,7 +585,7 @@ function ReferenceLibraryTool({ active, visible, hash, showToast, onCreate, user
         {kind === 'face' ? ({'脸部特写':'正脸','造型':'生活照'}[chip.value] || chip.value) : chip.value}{chip.count != null && <span>{chip.count.toLocaleString()}</span>}
       </button>)}
     </div>
-    <div className="reference-chip-row reference-scope-facets" role="group" aria-label="画面风格"><span className="reference-row-label">风格</span>{scopedFacetChips(STYLE_FACETS, filterData?.facets?.styles).map(chip => <button key={chip.value || 'all'} type="button" disabled={chip.value === 'realistic' && chip.count === 0} className={style === chip.value ? 'active' : ''} aria-pressed={style === chip.value} onClick={() => changeScopeFacet('style', chip.value)}>{chip.label}{chip.count != null && <span>{chip.count.toLocaleString()}</span>}</button>)}</div>
+    <div className="reference-chip-row reference-scope-facets" role="group" aria-label="画面风格"><span className="reference-row-label">风格</span>{scopedFacetChips(STYLE_FACETS, filterData?.facets?.styles).filter(chip => chip.value !== 'line-art' || chip.count > 0 || style === 'line-art').map(chip => <button key={chip.value || 'all'} type="button" disabled={chip.value === 'realistic' && chip.count === 0} className={style === chip.value ? 'active' : ''} aria-pressed={style === chip.value} onClick={() => changeScopeFacet('style', chip.value)}>{chip.label}{chip.count != null && <span>{chip.count.toLocaleString()}</span>}</button>)}</div>
     <div className="reference-chip-row reference-scope-facets" role="group" aria-label="性别标注"><span className="reference-row-label">性别</span>{scopedFacetChips(GENDER_FACETS, filterData?.facets?.genders).map(chip => <button key={chip.value || 'all'} type="button" className={gender === chip.value ? 'active' : ''} aria-pressed={gender === chip.value} onClick={() => changeScopeFacet('gender', chip.value)}>{chip.label}{chip.count != null && <span>{chip.count.toLocaleString()}</span>}</button>)}</div>
     {(series || filterData?.facets?.series?.length > 0) && <div className="reference-series-filter"><label className="reference-row-label" htmlFor="reference-series">素材系列</label><InlineSelect id="reference-series" aria-label="素材系列" value={series} onChange={event => navigate({ series: event.target.value, category: '', hair: '', hairstyle: '', action: '', angle: '', reference: '', page: '' })}><option value="">全部系列</option>{(filterData?.facets?.series || []).map(item => <option key={item.value} value={item.value}>{item.value}（{item.count}）</option>)}</InlineSelect></div>}
     <div className="reference-pose-filters">
