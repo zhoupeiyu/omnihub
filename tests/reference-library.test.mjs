@@ -301,6 +301,36 @@ test('style and gender filters only use explicit metadata or the trusted anime c
   assert.equal((await get('?kind=face&gender=unmarked')).total, 1);
 });
 
+test('series filters preserve pose groups, facet choices and reference-code search', async t => {
+  const w = await workspace(t); await w.sync();
+  const file = path.join(w.archive, 'manifest.json'), manifest = JSON.parse(await readFile(file, 'utf8'));
+  for (const item of manifest.items.filter(item => item.kind === 'pose')) Object.assign(item, { series: '女性结构姿势补齐', code: 'FP-015', action: '站姿' });
+  const pose = manifest.items.find(item => item.kind === 'pose');
+  manifest.items.push({ ...pose, id: 'pose:other-series', stem: 'other-series', groupId: 'other-series', series: '男性姿势', code: 'MP-023', action: '坐姿' });
+  await writeFile(file, JSON.stringify(manifest));
+  const { get } = await startServer(t, w);
+  const selected = await get('?kind=pose&group=pose&series=' + encodeURIComponent('女性结构姿势补齐'));
+  assert.equal(selected.total, 1); assert.equal(selected.imageTotal, 2); assert.equal(selected.counts.pose, 2);
+  assert.equal(selected.items[0].variantCount, 2); assert.equal(selected.items[0].series, '女性结构姿势补齐');
+  assert.deepEqual(selected.facets.series.map(item => [item.value, item.count]), [['女性结构姿势补齐', 1], ['男性姿势', 1]]);
+  assert.deepEqual(selected.facets.actions.map(item => item.value), ['站姿']);
+  assert.equal((await get('?kind=pose&q=FP-015')).total, 2);
+  assert.equal((await get('?kind=pose&series=missing')).total, 0);
+  assert.equal((await get('?kind=face&series=' + encodeURIComponent('女性结构姿势补齐'))).total, 0);
+});
+
+test('an imported portrait series is not exposed as a hairstyle', async t => {
+  const w = await workspace(t); await w.sync();
+  const file = path.join(w.archive, 'manifest.json'), manifest = JSON.parse(await readFile(file, 'utf8'));
+  const face = manifest.items.find(item => item.kind === 'face');
+  manifest.items.push({ ...face, id: 'face:custom-portrait', stem: 'custom-portrait', series: '正面人物参考', tags: ['女性', '写实', '正面人物参考'], hair: '长发' });
+  await writeFile(file, JSON.stringify(manifest));
+  const { get } = await startServer(t, w);
+  const portrait = await get('?kind=face&series=' + encodeURIComponent('正面人物参考'));
+  assert.equal(portrait.total, 1); assert.deepEqual(portrait.facets.hairstyles, []);
+  assert.deepEqual(portrait.facets.hairs.map(item => item.value), ['长发']);
+});
+
 test('sort=random returns a full shuffled permutation without dropping or duplicating rows, for both grouped and ungrouped output', async t => {
   const w = await workspace(t); await w.sync();
   const file = path.join(w.archive, 'manifest.json'), manifest = JSON.parse(await readFile(file, 'utf8'));

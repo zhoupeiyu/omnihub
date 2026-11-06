@@ -40,3 +40,17 @@ test('open-pose importer enriches matched metadata without replacing collection 
     assert.deepEqual({ collectionId: item.collectionId, collectionName: item.collectionName, original: item.original, thumbnail: item.thumbnail, style: item.style, gender: item.gender }, { collectionId: 'gia-ai-reference', collectionName: '旧集合', original, thumbnail, style: 'realistic', gender: 'female' });
   } finally { await rm(directory, { recursive: true, force: true }); }
 });
+
+test('facet backfill preserves manual labels and image objects while adding upstream series and codes', async () => {
+  const directory = await mkdtemp(path.join(os.tmpdir(), 'open-pose-facets-'));
+  try {
+    const original = { key: 'ai-reference/objects/aa/aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.png', sha256: 'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa', bytes: 12, contentType: 'image/png' };
+    const previous = { id: 'face:existing', kind: 'face', stem: 'existing', collectionId: 'gia-ai-reference', title: 'Manual title', category: 'Manual category', tags: ['Manual tag'], hair: 'long', original, thumbnail: original };
+    const row = { ...sample('existing', 'character', 'https://ai-portrait-gallery.pages.dev/', 'https://ai-portrait-gallery.pages.dev/img/full/existing.png', 'https://ai-portrait-gallery.pages.dev/img/thumb/existing.webp'), code: 'UCF-009', series: { zh: '正面人物参考' } };
+    await writeFile(path.join(directory, 'manifest.json'), JSON.stringify({ version: 1, items: [previous] }));
+    await writeFile(path.join(directory, 'snapshot.json'), JSON.stringify({ items: [row] }));
+    await run(process.execPath, [path.resolve('scripts/import-open-pose.mjs'), '--directory', directory, '--snapshot', path.join(directory, 'snapshot.json'), '--facets-snapshot', path.join(directory, 'snapshot.json'), '--commit', commit, '--apply', '--local-only']);
+    const item = JSON.parse(await readFile(path.join(directory, 'manifest.json'))).items[0];
+    assert.deepEqual(item, { ...previous, hair: '长发', code: 'UCF-009', series: '正面人物参考' });
+  } finally { await rm(directory, { recursive: true, force: true }); }
+});

@@ -7,6 +7,8 @@ import { validReferenceObject } from '../lib/reference-catalogue.js';
 const COLLECTION = { id: 'open-pose-costume', name: '姿势与服装参考 · Open Pose Costume' };
 const MAX_BYTES = 32 * 1024 ** 2;
 const RAW_ROOT = 'https://raw.githubusercontent.com/hongye007/open-pose-costume';
+const ANGLE_LABELS = { front: '正面', high: '俯视', low: '仰视', side: '侧面', diag: '斜45°' };
+const HAIR_LABELS = { short: '短发', medium: '中发', long: '长发' };
 const PAGES_HOSTS = new Set([
   'ai-pose-gallery.pages.dev', 'ai-costume-gallery.pages.dev',
   'ai-costume-anime-gallery.pages.dev', 'ai-portrait-gallery.pages.dev',
@@ -14,6 +16,7 @@ const PAGES_HOSTS = new Set([
 
 const { values } = parseArgs({ options: {
   directory: { type: 'string' }, snapshot: { type: 'string' }, commit: { type: 'string' },
+  'facets-snapshot': { type: 'string' },
   apply: { type: 'boolean' }, 'local-only': { type: 'boolean' },
 } });
 if (!values.directory || !values.snapshot || !/^[a-f0-9]{40}$/.test(values.commit || '')) throw new Error('invalid_import_arguments');
@@ -69,11 +72,11 @@ function rowsFrom(catalogue) {
       const thumbnailSourceUrl = sourceUrl(variant.thumbnail || variant.image);
       const depthSourceUrl = variant.depth?.original ? sourceUrl(variant.depth.original) : null;
       rows.push({
-        id, stem, kind, collectionId: COLLECTION.id, collectionName: COLLECTION.name,
+        id, stem, kind, code: text(item.code, stem), series: text(item.series?.zh), action: kind === 'pose' ? text(item.category?.zh) : '', collectionId: COLLECTION.id, collectionName: COLLECTION.name,
         thumbnailPath: thumbnailSourceUrl, sourceUrl: text(item.source, RAW_ROOT), originalSourceUrl,
         license: 'user-authorized', title: text(item.title?.zh, stem), category: text(item.category?.zh, '未分类'),
-        hair: text(item.portrait?.hair), tags: [...new Set([...tags.map(tagText).filter(Boolean), text(item.series?.zh), text(item.keywords?.zh)].filter(Boolean))].slice(0, 50),
-        groupId: `${kind}:${text(item.id, stem)}`, angle: text(variant.angle), style: styleFor(tags), gender: genderFor(tags),
+        hair: HAIR_LABELS[item.portrait?.hair] || text(item.portrait?.hair), tags: [...new Set([...tags.map(tagText).filter(Boolean), text(item.series?.zh), text(item.keywords?.zh)].filter(Boolean))].slice(0, 50),
+        groupId: `${kind}:${text(item.id, stem)}`, angle: ANGLE_LABELS[variant.angle] || text(variant.angle), style: styleFor(tags), gender: genderFor(tags),
         sourceCommit, sourceMissing: false, thumbnailSourceUrl, depthSourceUrl,
       });
     }
@@ -130,6 +133,12 @@ function enrichExisting(previous, row) {
     sourceUrl: row.sourceUrl, originalSourceUrl: row.originalSourceUrl, thumbnailPath: row.thumbnailPath,
     sourceCommit: row.sourceCommit, sourceMissing: false };
 }
+function enrichFacets(previous, row) {
+  return { ...previous, code: previous.code || row.code, series: previous.series || row.series,
+    ...(ANGLE_LABELS[previous.angle] ? { angle: ANGLE_LABELS[previous.angle] } : {}),
+    ...(HAIR_LABELS[previous.hair] ? { hair: HAIR_LABELS[previous.hair] } : {}),
+    ...(previous.kind === 'pose' && previous.collectionId === COLLECTION.id ? { action: previous.action || row.action } : {}) };
+}
 async function readCheckpoint(file, additions) {
   let data;
   try { data = JSON.parse(await readFile(file, 'utf8')); } catch (error) { if (error.code === 'ENOENT') return new Map(); throw error; }
@@ -148,6 +157,7 @@ await writeFile(lock, JSON.stringify({ pid: process.pid, startedAt: new Date().t
 try {
   const [rawManifest, rawCatalogue] = await Promise.all([readFile(manifestFile), readFile(path.resolve(values.snapshot), 'utf8')]);
   const manifest = JSON.parse(rawManifest), rows = rowsFrom(JSON.parse(rawCatalogue));
+  const facetRows = values['facets-snapshot'] ? rowsFrom(JSON.parse(await readFile(path.resolve(values['facets-snapshot']), 'utf8'))) : [];
   if (manifest.version !== 1 || !Array.isArray(manifest.items)) throw new Error('invalid_manifest');
   const old = new Map(manifest.items.map(item => [item.id, item]));
   if (old.size !== manifest.items.length) throw new Error('duplicate_manifest_id');
@@ -161,7 +171,8 @@ try {
     const checkpointFile = path.join(directory, 'import-progress', `open-pose-${sourceCommit}.json`);
     await mkdir(backup, { recursive: true, mode: 0o700 });
     await writeFile(path.join(backup, 'manifest.json'), rawManifest, { mode: 0o600 });
-    for (const row of rows) if (old.has(row.id)) old.set(row.id, enrichExisting(old.get(row.id), row));
+    for (const row of rows) if (old.has(row.id)) old.set(row.id, values['facets-snapshot'] ? enrichFacets(old.get(row.id), row) : enrichExisting(old.get(row.id), row));
+    for (const row of facetRows) if (old.has(row.id)) old.set(row.id, enrichFacets(old.get(row.id), row));
     const checkpoint = await readCheckpoint(checkpointFile, additions);
     const resumed = checkpoint.size;
     for (const row of checkpoint.values()) old.set(row.id, row);

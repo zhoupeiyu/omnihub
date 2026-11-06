@@ -339,8 +339,8 @@ function ReferenceLibraryTool({ active, visible, hash, showToast, onCreate, user
   const params = workspaceHashParams(hash), kind = params.get('kind') || 'face';
   const query = params.get('q') || '', collection = params.get('collection') || '', category = params.get('category') || '', hair = params.get('hair') || '';
   const action = params.get('action') || '', angle = params.get('angle') || '', hairstyle = params.get('hairstyle') || '';
-  const style = params.get('style') || '', gender = params.get('gender') || '';
-  const requestScope = JSON.stringify([userId,kind,collection,query,category,hair,hairstyle,action,angle,style,gender,params.get('mode'),params.get('page'),params.get('sort'),params.get('originals')]);
+  const style = params.get('style') || '', gender = params.get('gender') || '', series = params.get('series') || '';
+  const requestScope = JSON.stringify([userId,kind,collection,query,category,hair,hairstyle,action,angle,style,gender,series,params.get('mode'),params.get('page'),params.get('sort'),params.get('originals')]);
   const mode = resolveMode(kind, params.get('mode'));
   const selectedId = params.get('reference') || '';
   const [search, setSearch] = React.useState(query), [snapshot, setSnapshot] = React.useState(null), [status, setStatus] = React.useState(null);
@@ -379,14 +379,14 @@ function ReferenceLibraryTool({ active, visible, hash, showToast, onCreate, user
   React.useEffect(() => {
     if (!active) return;
     const controller = new AbortController(), q = new URLSearchParams();
-    for (const key of ['kind', 'collection', 'q', 'category', 'hair', 'hairstyle', 'action', 'angle', 'style', 'gender', 'page', 'sort', 'originals']) if (params.get(key)) q.set(key, params.get(key));
+    for (const key of ['kind', 'collection', 'q', 'category', 'hair', 'hairstyle', 'action', 'angle', 'style', 'gender', 'series', 'page', 'sort', 'originals']) if (params.get(key)) q.set(key, params.get(key));
     if (kind === 'pose' && mode === 'group') q.set('group', 'pose');
     setLoading(true); setError('');
     api(`/api/reference-library?${q}`, { signal: controller.signal }).then(value => { if (!controller.signal.aborted) setSnapshot({ scope: requestScope, userId, kind, value }); }).catch(e => { if (!controller.signal.aborted) setError(e.message); })
       .finally(() => { if (!controller.signal.aborted) setLoading(false); });
     api('/api/reference-library/status', { signal: controller.signal }).then(value => { if (!controller.signal.aborted) setStatus(value); }).catch(() => {});
     return () => controller.abort();
-  }, [active, kind, collection, query, category, hair, hairstyle, action, angle, style, gender, mode, userId, params.get('page'), params.get('sort'), params.get('originals'), revision]);
+  }, [active, kind, collection, query, category, hair, hairstyle, action, angle, style, gender, series, mode, userId, params.get('page'), params.get('sort'), params.get('originals'), revision]);
   React.useEffect(() => {
     if (!active || !selectedId) return;
     const viewport = window.visualViewport;
@@ -543,7 +543,7 @@ function ReferenceLibraryTool({ active, visible, hash, showToast, onCreate, user
       showToast?.('已清除当前组合，避免与新的风格或性别范围混用。');
     }
     setRandomComboError('');
-    navigate({ [key]: next, page: '', reference: '' });
+    navigate({ [key]: next, series: '', page: '', reference: '' });
   };
   if (!visible) return null;
   const totalLabel = filterData?.total || 0;
@@ -553,7 +553,7 @@ function ReferenceLibraryTool({ active, visible, hash, showToast, onCreate, user
       <div className="reference-kinds" aria-label="参考图类型">{KIND_NAV_ORDER.map(id => {
         const count = navKindCount(navigationData, id, id === 'pose');
         return <button key={id} type="button" className={kind === id ? 'active' : ''} aria-pressed={kind === id}
-          onClick={() => { setSearch(''); navigate({ kind: id, q: '', category: '', hair: '', hairstyle: '', action: '', angle: '', page: '', reference: '' }); }}>
+          onClick={() => { setSearch(''); navigate({ kind: id, q: '', category: '', hair: '', hairstyle: '', action: '', angle: '', series: '', page: '', reference: '' }); }}>
           <span>{REFERENCE_LABELS[id]}</span>
           {composition[id] && <><i className="reference-kind-picked" aria-hidden="true" /><b className="reference-visually-hidden">已选择</b></>}
           <span className="reference-kind-count">{count != null ? count.toLocaleString() : '—'}{id === 'pose' ? ' 组' : ''}</span>
@@ -577,7 +577,7 @@ function ReferenceLibraryTool({ active, visible, hash, showToast, onCreate, user
         <button type="button" className="reference-shuffle" onClick={randomOne} disabled={randomOneLoading}><ReferenceIconShuffle />{randomOneLoading ? '正在选取…' : '随机一个'}</button>
       </div>
     </div>
-    <div className="reference-capsules" role="group" aria-label="系列分类"><span className="reference-row-label">{kind === 'pose' ? '系列' : kind === 'face' ? '类型' : '分类'}</span>
+    <div className="reference-capsules" role="group" aria-label="系列分类"><span className="reference-row-label">{kind === 'pose' ? '姿势分类' : kind === 'face' ? '类型' : '分类'}</span>
       <button type="button" className={category ? '' : 'active'} aria-pressed={!category} onClick={() => navigate({ category: '', page: '' })}>全部</button>
       {!filterData && [0,1,2].map(index => <span key={index} className="sk-line reference-chip-skeleton" aria-hidden="true" />)}
       {categoryChips(filterData).map(chip => <button key={chip.value} type="button" className={category === chip.value ? 'active' : ''} aria-pressed={category === chip.value} onClick={() => navigate({ category: category === chip.value ? '' : chip.value, hairstyle: '', page: '' })}>
@@ -586,6 +586,7 @@ function ReferenceLibraryTool({ active, visible, hash, showToast, onCreate, user
     </div>
     <div className="reference-chip-row reference-scope-facets" role="group" aria-label="画面风格"><span className="reference-row-label">风格</span>{scopedFacetChips(STYLE_FACETS, filterData?.facets?.styles).map(chip => <button key={chip.value || 'all'} type="button" disabled={chip.value === 'realistic' && chip.count === 0} className={style === chip.value ? 'active' : ''} aria-pressed={style === chip.value} onClick={() => changeScopeFacet('style', chip.value)}>{chip.label}{chip.count != null && <span>{chip.count.toLocaleString()}</span>}</button>)}</div>
     <div className="reference-chip-row reference-scope-facets" role="group" aria-label="性别标注"><span className="reference-row-label">性别</span>{scopedFacetChips(GENDER_FACETS, filterData?.facets?.genders).map(chip => <button key={chip.value || 'all'} type="button" className={gender === chip.value ? 'active' : ''} aria-pressed={gender === chip.value} onClick={() => changeScopeFacet('gender', chip.value)}>{chip.label}{chip.count != null && <span>{chip.count.toLocaleString()}</span>}</button>)}</div>
+    {(series || filterData?.facets?.series?.length > 0) && <div className="reference-series-filter"><label className="reference-row-label" htmlFor="reference-series">素材系列</label><InlineSelect id="reference-series" aria-label="素材系列" value={series} onChange={event => navigate({ series: event.target.value, category: '', hair: '', hairstyle: '', action: '', angle: '', reference: '', page: '' })}><option value="">全部系列</option>{(filterData?.facets?.series || []).map(item => <option key={item.value} value={item.value}>{item.value}（{item.count}）</option>)}</InlineSelect></div>}
     <div className="reference-pose-filters">
       {kind === 'pose' && angleChips(filterData?.facets).length > 1 && <div className="reference-chip-row reference-angles-row" aria-label="角度"><span className="reference-row-label">机位</span>{angleChips(filterData?.facets).map(chip => <button key={chip.value || 'all'} type="button" className={angle === chip.value ? 'active' : ''} aria-pressed={angle === chip.value} onClick={() => navigate({ angle: chip.value, page: '' })}>{chip.label}{chip.count ? <span>{chip.count.toLocaleString()}</span> : null}</button>)}</div>}
       {kind === 'pose' && actionChips(filterData).length > 0 && <label className="reference-action-select"><span aria-hidden="true">{action || '全部动作'}<ReferenceIconChevronDown /></span><select aria-label="动作分类" value={action} onChange={e => navigate({action:e.target.value,page:''})}><option value="">全部动作</option>{actionChips(filterData).map(chip => <option key={chip.value} value={chip.value}>{chip.value}（{chip.count}）</option>)}</select></label>}
@@ -594,7 +595,7 @@ function ReferenceLibraryTool({ active, visible, hash, showToast, onCreate, user
       {kind === 'face' && hairChips(filterData).length > 0 && <div className="reference-chip-row" aria-label="头发长度"><span className="reference-row-label">发长</span><button type="button" className={!hair ? 'active' : ''} onClick={() => navigate({hair:'',page:''})}>全部</button>{hairChips(filterData).map(chip => <button key={chip.value} type="button" className={hair === chip.value ? 'active' : ''} aria-pressed={hair === chip.value} onClick={() => navigate({ hair: hair === chip.value ? '' : chip.value, hairstyle: '', page: '' })}>{chip.value}{chip.count != null && <span>{chip.count.toLocaleString()}</span>}</button>)}</div>}
       {kind === 'face' && <div className="reference-chip-row" aria-label="发型"><span className="reference-row-label">发型</span><button type="button" className={!hairstyle ? 'active' : ''} aria-pressed={!hairstyle} onClick={() => navigate({hairstyle:'',page:''})}>全部</button>{facetList(filterData?.facets?.hairstyles).map(chip => <button type="button" key={chip.value} className={hairstyle === chip.value ? 'active' : ''} aria-pressed={hairstyle === chip.value} onClick={() => navigate({hairstyle:hairstyle === chip.value ? '' : chip.value,page:''})}>{chip.value}<span>{chip.count}</span></button>)}</div>}
       <div className="reference-legacy">
-        <InlineSelect className="reference-collection" aria-label="素材集" value={collection} onChange={e => { setSearch(''); navigate({ collection: e.target.value, category: '', hair: '', hairstyle: '', action: '', angle: '', reference: '', q: '', page: '' }); }}><option value="">全部素材集</option>{(navigationData?.collections || []).map(item => <option key={item.id} value={item.id}>{item.name}（{item.count.toLocaleString()}）</option>)}</InlineSelect>
+        <InlineSelect className="reference-collection" aria-label="素材集" value={collection} onChange={e => { setSearch(''); navigate({ collection: e.target.value, category: '', hair: '', hairstyle: '', action: '', angle: '', series: '', reference: '', q: '', page: '' }); }}><option value="">全部素材集</option>{(navigationData?.collections || []).map(item => <option key={item.id} value={item.id}>{item.name}（{item.count.toLocaleString()}）</option>)}</InlineSelect>
         <label className="reference-original-filter"><input type="checkbox" checked={params.get('originals') === '1'} onChange={e => navigate({ originals: e.target.checked ? '1' : '', page: '' })} />原图已导入</label>
         <span className="reference-private">仅自己可见</span>
         <details className="reference-sync"><summary>{status?.state === 'syncing' ? '正在同步' : ['failed', 'partial'].includes(status?.state) ? '同步待重试' : '同步状态'}</summary><div className="reference-sync-info"><p>每天自动检查新增素材，已有图片保留。</p><p>最近一次新增 {status?.added || 0} 张，更新 {status?.changed || 0} 张。</p><p>已导入 {status?.originalCount || 0} 张原图；{status?.pendingOriginals || 0} 张等待原图。</p>{status?.checkedAt && <p>最近检查：{new Date(status.checkedAt).toLocaleString('zh-CN')}</p>}{status?.nextCheckAt && <p>下次检查：{new Date(status.nextCheckAt).toLocaleString('zh-CN')}</p>}{status?.error && <p role="status">上次同步未完成，已保存的素材仍可用。</p>}</div></details>
@@ -626,7 +627,7 @@ function ReferenceLibraryTool({ active, visible, hash, showToast, onCreate, user
     </div>
     <ReferenceComposer composition={composition} kind={kind} sending={sending} sendError={sendError} canSend={Boolean(onCreate)}
       onShow={item => navigate({ reference: item.id })}
-      onBrowse={role => { if (role !== kind) { setSearch(''); navigate({ kind: role, q: '', category: '', hair: '', hairstyle: '', action: '', angle: '', page: '', reference: '' }); } }}
+      onBrowse={role => { if (role !== kind) { setSearch(''); navigate({ kind: role, q: '', category: '', hair: '', hairstyle: '', action: '', angle: '', series: '', page: '', reference: '' }); } }}
       onRemove={remove} onClear={() => updateComposition({})} onSend={sendToStudio}
       onRandomCombo={randomCombo} randomComboLoading={randomComboLoading} randomComboError={randomComboError} />
     </div>

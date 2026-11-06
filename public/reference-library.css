@@ -37,6 +37,8 @@
 
 /* Primary capsule row: always visible series/category selector. */
 .reference-capsules{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:10px}
+.reference-series-filter{display:flex;align-items:center;gap:10px;margin:0 0 16px;min-width:0}
+.reference-series-filter .inline-select{width:min(360px,calc(100% - 66px));min-width:0;max-width:100%;min-height:36px;padding:7px 12px;border:1px solid var(--rl-line);border-radius:8px;background:var(--rl-panel);color:var(--rl-ink);font-size:12px}
 .reference-capsules button,.reference-chip-row button{font:inherit;font-size:13.5px;padding:8px 16px;min-height:36px;background:var(--rl-panel);color:var(--rl-ink);border:0;border-radius:999px;cursor:pointer;white-space:nowrap;display:inline-flex;align-items:center;gap:6px}
 .reference-capsules button.active,.reference-chip-row button.active{background:var(--rl-ink);color:#fff}
 .reference-scope-facets button:disabled{opacity:.42;cursor:not-allowed}

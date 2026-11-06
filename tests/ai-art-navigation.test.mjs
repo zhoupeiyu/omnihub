@@ -41,7 +41,7 @@ test('media tools retain the platform library and no longer contain the AI refer
   assert.equal(nodes(tree).some(n => n.type === context.ReferenceLibraryTool), false);
 });
 test('collection changes stay in AI art and clear incompatible filters', () => {
-  const { context, location, rerender } = screen('#ai-art?space=mine&kind=face&collection=one&category=old&hair=long&hairstyle=old-style&page=2&q=old&reference=face%3Af001');
+  const { context, location, rerender } = screen('#ai-art?space=mine&kind=face&collection=one&category=old&hair=long&hairstyle=old-style&series=old-series&page=2&q=old&reference=face%3Af001');
   let tree = context.ReferenceLibraryTool({ active: true, visible: true, hash: location.hash });
   nodes(tree).find(n => n.props?.className?.startsWith('reference-expand-toggle')).props.onClick();
   tree = rerender(() => context.ReferenceLibraryTool({ active: true, visible: true, hash: location.hash }));
@@ -50,7 +50,7 @@ test('collection changes stay in AI art and clear incompatible filters', () => {
   const params = new URLSearchParams(location.hash.split('?')[1]);
   assert.ok(location.hash.startsWith('#ai-art?'));
   assert.equal(params.get('collection'), 'two'); assert.equal(params.get('kind'), 'face');
-  for (const key of ['category','hair','hairstyle','page','q','reference','tab']) assert.equal(params.has(key), false, key);
+  for (const key of ['category','hair','hairstyle','series','page','q','reference','tab']) assert.equal(params.has(key), false, key);
   const workspace = nodes(context.AiArtWorkspace({ active: true, hash: location.hash }));
   assert.ok(workspace.some(n => n.props?.href === '#works?space=mine'));
   assert.ok(workspace.some(n => n.props?.href === '#studio?space=mine'));
