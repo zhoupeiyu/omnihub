@@ -10,7 +10,7 @@ import { fileURLToPath } from "node:url";
 import test from "node:test";
 
 const root = path.dirname(path.dirname(fileURLToPath(import.meta.url)));
-const PNG = Buffer.from("iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQIHWP4z8DwHwAFgAI/ScL/nwAAAABJRU5ErkJggg==", "base64");
+const PNG = Buffer.from("iVBORw0KGgoAAAANSUhEUgAAAAIAAAACCAYAAABytg0kAAAAFUlEQVR4nGP8z8Dwn4GBgYEJRIAwAB8XAgICR7MUAAAAAElFTkSuQmCC", "base64");
 const MP4 = Buffer.from([0, 0, 0, 24, 102, 116, 121, 112, 105, 115, 111, 109, 0, 0, 0, 1]);
 
 async function availablePort() {
@@ -147,6 +147,12 @@ test("media settings, uploads, generation recovery and private files", async () 
     const file = await request(`/api/media/assets/${reference.id}/file`);
     assert.equal(file.status, 200);
     assert.deepEqual(Buffer.from(await file.arrayBuffer()), PNG);
+    const preview = await request(`/api/media/assets/${reference.id}/preview`);
+    assert.equal(preview.status,200);assert.equal(preview.headers.get('content-type'),'image/webp');
+    assert.equal(Buffer.from(await preview.arrayBuffer()).toString('ascii',0,4),'RIFF');
+    const cachedPreview=await fetch(`${base}/api/media/assets/${reference.id}/preview`,{headers:{Cookie:cookie,'If-None-Match':preview.headers.get('etag')}});
+    assert.equal(cachedPreview.status,304);
+    assert.equal((await fetch(`${base}/api/media/assets/${reference.id}/preview`,{headers:{'If-None-Match':preview.headers.get('etag')}})).status,401);
     const partial = await fetch(`${base}/api/media/assets/${reference.id}/file`, {
       headers: { Cookie: cookie, Range: "bytes=0-7" },
     });

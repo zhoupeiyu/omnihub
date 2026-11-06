@@ -1,0 +1,9 @@
+FROM omnihub-media-worker:creator-v1
+USER root
+COPY requirements-advanced.txt /tmp/requirements-advanced.txt
+COPY requirements-separation.txt /tmp/requirements-separation.txt
+RUN pip install --no-cache-dir -r /tmp/requirements-advanced.txt && pip install --no-cache-dir --index-url https://download.pytorch.org/whl/cpu torch==2.7.1+cpu torchvision==0.22.1+cpu torchaudio==2.7.1+cpu && printf "torch==2.7.1+cpu\ntorchvision==0.22.1+cpu\ntorchaudio==2.7.1+cpu\n" > /tmp/constraints.txt && pip install --no-cache-dir -c /tmp/constraints.txt -r /tmp/requirements-separation.txt
+COPY app.py /app/app.py
+COPY advanced.py advanced-runner.py /opt/advanced/
+RUN chown -R 10001:10001 /opt/advanced
+USER 10001:10001

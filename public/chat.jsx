@@ -272,7 +272,7 @@ function AiConnections({ onSaved, onDirtyChange, showToast, canUseCuration }) {
   const provider=data?.providers.find(p=>p.id===draft?.provider);
   return <div className="ai-connections">
     <div className="ai-connections-heading"><h2>我的连接</h2><button className="btn btn-primary" disabled={!data||Boolean(busy)||Boolean(draft)} onClick={()=>edit(null)}><IconPlus />添加连接</button></div>
-    {!data&&!error&&<p className="form-hint">正在加载…</p>}
+    {!data&&!error&&<LoadingSkeleton variant="form" count={3} label="正在加载 AI 服务配置" />}
     {data&&!data.connections.length&&!draft&&<div className="ai-empty"><p>连接你使用的 AI 服务</p><span>可保存多个服务商，也可添加同一服务商的不同账号。</span></div>}
     {data&&<div className="ai-connection-list">{data.connections.map(row=><article className="ai-connection-card" key={row.id}>
       <div className="ai-connection-main"><div className="ai-connection-title"><strong>{row.name}</strong><span className={'ai-connection-state '+row.testState}>{busy===row.id?'测试中':row.testState==='ready'?'测试通过':row.testState==='failed'?'测试失败':'未测试'}</span></div>

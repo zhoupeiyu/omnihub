@@ -16,7 +16,6 @@ function workspaceDataRequests(section, fullAccess, personalAccess = fullAccess)
   if (!fullAccess) return [];
   // Manual records keep their original owner-only endpoints. They are loaded
   // only by the library that edits them, never by public catalogue visitors.
-  if (section === 'resources') return [['favorites', '/api/favorites']];
   if (section === 'manualPrompts') return [['prompts', '/api/prompts']];
   if (section === 'manualKnowledge') return [['knowledge', '/api/knowledge']];
   // `assets` was a legacy catch-all route. New views load only their own
@@ -232,7 +231,7 @@ function rememberRecentTool(id, knownIds, storage = globalThis.localStorage) {
 }
 
 // ---- Settings categories -------------------------------------------------
-const SETTINGS_CATEGORIES = ['sync', 'ai', 'devices', 'appearance'];
+const SETTINGS_CATEGORIES = ['sync', 'ai', 'devices', 'users', 'appearance'];
 // Older drawer tabs and modal names land on the matching full-page category.
 function settingsCategoryFor(value) {
   if (SETTINGS_CATEGORIES.includes(value)) return value;

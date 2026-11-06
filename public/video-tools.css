@@ -162,13 +162,18 @@
   color: var(--text);
   font-weight: 600;
 }
+.tool-access-denied { display:grid; place-items:center; min-height:320px; padding:32px; border:1px dashed var(--border); border-radius:12px; text-align:center; }
+.tool-access-denied h1 { margin:0 0 8px; font-size:20px; }
+.tool-access-denied p { margin:0; color:var(--text-3); }
+.pdf-compress-workspace { max-width:760px; }
+
 .tools-catalog .video-tool-card {
   position: relative;
   overflow: hidden;
   min-height: 180px;
   justify-content: flex-end;
   gap: 6px;
-  background: #111b23 url("/assets/tool-covers/media-tools-v1.png") center / cover no-repeat;
+  background: #111b23;
   color: #fff;
 }
 .video-tool-card::before {
@@ -185,6 +190,47 @@
 .video-tool-card > .video-tool-description {
   color: #e1e7ec;
 }
+.camera-tool-card {
+  background: linear-gradient(135deg, #18283a 0%, #2b1e35 100%) !important;
+}
+.omniget-tool-card { background: linear-gradient(135deg, #193228 0%, #173845 100%) !important; }
+.camera-recipe-workspace { width: 100%; max-width: none; margin: 0; padding: 8px 0 40px; }
+.camera-recipe-head, .shotcraft-recipes-head { display:flex; justify-content:space-between; gap:24px; align-items:flex-start; margin-bottom:20px; }
+.camera-recipe-head p, .shotcraft-recipes-head p { margin:0 0 7px; color:var(--text-3); font-size:12px; }
+.camera-recipe-head h2, .shotcraft-recipes-head h2 { margin:0 0 8px; font-size:22px; letter-spacing:-.4px; }
+.camera-recipe-head span, .shotcraft-recipes-head span { display:block; max-width:700px; color:var(--text-3); font-size:13px; line-height:1.65; }
+.camera-recipe-controls { display:grid; gap:12px; margin:0 0 22px; }
+.camera-search { display:flex; align-items:center; gap:9px; max-width:460px; height:38px; padding:0 11px; border:1px solid var(--border); border-radius:9px; background:var(--surface); color:var(--text-3); }
+.camera-search svg { width:16px; height:16px; flex:none; }
+.camera-search input { width:100%; border:0; outline:0; background:transparent; color:var(--text); font:inherit; font-size:13px; }
+.camera-filter { display:flex; gap:7px; flex-wrap:wrap; }
+.camera-filter button { border:1px solid var(--border); border-radius:999px; padding:6px 10px; background:var(--surface); color:var(--text-3); font:inherit; font-size:12px; cursor:pointer; }
+.camera-filter button:hover, .camera-filter button.active { color:var(--text); border-color:var(--accent); background:color-mix(in srgb, var(--accent) 12%, var(--surface)); }
+.camera-move-grid { display:grid; grid-template-columns:repeat(3, minmax(0,1fr)); gap:12px; }
+.camera-move-card { display:flex; min-width:0; flex-direction:column; border:1px solid var(--border); border-radius:12px; padding:16px; background:var(--surface); }
+.camera-move-card > p { margin:0 0 8px; color:var(--accent); font-size:11px; font-weight:600; }
+.camera-move-card h3 { margin:0 0 6px; font-size:16px; }
+.camera-move-card > span { min-height:40px; color:var(--text-3); font-size:12px; line-height:1.6; }
+.camera-prompt { display:grid; gap:5px; margin:14px 0; padding:10px; border-radius:8px; background:var(--bg-sunken); }
+.camera-prompt strong { color:var(--text-3); font-size:10px; letter-spacing:.06em; }
+.camera-prompt code { overflow-wrap:anywhere; color:var(--text-2); font:11px/1.55 ui-monospace, SFMono-Regular, Menlo, monospace; white-space:normal; }
+.camera-move-card .btn { align-self:flex-start; margin-top:auto; }
+.camera-empty { grid-column:1 / -1; margin:0; padding:32px 0; color:var(--text-3); }
+.shotcraft-recipes { margin-top:38px; padding-top:28px; border-top:1px solid var(--border); }
+.shotcraft-recipes-head a { color:var(--accent); text-decoration:none; font-size:13px; white-space:nowrap; }
+.shotcraft-recipe-grid { display:grid; grid-template-columns:repeat(3, minmax(0,1fr)); gap:12px; }
+.shotcraft-recipe-grid article { border:1px solid var(--border); border-radius:12px; padding:16px; background:var(--surface); }
+.shotcraft-recipe-grid h3 { margin:0 0 9px; font-size:15px; }
+.shotcraft-recipe-grid p { margin:0; min-height:42px; color:var(--text-2); font-size:12px; line-height:1.65; }
+.shotcraft-recipe-grid .shotcraft-category { min-height:0; margin:0 0 7px; color:var(--accent); font-size:11px; font-weight:600; }
+.shotcraft-recipe-grid dl { margin:16px 0 0; display:grid; gap:10px; }
+.shotcraft-recipe-grid dt { color:var(--text-3); font-size:11px; }
+.shotcraft-recipe-grid dd { margin:3px 0 0; color:var(--text); font-size:12px; line-height:1.55; }
+.shotcraft-controls { display:grid; gap:12px; margin:0 0 16px; }
+.shotcraft-card-actions { display:flex; flex-wrap:wrap; gap:8px; margin-top:16px; }
+.shotcraft-note { margin:14px 0 0; color:var(--text-3); font-size:12px; }
+@media (max-width: 880px) { .camera-move-grid, .shotcraft-recipe-grid { grid-template-columns:repeat(2,minmax(0,1fr)); } }
+@media (max-width: 560px) { .camera-recipe-head, .shotcraft-recipes-head { display:grid; gap:12px; } .camera-move-grid, .shotcraft-recipe-grid { grid-template-columns:1fr; } .camera-recipe-head h2, .shotcraft-recipes-head h2 { font-size:20px; } }
 .video-heading-icon {
   display: grid;
   place-items: center;
@@ -1697,6 +1743,7 @@
 .video-tool-center .discovery-input textarea { min-height: 60px; }
 .video-tool-center .discovery-mode button { min-height: 36px; font-size: 12px; }
 .video-tool-center .media-watch > header p { margin-top: 0; color: var(--text-2); }
+.video-result-pending{min-height:350px;padding:32px;border:1px solid var(--border);border-radius:10px;background:var(--surface);display:flex;flex-direction:column;justify-content:center;align-items:center;gap:14px;box-sizing:border-box}.video-result-pending .sk-line{display:block;width:min(100%,360px);height:12px}.video-result-pending .sk-line:first-of-type{height:22px;width:min(60%,220px);margin-bottom:8px}.video-result-pending .sk-line:last-of-type{width:min(45%,170px)}.video-history-pending{display:grid;gap:12px;padding:18px 8px}.video-history-pending .sk-line{height:42px;width:100%}.discovery-output-pending{display:flex;flex-direction:column;justify-content:center;align-items:center;gap:13px;min-height:280px}.discovery-output-pending .sk-line{display:block;width:min(70%,300px);height:13px}.discovery-output-pending .sk-line:first-of-type{width:min(45%,190px);height:22px}.discovery-output-pending .sk-line:last-of-type{width:min(35%,150px)}.media-watch-pending{display:grid;align-content:start;gap:17px;min-height:250px}.media-watch-pending .sk-line{display:block;width:100%;height:40px}.media-watch-pending .sk-line:first-child{width:45%;height:22px}.media-watch-pending .sk-line:last-child{width:120px;height:36px}
 @media (max-width: 1000px) {
   .video-tool-center .video-task-workbench { grid-template-columns: minmax(0, 1fr); grid-template-areas: "input" "preview" "history"; }
 }
@@ -1733,3 +1780,39 @@
 @media(max-width:600px) { .library-picker-note { align-items: flex-start; } .library-picker-note > a, .library-card-actions .library-pick-action, .library-detail-heading .library-pick-action { min-height: 36px; } }
 
 .video-tool-center .library-grid article > .library-card-actions a.library-pick-action { color: var(--accent); font-weight: 600; }
+
+.video-tool-cover{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.video-tool-card::before{z-index:1}
+.tools-catalog .video-tool-card>strong,.tools-catalog .video-tool-description{position:relative;z-index:2}
+
+.topics-catalog .topic-cover-card{position:relative;overflow:hidden;min-height:180px;justify-content:flex-end;gap:6px;background:#172127;color:#fff}
+.topic-cover-image{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.topic-cover-card::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(7,14,20,.08) 0%,rgba(7,14,20,.45) 40%,rgba(7,14,20,.94) 100%);pointer-events:none}
+.topics-catalog .topic-cover-card>strong,.topics-catalog .topic-cover-card>span{position:relative;z-index:1;color:#fff}
+.topics-catalog .topic-cover-card>span{color:#e1e7e4}
+
+.markdown-tool-workspace{display:flex;flex-direction:column;height:calc(100dvh - 130px);min-height:480px;background:var(--bg,#101417)}
+.markdown-tool-toolbar{display:flex;align-items:center;gap:20px;padding:12px 0;flex-wrap:wrap}
+.markdown-tool-toolbar nav{margin-left:auto;display:flex;align-items:center;gap:16px}
+.markdown-tool-workspace iframe{width:100%;flex:1;min-height:0;border:1px solid var(--border,#30343a);border-radius:12px;background:#fff}
+.markdown-tool-workspace:fullscreen{height:100dvh;padding:12px;box-sizing:border-box}
+@media(max-width:600px){.markdown-tool-toolbar{gap:12px}.markdown-tool-workspace{height:calc(100dvh - 100px)}}
+
+.markdown-tool-toolbar{gap:12px;min-height:44px;padding:8px 0 12px;color:var(--text)}
+.markdown-tool-toolbar h1{margin:0;min-width:0;font-size:17px;line-height:1.4;font-weight:600}
+.markdown-tool-toolbar nav{gap:8px}
+.markdown-tool-toolbar a,.markdown-tool-toolbar a:visited{color:var(--text);text-decoration:none}
+.markdown-tool-toolbar .btn{min-height:34px;padding:6px 12px;font-size:13px}
+.markdown-tool-toolbar .btn-ghost{color:var(--text-2)}
+
+.camera-preview { position:relative; aspect-ratio:16/9; margin:-16px -16px 14px; overflow:hidden; border-radius:11px 11px 0 0; background:#101318; }
+.camera-preview video, .camera-preview iframe { width:100%; height:100%; display:block; object-fit:cover; border:0; }
+.camera-preview--portrait::before { content:""; position:absolute; inset:-18px; background:var(--camera-poster) center / cover no-repeat; filter:blur(14px) brightness(.4); }
+.camera-preview--portrait video { position:relative; object-fit:contain; }
+.camera-preview-source { position:absolute; top:8px; right:8px; padding:3px 7px; border-radius:4px; background:#000a; color:#fff; font-size:11px; }
+.camera-preview-empty { display:flex; align-items:center; justify-content:center; gap:8px; color:var(--text-3); font-size:12px; }
+.camera-preview-empty a { color:var(--accent); }
+
+.camera-preview-pair { display:grid; grid-template-columns:1fr 1fr; gap:4px; margin:-16px -16px 14px; }
+.camera-preview-pair > span { grid-column:1 / -1; padding:8px 12px 0; color:var(--text-3); font-size:11px; }
+.camera-preview-pair .camera-preview { margin:0; border-radius:0; }

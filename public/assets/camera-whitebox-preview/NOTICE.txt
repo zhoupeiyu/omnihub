@@ -1,0 +1,2 @@
+Camera Moves Whitebox Kit, copyright hong hou zi. MIT License. Source: https://github.com/q2522879285-source/camera-moves-whitebox, release v1.0.0. The MIT license text is provided in LICENSE.txt. Clips are camera-motion reference illustrations, not recordings of live actors.
+Clips in this directory were resized and re-encoded for web previews. The breathing and freeze examples were additionally edited from the dolly-in clip.

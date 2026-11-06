@@ -234,9 +234,13 @@ def public_network_only():
 
 
 def validate_options(operation: str, options: dict[str, Any]) -> dict[str, Any]:
-    allowed = {'language', 'targetLanguage', 'burnIn'} if operation == 'subtitles' else set() if operation in {'separate', 'gallery', 'concat'} else {'aspect', 'fit', 'rotation', 'speed', 'mute', 'volume'} if operation == 'edit' else {'start', 'end', 'quality', 'format', 'maxHeight', 'at'}
+    allowed = {'threshold', 'margin'} if operation == 'auto-cut' else {'language', 'targetLanguage', 'burnIn'} if operation == 'subtitles' else set() if operation in {'separate', 'gallery', 'concat'} else {'aspect', 'fit', 'rotation', 'speed', 'mute', 'volume'} if operation == 'edit' else {'start', 'end', 'quality', 'format', 'maxHeight', 'at'}
     if not isinstance(options, dict) or set(options) - allowed: raise fail(400, '处理参数不合法。')
     result = dict(options)
+    if operation == 'auto-cut':
+        result = {'threshold': 0.04, 'margin': 0.2, **result}
+        if any(type(result[k]) not in {int, float} or not math.isfinite(result[k]) for k in result) or not 0.001 <= result['threshold'] <= 0.5 or not 0 <= result['margin'] <= 2: raise fail(400, '静音剪辑参数不合法。')
+
     if operation == 'subtitles':
         if not isinstance(result.get('language', 'auto'), str) or not isinstance(result.get('targetLanguage', 'none'), str) or result.get('language', 'auto') not in {'auto', 'zh', 'en'} or result.get('targetLanguage', 'none') not in {'none', 'zh', 'en'}: raise fail(400, '字幕语言不支持。')
         if 'burnIn' in result and type(result['burnIn']) is not bool: raise fail(400, '字幕参数不合法。')
@@ -255,7 +259,7 @@ def validate_options(operation: str, options: dict[str, Any]) -> dict[str, Any]:
 
 
 class JobRequest(BaseModel):
-    operation: Literal['trim', 'compress', 'convert', 'audio', 'frame', 'remove-background', 'download', 'gallery', 'edit', 'concat', 'subtitles', 'separate']
+    operation: Literal['auto-cut', 'trim', 'compress', 'convert', 'audio', 'frame', 'remove-background', 'download', 'gallery', 'edit', 'concat', 'subtitles', 'separate']
     requestId: uuid.UUID | None = None
     sourceId: str | None = Field(default=None, max_length=64)
     sourceFile: str | None = Field(default=None, max_length=180)
@@ -328,6 +332,19 @@ def run_media(job: dict[str, Any]) -> dict[str, Any]:
         job['files'] = outputs; job['content'] = value.get('content') or source.get('content', {})
         job['content']['title'] = source.get('content', {}).get('title') or '媒体文件'
         if operation == 'subtitles': job['subtitles'] = value.get('subtitles') or {}
+        return job
+    if operation == 'auto-cut':
+        if not type_.startswith('video/'): raise RuntimeError('自动剪静音仅支持视频。')
+        if source.get('content', {}).get('duration', 0) > 300000: raise RuntimeError('自动剪静音仅支持 5 分钟以内的视频。')
+        executable = shutil.which('auto-editor')
+        if not executable: raise RuntimeError('自动剪辑组件未安装。')
+        out = output_path(job['id'], 'mp4')
+        command = [executable, str(input_path), '--edit', f"audio:threshold={options['threshold']}", '--margin', f"{options['margin']}sec", '--no-open', '--ffmpeg-location', '/usr/bin/ffmpeg', '-o', str(out)]
+        subprocess.run(command, check=True, timeout=TIMEOUT, stdout=subprocess.DEVNULL, stderr=subprocess.PIPE)
+        if not out.is_file() or out.stat().st_size > MAX_OUTPUT: raise RuntimeError('输出文件超过限制或未生成。')
+        job['files'] = [make_file(out)]
+        job['content'] = media_info(out, 'video/mp4')
+        job['content']['title'] = source.get('content', {}).get('title') or '自动剪静音'
         return job
     if operation == 'edit':
         if not type_.startswith('video/'): raise RuntimeError('编辑仅支持视频源文件。')
@@ -579,7 +596,7 @@ app = FastAPI(lifespan=lifespan)
 @app.get('/health')
 async def health(_: None = Depends(auth)):
     gallery_ready = gallery_available()
-    return {'available': bool(TOKEN), 'features': {'ffmpeg': shutil.which('ffmpeg') is not None, 'backgroundRemoval': (Path('/models/u2netp.onnx').is_file()), 'downloader': True, 'gallery': gallery_ready and bool(GALLERY_PLATFORMS), 'edit': shutil.which('ffmpeg') is not None, 'concat': shutil.which('ffmpeg') is not None, **advanced_features()}, 'platforms': list(PLATFORMS), 'galleryPlatforms': list(GALLERY_PLATFORMS), 'maxUploadMB': MAX_UPLOAD // 1024 // 1024}
+    return {'available': bool(TOKEN), 'features': {'auto-cut': shutil.which('auto-editor') is not None, 'ffmpeg': shutil.which('ffmpeg') is not None, 'backgroundRemoval': (Path('/models/u2netp.onnx').is_file()), 'downloader': True, 'gallery': gallery_ready and bool(GALLERY_PLATFORMS), 'edit': shutil.which('ffmpeg') is not None, 'concat': shutil.which('ffmpeg') is not None, **advanced_features()}, 'platforms': list(PLATFORMS), 'galleryPlatforms': list(GALLERY_PLATFORMS), 'maxUploadMB': MAX_UPLOAD // 1024 // 1024}
 
 @app.post('/v1/uploads')
 async def upload(request: Request, name: str, _: None = Depends(auth)):

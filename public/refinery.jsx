@@ -155,7 +155,7 @@ function RepositoryKnowledgeLinks({ items, onOpenKnowledge }) {
 }
 
 function RepositoryInspector({ detail, loading, onOpenDossier, onOpenKnowledge }) {
-  if (loading) return <aside className="repo-inspector"><div className="repo-inspector-empty">正在读取仓库档案…</div></aside>;
+  if (loading) return <aside className="repo-inspector"><LoadingSkeleton variant="form" count={3} label="正在读取仓库档案" /></aside>;
   if (!detail) return <aside className="repo-inspector"><div className="repo-inspector-empty">选择一个仓库，查看完整档案。</div></aside>;
   const topics = detail.topics || [];
   const firstKnowledge = detail.relatedKnowledge?.[0];
@@ -249,7 +249,7 @@ function RepositoryDossier({ detail, selectedKey, loading, error, repositories, 
             <span className="repo-description-origin">{provenance}</span><p>{selected?.description || "暂无仓库介绍。"}</p></div>
         </div>
         <div className="repo-chip-row">{(selected?.topics || []).map((topic) => <span key={topic}>{REPOSITORY_TOPICS[topic] || topic}</span>)}</div>
-        {loading ? <p className="repo-detail-state" role="status">正在读取 {selectedKey} 的详情…</p> : error ?
+        {loading ? <LoadingSkeleton variant="detail" label={`正在读取 ${selectedKey} 的详情`} /> : error ?
           <div className="repo-detail-state" role="alert"><p>仓库详情读取失败，可以重试或选择其他仓库。</p><button className="btn" onClick={onRetry}>重新加载</button></div> : detail && <React.Fragment>
           <div className="repo-dossier-meta"><span>整理于 {compactDate(detail.organizedAt || detail.updatedAt)}</span>
             {canEdit && <RepositoryStatusSelect value={detail.personalStatus} editable onChange={onStatusChange} />}</div>
@@ -270,7 +270,7 @@ function RepositoryDossier({ detail, selectedKey, loading, error, repositories, 
         <nav aria-label="仓库依据">{[{ id: "sources", label: "来源", count: sources.length }, { id: "knowledge", label: "知识", count: knowledge.length }, { id: "links", label: "入口", count: links.length }].map((item) =>
           <button key={item.id} className={evidenceTab === item.id ? "active" : ""} aria-pressed={evidenceTab === item.id} onClick={() => setEvidenceTab(item.id)}>{item.label} {!loading && !error && <em>{item.count}</em>}</button>)}</nav></div>
         <div className="repo-dossier-evidence-body" ref={evidenceRef}>
-          {loading || error ? <p className="repo-empty-note">{loading ? "正在读取来源…" : "详情加载后显示来源。"}</p> : <React.Fragment>
+          {loading ? <LoadingSkeleton variant="compact" count={3} label="正在读取来源" /> : error ? <p className="repo-empty-note">详情加载后显示来源。</p> : <React.Fragment>
             {evidenceTab === "sources" && <section className="repo-evidence-section">{sources.length ? <RepositorySourceStack sources={sources} limit={sources.length} /> : <p className="repo-empty-note">暂无公开来源。</p>}</section>}
             {evidenceTab === "knowledge" && <section className="repo-evidence-section">{knowledge.length ? <RepositoryKnowledgeLinks items={knowledge} onOpenKnowledge={onOpenKnowledge} /> : <p className="repo-empty-note">暂时还没有知识文章与它建立关联。</p>}</section>}
             {evidenceTab === "links" && <section className="repo-evidence-section">{links.length ? <RepositoryLinkList links={links} /> : <p className="repo-empty-note">暂无保存的入口。</p>}</section>}
@@ -694,12 +694,55 @@ function KnowledgeImageViewer({image,onClose}) {
   </dialog>;
 }
 
-function KnowledgeLibraryView({ items, query, onQueryChange, active = true, requestedId, onRequestedIdHandled, onCorrectClassification, onOpenPrompt, onEdit, onAdd, personalAccess = false, catalogueScope = 'public', onCatalogueChange, onReadingNavigationChange, onShowNavigation }) {
+function CompactFilters({ title, children, className = '' }) {
+  const [open,setOpen] = React.useState(() => !window.matchMedia('(max-width:600px)').matches);
+  React.useEffect(() => {
+    const media = window.matchMedia('(max-width:600px)');
+    const update = () => setOpen(!media.matches);
+    media.addEventListener('change', update);
+    return () => media.removeEventListener('change', update);
+  }, []);
+  return <div className={`compact-filters ${className}`} data-expanded={open}><button className="compact-filter-toggle" type="button" aria-expanded={open} onClick={()=>setOpen(value=>!value)}>{title}<span aria-hidden="true">{open?'收起':'展开'}</span></button><div className="compact-filter-content" hidden={!open}>{children}</div></div>;
+}
+
+function KnowledgeFacetRows({reactRuntime: React, items, topicOptions, kind, topic, onKindChange, onTopicChange, getKind, getTopics}) {
+  const [expanded, setExpanded] = React.useState(false);
+  const kinds = [['all','全部'],['article','整理文章'],['method','方法技巧'],['archive','原文资料']];
+  const kindCounts = new Map(), topicCounts = new Map();
+  let kindTotal = 0, topicTotal = 0;
+  for (const item of items) {
+    const itemKind = getKind(item), itemTopics = getTopics(item);
+    if (topic === 'all' || itemTopics.includes(topic)) {
+      kindTotal++;
+      kindCounts.set(itemKind, (kindCounts.get(itemKind) || 0) + 1);
+    }
+    if (kind === 'all' || itemKind === kind) {
+      topicTotal++;
+      for (const value of itemTopics) topicCounts.set(value, (topicCounts.get(value) || 0) + 1);
+    }
+  }
+  const available = topicOptions.filter(value => topicCounts.has(value) || value === topic);
+  const shown = expanded ? available : available.filter((value,index) => index < 10 || value === topic);
+  return <div className="knowledge-facets">
+    <nav className="knowledge-kind-tabs" aria-label="内容类型">
+      {kinds.map(([value,label]) => <button key={value} type="button" aria-pressed={kind===value} onClick={()=>onKindChange(value)}>{label}<span>{value==='all' ? kindTotal : kindCounts.get(value)||0}</span></button>)}
+    </nav>
+    <CompactFilters title={topic==='all'?'按主题筛选':`主题：${topic}`}><div className="knowledge-facet-row">
+      <span className="knowledge-facet-label">主题</span>
+      <div className="knowledge-facet-chips" role="group" aria-label="按主题筛选">
+        <button type="button" aria-pressed={topic==='all'} onClick={()=>onTopicChange('all')}>全部<span>{topicTotal}</span></button>
+        {shown.map(value=><button key={value} type="button" aria-pressed={topic===value} onClick={()=>onTopicChange(value)}>{value}<span>{topicCounts.get(value)||0}</span></button>)}
+        {available.length>10 && <button type="button" className="knowledge-facet-expand" aria-expanded={expanded} onClick={()=>setExpanded(value=>!value)}>{expanded ? '收起' : `展开 ${available.length-shown.length} 个主题`}</button>}
+      </div>
+    </div></CompactFilters>
+  </div>;
+}
+
+function KnowledgeLibraryArticles({ items, query, onQueryChange, active = true, requestedId, onRequestedIdHandled, onCorrectClassification, onOpenPrompt, onEdit, onAdd, personalAccess = false, catalogueScope = 'public', onCatalogueChange, onReadingNavigationChange, onShowNavigation }) {
   const [kind, setKind] = useRefineryState('all');
   const [topic, setTopic] = useRefineryState('all');
   const [shelf, setShelf] = useRefineryState('all');
   const [sort, setSort] = useRefineryState('auto');
-  const [filtersOpen, setFiltersOpen] = useRefineryState(false);
   const [personal, setPersonal] = useRefineryState({});
   const [personalReady, setPersonalReady] = useRefineryState(false);
   const [personalError, setPersonalError] = useRefineryState('');
@@ -912,17 +955,19 @@ function KnowledgeLibraryView({ items, query, onQueryChange, active = true, requ
             {personalAccess && <><button aria-current={shelf==='saved' ? 'page':undefined} onClick={()=>setShelf('saved')}>收藏 <span>{personalReady ? savedCount : '—'}</span></button>
             <button aria-current={shelf==='recent' ? 'page':undefined} onClick={()=>setShelf('recent')}>最近 <span>{personalReady ? recentCount : '—'}</span></button></>}
           </nav>
-          <button className="knowledge-filter-toggle" aria-expanded={filtersOpen} aria-controls="knowledge-filters" onClick={()=>setFiltersOpen(value=>!value)}>筛选{filterCount>0 && <span className="knowledge-filter-count">{filterCount}</span>}<svg viewBox="0 0 16 16" aria-hidden="true"><path d="m4 6 4 4 4-4" /></svg></button>
-        </div>
-        <div id="knowledge-filters" className="knowledge-filters" hidden={!filtersOpen}>
-          <label>类型<KnowledgeFilterSelect label="内容类型" value={kind} onChange={setKind} options={Object.entries(kindLabels).map(([value,label])=>({value,label}))} /></label>
-          <div className="knowledge-topic-control"><span>主题</span><KnowledgeToolFilter value={topic} options={topicOptions} onChange={setTopic} active={active && filtersOpen} allLabel="全部主题" label="按主题筛选" /></div>
+          <CompactFilters title="排序与范围" className="knowledge-sort-panel"><div className="knowledge-filter-options">
           <label>排序<KnowledgeFilterSelect label="文章排序" value={sort} onChange={setSort} options={[
             {value:'auto',label:needle ? '相关度优先' : shelf==='saved' ? '最近收藏' : shelf==='recent' ? '最近阅读' : '最近更新'},
             {value:'updated',label:'最近更新'},{value:'title',label:'标题名称'}
           ]} /></label>
           {personalAccess && <label>内容范围<KnowledgeFilterSelect label="内容范围" value={catalogueScope} onChange={onCatalogueChange} options={[{value:'public',label:'公开知识'},{value:'mine',label:'我的整理'}]} /></label>}
+          </div></CompactFilters>
         </div>
+        <KnowledgeFacetRows reactRuntime={React} items={items.filter(item => {
+          const mark = personal[String(item.id)];
+          if (shelf==='saved' && !mark?.savedAt || shelf==='recent' && !mark?.readAt) return false;
+          return Boolean(knowledgeVisibleMatch(item, store.peek(item.id), needle, hits));
+        })} topicOptions={topicOptions} kind={kind} topic={topic} onKindChange={setKind} onTopicChange={setTopic} getKind={knowledgeKind} getTopics={knowledgeTopics} />
         {(needle || filterCount>0) && <div className="knowledge-search-scope">
           <span role="status">{searching ? '正在搜索正文…' : `${visible.length} 篇结果`}{kind!=='all' ? ` · ${kindLabels[kind]}`:''}{topic!=='all' ? ` · ${topic}`:''}</span>
           {(kind!=='all' || topic!=='all' || shelf!=='all') && <button onClick={()=>{setKind('all');setTopic('all');setShelf('all');}}>搜索全部知识</button>}
@@ -938,14 +983,15 @@ function KnowledgeLibraryView({ items, query, onQueryChange, active = true, requ
             <span className="knowledge-item-meta"><span>{kindLabels[knowledgeKind(item)]}{knowledgeTopics(item).length ? ` · ${knowledgeTopics(item).slice(0,2).join(' / ')}`:''}</span><span className="knowledge-item-date">{knowledgeItemDate(item,personal[String(item.id)],shelf)}</span></span>
           </button>{saveButton(item,true)}
         </div>)}
-        {!visible.length && <div className="knowledge-empty" role="status"><strong>{searching ? '正在搜索全文' : personalAccess && shelf!=='all' && !personalReady ? '个人记录暂未就绪' : shelf==='saved' && !savedCount ? '还没有收藏' : shelf==='recent' && !recentCount ? '还没有阅读记录' : '没有匹配的文章'}</strong>
+        {!visible.length && searching && <LoadingSkeleton variant="list" count={4} label="正在搜索全文" />}
+        {!visible.length && !searching && <div className="knowledge-empty" role="status"><strong>{searching ? '正在搜索全文' : personalAccess && shelf!=='all' && !personalReady ? '个人记录暂未就绪' : shelf==='saved' && !savedCount ? '还没有收藏' : shelf==='recent' && !recentCount ? '还没有阅读记录' : '没有匹配的文章'}</strong>
           <p>{searching ? '标题结果会先显示，正文结果随后补齐。' : shelf==='saved' && !savedCount ? '在文章旁点击收藏，以后从这里快速找回。' : shelf==='recent' && !recentCount ? '打开文章后会记录到这里，只有你能看到。' : '试试其他关键词，或清除当前筛选。'}</p>
           {!searching && (catalogueScope==='mine' && !items.length ? <button className="btn" onClick={()=>onCatalogueChange('public')}>浏览公开知识</button> : <button className="btn" onClick={()=>{resetFilters();setShelf('all');}}>浏览全部内容</button>)}</div>}
         </div>
       </div>
     </aside>
     <article ref={readerRef} className="knowledge-reader" inert={reading ? undefined : ''} aria-label="知识文章" onScroll={event => {if (reading && detail && event.currentTarget.getClientRects().length) positions.set(String(selectedId),event.currentTarget.scrollTop);}}>
-      {!detail ? <div className="knowledge-loading" role="status"><p>{failedDetail ? '文章暂时无法读取' : visible.length ? '正在读取文章…' : searching ? '正在搜索正文…' : '选择文章开始阅读'}</p>{failedDetail && <button className="btn" onClick={() => setRetry(value => value + 1)}>重新加载</button>}</div> : <div className="knowledge-reading-layout">
+      {!detail ? <div className="knowledge-loading">{!failedDetail && (visible.length > 0 || searching) ? <LoadingSkeleton variant="list" count={4} label={searching ? '正在搜索正文' : '正在读取文章'} /> : <p>{failedDetail ? '文章暂时无法读取' : '选择文章开始阅读'}</p>}{failedDetail && <button className="btn" onClick={() => setRetry(value => value + 1)}>重新加载</button>}</div> : <div className="knowledge-reading-layout">
         <header className="knowledge-reader-head"><div className="knowledge-breadcrumb">{detail.type === 'source_archive' ? '原文归档' : `${detail.type === 'method' ? '方法技巧' : '综合知识'} · ${detail.tags?.[0] || '专题'}`}</div>
           <h1 tabIndex={-1}>{detail.title}</h1>{personalError && <p className="knowledge-search-error" role="alert">{personalError}<button onClick={()=>{readRecorded.current.clear();setPersonalRetry(value=>value+1);}}>重新读取个人记录</button></p>}{detail.type !== 'source_archive' && !knowledgeSummaryIsRepeated(detail) && <p>{detail.summary}</p>}
           <div className="knowledge-reader-meta"><span className="knowledge-state">{detail.type === 'manual' ? '个人整理' : detail.type === 'source_archive' ? '保留原文' : detail.type === 'method' ? '来源整理 · 未实测' : '来源核验'}</span><span>{detail.sources.length} 个来源</span>{saveButton(detail)}
@@ -1124,7 +1170,7 @@ function PromptVideoPlayer({ media, sourceUrl, active = true }) {
         disabled={status === 'loading'} aria-label={status === 'error' ? '重试播放视频' : status === 'loading' ? '视频加载中' : '播放视频'}>
         <span aria-hidden="true">{status === 'loading' ? '…' : '▶'}</span>
       </button>}
-      {status === 'loading' && <span className="prompt-video-loading" role="status">正在加载视频…</span>}
+      {status === 'loading' && <div className="prompt-video-loading"><LoadingSkeleton variant="player" label="正在加载视频" /></div>}
     </div>
     {(!media.videoUrl || status === 'error') && <p className="prompt-example-note" role="status">
       {media.videoUrl ? '视频加载失败，可重试或到原帖观看。' : '当前仅保存了视频封面。'}
@@ -1298,6 +1344,7 @@ function observePromptMasonry(grid) {
 }
 
 function PromptLibraryView({ active = true, items, query, onQueryChange, onCorrectClassification, onOpenMethod, onCreateMedia, onUsePrompt, onEdit, onAdd, requestedId, onRequestedIdHandled, requestedSourceId, onRequestedSourceHandled }) {
+  const [visibleLimit, setVisibleLimit] = useRefineryState(60);
   const [category, setCategory] = useRefineryState("all");
   const [subject, setSubject] = useRefineryState("all");
   const [style, setStyle] = useRefineryState("all");
@@ -1342,6 +1389,7 @@ function PromptLibraryView({ active = true, items, query, onQueryChange, onCorre
     const order = value => categoryOrder.includes(value) ? categoryOrder.indexOf(value) : categoryOrder.length;
     return order(a) - order(b) || a.localeCompare(b, 'zh-CN');
   });
+  useRefineryEffect(() => setVisibleLimit(60), [query, category, subject, style]);
   const selectedCategory = categories.includes(category) ? category : 'all';
   const categoryItems = items.filter(item => selectedCategory === 'all' || item.category === selectedCategory);
   const subjects = [...new Set(categoryItems.map(item => item.facets?.subject?.value).filter(Boolean))];
@@ -1354,7 +1402,7 @@ function PromptLibraryView({ active = true, items, query, onQueryChange, onCorre
     if (style !== "all" && item.facets?.style?.value !== style) return false;
     return true;
   });
-  const visibleKey = visible.map(item => item.id).join(',');
+  const visibleKey = visible.slice(0, visibleLimit).map(item => item.id).join(',');
   useRefineryEffect(() => {
     if (active && grid.current) return observePromptMasonry(grid.current);
   }, [active, visibleKey]);
@@ -1380,16 +1428,29 @@ function PromptLibraryView({ active = true, items, query, onQueryChange, onCorre
           <span>{tab.value === 'all' ? matched.length : matched.filter(item => item.category === tab.value).length}</span></button>)}
       </div>
       <div id="prompt-results" role="tabpanel" aria-labelledby={`prompt-tab-${tabs.findIndex(tab => tab.value === selectedCategory)}`}>
-      <div className="prompt-facet-toolbar">
-        <label className="prompt-facet"><span aria-hidden="true">{subject === 'all' ? '全部主体' : PROMPT_TAG_LABELS[subject] || subject}</span>
-          <select aria-label="按主体筛选提示词" value={subject} onChange={e => setSubject(e.target.value)}><option value="all">全部主体</option>{subjects.map(value => <option key={value} value={value}>{PROMPT_TAG_LABELS[value] || value}</option>)}</select></label>
-        <label className="prompt-facet"><span aria-hidden="true">{style === 'all' ? '全部风格' : PROMPT_TAG_LABELS[style] || style}</span>
-          <select aria-label="按风格筛选提示词" value={style} onChange={e => setStyle(e.target.value)}><option value="all">全部风格</option>{styles.map(value => <option key={value} value={value}>{PROMPT_TAG_LABELS[value] || value}</option>)}</select></label>
+      <CompactFilters title={`主体与风格${subject!=='all'||style!=='all' ? ` · 已选 ${Number(subject!=='all')+Number(style!=='all')} 项` : ''}`}><div className="prompt-facet-toolbar">
+        {[
+          { key: 'subject', label: '主体', values: subjects, value: subject, choose: setSubject },
+          { key: 'style', label: '风格', values: styles, value: style, choose: setStyle },
+        ].map(facet => {
+          const candidates = matched.filter(item => (selectedCategory === 'all' || item.category === selectedCategory)
+            && (facet.key === 'subject' ? style === 'all' || item.facets?.style?.value === style : subject === 'all' || item.facets?.subject?.value === subject));
+          return <div className="prompt-facet-row" key={facet.key} role="group" aria-label={`按${facet.label}筛选提示词`}>
+            <span className="prompt-facet-label">{facet.label}</span>
+            <div className="prompt-facet-chips">
+              {['all', ...facet.values].map(value => <button type="button" key={value}
+                aria-pressed={facet.value === value} onClick={() => facet.choose(value)}>
+                {value === 'all' ? '全部' : PROMPT_TAG_LABELS[value] || value}
+                <span>{value === 'all' ? candidates.length : candidates.filter(item => item.facets?.[facet.key]?.value === value).length}</span>
+              </button>)}
+            </div>
+          </div>;
+        })}
         {(subject !== 'all' || style !== 'all') && <button className="prompt-clear-facets" onClick={() => {setSubject('all'); setStyle('all');}}>清除筛选</button>}
-        <span role="status">{visible.length} 条提示词</span>
       </div>
-      <div className="prompt-refinery-grid" ref={grid}>{visible.map(item => <PromptLibraryCard key={item.id} item={item}
+      </CompactFilters><div className="prompt-results-count" role="status">{visible.length} 条提示词</div><div className="prompt-refinery-grid" ref={grid}>{visible.slice(0, visibleLimit).map(item => <PromptLibraryCard key={item.id} item={item}
         selected={selected?.item.id === item.id} active={active && !selected && !preview} onOpen={openDetail} onPreview={openPreview} />)}</div>
+      {visible.length > visibleLimit && <button className="btn" onClick={() => setVisibleLimit(n => n + 60)}>加载更多（已显示 {Math.min(visibleLimit, visible.length)} / {visible.length}）</button>}
       {!visible.length && <div className="prompt-empty"><p>没有匹配的提示词</p><button className="btn" onClick={resetFilters}>查看全部提示词</button></div>}
       </div>
     </div>

@@ -7,7 +7,6 @@ const SEARCH_PLACEHOLDERS = {
   knowledgeLibrary: "搜索知识文章……",
   promptLibrary: "搜索提示词、主体或风格……",
   inbox: "搜索待处理内容……",
-  resources: "搜索收藏的资源、提示词或知识……",
   works: "搜索作品……",
   feed: "搜索资讯……",
 };
@@ -464,7 +463,7 @@ function ContentPipelineStatus({ onCorrectClassification, onOpenSettings, onOpen
   if (settingsOnly) return <section className="connection-section sync-module pipeline-settings" aria-label="收藏整理">
     <div className="sync-module-heading"><div className="sync-module-title"><h3>收藏整理</h3>{state && <span className="sync-status" data-tone={state.enabled ? 'success' : 'neutral'}>{state.enabled ? '已启用' : '已暂停'}</span>}</div>{onOpenDevices && <button className="btn btn-ghost" onClick={onOpenDevices}>管理整理设备</button>}</div>
     {error && <p className="auth-error" role="alert">{error}</p>}
-    {!state && !error && <p className="sync-meta" role="status">正在读取整理设置…</p>}
+    {!state && !error && <LoadingSkeleton variant="form" count={2} label="正在读取整理设置" />}
     {!state && error && <button className="btn" onClick={() => {setError(''); api('/api/content-pipeline').then(setState).catch(e=>setError(e.message));}}>重新加载</button>}
     {state && <>
       <p className="sync-meta">将导入的收藏分类、提炼，结果保存为草稿。</p>
@@ -527,7 +526,7 @@ function WatchPostDetail({post,onClose,onBookmark,busy,error}) {
       <h2>{post.analysis?.title||post.title||'原帖媒体'}</h2>
       {post.analysis&&<p>{post.analysis.summary}</p>}
       {post.media?.length>0&&<div className="watch-media">{post.media.map((media,index)=><div key={index}>
-        {media.type!=='photo'&&media.url?<video controls playsInline preload="metadata" src={media.url} poster={media.preview_image_url||undefined} aria-label={`原帖视频 ${index+1}`}/>
+        {media.type!=='photo'&&media.url?<video controls playsInline preload="none" src={media.url} poster={media.preview_image_url||undefined} aria-label={`原帖视频 ${index+1}`}/>
           :media.preview_image_url||media.url?<a href={media.preview_image_url||media.url} target="_blank" rel="noopener noreferrer" aria-label={`打开已保存图片 ${index+1}`}>
             <img src={media.preview_image_url||media.url} alt={media.alt_text||`原帖图片 ${index+1}`} loading="lazy"/></a>:null}
         {media.archiveState!=='ready'&&<p className="watch-caption">{media.archiveState==='pending'?'媒体正在保存到服务器…':'媒体未能完整保存，原帖正文仍在。'}</p>}
@@ -539,6 +538,22 @@ function WatchPostDetail({post,onClose,onBookmark,busy,error}) {
       <p className="watch-caption">原始内容始终保留。中文摘要与内容类型是辅助整理，不代表消息已获独立证实。</p>
     </div>
   </DetailDrawer>;
+}
+
+function watchDisplayText(value) {
+  const entities = {amp:'&',quot:'"',apos:"'",lt:'<',gt:'>',nbsp:' ',ldquo:'“',rdquo:'”',lsquo:'‘',rsquo:'’'};
+  return String(value || '').replace(/&(#x[0-9a-f]+|#\d+|[a-z]+);/gi, (match,key) => {
+    if (key[0] !== '#') return entities[key.toLowerCase()] ?? match;
+    const code = key[1].toLowerCase()==='x' ? parseInt(key.slice(2),16) : Number(key.slice(1));
+    return code>0 && code<=0x10ffff && !(code>=0xd800 && code<=0xdfff) ? String.fromCodePoint(code) : match;
+  });
+}
+function WatchPostExcerpt({post}) {
+  const title = watchDisplayText(post.analysis?.title || post.title);
+  const content = watchDisplayText(post.analysis?.summary || post.content);
+  const clean = text => text.replace(/\s+/g,'').replace(/[…\.]+$/,'');
+  const repeated = title && content && (clean(content).startsWith(clean(title)) || clean(title).startsWith(clean(content)));
+  return <>{title && !repeated && <h3>{title}</h3>}<p>{(content || title || '原帖媒体').slice(0,320)}</p></>;
 }
 
 function XWatchView({active = true,mode,query,onManage}) {
@@ -579,7 +594,7 @@ function XWatchView({active = true,mode,query,onManage}) {
     <div className="watch-heading"><div><h2>{mode==='hot'?'关注热点':'监听动态'}</h2><p>{mode==='hot'?'仅统计关注范围内最近 48 小时的事件；热度与可信程度分开。':'这里是保存到你服务器的帖子。仅你可见，不会自动变成个人收藏。'}</p></div>
       <div className="watch-heading-actions"><button className="btn" onClick={onManage}>管理监听</button><button className="btn" title="读取服务器上已保存的帖子，不产生采集费用" disabled={busy} onClick={()=>refresh().catch(e=>setError(e.message))}>刷新动态</button></div></div>
     {error&&<p role="alert" className="classification-error">{error}</p>}
-    {!state&&!error&&<p role="status">正在读取关注设置…</p>}
+    {!state&&!error&&<div className="watch-settings-status"><LoadingSkeleton variant="compact" count={1} label="正在读取监听状态" /></div>}
     {state&&<div className="watch-settings-status"><span>{enabled.length} 个账号监听中 · 已保存 {state.savedPosts??posts.length} 条帖子{posts.length>=300?'（展示最近 300 条）':''}</span>
       <details className="watch-runtime-details"><summary>{collectionMessage} · 运行详情</summary>
       <p>24 小时预估用量 ${(state.estimatedCostUsd||0).toFixed(4)} / ${(state.dailyBudgetUsd||0).toFixed(2)} · 请求 {state.requestsToday} / {state.dailyRequests} · 31 天 SocialData ${(state.monthlyEstimatedCostUsd||0).toFixed(4)} / ${(state.monthlyBudgetUsd||0).toFixed(2)}</p>
@@ -593,7 +608,7 @@ function XWatchView({active = true,mode,query,onManage}) {
       <details><summary>查看事件帖子 · {event.items.length}</summary>{event.items.map(post=><button className="watch-open" key={post.id} onClick={()=>setSelected(post)}>@{post.author} · {post.analysis.title}</button>)}</details>
     </article>):items.map(post=><article className="watch-post" key={post.id}>
       <div className="watch-caption">@{post.author} · {new Date(post.publishedAt).toLocaleString('zh-CN')} · {post.analysis?'已中文整理':post.analysisState==='review'?'材料待复核':'原文已保存，待整理'}</div>
-      <button className="watch-open" onClick={()=>setSelected(post)}><h3>{post.analysis?.title||post.title||'原帖媒体'}</h3><p>{post.analysis?.summary||post.content.slice(0,240)}</p></button>
+      <button className="watch-open" onClick={()=>setSelected(post)}><WatchPostExcerpt post={post}/></button>
       <button className="btn btn-ghost" disabled={busy||post.bookmarked} onClick={()=>bookmark(post)}>{post.bookmarked?'已在我的收藏':'收藏并整理'}</button>
       {['review','error'].includes(post.analysisState)&&<button className="btn btn-ghost" disabled={busy||!state?.analysisEnabled} onClick={()=>retry(post)}>重新整理</button>}
     </article>)}
@@ -915,10 +930,11 @@ function TopicsCatalog({ active }) {
     };
   }, []);
   if (!active || workspaceHashName(hash) !== 'topics') return null;
+  if (['learning', 'body', 'history'].includes(workspaceHashParams(hash).get('topic'))) return <LearningTopic hash={hash} />;
   return <section className="topics-catalog" aria-labelledby="topics-title">
     <div className="topics-head"><h1 id="topics-title">专题</h1><p>围绕一个主题持续整理的专门内容。</p></div>
     <ul className="topics-grid">{TOPIC_REGISTRY.map(topic => <li key={topic.id}>
-      <a className="topics-card" href={topicHref(topic, hash)}><strong>{topic.title}</strong><span>{topic.description}</span></a>
+      <a className="topics-card topic-cover-card" href={topicHref(topic, hash)}><CoverCardSkeleton /><img className="topic-cover-image" loading="lazy" src={topic.id === 'body' ? '/apps/bodyvista/thumbs/skeletal.png' : topic.id === 'history' ? '/apps/jiangshan-map/assets/hero_demo_zh.webp' : topic.id === 'learning' ? '/assets/tool-covers/learning.jpg' : '/assets/tool-covers/life-guide.jpg'} alt="" decoding="async" /><strong>{topic.title}</strong><span>{topic.description}</span></a>
     </li>)}</ul>
   </section>;
 }
@@ -996,6 +1012,10 @@ function Workspace({ user, onUserChange, showToast, toast }) {
     else if (!navigation && window.matchMedia('(max-width: 860px)').matches) setSidebarCollapsed(true);
   },[]);
   const canUseFullApp = Boolean(user && user.fullAccess);
+  const driveAccess = Boolean(canUseFullApp || user?.driveAccess || user?.access?.driveCategories?.length);
+  // Legacy profiles predate granular grants: keep their existing media and
+  // Markdown entry points until the server returns an explicit access object.
+  const toolAccess = new Set(user ? (user.access?.tools || ['media','markdown','camera','omniget']) : ['media','markdown','camera','omniget']);
   useAppEffect(() => {
     if (!user || user?.hasAiConfig != null) return;
     const controller = new AbortController();
@@ -1583,6 +1603,7 @@ function Workspace({ user, onUserChange, showToast, toast }) {
             else setSection(s, ['topics', 'tools'].includes(s) ? { base: true } : undefined);
             if (window.matchMedia("(max-width: 860px)").matches) setSidebarCollapsed(true);
           }}
+          onQuickNavigate={href => { window.location.hash = href; if (window.matchMedia('(max-width: 860px)').matches) setSidebarCollapsed(true); }}
           moduleCounts={visibleModuleCounts}
           knowledgeNavigation={section==='knowledgeLibrary' ? knowledgeNavigation : null}
           onKnowledgeNavigate={id=>{
@@ -1620,15 +1641,15 @@ function Workspace({ user, onUserChange, showToast, toast }) {
             userKey={user?.id || "guest"} active={section === "repositories"}
             onRepositoriesLoaded={rows => {setRepositories(rows); setModuleCounts(previous => ({...previous,repositories:rows.length}));}}
             onCorrectClassification={onCorrectClassification} />
-          {sectionNeedsData && !sectionDataReady && <div className="knowledge-loading" role="status">
+          {sectionNeedsData && !sectionDataReady && <div>
             {dataLoad.status === 'error'
               ? <><p>{dataLoad.error || '内容加载失败，请重试'}</p><button className="btn" onClick={retryPublicInbox}>重新加载</button></>
-              : '正在读取内容…'}
+              : <PageLoadingSkeleton section={section} />}
           </div>}
           {sectionDataReady && dataLoad.error && <p role="status" className="muted">更新失败，仍显示上次内容。<button className="btn btn-ghost" onClick={retryPublicInbox}>重试</button></p>}
           <WorkspacePanel active={section === 'knowledgeLibrary'} name="knowledgeLibrary">
           {dataLoads.knowledgeLibrary?.hasData && (
-            <KnowledgeLibraryView key={`${user?.id || 'guest'}:${catalogueScope}`} personalAccess={personalAccess} catalogueScope={catalogueScope}
+            <KnowledgeLibraryHub userId={user?.id} canUseDrive={driveAccess} driveReadOnly={!canUseFullApp} key={`${user?.id || 'guest'}:${catalogueScope}`} personalAccess={personalAccess} catalogueScope={catalogueScope}
               onReadingNavigationChange={updateKnowledgeNavigation} onShowNavigation={()=>setSidebarCollapsed(false)}
               onCatalogueChange={scope=>{window.location.hash=`knowledgeLibrary?space=${scope}`;window.location.reload();}}
               items={knowledgeLibrary} query={queryFor('knowledgeLibrary')} active={section === 'knowledgeLibrary'}
@@ -1677,22 +1698,15 @@ function Workspace({ user, onUserChange, showToast, toast }) {
             </>
           )}
           </WorkspacePanel>
-          <WorkspacePanel active={section === 'resources'} name="resources">
-            {section === 'resources' && canUseFullApp && sectionDataReady && <div className="workspace-library resources-library">
-              <div className="workspace-library-head"><div><h1>资料</h1><p>手工新增和整理的网站、工具与参考资料。</p></div><button className="btn btn-primary" onClick={() => setModal({ type: 'fav', fav: null })}><IconPlus />新增资料</button></div>
-              <FavoritesView favorites={favorites} query={queryFor('resources')} category={favCategory}
-                onAdd={() => setModal({ type: 'fav', fav: null })} onEdit={fav => setModal({ type: 'fav', fav })} onDelete={deleteFavorite} />
-            </div>}
-          </WorkspacePanel>
           <WorkspacePanel active={section === 'works'} name="works">
             {section === 'works' && personalAccess && sectionDataReady && <div className="workspace-library works-library"><div className="workspace-library-head"><div><h1>作品</h1><p>保留生成提示词、参数、版本关系和可继续创作的结果。</p></div><button className="btn btn-primary" onClick={() => openStudio()}><IconPlus />新建作品</button></div><MediaAssetsView allowExternal={canUseFullApp} assets={mediaAssets} query={queryFor('works')} onCreate={() => openStudio()} onContinue={continueFromMedia} onUpdated={reloadMediaAssets} openAssetId={openMediaAssetId} onOpenAssetHandled={() => setOpenMediaAssetId('')} showToast={showToast} /></div>}
           </WorkspacePanel>
           {section === "studio" && personalAccess && sectionDataReady && (
-            <MediaStudioView userId={user?.id} draft={studioDraft} assets={mediaAssets} jobs={mediaJobs}
+            <MediaStudioView key={user?.id} userId={user?.id} canCollect={toolAccess.has('omniget')} draft={studioDraft} assets={mediaAssets} jobs={mediaJobs}
               allowExternal={canUseFullApp}
               configVersion={mediaConfigVersion}
               onAssetsChanged={reloadMediaAssets} onJobsChanged={reloadMediaJobs}
-              onOpenSettings={(tab) => setModal({type:"settings", tab:tab === "devices" ? "devices" : "ai", aiTab:"media"})} onShowAsset={showMediaAsset}
+              onOpenSettings={(tab) => setModal({type:"settings", tab:tab === "devices" ? "devices" : "ai", aiTab:tab === "ai" ? "text" : "media"})} onShowAsset={showMediaAsset}
               showToast={showToast} />
           )}
           <WorkspacePanel active={section === 'chat'} name="chat">
@@ -1710,8 +1724,13 @@ function Workspace({ user, onUserChange, showToast, toast }) {
           <WorkspacePanel active={section === 'feed'} name="feed">
             <FeedView active={section === 'feed'} mode={feedMode} onModeChange={setFeedMode} query={queryFor('feed')} canUseMonitoring={canUseFullApp} onSaveToInbox={personalAccess ? saveFeedToInbox : null} onCorrectClassification={onCorrectClassification} />
           </WorkspacePanel>
-          <WorkspacePanel active={section === "tools"} name="tools"><VideoToolsWorkspace active={section === 'tools'} userKey={user?.id || 'guest'} showToast={showToast}
-            referenceAccess={user?.username === 'zane'} onCreateReference={async (asset, reference) => { await reloadMediaAssets(); openStudio({ referenceAssetId: asset.id, title: reference.title, targetModule: 'image', prompt: `请以提供的参考图为依据，保留${reference.title}的关键特征。` }); }} /></WorkspacePanel>
+          <WorkspacePanel active={section === "tools"} name="tools"><VideoToolsWorkspace active={section === 'tools'} userKey={user?.id || 'guest'} userId={user?.id} showToast={showToast}
+            toolAccess={toolAccess} referenceAccess={canUseFullApp||toolAccess.has('ai-art')} onCreateReference={async (asset, reference) => {
+              // A composition hands over every uploaded original in role order; its prompt's 图1/图2/图3 follow the same order.
+              const referenceAssetIds = Array.isArray(reference.referenceAssetIds) && reference.referenceAssetIds.length ? reference.referenceAssetIds : [asset.id];
+              await reloadMediaAssets();
+              openStudio({ referenceAssetId: referenceAssetIds[0], referenceAssetIds, references: reference.references || [{kind: reference.kind, assetId: asset.id}], title: reference.title, targetModule: 'image',
+                prompt: reference.composition && reference.prompt ? reference.prompt : `请以提供的参考图为依据，保留${reference.title}的关键特征。` }); }} /></WorkspacePanel>
           <WorkspacePanel active={section === 'topics'} name="topics"><TopicsCatalog active={section === 'topics'} /></WorkspacePanel>
           <WorkspacePanel active={section === 'settings'} name="settings">
             {section === 'settings' && <SettingsCenter user={user} canUseFullApp={canUseFullApp}
@@ -1780,7 +1799,7 @@ function App() {
       .finally(() => setChecking(false));
   }, []);
 
-  if (checking) return null;
+  if (checking) return <WorkspaceBootSkeleton />;
   // 不强制登录：游客（user 为 null）也进入主界面，仅个人相关功能需要登录
   return <Workspace key={user ? `${user.id}:${Boolean(user.fullAccess)}` : "guest"} user={user} onUserChange={setUser} showToast={showToast} toast={toast} />;
 }

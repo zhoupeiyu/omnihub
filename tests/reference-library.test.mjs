@@ -30,6 +30,13 @@ async function workspace(t) {
   const sync = options => syncReferenceSnapshot({directory:archive,snapshot,commit:'a'.repeat(40),storage,...options});
   return {directory,snapshot,archive,storage,sync};
 }
+async function startServer(t, w) {
+  const handler = createReferenceLibraryHandler({ directory: w.archive, storage: w.storage, getUser: () => ({ username: 'zane' }) });
+  const server = http.createServer((req, res) => void handler(req, res, decodeURIComponent(new URL(req.url, 'http://localhost').pathname)));
+  await new Promise(resolve => server.listen(0, '127.0.0.1', resolve)); t.after(() => new Promise(resolve => server.close(resolve)));
+  const base = `http://127.0.0.1:${server.address().port}`;
+  return { base, get: async route => (await fetch(`${base}/api/reference-library${route}`)).json() };
+}
 test('normalizes bilingual labels and keeps pose angles distinct', () => {
   assert.deepEqual(parseReferenceData('face',source('face'))[0].tags,['短发','脸部特写','短波波','ボブ']);
   const poses=parseReferenceData('pose',source('pose')); assert.equal(poses.length,2); assert.equal(poses[0].groupId,poses[1].groupId); assert.notEqual(poses[0].id,poses[1].id);
@@ -87,7 +94,7 @@ test('console originals are served privately and verified against the trusted co
   let requested;
   const storage = createReferenceStorage({ directory: w.archive, cos: { async getObject(params) { requested = params.Key; return { Body: png }; } } });
   assert.deepEqual(await storage.read(object), png); assert.equal(requested, object.key);
-  const corrupted = createReferenceStorage({ directory: w.archive, cos: { async getObject() { return { Body: Buffer.alloc(png.length) }; } } });
+  const corrupted = createReferenceStorage({ directory: path.join(w.archive, 'cold-cache'), cos: { async getObject() { return { Body: Buffer.alloc(png.length) }; } } });
   await assert.rejects(corrupted.read(object), /reference_integrity_failed/);
 });
 test('daily sync discovers newly uploaded originals without replacing an existing original', async t => {
@@ -213,4 +220,172 @@ test('source sync rejects collection ID collisions and invalid upload concurrenc
   await assert.rejects(w.sync(), /reference_collection_id_conflict/);
   for (const concurrency of [0, 17, 1.5]) await assert.rejects(w.sync({ concurrency }), /invalid_reference_concurrency/);
   assert.equal(await readFile(file, 'utf8'), before);
+});
+
+test('group=pose folds same-collection, same-groupId pose variants before pagination, keeps a front-angle canonical and raw kinds ungrouped', async t => {
+  const w = await workspace(t); await w.sync();
+  const { get } = await startServer(t, w);
+  const raw = await get('?kind=pose');
+  assert.equal(raw.total, 2); assert.equal(raw.imageTotal, 2);
+  assert.ok(raw.items.every(item => !item.variants));
+  const grouped = await get('?kind=pose&group=pose');
+  assert.equal(grouped.total, 1); assert.equal(grouped.imageTotal, 2); assert.equal(grouped.pages, 1);
+  assert.equal(grouped.items.length, 1);
+  const group = grouped.items[0];
+  assert.equal(group.variantCount, 2); assert.equal(group.variants.length, 2);
+  assert.equal(group.angle, '正面'); // canonical defaults to the front angle when present.
+  assert.deepEqual(new Set(group.variants.map(v => v.angle)), new Set(['正面', '侧面']));
+  // group is not applied to non-pose kinds (legacy contract preserved).
+  const face = await get('?kind=face&group=pose');
+  assert.ok(!face.items[0].variants);
+});
+
+test('action (tags[1]) and angle filters are exact and applied before grouping, so variants are pre-filtered inside each group', async t => {
+  const w = await workspace(t); await w.sync();
+  const { get } = await startServer(t, w);
+  const byAngle = await get('?kind=pose&group=pose&angle=' + encodeURIComponent('正面'));
+  assert.equal(byAngle.total, 1); assert.equal(byAngle.imageTotal, 1);
+  assert.equal(byAngle.items[0].variantCount, 1); assert.equal(byAngle.items[0].variants.length, 1);
+  assert.equal(byAngle.items[0].variants[0].angle, '正面');
+  const byAction = await get('?kind=pose&action=' + encodeURIComponent('站立'));
+  assert.equal(byAction.total, 2); // both variants share the same action tag.
+  const noMatch = await get('?kind=pose&action=' + encodeURIComponent('坐姿'));
+  assert.equal(noMatch.total, 0); assert.equal(noMatch.imageTotal, 0);
+  const noAngle = await get('?kind=pose&angle=' + encodeURIComponent('背面'));
+  assert.equal(noAngle.total, 0);
+});
+
+test('facets report global category/hair/action/angle counts independent of active filters, switching between group and image counts', async t => {
+  const w = await workspace(t); await w.sync();
+  const { get } = await startServer(t, w);
+  const ungrouped = await get('?kind=pose&angle=' + encodeURIComponent('正面'));
+  const angleFacet = Object.fromEntries(ungrouped.facets.angles.map(f => [f.value, f]));
+  // Facets are computed over the whole kind pool, not the angle=正面 filter just applied.
+  assert.deepEqual(angleFacet['正面'], { value: '正面', count: 1, imageCount: 1 });
+  assert.deepEqual(angleFacet['侧面'], { value: '侧面', count: 1, imageCount: 1 });
+  const actionFacet = Object.fromEntries(ungrouped.facets.actions.map(f => [f.value, f]));
+  assert.equal(actionFacet['站立'].imageCount, 2); assert.equal(actionFacet['站立'].count, 2);
+  const grouped = await get('?kind=pose&group=pose');
+  const groupedAngleFacet = Object.fromEntries(grouped.facets.angles.map(f => [f.value, f]));
+  // In grouped mode count reflects distinct groups, not raw images, while imageCount stays raw.
+  assert.equal(groupedAngleFacet['正面'].count, 1); assert.equal(groupedAngleFacet['正面'].imageCount, 1);
+  assert.equal(grouped.groupCounts.pose, 1); assert.equal(grouped.groupCounts.face, 1); assert.equal(grouped.groupCounts.costume, 1);
+  assert.ok(Array.isArray(grouped.facets.categories)); assert.ok(Array.isArray(grouped.facets.hairs));
+});
+
+test('style and gender filters only use explicit metadata or the trusted anime collection', async t => {
+  const w = await workspace(t); await w.sync();
+  const file = path.join(w.archive, 'manifest.json'), manifest = JSON.parse(await readFile(file, 'utf8'));
+  const face = manifest.items.find(item => item.kind === 'face');
+  // The collection contract is the only style fallback. Gender remains
+  // unmarked unless it is an exact source field/tag, never inferred from image.
+  manifest.items.push(
+    { ...face, id: 'face:anime-explicit', stem: 'anime-explicit', collectionId: 'taki-anime-reference', collectionName: '动漫角色参考 · たき AI', tags: ['女性'] },
+    { ...face, id: 'face:neutral-explicit', stem: 'neutral-explicit', gender: '中性', tags: ['中性'] },
+  );
+  await writeFile(file, JSON.stringify(manifest));
+  const { get } = await startServer(t, w);
+  const all = await get('?kind=face');
+  const styles = Object.fromEntries(all.facets.styles.map(f => [f.value, f.count]));
+  const genders = Object.fromEntries(all.facets.genders.map(f => [f.value, f.count]));
+  assert.equal(styles.anime, 1); assert.equal(styles.unmarked, 2);
+  assert.equal(genders.female, 1); assert.equal(genders.neutral, 1); assert.equal(genders.unmarked, 1);
+  const animeFemale = await get('?kind=face&style=anime&gender=female');
+  assert.deepEqual(animeFemale.items.map(item => item.id), ['face:anime-explicit']);
+  assert.equal(animeFemale.counts.face, 1);
+  assert.equal(animeFemale.groupCounts.face, 1);
+  assert.deepEqual(animeFemale.categories, [face.category]);
+  assert.deepEqual(animeFemale.facets.styles.map(entry => entry.value), ['anime']);
+  assert.deepEqual(animeFemale.facets.genders.map(entry => entry.value), ['female']);
+  assert.equal((await get('?kind=face&style=realistic')).total, 0);
+  assert.equal((await get('?kind=face&gender=unmarked')).total, 1);
+});
+
+test('sort=random returns a full shuffled permutation without dropping or duplicating rows, for both grouped and ungrouped output', async t => {
+  const w = await workspace(t); await w.sync();
+  const file = path.join(w.archive, 'manifest.json'), manifest = JSON.parse(await readFile(file, 'utf8'));
+  const pose = manifest.items.find(item => item.kind === 'pose');
+  manifest.items.push({ ...pose, id: 'pose:extra-1', stem: 'extra-1', groupId: 'extra-group-1' },
+    { ...pose, id: 'pose:extra-2', stem: 'extra-2', groupId: 'extra-group-2' });
+  await writeFile(file, JSON.stringify(manifest));
+  const { get } = await startServer(t, w);
+  const random = await get('?kind=pose&sort=random');
+  assert.equal(random.items.length, 4);
+  assert.deepEqual(new Set(random.items.map(i => i.id)), new Set(['pose:standard_P001_front', 'pose:standard_P001_side', 'pose:extra-1', 'pose:extra-2']));
+  const groupedRandom = await get('?kind=pose&group=pose&sort=random');
+  assert.equal(groupedRandom.total, 3);
+});
+
+test('groups never merge across different collections and pose rows without a groupId each form their own unique group', async t => {
+  const w = await workspace(t); await w.sync();
+  const file = path.join(w.archive, 'manifest.json'), manifest = JSON.parse(await readFile(file, 'utf8'));
+  const pose = manifest.items.find(item => item.kind === 'pose');
+  // Same groupId, different collection: must stay separate groups.
+  manifest.items.push({ ...pose, id: 'pose:other-collection', stem: 'other-collection', collectionId: 'my-project', collectionName: '我的角色' });
+  // No groupId at all: each such item is its own group, never merged with siblings.
+  for (const item of manifest.items) if (item.kind === 'pose' && item.id !== 'pose:other-collection') delete item.groupId;
+  await writeFile(file, JSON.stringify(manifest));
+  const { get } = await startServer(t, w);
+  const grouped = await get('?kind=pose&group=pose');
+  // standard_P001_front + standard_P001_side now have no groupId -> 2 groups (not merged) + the other-collection row -> 3.
+  assert.equal(grouped.total, 3);
+  assert.ok(grouped.items.every(item => item.variantCount === 1));
+});
+
+
+test('group pagination spans the entire catalogue and tuple keys cannot collide on delimiters', async t => {
+  const w = await workspace(t); await w.sync();
+  const file = path.join(w.archive, 'manifest.json'), manifest = JSON.parse(await readFile(file, 'utf8'));
+  const pose = manifest.items.find(item => item.kind === 'pose');
+  manifest.items = [];
+  for (let i = 0; i < 50; i++) for (const angle of ['正面', '侧面']) {
+    manifest.items.push({ ...pose, id: `pose:g${i}-${angle === '正面' ? 'front' : 'side'}`, groupId: `g${i}`, angle });
+  }
+  manifest.items.push({ ...pose, id: 'pose:collision-a', collectionId: 'a::b', groupId: 'c' },
+    { ...pose, id: 'pose:collision-b', collectionId: 'a', groupId: 'b::c' });
+  await writeFile(file, JSON.stringify(manifest));
+  const { get } = await startServer(t, w);
+  const first = await get('?kind=pose&group=pose'), second = await get('?kind=pose&group=pose&page=2');
+  assert.equal(first.total, 52); assert.equal(first.imageTotal, 102); assert.equal(first.pages, 2);
+  assert.equal(first.items.length, 48); assert.equal(second.items.length, 4);
+  assert.equal(new Set([...first.items, ...second.items].map(i => i.id)).size, 52);
+  assert.ok(first.items.every(i => i.variants.length === 2));
+  assert.equal(second.items.filter(i => i.id.startsWith('pose:collision-')).length, 2);
+});
+
+test('hairstyle facets and filters use the real hairstyle field, not hair length', async t => {
+  const w = await workspace(t); await w.sync(); const {get}=await startServer(t,w);
+  const all=await get('?kind=face');
+  assert.deepEqual(all.facets.hairstyles.map(x=>x.value),['短波波']);
+  const found=await get('?kind=face&hairstyle='+encodeURIComponent('短波波'));
+  assert.equal(found.total,1);assert.ok(found.items.every(x=>x.kind==='face'));
+  assert.equal((await get('?kind=face&hairstyle=missing')).total,0);
+  assert.equal((await get('?kind=face&hair=missing')).facets.hairstyles.length,0);
+});
+
+ test('private images revalidate without reading storage and deny unauthorized cache hits', async t => {
+  const w = await workspace(t); await w.sync();
+  let reads = 0, authorized = true;
+  const handler = createReferenceLibraryHandler({directory:w.archive, getUser:()=>authorized ? {username:'zane'} : null, storage:{read:async object=>{reads++;return w.storage.read(object);}}});
+  const server=http.createServer((req,res)=>void handler(req,res,decodeURIComponent(new URL(req.url,'http://localhost').pathname)));
+  await new Promise(resolve=>server.listen(0,'127.0.0.1',resolve));t.after(()=>new Promise(resolve=>server.close(resolve)));
+  const url=`http://127.0.0.1:${server.address().port}/api/reference-library/items/face%3Af001/thumbnail`;
+  const first=await fetch(url);await first.arrayBuffer();const etag=first.headers.get('etag');
+  assert.ok(etag);assert.equal(first.headers.get('cache-control'),'private, no-cache');
+  const second=await fetch(url,{headers:{'if-none-match':etag}});assert.equal(second.status,304);assert.equal(reads,1);
+  authorized=false;const denied=await fetch(url,{headers:{'if-none-match':etag}});assert.equal(denied.status,404);assert.equal(reads,1);
+ });
+
+test('derived previews are used only while their source original still matches', async t => {
+  const w=await workspace(t); await w.sync({});
+  const file=path.join(w.archive,'manifest.json'), manifest=JSON.parse(await readFile(file));
+  const item=manifest.items.find(i=>i.id==='face:f001');item.original=item.thumbnail;await writeFile(file,JSON.stringify(manifest));
+  const preview=await w.storage.put(Buffer.concat([png,Buffer.from('preview')]));
+  const sidecar=path.join(w.archive,'previews.json');
+  await writeFile(sidecar,JSON.stringify({version:1,items:{[item.id]:{originalSha256:item.original.sha256,object:preview}}}));
+  const {base}=await startServer(t,w);const url=base+'/api/reference-library/items/face:f001/thumbnail';
+  assert.equal((await fetch(url)).headers.get('etag'),`"${preview.sha256}"`);
+  await writeFile(sidecar,JSON.stringify({version:1,items:{[item.id]:{originalSha256:'outdated-source',object:preview}}}));
+  assert.equal((await fetch(url)).headers.get('etag'),`"${item.thumbnail.sha256}"`);
+  assert.equal((await fetch(base+'/api/reference-library/items/face:f001/original')).headers.get('etag'),`"${item.original.sha256}"`);
 });

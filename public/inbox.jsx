@@ -30,6 +30,19 @@ function inboxJson(value, fallback) {
   try { return JSON.parse(value || ""); } catch { return fallback; }
 }
 
+function InboxFacetRow({ label, items, value, onChange, expanded, onToggleExpand, collapsedAt = 12, emptyLabel = "全部", allCount = 0 }) {
+  const needsExpand = items.length > collapsedAt;
+  const visibleItems = !needsExpand || expanded ? items : items.slice(0, collapsedAt);
+  return <div className="inbox-facet-row">
+    <span className="inbox-facet-label">{label}</span>
+    <div className="inbox-facet-chips">
+      <button type="button" aria-pressed={!value} onClick={() => onChange("")}>{emptyLabel}<span>{allCount}</span></button>
+      {visibleItems.map((item) => <button type="button" key={item.id} aria-pressed={value === item.id} onClick={() => onChange(item.id)}>{item.label}<span>{item.count}</span></button>)}
+      {needsExpand && <button type="button" className="inbox-facet-expand" aria-expanded={expanded} onClick={onToggleExpand}>{expanded ? "收起" : `展开 ${items.length - collapsedAt} 个`}</button>}
+    </div>
+  </div>;
+}
+
 function xOrganization(item) {
   return inboxJson(item?.aiExtract, {})?.xOrganization || null;
 }
@@ -46,7 +59,7 @@ function inboxMedia(item) {
     const video = ["video", "animated_gif"].includes(entry?.type);
     const raw = video ? entry?.preview_image_url || entry?.url : entry?.url;
     try {
-      const archived = /^\/api\/x-media\/[1-9]\d*\/[a-f0-9]{64}$/.test(raw || "");
+      const archived = /^\/api\/x-media\/[1-9]\d*\/[a-f0-9]{64}$/.test(raw || "") || /^\/api\/media\/assets\/[0-9a-f-]{36}\/file$/.test(raw || "");
       const url = archived ? new URL(raw, window.location.origin) : new URL(raw);
       if (!archived && url.protocol !== "https:") return null;
       let videoUrl = "";
@@ -77,6 +90,7 @@ function inboxMedia(item) {
 }
 
 function inboxThumbnailUrl(url) {
+  if (/^\/api\/x-media\/[1-9]\d*\/[a-f0-9]{64}$/.test(url || '')) return `${url}?thumbnail=1`;
   try {
     const imageUrl = new URL(url);
     if (imageUrl.hostname === "pbs.twimg.com" && imageUrl.pathname.startsWith("/media/")) {
@@ -365,7 +379,7 @@ function inboxDerivedLink(outcome) {
     const { targetType, targetId, libraryId } = outcome.result || {};
     if (targetType === "prompt" && libraryId) return { href: "#promptLibrary?space=mine", label: "在提示词库查看", id: libraryId };
     if (targetType === "knowledge" && libraryId) return { href: "#knowledgeLibrary?space=mine", label: "在知识库查看", id: libraryId };
-    if (targetType === "resource" && targetId) return { href: "#resources", label: "在资源收藏查看", id: `asset-resource-${targetId}` };
+    if (targetType === "resource") return null;
     return null;
   }
   if (outcome?.kind === "curation") {
@@ -444,6 +458,7 @@ function InboxView({ active = true, items, query, readOnly = false, loadState, l
   const [filter, setFilter] = useInboxState("");
   const [reviewFilter, setReviewFilter] = useInboxState("");
   const [sortMode, setSortMode] = useInboxState("time_desc");
+  const [subjectFacetsExpanded, setSubjectFacetsExpanded] = useInboxState(false);
   const [visibleLimit, setVisibleLimit] = useInboxState(60);
   const [targetType, setTargetType] = useInboxState(inboxDefaultType(items[0]));
   const [form, setForm] = useInboxState(inboxDraft(items[0], inboxDefaultType(items[0])));
@@ -887,11 +902,27 @@ function InboxView({ active = true, items, query, readOnly = false, loadState, l
           <h1>{sourceScope === "x" ? "X 收藏" : "收件箱"}</h1>
           <p>{sourceScope === "x" ? "按时间浏览、按用途整理收藏。" : "先收进来，再决定它值得去哪里。"}</p>
         </div>
-        {!isPublicLoading && !isPublicError && (
-          <span className="inbox-pending" title={sourceScope === "x" && partialCount ? "当前采集批次未证实完整，数量不代表全部收藏" : ""}>
-            <AnimatedNumber value={scopedItems.length} /> 条{sourceScope === "x" ? "可浏览" : "待处理"}
-          </span>
-        )}
+        <div className="inbox-head-side">
+          {!isPublicLoading && !isPublicError && (
+            <span className="inbox-pending" title={sourceScope === "x" && partialCount ? "当前采集批次未证实完整，数量不代表全部收藏" : ""}>
+              <AnimatedNumber value={scopedItems.length} /> 条{sourceScope === "x" ? "可浏览" : "待处理"}
+            </span>
+          )}
+          {sourceScope === "x" && !hidePublicXControls && <div className="inbox-head-tools">
+            <label className="inbox-sort-facet"><span>排序</span>
+              <select className="select" aria-label="X 收藏排序" value={sortMode} onChange={(event) => setSortMode(event.target.value)}>
+                <option value="time_desc">整理时间 · 最新优先</option>
+                <option value="time_asc">整理时间 · 最早优先</option>
+                <option value="score_desc">互动评分 · 最高优先</option>
+              </select>
+            </label>
+            {!readOnly && onOpenConnections && <button className="btn" onClick={onOpenConnections}><IconSettings />同步与设置</button>}
+            {!readOnly && onImportX && <button className="btn btn-ghost" title="导入已整理的 JSON 或 JSONL 文件；浏览器原始导出需先转换" onClick={() => importInput.current?.click()} disabled={importBusy}>
+              {importBusy ? "导入中" : "导入整理文件"}
+            </button>}
+            {!readOnly && onCapture && !showSourceTabs && <button className="btn btn-ghost" onClick={() => { setSourceScope("daily"); setDetailOpen(false); }}>其他收录</button>}
+          </div>}
+        </div>
       </div>
 
       {!readOnly && onCapture && sourceScope !== "x" && <div className="capture-bar">
@@ -940,48 +971,16 @@ function InboxView({ active = true, items, query, readOnly = false, loadState, l
         </button>)}
       </div>}
 
-      {!hidePublicXControls && <div className="inbox-filter-grid">
-        <label><span>归类</span>
-          <select className="select" aria-label="按归类筛选" value={activeFilterKey}
-            onChange={(event) => { const item = filterItems.find((entry) => filterKey(entry) === event.target.value); if (item) applyFilter(item); }}>
-            {filterItems.map((item) => <option key={filterKey(item)} value={filterKey(item)}>{item.label} · {item.count}</option>)}
-          </select>
-        </label>
-        {sourceScope === "x" && xTopics.length > 0 && <label><span>主题</span>
-          <select className="select inbox-topic-filter" aria-label="按主题筛选 X 收藏" value={topicFilter}
-            onChange={(event) => setTopicFilter(event.target.value)}>
-            <option value="">全部主题</option>
-            {xTopics.map((topic) => <option key={topic} value={topic}>{X_TOPIC_LABELS[topic] || topic}</option>)}
-          </select>
-        </label>}
-        {sourceScope === "x" && subjectOptions.length > 0 && <label><span>合集</span>
-          <select className="select" aria-label="按跨作者主题合集筛选 X 收藏"
-            value={subjectFilter} onChange={(event) => setSubjectFilter(event.target.value)}>
-            <option value="">全部合集与原帖</option>
-            {subjectOptions.map(([id, group]) => <option key={id} value={id}>
-              {group.title} · {group.items.length} 条
-            </option>)}
-          </select>
-        </label>}
-        {sourceScope === "x" && <label><span>排序</span>
-          <select className="select" aria-label="X 收藏排序" value={sortMode} onChange={(event) => setSortMode(event.target.value)}>
-            <option value="time_desc">整理时间 · 最新优先</option>
-            <option value="time_asc">整理时间 · 最早优先</option>
-            <option value="score_desc">互动评分 · 最高优先</option>
-          </select>
-        </label>}
+      {!hidePublicXControls && <div className="inbox-facets">
+        <InboxFacetRow label="归类" items={filterItems.filter(item => filterKey(item) !== "all").map(item => ({ id:filterKey(item), label:item.label, count:item.count }))} value={activeFilterKey === "all" ? "" : activeFilterKey} allCount={scopedItems.length}
+          onChange={(key) => { const item = filterItems.find(entry => filterKey(entry) === (key || "all")); if (item) applyFilter(item); }}/>
+        {sourceScope === "x" && xTopics.length > 0 && <InboxFacetRow label="主题" items={xTopics.map(topic => ({ id:topic, label:X_TOPIC_LABELS[topic] || topic, count:scopedItems.filter(item => xOrganization(item)?.topic === topic).length }))} allCount={scopedItems.length}
+          value={topicFilter} onChange={setTopicFilter}/>}
+        {sourceScope === "x" && subjectOptions.length > 0 && <InboxFacetRow label="合集" items={subjectOptions.map(([id, group]) => ({ id, label:group.title, count:group.items.length }))} allCount={scopedItems.length}
+          value={subjectFilter} onChange={setSubjectFilter} expanded={subjectFacetsExpanded} onToggleExpand={() => setSubjectFacetsExpanded(value => !value)} emptyLabel="全部合集与原帖"/>}
       </div>}
-      {sourceScope === "x" && !hidePublicXControls && <div className="inbox-x-toolbar">
+      {sourceScope === "x" && !hidePublicXControls && <div className="inbox-x-summary">
         <span>{q && searchState.loading ? "正在搜索完整原文…" : `显示 ${filteredItems.length} 条`}{q && searchState.error && <small className="auth-error">{searchState.error} <button className="btn btn-ghost" onClick={() => setSearchState(state => ({ ...state, retry: state.retry + 1 }))}>重试</button></small>}{subjectOptions.length > 0 && ` · ${subjectOptions.length} 个主题合集`}{partialCount > 0 && <small title={`当前 ${partialCount} 条来自未证实完整的采集批次；${incompleteCount} 条正文待补全`}> · 采集批次未证实完整</small>}</span>
-        <div>
-          {!readOnly && onOpenConnections && <button className="btn" onClick={onOpenConnections}><IconSettings />同步与设置</button>}
-          {!readOnly && onImportX && <button className="btn btn-ghost" title="导入已整理的 JSON 或 JSONL 文件；浏览器原始导出需先转换" onClick={() => importInput.current?.click()} disabled={importBusy}>
-            {importBusy ? "导入中" : "导入整理文件"}
-          </button>}
-          {!readOnly && onCapture && !showSourceTabs && <button className="btn btn-ghost" onClick={() => { setSourceScope("daily"); setDetailOpen(false); }}>
-            其他收录
-          </button>}
-        </div>
       </div>}
       {sourceScope === "x" && filter === "__untyped__" && <div className="inbox-review-panel">
         <p>这些收藏尚未确定用途。长文链接缺正文和原帖不可用的记录需要补源；其余按原文与配图继续整理。</p>
@@ -1033,7 +1032,7 @@ function InboxView({ active = true, items, query, readOnly = false, loadState, l
       </div>}
 
       {isPublicLoading ? (
-        <EmptyState message="正在加载 X 收藏" hint="请稍候，正在获取最新的公开收藏内容" />
+        <TimelineSkeleton label="正在加载 X 收藏" />
       ) : isPublicError ? (
         <div className="inbox-error">
           <p>{loadError || "X 收藏加载失败，请稍后重试"}</p>
@@ -1157,7 +1156,7 @@ function InboxView({ active = true, items, query, readOnly = false, loadState, l
             {!selected ? (
               <EmptyState message="选择一条内容开始处理" />
             ) : !selectedReady ? (
-              detailStatus === "error" ? <div className="empty-state"><p>{detailError}</p><button className="btn" onClick={() => setDetailRetry(value => value + 1)}>重试</button></div> : <div className="empty-state"><p>正在加载完整原文…</p></div>
+              detailStatus === "error" ? <div className="empty-state"><p>{detailError}</p><button className="btn" onClick={() => setDetailRetry(value => value + 1)}>重试</button></div> : <LoadingSkeleton variant="detail" label="正在加载完整原文" />
             ) : (
               <React.Fragment>
                 {(sourceScope !== "x" || !editorOpen) && <React.Fragment>

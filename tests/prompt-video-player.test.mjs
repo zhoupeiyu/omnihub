@@ -13,7 +13,7 @@ function setup(players = []) {
   let cursor = 0, effects = [];
   const context = vm.createContext({
     React:{createElement:(type,props,...children) => ({type,props:{...props,children}})},
-    PromptExampleImage:'poster', document:{querySelectorAll:() => players},
+    LoadingSkeleton:'skeleton', PromptExampleImage:'poster', document:{querySelectorAll:() => players},
     useRefineryState(initial) {
       const index = cursor++;
       if (!(index in hooks)) hooks[index] = initial;

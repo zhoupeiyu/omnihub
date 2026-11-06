@@ -1,46 +1,7 @@
-const repositoryLoadingStyles = `
-.repository-loading{padding:6px 0 20px;min-height:640px;animation:repository-loading-enter .2s cubic-bezier(.2,0,0,1)}
-.repository-loading-sr{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap}
-.repository-loading-heading{display:flex;justify-content:space-between;gap:24px;margin-bottom:24px}
-.repository-loading-heading>div:first-child{flex:1;min-width:0}
-.repository-loading .sk-line{animation:none;max-width:100%;background-color:var(--bg-sunken)}
-.repository-loading-heading .sk-line:first-child,.repository-loading-grid>div:nth-child(3n+1) .sk-line:first-child{animation:skShimmer 1.8s ease-in-out infinite}
-.repository-loading-title{width:310px;height:30px!important;margin-bottom:13px}
-.repository-loading-description{width:365px;height:12px}
-.repository-loading-total{width:42px;height:30px!important}
-.repository-loading-tabs{display:flex;gap:9px;margin-bottom:18px}
-.repository-loading-tabs .sk-line{width:105px;height:32px}
-.repository-loading-search{height:49px;border:1px solid var(--border);border-radius:10px;background:var(--surface);padding:18px 16px;margin-bottom:28px}
-.repository-loading-search .sk-line{width:270px;height:11px}
-.repository-loading-label{width:155px;height:13px!important;margin-bottom:15px}
-.repository-loading-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:11px}
-.repository-loading-tile{min-height:78px;border:1px solid var(--border);border-radius:11px;padding:18px 17px;background:var(--surface)}
-.repository-loading-tile .sk-line:first-child{width:52%;height:12px;margin-bottom:12px}
-.repository-loading-tile .sk-line:last-child{width:76%;height:10px}
-.repository-loading-note{margin:20px 0 0;color:var(--text-3);font-size:12px}
-.repository-load-error{padding:30px 0;color:var(--text-2);font-size:13px}
-.repository-load-error p{margin:0 0 12px}
-@keyframes repository-loading-enter{from{opacity:.5;transform:translateY(3px)}to{opacity:1;transform:translateY(0)}}
-@media(min-width:1660px){.repository-loading-grid{grid-template-columns:repeat(5,minmax(0,1fr))}}
-@media(max-width:1000px){.repository-loading-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
-@media(max-width:600px){.repository-loading{min-height:580px}.repository-loading-title{width:230px;height:26px!important}.repository-loading-total{display:none}.repository-loading-tile{padding:15px 12px}.repository-loading-description{width:90%}}
-@media(prefers-reduced-motion:reduce){.repository-loading,.repository-loading .sk-line{animation:none!important}}
-`;
+const repositoryLoadingStyles = `.repository-load-error{padding:30px 0;color:var(--text-2);font-size:13px}.repository-load-error p{margin:0 0 12px}`;
 
 function RepositoryLoading() {
-  const element = React.createElement;
-  const line = (name = '', key) => element('div', { className: `sk-line ${name}`, key });
-  return element('div', { className: 'repository-loading', role: 'status', 'aria-label': '正在加载仓库库' },
-    element('span', { className: 'repository-loading-sr' }, '正在加载仓库库'),
-    element('div', { 'aria-hidden': true },
-      element('div', { className: 'repository-loading-heading' },
-        element('div', null, line('repository-loading-title'), line('repository-loading-description')), line('repository-loading-total')),
-      element('div', { className: 'repository-loading-tabs' }, line('', 'topics'), line('', 'all')),
-      element('div', { className: 'repository-loading-search' }, line()),
-      line('repository-loading-label'),
-      element('div', { className: 'repository-loading-grid' }, Array.from({ length: 10 }, (_, key) =>
-        element('div', { className: 'repository-loading-tile', key }, line(), line())))),
-    element('p', { className: 'repository-loading-note', 'aria-hidden': true }, '正在读取已整理的仓库…'));
+  return React.createElement(LoadingSkeleton, { variant: 'catalog', count: 10, heading: true, label: '正在加载仓库库' });
 }
 
 async function loadRepositoryTab(signal, loadModule = () => import('/repository-explorer-prototype.js?v=navigation-20260928')) {
@@ -100,6 +61,7 @@ function RepositoryExplorerTab({ query = "", onQueryChange, userKey = "guest", a
       const style = document.createElement('style');
       style.textContent = styles;
       root.replaceChildren(style, content.content);
+      window.OmniImageLoading?.observe(root);
       viewRef.current = module.mountRepositoryExplorer(root, {
         query: current.current.query,
         onQueryChange: (value) => current.current.onQueryChange?.(value),
@@ -148,7 +110,7 @@ function RepositoryExplorerTab({ query = "", onQueryChange, userKey = "guest", a
 // Everything below is self-contained (no URLSearchParams/history requirement)
 // so it can be exercised in a plain VM context.
 function useWorkspaceSection(fallback) {
-  const sections = ["repositories", "knowledgeLibrary", "promptLibrary", "inbox", "feed", "resources", "works",
+  const sections = ["repositories", "knowledgeLibrary", "promptLibrary", "inbox", "feed", "works",
     "studio", "chat", "tools", "topics", "settings"];
   const parseParams = query => String(query || '').split('&').filter(Boolean).map(part => {
     const index = part.indexOf('=');
@@ -165,13 +127,14 @@ function useWorkspaceSection(fallback) {
       const kept = parseParams(query).filter(([key]) => key !== 'tab' && key !== 'space');
       return { section: 'tools', redirect: `#ai-art?${formatParams([['space', 'mine'], ...kept])}` };
     }
-    if (['ai-art', 'media-tools', 'video-tools', 'video-download', 'video-transcribe', 'video-collections', 'media-library'].includes(name)) return { section: 'tools', redirect: '' };
+    if (['markdown-editor', 'ai-art', 'pdf-compress', 'media-tools', 'video-tools', 'video-download', 'video-transcribe', 'video-collections', 'media-library', 'camera-recipes', 'omniget'].includes(name)) return { section: 'tools', redirect: '' };
+    if (name === 'resources') return { section: 'repositories', redirect: '#repositories' };
     if (name === 'assets') {
       // 全部资产 was split: generated results → 作品, hand-added records → 收藏.
       const params = parseParams(query);
       const tab = (params.find(([key]) => key === 'tab') || [])[1];
-      const target = tab === 'works' ? 'works' : 'resources';
-      const kept = params.filter(([key]) => target === 'resources' || key !== 'tab');
+      const target = tab === 'works' ? 'works' : 'repositories';
+      const kept = params.filter(([key]) => key === 'space');
       return { section: target, redirect: `#${target}${kept.length ? `?${formatParams(kept)}` : ''}` };
     }
     return { section: sections.includes(name) ? name : fallback, redirect: '' };
@@ -295,9 +258,15 @@ function settingsTargetForModal(value) {
 }
 // 专题 registry: real topics only. Each keeps its own deep-link hash.
 const TOPIC_REGISTRY = Object.freeze([
+  Object.freeze({ id: 'body', title: '人体探索', hash: '#topics?topic=body', description: '探索人体解剖、器官系统与微观结构，交互学习生命如何运作。' }),
+  Object.freeze({ id: 'history', title: '江山时序', hash: '#topics?topic=history', description: '沿时间轴浏览中国历史地图，探索朝代疆域、古今地名与人物足迹。' }),
+  Object.freeze({ id: 'learning', title: '学习实验室', hash: '#topics?topic=learning', description: '54 个互动实验、知识图谱与学习诊断，以及 AI 作业工具使用指引。' }),
   Object.freeze({ id: 'life-guide', title: '生活指南', hash: '#life-guide', description: '按章节、证据等级与金钱、时间、毅力投入筛选生活建议。' }),
 ]);
 function topicHref(topic, currentHash) {
   const space = workspaceHashParams(currentHash).get('space');
-  return topic.hash + (space === 'mine' || space === 'public' ? `?space=${space}` : '');
+  const [route, search = ''] = topic.hash.split('?');
+  const params = new URLSearchParams(search);
+  if (space === 'mine' || space === 'public') params.set('space', space);
+  return route + (params.size ? '?' + params : '');
 }

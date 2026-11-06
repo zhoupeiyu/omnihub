@@ -141,12 +141,12 @@ test('icon navigation has explicit hover and keyboard tooltips without a duplica
   const css = read('repository-workspace.css');
   assert.match(components, /function ModuleRailButton\(/);
   assert.match(components, /role="tooltip"/);
-  assert.match(components, /aria-describedby=\{position \? tooltipId : undefined\}/);
+  assert.match(components, /aria-describedby=\{!hasMenu && position \? tooltipId : undefined\}/);
   assert.match(components, /onPointerEnter=/);
-  assert.match(components, /pointerType !== "touch"/);
-  assert.match(components, /matches\(":focus-visible"\)/);
-  assert.match(components, /event.key === "Escape"/);
-  assert.match(components, /ref=\{buttonRef\}/);
+  assert.match(components, /pointerType === 'touch'/);
+  assert.match(components, /matches\(':focus-visible'\)/);
+  assert.match(components, /event.key === 'Escape'/);
+  assert.match(components, /trigger.current = node/);
   assert.match(css, /\.module-tooltip \{[\s\S]*?position:fixed/);
   assert.match(css, /\.module-rail \.module-button.active \{[^}]*color:var\(--accent\)/);
   assert.doesNotMatch(css, /\.module-nav \.module-button.active::after/);
@@ -177,7 +177,7 @@ test('repository data and view assets load together before the skeleton is repla
   assert.deepEqual(requests, ['/api/repositories', '/repository-tab.html', '/repository-explorer-prototype.css', '/repository-tab.css', '/detail-drawer.css']);
   finishModule({ mountRepositoryExplorer() {} });
   assert.equal((await result).repositories.length, 1);
-  assert.match(read('repository-tab.js'), /prefers-reduced-motion:reduce/);
+  assert.match(read('loading.css'), /prefers-reduced-motion:reduce/);
   assert.doesNotMatch(read('repository-tab.js'), /root.innerHTML = '<p role="status">/);
 });
 

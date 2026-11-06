@@ -1,2 +1,4 @@
 # Kept separate: CPU Torch raises the image and resident-memory budget sharply.
 audio-separator[cpu]==0.48.0
+
+audioread==3.0.1

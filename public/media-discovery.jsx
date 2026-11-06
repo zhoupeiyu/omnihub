@@ -43,6 +43,7 @@ function useDiscoveryJobs(active) {
     const controller = new AbortController();
     epoch.current += 1; const requestEpoch = epoch.current;
     setLoading(true);
+    setStatus({ available: false, scope: '' }); setJobs([]);
     refresh(controller.signal).catch(error => {
       if (!controller.signal.aborted && requestEpoch === epoch.current) setError(error.message);
     }).finally(() => {
@@ -54,7 +55,10 @@ function useDiscoveryJobs(active) {
     if (!active || !jobs.some(job => videoBusy(job))) return;
     const controller = new AbortController();
     const timer = setTimeout(() => void refresh(controller.signal).catch(error => {
-      if (!controller.signal.aborted) setError(error.message);
+      if (!controller.signal.aborted) {
+        setError(error.message);
+        setJobs(current => [...current]);
+      }
     }), 2500);
     return () => { clearTimeout(timer); controller.abort(); };
   }, [active, jobs, refresh]);
@@ -163,15 +167,15 @@ function MediaDiscoveryTool({ active, visible, space, hash, showToast }) {
   const rows = selectedJob?.discovery?.items || [];
   const detail = selectedJob?.discovery?.detail;
   return <section id="media-tools-panel-discover" role="tabpanel" className="media-discovery" hidden={!visible} aria-labelledby="media-tools-tab-discover">
-    <div className="discovery-head"><div><p>搜索、热榜、评论和公开直播信息。</p></div>{status.scope && <ScopeNote scope={status.scope} />}</div>
+    <div className="discovery-head"><div><p>搜索、热榜、评论和公开直播信息。</p></div><ScopeNote scope={loading ? null : status.scope} /></div>
     <div className="discovery-mode" role="tablist" aria-label="内容发现方式">{DISCOVERY_MODES.map(item => <button key={item.id} type="button" role="tab" aria-selected={mode === item.id} className={mode === item.id ? 'active' : ''} onClick={() => { setMode(item.id); setError(''); }}>{item.label}</button>)}</div>
     <div className="discovery-workbench"><div className="discovery-query"><div className="discovery-form"><div className="discovery-form-row"><label>平台<select value={platform} onChange={event => setPlatform(event.target.value)}>{definition.platforms.map(value => <option key={value} value={value}>{DISCOVERY_PLATFORM_NAMES[value]}</option>)}</select></label>{mode === 'trending' && platform === 'douyin' && <label>榜单<select value={board} onChange={event => setBoard(event.target.value)}><option value="hot">热榜</option><option value="entertainment">娱乐</option><option value="society">社会</option><option value="challenge">挑战</option></select></label>}{mode === 'comments' && platform === 'bilibili' && <label>排序<select value={sort} onChange={event => setSort(event.target.value)}><option value="hot">最热</option><option value="new">最新</option></select></label>}</div>{definition.needsText && <label className="discovery-input"><span>{mode.startsWith('search') ? '关键词' : mode === 'music' ? '音乐链接或 ID' : '链接或名称'}</span><textarea value={text} rows="3" placeholder={definition.hint} onChange={event => setText(event.target.value)} /></label>}<div className="discovery-submit-row">{!definition.needsText&&<p>{definition.hint}</p>}<button type="button" className="btn btn-primary" disabled={submitting || !status.available || definition.needsText && !text.trim()} onClick={() => void submit()}>{submitting ? '正在提交…' : '开始查询'}</button></div></div>
     {error && <div className="video-error" role="alert">{error}</div>}
-    <details className="discovery-history"><summary>查询记录 <span>{jobs.length}</span></summary>{loading ? <p>正在读取…</p> : <div>{jobs.slice(0, 12).map(job => <button type="button" key={job.id} className={job.id === selected ? 'active' : ''} onClick={() => select(job)}><strong>{discoveryText(job.discovery?.detail) || job.input || discoveryMode(job.operation).label}</strong><small>{discoveryMode(job.operation).label} · {DISCOVERY_PLATFORM_NAMES[job.platform] || job.platform} · {videoBusy(job) ? '处理中' : job.state === 'ready' ? '已准备' : '失败'}</small></button>)}</div>}</details>
+    <details className="discovery-history"><summary>查询记录 <span>{loading && !jobs.length ? '读取中' : error && !status.scope && !jobs.length ? '读取失败' : jobs.length}</span></summary>{loading && !jobs.length ? <LoadingSkeleton variant="compact" count={2} label="正在读取查询记录" /> : error && !status.scope && !jobs.length ? <p role="alert">查询记录未能读取。</p> : <div>{jobs.slice(0, 12).map(job => <button type="button" key={job.id} className={job.id === selected ? 'active' : ''} onClick={() => select(job)}><strong>{discoveryText(job.discovery?.detail) || job.input || discoveryMode(job.operation).label}</strong><small>{discoveryMode(job.operation).label} · {DISCOVERY_PLATFORM_NAMES[job.platform] || job.platform} · {videoBusy(job) ? '处理中' : job.state === 'ready' ? '已准备' : '失败'}</small></button>)}</div>}</details>
     </div><div className="discovery-output">
     {selectedJob && <section className="discovery-result" aria-label="发现结果"><div className="discovery-result-head"><div><span className="discovery-kicker">{discoveryMode(discoveryFormMode(selectedJob.operation)).label}</span><h2>{selectedJob.state === 'ready' ? (rows.length ? `${rows.length} 条结果` : '查询完成') : videoBusy(selectedJob) ? '正在读取' : '查询失败'}</h2></div><div>{(selectedJob.state === 'failed' || selectedJob.error) && <button type="button" className="btn btn-ghost" disabled={submitting} onClick={() => void retry()}>重试</button>}{selectedJob.discovery && <><a className="btn btn-ghost" href={`/api/tools/video/jobs/${selectedJob.id}/export.json`} download>JSON</a><a className="btn btn-ghost" href={`/api/tools/video/jobs/${selectedJob.id}/export.csv`} download>CSV</a></>}</div></div>{selectedJob.error && <div className="video-error" role="alert">{selectedJob.error}</div>}{videoBusy(selectedJob) && <p className="discovery-muted">正在从平台读取，完成后会自动显示。</p>}<DiscoveryDetail detail={detail} platform={selectedJob.platform} onRelated={related} showToast={showToast} />{selectedJob.state === 'ready' && !detail && rows.length === 0 && !selectedJob.error && <p className="discovery-muted">没有找到公开结果。可以更换关键词、链接或平台后重试。</p>}{rows.length > 0 && <div className="discovery-list">{rows.map((item, index) => <DiscoveryItem key={item.id || `${index}:${item.title}`} item={item} job={selectedJob} onDownload={download} onSearchPosts={(keyword, resultPlatform) => { setMode('search-posts'); setPlatform(resultPlatform); setText(keyword); navigate({ discoveryMode: 'search-posts', input: keyword }); }} onReplies={replies} onRelated={(resourceId) => related(selectedJob.operation === 'hashtag' ? 'hashtag-posts' : 'music-posts', resourceId, selectedJob)} />)}</div>}{selectedJob.discovery?.hasMore && <button type="button" className="btn btn-ghost discovery-more" disabled={submitting || videoBusy(selectedJob)} onClick={() => void more()}>加载更多</button>}<div className="discovery-original"><button type="button" onClick={() => void copy(selectedJob)}>复制原始输入</button><button type="button" onClick={() => fill(selectedJob)}>填回编辑</button></div></section>}
 
-    {!selectedJob&&<div className="discovery-empty"><strong>{loading?'正在读取记录…':'查询结果'}</strong><p>选择查询方式和平台，结果会显示在这里。</p></div>}
+    {!selectedJob&& (loading ? <div className="discovery-empty discovery-output-pending" role="status" aria-label="正在读取查询结果" aria-busy="true"><p className="loading-sr">正在读取查询结果</p><span className="sk-line"/><span className="sk-line"/><span className="sk-line"/></div> : <div className="discovery-empty"><strong>{error && !status.scope ? '查询结果暂不可用' : '查询结果'}</strong><p>{error && !status.scope ? '请检查提示后重试。' : '选择查询方式和平台，结果会显示在这里。'}</p></div>)}
     </div></div>
   </section>;
 }

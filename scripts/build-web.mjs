@@ -18,16 +18,20 @@ const inputs = await Promise.all(scriptNames.map(async name => {
   if (name === 'repository-tab.js') for (const file of repositoryFiles) source = source.replaceAll(`/${file}`, `${baseToken}/${file}`);
   // The existing Babel scripts share globals and allow repeated var declarations.
   const result = await build({stdin:{contents:source,loader:'jsx',sourcefile:name,resolveDir:root},
-    bundle:true,write:false,format:'esm',treeShaking:false,target:'es2020',external:[`${baseToken}/*`]});
+    bundle:true,write:false,format:'esm',treeShaking:false,target:'es2020',external:[`${baseToken}/*`, '/assets/readers/*']});
   return result.outputFiles[0].text;
 }));
 // Keep the existing shared-script scope; compile it once instead of in each browser.
 const source = `import React from 'react'; import * as ReactDOM from 'react-dom';\n${inputs.join('\n;\n')}`;
 const app = await build({ stdin: { contents:source, loader:'jsx', resolveDir:root, sourcefile:'workspace.jsx' },
   bundle:true, write:false, outfile:'app.js', format:'iife', platform:'browser', target:'es2020',
-  minify:true, define:{'process.env.NODE_ENV':'"production"'}, external:[`${baseToken}/*`], legalComments:'eof' });
-const files = new Map([['app.js', app.outputFiles[0].text]]);
+  minify:true, define:{'process.env.NODE_ENV':'"production"'}, external:[`${baseToken}/*`, '/assets/readers/*'], legalComments:'eof' });
+const files = new Map([['app.js', app.outputFiles[0].text.replaceAll('/assets/tool-covers/', `${baseToken}/tool-covers/`).replaceAll('/assets/course-covers/', `${baseToken}/course-covers/`).replaceAll('/assets/learning-html/', `${baseToken}/learning-html/`)]]);
 files.set('tool-covers/media-tools-v1.png', readFileSync(path.join(root, 'public/assets/tool-covers/media-tools-v1.png')));
+for (const name of ['learning.jpg', 'life-guide.jpg']) files.set(`tool-covers/${name}`, readFileSync(path.join(root, 'public/assets/tool-covers', name)));
+files.set('image-loading/spinner.svg', readFileSync(path.join(root, 'public/assets/image-loading/spinner.svg')));
+for (const name of readdirSync(path.join(root, 'public/assets/course-covers')).filter(name => name.endsWith('.jpg'))) files.set(`course-covers/${name}`, readFileSync(path.join(root, 'public/assets/course-covers', name)));
+for (const name of readdirSync(path.join(root, 'public/assets/learning-html/4d63ce0a72d9'))) files.set(`learning-html/4d63ce0a72d9/${name}`, readFileSync(path.join(root, 'public/assets/learning-html/4d63ce0a72d9', name)));
 const mediaRuntime = await build({stdin:{contents:"import { Input, BlobSource, ALL_FORMATS, CanvasSink, Output, BufferTarget, Mp4OutputFormat, WebMOutputFormat, Conversion, Quality } from 'mediabunny'; window.Mediabunny = { Input, BlobSource, ALL_FORMATS, CanvasSink, Output, BufferTarget, Mp4OutputFormat, WebMOutputFormat, Conversion, Quality };",resolveDir:root,sourcefile:'media-runtime.js'},
   bundle:true,write:false,format:'iife',platform:'browser',target:'es2020',minify:true,legalComments:'eof'});
 files.set('media-runtime.js',mediaRuntime.outputFiles[0].text);
@@ -61,7 +65,7 @@ for (const name of readdirSync(guideAssets).sort()) {
 for (const name of ['repository-tab.html','repository-explorer-prototype.css','repository-tab.css','detail-drawer.css','vendor/marked.min.js','vendor/purify.min.js']) files.set(name,read(name));
 const inlineStyles = [...template.matchAll(/<style>([\s\S]*?)<\/style>/g)].map(match=>match[1]);
 const styleFiles = [...template.matchAll(/<link\b[^>]*rel="stylesheet"[^>]*href="([^"]+)"[^>]*>/g)].map(match=>match[1].replace(/^\//,''));
-files.set('app.css',(await transform([...inlineStyles,...styleFiles.map(read)].join('\n').replaceAll('/assets/tool-covers/', `${baseToken}/tool-covers/`),{loader:'css',minify:true,target:'es2020'})).code);
+files.set('app.css',(await transform([...inlineStyles,...styleFiles.map(read)].join('\n').replaceAll('/assets/tool-covers/', `${baseToken}/tool-covers/`).replaceAll('/assets/image-loading/', `${baseToken}/image-loading/`),{loader:'css',minify:true,target:'es2020'})).code);
 const digest = createHash('sha256');
 for (const [name, content] of files) digest.update(name).update('\0').update(content).update('\0');
 const version = digest.digest('hex').slice(0,16);

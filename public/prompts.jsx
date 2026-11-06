@@ -103,7 +103,7 @@ function getPromptMedia(prompt) {
   return entries.map((entry) => {
     const raw = entry?.type === "photo" ? entry.url : entry?.preview_image_url || entry?.url;
     try {
-      const archived = /^\/api\/x-media\/[1-9]\d*\/[a-f0-9]{64}$/.test(raw || "");
+      const archived = /^\/api\/x-media\/[1-9]\d*\/[a-f0-9]{64}$/.test(raw || "") || /^\/api\/media\/assets\/[0-9a-f-]{36}\/file$/.test(raw || "");
       const url = archived ? new URL(raw, window.location.origin) : new URL(raw);
       return archived || url.protocol === "https:" ? { url: url.toString(), alt: entry.alt_text || "提示词效果图" } : null;
     } catch { return null; }
@@ -132,8 +132,8 @@ function SnsPreview({ prompt }) {
     <div className="field-block">
       <label>参考帖子（{typeName}）</label>
       {embed
-        ? <iframe className="sns-embed" src={embed} allowFullScreen title={`参考帖子（${typeName}）`}
-            sandbox="allow-scripts allow-same-origin allow-presentation" referrerPolicy="no-referrer"></iframe>
+        ? <LoadingFrame className="sns-embed" src={embed} allowFullScreen title={`参考帖子（${typeName}）`}
+            sandbox="allow-scripts allow-same-origin allow-presentation" referrerPolicy="no-referrer"></LoadingFrame>
         : (
           <a className="sns-link-card" href={url} target="_blank" rel="noopener noreferrer">
             <span aria-hidden="true">↗</span>{url}
@@ -146,7 +146,8 @@ function SnsPreview({ prompt }) {
 /** 灵感卡片 */
 function PromptCard({ prompt, onToggleFavorite, onCopy, onDelete, onOpen, onTryRun, onCreateMedia }) {
   const [imgFailed, setImgFailed] = usePromptState(false);
-  const cover = prompt.image || getPromptMedia(prompt)[0]?.url;
+  const sourceCover = prompt.image || getPromptMedia(prompt)[0]?.url;
+  const cover = sourceCover ? inboxThumbnailUrl(sourceCover) : sourceCover;
   const hasImage = Boolean(cover && !imgFailed);
   const hasExample = Boolean(prompt.image || getPromptMedia(prompt).length);
   const variables = getPromptVariables(prompt.text);

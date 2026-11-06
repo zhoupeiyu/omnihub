@@ -162,25 +162,13 @@ function PillTabs({ activeKey, pillVariant, className, children }) {
 
 /** 信息流加载骨架占位（与 feed-card 同尺寸）*/
 function FeedSkeleton({ count, leaving }) {
-  const n = count || 6;
-  return (
-    <div className={"feed-skeleton-list" + (leaving ? " leaving" : "")}>
-      {Array.from({ length: n }, (_, i) => (
-        <div className="feed-skeleton-card" key={i}>
-          <div className="feed-skeleton-rank" />
-          <div className="feed-skeleton-body">
-            <div className="sk-line lg" />
-            <div className="sk-line" style={{ width: "92%" }} />
-            <div className="sk-line sm" />
-          </div>
-        </div>
-      ))}
-    </div>
-  );
+  return <div className={leaving ? 'leaving' : ''}><TimelineSkeleton compact count={count || 6} label="正在加载信息流" /></div>;
 }
 
 /* 补充图标（沿用 1.8px 描边规范） */
 const dIcon2Base = { fill: "none", stroke: "currentColor", strokeWidth: 1.8, strokeLinecap: "round", strokeLinejoin: "round", viewBox: "0 0 24 24" };
+const IconGallery = (props) => (<svg {...dIcon2Base} {...props}><rect x="3" y="3" width="18" height="18" rx="3" /><circle cx="8" cy="8" r="1.5" /><path d="m21 15-5-5L5 21" /></svg>);
+const IconEdit = (props) => (<svg {...dIcon2Base} {...props}><path d="M16 3a2.12 2.12 0 0 1 3 3L8 17l-4 1 1-4L16 3zM14.5 4.5l3 3" /></svg>);
 const IconArrowUpRight = (props) => (<svg {...dIcon2Base} {...props}><path d="M7 17L17 7M17 7H8M17 7v9" /></svg>);
 const IconArrowUp = (props) => (<svg {...dIcon2Base} {...props}><path d="M12 19V5M5 12l7-7 7 7" /></svg>);
 const IconSparkle = (props) => (<svg {...dIcon2Base} {...props}><path d="M12 3l1.9 5.1L19 10l-5.1 1.9L12 17l-1.9-5.1L5 10l5.1-1.9z" /><path d="M19 17l.8 2.2L22 20l-2.2.8L19 23l-.8-2.2L16 20l2.2-.8z" /></svg>);
@@ -273,38 +261,73 @@ function Header({ query, onQueryChange, searchPlaceholder, greeting, dateText, s
   );
 }
 
-function ModuleRailButton({ tooltip, tooltipEnabled = true, buttonRef, children, ...props }) {
+function moduleQuickLinks(id, user, hash, topics = []) {
+  const [route, query = ''] = String(hash || '').split('?');
+  const params = new URLSearchParams(query);
+  if ((id === 'tools' && route === '#tools') || (id === 'topics' && route === '#topics' && !params.get('topic'))) return [];
+  const personal = Boolean(user && user.personalAccess !== false);
+  const space = params.get('space') === 'public' || !personal ? 'public' : 'mine';
+  const link = (label, target, values = {}, active = route === `#${target}`) => ({ label, href: `#${target}?${new URLSearchParams({space, ...values})}`, active });
+  if (id === 'tools') return [link('全部工具', 'tools'), link('媒体工具', 'media-tools', {tab:'download'}, /^#(media-tools|video-tools|video-download|video-transcribe|video-collections|media-library)$/.test(route)), link('Markdown 排版', 'markdown-editor'), ...(user?.username === 'zane' && personal ? [link('AI 作图','ai-art',{space:'mine'})] : [])];
+  if (id === 'topics') return [link('全部专题','topics',{},route === '#topics' && !params.get('topic')), ...topics.map(topic => {
+    const [target, search = ''] = topic.hash.slice(1).split('?');
+    const values = Object.fromEntries(new URLSearchParams(search));
+    return link(topic.title, target, values, route === `#${target}` && Object.entries(values).every(([key,value]) => params.get(key) === value));
+  })];
+  if (id === 'feed' && user?.fullAccess) return [['aihot','AIHOT 资讯'],['following','监听动态'],['hot','关注热点'],['accounts','监听账号']].map(([view,label])=>link(label,'feed',{view},route === '#feed' && (params.get('view') || 'aihot') === view));
+  if (id === 'settings') return (personal ? [['sync','数据同步'],['ai','AI 服务'],['devices','执行设备'],['appearance','外观']] : [['appearance','外观']]).map(([category,label])=>link(label,'settings',{category},route === '#settings' && (params.get('category') || 'sync') === category));
+  return [];
+}
+
+function ModuleRailButton({ tooltip, tooltipEnabled = true, buttonRef, children, quickLinks = [], onQuickNavigate, ...props }) {
   const [position, setPosition] = useState(null);
   const tooltipId = React.useId();
-  const dismiss = () => setPosition(null);
-  function show(target) {
-    if (!tooltipEnabled) return;
+  const trigger = useCmpRef(null), popup = useCmpRef(null), timers = useCmpRef({});
+  const hasMenu = quickLinks.length > 0;
+  const clearTimers = () => { clearTimeout(timers.current.open); clearTimeout(timers.current.close); };
+  const dismiss = (restoreFocus = false) => { clearTimers(); setPosition(null); if (restoreFocus) requestAnimationFrame(() => trigger.current?.focus({preventScroll:true})); };
+  const scheduleClose = () => { clearTimers(); timers.current.close = setTimeout(() => setPosition(null), window.OmniSurface?.TIMING.close || 360); };
+  function show(target, focus = false) {
+    clearTimers();
+    if (!hasMenu && !tooltipEnabled) return;
     const rect = target.getBoundingClientRect();
-    setPosition({ left: rect.right + 8, top: Math.max(24, Math.min(window.innerHeight - 24, rect.top + rect.height / 2)) });
+    if (hasMenu) {
+      document.dispatchEvent(new CustomEvent('omnihub:quick-navigation', {detail:tooltipId}));
+      const width = Math.min(224, window.innerWidth - 16);
+      setPosition({left:Math.max(8, Math.min(rect.right + 8, window.innerWidth - width - 8)), top:Math.max(8, Math.min(rect.top, window.innerHeight - Math.min(quickLinks.length * 38 + 52, window.innerHeight - 16) - 8)), width});
+      if (focus) requestAnimationFrame(() => popup.current?.querySelector('[role=menuitem], a')?.focus({preventScroll:true}));
+    } else setPosition({left:rect.right + 8, top:Math.max(24,Math.min(window.innerHeight - 24,rect.top + rect.height / 2))});
   }
-  useEffect(() => { setPosition(null); }, [tooltipEnabled, tooltip]);
+  useCmpLayoutEffect(() => { if (!position || !hasMenu || !popup.current) return; const top=Math.max(8,Math.min(position.top,window.innerHeight-popup.current.getBoundingClientRect().height-8)); if(top!==position.top)setPosition(current=>({...current,top})); }, [position,hasMenu]);
+  useEffect(() => () => clearTimers(), []);
+  useEffect(() => { dismiss(); }, [tooltipEnabled, tooltip]);
   useEffect(() => {
     if (!position) return;
-    const hide = () => setPosition(null);
-    const onKeyDown = event => { if (event.key === "Escape") hide(); };
-    window.addEventListener("resize", hide);
-    window.addEventListener("scroll", hide, true);
-    document.addEventListener("keydown", onKeyDown);
-    return () => {
-      window.removeEventListener("resize", hide);
-      window.removeEventListener("scroll", hide, true);
-      document.removeEventListener("keydown", onKeyDown);
-    };
-  }, [position]);
+    const hide = () => dismiss();
+    const outside = event => { if (!popup.current?.contains(event.target) && !trigger.current?.contains(event.target) && event.target.closest?.('[data-cascade-owner]')?.dataset.cascadeOwner !== tooltipId) dismiss(); };
+    const scroll = event => { if (!popup.current?.contains(event.target) && event.target.closest?.('[data-cascade-owner]')?.dataset.cascadeOwner !== tooltipId) dismiss(); };
+    const escape = event => { if (event.key === 'Escape') { event.preventDefault(); dismiss(hasMenu); } };
+    const other = event => { if (event.detail !== tooltipId) dismiss(); };
+    window.addEventListener('resize',hide); window.addEventListener('scroll',scroll,true); window.addEventListener('hashchange',hide);
+    document.addEventListener('pointerdown',outside); document.addEventListener('keydown',escape); document.addEventListener('omnihub:quick-navigation',other);
+    return () => { window.removeEventListener('resize',hide); window.removeEventListener('scroll',scroll,true); window.removeEventListener('hashchange',hide); document.removeEventListener('pointerdown',outside); document.removeEventListener('keydown',escape); document.removeEventListener('omnihub:quick-navigation',other); };
+  }, [position, hasMenu, tooltipId]);
   return <>
-    <button {...props} ref={buttonRef} aria-describedby={position ? tooltipId : undefined}
-      onPointerEnter={event => { if (event.pointerType !== "touch") show(event.currentTarget); }}
-      onPointerLeave={dismiss} onPointerDown={dismiss}
-      onFocus={event => { if (event.currentTarget.matches(":focus-visible")) show(event.currentTarget); }}
-      onBlur={dismiss} onClick={event => { dismiss(); props.onClick?.(event); }}>
+    <button {...props} ref={node => { trigger.current = node; if (typeof buttonRef === 'function') buttonRef(node); else if (buttonRef) buttonRef.current = node; }}
+      aria-describedby={!hasMenu && position ? tooltipId : undefined} aria-haspopup={hasMenu ? 'menu' : undefined} aria-expanded={hasMenu ? Boolean(position) : undefined} aria-controls={hasMenu && position ? tooltipId : undefined}
+      onPointerEnter={event => { if(event.pointerType === 'touch') return; clearTimers(); const target=event.currentTarget; if(hasMenu) timers.current.open=setTimeout(()=>show(target),window.OmniSurface?.TIMING.open || 220); else timers.current.open=setTimeout(()=>show(target),500); }}
+      onPointerLeave={() => hasMenu ? scheduleClose() : dismiss()}
+      onFocus={event => { if(!hasMenu && event.currentTarget.matches(':focus-visible')) show(event.currentTarget); }}
+      onBlur={event => { if(!popup.current?.contains(event.relatedTarget)) scheduleClose(); }}
+      onKeyDown={event => { if(hasMenu && ['ArrowRight','ArrowDown'].includes(event.key)) {event.preventDefault();show(event.currentTarget,true);} }}
+      onClick={event => { if(hasMenu && window.matchMedia('(hover: none)').matches){position ? dismiss() : show(event.currentTarget,true);return;} dismiss();props.onClick?.(event); }}>
       {children}
     </button>
-    {position && ReactDOM.createPortal(<span id={tooltipId} role="tooltip" className="module-tooltip" style={position}>{tooltip}</span>, document.body)}
+    {position && ReactDOM.createPortal(hasMenu ? <div id={tooltipId} ref={popup} className="module-flyout" aria-label={`${props['aria-label']}快捷切换`} style={position}
+      onPointerEnter={clearTimers} onPointerLeave={scheduleClose} onFocus={clearTimers} onBlur={event=>{if(!event.currentTarget.contains(event.relatedTarget) && !trigger.current?.contains(event.relatedTarget))scheduleClose();}}
+      onKeyDown={event=>{const links=[...event.currentTarget.querySelectorAll('a')],index=links.indexOf(document.activeElement);if(['ArrowDown','ArrowUp','Home','End'].includes(event.key)){event.preventDefault();const next=event.key==='Home'?0:event.key==='End'?links.length-1:(index+(event.key==='ArrowDown'?1:-1)+links.length)%links.length;links[next]?.focus({preventScroll:true});}}}>
+      <strong className="module-flyout-title">{props['aria-label']}</strong><CascadeMenu items={quickLinks} title={`${props['aria-label']}快捷入口`} ownerId={tooltipId} onKeepOpen={clearTimers} onScheduleClose={scheduleClose} onNavigate={href=>{dismiss();onQuickNavigate?.(href);}} />
+    </div> : <span id={tooltipId} role="tooltip" className="module-tooltip" style={position}>{tooltip}</span>,document.body)}
   </>;
 }
 
@@ -312,8 +335,10 @@ function ModuleRailButton({ tooltip, tooltipEnabled = true, buttonRef, children,
 function SideNav({ section, onSectionChange, categories, activeCategory, onCategoryChange, counts, moduleCounts = {}, feedNavigation, onFeedNavigate, knowledgeNavigation, onKnowledgeNavigate,
                    user, quote, merit, skin, onSkinChange, theme, onThemeToggle,
                    woodFishEnabled, onWoodFishToggle, onOpenAiSettings, onOpenAccountSettings,
-                   collapsed, moduleLabels }) {
+                   collapsed, moduleLabels, onQuickNavigate }) {
   const [mobile, setMobile] = useState(() => window.matchMedia("(max-width: 860px)").matches);
+  const [quickHash,setQuickHash] = useState(() => window.location.hash);
+  useEffect(() => { const update=()=>setQuickHash(window.location.hash); window.addEventListener('hashchange',update); window.addEventListener('omnihub:route-restored',update); return ()=>{window.removeEventListener('hashchange',update);window.removeEventListener('omnihub:route-restored',update);}; }, []);
   const hidden = mobile && collapsed;
   const hasContext = Boolean(feedNavigation || knowledgeNavigation || categories?.length);
   useEffect(() => {
@@ -328,8 +353,7 @@ function SideNav({ section, onSectionChange, categories, activeCategory, onCateg
     { id: "promptLibrary", label: "提示词库", icon: <IconSparkle /> },
     { id: "inbox", label: "X 来源", icon: <IconInbox /> },
     { id: "feed", label: "资讯与监听", icon: <IconRss /> },
-    { id: "resources", label: "资料", icon: <IconBookmark /> },
-    { id: "works", label: "作品", icon: <IconPalette /> },
+    { id: "works", label: "作品", icon: <IconGallery /> },
     { id: "studio", label: "创作台", icon: <IconPalette /> },
     { id: "chat", label: "AI 提炼台", icon: <IconSend /> },
     { id: "topics", label: "专题", icon: <IconSun /> },
@@ -346,7 +370,7 @@ function SideNav({ section, onSectionChange, categories, activeCategory, onCateg
       <div className="module-rail">
       <nav className="module-nav" aria-label="模块">
         {modules.map((m) => (
-          <ModuleRailButton key={m.id} className={"nav-item module-button" + (section === m.id ? " active" : "") + (m.id === "tools" ? " nav-secondary" : "")}
+          <ModuleRailButton key={m.id} quickLinks={hidden ? [] : moduleQuickLinks(m.id,user,quickHash,TOPIC_REGISTRY)} onQuickNavigate={onQuickNavigate} className={"nav-item module-button" + (section === m.id ? " active" : "") + (m.id === "tools" ? " nav-secondary" : "")}
             aria-label={m.label} tooltip={m.label + (moduleCounts[m.id] != null ? ` · ${moduleCounts[m.id]}` : "")} tooltipEnabled={!moduleLabels && !hidden}
             aria-current={section === m.id ? "page" : undefined} onClick={() => onSectionChange(m.id)} tabIndex={hidden ? -1 : 0}>
             <span className="module-icon" aria-hidden="true">{m.icon}</span><span className="module-label">{m.label}</span>
@@ -355,7 +379,7 @@ function SideNav({ section, onSectionChange, categories, activeCategory, onCateg
         ))}
       </nav>
       <div className="sidebar-foot">
-        <ModuleRailButton className={"nav-item module-button" + (section === 'settings' ? " active" : "")}
+        <ModuleRailButton quickLinks={hidden ? [] : moduleQuickLinks('settings',user,quickHash)} onQuickNavigate={onQuickNavigate} className={"nav-item module-button" + (section === 'settings' ? " active" : "")}
           aria-label={hasPersonalSpace ? `账号与设置：${user.username}` : '设置'}
           tooltip={hasPersonalSpace ? `账号与设置：${user.username}` : '设置'} tooltipEnabled={!moduleLabels && !hidden}
           aria-current={section === 'settings' ? 'page' : undefined} onClick={onOpenAccountSettings} tabIndex={hidden ? -1 : 0}>
@@ -622,6 +646,7 @@ function FeedItem({ item, rank, showRank, onPreview, onSave }) {
           )}
         </div>
         {item.summary && <p className="feed-summary">{item.summary}</p>}
+        {onSave && <button className="btn" onClick={()=>{try{sessionStorage.setItem('omnihub:creator-source',JSON.stringify({title:item.title,url:item.url,summary:item.summary,origin:item.origin}));window.location.hash='#studio?space=mine&view=content';window.dispatchEvent(new Event('omnihub:creator-source'));}catch{alert('浏览器无法保存选题，请复制原文到创作台。');}}}>用作创作选题</button>}
         {item.processing && <span className="tag-chip" title={item.processing.state==='ready'?'已按网站统一流程整理':'原始来源已保留，尚未完成网站整理'}>{item.processing.label}</span>}
         {images.length > 0 && (
           <div className="feed-imgs">

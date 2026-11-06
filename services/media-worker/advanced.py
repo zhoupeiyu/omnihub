@@ -130,7 +130,7 @@ def _translate(segments: list[dict[str, Any]], source: str, target: str) -> list
     for item in segments:
         tokens = processor.encode(item["text"], out_type=str)
         result = engine.translate_batch([tokens], beam_size=1, max_batch_size=1, batch_type="examples")
-        value = _subtitle_text(processor.decode(result[0].hypotheses[0])) if result and result[0].hypotheses else ''
+        value = _subtitle_text(processor.decode(result[0].hypotheses[0]).replace("▁", " ").strip()) if result and result[0].hypotheses else ''
         translated.append({**item, "text": value or item["text"]})
     return translated
 
@@ -163,7 +163,8 @@ def _separate(source: Path, destination: Path, model_dir: Path, timeout: int) ->
         work = Path(temp)
         try:
             separator = Separator(output_dir=str(work), output_format="MP3", model_file_dir=str(model_dir),
-                                  normalization_threshold=0.9, output_single_stem=None)
+                                  normalization_threshold=0.9, output_single_stem=None,
+                                  mdx_params={"hop_length":1024,"segment_size":64,"overlap":0.25,"batch_size":1,"enable_denoise":False})
             separator.load_model(model_filename=model.name)
             names = separator.separate(str(source))
         except Exception as exc: raise AdvancedError("人声分离未完成，请换一段较短的音频。") from exc

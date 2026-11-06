@@ -83,7 +83,10 @@ test('anonymous records are public, with parsing, preparing, byte streaming and 
   const file=await f.request('/jobs/'+job.id+'/files/video.mp4',{cookie:job.cookie,headers:{Range:'bytes=0-9'}});
   assert.equal(file.response.status,206); assert.equal(file.payload,'test-media');
   assert.match(file.response.headers.get('content-disposition'),/^attachment;/);
-  assert.equal(file.response.headers.get('cache-control'),'private, no-store');
+  assert.equal(file.response.headers.get('cache-control'),'private, no-cache, must-revalidate');
+  const reads=f.calls.length;
+  const cached=await f.request('/jobs/'+job.id+'/files/video.mp4',{cookie:job.cookie,headers:{'If-None-Match':file.response.headers.get('etag')}});
+  assert.equal(cached.response.status,304);assert.equal(f.calls.length,reads);
   const inline=await f.request('/jobs/'+job.id+'/files/video.mp4?inline=1',{cookie:job.cookie});
   assert.match(inline.response.headers.get('content-disposition'),/^inline;/);
   assert.equal((await f.request('/jobs/'+job.id+'/files/video.mp4')).response.status,200);

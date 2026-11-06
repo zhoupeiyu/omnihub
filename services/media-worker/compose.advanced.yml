@@ -1,0 +1,10 @@
+services:
+  media-worker:
+    image: omnihub-media-worker:complete-v3
+    environment:
+      MEDIA_ADVANCED_ENABLED: subtitles,translation,separation
+      MEDIA_ADVANCED_MODELS: /models/advanced
+      MEDIA_ADVANCED_RUNNER: /opt/advanced/advanced-runner.py
+    volumes:
+      - /opt/omnihub-media-worker/models/advanced:/models/advanced:ro
+    memswap_limit: 2g

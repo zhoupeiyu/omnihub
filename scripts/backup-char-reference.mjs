@@ -1,0 +1,12 @@
+import path from 'node:path';
+import {readFile} from 'node:fs/promises';
+import {createReferenceStorage,writeReferenceJson} from '../lib/reference-storage.js';
+const directory=path.resolve(process.argv[2] || 'data/reference-library'),storage=createReferenceStorage({directory});
+if(!storage.remote)throw Error('cloud_not_configured');
+const m=JSON.parse(await readFile(directory+'/manifest.json')),p=JSON.parse(await readFile(directory+'/previews.json'));
+const rows=m.items.filter(x=>x.collectionId==='taki-anime-reference');
+const objects=[...new Map(rows.flatMap(x=>[x.thumbnail,x.original,p.items[x.id].object]).map(x=>[x.key,x])).values()];
+let cursor=0,done=0;const failures=[];
+await Promise.all(Array.from({length:4},async()=>{while(cursor<objects.length){const o=objects[cursor++];try{const bytes=await readFile(directory+'/'+o.key);const remote=await storage.put(bytes);if(remote.sha256!==o.sha256)throw Error('hash_mismatch');done++;}catch(e){failures.push({key:o.key,error:e.message});}if((done+failures.length)%100===0)console.log(JSON.stringify({done,failed:failures.length,total:objects.length}));}}));
+const receipt={collectionId:'taki-anime-reference',completedAt:new Date().toISOString(),images:rows.length,objects:objects.length,uploaded:done,failures};
+await writeReferenceJson(directory+'/char-cloud-receipt.json',receipt);console.log(JSON.stringify(receipt));if(failures.length)process.exitCode=1;

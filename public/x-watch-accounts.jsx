@@ -168,7 +168,7 @@ function XWatchAccountsView({active=true}={}) {
     </header>
     {error&&<p role="alert" className="classification-error">{error}</p>}
     {notice&&<p role="status" className="watch-manager-notice">{notice}</p>}
-    {!state||!directory?<div className="watch-empty"><p role="status">{error?'页面未能读取，请重试。':'正在读取已保存的账号…'}</p>{error&&<button className="btn" onClick={()=>action('read',read)}>重新读取</button>}</div>:<>
+    {!state||!directory?<div className="watch-empty"><>{error ? <p role="alert">页面未能读取，请重试。</p> : <LoadingSkeleton variant="list" count={4} label="正在读取已保存的账号" />}</>{error&&<button className="btn" onClick={()=>action('read',read)}>重新读取</button>}</div>:<>
       {tab==='following'&&<>
         <div className="watch-source-box">
           <div className="watch-source-line">

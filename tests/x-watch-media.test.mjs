@@ -51,7 +51,7 @@ test('video and poster jobs are distinct; MP4 supports authenticated byte ranges
   await new Promise(resolve=>server.listen(0,'127.0.0.1',resolve));t.after(()=>new Promise(resolve=>server.close(resolve)));
   const base=`http://127.0.0.1:${server.address().port}/`,id=result.media[0].url.split('/').at(-1);
   let response=await fetch(base+id,{headers:{Range:'bytes=4-7'}});
-  assert.equal(response.status,206);assert.equal(await response.text(),'ftyp');assert.equal(response.headers.get('content-type'),'video/mp4');assert.match(response.headers.get('cache-control'),/private, no-store/);
+  assert.equal(response.status,206);assert.equal(await response.text(),'ftyp');assert.equal(response.headers.get('content-type'),'video/mp4');assert.match(response.headers.get('cache-control'),/private, no-cache/);
   assert.equal((await fetch(base+id,{headers:{Range:'bytes=900-1000'}})).status,416);
   response=await fetch(base+id,{method:'HEAD'});assert.equal(response.headers.get('content-length'),String(mp4.length));assert.equal(await response.text(),'');
   assert.equal((await fetch(base+'999')).status,404);

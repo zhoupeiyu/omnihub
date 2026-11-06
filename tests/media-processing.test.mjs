@@ -118,6 +118,9 @@ test('file range and HEAD proxy only saved listed files', async t => {
   await f.request('/jobs/' + job.data.id);
   const got = await f.request('/jobs/' + job.data.id + '/files/out.mp3', { headers: { Range: 'bytes=0-3' } });
   assert.equal(got.response.status, 206); assert.equal(got.data, 'file');
+  const readCount=f.calls.length;
+  assert.equal((await f.request('/jobs/' + job.data.id + '/files/out.mp3',{headers:{'If-None-Match':got.response.headers.get('etag')}})).response.status,304);
+  assert.equal(f.calls.length,readCount);
   const head = await f.request('/jobs/' + job.data.id + '/files/out.mp3', { method: 'HEAD' });
   assert.equal(head.response.status, 200);
   assert.equal(f.calls.findLast(x => x.url.includes('/files/')).init.method, 'HEAD');
@@ -201,4 +204,14 @@ test('timed subtitles preserve exact timing and private file access without allo
   assert.equal((await f.request('/jobs?view=library&type=text',{user:'a'})).data.jobs.length,1);
   const separate=await f.request('/jobs',{method:'POST',user:'a',body:{visibility:'private',operation:'separate',source,options:{command:'bad'}}});
   assert.equal(separate.response.status,400);
+});
+
+test('auto-cut validates bounded numeric options before submitting', async t => {
+  const f = await fixture(t);
+  for (const options of [{threshold:0},{threshold:1},{margin:3},{margin:'0.2'},{threshold:0.04,command:'bad'}]) {
+    const r = await f.request('/jobs', {method:'POST',user:'a',body:{visibility:'private',operation:'auto-cut',source,options}});
+    assert.equal(r.response.status,400);
+  }
+  const r = await f.request('/jobs', {method:'POST',user:'a',body:{visibility:'private',operation:'auto-cut',source,options:{threshold:0.04,margin:0.2}}});
+  assert.equal(r.response.status,202);
 });

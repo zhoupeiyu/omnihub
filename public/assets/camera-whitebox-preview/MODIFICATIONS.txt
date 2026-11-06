@@ -1,0 +1,2 @@
+Camera Moves Whitebox Kit by hong hou zi, MIT License. See LICENSE.txt and NOTICE.txt in this directory for source and license.
+03_pan_mirror.mp4 and 05_truck_mirror.mp4 were horizontally mirrored; 04_tilt_reverse.mp4 was reversed. These clips and 03_pan.mp4, 04_tilt.mp4 and 05_truck.mp4 were resized and re-encoded for web previews.

@@ -36,7 +36,7 @@ function ClassificationEditor({ target, onClose, onSaved }) {
       <header><div><h2 id="classification-title">调整归类</h2><p>仅 zane 可修改 · 原始收藏保持不变</p></div>
         <button type="button" className="btn btn-ghost" onClick={close} disabled={busy} aria-label="关闭归类编辑">关闭 ×</button></header>
       {error && <p className="classification-error" role="alert">{error}</p>}
-      {!data ? <p role="status">{error ? '请关闭后重新打开。' : '正在读取当前归类…'}</p> : <fieldset disabled={busy} className="classification-fields">
+      {!data ? (error ? <p role="alert">请关闭后重新打开。</p> : <LoadingSkeleton variant="form" count={3} label="正在读取当前归类" />) : <fieldset disabled={busy} className="classification-fields">
         <p className="classification-source-title">{entry.title}</p>
         {repository ? <React.Fragment>
           <fieldset><legend>工具形态（可多选）</legend><div className="classification-options">{Object.entries(taxonomy.REPOSITORY_FORMS).map(([id,label]) =>

@@ -1,0 +1,1274 @@
+[
+  {
+    "slug": "haber-step",
+    "subject": "chem",
+    "title": "合成氨工业",
+    "type": "工业流程",
+    "question": "怎样把空气里的氮又快、又多、又省地变成氨？",
+    "textbook": [
+      "选择性必修1 化学反应原理 · 第二章 化学反应速率与化学平衡 · 第四节 化学反应的调控",
+      "必修第二册 · 第五章 化工生产中的重要非金属元素 · 第二节 氮及其化合物"
+    ],
+    "steps": [
+      "为什么建厂",
+      "为什么净化",
+      "为什么加压",
+      "为什么高温",
+      "塔内什么样",
+      "为什么要循环",
+      "考核 · 当班长"
+    ],
+    "file": "courses/haber-step.html",
+    "cover": "covers/haber-step.webp",
+    "online": "https://lab.tongjiang.app/c/haber-step/"
+  },
+  {
+    "slug": "river-step",
+    "subject": "geo",
+    "title": "河流地貌的发育",
+    "type": "原理与现象",
+    "question": "长江镇江段的岸线为什么持续向北推移？",
+    "textbook": [
+      "选择性必修1 自然地理基础 · 第二章 地表形态的塑造 · 第三节 河流地貌的发育"
+    ],
+    "steps": [
+      "认识沙盘",
+      "山区V形谷",
+      "河谷剖面",
+      "冲积扇",
+      "凹岸凸岸",
+      "河漫滩",
+      "三角洲",
+      "考核：汛期来了"
+    ],
+    "file": "courses/river-step.html",
+    "cover": "covers/river-step.webp",
+    "online": "https://lab.tongjiang.app/c/river-step/"
+  },
+  {
+    "slug": "rate-step",
+    "subject": "chem",
+    "title": "化学反应速率的影响因素",
+    "type": "原理与现象",
+    "question": "同样两个反应，为什么有的几秒就完、有的等半天？快慢到底由什么决定？",
+    "textbook": [
+      "必修第二册 · 第六章 化学反应与能量 · 实验活动7 化学反应速率的影响因素",
+      "选择性必修1 化学反应原理 · 第二章 化学反应速率与化学平衡 · 第一节 化学反应速率"
+    ],
+    "steps": [
+      "认识实验台",
+      "浓度",
+      "温度",
+      "催化剂",
+      "定量测速率",
+      "看进去",
+      "误差与错误操作",
+      "考核 · 当实验员"
+    ],
+    "file": "courses/rate-step.html",
+    "cover": "covers/rate-step.webp",
+    "online": "https://lab.tongjiang.app/c/rate-step/"
+  },
+  {
+    "slug": "insolation-step",
+    "subject": "geo",
+    "title": "太阳直射点的回归运动与四季、五带",
+    "type": "原理与现象",
+    "question": "学校所在地的正午太阳高度和正午太阳方向，一年里为什么有规律地变化？",
+    "textbook": [
+      "选择性必修1 自然地理基础 · 第一章 地球的运动 · 第二节 地球运动的地理意义 · 太阳直射点的回归运动 · 四季和五带"
+    ],
+    "steps": [
+      "黄赤交角",
+      "回归运动",
+      "正午高度",
+      "纬度分布",
+      "年内变化",
+      "正午方向",
+      "四季",
+      "五带",
+      "考核 · 点带"
+    ],
+    "file": "courses/insolation-step.html",
+    "cover": "covers/insolation-step.webp",
+    "online": "https://lab.tongjiang.app/c/insolation-step/"
+  },
+  {
+    "slug": "ball-stick-step",
+    "subject": "chem",
+    "title": "搭建球棍模型认识有机化合物分子结构",
+    "type": "原理与现象模拟",
+    "question": "分子画在纸上是平的，真实的三维形状到底是什么样？搭一座球棍模型能看出什么？",
+    "textbook": [
+      "必修第二册 · 第七章 有机化合物 · 实验活动8 搭建球棍模型认识有机化合物分子结构"
+    ],
+    "steps": [
+      "零件盒",
+      "甲烷",
+      "二氯甲烷",
+      "单键能转",
+      "碳链",
+      "同分异构",
+      "乙烯与乙炔",
+      "苯",
+      "考核"
+    ],
+    "file": "courses/ball-stick-step.html",
+    "cover": "covers/ball-stick-step.webp",
+    "online": "https://lab.tongjiang.app/c/ball-stick-step/"
+  },
+  {
+    "slug": "titration-step",
+    "subject": "chem",
+    "title": "强酸与强碱的中和滴定",
+    "type": "原理与现象",
+    "question": "前面加了 20 多毫升几乎看不出变化，为什么最后半滴颜色就全变了？",
+    "textbook": [
+      "选择性必修1 化学反应原理 · 第三章 水溶液中的离子反应与平衡 · 第二节 水的电离和溶液的pH · 酸碱中和滴定 · 实验活动2"
+    ],
+    "steps": [
+      "认识滴定装置",
+      "润洗与赶气泡",
+      "取液与加指示剂",
+      "逐滴加入",
+      "半滴到终点",
+      "读数与计算",
+      "看进去",
+      "误差与错误操作",
+      "考核 · 当滴定员"
+    ],
+    "file": "courses/titration-step.html",
+    "cover": "covers/titration-step.webp",
+    "online": "https://lab.tongjiang.app/c/titration-step/"
+  },
+  {
+    "slug": "chlorine-step",
+    "subject": "chem",
+    "title": "氯气的制备及性质",
+    "type": "原理与现象",
+    "question": "要一瓶干燥、纯净的氯气，装置里每一段各管什么？少一段会怎样？",
+    "textbook": [
+      "必修第一册 · 第二章 海水中的重要元素——钠和氯 · 第二节 氯及其化合物"
+    ],
+    "steps": [
+      "认识装置",
+      "为什么加热",
+      "为什么要浓盐酸",
+      "第一瓶洗什么",
+      "第二瓶洗什么",
+      "怎么收集",
+      "多余的氯气去哪",
+      "氯水里有什么",
+      "考核 · 当实验员"
+    ],
+    "file": "courses/chlorine-step.html",
+    "cover": "covers/chlorine-step.webp",
+    "online": "https://lab.tongjiang.app/c/chlorine-step/"
+  },
+  {
+    "slug": "blast-furnace-step",
+    "subject": "chem",
+    "title": "高炉炼铁",
+    "type": "工业流程",
+    "question": "一堆矿石从炉顶倒下去，怎么几小时后就变成一股铁水，还越省越好？",
+    "textbook": [
+      "必修第二册 · 第八章 化学与可持续发展 · 第一节 自然资源的开发利用 · 金属矿物的开发利用"
+    ],
+    "steps": [
+      "矿石变铁",
+      "分层布料",
+      "剖开看层",
+      "风口烧焦",
+      "逐级还原",
+      "石灰石造渣",
+      "风温的账",
+      "值班考核"
+    ],
+    "file": "courses/blast-furnace-step.html",
+    "cover": "covers/blast-furnace-step.webp",
+    "online": "https://lab.tongjiang.app/c/blast-furnace-step/"
+  },
+  {
+    "slug": "smelting-step",
+    "subject": "chem",
+    "title": "金属冶炼：电解熔融盐 + 铝热",
+    "type": "工业流程",
+    "question": "为什么铝只能靠电「拆」出来，而铁能被铝「换」出来？",
+    "textbook": [
+      "必修第二册 · 第八章 化学与可持续发展 · 第一节 自然资源的开发利用 · 金属矿物的开发利用"
+    ],
+    "steps": [
+      "三处台子",
+      "只能电解",
+      "剖开槽",
+      "谁往哪走",
+      "掺冰晶石",
+      "电耗的账",
+      "铝热",
+      "值班考核"
+    ],
+    "file": "courses/smelting-step.html",
+    "cover": "covers/smelting-step.webp",
+    "online": "https://lab.tongjiang.app/c/smelting-step/"
+  },
+  {
+    "slug": "currents-step",
+    "subject": "geo",
+    "title": "世界洋流的分布规律与影响",
+    "type": "原理与现象",
+    "question": "数万只玩具鸭散落海面，为什么会漂到世界各地的海岸？",
+    "textbook": [
+      "选择性必修1 自然地理基础 · 第四章 水的运动 · 第二节 洋流",
+      "必修第一册 · 第三章 地球上的水 · 第三节 海水的运动"
+    ],
+    "steps": [
+      "风推水走",
+      "中低纬成圈",
+      "中高纬反着转",
+      "寒暖流",
+      "不绕圈会倒转",
+      "海水性质",
+      "气候影响",
+      "渔场",
+      "考核 · 四站"
+    ],
+    "file": "courses/currents-step.html",
+    "cover": "covers/currents-step.webp",
+    "online": "https://lab.tongjiang.app/c/currents-step/"
+  },
+  {
+    "slug": "enso-step",
+    "subject": "geo",
+    "title": "海—气相互作用与厄尔尼诺、拉尼娜",
+    "type": "原理与现象",
+    "question": "秘鲁沿海常年干旱，为什么 2016 年底海水一暖，就下起了暴雨、还死了近百人？",
+    "textbook": [
+      "选择性必修1 自然地理基础 · 第四章 水的运动 · 第三节 海—气相互作用"
+    ],
+    "steps": [
+      "交换",
+      "差",
+      "环流",
+      "厄尔尼诺",
+      "越线",
+      "拉尼娜",
+      "考核"
+    ],
+    "file": "courses/enso-step.html",
+    "cover": "covers/enso-step.webp",
+    "online": "https://lab.tongjiang.app/c/enso-step/"
+  },
+  {
+    "slug": "coal-gas-step",
+    "subject": "chem",
+    "title": "煤的综合利用：以煤的气化为主线",
+    "type": "工业流程",
+    "question": "煤只能烧吗？怎么把煤变成能造化肥、造甲醇的气？",
+    "textbook": [
+      "必修第二册 · 第八章 化学与可持续发展 · 第一节 自然资源的开发利用 · 煤的综合利用"
+    ],
+    "steps": [
+      "为什么气化",
+      "供热还是供气",
+      "炉子里长什么样",
+      "蒸汽多好还是少好",
+      "变换调比例",
+      "为什么要脱硫",
+      "变成什么",
+      "考核"
+    ],
+    "file": "courses/coal-gas-step.html",
+    "cover": "covers/coal-gas-step.webp",
+    "online": "https://lab.tongjiang.app/c/coal-gas-step/"
+  },
+  {
+    "slug": "sulfuric-step",
+    "subject": "chem",
+    "title": "接触法制硫酸",
+    "type": "工业流程",
+    "question": "怎样把矿石里的硫，又快、又多、又省、又干净地变成硫酸？",
+    "textbook": [
+      "必修第二册 · 第五章 化工生产中的重要非金属元素 · 第一节 硫及其化合物 · 工业制硫酸"
+    ],
+    "steps": [
+      "为什么分五段",
+      "为什么先净化",
+      "为什么这个温度",
+      "为什么要常压",
+      "塔内什么样",
+      "为什么用浓硫酸",
+      "考核 · 当班长"
+    ],
+    "file": "courses/sulfuric-step.html",
+    "cover": "covers/sulfuric-step.webp",
+    "online": "https://lab.tongjiang.app/c/sulfuric-step/"
+  },
+  {
+    "slug": "hydrolysis-step",
+    "subject": "chem",
+    "title": "盐类的水解及其应用",
+    "type": "原理与现象",
+    "question": "盐电离出来的离子看上去「既不酸也不碱」，凭什么能让溶液显出酸碱性？",
+    "textbook": [
+      "选择性必修1 化学反应原理 · 第三章 水溶液中的离子反应与平衡 · 第三节 盐类的水解 · 实验活动3 盐类水解的应用"
+    ],
+    "steps": [
+      "认识实验",
+      "盐的类型",
+      "看进去",
+      "浓度",
+      "温度",
+      "加酸抑制",
+      "净水",
+      "煮沸与蒸干",
+      "考核 · 配溶液"
+    ],
+    "file": "courses/hydrolysis-step.html",
+    "cover": "covers/hydrolysis-step.webp",
+    "online": "https://lab.tongjiang.app/c/hydrolysis-step/"
+  },
+  {
+    "slug": "heating-step",
+    "subject": "geo",
+    "title": "大气受热过程",
+    "type": "原理与现象",
+    "question": "太阳晒了一整天的地面，为什么白天先热起来，夜里又凉得那么快——大气到底替地面留住了多少热？",
+    "textbook": [
+      "必修第一册 · 第二章 地球上的大气 · 第二节 大气受热过程和大气运动 · 大气受热过程"
+    ],
+    "steps": [
+      "削弱",
+      "地面吸收",
+      "长波",
+      "截留",
+      "逆辐射",
+      "云",
+      "温室气体",
+      "月球对照",
+      "考核"
+    ],
+    "file": "courses/heating-step.html",
+    "cover": "covers/heating-step.webp",
+    "online": "https://lab.tongjiang.app/c/heating-step/"
+  },
+  {
+    "slug": "karst-step",
+    "subject": "geo",
+    "title": "喀斯特地貌的形成与识别",
+    "type": "原理与现象",
+    "question": "徐霞客写的「峭峰离立，分行竞颖」——这些像从地里长出来的尖峰，是怎么一块岩层变出来的？",
+    "textbook": [
+      "必修第一册 · 第四章 地貌 · 第一节 常见地貌类型 · 喀斯特地貌"
+    ],
+    "steps": [
+      "溶",
+      "沟→洼",
+      "峰丛→峰林",
+      "孤峰→残丘",
+      "快慢",
+      "洞",
+      "考核"
+    ],
+    "file": "courses/karst-step.html",
+    "cover": "covers/karst-step.webp",
+    "online": "https://lab.tongjiang.app/c/karst-step/"
+  },
+  {
+    "slug": "cement-step",
+    "subject": "chem",
+    "title": "工业制水泥",
+    "type": "工业流程",
+    "question": "一车石头和土，凭什么磨一磨、烧一烧、再磨一磨，就变成能撑起大坝的水泥？",
+    "textbook": [
+      "必修第二册 · 第五章 化工生产中的重要非金属元素 · 第三节 无机非金属材料"
+    ],
+    "steps": [
+      "看全厂",
+      "备生料",
+      "预热分解",
+      "窑里走",
+      "烧成带",
+      "急冷",
+      "加石膏",
+      "值班考核"
+    ],
+    "file": "courses/cement-step.html",
+    "cover": "covers/cement-step.webp",
+    "online": "https://lab.tongjiang.app/c/cement-step/"
+  },
+  {
+    "slug": "carbon-step",
+    "subject": "geo",
+    "title": "全球气候变化与国家安全",
+    "type": "原理与现象",
+    "question": "马尔代夫为什么要把内阁会议开到 6 米深的海底去？",
+    "textbook": [
+      "选择性必修3 资源、环境与国家安全 · 第三章 环境安全与国家安全 · 第四节 全球气候变化与国家安全"
+    ],
+    "steps": [
+      "碳循环",
+      "两条输入",
+      "排放去向",
+      "保温增强",
+      "越线",
+      "国家",
+      "应对",
+      "考核"
+    ],
+    "file": "courses/carbon-step.html",
+    "cover": "covers/carbon-step.webp",
+    "online": "https://lab.tongjiang.app/c/carbon-step/"
+  },
+  {
+    "slug": "tectonic-step",
+    "subject": "geo",
+    "title": "构造地貌的形成",
+    "type": "原理与现象",
+    "question": "青藏高原上为什么会找到阔叶树的叶子化石 —— 什么力量把地表抬起来、又把它切开？",
+    "textbook": [
+      "选择性必修1 自然地理基础 · 第二章 地表形态的塑造 · 第二节 构造地貌的形成"
+    ],
+    "steps": [
+      "弯",
+      "分",
+      "倒置",
+      "错开",
+      "升降",
+      "考核"
+    ],
+    "file": "courses/tectonic-step.html",
+    "cover": "covers/tectonic-step.webp",
+    "online": "https://lab.tongjiang.app/c/tectonic-step/"
+  },
+  {
+    "slug": "photoelectric-step",
+    "subject": "phys",
+    "title": "光电效应",
+    "type": "原理与实验",
+    "question": "同一束光，为什么换成另一种金属就一个电子都打不出来？光电子的能量到底由光的什么决定？",
+    "textbook": [
+      "选择性必修第三册 · 第四章 原子结构和波粒二象性 · 第二节 光电效应"
+    ],
+    "steps": [
+      "认识电路",
+      "加到饱和",
+      "反向扫描",
+      "改光强",
+      "换频率",
+      "换金属",
+      "作图测 h",
+      "真实器材",
+      "考核"
+    ],
+    "file": "courses/photoelectric-step.html",
+    "cover": "covers/photoelectric-step.webp",
+    "online": "https://lab.tongjiang.app/c/photoelectric-step/"
+  },
+  {
+    "slug": "capacitor-step",
+    "subject": "phys",
+    "title": "观察电容器的充放电",
+    "type": "原理与实验",
+    "question": "电容器里到底存了什么？能不能只用一个数把它的「肚量」量出来？",
+    "textbook": [
+      "必修第三册 · 第十章 静电场中的能量 · 第四节 电容器的电容 · 学生必做实验：观察电容器的充放电"
+    ],
+    "steps": [
+      "认识器材",
+      "合向 1 充电",
+      "合向 2 放电",
+      "面积得电荷",
+      "两种接法",
+      "记录 q-u",
+      "换 C 换 R",
+      "真实器材",
+      "考核"
+    ],
+    "file": "courses/capacitor-step.html",
+    "cover": "covers/capacitor-step.webp",
+    "online": "https://lab.tongjiang.app/c/capacitor-step/"
+  },
+  {
+    "slug": "earth-motion-step",
+    "subject": "geo",
+    "title": "地球运动的地理意义",
+    "type": "原理与现象",
+    "question": "同一时刻，为什么北京是中午、纽约是半夜，而夏天的白天又比冬天长？",
+    "textbook": [
+      "选择性必修1 自然地理基础 · 第一章 地球的运动 · 第二节 地球运动的地理意义",
+      "选择性必修1 自然地理基础 · 第一章 地球的运动 · 第一节 地球的自转和公转"
+    ],
+    "steps": [
+      "自转",
+      "公转",
+      "昼夜半球",
+      "晨线昏线",
+      "地方时",
+      "时区日界线",
+      "昼夜长短",
+      "正午太阳高度",
+      "考核 · 时差"
+    ],
+    "file": "courses/earth-motion-step.html",
+    "cover": "covers/earth-motion-step.webp",
+    "online": "https://lab.tongjiang.app/c/earth-motion-step/"
+  },
+  {
+    "slug": "accel-force-step",
+    "subject": "phys",
+    "title": "实验：探究加速度与力、质量的关系",
+    "type": "原理与现象",
+    "question": "不直接测力、也不直接测加速度——一张纸带加几个槽码，能不能把 a 与 F、m 的关系量出来？",
+    "textbook": [
+      "必修第一册 · 第四章 运动和力的关系 · 第二节 实验：探究加速度与力、质量的关系"
+    ],
+    "steps": [
+      "认识器材",
+      "平衡阻力",
+      "打纸带",
+      "求加速度",
+      "a 与 F",
+      "a 与 m",
+      "误差",
+      "考核"
+    ],
+    "file": "courses/accel-force-step.html",
+    "cover": "covers/accel-force-step.webp",
+    "online": "https://lab.tongjiang.app/c/accel-force-step/"
+  },
+  {
+    "slug": "iron-step",
+    "subject": "chem",
+    "title": "铁及其化合物：铁的价态转化",
+    "type": "原理与现象",
+    "question": "同一个铁元素，为什么在试管里一会儿是 +2 价、一会儿是 +3 价，我们凭什么知道它是哪一个？",
+    "textbook": [
+      "必修第一册 · 第三章 铁 金属材料 · 第一节 铁及其化合物"
+    ],
+    "steps": [
+      "认识实验",
+      "白色沉淀",
+      "隔绝空气",
+      "KSCN 检验",
+      "价态降下来",
+      "价态升回去",
+      "看进去",
+      "检铁站",
+      "考核 · 压到 +2 价"
+    ],
+    "file": "courses/iron-step.html",
+    "cover": "covers/iron-step.webp",
+    "online": "https://lab.tongjiang.app/c/iron-step/"
+  },
+  {
+    "slug": "plasmolysis-step",
+    "subject": "bio",
+    "title": "植物细胞的吸水和失水",
+    "type": "原理与现象",
+    "question": "菜叶泡在清水里会变硬挺，撒了盐会出水——植物细胞怎样吸水和失水？",
+    "textbook": [
+      "必修1 分子与细胞 · 第4章 细胞的物质输入和输出 · 第1节 被动运输 · 探究·实践：探究植物细胞的吸水和失水"
+    ],
+    "steps": [
+      "渗透",
+      "原生质层",
+      "失水",
+      "水去哪",
+      "复原",
+      "甘油",
+      "测浓度",
+      "考核"
+    ],
+    "file": "courses/plasmolysis-step.html",
+    "cover": "covers/plasmolysis-step.webp",
+    "online": "https://lab.tongjiang.app/c/plasmolysis-step/"
+  },
+  {
+    "slug": "electrolysis-step",
+    "subject": "chem",
+    "title": "电解原理：电解氯化铜溶液与饱和食盐水",
+    "type": "原理与现象",
+    "question": "同一个直流电源，为什么电解氯化铜溶液得到铜和氯气，电解饱和食盐水却得到氢气、氯气和氢氧化钠？",
+    "textbook": [
+      "选择性必修1 化学反应原理 · 第四章 化学反应与电能 · 第二节 电解池 · 电解氯化铜溶液 · 电解饱和食盐水"
+    ],
+    "steps": [
+      "认识实验",
+      "接通电源",
+      "通得更久",
+      "看进去",
+      "换食盐水",
+      "阴极区变红",
+      "放电顺序",
+      "铜作阳极",
+      "考核 · 出 29.6 mg 铜"
+    ],
+    "file": "courses/electrolysis-step.html",
+    "cover": "covers/electrolysis-step.webp",
+    "online": "https://lab.tongjiang.app/c/electrolysis-step/"
+  },
+  {
+    "slug": "ammonia-step",
+    "subject": "chem",
+    "title": "氨的制备与性质（含喷泉实验）",
+    "type": "原理与现象",
+    "question": "一瓶氨气，凭什么能把烧杯里的水自己「吸」到瓶子里去？",
+    "textbook": [
+      "必修第二册 · 第五章 化工生产中的重要非金属元素 · 第二节 氮及其化合物 · 氨和铵盐"
+    ],
+    "steps": [
+      "整套装置",
+      "管口朝哪边",
+      "干燥剂选谁",
+      "怎么收集",
+      "收多久",
+      "验满与白烟",
+      "做喷泉",
+      "看进去",
+      "考核 · 做喷泉"
+    ],
+    "file": "courses/ammonia-step.html",
+    "cover": "covers/ammonia-step.webp",
+    "online": "https://lab.tongjiang.app/c/ammonia-step/"
+  },
+  {
+    "slug": "equilibrium-step",
+    "subject": "chem",
+    "title": "探究影响化学平衡移动的因素",
+    "type": "原理与实验",
+    "question": "改变一个条件，凭什么说平衡「往哪边移」？",
+    "textbook": [
+      "选择性必修1 化学反应原理 · 第二章 化学反应速率与化学平衡 · 实验活动1 探究影响化学平衡移动的因素"
+    ],
+    "steps": [
+      "认识实验台",
+      "铁管加料",
+      "铁粉减料",
+      "铬管加碱",
+      "铬管加酸",
+      "冷热两盆",
+      "看进去",
+      "误差 · 读数",
+      "考核"
+    ],
+    "file": "courses/equilibrium-step.html",
+    "cover": "covers/equilibrium-step.webp",
+    "online": "https://lab.tongjiang.app/c/equilibrium-step/"
+  },
+  {
+    "slug": "flame-step",
+    "subject": "chem",
+    "title": "焰色试验与原子光谱",
+    "type": "原理与现象",
+    "question": "金属在火焰里为什么各有各的颜色，这点颜色凭什么能当成「化验报告」？",
+    "textbook": [
+      "必修第一册 · 第二章 海水中的重要元素——钠和氯 · 第一节 钠及其化合物 · 焰色试验",
+      "选择性必修2 物质结构与性质 · 第一章 原子结构与性质 · 第一节 原子结构 · 原子光谱"
+    ],
+    "steps": [
+      "认识实验",
+      "洗净铂丝",
+      "钠双线",
+      "钾与钴玻璃",
+      "能量与波长",
+      "发射与吸收",
+      "六种金属",
+      "考核 · 验出钾"
+    ],
+    "file": "courses/flame-step.html",
+    "cover": "covers/flame-step.webp",
+    "online": "https://lab.tongjiang.app/c/flame-step/"
+  },
+  {
+    "slug": "galvanic-step",
+    "subject": "chem",
+    "title": "原电池：单液到双液",
+    "type": "原理与现象",
+    "question": "同一杯稀硫酸里已经有电流了，为什么还要换成两杯、再加一根盐桥？",
+    "textbook": [
+      "必修第二册 · 第六章 化学反应与能量 · 第一节 化学反应与能量变化 · 实验活动6 化学能转化成电能",
+      "选择性必修1 化学反应原理 · 第四章 化学反应与电能 · 第一节 原电池"
+    ],
+    "steps": [
+      "两台装置",
+      "接通导线",
+      "谁在流",
+      "单液的代价",
+      "换成双液",
+      "拔出盐桥",
+      "看进去",
+      "浓度",
+      "考核 · 组装"
+    ],
+    "file": "courses/galvanic-step.html",
+    "cover": "covers/galvanic-step.webp",
+    "online": "https://lab.tongjiang.app/c/galvanic-step/"
+  },
+  {
+    "slug": "conductivity-step",
+    "subject": "chem",
+    "title": "电解质的电离与溶液导电性、离子反应的实质",
+    "type": "原理与现象",
+    "question": "干手、湿手都是同一只手，为什么湿了反而容易触电？",
+    "textbook": [
+      "必修第一册 · 第一章 物质及其变化 · 第二节 离子反应",
+      "选择性必修1 化学反应原理 · 第三章 水溶液中的离子反应与平衡 · 第一节 电离平衡 · 强电解质和弱电解质"
+    ],
+    "steps": [
+      "认识台面",
+      "干燥与熔融",
+      "溶于水",
+      "水与蔗糖",
+      "强与弱",
+      "滴加稀硫酸",
+      "看进去",
+      "换错滴定剂",
+      "考核 · 找终点"
+    ],
+    "file": "courses/conductivity-step.html",
+    "cover": "covers/conductivity-step.webp",
+    "online": "https://lab.tongjiang.app/c/conductivity-step/"
+  },
+  {
+    "slug": "energy-step",
+    "subject": "phys",
+    "title": "实验：验证机械能守恒定律",
+    "type": "原理与现象",
+    "question": "重物下落时，减少的重力势能是不是正好变成了增加的动能？一条纸带能不能把这件事量出来？",
+    "textbook": [
+      "必修第二册 · 第八章 机械能守恒定律 · 第五节 实验：验证机械能守恒定律"
+    ],
+    "steps": [
+      "认识器材",
+      "先通电后释放",
+      "选点",
+      "量 h 算 v",
+      "记录作图",
+      "换重物",
+      "误差",
+      "考核"
+    ],
+    "file": "courses/energy-step.html",
+    "cover": "covers/energy-step.webp",
+    "online": "https://lab.tongjiang.app/c/energy-step/"
+  },
+  {
+    "slug": "soil-step",
+    "subject": "geo",
+    "title": "土壤的主要形成因素与土壤剖面观察",
+    "type": "原理与现象",
+    "question": "东北的土又黑又肥，南方的土为什么相对贫瘠？",
+    "textbook": [
+      "必修第一册 · 第五章 植被与土壤 · 第二节 土壤"
+    ],
+    "steps": [
+      "剖面",
+      "母质",
+      "生物",
+      "气候",
+      "地貌",
+      "时间",
+      "人",
+      "考核"
+    ],
+    "file": "courses/soil-step.html",
+    "cover": "covers/soil-step.webp",
+    "online": "https://lab.tongjiang.app/c/soil-step/"
+  },
+  {
+    "slug": "projectile-step",
+    "subject": "phys",
+    "title": "实验：探究平抛运动的特点",
+    "type": "原理与现象",
+    "question": "只靠一只斜槽和一块挡板，能不能把平抛拆成两个分运动、量出初速度？",
+    "textbook": [
+      "必修第二册 · 第五章 抛体运动 · 第三节 实验：探究平抛运动的特点"
+    ],
+    "steps": [
+      "认识器材",
+      "先做竖直",
+      "末端要水平",
+      "描四个点",
+      "定时间间隔",
+      "水平是匀速",
+      "换一条刻线",
+      "两种偏大",
+      "考核"
+    ],
+    "file": "courses/projectile-step.html",
+    "cover": "covers/projectile-step.webp",
+    "online": "https://lab.tongjiang.app/c/projectile-step/"
+  },
+  {
+    "slug": "transport-step",
+    "subject": "bio",
+    "title": "物质跨膜运输",
+    "type": "原理与现象",
+    "question": "同一片细胞膜，为什么氧能自己穿过去、葡萄糖要好几个蛋白帮忙、K⁺ 还能逆着浓度往里走？",
+    "textbook": [
+      "必修1 分子与细胞 · 第4章 细胞的物质输入和输出"
+    ],
+    "steps": [
+      "自由扩散",
+      "选择透过",
+      "协助扩散",
+      "载体与通道",
+      "主动运输",
+      "胞吞胞吐",
+      "汇总",
+      "考核"
+    ],
+    "file": "courses/transport-step.html",
+    "cover": "covers/transport-step.webp",
+    "online": "https://lab.tongjiang.app/c/transport-step/"
+  },
+  {
+    "slug": "nitric-lab-step",
+    "subject": "chem",
+    "title": "浓、稀硝酸的性质与氮氧化物的转化",
+    "type": "原理与现象",
+    "question": "同样是铜和硝酸，为什么一瓶冒红棕色气体、另一瓶什么颜色都没有？",
+    "textbook": [
+      "必修第二册 · 第五章 化工生产中的重要非金属元素 · 第二节 氮及其化合物 · 一氧化氮和二氧化氮、硝酸"
+    ],
+    "steps": [
+      "整套装置",
+      "铜丝插进去",
+      "换成稀硝酸",
+      "换成铁片",
+      "尾气去哪了",
+      "棕色瓶的道理",
+      "通入空气",
+      "振荡与看进去",
+      "考核 · 转化掉它"
+    ],
+    "file": "courses/nitric-lab-step.html",
+    "cover": "covers/nitric-lab-step.webp",
+    "online": "https://lab.tongjiang.app/c/nitric-lab-step/"
+  },
+  {
+    "slug": "centripetal-step",
+    "subject": "phys",
+    "title": "探究向心力大小与半径、角速度、质量的关系",
+    "type": "原理与现象",
+    "question": "这台手摇的演示器只给你两个标尺上的格数——能不能用它把 F 与 m、r、ω 的定量关系量出来？",
+    "textbook": [
+      "必修第二册 · 第六章 圆周运动 · 第二节 向心力 · 实验：探究向心力大小与半径、角速度、质量的关系"
+    ],
+    "steps": [
+      "认识演示器",
+      "仪器自检",
+      "质量关系",
+      "半径关系",
+      "角速度关系",
+      "三条合成一条式子",
+      "误差与错误操作",
+      "考核 · ω 是平方"
+    ],
+    "file": "courses/centripetal-step.html",
+    "cover": "covers/centripetal-step.webp",
+    "online": "https://lab.tongjiang.app/c/centripetal-step/"
+  },
+  {
+    "slug": "self-induction-step",
+    "subject": "phys",
+    "title": "自感与涡流",
+    "type": "原理与实验",
+    "question": "线圈里只是多绕了几圈铜线，为什么两只灯泡亮得不一样？开关已经断开了，灯泡凭什么还能再亮一下？",
+    "textbook": [
+      "选择性必修第二册 · 第二章 电磁感应 · 第四节 互感和自感",
+      "选择性必修第二册 · 第二章 电磁感应 · 第三节 涡流、电磁阻尼和电磁驱动"
+    ],
+    "steps": [
+      "认识器材",
+      "通电自感",
+      "断电自感",
+      "I-t 曲线",
+      "换线圈",
+      "真实器材",
+      "涡流",
+      "电磁阻尼",
+      "考核"
+    ],
+    "file": "courses/self-induction-step.html",
+    "cover": "covers/self-induction-step.webp",
+    "online": "https://lab.tongjiang.app/c/self-induction-step/"
+  },
+  {
+    "slug": "emf-step",
+    "subject": "phys",
+    "title": "测电源电动势和内阻",
+    "type": "原理与实验",
+    "question": "一节旧干电池的电动势和内阻，怎么用一只电压表、一只电流表和一个滑动变阻器「测」出来？换一种接法，测出来的还一样吗？",
+    "textbook": [
+      "必修第三册 · 第十二章 电能 能量守恒定律 · 第三节 实验：电池电动势和内阻的测量"
+    ],
+    "steps": [
+      "认识接法",
+      "先到最大",
+      "多测几组",
+      "作 U-I 图",
+      "纵轴起点",
+      "只测两组",
+      "换接法",
+      "误差分析",
+      "考核"
+    ],
+    "file": "courses/emf-step.html",
+    "cover": "covers/emf-step.webp",
+    "online": "https://lab.tongjiang.app/c/emf-step/"
+  },
+  {
+    "slug": "impulse-step",
+    "subject": "bio",
+    "title": "神经冲动的产生和传导",
+    "type": "原理与现象",
+    "question": "发令枪响后 0.1 s 内起跑就算抢跑（教材 p.27）——兴奋在身体里怎样「跑」过去？",
+    "textbook": [
+      "选择性必修1 稳态与调节 · 第2章 神经调节 · 第3节 神经冲动的产生和传导"
+    ],
+    "steps": [
+      "神经冲动",
+      "静息电位",
+      "动作电位",
+      "局部电流",
+      "突触",
+      "单向与延搁",
+      "可卡因",
+      "膜外 Na⁺",
+      "考核"
+    ],
+    "file": "courses/impulse-step.html",
+    "cover": "covers/impulse-step.webp",
+    "online": "https://lab.tongjiang.app/c/impulse-step/"
+  },
+  {
+    "slug": "bromine-step",
+    "subject": "chem",
+    "title": "海水提溴：空气吹出法",
+    "type": "工业流程",
+    "question": "海水里的溴只有 65 mg/L，怎么把它变成一瓶液溴？",
+    "textbook": [
+      "必修第二册 · 第八章 化学与可持续发展 · 第一节 自然资源的开发利用 · 海水资源的开发利用"
+    ],
+    "steps": [
+      "全场",
+      "酸化",
+      "氧化",
+      "吹出",
+      "吸收",
+      "提纯",
+      "考核"
+    ],
+    "file": "courses/bromine-step.html",
+    "cover": "covers/bromine-step.webp",
+    "online": "https://lab.tongjiang.app/c/bromine-step/"
+  },
+  {
+    "slug": "thermal-step",
+    "subject": "geo",
+    "title": "大气热力环流",
+    "type": "原理与现象",
+    "question": "台湾海峡两岸的风向，为什么一天里会反过来？",
+    "textbook": [
+      "必修第一册 · 第二章 地球上的大气 · 第二节 大气受热过程和大气运动 · 热力环流"
+    ],
+    "steps": [
+      "温差",
+      "高空",
+      "近地面",
+      "成环",
+      "强弱",
+      "海风",
+      "陆风",
+      "热岛",
+      "考核"
+    ],
+    "file": "courses/thermal-step.html",
+    "cover": "covers/thermal-step.webp",
+    "online": "https://lab.tongjiang.app/c/thermal-step/"
+  },
+  {
+    "slug": "mitosis-step",
+    "subject": "bio",
+    "title": "观察根尖分生区组织细胞的有丝分裂",
+    "type": "原理与现象",
+    "question": "一根洋葱根尖上，哪些细胞正在分裂？它们分裂一次各要多久？",
+    "textbook": [
+      "必修1 分子与细胞 · 第6章 细胞的生命历程 · 第1节 细胞的增殖 · 探究·实践：观察根尖分生区组织细胞的有丝分裂"
+    ],
+    "steps": [
+      "制片",
+      "找分生区",
+      "前期",
+      "中期",
+      "后期",
+      "末期",
+      "计数",
+      "算时长",
+      "考核"
+    ],
+    "file": "courses/mitosis-step.html",
+    "cover": "covers/mitosis-step.webp",
+    "online": "https://lab.tongjiang.app/c/mitosis-step/"
+  },
+  {
+    "slug": "sodium-step",
+    "subject": "chem",
+    "title": "金属钠的性质（含钠着火扑救）",
+    "type": "原理与现象",
+    "question": "一块银白色的小金属，为什么必须泡在煤油里，着火时连水都不能浇？",
+    "textbook": [
+      "必修第一册 · 第二章 海水中的重要元素——钠和氯 · 第一节 钠及其化合物 · 活泼的金属单质——钠"
+    ],
+    "steps": [
+      "认识实验",
+      "银白变暗",
+      "泡在煤油里",
+      "加热燃烧",
+      "浮熔游响红",
+      "钠块大小",
+      "看进去",
+      "着火扑救",
+      "考核"
+    ],
+    "file": "courses/sodium-step.html",
+    "cover": "covers/sodium-step.webp",
+    "online": "https://lab.tongjiang.app/c/sodium-step/"
+  },
+  {
+    "slug": "sulfur-step",
+    "subject": "chem",
+    "title": "硫、二氧化硫、浓硫酸的性质与不同价态含硫物质的转化",
+    "type": "原理与现象",
+    "question": "同样是硫，为什么有时它是黄色固体、有时让品红褪成无色、有时又跑进铁粉里？",
+    "textbook": [
+      "必修第二册 · 第五章 化工生产中的重要非金属元素 · 第一节 硫及其化合物",
+      "必修第二册 · 第五章 化工生产中的重要非金属元素 · 实验活动5 不同价态含硫物质的转化"
+    ],
+    "steps": [
+      "整套装置",
+      "硫粉 + 铁粉",
+      "浓硫酸与铜",
+      "浓还是稀",
+      "加热复原",
+      "三支检验管与棉团",
+      "归中到零价",
+      "看进去 · 价态电梯",
+      "考核 · 漂白到底"
+    ],
+    "file": "courses/sulfur-step.html",
+    "cover": "covers/sulfur-step.webp",
+    "online": "https://lab.tongjiang.app/c/sulfur-step/"
+  },
+  {
+    "slug": "wind-step",
+    "subject": "geo",
+    "title": "大气的水平运动——风",
+    "type": "原理与现象",
+    "question": "天气图上的风，为什么不是从高压直直吹向低压？",
+    "textbook": [
+      "必修第一册 · 第二章 地球上的大气 · 第二节 大气受热过程和大气运动 · 大气的水平运动——风"
+    ],
+    "steps": [
+      "等压线",
+      "梯度力",
+      "地转偏向",
+      "高空风",
+      "近地面",
+      "南半球",
+      "疏密",
+      "考核"
+    ],
+    "file": "courses/wind-step.html",
+    "cover": "covers/wind-step.webp",
+    "online": "https://lab.tongjiang.app/c/wind-step/"
+  },
+  {
+    "slug": "corrosion-step",
+    "subject": "chem",
+    "title": "吸氧腐蚀与暖贴的设计",
+    "type": "原理与现象",
+    "question": "铁生锈这么慢的事，凭什么能做出一个 45 ℃ 以上的暖贴？又凭什么反过来用它保护铁不生锈？",
+    "textbook": [
+      "选择性必修1 化学反应原理 · 第四章 化学反应与电能 · 第三节 金属的腐蚀与防护 · 研究与实践：暖贴的设计与制作"
+    ],
+    "steps": [
+      "台面四站",
+      "液柱为什么升",
+      "碳粉的角色",
+      "换成酸性",
+      "看进去",
+      "暖贴发热",
+      "捂住的代价",
+      "让锌替它锈",
+      "考核 · 设计暖贴"
+    ],
+    "file": "courses/corrosion-step.html",
+    "cover": "covers/corrosion-step.webp",
+    "online": "https://lab.tongjiang.app/c/corrosion-step/"
+  },
+  {
+    "slug": "enzyme-step",
+    "subject": "bio",
+    "title": "影响酶活性的条件",
+    "type": "原理与现象",
+    "question": "同一支酶，为什么放进沸水里就再也救不回来，放进冰水里却还能醒过来？",
+    "textbook": [
+      "必修1 分子与细胞 · 第5章 细胞的能量供应和利用 · 第1节 降低化学反应活化能的酶 · 探究·实践：影响酶活性的条件"
+    ],
+    "steps": [
+      "认识实验台",
+      "温度",
+      "pH",
+      "高温不可逆",
+      "低温可恢复",
+      "看进去",
+      "过酸过碱",
+      "考核 · 当实验员"
+    ],
+    "file": "courses/enzyme-step.html",
+    "cover": "covers/enzyme-step.webp",
+    "online": "https://lab.tongjiang.app/c/enzyme-step/"
+  },
+  {
+    "slug": "chlor-alkali-step",
+    "subject": "chem",
+    "title": "氯碱工业",
+    "type": "工业流程",
+    "question": "同样的电，怎样换来更多烧碱、更少电耗，又不出事故？",
+    "textbook": [
+      "选择性必修1 化学反应原理 · 第四章 化学反应与电能 · 第二节 电解池 · 电解饱和食盐水"
+    ],
+    "steps": [
+      "三样产品",
+      "先洗盐",
+      "剖开槽",
+      "膜里看",
+      "多加电",
+      "调槽温",
+      "拆掉膜",
+      "值班考核"
+    ],
+    "file": "courses/chlor-alkali-step.html",
+    "cover": "covers/chlor-alkali-step.webp",
+    "online": "https://lab.tongjiang.app/c/chlor-alkali-step/"
+  },
+  {
+    "slug": "hou-soda-step",
+    "subject": "chem",
+    "title": "侯氏制碱",
+    "type": "工业流程",
+    "question": "怎样用食盐和氨造出纯碱，还顺手拿到氮肥？",
+    "textbook": [
+      "必修第一册 · 第二章 海水中的重要元素——钠和氯 · 第一节 钠及其化合物 · 情境素材：侯氏制碱法"
+    ],
+    "steps": [
+      "从盐到碱",
+      "先氨后碳",
+      "为什么它自己析出",
+      "碳化温度",
+      "过滤分两路",
+      "煅烧成碱",
+      "母液与循环",
+      "你来当班长"
+    ],
+    "file": "courses/hou-soda-step.html",
+    "cover": "covers/hou-soda-step.webp",
+    "online": "https://lab.tongjiang.app/c/hou-soda-step/"
+  },
+  {
+    "slug": "current-field-step",
+    "subject": "phys",
+    "title": "电流的磁场",
+    "type": "原理与现象",
+    "question": "磁场看不见摸不着，怎么把它画出来、又怎么判断它的方向？",
+    "textbook": [
+      "必修第三册 · 第十三章 电磁感应与电磁波初步 · 第一节 磁场 磁感线"
+    ],
+    "steps": [
+      "铁屑显形",
+      "一圈圈同心圆",
+      "握导线定方向",
+      "疏密就是强弱",
+      "穿环绕回",
+      "多匝叠加",
+      "轴向衰减",
+      "内部匀强",
+      "考核 · 找管口"
+    ],
+    "file": "courses/current-field-step.html",
+    "cover": "covers/current-field-step.webp",
+    "online": "https://lab.tongjiang.app/c/current-field-step/"
+  },
+  {
+    "slug": "brownian-step",
+    "subject": "phys",
+    "title": "布朗运动与扩散",
+    "type": "原理与现象",
+    "question": "看不见的分子，凭什么说它在乱动？",
+    "textbook": [
+      "选择性必修第三册 · 第一章 分子动理论 · 第一节 分子动理论的基本内容"
+    ],
+    "steps": [
+      "看见它在动",
+      "30 秒一个点",
+      "越久越远",
+      "微粒越小越明显",
+      "温度越高越剧烈",
+      "撞出来的",
+      "单次不等于统计",
+      "扩散：浓度展开",
+      "考核 · 动得更明显"
+    ],
+    "file": "courses/brownian-step.html",
+    "cover": "covers/brownian-step.webp",
+    "online": "https://lab.tongjiang.app/c/brownian-step/"
+  },
+  {
+    "slug": "water-cycle-step",
+    "subject": "geo",
+    "title": "水循环的过程与地理意义",
+    "type": "原理与现象",
+    "question": "江河不断注入大海，为什么大海的水没有增多？",
+    "textbook": [
+      "必修第一册 · 第三章 地球上的水 · 第一节 水循环"
+    ],
+    "steps": [
+      "全景",
+      "蒸发",
+      "蒸腾",
+      "输送",
+      "下渗",
+      "三类",
+      "砂田",
+      "意义",
+      "考核"
+    ],
+    "file": "courses/water-cycle-step.html",
+    "cover": "covers/water-cycle-step.webp",
+    "online": "https://lab.tongjiang.app/c/water-cycle-step/"
+  },
+  {
+    "slug": "circulation-step",
+    "subject": "geo",
+    "title": "气压带、风带与三圈环流",
+    "type": "原理与现象",
+    "question": "麦哲伦船队为什么有的航段逆风、有的顺风，到了 30°S 附近却寸步难行？",
+    "textbook": [
+      "选择性必修1 自然地理基础 · 第三章 大气的运动 · 第二节 气压带和风带"
+    ],
+    "steps": [
+      "赤道低压",
+      "30° 下沉",
+      "60° 爬升",
+      "七带六风",
+      "季节移动",
+      "海陆分布",
+      "考核 · 麦哲伦"
+    ],
+    "file": "courses/circulation-step.html",
+    "cover": "covers/circulation-step.webp",
+    "online": "https://lab.tongjiang.app/c/circulation-step/"
+  }
+]

@@ -119,6 +119,9 @@ def install_argos(models: Path, scratch: Path) -> None:
         if installed.exists(): raise RuntimeError(f"existing translation package failed verification: {installed}")
         package, extracted = scratch / f"translate-{name}-1_9.argosmodel", scratch / name
         checked_download(url, package, expected); safe_extract(package, extracted)
+        if not (extracted / "model" / "model.bin").is_file():
+            nested = extracted / f"translate-{name}-1_9"
+            if nested.is_dir(): extracted = nested
         if not (extracted / "model" / "model.bin").is_file() or not (extracted / "sentencepiece.model").is_file():
             raise RuntimeError(f"translation package {name} has an unexpected layout")
         (extracted / ".omnihub-package-sha256").write_text(expected + "\n", encoding="ascii")

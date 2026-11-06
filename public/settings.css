@@ -80,7 +80,7 @@
 .settings-theme-heading h2 { margin:0; font-size:16px; font-weight:600; }
 .settings-theme-mode { display:flex; flex:none; align-items:center; gap:10px; color:var(--text-2); font-size:13px; cursor:pointer; }
 .settings-theme-grid { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:16px; }
-.settings-theme-card { display:flex; flex-direction:column; min-width:0; padding:0; overflow:hidden; border:1px solid var(--border); border-radius:10px; background:var(--surface); color:var(--text); font:inherit; text-align:left; cursor:pointer; transition:border-color .15s ease; }
+.settings-theme-card { display:flex; flex-direction:column; min-width:0; padding:0; overflow:hidden; border:1px solid var(--border); border-radius:10px; background:var(--surface); color:var(--text); font:inherit; text-align:left; cursor:pointer; transition:border-color .15s var(--ease-out); }
 .settings-theme-card:hover { border-color:var(--text-3); }
 .settings-theme-card[aria-pressed="true"] { border-color:var(--accent); outline:1px solid var(--accent); outline-offset:0; }
 .settings-palette { display:grid; grid-template-columns:1.4fr 1fr 1fr; width:100%; height:128px; border-bottom:1px solid var(--border); }
@@ -210,6 +210,7 @@
 
 /* 专题 catalogue (#topics) and the in-topic breadcrumb (#life-guide…). */
 .topics-catalog { min-width:0; max-width:1120px; }
+.topics-catalog.tools-catalog { max-width:none; }
 .topics-head h1 { margin:0 0 8px; font-size:24px; }
 .topics-head p { margin:0 0 24px; color:var(--text-3); font-size:13px; line-height:1.7; }
 .topics-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(260px,1fr)); gap:12px; margin:0; padding:0; list-style:none; }
@@ -224,3 +225,5 @@
 .topic-breadcrumb a:hover { color:var(--accent); }
 .topic-breadcrumb a:focus-visible { outline:2px solid var(--accent); outline-offset:2px; border-radius:4px; }
 .topic-breadcrumb [aria-current="page"] { color:var(--text); font-weight:600; }
+
+.user-access-settings{max-width:1040px}.user-access-settings>header,.permission-group>header,.user-access-title{display:flex;gap:16px;align-items:flex-start;justify-content:space-between}.user-access-settings h2,.user-access-settings h3,.permission-group h4{margin:0}.user-access-settings p,.permission-group p{color:var(--text-3);line-height:1.65}.user-access-layout{display:grid;grid-template-columns:230px minmax(0,1fr);border:1px solid var(--border);border-radius:12px;overflow:hidden;background:var(--surface)}.user-access-layout>aside{padding:12px;border-right:1px solid var(--border);background:var(--bg-sunken)}.user-access-layout>aside h3{font-size:13px;margin:8px}.user-access-layout>aside .input{width:100%;margin:0 0 8px}.user-access-layout>aside button{display:flex;width:100%;flex-direction:column;gap:3px;padding:11px;border:0;border-radius:7px;background:transparent;color:var(--text);text-align:left}.user-access-layout>aside button.selected{background:var(--accent-soft);color:var(--accent)}.user-access-layout>aside small{color:var(--text-3)}.user-access-empty{padding:8px;margin:0;font-size:12px}.user-access-layout>main{padding:24px;min-width:0}.user-access-title h3{font-size:17px}.user-access-title p{margin:4px 0}.permission-group{padding:18px 0;border-top:1px solid var(--border)}.permission-group header{align-items:center}.permission-group h4{font-size:14px}.permission-group p{margin:4px 0}.permission-options{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin-top:12px}.permission-options label{display:flex;align-items:center;gap:8px;padding:10px;border:1px solid var(--border);border-radius:7px;background:var(--bg)}.user-access-layout footer{display:flex;justify-content:flex-end;gap:8px;margin-top:20px}.user-access-admin{padding:16px;border:1px solid var(--border);border-radius:8px;background:var(--bg-sunken)}.user-access-skeleton{display:grid;gap:10px}.user-access-skeleton i{display:block;height:46px;border-radius:8px;background:var(--bg-sunken)}@media(max-width:700px){.user-access-layout{grid-template-columns:1fr}.user-access-layout>aside{border-right:0;border-bottom:1px solid var(--border)}.permission-options{grid-template-columns:1fr}}

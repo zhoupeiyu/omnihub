@@ -91,7 +91,70 @@ const VIDEO_TOOL_CATALOG = Object.freeze([
     icon: IconWrench,
     badge: "上传文件 · AI 工具",
   },
+  {
+    id: "camera-recipes",
+    name: "运镜与镜头配方",
+    description: "按镜头意图挑选运镜提示词，整理成可执行的短片镜头卡。",
+    icon: IconBookOpen,
+    badge: "提示词 · 分镜",
+  },
+  {
+    id: "omniget-download",
+    name: "OmniGet 下载",
+    description: "解析公开作品并按需下载。",
+    icon: IconDownload,
+    badge: "公开链接",
+  },
 ]);
+const CAMERA_MOVE_LIBRARY = Object.freeze([
+  { id: "locked", category: "基础与定机", name: "固定机位", use: "交代环境、让表演和画面稳定落下", prompt: "Locked-off camera, stable composition, no camera movement; keep the subject readable and hold the final frame.", zh: "固定机位，构图稳定，无镜头运动；保持主体清晰，结尾停在可读画面。" },
+  { id: "push-in", category: "推进与轨道", name: "缓慢推进", use: "把注意力收束到人物、产品或细节", prompt: "Slow controlled dolly in toward the main subject, natural parallax, steady framing, end on a clean close composition.", zh: "镜头平稳缓慢推进至主体，自然视差，构图稳定，收在干净的近景。" },
+  { id: "pull-out", category: "推进与轨道", name: "缓慢拉远", use: "从情绪或细节回到环境与关系", prompt: "Slow dolly out from the subject, reveal the surrounding environment gradually, maintain a calm stable horizon.", zh: "镜头从主体缓慢拉远，逐步展示环境，保持平静稳定的水平线。" },
+  { id: "orbit", category: "环绕与跟随", name: "半环绕", use: "给人物或产品增加层次与立体感", prompt: "Smooth half-orbit around the subject, consistent distance and eye-level camera, controlled parallax, finish on a flattering three-quarter angle.", zh: "镜头围绕主体平滑半环绕，距离与机位高度一致，控制视差，收在舒适的三分之四角度。" },
+  { id: "track", category: "环绕与跟随", name: "侧向跟拍", use: "适合走路、展示空间或产品移动", prompt: "Side tracking shot moving with the subject, keep pace constant, preserve separation between foreground and background.", zh: "镜头与主体侧向同速跟拍，保持节奏稳定，保留前景、中景和背景层次。" },
+  { id: "reveal", category: "特殊与转场", name: "遮挡揭示", use: "用于开场、产品亮相或空间转场", prompt: "Begin behind a soft foreground occlusion, glide forward to reveal the subject, keep the reveal deliberate and end in a balanced frame.", zh: "从柔和前景遮挡后开始，平滑前移揭示主体，揭示过程克制，收在平衡构图。" },
+  { id: "crane", category: "空间与航空", name: "升降俯视", use: "展示场景尺度、桌面或空间关系", prompt: "Gentle crane up from eye level to a high wide view, keep the subject centered while the space opens beneath the camera.", zh: "镜头从平视缓慢升至高位广角，主体保持在画面中心，空间在镜头下方展开。" },
+  { id: "pan", category: "平摇与俯仰", name: "平稳横摇", use: "从一个信息点带到另一个信息点", prompt: "Smooth horizontal pan from the opening subject to the destination subject, level horizon, constant speed, settle before the cut.", zh: "从起始主体平稳横摇到目标主体，保持水平线与匀速，剪辑前稳定落幅。" },
+  { id: "tilt", category: "平摇与俯仰", name: "向上仰摇", use: "强调建筑、高度、人物气势", prompt: "Controlled tilt up from the lower detail to the upper subject, steady axis, retain readable vertical lines.", zh: "镜头从下方细节受控上摇至上方主体，转轴稳定，保留清晰的垂直线条。" },
+  { id: "handheld", category: "人机与质感", name: "克制手持", use: "纪实、现场感和轻微紧张感", prompt: "Subtle handheld camera with restrained natural micro-movement, keep the subject framed and avoid excessive shake.", zh: "克制的手持镜头，保留自然微小运动，主体始终在画面内，避免过度抖动。" },
+  { id: "whip", category: "特殊与转场", name: "快速甩镜", use: "强节奏转场，必须有清楚的起止画面", prompt: "Fast whip pan transition between two readable compositions, brief motion blur only during the turn, settle sharply on the destination.", zh: "在两组清晰构图间快速甩镜转场，仅转动时产生短暂运动模糊，目标画面迅速稳定。" },
+  { id: "zoom", category: "推进与轨道", name: "变焦强调", use: "制造突然注意力或复古感，谨慎使用", prompt: "Deliberate slow optical zoom toward the key detail, keep the camera position fixed and preserve the subject in focus.", zh: "镜头位置固定，刻意缓慢光学变焦至关键细节，保持主体清晰对焦。" },
+  { id: "static-detail", category: "基础与定机", name: "静态细节", use: "给材质、手部或关键物品一个呼吸点", prompt: "Locked close detail shot, no camera move, shallow depth of field, let the texture and action remain readable.", zh: "固定近景细节镜头，无运动，浅景深，让材质与动作保持清晰。" },
+  { id: "slow-push", category: "推进与轨道", name: "极慢推近", use: "适合情绪积累和高级感产品亮相", prompt: "Very slow cinematic push in, barely perceptible camera travel, preserve the subject's position and finish with a quiet hold.", zh: "极慢电影感推近，镜头位移几乎不可察，主体位置稳定，结尾安静停顿。" },
+  { id: "slider-left", category: "推进与轨道", name: "滑轨左移", use: "通过视差呈现前中后景层次", prompt: "Short slider move to the left, gentle parallax across foreground and background, keep the subject in the safe frame.", zh: "镜头短距离向左滑轨移动，前后景产生柔和视差，主体保持在安全构图内。" },
+  { id: "slider-right", category: "推进与轨道", name: "滑轨右移", use: "与左移形成可剪辑的方向语法", prompt: "Short slider move to the right, controlled parallax, maintain an even horizon and a readable end frame.", zh: "镜头短距离向右滑轨移动，控制视差，保持水平线与清晰的结束构图。" },
+  { id: "arc-push", category: "环绕与跟随", name: "弧线推进", use: "在推进中轻微改变角度，增强空间感", prompt: "Arc dolly toward the subject on a gentle curved path, subtle parallax, finish at a three-quarter angle.", zh: "镜头沿柔和弧线推进至主体，产生轻微视差，收在三分之四角度。" },
+  { id: "full-orbit", category: "环绕与跟随", name: "完整环绕", use: "适合静态产品、雕塑感人物或空间中心", prompt: "Controlled full orbit around the centered subject, consistent radius and speed, keep the background motion smooth.", zh: "围绕居中主体做受控完整环绕，半径与速度一致，背景运动平顺。" },
+  { id: "follow-back", category: "环绕与跟随", name: "背跟", use: "带观众进入人物视线所在的空间", prompt: "Follow behind the subject at walking pace, stable shoulder-height framing, let the destination reveal naturally.", zh: "以行走速度从背后跟拍主体，稳定肩高机位，让目的地自然出现。" },
+  { id: "lead-follow", category: "环绕与跟随", name: "前引跟拍", use: "人物走向镜头，适合自信出场", prompt: "Lead the subject from the front while moving backward smoothly, keep eye line and face stable in frame.", zh: "镜头平稳后退并从前方引导主体，保持眼神线与面部构图稳定。" },
+  { id: "handheld-follow", category: "人机与质感", name: "手持跟随", use: "更贴近人物行动，但避免纪实抖动过强", prompt: "Natural handheld follow shot with small controlled sway, keep the action legible and avoid abrupt framing loss.", zh: "自然手持跟随，小幅受控摇摆，动作清晰，避免突然丢失构图。" },
+  { id: "pan-left", category: "平摇与俯仰", name: "向左横摇", use: "从右侧信息回到左侧主体", prompt: "Smooth pan left from the opening detail to the destination subject, keep the horizon level and settle before the end.", zh: "从起始细节平稳向左横摇至目标主体，保持水平线，结尾稳定停住。" },
+  { id: "tilt-down", category: "平摇与俯仰", name: "向下俯摇", use: "从人物或建筑落到关键动作与物品", prompt: "Controlled tilt down from the upper subject to the lower detail, steady axis, land on a clear point of focus.", zh: "从上方主体受控向下俯摇到下方细节，转轴稳定，落在明确焦点。" },
+  { id: "roll", category: "平摇与俯仰", name: "轻微旋转", use: "仅用于不安、梦境或强调失衡", prompt: "Subtle camera roll during a stable shot, restrained angle change, preserve the subject and avoid disorienting rotation.", zh: "稳定镜头中加入轻微旋转，角度变化克制，主体保持清晰，避免失控眩晕。" },
+  { id: "top-down", category: "空间与航空", name: "垂直俯拍", use: "展示桌面、群体关系或产品排列", prompt: "Top-down overhead shot, camera perpendicular to the surface, balanced graphic composition, no perspective drift.", zh: "垂直俯拍，镜头与平面垂直，构图平衡有图形感，不产生透视漂移。" },
+  { id: "drone-rise", category: "空间与航空", name: "航拍上升", use: "从人物或建筑揭开更大的空间", prompt: "Drone rise from a low establishing view to a higher wide view, smooth ascent, keep the location readable.", zh: "航拍从低位建立镜头平稳上升至高位广角，地点信息始终清晰。" },
+  { id: "drone-descend", category: "空间与航空", name: "航拍下降", use: "从大环境落向人物或事件", prompt: "Drone descend gently toward the main action, controlled speed, transition from wide context to readable subject.", zh: "航拍平稳下降至主要动作，速度受控，从环境广角过渡到清晰主体。" },
+  { id: "fly-through", category: "空间与航空", name: "穿越空间", use: "从门、窗或通道穿过进入新场景", prompt: "Smooth fly-through moving through a doorway or opening into the next space, preserve forward direction and avoid collisions.", zh: "镜头平滑穿过门洞或开口进入下一空间，保持前进方向，避免碰撞感。" },
+  { id: "fpv-dive", category: "空间与航空", name: "FPV 俯冲", use: "高能量进入，适合运动与场景转换", prompt: "Controlled FPV dive toward the destination, fast but readable trajectory, level out into a stable final frame.", zh: "受控 FPV 俯冲至目标区域，轨迹快速但可读，结尾拉平至稳定画面。" },
+  { id: "rack-focus", category: "人机与质感", name: "焦点转移", use: "不移动机位也能在两层信息间切换", prompt: "Static camera with a deliberate rack focus from foreground detail to background subject, smooth focus transition, no camera travel.", zh: "固定机位，从前景细节刻意移焦到背景主体，焦点过渡平滑，无镜头位移。" },
+  { id: "breathing", category: "人机与质感", name: "呼吸式轻推", use: "让静态画面有细微生命感", prompt: "Minimal breathing camera drift, almost imperceptible forward and backward motion, calm and intimate, keep the frame stable.", zh: "极细微呼吸式前后漂移，安静亲密，构图保持稳定。" },
+  { id: "crash-zoom", category: "特殊与转场", name: "冲击变焦", use: "做强重音，不连续滥用", prompt: "One decisive crash zoom toward the key subject, brief impact energy, immediately settle into a sharp stable frame.", zh: "向关键主体做一次果断冲击变焦，短暂重音后立刻稳定在清晰画面。" },
+  { id: "match-cut", category: "特殊与转场", name: "形状匹配转场", use: "让两场景中的相似形状或动作无缝衔接", prompt: "Match cut between two scenes using a shared shape, direction, or gesture; align the subject position and preserve visual continuity.", zh: "利用共享形状、方向或动作在两场景间匹配剪辑；对齐主体位置，保留视觉连续性。" },
+  { id: "speed-ramp", category: "特殊与转场", name: "速度渐变", use: "在动作关键点压缩或释放时间", prompt: "Speed ramp through one decisive action: normal pace into a brief fast passage, then resolve into a stable hold.", zh: "围绕一个关键动作做速度渐变：正常节奏进入短暂加速，再落回稳定停顿。" },
+  { id: "freeze", category: "特殊与转场", name: "定格收束", use: "作为片尾、标题或强调点", prompt: "Move into a clean final composition and hold a deliberate freeze frame, leave clear negative space for a title.", zh: "运动进入干净的终局构图后有意识定格，为标题保留清晰留白。" },
+  { id: "silhouette-reveal", category: "特殊与转场", name: "逆光剪影揭示", use: "先给轮廓再给信息，适合人物或新品", prompt: "Start with a backlit silhouette, slowly reveal facial or product detail with a controlled camera move, preserve rim light.", zh: "从逆光剪影开始，以受控镜头运动逐步揭示人物或产品细节，保留轮廓光。" },
+  { id: "dutch-push", category: "人机与质感", name: "倾斜推进", use: "表现压力或异常，仅用于有叙事理由的画面", prompt: "Slow push in with a restrained Dutch angle, keep the subject readable and use the tilt only to support tension.", zh: "带克制荷兰角的缓慢推进，主体保持清晰，倾斜只为服务紧张感。" },
+  { id: "low-angle", category: "基础与定机", name: "低机位仰视", use: "强调力量、尺度或产品高度", prompt: "Low-angle stable shot looking up at the subject, preserve vertical lines and leave room above for scale.", zh: "低机位稳定仰视主体，保留垂直线，并在上方留下尺度感空间。" },
+  { id: "high-angle", category: "基础与定机", name: "高机位俯视", use: "呈现脆弱、秩序或桌面关系", prompt: "High-angle stable shot looking down at the subject, balanced composition, keep all key objects readable.", zh: "高机位稳定俯视主体，构图平衡，让关键物体保持可读。" },
+  { id: "dolly-zoom", category: "推进与轨道", name: "推拉变焦", use: "用透视变化制造心理冲击，适合少量重点镜头", prompt: "Dolly zoom on the subject: camera travels forward as focal length widens, preserve subject size while the background perspective shifts.", zh: "对主体做推拉变焦：镜头前移同时拉广焦距，主体大小稳定，背景透视发生变化。" },
+  { id: "orbit-reveal", category: "环绕与跟随", name: "环绕揭示", use: "利用前景或人物转身揭开隐藏信息", prompt: "Orbit past a foreground edge to reveal the hidden subject, keep the motion smooth and end on a composed reveal.", zh: "镜头绕过前景边缘揭示隐藏主体，运动平滑，结尾收在完整揭示构图。" },
+  { id: "lens-flare", category: "人机与质感", name: "掠光经过", use: "在真实光源下增加温度与节奏", prompt: "Camera glides past a practical light source, subtle natural lens flare, retain contrast and keep the main subject visible.", zh: "镜头掠过真实光源，产生细微自然炫光，保留对比与主体可见性。" },
+  { id: "macro-glide", category: "推进与轨道", name: "微距掠过", use: "沿材质、文字或产品边缘建立触感", prompt: "Macro glide along the product surface, shallow focus, slow controlled travel, let highlights reveal texture without losing the key detail.", zh: "镜头沿产品表面微距掠过，浅景深、缓慢受控移动，用高光展示材质且不丢失关键细节。" },
+  { id: "rack-and-push", category: "人机与质感", name: "移焦后推进", use: "先告诉观众看什么，再把注意力交给主体", prompt: "Rack focus from a foreground cue to the subject, then begin a gentle push in after focus locks; keep each action clearly separated.", zh: "从前景线索移焦到主体，焦点锁定后再轻微推进；两个动作清楚分开。" },
+  { id: "door-swing", category: "特殊与转场", name: "开门入场", use: "用可见动作把观众带入室内或新场景", prompt: "Camera follows a door opening and moves through the doorway into the new space, keep the transition motivated by the action.", zh: "镜头跟随门被打开并穿过门洞进入新空间，让转场由动作自然驱动。" },
+  { id: "slow-arc-out", category: "环绕与跟随", name: "弧线拉远", use: "让人物与环境关系逐步显现", prompt: "Arc slowly away from the subject on a curved path, reveal the environment while preserving a calm composed frame.", zh: "镜头沿弧线缓慢远离主体，在保持安静构图的同时揭示环境。" },
+]);
+const SHOTCRAFT_METADATA_URL = "/assets/creator-skills/shotcraft-cards.json";
 const videoPlatformName = {
   douyin: "抖音",
   tiktok: "TikTok",
@@ -150,7 +213,33 @@ const videoTabForHash = (hash) => {
   const tab = workspaceHashParams(hash).get("tab");
   return VIDEO_TOOL_TABS.some((item) => item.id === tab) ? tab : "download";
 };
-function VideoToolsWorkspace({ active, userKey, showToast, referenceAccess = false, onCreateReference }) {
+function standaloneVideoToolForHash(hash) {
+  const route = workspaceHashName(hash);
+  if (route === "camera-recipes") return "camera";
+  if (route === "omniget") return "omniget";
+  // Existing bookmarks keep working, but now render the independent tool page
+  // instead of reopening a tab inside the media workspace.
+  if (route === "media-tools" || route === "video-tools") {
+    const tab = workspaceHashParams(hash).get("tab");
+    if (tab === "camera" || tab === "omniget") return tab;
+  }
+  return "";
+}
+function StandaloneVideoToolWorkspace({ kind, active, space, showToast }) {
+  const title = kind === "camera" ? "运镜与镜头配方" : "OmniGet 下载";
+  return <section className="video-tool-center standalone-video-tool" aria-labelledby={`standalone-${kind}-title`}>
+    <header className="video-center-heading">
+      <a className="video-breadcrumb" href={`#tools?space=${space}`}>← 所有工具</a>
+      <h1 id={`standalone-${kind}-title`}>{title}</h1>
+    </header>
+    {kind === "camera"
+      ? <CameraRecipeWorkspace visible={active} space={space} showToast={showToast} />
+      : typeof OmnigetWorkspace === "function"
+      ? <OmnigetWorkspace active={active} />
+      : <p role="alert">OmniGet 工具暂时不可用。</p>}
+  </section>;
+}
+function VideoToolsWorkspace({ active, userKey, userId, showToast, referenceAccess = false, toolAccess = new Set(['media','markdown','camera','omniget']), onCreateReference }) {
   const [hash, setHash] = React.useState(window.location.hash);
   const tabsRef = React.useRef(null);
   const visibleTabs = VIDEO_TOOL_TABS.filter(item => !item.private || referenceAccess);
@@ -182,10 +271,17 @@ function VideoToolsWorkspace({ active, userKey, showToast, referenceAccess = fal
     space = workspaceHashParams(hash).get("space") === "mine"
       ? "mine"
       : "public";
-  if (route === 'ai-art' && referenceAccess) return <AiArtWorkspace key={userKey} active={active} hash={hash} showToast={showToast} onCreate={onCreateReference} />;
+  const standaloneTool = standaloneVideoToolForHash(hash);
+  if (route === 'markdown-editor') return toolAccess.has('markdown') ? <MarkdownToolWorkspace space={space} /> : <ToolAccessDenied/>;
+  if (route === 'pdf-compress') return toolAccess.has('pdf') ? <PdfCompressWorkspace showToast={showToast}/> : <ToolAccessDenied/>;
+  if (route === 'ai-art') return referenceAccess ? <AiArtWorkspace key={userKey} active={active} hash={hash} userId={userId} showToast={showToast} onCreate={onCreateReference} /> : <ToolAccessDenied/>;
+  if (standaloneTool) return toolAccess.has(standaloneTool)
+    ? <StandaloneVideoToolWorkspace kind={standaloneTool} active={active} space={space} showToast={showToast} />
+    : <ToolAccessDenied/>;
   if (
     route !== "media-tools" && route !== "video-tools" && !videoLegacyTab[route]
-  ) return <ToolCatalog key={userKey} space={space} active={active} referenceAccess={referenceAccess} />;
+  ) return <ToolCatalog key={userKey} space={space} active={active} referenceAccess={referenceAccess} toolAccess={toolAccess} />;
+  if (!toolAccess.has('media')) return <ToolAccessDenied/>;
   const changeTab = (next) => {
     const params = new URLSearchParams();
     params.set("tab", next);
@@ -264,25 +360,75 @@ function VideoToolsWorkspace({ active, userKey, showToast, referenceAccess = fal
     </section>
   );
 }
-function ToolCatalog({ space, active, referenceAccess = false }) {
+function MarkdownToolWorkspace({ space }) {
+  const container = React.useRef(null);
+  const [fullscreen, setFullscreen] = React.useState(false);
+  React.useEffect(() => {
+    const sync = () => setFullscreen(document.fullscreenElement === container.current);
+    document.addEventListener("fullscreenchange", sync);
+    return () => document.removeEventListener("fullscreenchange", sync);
+  }, []);
+  return <section ref={container} className="markdown-tool-workspace" aria-label="Markdown 排版">
+    <header className="markdown-tool-toolbar">
+      <h1>Markdown 排版</h1>
+      <nav aria-label="编辑器操作">
+        <a className="btn" href="/apps/mdskill/index.html" target="_blank" rel="noopener noreferrer">独立打开 ↗</a>
+        <button className="btn" type="button" onClick={() => {
+          const action = document.fullscreenElement ? document.exitFullscreen() : container.current?.requestFullscreen();
+          action?.catch(() => {});
+        }}>{fullscreen ? "退出全屏" : "全屏"}</button>
+      </nav>
+    </header>
+    <LoadingFrame title="MDskill Markdown 编辑器" src="/apps/mdskill/index.html" allow="clipboard-write; fullscreen" />
+  </section>;
+}
+function ToolAccessDenied(){return <section className="tool-access-denied"><h1>工具暂未授权</h1><p>请联系管理员在“设置 → 用户与权限”中开通相应工具。</p></section>;}
+function PdfCompressWorkspace({showToast}){return <section className="pdf-compress-workspace" aria-label="PDF 压缩"><PdfCompressTool showToast={showToast}/></section>;}
+function ToolCatalog({ space, active, referenceAccess = false, toolAccess = new Set(['media','markdown','camera','omniget']) }) {
   return (
     <section
       className="topics-catalog tools-catalog tool-catalog"
       aria-label="工具"
     >
       <ul className="topics-grid">
-        <li>
+        {toolAccess.has('media')&&<li>
           <a
             className="topics-card video-tool-card"
             href={`#media-tools?tab=download&space=${space}`}
           >
+            <CoverCardSkeleton /><img className="video-tool-cover" src="/assets/tool-covers/media-tools-v1.png" alt="" decoding="async" />
             <strong>媒体工具</strong>
             <span className="video-tool-description">下载、视频处理、图片处理与素材库。</span>
           </a>
-        </li>
+        </li>}
+        {toolAccess.has('camera')&&<li>
+          <a className="topics-card video-tool-card camera-tool-card" href={`#camera-recipes?space=${space}`}>
+            <strong>运镜与镜头配方</strong>
+            <span className="video-tool-description">选择可复用的运镜提示词，再把镜头节奏整理为短片配方。</span>
+          </a>
+        </li>}
+        {toolAccess.has('omniget')&&<li>
+          <a className="topics-card video-tool-card omniget-tool-card" href={`#omniget?space=${space}`}>
+            <strong>OmniGet 下载</strong>
+            <span className="video-tool-description">解析公开作品并按需下载。</span>
+          </a>
+        </li>}
+        {toolAccess.has('markdown')&&<li>
+          <a className="topics-card video-tool-card" href={`#markdown-editor?space=${space}`}>
+            <CoverCardSkeleton /><img className="video-tool-cover" src="/apps/mdskill/cover.png" alt="" loading="lazy" decoding="async" />
+            <strong>Markdown 排版</strong>
+            <span className="video-tool-description">主题排版、一键复制与图片、HTML 导出。</span>
+          </a>
+        </li>}
+        {toolAccess.has('pdf')&&<li>
+          <a className="topics-card pdf-tool-card" href={`#pdf-compress?space=${space}`}>
+            <strong>PDF 压缩</strong>
+            <span>上传本地 PDF，选择清晰度后压缩并下载。</span>
+          </a>
+        </li>}
         {referenceAccess && <li>
           <a className="topics-card ai-art-card" href="#ai-art?space=mine">
-            <AiArtCover active={active} />
+            <CoverCardSkeleton /><AiArtCover active={active} />
             <strong>AI 作图</strong>
             <span className="ai-art-description">人物、服装、姿势参考与 AI 创作。</span>
           </a>
@@ -290,6 +436,130 @@ function ToolCatalog({ space, active, referenceAccess = false }) {
       </ul>
     </section>
   );
+}
+const CAMERA_PREVIEW_ROOT = "https://aicameramovements.com/previews/hq/";
+const CAMERA_PREVIEWS = Object.freeze({
+  locked: "01-static-shot-hq", "push-in": "08-dolly-in-hq", "pull-out": "09-dolly-out-hq",
+  track: "19-side-tracking-hq", crane: "25-crane-up-hq", pan: "02-pan-right-hq", reveal: "13-push-past-pass-by-shot-hq",
+  tilt: "04-tilt-up-hq", handheld: "23-handheld-shot-hq", whip: "03-whip-pan-right-hq",
+  zoom: "05-slow-zoom-in-hq", "slider-left": "12b-slider-left-hq", "slider-right": "12-slider-right-hq",
+  "full-orbit": "15-orbit-clockwise-hq", "follow-back": "17-follow-shot-over-the-shoulder-hq",
+  "lead-follow": "18-reverse-tracking-walk-and-talk-hq", "pan-left": "2b-pan-left-hq",
+  "tilt-down": "4b-tilt-down-hq", "fly-through": "s6-pass-through-objects-hq",
+  "crash-zoom": "07a-crash-zoom-in-v2-hq"
+});
+const CAMERA_WHITEBOX_PREVIEWS = Object.freeze({"orbit": "07_orbit", "static-detail": "105_insert_detail", "slow-push": "52_slow_creep", "arc-push": "24_arc_inward", "drone-rise": "06_crane_up", "drone-descend": "18_high_descend", "fpv-dive": "27_fpv_dive", "rack-focus": "34_rack_focus", "breathing": "134_breathing_drift", "speed-ramp": "131_speed_ramp", "freeze": "133_push_freeze", "dutch-push": "30_dolly_in_dutch", "low-angle": "57_low_angle_hero", "high-angle": "56_high_angle", "dolly-zoom": "10_vertigo_push", "orbit-reveal": "24_arc_inward", "slow-arc-out": "25_arc_outward"});
+const CAMERA_WHITEBOX_FALLBACKS = Object.freeze({
+  locked: "00_static", "push-in": "01_dolly_in", "pull-out": "02_dolly_out", track: "39_walk_side",
+  reveal: "24_arc_inward", crane: "06_crane_up", handheld: "20_handheld", zoom: "11_zoom_in",
+  "follow-back": "37_walk_follow", "lead-follow": "38_walk_lead", "crash-zoom": "13_crash_zoom",
+  "fly-through": "64_push_through", pan: "03_pan", "pan-left": "03_pan_mirror",
+  tilt: "04_tilt", "tilt-down": "04_tilt_reverse",
+  "slider-left": "05_truck", "slider-right": "05_truck_mirror"
+});
+function CameraMovePreview({ item }) {
+  const clip = CAMERA_WHITEBOX_PREVIEWS[item.id];
+  const video = CAMERA_PREVIEWS[item.id];
+  const external = {
+    "top-down": { video: "/assets/camera-other/topdown-writing-pexels-6830880.mp4", poster: "/assets/camera-other/topdown-writing-pexels-6830880.jpg", source: "https://www.pexels.com/video/overhead-shot-of-a-love-letter-on-a-table-6830880/", label: "垂直俯拍示例 · cottonbro studio" },
+    "silhouette-reveal": { video: "/assets/camera-other/silhouette-reverse-pexels.mp4", poster: "/assets/camera-other/silhouette-reverse-pexels.jpg", source: "https://www.pexels.com/video/silhouette-of-woman-in-warm-backlight-34016973/", label: "逆光参考（倒放示意）· Alexander Mass" },
+    "macro-glide": { video: "/assets/camera-other/macro-glide-pexels.mp4", poster: "/assets/camera-other/macro-glide-pexels.jpg", source: "https://www.pexels.com/video/panning-shot-on-the-scrabble-tiles-and-a-clapperboard-5651594/", label: "微距掠过示例 · Tima Miroshnichenko" },
+    "lens-flare": { video: "/assets/camera-other/light-pass-pexels.mp4", poster: "/assets/camera-other/light-pass-pexels.jpg", source: "https://www.pexels.com/video/silhouette-of-woman-in-warm-backlight-34016973/", label: "掠光参考 · Alexander Mass" },
+    "door-swing": { video: "/assets/camera-other/door-open-pexels.mp4", poster: "/assets/camera-other/door-open-pexels.jpg", source: "https://www.pexels.com/video/opening-an-antique-door-to-a-vintage-room-34835402/", label: "开门揭示示例 · Belén Montero" },
+    "roll": { video: "https://ialchemy.org/camera-samples/dutch-roll.mp4", poster: "https://ialchemy.org/camera-samples/dutch-roll.jpg", source: "https://ialchemy.org/camera-movements", label: "示例 · iALCHEMY" },
+    "handheld-follow": { video: "https://cdn.starrdcdn.com/template-assets/camera-movements/handheld-follow.mp4", poster: "https://jpsgqxabsyoszaxywdki.supabase.co/storage/v1/object/public/template-assets/camera-movements/handheld-follow-poster.jpg", source: "https://www.getstarrd.app/camera-movements/handheld-follow", label: "示例 · Starrd" },
+    "match-cut": { video: "https://media.maxvideoai.com/renders/301cc489-d689-477f-94c4-0b051deda0bc/61dbdd60-f1bd-4422-967b-54fbbd1c29ab.mp4", poster: "https://media.maxvideoai.com/renders/301cc489-d689-477f-94c4-0b051deda0bc/0c5f5b6a-0feb-4d89-8ac1-4dcc55995a80.jpg", source: "https://maxvideoai.com/video/wan-3-prime-ai-match-cut-transitions", label: "示例 · MaxVideoAI" }
+  }[item.id];
+  const [failed, setFailed] = React.useState(false);
+  const [usingFallback, setUsingFallback] = React.useState(false);
+  if (item.id === "rack-and-push") return <div className="camera-preview-pair"><span>分步示意：先移焦，再推进 · <a href="https://github.com/q2522879285-source/camera-moves-whitebox" target="_blank" rel="noopener noreferrer">hong hou zi</a></span>{[["34_rack_focus", "移焦"], ["01_dolly_in", "推进"]].map(([file, label]) => <div key={file} className="camera-preview"><video src={`/assets/camera-whitebox-preview/${file}.mp4`} poster={`/assets/camera-whitebox-preview/${file}.jpg`} muted loop playsInline preload="none" controls aria-label={`${label}示例`} /><span className="camera-preview-source">{label}示例</span></div>)}</div>;
+  if ((!video && !clip && !external) || failed) return <div className="camera-preview camera-preview-empty"><span>{failed ? "预览暂时不可用" : "暂无对应视频"}</span><a href="https://aicameramovements.com/#finder" target="_blank" rel="noopener noreferrer">查看参考站</a></div>;
+  const selectedClip = usingFallback ? CAMERA_WHITEBOX_FALLBACKS[item.id] : clip;
+  const base = selectedClip ? `/assets/camera-whitebox-preview/${selectedClip}` : `${CAMERA_PREVIEW_ROOT}${video}`;
+  const src = (!usingFallback && external?.video) || `${base}.mp4`;
+  const poster = (!usingFallback && external?.poster) || `${base}.jpg`;
+  const source = selectedClip ? "https://github.com/q2522879285-source/camera-moves-whitebox" : external?.source || "https://aicameramovements.com/#finder";
+  const portrait = ["door-swing", "silhouette-reveal", "lens-flare"].includes(item.id);
+  const fallbackLabel = item.id === "locked" ? "备用白膜示意（定格）· hong hou zi" : ["pan-left", "slider-right"].includes(item.id) ? "备用白膜示意（镜像）· hong hou zi" : item.id === "tilt-down" ? "备用白膜示意（倒放）· hong hou zi" : "备用白膜示意 · hong hou zi";
+  return <div className={`camera-preview${portrait ? " camera-preview--portrait" : ""}`} style={portrait ? { "--camera-poster": `url("${poster}")` } : undefined}><video key={src} src={src} poster={poster} muted loop playsInline preload="none" autoPlay={usingFallback} controls aria-label={`${item.name}运镜预览`} onError={() => { if (!usingFallback && CAMERA_WHITEBOX_FALLBACKS[item.id]) setUsingFallback(true); else setFailed(true); }} /><a className="camera-preview-source" href={source} target="_blank" rel="noopener noreferrer">{selectedClip ? (usingFallback ? fallbackLabel : ["breathing", "freeze"].includes(item.id) ? "白膜改编示意 · hong hou zi" : "白膜示意 · hong hou zi") : external?.label || "视频来源"}</a></div>;
+}
+function CameraRecipeWorkspace({ visible, space, showToast }) {
+  const [query, setQuery] = React.useState("");
+  const [category, setCategory] = React.useState("全部");
+  const [shotcraft, setShotcraft] = React.useState({ loading: true, error: "", data: null });
+  const [shotQuery, setShotQuery] = React.useState("");
+  const [shotCategory, setShotCategory] = React.useState("全部");
+  React.useEffect(() => {
+    const controller = new AbortController();
+    fetch(SHOTCRAFT_METADATA_URL, { signal: controller.signal }).then(async response => {
+      if (!response.ok) throw Error("镜头卡元数据暂时不可用");
+      const data = await response.json();
+      if (!Array.isArray(data.cards) || data.cards.length !== 124) throw Error("镜头卡数据不完整");
+      setShotcraft({ loading: false, error: "", data });
+    }).catch(error => {
+      if (error.name !== "AbortError") setShotcraft({ loading: false, error: error.message || "镜头卡元数据暂时不可用", data: null });
+    });
+    return () => controller.abort();
+  }, []);
+  const categories = ["全部", ...new Set(CAMERA_MOVE_LIBRARY.map(item => item.category))];
+  const normalized = query.trim().toLowerCase();
+  const moves = CAMERA_MOVE_LIBRARY.filter(item =>
+    (category === "全部" || item.category === category) &&
+    (!normalized || `${item.name} ${item.category} ${item.use} ${item.prompt} ${item.zh}`.toLowerCase().includes(normalized)),
+  );
+  const copy = async (value) => {
+    try {
+      await navigator.clipboard.writeText(value);
+      showToast?.("运镜提示词已复制");
+    } catch {
+      showToast?.("复制失败，请手动选择提示词");
+    }
+  };
+  const shotCards = shotcraft.data?.cards || [];
+  const shotCategories = ["全部", ...new Set(shotCards.map(item => item.category))];
+  const normalizedShot = shotQuery.trim().toLowerCase();
+  const filteredShots = shotCards.filter(item => (shotCategory === "全部" || item.category === shotCategory) && (!normalizedShot || `${item.name} ${item.summary} ${item.use} ${item.tags?.join(" ")}`.toLowerCase().includes(normalizedShot)));
+  const useShotcraftCard = (card) => {
+    const repository = shotcraft.data.source.repository;
+    const source = {
+      title: `Shotcraft 镜头卡 · ${card.name}`,
+      summary: [`镜头概述：${card.summary}`, `适用：${card.use}`, `时长：${card.duration}`, `节奏：${card.energy}`, `意图：${card.intention}`].filter(Boolean).join("\n\n"),
+      origin: "video-shotcraft · Apache-2.0 元数据",
+      url: repository,
+      shotcraft: { version: 1, card: { ...card }, repository, license: "Apache-2.0" },
+    };
+    try { sessionStorage.setItem("omnihub:creator-source", JSON.stringify(source)); } catch { showToast?.("浏览器无法暂存镜头卡，请复制内容后继续"); return; }
+    window.location.hash = "#studio?space=mine&view=content";
+    window.dispatchEvent(new Event("omnihub:creator-source"));
+  };
+  return <section className="camera-recipe-workspace" hidden={!visible} aria-label="运镜与镜头配方">
+    <header className="camera-recipe-head">
+      <div><p>创作辅助</p><h2>运镜与镜头配方</h2><span>先选镜头意图，再替换主体、场景与画风。提示词为本站原创整理，参考通用电影摄影术语。</span></div>
+      <a className="btn" href="#studio?space=mine">打开创作台</a>
+    </header>
+    <div className="camera-recipe-controls">
+      <label className="camera-search"><IconSearch /><input value={query} onChange={event => setQuery(event.target.value)} type="search" placeholder="搜索运镜、意图或英文术语" aria-label="搜索运镜提示词" /></label>
+      <div className="camera-filter" aria-label="运镜类别">{categories.map(item => <button type="button" key={item} className={category === item ? "active" : ""} onClick={() => setCategory(item)}>{item}</button>)}</div>
+    </div>
+    <div className="camera-move-grid">
+      {moves.map(item => <article key={item.id} className="camera-move-card">
+        <CameraMovePreview item={item} />
+        <p>{item.category}</p><h3>{item.name}</h3><span>{item.use}</span>
+        <div className="camera-prompt"><strong>EN</strong><code>{item.prompt}</code><strong>中文</strong><code>{item.zh}</code></div>
+        <button className="btn btn-ghost" type="button" onClick={() => copy(`${item.prompt}\n${item.zh}`)}><IconCopy />复制提示词</button>
+      </article>)}
+      {moves.length === 0 && <p className="camera-empty">没有匹配的运镜。试试“推进”“跟拍”或 “orbit”。</p>}
+    </div>
+    <section className="shotcraft-recipes" aria-labelledby="shotcraft-recipes-title">
+      <div className="shotcraft-recipes-head"><div><p>Apache-2.0 镜头卡元数据</p><h2 id="shotcraft-recipes-title">Shotcraft 镜头库</h2><span>{shotcraft.data ? `已导入 ${shotcraft.data.stats.cardCount} 张镜头卡与 ${shotcraft.data.stats.styleCount} 种样式。只保留元数据，不加载上游预览视频或品牌素材。` : "正在读取镜头卡元数据…"}</span></div><a href="https://github.com/Vincentwei1021/video-shotcraft" target="_blank" rel="noopener noreferrer">查看 Shotcraft ↗</a></div>
+      {shotcraft.error ? <p className="camera-empty">{shotcraft.error}</p> : <>
+        <div className="shotcraft-controls"><label className="camera-search"><IconSearch /><input value={shotQuery} onChange={event => setShotQuery(event.target.value)} type="search" placeholder="搜索镜头卡、用途或标签" aria-label="搜索 Shotcraft 镜头卡" /></label><div className="camera-filter" aria-label="Shotcraft 镜头类别">{shotCategories.map(item => <button type="button" key={item} className={shotCategory === item ? "active" : ""} onClick={() => setShotCategory(item)}>{item}</button>)}</div></div>
+        <div className="shotcraft-recipe-grid">{filteredShots.map(card => <article key={card.name}><p className="shotcraft-category">{card.category}</p><h3>{card.name}</h3><p>{card.summary}</p><dl><div><dt>适用场景</dt><dd>{card.use}</dd></div><div><dt>时长 / 节奏</dt><dd>{[card.duration, card.energy].filter(Boolean).join(" · ")}</dd></div></dl><div className="shotcraft-card-actions"><button className="btn btn-ghost" type="button" onClick={() => copy([card.name, card.summary, card.use, card.intention].filter(Boolean).join("\n\n"))}><IconCopy />复制镜头卡</button><button className="btn" type="button" onClick={() => useShotcraftCard(card)}>加入创作台</button></div></article>)}</div>
+        {!shotcraft.loading && filteredShots.length === 0 && <p className="camera-empty">没有匹配的镜头卡。</p>}
+      </>}
+      <p className="shotcraft-note">来源：video-shotcraft，Apache-2.0。部分卡片的独立实现来源说明保留在随包附带的 ATTRIBUTION 文件中。镜头卡只用于策划与创作台材料，不会直接生成视频。</p>
+    </section>
+  </section>;
 }
 function useToolData(active, kind, extra = "") {
   const [jobs, setJobs] = React.useState([]),
@@ -299,13 +569,13 @@ function useToolData(active, kind, extra = "") {
       features: {},
     }),
     [loading, setLoading] = React.useState(true),
-    [error, setError] = React.useState("");
+    [error, setError] = React.useState(""),
+    [loadError, setLoadError] = React.useState("");
   const refresh = React.useCallback(async (signal) => {
     const state = await videoToolApi("/api/tools/video/status", { signal });
     if (signal?.aborted) return state;
-    setStatus(state);
     if (state.available === false) {
-      setJobs([]);
+      setStatus(state); setJobs([]); setLoadError("");
       return state;
     }
     const result = await videoToolApi(
@@ -314,7 +584,8 @@ function useToolData(active, kind, extra = "") {
     );
     if (signal?.aborted) return state;
     setJobs(result.jobs || []);
-    setStatus((value) => ({ ...value, scope: result.scope || value.scope }));
+    setStatus({ ...state, scope: result.scope || state.scope });
+    setLoadError("");
     return state;
   }, [kind, extra]);
   React.useEffect(() => {
@@ -322,9 +593,12 @@ function useToolData(active, kind, extra = "") {
     let dead = false;
     const controller = new AbortController();
     setLoading(true);
-    refresh(controller.signal).then(() => !dead && setError("")).catch((e) =>
-      !dead && setError(e.message)
-    ).finally(() => !dead && setLoading(false));
+    setLoadError("");
+    setStatus({ available: null, scope: null, features: {} });
+    setJobs([]);
+    refresh(controller.signal).then(() => !dead && setError("")).catch((e) => {
+      if (!dead) { setError(e.message); setLoadError(e.message); }
+    }).finally(() => !dead && setLoading(false));
     return () => {
       dead = true;
       controller.abort();
@@ -339,6 +613,7 @@ function useToolData(active, kind, extra = "") {
       }).catch((e) => {
         if (!controller.signal.aborted) {
           setError(e.message);
+          setLoadError(e.message);
           setJobs((items) => [...items]);
         }
       }), 2500);
@@ -356,7 +631,7 @@ function useToolData(active, kind, extra = "") {
       ),
     [],
   );
-  return { jobs, status, loading, error, setError, refresh, update };
+  return { jobs, status, loading, error, loadError, setError, refresh, update };
 }
 function ToolShell(
   {
@@ -397,7 +672,7 @@ function ToolShell(
   const inputRef = React.useRef(null);
   const [inputExpanded, setInputExpanded] = React.useState(Boolean(videoHandoffInput(initialParams)) && !initialParams.has("job"));
   const inputCount = isDownload ? videoInputLinks(text).length : 0;
-  const { jobs, status, update, setError, error, loading, refresh } =
+  const { jobs, status, update, setError, error, loadError, loading, refresh } =
     useToolData(
       active,
       isDownload ? "download" : isTranscript ? "transcript" : "collection",
@@ -751,7 +1026,7 @@ function ToolShell(
               </div>
             </div>
           </form>
-          <ScopeNote scope={scope} />
+          <ScopeNote scope={loading || (isDownload && mediaData.loading && mediaData.jobs.length === 0) ? null : scope} error={loadError} />
           {isTranscript && (
             <p className="tool-hint">
               单次转写最多 10 分钟，完成后可复制全文或下载 TXT。
@@ -823,7 +1098,7 @@ function ToolShell(
               }}
               showToast={showToast}
             />
-          )} {!mediaSelected && !job && !loading && (
+          )} {!mediaSelected && !job && !loading && !error && (
             <div className="video-idle">
               <tool.icon />
               <div>
@@ -834,11 +1109,12 @@ function ToolShell(
                     ? "先保存，再转成文字"
                     : "预览并下载素材"}
                 </strong>
-                <p>{isDownload ? "粘贴链接开始解析，或从下载记录中选择一条素材。" : "原始输入会和记录一起保留，随时可以重新解析。"}</p>
+                <p>{isDownload ? "粘贴链接开始解析，或从下载记录中选择一条素材。" : isTranscript ? "粘贴已发布作品的链接，提交后可在这里查看转写进度和文字。" : "粘贴公开作者主页或合集链接，提交后可在这里浏览作品。"}</p>
               </div>
             </div>
           )}
-          {isDownload && !job && !mediaJob && loading && <div className="video-idle" role="status"><span className="video-spinner" /><p>正在读取下载记录…</p></div>}
+          {!mediaSelected && !job && loading && <div className="video-result-pending" role="status" aria-label="正在读取结果" aria-busy="true"><p className="loading-sr">正在读取结果</p><span className="sk-line"/><span className="sk-line"/><span className="sk-line"/></div>}
+          {!mediaSelected && !job && !loading && error && <div className="video-idle" role="alert"><div><strong>结果暂时无法读取</strong><p>请检查提示后重试。</p></div></div>}
           <footer className="video-tool-footer">
             普通记录保留 30 天 · 素材记录保留 180 天 · 文件缓存可重新准备
           </footer>
@@ -850,10 +1126,18 @@ function ToolShell(
             ? "浏览记录"
             : isTranscript
             ? "转写记录"
+            : loading || (isDownload && mediaData.loading && mediaData.jobs.length === 0)
+            ? "正在确认下载记录归属"
+            : error && !scope
+            ? "下载记录暂不可用"
+            : !scope
+            ? "正在确认下载记录归属"
             : scope === "private"
             ? "我的下载记录"
             : "公共下载记录"}
           jobs={isDownload?[...jobs,...mediaData.jobs.filter(item=>item.operation==='download')].sort((a,b)=>b.created-a.created):jobs}
+          pending={loading || (isDownload && mediaData.loading)}
+          error={loadError || (isDownload ? mediaData.error : '')}
           selected={mediaSelected||job?.id}
           submitting={submitting}
           onSelect={(item) => {if(item.engine==='media')setMediaSelected(item.id);else {setMediaSelected('');setSelected(item.id);}window.location.hash=`#media-tools?${new URLSearchParams({tab:ownTab,space,job:item.id,...(item.engine==='media'?{engine:'media'}:{})})}`;}}
@@ -879,7 +1163,7 @@ function ToolLinks({ current, space }) {
     </nav>
   );
 }
-function ScopeNote({ scope }) {
+function ScopeNote({ scope, error = '' }) {
   return (
     <p
       className={`video-scope-note ${scope === "private" ? "is-private" : ""}`}
@@ -889,7 +1173,7 @@ function ScopeNote({ scope }) {
         ? "个人记录 · 原始输入、文件与处理记录仅你可见"
         : scope === "public"
         ? "公开记录 · 未登录提交的原文和处理记录对所有人可见"
-        : "正在确认记录归属…"}
+        : error ? "暂时无法确认记录归属，请重试" : "正在确认记录归属…"}
     </p>
   );
 }
@@ -1045,7 +1329,7 @@ function ToolResult(
       )}
       {job.error && <p className="video-error">{job.error}</p>}
       {mode === "video-download" && job.state === "parsed" && !job.error && !previewFailed && (
-        <p className="video-pending-text"><span className="video-spinner" />正在加载预览…</p>
+        <LoadingSkeleton variant="player" label="正在加载预览" />
       )}
       {videoBusy(job) && (
         <p className="video-pending-text">
@@ -1293,7 +1577,7 @@ function OriginalInput({ job, busy, onCopy, onFill, onRetry }) {
   );
 }
 function ToolHistory(
-  { title, jobs, selected, submitting, onSelect, onRetry, onCopy, compact = false },
+  { title, jobs, selected, submitting, onSelect, onRetry, onCopy, compact = false, pending = false, error = '' },
 ) {
   const [query, setQuery] = React.useState("");
   const visible = jobs.filter((item) =>
@@ -1306,7 +1590,7 @@ function ToolHistory(
       <div className="video-history-heading">
         <div>
           <h2>{title}</h2>
-          <span>{jobs.length} 条记录</span>
+          <span>{pending && !jobs.length ? '正在读取记录…' : error && !jobs.length ? '记录读取失败' : `${jobs.length} 条记录`}</span>
         </div>
         <IconClock />
       </div>
@@ -1323,7 +1607,9 @@ function ToolHistory(
         </label>
       )}
       {visible.length === 0
-        ? <p className="video-history-empty">{query ? "没有匹配的记录" : "还没有记录"}</p>
+        ? pending && !jobs.length ? <div className="video-history-pending" role="status" aria-label="正在读取记录" aria-busy="true"><span className="sk-line"/><span className="sk-line"/></div>
+        : error && !jobs.length ? <p className="video-history-empty" role="alert">记录未能读取，请稍后重试。</p>
+        : <p className="video-history-empty">{query ? "没有匹配的记录" : "还没有记录"}</p>
         : (
           <ul>
             {visible.map((item) => (
@@ -1567,7 +1853,7 @@ function MediaQuickPreview({ items, index, onChange, onClose }) {
                 key={item.id}
                 controls
                 playsInline
-                preload="metadata"
+                preload="none"
                 poster={cover ? mediaFileHref(item, cover, true) : undefined}
                 src={mediaFileHref(item, video, true)}
               />
@@ -2042,7 +2328,7 @@ function MediaLibrary({ active, hash, space, showToast, onNavigate }) {
         </div>
       )}
       <div className="library-toolbar-note">
-        <span>{loading ? "正在读取…" : `${items.length} 项素材`}</span>
+        <span>{loading && !items.length ? <span className="sk-line" style={{display:"inline-block",width:88}} aria-label="正在读取数量" /> : `${items.length} 项素材`}</span>
         <span>单击查看详情 · 双击或空格预览</span>
       </div>
       <div
@@ -2051,8 +2337,8 @@ function MediaLibrary({ active, hash, space, showToast, onNavigate }) {
         }`}
       >
         <div ref={listRef} className="library-grid">
-          {loading
-            ? <p>正在读取素材…</p>
+          {loading && !items.length
+            ? <LoadingSkeleton variant="gallery" label="正在读取素材" />
             : items.length === 0
             ? <p>{pickerMode?'没有匹配的素材，可返回处理页上传文件。':'还没有可用素材。'}</p>
             : items.map((item, index) => {
@@ -2097,7 +2383,7 @@ function MediaLibrary({ active, hash, space, showToast, onNavigate }) {
                         )
                         : isText
                         ? <p>{item.transcript.text}</p>
-                        : hasVideo && file ? <MediaThumbnail src={mediaFileHref(item, file, true)} video />
+                        : hasVideo && file ? <span aria-label="视频，点击预览播放">▶ 视频</span>
                         : hasAudio ? <span>♫ 音频</span>
                         : <span>等待文件</span>}
                       <span className="library-type">{typeLabel}</span>

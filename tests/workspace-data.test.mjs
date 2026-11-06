@@ -15,7 +15,7 @@ test('each module loads only its collections; repository owns its single request
   assert.deepEqual(requests('inbox'),[]);
   assert.deepEqual(requests('inbox',true),[['inbox','/api/inbox/list']]);
   assert.deepEqual(requests('resources'),[]); assert.deepEqual(requests('works'),[]); assert.deepEqual(requests('studio'),[]);
-  assert.deepEqual(requests('resources',true),[['favorites','/api/favorites']]);
+  assert.deepEqual(requests('resources',true),[]);
   assert.deepEqual(requests('works',true),[['mediaAssets','/api/media/assets']]);
   assert.equal(requests('studio',true).length,2);
 });

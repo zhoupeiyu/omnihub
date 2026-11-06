@@ -1,0 +1,12 @@
+{
+  "license": "https://unsplash.com/license",
+  "images": {
+    "courses.jpg": "https://images.unsplash.com/photo-1434030216411-0b793f4b4173",
+    "materials.jpg": "https://images.unsplash.com/photo-1452587925148-ce544e77e70d",
+    "books.jpg": "https://images.unsplash.com/photo-1507842217343-583bb7270b66",
+    "ai.jpg": "https://images.unsplash.com/photo-1635070041078-e363dbe005cb",
+    "development.jpg": "https://images.unsplash.com/photo-1461749280684-dccba630e2f6",
+    "business.jpg": "https://images.unsplash.com/photo-1460925895917-afdab827c52f",
+    "finance.jpg": "https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3"
+  }
+}

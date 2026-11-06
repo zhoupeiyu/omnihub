@@ -499,7 +499,7 @@ function detailMarkup(repo) {
       <div id="detail-guide-meta">${renderRepositoryGuideMeta(guide,{readmeUrl})}</div>
       <details class="detail-sources"><summary>资料来源</summary><div class="detail-sources-content">
         <div id="detail-guide-sources">${renderRepositoryGuideSources(guide)}</div>
-        <div id="detail-collection-sources"><p class="detail-loading" role="status">正在读取收藏来源…</p></div>
+        <div id="detail-collection-sources"><div class="detail-loading-skeleton" role="status" aria-label="正在读取收藏来源" aria-busy="true"><i></i><i></i><i></i></div></div>
       </div></details>
     </div>
   </div>
@@ -509,7 +509,7 @@ function detailMarkup(repo) {
       <h3>仓库介绍<span class="section-kicker">${description.translated ? '中文整理 · ' : ''}${official ? '依据已收录的 GitHub 内容' : '依据已保存的收藏介绍，尚待核对'}</span></h3>
       <p class="official-description" lang="zh-CN">${escapeHtml(description.text)}</p>
       ${description.translated || description.status === 'pending' ? `<details class="description-original"><summary>查看原文</summary><p class="original-description" dir="auto">${escapeHtml(description.original)}</p></details>` : ''}
-      <p class="detail-hint" data-guide-message role="status">正在加载中文使用指南，先展示已保存的仓库介绍。</p>
+      <div class="detail-loading-skeleton" data-guide-message role="status" aria-label="正在加载中文使用指南" aria-busy="true"><i></i><i></i><i></i></div>
       ${link(readmeUrl,'查看官方使用说明 ↗','inline-link')}
     </section>`}</div>
     ${repo.personalNote ? `<section class="detail-section"><h3>我的笔记</h3><p>${escapeHtml(repo.personalNote)}</p></section>` : ''}
@@ -549,7 +549,7 @@ async function openDetail(key, fromHistory = false) {
     if (controller.signal.aborted || state.detail !== key || dialog.hidden) return;
     if (!guide) {
       const message = root.querySelector('[data-guide-message]');
-      if (message) message.textContent = '暂时无法加载这份指南。可以先查看官方说明，或稍后重新打开详情。';
+      if (message) { message.textContent = '暂时无法加载这份指南。可以先查看官方说明，或稍后重新打开详情。'; message.className = 'detail-hint'; message.removeAttribute('aria-busy'); message.removeAttribute('aria-label'); }
       return;
     }
     activeGuide = guide;

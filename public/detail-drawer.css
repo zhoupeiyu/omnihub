@@ -66,3 +66,5 @@ html { scrollbar-gutter:stable; }
 @media (pointer:coarse), (max-width:600px) { .detail-drawer-close { width:44px; height:44px; } }
 @media (max-width:600px) { .detail-drawer { width:100%; border-left:0; } .detail-drawer-header { padding-inline:16px 10px; } .detail-drawer-body { padding:20px 16px; } .detail-drawer .drawer-foot { padding-inline:16px; } }
 @media (prefers-reduced-motion:reduce) { .detail-drawer, .detail-drawer-backdrop { animation:none; } .detail-drawer-close { transition:none; } }
+
+.detail-loading-skeleton{display:grid;gap:10px;padding:16px 0}.detail-loading-skeleton i{display:block;height:12px;width:90%;border-radius:6px;background:linear-gradient(90deg,var(--bg-sunken,#eee),var(--surface,#fafafa),var(--bg-sunken,#eee));background-size:200% 100%;animation:detail-loading-shimmer 1.8s ease-in-out infinite}.detail-loading-skeleton i:first-child{width:60%}.detail-loading-skeleton i:last-child{width:36%}@keyframes detail-loading-shimmer{from{background-position:200% 0}to{background-position:-200% 0}}@media(prefers-reduced-motion:reduce){.detail-loading-skeleton i{animation:none}}

@@ -538,7 +538,7 @@ function create(root,handlers){
     var bits=[];
     if(meta.date)bits.push("日期 "+meta.date);
     if(meta.commit)bits.push("commit "+String(meta.commit).slice(0,12));
-    if(bits.length)srcEl.appendChild(document.createTextNode(bits.join(" · ")));
+    if(bits.length){var detail=document.createElement("details");var summary=document.createElement("summary");summary.textContent="更新记录";detail.appendChild(summary);var record=document.createElement("span");record.textContent=bits.join(" · ");detail.appendChild(record);srcEl.appendChild(detail);}
     var url=blobUrl(meta,meta.file);
     var repoUrl=safeUrl(String(meta.repository||""));
     var link=url?extLink("原始来源",url):(repoUrl?extLink("原作者",repoUrl):null);

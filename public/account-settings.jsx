@@ -89,7 +89,7 @@ function AccountSettings({ active = true }) {
       </div>
     </div>
     {xError && <div className="connection-error" role="alert"><p>{xError}</p><button className="btn" disabled={Boolean(busy)} onClick={() => loadX()}>重试 X 连接</button></div>}
-    {!xAccount && !xError && <p className="sync-meta" role="status">正在读取连接…</p>}
+    {!xAccount && !xError && <LoadingSkeleton variant="compact" count={2} label="正在读取连接" />}
     {xAccount?.connected && <>
       <div id={xManagementId} hidden={!manageX} className="x-account-tools">
         <span className="sync-meta">断开账号会停止同步，已有收藏保留。</span>
@@ -208,7 +208,7 @@ function LocalCurationSettings() {
       <section className="connection-section sync-module local-curation-section" aria-label="本地整理设备">
         <div className="sync-module-heading"><h3>本地整理设备</h3>{localCuration && <div className="sync-toggle-label"><span>接收任务</span><button className="settings-switch" role="switch" aria-label="本地整理设备接收任务" aria-checked={Boolean(localCuration.enabled)} disabled={Boolean(busy) || !canCreateDevice} onClick={() => saveLocalSettings(!localCuration.enabled)}><span /></button></div>}</div>
         {connectionsError && <div className="connection-error" role="alert"><p>{connectionsError}</p><button className="btn" disabled={Boolean(busy)} onClick={() => loadConnections()}>重试个人连接</button></div>}
-        {!localCuration && !connectionsError && <p className="sync-meta" role="status">正在读取设备…</p>}
+        {!localCuration && !connectionsError && <LoadingSkeleton variant="compact" count={2} label="正在读取设备" />}
         {localCuration && <>
           <div className="sync-row"><span className="sync-meta">{activeDeviceCount} 台有效设备{!savedLocalModel && ' · 尚未配置模型'}</span><button className="btn btn-ghost" aria-expanded={configureLocal} aria-controls={localConfigurationId} onClick={() => setConfigureLocal(value => !value)}>配置与设备</button></div>
           {localError && <p className="connection-error-text" role="alert">{localError}</p>}

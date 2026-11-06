@@ -9,7 +9,7 @@ import { createHash } from 'node:crypto';
 import { createXCosMedia } from '../lib/x-cos-media.js';
 import { planXImages, prepareXImages } from '../lib/x-cos-archive.js';
 
-const png = Buffer.from('iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/x8AAwMCAO+a6v8AAAAASUVORK5CYII=', 'base64');
+const png = Buffer.from('iVBORw0KGgoAAAANSUhEUgAAAAIAAAACCAYAAABytg0kAAAAFUlEQVR4nGP8z8Dwn4GBgYEJRIAwAB8XAgICR7MUAAAAAElFTkSuQmCC', 'base64');
 const source = 'https://pbs.twimg.com/media/fixture.png';
 const id = createHash('sha256').update(source).digest('hex');
 const media = [{type:'photo',url:source,alt_text:'Example'}, {type:'video',preview_image_url:source,video_url:'https://video.twimg.com/a.mp4'}];
@@ -64,6 +64,8 @@ test('falls back to COS on a missing cache, checks checksum, and rechecks revoca
   let remoteCalls=0, visible=true;
   const store=createXCosMedia({directory,readRemote:async()=>{remoteCalls++;return png;}});
   const [a,b]=await Promise.all([call(store),call(store)]);assert.equal(a.status,200);assert.equal(b.status,200);assert.equal(remoteCalls,1);
+  assert.equal((await call(createXCosMedia({directory,readRemote:async()=>{remoteCalls++;return png;}}))).status,200);assert.equal(remoteCalls,1);
+  await rm(path.join(directory,'read-cache'),{recursive:true,force:true});
   const corrupt=createXCosMedia({directory,readRemote:async()=>Buffer.from('wrong')});
   assert.equal((await call(corrupt)).status,503);
   const revoked=createXCosMedia({directory,readRemote:async()=>{visible=false;return png;}});
@@ -130,3 +132,13 @@ test('both frontend galleries accept only the precise same-origin archive route'
     for (const url of ['/api/me','//evil.test/a','javascript:alert(1)','http://evil.test/a']) assert.equal(context.parse({media:[{type:'photo',url}]}).length,0);
   }
 });
+
+test('thumbnail cache avoids original fetches and never bypasses permissions',async()=>fixture(async directory=>{
+ const store=createXCosMedia({directory,readRemote:async()=>{throw Error('must_not_fetch_original');}});
+ const response=await call(store,{}, {url:requestPath+'?thumbnail=1'});assert.equal(response.status,200);assert.equal(response.headers['Content-Type'],'image/webp');
+ const manifest=JSON.parse(await readFile(path.join(directory,'x-bookmarks/manifests/media-index.json')));
+ await rm(path.join(directory,manifest.items[0].key));
+ assert.equal((await call(store,{}, {url:requestPath+'?thumbnail=1'})).status,200);
+ assert.equal((await call(store,{}, {url:requestPath+'?thumbnail=1',headers:{'if-none-match':response.headers.ETag}})).status,304);
+ assert.equal((await call(store,{getRow:()=>null},{url:requestPath+'?thumbnail=1',headers:{'if-none-match':response.headers.ETag}})).status,404);
+}));
