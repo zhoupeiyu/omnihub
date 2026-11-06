@@ -41,12 +41,11 @@ test('media tools retain the platform library and no longer contain the AI refer
   assert.equal(nodes(tree).some(n => n.type === context.ReferenceLibraryTool), false);
 });
 test('collection changes stay in AI art and clear incompatible filters', () => {
-  const { context, location, rerender } = screen('#ai-art?space=mine&kind=face&collection=one&category=old&hair=long&hairstyle=old-style&series=old-series&page=2&q=old&reference=face%3Af001');
-  let tree = context.ReferenceLibraryTool({ active: true, visible: true, hash: location.hash });
-  nodes(tree).find(n => n.props?.className?.startsWith('reference-expand-toggle')).props.onClick();
-  tree = rerender(() => context.ReferenceLibraryTool({ active: true, visible: true, hash: location.hash }));
-  const select = nodes(tree).find(n => n.type === context.InlineSelect && n.props['aria-label'] === '素材集');
-  select.props.onChange({ target: { value: 'two' } });
+  const { context, location, states } = screen('#ai-art?space=mine&kind=face&collection=one&category=old&hair=long&hairstyle=old-style&series=old-series&page=2&q=old&reference=face%3Af001');
+  states[1] = { userId: undefined, kind: 'face', value: { collections: [{ id: 'one', name: '素材一', count: 10 }, { id: 'two', name: '素材二', count: 20 }] } };
+  const tree = context.ReferenceLibraryTool({ active: true, visible: true, hash: location.hash });
+  const group = nodes(tree).find(n => n.props?.role === 'group' && n.props['aria-label'] === '素材集');
+  nodes(group).find(n => n.type === 'button' && n.props.children.includes('素材二')).props.onClick();
   const params = new URLSearchParams(location.hash.split('?')[1]);
   assert.ok(location.hash.startsWith('#ai-art?'));
   assert.equal(params.get('collection'), 'two'); assert.equal(params.get('kind'), 'face');
@@ -86,4 +85,28 @@ test('legacy reference links redirect without losing filters on initial load and
   assert.equal(all.find(n => n.props?.className === 'reference-count').props.children[0], '254 项');
   assert.equal(all.find(n => n.props?.className === 'reference-grid reference-skeleton-grid').props['aria-busy'], 'true');
   assert.equal(all.some(n => n.props?.className === 'reference-card'), false);
+ });
+
+ test('reference filters use visible chips, retain active deep links and toggle off consistently', () => {
+  const { context, states, location, rerender } = screen('#ai-art?kind=pose&series=新增系列&action=站立&angle=侧面');
+  states[1] = { userId: undefined, kind: 'pose', value: { facets: {
+    styles: [{ value: 'anime', count: 2 }, { value: 'realistic', count: 0 }],
+    genders: [{ value: 'female', count: 2 }], series: [{ value: '其他系列', count: 2 }],
+    actions: [{ value: '站立', count: 2 }], angles: [{ value: '侧面', count: 2 }]
+  } } };
+  const render = () => context.ReferenceLibraryTool({ active: true, visible: true, hash: location.hash });
+  const tree = render(), all = nodes(tree);
+  assert.equal(all.some(n => n.type === 'select' || n.type === context.InlineSelect || n.type === 'details' || n.props?.className?.includes('reference-expand-toggle')), false);
+  const groups = ['素材系列', '动作分类', '角度'];
+  for (const label of groups) {
+    location.hash = '#ai-art?kind=pose&series=新增系列&action=站立&angle=侧面';
+    const current = nodes(rerender(render)).find(n => n.props?.role === 'group' && n.props['aria-label'] === label);
+    const picked = nodes(current).find(n => n.type === 'button' && n.props['aria-pressed'] && !n.props.children.includes('全部'));
+    assert.ok(picked, label);
+    picked.props.onClick();
+    const key = { '素材系列': 'series', '动作分类': 'action', '角度': 'angle' }[label];
+    assert.equal(new URLSearchParams(location.hash.split('?')[1]).has(key), false);
+  }
+  assert.equal(new URLSearchParams(location.hash.split('?')[1]).has('angle'), false);
+  assert.equal(all.some(n => n.type === 'button' && n.props.children.includes('真人写实')), false);
  });

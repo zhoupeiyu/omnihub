@@ -164,6 +164,23 @@ function scopedFacetChips(options, source) {
   const counts = new Map(facetList(source).map(entry => [entry.value, entry.count]));
   return options.map(option => ({ ...option, count: option.value ? (counts.get(option.value) || 0) : null }));
 }
+// Render the same single-select interaction for every filter dimension.
+function referenceFacetRow({ label, ariaLabel = label, value, options, onChange, loading = false }) {
+  const choices = options.filter(option => option.value && (option.count !== 0 || option.value === value));
+  if (value && !choices.some(option => option.value === value)) choices.unshift({ value, label: value, count: null });
+  return <div className="reference-facet-row" role="group" aria-label={ariaLabel}>
+    <span className="reference-facet-label">{label}</span>
+    <button className={`reference-facet-all${value ? '' : ' active'}`} type="button" aria-pressed={!value} onClick={() => onChange('')}>全部</button>
+    <div className="reference-facet-values">
+      {choices.map(option => <button key={option.value || 'all'} type="button"
+        className={value === option.value ? 'active' : ''} aria-pressed={value === option.value}
+        onClick={() => onChange(value === option.value ? '' : option.value)}>
+        {option.label || option.value}{option.count != null && <span>{option.count.toLocaleString()}</span>}
+      </button>)}
+      {loading && !choices.length && [0, 1, 2].map(index => <span key={index} className="sk-line reference-chip-skeleton" aria-hidden="true" />)}
+    </div>
+  </div>;
+}
 // Angle pills: real values from facets.angles plus a synthetic "全部角度"
 // aggregate (sum of real counts, not a fabricated number).
 function angleChips(facets) {
@@ -353,12 +370,19 @@ function ReferenceLibraryTool({ active, visible, hash, showToast, onCreate, user
   const [originalError, setOriginalError] = React.useState('');
   const [detail, setDetail] = React.useState(null), [error, setError] = React.useState(''), [detailError, setDetailError] = React.useState('');
   const [loading, setLoading] = React.useState(false), [sending, setSending] = React.useState(false), [revision, setRevision] = React.useState(0);
-  const [expanded, setExpanded] = React.useState(false);
   const [randomOneLoading, setRandomOneLoading] = React.useState(false);
   const [randomComboLoading, setRandomComboLoading] = React.useState(false), [randomComboError, setRandomComboError] = React.useState('');
   const [composition, setComposition] = React.useState(() => readReferenceComposition(userId)), [sendError, setSendError] = React.useState('');
   const dialog = React.useRef(null), uploaded = React.useRef(new Map()), lastFocused = React.useRef(null);
-  const gallery = React.useRef(null);
+  const gallery = React.useRef(null), filters = React.useRef(null);
+  React.useEffect(() => {
+    // Reveal a deep-linked selection without scrolling the page or other rows.
+    for (const button of filters.current?.querySelectorAll('.reference-facet-values button.active') || []) {
+      const row = button.parentElement, selected = button.getBoundingClientRect(), bounds = row.getBoundingClientRect();
+      if (selected.left < bounds.left) row.scrollLeft -= bounds.left - selected.left;
+      else if (selected.right > bounds.right) row.scrollLeft += selected.right - bounds.right;
+    }
+  }, [requestScope, Boolean(data)]);
   React.useEffect(() => { if (gallery.current) gallery.current.scrollTop = 0; }, [requestScope]);
   const navigate = updates => {
     const next = new URLSearchParams(workspaceHashParams(window.location.hash));
@@ -492,7 +516,7 @@ function ReferenceLibraryTool({ active, visible, hash, showToast, onCreate, user
     setRandomOneLoading(true);
     try {
       const q = new URLSearchParams();
-      for (const key of ['kind', 'collection', 'q', 'category', 'hair', 'hairstyle', 'action', 'angle', 'style', 'gender', 'originals']) if (params.get(key)) q.set(key, params.get(key));
+      for (const key of ['kind', 'collection', 'q', 'category', 'hair', 'hairstyle', 'action', 'angle', 'style', 'gender', 'series', 'originals']) if (params.get(key)) q.set(key, params.get(key));
       q.set('sort', 'random'); q.set('page', '1');
       if (kind === 'pose' && mode === 'group') q.set('group', 'pose');
       const result = await api(`/api/reference-library?${q}`);
@@ -549,7 +573,7 @@ function ReferenceLibraryTool({ active, visible, hash, showToast, onCreate, user
   if (!visible) return null;
   const totalLabel = filterData?.total || 0;
   return <section className="reference-library" aria-label="作图参考库">
-    <div className="reference-sticky-controls">
+    <div className="reference-sticky-controls" ref={filters}>
     <div className="reference-toolbar"><a className="reference-back" href="#tools?space=mine" aria-label="全部工具"><ReferenceIconChevronLeft /></a>
       <div className="reference-kinds" aria-label="参考图类型">{KIND_NAV_ORDER.map(id => {
         const count = navKindCount(navigationData, id, id === 'pose');
@@ -567,42 +591,38 @@ function ReferenceLibraryTool({ active, visible, hash, showToast, onCreate, user
     <div className="reference-filterbar">
       <div className="reference-filterbar-left">
         <span className="reference-count" aria-live="polite">{!filterData ? <span className="sk-line reference-count-skeleton" aria-label="正在加载数量" /> : `${totalLabel.toLocaleString()} ${kind === 'pose' && mode === 'group' ? '个姿势 / ' + (filterData?.imageTotal || 0).toLocaleString() + ' 张' : '项'}`}</span>
-        <button type="button" className={`reference-expand-toggle${expanded ? ' open' : ''}`} aria-expanded={expanded} onClick={() => setExpanded(value => !value)}><ReferenceIconFilter />更多筛选<ReferenceIconChevronDown className="reference-chevron" /></button>
       </div>
       <div className="reference-filterbar-right">
         {kind === 'pose' && <div className="reference-mode-toggle" role="group" aria-label="姿势显示方式">
           <button type="button" className={mode === 'group' ? 'active' : ''} aria-pressed={mode === 'group'} onClick={() => navigate({ mode: '', page: '' })}>按姿势</button>
           <button type="button" className={mode === 'raw' ? 'active' : ''} aria-pressed={mode === 'raw'} onClick={() => navigate({ mode: 'raw', page: '' })}>按单张</button>
         </div>}
-        <InlineSelect aria-label="排序方式" className="reference-sort" value={params.get('sort') || ''} onChange={e => navigate({ sort: e.target.value, page: '' })}><option value="">默认排序</option><option value="newest">最近加入</option></InlineSelect>
+        <div className="reference-mode-toggle" role="group" aria-label="排序方式">{[{ value: '', label: '默认排序' }, { value: 'newest', label: '最近加入' }].map(option => <button key={option.value || 'default'} type="button" className={(params.get('sort') || '') === option.value ? 'active' : ''} aria-pressed={(params.get('sort') || '') === option.value} onClick={() => navigate({ sort: option.value, page: '' })}>{option.label}</button>)}</div>
         <button type="button" className="reference-shuffle" onClick={randomOne} disabled={randomOneLoading}><ReferenceIconShuffle />{randomOneLoading ? '正在选取…' : '随机一个'}</button>
       </div>
     </div>
-    <div className="reference-capsules" role="group" aria-label="系列分类"><span className="reference-row-label">{kind === 'pose' ? '姿势分类' : kind === 'face' ? '类型' : '分类'}</span>
-      <button type="button" className={category ? '' : 'active'} aria-pressed={!category} onClick={() => navigate({ category: '', page: '' })}>全部</button>
-      {!filterData && [0,1,2].map(index => <span key={index} className="sk-line reference-chip-skeleton" aria-hidden="true" />)}
-      {categoryChips(filterData).map(chip => <button key={chip.value} type="button" className={category === chip.value ? 'active' : ''} aria-pressed={category === chip.value} onClick={() => navigate({ category: category === chip.value ? '' : chip.value, hairstyle: '', page: '' })}>
-        {kind === 'face' ? ({'脸部特写':'正脸','造型':'生活照'}[chip.value] || chip.value) : chip.value}{chip.count != null && <span>{chip.count.toLocaleString()}</span>}
-      </button>)}
+    <div className="reference-facets">
+      {((navigationData?.collections?.length || 0) > 1 || collection) && referenceFacetRow({ label: '素材集', value: collection,
+        options: (navigationData?.collections || []).map(item => ({ value: item.id, label: item.name, count: item.count })),
+        onChange: value => { setSearch(''); navigate({ collection: value, category: '', hair: '', hairstyle: '', action: '', angle: '', series: '', reference: '', q: '', page: '' }); } })}
+      {referenceFacetRow({ label: kind === 'pose' ? '姿势分类' : kind === 'face' ? '类型' : '分类', ariaLabel: '系列分类', value: category,
+        options: categoryChips(filterData).map(chip => ({ ...chip, label: kind === 'face' ? ({ '脸部特写': '正脸', '造型': '生活照' }[chip.value] || chip.value) : chip.value })), loading: !filterData,
+        onChange: value => navigate({ category: value, hairstyle: '', page: '', reference: '' }) })}
+      {referenceFacetRow({ label: '风格', ariaLabel: '画面风格', value: style, options: scopedFacetChips(STYLE_FACETS, filterData?.facets?.styles), onChange: value => changeScopeFacet('style', value) })}
+      {referenceFacetRow({ label: '性别', ariaLabel: '性别标注', value: gender, options: scopedFacetChips(GENDER_FACETS, filterData?.facets?.genders), onChange: value => changeScopeFacet('gender', value) })}
+      {(series || filterData?.facets?.series?.length > 0) && referenceFacetRow({ label: '素材系列', value: series, options: facetList(filterData?.facets?.series),
+        onChange: value => navigate({ series: value, category: '', hair: '', hairstyle: '', action: '', angle: '', reference: '', page: '' }) })}
+      {kind === 'pose' && (action || actionChips(filterData).length > 0) && referenceFacetRow({ label: '动作', ariaLabel: '动作分类', value: action, options: actionChips(filterData), onChange: value => navigate({ action: value, page: '', reference: '' }) })}
+      {kind === 'pose' && (angle || angleChips(filterData?.facets).length > 1) && referenceFacetRow({ label: '机位', ariaLabel: '角度', value: angle, options: angleChips(filterData?.facets), onChange: value => navigate({ angle: value, page: '', reference: '' }) })}
+      {kind === 'face' && (hair || hairChips(filterData).length > 0) && referenceFacetRow({ label: '发长', ariaLabel: '头发长度', value: hair, options: hairChips(filterData), onChange: value => navigate({ hair: value, hairstyle: '', page: '', reference: '' }) })}
+      {kind === 'face' && (hairstyle || filterData?.facets?.hairstyles?.length > 0) && referenceFacetRow({ label: '发型', value: hairstyle, options: facetList(filterData?.facets?.hairstyles), onChange: value => navigate({ hairstyle: value, page: '', reference: '' }) })}
+      {(params.get('originals') || status?.pendingOriginals > 0) && referenceFacetRow({ label: '原图', value: params.get('originals') || '', options: [{ value: '1', label: '已导入' }], onChange: value => navigate({ originals: value, page: '', reference: '' }) })}
     </div>
-    <div className="reference-chip-row reference-scope-facets" role="group" aria-label="画面风格"><span className="reference-row-label">风格</span>{scopedFacetChips(STYLE_FACETS, filterData?.facets?.styles).filter(chip => chip.value !== 'line-art' || chip.count > 0 || style === 'line-art').map(chip => <button key={chip.value || 'all'} type="button" disabled={chip.value === 'realistic' && chip.count === 0} className={style === chip.value ? 'active' : ''} aria-pressed={style === chip.value} onClick={() => changeScopeFacet('style', chip.value)}>{chip.label}{chip.count != null && <span>{chip.count.toLocaleString()}</span>}</button>)}</div>
-    <div className="reference-chip-row reference-scope-facets" role="group" aria-label="性别标注"><span className="reference-row-label">性别</span>{scopedFacetChips(GENDER_FACETS, filterData?.facets?.genders).map(chip => <button key={chip.value || 'all'} type="button" className={gender === chip.value ? 'active' : ''} aria-pressed={gender === chip.value} onClick={() => changeScopeFacet('gender', chip.value)}>{chip.label}{chip.count != null && <span>{chip.count.toLocaleString()}</span>}</button>)}</div>
-    {(series || filterData?.facets?.series?.length > 0) && <div className="reference-series-filter"><label className="reference-row-label" htmlFor="reference-series">素材系列</label><InlineSelect id="reference-series" aria-label="素材系列" value={series} onChange={event => navigate({ series: event.target.value, category: '', hair: '', hairstyle: '', action: '', angle: '', reference: '', page: '' })}><option value="">全部系列</option>{(filterData?.facets?.series || []).map(item => <option key={item.value} value={item.value}>{item.value}（{item.count}）</option>)}</InlineSelect></div>}
-    <div className="reference-pose-filters">
-      {kind === 'pose' && angleChips(filterData?.facets).length > 1 && <div className="reference-chip-row reference-angles-row" aria-label="角度"><span className="reference-row-label">机位</span>{angleChips(filterData?.facets).map(chip => <button key={chip.value || 'all'} type="button" className={angle === chip.value ? 'active' : ''} aria-pressed={angle === chip.value} onClick={() => navigate({ angle: chip.value, page: '' })}>{chip.label}{chip.count ? <span>{chip.count.toLocaleString()}</span> : null}</button>)}</div>}
-      {kind === 'pose' && actionChips(filterData).length > 0 && <label className="reference-action-select"><span aria-hidden="true">{action || '全部动作'}<ReferenceIconChevronDown /></span><select aria-label="动作分类" value={action} onChange={e => navigate({action:e.target.value,page:''})}><option value="">全部动作</option>{actionChips(filterData).map(chip => <option key={chip.value} value={chip.value}>{chip.value}（{chip.count}）</option>)}</select></label>}
+    <div className="reference-filter-status">
+      <span>{status?.pendingOriginals > 0 ? `${status.pendingOriginals.toLocaleString()} 张等待原图` : status?.originalCount ? `${status.originalCount.toLocaleString()} 张原图已导入` : '每天检查新增素材'}{status?.checkedAt && ` · 最近检查 ${new Date(status.checkedAt).toLocaleDateString('zh-CN')}`}</span>
+      {status?.error && <span role="status">上次同步未完成，已有素材仍可用</span>}
+      <button type="button" className="reference-refresh" onClick={() => setRevision(value => value + 1)} disabled={loading}>刷新</button>
     </div>
-    {expanded && <div className="reference-expanded">
-      {kind === 'face' && hairChips(filterData).length > 0 && <div className="reference-chip-row" aria-label="头发长度"><span className="reference-row-label">发长</span><button type="button" className={!hair ? 'active' : ''} onClick={() => navigate({hair:'',page:''})}>全部</button>{hairChips(filterData).map(chip => <button key={chip.value} type="button" className={hair === chip.value ? 'active' : ''} aria-pressed={hair === chip.value} onClick={() => navigate({ hair: hair === chip.value ? '' : chip.value, hairstyle: '', page: '' })}>{chip.value}{chip.count != null && <span>{chip.count.toLocaleString()}</span>}</button>)}</div>}
-      {kind === 'face' && <div className="reference-chip-row" aria-label="发型"><span className="reference-row-label">发型</span><button type="button" className={!hairstyle ? 'active' : ''} aria-pressed={!hairstyle} onClick={() => navigate({hairstyle:'',page:''})}>全部</button>{facetList(filterData?.facets?.hairstyles).map(chip => <button type="button" key={chip.value} className={hairstyle === chip.value ? 'active' : ''} aria-pressed={hairstyle === chip.value} onClick={() => navigate({hairstyle:hairstyle === chip.value ? '' : chip.value,page:''})}>{chip.value}<span>{chip.count}</span></button>)}</div>}
-      <div className="reference-legacy">
-        <InlineSelect className="reference-collection" aria-label="素材集" value={collection} onChange={e => { setSearch(''); navigate({ collection: e.target.value, category: '', hair: '', hairstyle: '', action: '', angle: '', series: '', reference: '', q: '', page: '' }); }}><option value="">全部素材集</option>{(navigationData?.collections || []).map(item => <option key={item.id} value={item.id}>{item.name}（{item.count.toLocaleString()}）</option>)}</InlineSelect>
-        <label className="reference-original-filter"><input type="checkbox" checked={params.get('originals') === '1'} onChange={e => navigate({ originals: e.target.checked ? '1' : '', page: '' })} />原图已导入</label>
-        <span className="reference-private">仅自己可见</span>
-        <details className="reference-sync"><summary>{status?.state === 'syncing' ? '正在同步' : ['failed', 'partial'].includes(status?.state) ? '同步待重试' : '同步状态'}</summary><div className="reference-sync-info"><p>每天自动检查新增素材，已有图片保留。</p><p>最近一次新增 {status?.added || 0} 张，更新 {status?.changed || 0} 张。</p><p>已导入 {status?.originalCount || 0} 张原图；{status?.pendingOriginals || 0} 张等待原图。</p>{status?.checkedAt && <p>最近检查：{new Date(status.checkedAt).toLocaleString('zh-CN')}</p>}{status?.nextCheckAt && <p>下次检查：{new Date(status.nextCheckAt).toLocaleString('zh-CN')}</p>}{status?.error && <p role="status">上次同步未完成，已保存的素材仍可用。</p>}</div></details>
-        <button type="button" className="reference-refresh" onClick={() => setRevision(value => value + 1)} disabled={loading}>刷新</button>
-      </div>
-    </div>}
     </div>
     <div className="reference-workspace"><div className="reference-gallery" ref={gallery} tabIndex={0} role="region" aria-label="参考图列表">
     {!error && !data && <div className="reference-grid reference-skeleton-grid" role="status" aria-label="正在加载参考图" aria-busy="true">{Array.from({length:12},(_,index)=><div key={index} className="reference-skeleton-card" aria-hidden="true"><div className="sk-line reference-skeleton-image" /><div className="sk-line lg" /><div className="sk-line sm" /></div>)}</div>}

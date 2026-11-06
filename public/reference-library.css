@@ -347,3 +347,18 @@ body:has([data-workspace-panel="tools"]:not([hidden]) .ai-art-workspace) .header
 .ai-art-workspace .reference-gallery{height:100%;overflow-y:auto;overflow-x:hidden;overscroll-behavior:none;scrollbar-gutter:stable;padding-bottom:120px;box-sizing:border-box}
 .ai-art-workspace .reference-gallery:focus-visible{outline:2px solid var(--accent);outline-offset:-2px}
 @media(max-width:860px){.layout:has([data-workspace-panel="tools"]:not([hidden]) .ai-art-workspace)>.sidebar{top:50px;height:calc(100dvh - 50px)}}
+
+/* One shared interaction for all reference filter dimensions. */
+.reference-facets{display:grid;gap:2px;min-width:0}
+.reference-facet-row{display:flex;align-items:center;gap:6px;min-width:0}
+.reference-facet-label{flex:0 0 62px;color:var(--rl-meta);font-size:11px;line-height:30px}
+.reference-facet-values{display:flex;align-items:center;gap:6px;min-width:0;flex:1;overflow-x:auto;overscroll-behavior-x:contain;padding:2px 2px;scrollbar-width:thin;scrollbar-color:var(--rl-line) transparent}
+.reference-facet-row button{flex:none;display:inline-flex;align-items:center;gap:7px;min-height:30px;padding:5px 12px;border:0;border-radius:999px;background:var(--rl-panel);color:var(--rl-ink);font:inherit;font-size:12px;line-height:20px;white-space:nowrap;cursor:pointer}
+.reference-facet-row button span{color:var(--rl-meta);font-size:11px;font-variant-numeric:tabular-nums}
+.reference-facet-row button.active{background:var(--rl-ink);color:var(--rl-surface)}
+.reference-facet-row button.active span{color:inherit;opacity:.75}
+.reference-facet-row button:hover:not(.active){box-shadow:inset 0 0 0 1px var(--rl-line)}
+.reference-facet-row button:focus-visible{outline:2px solid var(--rl-ink);outline-offset:2px}
+.reference-filter-status{display:flex;align-items:center;gap:12px;min-width:0;margin-top:8px;color:var(--rl-meta);font-size:11px;line-height:20px}
+.reference-filter-status .reference-refresh{margin-left:auto;font-size:11px;min-height:26px;padding:3px 9px;white-space:nowrap}
+@media(max-width:720px){.reference-facet-row{gap:8px}.reference-facet-label{flex-basis:48px}.reference-filterbar-right{overflow-x:auto;max-width:100%}.reference-filterbar-right>.reference-mode-toggle{flex:none}.reference-filter-status{flex-wrap:wrap;gap:4px 10px}}

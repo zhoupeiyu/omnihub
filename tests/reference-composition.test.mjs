@@ -176,3 +176,17 @@ test('preview dialog stays a native modal dialog with keyboard escape handling',
   assert.notEqual(c.groupKeyOf({ collectionId: 'a::b', groupId: 'c' }), c.groupKeyOf({ collectionId: 'a', groupId: 'b::c' }));
   assert.equal(c.pickRandomCombo({ face: [{ kind: 'pose' }] }).face, undefined);
 });
+
+ test('random reference preserves the selected series and angle scope', async () => {
+  let requested;
+  const { context, location } = setup({ api: async url => { requested = url; return { items: [] }; } });
+  location.hash = '#ai-art?kind=pose&series=女性结构姿势补齐&angle=侧面&style=line-art';
+  const tree = context.ReferenceLibraryTool({ active: true, visible: true, hash: location.hash });
+  await nodes(tree).find(n => n.props?.className === 'reference-shuffle').props.onClick();
+  const query = new URL(requested, 'https://example.test').searchParams;
+  assert.equal(query.get('series'), '女性结构姿势补齐');
+  assert.equal(query.get('angle'), '侧面');
+  assert.equal(query.get('style'), 'line-art');
+  assert.equal(query.get('group'), 'pose');
+  assert.equal(query.get('sort'), 'random');
+ });
