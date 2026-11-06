@@ -338,7 +338,7 @@ body:has([data-workspace-panel="tools"]:not([hidden]) .ai-art-workspace) #root>d
 body:has([data-workspace-panel="tools"]:not([hidden]) .ai-art-workspace) .header-bar{flex:none}
 .layout:has([data-workspace-panel="tools"]:not([hidden]) .ai-art-workspace){flex:1;min-height:0;overflow:hidden}
 .layout:has([data-workspace-panel="tools"]:not([hidden]) .ai-art-workspace)>.sidebar{height:100%;top:0;overscroll-behavior:contain}
-.main:has([data-workspace-panel="tools"]:not([hidden]) .ai-art-workspace){display:flex;flex-direction:column;min-height:0;overflow:hidden;padding-bottom:0}
+.main:has([data-workspace-panel="tools"]:not([hidden]) .ai-art-workspace){display:flex;flex-direction:column;min-height:0;overflow:hidden;padding:0}
 [data-workspace-panel="tools"]:not([hidden]):has(.ai-art-workspace){display:flex;flex-direction:column;flex:1;min-height:0}
 .ai-art-workspace{display:flex;flex-direction:column;flex:1;min-height:0;padding-top:0;overflow:hidden}
 .ai-art-workspace>.reference-library{display:flex;flex-direction:column;flex:1;min-height:0;padding-bottom:0;overflow:hidden}
@@ -362,3 +362,10 @@ body:has([data-workspace-panel="tools"]:not([hidden]) .ai-art-workspace) .header
 .reference-filter-status{display:flex;align-items:center;gap:12px;min-width:0;margin-top:8px;color:var(--rl-meta);font-size:11px;line-height:20px}
 .reference-filter-status .reference-refresh{margin-left:auto;font-size:11px;min-height:26px;padding:3px 9px;white-space:nowrap}
 @media(max-width:720px){.reference-facet-row{gap:8px}.reference-facet-label{flex-basis:48px}.reference-filterbar-right{overflow-x:auto;max-width:100%}.reference-filterbar-right>.reference-mode-toggle{flex:none}.reference-filter-status{flex-wrap:wrap;gap:4px 10px}}
+
+/* The filter surface fills the workspace; its content shares the gallery gutter. */
+.main:has([data-workspace-panel="tools"]:not([hidden]) .ai-art-workspace) .ai-art-workspace{padding:0}
+.ai-art-workspace>.reference-library{--reference-gutter:24px}
+.ai-art-workspace .reference-sticky-controls{box-sizing:border-box;padding:16px var(--reference-gutter) 12px}
+.ai-art-workspace .reference-gallery{padding-inline:var(--reference-gutter)}
+@media(max-width:720px){.ai-art-workspace>.reference-library{--reference-gutter:16px}}
